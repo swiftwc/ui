@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*"
+  ],
+  "scripts": {},
+  "devDependencies": {
+    "@dotenvx/dotenvx": "^1.51.4",
+    "typescript": "^5.9.3"
+  }
+}

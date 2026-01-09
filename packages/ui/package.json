@@ -32,7 +32,8 @@
   },
   "bin": "./dist/index.js",
   "scripts": {
-    "build": "tsc"
+    "build": "tsc",
+    "release": "changeset version"
   },
   "dependencies": {},
   "devDependencies": {

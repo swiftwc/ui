@@ -5,11 +5,11 @@
     "packages/*"
   ],
   "scripts": {
+    "prebuild": "rm -rf packages/*/generated",
     "build": "tsc -b packages/*",
     "release": "changeset version"
   },
   "devDependencies": {
-    "@changesets/cli": "^2.29.8",
     "@dotenvx/dotenvx": "^1.51.4",
     "typescript": "^5.9.3"
   }

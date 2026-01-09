@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "build": "tsc -b packages/*"
+    "build": "tsc -b packages/*",
+    "release": "changeset version"
   },
   "devDependencies": {
     "@changesets/cli": "^2.29.8",

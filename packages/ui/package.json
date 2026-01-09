@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/swiftwc/ui.git",
+    "url": "git+https://github.com/swiftwc/ui.git",
     "directory": "packages/ui"
   },
   "files": [
@@ -29,11 +29,21 @@
     ".": {
       "types": "./dist/index.d.ts",
       "default": "./dist/index.js"
+    },
+    "./components": {
+      "types": "./dist/components/index.d.ts",
+      "default": "./dist/components/index.js"
+    },
+    "./client": {
+      "types": "./dist/client/index.d.ts",
+      "default": "./dist/client/index.js"
     }
   },
-  "bin": "./dist/index.js",
+  "bin": {
+    "swiftwc": "./dist/index.js"
+  },
   "scripts": {
-    "build": "tsc"
+    "build:ts": "tsc"
   },
   "dependencies": {},
   "devDependencies": {}

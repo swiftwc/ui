@@ -1,1 +1,2 @@
 package.json merge=keepVersion
+package-lock.json merge=keepVersion

@@ -6,6 +6,7 @@
   ],
   "scripts": {},
   "devDependencies": {
+    "@changesets/cli": "^2.29.8",
     "@dotenvx/dotenvx": "^1.51.4",
     "typescript": "^5.9.3"
   }

@@ -8,3 +8,5 @@ console.log(77, Snapshot);
 console.log(88, Snapshot.count);
 Snapshot.getSnapshot();
 console.log(99, Snapshot);
+
+export { Snapshot };

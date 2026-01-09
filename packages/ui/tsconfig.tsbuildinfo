@@ -1,1 +1,1 @@
-{"root":["./src/index.ts","./src/client/index.ts","./src/components/index.ts","./src/components/v-keyboard.ts","./src/internal/utils/index.ts","./src/internal/utils/kebab-case.ts"],"version":"5.9.3"}
+{"root":["./src/index.ts","./src/client/index.ts","./src/components/index.ts","./src/components/v-keyboard.ts","./src/internal/snapshot.ts","./src/internal/utils/index.ts","./src/internal/utils/kebab-case.ts"],"version":"5.9.3"}

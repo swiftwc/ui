@@ -54,8 +54,8 @@
     "build": "npm run build:ts && npm run build:scss",
     "build:ts": "tsc",
     "build:scss": "sass --no-source-map scss/index.scss generated/styles.css",
-    "check": "prettier . --check",
-    "fix": "prettier . --write"
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write"
   },
   "devDependencies": {
     "sass": "^1.97.2"

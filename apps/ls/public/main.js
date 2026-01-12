@@ -2,6 +2,6 @@ import {
   Snapshot,
   //   polyfills,
   //   updateTheDOMSomehow,
-} from "../../../packages/ui/generated/client";
+} from '../../../packages/ui/generated/client'
 
-console.log(99, Snapshot);
+console.log(99, Snapshot)

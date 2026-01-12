@@ -4,4 +4,4 @@
  * 🟢 You can import this file directly.
  */
 
-export * from "./v-keyboard";
+export * from './v-keyboard'

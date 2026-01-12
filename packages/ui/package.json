@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/ui",
-  "version": "0.0.0-dev.2",
+  "version": "0.0.0-dev.3",
   "description": "Elegant SwiftUI-inspired web components for ambitious web apps and web extensions.",
   "publishConfig": {
     "access": "public"
@@ -43,7 +43,7 @@
       "default": "./generated/client/index.js"
     },
     "./styles.css": "./generated/styles.css",
-    "./scss": "./generated/scss/index.scss"
+    "./scss": "./scss/index.scss"
   },
   "bin": {
     "swiftwc": "./generated/index.js"

@@ -1,0 +1,12 @@
+{
+  "private": true,
+  "name": "@swiftwc/example-change-config",
+  "type": "module",
+  "scripts": {
+    "build": "sass app.scss app.css --no-source-map --load-path=../../node_modules"
+  },
+  "devDependencies": {
+    "@swiftwc/ui": "^0.0.0-dev.3",
+    "sass": "^1.97.2"
+  }
+}

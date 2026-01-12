@@ -1,0 +1,11 @@
+// Override configs here
+@use "@swiftwc/ui/scss/vars" with (
+  $components-layer: web-components,
+  $vt-fwd-class-name: forward
+);
+
+// Rebuild
+@forward "@swiftwc/ui/scss";
+
+// Now vars, wherever included, has new value
+@debug vars.$components-layer;

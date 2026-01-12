@@ -53,7 +53,9 @@
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss",
     "build:ts": "tsc",
-    "build:scss": "sass --no-source-map scss/index.scss generated/styles.css"
+    "build:scss": "sass --no-source-map scss/index.scss generated/styles.css",
+    "check": "prettier . --check",
+    "fix": "prettier . --write"
   },
   "devDependencies": {
     "sass": "^1.97.2"

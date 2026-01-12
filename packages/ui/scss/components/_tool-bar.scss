@@ -1,0 +1,87 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  tool-bar {
+    // background-color: red;
+    position: sticky;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    // grid-template-columns: 1fr auto 1fr;
+
+    pointer-events: none;
+
+    > span {
+      display: grid;
+      grid-template-columns: 1fr auto 1fr;
+
+      &::before,
+      &::after {
+        content: '';
+        display: grid;
+      }
+
+      &::before {
+        height: 20px;
+        background: green;
+      }
+
+      &::after {
+        height: 20px;
+        background: darkgoldenrod;
+      }
+    }
+
+    @media (pointer: fine) {
+      & {
+        justify-content: start;
+      }
+    }
+  }
+
+  tool-bar[slot='navigation-bar'] {
+    top: 0;
+    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
+    padding-block-start: env(safe-area-inset-top);
+    transform: translateY(calc(env(safe-area-inset-top) * -1));
+
+    > span {
+      &::before {
+        width: var(--navbar-padding-inline-start);
+      }
+
+      &::after {
+        width: var(--navbar-padding-inline-end);
+      }
+    }
+
+    // > div {
+    @include mixins.make-navbar(bottom);
+    // height: calc(env(safe-area-inset-top) + 50px);
+    // }
+  }
+
+  tool-bar[slot='bottom-bar'] {
+    top: calc(100% - var(--tool-bar-height) - env(safe-area-inset-bottom));
+    // background-color: red;
+    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: env(safe-area-inset-bottom);
+    transform: translateY(env(safe-area-inset-bottom));
+
+    > span {
+      &::before {
+        width: var(--toolbar-padding-inline-start);
+      }
+
+      &::after {
+        width: var(--toolbar-padding-inline-end);
+      }
+    }
+
+    // > div {
+    @include mixins.make-navbar(top);
+    // }
+  }
+}

@@ -1,6 +1,11 @@
 @use 'vars';
 
-@forward 'reboot.scss';
+@forward 'dev';
+
+@forward 'base';
+
+@forward 'components';
+
+@forward 'transitions';
 
 @debug '@swiftwc/ui/scss ⚡️ loaded';
-

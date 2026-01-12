@@ -1,0 +1,62 @@
+@mixin make-scrollable {
+  & > * {
+    grid-column: 1 / -1; // span all columns
+    grid-row: 1 / -1; // span all rows
+  }
+
+  &::before {
+    grid-column: 1 / -1; // span all columns
+    grid-row: 1 / -1; // span all rows
+    content: '';
+    display: block;
+    height: calc(100% + 1px); /* creates overflow */
+    // background-color: red;
+    z-index: -1;
+    pointer-events: none;
+  }
+}
+
+@mixin contain-overscroll() {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin reset-dialog {
+  // position: fixed;
+  margin: 0;
+  padding: 0;
+  height: auto;
+  max-width: 100lvw;
+  max-height: 100lvh;
+  background-color: transparent;
+  border: none;
+  outline: none;
+  inset: 0;
+}
+
+@mixin make-navbar($dir: bottom) {
+  &:before,
+  &:after {
+    backface-visibility: hidden;
+
+    content: '';
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+
+    z-index: -1;
+  }
+
+  &:before {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(to #{$dir}, #000 50%, #0000 100%);
+  }
+
+  &:after {
+    background-image: linear-gradient(
+      to #{$dir},
+      var(--primary-bg) 0,
+      #0000 100%
+    );
+  }
+}

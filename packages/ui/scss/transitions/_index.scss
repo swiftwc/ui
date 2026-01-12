@@ -1,0 +1,167 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  // ::view-transition-old(root),
+  // ::view-transition-new(root) {
+  //   animation-duration: 15s;
+  // }
+  // ::view-transition-old(root) {
+  //   animation: 15s ease-out both slide-to-left;
+  // }
+
+  // ::view-transition-new(root) {
+  //   animation: 15s ease-out both slide-from-right;
+  // }
+
+  scroll-view {
+    transition:
+      transform var(--view-transition-duration) ease-out allow-discrete,
+      padding-inline-start #{vars.$sidebar-transition-duration} ease-out
+        allow-discrete;
+    will-change: transform, padding-inline-start;
+  }
+
+  toolbar-item {
+    transition:
+      transform var(--view-transition-duration) ease-out allow-discrete,
+      opacity var(--view-transition-duration) ease-out allow-discrete,
+      filter var(--view-transition-duration) ease-out allow-discrete;
+    will-change: transform, opacity, filter;
+    // > * {
+    // transition: filter var(--view-transition-duration) ease-out allow-discrete;
+    // will-change: filter;
+    // }
+  }
+
+  [is='sheet-view'] {
+    transition:
+      transform var(--view-transition-duration) allow-discrete,
+      overlay var(--view-transition-duration) allow-discrete,
+      display var(--view-transition-duration) allow-discrete;
+    // transition: background-color var(--view-transition-duration) ease-out
+    //   allow-discrete;
+    will-change: transform, overlay, display;
+
+    &::backdrop {
+      transition:
+        display var(--view-transition-duration) allow-discrete,
+        overlay var(--view-transition-duration) allow-discrete,
+        background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+
+    &[open] {
+      transform: translateY(var(--view-transition-dialog-onscreen-y));
+
+      &::backdrop {
+        background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+      }
+
+      @starting-style {
+        &::backdrop {
+          background-color: transparent;
+        }
+      }
+
+      @starting-style {
+        & {
+          transform: translateY(var(--view-transition-dialog-offscreen-y));
+        }
+      }
+    }
+  }
+
+  /* scroll-view {
+    view-transition-name: match-element;
+    view-transition-class: scroll-view;
+    // contain: paint;
+
+    &:not(:has(~ body-view)) {
+      view-transition-name: targeted-scroll-view;
+      view-transition-class: none;
+      // contain: layout;
+      // background-color: red;
+    }
+  }
+
+  toolbar-item {
+    view-transition-name: match-element;
+    view-transition-class: toolbar-item;
+    // contain: paint;
+  }
+  navigation-bar:not(:has(~ body-view)) > toolbar-item {
+    view-transition-name: match-element;
+    view-transition-class: targeted-toolbar-items;
+    // contain: layout;
+    // background-color: red;
+  } */
+
+  // :root::view-transition-old(*.scroll-view) {
+  //   animation: var(--view-transition-duration) ease-out both slide-to-left;
+  // }
+  // :root::view-transition-new(*.scroll-view) {
+  //   animation: var(--view-transition-duration) ease-out both slide-to-left;
+  // }
+  // :root::view-transition-old(targeted-scroll-view) {
+  //   animation: var(--view-transition-duration) ease-out both slide-from-right;
+  // }
+  // :root::view-transition-new(targeted-scroll-view) {
+  //   animation: var(--view-transition-duration) ease-out both slide-from-right;
+  // }
+  //
+  /* :root::view-transition-old(*.toolbar-item) {
+    animation: var(--view-transition-duration) ease-out both shrink-to-tiny;
+  }
+  :root::view-transition-new(*.toolbar-item) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  }
+  :root::view-transition-old(*.targeted-toolbar-items) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  }
+  :root::view-transition-new(*.targeted-toolbar-items) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  } */
+
+  // html:active-view-transition-type(forwards, backwards) {
+  //   :root {
+  //     view-transition-name: none;
+  //   }
+
+  //   .fwdd {
+  //     view-transition-name: content;
+  //   }
+  // }
+
+  // html:active-view-transition-type(forwards) {
+  //   &::view-transition-old(content) {
+  //     animation: 5s ease-out both slide-to-left;
+  //   }
+  //   &::view-transition-new(content) {
+  //     animation: 5s ease-out both slide-from-right;
+  //   }
+  // }
+}
+
+// @keyframes slide-from-right {
+//   from {
+//     transform: translateX(100%);
+//   }
+// }
+
+// @keyframes slide-to-left {
+//   to {
+//     transform: translateX(-70%);
+//   }
+// }
+
+// @keyframes expand-from-tiny {
+//   from {
+//     transform: scale(0);
+//   }
+// }
+
+// @keyframes shrink-to-tiny {
+//   to {
+//     transform: scale(0);
+//   }
+// }

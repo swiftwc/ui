@@ -1,0 +1,125 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='tab-bar'] {
+    @include mixins.reset-dialog;
+
+    position: fixed;
+    background: #ffffff9e;
+    backdrop-filter: blur(4px);
+
+    box-shadow:
+      0 0 0 1px #fff inset,
+      0px 0px 4px 2px #0000001c;
+
+    transition: all #{vars.$sidebar-transition-duration} ease-out allow-discrete;
+
+    touch-action: none; // important for backdrop pans!
+
+    overflow: clip;
+
+    navigation-bar,
+    bottom-bar {
+      padding-inline: 0;
+    }
+  }
+
+  [is='tab-bar'] {
+    @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+      max-width: var(--tab-bar-iphone-max-width);
+      height: var(--tab-bar-iphone-height);
+      // left: 50%;
+      border-radius: var(--tab-bar-iphone-border-radius);
+      inset: auto auto
+        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      transform: translateX(-50%);
+      //
+      grid-auto-flow: column;
+    }
+  }
+
+  [is='tab-bar'] {
+    @media (min-width: #{vars.$ipad-bp-min}) and (orientation: portrait) {
+      width: var(--tab-bar-ipad-width);
+      height: var(--tab-bar-ipad-height);
+
+      inset: env(safe-area-inset-top) auto auto 50%;
+      transform: translateX(-50%);
+
+      border-radius: var(--tab-bar-ipad-border-radius);
+
+      grid-auto-flow: column;
+
+      // transition: all 250ms ease-out allow-discrete;
+
+      &[open] {
+        // @include mixins.make-navbar;
+
+        inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+          auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+          max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+
+        height: auto;
+        transform: translateX(0);
+        width: var(--tab-bar-sidebar-width);
+
+        border-radius: var(--tab-bar-sidebar-border-radius);
+
+        grid-auto-flow: row;
+
+        & > * {
+          grid-column: 1 / -1; // span all columns
+          grid-row: 1 / -1; // span all rows
+        }
+
+        // animation: slide-in 250ms ease-out forwards;
+      }
+    }
+  }
+
+  [is='tab-bar'] {
+    @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
+        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+
+      width: var(--tab-bar-sidebar-width);
+
+      border-radius: var(--tab-bar-sidebar-border-radius);
+
+      &[open] {
+        left: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+        // transform: translateX(0);
+      }
+    }
+  }
+
+  [is='tab-bar'] {
+    @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+      // grid-area: aside;
+      // position: relative;
+      // margin: 10px;
+      // height: 100svh;
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
+        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+        max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+
+      width: var(--tab-bar-sidebar-width);
+
+      border-radius: var(--tab-bar-sidebar-border-radius);
+
+      overflow: clip;
+
+      // animation: slide-in 250ms ease-out forwards;
+    }
+  }
+}
+
+// @keyframes slide-in {
+//   from {
+//     transform: translateX(-100%);
+//   }
+//   to {
+//     transform: translateX(0);
+//   }
+// }

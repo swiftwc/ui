@@ -1,15 +1,38 @@
-@use 'vars';
-@use 'functions';
+@use '../vars';
+@use '../functions';
 
 @layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$transitions-layer};
 
-@debug vars.$base-layer, vars.$components-layer, vars.$transitions-layer;
-
 @layer #{vars.$base-layer} {
+  // html,
+  // body {
+  //   overflow: auto;
+  // }
+
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+
+  // dialog {
+  //   margin: 0;
+  // }
+
+  body {
+    background-color: var(--primary-bg);
+  }
+
+  body {
+    display: grid;
+
+    position: absolute;
+    inset: 0;
+
+    margin: 0;
+    padding: 0;
+
+    touch-action: none !important;
   }
 
   $CONFIG: (

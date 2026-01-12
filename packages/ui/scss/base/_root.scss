@@ -1,0 +1,41 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  :root {
+    // --ipad-bp: #{vars.$ipad-bp};
+
+    // --edge-inset-inline-start: 10px;
+    // --edge-inset-inline-end: 10px;
+    // --edge-inset-block-start: 10px;
+    // --edge-inset-block-end: 10px;
+
+    --tool-bar-height: 4rem;
+
+    --tab-bar-iphone-max-width: 90svw;
+    --tab-bar-iphone-height: var(--tool-bar-height);
+    --tab-bar-iphone-border-radius: 9999px;
+
+    --tab-bar-ipad-width: 320px;
+    --tab-bar-ipad-height: 3rem;
+    --tab-bar-ipad-border-radius: 9999px;
+
+    --tab-bar-sidebar-width: 300px;
+    --tab-bar-sidebar-border-radius: 20px;
+    --tab-bar-sidebar-spacing: 1rem;
+
+    --navigation-bar-height: 4rem;
+
+    --primary-bg: aliceblue;
+
+    --view-transition-leading-x: -70%;
+    --view-transition-principal-x: 0%;
+    --view-transition-trailing-x: 100%;
+
+    --view-transition-dialog-onscreen-y: 0lvh;
+    --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
+    --view-transition-dialog-offscreen-y: 100lvh;
+
+    // --view-transition-duration: 5s;
+    --view-transition-duration: 500ms;
+  }
+}

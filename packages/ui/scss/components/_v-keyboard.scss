@@ -1,0 +1,12 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  v-keyboard {
+    position: fixed;
+
+    inset: 0lvh auto auto 0lvw;
+
+    width: 100lvw;
+    height: 100lvh;
+  }
+}

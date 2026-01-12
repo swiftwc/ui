@@ -1,0 +1,71 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  // [is='tab-bar'] > scroll-view {
+  //   display: grid;
+  //   // border-radius: inherit;
+  // }
+
+  tab-bar-stack {
+    display: grid;
+    // box-shadow: inset 0 0 0 12px firebrick;
+  }
+
+  @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+    [is='tab-bar'] > scroll-view {
+      grid-auto-flow: column;
+    }
+
+    tab-bar-stack {
+      grid-auto-flow: column;
+      margin-block: 0 !important;
+    }
+  }
+
+  @media (min-width: #{vars.$ipad-bp-min}) and (orientation: portrait) {
+    tab-bar-stack {
+      grid-auto-flow: column;
+      margin-block: 0 !important;
+    }
+
+    [is='tab-bar'] > scroll-view {
+      grid-auto-flow: column;
+
+      overflow-y: auto clip;
+      @include mixins.contain-overscroll;
+    }
+
+    [is='tab-bar'][open] > scroll-view {
+      grid-auto-flow: row;
+      padding-block-start: 30px;
+
+      overflow: clip auto;
+
+      @include mixins.make-scrollable;
+
+      tab-bar-stack {
+        grid-auto-flow: row;
+      }
+    }
+  }
+
+  @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+    [is='tab-bar'] > scroll-view {
+      overflow: clip auto;
+      @include mixins.contain-overscroll;
+      @include mixins.make-scrollable;
+    }
+  }
+
+  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    [is='tab-bar'] > scroll-view {
+      //
+
+      overflow: clip auto;
+      @include mixins.contain-overscroll;
+
+      @include mixins.make-scrollable;
+    }
+  }
+}

@@ -1,0 +1,34 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  body-view,
+  navigation-stack,
+  dialog[is='full-screen'],
+  dialog[is='sheet-view'] {
+    position: relative;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(0, 1fr);
+    //  repeat(auto-fit, minmax(0, 1fr));
+    grid-template-rows: minmax(0, 1fr);
+
+    & > *:not([slot]) {
+      grid-column: 1 / -1; // span all columns
+      grid-row: 1 / -1; // span all rows
+    }
+  }
+
+  navigation-stack:has(> navigation-stack:not([hidden])),
+  navigation-stack:has(> body-view),
+  dialog:has(> body-view),
+  // body-view:has(> dialog),
+  body-view:has(> body-view) {
+    & > scroll-view {
+      transform: translateX(var(--view-transition-leading-x));
+    }
+
+    & > navigation-bar > toolbar-item,
+    & > bottom-bar > toolbar-item {
+      transform: scale(0);
+    }
+  }
+}

@@ -1,0 +1,67 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  navigation-bar,
+  bottom-bar {
+    display: grid;
+    position: absolute;
+
+    // background-color: blue;
+    box-shadow: inset 0 0 4px red;
+
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+
+    pointer-events: none;
+
+    grid-template-columns: auto 1fr auto;
+    place-items: center;
+    place-content: center;
+  }
+
+  navigation-bar {
+    inset: 0 0 auto 0;
+
+    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
+
+    padding-block-start: env(safe-area-inset-top);
+
+    // dialog & {
+    //   transform: translateY(max(-33cqw, -200px));
+    //   inset: auto;
+    // }
+  }
+
+  bottom-bar {
+    inset: auto 0 0 0;
+
+    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
+
+    padding-block-end: env(safe-area-inset-bottom);
+  }
+
+  ::part(toolbar-leading-stack),
+  ::part(toolbar-principal-stack),
+  ::part(toolbar-trailing-stack) {
+    display: grid;
+    grid-auto-flow: column;
+  }
+
+  @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {
+    [is='sheet-view'] {
+      navigation-bar,
+      bottom-bar {
+        padding-inline: 0;
+      }
+
+      navigation-bar {
+        padding-block-start: 0;
+        height: var(--navigation-bar-height);
+      }
+
+      bottom-bar {
+        padding-block-end: 0;
+      }
+    }
+  }
+}

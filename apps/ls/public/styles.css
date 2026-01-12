@@ -1,3 +1,92 @@
+@layer components {
+  #console {
+    position: fixed;
+    left: 30%;
+    bottom: 50%;
+    z-index: 999999999;
+  }
+  #tb {
+    position: fixed;
+    box-shadow: inset 0 0 0 12px greenyellow;
+    top: env(titlebar-area-y);
+    width: env(titlebar-area-width);
+    left: env(titlebar-area-x);
+    height: env(titlebar-area-height);
+    z-index: 999999999;
+  }
+  #sa {
+    position: fixed;
+    box-shadow: inset 0 0 0 10px green;
+    top: env(safe-area-inset-top);
+    right: env(safe-area-inset-right);
+    left: env(safe-area-inset-left);
+    bottom: env(safe-area-inset-bottom);
+    z-index: 999999999;
+  }
+  #kb {
+    display: grid;
+    position: fixed;
+    box-shadow: inset 0 0 0 8px red;
+    background-color: rosybrown;
+    top: env(keyboard-inset-top, var(--keyboard-inset-top));
+    /* right: env(keyboard-inset-right, 0); */
+    left: env(keyboard-inset-left, 0);
+    /* bottom: env(keyboard-inset-bottom, 0px); */
+    height: env(keyboard-inset-height, var(--keyboard-inset-height));
+    width: env(keyboard-inset-width, 100lvw);
+    z-index: 999999999;
+  }
+  #dv {
+    position: fixed;
+    box-shadow: inset 0 0 0 6px blue;
+    top: 0vh;
+    left: 0vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999999;
+  }
+  #sv {
+    position: fixed;
+    box-shadow: inset 0 0 0 4px magenta;
+    top: 0svh;
+    left: 0svw;
+    width: 100svw;
+    height: 100svh;
+    z-index: 999999999;
+  }
+  #lv {
+    position: fixed;
+    box-shadow: inset 0 0 0 2px maroon;
+    top: 0lvh;
+    left: 0lvw;
+    width: 100lvw;
+    height: 100lvh;
+    z-index: 999999999;
+  }
+}
+@layer components {
+  :root {
+    --tool-bar-height: 4rem;
+    --tab-bar-iphone-max-width: 90svw;
+    --tab-bar-iphone-height: var(--tool-bar-height);
+    --tab-bar-iphone-border-radius: 9999px;
+    --tab-bar-ipad-width: 320px;
+    --tab-bar-ipad-height: 3rem;
+    --tab-bar-ipad-border-radius: 9999px;
+    --tab-bar-sidebar-width: 300px;
+    --tab-bar-sidebar-border-radius: 20px;
+    --tab-bar-sidebar-spacing: 1rem;
+    --navigation-bar-height: 4rem;
+    --primary-bg: aliceblue;
+    --view-transition-leading-x: -70%;
+    --view-transition-principal-x: 0%;
+    --view-transition-trailing-x: 100%;
+    --view-transition-dialog-onscreen-y: 0lvh;
+    --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
+    --view-transition-dialog-offscreen-y: 100lvh;
+    --view-transition-duration: 500ms;
+  }
+}
 @layer base, components, transitions;
 @layer base {
   *,
@@ -5,9 +94,716 @@
   *::after {
     box-sizing: border-box;
   }
+  body {
+    background-color: var(--primary-bg);
+  }
+  body {
+    display: grid;
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    touch-action: none !important;
+  }
   html::before {
     content: "vt-fwd-class-name=fwd";
     display: none;
+  }
+}
+@layer components {
+  body-view,
+  navigation-stack,
+  dialog[is=full-screen],
+  dialog[is=sheet-view] {
+    position: relative;
+    grid-auto-flow: column;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  body-view > *:not([slot]),
+  navigation-stack > *:not([slot]),
+  dialog[is=full-screen] > *:not([slot]),
+  dialog[is=sheet-view] > *:not([slot]) {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+  }
+  navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view,
+  navigation-stack:has(> body-view) > scroll-view,
+  dialog:has(> body-view) > scroll-view,
+  body-view:has(> body-view) > scroll-view {
+    transform: translateX(var(--view-transition-leading-x));
+  }
+  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > toolbar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > toolbar-item,
+  navigation-stack:has(> body-view) > navigation-bar > toolbar-item,
+  navigation-stack:has(> body-view) > bottom-bar > toolbar-item,
+  dialog:has(> body-view) > navigation-bar > toolbar-item,
+  dialog:has(> body-view) > bottom-bar > toolbar-item,
+  body-view:has(> body-view) > navigation-bar > toolbar-item,
+  body-view:has(> body-view) > bottom-bar > toolbar-item {
+    transform: scale(0);
+  }
+}
+@layer components {
+  navigation-stack:not([hidden]),
+  scroll-view,
+  body-view,
+  tab-view,
+  [is=tab-bar],
+  [is=full-screen],
+  [is=sheet-view] {
+    display: grid;
+  }
+}
+@layer components {
+  v-keyboard {
+    position: fixed;
+    inset: 0lvh auto auto 0lvw;
+    width: 100lvw;
+    height: 100lvh;
+  }
+}
+@layer components {}
+@layer components {
+  tab-view {
+    grid-area: main;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+  }
+  body {
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0px, 1fr);
+    grid-template-areas: "main";
+    will-change: grid-template;
+  }
+  @media (min-width: 1100px) and (orientation: landscape) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view),
+    tab-view body-view > scroll-view:not(dialog scroll-view) {
+      padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
+    }
+    tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar,
+    tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
+    }
+  }
+}
+@layer components {
+  [is=tab-bar] {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    max-width: 100lvw;
+    max-height: 100lvh;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    inset: 0;
+    position: fixed;
+    background: rgba(255, 255, 255, 0.6196078431);
+    backdrop-filter: blur(4px);
+    box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
+    transition: all 250ms ease-out allow-discrete;
+    touch-action: none;
+    overflow: clip;
+  }
+  [is=tab-bar] navigation-bar,
+  [is=tab-bar] bottom-bar {
+    padding-inline: 0;
+  }
+  @media (max-width: 699.99px) and (orientation: portrait) {
+    [is=tab-bar] {
+      max-width: var(--tab-bar-iphone-max-width);
+      height: var(--tab-bar-iphone-height);
+      border-radius: var(--tab-bar-iphone-border-radius);
+      inset: auto auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      transform: translateX(-50%);
+      grid-auto-flow: column;
+    }
+  }
+  @media (min-width: 700px) and (orientation: portrait) {
+    [is=tab-bar] {
+      width: var(--tab-bar-ipad-width);
+      height: var(--tab-bar-ipad-height);
+      inset: env(safe-area-inset-top) auto auto 50%;
+      transform: translateX(-50%);
+      border-radius: var(--tab-bar-ipad-border-radius);
+      grid-auto-flow: column;
+    }
+    [is=tab-bar][open] {
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      height: auto;
+      transform: translateX(0);
+      width: var(--tab-bar-sidebar-width);
+      border-radius: var(--tab-bar-sidebar-border-radius);
+      grid-auto-flow: row;
+    }
+    [is=tab-bar][open] > * {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+    }
+  }
+  @media (max-width: 1099.99px) and (orientation: landscape) {
+    [is=tab-bar] {
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      width: var(--tab-bar-sidebar-width);
+      border-radius: var(--tab-bar-sidebar-border-radius);
+    }
+    [is=tab-bar][open] {
+      left: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+    }
+  }
+  @media (min-width: 1100px) and (orientation: landscape) {
+    [is=tab-bar] {
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      width: var(--tab-bar-sidebar-width);
+      border-radius: var(--tab-bar-sidebar-border-radius);
+      overflow: clip;
+    }
+  }
+}
+@layer components {
+  tab-bar-stack {
+    display: grid;
+  }
+  @media (max-width: 699.99px) and (orientation: portrait) {
+    [is=tab-bar] > scroll-view {
+      grid-auto-flow: column;
+    }
+    tab-bar-stack {
+      grid-auto-flow: column;
+      margin-block: 0 !important;
+    }
+  }
+  @media (min-width: 700px) and (orientation: portrait) {
+    tab-bar-stack {
+      grid-auto-flow: column;
+      margin-block: 0 !important;
+    }
+    [is=tab-bar] > scroll-view {
+      grid-auto-flow: column;
+      overflow-y: auto clip;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    [is=tab-bar][open] > scroll-view {
+      grid-auto-flow: row;
+      padding-block-start: 30px;
+      overflow: clip auto;
+    }
+    [is=tab-bar][open] > scroll-view > * {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+    }
+    [is=tab-bar][open] > scroll-view::before {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+      content: "";
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
+    [is=tab-bar][open] > scroll-view tab-bar-stack {
+      grid-auto-flow: row;
+    }
+  }
+  @media (max-width: 1099.99px) and (orientation: landscape) {
+    [is=tab-bar] > scroll-view {
+      overflow: clip auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    [is=tab-bar] > scroll-view > * {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+    }
+    [is=tab-bar] > scroll-view::before {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+      content: "";
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+  @media (min-width: 1100px) and (orientation: landscape) {
+    [is=tab-bar] > scroll-view {
+      overflow: clip auto;
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+    }
+    [is=tab-bar] > scroll-view > * {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+    }
+    [is=tab-bar] > scroll-view::before {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+      content: "";
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+}
+@layer components {
+  tab-view > sidebar-toggle,
+  dialog[is=tab-bar] > sidebar-toggle {
+    display: grid;
+    background-color: coral;
+  }
+  tab-view > sidebar-toggle {
+    position: fixed;
+    inset: env(safe-area-inset-top) auto auto env(safe-area-inset-left);
+    width: 100px;
+    height: 100px;
+  }
+  @media (max-width: 699.99px) and (orientation: portrait) {
+    dialog[is=tab-bar] > sidebar-toggle {
+      display: none;
+    }
+    tab-view > sidebar-toggle {
+      display: none;
+    }
+  }
+  @media (min-width: 700px) and (orientation: portrait) {
+    dialog[is=tab-bar] > sidebar-toggle {
+      width: 30px;
+      order: -1;
+    }
+    dialog[is=tab-bar][open] > sidebar-toggle {
+      position: sticky;
+      left: 0;
+      top: 0;
+      height: 30px;
+    }
+    tab-view > sidebar-toggle {
+      display: none;
+    }
+  }
+  @media (max-width: 1099.99px) and (orientation: landscape) {
+    dialog[is=tab-bar] > sidebar-toggle {
+      display: none;
+    }
+  }
+  @media (min-width: 1100px) and (orientation: landscape) {
+    dialog[is=tab-bar] > sidebar-toggle {
+      display: none;
+    }
+    tab-view > sidebar-toggle {
+      display: none;
+    }
+  }
+}
+@layer components {
+  [is=full-screen] {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    max-width: 100lvw;
+    max-height: 100lvh;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    inset: 0;
+    overflow: clip;
+    width: 100lvw;
+    height: var(--100lvh, 100lvh);
+  }
+}
+@layer components {
+  [is=sheet-view] {
+    margin: 0;
+    padding: 0;
+    height: auto;
+    max-width: 100lvw;
+    max-height: 100lvh;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    inset: 0;
+    overflow: clip;
+    width: 100lvw;
+    height: var(--100lvh, 100lvh);
+    transform: translateY(var(--view-transition-dialog-offscreen-y));
+  }
+  [is=sheet-view]::backdrop {
+    background-color: transparent;
+  }
+  @media (min-width: 600px) and (min-height: 450px) {
+    [is=sheet-view] {
+      max-width: 600px;
+      aspect-ratio: 1.3333333333;
+      border-radius: 26px;
+      margin: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      height: auto;
+      inset-inline-start: calc(50lvw - 600px / 2 - (env(safe-area-inset-left) + env(safe-area-inset-right)) / 2);
+      inset-block-start: calc(50lvh - 450px / 2 - (env(safe-area-inset-top) + env(safe-area-inset-bottom)) / 2);
+    }
+  }
+}
+@layer components {
+  navigation-stack {
+    touch-action: none;
+    height: var(--100lvh, 100lvh);
+  }
+}
+@layer components {
+  navigation-bar,
+  bottom-bar {
+    display: grid;
+    position: absolute;
+    box-shadow: inset 0 0 4px red;
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    pointer-events: none;
+    grid-template-columns: auto 1fr auto;
+    place-items: center;
+    place-content: center;
+  }
+  navigation-bar {
+    inset: 0 0 auto 0;
+    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
+    padding-block-start: env(safe-area-inset-top);
+  }
+  bottom-bar {
+    inset: auto 0 0 0;
+    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: env(safe-area-inset-bottom);
+  }
+  ::part(toolbar-leading-stack),
+  ::part(toolbar-principal-stack),
+  ::part(toolbar-trailing-stack) {
+    display: grid;
+    grid-auto-flow: column;
+  }
+  @media (min-width: 600px) and (min-height: 450px) {
+    [is=sheet-view] navigation-bar,
+    [is=sheet-view] bottom-bar {
+      padding-inline: 0;
+    }
+    [is=sheet-view] navigation-bar {
+      padding-block-start: 0;
+      height: var(--navigation-bar-height);
+    }
+    [is=sheet-view] bottom-bar {
+      padding-block-end: 0;
+    }
+  }
+}
+@layer components {
+  scroll-view:has(> tool-bar[slot=navigation-bar]) > *:not([slot]) {
+    margin-block-start: var(--navigation-bar-height);
+  }
+  scroll-view:has(> tool-bar[slot=bottom-bar]) > *:not([slot]) {
+    margin-block-end: var(--tool-bar-height);
+  }
+  navigation-stack > scroll-view,
+  body-view > scroll-view,
+  [is=full-screen] > scroll-view,
+  [is=sheet-view] > scroll-view {
+    box-shadow: inset 0 0 0 2px cyan;
+    overflow: clip auto;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    padding-block: env(safe-area-inset-top) env(safe-area-inset-bottom);
+    container: scroll-view/inline-size;
+    background-color: var(--primary-bg);
+    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+  }
+  navigation-stack > scroll-view > *,
+  body-view > scroll-view > *,
+  [is=full-screen] > scroll-view > *,
+  [is=sheet-view] > scroll-view > * {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+  }
+  navigation-stack > scroll-view::before,
+  body-view > scroll-view::before,
+  [is=full-screen] > scroll-view::before,
+  [is=sheet-view] > scroll-view::before {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    content: "";
+    display: block;
+    height: calc(100% + 1px); /* creates overflow */
+    z-index: -1;
+    pointer-events: none;
+  }
+  @media (min-width: 600px) and (min-height: 450px) {
+    [is=sheet-view] scroll-view {
+      padding-inline: 0px;
+      padding-block: 0px;
+    }
+  }
+}
+@layer components {
+  v-stack {
+    display: grid;
+    place-items: center;
+    grid-template-columns: minmax(0, 1fr);
+    box-shadow: inset 0 0 0 2px magenta;
+    place-content: center;
+  }
+}
+@layer components {
+  tool-bar {
+    position: sticky;
+    width: 100%;
+    display: grid;
+    place-items: center;
+    place-content: center;
+    pointer-events: none;
+  }
+  tool-bar > span {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+  }
+  tool-bar > span::before, tool-bar > span::after {
+    content: "";
+    display: grid;
+  }
+  tool-bar > span::before {
+    height: 20px;
+    background: green;
+  }
+  tool-bar > span::after {
+    height: 20px;
+    background: darkgoldenrod;
+  }
+  @media (pointer: fine) {
+    tool-bar {
+      justify-content: start;
+    }
+  }
+  tool-bar[slot=navigation-bar] {
+    top: 0;
+    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
+    padding-block-start: env(safe-area-inset-top);
+    transform: translateY(calc(env(safe-area-inset-top) * -1));
+  }
+  tool-bar[slot=navigation-bar] > span::before {
+    width: var(--navbar-padding-inline-start);
+  }
+  tool-bar[slot=navigation-bar] > span::after {
+    width: var(--navbar-padding-inline-end);
+  }
+  tool-bar[slot=navigation-bar]:before, tool-bar[slot=navigation-bar]:after {
+    backface-visibility: hidden;
+    content: "";
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+  tool-bar[slot=navigation-bar]:before {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(to bottom, #000 50%, rgba(0, 0, 0, 0) 100%);
+  }
+  tool-bar[slot=navigation-bar]:after {
+    background-image: linear-gradient(to bottom, var(--primary-bg) 0, rgba(0, 0, 0, 0) 100%);
+  }
+  tool-bar[slot=bottom-bar] {
+    top: calc(100% - var(--tool-bar-height) - env(safe-area-inset-bottom));
+    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: env(safe-area-inset-bottom);
+    transform: translateY(env(safe-area-inset-bottom));
+  }
+  tool-bar[slot=bottom-bar] > span::before {
+    width: var(--toolbar-padding-inline-start);
+  }
+  tool-bar[slot=bottom-bar] > span::after {
+    width: var(--toolbar-padding-inline-end);
+  }
+  tool-bar[slot=bottom-bar]:before, tool-bar[slot=bottom-bar]:after {
+    backface-visibility: hidden;
+    content: "";
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+    z-index: -1;
+  }
+  tool-bar[slot=bottom-bar]:before {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(to top, #000 50%, rgba(0, 0, 0, 0) 100%);
+  }
+  tool-bar[slot=bottom-bar]:after {
+    background-image: linear-gradient(to top, var(--primary-bg) 0, rgba(0, 0, 0, 0) 100%);
+  }
+}
+@layer components {
+  toolbar-item {
+    background-color: red;
+    padding: 5px;
+    border-radius: 99999px;
+    pointer-events: all;
+  }
+}
+@layer components {
+  [is=borderless-button] {
+    display: grid;
+    place-items: center;
+    place-content: center;
+  }
+}
+@layer transitions {
+  scroll-view {
+    transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete;
+    will-change: transform, padding-inline-start;
+  }
+  toolbar-item {
+    transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
+    will-change: transform, opacity, filter;
+  }
+  [is=sheet-view] {
+    transition: transform var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, display var(--view-transition-duration) allow-discrete;
+    will-change: transform, overlay, display;
+  }
+  [is=sheet-view]::backdrop {
+    transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+    will-change: background-color, overlay, display;
+  }
+  [is=sheet-view][open] {
+    transform: translateY(var(--view-transition-dialog-onscreen-y));
+  }
+  [is=sheet-view][open]::backdrop {
+    background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+  }
+  @starting-style {
+    [is=sheet-view][open]::backdrop {
+      background-color: transparent;
+    }
+  }
+  @starting-style {
+    [is=sheet-view][open] {
+      transform: translateY(var(--view-transition-dialog-offscreen-y));
+    }
+  }
+  /* scroll-view {
+    view-transition-name: match-element;
+    view-transition-class: scroll-view;
+    // contain: paint;
+
+    &:not(:has(~ body-view)) {
+      view-transition-name: targeted-scroll-view;
+      view-transition-class: none;
+      // contain: layout;
+      // background-color: red;
+    }
+  }
+
+  toolbar-item {
+    view-transition-name: match-element;
+    view-transition-class: toolbar-item;
+    // contain: paint;
+  }
+  navigation-bar:not(:has(~ body-view)) > toolbar-item {
+    view-transition-name: match-element;
+    view-transition-class: targeted-toolbar-items;
+    // contain: layout;
+    // background-color: red;
+  } */
+  /* :root::view-transition-old(*.toolbar-item) {
+    animation: var(--view-transition-duration) ease-out both shrink-to-tiny;
+  }
+  :root::view-transition-new(*.toolbar-item) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  }
+  :root::view-transition-old(*.targeted-toolbar-items) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  }
+  :root::view-transition-new(*.targeted-toolbar-items) {
+    animation: var(--view-transition-duration) ease-out both expand-from-tiny;
+  } */
+}
+@layer transitions {
+  scroll-view.fwd {
+    pointer-events: none;
+  }
+  scroll-view.fwdd {
+    transform: translateX(var(--view-transition-principal-x));
+  }
+  @starting-style {
+    scroll-view.fwdd {
+      transform: translateX(var(--view-transition-trailing-x));
+    }
+  }
+  scroll-view.fwdd.fwd {
+    transform: translateX(var(--view-transition-leading-x));
+  }
+}
+@layer transitions {
+  scroll-view.bwd {
+    transform: translateX(var(--view-transition-trailing-x));
+  }
+  scroll-view.bwdd ~ body-view,
+  scroll-view.bwdd ~ navigation-stack {
+    pointer-events: none;
+  }
+  scroll-view.bwdd {
+    transform: translateX(var(--view-transition-principal-x));
+  }
+  scroll-view.bwdd.bwd {
+    transform: translateX(var(--view-transition-trailing-x));
+  }
+}
+@layer transitions {
+  toolbar-item.fwn {
+    transform: scale(0);
+    filter: blur(10px);
+    opacity: 0;
+  }
+  toolbar-item.fwnn {
+    transform: scale(1);
+    filter: none;
+    opacity: 1;
+  }
+  @starting-style {
+    toolbar-item.fwnn {
+      transform: scale(0);
+      filter: blur(10px);
+      opacity: 0;
+    }
+  }
+  toolbar-item.fwnn.fwn {
+    transform: scale(0);
+    filter: blur(10px);
+    opacity: 0;
+  }
+}
+@layer transitions {
+  toolbar-item.bwn {
+    transform: scale(0);
+    filter: blur(10px);
+    opacity: 0;
+  }
+  toolbar-item.bwnn {
+    transform: scale(1);
+    filter: none;
+    opacity: 1;
+  }
+  toolbar-item.bwnn.bwn {
+    transform: scale(0);
+    filter: blur(10px);
+    opacity: 0;
+  }
+}
+@layer transitions {
+  [is=sheet-view][open] {
+    transform: translateY(var(--view-transition-dialog-onscreen-y));
+  }
+  [is=sheet-view][open]::backdrop {
+    background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+  }
+  @starting-style {
+    [is=sheet-view][open]::backdrop {
+      background-color: transparent;
+    }
+  }
+  @starting-style {
+    [is=sheet-view][open] {
+      transform: translateY(var(--view-transition-dialog-offscreen-y));
+    }
   }
 }
 

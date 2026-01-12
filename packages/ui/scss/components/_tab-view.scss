@@ -1,0 +1,87 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  tab-view {
+    grid-area: main;
+    grid-template-columns: subgrid; // inherits columns from container
+    grid-template-rows: subgrid; // inherits rows if needed
+  }
+
+  // @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+  // }
+
+  // @media (min-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+  // }
+
+  // @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+  // }
+
+  // tab-view {
+  //   position: fixed;
+  //   width: 100px;
+  //   height: 50px;
+  //   left: 50%;
+  //   bottom: env(safe-area-inset-bottom);
+  //   transform: translateX(-50%);
+  //   background: yellow;
+  // }
+
+  //  make tab-view responsive
+  body {
+    // grid-template: 'aside main' 1fr / 0px minmax(0, 1fr);
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0px, 1fr);
+    grid-template-areas: 'main';
+    will-change: grid-template;
+    // transition: grid-template 750ms ease;
+  }
+
+  // body:has(tab-view input[type='checkbox']:checked) {
+  // grid-template: 'aside main' 1fr / 300px minmax(0, 1fr);
+  // }
+
+  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    // body:has(> tab-view) {
+    //   grid-template-columns: 300px minmax(0px, 1fr);
+    // }
+
+    // tab-view {
+    //   grid-column: 1 / -1; // span all columns
+    //   grid-row: 1 / -1; // span all rows
+    // }
+
+    tab-view {
+      navigation-stack > scroll-view:not(dialog scroll-view),
+      body-view > scroll-view:not(dialog scroll-view) {
+        padding-inline-start: calc(
+          max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
+            var(--tab-bar-sidebar-width)
+        );
+      }
+
+      // @starting-style {
+      //   padding-left: 0px;
+      // }
+
+      scroll-view:not(dialog scroll-view) ~ navigation-bar,
+      scroll-view:not(dialog scroll-view) ~ bottom-bar {
+        padding-inline-start: calc(
+          max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
+            var(--tab-bar-sidebar-width)
+        );
+      }
+    }
+  }
+
+  // @media (min-width: 600px) and (orientation: landscape) {
+  //   tab-view {
+  //     position: relative;
+  //     grid-area: aside;
+  //     height: var(--100svh, 100svh);
+  //     transform: none;
+  //     left: 0;
+  //     width: 300px;
+  //     justify-self: end;
+  //   }
+  // }
+}

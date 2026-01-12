@@ -1,0 +1,12 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  toolbar-item {
+    background-color: red;
+    padding: 5px;
+    border-radius: 99999px;
+
+    pointer-events: all;
+  }
+}

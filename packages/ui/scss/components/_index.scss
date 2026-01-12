@@ -1,0 +1,14 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  // all is a grid
+  navigation-stack:not([hidden]),
+  scroll-view,
+  body-view,
+  tab-view,
+  [is='tab-bar'],
+  [is='full-screen'],
+  [is='sheet-view'] {
+    display: grid;
+  }
+}

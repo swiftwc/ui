@@ -1,0 +1,33 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  toolbar-item {
+    &.bwn {
+      transform: scale(0);
+      filter: blur(10px);
+      opacity: 0;
+
+      // @starting-style {
+      //   transform: scale(1);
+      //   // opacity: 1;
+      // }
+    }
+
+    &.bwnn {
+      transform: scale(1);
+      filter: none;
+      opacity: 1;
+
+      // @starting-style {
+      //   transform: scale(0);
+      //   // opacity: 0;
+      // }
+    }
+
+    &.bwnn.bwn {
+      transform: scale(0);
+      filter: blur(10px);
+      opacity: 0;
+    }
+  }
+}

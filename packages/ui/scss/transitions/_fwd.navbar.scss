@@ -1,0 +1,54 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  // principal-stack > toolbar-item {
+  //   position: absolute;
+  //   transition: transform 2s ease-out;
+  // }
+
+  // ::slotted(toolbar-item) {
+  //   background-color: red;
+  // }
+
+  // toolbar {
+  //   display: grid;
+  //   grid-auto-flow: column;
+  //   column-gap: 10px;
+  //   grid-column: 1 / -1; // span all columns
+  //   grid-row: 1 / -1; // span all rows
+  // }
+
+  
+
+  toolbar-item {
+    &.fwn {
+      // BUG: Safari doesn't enforce scaling without this here again redundantly!
+      transform: scale(0);
+      filter: blur(10px);
+      opacity: 0;
+
+      // @starting-style {
+      // transform: scale(1);
+      // opacity: 1;
+      // }
+    }
+
+    &.fwnn {
+      transform: scale(1);
+      filter: none;
+      opacity: 1;
+
+      @starting-style {
+        transform: scale(0);
+        filter: blur(10px);
+        opacity: 0;
+      }
+    }
+
+    &.fwnn.fwn {
+      transform: scale(0);
+      filter: blur(10px);
+      opacity: 0;
+    }
+  }
+}

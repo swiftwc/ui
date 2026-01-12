@@ -1,5 +1,34 @@
+@use 'functions';
+@use 'sass:math';
+
 $base-layer: base !default;
 $components-layer: components !default;
 $transitions-layer: transitions !default;
 
 $vt-fwd-class-name: fwd !default;
+
+$ipad-sheet-view-width: 600px !default;
+// $ipad-sheet-view-width: 300px !default;
+$ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
+
+$sidebar-transition-duration: 250ms !default;
+
+$ipad-bp: 700px !default;
+// $ipad-landscape-bp: 700px !default;
+$ipad-landscape-bp: 1100px !default;
+
+@if ($ipad-bp < $ipad-sheet-view-width) {
+  @warn "$ipad-sheet-view-width should be smaller or equal to $ipad-bp";
+}
+
+$ipad-bp-max: #{functions.subtract-tiny($ipad-bp)};
+$ipad-bp-min: $ipad-bp;
+$ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
+$ipad-landscape-bp-min: $ipad-landscape-bp;
+
+$ipad-sheet-view-height: math.div(
+  $ipad-sheet-view-width,
+  $ipad-sheet-view-aspect-ratio
+); //4/3
+
+@debug $ipad-bp-max;

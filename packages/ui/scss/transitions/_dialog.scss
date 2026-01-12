@@ -1,0 +1,23 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  [is='sheet-view'][open] {
+    transform: translateY(var(--view-transition-dialog-onscreen-y));
+
+    &::backdrop {
+      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+    }
+
+    @starting-style {
+      &::backdrop {
+        background-color: transparent;
+      }
+    }
+
+    @starting-style {
+      & {
+        transform: translateY(var(--view-transition-dialog-offscreen-y));
+      }
+    }
+  }
+}

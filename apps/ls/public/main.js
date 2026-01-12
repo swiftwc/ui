@@ -1,7 +1,120 @@
-import {
-  Snapshot,
-  //   polyfills,
-  //   updateTheDOMSomehow,
-} from '../../../packages/ui/generated/client'
+// import { UILabel } from '../js/components'
+// console.log(444, UILabel)
+import { Snapshot, polyfills, updateTheDOMSomehow } from '../../../packages/ui/generated/client' //'../js/client'
 
-console.log(99, Snapshot)
+console.log(111, polyfills)
+
+document.body.addEventListener('click', async (event) => {
+  console.debug(`⚡️ click`)
+
+  if (event.target.tagName === 'BUTTON') {
+    if (event.target.closest('sidebar-toggle')) {
+      const dialog = document.querySelector('dialog[is="tab-bar"]')
+      if (!dialog.open) dialog.showModal()
+      else dialog.close()
+    }
+
+    if (event.target.classList.contains('bw')) {
+      const sv = event.target.closest('scroll-view'),
+        pr = sv.parentElement
+      await updateTheDOMSomehow(event, 'backwards', async () => {
+        if (pr.tagName === 'NAVIGATION-STACK') {
+          pr.hidden = true
+        } else {
+          pr.remove()
+        }
+      })
+    }
+
+    if (event.target.classList.contains('fw')) {
+      const lm = event.target.closest('navigation-stack'),
+        sv = event.target.closest('scroll-view'),
+        pr = sv.parentElement
+      await updateTheDOMSomehow(event, 'forwards', async () => {
+        if (pr.tagName === 'NAVIGATION-STACK' && 'more' === pr.getAttribute('is')) {
+          document.querySelector(`#${event.target.getAttribute('tag')}`).hidden = false
+        } else {
+          if (!['BODY-VIEW', 'DIALOG'].includes(sv.nextElementSibling?.tagName)) {
+            sv.insertAdjacentHTML(
+              'afterend',
+              `
+                  <${4 === lm.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
+                    <scroll-view>
+                      <v-stack>
+                        ${lm.id}section${
+                          lm.querySelectorAll('scroll-view').length
+                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+                      </v-stack>
+                    </scroll-view>
+                    <navigation-bar>
+                      <toolbar-item slot="leading">eeeeeeee${lm.querySelectorAll('scroll-view').length}</toolbar-item>
+                    </navigation-bar>
+                  </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
+                  `
+            )
+            if ('DIALOG' === sv.nextElementSibling?.tagName) sv.nextElementSibling.showModal()
+          }
+        }
+      })
+      // document.startViewTransition({
+      //   async update() {
+      //     updateTheDOMSomehow(event, false)
+      //   },
+      //   types: ['forwards'],
+      // })
+    }
+  }
+
+  // safari-only polyfill
+  // for(const el of [...document.querySelectorAll('scroll-view')]) el.hidden = el.matches(
+  //     `navigation-stack:has(> body-view) > scroll-view,
+  //      dialog:has(> body-view) > scroll-view,
+  //      body-view:has(> body-view) > scroll-view`
+  //   );
+
+  // console.log(999, getComputedStyle(event.target.closest('navigation-stack,body-view')).display)
+
+  if (event.target.id === 'btn2') {
+    // alert(99)
+    event.target.closest('body-view').remove()
+  }
+
+  // alert(event.target.hidden)
+
+  // document.querySelector('ui-label').hidden= !document.querySelector('ui-label').hidden
+})
+
+// document.querySelector('.gg').addEventListener('click', event => {
+//     console.log(555)
+// })
+
+if ('serviceWorker' in navigator) {
+  navigator.serviceWorker
+    .register('/sw.js')
+    .then(() => console.debug('⚡️ registered'))
+    .catch(console.error)
+}
+
+let deferredPrompt
+
+window.addEventListener('beforeinstallprompt', (e) => {
+  // Prevent Chrome from showing the default prompt
+  e.preventDefault()
+  deferredPrompt = e
+
+  // Show your custom install UI
+  const btn = document.querySelector('#installBtn')
+  btn.style.display = 'block'
+
+  btn.addEventListener('click', async () => {
+    btn.style.display = 'none'
+    deferredPrompt.prompt() // Show native prompt
+    const choice = await deferredPrompt.userChoice
+    console.log('User choice:', choice.outcome)
+    deferredPrompt = null
+  })
+})
+
+window.addEventListener('appinstalled', () => {
+  console.debug('⚡️ installed')
+})

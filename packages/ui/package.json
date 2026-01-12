@@ -22,7 +22,6 @@
   "keywords": [
     "components",
     "ui",
-    "tailwind",
     "swift"
   ],
   "type": "module",
@@ -38,13 +37,19 @@
     "./client": {
       "types": "./generated/client/index.d.ts",
       "default": "./generated/client/index.js"
-    }
+    },
+    "./styles": "./generated/styles.css"
   },
   "bin": {
     "swiftwc": "./generated/index.js"
   },
   "scripts": {
     "prebuild": "rm -rf generated",
-    "build": "tsc"
+    "build": "npm run build:ts && npm run build:scss",
+    "build:ts": "tsc",
+    "build:scss": "sass --no-source-map scss/index.scss generated/styles.css"
+  },
+  "devDependencies": {
+    "sass": "^1.97.2"
   }
 }

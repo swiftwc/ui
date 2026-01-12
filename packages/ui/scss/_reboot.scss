@@ -1,0 +1,11 @@
+@use "vars";
+
+@layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$transitions-layer};
+
+@layer #{vars.$base-layer} {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}

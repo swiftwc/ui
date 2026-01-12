@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/ui",
-  "version": "0.0.0-dev.0",
+  "version": "0.0.0-dev.2",
   "description": "Elegant SwiftUI-inspired web components for ambitious web apps and web extensions.",
   "publishConfig": {
     "access": "public"
@@ -15,10 +15,14 @@
     "url": "git+https://github.com/swiftwc/ui.git",
     "directory": "packages/ui"
   },
+  "bugs": {
+    "url": "https://github.com/swiftwc/ui/issues"
+  },
   "files": [
     "generated",
     "scss"
   ],
+  "sass": "scss/index.scss",
   "keywords": [
     "components",
     "ui",
@@ -38,7 +42,8 @@
       "types": "./generated/client/index.d.ts",
       "default": "./generated/client/index.js"
     },
-    "./styles": "./generated/styles.css"
+    "./styles.css": "./generated/styles.css",
+    "./scss": "./generated/scss/index.scss"
   },
   "bin": {
     "swiftwc": "./generated/index.js"

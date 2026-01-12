@@ -43,7 +43,8 @@
       "default": "./generated/client/index.js"
     },
     "./styles.css": "./generated/styles.css",
-    "./scss": "./scss/index.scss"
+    "./scss": "./scss/index.scss",
+    "./scss/*": "./scss/*.scss"
   },
   "bin": {
     "swiftwc": "./generated/index.js"

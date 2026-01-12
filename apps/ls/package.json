@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "@swiftwc/ls",
+  "type": "module",
+  "scripts": {
+    "start": "vite",
+    "dev:scss": "sass ../../packages/ui/scss/index.scss public/styles.css --watch",
+    "dev:tunnel": "ngrok http --config .config/ngrok.yml 5173"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
+  }
+}

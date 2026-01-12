@@ -1,0 +1,10 @@
+@layer base, components, transitions;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+}
+
+/*# sourceMappingURL=styles.css.map */

@@ -7,6 +7,13 @@ import { Snapshot } from '../internal/snapshot'
 console.log(77, Snapshot)
 console.log(88, Snapshot.count)
 Snapshot.getSnapshot()
+
 console.log(99, Snapshot)
+
+console.log(888)
+
+void Snapshot.setOwnConfig()
+
+console.log(999, Snapshot.config)
 
 export { Snapshot }

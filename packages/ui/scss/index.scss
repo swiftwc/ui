@@ -2,8 +2,5 @@
 
 @forward 'reboot.scss';
 
-@debug 'Loaded @swiftwc/ui/scss layers';
+@debug '@swiftwc/ui/scss ⚡️ loaded';
 
-@debug vars.$base-layer;
-@debug vars.$components-layer;
-@debug vars.$transitions-layer;

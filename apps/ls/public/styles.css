@@ -5,6 +5,10 @@
   *::after {
     box-sizing: border-box;
   }
+  html::before {
+    content: "vt-fwd-class-name=fwd";
+    display: none;
+  }
 }
 
 /*# sourceMappingURL=styles.css.map */

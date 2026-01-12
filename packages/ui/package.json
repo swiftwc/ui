@@ -52,6 +52,7 @@
   "scripts": {
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss",
+    "build:ts:watch": "tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --no-source-map scss/index.scss generated/styles.css",
     "format:check": "prettier . --check",

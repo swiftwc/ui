@@ -1,11 +1,25 @@
 @use 'vars';
+@use 'functions';
 
 @layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$transitions-layer};
+
+@debug vars.$base-layer, vars.$components-layer, vars.$transitions-layer;
 
 @layer #{vars.$base-layer} {
   *,
   *::before,
   *::after {
     box-sizing: border-box;
+  }
+
+  $CONFIG: (
+    vt-fwd-class-name: vars.$vt-fwd-class-name,
+  );
+
+  @debug functions.map-to-query($CONFIG);
+
+  html::before {
+    content: '#{functions.map-to-query($CONFIG)}';
+    display: none;
   }
 }

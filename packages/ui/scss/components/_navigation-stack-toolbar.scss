@@ -31,9 +31,9 @@
   navigation-bar {
     inset: 0 0 auto 0;
 
-    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
+    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
 
-    padding-block-start: env(safe-area-inset-top);
+    padding-block-start: var(--safe-area-inset-top);
 
     // dialog & {
     //   transform: translateY(max(-33cqw, -200px));

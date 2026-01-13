@@ -9,6 +9,12 @@
     // --edge-inset-block-start: 10px;
     // --edge-inset-block-end: 10px;
 
+    // tabview adds extra to these
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-right: env(safe-area-inset-right);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
+
     --tool-bar-height: 4rem;
 
     --tab-bar-iphone-max-width: 90svw;
@@ -19,8 +25,8 @@
     --tab-bar-ipad-height: 3rem;
     --tab-bar-ipad-border-radius: 9999px;
 
-    --tab-bar-sidebar-width: 300px;
-    --tab-bar-sidebar-border-radius: 20px;
+    --tab-bar-sidebar-width: 20rem;
+    --tab-bar-sidebar-border-radius: 1rem;
     --tab-bar-sidebar-spacing: 1rem;
 
     --navigation-bar-height: 4rem;

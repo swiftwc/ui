@@ -44,7 +44,7 @@
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
-      inset: env(safe-area-inset-top) auto auto 50%;
+      inset: var(--safe-area-inset-top) auto auto 50%;
       transform: translateX(-50%);
 
       border-radius: var(--tab-bar-ipad-border-radius);
@@ -56,7 +56,7 @@
       &[open] {
         // @include mixins.make-navbar;
 
-        inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
           auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
           max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
@@ -80,7 +80,8 @@
 
   [is='tab-bar'] {
     @include mixins.if-iphone-landscape {
-      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        auto
         max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
 
       width: var(--tab-bar-sidebar-width);
@@ -100,8 +101,8 @@
       // position: relative;
       // margin: 10px;
       // height: 100svh;
-      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
-        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
         max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       width: var(--tab-bar-sidebar-width);

@@ -15,8 +15,8 @@ $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
 $sidebar-transition-duration: 250ms !default;
 
 $ipad-bp: 700px !default;
-// $ipad-landscape-bp: 700px !default;
-$ipad-landscape-bp: 1100px !default;
+$ipad-landscape-bp: 700px !default;
+// $ipad-landscape-bp: 1100px !default;
 
 @if ($ipad-bp < $ipad-sheet-view-width) {
   @warn "$ipad-sheet-view-width should be smaller or equal to $ipad-bp";

@@ -10,7 +10,7 @@
 
   tab-view > sidebar-toggle {
     position: fixed;
-    inset: env(safe-area-inset-top) auto auto env(safe-area-inset-left);
+    inset: var(--safe-area-inset-top) auto auto env(safe-area-inset-left);
     width: 100px;
     height: 100px;
   }

@@ -23,7 +23,7 @@
 
       border-radius: 26px;
 
-      margin: env(safe-area-inset-top) env(safe-area-inset-right)
+      margin: var(--safe-area-inset-top) env(safe-area-inset-right)
         env(safe-area-inset-bottom) env(safe-area-inset-left);
 
       height: auto;
@@ -35,7 +35,7 @@
       );
       inset-block-start: calc(
         50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(
-            calc(env(safe-area-inset-top) + env(safe-area-inset-bottom)) / 2
+            calc(var(--safe-area-inset-top) + env(safe-area-inset-bottom)) / 2
           )
       );
     }

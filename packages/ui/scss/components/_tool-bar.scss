@@ -43,9 +43,9 @@
 
   tool-bar[slot='navigation-bar'] {
     top: 0;
-    height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
-    padding-block-start: env(safe-area-inset-top);
-    transform: translateY(calc(env(safe-area-inset-top) * -1));
+    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+    padding-block-start: var(--safe-area-inset-top);
+    transform: translateY(calc(var(--safe-area-inset-top) * -1));
 
     > span {
       &::before {
@@ -59,7 +59,7 @@
 
     // > div {
     @include mixins.make-navbar(bottom);
-    // height: calc(env(safe-area-inset-top) + 50px);
+    // height: calc(var(--safe-area-inset-top) + 50px);
     // }
   }
 

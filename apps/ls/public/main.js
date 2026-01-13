@@ -50,7 +50,7 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
                       <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
                       <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="sssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </navigation-bar>
                   </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `

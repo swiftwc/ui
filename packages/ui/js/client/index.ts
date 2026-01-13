@@ -23,6 +23,8 @@ for (const [k, v] of Object.entries(Components)) {
   customElements.define(is, v)
 }
 
+console.debug(polyfills)
+
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set(
     [...polyfills.values()]

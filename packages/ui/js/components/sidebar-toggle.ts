@@ -17,6 +17,7 @@ export class SidebarToggle extends HTMLElement {
 
     this.#ro?.observe(this)
     // this.#io.observe(this)
+
     this.#autoCloseTabBar()
   }
 
@@ -27,6 +28,7 @@ export class SidebarToggle extends HTMLElement {
     // this.#io.disconnect()
   }
 
+  // This triggers on show/hide of any of sidebar-toggle elements
   #autoCloseTabBar() {
     console.debug('#autoCloseTabBar')
 

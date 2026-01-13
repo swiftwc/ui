@@ -3,6 +3,7 @@
 @layer #{vars.$components-layer} {
   [is='borderless-button'] {
     display: grid;
+
     place-items: center;
     place-content: center;
 

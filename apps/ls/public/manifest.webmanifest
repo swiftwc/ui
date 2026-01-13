@@ -1,0 +1,8 @@
+{
+  "short_name": "SwiftWC",
+  "name": "SwiftWC",
+  "start_url": ".",
+  "display": "standalone",
+  "theme_color": "black",
+  "background_color": "black"
+}

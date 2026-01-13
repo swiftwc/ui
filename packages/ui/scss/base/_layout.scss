@@ -3,7 +3,7 @@
 @layer #{vars.$components-layer} {
   body-view,
   navigation-stack,
-  navigation-split-vew,
+  navigation-split-view,
   dialog[is='full-screen'],
   dialog[is='sheet-view'] {
     position: relative;
@@ -20,7 +20,7 @@
 
   navigation-stack:has(> navigation-stack:not([hidden])),
   navigation-stack:has(> body-view),
-  navigation-split-vew:has(> body-view),
+  navigation-split-view:has(> body-view),
   dialog:has(> body-view),
   // body-view:has(> dialog),
   body-view:has(> body-view) {

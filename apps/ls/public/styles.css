@@ -124,7 +124,7 @@
 @layer components {
   body-view,
   navigation-stack,
-  navigation-split-vew,
+  navigation-split-view,
   dialog[is=full-screen],
   dialog[is=sheet-view] {
     position: relative;
@@ -134,7 +134,7 @@
   }
   body-view > *:not([slot]),
   navigation-stack > *:not([slot]),
-  navigation-split-vew > *:not([slot]),
+  navigation-split-view > *:not([slot]),
   dialog[is=full-screen] > *:not([slot]),
   dialog[is=sheet-view] > *:not([slot]) {
     grid-column: 1/-1;
@@ -142,7 +142,7 @@
   }
   navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view,
   navigation-stack:has(> body-view) > scroll-view,
-  navigation-split-vew:has(> body-view) > scroll-view,
+  navigation-split-view:has(> body-view) > scroll-view,
   dialog:has(> body-view) > scroll-view,
   body-view:has(> body-view) > scroll-view {
     transform: translateX(var(--view-transition-leading-x));
@@ -152,10 +152,10 @@
   navigation-stack:has(> body-view) > bottom-bar > tool-bar-item,
   navigation-stack:has(> body-view) > navigation-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > bottom-bar > tool-bar-item-group,
-  navigation-split-vew:has(> body-view) > navigation-bar > tool-bar-item,
-  navigation-split-vew:has(> body-view) > bottom-bar > tool-bar-item,
-  navigation-split-vew:has(> body-view) > navigation-bar > tool-bar-item-group,
-  navigation-split-vew:has(> body-view) > bottom-bar > tool-bar-item-group,
+  navigation-split-view:has(> body-view) > navigation-bar > tool-bar-item,
+  navigation-split-view:has(> body-view) > bottom-bar > tool-bar-item,
+  navigation-split-view:has(> body-view) > navigation-bar > tool-bar-item-group,
+  navigation-split-view:has(> body-view) > bottom-bar > tool-bar-item-group,
   dialog:has(> body-view) > navigation-bar > tool-bar-item,
   dialog:has(> body-view) > bottom-bar > tool-bar-item,
   dialog:has(> body-view) > navigation-bar > tool-bar-item-group,
@@ -169,7 +169,7 @@
 }
 @layer components {
   navigation-stack:not([hidden]),
-  navigation-split-vew:not([hidden]),
+  navigation-split-view:not([hidden]),
   scroll-view,
   body-view,
   tab-view,
@@ -202,7 +202,7 @@
     grid-template-areas: "main";
   }
   @media (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-vew > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       --safe-area-inset-top: max(
         env(safe-area-inset-top),
         var(--tab-bar-sidebar-spacing)
@@ -214,7 +214,7 @@
     }
   }
   @media (max-width: 699.99px) and (orientation: portrait) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-vew > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       --safe-area-inset-bottom: max(
         env(safe-area-inset-bottom),
         var(--tab-bar-sidebar-spacing)
@@ -222,7 +222,7 @@
     }
   }
   @media (min-width: 700px) and (orientation: portrait) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-vew > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       --safe-area-inset-top: calc(
         max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
           var(--tab-bar-ipad-height)
@@ -230,7 +230,7 @@
     }
   }
   @media (min-width: 1100px) and (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-vew > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       --safe-area-inset-left: calc(
         max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
           var(--tab-bar-sidebar-width)
@@ -563,7 +563,7 @@
     margin-block-end: var(--tool-bar-height);
   }
   navigation-stack > scroll-view,
-  navigation-split-vew > scroll-view,
+  navigation-split-view > scroll-view,
   body-view > scroll-view,
   [is=full-screen] > scroll-view,
   [is=sheet-view] > scroll-view {
@@ -577,7 +577,7 @@
     padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
   }
   navigation-stack > scroll-view > *,
-  navigation-split-vew > scroll-view > *,
+  navigation-split-view > scroll-view > *,
   body-view > scroll-view > *,
   [is=full-screen] > scroll-view > *,
   [is=sheet-view] > scroll-view > * {
@@ -585,7 +585,7 @@
     grid-row: 1/-1;
   }
   navigation-stack > scroll-view::before,
-  navigation-split-vew > scroll-view::before,
+  navigation-split-view > scroll-view::before,
   body-view > scroll-view::before,
   [is=full-screen] > scroll-view::before,
   [is=sheet-view] > scroll-view::before {
@@ -596,6 +596,13 @@
     height: calc(100% + 1px); /* creates overflow */
     z-index: -1;
     pointer-events: none;
+  }
+  navigation-split-view {
+    padding-inline-start: 400px;
+  }
+  navigation-split-view > scroll-view {
+    width: 400px;
+    transform: translateX(-400px) !important;
   }
   @media (min-width: 600px) and (min-height: 450px) {
     [is=sheet-view] scroll-view {
@@ -844,7 +851,7 @@
   }
   scroll-view.bwdd ~ body-view,
   scroll-view.bwdd ~ navigation-stack,
-  scroll-view.bwdd ~ navigation-split-vew {
+  scroll-view.bwdd ~ navigation-split-view {
     pointer-events: none;
   }
   scroll-view.bwdd {

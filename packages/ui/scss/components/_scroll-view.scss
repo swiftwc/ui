@@ -14,7 +14,7 @@
   // }
 
   navigation-stack > scroll-view,
-  navigation-split-vew > scroll-view,
+  navigation-split-view > scroll-view,
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
   [is='sheet-view'] > scroll-view {
@@ -49,6 +49,44 @@
     //   margin-bottom: var(--tool-bar-height);
     // }
   }
+
+  navigation-split-view {
+    padding-inline-start: 400px;
+
+    // grid-template-columns: 400 minmax(0, 1fr);
+    // > * {
+    // grid-column: auto !important;
+    // grid-row: auto !important;
+    // }
+
+    // > body-view {
+    //   overflow: clip;
+    // }
+  }
+
+  navigation-split-view > scroll-view {
+    // inset: 0 auto 0 0;
+    width: 400px;
+    // height: 100lvh;
+    // transform: none !important;
+    transform: translateX(-400px) !important;
+    // width: 400px !important;
+
+    // z-index: 1;
+
+    // grid-column: 1 !important;
+    // grid-row: 1 !important;
+  }
+
+  // navigation-split-view scroll-view {
+  //   margin-inline-start: 400px;
+  // }
+
+  // navigation-split-view > scroll-view {
+  //   width: 400px;
+  //   margin-inline-start: 0;
+  //   transform: none !important;
+  // }
 
   @include mixins.if-ipad-sheet-fits {
     [is='sheet-view'] {

@@ -16,7 +16,7 @@
       background-color: transparent;
     }
 
-    @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {
+    @include mixins.if-ipad-sheet-fits {
       max-width: #{vars.$ipad-sheet-view-width};
 
       aspect-ratio: #{vars.$ipad-sheet-view-aspect-ratio};
@@ -24,18 +24,18 @@
       border-radius: 26px;
 
       margin: var(--safe-area-inset-top) env(safe-area-inset-right)
-        env(safe-area-inset-bottom) env(safe-area-inset-left);
+        var(--safe-area-inset-bottom) var(--safe-area-inset-left);
 
       height: auto;
 
       inset-inline-start: calc(
         50lvw - calc(#{vars.$ipad-sheet-view-width} / 2) - calc(
-            calc(env(safe-area-inset-left) + env(safe-area-inset-right)) / 2
+            calc(var(--safe-area-inset-left) + env(safe-area-inset-right)) / 2
           )
       );
       inset-block-start: calc(
         50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(
-            calc(var(--safe-area-inset-top) + env(safe-area-inset-bottom)) / 2
+            calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2
           )
       );
     }

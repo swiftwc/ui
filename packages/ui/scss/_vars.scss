@@ -10,20 +10,21 @@ $vt-fwd-class-name: fwd !default;
 
 $ipad-sheet-view-width: 600px !default;
 // $ipad-sheet-view-width: 300px !default;
+
 $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
 
 $sidebar-transition-duration: 250ms !default;
 
-$ipad-bp: 700px !default;
+$ipad-portrait-bp: 700px !default;
+// $ipad-portrait-bp: 400px !default;
+
 $ipad-landscape-bp: 700px !default;
 // $ipad-landscape-bp: 1100px !default;
 
-@if ($ipad-bp < $ipad-sheet-view-width) {
-  @warn "$ipad-sheet-view-width should be smaller or equal to $ipad-bp";
-}
+// computed
 
-$ipad-bp-max: #{functions.subtract-tiny($ipad-bp)};
-$ipad-bp-min: $ipad-bp;
+$ipad-portrait-bp-max: #{functions.subtract-tiny($ipad-portrait-bp)};
+$ipad-portrait-bp-min: $ipad-portrait-bp;
 $ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
 $ipad-landscape-bp-min: $ipad-landscape-bp;
 
@@ -32,4 +33,10 @@ $ipad-sheet-view-height: math.div(
   $ipad-sheet-view-aspect-ratio
 ); //4/3
 
-@debug $ipad-bp-max;
+@debug $ipad-portrait-bp-max;
+
+// checks
+
+@if ($ipad-portrait-bp < $ipad-sheet-view-width) {
+  @warn "$ipad-sheet-view-width should not be larger than $ipad-portrait-bp! Breaks centering";
+}

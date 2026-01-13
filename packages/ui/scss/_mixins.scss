@@ -70,7 +70,7 @@
 }
 
 @mixin if-iphone-portrait {
-  @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+  @media (max-width: #{vars.$ipad-portrait-bp-max}) and (orientation: portrait) {
     @content;
   }
 }
@@ -82,7 +82,13 @@
 }
 
 @mixin if-ipad-portrait {
-  @media (min-width: #{vars.$ipad-bp-min}) and (orientation: portrait) {
+  @media (min-width: #{vars.$ipad-portrait-bp-min}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-sheet-fits {
+  @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {
     @content;
   }
 }

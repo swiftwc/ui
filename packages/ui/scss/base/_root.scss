@@ -2,7 +2,7 @@
 
 @layer #{vars.$components-layer} {
   :root {
-    // --ipad-bp: #{vars.$ipad-bp};
+    // --ipad-bp: #{vars.$ipad-portrait-bp};
 
     // --edge-inset-inline-start: 10px;
     // --edge-inset-inline-end: 10px;
@@ -21,7 +21,7 @@
     --tab-bar-iphone-height: var(--tool-bar-height);
     --tab-bar-iphone-border-radius: 9999px;
 
-    --tab-bar-ipad-width: 320px;
+    --tab-bar-ipad-width: 21rem;
     --tab-bar-ipad-height: 3rem;
     --tab-bar-ipad-border-radius: 9999px;
 

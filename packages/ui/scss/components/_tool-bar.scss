@@ -64,11 +64,11 @@
   }
 
   tool-bar[slot='bottom-bar'] {
-    top: calc(100% - var(--tool-bar-height) - env(safe-area-inset-bottom));
+    top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
     // background-color: red;
-    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
-    padding-block-end: env(safe-area-inset-bottom);
-    transform: translateY(env(safe-area-inset-bottom));
+    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: var(--safe-area-inset-bottom);
+    transform: translateY(var(--safe-area-inset-bottom));
 
     > span {
       &::before {

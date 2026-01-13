@@ -71,7 +71,7 @@
     --tab-bar-iphone-max-width: 90svw;
     --tab-bar-iphone-height: var(--tool-bar-height);
     --tab-bar-iphone-border-radius: 9999px;
-    --tab-bar-ipad-width: 320px;
+    --tab-bar-ipad-width: 21rem;
     --tab-bar-ipad-height: 3rem;
     --tab-bar-ipad-border-radius: 9999px;
     --tab-bar-sidebar-width: 20rem;
@@ -191,12 +191,40 @@
     grid-template-columns: minmax(0px, 1fr);
     grid-template-areas: "main";
   }
-  @media (min-width: 700px) and (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view) {
-      padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
+  @media (orientation: landscape) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-top: max(
+        env(safe-area-inset-top),
+        var(--tab-bar-sidebar-spacing)
+      );
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
     }
-    tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
-      padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
+  }
+  @media (max-width: 699.99px) and (orientation: portrait) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
+  }
+  @media (min-width: 700px) and (orientation: portrait) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-top: calc(
+        max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
+          var(--tab-bar-ipad-height)
+      );
+    }
+  }
+  @media (min-width: 700px) and (orientation: landscape) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-left: calc(
+        max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
+          var(--tab-bar-sidebar-width)
+      );
     }
   }
 }
@@ -228,7 +256,7 @@
       max-width: var(--tab-bar-iphone-max-width);
       height: var(--tab-bar-iphone-height);
       border-radius: var(--tab-bar-iphone-border-radius);
-      inset: auto auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      inset: auto auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
       transform: translateX(-50%);
       grid-auto-flow: column;
     }
@@ -237,13 +265,13 @@
     [is=tab-bar] {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
-      inset: var(--safe-area-inset-top) auto auto 50%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto 50%;
       transform: translateX(-50%);
       border-radius: var(--tab-bar-ipad-border-radius);
       grid-auto-flow: column;
     }
     [is=tab-bar][open] {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       height: auto;
       transform: translateX(0);
       width: var(--tab-bar-sidebar-width);
@@ -257,17 +285,17 @@
   }
   @media (max-width: 699.99px) and (orientation: landscape) {
     [is=tab-bar] {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
       width: var(--tab-bar-sidebar-width);
       border-radius: var(--tab-bar-sidebar-border-radius);
     }
     [is=tab-bar][open] {
-      left: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
     }
   }
   @media (min-width: 700px) and (orientation: landscape) {
     [is=tab-bar] {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       width: var(--tab-bar-sidebar-width);
       border-radius: var(--tab-bar-sidebar-border-radius);
       overflow: clip;
@@ -369,7 +397,7 @@
   }
   tab-view > sidebar-toggle {
     position: fixed;
-    inset: var(--safe-area-inset-top) auto auto env(safe-area-inset-left);
+    inset: var(--safe-area-inset-top) auto auto var(--safe-area-inset-left);
     width: 100px;
     height: 100px;
   }
@@ -450,10 +478,10 @@
       max-width: 600px;
       aspect-ratio: 1.3333333333;
       border-radius: 26px;
-      margin: var(--safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+      margin: var(--safe-area-inset-top) env(safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
       height: auto;
-      inset-inline-start: calc(50lvw - 600px / 2 - (env(safe-area-inset-left) + env(safe-area-inset-right)) / 2);
-      inset-block-start: calc(50lvh - 450px / 2 - (var(--safe-area-inset-top) + env(safe-area-inset-bottom)) / 2);
+      inset-inline-start: calc(50lvw - 600px / 2 - (var(--safe-area-inset-left) + env(safe-area-inset-right)) / 2);
+      inset-block-start: calc(50lvh - 450px / 2 - (var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2);
     }
   }
 }
@@ -469,7 +497,7 @@
     display: grid;
     position: absolute;
     box-shadow: inset 0 0 4px red;
-    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
     pointer-events: none;
     grid-template-columns: auto 1fr auto;
     place-items: center;
@@ -486,8 +514,8 @@
   }
   bottom-bar {
     inset: auto 0 0 0;
-    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
-    padding-block-end: env(safe-area-inset-bottom);
+    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: var(--safe-area-inset-bottom);
   }
   ::part(toolbar-leading-stack),
   ::part(toolbar-principal-stack),
@@ -526,10 +554,10 @@
     overflow: clip auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
-    padding-block: var(--safe-area-inset-top) env(safe-area-inset-bottom);
+    padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
     container: scroll-view/inline-size;
     background-color: var(--primary-bg);
-    padding-inline: env(safe-area-inset-left) env(safe-area-inset-right);
+    padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
   }
   navigation-stack > scroll-view > *,
   body-view > scroll-view > *,
@@ -624,10 +652,10 @@
     background-image: linear-gradient(to bottom, var(--primary-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=bottom-bar] {
-    top: calc(100% - var(--tool-bar-height) - env(safe-area-inset-bottom));
-    height: calc(env(safe-area-inset-bottom) + var(--tool-bar-height));
-    padding-block-end: env(safe-area-inset-bottom);
-    transform: translateY(env(safe-area-inset-bottom));
+    top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
+    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: var(--safe-area-inset-bottom);
+    transform: translateY(var(--safe-area-inset-bottom));
   }
   tool-bar[slot=bottom-bar] > span::before {
     width: var(--toolbar-padding-inline-start);

@@ -37,6 +37,9 @@
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
 
+    --view-transition-toolbar-cell-onscreen-scale: 1;
+    --view-transition-toolbar-cell-offscreen-scale: 0;
+
     --view-transition-dialog-onscreen-y: 0lvh;
     --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;

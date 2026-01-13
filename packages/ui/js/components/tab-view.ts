@@ -13,20 +13,22 @@ export class TabView extends HTMLElement {
 
   get selection() {
     const selectedTab = this.querySelector<HTMLElement>(
-      ':scope > navigation-stack:not([hidden])'
+      ':scope > navigation-stack:not([hidden]),:scope > navigation-split-view:not([hidden])'
     )
 
     return selectedTab
   }
 
   set selection(nv) {
-    if (!['NAVIGATION-STACK'].includes(nv?.tagName ?? ''))
+    if (
+      !['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(nv?.tagName ?? '')
+    )
       throw new Error('Element not found')
 
     if (nv === this.selection) return
 
     for (const ns of this.querySelectorAll<HTMLElement>(
-      ':scope > navigation-stack'
+      ':scope > navigation-stack,:scope > navigation-split-view'
     )) {
       if (nv === ns) continue
 

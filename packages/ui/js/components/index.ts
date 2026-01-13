@@ -5,6 +5,7 @@
  */
 
 export * from './navigation-stack'
+export * from './navigation-split-view'
 export * from './sheet-view'
 export * from './scroll-view'
 export * from './body-view'

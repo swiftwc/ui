@@ -44,6 +44,7 @@
   @media (orientation: landscape) {
     scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,
+      tab-view navigation-split-vew > &,
       tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
@@ -62,6 +63,7 @@
   @include mixins.if-iphone-portrait {
     scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,
+      tab-view navigation-split-vew > &,
       tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
@@ -76,6 +78,7 @@
   @include mixins.if-ipad-portrait {
     scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,
+      tab-view navigation-split-vew > &,
       tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
@@ -104,6 +107,7 @@
     // );
     scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,
+      tab-view navigation-split-vew > &,
       tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {

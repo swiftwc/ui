@@ -16,7 +16,8 @@
       // visibility: visible;
 
       ~ body-view,
-      ~ navigation-stack {
+      ~ navigation-stack,
+      ~ navigation-split-vew {
         pointer-events: none;
       }
 

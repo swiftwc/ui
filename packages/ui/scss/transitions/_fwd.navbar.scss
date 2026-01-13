@@ -22,7 +22,7 @@
   tool-bar-item-group {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
-      transform: scale(0);
+      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
       filter: blur(10px);
       opacity: 0;
 
@@ -33,19 +33,19 @@
     }
 
     &.fwnn {
-      transform: scale(1);
+      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
       filter: none;
       opacity: 1;
 
       @starting-style {
-        transform: scale(0);
+        transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
         filter: blur(10px);
         opacity: 0;
       }
     }
 
     &.fwnn.fwn {
-      transform: scale(0);
+      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
       filter: blur(10px);
       opacity: 0;
     }

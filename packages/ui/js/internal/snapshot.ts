@@ -116,7 +116,8 @@ export class Snapshot {
     // this.#rootLandmark = closestTopMost(scrollView, 'navigation-stack')
     // @ts-expect-error
     for (let e = scrollView; e; e = e.parentElement)
-      e.matches('navigation-stack') && (this.#rootLandmark = e)
+      e.matches('navigation-stack,navigation-split-view') &&
+        (this.#rootLandmark = e)
 
     // console.log(999, this.#rootLandmark)
 
@@ -146,7 +147,7 @@ export class Snapshot {
 
     this.#leaf = [
       ...(possibleNest?.querySelectorAll<Components.ScrollView>(
-        'scroll-view:not(navigation-stack[hidden] scroll-view)'
+        'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
       ) ?? []),
     ]?.pop?.() //'navigation-stack:not([hidden]) scroll-view'
 

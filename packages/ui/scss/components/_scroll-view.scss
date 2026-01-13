@@ -14,6 +14,7 @@
   // }
 
   navigation-stack > scroll-view,
+  navigation-split-vew > scroll-view,
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
   [is='sheet-view'] > scroll-view {

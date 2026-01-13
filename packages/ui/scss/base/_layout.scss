@@ -3,6 +3,7 @@
 @layer #{vars.$components-layer} {
   body-view,
   navigation-stack,
+  navigation-split-vew,
   dialog[is='full-screen'],
   dialog[is='sheet-view'] {
     position: relative;
@@ -19,6 +20,7 @@
 
   navigation-stack:has(> navigation-stack:not([hidden])),
   navigation-stack:has(> body-view),
+  navigation-split-vew:has(> body-view),
   dialog:has(> body-view),
   // body-view:has(> dialog),
   body-view:has(> body-view) {
@@ -30,7 +32,7 @@
     & > bottom-bar > tool-bar-item,
     & > navigation-bar > tool-bar-item-group,
     & > bottom-bar > tool-bar-item-group {
-      transform: scale(0);
+      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
     }
   }
 }

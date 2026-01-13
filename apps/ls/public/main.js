@@ -18,7 +18,7 @@ document.body.addEventListener('click', async (event) => {
       const sv = event.target.closest('scroll-view'),
         pr = sv.parentElement
       await updateTheDOMSomehow(event, 'backwards', async () => {
-        if (pr.tagName === 'NAVIGATION-STACK') {
+        if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) {
           pr.hidden = true
         } else {
           pr.remove()
@@ -27,7 +27,7 @@ document.body.addEventListener('click', async (event) => {
     }
 
     if (event.target.classList.contains('fw')) {
-      const lm = event.target.closest('navigation-stack'),
+      const lm = event.target.closest('navigation-stack,navigation-split-view'),
         sv = event.target.closest('scroll-view'),
         pr = sv.parentElement
       await updateTheDOMSomehow(event, 'forwards', async () => {

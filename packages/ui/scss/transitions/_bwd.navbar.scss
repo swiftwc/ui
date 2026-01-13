@@ -4,7 +4,7 @@
   tool-bar-item,
   tool-bar-item-group {
     &.bwn {
-      transform: scale(0);
+      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
       filter: blur(10px);
       opacity: 0;
 
@@ -26,7 +26,7 @@
     }
 
     &.bwnn.bwn {
-      transform: scale(0);
+      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
       filter: blur(10px);
       opacity: 0;
     }

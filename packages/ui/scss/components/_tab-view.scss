@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   tab-view {
@@ -40,7 +41,7 @@
   // grid-template: 'aside main' 1fr / 300px minmax(0, 1fr);
   // }
 
-  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+  @include mixins.if-ipad-landscape {
     // body:has(> tab-view) {
     //   grid-template-columns: 300px minmax(0px, 1fr);
     // }

@@ -26,7 +26,7 @@
   }
 
   [is='tab-bar'] {
-    @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+    @include mixins.if-iphone-portrait {
       max-width: var(--tab-bar-iphone-max-width);
       height: var(--tab-bar-iphone-height);
       // left: 50%;
@@ -40,7 +40,7 @@
   }
 
   [is='tab-bar'] {
-    @media (min-width: #{vars.$ipad-bp-min}) and (orientation: portrait) {
+    @include mixins.if-ipad-portrait {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
@@ -79,7 +79,7 @@
   }
 
   [is='tab-bar'] {
-    @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+    @include mixins.if-iphone-landscape {
       inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
         max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
 
@@ -95,7 +95,7 @@
   }
 
   [is='tab-bar'] {
-    @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    @include mixins.if-ipad-landscape {
       // grid-area: aside;
       // position: relative;
       // margin: 10px;

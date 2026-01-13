@@ -1,3 +1,5 @@
+@use 'vars';
+
 @mixin make-scrollable {
   & > * {
     grid-column: 1 / -1; // span all columns
@@ -58,5 +60,29 @@
       var(--primary-bg) 0,
       #0000 100%
     );
+  }
+}
+
+@mixin if-iphone-landscape {
+  @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-iphone-portrait {
+  @media (max-width: #{vars.$ipad-bp-max}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-landscape {
+  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-ipad-portrait {
+  @media (min-width: #{vars.$ipad-bp-min}) and (orientation: portrait) {
+    @content;
   }
 }

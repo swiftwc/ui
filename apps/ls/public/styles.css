@@ -85,9 +85,17 @@
     --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;
     --view-transition-duration: 500ms;
+    --pill-border-radius: 99999px;
+    --toolbar-col-gap: 0.6rem;
+    --toolbar-cell-bg: white;
+    --toolbar-cell-inline-padding: 0.3rem;
+    --toolbar-cell-block-padding: 0.3rem;
+    --toolbar-cell-border-radius: var(--pill-border-radius);
+    --toolbar-cell-focus-bg: lightpink;
+    --toolbar-cell-active-bg: gray;
   }
 }
-@layer base, components, transitions;
+@layer base, components, ui, transitions;
 @layer base {
   *,
   *::before,
@@ -181,15 +189,12 @@
     grid-template-rows: 1fr;
     grid-template-columns: minmax(0px, 1fr);
     grid-template-areas: "main";
-    will-change: grid-template;
   }
   @media (min-width: 1100px) and (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view),
-    tab-view body-view > scroll-view:not(dialog scroll-view) {
+    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view) {
       padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
     }
-    tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar,
-    tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+    tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       padding-inline-start: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
     }
   }
@@ -488,7 +493,8 @@
   ::part(toolbar-trailing-stack) {
     display: grid;
     grid-auto-flow: column;
-    column-gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--toolbar-col-gap);
   }
   @media (min-width: 600px) and (min-height: 450px) {
     [is=sheet-view] navigation-bar,
@@ -646,33 +652,47 @@
 }
 @layer components {
   tool-bar-item {
-    --component-bg: white;
-    --component-padding-inline: 5px;
-    --component-padding-block: 5px;
-    --component-border-radius: 99999px;
+    --component-bg: var(--toolbar-cell-bg);
+    --component-padding-inline: var(--toolbar-cell-inline-padding);
+    --component-padding-block: var(--toolbar-cell-block-padding);
+    --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
   }
   tool-bar-item button,
   tool-bar-item input {
+    appearance: none;
+    -webkit-appearance: none;
     border: var(--component-border-width);
     background-color: var(--component-bg);
     padding-inline: var(--component-padding-inline);
     padding-block: var(--component-padding-block);
     border-radius: var(--component-border-radius);
+    min-width: 25px;
   }
-  tool-bar-item button:active,
-  tool-bar-item input:active {
-    background-color: gray;
+  tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
+  tool-bar-item input:not(:disabled):not([readonly]):focus-visible {
+    background-color: var(--toolbar-cell-focus-bg);
+  }
+  @media (pointer: fine) {
+    tool-bar-item button:not(:disabled):not([readonly]):hover,
+    tool-bar-item input:not(:disabled):not([readonly]):hover {
+      background-color: var(--toolbar-cell-focus-bg);
+    }
+  }
+  tool-bar-item button:not(:disabled):not([readonly]):active,
+  tool-bar-item input:not(:disabled):not([readonly]):active {
+    background-color: var(--toolbar-cell-active-bg);
   }
 }
 @layer components {
   tool-bar-item-group {
     grid-auto-flow: column;
-    column-gap: 10px;
-    background-color: white;
-    padding-inline: 5px;
-    padding-block: 5px;
-    border-radius: 99999px;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--toolbar-col-gap);
+    background-color: var(--toolbar-cell-bg);
+    padding-inline: var(--toolbar-cell-inline-padding);
+    padding-block: var(--toolbar-cell-block-padding);
+    border-radius: var(--toolbar-cell-border-radius);
     border-width: 0;
   }
 }

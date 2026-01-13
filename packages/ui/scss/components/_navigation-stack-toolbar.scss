@@ -54,8 +54,9 @@
   ::part(toolbar-trailing-stack) {
     display: grid;
     grid-auto-flow: column;
+    grid-template-columns: minmax(0, 1fr);
 
-    column-gap: 10px;
+    column-gap: var(--toolbar-col-gap);
   }
 
   @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {

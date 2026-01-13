@@ -12,16 +12,16 @@
     // pointer-events: all;
 
     //
-    --component-bg: white;
-    --component-padding-inline: 5px;
-    --component-padding-block: 5px;
-    --component-border-radius: 99999px;
+    --component-bg: var(--toolbar-cell-bg);
+    --component-padding-inline: var(--toolbar-cell-inline-padding);
+    --component-padding-block: var(--toolbar-cell-block-padding);
+    --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
 
     button,
     input {
-      // appearance: none;
-      // -webkit-appearance: none;
+      appearance: none;
+      -webkit-appearance: none;
       // box-shadow: none;
       // outline: 0;
       border: var(--component-border-width);
@@ -29,9 +29,22 @@
       padding-inline: var(--component-padding-inline);
       padding-block: var(--component-padding-block);
       border-radius: var(--component-border-radius);
+      min-width: 25px; // NOTE: For inputs overflowing-x
 
-      &:active {
-        background-color: gray;
+      &:not(:disabled):not([readonly]) {
+        &:focus-visible {
+          background-color: var(--toolbar-cell-focus-bg);
+        }
+        // order matters! BEFORE active
+        @media (pointer: fine) {
+          &:hover {
+            background-color: var(--toolbar-cell-focus-bg);
+          }
+        }
+        // order matters! AFTER hover/fvisible
+        &:active {
+          background-color: var(--toolbar-cell-active-bg);
+        }
       }
     }
   }

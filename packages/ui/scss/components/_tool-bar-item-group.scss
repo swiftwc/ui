@@ -6,12 +6,13 @@
     // pointer-events: all;
 
     grid-auto-flow: column;
-    column-gap: 10px;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--toolbar-col-gap);
 
-    background-color: white;
-    padding-inline: 5px;
-    padding-block: 5px;
-    border-radius: 99999px;
+    background-color: var(--toolbar-cell-bg);
+    padding-inline: var(--toolbar-cell-inline-padding);
+    padding-block: var(--toolbar-cell-block-padding);
+    border-radius: var(--toolbar-cell-border-radius);
     border-width: 0;
 
     //

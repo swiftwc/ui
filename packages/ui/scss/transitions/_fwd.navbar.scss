@@ -1,12 +1,12 @@
 @use '../vars';
 
 @layer #{vars.$transitions-layer} {
-  // principal-stack > toolbar-item {
+  // principal-stack > tool-bar-item {
   //   position: absolute;
   //   transition: transform 2s ease-out;
   // }
 
-  // ::slotted(toolbar-item) {
+  // ::slotted(tool-bar-item) {
   //   background-color: red;
   // }
 
@@ -20,7 +20,7 @@
 
   
 
-  toolbar-item {
+  tool-bar-item {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
       transform: scale(0);

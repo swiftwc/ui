@@ -133,13 +133,13 @@
   body-view:has(> body-view) > scroll-view {
     transform: translateX(var(--view-transition-leading-x));
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > toolbar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > toolbar-item,
-  navigation-stack:has(> body-view) > navigation-bar > toolbar-item,
-  navigation-stack:has(> body-view) > bottom-bar > toolbar-item,
-  dialog:has(> body-view) > navigation-bar > toolbar-item,
-  dialog:has(> body-view) > bottom-bar > toolbar-item,
-  body-view:has(> body-view) > navigation-bar > toolbar-item,
-  body-view:has(> body-view) > bottom-bar > toolbar-item {
+  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item,
+  navigation-stack:has(> body-view) > navigation-bar > tool-bar-item,
+  navigation-stack:has(> body-view) > bottom-bar > tool-bar-item,
+  dialog:has(> body-view) > navigation-bar > tool-bar-item,
+  dialog:has(> body-view) > bottom-bar > tool-bar-item,
+  body-view:has(> body-view) > navigation-bar > tool-bar-item,
+  body-view:has(> body-view) > bottom-bar > tool-bar-item {
     transform: scale(0);
   }
 }
@@ -632,7 +632,7 @@
   }
 }
 @layer components {
-  toolbar-item {
+  tool-bar-item {
     background-color: red;
     padding: 5px;
     border-radius: 99999px;
@@ -651,7 +651,7 @@
     transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete;
     will-change: transform, padding-inline-start;
   }
-  toolbar-item {
+  tool-bar-item {
     transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
     will-change: transform, opacity, filter;
   }
@@ -692,21 +692,21 @@
     }
   }
 
-  toolbar-item {
+  tool-bar-item {
     view-transition-name: match-element;
-    view-transition-class: toolbar-item;
+    view-transition-class: tool-bar-item;
     // contain: paint;
   }
-  navigation-bar:not(:has(~ body-view)) > toolbar-item {
+  navigation-bar:not(:has(~ body-view)) > tool-bar-item {
     view-transition-name: match-element;
     view-transition-class: targeted-toolbar-items;
     // contain: layout;
     // background-color: red;
   } */
-  /* :root::view-transition-old(*.toolbar-item) {
+  /* :root::view-transition-old(*.tool-bar-item) {
     animation: var(--view-transition-duration) ease-out both shrink-to-tiny;
   }
-  :root::view-transition-new(*.toolbar-item) {
+  :root::view-transition-new(*.tool-bar-item) {
     animation: var(--view-transition-duration) ease-out both expand-from-tiny;
   }
   :root::view-transition-old(*.targeted-toolbar-items) {
@@ -748,41 +748,41 @@
   }
 }
 @layer transitions {
-  toolbar-item.fwn {
+  tool-bar-item.fwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
-  toolbar-item.fwnn {
+  tool-bar-item.fwnn {
     transform: scale(1);
     filter: none;
     opacity: 1;
   }
   @starting-style {
-    toolbar-item.fwnn {
+    tool-bar-item.fwnn {
       transform: scale(0);
       filter: blur(10px);
       opacity: 0;
     }
   }
-  toolbar-item.fwnn.fwn {
+  tool-bar-item.fwnn.fwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
 }
 @layer transitions {
-  toolbar-item.bwn {
+  tool-bar-item.bwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
-  toolbar-item.bwnn {
+  tool-bar-item.bwnn {
     transform: scale(1);
     filter: none;
     opacity: 1;
   }
-  toolbar-item.bwnn.bwn {
+  tool-bar-item.bwnn.bwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;

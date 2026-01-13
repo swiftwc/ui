@@ -1,7 +1,7 @@
 @use '../vars';
 
 @layer #{vars.$transitions-layer} {
-  toolbar-item {
+  tool-bar-item {
     &.bwn {
       transform: scale(0);
       filter: blur(10px);

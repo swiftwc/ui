@@ -92,7 +92,7 @@ export class Snapshot {
     return {
       frame: sv?.parentElement ?? undefined,
       toolbarItems: sv?.parentElement?.querySelectorAll(
-        `:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`
+        `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item`
       ),
     }
   }
@@ -173,7 +173,7 @@ export class Snapshot {
     //   : undefined
 
     // this.#childToolbarItems = this.#childFrame?.querySelectorAll(
-    //   `:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`
+    //   `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item`
     // )
   }
 }

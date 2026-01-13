@@ -26,8 +26,8 @@
       transform: translateX(var(--view-transition-leading-x));
     }
 
-    & > navigation-bar > toolbar-item,
-    & > bottom-bar > toolbar-item {
+    & > navigation-bar > tool-bar-item,
+    & > bottom-bar > tool-bar-item {
       transform: scale(0);
     }
   }

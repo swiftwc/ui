@@ -21,7 +21,7 @@
     will-change: transform, padding-inline-start;
   }
 
-  toolbar-item {
+  tool-bar-item {
     transition:
       transform var(--view-transition-duration) ease-out allow-discrete,
       opacity var(--view-transition-duration) ease-out allow-discrete,
@@ -84,12 +84,12 @@
     }
   }
 
-  toolbar-item {
+  tool-bar-item {
     view-transition-name: match-element;
-    view-transition-class: toolbar-item;
+    view-transition-class: tool-bar-item;
     // contain: paint;
   }
-  navigation-bar:not(:has(~ body-view)) > toolbar-item {
+  navigation-bar:not(:has(~ body-view)) > tool-bar-item {
     view-transition-name: match-element;
     view-transition-class: targeted-toolbar-items;
     // contain: layout;
@@ -109,10 +109,10 @@
   //   animation: var(--view-transition-duration) ease-out both slide-from-right;
   // }
   //
-  /* :root::view-transition-old(*.toolbar-item) {
+  /* :root::view-transition-old(*.tool-bar-item) {
     animation: var(--view-transition-duration) ease-out both shrink-to-tiny;
   }
-  :root::view-transition-new(*.toolbar-item) {
+  :root::view-transition-new(*.tool-bar-item) {
     animation: var(--view-transition-duration) ease-out both expand-from-tiny;
   }
   :root::view-transition-old(*.targeted-toolbar-items) {

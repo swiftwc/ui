@@ -47,7 +47,7 @@ document.body.addEventListener('click', async (event) => {
                       </v-stack>
                     </scroll-view>
                     <navigation-bar>
-                      <toolbar-item slot="leading">eeeeeeee${lm.querySelectorAll('scroll-view').length}</toolbar-item>
+                      <tool-bar-item slot="leading">eeeeeeee${lm.querySelectorAll('scroll-view').length}</tool-bar-item>
                     </navigation-bar>
                   </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `

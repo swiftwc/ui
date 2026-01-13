@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  toolbar-item {
+  tool-bar-item {
     background-color: red;
     padding: 5px;
     border-radius: 99999px;

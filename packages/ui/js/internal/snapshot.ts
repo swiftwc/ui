@@ -91,8 +91,8 @@ export class Snapshot {
   static #queryScrollViewRels = (sv?: Components.ScrollView) => {
     return {
       frame: sv?.parentElement ?? undefined,
-      toolbarItems: sv?.parentElement?.querySelectorAll(
-        `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item`
+      toolbarElements: sv?.parentElement?.querySelectorAll(
+        `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
       ),
     }
   }
@@ -125,7 +125,8 @@ export class Snapshot {
     //     'navigation-stack:not(:has(navigation-stack,navigation-split-view)),navigation-split-view'
     //   ) ?? undefined
 
-    const { frame, toolbarItems } = this.#queryScrollViewRels(scrollView)
+    const { frame, toolbarElements: toolbarItems } =
+      this.#queryScrollViewRels(scrollView)
     this.#container = frame
     this.#toolbarItems = toolbarItems
 
@@ -136,7 +137,7 @@ export class Snapshot {
         `:scope > scroll-view`
       ) ?? undefined //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
 
-    const { frame: parentFrame, toolbarItems: parentToolbarItems } =
+    const { frame: parentFrame, toolbarElements: parentToolbarItems } =
       this.#queryScrollViewRels(this.#parent)
     this.#parentContainer = parentFrame
     this.#parentToolbarItems = parentToolbarItems
@@ -149,7 +150,7 @@ export class Snapshot {
       ) ?? []),
     ]?.pop?.() //'navigation-stack:not([hidden]) scroll-view'
 
-    const { frame: leafFrame, toolbarItems: leafToolbarItems } =
+    const { frame: leafFrame, toolbarElements: leafToolbarItems } =
       this.#queryScrollViewRels(this.#leaf)
     this.#leafContainer = leafFrame
     this.#leafToolbarItems = leafToolbarItems

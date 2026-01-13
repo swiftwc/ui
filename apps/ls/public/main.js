@@ -47,7 +47,10 @@ document.body.addEventListener('click', async (event) => {
                       </v-stack>
                     </scroll-view>
                     <navigation-bar>
-                      <tool-bar-item slot="leading">eeeeeeee${lm.querySelectorAll('scroll-view').length}</tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button">aaaaaaaa${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button">bbbbbbbb${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button">gggggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button">gggggggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="trailing"><input type="search" value="sssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </navigation-bar>
                   </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `

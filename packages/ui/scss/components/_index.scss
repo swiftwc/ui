@@ -8,7 +8,9 @@
   tab-view,
   [is='tab-bar'],
   [is='full-screen'],
-  [is='sheet-view'] {
+  [is='sheet-view'],
+  tool-bar-item,
+  tool-bar-item-group {
     display: grid;
   }
 }

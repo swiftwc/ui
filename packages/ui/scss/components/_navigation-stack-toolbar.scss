@@ -15,8 +15,17 @@
     pointer-events: none;
 
     grid-template-columns: auto 1fr auto;
+
     place-items: center;
     place-content: center;
+    // align-items: stretch;
+    // justify-items: center;
+    // align-content: stretch;
+    // justify-content: center;
+
+    > * {
+      pointer-events: all;
+    }
   }
 
   navigation-bar {
@@ -45,6 +54,8 @@
   ::part(toolbar-trailing-stack) {
     display: grid;
     grid-auto-flow: column;
+
+    column-gap: 10px;
   }
 
   @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {

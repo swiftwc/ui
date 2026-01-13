@@ -3,10 +3,36 @@
 
 @layer #{vars.$components-layer} {
   tool-bar-item {
-    background-color: red;
-    padding: 5px;
-    border-radius: 99999px;
+    // background-color: red;
+    // padding: 5px;
+    // border-radius: 99999px;
 
-    pointer-events: all;
+    // height: 40px;
+
+    // pointer-events: all;
+
+    //
+    --component-bg: white;
+    --component-padding-inline: 5px;
+    --component-padding-block: 5px;
+    --component-border-radius: 99999px;
+    --component-border-width: 0;
+
+    button,
+    input {
+      // appearance: none;
+      // -webkit-appearance: none;
+      // box-shadow: none;
+      // outline: 0;
+      border: var(--component-border-width);
+      background-color: var(--component-bg);
+      padding-inline: var(--component-padding-inline);
+      padding-block: var(--component-padding-block);
+      border-radius: var(--component-border-radius);
+
+      &:active {
+        background-color: gray;
+      }
+    }
   }
 }

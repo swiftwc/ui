@@ -1,0 +1,36 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  tool-bar-item-group {
+    // pointer-events: all;
+
+    grid-auto-flow: column;
+    column-gap: 10px;
+
+    background-color: white;
+    padding-inline: 5px;
+    padding-block: 5px;
+    border-radius: 99999px;
+    border-width: 0;
+
+    //
+    // --component-bg: white;
+    // --component-padding-inline: 5px;
+    // --component-padding-block: 5px;
+    // --component-border-radius: 99999px;
+    // --component-border-width: 0;
+
+    // button {
+    //   // appearance: none;
+    //   // -webkit-appearance: none;
+    //   // box-shadow: none;
+    //   // outline: 0;
+    //   border: var(--component-border-width);
+    //   background-color: var(--component-bg);
+    //   padding-inline: var(--component-padding-inline);
+    //   padding-block: var(--component-padding-block);
+    //   border-radius: var(--component-border-radius);
+    // }
+  }
+}

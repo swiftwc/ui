@@ -133,13 +133,19 @@
   body-view:has(> body-view) > scroll-view {
     transform: translateX(var(--view-transition-leading-x));
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item,
+  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > navigation-bar > tool-bar-item,
   navigation-stack:has(> body-view) > bottom-bar > tool-bar-item,
+  navigation-stack:has(> body-view) > navigation-bar > tool-bar-item-group,
+  navigation-stack:has(> body-view) > bottom-bar > tool-bar-item-group,
   dialog:has(> body-view) > navigation-bar > tool-bar-item,
   dialog:has(> body-view) > bottom-bar > tool-bar-item,
+  dialog:has(> body-view) > navigation-bar > tool-bar-item-group,
+  dialog:has(> body-view) > bottom-bar > tool-bar-item-group,
   body-view:has(> body-view) > navigation-bar > tool-bar-item,
-  body-view:has(> body-view) > bottom-bar > tool-bar-item {
+  body-view:has(> body-view) > bottom-bar > tool-bar-item,
+  body-view:has(> body-view) > navigation-bar > tool-bar-item-group,
+  body-view:has(> body-view) > bottom-bar > tool-bar-item-group {
     transform: scale(0);
   }
 }
@@ -150,7 +156,9 @@
   tab-view,
   [is=tab-bar],
   [is=full-screen],
-  [is=sheet-view] {
+  [is=sheet-view],
+  tool-bar-item,
+  tool-bar-item-group {
     display: grid;
   }
 }
@@ -461,6 +469,10 @@
     place-items: center;
     place-content: center;
   }
+  navigation-bar > *,
+  bottom-bar > * {
+    pointer-events: all;
+  }
   navigation-bar {
     inset: 0 0 auto 0;
     height: calc(env(safe-area-inset-top) + var(--navigation-bar-height));
@@ -476,6 +488,7 @@
   ::part(toolbar-trailing-stack) {
     display: grid;
     grid-auto-flow: column;
+    column-gap: 10px;
   }
   @media (min-width: 600px) and (min-height: 450px) {
     [is=sheet-view] navigation-bar,
@@ -633,10 +646,34 @@
 }
 @layer components {
   tool-bar-item {
-    background-color: red;
-    padding: 5px;
+    --component-bg: white;
+    --component-padding-inline: 5px;
+    --component-padding-block: 5px;
+    --component-border-radius: 99999px;
+    --component-border-width: 0;
+  }
+  tool-bar-item button,
+  tool-bar-item input {
+    border: var(--component-border-width);
+    background-color: var(--component-bg);
+    padding-inline: var(--component-padding-inline);
+    padding-block: var(--component-padding-block);
+    border-radius: var(--component-border-radius);
+  }
+  tool-bar-item button:active,
+  tool-bar-item input:active {
+    background-color: gray;
+  }
+}
+@layer components {
+  tool-bar-item-group {
+    grid-auto-flow: column;
+    column-gap: 10px;
+    background-color: white;
+    padding-inline: 5px;
+    padding-block: 5px;
     border-radius: 99999px;
-    pointer-events: all;
+    border-width: 0;
   }
 }
 @layer components {
@@ -651,7 +688,8 @@
     transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete;
     will-change: transform, padding-inline-start;
   }
-  tool-bar-item {
+  tool-bar-item,
+  tool-bar-item-group {
     transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
     will-change: transform, opacity, filter;
   }
@@ -748,41 +786,48 @@
   }
 }
 @layer transitions {
-  tool-bar-item.fwn {
+  tool-bar-item.fwn,
+  tool-bar-item-group.fwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
-  tool-bar-item.fwnn {
+  tool-bar-item.fwnn,
+  tool-bar-item-group.fwnn {
     transform: scale(1);
     filter: none;
     opacity: 1;
   }
   @starting-style {
-    tool-bar-item.fwnn {
+    tool-bar-item.fwnn,
+    tool-bar-item-group.fwnn {
       transform: scale(0);
       filter: blur(10px);
       opacity: 0;
     }
   }
-  tool-bar-item.fwnn.fwn {
+  tool-bar-item.fwnn.fwn,
+  tool-bar-item-group.fwnn.fwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
 }
 @layer transitions {
-  tool-bar-item.bwn {
+  tool-bar-item.bwn,
+  tool-bar-item-group.bwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;
   }
-  tool-bar-item.bwnn {
+  tool-bar-item.bwnn,
+  tool-bar-item-group.bwnn {
     transform: scale(1);
     filter: none;
     opacity: 1;
   }
-  tool-bar-item.bwnn.bwn {
+  tool-bar-item.bwnn.bwn,
+  tool-bar-item-group.bwnn.bwn {
     transform: scale(0);
     filter: blur(10px);
     opacity: 0;

@@ -6,21 +6,22 @@ $components-layer: components !default;
 $ui-layer: ui !default;
 $actions-layer: actions !default;
 $transitions-layer: transitions !default;
+$final-layer: final !default;
 
 $vt-fwd-class-name: fwd !default;
 
-$ipad-sheet-view-width: 600px !default;
 // $ipad-sheet-view-width: 300px !default;
+$ipad-sheet-view-width: 600px !default;
 
 $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
 
 $sidebar-transition-duration: 250ms !default;
 
-$ipad-portrait-bp: 700px !default;
 // $ipad-portrait-bp: 400px !default;
+$ipad-portrait-bp: 700px !default;
 
-$ipad-landscape-bp: 1100px !default;
 // $ipad-landscape-bp: 700px !default;
+$ipad-landscape-bp: 1100px !default;
 
 // computed
 

@@ -9,7 +9,7 @@
     // background-color: blue;
     box-shadow: inset 0 0 4px red;
 
-    padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
+    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
     pointer-events: none;
 
@@ -24,6 +24,7 @@
 
     > * {
       pointer-events: all;
+
       align-self: center;
     }
   }
@@ -64,16 +65,20 @@
     [is='sheet-view'] {
       navigation-bar,
       bottom-bar {
-        padding-inline: 0;
+        --safe-area-inset-left: 0px;
+        --safe-area-inset-right: 0px;
+        // padding-inline: 0;
       }
 
       navigation-bar {
-        padding-block-start: 0;
-        height: var(--navigation-bar-height);
+        --safe-area-inset-top: 0px;
+        // padding-block-start: 0;
+        // height: var(--navigation-bar-height);
       }
 
       bottom-bar {
-        padding-block-end: 0;
+        --safe-area-inset-bottom: 0px;
+        // padding-block-end: 0;
       }
     }
   }

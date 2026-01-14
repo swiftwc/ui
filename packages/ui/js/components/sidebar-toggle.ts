@@ -1,6 +1,12 @@
+import { type TabView } from './tab-view'
+
 export class SidebarToggle extends HTMLElement {
   #ro
   // #io
+
+  static get cssVarPaddingName() {
+    return '--tabview-padding-inline-start'
+  }
 
   constructor() {
     super()
@@ -32,11 +38,42 @@ export class SidebarToggle extends HTMLElement {
   #autoCloseTabBar() {
     console.debug('#autoCloseTabBar')
 
+    const navbarToggle = document.querySelector<HTMLElement>(
+      'tab-view > sidebar-toggle'
+    )
+
+    const width = navbarToggle?.offsetWidth ?? 0
+
+    if (0 < width) {
+      const gapProp = navbarToggle
+          ? getComputedStyle(navbarToggle).getPropertyValue('--toolbar-col-gap')
+          : '0',
+        gap =
+          parseFloat(gapProp) *
+          (gapProp.endsWith('rem')
+            ? parseFloat(getComputedStyle(document.documentElement).fontSize)
+            : 1)
+
+      navbarToggle
+        ?.closest<TabView>('tab-view')
+        ?.style?.setProperty?.(
+          (this.constructor as typeof SidebarToggle).cssVarPaddingName,
+          `${width + gap}px`
+        )
+    } else {
+      navbarToggle
+        ?.closest<TabView>('tab-view')
+        ?.style?.removeProperty?.(
+          (this.constructor as typeof SidebarToggle).cssVarPaddingName
+        )
+    }
+
     const tabBar =
       document.querySelector<HTMLDialogElement>('dialog[is=tab-bar]')
 
     if (!tabBar?.open) return
 
+    // scan all toggles for anyone that is visible, sign that sidebar should stay open
     const isAnyVisible = [
       ...document.querySelectorAll<HTMLElement>('sidebar-toggle'),
     ].some(

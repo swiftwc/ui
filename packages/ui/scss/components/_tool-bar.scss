@@ -49,7 +49,10 @@
 
     > span {
       &::before {
-        width: var(--navbar-padding-inline-start);
+        width: calc(
+          var(--navbar-padding-inline-start) +
+            var(--tabview-padding-inline-start, 0px)
+        );
       }
 
       &::after {

@@ -3,7 +3,7 @@
 
 @layer #{vars.$components-layer} {
   tab-view {
-    grid-area: main;
+    // grid-area: main;
     grid-template-columns: subgrid; // inherits columns from container
     grid-template-rows: subgrid; // inherits rows if needed
   }
@@ -32,7 +32,7 @@
     // grid-template: 'aside main' 1fr / 0px minmax(0, 1fr);
     grid-template-rows: 1fr;
     grid-template-columns: minmax(0px, 1fr);
-    grid-template-areas: 'main';
+    // grid-template-areas: 'main';
     // will-change: grid-template;
     // transition: grid-template 750ms ease;
   }
@@ -71,6 +71,18 @@
           env(safe-area-inset-bottom),
           var(--tab-bar-sidebar-spacing)
         );
+      }
+    }
+  }
+
+  @include mixins.if-iphone-landscape {
+    scroll-view:not(dialog scroll-view) {
+      // tab-view navigation-stack > &,
+      // tab-view navigation-split-view > &,
+      // tab-view body-view > &,
+      tab-view & ~ navigation-bar,
+      tab-view & ~ bottom-bar {
+        --safe-area-inset-left: var(--tabview-padding-inline-start, 0px);
       }
     }
   }

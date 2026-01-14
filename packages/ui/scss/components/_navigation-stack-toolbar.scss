@@ -16,8 +16,8 @@
 
     grid-template-columns: auto 1fr auto;
 
-    place-items: center;
-    place-content: center;
+    // place-items: center;
+    // place-content: center;
     // align-items: stretch;
     // justify-items: center;
     // align-content: stretch;
@@ -25,6 +25,7 @@
 
     > * {
       pointer-events: all;
+      align-self: center;
     }
   }
 
@@ -53,6 +54,7 @@
   ::part(toolbar-principal-stack),
   ::part(toolbar-trailing-stack) {
     display: grid;
+
     grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr);
 

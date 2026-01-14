@@ -5,14 +5,20 @@
   tab-view > sidebar-toggle,
   dialog[is='tab-bar'] > sidebar-toggle {
     display: grid;
+
     background-color: coral;
   }
 
   tab-view > sidebar-toggle {
     position: fixed;
-    inset: var(--safe-area-inset-top) auto auto var(--safe-area-inset-left);
-    width: 100px;
-    height: 100px;
+
+    inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
+      auto var(--safe-area-inset-left);
+    // width: 100px;
+    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+
+    place-items: center;
+    place-content: center;
   }
 
   @include mixins.if-iphone-portrait {

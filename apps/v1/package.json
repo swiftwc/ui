@@ -1,6 +1,6 @@
 {
   "private": true,
-  "name": "@swiftwc/ls",
+  "name": "@swiftwc/v1",
   "type": "module",
   "scripts": {
     "start": "vite",

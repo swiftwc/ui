@@ -81,7 +81,7 @@ export class NavigationBar extends HTMLElement {
       `${NavigationBar.name} ⚡️ resize observer callback: ${this.#measureStacks.name}`
     )
 
-    for (const { contentRect, target } of entries)
+    for (const { contentRect, target } of entries) {
       if (
         target.part.contains(
           (this.constructor as typeof NavigationBar).leadingPartName
@@ -94,6 +94,7 @@ export class NavigationBar extends HTMLElement {
         )
       )
         this.#ep = Math.round(contentRect.width)
+    }
   }
 
   connectedCallback() {

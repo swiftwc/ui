@@ -548,22 +548,12 @@
       --safe-area-inset-left: 0px;
     }
     navigation-split-view[visibility=three-column] {
-      padding-inline-start: calc(var(--tab-bar-sidebar-width) + max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
-    }
-    navigation-split-view[visibility=three-column] > scroll-view {
-      --surface-bg: #ffffff9e;
-      --safe-area-inset-top: 0px;
-      --safe-area-inset-bottom: 0px;
-      border-radius: var(--tab-bar-sidebar-border-radius);
-      margin: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) 0px max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
-    }
-    navigation-split-view[visibility=three-column] > scroll-view {
-      width: var(--tab-bar-sidebar-width);
-      transform: translateX(calc((var(--tab-bar-sidebar-width) + max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing))) * -1)) !important;
+      padding-inline-start: calc(320px + max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
     }
     navigation-split-view[visibility=three-column] > scroll-view,
     navigation-split-view[visibility=three-column] > navigation-bar,
     navigation-split-view[visibility=three-column] > bottom-bar {
+      width: 320px;
       --safe-area-inset-left: 0px;
     }
     navigation-split-view[visibility=three-column] > body-view {
@@ -575,6 +565,13 @@
       width: 400px;
       --safe-area-inset-right: 0px;
     }
+    navigation-split-view[visibility=three-column] > scroll-view {
+      --surface-bg: #ffffff9e;
+      --safe-area-inset-top: 0px;
+      --safe-area-inset-bottom: 0px;
+      border-radius: var(--tab-bar-sidebar-border-radius);
+      margin: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) 0px max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+    }
   }
 }
 @layer final {
@@ -583,6 +580,13 @@
     navigation-split-view > navigation-bar,
     navigation-split-view > bottom-bar {
       transform: translateX(-400px);
+    }
+    navigation-split-view[visibility=three-column] > scroll-view {
+      transform: translateX(calc(-320px - max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing))));
+    }
+    navigation-split-view[visibility=three-column] > navigation-bar,
+    navigation-split-view[visibility=three-column] > bottom-bar {
+      transform: translateX(-320px);
     }
     navigation-split-view[visibility=three-column] > body-view > scroll-view,
     navigation-split-view[visibility=three-column] > body-view > navigation-bar,

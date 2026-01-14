@@ -10,6 +10,9 @@ $final-layer: final !default;
 
 $vt-fwd-class-name: fwd !default;
 
+$nav-split-view-sidebar-width: 320px !default;
+$nav-split-view-content-width: 400px !default;
+
 // $ipad-sheet-view-width: 300px !default;
 $ipad-sheet-view-width: 600px !default;
 
@@ -34,6 +37,11 @@ $ipad-sheet-view-height: math.div(
   $ipad-sheet-view-width,
   $ipad-sheet-view-aspect-ratio
 ); //4/3
+
+$twocol-nav-split-view-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
+$twocol-nav-split-view-bp-min: $ipad-landscape-bp;
+$threecol-nav-split-view-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
+$threecol-nav-split-view-bp-min: $ipad-landscape-bp;
 
 @debug $ipad-portrait-bp-max;
 

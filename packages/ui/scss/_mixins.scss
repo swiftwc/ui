@@ -99,3 +99,15 @@
     @content;
   }
 }
+
+@mixin if-2col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-content-width}) {
+    @content;
+  }
+}
+
+@mixin ifnot-2col-split-view-fits {
+  @media (max-width: #{vars.$nav-split-view-content-width}) {
+    @content;
+  }
+}

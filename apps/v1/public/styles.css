@@ -79,7 +79,8 @@
     --tab-bar-sidebar-spacing: 1rem;
     --navigation-bar-height: 4rem;
     --primary-bg: aliceblue;
-    --view-transition-leading-x: -70%;
+    --secondary-bg: burlywood;
+    --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
     --view-transition-toolbar-cell-onscreen-scale: 1;
@@ -320,6 +321,9 @@
       left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       --tabview-padding-inline-start: 0px !important;
     }
+    [is=tab-bar][open] > scroll-view {
+      --surface-bg: #ffffff9e;
+    }
   }
   @media (min-width: 1100px) and (orientation: landscape) {
     [is=tab-bar] {
@@ -520,6 +524,33 @@
     touch-action: none;
     height: var(--100lvh, 100lvh);
   }
+  @media (max-width: 699.99px) and (orientation: portrait) {
+    navigation-split-view body-view ~ scroll-view {
+      z-index: -1;
+    }
+    navigation-split-view[visibility=three-column] > body-view > body-view ~ scroll-view {
+      z-index: -1;
+    }
+  }
+  @media (min-width: 700px) and (orientation: portrait), (orientation: landscape) {
+    navigation-split-view {
+      padding-inline-start: 400px;
+    }
+    navigation-split-view[visibility=three-column] > scroll-view {
+      --surface-bg: aquamarine;
+    }
+    navigation-split-view[visibility=three-column] > body-view {
+      padding-inline-start: 400px;
+    }
+    navigation-split-view[visibility=three-column] > body-view > scroll-view {
+      width: 400px;
+      transform: translateX(-400px) !important;
+    }
+    navigation-split-view > scroll-view {
+      width: 400px;
+      transform: translateX(-400px) !important;
+    }
+  }
 }
 @layer components {
   navigation-bar,
@@ -576,6 +607,15 @@
   }
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
+  body-view > scroll-view {
+    --surface-bg: var(--primary-bg);
+  }
+  [is=full-screen] > scroll-view,
+  [is=sheet-view] > scroll-view {
+    --surface-bg: var(--secondary-bg);
+  }
+  navigation-stack > scroll-view,
+  navigation-split-view > scroll-view,
   body-view > scroll-view,
   [is=full-screen] > scroll-view,
   [is=sheet-view] > scroll-view {
@@ -585,7 +625,7 @@
     -webkit-overflow-scrolling: touch;
     padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
     container: scroll-view/inline-size;
-    background-color: var(--primary-bg);
+    background-color: var(--surface-bg);
     padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
   }
   navigation-stack > scroll-view > *,
@@ -608,13 +648,6 @@
     height: calc(100% + 1px); /* creates overflow */
     z-index: -1;
     pointer-events: none;
-  }
-  navigation-split-view {
-    padding-inline-start: 400px;
-  }
-  navigation-split-view > scroll-view {
-    width: 400px;
-    transform: translateX(-400px) !important;
   }
   @media (min-width: 600px) and (min-height: 450px) {
     [is=sheet-view] scroll-view {
@@ -685,7 +718,7 @@
     mask-image: linear-gradient(to bottom, #000 50%, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=navigation-bar]:after {
-    background-image: linear-gradient(to bottom, var(--primary-bg) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, var(--surface-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=bottom-bar] {
     top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
@@ -712,7 +745,7 @@
     mask-image: linear-gradient(to top, #000 50%, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=bottom-bar]:after {
-    background-image: linear-gradient(to top, var(--primary-bg) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to top, var(--surface-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
 }
 @layer components {
@@ -782,7 +815,7 @@
   }
 }
 @layer transitions {
-  scroll-view {
+  scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
     transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete;
     will-change: transform, padding-inline-start;
   }

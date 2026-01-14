@@ -64,7 +64,7 @@
   &:after {
     background-image: linear-gradient(
       to #{$dir},
-      var(--primary-bg) 0,
+      var(--surface-bg) 0,
       #0000 100%
     );
   }

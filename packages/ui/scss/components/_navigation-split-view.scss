@@ -7,5 +7,55 @@
     height: var(--100lvh, 100lvh);
     // height: 100lvh;
     // overflow: clip;
+
+    @media (max-width: #{vars.$ipad-portrait-bp-max}) and (orientation: portrait) {
+      body-view ~ scroll-view {
+        z-index: -1;
+      }
+
+      &[visibility='three-column'] > body-view > body-view ~ scroll-view {
+        z-index: -1;
+      }
+    }
+
+    @media (min-width: #{vars.$ipad-portrait-bp-min}) and (orientation: portrait),(orientation: landscape) {
+      padding-inline-start: 400px;
+
+      // grid-template-columns: 400 minmax(0, 1fr);
+      // > * {
+      // grid-column: auto !important;
+      // grid-row: auto !important;
+      // }
+
+      // > body-view {
+      //   overflow: clip;
+      // }
+
+      &[visibility='three-column'] > scroll-view {
+        --surface-bg: aquamarine;
+      }
+
+      &[visibility='three-column'] > body-view {
+        padding-inline-start: 400px;
+      }
+      &[visibility='three-column'] > body-view > scroll-view {
+        width: 400px;
+        transform: translateX(-400px) !important;
+      }
+
+      > scroll-view {
+        // inset: 0 auto 0 0;
+        width: 400px;
+        // height: 100lvh;
+        // transform: none !important;
+        transform: translateX(-400px) !important;
+        // width: 400px !important;
+
+        // z-index: 1;
+
+        // grid-column: 1 !important;
+        // grid-row: 1 !important;
+      }
+    }
   }
 }

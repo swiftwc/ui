@@ -2,7 +2,8 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  tool-bar-item {
+  tool-bar-item,
+  tab-item {
     // background-color: red;
     // padding: 5px;
     // border-radius: 99999px;
@@ -31,6 +32,30 @@
       border-radius: var(--component-border-radius);
       min-width: 25px; // NOTE: For inputs overflowing-x
 
+      // &:not(:disabled):not([readonly]) {
+      //   &:focus-visible {
+      //     background-color: var(--toolbar-cell-focus-bg);
+      //   }
+      //   // order matters! BEFORE active
+      //   @media (pointer: fine) {
+      //     &:hover {
+      //       background-color: var(--toolbar-cell-focus-bg);
+      //     }
+      //   }
+      //   // order matters! AFTER hover/fvisible
+      //   &:active {
+      //     background-color: var(--toolbar-cell-active-bg);
+      //   }
+      // }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  tool-bar-item,
+  tab-item {
+    button,
+    input {
       &:not(:disabled):not([readonly]) {
         &:focus-visible {
           background-color: var(--toolbar-cell-focus-bg);
@@ -41,7 +66,17 @@
             background-color: var(--toolbar-cell-focus-bg);
           }
         }
-        // order matters! AFTER hover/fvisible
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  tool-bar-item,
+  tab-item {
+    button,
+    input {
+      &:not(:disabled):not([readonly]) {
         &:active {
           background-color: var(--toolbar-cell-active-bg);
         }

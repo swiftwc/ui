@@ -4,6 +4,7 @@
 $base-layer: base !default;
 $components-layer: components !default;
 $ui-layer: ui !default;
+$actions-layer: actions !default;
 $transitions-layer: transitions !default;
 
 $vt-fwd-class-name: fwd !default;
@@ -18,8 +19,8 @@ $sidebar-transition-duration: 250ms !default;
 $ipad-portrait-bp: 700px !default;
 // $ipad-portrait-bp: 400px !default;
 
-// $ipad-landscape-bp: 700px !default;
 $ipad-landscape-bp: 1100px !default;
+// $ipad-landscape-bp: 700px !default;
 
 // computed
 

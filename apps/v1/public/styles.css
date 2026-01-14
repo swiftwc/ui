@@ -98,7 +98,7 @@
     --toolbar-cell-active-bg: gray;
   }
 }
-@layer base, components, ui, transitions;
+@layer base, components, ui, actions, transitions;
 @layer base {
   *,
   *::before,
@@ -177,7 +177,13 @@
   [is=full-screen],
   [is=sheet-view],
   tool-bar-item,
-  tool-bar-item-group {
+  tool-bar-item-group,
+  sidebar-toggle,
+  navigation-bar,
+  bottom-bar,
+  tab-bar-stack,
+  v-stack,
+  tool-bar {
     display: grid;
   }
 }
@@ -273,6 +279,9 @@
       transform: translateX(-50%);
       grid-auto-flow: column;
     }
+    [is=tab-bar]:not([open]) tool-bar {
+      display: none;
+    }
   }
   @media (min-width: 700px) and (orientation: portrait) {
     [is=tab-bar] {
@@ -282,6 +291,9 @@
       transform: translateX(-50%);
       border-radius: var(--tab-bar-ipad-border-radius);
       grid-auto-flow: column;
+    }
+    [is=tab-bar]:not([open]) tool-bar {
+      display: none;
     }
     [is=tab-bar][open] {
       inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
@@ -294,6 +306,8 @@
     [is=tab-bar][open] > * {
       grid-column: 1/-1;
       grid-row: 1/-1;
+      --safe-area-inset-top: 0px !important;
+      --safe-area-inset-bottom: 0px !important;
     }
   }
   @media (max-width: 1099.99px) and (orientation: landscape) {
@@ -304,6 +318,7 @@
     }
     [is=tab-bar][open] {
       left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      --tabview-padding-inline-start: 0px !important;
     }
   }
   @media (min-width: 1100px) and (orientation: landscape) {
@@ -316,9 +331,6 @@
   }
 }
 @layer components {
-  tab-bar-stack {
-    display: grid;
-  }
   @media (max-width: 699.99px) and (orientation: portrait) {
     [is=tab-bar] > scroll-view {
       grid-auto-flow: column;
@@ -331,17 +343,21 @@
   @media (min-width: 700px) and (orientation: portrait) {
     tab-bar-stack {
       grid-auto-flow: column;
+    }
+    [is=tab-bar][open] tab-bar-stack {
+      grid-auto-flow: row;
+    }
+    [is=tab-bar]:not([open]) tab-bar-stack {
       margin-block: 0 !important;
     }
     [is=tab-bar] > scroll-view {
-      grid-auto-flow: column;
-      overflow-y: auto clip;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      grid-auto-flow: column;
+      overflow: auto clip;
     }
     [is=tab-bar][open] > scroll-view {
       grid-auto-flow: row;
-      padding-block-start: 30px;
       overflow: clip auto;
     }
     [is=tab-bar][open] > scroll-view > * {
@@ -357,9 +373,6 @@
       z-index: -1;
       pointer-events: none;
     }
-    [is=tab-bar][open] > scroll-view tab-bar-stack {
-      grid-auto-flow: row;
-    }
   }
   @media (max-width: 1099.99px) and (orientation: landscape) {
     [is=tab-bar] > scroll-view {
@@ -403,20 +416,18 @@
   }
 }
 @layer components {
-  tab-view > sidebar-toggle,
-  dialog[is=tab-bar] > sidebar-toggle {
-    display: grid;
+  sidebar-toggle {
     background-color: coral;
+    place-items: center;
+    place-content: center;
   }
   tab-view > sidebar-toggle {
     position: fixed;
     inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto var(--safe-area-inset-left);
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
-    place-items: center;
-    place-content: center;
   }
   @media (max-width: 699.99px) and (orientation: portrait) {
-    dialog[is=tab-bar] > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle {
       display: none;
     }
     tab-view > sidebar-toggle {
@@ -424,27 +435,26 @@
     }
   }
   @media (min-width: 700px) and (orientation: portrait) {
-    dialog[is=tab-bar] > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle {
       width: 30px;
       order: -1;
     }
-    dialog[is=tab-bar][open] > sidebar-toggle {
+    [is=tab-bar][open] > sidebar-toggle {
       position: sticky;
-      left: 0;
-      top: 0;
-      height: 30px;
+      inset: 0 auto auto 0;
+      height: var(--navigation-bar-height);
     }
     tab-view > sidebar-toggle {
       display: none;
     }
   }
   @media (max-width: 1099.99px) and (orientation: landscape) {
-    dialog[is=tab-bar] > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle {
       display: none;
     }
   }
   @media (min-width: 1100px) and (orientation: landscape) {
-    dialog[is=tab-bar] > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle {
       display: none;
     }
     tab-view > sidebar-toggle {
@@ -514,7 +524,6 @@
 @layer components {
   navigation-bar,
   bottom-bar {
-    display: grid;
     position: absolute;
     box-shadow: inset 0 0 4px red;
     padding-inline: var(--safe-area-inset-left) env(safe-area-inset-right);
@@ -616,7 +625,6 @@
 }
 @layer components {
   v-stack {
-    display: grid;
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
     box-shadow: inset 0 0 0 2px magenta;
@@ -627,7 +635,6 @@
   tool-bar {
     position: sticky;
     width: 100%;
-    display: grid;
     place-items: center;
     place-content: center;
     pointer-events: none;
@@ -660,10 +667,10 @@
     transform: translateY(calc(var(--safe-area-inset-top) * -1));
   }
   tool-bar[slot=navigation-bar] > span::before {
-    width: calc(var(--navbar-padding-inline-start) + var(--tabview-padding-inline-start, 0px));
+    width: calc(var(--navbar-padding-inline-start, 0px) + var(--tabview-padding-inline-start, 0px));
   }
   tool-bar[slot=navigation-bar] > span::after {
-    width: var(--navbar-padding-inline-end);
+    width: var(--navbar-padding-inline-end, 0px);
   }
   tool-bar[slot=navigation-bar]:before, tool-bar[slot=navigation-bar]:after {
     backface-visibility: hidden;
@@ -709,7 +716,8 @@
   }
 }
 @layer components {
-  tool-bar-item {
+  tool-bar-item,
+  tab-item {
     --component-bg: var(--toolbar-cell-bg);
     --component-padding-inline: var(--toolbar-cell-inline-padding);
     --component-padding-block: var(--toolbar-cell-block-padding);
@@ -717,7 +725,9 @@
     --component-border-width: 0;
   }
   tool-bar-item button,
-  tool-bar-item input {
+  tool-bar-item input,
+  tab-item button,
+  tab-item input {
     appearance: none;
     -webkit-appearance: none;
     border: var(--component-border-width);
@@ -727,18 +737,28 @@
     border-radius: var(--component-border-radius);
     min-width: 25px;
   }
+}
+@layer ui {
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
-  tool-bar-item input:not(:disabled):not([readonly]):focus-visible {
+  tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
+  tab-item button:not(:disabled):not([readonly]):focus-visible,
+  tab-item input:not(:disabled):not([readonly]):focus-visible {
     background-color: var(--toolbar-cell-focus-bg);
   }
   @media (pointer: fine) {
     tool-bar-item button:not(:disabled):not([readonly]):hover,
-    tool-bar-item input:not(:disabled):not([readonly]):hover {
+    tool-bar-item input:not(:disabled):not([readonly]):hover,
+    tab-item button:not(:disabled):not([readonly]):hover,
+    tab-item input:not(:disabled):not([readonly]):hover {
       background-color: var(--toolbar-cell-focus-bg);
     }
   }
+}
+@layer ui {
   tool-bar-item button:not(:disabled):not([readonly]):active,
-  tool-bar-item input:not(:disabled):not([readonly]):active {
+  tool-bar-item input:not(:disabled):not([readonly]):active,
+  tab-item button:not(:disabled):not([readonly]):active,
+  tab-item input:not(:disabled):not([readonly]):active {
     background-color: var(--toolbar-cell-active-bg);
   }
 }

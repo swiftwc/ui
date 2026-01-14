@@ -1,14 +1,21 @@
 @use 'vars';
 
+@mixin span-all {
+  grid-column: 1 / -1; // span all columns
+  grid-row: 1 / -1; // span all rows
+}
+
 @mixin make-scrollable {
   & > * {
-    grid-column: 1 / -1; // span all columns
-    grid-row: 1 / -1; // span all rows
+    @include span-all;
+    // grid-column: 1 / -1; // span all columns
+    // grid-row: 1 / -1; // span all rows
   }
 
   &::before {
-    grid-column: 1 / -1; // span all columns
-    grid-row: 1 / -1; // span all rows
+    @include span-all;
+    // grid-column: 1 / -1; // span all columns
+    // grid-row: 1 / -1; // span all rows
     content: '';
     display: block;
     height: calc(100% + 1px); /* creates overflow */

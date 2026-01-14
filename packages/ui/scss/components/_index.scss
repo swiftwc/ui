@@ -11,7 +11,13 @@
   [is='full-screen'],
   [is='sheet-view'],
   tool-bar-item,
-  tool-bar-item-group {
+  tool-bar-item-group,
+  sidebar-toggle,
+  navigation-bar,
+  bottom-bar,
+  tab-bar-stack,
+  v-stack,
+  tool-bar {
     display: grid;
   }
 }

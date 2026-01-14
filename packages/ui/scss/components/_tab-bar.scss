@@ -23,9 +23,8 @@
     bottom-bar {
       padding-inline: 0;
     }
-  }
 
-  [is='tab-bar'] {
+    // [is='tab-bar'] {
     @include mixins.if-iphone-portrait {
       max-width: var(--tab-bar-iphone-max-width);
       height: var(--tab-bar-iphone-height);
@@ -36,10 +35,16 @@
       transform: translateX(-50%);
       //
       grid-auto-flow: column;
-    }
-  }
 
-  [is='tab-bar'] {
+      &:not([open]) {
+        tool-bar {
+          display: none;
+        }
+      }
+    }
+    // }
+
+    // [is='tab-bar'] {
     @include mixins.if-ipad-portrait {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
@@ -53,6 +58,12 @@
       grid-auto-flow: column;
 
       // transition: all 250ms ease-out allow-discrete;
+
+      &:not([open]) {
+        tool-bar {
+          display: none;
+        }
+      }
 
       &[open] {
         // @include mixins.make-navbar;
@@ -71,16 +82,18 @@
         grid-auto-flow: row;
 
         & > * {
-          grid-column: 1 / -1; // span all columns
-          grid-row: 1 / -1; // span all rows
+          @include mixins.span-all;
+
+          --safe-area-inset-top: 0px !important; // reset navbar > span
+          --safe-area-inset-bottom: 0px !important; // reset navbar > span
         }
 
         // animation: slide-in 250ms ease-out forwards;
       }
     }
-  }
+    // }
 
-  [is='tab-bar'] {
+    // [is='tab-bar'] {
     @include mixins.if-iphone-landscape {
       inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
         auto
@@ -93,11 +106,13 @@
       &[open] {
         left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
         // transform: translateX(0);
+
+        --tabview-padding-inline-start: 0px !important; // override tab-view prop
       }
     }
-  }
+    // }
 
-  [is='tab-bar'] {
+    // [is='tab-bar'] {
     @include mixins.if-ipad-landscape {
       // grid-area: aside;
       // position: relative;

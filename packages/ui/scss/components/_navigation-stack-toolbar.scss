@@ -4,7 +4,6 @@
 @layer #{vars.$components-layer} {
   navigation-bar,
   bottom-bar {
-    display: grid;
     position: absolute;
 
     // background-color: blue;

@@ -2,27 +2,24 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  tab-view > sidebar-toggle,
-  dialog[is='tab-bar'] > sidebar-toggle {
-    display: grid;
-
+  sidebar-toggle {
     background-color: coral;
-  }
-
-  tab-view > sidebar-toggle {
-    position: fixed;
-
-    inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
-      auto var(--safe-area-inset-left);
-    // width: 100px;
-    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
 
     place-items: center;
     place-content: center;
+
+    tab-view > & {
+      position: fixed;
+
+      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
+        auto var(--safe-area-inset-left);
+      // width: 100px;
+      height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+    }
   }
 
   @include mixins.if-iphone-portrait {
-    dialog[is='tab-bar'] > sidebar-toggle {
+    [is='tab-bar'] > sidebar-toggle {
       display: none;
     }
 
@@ -33,7 +30,7 @@
 
   @include mixins.if-ipad-portrait {
     sidebar-toggle {
-      dialog[is='tab-bar'] > & {
+      [is='tab-bar'] > & {
         // position: sticky;
         // left: 0;
         // top: 0;
@@ -41,27 +38,26 @@
         order: -1;
       }
 
-      dialog[is='tab-bar'][open] > & {
+      [is='tab-bar'][open] > & {
         position: sticky;
-        left: 0;
-        top: 0;
-        height: 30px;
+        inset: 0 auto auto 0;
+        height: var(--navigation-bar-height);
       }
-    }
 
-    tab-view > sidebar-toggle {
-      display: none;
+      tab-view > & {
+        display: none;
+      }
     }
   }
 
   @include mixins.if-iphone-landscape {
-    dialog[is='tab-bar'] > sidebar-toggle {
+    [is='tab-bar'] > sidebar-toggle {
       display: none;
     }
   }
 
   @include mixins.if-ipad-landscape {
-    dialog[is='tab-bar'] > sidebar-toggle {
+    [is='tab-bar'] > sidebar-toggle {
       display: none;
     }
     tab-view > sidebar-toggle {

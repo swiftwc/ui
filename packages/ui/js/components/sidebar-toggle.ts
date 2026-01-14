@@ -38,45 +38,35 @@ export class SidebarToggle extends HTMLElement {
   #autoCloseTabBar() {
     console.debug('#autoCloseTabBar')
 
-    const navbarToggle = document.querySelector<HTMLElement>(
-      'tab-view > sidebar-toggle'
-    )
+    const toggles = [
+      ...document.querySelectorAll<HTMLElement>('sidebar-toggle'),
+    ]
 
-    const width = navbarToggle?.offsetWidth ?? 0
+    // set css vars
+    for (const tg of toggles) {
+      const tv = tg.parentElement
 
-    if (0 < width) {
-      const gapProp = navbarToggle
-          ? getComputedStyle(navbarToggle).getPropertyValue('--toolbar-col-gap')
-          : '0',
-        gap =
-          parseFloat(gapProp) *
-          (gapProp.endsWith('rem')
-            ? parseFloat(getComputedStyle(document.documentElement).fontSize)
-            : 1)
+      const width = tg?.offsetWidth ?? 0
 
-      navbarToggle
-        ?.closest<TabView>('tab-view')
-        ?.style?.setProperty?.(
-          (this.constructor as typeof SidebarToggle).cssVarPaddingName,
-          `${width + gap}px`
-        )
-    } else {
-      navbarToggle
-        ?.closest<TabView>('tab-view')
-        ?.style?.removeProperty?.(
-          (this.constructor as typeof SidebarToggle).cssVarPaddingName
-        )
+      if (0 < width) {
+        // const gapProp =
+        //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
+        //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
+
+        tv?.style?.setProperty?.(SidebarToggle.cssVarPaddingName, `${width}px`)
+      } else {
+        tv?.style?.removeProperty?.(SidebarToggle.cssVarPaddingName)
+      }
     }
 
+    // auto close
     const tabBar =
       document.querySelector<HTMLDialogElement>('dialog[is=tab-bar]')
 
     if (!tabBar?.open) return
 
     // scan all toggles for anyone that is visible, sign that sidebar should stay open
-    const isAnyVisible = [
-      ...document.querySelectorAll<HTMLElement>('sidebar-toggle'),
-    ].some(
+    const isAnyVisible = toggles.some(
       ({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight
     )
 

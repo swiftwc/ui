@@ -101,19 +101,25 @@
 }
 
 @mixin if-2col-split-view-fits {
-  @media (min-width: 700px) {
+  @media (min-width: #{vars.$nav-split-view-2col-bp-min}) {
+    @content;
+  }
+}
+
+@mixin if-3col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-3col-bp-min}) {
     @content;
   }
 }
 
 @mixin ifnot-2col-split-view-fits {
-  @media (max-width: 700px) {
+  @media (max-width: #{vars.$nav-split-view-2col-bp-max}) {
     @content;
   }
 }
 
 @mixin ifnot-3col-split-view-fits {
-  @media (max-width: 1090px) {
+  @media (max-width: #{vars.$nav-split-view-3col-bp-max}) {
     @content;
   }
 }

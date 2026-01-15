@@ -74,8 +74,12 @@
   @include mixins.if-ipad-sheet-fits {
     [is='sheet-view'] {
       scroll-view {
-        padding-inline: 0px; //var(--edge-inset-inline-start)          var(--edge-inset-inline-end);
-        padding-block: 0px; //var(--edge-inset-block-start) var(--edge-inset-block-end);
+        --safe-area-inset-top: 0px;
+        --safe-area-inset-right: 0px;
+        --safe-area-inset-bottom: 0px;
+        --safe-area-inset-left: 0px;
+        // padding-inline: 0px; //var(--edge-inset-inline-start)          var(--edge-inset-inline-end);
+        // padding-block: 0px; //var(--edge-inset-block-start) var(--edge-inset-block-end);
       }
     }
   }

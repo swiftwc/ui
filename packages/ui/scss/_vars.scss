@@ -10,21 +10,21 @@ $final-layer: final !default;
 
 $vt-fwd-class-name: fwd !default;
 
-$nav-split-view-sidebar-width: 320px !default;
-$nav-split-view-content-width: 400px !default;
+$nav-split-view-2col-bp: 43rem !default;
+$nav-split-view-3col-bp: 56rem !default;
 
-// $ipad-sheet-view-width: 300px !default;
-$ipad-sheet-view-width: 600px !default;
+// $ipad-sheet-view-width: 12rem !default;
+$ipad-sheet-view-width: 37rem !default;
 
 $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
 
 $sidebar-transition-duration: 250ms !default;
 
-// $ipad-portrait-bp: 400px !default;
-$ipad-portrait-bp: 700px !default;
+// $ipad-portrait-bp: 20rem !default;
+$ipad-portrait-bp: 43rem !default;
 
-// $ipad-landscape-bp: 700px !default;
-$ipad-landscape-bp: 1100px !default;
+// $ipad-landscape-bp: 30rem !default;
+$ipad-landscape-bp: 68rem !default;
 
 // computed
 
@@ -38,10 +38,10 @@ $ipad-sheet-view-height: math.div(
   $ipad-sheet-view-aspect-ratio
 ); //4/3
 
-$twocol-nav-split-view-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
-$twocol-nav-split-view-bp-min: $ipad-landscape-bp;
-$threecol-nav-split-view-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
-$threecol-nav-split-view-bp-min: $ipad-landscape-bp;
+$nav-split-view-2col-bp-max: #{functions.subtract-tiny($nav-split-view-2col-bp)};
+$nav-split-view-2col-bp-min: $nav-split-view-2col-bp;
+$nav-split-view-3col-bp-max: #{functions.subtract-tiny($nav-split-view-3col-bp)};
+$nav-split-view-3col-bp-min: $nav-split-view-3col-bp;
 
 @debug $ipad-portrait-bp-max;
 
@@ -49,4 +49,8 @@ $threecol-nav-split-view-bp-min: $ipad-landscape-bp;
 
 @if ($ipad-portrait-bp < $ipad-sheet-view-width) {
   @warn "$ipad-sheet-view-width should not be larger than $ipad-portrait-bp! Breaks centering";
+}
+
+@if ($nav-split-view-3col-bp < $nav-split-view-2col-bp) {
+  @warn "$nav-split-view-2col-bp should not be larger than $nav-split-view-3col-bp!";
 }

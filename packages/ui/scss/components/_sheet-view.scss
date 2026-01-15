@@ -43,14 +43,14 @@
       @include mixins.if-2col-split-view-fits {
         navigation-split-view & {
           margin-inline-start: calc(
-            var(--safe-area-inset-left) - #{vars.$nav-split-view-content-width}
+            var(--safe-area-inset-left) - var(--nav-split-view-content-width)
           );
         }
         navigation-split-view[visibility='three-column'] & {
           margin-inline-start: calc(
-            var(--safe-area-inset-left) -
-              #{vars.$nav-split-view-content-width} -
-              #{vars.$nav-split-view-sidebar-width}
+            var(--safe-area-inset-left) - var(
+                --nav-split-view-content-width
+              ) - var(--nav-split-view-sidebar-width)
           );
         }
       }

@@ -14,17 +14,19 @@
   // }
 
   scroll-view {
-    &.fwd,
-    &.fwdd,
-    &.bwd,
-    &.bwdd {
-      transition:
-        transform var(--view-transition-duration) ease-out allow-discrete,
-        padding-inline-start #{vars.$sidebar-transition-duration} ease-out
-          allow-discrete;
+    // &.fwd,
+    // &.fwdd,
+    // &.bwd,
+    // &.bwdd {
+    transition:
+      transform var(--view-transition-duration) ease-out allow-discrete,
+      padding-inline-start #{vars.$sidebar-transition-duration} ease-out
+        allow-discrete,
+      margin-inline-start #{vars.$sidebar-transition-duration} ease-out
+        allow-discrete;
 
-      will-change: transform, padding-inline-start;
-    }
+    will-change: transform, padding-inline-start, margin-inline-start;
+    // }
   }
 
   tool-bar-item,

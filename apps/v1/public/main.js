@@ -31,64 +31,30 @@ document.body.addEventListener('click', async (event) => {
         sv = event.target.closest('scroll-view'),
         pr = sv.parentElement
       await updateTheDOMSomehow(event, 'forwards', async () => {
+        const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
+          createHTML: (string) => string.replace(/</g, '&lt;'),
+        })
         if (pr.tagName === 'NAVIGATION-STACK' && 'more' === pr.getAttribute('is')) {
           document.querySelector(`#${event.target.getAttribute('tag')}`).hidden = false
-        } else if (pr.tagName === 'NAVIGATION-SPLIT-VIEW') {
-          if (!['BODY-VIEW', 'DIALOG'].includes(sv.nextElementSibling?.tagName)) {
-            sv.insertAdjacentHTML(
-              'beforebegin',
-              `
-                  <${4 === lm.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
-                    <scroll-view>
-                      <v-stack>
-                        ${lm.id}section${
-                          lm.querySelectorAll('scroll-view').length
-                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
-                      </v-stack>
-                    </scroll-view>
-                    <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                    </navigation-bar>
-                  </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
-                  `
-            )
-            if ('DIALOG' === sv.nextElementSibling?.tagName) sv.nextElementSibling.showModal()
-          }
-        } else if (
-          pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-          'three-column' === pr.parentElement.getAttribute('visibility') &&
-          pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW'
-        ) {
-          if (!['BODY-VIEW', 'DIALOG'].includes(sv.nextElementSibling?.tagName)) {
-            sv.insertAdjacentHTML(
-              'beforebegin',
-              `
-                  <${4 === lm.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
-                    <scroll-view>
-                      <v-stack>
-                        ${lm.id}section${
-                          lm.querySelectorAll('scroll-view').length
-                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
-                      </v-stack>
-                    </scroll-view>
-                    <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                    </navigation-bar>
-                  </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
-                  `
-            )
-            if ('DIALOG' === sv.nextElementSibling?.tagName) sv.nextElementSibling.showModal()
-          }
         } else {
-          if (!['BODY-VIEW', 'DIALOG'].includes(sv.nextElementSibling?.tagName)) {
+          let position = 'afterend'
+          let lookFor = 'nextElementSibling'
+
+          if (pr.tagName === 'NAVIGATION-SPLIT-VIEW') {
+            position = 'beforebegin'
+            lookFor = 'previousElementSibling'
+          } else if (
+            pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
+            'three-column' === pr.parentElement.getAttribute('visibility') &&
+            pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW'
+          ) {
+            position = 'beforebegin'
+            lookFor = 'previousElementSibling'
+          }
+
+          if (!['BODY-VIEW', 'DIALOG'].includes(sv[lookFor]?.tagName)) {
             sv.insertAdjacentHTML(
-              'afterend',
+              position,
               `
                   <${4 === lm.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
@@ -107,7 +73,7 @@ document.body.addEventListener('click', async (event) => {
                   </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
             )
-            if ('DIALOG' === sv.nextElementSibling?.tagName) sv.nextElementSibling.showModal()
+            if ('DIALOG' === sv[lookFor]?.tagName) sv[lookFor].showModal()
           }
         }
       })

@@ -98,7 +98,7 @@ export class Snapshot {
   }
 
   static getSnapshot(scrollView?: Components.ScrollView) {
-    console.debug(`${Snapshot.name} ⚡️ #update`)
+    console.debug(`${Snapshot.name} ⚡️ getSnapshot`)
 
     // this.#leafLandmark = scrollView
 
@@ -114,8 +114,13 @@ export class Snapshot {
     //   return top
     // }
     // this.#rootLandmark = closestTopMost(scrollView, 'navigation-stack')
-    // @ts-expect-error
-    for (let e = scrollView; e; e = e.parentElement)
+
+    for (
+      let e: Components.ScrollView | HTMLElement | undefined | null =
+        scrollView;
+      e;
+      e = e.parentElement
+    )
       e.matches('navigation-stack,navigation-split-view') &&
         (this.#rootLandmark = e)
 
@@ -143,7 +148,19 @@ export class Snapshot {
     this.#parentContainer = parentFrame
     this.#parentToolbarItems = parentToolbarItems
 
-    const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
+    // detect children
+    let possibleNest = scrollView?.nextElementSibling as HTMLElement | null
+
+    if ('NAVIGATION-SPLIT-VIEW' === this.#rootLandmark?.tagName)
+      if (
+        scrollView?.matches(
+          'three-column' === this.#rootLandmark.getAttribute('visibility')
+            ? 'navigation-split-view > scroll-view,navigation-split-view > body-view > scroll-view'
+            : 'navigation-split-view > scroll-view'
+        )
+      )
+        possibleNest = scrollView?.previousElementSibling as HTMLElement | null // look for prev sibling instead
+    // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
 
     this.#leaf = [
       ...(possibleNest?.querySelectorAll<Components.ScrollView>(

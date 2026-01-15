@@ -51,7 +51,7 @@
       &::before {
         width: calc(
           var(--navbar-padding-inline-start, 0px) +
-            var(--tabview-padding-inline-start, 0px)
+            var(--toolbar-area-inset-left, 0px)
         );
       }
 

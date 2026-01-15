@@ -33,11 +33,27 @@
             calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2
           )
       );
+
       inset-block-start: calc(
         50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(
             calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2
           )
       );
+
+      @include mixins.if-2col-split-view-fits {
+        navigation-split-view & {
+          margin-inline-start: calc(
+            var(--safe-area-inset-left) - #{vars.$nav-split-view-content-width}
+          );
+        }
+        navigation-split-view[visibility='three-column'] & {
+          margin-inline-start: calc(
+            var(--safe-area-inset-left) -
+              #{vars.$nav-split-view-content-width} -
+              #{vars.$nav-split-view-sidebar-width}
+          );
+        }
+      }
     }
   }
 }

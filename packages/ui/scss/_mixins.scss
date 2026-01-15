@@ -101,13 +101,19 @@
 }
 
 @mixin if-2col-split-view-fits {
-  @media (min-width: #{vars.$nav-split-view-content-width}) {
+  @media (min-width: 700px) {
     @content;
   }
 }
 
 @mixin ifnot-2col-split-view-fits {
-  @media (max-width: #{vars.$nav-split-view-content-width}) {
+  @media (max-width: 700px) {
+    @content;
+  }
+}
+
+@mixin ifnot-3col-split-view-fits {
+  @media (max-width: 1090px) {
     @content;
   }
 }

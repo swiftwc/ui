@@ -1,19 +1,12 @@
-// import { UILabel } from '../js/components'
+// import { UILabel } from './js/components'
 // console.log(444, UILabel)
-// import { Snapshot, polyfills, updateTheDOMSomehow } from '../../../packages/ui/generated/client' //'../js/client'
-import { Snapshot, polyfills, updateTheDOMSomehow } from '../../../packages/ui/js/client'
+// import { Snapshot, polyfills, updateTheDOMSomehow } from '../../packages/ui/generated/client' //'./js/client'
+import { Snapshot, polyfills, updateTheDOMSomehow } from '../../packages/ui/js/client'
 
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
 
   if (event.target.tagName === 'BUTTON') {
-    if (event.target.closest('sidebar-toggle')) {
-      // event.target.closest('sidebar-toggle').toggleSidebar()
-      const dialog = document.querySelector('dialog[is="tab-bar"]')
-      if (!dialog.open) dialog.showModal()
-      else dialog.close()
-    }
-
     if (event.target.classList.contains('bw')) {
       const sv = event.target.closest('scroll-view'),
         pr = sv.parentElement

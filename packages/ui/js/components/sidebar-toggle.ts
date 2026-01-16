@@ -1,4 +1,4 @@
-import { type TabView } from './tab-view'
+import { type TabBar } from './tab-bar'
 
 export class SidebarToggle extends HTMLElement {
   #ro
@@ -21,6 +21,8 @@ export class SidebarToggle extends HTMLElement {
   connectedCallback() {
     console.debug(`${SidebarToggle.name} ⚡️ connect`)
 
+    this.addEventListener('click', this.#handleClick)
+
     this.#ro?.observe(this)
     // this.#io.observe(this)
 
@@ -32,6 +34,8 @@ export class SidebarToggle extends HTMLElement {
 
     this.#ro?.disconnect()
     // this.#io.disconnect()
+
+    this.removeEventListener('click', this.#handleClick)
   }
 
   // This triggers on show/hide of any of sidebar-toggle elements
@@ -80,4 +84,11 @@ export class SidebarToggle extends HTMLElement {
   //     console.log('Visible in viewport?', entry.isIntersecting)
   //   })
   // }
+
+  #handleClick() {
+    const dialog = document.querySelector<TabBar>('dialog[is="tab-bar"]')
+
+    if (!dialog?.open) dialog?.showModal()
+    else dialog.close()
+  }
 }

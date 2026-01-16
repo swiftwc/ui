@@ -1,9 +1,13 @@
 {
   "private": true,
-  "name": "@swiftwc/v1",
+  "name": "@swiftwc/examples",
   "type": "module",
   "scripts": {
+    "start": "vite",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write"
+  },
+  "devDependencies": {
+    "vite": "^7.3.1"
   }
 }

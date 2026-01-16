@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" />
+    <link rel="stylesheet" href="../styles.css" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <title>games</title>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <div id="console" popover="manual" inert>
+      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
+      <span id="console4"></span>
+    </div>
+
+    <tab-view>
+      <navigation-stack id="home">
+        <scroll-view>
+          <v-stack>
+            Home
+            <hr style="width: 100%" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <navigation-bar>
+          <tool-bar-item slot="trailing">
+            <button type="button">
+              <i class="ph ph-smiley" style="font-size: 2rem"></i>
+            </button>
+          </tool-bar-item>
+        </navigation-bar>
+      </navigation-stack>
+
+      <navigation-stack id="library" hidden>
+        <scroll-view>
+          <v-stack>
+            ns2section0<button type="button" class="fw">...</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <hr style="width: 100%" />
+            <hr style="width: 100cqi" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <navigation-bar>
+          <tool-bar-item slot="leading">
+            <button type="button">dssdds1</button>
+          </tool-bar-item>
+          <!-- <tool-bar-item>2</tool-bar-item> -->
+          <tool-bar-item slot="trailing">
+            <button type="button">dssdds3</button>
+          </tool-bar-item>
+        </navigation-bar>
+      </navigation-stack>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button">
+            <i class="ph ph-sidebar" style="font-size: 2rem"></i>
+          </button>
+        </tool-bar-item>
+      </sidebar-toggle>
+
+      <dialog is="tab-bar">
+        <scroll-view>
+          <tab-bar-stack>
+            <tab-item tag="home">
+              <label>Home</label>
+            </tab-item>
+            <tab-item tag="library">
+              <label>Library</label>
+            </tab-item>
+          </tab-bar-stack>
+        </scroll-view>
+        <sidebar-toggle>
+          <tab-item>
+            <button type="button">
+              <i class="ph ph-sidebar" style="font-size: 2rem"></i>
+            </button>
+          </tab-item>
+        </sidebar-toggle>
+      </dialog>
+    </tab-view>
+
+    <script type="module" src="main.js"></script>
+  </body>
+</html>

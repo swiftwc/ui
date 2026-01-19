@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$transitions-layer} {
   // principal-stack > tool-bar-item {
@@ -22,9 +23,7 @@
   tool-bar-item-group {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
-      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      filter: blur(10px);
-      opacity: 0;
+      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
 
       // @starting-style {
       // transform: scale(1);
@@ -33,21 +32,15 @@
     }
 
     &.fwnn {
-      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-      filter: none;
-      opacity: 1;
+      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-onscreen-scale)), none, 1);
 
       @starting-style {
-        transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-        filter: blur(10px);
-        opacity: 0;
+        @include mixins.toolbar-item-vt-state( scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
       }
     }
 
     &.fwnn.fwn {
-      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      filter: blur(10px);
-      opacity: 0;
+      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
     }
   }
 }

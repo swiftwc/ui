@@ -1,12 +1,11 @@
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$transitions-layer} {
   tool-bar-item,
   tool-bar-item-group {
     &.bwn {
-      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      filter: blur(10px);
-      opacity: 0;
+      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
 
       // @starting-style {
       //   transform: scale(1);
@@ -15,9 +14,7 @@
     }
 
     &.bwnn {
-      transform: scale(1);
-      filter: none;
-      opacity: 1;
+      @include mixins.toolbar-item-vt-state(scale(1), none, 1);
 
       // @starting-style {
       //   transform: scale(0);
@@ -26,9 +23,7 @@
     }
 
     &.bwnn.bwn {
-      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      filter: blur(10px);
-      opacity: 0;
+      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
     }
   }
 }

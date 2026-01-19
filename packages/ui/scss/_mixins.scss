@@ -83,6 +83,12 @@
   }
 }
 
+@mixin toolbar-item-vt-state($transform, $filter, $opacity) {
+  transform: $transform;
+  filter: $filter;
+  opacity: $opacity;
+}
+
 @mixin if-iphone-landscape {
   @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
     @content;

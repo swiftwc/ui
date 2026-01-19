@@ -49,7 +49,7 @@ document.body.addEventListener('click', async (event) => {
             lm.insertAdjacentHTML(
               position,
               `
-                  <${4 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
+                  <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
                       <v-stack>
                         ${root.id}section${
@@ -63,7 +63,7 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                       <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </navigation-bar>
-                  </${4 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
+                  </${6 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
             )
             if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()

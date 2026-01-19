@@ -1,9 +1,11 @@
 import * as Components from '../components'
 import { kebabCase } from '../internal/utils'
-import { Snapshot } from '../internal/snapshot'
-import { type WebComponentCtor } from '../internal/class'
+import { Snapshot } from '../snapshot'
+import { type WebComponentCtor } from '../namespace'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
+
+type TransitionType = 'forwards' | 'backwards' | 'reload'
 
 for (const [k, v] of Object.entries(Components)) {
   const is = kebabCase(k)
@@ -73,7 +75,7 @@ if (0 < polyfills.size) {
   })
 }
 
-const cleanup = (lm?: Element, dir?: 'backwards' | 'forwards') => {
+const cleanup = (lm?: Element, dir?: TransitionType) => {
   let arr: string[] = [
     Snapshot.config!['vt-fwd-class-name'],
     'fwdd',
@@ -95,11 +97,15 @@ const cleanup = (lm?: Element, dir?: 'backwards' | 'forwards') => {
     el.classList.remove(...arr)
 }
 
-export const updateTheDOMSomehow = async (
+export const startViewTransition = async (
   event: Event,
-  type = 'forwards',
+  type:TransitionType = 'forwards',
   updateCallback = async () => {}
 ) => {
+  // const sv =
+  //   (event.target as HTMLElement).closest<Components.ScrollView>(
+  //     'scroll-view'
+  //   ) ?? undefined,
   const from =
     (event.target as HTMLElement).closest<Components.ScrollView>(
       'scroll-view'
@@ -119,13 +125,14 @@ export const updateTheDOMSomehow = async (
     //   to = document.querySelector(`#${event.target.getAttribute('tag')}`)
     // to.hidden = false
     // } else {
-    await updateCallback()
+    await updateCallback() // updatetheDOMSomehow
     //   to = sv.nextElementSibling //pr.lastElementChild //sv.nextElementSibling
     // }
 
     Snapshot.getSnapshot(from)
 
     const fromToolbars = Snapshot.toolbarItems
+      // from = Snapshot.landmark
 
     const to = Snapshot.leaf,
       toFrame = Snapshot.leafContainer,
@@ -142,7 +149,7 @@ export const updateTheDOMSomehow = async (
     }
 
     // purge
-    cleanup(Snapshot.rootLandmark, 'backwards')
+    cleanup(Snapshot.root, 'backwards')
 
     for (const ti of toToolbars ?? []) ti.classList.add('fwnn')
 
@@ -155,7 +162,7 @@ export const updateTheDOMSomehow = async (
     // sv.inert = true
 
     // if (!document.startViewTransition) {
-    //   updateTheDOMSomehow(event, false)
+    //   startViewTransition(event, false)
     //   return
     // }
     // With a transition:
@@ -197,11 +204,12 @@ export const updateTheDOMSomehow = async (
     )
       return
 
-    cleanup(Snapshot.rootLandmark)
+    cleanup(Snapshot.root)
   } else {
     Snapshot.getSnapshot(from)
 
     const fromToolbars = Snapshot.toolbarItems,
+      // from = Snapshot.landmark,
       fromFrame = Snapshot.container //sv.parentElement.querySelectorAll(`:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`)
     // fromFrame = Router.frame //sv.parentElement
 
@@ -210,7 +218,7 @@ export const updateTheDOMSomehow = async (
     // const pt = pt0.parentElement.closest('navigation-stack,body-view')
 
     const to = Snapshot.parent, //pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
-      toFrame = Snapshot.parentContainer,
+      // toFrame = Snapshot.parentContainer,
       toToolbars = Snapshot.parentToolbarItems //sv2.parentElement?.querySelectorAll?.(      `:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`    )
 
     // const st2 = sv2.scrollTop
@@ -228,7 +236,7 @@ export const updateTheDOMSomehow = async (
     }
 
     // purge
-    cleanup(Snapshot.rootLandmark, 'forwards')
+    cleanup(Snapshot.root, 'forwards')
 
     // prepare others
     for (const ti of toToolbars ?? []) ti.classList.add('bwnn')
@@ -257,7 +265,7 @@ export const updateTheDOMSomehow = async (
     // console.log(999, sv2.closest('.fwd'))
     if (to?.closest(`.bwd,.${Snapshot.config?.['vt-fwd-class-name']}`)) return
 
-    cleanup(Snapshot.rootLandmark)
+    cleanup(Snapshot.root)
 
     // remove or hide
     await updateCallback()

@@ -26,66 +26,67 @@
     </div>
 
     <tab-view>
-      <navigation-split-view visibility="three-column" id="ns1">
-        <!-- <button type="button" slot="sidebar-toggle">sss1</button> -->
-        <scroll-view>
-          <v-stack>
-            <slot name="sidebarToggle"></slot>
-            <p>...</p>
-            ns1section0<button type="button" class="fw">...</button>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-          </v-stack>
-        </scroll-view>
+      <navigation-split-view column-visibility="sidebar1:content:detail" preferred-compact-column="content1" visibility="three-column1" id="ns1">
+        <dialog is="sidebar-view">
+          <scroll-view>
+            <v-stack>
+              <slot name="sidebarToggle"></slot>
+              <p>...</p>
+              ns1section0<button type="button" class="fw">...</button>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <hr style="width: 100%" />
+              <hr style="width: 100cqi" />
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+            </v-stack>
+          </scroll-view>
 
-        <navigation-bar>
-          <tool-bar-item slot="leading">
-            <button type="button">dssdds1</button>
-          </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
-          <tool-bar-item slot="trailing">
-            <button type="button">dssdds3</button>
-          </tool-bar-item>
-        </navigation-bar>
+          <navigation-bar>
+            <tool-bar-item slot="leading">
+              <button type="button">dssdds1</button>
+            </tool-bar-item>
+            <!-- <tool-bar-item>2</tool-bar-item> -->
+            <tool-bar-item slot="trailing">
+              <button type="button">dssdds3</button>
+            </tool-bar-item>
+          </navigation-bar>
+        </dialog>
       </navigation-split-view>
 
       <navigation-stack id="ns2" hidden>

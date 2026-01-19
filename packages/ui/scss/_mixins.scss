@@ -31,16 +31,29 @@
 }
 
 @mixin reset-dialog {
+  // position: absolute;
+  inset-inline: 0px;
+  inset-block: 0px; //inset-inline-start: 0px;
+  // width: fit-content;
+  // height: fit-content;
+  margin: 0px; //margin-top: auto;
+  border: none; //border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;
+  padding: 0px; //padding-top: 1em;
+  background-color: transparent; //background-color: canvas;
+  color: var(--primary-text); //color: canvastext;
+  // display: none;
+
+  // dialog:modal {
   // position: fixed;
-  margin: 0;
-  padding: 0;
-  height: auto;
-  max-width: 100lvw;
-  max-height: 100lvh;
-  background-color: transparent;
-  border: none;
+  // overflow-x: auto;
+  // overflow-y: auto;
+  // inset-block-start: 0px;
+  max-width: 100lvw; //max-width: calc(100% - 2em - 6px);
+  max-height: 100lvh; //max-height: calc(100% - 2em - 6px);
+  // visibility: visible;
+  // }
+
   outline: none;
-  inset: 0;
 }
 
 @mixin make-navbar($dir: bottom) {

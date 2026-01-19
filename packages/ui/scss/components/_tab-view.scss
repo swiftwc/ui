@@ -58,6 +58,16 @@
         );
       }
     }
+    tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
+      --safe-area-inset-top: max(
+        env(safe-area-inset-top),
+        var(--tab-bar-sidebar-spacing)
+      );
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
   }
 
   @include mixins.if-iphone-portrait {
@@ -72,6 +82,12 @@
           var(--tab-bar-sidebar-spacing)
         );
       }
+    }
+    tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
     }
   }
 
@@ -99,6 +115,12 @@
             var(--tab-bar-ipad-height)
         );
       }
+    }
+    tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
+      --safe-area-inset-top: calc(
+        max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
+          var(--tab-bar-ipad-height)
+      );
     }
   }
 

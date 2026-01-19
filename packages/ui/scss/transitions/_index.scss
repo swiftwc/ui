@@ -14,7 +14,7 @@
   // }
 
   scroll-view {
-    &.fwd,
+    &.#{vars.$vt-fwd-class-name},
     &.fwdd,
     &.bwd,
     &.bwdd {

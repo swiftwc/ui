@@ -8,7 +8,3 @@ export abstract class ButtonBase extends HTMLButtonElement {
   static polyfill(el: HTMLButtonElement, connected: boolean) {}
 }
 
-export type WebComponentCtor = CustomElementConstructor & {
-  polyfillExtends?: string
-  polyfill(el: HTMLElement, connected: boolean): void
-}

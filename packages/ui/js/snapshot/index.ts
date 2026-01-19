@@ -31,27 +31,24 @@ export class Snapshot {
   //////
 
   static #parent?: Components.ScrollView
-  // static #leafLandmark?: Components.ScrollView
   static #leaf?: Components.ScrollView
 
-  static #rootLandmark?: HTMLElement
+  static #root?: HTMLElement
+
   static #parentContainer?: HTMLElement
   static #container?: HTMLElement
   static #leafContainer?: HTMLElement
-  static #toolbarItems?: NodeListOf<Element>
+
   static #parentToolbarItems?: NodeListOf<Element>
+  static #toolbarItems?: NodeListOf<Element>
   static #leafToolbarItems?: NodeListOf<Element>
 
   static get parent() {
     return this.#parent
   }
 
-  // static get leafLandmark() {
-  //   return this.#leafLandmark
-  // }
-
-  static get rootLandmark() {
-    return this.#rootLandmark
+  static get root() {
+    return this.#root
   }
 
   static get leaf() {
@@ -82,15 +79,10 @@ export class Snapshot {
     return this.#leafToolbarItems
   }
 
-  // constructor() {
-  //   console.debug(`${Router.name} ⚡️ constructor`)
-
-  //   this.#update()
-  // }
-
   static #queryScrollViewRels = (sv?: Components.ScrollView) => {
+    const isSidebarWrapped = sv?.parentElement?.matches('dialog[is=sidebar-view]')
     return {
-      frame: sv?.parentElement ?? undefined,
+      frame: (isSidebarWrapped ? sv?.parentElement : sv)?.parentElement ?? undefined,
       toolbarElements: sv?.parentElement?.querySelectorAll(
         `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
       ),
@@ -100,66 +92,57 @@ export class Snapshot {
   static getSnapshot(scrollView?: Components.ScrollView) {
     console.debug(`${Snapshot.name} ⚡️ getSnapshot`)
 
-    // this.#leafLandmark = scrollView
-
-    // this.#leafLandmark = [
-    //   ...document.querySelectorAll<Components.ScrollView>(
-    //     'scroll-view:not(navigation-stack[hidden] scroll-view,dialog scroll-view)'
-    //   ),
-    // ]?.pop?.() //'navigation-stack:not([hidden]) scroll-view'
-
-    // const closestTopMost = (el, sel) => {
-    //   let top = null
-    //   for (let e = el; e; e = e.parentElement) e.matches(sel) && (top = e)
-    //   return top
-    // }
-    // this.#rootLandmark = closestTopMost(scrollView, 'navigation-stack')
-
+    // root
     for (
-      let e: Components.ScrollView | HTMLElement | undefined | null =
-        scrollView;
+      let e: HTMLElement | undefined | null = scrollView;
       e;
       e = e.parentElement
     )
-      e.matches('navigation-stack,navigation-split-view') &&
-        (this.#rootLandmark = e)
+      e.matches('navigation-stack,navigation-split-view') && (this.#root = e)
 
-    // console.log(999, this.#rootLandmark)
-
-    // this.#rootLandmark =
-    //   scrollView?.closest(
-    //     'navigation-stack:not(:has(navigation-stack,navigation-split-view)),navigation-split-view'
-    //   ) ?? undefined
-
-    const { frame, toolbarElements: toolbarItems } =
-      this.#queryScrollViewRels(scrollView)
+    // current
+    const {
+      frame,
+      toolbarElements: toolbarItems,
+    } = this.#queryScrollViewRels(scrollView)
     this.#container = frame
     this.#toolbarItems = toolbarItems
 
+    // parent
     const possibleParent = this.#container?.parentElement as HTMLElement | null
 
     this.#parent =
       possibleParent?.querySelector<Components.ScrollView>(
-        `:scope > scroll-view`
+        `:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`
       ) ?? undefined //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
 
     const { frame: parentFrame, toolbarElements: parentToolbarItems } =
       this.#queryScrollViewRels(this.#parent)
     this.#parentContainer = parentFrame
     this.#parentToolbarItems = parentToolbarItems
+    // const possibleParent =
+    //     this.#container?.parentElement?.querySelector<HTMLElement>(
+    //       `:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`
+    //     ) ?? undefined, //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
+    //   {
+    //     landmark: parentLm,
+    //     frame: parentFrame,
+    //     toolbarElements: parentToolbarItems,
+    //   } = this.#queryScrollViewRels(possibleParent)
+    // this.#parent = parentLm
+    // this.#parentContainer = parentFrame
+    // this.#parentToolbarItems = parentToolbarItems
 
     // detect children
     let possibleNest = scrollView?.nextElementSibling as HTMLElement | null
 
-    if ('NAVIGATION-SPLIT-VIEW' === this.#rootLandmark?.tagName)
+    if ('NAVIGATION-SPLIT-VIEW' === this.#root?.tagName)
       if (
         scrollView?.matches(
-          'three-column' === this.#rootLandmark.getAttribute('visibility')
-            ? 'navigation-split-view > scroll-view,navigation-split-view > body-view > scroll-view'
-            : 'navigation-split-view > scroll-view'
+         `navigation-split-view > scroll-view${null !==  this.#root.querySelector(':scope > [is=sidebar-view]')? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view': ''}`
         )
       )
-        possibleNest = scrollView?.previousElementSibling as HTMLElement | null // look for prev sibling instead
+        possibleNest = (scrollView?.parentElement?.matches('dialog[is=sidebar-view]')? scrollView?.parentElement: scrollView)?.previousElementSibling as HTMLElement | null // look for prev sibling instead
     // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
 
     this.#leaf = [
@@ -173,9 +156,23 @@ export class Snapshot {
     this.#leafContainer = leafFrame
     this.#leafToolbarItems = leafToolbarItems
 
+    // const {
+    //   landmark: leafLm,
+    //   frame: leafFrame,
+    //   toolbarElements: leafToolbarItems,
+    // } = this.#queryScrollViewRels(
+    //   [
+    //     ...(possibleNest?.querySelectorAll<Components.ScrollView>(
+    //       'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
+    //     ) ?? []),
+    //   ]?.pop?.()
+    // ) //'navigation-stack:not([hidden]) scroll-view'
+    // this.#leaf = leafLm
+    // this.#leafContainer = leafFrame
+    // this.#leafToolbarItems = leafToolbarItems
+
     console.debug(
-      `
-      ${this.#rootLandmark?.tagName}
+      `${this.#root?.tagName}
       / \\
      B   ${this.#parentContainer?.tagName}
         / \\

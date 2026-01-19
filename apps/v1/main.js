@@ -1,7 +1,7 @@
 // import { UILabel } from './js/components'
 // console.log(444, UILabel)
-// import { Snapshot, polyfills, updateTheDOMSomehow } from '../../packages/ui/generated/client' //'./js/client'
-import { Snapshot, polyfills, updateTheDOMSomehow } from '../../packages/ui/js/client'
+// import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
+import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/js/client'
 
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
@@ -10,7 +10,7 @@ document.body.addEventListener('click', async (event) => {
     if (event.target.classList.contains('bw')) {
       const sv = event.target.closest('scroll-view'),
         pr = sv.parentElement
-      await updateTheDOMSomehow(event, 'backwards', async () => {
+      await startViewTransition(event, 'backwards', async () => {
         if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) {
           pr.hidden = true
         } else {
@@ -20,59 +20,59 @@ document.body.addEventListener('click', async (event) => {
     }
 
     if (event.target.classList.contains('fw')) {
-      const lm = event.target.closest('navigation-stack,navigation-split-view'),
-        sv = event.target.closest('scroll-view'),
-        pr = sv.parentElement
-      await updateTheDOMSomehow(event, 'forwards', async () => {
+      const sv = event.target.closest('scroll-view'),
+        root = sv.closest('navigation-stack,navigation-split-view'),
+        lm = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
+        frame = lm.parentElement
+      await startViewTransition(event, 'forwards', async () => {
         const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
           createHTML: (string) => string.replace(/</g, '&lt;'),
         })
-        if (pr.tagName === 'NAVIGATION-STACK' && 'more' === pr.getAttribute('is')) {
+        if (frame.tagName === 'NAVIGATION-STACK' && 'more' === frame.getAttribute('is')) {
           document.querySelector(`#${event.target.getAttribute('tag')}`).hidden = false
         } else {
           let position = 'afterend'
           let lookFor = 'nextElementSibling'
 
-          if (pr.tagName === 'NAVIGATION-SPLIT-VIEW') {
+          if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
             position = 'beforebegin'
             lookFor = 'previousElementSibling'
           } else if (
-            pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-            'three-column' === pr.parentElement.getAttribute('visibility') &&
-            pr.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW'
+            frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
+            frame.parentElement.querySelector(':scope > [is=sidebar-view]')
           ) {
             position = 'beforebegin'
             lookFor = 'previousElementSibling'
           }
 
-          if (!['BODY-VIEW', 'DIALOG'].includes(sv[lookFor]?.tagName)) {
-            sv.insertAdjacentHTML(
+          if (!['BODY-VIEW', 'DIALOG'].includes(lm[lookFor]?.tagName)) {
+            lm.insertAdjacentHTML(
               position,
               `
-                  <${4 === lm.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
+                  <${4 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
                       <v-stack>
-                        ${lm.id}section${
-                          lm.querySelectorAll('scroll-view').length
+                        ${root.id}section${
+                          root.querySelectorAll('scroll-view').length
                         }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                     </scroll-view>
                     <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${lm.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${lm.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </navigation-bar>
-                  </${4 === lm.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
+                  </${4 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
             )
-            if ('DIALOG' === sv[lookFor]?.tagName) sv[lookFor].showModal()
+            if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
           }
         }
       })
       // document.startViewTransition({
       //   async update() {
-      //     updateTheDOMSomehow(event, false)
+      //     startViewTransition(event, false)
       //   },
       //   types: ['forwards'],
       // })

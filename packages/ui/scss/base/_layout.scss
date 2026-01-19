@@ -8,15 +8,14 @@
   dialog[is='full-screen'],
   dialog[is='sheet-view'] {
     position: relative;
+
     grid-auto-flow: column;
-    grid-template-columns: minmax(0, 1fr);
-    //  repeat(auto-fit, minmax(0, 1fr));
+
+    grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
     grid-template-rows: minmax(0, 1fr);
 
     & > *:not([slot]) {
       @include mixins.span-all;
-      // grid-column: 1 / -1; // span all columns
-      // grid-row: 1 / -1; // span all rows
     }
   }
 
@@ -26,7 +25,8 @@
   dialog:has(> body-view),
   // body-view:has(> dialog),
   body-view:has(> body-view) {
-    & > scroll-view {
+    & > scroll-view ,
+    [is='sidebar-view'] > scroll-view {
       transform: translateX(var(--view-transition-leading-x));
     }
 

@@ -5,6 +5,11 @@
   [is='tab-bar'] {
     @include mixins.reset-dialog;
 
+    // dowh
+    overflow: clip;
+    width: fit-content;
+    height: auto;
+
     position: fixed;
     background: #ffffff9e;
     backdrop-filter: blur(4px);
@@ -16,8 +21,6 @@
     transition: all #{vars.$sidebar-transition-duration} ease-out allow-discrete;
 
     touch-action: none; // important for backdrop pans!
-
-    overflow: clip;
 
     navigation-bar,
     bottom-bar {
@@ -73,7 +76,7 @@
           max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
           max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
-        height: auto;
+        // height: auto;
         transform: translateX(0);
         width: var(--tab-bar-sidebar-width);
 

@@ -80,6 +80,7 @@
     --navigation-bar-height: 4rem;
     --nav-split-view-sidebar-width: 20rem;
     --nav-split-view-content-width: 25rem;
+    --primary-text: black;
     --primary-bg: aliceblue;
     --secondary-bg: burlywood;
     --view-transition-leading-x: -50%;
@@ -91,6 +92,7 @@
     --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;
     --view-transition-duration: 500ms;
+    --view-transition-duration: 5s;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
     --toolbar-cell-bg: white;
@@ -144,10 +146,15 @@
     grid-row: 1/-1;
   }
   navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view,
+  navigation-stack:has(> navigation-stack:not([hidden])) [is=sidebar-view] > scroll-view,
   navigation-stack:has(> body-view) > scroll-view,
+  navigation-stack:has(> body-view) [is=sidebar-view] > scroll-view,
   navigation-split-view:has(> body-view) > scroll-view,
+  navigation-split-view:has(> body-view) [is=sidebar-view] > scroll-view,
   dialog:has(> body-view) > scroll-view,
-  body-view:has(> body-view) > scroll-view {
+  dialog:has(> body-view) [is=sidebar-view] > scroll-view,
+  body-view:has(> body-view) > scroll-view,
+  body-view:has(> body-view) [is=sidebar-view] > scroll-view {
     transform: translateX(var(--view-transition-leading-x));
   }
   navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item-group,
@@ -176,6 +183,7 @@
   scroll-view,
   body-view,
   tab-view,
+  [is=sidebar-view],
   [is=tab-bar],
   [is=full-screen],
   [is=sheet-view],
@@ -219,9 +227,25 @@
         var(--tab-bar-sidebar-spacing)
       );
     }
+    tab-view navigation-split-view > [is=sidebar-view] > scroll-view {
+      --safe-area-inset-top: max(
+        env(safe-area-inset-top),
+        var(--tab-bar-sidebar-spacing)
+      );
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
+    tab-view navigation-split-view > [is=sidebar-view] > scroll-view {
       --safe-area-inset-bottom: max(
         env(safe-area-inset-bottom),
         var(--tab-bar-sidebar-spacing)
@@ -240,6 +264,12 @@
           var(--tab-bar-ipad-height)
       );
     }
+    tab-view navigation-split-view > [is=sidebar-view] > scroll-view {
+      --safe-area-inset-top: calc(
+        max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
+          var(--tab-bar-ipad-height)
+      );
+    }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ navigation-bar, tab-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
@@ -252,22 +282,25 @@
 }
 @layer components {
   [is=tab-bar] {
-    margin: 0;
-    padding: 0;
-    height: auto;
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: var(--primary-text);
     max-width: 100lvw;
     max-height: 100lvh;
-    background-color: transparent;
-    border: none;
     outline: none;
-    inset: 0;
+    overflow: clip;
+    width: fit-content;
+    height: auto;
     position: fixed;
     background: rgba(255, 255, 255, 0.6196078431);
     backdrop-filter: blur(4px);
     box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
     transition: all 250ms ease-out allow-discrete;
     touch-action: none;
-    overflow: clip;
   }
   [is=tab-bar] navigation-bar,
   [is=tab-bar] bottom-bar {
@@ -300,7 +333,6 @@
     }
     [is=tab-bar][open] {
       inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
-      height: auto;
       transform: translateX(0);
       width: var(--tab-bar-sidebar-width);
       border-radius: var(--tab-bar-sidebar-border-radius);
@@ -470,15 +502,16 @@
 }
 @layer components {
   [is=full-screen] {
-    margin: 0;
-    padding: 0;
-    height: auto;
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: var(--primary-text);
     max-width: 100lvw;
     max-height: 100lvh;
-    background-color: transparent;
-    border: none;
     outline: none;
-    inset: 0;
     overflow: clip;
     width: 100lvw;
     height: var(--100lvh, 100lvh);
@@ -486,15 +519,16 @@
 }
 @layer components {
   [is=sheet-view] {
-    margin: 0;
-    padding: 0;
-    height: auto;
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: var(--primary-text);
     max-width: 100lvw;
     max-height: 100lvh;
-    background-color: transparent;
-    border: none;
     outline: none;
-    inset: 0;
     overflow: clip;
     width: 100lvw;
     height: var(--100lvh, 100lvh);
@@ -535,18 +569,20 @@
     height: var(--100lvh, 100lvh);
   }
   @media (max-width: 42.9999rem) {
-    navigation-split-view > body-view ~ scroll-view {
+    navigation-split-view > body-view ~ scroll-view,
+    navigation-split-view > body-view ~ [is=sidebar-view] {
       z-index: -1;
     }
-    navigation-split-view[visibility=three-column] > body-view ~ scroll-view {
+    navigation-split-view:has(> [is=sidebar-view]) > body-view ~ [is=sidebar-view] {
       z-index: -2;
     }
-    navigation-split-view[visibility=three-column] > body-view > body-view ~ scroll-view {
+    navigation-split-view:has(> [is=sidebar-view]) > body-view > body-view ~ scroll-view {
       z-index: -1;
     }
   }
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
+    navigation-split-view > [is=sidebar-view],
     navigation-split-view > navigation-bar,
     navigation-split-view > bottom-bar {
       width: var(--nav-split-view-content-width);
@@ -556,24 +592,34 @@
     navigation-split-view > body-view bottom-bar:not(dialog bottom-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
     }
-    navigation-split-view[visibility=three-column] > scroll-view,
-    navigation-split-view[visibility=three-column] > navigation-bar,
-    navigation-split-view[visibility=three-column] > bottom-bar {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > scroll-view,
+    navigation-split-view:has(> dialog[is=sidebar-view]) > navigation-bar,
+    navigation-split-view:has(> dialog[is=sidebar-view]) > bottom-bar {
       margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       width: var(--nav-split-view-sidebar-width);
       --safe-area-inset-left: 0px;
     }
-    navigation-split-view[visibility=three-column] > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view[visibility=three-column] > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view[visibility=three-column] > body-view bottom-bar:not(dialog bottom-bar) {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view bottom-bar:not(dialog bottom-bar) {
       margin-inline-start: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
     }
-    navigation-split-view[visibility=three-column] > scroll-view {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > scroll-view {
       --surface-bg: #ffffff9e;
       --safe-area-inset-top: 0px;
       --safe-area-inset-bottom: 0px;
       border-radius: var(--tab-bar-sidebar-border-radius);
       margin-block: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > scroll-view,
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > navigation-bar,
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > bottom-bar {
+      margin-inline-start: -200px;
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view bottom-bar:not(dialog bottom-bar) {
+      margin-inline-start: 0px;
     }
   }
   @media (min-width: 56rem) {
@@ -613,11 +659,6 @@
     navigation-split-view > body-view navigation-bar:not(dialog navigation-bar),
     navigation-split-view > body-view bottom-bar:not(dialog bottom-bar) {
       --safe-area-inset-left: 0px;
-    }
-    navigation-split-view[visibility=three-column] > body-view > scroll-view,
-    navigation-split-view[visibility=three-column] > body-view > navigation-bar,
-    navigation-split-view[visibility=three-column] > body-view > bottom-bar {
-      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
     }
   }
   @media (max-width: 55.9999rem) {
@@ -694,6 +735,23 @@
   }
 }
 @layer components {
+  [is=sidebar-view] {
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: var(--primary-text);
+    max-width: 100lvw;
+    max-height: 100lvh;
+    outline: none;
+    width: 100%;
+    height: 100%;
+    position: static;
+  }
+}
+@layer components {
   scroll-view:has(> tool-bar[slot=navigation-bar]) > *:not([slot]) {
     margin-block-start: var(--navigation-bar-height);
   }
@@ -711,6 +769,7 @@
   }
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
+  navigation-split-view > [is=sidebar-view] > scroll-view,
   body-view > scroll-view,
   [is=full-screen] > scroll-view,
   [is=sheet-view] > scroll-view {
@@ -725,6 +784,7 @@
   }
   navigation-stack > scroll-view > *,
   navigation-split-view > scroll-view > *,
+  navigation-split-view > [is=sidebar-view] > scroll-view > *,
   body-view > scroll-view > *,
   [is=full-screen] > scroll-view > *,
   [is=sheet-view] > scroll-view > * {
@@ -733,6 +793,7 @@
   }
   navigation-stack > scroll-view::before,
   navigation-split-view > scroll-view::before,
+  navigation-split-view > [is=sidebar-view] > scroll-view::before,
   body-view > scroll-view::before,
   [is=full-screen] > scroll-view::before,
   [is=sheet-view] > scroll-view::before {
@@ -1012,6 +1073,9 @@
   }
   scroll-view.bwdd.bwd {
     transform: translateX(var(--view-transition-trailing-x));
+  }
+  navigation-split-view > body-view:has(~ .bwdd) {
+    pointer-events: none;
   }
 }
 @layer transitions {

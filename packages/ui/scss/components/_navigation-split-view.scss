@@ -114,7 +114,7 @@
           > [is='sidebar-view'],
           > navigation-bar,
           > bottom-bar {
-            margin-inline-start: -200px;
+            margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
           }
 
           // move descendants to right

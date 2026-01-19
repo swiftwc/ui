@@ -25,10 +25,10 @@ document.body.addEventListener('click', async (event) => {
         lm = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
         frame = lm.parentElement
       await startViewTransition(event, 'forwards', async () => {
-        const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
-          createHTML: (string) => string.replace(/</g, '&lt;'),
-        })
-        if (frame.tagName === 'NAVIGATION-STACK' && 'more' === frame.getAttribute('is')) {
+        // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
+        //   createHTML: (string) => string.replace(/</g, '&lt;'),
+        // })
+        if (event.target.hasAttribute('tag')) {
           document.querySelector(`#${event.target.getAttribute('tag')}`).hidden = false
         } else {
           let position = 'afterend'

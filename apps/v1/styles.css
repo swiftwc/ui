@@ -458,16 +458,13 @@
     place-items: center;
     place-content: center;
   }
-  tab-view > sidebar-toggle {
+  tab-view > sidebar-toggle, navigation-split-view > sidebar-toggle {
     position: fixed;
     inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto var(--safe-area-inset-left);
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
-    [is=tab-bar] > sidebar-toggle {
-      display: none;
-    }
-    tab-view > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle, tab-view > sidebar-toggle {
       display: none;
     }
   }
@@ -491,10 +488,7 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    [is=tab-bar] > sidebar-toggle {
-      display: none;
-    }
-    tab-view > sidebar-toggle {
+    [is=tab-bar] > sidebar-toggle, tab-view > sidebar-toggle {
       display: none;
     }
   }
@@ -623,7 +617,7 @@
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > [is=sidebar-view],
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > navigation-bar,
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > bottom-bar {
-      margin-inline-start: -200px;
+      margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
     }
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view),
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > navigation-bar:not(dialog navigation-bar),
@@ -764,6 +758,12 @@
     width: 100%;
     height: 100%;
     position: static;
+    transition: margin-inline-start 250ms ease-out allow-discrete;
+  }
+}
+@layer final {
+  [is=sidebar-view][open] {
+    margin-inline-start: 0px;
   }
 }
 @layer components {

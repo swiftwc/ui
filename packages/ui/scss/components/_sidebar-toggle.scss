@@ -8,60 +8,57 @@
     place-items: center;
     place-content: center;
 
-    tab-view > & {
+    tab-view > &,
+    navigation-split-view > & {
       position: fixed;
 
       inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
         auto var(--safe-area-inset-left);
-      // width: 100px;
+
       height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
     }
-  }
 
-  @include mixins.if-iphone-portrait {
-    [is='tab-bar'] > sidebar-toggle {
-      display: none;
+    @include mixins.if-iphone-portrait {
+      [is='tab-bar'] > &,
+      tab-view > & {
+        display: none;
+      }
     }
+  
+    @include mixins.if-ipad-portrait {
 
-    tab-view > sidebar-toggle {
-      display: none;
+        [is='tab-bar'] > & {
+          // position: sticky;
+          // left: 0;
+          // top: 0;
+          width: 30px;
+          order: -1;
+        }
+  
+        [is='tab-bar'][open] > & {
+          position: sticky;
+          inset: 0 auto auto 0;
+          height: var(--navigation-bar-height);
+        }
+  
+        tab-view > & {
+          display: none;
+        }
+      
     }
-  }
-
-  @include mixins.if-ipad-portrait {
-    sidebar-toggle {
+  
+    @include mixins.if-iphone-landscape {
       [is='tab-bar'] > & {
-        // position: sticky;
-        // left: 0;
-        // top: 0;
-        width: 30px;
-        order: -1;
+        display: none;
       }
-
-      [is='tab-bar'][open] > & {
-        position: sticky;
-        inset: 0 auto auto 0;
-        height: var(--navigation-bar-height);
-      }
-
+    }
+  
+    @include mixins.if-ipad-landscape {
+      [is='tab-bar'] > &,
       tab-view > & {
         display: none;
       }
     }
   }
-
-  @include mixins.if-iphone-landscape {
-    [is='tab-bar'] > sidebar-toggle {
-      display: none;
-    }
-  }
-
-  @include mixins.if-ipad-landscape {
-    [is='tab-bar'] > sidebar-toggle {
-      display: none;
-    }
-    tab-view > sidebar-toggle {
-      display: none;
-    }
-  }
+  
 }

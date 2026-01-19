@@ -1,4 +1,5 @@
 import { type TabBar } from './tab-bar'
+import { type SidebarView } from './sidebar-view'
 
 export class SidebarToggle extends HTMLElement {
   #ro
@@ -85,8 +86,10 @@ export class SidebarToggle extends HTMLElement {
   //   })
   // }
 
-  #handleClick() {
-    const dialog = document.querySelector<TabBar>('dialog[is="tab-bar"]')
+  #handleClick(event:Event) {
+    const lm=(event.target as HTMLElement)?.closest('tab-view,navigation-split-view')
+
+    const dialog='TAB-VIEW' === lm?.tagName?lm.querySelector<TabBar>('dialog[is="tab-bar"]'):lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
 
     if (!dialog?.open) dialog?.showModal()
     else dialog.close()

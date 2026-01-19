@@ -9,5 +9,15 @@
     width: 100%;
     height: 100%;
     position: static;
+
+    transition: margin-inline-start #{vars.$sidebar-transition-duration} ease-out allow-discrete;
+  }
+}
+
+@layer #{vars.$final-layer} {
+  [is='sidebar-view'] {
+    &[open] {
+      margin-inline-start: 0px;
+    }
   }
 }

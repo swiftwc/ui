@@ -100,6 +100,8 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-focus-bg: lightpink;
     --toolbar-cell-active-bg: gray;
+    --disclosure-group-animation-duration: 500ms;
+    --disclosure-group-animation-easing: ease-out;
   }
 }
 @layer base, components, ui, actions, transitions, final;
@@ -124,7 +126,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "vt-fwd-class-name=fwd";
+    content: "disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -213,18 +215,34 @@
     display: grid;
     overflow: clip;
   }
+  [is=disclosure-group] summary {
+    list-style: none;
+  }
   [is=disclosure-group]::details-content {
-    background-color: green;
+    background: transparent !important;
     block-size: 0;
-    transition: block-size 5s allow-discrete ease-out, content-visibility 5s allow-discrete ease-out;
+    transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
     will-change: block-size, content-visibility;
   }
   [is=disclosure-group] > *:not(summary) {
-    margin: 0;
+    margin: 0 !important;
   }
   [is=disclosure-group][open]::details-content {
     block-size: auto;
-    max-height: 9999dvh;
+  }
+  @supports not (interpolate-size: allow-keywords) {
+    [is=disclosure-group]::details-content {
+      block-size: auto !important;
+      transition: max-height var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: max-height, transform;
+      max-height: 0;
+    }
+    [is=disclosure-group][open]::details-content {
+      max-height: calc(var(--contents-height, 100vh) + 100px);
+    }
+    [is=disclosure-group].close::details-content {
+      max-height: 0;
+    }
   }
 }
 @layer components {}

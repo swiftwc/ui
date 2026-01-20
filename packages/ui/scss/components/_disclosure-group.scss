@@ -7,41 +7,64 @@
 
     overflow: clip;
 
-    &::details-content {
-      background-color: green;
-      block-size: 0;
-      // max-height: 0;
+summary {
+list-style: none;
+}
+    // summary::marker {
+    //   color: blue;
+    //   display: none;
+    //   content: '→';
+    //   // content: "66";
+    //   list-style-type: square;
+    //   position: absolute;
+    //   background-color: red;
+    // }
 
-      transition: block-size 5s allow-discrete ease-out, content-visibility 5s allow-discrete ease-out;
+    &::details-content {
+      background: transparent !important;
+      block-size: 0;
+
+      // display: grid;
+
+      transition: block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
       will-change: block-size, content-visibility;
     }
 
      > *:not(summary) {
-       margin: 0;
-    //   display: grid;
-    //   max-height: 0;
-
-    //   
-
-    //   will-change: max-height;
+       margin: 0 !important;
     }
 
     &[open] {
       &::details-content {
         block-size: auto;
+      }
+    }
+  }
 
-      max-height: 9999dvh;
+  @supports not (interpolate-size: allow-keywords) {
+    [is='disclosure-group'] {
+
+      &::details-content {
+        block-size: auto !important;
+
+        transition: max-height var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing), transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+       will-change: max-height, transform;
+
+        max-height: 0;
       }
 
-      // > *:not(summary) {
-      //   max-height: 99999px;
+      &[open] {
+        &::details-content {
+          max-height: calc(var(--contents-height, 100vh) + 100px);
+        }
+      }
 
-        // @starting-style {
-        //   & {
-        //     max-height: 0px;
-        //   }
-        // }
-      // }
+      &.#{vars.$disclosure-group-animation-close-class} {
+        &::details-content {
+          max-height: 0;
+        }
+      }
+
     }
   }
 }

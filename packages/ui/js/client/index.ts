@@ -34,13 +34,33 @@ if (0 < polyfills.size) {
       .filter(Boolean)
   ) // ['TAG-NAME1', 'TAG-NAME2', ...]
 
+  const handlers = new WeakMap()
+  // @ts-expect-error
+  const observe = (el, polyfill) => {
+    if(!Array.isArray(polyfill.observedAttributes)) return 
+      if(0 === polyfill?.observedAttributes.length) return
+
+    handlers.set(el, new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(el, {
+      attributes: true,
+      attributeFilter: polyfill.observedAttributes,
+      attributeOldValue: true
+    }))
+    // @ts-expect-error
+  },unobserve = (el) => {
+    handlers.delete(el)
+  }
+
   console.debug(polyfillTagNamesCache);
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(
       `${polyfill.polyfillExtends}[is="${is}"]`
     ))
-      polyfill.polyfillConnectedCallback(el)
+      {
+        polyfill.polyfillConnectedCallback(el)
+
+        observe(el, polyfill)
+      }
 
   // observer callback
   const observer = new MutationObserver((mutations) => {
@@ -55,6 +75,8 @@ if (0 < polyfills.size) {
         if (!polyfills.has(is)) continue
 
         polyfills.get(is)?.polyfillConnectedCallback(node)
+
+        observe(node, polyfills.get(is))
       }
 
       for (const node of removedNodes) {
@@ -67,6 +89,8 @@ if (0 < polyfills.size) {
         if (!polyfills.has(is)) continue
 
         polyfills.get(is)?.polyfillDisconnectedCallback(node)
+
+        unobserve(node)
       }
     }
   })

@@ -104,6 +104,9 @@
 }
 @layer base, components, ui, actions, transitions, final;
 @layer base {
+  :root {
+    interpolate-size: allow-keywords;
+  }
   *,
   *::before,
   *::after {
@@ -203,6 +206,25 @@
     inset: 0lvh auto auto 0lvw;
     width: 100lvw;
     height: 100lvh;
+  }
+}
+@layer components {
+  [is=disclosure-group] {
+    display: grid;
+    overflow: clip;
+  }
+  [is=disclosure-group]::details-content {
+    background-color: green;
+    block-size: 0;
+    transition: block-size 5s allow-discrete ease-out, content-visibility 5s allow-discrete ease-out;
+    will-change: block-size, content-visibility;
+  }
+  [is=disclosure-group] > *:not(summary) {
+    margin: 0;
+  }
+  [is=disclosure-group][open]::details-content {
+    block-size: auto;
+    max-height: 9999dvh;
   }
 }
 @layer components {}

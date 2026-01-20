@@ -32,13 +32,15 @@ if (0 < polyfills.size) {
     [...polyfills.values()]
       .map((v) => String(v.polyfillExtends ?? '').toUpperCase())
       .filter(Boolean)
-  )
+  ) // ['TAG-NAME1', 'TAG-NAME2', ...]
+
+  console.debug(polyfillTagNamesCache);
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(
       `${polyfill.polyfillExtends}[is="${is}"]`
     ))
-      polyfill.polyfill(el, true)
+      polyfill.polyfillConnectedCallback(el)
 
   // observer callback
   const observer = new MutationObserver((mutations) => {
@@ -52,7 +54,7 @@ if (0 < polyfills.size) {
 
         if (!polyfills.has(is)) continue
 
-        polyfills.get(is)?.polyfill(node, true)
+        polyfills.get(is)?.polyfillConnectedCallback(node)
       }
 
       for (const node of removedNodes) {
@@ -64,7 +66,7 @@ if (0 < polyfills.size) {
 
         if (!polyfills.has(is)) continue
 
-        polyfills.get(is)?.polyfill(node, false)
+        polyfills.get(is)?.polyfillDisconnectedCallback(node)
       }
     }
   })

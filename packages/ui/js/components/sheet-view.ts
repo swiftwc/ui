@@ -8,18 +8,20 @@ export class SheetView extends DialogBase {
   disconnectedCallback() {
     console.debug(`${SheetView.name} ⚡️ disconnect`)
 
-    SheetView.polyfill(this, false)
+    SheetView.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
     console.debug(`${SheetView.name} ⚡️ connect`)
 
-    SheetView.polyfill(this, true)
+    SheetView.polyfillConnectedCallback(this)
   }
 
-  static polyfill(el: SheetView, connected: boolean) {
-    if (connected) el.addEventListener('cancel', SheetView.handleCancel)
-    else el.removeEventListener('cancel', SheetView.handleCancel)
+  static polyfillDisconnectedCallback(el: SheetView) {
+    el.removeEventListener('cancel', SheetView.handleCancel)
+  }
+  static polyfillConnectedCallback(el: SheetView) {
+    el.addEventListener('cancel', SheetView.handleCancel)
   }
 
   static handleCancel = (event: Event) => {

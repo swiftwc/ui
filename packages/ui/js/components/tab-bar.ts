@@ -8,16 +8,18 @@ export class TabBar extends DialogBase {
   disconnectedCallback() {
     console.debug(`${TabBar.name} ⚡️ disconnect`)
 
-    TabBar.polyfill(this, false)
+    TabBar.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    TabBar.polyfill(this, true)
+    TabBar.polyfillConnectedCallback(this)
   }
 
-  static polyfill(el: HTMLDialogElement, connected: boolean) {
-    if (connected) el.addEventListener('click', TabBar.handleClick)
-    else el.removeEventListener('click', TabBar.handleClick)
+  static polyfillDisconnectedCallback(el: HTMLDialogElement) {
+    el.removeEventListener('click', TabBar.handleClick)
+  }
+  static polyfillConnectedCallback(el: HTMLDialogElement) {
+    el.addEventListener('click', TabBar.handleClick)
   }
 
   static handleClick = async (event: Event) => {

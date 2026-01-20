@@ -5,10 +5,6 @@ export class NavigationSplitView extends HTMLElement {
     super()
   }
 
-  attributeChangedCallback(name: string, oldValue: boolean, newValue: boolean) {
-    console.log(`Attribute ${name} has changed.`)
-  }
-
   disconnectedCallback() {
     console.debug(`${NavigationSplitView.name} ⚡️ disconnect`)
   }

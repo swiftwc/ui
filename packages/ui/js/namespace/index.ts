@@ -1,4 +1,5 @@
 export type WebComponentCtor = CustomElementConstructor & {
     polyfillExtends?: string
-    polyfill(el: HTMLElement, connected: boolean): void
+    polyfillConnectedCallback(el: HTMLElement): void
+    polyfillDisconnectedCallback(el: HTMLElement): void
   }

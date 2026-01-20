@@ -8,16 +8,19 @@ export class SidebarView extends DialogBase {
   disconnectedCallback() {
     console.debug(`${SidebarView.name} ⚡️ disconnect`)
 
-    SidebarView.polyfill(this, false)
+    SidebarView.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    SidebarView.polyfill(this, true)
+    SidebarView.polyfillConnectedCallback(this)
   }
 
-  static polyfill(el: HTMLDialogElement, connected: boolean) {
-    if (connected) el.addEventListener('click', SidebarView.handleClick)
-    else el.removeEventListener('click', SidebarView.handleClick)
+  static polyfillDisconnectedCallback(el: HTMLDialogElement) {
+    el.removeEventListener('click', SidebarView.handleClick)
+  }
+
+  static polyfillConnectedCallback(el: HTMLDialogElement) {
+    el.addEventListener('click', SidebarView.handleClick)
   }
 
   static handleClick = async (event: Event) => {

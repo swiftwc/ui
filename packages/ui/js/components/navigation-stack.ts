@@ -43,11 +43,6 @@ export class NavigationStack extends HTMLElement {
     // const t = this
   }
 
-  attributeChangedCallback(name: string, oldValue: boolean, newValue: boolean) {
-    console.log(`Attribute ${name} has changed.`)
-    // alert(99)
-  }
-
   disconnectedCallback() {
     console.debug(`${NavigationStack.name} ⚡️ disconnect`)
   }

@@ -9,11 +9,16 @@
   //   overflow: auto;
   // }
 
+  :root {
+    interpolate-size: allow-keywords;
+  }
+  
   *,
   *::before,
   *::after {
     box-sizing: border-box;
   }
+
 
   // dialog {
   //   margin: 0;

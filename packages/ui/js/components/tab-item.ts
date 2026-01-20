@@ -32,8 +32,8 @@ export class TabItem extends HTMLElement {
     if (!tv) throw new Error('Element not found')
 
     const newTab = tv?.querySelector<HTMLElement>(`#${tag}`)
-      // 'more' === tag
-      //   ? tv?.querySelector<HTMLElement>(`tab-view>[is=more]`):
+    // 'more' === tag
+    //   ? tv?.querySelector<HTMLElement>(`tab-view>[is=more]`):
 
     if (!newTab) throw new Error('Element not found')
 

@@ -7,9 +7,9 @@
 
     overflow: clip;
 
-summary {
-list-style: none;
-}
+    summary {
+      list-style: none;
+    }
     // summary::marker {
     //   color: blue;
     //   display: none;
@@ -26,12 +26,17 @@ list-style: none;
 
       // display: grid;
 
-      transition: block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+      transition:
+        block-size var(#{vars.$disclosure-group-animation-duration-css-prop})
+          allow-discrete var(--disclosure-group-animation-easing),
+        content-visibility
+          var(#{vars.$disclosure-group-animation-duration-css-prop})
+          allow-discrete var(--disclosure-group-animation-easing);
       will-change: block-size, content-visibility;
     }
 
-     > *:not(summary) {
-       margin: 0 !important;
+    > *:not(summary) {
+      margin: 0 !important;
     }
 
     &[open] {
@@ -43,19 +48,25 @@ list-style: none;
 
   @supports not (interpolate-size: allow-keywords) {
     [is='disclosure-group'] {
-
       &::details-content {
         block-size: auto !important;
 
-        transition: max-height var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing), transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
-       will-change: max-height, transform;
+        transition:
+          max-height var(#{vars.$disclosure-group-animation-duration-css-prop})
+            allow-discrete var(--disclosure-group-animation-easing),
+          transform var(#{vars.$disclosure-group-animation-duration-css-prop})
+            allow-discrete var(--disclosure-group-animation-easing);
+        will-change: max-height, transform;
 
         max-height: 0;
       }
 
       &[open] {
         &::details-content {
-          max-height: calc(var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) + 100px);
+          max-height: calc(
+            var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) +
+              100px
+          );
         }
       }
 
@@ -64,7 +75,6 @@ list-style: none;
           max-height: 0 !important;
         }
       }
-
     }
   }
 }

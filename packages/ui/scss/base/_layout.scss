@@ -25,7 +25,7 @@
   dialog:has(> body-view),
   // body-view:has(> dialog),
   body-view:has(> body-view) {
-    & > scroll-view ,
+    & > scroll-view,
     [is='sidebar-view'] > scroll-view {
       transform: translateX(var(--view-transition-leading-x));
     }

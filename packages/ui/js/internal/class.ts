@@ -18,4 +18,3 @@ export abstract class DetailsBase extends HTMLDetailsElement {
   static polyfillDisonnectedCallback(el: HTMLDetailsElement) {}
   static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
 }
-

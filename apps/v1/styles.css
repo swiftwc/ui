@@ -798,7 +798,33 @@
     width: 100%;
     height: 100%;
     position: static;
-    transition: margin-inline-start 250ms ease-out allow-discrete;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [is=sidebar-view] {
+      transition: margin-inline-start 250ms ease-out allow-discrete;
+    }
+  }
+  [is=sidebar-view]::backdrop {
+    background-color: transparent;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    [is=sidebar-view]::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+  }
+  [is=sidebar-view][open]::backdrop {
+    background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+  }
+  @starting-style {
+    [is=sidebar-view][open]::backdrop {
+      background-color: transparent;
+    }
+  }
+  @starting-style {
+    [is=sidebar-view][open] {
+      transform: translateY(var(--view-transition-dialog-offscreen-y));
+    }
   }
 }
 @layer final {

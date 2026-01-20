@@ -24,35 +24,33 @@
         display: none;
       }
     }
-  
-    @include mixins.if-ipad-portrait {
 
-        [is='tab-bar'] > & {
-          // position: sticky;
-          // left: 0;
-          // top: 0;
-          width: 30px;
-          order: -1;
-        }
-  
-        [is='tab-bar'][open] > & {
-          position: sticky;
-          inset: 0 auto auto 0;
-          height: var(--navigation-bar-height);
-        }
-  
-        tab-view > & {
-          display: none;
-        }
-      
+    @include mixins.if-ipad-portrait {
+      [is='tab-bar'] > & {
+        // position: sticky;
+        // left: 0;
+        // top: 0;
+        width: 30px;
+        order: -1;
+      }
+
+      [is='tab-bar'][open] > & {
+        position: sticky;
+        inset: 0 auto auto 0;
+        height: var(--navigation-bar-height);
+      }
+
+      tab-view > & {
+        display: none;
+      }
     }
-  
+
     @include mixins.if-iphone-landscape {
       [is='tab-bar'] > & {
         display: none;
       }
     }
-  
+
     @include mixins.if-ipad-landscape {
       [is='tab-bar'] > &,
       tab-view > & {
@@ -60,5 +58,4 @@
       }
     }
   }
-  
 }

@@ -80,9 +80,12 @@ export class Snapshot {
   }
 
   static #queryScrollViewRels = (sv?: Components.ScrollView) => {
-    const isSidebarWrapped = sv?.parentElement?.matches('dialog[is=sidebar-view]')
+    const isSidebarWrapped = sv?.parentElement?.matches(
+      'dialog[is=sidebar-view]'
+    )
     return {
-      frame: (isSidebarWrapped ? sv?.parentElement : sv)?.parentElement ?? undefined,
+      frame:
+        (isSidebarWrapped ? sv?.parentElement : sv)?.parentElement ?? undefined,
       toolbarElements: sv?.parentElement?.querySelectorAll(
         `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
       ),
@@ -101,10 +104,8 @@ export class Snapshot {
       e.matches('navigation-stack,navigation-split-view') && (this.#root = e)
 
     // current
-    const {
-      frame,
-      toolbarElements: toolbarItems,
-    } = this.#queryScrollViewRels(scrollView)
+    const { frame, toolbarElements: toolbarItems } =
+      this.#queryScrollViewRels(scrollView)
     this.#container = frame
     this.#toolbarItems = toolbarItems
 
@@ -139,10 +140,14 @@ export class Snapshot {
     if ('NAVIGATION-SPLIT-VIEW' === this.#root?.tagName)
       if (
         scrollView?.matches(
-         `navigation-split-view > scroll-view${null !==  this.#root.querySelector(':scope > [is=sidebar-view]')? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view': ''}`
+          `navigation-split-view > scroll-view${null !== this.#root.querySelector(':scope > [is=sidebar-view]') ? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view' : ''}`
         )
       )
-        possibleNest = (scrollView?.parentElement?.matches('dialog[is=sidebar-view]')? scrollView?.parentElement: scrollView)?.previousElementSibling as HTMLElement | null // look for prev sibling instead
+        possibleNest = (
+          scrollView?.parentElement?.matches('dialog[is=sidebar-view]')
+            ? scrollView?.parentElement
+            : scrollView
+        )?.previousElementSibling as HTMLElement | null // look for prev sibling instead
     // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
 
     this.#leaf = [

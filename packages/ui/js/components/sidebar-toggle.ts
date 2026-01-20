@@ -86,10 +86,21 @@ export class SidebarToggle extends HTMLElement {
   //   })
   // }
 
-  #handleClick(event:Event) {
-    const lm=(event.target as HTMLElement)?.closest('tab-view,navigation-split-view')
+  #handleClick(event: Event) {
+    const target = event.target as HTMLElement
 
-    const dialog='TAB-VIEW' === lm?.tagName?lm.querySelector<TabBar>('dialog[is="tab-bar"]'):lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
+    if(!target?.closest(
+      'button'
+    )) return 
+
+    const lm = target?.closest(
+      'tab-view,navigation-split-view'
+    )
+
+    const dialog =
+      'TAB-VIEW' === lm?.tagName
+        ? lm.querySelector<TabBar>('dialog[is="tab-bar"]')
+        : lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
 
     if (!dialog?.open) dialog?.showModal()
     else dialog.close()

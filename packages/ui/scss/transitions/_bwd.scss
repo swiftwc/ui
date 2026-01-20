@@ -44,7 +44,7 @@
   // navigation-split-view > .bwdd {
   //   z-index: 0;
   // }
-  navigation-split-view > body-view:has(~ .bwdd){
+  navigation-split-view > body-view:has(~ .bwdd) {
     pointer-events: none;
     // z-index: 1;
   }

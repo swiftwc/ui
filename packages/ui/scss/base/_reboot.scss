@@ -12,13 +12,12 @@
   :root {
     interpolate-size: allow-keywords;
   }
-  
+
   *,
   *::before,
   *::after {
     box-sizing: border-box;
   }
-
 
   // dialog {
   //   margin: 0;
@@ -42,9 +41,12 @@
 
   $CONFIG: (
     vt-fwd-class-name: vars.$vt-fwd-class-name,
-    disclosure-group-contents-height-css-prop: vars.$disclosure-group-contents-height-css-prop,
-    disclosure-group-animation-duration-css-prop: vars.$disclosure-group-animation-duration-css-prop,
-    disclosure-group-animation-close-class: vars.$disclosure-group-animation-close-class
+    disclosure-group-contents-height-css-prop:
+      vars.$disclosure-group-contents-height-css-prop,
+    disclosure-group-animation-duration-css-prop:
+      vars.$disclosure-group-animation-duration-css-prop,
+    disclosure-group-animation-close-class:
+      vars.$disclosure-group-animation-close-class,
   );
 
   @debug functions.map-to-query($CONFIG);

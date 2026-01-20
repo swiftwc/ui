@@ -5,7 +5,11 @@
   tool-bar-item,
   tool-bar-item-group {
     &.bwn {
-      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
+      @include mixins.toolbar-item-vt-state(
+        scale(var(--view-transition-toolbar-cell-offscreen-scale)),
+        blur(10px),
+        0
+      );
 
       // @starting-style {
       //   transform: scale(1);
@@ -23,7 +27,11 @@
     }
 
     &.bwnn.bwn {
-      @include mixins.toolbar-item-vt-state(scale(var(--view-transition-toolbar-cell-offscreen-scale)), blur(10px), 0);
+      @include mixins.toolbar-item-vt-state(
+        scale(var(--view-transition-toolbar-cell-offscreen-scale)),
+        blur(10px),
+        0
+      );
     }
   }
 }

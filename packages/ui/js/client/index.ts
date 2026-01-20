@@ -37,30 +37,36 @@ if (0 < polyfills.size) {
   const handlers = new WeakMap()
   // @ts-expect-error
   const observe = (el, polyfill) => {
-    if(!Array.isArray(polyfill.observedAttributes)) return 
-      if(0 === polyfill?.observedAttributes.length) return
+      if (!Array.isArray(polyfill.observedAttributes)) return
+      if (0 === polyfill?.observedAttributes.length) return
 
-    handlers.set(el, new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(el, {
-      attributes: true,
-      attributeFilter: polyfill.observedAttributes,
-      attributeOldValue: true
-    }))
-    // @ts-expect-error
-  },unobserve = (el) => {
-    handlers.delete(el)
-  }
+      handlers.set(
+        el,
+        new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(
+          el,
+          {
+            attributes: true,
+            attributeFilter: polyfill.observedAttributes,
+            attributeOldValue: true,
+          }
+        )
+      )
+    },
+      // @ts-expect-error
+    unobserve = (el) => {
+      handlers.delete(el)
+    }
 
-  console.debug(polyfillTagNamesCache);
+  console.debug(polyfillTagNamesCache)
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(
       `${polyfill.polyfillExtends}[is="${is}"]`
-    ))
-      {
-        polyfill.polyfillConnectedCallback(el)
+    )) {
+      polyfill.polyfillConnectedCallback(el)
 
-        observe(el, polyfill)
-      }
+      observe(el, polyfill)
+    }
 
   // observer callback
   const observer = new MutationObserver((mutations) => {
@@ -125,7 +131,7 @@ const cleanup = (lm?: Element, dir?: TransitionType) => {
 
 export const startViewTransition = async (
   event: Event,
-  type:TransitionType = 'forwards',
+  type: TransitionType = 'forwards',
   updateCallback = async () => {}
 ) => {
   // const sv =
@@ -158,7 +164,7 @@ export const startViewTransition = async (
     Snapshot.getSnapshot(from)
 
     const fromToolbars = Snapshot.toolbarItems
-      // from = Snapshot.landmark
+    // from = Snapshot.landmark
 
     const to = Snapshot.leaf,
       toFrame = Snapshot.leafContainer,

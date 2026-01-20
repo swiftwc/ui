@@ -56,8 +56,7 @@ export class DisclosureGroup extends DetailsBase {
     const el=(event.target as HTMLElement).closest<HTMLDetailsElement>('details')
     if(!el) return 
 
-      const wasInert=el.inert,
-      wasOpen=el.open // will close after this event
+      const wasOpen=el.open // will close after this event
 
       el.inert=true
 
@@ -71,7 +70,7 @@ export class DisclosureGroup extends DetailsBase {
 
       await new Promise(r => setTimeout(r, cssTime(`${el.computedStyleMap().get(Snapshot.config!['disclosure-group-animation-duration-css-prop'])}`)))
 
-      if(!wasInert) el.inert=false
+      el.inert=false
 
       if(wasOpen) el.open=false
       

@@ -61,7 +61,7 @@ list-style: none;
 
       &.#{vars.$disclosure-group-animation-close-class} {
         &::details-content {
-          max-height: 0;
+          max-height: 0 !important;
         }
       }
 

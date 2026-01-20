@@ -241,7 +241,7 @@
       max-height: calc(var(--contents-height, 100vh) + 100px);
     }
     [is=disclosure-group].close::details-content {
-      max-height: 0;
+      max-height: 0 !important;
     }
   }
 }

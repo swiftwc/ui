@@ -86,7 +86,7 @@ export class DisclosureGroup extends DetailsBase {
           const { height } = entry.contentRect;
 
           node?.style?.setProperty?.(
-            '--contents-height',
+            Snapshot.config!['disclosure-group-contents-height-css-prop'],
             `${height}px`
           )
       }));
@@ -97,92 +97,8 @@ export class DisclosureGroup extends DetailsBase {
       observers.delete(node)
 
       node?.style?.removeProperty?.(
-        '--contents-height'
+        Snapshot.config!['disclosure-group-contents-height-css-prop']
       )
     }
-
-    // const summaryHeight=node.querySelector(':scope > summary')?.clientHeight ?? 0,
-    //   contentHeight=[...node.querySelectorAll(':scope > *:not(summary)')].map(item => item.clientHeight).reduce((a, b) => a + b, 0)
-
-    // console.log(111,summaryHeight, contentHeight)
-    /* const node=(entry.target as HTMLDetailsElement)
-
-    // const nv=node.getAttribute(entry.attributeName ?? '')
-
-    // console.log(333, document.querySelector('details::details-content'), getComputedStyle(node, '::details-content').height)
-
-    // console.log(44,node,node.querySelector('*:not(summary)').getAnimations().map(({ finished }) => finished))
-
-    if(CSS.supports('interpolate-size', 'allow-keywords')) return 
-
-    return
-
-    // self.requestAnimationFrame(async () => {
-
-      const styleMap = node.computedStyleMap(),
-      ee=styleMap.get('--disclosure-group-animation-duration');
-      // console.log(444, ee.entries(), ee?.toString())
-  
-      console.log(444,node.clientHeight,)
-  
-      const duration=parseInt(`${ee}`),
-      easing=getComputedStyle(node).getPropertyValue('--disclosure-group-animation-easing').trim()
-  
-      const summaryHeight=18, //node.querySelector(':scope > summary')?.clientHeight ?? 0,
-      contentHeight=[...node.querySelectorAll(':scope > *:not(summary)')].map(item => item.clientHeight).reduce((a, b) => a + b, 0)
-  
-// node.style.overflow='hidden'
-
-if(node.open) {
-  // node.style.maxHeight='18px'
-  const tr=node.animate([
-    { maxHeight: `${summaryHeight}px` },
-    { maxHeight: `100vh` },
-  ],
-  {
-    // fill: "both",
-    duration,
-    easing
-  })
-} else {
-  const tr=node.animate([
-    { height: `120px`, maxHeight: 'unset' },
-    { height: `${summaryHeight}px`, maxHeight: 'unset' },
-  ],
-  {
-    // fill: "both",
-    duration,
-    easing
-  })
-}
-
-      //  if(node.open) node.style.height=`${summaryHeight}px`
-  
-        console.log(99,node.open? `${summaryHeight + contentHeight}px`:`${summaryHeight}px`)
-  
-  
-
-  // await tr.finished
-
-  // node.removeAttribute('style')
-
-
-    //   } else {
-    //       // node.style.height='77px'
-    
-    // node.animate([
-    //   { height: `${summaryHeight}px` },
-    // ],
-    // {
-    //   fill: "both",
-    //   duration,
-    //   easing
-    // })
-        
-    //   }
-    // })
-
-    // console.log(99, nv,node.open)
-    // console.log(666, node.offsetHeight) */
   }
 }

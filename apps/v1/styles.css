@@ -126,7 +126,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&vt-fwd-class-name=fwd";
+    content: "disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -238,7 +238,7 @@
       max-height: 0;
     }
     [is=disclosure-group][open]::details-content {
-      max-height: calc(var(--contents-height, 100vh) + 100px);
+      max-height: calc(var(--disclosure-group-contents-height, 100vh) + 100px);
     }
     [is=disclosure-group].close::details-content {
       max-height: 0 !important;

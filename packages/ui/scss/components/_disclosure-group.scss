@@ -55,7 +55,7 @@ list-style: none;
 
       &[open] {
         &::details-content {
-          max-height: calc(var(--contents-height, 100vh) + 100px);
+          max-height: calc(var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) + 100px);
         }
       }
 

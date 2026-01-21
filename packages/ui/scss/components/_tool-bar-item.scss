@@ -51,7 +51,7 @@
   }
 }
 
-@layer #{vars.$ui-layer} {
+@layer #{vars.$colors-layer} {
   tool-bar-item,
   tab-item {
     button,
@@ -60,6 +60,7 @@
         &:focus-visible {
           background-color: var(--toolbar-cell-focus-bg);
         }
+
         // order matters! BEFORE active
         @media (pointer: fine) {
           &:hover {

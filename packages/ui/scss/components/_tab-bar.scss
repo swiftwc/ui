@@ -10,7 +10,8 @@
     width: fit-content;
     height: auto;
 
-    position: fixed;
+    position: fixed; // show always
+
     background: #ffffff9e;
     backdrop-filter: blur(4px);
 
@@ -27,14 +28,13 @@
       padding-inline: 0;
     }
 
-    // [is='tab-bar'] {
+
     @include mixins.if-iphone-portrait {
       max-width: var(--tab-bar-iphone-max-width);
       height: var(--tab-bar-iphone-height);
       // left: 50%;
       border-radius: var(--tab-bar-iphone-border-radius);
-      inset: auto auto
-        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      inset: auto auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
       transform: translateX(-50%);
       //
       grid-auto-flow: column;
@@ -45,15 +45,15 @@
         }
       }
     }
-    // }
 
-    // [is='tab-bar'] {
+
+
+
     @include mixins.if-ipad-portrait {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto auto 50%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto 50%;
       transform: translateX(-50%);
 
       border-radius: var(--tab-bar-ipad-border-radius);
@@ -71,12 +71,9 @@
       &[open] {
         // @include mixins.make-navbar;
 
-        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-          auto
-          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
-          max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
-        // height: auto;
+        height: auto; // override topbar
         transform: translateX(0);
         width: var(--tab-bar-sidebar-width);
 
@@ -84,7 +81,7 @@
 
         grid-auto-flow: row;
 
-        & > * {
+        &>* {
           @include mixins.span-all;
 
           --safe-area-inset-top: 0px !important; // reset navbar > span
@@ -94,13 +91,9 @@
         // animation: slide-in 250ms ease-out forwards;
       }
     }
-    // }
 
-    // [is='tab-bar'] {
     @include mixins.if-iphone-landscape {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto
-        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
 
       width: var(--tab-bar-sidebar-width);
 
@@ -112,22 +105,18 @@
 
         --tabview-padding-inline-start: 0px !important; // override tab-view prop
 
-        > scroll-view {
+        >scroll-view {
           --canvas-bg: #ffffff9e;
         }
       }
     }
-    // }
 
-    // [is='tab-bar'] {
     @include mixins.if-ipad-landscape {
       // grid-area: aside;
       // position: relative;
       // margin: 10px;
       // height: 100svh;
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
-        max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       width: var(--tab-bar-sidebar-width);
 
@@ -146,12 +135,3 @@
     }
   }
 }
-
-// @keyframes slide-in {
-//   from {
-//     transform: translateX(-100%);
-//   }
-//   to {
-//     transform: translateX(0);
-//   }
-// }

@@ -52,7 +52,7 @@ if (0 < polyfills.size) {
         )
       )
     },
-      // @ts-expect-error
+    // @ts-expect-error
     unobserve = (el) => {
       handlers.delete(el)
     }

@@ -89,13 +89,9 @@ export class SidebarToggle extends HTMLElement {
   #handleClick(event: Event) {
     const target = event.target as HTMLElement
 
-    if(!target?.closest(
-      'button'
-    )) return 
+    if (!target?.closest('button')) return
 
-    const lm = target?.closest(
-      'tab-view,navigation-split-view'
-    )
+    const lm = target?.closest('tab-view,navigation-split-view')
 
     const dialog =
       'TAB-VIEW' === lm?.tagName

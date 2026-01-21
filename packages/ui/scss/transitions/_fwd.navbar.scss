@@ -23,11 +23,7 @@
   tool-bar-item-group {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
-      @include mixins.toolbar-item-vt-state(
-        scale(var(--view-transition-toolbar-cell-offscreen-scale)),
-        blur(10px),
-        0
-      );
+      @include mixins.vt-toolbar-item-offscreen-keyframe;
 
       // @starting-style {
       // transform: scale(1);
@@ -36,27 +32,15 @@
     }
 
     &.fwnn {
-      @include mixins.toolbar-item-vt-state(
-        scale(var(--view-transition-toolbar-cell-onscreen-scale)),
-        none,
-        1
-      );
+      @include mixins.vt-toolbar-item-onscreen-keyframe;
 
       @starting-style {
-        @include mixins.toolbar-item-vt-state(
-          scale(var(--view-transition-toolbar-cell-offscreen-scale)),
-          blur(10px),
-          0
-        );
+        @include mixins.vt-toolbar-item-offscreen-keyframe;
       }
     }
 
     &.fwnn.fwn {
-      @include mixins.toolbar-item-vt-state(
-        scale(var(--view-transition-toolbar-cell-offscreen-scale)),
-        blur(10px),
-        0
-      );
+      @include mixins.vt-toolbar-item-offscreen-keyframe;
     }
   }
 }

@@ -32,83 +32,102 @@
         }
 
         &[preferred-compact-column='content'] {
-          // body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
-          // z-index: -1;
-          // }
-
-          body-view > body-view {
-            clip-path: inset(
-              0 0 0 var(--nav-split-view-content-width)
-            ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
+          body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
+            z-index: -1;
           }
+
+          // body-view > body-view {
+          // clip-path: inset(
+          //   0 0 0 var(--nav-split-view-content-width)
+          // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
+          // }
         }
       }
     }
 
+    // COMPACT | EXPANDED
+    // | |  <->  |
     @include mixins.if-2col-split-view-fits {
-      // shrink 1st-child
+      // compact col
       > scroll-view,
       > [is='sidebar-view'],
       > navigation-bar,
       > bottom-bar {
         width: var(--nav-split-view-content-width);
+
+        --safe-area-inset-right: 0px; // Reset right paddings of compact col
       }
 
-      // move descendants to right
+      // container of details col
       > body-view {
+        // details col (content|details)
         scroll-view:not(dialog scroll-view),
         navigation-bar:not(dialog navigation-bar),
         bottom-bar:not(dialog bottom-bar) {
-          margin-inline-start: var(--nav-split-view-content-width);
+          margin-inline-start: var(
+            --nav-split-view-content-width
+          ); // beautiful vts
+
+          // Reset left paddings of expanded col
+          --safe-area-inset-left: 0px;
         }
       }
+    }
 
-      // turn into floating sidebar
-      > [is='sidebar-view'] > scroll-view {
-        --canvas-bg: #ffffff9e;
-
-        --safe-area-inset-top: 0px;
-        --safe-area-inset-bottom: 0px;
-
-        border-radius: var(--tab-bar-sidebar-border-radius);
-
-        margin-block: max(
-            var(--safe-area-inset-top),
-            var(--tab-bar-sidebar-spacing)
-          )
-          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
-      }
-
+    // SIDEBAR | EXPANDED
+    @include mixins.if-2col-split-view-fits {
       &:has(> dialog[is='sidebar-view']) {
-        // re-shrink 1st-child + turn into a floating sidebar
+        // sidebar col: turn into floating sidebar
+        > [is='sidebar-view'] > scroll-view {
+          --canvas-bg: #ffffff9e;
+
+          --safe-area-inset-top: 0px;
+          --safe-area-inset-bottom: 0px;
+
+          border-radius: var(--tab-bar-sidebar-border-radius);
+
+          margin-block: max(
+              var(--safe-area-inset-top),
+              var(--tab-bar-sidebar-spacing)
+            )
+            max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+        }
+
+        // sidebar col: re-size + turn into a floating sidebar
         > scroll-view,
         > [is='sidebar-view'],
         > navigation-bar,
         > bottom-bar {
+          width: var(--nav-split-view-sidebar-width); // override
+
           margin-inline-start: max(
             env(safe-area-inset-left),
             var(--tab-bar-sidebar-spacing)
-          );
+          ); // float
 
-          width: var(--nav-split-view-sidebar-width);
-
-          --safe-area-inset-left: 0px;
-          // padding-inline: 0px;
+          --safe-area-inset-left: 0px; // now a floating
         }
 
-        // re-move descendants to the 3rd col
+        // container of expanded col (trailing)
         > body-view {
           scroll-view:not(dialog scroll-view),
           navigation-bar:not(dialog navigation-bar),
           bottom-bar:not(dialog bottom-bar) {
-            margin-inline-start: calc(
+            margin-inline-start: 0px; // override
+
+            --safe-area-inset-left: calc(
               var(--nav-split-view-sidebar-width) +
                 max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
             );
           }
         }
+      }
+    }
 
-        // move sidebar out of the way and make content principal
+    // SIDEBAR | EXPANDED
+    @include mixins.if-2col-split-view-fits {
+      &:has(> dialog[is='sidebar-view']) {
+        // SIDEBAR | COMPACT | EXPANDED
         &[preferred-compact-column='content'] {
           > scroll-view,
           > [is='sidebar-view'],
@@ -119,10 +138,23 @@
 
           // move descendants to right
           > body-view {
+            scroll-view:not(dialog scroll-view),
+            navigation-bar:not(dialog navigation-bar),
+            bottom-bar:not(dialog bottom-bar) {
+              margin-inline-start: var(--nav-split-view-content-width);
+
+              --safe-area-inset-left: 0px;
+            }
+
             > scroll-view:not(dialog scroll-view),
             > navigation-bar:not(dialog navigation-bar),
             > bottom-bar:not(dialog bottom-bar) {
-              // margin-inline-start: 0px;
+              margin-inline-start: 0px;
+
+              --safe-area-inset-left: max(
+                env(safe-area-inset-left),
+                var(--tab-bar-sidebar-spacing)
+              );
 
               width: var(--nav-split-view-content-width);
             }
@@ -131,31 +163,46 @@
       }
     }
 
+    // SIDEBAR | COMPACT | EXPANDED
     @include mixins.if-3col-split-view-fits {
       &:has(> dialog[is='sidebar-view']) {
-        // re-move descendants to right
+        // container of content col (principal)
         > body-view {
           // clip-path: inset(
           //   0 0 0 var(--nav-split-view-sidebar-width)
           // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
 
-          scroll-view:not(dialog scroll-view),
-          navigation-bar:not(dialog navigation-bar),
-          bottom-bar:not(dialog bottom-bar) {
-            margin-inline-start: calc(
-              var(--nav-split-view-sidebar-width) +
-                var(--nav-split-view-content-width) +
-                max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
-            );
-          }
-
           // shrink 2nd-child
           > scroll-view,
           > navigation-bar,
           > bottom-bar {
-            width: var(--nav-split-view-content-width);
+            width: calc(
+              var(--nav-split-view-content-width) +
+                var(--nav-split-view-sidebar-width)
+            ); // shrink to be now a col
 
             --safe-area-inset-right: 0px;
+          }
+
+          // container of details col (trailing)
+          > body-view {
+            scroll-view:not(dialog scroll-view),
+            navigation-bar:not(dialog navigation-bar),
+            bottom-bar:not(dialog bottom-bar) {
+              // --safe-area-inset-left: calc(
+              //   var(--nav-split-view-sidebar-width) +
+              //     var(--nav-split-view-content-width) +
+              //     max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+              // ); // override
+
+              // margin-inline-start: 0px;
+              --safe-area-inset-left: 0px; // override
+
+              margin-inline-start: calc(
+                var(--nav-split-view-sidebar-width) +
+                  var(--nav-split-view-content-width)
+              ); // override
+            }
           }
         }
       }
@@ -165,102 +212,137 @@
 
 @layer #{vars.$final-layer} {
   navigation-split-view {
+    // COMPACT | EXPANDED
     @include mixins.if-2col-split-view-fits {
-      // 1st-child stays put
+      // Cancel transitions as it is now a compact col
       > scroll-view,
-      > [is='sidebar-view'] > scroll-view,
-      > navigation-bar,
-      > bottom-bar {
-        transform: translateX(0px);
-
-        --safe-area-inset-right: 0px;
+      > [is='sidebar-view'] > scroll-view {
+        transform: translateX(0px) !important;
       }
 
-      // cancel animations
+      > body-view {
+        > scroll-view:not(dialog scroll-view).bwd,
+        > scroll-view:not(dialog scroll-view).fwdd,
+        > navigation-bar:not(dialog navigation-bar) .bwn,
+        > bottom-bar:not(dialog bottom-bar) .bwn,
+        > navigation-bar:not(dialog navigation-bar) .fwnn,
+        > bottom-bar:not(dialog bottom-bar) .fwnn {
+          transition-duration: 0ms !important;
+        }
+      }
+
+      // Cancel animations
       > navigation-bar,
       > bottom-bar {
         > tool-bar-item,
         > tool-bar-item-group {
-          @include mixins.toolbar-item-vt-state(none, none, 1);
+          @include mixins.vt-toolbar-item-onscreen-keyframe(true);
         }
       }
+    }
 
-      > body-view {
-        scroll-view:not(dialog scroll-view),
-        navigation-bar:not(dialog navigation-bar),
-        bottom-bar:not(dialog bottom-bar) {
-          --safe-area-inset-left: 0px;
-        }
-      }
+    // SIDEBAR | EXPANDED
+    @include mixins.if-2col-split-view-fits {
+      &:has(> dialog[is='sidebar-view']) {
+        &[preferred-compact-column='content'] {
+          // move descendants to right
+          > body-view {
+            > scroll-view {
+              transform: translateX(0px) !important;
+            }
 
-      &[preferred-compact-column='content'] {
-        // move descendants to right
-        > body-view {
-          scroll-view:not(dialog scroll-view),
-          navigation-bar:not(dialog navigation-bar),
-          bottom-bar:not(dialog bottom-bar) {
-            margin-inline-start: var(--nav-split-view-content-width);
-          }
+            // scroll-view:not(dialog scroll-view),
+            // navigation-bar:not(dialog navigation-bar),
+            // bottom-bar:not(dialog bottom-bar) {
+            // margin-inline-start: var(--nav-split-view-content-width);
+            // }
 
-          > scroll-view:not(dialog scroll-view),
-          > navigation-bar:not(dialog navigation-bar),
-          > bottom-bar:not(dialog bottom-bar) {
-            transform: translateX(0px);
+            // > scroll-view:not(dialog scroll-view),
+            // > navigation-bar:not(dialog navigation-bar),
+            // > bottom-bar:not(dialog bottom-bar) {
+            // transform: translateX(0px);
 
-            margin-inline-start: 0px;
+            // margin-inline-start: 0px;
 
             // width: unset;
+            // }
+
+            // > body-view {
+            // scroll-view:not(dialog scroll-view),
+            // navigation-bar:not(dialog navigation-bar),
+            // bottom-bar:not(dialog bottom-bar) {
+            // margin-inline-start: var(--nav-split-view-content-width);
+            // }
+            // }
           }
         }
       }
     }
 
-    @include mixins.ifnot-3col-split-view-fits {
-      &:has(> dialog[is='sidebar-view']) {
-        // --view-transition-leading-x: -100lvw;
+    // @include mixins.ifnot-3col-split-view-fits {
+    // (sidebar|content|details)
+    // &:has(> dialog[is='sidebar-view']) {
+    // --view-transition-leading-x: -100lvw;
 
-        // > body-view > body-view ~ scroll-view {
-        //   z-index: -1;
-        // }
-      }
-    }
+    // > body-view > body-view ~ scroll-view {
+    //   z-index: -1;
+    // }
+    //   }
+    // }
 
+    // SIDEBAR | COMPACT | EXPANDED
     @include mixins.if-3col-split-view-fits {
       &:has(> dialog[is='sidebar-view']) {
-        // re-move firect descendants to the right (by default they are sent to 3rd col by
+        // container of compact col (middle)
         > body-view {
-          > scroll-view,
-          > navigation-bar,
-          > bottom-bar {
-            margin-inline-start: calc(
-              var(--nav-split-view-sidebar-width) +
-                max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
-            );
+          // Fix position as compact col in the middle
+          > scroll-view {
+            transform: translateX(0px) !important;
           }
-        }
 
-        // re-move descendants to the right
-        > body-view {
-          --view-transition-leading-x: unset;
+          // Fix position of compact col
+          // > scroll-view,
+          // > navigation-bar,
+          // > bottom-bar {
+          // margin-inline-start: calc(
+          //   var(--nav-split-view-sidebar-width) +
+          //     max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+          // );
+          // }
+
+          // > body-view {
+          //   > scroll-view,
+          //   > navigation-bar,
+          //   > bottom-bar {
+          //     margin-inline-start: 0px;
+
+          //     --safe-area-inset-left: calc(
+          //       var(--nav-split-view-sidebar-width) +
+          //         max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+          //     );
+          //   }
+          // }
+          // }
+
+          // // re-move descendants to the right
+          // > body-view {
+          // --view-transition-leading-x: unset;
 
           // 2nd-child stays put
-          > scroll-view,
-          > navigation-bar,
-          > bottom-bar {
-            transform: translateX(0px);
-          }
+          // > scroll-view,
+          // > navigation-bar,
+          // > bottom-bar {
+          // transform: translateX(0px);
+          // }
 
           // cancel animations
           > navigation-bar,
           > bottom-bar {
             > tool-bar-item,
             > tool-bar-item-group {
-              @include mixins.toolbar-item-vt-state(none, none, 1);
+              @include mixins.vt-toolbar-item-onscreen-keyframe(true);
             }
           }
-        }
-
-        &[preferred-compact-column='content'] {
         }
       }
     }

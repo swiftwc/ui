@@ -83,6 +83,34 @@
   }
 }
 
+@mixin vt-toolbar-item-offscreen-keyframe($important: false) {
+  @if $important {
+    transform: scale(
+      var(--view-transition-toolbar-cell-offscreen-scale)
+    ) !important;
+    filter: blur(10px) !important;
+    opacity: 0 !important;
+  } @else {
+    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    filter: blur(10px);
+    opacity: 0;
+  }
+}
+
+@mixin vt-toolbar-item-onscreen-keyframe($important: false) {
+  @if $important {
+    transform: scale(
+      var(--view-transition-toolbar-cell-onscreen-scale)
+    ) !important;
+    filter: none !important;
+    opacity: 1 !important;
+  } @else {
+    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+    filter: none;
+    opacity: 1;
+  }
+}
+
 @mixin toolbar-item-vt-state($transform, $filter, $opacity) {
   transform: $transform;
   filter: $filter;

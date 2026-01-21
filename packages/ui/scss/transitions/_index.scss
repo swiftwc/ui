@@ -12,75 +12,80 @@
   // ::view-transition-new(root) {
   //   animation: 15s ease-out both slide-from-right;
   // }
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-view {
+      &.#{vars.$vt-fwd-class-name},
+      &.fwdd,
+      &.bwd,
+      &.bwdd {
+        transition:
+          transform var(--view-transition-duration) ease-out allow-discrete,
+          padding-inline-start #{vars.$sidebar-transition-duration} ease-out
+            allow-discrete,
+          margin-inline-start #{vars.$sidebar-transition-duration} ease-out
+            allow-discrete;
 
-  scroll-view {
-    &.#{vars.$vt-fwd-class-name},
-    &.fwdd,
-    &.bwd,
-    &.bwdd {
-      transition:
-        transform var(--view-transition-duration) ease-out allow-discrete,
-        padding-inline-start #{vars.$sidebar-transition-duration} ease-out
-          allow-discrete,
-        margin-inline-start #{vars.$sidebar-transition-duration} ease-out
-          allow-discrete;
-
-      will-change: transform, padding-inline-start, margin-inline-start;
+        will-change: transform, padding-inline-start, margin-inline-start;
+      }
     }
-  }
 
-  tool-bar-item,
-  tool-bar-item-group {
-    transition:
-      transform var(--view-transition-duration) ease-out allow-discrete,
-      opacity var(--view-transition-duration) ease-out allow-discrete,
-      filter var(--view-transition-duration) ease-out allow-discrete;
+    tool-bar-item,
+    tool-bar-item-group {
+      &.fwn,
+      &.fwnn,
+      &.bwn,
+      &.bwnn {
+        transition:
+          transform var(--view-transition-duration) ease-out allow-discrete,
+          opacity var(--view-transition-duration) ease-out allow-discrete,
+          filter var(--view-transition-duration) ease-out allow-discrete;
 
-    will-change: transform, opacity, filter;
-    // > * {
-    // transition: filter var(--view-transition-duration) ease-out allow-discrete;
-    // will-change: filter;
-    // }
-  }
+        will-change: transform, opacity, filter;
+        // > * {
+        // transition: filter var(--view-transition-duration) ease-out allow-discrete;
+        // will-change: filter;
+        // }
+      }
+    }
 
-  [is='sheet-view'] {
-    transition:
-      transform var(--view-transition-duration) allow-discrete,
-      overlay var(--view-transition-duration) allow-discrete,
-      display var(--view-transition-duration) allow-discrete;
-    // transition: background-color var(--view-transition-duration) ease-out
-    //   allow-discrete;
-    will-change: transform, overlay, display;
-
-    &::backdrop {
+    [is='sheet-view'] {
       transition:
-        display var(--view-transition-duration) allow-discrete,
+        transform var(--view-transition-duration) allow-discrete,
         overlay var(--view-transition-duration) allow-discrete,
-        background-color var(--view-transition-duration);
-      will-change: background-color, overlay, display;
-    }
-
-    &[open] {
-      transform: translateY(var(--view-transition-dialog-onscreen-y));
+        display var(--view-transition-duration) allow-discrete;
+      // transition: background-color var(--view-transition-duration) ease-out
+      //   allow-discrete;
+      will-change: transform, overlay, display;
 
       &::backdrop {
-        background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+        transition:
+          display var(--view-transition-duration) allow-discrete,
+          overlay var(--view-transition-duration) allow-discrete,
+          background-color var(--view-transition-duration);
+        will-change: background-color, overlay, display;
       }
 
-      @starting-style {
+      &[open] {
+        transform: translateY(var(--view-transition-dialog-onscreen-y));
+
         &::backdrop {
-          background-color: transparent;
+          background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
         }
-      }
 
-      @starting-style {
-        & {
-          transform: translateY(var(--view-transition-dialog-offscreen-y));
+        @starting-style {
+          &::backdrop {
+            background-color: transparent;
+          }
+        }
+
+        @starting-style {
+          & {
+            transform: translateY(var(--view-transition-dialog-offscreen-y));
+          }
         }
       }
     }
   }
-
   /* scroll-view {
     view-transition-name: match-element;
     view-transition-class: scroll-view;

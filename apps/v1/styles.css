@@ -104,7 +104,7 @@
     --disclosure-group-animation-easing: ease-out;
   }
 }
-@layer base, components, ui, actions, transitions, final;
+@layer base, components, colors, actions, transitions, final;
 @layer base {
   :root {
     interpolate-size: allow-keywords;
@@ -372,6 +372,7 @@
     }
     [is=tab-bar][open] {
       inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      height: auto;
       transform: translateX(0);
       width: var(--tab-bar-sidebar-width);
       border-radius: var(--tab-bar-sidebar-border-radius);
@@ -423,6 +424,8 @@
     }
     [is=tab-bar][open] tab-bar-stack {
       grid-auto-flow: row;
+      align-content: start;
+      row-gap: 0.5rem;
     }
     [is=tab-bar]:not([open]) tab-bar-stack {
       margin-block: 0 !important;
@@ -452,6 +455,10 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
+    tab-bar-stack {
+      align-content: start;
+      row-gap: 0.5rem;
+    }
     [is=tab-bar] > scroll-view {
       overflow: clip auto;
       overscroll-behavior: contain;
@@ -472,6 +479,10 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
+    tab-bar-stack {
+      align-content: start;
+      row-gap: 0.5rem;
+    }
     [is=tab-bar] > scroll-view {
       overflow: clip auto;
       overscroll-behavior: contain;
@@ -617,8 +628,8 @@
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view ~ scroll-view {
       z-index: -1;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] body-view > body-view {
-      clip-path: inset(0 0 0 var(--nav-split-view-content-width));
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
+      z-index: -1;
     }
   }
   @media (min-width: 43rem) {
@@ -627,13 +638,17 @@
     navigation-split-view > navigation-bar,
     navigation-split-view > bottom-bar {
       width: var(--nav-split-view-content-width);
+      --safe-area-inset-right: 0px;
     }
     navigation-split-view > body-view scroll-view:not(dialog scroll-view),
     navigation-split-view > body-view navigation-bar:not(dialog navigation-bar),
     navigation-split-view > body-view bottom-bar:not(dialog bottom-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
+      --safe-area-inset-left: 0px;
     }
-    navigation-split-view > [is=sidebar-view] > scroll-view {
+  }
+  @media (min-width: 43rem) {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view {
       --canvas-bg: #ffffff9e;
       --safe-area-inset-top: 0px;
       --safe-area-inset-bottom: 0px;
@@ -644,96 +659,98 @@
     navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view],
     navigation-split-view:has(> dialog[is=sidebar-view]) > navigation-bar,
     navigation-split-view:has(> dialog[is=sidebar-view]) > bottom-bar {
-      margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       width: var(--nav-split-view-sidebar-width);
+      margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
       --safe-area-inset-left: 0px;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view),
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view navigation-bar:not(dialog navigation-bar),
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view bottom-bar:not(dialog bottom-bar) {
-      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
+      margin-inline-start: 0px;
+      --safe-area-inset-left: calc(
+        var(--nav-split-view-sidebar-width) +
+          max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+      );
     }
+  }
+  @media (min-width: 43rem) {
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > scroll-view,
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > [is=sidebar-view],
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > navigation-bar,
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > bottom-bar {
       margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
     }
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view bottom-bar:not(dialog bottom-bar) {
+      margin-inline-start: var(--nav-split-view-content-width);
+      --safe-area-inset-left: 0px;
+    }
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view),
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > navigation-bar:not(dialog navigation-bar),
     navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > bottom-bar:not(dialog bottom-bar) {
+      margin-inline-start: 0px;
+      --safe-area-inset-left: max(
+        env(safe-area-inset-left),
+        var(--tab-bar-sidebar-spacing)
+      );
       width: var(--nav-split-view-content-width);
     }
   }
   @media (min-width: 56rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view bottom-bar:not(dialog bottom-bar) {
-      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
-    }
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view,
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar,
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar {
-      width: var(--nav-split-view-content-width);
+      width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width));
       --safe-area-inset-right: 0px;
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view bottom-bar:not(dialog bottom-bar) {
+      --safe-area-inset-left: 0px;
+      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width));
     }
   }
 }
 @layer final {
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
-    navigation-split-view > [is=sidebar-view] > scroll-view,
-    navigation-split-view > navigation-bar,
-    navigation-split-view > bottom-bar {
-      transform: translateX(0px);
-      --safe-area-inset-right: 0px;
+    navigation-split-view > [is=sidebar-view] > scroll-view {
+      transform: translateX(0px) !important;
+    }
+    navigation-split-view > body-view > scroll-view:not(dialog scroll-view).bwd,
+    navigation-split-view > body-view > scroll-view:not(dialog scroll-view).fwdd,
+    navigation-split-view > body-view > navigation-bar:not(dialog navigation-bar) .bwn,
+    navigation-split-view > body-view > bottom-bar:not(dialog bottom-bar) .bwn,
+    navigation-split-view > body-view > navigation-bar:not(dialog navigation-bar) .fwnn,
+    navigation-split-view > body-view > bottom-bar:not(dialog bottom-bar) .fwnn {
+      transition-duration: 0ms !important;
     }
     navigation-split-view > navigation-bar > tool-bar-item,
     navigation-split-view > navigation-bar > tool-bar-item-group,
     navigation-split-view > bottom-bar > tool-bar-item,
     navigation-split-view > bottom-bar > tool-bar-item-group {
-      transform: none;
-      filter: none;
-      opacity: 1;
+      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
+      filter: none !important;
+      opacity: 1 !important;
     }
-    navigation-split-view > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view > body-view bottom-bar:not(dialog bottom-bar) {
-      --safe-area-inset-left: 0px;
-    }
-    navigation-split-view[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view[preferred-compact-column=content] > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view[preferred-compact-column=content] > body-view bottom-bar:not(dialog bottom-bar) {
-      margin-inline-start: var(--nav-split-view-content-width);
-    }
-    navigation-split-view[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view),
-    navigation-split-view[preferred-compact-column=content] > body-view > navigation-bar:not(dialog navigation-bar),
-    navigation-split-view[preferred-compact-column=content] > body-view > bottom-bar:not(dialog bottom-bar) {
-      transform: translateX(0px);
-      margin-inline-start: 0px;
+  }
+  @media (min-width: 43rem) {
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > scroll-view {
+      transform: translateX(0px) !important;
     }
   }
   @media (min-width: 56rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar {
-      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view {
-      --view-transition-leading-x: unset;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar {
-      transform: translateX(0px);
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view {
+      transform: translateX(0px) !important;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar > tool-bar-item,
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar > tool-bar-item-group,
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar > tool-bar-item,
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar > tool-bar-item-group {
-      transform: none;
-      filter: none;
-      opacity: 1;
+      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
+      filter: none !important;
+      opacity: 1 !important;
     }
   }
 }
@@ -1001,7 +1018,7 @@
     min-width: 25px;
   }
 }
-@layer ui {
+@layer colors {
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
   tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
   tab-item button:not(:disabled):not([readonly]):focus-visible,
@@ -1017,7 +1034,7 @@
     }
   }
 }
-@layer ui {
+@layer actions {
   tool-bar-item button:not(:disabled):not([readonly]):active,
   tool-bar-item input:not(:disabled):not([readonly]):active,
   tab-item button:not(:disabled):not([readonly]):active,
@@ -1045,37 +1062,42 @@
   }
 }
 @layer transitions {
-  scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
-    transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete, margin-inline-start 250ms ease-out allow-discrete;
-    will-change: transform, padding-inline-start, margin-inline-start;
-  }
-  tool-bar-item,
-  tool-bar-item-group {
-    transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
-    will-change: transform, opacity, filter;
-  }
-  [is=sheet-view] {
-    transition: transform var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, display var(--view-transition-duration) allow-discrete;
-    will-change: transform, overlay, display;
-  }
-  [is=sheet-view]::backdrop {
-    transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
-    will-change: background-color, overlay, display;
-  }
-  [is=sheet-view][open] {
-    transform: translateY(var(--view-transition-dialog-onscreen-y));
-  }
-  [is=sheet-view][open]::backdrop {
-    background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-  }
-  @starting-style {
-    [is=sheet-view][open]::backdrop {
-      background-color: transparent;
+  @media (prefers-reduced-motion: no-preference) {
+    scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
+      transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete, margin-inline-start 250ms ease-out allow-discrete;
+      will-change: transform, padding-inline-start, margin-inline-start;
     }
-  }
-  @starting-style {
+    tool-bar-item.fwn, tool-bar-item.fwnn, tool-bar-item.bwn, tool-bar-item.bwnn,
+    tool-bar-item-group.fwn,
+    tool-bar-item-group.fwnn,
+    tool-bar-item-group.bwn,
+    tool-bar-item-group.bwnn {
+      transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
+      will-change: transform, opacity, filter;
+    }
+    [is=sheet-view] {
+      transition: transform var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, display var(--view-transition-duration) allow-discrete;
+      will-change: transform, overlay, display;
+    }
+    [is=sheet-view]::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
     [is=sheet-view][open] {
-      transform: translateY(var(--view-transition-dialog-offscreen-y));
+      transform: translateY(var(--view-transition-dialog-onscreen-y));
+    }
+    [is=sheet-view][open]::backdrop {
+      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+    }
+    @starting-style {
+      [is=sheet-view][open]::backdrop {
+        background-color: transparent;
+      }
+    }
+    @starting-style {
+      [is=sheet-view][open] {
+        transform: translateY(var(--view-transition-dialog-offscreen-y));
+      }
     }
   }
   /* scroll-view {
@@ -1187,7 +1209,7 @@
   }
   tool-bar-item.bwnn,
   tool-bar-item-group.bwnn {
-    transform: scale(1);
+    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
     filter: none;
     opacity: 1;
   }
@@ -1221,7 +1243,7 @@
     }
   }
 }
-@layer components {
+@layer colors {
   navigation-stack,
   navigation-split-view,
   body-view {

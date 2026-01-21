@@ -1,4 +1,4 @@
-@layer components {
+@layer final {
   #console {
     position: fixed;
     left: 30%;
@@ -395,7 +395,7 @@
       --tabview-padding-inline-start: 0px !important;
     }
     [is=tab-bar][open] > scroll-view {
-      --surface-bg: #ffffff9e;
+      --canvas-bg: #ffffff9e;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
@@ -634,7 +634,7 @@
       margin-inline-start: var(--nav-split-view-content-width);
     }
     navigation-split-view > [is=sidebar-view] > scroll-view {
-      --surface-bg: #ffffff9e;
+      --canvas-bg: #ffffff9e;
       --safe-area-inset-top: 0px;
       --safe-area-inset-bottom: 0px;
       border-radius: var(--tab-bar-sidebar-border-radius);
@@ -841,15 +841,6 @@
   }
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
-  body-view > scroll-view {
-    --surface-bg: var(--primary-bg);
-  }
-  [is=full-screen] > scroll-view,
-  [is=sheet-view] > scroll-view {
-    --surface-bg: var(--secondary-bg);
-  }
-  navigation-stack > scroll-view,
-  navigation-split-view > scroll-view,
   navigation-split-view > [is=sidebar-view] > scroll-view,
   body-view > scroll-view,
   [is=full-screen] > scroll-view,
@@ -860,7 +851,7 @@
     -webkit-overflow-scrolling: touch;
     padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
     container: scroll-view/inline-size;
-    background-color: var(--surface-bg);
+    background-color: var(--canvas-bg);
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
   }
   navigation-stack > scroll-view > *,
@@ -957,7 +948,7 @@
     mask-image: linear-gradient(to bottom, #000 50%, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=navigation-bar]:after {
-    background-image: linear-gradient(to bottom, var(--surface-bg) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to bottom, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=bottom-bar] {
     top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
@@ -984,7 +975,7 @@
     mask-image: linear-gradient(to top, #000 50%, rgba(0, 0, 0, 0) 100%);
   }
   tool-bar[slot=bottom-bar]:after {
-    background-image: linear-gradient(to top, var(--surface-bg) 0, rgba(0, 0, 0, 0) 100%);
+    background-image: linear-gradient(to top, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
 }
 @layer components {
@@ -1228,6 +1219,61 @@
     [is=sheet-view][open] {
       transform: translateY(var(--view-transition-dialog-offscreen-y));
     }
+  }
+}
+@layer components {
+  navigation-stack,
+  navigation-split-view,
+  body-view {
+    --canvas-bg: var(--primary-bg);
+  }
+  [is=sheet-view],
+  [is=full-screen] {
+    --canvas-bg: var(--secondary-bg);
+  }
+  body-view {
+    --primary-bg: oklch(0.984 0.019 200.873);
+    --secondary-bg: oklch(0.984 0.019 200.873);
+  }
+  body-view > body-view {
+    --primary-bg: oklch(0.956 0.045 203.388);
+    --secondary-bg: oklch(0.956 0.045 203.388);
+  }
+  body-view > body-view > body-view {
+    --primary-bg: oklch(0.917 0.08 205.041);
+    --secondary-bg: oklch(0.917 0.08 205.041);
+  }
+  body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.865 0.127 207.078);
+    --secondary-bg: oklch(0.865 0.127 207.078);
+  }
+  body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.789 0.154 211.53);
+    --secondary-bg: oklch(0.789 0.154 211.53);
+  }
+  body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.715 0.143 215.221);
+    --secondary-bg: oklch(0.715 0.143 215.221);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.609 0.126 221.723);
+    --secondary-bg: oklch(0.609 0.126 221.723);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.52 0.105 223.128);
+    --secondary-bg: oklch(0.52 0.105 223.128);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.45 0.085 224.283);
+    --secondary-bg: oklch(0.45 0.085 224.283);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.398 0.07 227.392);
+    --secondary-bg: oklch(0.398 0.07 227.392);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+    --primary-bg: oklch(0.302 0.056 229.695);
+    --secondary-bg: oklch(0.302 0.056 229.695);
   }
 }
 

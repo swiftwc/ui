@@ -25,17 +25,6 @@
 
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
-  body-view > scroll-view {
-    --surface-bg: var(--primary-bg);
-  }
-
-  [is='full-screen'] > scroll-view,
-  [is='sheet-view'] > scroll-view {
-    --surface-bg: var(--secondary-bg);
-  }
-
-  navigation-stack > scroll-view,
-  navigation-split-view > scroll-view,
   navigation-split-view > [is='sidebar-view'] > scroll-view,
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
@@ -51,7 +40,7 @@
     // -webkit-overflow-scrolling: touch;
     padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
     container: scroll-view / inline-size;
-    background-color: var(--surface-bg);
+    background-color: var(--canvas-bg);
     // place-items: center;
     //
 

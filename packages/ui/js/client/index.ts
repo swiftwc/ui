@@ -134,6 +134,7 @@ export const startViewTransition = async (
   type: TransitionType = 'forwards',
   updateCallback = async () => {}
 ) => {
+  await Snapshot.waitReady
   // const sv =
   //   (event.target as HTMLElement).closest<Components.ScrollView>(
   //     'scroll-view'
@@ -304,6 +305,6 @@ export const startViewTransition = async (
   }
 }
 
-void Snapshot.setOwnConfig()
+void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
 export { Snapshot }

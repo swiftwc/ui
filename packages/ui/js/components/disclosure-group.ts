@@ -11,19 +11,21 @@ export class DisclosureGroup extends DetailsBase {
     super()
   }
 
-  attributeChangedCallback(name: string, oldValue: boolean, newValue: boolean) {
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     console.debug(`${DisclosureGroup.name} ⚡️ [${name}] change`)
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    const mr = {
+    const entry = {
       attributeName: name,
       oldValue: oldValue,
       target: this,
     }
 
-    // @ts-expect-error
-    DisclosureGroup.polyfillAttributeChangedCallback([mr])
+    Snapshot.waitReady.then(() => {
+      // @ts-expect-error
+      DisclosureGroup.polyfillAttributeChangedCallback([entry])
+    })
   }
 
   disconnectedCallback() {
@@ -45,7 +47,9 @@ export class DisclosureGroup extends DetailsBase {
   static polyfillConnectedCallback(el: DisclosureGroup) {
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    el.addEventListener('click', DisclosureGroup.handleClick)
+    Snapshot.waitReady.then(() =>
+      el.addEventListener('click', DisclosureGroup.handleClick)
+    )
   }
 
   static handleClick = async (event: Event) => {

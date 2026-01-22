@@ -10,14 +10,17 @@
     height: 100%;
     position: relative;
 
+    // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
     @media (prefers-reduced-motion: no-preference) {
       @include mixins.if-2col-split-view-fits {
-        navigation-split-view:has(
-            > dialog[is='sidebar-view']
-          )[preferred-compact-column='content']
-          & {
-          transition: margin-inline-start #{vars.$sidebar-transition-duration}
-            ease-out allow-discrete;
+        @include mixins.ifnot-3col-split-view-fits {
+          navigation-split-view:has(
+              > dialog[is='sidebar-view']
+            )[preferred-compact-column='content']
+            & {
+            transition: margin-inline-start #{vars.$sidebar-transition-duration}
+              ease-out allow-discrete;
+          }
         }
       }
     }

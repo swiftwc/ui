@@ -28,13 +28,13 @@
       padding-inline: 0;
     }
 
-
     @include mixins.if-iphone-portrait {
       max-width: var(--tab-bar-iphone-max-width);
       height: var(--tab-bar-iphone-height);
       // left: 50%;
       border-radius: var(--tab-bar-iphone-border-radius);
-      inset: auto auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      inset: auto auto
+        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
       transform: translateX(-50%);
       //
       grid-auto-flow: column;
@@ -46,14 +46,12 @@
       }
     }
 
-
-
-
     @include mixins.if-ipad-portrait {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto 50%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        auto auto 50%;
       transform: translateX(-50%);
 
       border-radius: var(--tab-bar-ipad-border-radius);
@@ -71,7 +69,10 @@
       &[open] {
         // @include mixins.make-navbar;
 
-        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+          auto
+          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+          max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
         height: auto; // override topbar
         transform: translateX(0);
@@ -81,7 +82,7 @@
 
         grid-auto-flow: row;
 
-        &>* {
+        & > * {
           @include mixins.span-all;
 
           --safe-area-inset-top: 0px !important; // reset navbar > span
@@ -93,7 +94,9 @@
     }
 
     @include mixins.if-iphone-landscape {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        auto
+        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
 
       width: var(--tab-bar-sidebar-width);
 
@@ -103,9 +106,9 @@
         left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
         // transform: translateX(0);
 
-        --tabview-padding-inline-start: 0px !important; // override tab-view prop
+        #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // override tab-view prop
 
-        >scroll-view {
+        > scroll-view {
           --canvas-bg: #ffffff9e;
         }
       }
@@ -116,7 +119,9 @@
       // position: relative;
       // margin: 10px;
       // height: 100svh;
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
+        auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+        max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       width: var(--tab-bar-sidebar-width);
 

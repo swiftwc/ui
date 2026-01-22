@@ -70,9 +70,7 @@ export class BottomBar extends HTMLElement {
   }
 
   #measureStacks(entries: ResizeObserverEntry[] = []) {
-    console.debug(
-      `${BottomBar.name} ⚡️ resize observer callback: ${this.#measureStacks.name}`
-    )
+    console.debug(`${BottomBar.name} ⚡️ measure ${this.#measureStacks.name}`)
 
     for (const { contentRect, target } of entries)
       if (

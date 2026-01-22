@@ -57,5 +57,42 @@
         display: none;
       }
     }
+
+    @include mixins.ifnot-2col-split-view-fits {
+      navigation-split-view > & {
+        display: none;
+      }
+    }
+
+    @include mixins.if-3col-split-view-fits {
+      navigation-split-view > & {
+        display: none;
+      }
+    }
+
+    @include mixins.if-2col-split-view-fits {
+      navigation-split-view:not(:has(> dialog[is='sidebar-view'])) > & {
+        display: none;
+      }
+
+      navigation-split-view:has(> dialog[is='sidebar-view']):not(
+          [preferred-compact-column='content']
+        )
+        > & {
+        display: none;
+      }
+    }
+
+    // @include mixins.if-2col-split-view-fits {
+    //   @include mixins.if-3col-split-view-fits {
+    //     navigation-split-view:has(
+    //         > dialog[is='sidebar-view']
+    //       )[preferred-compact-column='content'] {
+    //       > & {
+    //         //
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

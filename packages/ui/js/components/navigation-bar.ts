@@ -78,7 +78,7 @@ export class NavigationBar extends HTMLElement {
 
   #measureStacks(entries: ResizeObserverEntry[] = []) {
     console.debug(
-      `${NavigationBar.name} ⚡️ resize observer callback: ${this.#measureStacks.name}`
+      `${NavigationBar.name} ⚡️ measure ${this.#measureStacks.name}`
     )
 
     for (const { contentRect, target } of entries) {

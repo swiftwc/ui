@@ -3,16 +3,28 @@ import type * as Components from '../components'
 export class Snapshot {
   static #config?: Record<string, string>
 
+  static #readyCalled = false
+
+  static readonly waitReady = Promise.all([
+    'complete' === document.readyState
+      ? Promise.resolve()
+      : new Promise((r) => self.addEventListener('load', r, { once: true })),
+    (async () => {
+      if (!this.#readyCalled) await this.setOwnConfig()
+    })(), // Lazy config read promise, triggered on first access
+  ])
+
   static get config() {
     return this.#config
   }
 
   static async setOwnConfig() {
-    if ('complete' === document.readyState) return Snapshot.#getOwnConfig() // Page already loaded
+    if (!this.#readyCalled) this.#readyCalled = true
 
-    await new Promise((resolve) => self.addEventListener('load', resolve)) // Wait for window load
+    if ('complete' !== document.readyState)
+      await new Promise((r) => self.addEventListener('load', r, { once: true }))
 
-    return Snapshot.#getOwnConfig()
+    this.#getOwnConfig()
   }
 
   static #getOwnConfig() {

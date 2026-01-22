@@ -32,12 +32,13 @@
       </navigation-bar>
     </navigation-split-view>
 
-    <script type="module" src="%VITE_SCRIPT_URL%">
-                  import { Snapshot, polyfills, startViewTransition } from '%VITE_SCRIPT_URL%'
+    <script type="module" src="%VITE_SCRIPT_URL%"></script>
+    <script type="module">
+      import { Snapshot, polyfills, startViewTransition } from "%VITE_SCRIPT_URL%";
 
-            document.body.addEventListener('click', async (event) => {
-      alert(99);
-            });
+      document.body.addEventListener("click", async (event) => {
+        alert("click");
+      });
     </script>
   </body>
 </html>

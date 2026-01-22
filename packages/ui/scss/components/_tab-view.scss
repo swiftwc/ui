@@ -98,7 +98,10 @@
       // tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
-        --safe-area-inset-left: var(--tabview-padding-inline-start, 0px);
+        --safe-area-inset-left: var(
+          #{vars.$sidebar-toggle-padding-inline-start-css-prop},
+          0px
+        );
       }
     }
   }

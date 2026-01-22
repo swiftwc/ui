@@ -1,18 +1,18 @@
 import { type TabBar } from './tab-bar'
 import { type SidebarView } from './sidebar-view'
+import { debounce } from '../internal/utils'
+import { Snapshot } from '../snapshot'
 
 export class SidebarToggle extends HTMLElement {
   #ro
   // #io
 
-  static get cssVarPaddingName() {
-    return '--tabview-padding-inline-start'
-  }
-
   constructor() {
     super()
 
-    this.#ro = new ResizeObserver(this.#autoCloseTabBar)
+    this.#ro = new ResizeObserver(
+      debounce(this.#handleMeasure.bind(this), 100, true)
+    )
 
     // this.#io = new IntersectionObserver((entries) => {
     //   this._checkVisibility2(entries)
@@ -24,10 +24,17 @@ export class SidebarToggle extends HTMLElement {
 
     this.addEventListener('click', this.#handleClick)
 
-    this.#ro?.observe(this)
-    // this.#io.observe(this)
+    const entry = {
+      target: this,
+    }
 
-    this.#autoCloseTabBar()
+    Snapshot.waitReady.then(() => {
+      this.#ro?.observe(this)
+      // this.#io.observe(this)
+
+      // @ts-expect-error
+      this.#handleMeasure([entry])
+    })
   }
 
   disconnectedCallback() {
@@ -40,44 +47,75 @@ export class SidebarToggle extends HTMLElement {
   }
 
   // This triggers on show/hide of any of sidebar-toggle elements
-  #autoCloseTabBar() {
-    console.debug('#autoCloseTabBar')
+  #handleMeasure(entries: ResizeObserverEntry[] = []) {
+    console.debug(`${SidebarToggle.name} ⚡️ measure (${entries.length})`)
 
-    const toggles = [
-      ...document.querySelectorAll<HTMLElement>('sidebar-toggle'),
-    ]
+    // set/remove css var/prop to parent based on shown/hidden
+    for (const { target } of entries) {
+      const tv = target.parentElement,
+        width = (target as HTMLElement)?.offsetWidth ?? 0
 
-    // set css vars
-    for (const tg of toggles) {
-      const tv = tg.parentElement
-
-      const width = tg?.offsetWidth ?? 0
-
-      if (0 < width) {
-        // const gapProp =
-        //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
-        //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
-
-        tv?.style?.setProperty?.(SidebarToggle.cssVarPaddingName, `${width}px`)
-      } else {
-        tv?.style?.removeProperty?.(SidebarToggle.cssVarPaddingName)
-      }
+      // const gapProp =
+      //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
+      //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
+      if (0 < width)
+        tv?.style?.setProperty?.(
+          Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'],
+          `${width}px`
+        )
+      else
+        tv?.style?.removeProperty?.(
+          Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop']
+        )
     }
 
-    // auto close
-    const tabBar =
-      document.querySelector<HTMLDialogElement>('dialog[is=tab-bar]')
+    // auto close IF open
+    for (const { target } of entries) {
+      const lm = target.closest('navigation-split-view,tab-view')
 
-    if (!tabBar?.open) return
+      switch (lm?.tagName) {
+        case 'NAVIGATION-SPLIT-VIEW':
+          const sideBar =
+            target.parentElement?.querySelector<HTMLDialogElement>(
+              ':scope > dialog[is=sidebar-view]'
+            )
 
-    // scan all toggles for anyone that is visible, sign that sidebar should stay open
-    const isAnyVisible = toggles.some(
-      ({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight
-    )
+          if (!sideBar?.open) continue
 
-    if (isAnyVisible) return
+          if (
+            0 < (target as HTMLElement).offsetWidth &&
+            0 < (target as HTMLElement).offsetHeight
+          )
+            continue
 
-    tabBar?.close?.()
+          sideBar?.close?.()
+
+          break
+        case 'TAB-VIEW':
+          const tabBar = lm.querySelector<HTMLDialogElement>(
+            ':scope > dialog[is=tab-bar]'
+          )
+
+          if (!tabBar?.open) continue
+
+          // scan all toggles for anyone that is visible, sign that sidebar should stay open
+          if (
+            [
+              ...lm.querySelectorAll<HTMLElement>(
+                ':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle'
+              ),
+            ].some(
+              ({ offsetWidth, offsetHeight }) =>
+                0 < offsetWidth && 0 < offsetHeight
+            )
+          )
+            continue
+
+          tabBar?.close?.()
+
+          break
+      }
+    }
   }
 
   // _checkVisibility2(entries) {

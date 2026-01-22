@@ -24,6 +24,11 @@ import { VPTeamMembers } from 'vitepress/theme'
 const members = [
   {
     avatar: 'https://www.github.com/yyx990803.png',
+    org: 'Vite',
+    orgLink: '/installation/vite',
+  },
+  {
+    avatar: 'https://www.github.com/yyx990803.png',
     org: 'Ember.js',
     orgLink: '/installation/emberjs',
   },

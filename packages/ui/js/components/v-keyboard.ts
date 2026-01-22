@@ -88,12 +88,15 @@ export class VKeyboard extends HTMLElement {
     )
 
     // @ts-expect-error
-    document.querySelector('#console0').innerHTML =
-      `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`
-    // @ts-expect-error
-    document.querySelector('#console').hidePopover()
-    // @ts-expect-error
-    document.querySelector('#console').showPopover()
+    if (import.meta.env.DEV) {
+      // @ts-expect-error
+      document.querySelector('#console0').innerHTML =
+        `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`
+      // @ts-expect-error
+      document.querySelector('#console').hidePopover()
+      // @ts-expect-error
+      document.querySelector('#console').showPopover()
+    }
 
     self.scrollTo(0, 0)
   }

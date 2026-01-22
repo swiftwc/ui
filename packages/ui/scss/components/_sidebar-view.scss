@@ -14,8 +14,8 @@
     @media (prefers-reduced-motion: no-preference) {
       @include mixins.if-2col-split-view-fits {
         @include mixins.ifnot-3col-split-view-fits {
-          navigation-split-view:has(
-              > dialog[is='sidebar-view']
+          navigation-split-view:has(> dialog[is='sidebar-view']):not(
+              [column-visibility='double-column']
             )[preferred-compact-column='content']
             & {
             transition: margin-inline-start #{vars.$sidebar-transition-duration}

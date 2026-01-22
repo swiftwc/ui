@@ -78,6 +78,10 @@
       navigation-split-view:has(> dialog[is='sidebar-view']):not(
           [preferred-compact-column='content']
         )
+        > &,
+      navigation-split-view:has(
+          > dialog[is='sidebar-view']
+        )[column-visibility='double-column']
         > & {
         display: none;
       }

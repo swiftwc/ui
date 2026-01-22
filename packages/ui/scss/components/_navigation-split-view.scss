@@ -1,6 +1,17 @@
 @use '../vars';
 @use '../mixins';
 
+@mixin force-disable-col-view-transitions {
+  > scroll-view:not(dialog scroll-view).bwd,
+  > scroll-view:not(dialog scroll-view).fwdd,
+  > navigation-bar:not(dialog navigation-bar) .bwn,
+  > bottom-bar:not(dialog bottom-bar) .bwn,
+  > navigation-bar:not(dialog navigation-bar) .fwnn,
+  > bottom-bar:not(dialog bottom-bar) .fwnn {
+    transition-duration: 0ms !important;
+  }
+}
+
 @layer #{vars.$components-layer} {
   navigation-split-view {
     touch-action: none;
@@ -31,7 +42,9 @@
           z-index: -1;
         }
 
-        &[preferred-compact-column='content'] {
+        &:not(
+            [column-visibility='double-column']
+          )[preferred-compact-column='content'] {
           body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
             z-index: -1;
           }
@@ -140,7 +153,9 @@
     @include mixins.if-2col-split-view-fits {
       @include mixins.ifnot-3col-split-view-fits {
         &:has(> dialog[is='sidebar-view']) {
-          &[preferred-compact-column='content'] {
+          &:not(
+              [column-visibility='double-column']
+            )[preferred-compact-column='content'] {
             > scroll-view,
             > [is='sidebar-view'],
             > navigation-bar,
@@ -238,14 +253,7 @@
       }
 
       > body-view {
-        > scroll-view:not(dialog scroll-view).bwd,
-        > scroll-view:not(dialog scroll-view).fwdd,
-        > navigation-bar:not(dialog navigation-bar) .bwn,
-        > bottom-bar:not(dialog bottom-bar) .bwn,
-        > navigation-bar:not(dialog navigation-bar) .fwnn,
-        > bottom-bar:not(dialog bottom-bar) .fwnn {
-          transition-duration: 0ms !important;
-        }
+        @include force-disable-col-view-transitions;
       }
 
       // Cancel animations
@@ -261,7 +269,9 @@
     // SIDEBAR | EXPANDED
     @include mixins.if-2col-split-view-fits {
       &:has(> dialog[is='sidebar-view']) {
-        &[preferred-compact-column='content'] {
+        &:not(
+            [column-visibility='double-column']
+          )[preferred-compact-column='content'] {
           // move descendants to right
           > body-view {
             > scroll-view {
@@ -301,6 +311,10 @@
               > tool-bar-item-group {
                 @include mixins.vt-toolbar-item-onscreen-keyframe(true);
               }
+            }
+
+            > body-view {
+              @include force-disable-col-view-transitions();
             }
           }
         }

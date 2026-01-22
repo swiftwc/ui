@@ -31,21 +31,21 @@
 
     tool-bar-item,
     tool-bar-item-group {
-      &.fwn,
-      &.fwnn,
-      &.bwn,
-      &.bwnn {
-        transition:
-          transform var(--view-transition-duration) ease-out allow-discrete,
-          opacity var(--view-transition-duration) ease-out allow-discrete,
-          filter var(--view-transition-duration) ease-out allow-discrete;
+      // &.fwn,
+      // &.fwnn,
+      // &.bwn,
+      // &.bwnn {
+      transition:
+        transform var(--view-transition-duration) ease-out allow-discrete,
+        opacity var(--view-transition-duration) ease-out allow-discrete,
+        filter var(--view-transition-duration) ease-out allow-discrete;
 
-        will-change: transform, opacity, filter;
-        // > * {
-        // transition: filter var(--view-transition-duration) ease-out allow-discrete;
-        // will-change: filter;
-        // }
-      }
+      will-change: transform, opacity, filter;
+      // > * {
+      // transition: filter var(--view-transition-duration) ease-out allow-discrete;
+      // will-change: filter;
+      // }
+      // }
     }
 
     [is='sheet-view'] {

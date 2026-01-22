@@ -1,0 +1,13 @@
+{
+  "private": true,
+  "name": "@swiftwc/docs",
+  "type": "module",
+  "scripts": {
+    "build": "vitepress build",
+    "preview": "vitepress preview",
+    "dev": "vitepress dev"
+  },
+  "devDependencies": {
+    "vitepress": "^2.0.0-alpha.15"
+  }
+}

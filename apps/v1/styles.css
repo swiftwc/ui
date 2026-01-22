@@ -149,36 +149,53 @@
     grid-column: 1/-1;
     grid-row: 1/-1;
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view,
-  navigation-stack:has(> navigation-stack:not([hidden])) [is=sidebar-view] > scroll-view,
+  navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > scroll-view,
   navigation-stack:has(> body-view) > scroll-view,
-  navigation-stack:has(> body-view) [is=sidebar-view] > scroll-view,
+  navigation-stack:has(> body-view) > [is=sidebar-view] > scroll-view,
   navigation-split-view:has(> body-view) > scroll-view,
-  navigation-split-view:has(> body-view) [is=sidebar-view] > scroll-view,
+  navigation-split-view:has(> body-view) > [is=sidebar-view] > scroll-view,
   dialog:has(> body-view) > scroll-view,
-  dialog:has(> body-view) [is=sidebar-view] > scroll-view,
+  dialog:has(> body-view) > [is=sidebar-view] > scroll-view,
   body-view:has(> body-view) > scroll-view,
-  body-view:has(> body-view) [is=sidebar-view] > scroll-view {
+  body-view:has(> body-view) > [is=sidebar-view] > scroll-view {
     transform: translateX(var(--view-transition-leading-x));
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item-group,
+  navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > navigation-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > bottom-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > navigation-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > bottom-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > navigation-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > bottom-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > navigation-bar > tool-bar-item,
   navigation-stack:has(> body-view) > bottom-bar > tool-bar-item,
   navigation-stack:has(> body-view) > navigation-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > bottom-bar > tool-bar-item-group,
+  navigation-stack:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item,
+  navigation-stack:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item,
+  navigation-stack:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
+  navigation-stack:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item-group,
   navigation-split-view:has(> body-view) > navigation-bar > tool-bar-item,
   navigation-split-view:has(> body-view) > bottom-bar > tool-bar-item,
   navigation-split-view:has(> body-view) > navigation-bar > tool-bar-item-group,
   navigation-split-view:has(> body-view) > bottom-bar > tool-bar-item-group,
+  navigation-split-view:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item,
+  navigation-split-view:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item,
+  navigation-split-view:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
+  navigation-split-view:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item-group,
   dialog:has(> body-view) > navigation-bar > tool-bar-item,
   dialog:has(> body-view) > bottom-bar > tool-bar-item,
   dialog:has(> body-view) > navigation-bar > tool-bar-item-group,
   dialog:has(> body-view) > bottom-bar > tool-bar-item-group,
+  dialog:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item,
+  dialog:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item,
+  dialog:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
+  dialog:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item-group,
   body-view:has(> body-view) > navigation-bar > tool-bar-item,
   body-view:has(> body-view) > bottom-bar > tool-bar-item,
   body-view:has(> body-view) > navigation-bar > tool-bar-item-group,
-  body-view:has(> body-view) > bottom-bar > tool-bar-item-group {
+  body-view:has(> body-view) > bottom-bar > tool-bar-item-group,
+  body-view:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item,
+  body-view:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item,
+  body-view:has(> body-view) > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
+  body-view:has(> body-view) > [is=sidebar-view] > bottom-bar > tool-bar-item-group {
     transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    filter: blur(10px);
+    opacity: 0;
   }
 }
 @layer components {
@@ -560,7 +577,7 @@
     navigation-split-view:not(:has(> dialog[is=sidebar-view])) > sidebar-toggle {
       display: none;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([preferred-compact-column=content]) > sidebar-toggle {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([preferred-compact-column=content]) > sidebar-toggle, navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > sidebar-toggle {
       display: none;
     }
   }
@@ -649,7 +666,7 @@
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view ~ scroll-view {
       z-index: -1;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
       z-index: -1;
     }
   }
@@ -700,21 +717,21 @@
     }
   }
   @media (min-width: 43rem) and (max-width: 55.9999rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > scroll-view,
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > [is=sidebar-view],
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > navigation-bar,
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > bottom-bar {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > scroll-view,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > [is=sidebar-view],
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > navigation-bar,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > bottom-bar {
       margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
     }
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view bottom-bar:not(dialog bottom-bar) {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view bottom-bar:not(dialog bottom-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
       --safe-area-inset-left: 0px;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view),
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > navigation-bar:not(dialog navigation-bar),
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > bottom-bar:not(dialog bottom-bar) {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > bottom-bar:not(dialog bottom-bar) {
       margin-inline-start: 0px;
       --safe-area-inset-left: max(
         env(safe-area-inset-left),
@@ -762,7 +779,7 @@
     }
   }
   @media (min-width: 43rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] > body-view > scroll-view {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view {
       transform: translateX(0px) !important;
     }
   }
@@ -777,6 +794,14 @@
       transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
       filter: none !important;
       opacity: 1 !important;
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view).bwd,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view).fwdd,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > navigation-bar:not(dialog navigation-bar) .bwn,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > bottom-bar:not(dialog bottom-bar) .bwn,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > navigation-bar:not(dialog navigation-bar) .fwnn,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > bottom-bar:not(dialog bottom-bar) .fwnn {
+      transition-duration: 0ms !important;
     }
   }
 }
@@ -843,7 +868,7 @@
     position: relative;
   }
   @media (prefers-reduced-motion: no-preference) and (min-width: 43rem) and (max-width: 55.9999rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] [is=sidebar-view] {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] [is=sidebar-view] {
       transition: margin-inline-start 250ms ease-out allow-discrete;
     }
   }
@@ -1093,11 +1118,8 @@
       transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start 250ms ease-out allow-discrete, margin-inline-start 250ms ease-out allow-discrete;
       will-change: transform, padding-inline-start, margin-inline-start;
     }
-    tool-bar-item.fwn, tool-bar-item.fwnn, tool-bar-item.bwn, tool-bar-item.bwnn,
-    tool-bar-item-group.fwn,
-    tool-bar-item-group.fwnn,
-    tool-bar-item-group.bwn,
-    tool-bar-item-group.bwnn {
+    tool-bar-item,
+    tool-bar-item-group {
       transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
       will-change: transform, opacity, filter;
     }

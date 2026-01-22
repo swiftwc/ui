@@ -632,6 +632,11 @@
       z-index: -1;
     }
   }
+  @media (min-width: 56rem) {
+    navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view > body-view ~ scroll-view {
+      z-index: -1;
+    }
+  }
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
     navigation-split-view > [is=sidebar-view],
@@ -698,15 +703,15 @@
     }
   }
   @media (min-width: 56rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > navigation-bar,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > bottom-bar {
       width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width));
       --safe-area-inset-right: 0px;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view scroll-view:not(dialog scroll-view),
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view navigation-bar:not(dialog navigation-bar),
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view bottom-bar:not(dialog bottom-bar) {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view navigation-bar:not(dialog navigation-bar),
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view bottom-bar:not(dialog bottom-bar) {
       --safe-area-inset-left: 0px;
       margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width));
     }
@@ -741,13 +746,13 @@
     }
   }
   @media (min-width: 56rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view {
       transform: translateX(0px) !important;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar > tool-bar-item,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > navigation-bar > tool-bar-item-group,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar > tool-bar-item,
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > bottom-bar > tool-bar-item-group {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > navigation-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > navigation-bar > tool-bar-item-group,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > bottom-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > bottom-bar > tool-bar-item-group {
       transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
       filter: none !important;
       opacity: 1 !important;
@@ -814,10 +819,10 @@
     outline: none;
     width: 100%;
     height: 100%;
-    position: static;
+    position: relative;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    [is=sidebar-view] {
+  @media (prefers-reduced-motion: no-preference) and (min-width: 43rem) {
+    navigation-split-view:has(> dialog[is=sidebar-view])[preferred-compact-column=content] [is=sidebar-view] {
       transition: margin-inline-start 250ms ease-out allow-discrete;
     }
   }
@@ -846,7 +851,7 @@
 }
 @layer final {
   [is=sidebar-view][open] {
-    margin-inline-start: 0px;
+    margin-inline-start: 0px !important;
   }
 }
 @layer components {

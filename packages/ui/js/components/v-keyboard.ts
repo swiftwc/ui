@@ -88,7 +88,7 @@ export class VKeyboard extends HTMLElement {
     )
 
     // @ts-expect-error
-    if (import.meta.env.DEV) {
+    if (import.meta?.env?.DEV) {
       // @ts-expect-error
       document.querySelector('#console0').innerHTML =
         `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`

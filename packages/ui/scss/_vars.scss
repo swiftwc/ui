@@ -17,14 +17,12 @@ $disclosure-group-animation-close-class: close !default;
 $sidebar-toggle-padding-inline-start-css-prop: --sidebar-toggle-padding-inline-start !default;
 
 $nav-split-view-2col-bp: 43rem !default;
-$nav-split-view-3col-bp: 56rem !default;
+$nav-split-view-3col-bp: 64rem !default;
 
 // $ipad-sheet-view-width: 12rem !default;
 $ipad-sheet-view-width: 37rem !default;
 
 $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
-
-$sidebar-transition-duration: 250ms !default;
 
 // $ipad-portrait-bp: 20rem !default;
 $ipad-portrait-bp: 43rem !default;

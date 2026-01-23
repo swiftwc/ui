@@ -39,7 +39,8 @@ document.body.addEventListener('click', async (event) => {
             lookFor = 'previousElementSibling'
           } else if (
             frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-            frame.parentElement.querySelector(':scope > [is=sidebar-view]')
+            frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
+            frame.tagName === 'BODY-VIEW'
           ) {
             position = 'beforebegin'
             lookFor = 'previousElementSibling'

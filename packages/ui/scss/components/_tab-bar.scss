@@ -19,7 +19,7 @@
       0 0 0 1px #fff inset,
       0px 0px 4px 2px #0000001c;
 
-    transition: all #{vars.$sidebar-transition-duration} ease-out allow-discrete;
+    transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
 
     touch-action: none; // important for backdrop pans!
 

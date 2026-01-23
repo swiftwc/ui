@@ -17,6 +17,8 @@
 
     --tool-bar-height: 4rem;
 
+    --top-layer-polyfill-z-index: 999999;
+
     --tab-bar-iphone-max-width: 90svw;
     --tab-bar-iphone-height: var(--tool-bar-height);
     --tab-bar-iphone-border-radius: 9999px;
@@ -51,6 +53,8 @@
 
     --view-transition-duration: 500ms;
     // --view-transition-duration: 9s;
+
+    --sidebar-transition-duration: 250ms;
 
     --pill-border-radius: 99999px;
 

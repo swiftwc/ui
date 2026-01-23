@@ -2,6 +2,10 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
+  [is='sheet-view']:not([open]) {
+    z-index: var(--top-layer-polyfill-z-index);
+  }
+
   [is='sheet-view'][open] {
     transform: translateY(var(--view-transition-dialog-onscreen-y));
 

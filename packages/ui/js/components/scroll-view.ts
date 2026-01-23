@@ -52,9 +52,7 @@ export class ScrollView extends HTMLElement {
     )
       this.insertAdjacentHTML(
         'beforeend',
-        `<tool-bar slot="navigation-bar">
-          <span>ghjh</span>
-        </tool-bar>`
+        `<tool-bar slot="navigation-bar">ghjh</tool-bar>`
       )
 
     if (
@@ -65,9 +63,7 @@ export class ScrollView extends HTMLElement {
     )
       this.insertAdjacentHTML(
         'beforeend',
-        `<tool-bar slot="bottom-bar">
-            <span>ghj</span>
-          </tool-bar>`
+        `<tool-bar slot="bottom-bar">ghj</tool-bar>`
       )
   }
 

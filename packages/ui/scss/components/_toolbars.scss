@@ -13,18 +13,20 @@
     pointer-events: none;
 
     grid-template-columns: auto 1fr auto;
+    column-gap: var(--toolbar-col-gap);
+    // grid-auto-rows: 40px;
 
-    // place-items: center;
-    // place-content: center;
-    // align-items: stretch;
-    // justify-items: center;
-    // align-content: stretch;
-    // justify-content: center;
+    place-items: center;
+    place-content: center;
 
     > * {
       pointer-events: all;
 
       align-self: center;
+
+      height: var(--toolbar-cell-min-size);
+      min-width: var(--toolbar-cell-min-size);
+      // height: 40px;
     }
   }
 

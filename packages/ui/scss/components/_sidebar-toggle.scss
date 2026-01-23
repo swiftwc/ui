@@ -3,7 +3,9 @@
 
 @layer #{vars.$components-layer} {
   sidebar-toggle {
-    background-color: coral;
+    // html:has(console) {
+    box-shadow: inset 0 0 0 4px coral;
+    // }
 
     place-items: center;
     place-content: center;

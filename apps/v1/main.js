@@ -59,11 +59,17 @@ document.body.addEventListener('click', async (event) => {
                       </v-stack>
                     </scroll-view>
                     <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0">a${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">c${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                       <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </navigation-bar>
+                    <bottom-bar>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0">a${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">c${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                    </bottom-bar>
                   </${6 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
             )

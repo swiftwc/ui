@@ -1,0 +1,39 @@
+import { Snapshot } from '../snapshot'
+
+export class ToolBar extends HTMLElement {
+  static #template: HTMLTemplateElement
+
+  static get template() {
+    if (!this.#template)
+      this.#template = Object.assign(document.createElement('template'), {
+        innerHTML: `<div part="${Snapshot.config!['toolbar-principal-inline-part-name']}">
+    <slot></slot>
+  </div>`,
+      })
+
+    return this.#template
+  }
+
+  constructor() {
+    super()
+
+    const shadowRoot = this.attachShadow({ mode: 'open' })
+
+    Snapshot.waitReady.then(() => {
+      shadowRoot.appendChild(
+        document.importNode(
+          (this.constructor as typeof ToolBar).template.content,
+          true
+        )
+      )
+    })
+  }
+
+  connectedCallback() {
+    console.debug(`${ToolBar.name} ⚡️ connect`)
+  }
+
+  disconnectedCallback() {
+    console.debug(`${ToolBar.name} ⚡️ disconnect`)
+  }
+}

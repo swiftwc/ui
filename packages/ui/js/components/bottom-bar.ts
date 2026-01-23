@@ -3,28 +3,16 @@ import { Snapshot } from '../snapshot'
 export class BottomBar extends HTMLElement {
   static #template: HTMLTemplateElement
 
-  static get leadingPartName() {
-    return Snapshot.config!['toolbar-leading-stack-part-name']
-  }
-
-  static get principalPartName() {
-    return Snapshot.config!['toolbar-principal-stack-part-name']
-  }
-
-  static get trailingPartName() {
-    return Snapshot.config!['toolbar-trailing-stack-part-name']
-  }
-
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<div part="${this.leadingPartName}">
+        innerHTML: `<div part="${Snapshot.config!['toolbar-leading-stack-part-name']}">
     <slot name="leading"></slot>
   </div>
-  <div part="${this.principalPartName}">
+  <div part="${Snapshot.config!['toolbar-principal-stack-part-name']}">
     <slot></slot>
   </div>
-  <div part="${this.trailingPartName}">
+  <div part="${Snapshot.config!['toolbar-trailing-stack-part-name']}">
     <slot name="trailing"></slot>
   </div>`,
       })
@@ -79,13 +67,13 @@ export class BottomBar extends HTMLElement {
     for (const { contentRect, target } of entries)
       if (
         target.part.contains(
-          (this.constructor as typeof BottomBar).leadingPartName
+          Snapshot.config!['toolbar-leading-stack-part-name']
         )
       )
         this.#sp = Math.round(contentRect.width)
       else if (
         target.part.contains(
-          (this.constructor as typeof BottomBar).trailingPartName
+          Snapshot.config!['toolbar-trailing-stack-part-name']
         )
       )
         this.#ep = Math.round(contentRect.width)
@@ -97,13 +85,13 @@ export class BottomBar extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#ro?.observe(
         this.#shadowRoot.querySelector(
-          `[part="${(this.constructor as typeof BottomBar).leadingPartName}"]`
+          `[part="${Snapshot.config!['toolbar-leading-stack-part-name']}"]`
         )!
       )
 
       this.#ro?.observe(
         this.#shadowRoot.querySelector(
-          `[part="${(this.constructor as typeof BottomBar).trailingPartName}"]`
+          `[part="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
         )!
       )
     })

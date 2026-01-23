@@ -61,7 +61,7 @@
     z-index: 999999999;
   }
 }
-@layer components {
+@layer sw-components {
   :root {
     --safe-area-inset-top: env(safe-area-inset-top);
     --safe-area-inset-right: env(safe-area-inset-right);
@@ -106,8 +106,8 @@
     --disclosure-group-animation-easing: ease-out;
   }
 }
-@layer base, components, colors, actions, transitions, final;
-@layer base {
+@layer sw-base, sw-components, sw-colors, sw-actions, sw-transitions, sw-final;
+@layer sw-base {
   :root {
     interpolate-size: allow-keywords;
   }
@@ -128,11 +128,11 @@
     touch-action: none !important;
   }
   html::before {
-    content: "sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
+    content: "toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
     display: none;
   }
 }
-@layer components {
+@layer sw-components {
   body-view,
   navigation-stack,
   navigation-split-view,
@@ -200,7 +200,7 @@
     opacity: 0;
   }
 }
-@layer components {
+@layer sw-components {
   navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
   scroll-view,
@@ -221,7 +221,7 @@
     display: grid;
   }
 }
-@layer components {
+@layer sw-components {
   v-keyboard {
     position: fixed;
     inset: 0lvh auto auto 0lvw;
@@ -229,7 +229,7 @@
     height: 100lvh;
   }
 }
-@layer components {
+@layer sw-components {
   [is=disclosure-group] {
     display: grid;
     overflow: clip;
@@ -264,8 +264,8 @@
     }
   }
 }
-@layer components {}
-@layer components {
+@layer sw-components {}
+@layer sw-components {
   tab-view {
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
@@ -321,7 +321,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   [is=tab-bar] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -410,7 +410,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     [is=tab-bar] > scroll-view {
       grid-auto-flow: column;
@@ -505,7 +505,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   sidebar-toggle {
     background-color: coral;
     place-items: center;
@@ -564,7 +564,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   [is=full-screen] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -581,7 +581,7 @@
     height: var(--100lvh, 100lvh);
   }
 }
-@layer components {
+@layer sw-components {
   [is=sheet-view] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -616,13 +616,13 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   navigation-stack {
     touch-action: none;
     height: var(--100lvh, 100lvh);
   }
 }
-@layer components {
+@layer sw-components {
   navigation-split-view {
     touch-action: none;
     height: var(--100lvh, 100lvh);
@@ -682,11 +682,35 @@
       --safe-area-inset-bottom: 0px;
       border-radius: var(--tab-bar-sidebar-border-radius);
     }
+    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] ~ navigation-bar {
+      --safe-area-inset-top: max(
+        env(safe-area-inset-top),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] ~ bottom-bar {
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
     navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view) ~ navigation-bar, navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
       margin-inline-start: 0px;
       --safe-area-inset-left: calc(
         var(--nav-split-view-sidebar-width) +
           max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+      );
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view) ~ navigation-bar {
+      --safe-area-inset-top: max(
+        env(safe-area-inset-top),
+        var(--tab-bar-sidebar-spacing)
+      );
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]) > body-view scroll-view:not(dialog scroll-view) ~ bottom-bar {
+      --safe-area-inset-bottom: max(
+        env(safe-area-inset-bottom),
+        var(--tab-bar-sidebar-spacing)
       );
     }
   }
@@ -723,7 +747,7 @@
     }
   }
 }
-@layer final {
+@layer sw-final {
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
     navigation-split-view > [is=sidebar-view] > scroll-view {
@@ -735,7 +759,11 @@
     navigation-split-view > navigation-bar > tool-bar-item,
     navigation-split-view > navigation-bar > tool-bar-item-group,
     navigation-split-view > bottom-bar > tool-bar-item,
-    navigation-split-view > bottom-bar > tool-bar-item-group {
+    navigation-split-view > bottom-bar > tool-bar-item-group,
+    navigation-split-view > [is=sidebar-view] > navigation-bar > tool-bar-item,
+    navigation-split-view > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
+    navigation-split-view > [is=sidebar-view] > bottom-bar > tool-bar-item,
+    navigation-split-view > [is=sidebar-view] > bottom-bar > tool-bar-item-group {
       transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
       filter: none !important;
       opacity: 1 !important;
@@ -761,7 +789,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   navigation-bar,
   bottom-bar {
     position: absolute;
@@ -807,7 +835,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   [is=sidebar-view] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -851,12 +879,12 @@
     }
   }
 }
-@layer final {
+@layer sw-final {
   [is=sidebar-view][open] {
     margin-inline-start: 0px !important;
   }
 }
-@layer components {
+@layer sw-components {
   scroll-view:has(> tool-bar[slot=navigation-bar]) > *:not([slot]) {
     margin-block-start: var(--navigation-bar-height);
   }
@@ -910,7 +938,7 @@
     }
   }
 }
-@layer components {
+@layer sw-components {
   v-stack {
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
@@ -918,7 +946,7 @@
     place-content: center;
   }
 }
-@layer components {
+@layer sw-components {
   tool-bar {
     position: sticky;
     width: 100%;
@@ -942,8 +970,10 @@
     height: 20px;
     background: darkgoldenrod;
   }
-  tool-bar {
-    justify-content: start;
+  @media (pointer: fine) {
+    tool-bar {
+      justify-content: start;
+    }
   }
   tool-bar[slot=navigation-bar] {
     top: 0;
@@ -1003,7 +1033,7 @@
     background-image: linear-gradient(to top, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
 }
-@layer components {
+@layer sw-components {
   tool-bar-item,
   tab-item {
     --component-bg: var(--toolbar-cell-bg);
@@ -1026,7 +1056,7 @@
     min-width: 25px;
   }
 }
-@layer colors {
+@layer sw-colors {
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
   tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
   tab-item button:not(:disabled):not([readonly]):focus-visible,
@@ -1042,7 +1072,7 @@
     }
   }
 }
-@layer actions {
+@layer sw-actions {
   tool-bar-item button:not(:disabled):not([readonly]):active,
   tool-bar-item input:not(:disabled):not([readonly]):active,
   tab-item button:not(:disabled):not([readonly]):active,
@@ -1050,7 +1080,7 @@
     background-color: var(--toolbar-cell-active-bg);
   }
 }
-@layer components {
+@layer sw-components {
   tool-bar-item-group {
     grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr);
@@ -1062,14 +1092,14 @@
     border-width: 0;
   }
 }
-@layer components {
+@layer sw-components {
   [is=borderless-button] {
     display: grid;
     place-items: center;
     place-content: center;
   }
 }
-@layer transitions {
+@layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
     scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
       transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start var(--sidebar-transition-duration) ease-out allow-discrete, margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
@@ -1142,7 +1172,7 @@
     animation: var(--view-transition-duration) ease-out both expand-from-tiny;
   } */
 }
-@layer transitions {
+@layer sw-transitions {
   scroll-view.fwd {
     pointer-events: none;
   }
@@ -1158,7 +1188,7 @@
     transform: translateX(var(--view-transition-leading-x));
   }
 }
-@layer transitions {
+@layer sw-transitions {
   scroll-view.bwd {
     transform: translateX(var(--view-transition-trailing-x));
   }
@@ -1177,7 +1207,7 @@
     pointer-events: none;
   }
 }
-@layer transitions {
+@layer sw-transitions {
   tool-bar-item.fwn,
   tool-bar-item-group.fwn {
     transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
@@ -1205,7 +1235,7 @@
     opacity: 0;
   }
 }
-@layer transitions {
+@layer sw-transitions {
   tool-bar-item.bwn,
   tool-bar-item-group.bwn {
     transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
@@ -1225,7 +1255,7 @@
     opacity: 0;
   }
 }
-@layer transitions {
+@layer sw-transitions {
   [is=sheet-view]:not([open]) {
     z-index: var(--top-layer-polyfill-z-index);
   }
@@ -1251,7 +1281,7 @@
     }
   }
 }
-@layer colors {
+@layer sw-colors {
   navigation-stack,
   navigation-split-view,
   body-view {

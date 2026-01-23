@@ -2,7 +2,6 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-
   navigation-bar,
   bottom-bar {
     position: absolute;
@@ -22,7 +21,7 @@
     // align-content: stretch;
     // justify-content: center;
 
-    >* {
+    > * {
       pointer-events: all;
 
       align-self: center;
@@ -64,9 +63,9 @@
     padding-block-end: var(--safe-area-inset-bottom);
   }
 
-  ::part(toolbar-leading-stack),
-  ::part(toolbar-principal-stack),
-  ::part(toolbar-trailing-stack) {
+  ::part(#{vars.$toolbar-leading-stack-part-name}),
+  ::part(#{vars.$toolbar-principal-stack-part-name}),
+  ::part(#{vars.$toolbar-trailing-stack-part-name}) {
     display: grid;
 
     grid-auto-flow: column;
@@ -77,7 +76,6 @@
 
   @include mixins.if-ipad-sheet-fits {
     [is='sheet-view'] {
-
       navigation-bar,
       bottom-bar {
         --safe-area-inset-left: 0px;

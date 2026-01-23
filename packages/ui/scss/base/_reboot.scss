@@ -49,6 +49,10 @@
       vars.$disclosure-group-animation-close-class,
     sidebar-toggle-padding-inline-start-css-prop:
       vars.$sidebar-toggle-padding-inline-start-css-prop,
+    //
+    toolbar-leading-stack-part-name: vars.$toolbar-leading-stack-part-name,
+    toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
+    toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
   );
 
   @debug functions.map-to-query($CONFIG);

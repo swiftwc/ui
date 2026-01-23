@@ -34,11 +34,11 @@
       }
     }
 
-    // @media (pointer: fine) {
-    & {
-      justify-content: start;
+    @media (pointer: fine) {
+      & {
+        justify-content: start;
+      }
     }
-    // }
   }
 
   tool-bar[slot='navigation-bar'] {

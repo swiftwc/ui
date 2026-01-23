@@ -1,18 +1,22 @@
 @use 'functions';
 @use 'sass:math';
 
-$base-layer: base !default;
-$components-layer: components !default;
-$colors-layer: colors !default;
-$ui-layer: actions !default;
-$transitions-layer: transitions !default;
-$final-layer: final !default;
+$base-layer: sw-base !default;
+$components-layer: sw-components !default;
+$colors-layer: sw-colors !default;
+$ui-layer: sw-actions !default;
+$transitions-layer: sw-transitions !default;
+$final-layer: sw-final !default;
 
 $vt-fwd-class-name: fwd !default;
 
 $disclosure-group-contents-height-css-prop: --disclosure-group-contents-height !default;
 $disclosure-group-animation-duration-css-prop: --disclosure-group-animation-duration !default;
 $disclosure-group-animation-close-class: close !default;
+
+$toolbar-leading-stack-part-name: toolbar-leading-stack !default;
+$toolbar-principal-stack-part-name: toolbar-principal-stack !default;
+$toolbar-trailing-stack-part-name: toolbar-trailing-stack !default;
 
 $sidebar-toggle-padding-inline-start-css-prop: --sidebar-toggle-padding-inline-start !default;
 

@@ -156,6 +156,20 @@
 
             border-radius: var(--tab-bar-sidebar-border-radius);
           }
+
+          ~ navigation-bar {
+            --safe-area-inset-top: max(
+              env(safe-area-inset-top),
+              var(--tab-bar-sidebar-spacing)
+            );
+          }
+
+          ~ bottom-bar {
+            --safe-area-inset-bottom: max(
+              env(safe-area-inset-bottom),
+              var(--tab-bar-sidebar-spacing)
+            );
+          }
         }
 
         // all descendants (except dialog)
@@ -174,16 +188,20 @@
                 var(--nav-split-view-sidebar-width) +
                   max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
               );
-
-              // --safe-area-inset-top: max(
-              //   env(safe-area-inset-top),
-              //   var(--tab-bar-sidebar-spacing)
-              // );
-
-              // --safe-area-inset-bottom: max(
-              //   env(safe-area-inset-bottom),
-              //   var(--tab-bar-sidebar-spacing)
-              // );
+            }
+            &,
+            & ~ navigation-bar {
+              --safe-area-inset-top: max(
+                env(safe-area-inset-top),
+                var(--tab-bar-sidebar-spacing)
+              );
+            }
+            &,
+            & ~ bottom-bar {
+              --safe-area-inset-bottom: max(
+                env(safe-area-inset-bottom),
+                var(--tab-bar-sidebar-spacing)
+              );
             }
           }
         }
@@ -318,7 +336,9 @@
 
       // Cancel animations
       > navigation-bar,
-      > bottom-bar {
+      > bottom-bar,
+      > [is='sidebar-view'] > navigation-bar,
+      > [is='sidebar-view'] > bottom-bar {
         > tool-bar-item,
         > tool-bar-item-group {
           @include mixins.vt-toolbar-item-onscreen-keyframe(true);

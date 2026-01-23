@@ -1,16 +1,18 @@
+import { Snapshot } from '../snapshot'
+
 export class BottomBar extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get leadingPartName() {
-    return 'toolbar-leading-stack'
+    return Snapshot.config!['toolbar-leading-stack-part-name']
   }
 
   static get principalPartName() {
-    return 'toolbar-principal-stack'
+    return Snapshot.config!['toolbar-principal-stack-part-name']
   }
 
   static get trailingPartName() {
-    return 'toolbar-trailing-stack'
+    return Snapshot.config!['toolbar-trailing-stack-part-name']
   }
 
   static get template() {
@@ -32,7 +34,7 @@ export class BottomBar extends HTMLElement {
 
   #shadowRoot
 
-  #ro
+  #ro?: ResizeObserver
 
   get #sibling() {
     return (
@@ -59,14 +61,16 @@ export class BottomBar extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    this.#shadowRoot.appendChild(
-      document.importNode(
-        (this.constructor as typeof BottomBar).template.content,
-        true
+    Snapshot.waitReady.then(() => {
+      this.#shadowRoot.appendChild(
+        document.importNode(
+          (this.constructor as typeof BottomBar).template.content,
+          true
+        )
       )
-    )
 
-    this.#ro = new ResizeObserver(this.#measureStacks.bind(this))
+      this.#ro = new ResizeObserver(this.#measureStacks.bind(this))
+    })
   }
 
   #measureStacks(entries: ResizeObserverEntry[] = []) {
@@ -90,22 +94,24 @@ export class BottomBar extends HTMLElement {
   connectedCallback() {
     console.debug(`${BottomBar.name} ⚡️ connect`)
 
-    this.#ro?.observe(
-      this.#shadowRoot.querySelector(
-        `[part="${(this.constructor as typeof BottomBar).leadingPartName}"]`
-      )!
-    )
+    Snapshot.waitReady.then(() => {
+      this.#ro?.observe(
+        this.#shadowRoot.querySelector(
+          `[part="${(this.constructor as typeof BottomBar).leadingPartName}"]`
+        )!
+      )
 
-    this.#ro?.observe(
-      this.#shadowRoot.querySelector(
-        `[part="${(this.constructor as typeof BottomBar).trailingPartName}"]`
-      )!
-    )
+      this.#ro?.observe(
+        this.#shadowRoot.querySelector(
+          `[part="${(this.constructor as typeof BottomBar).trailingPartName}"]`
+        )!
+      )
+    })
   }
 
   disconnectedCallback() {
     console.debug(`${BottomBar.name} ⚡️ disconnect`)
 
-    this.#ro.disconnect()
+    this.#ro?.disconnect?.()
   }
 }

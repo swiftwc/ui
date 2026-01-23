@@ -1,3 +1,5 @@
+import { Snapshot } from '../snapshot'
+
 export class NavigationBar extends HTMLElement {
   static #template: HTMLTemplateElement
 
@@ -32,11 +34,13 @@ export class NavigationBar extends HTMLElement {
 
   #shadowRoot
 
-  #ro
+  #ro?: ResizeObserver
 
   get #sibling() {
     return (
-      this.parentElement?.querySelector(':scope > scroll-view') ?? undefined
+      this.parentElement?.querySelector(
+        ':scope > scroll-view,:scope > dialog[is=sidebar-view] > scroll-view'
+      ) ?? undefined
     ) //this.previousElementSibling ?? undefined
   }
 
@@ -59,21 +63,23 @@ export class NavigationBar extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    this.#shadowRoot.appendChild(
-      document.importNode(
-        (this.constructor as typeof NavigationBar).template.content,
-        true
+    Snapshot.waitReady.then(() => {
+      this.#shadowRoot.appendChild(
+        document.importNode(
+          (this.constructor as typeof NavigationBar).template.content,
+          true
+        )
       )
-    )
 
-    // this.#sp = this.#shadowRoot.querySelector<HTMLElement>(
-    //   '[part="tool-bat-navigation-bar-leading-stack"]'
-    // )!.offsetWidth
-    // this.#ep = this.#shadowRoot.querySelector<HTMLElement>(
-    //   '[part="tool-bat-navigation-bar-trailing-stack"]'
-    // )!.offsetWidth
+      // this.#sp = this.#shadowRoot.querySelector<HTMLElement>(
+      //   '[part="tool-bat-navigation-bar-leading-stack"]'
+      // )!.offsetWidth
+      // this.#ep = this.#shadowRoot.querySelector<HTMLElement>(
+      //   '[part="tool-bat-navigation-bar-trailing-stack"]'
+      // )!.offsetWidth
 
-    this.#ro = new ResizeObserver(this.#measureStacks.bind(this))
+      this.#ro = new ResizeObserver(this.#measureStacks.bind(this))
+    })
   }
 
   #measureStacks(entries: ResizeObserverEntry[] = []) {
@@ -100,22 +106,24 @@ export class NavigationBar extends HTMLElement {
   connectedCallback() {
     console.debug(`${NavigationBar.name} ⚡️ connect`)
 
-    this.#ro?.observe(
-      this.#shadowRoot.querySelector(
-        `[part="${(this.constructor as typeof NavigationBar).leadingPartName}"]`
-      )!
-    )
+    Snapshot.waitReady.then(() => {
+      this.#ro?.observe(
+        this.#shadowRoot.querySelector(
+          `[part="${(this.constructor as typeof NavigationBar).leadingPartName}"]`
+        )!
+      )
 
-    this.#ro?.observe(
-      this.#shadowRoot.querySelector(
-        `[part="${(this.constructor as typeof NavigationBar).trailingPartName}"]`
-      )!
-    )
+      this.#ro?.observe(
+        this.#shadowRoot.querySelector(
+          `[part="${(this.constructor as typeof NavigationBar).trailingPartName}"]`
+        )!
+      )
+    })
   }
 
   disconnectedCallback() {
     console.debug(`${NavigationBar.name} ⚡️ disconnect`)
 
-    this.#ro.disconnect()
+    this.#ro?.disconnect?.()
   }
 }

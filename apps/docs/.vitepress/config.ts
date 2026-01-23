@@ -2,13 +2,28 @@ import { defineConfig } from 'vitepress'
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
-  title: "SwiftWC",
-  description: "A VitePress Site",
+  markdown: {
+    config: (md) => {
+      //
+    },
+  },
+
+  cleanUrls: true,
+
+  lang: 'en-US',
+
+  head: [['link', { rel: 'icon', href: '/favicon.svg' }]],
+
+  title: 'SwiftWC',
+  description:
+    'Elegant SwiftUI-inspired web components for standalone web apps and web extensions.',
   themeConfig: {
+    externalLinkIcon: true,
+    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },
-      { text: 'Docs', link: '/installation/' }
+      { text: 'Docs', link: '/installation/' },
     ],
 
     sidebar: [
@@ -17,23 +32,26 @@ export default defineConfig({
         items: [
           { text: 'Introduction', link: '/intro' },
           { text: 'Web Components', link: '/web-components/' },
-          { text: 'Installation', link: '/installation/' }
-        ]
+          { text: 'Installation', link: '/installation/' },
+        ],
       },
       {
         text: 'Web Components',
         items: [
           // {
           //   text: 'Structure',
-            // items: [
-              { text: 'Aaaa', link: '/web-components/aaaa' },
-              { text: 'NavigationStack', link: '/web-components/navigation-stack' },
-              { text: 'NavigationSplitView', link: '/web-components/navigation-split-view' },
-              { text: 'Zzzz', link: '/web-components/zzzz' },
-              // { text: 'Runtime API Examples', link: '/api-examples' }
-            // ]
+          // items: [
+          { text: 'Aaaa', link: '/web-components/aaaa' },
+          { text: 'NavigationStack', link: '/web-components/navigation-stack' },
+          {
+            text: 'NavigationSplitView',
+            link: '/web-components/navigation-split-view',
+          },
+          { text: 'Zzzz', link: '/web-components/zzzz' },
+          // { text: 'Runtime API Examples', link: '/api-examples' }
+          // ]
           // }
-        ]
+        ],
       },
       {
         text: 'Get Started',
@@ -43,12 +61,10 @@ export default defineConfig({
           { text: 'Dark Mode', link: '/installation/dark-mode' },
           { text: 'JavaScript', link: '/installation/javascript' },
           // { text: 'Runtime API Examples', link: '/api-examples' }
-        ]
+        ],
       },
     ],
 
-    socialLinks: [
-      { icon: 'github', link: 'https://github.com/swiftwc/ui' }
-    ]
-  }
+    socialLinks: [{ icon: 'github', link: 'https://github.com/swiftwc/ui' }],
+  },
 })

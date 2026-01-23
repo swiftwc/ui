@@ -25,7 +25,7 @@ npm i -D @swiftwc/ui@latest
 
 ## Import the CSS file
 
-```ts{5-6} app.ts
+```ts{5-6} app/app.ts
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
@@ -50,21 +50,21 @@ npm start
 
 ::: code-group
 
-```gts{6} [application.gts]
+```glimmer-ts [application.gts]
 import { pageTitle } from 'ember-page-title';
 
 <template>
   {{pageTitle "MyProject"}}
 
-  <v-keyboard></v-keyboard>
+  <v-keyboard></v-keyboard> <!-- [!code focus] -->
 
   {{outlet}}
 </template>
 ```
 
-```ts{10} [router.ts]
-import EmberRouter from '@embroider/router';
-import config from 'my-project/config/environment';
+```ts [app/router.ts]
+import EmberRouter from "@embroider/router";
+import config from "my-project/config/environment";
 
 export default class Router extends EmberRouter {
   location = config.locationType;
@@ -72,7 +72,7 @@ export default class Router extends EmberRouter {
 }
 
 Router.map(function () {
-  this.route('about');
+  this.route("about"); // [!code focus]
 });
 ```
 
@@ -98,9 +98,9 @@ const handleClick = async (event) => {
 </template>
 ```
 
-```gts{2,5-7} [about.gts]
+```glimmer-ts [about.gts]
 import { pageTitle } from 'ember-page-title';
-import { startViewTransition } '@swiftwc/ui/client';
+import { startViewTransition } '@swiftwc/ui/client'; // [!code focus]
 
 const handleClick = async (event) => {
   await startViewTransition(event, 'backwards', async () => {
@@ -121,5 +121,3 @@ const handleClick = async (event) => {
 ```
 
 :::
-
-

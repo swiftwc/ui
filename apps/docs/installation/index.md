@@ -1,8 +1,11 @@
 ---
 next:
-  text: 'Dark Mode'
-  link: '/installation/dark-mode'
+  text: "App HTML Layout"
+  link: "/installation/app-layout"
 ---
+
+> [!IMPORTANT]
+> **SwiftWC** is intended for _standalone web apps_ and _web extensions_. It is NOT meant (and not tested) for websites.
 
 # Installation
 
@@ -12,9 +15,27 @@ How to install dependencies and structure your app.
 
 **Run the following command to create a new project with swiftwc/ui:**
 
-```shell{4}
+::: code-group
+
+```sh{4} [npm]
 npm i -D @swiftwc/ui@latest
 ```
+
+```html [browser-ready from CDNs]
+<!doctype html>
+<html>
+  <head>
+    <!-- [!code ++] -->
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
+  </head>
+  <body>
+    <!-- [!code ++] -->
+    <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
+  </body>
+</html>
+```
+
+:::
 
 ## Pick Your Framework
 

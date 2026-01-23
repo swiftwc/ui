@@ -52,30 +52,11 @@
           env(safe-area-inset-top),
           var(--tab-bar-sidebar-spacing)
         );
-        --safe-area-inset-bottom: max(
-          env(safe-area-inset-bottom),
-          var(--tab-bar-sidebar-spacing)
-        );
       }
-    }
-    tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
-      --safe-area-inset-top: max(
-        env(safe-area-inset-top),
-        var(--tab-bar-sidebar-spacing)
-      );
-      --safe-area-inset-bottom: max(
-        env(safe-area-inset-bottom),
-        var(--tab-bar-sidebar-spacing)
-      );
-    }
-  }
-
-  @include mixins.if-iphone-portrait {
-    scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,
       tab-view navigation-split-view > &,
       tab-view body-view > &,
-      tab-view & ~ navigation-bar,
+      // tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
         --safe-area-inset-bottom: max(
           env(safe-area-inset-bottom),
@@ -84,10 +65,36 @@
       }
     }
     tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
-      --safe-area-inset-bottom: max(
-        env(safe-area-inset-bottom),
-        var(--tab-bar-sidebar-spacing)
-      );
+      // --safe-area-inset-top: max(
+      //   env(safe-area-inset-top),
+      //   var(--tab-bar-sidebar-spacing)
+      // );
+
+      // --safe-area-inset-bottom: max(
+      //   env(safe-area-inset-bottom),
+      //   var(--tab-bar-sidebar-spacing)
+      // );
+    }
+  }
+
+  @include mixins.if-iphone-portrait {
+    scroll-view:not(dialog scroll-view) {
+      tab-view navigation-stack > &,
+      tab-view navigation-split-view > &,
+      tab-view body-view > &,
+      // tab-view & ~ navigation-bar,
+      tab-view & ~ bottom-bar {
+        --safe-area-inset-bottom: max(
+          env(safe-area-inset-bottom),
+          var(--tab-bar-sidebar-spacing)
+        );
+      }
+    }
+    tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
+      // --safe-area-inset-bottom: max(
+      //   env(safe-area-inset-bottom),
+      //   var(--tab-bar-sidebar-spacing)
+      // );
     }
   }
 
@@ -98,9 +105,9 @@
       // tab-view body-view > &,
       tab-view & ~ navigation-bar,
       tab-view & ~ bottom-bar {
-        --safe-area-inset-left: var(
-          #{vars.$sidebar-toggle-padding-inline-start-css-prop},
-          0px
+        --safe-area-inset-left: calc(
+          env(safe-area-inset-left) +
+            var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px)
         );
       }
     }
@@ -120,10 +127,10 @@
       }
     }
     tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
-      --safe-area-inset-top: calc(
-        max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
-          var(--tab-bar-ipad-height)
-      );
+      // --safe-area-inset-top: calc(
+      //   max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
+      //     var(--tab-bar-ipad-height)
+      // );
     }
   }
 

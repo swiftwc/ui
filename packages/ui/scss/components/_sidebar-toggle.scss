@@ -13,7 +13,7 @@
       position: fixed;
 
       inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto
-        auto var(--safe-area-inset-left);
+        auto max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
     }

@@ -60,7 +60,10 @@
 @layer #{vars.$final-layer} {
   [is='sidebar-view'] {
     &[open] {
-      margin-inline-start: 0px !important;
+      margin-inline-start: max(
+        env(safe-area-inset-left),
+        var(--tab-bar-sidebar-spacing)
+      ) !important;
     }
   }
 }

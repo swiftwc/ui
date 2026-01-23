@@ -47,9 +47,9 @@
     padding-block-start: var(--safe-area-inset-top);
     transform: translateY(calc(var(--safe-area-inset-top) * -1));
 
-    &:not(dialog tool-bar) {
-      padding-inline-start: var(--sidebar-toggle-padding-inline-start, 0px);
-    }
+    // &:not(dialog tool-bar) {
+    // padding-inline-start: var(--sidebar-toggle-padding-inline-start, 0px);
+    // }
 
     > span {
       &::before {

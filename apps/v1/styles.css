@@ -513,7 +513,7 @@
   }
   tab-view > sidebar-toggle, navigation-split-view > sidebar-toggle {
     position: fixed;
-    inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto var(--safe-area-inset-left);
+    inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
@@ -640,10 +640,7 @@
     }
   }
   @media (max-width: 63.9999rem) {
-    navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > body-view ~ scroll-view {
-      z-index: -1;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([preferred-compact-column=content]) > body-view > body-view ~ scroll-view {
       z-index: -1;
     }
   }
@@ -682,13 +679,13 @@
       --safe-area-inset-bottom: 0px;
       border-radius: var(--tab-bar-sidebar-border-radius);
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] ~ navigation-bar {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view ~ navigation-bar {
       --safe-area-inset-top: max(
         env(safe-area-inset-top),
         var(--tab-bar-sidebar-spacing)
       );
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] ~ bottom-bar {
+    navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view ~ bottom-bar {
       --safe-area-inset-bottom: max(
         env(safe-area-inset-bottom),
         var(--tab-bar-sidebar-spacing)
@@ -753,33 +750,41 @@
     navigation-split-view > [is=sidebar-view] > scroll-view {
       transform: translateX(0px) !important;
     }
-    navigation-split-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ navigation-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ bottom-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ navigation-bar .fwnn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ bottom-bar .fwnn {
-      transition-duration: 0ms !important;
-    }
-    navigation-split-view > navigation-bar > tool-bar-item,
-    navigation-split-view > navigation-bar > tool-bar-item-group,
-    navigation-split-view > bottom-bar > tool-bar-item,
-    navigation-split-view > bottom-bar > tool-bar-item-group,
-    navigation-split-view > [is=sidebar-view] > navigation-bar > tool-bar-item,
-    navigation-split-view > [is=sidebar-view] > navigation-bar > tool-bar-item-group,
-    navigation-split-view > [is=sidebar-view] > bottom-bar > tool-bar-item,
-    navigation-split-view > [is=sidebar-view] > bottom-bar > tool-bar-item-group {
+    navigation-split-view > scroll-view ~ navigation-bar > tool-bar-item,
+    navigation-split-view > scroll-view ~ navigation-bar > tool-bar-item-group,
+    navigation-split-view > scroll-view ~ bottom-bar > tool-bar-item,
+    navigation-split-view > scroll-view ~ bottom-bar > tool-bar-item-group,
+    navigation-split-view > [is=sidebar-view] > scroll-view ~ navigation-bar > tool-bar-item,
+    navigation-split-view > [is=sidebar-view] > scroll-view ~ navigation-bar > tool-bar-item-group,
+    navigation-split-view > [is=sidebar-view] > scroll-view ~ bottom-bar > tool-bar-item,
+    navigation-split-view > [is=sidebar-view] > scroll-view ~ bottom-bar > tool-bar-item-group {
       transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
       filter: none !important;
       opacity: 1 !important;
     }
+    navigation-split-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ navigation-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ bottom-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ navigation-bar .fwnn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ bottom-bar .fwnn {
+      transition-duration: 0ms !important;
+    }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view {
       transform: translateX(0px) !important;
+    }
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ navigation-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ navigation-bar > tool-bar-item-group,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ bottom-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ bottom-bar > tool-bar-item-group {
+      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
+      filter: none !important;
+      opacity: 1 !important;
     }
   }
   @media (min-width: 43rem) and (min-width: 64rem) {
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view {
       transform: translateX(0px) !important;
     }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > navigation-bar > tool-bar-item,
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > navigation-bar > tool-bar-item-group,
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > bottom-bar > tool-bar-item,
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > bottom-bar > tool-bar-item-group {
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ navigation-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ navigation-bar > tool-bar-item-group,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ bottom-bar > tool-bar-item,
+    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ bottom-bar > tool-bar-item-group {
       transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
       filter: none !important;
       opacity: 1 !important;
@@ -881,7 +886,7 @@
 }
 @layer sw-final {
   [is=sidebar-view][open] {
-    margin-inline-start: 0px !important;
+    margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) !important;
   }
 }
 @layer sw-components {
@@ -980,9 +985,6 @@
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
     padding-block-start: var(--safe-area-inset-top);
     transform: translateY(calc(var(--safe-area-inset-top) * -1));
-  }
-  tool-bar[slot=navigation-bar]:not(dialog tool-bar) {
-    padding-inline-start: var(--sidebar-toggle-padding-inline-start, 0px);
   }
   tool-bar[slot=navigation-bar] > span::before {
     width: var(--navbar-padding-inline-start, 0px);

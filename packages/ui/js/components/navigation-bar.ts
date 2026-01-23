@@ -38,9 +38,7 @@ export class NavigationBar extends HTMLElement {
 
   get #sibling() {
     return (
-      this.parentElement?.querySelector(
-        ':scope > scroll-view,:scope > dialog[is=sidebar-view] > scroll-view'
-      ) ?? undefined
+      this.parentElement?.querySelector(':scope > scroll-view') ?? undefined
     ) //this.previousElementSibling ?? undefined
   }
 

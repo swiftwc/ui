@@ -24,7 +24,7 @@ npm i -D @tailwindcss/vite @swiftwc/ui@latest
 ::: code-group
 
 ```css{1} [app.css]
-@import "@swiftwc/ui/styles.css";
+@import "@swiftwc/ui/css";
 ```
 
 ::: 

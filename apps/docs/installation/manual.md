@@ -10,7 +10,7 @@ You can now start adding components to your project.
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
   </head>
   <body>
     <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
@@ -27,7 +27,7 @@ You can now start adding components to your project.
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
   </head>
   <body>
     <v-keyboard></v-keyboard>

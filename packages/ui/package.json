@@ -42,7 +42,7 @@
       "types": "./generated/client/index.d.ts",
       "default": "./generated/client/index.js"
     },
-    "./styles.css": "./generated/styles.css",
+    "./css": "./generated/css/index.css",
     "./scss": "./scss/index.scss",
     "./scss/*": "./scss/*.scss"
   },
@@ -54,7 +54,7 @@
     "build": "npm run build:ts && npm run build:scss",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
-    "build:scss": "sass --no-source-map scss/index.scss generated/styles.css",
+    "build:scss": "sass --no-source-map scss/index.scss generated/css/index.css",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write"
   },

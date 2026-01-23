@@ -15,7 +15,7 @@ SwiftWC uses a declarative syntax.
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <meta
       name="viewport"
       content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no"

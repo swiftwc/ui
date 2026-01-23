@@ -8,7 +8,7 @@ Adding dark mode to your web app.
 <!doctype html>
 <html>
   <head>
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
   </head>
 </html>
 ```
@@ -47,7 +47,7 @@ You can now start adding components to your project.
     <link rel="preconnect" href="https://unpkg.com/" />
     <link rel="preconnect" href="https://rsms.me/" />
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/styles.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />

@@ -46,18 +46,14 @@
       tab-view navigation-stack > &,
       tab-view navigation-split-view > &,
       tab-view body-view > &,
-      tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+      // tab-view & ~ navigation-bar,
+      // tab-view & ~ bottom-bar {
+      tab-view & ~ tool-bar {
         --safe-area-inset-top: max(
           env(safe-area-inset-top),
           var(--tab-bar-sidebar-spacing)
         );
-      }
-      tab-view navigation-stack > &,
-      tab-view navigation-split-view > &,
-      tab-view body-view > &,
-      // tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+
         --safe-area-inset-bottom: max(
           env(safe-area-inset-bottom),
           var(--tab-bar-sidebar-spacing)
@@ -83,7 +79,8 @@
       tab-view navigation-split-view > &,
       tab-view body-view > &,
       // tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+      // tab-view & ~ bottom-bar {
+      tab-view & ~ tool-bar {
         --safe-area-inset-bottom: max(
           env(safe-area-inset-bottom),
           var(--tab-bar-sidebar-spacing)
@@ -100,11 +97,10 @@
 
   @include mixins.if-iphone-landscape {
     scroll-view:not(dialog scroll-view) {
-      // tab-view navigation-stack > &,
-      // tab-view navigation-split-view > &,
-      // tab-view body-view > &,
-      tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+      // tab-view & ~ navigation-bar,
+      // tab-view & ~ bottom-bar {
+      tab-view & ~ tool-bar {
+        // FIXME: Make this apply only to navbar and NOT bottombar (add a var)
         --safe-area-inset-left: calc(
           env(safe-area-inset-left) +
             var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px)
@@ -118,8 +114,9 @@
       tab-view navigation-stack > &,
       tab-view navigation-split-view > &,
       tab-view body-view > &,
-      tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+      // tab-view & ~ navigation-bar,
+      // tab-view & ~ bottom-bar {
+      tab-view & ~ tool-bar {
         --safe-area-inset-top: calc(
           max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
             var(--tab-bar-ipad-height)
@@ -153,8 +150,9 @@
       tab-view navigation-stack > &,
       tab-view navigation-split-view > &,
       tab-view body-view > &,
-      tab-view & ~ navigation-bar,
-      tab-view & ~ bottom-bar {
+      // tab-view & ~ navigation-bar,
+      // tab-view & ~ bottom-bar {
+      tab-view & ~ tool-bar {
         --safe-area-inset-left: calc(
           max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
             var(--tab-bar-sidebar-width)

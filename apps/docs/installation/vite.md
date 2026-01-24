@@ -109,12 +109,12 @@ document.body.addEventListener("click", async (event) => {
                         }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                     </scroll-view>
-                    <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">aaaa${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>dddd${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll("scroll-view").length}"></tool-bar-item>
-                    </navigation-bar>
+                    <tool-bar>
+                      <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0">aaaa${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
+                      <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0" disabled>dddd${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="navigation-bar-leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="navigation-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll("scroll-view").length}"></tool-bar-item>
+                    </tool-bar>
                   </${6 === root.querySelectorAll("scroll-view").length ? "dialog" : "body-view"}>
                   `,
           );

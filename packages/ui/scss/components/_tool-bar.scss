@@ -3,92 +3,17 @@
 
 @layer #{vars.$components-layer} {
   tool-bar {
-    // background-color: red;
-    position: sticky;
-    width: 100%;
-
-    place-items: center;
-    place-content: center;
-    // grid-template-columns: 1fr auto 1fr;
+    display: grid;
 
     pointer-events: none;
 
-    &::part(#{vars.$toolbar-principal-inline-part-name}) {
-      // > span {
-      display: grid;
-      grid-template-columns: 1fr auto 1fr;
+    touch-action: none;
 
-      &::before,
-      &::after {
-        content: '';
-        display: grid;
-      }
-
-      &::before {
-        height: 20px;
-        background: green;
-      }
-
-      &::after {
-        height: 20px;
-        background: darkgoldenrod;
-      }
-    }
-  }
-
-  tool-bar[slot='navigation-bar'] {
-    top: 0;
-    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
-    padding-block-start: var(--safe-area-inset-top);
-    transform: translateY(calc(var(--safe-area-inset-top) * -1));
-
-    @media (pointer: fine) {
-      & {
-        justify-content: start;
-      }
-    }
-
-    &::part(#{vars.$toolbar-principal-inline-part-name}) {
-      // > span {
-      &::before {
-        width: var(--navbar-padding-inline-start, 0px);
-        // width: calc(
-        //   var(--navbar-padding-inline-start, 0px) +
-        //     var(--toolbar-area-inset-left, 0px)
-        // );
-      }
-
-      &::after {
-        width: var(--navbar-padding-inline-end, 0px);
-      }
-    }
-
-    // > div {
-    @include mixins.make-navbar(bottom);
-    // height: calc(var(--safe-area-inset-top) + 50px);
-    // }
-  }
-
-  tool-bar[slot='bottom-bar'] {
-    top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
-    // background-color: red;
-    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
-    padding-block-end: var(--safe-area-inset-bottom);
-    transform: translateY(var(--safe-area-inset-bottom));
-
-    &::part(#{vars.$toolbar-principal-inline-part-name}) {
-      // > span {
-      &::before {
-        width: var(--toolbar-padding-inline-start);
-      }
-
-      &::after {
-        width: var(--toolbar-padding-inline-end);
-      }
-    }
-
-    // > div {
-    @include mixins.make-navbar(top);
-    // }
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: auto 1fr auto;
+    grid-template-areas:
+      'navigation-bar'
+      'spacer'
+      'bottom-bar';
   }
 }

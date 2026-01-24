@@ -31,7 +31,7 @@
     --tab-bar-sidebar-border-radius: 1rem;
     --tab-bar-sidebar-spacing: 1rem;
 
-    --navigation-bar-height: 4rem;
+    --navigation-bar-height: var(--tool-bar-height);
 
     --nav-split-view-sidebar-width: 20rem;
     --nav-split-view-content-width: 25rem;

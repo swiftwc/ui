@@ -6,13 +6,13 @@ export class BottomBar extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<div part="${Snapshot.config!['toolbar-leading-stack-part-name']}">
+        innerHTML: `<div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
     <slot name="leading"></slot>
   </div>
-  <div part="${Snapshot.config!['toolbar-principal-stack-part-name']}">
+  <div part="root ${Snapshot.config!['toolbar-principal-stack-part-name']}">
     <slot></slot>
   </div>
-  <div part="${Snapshot.config!['toolbar-trailing-stack-part-name']}">
+  <div part="root ${Snapshot.config!['toolbar-trailing-stack-part-name']}">
     <slot name="trailing"></slot>
   </div>`,
       })
@@ -24,9 +24,16 @@ export class BottomBar extends HTMLElement {
 
   #ro?: ResizeObserver
 
+  get #rootHost() {
+    const root = this.getRootNode()
+
+    if (root instanceof ShadowRoot) return root.host
+  }
+
   get #sibling() {
     return (
-      this.parentElement?.querySelector(':scope > scroll-view') ?? undefined
+      this.#rootHost?.parentElement?.querySelector(':scope > scroll-view') ??
+      undefined
     ) //this.previousElementSibling ?? undefined
   }
 
@@ -62,7 +69,7 @@ export class BottomBar extends HTMLElement {
   }
 
   #measureStacks(entries: ResizeObserverEntry[] = []) {
-    console.debug(`${BottomBar.name} ⚡️ measure ${this.#measureStacks.name}`)
+    console.debug(`${BottomBar.name} ⚡️ measure`)
 
     for (const { contentRect, target } of entries)
       if (
@@ -85,13 +92,13 @@ export class BottomBar extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#ro?.observe(
         this.#shadowRoot.querySelector(
-          `[part="${Snapshot.config!['toolbar-leading-stack-part-name']}"]`
+          `[part*="${Snapshot.config!['toolbar-leading-stack-part-name']}"]`
         )!
       )
 
       this.#ro?.observe(
         this.#shadowRoot.querySelector(
-          `[part="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
+          `[part*="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
         )!
       )
     })

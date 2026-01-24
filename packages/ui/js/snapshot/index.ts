@@ -99,7 +99,7 @@ export class Snapshot {
       frame:
         (isSidebarWrapped ? sv?.parentElement : sv)?.parentElement ?? undefined,
       toolbarElements: sv?.parentElement?.querySelectorAll(
-        `:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
+        `:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group` //`:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
       ),
     }
   }

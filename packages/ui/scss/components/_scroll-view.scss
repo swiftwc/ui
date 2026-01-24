@@ -14,11 +14,13 @@
 
   // v-stack,
   // tab-bar-stack {
-  scroll-view:has(> tool-bar[slot='navigation-bar']) > *:not([slot]) {
-    margin-block-start: var(--navigation-bar-height);
+  scroll-view:has(~ tool-bar > [slot^='navigation-bar']) > *:not([slot]),
+  scroll-view:has(> [slot^='navigation-bar']) > *:not([slot]) {
+    // margin-block-start: var(--navigation-bar-height);
   }
 
-  scroll-view:has(> tool-bar[slot='bottom-bar']) > *:not([slot]) {
+  scroll-view:has(~ tool-bar > [slot^='bottom-bar']) > *:not([slot]),
+  scroll-view:has(> [slot^='bottom-bar']) > *:not([slot]) {
     margin-block-end: var(--tool-bar-height);
   }
   // }
@@ -51,6 +53,20 @@
     @include mixins.make-scrollable;
 
     // @include mixins.make-navbar;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 0 minmax(max-content, 1fr);
+    grid-template-areas:
+      'toolbar'
+      'main';
+
+    & > *:not([slot]) {
+      grid-area: main;
+    }
+
+    &:has(~ tool-bar > [slot^='navigation-bar']),
+    &:has(> [slot^='navigation-bar']) {
+      grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    }
 
     // &:has(> tool-bar[slot='navigation-bar']) {
     //   margin-top: var(--navigation-bar-height);

@@ -11,10 +11,10 @@
   > scroll-view:not(dialog scroll-view) {
     &.bwd,
     &.fwdd,
-    & ~ navigation-bar .bwn,
-    & ~ bottom-bar .bwn,
-    & ~ navigation-bar .fwnn,
-    & ~ bottom-bar .fwnn {
+    & ~ tool-bar .bwn,
+    // & ~ bottom-bar .bwn,
+    // & ~ navigation-bar .fwnn,
+    & ~ tool-bar .fwnn {
       transition-duration: 0ms !important;
     }
   }
@@ -86,8 +86,8 @@
       // Fix 1stChildElement as a content view
       > scroll-view,
       > [is='sidebar-view'],
-      > navigation-bar,
-      > bottom-bar {
+      // > navigation-bar,
+      > tool-bar {
         width: var(--nav-split-view-content-width);
 
         --safe-area-inset-right: 0px; // reset end padding
@@ -99,8 +99,8 @@
           // navigation-bar:not(dialog navigation-bar),
           // bottom-bar:not(dialog bottom-bar) {
           &,
-          & ~ navigation-bar,
-          & ~ bottom-bar {
+          // & ~ navigation-bar,
+          & ~ tool-bar {
             // add margin to make vts precise
             margin-inline-start: var(--nav-split-view-content-width);
 
@@ -117,8 +117,8 @@
         // turn 1stChildElement into floating sidebar
         > scroll-view,
         > [is='sidebar-view'],
-        > navigation-bar,
-        > bottom-bar {
+        // > navigation-bar,
+        > tool-bar {
           width: var(--nav-split-view-sidebar-width); // override
 
           margin-inline-start: max(
@@ -157,14 +157,16 @@
 
             border-radius: var(--tab-bar-sidebar-border-radius);
 
-            ~ navigation-bar {
+            // ~ navigation-bar {
+            ~ tool-bar {
               --safe-area-inset-top: max(
                 env(safe-area-inset-top),
                 var(--tab-bar-sidebar-spacing)
               );
             }
 
-            ~ bottom-bar {
+            // ~ bottom-bar {
+            ~ tool-bar {
               --safe-area-inset-bottom: max(
                 env(safe-area-inset-bottom),
                 var(--tab-bar-sidebar-spacing)
@@ -179,8 +181,8 @@
             // navigation-bar:not(dialog navigation-bar),
             // bottom-bar:not(dialog bottom-bar) {
             &,
-            & ~ navigation-bar,
-            & ~ bottom-bar {
+            // & ~ navigation-bar,
+            & ~ tool-bar {
               // override/reset added margin
               margin-inline-start: 0px;
 
@@ -191,14 +193,16 @@
               );
             }
             &,
-            & ~ navigation-bar {
+            // & ~ navigation-bar {
+            & ~ tool-bar {
               --safe-area-inset-top: max(
                 env(safe-area-inset-top),
                 var(--tab-bar-sidebar-spacing)
               );
             }
             &,
-            & ~ bottom-bar {
+            // & ~ bottom-bar {
+            & ~ tool-bar {
               --safe-area-inset-bottom: max(
                 env(safe-area-inset-bottom),
                 var(--tab-bar-sidebar-spacing)
@@ -218,8 +222,8 @@
             &[preferred-compact-column='content'] {
               > scroll-view,
               > [is='sidebar-view'],
-              > navigation-bar,
-              > bottom-bar {
+              // > navigation-bar,
+              > tool-bar {
                 // hide off screen
                 margin-inline-start: calc(
                   var(--nav-split-view-sidebar-width) * -1
@@ -232,8 +236,8 @@
                   // navigation-bar:not(dialog navigation-bar),
                   // bottom-bar:not(dialog bottom-bar) {
                   &,
-                  & ~ navigation-bar,
-                  & ~ bottom-bar {
+                  // & ~ navigation-bar,
+                  & ~ tool-bar {
                     margin-inline-start: var(--nav-split-view-content-width);
 
                     --safe-area-inset-left: 0px;
@@ -244,8 +248,8 @@
                   // > navigation-bar:not(dialog navigation-bar),
                   // > bottom-bar:not(dialog bottom-bar) {
                   &,
-                  & ~ navigation-bar,
-                  & ~ bottom-bar {
+                  // & ~ navigation-bar,
+                  & ~ tool-bar {
                     margin-inline-start: 0px;
 
                     --safe-area-inset-left: env(safe-area-inset-left);
@@ -255,6 +259,7 @@
                     width: var(--nav-split-view-content-width);
                   }
 
+                  // FIXME: Somehow apple only to topbar of toolbar
                   & ~ navigation-bar {
                     --safe-area-inset-left: calc(
                       max(
@@ -284,8 +289,8 @@
 
               // shrink 2nd-child
               > scroll-view,
-              > navigation-bar,
-              > bottom-bar {
+              // > navigation-bar,
+              > tool-bar {
                 width: calc(
                   var(--nav-split-view-content-width) +
                     var(--nav-split-view-sidebar-width)
@@ -300,8 +305,8 @@
                   // navigation-bar:not(dialog navigation-bar),
                   // bottom-bar:not(dialog bottom-bar) {
                   &,
-                  & ~ navigation-bar,
-                  & ~ bottom-bar {
+                  // & ~ navigation-bar,
+                  & ~ tool-bar {
                     // --safe-area-inset-left: calc(
                     //   var(--nav-split-view-sidebar-width) +
                     //     var(--nav-split-view-content-width) +
@@ -340,8 +345,8 @@
         transform: translateX(0px) !important;
 
         // Cancel animations
-        ~ navigation-bar,
-        ~ bottom-bar {
+        // ~ navigation-bar,
+        ~ tool-bar {
           > tool-bar-item,
           > tool-bar-item-group {
             @include mixins.vt-toolbar-item-onscreen-keyframe(true);
@@ -368,8 +373,8 @@
             > scroll-view {
               transform: translateX(0px) !important;
 
-              ~ navigation-bar,
-              ~ bottom-bar {
+              // ~ navigation-bar,
+              ~ tool-bar {
                 > tool-bar-item,
                 > tool-bar-item-group {
                   @include mixins.vt-toolbar-item-onscreen-keyframe(true);
@@ -397,8 +402,8 @@
               transform: translateX(0px) !important;
 
               // cancel animations
-              ~ navigation-bar,
-              ~ bottom-bar {
+              // ~ navigation-bar,
+              ~ tool-bar {
                 > tool-bar-item,
                 > tool-bar-item-group {
                   @include mixins.vt-toolbar-item-onscreen-keyframe(true);

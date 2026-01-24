@@ -7,13 +7,5 @@
     box-shadow: inset 0 0 0 2px magenta;
 
     place-content: center;
-
-    // scroll-view:has(> tool-bar[slot='navigation-bar']) & {
-    //   margin-top: var(--navigation-bar-height);
-    // }
-
-    // scroll-view:has(> tool-bar[slot='bottom-bar']) & {
-    //   margin-bottom: var(--tool-bar-height);
-    // }
   }
 }

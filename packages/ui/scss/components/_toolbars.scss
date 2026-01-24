@@ -2,9 +2,9 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  navigation-bar,
-  bottom-bar {
-    position: absolute;
+  ::part(navigation-bar),
+  ::part(bottom-bar) {
+    position: relative; // SAFARI BUG
 
     // background-color: blue;
     box-shadow: inset 0 0 4px red;
@@ -16,21 +16,26 @@
     column-gap: var(--toolbar-col-gap);
     // grid-auto-rows: 40px;
 
-    place-items: center;
-    place-content: center;
+    grid-template-rows: 3rem;
 
-    > * {
+    // place-items: center;
+    // place-content: center;
+
+    /* > * {
       pointer-events: all;
 
-      align-self: center;
+      // grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
+      // grid-template-rows: minmax(0, 1fr);
 
-      height: var(--toolbar-cell-min-size);
+      // align-self: center;
+
+      min-height: var(--toolbar-cell-min-size);
       min-width: var(--toolbar-cell-min-size);
       // height: 40px;
-    }
+    } */
   }
 
-  navigation-bar {
+  ::part(navigation-bar) {
     // padding-inline: calc(
     //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
     //   )
@@ -38,7 +43,8 @@
     //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
     //   );
 
-    inset: 0 0 auto 0;
+    // inset: 0 0 auto 0;
+    grid-area: navigation-bar;
 
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
 
@@ -50,7 +56,7 @@
     // }
   }
 
-  bottom-bar {
+  ::part(bottom-bar) {
     // padding-inline: calc(
     //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
     //   )
@@ -58,7 +64,9 @@
     //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
     //   );
 
-    inset: auto 0 0 0;
+    // inset: auto 0 0 0;
+    grid-area: bottom-bar;
+    // background-color: blue;
 
     height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
 
@@ -78,20 +86,20 @@
 
   @include mixins.if-ipad-sheet-fits {
     [is='sheet-view'] {
-      navigation-bar,
-      bottom-bar {
+      ::part(navigation-bar),
+      ::part(bottom-bar) {
         --safe-area-inset-left: 0px;
         --safe-area-inset-right: 0px;
         // padding-inline: 0;
       }
 
-      navigation-bar {
+      ::part(navigation-bar) {
         --safe-area-inset-top: 0px;
         // padding-block-start: 0;
         // height: var(--navigation-bar-height);
       }
 
-      bottom-bar {
+      ::part(bottom-bar) {
         --safe-area-inset-bottom: 0px;
         // padding-block-end: 0;
       }

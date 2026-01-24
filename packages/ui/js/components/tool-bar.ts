@@ -6,21 +6,30 @@ export class ToolBar extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<div part="${Snapshot.config!['toolbar-principal-inline-part-name']}">
-    <slot></slot>
-  </div>`,
+        innerHTML: `<navigation-bar part="root navigation-bar" exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack">
+    <slot name="navigation-bar-leading" slot="leading"></slot>
+    <slot name="navigation-bar-principal"></slot>
+    <slot name="navigation-bar-trailing" slot="trailing"></slot>
+  </navigation-bar>
+  <bottom-bar part="root bottom-bar" exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack">
+    <slot name="bottom-bar-leading" slot="leading"></slot>
+    <slot name="bottom-bar-principal"></slot>
+    <slot name="bottom-bar-trailing" slot="trailing"></slot>
+  </bottom-bar>`,
       })
 
     return this.#template
   }
 
+  #shadowRoot
+
   constructor() {
     super()
 
-    const shadowRoot = this.attachShadow({ mode: 'open' })
+    this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     Snapshot.waitReady.then(() => {
-      shadowRoot.appendChild(
+      this.#shadowRoot.appendChild(
         document.importNode(
           (this.constructor as typeof ToolBar).template.content,
           true

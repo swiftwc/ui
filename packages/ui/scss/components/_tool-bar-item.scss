@@ -4,6 +4,13 @@
 @layer #{vars.$components-layer} {
   tool-bar-item,
   tab-item {
+    // moved from > * of old
+    pointer-events: all;
+
+    min-height: var(--toolbar-cell-min-size);
+    min-width: var(--toolbar-cell-min-size);
+    // moved from > * of old
+
     // background-color: red;
     // padding: 5px;
     // border-radius: 99999px;
@@ -11,16 +18,27 @@
     // height: 40px;
 
     // pointer-events: all;
+    // container-type: inline-size;
 
     //
     --component-bg: var(--toolbar-cell-bg);
-    --component-padding-inline: var(--toolbar-cell-inline-padding);
-    --component-padding-block: var(--toolbar-cell-block-padding);
+    // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
+    // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
     --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
 
     button,
     input {
+      // display: grid;
+      // place-items: center;
+      // place-content: center;
+      // container-type: inline-size;
+      // > * {
+      //   font-size: 100cqw;
+      // }
+
+      // all: unset;
+
       appearance: none;
       -webkit-appearance: none;
       // box-shadow: none;
@@ -48,6 +66,11 @@
       //   }
       // }
     }
+  }
+
+  tool-bar-item {
+    min-height: var(--toolbar-cell-min-size);
+    min-width: var(--toolbar-cell-min-size);
   }
 }
 

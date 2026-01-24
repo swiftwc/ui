@@ -23,10 +23,10 @@
 
     touch-action: none; // important for backdrop pans!
 
-    navigation-bar,
-    bottom-bar {
-      padding-inline: 0;
-    }
+    // navigation-bar,
+    // bottom-bar {
+    //   padding-inline: 0;
+    // }
 
     @include mixins.if-iphone-portrait {
       max-width: var(--tab-bar-iphone-max-width);
@@ -40,7 +40,9 @@
       grid-auto-flow: column;
 
       &:not([open]) {
-        tool-bar {
+        // tool-bar {
+        ::part(#{vars.$scroll-view-navbar-part-name}),
+        ::part(#{vars.$scroll-view-toolbar-part-name}) {
           display: none;
         }
       }
@@ -61,7 +63,9 @@
       // transition: all 250ms ease-out allow-discrete;
 
       &:not([open]) {
-        tool-bar {
+        // tool-bar {
+        ::part(#{vars.$scroll-view-navbar-part-name}),
+        ::part(#{vars.$scroll-view-toolbar-part-name}) {
           display: none;
         }
       }

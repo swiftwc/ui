@@ -1,0 +1,100 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  // tool-bar {
+  ::part(#{vars.$scroll-view-navbar-part-name}),
+  ::part(#{vars.$scroll-view-toolbar-part-name}) {
+    // background-color: red;
+    position: sticky;
+    width: 100%;
+
+    place-items: center;
+    place-content: center;
+    // grid-template-columns: 1fr auto 1fr;
+
+    grid-area: toolbar;
+
+    pointer-events: none;
+  }
+
+  ::part(#{vars.$scroll-view-navbar-stack-part-name}),
+  ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
+    // > span {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    pointer-events: all;
+
+    &::before,
+    &::after {
+      content: '';
+      display: grid;
+    }
+
+    &::before {
+      height: 20px;
+      background: green;
+    }
+
+    &::after {
+      height: 20px;
+      background: darkgoldenrod;
+    }
+  }
+
+  ::part(#{vars.$scroll-view-navbar-part-name}) {
+    top: 0;
+    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+    padding-block-start: var(--safe-area-inset-top);
+    transform: translateY(calc(var(--safe-area-inset-top) * -1));
+
+    @media (pointer: fine) {
+      & {
+        justify-content: start;
+      }
+    }
+
+    // > div {
+    @include mixins.make-navbar(bottom);
+    // height: calc(var(--safe-area-inset-top) + 50px);
+    // }
+  }
+
+  ::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+    // > span {
+    &::before {
+      width: var(--navbar-padding-inline-start, 0px);
+      // width: calc(
+      //   var(--navbar-padding-inline-start, 0px) +
+      //     var(--toolbar-area-inset-left, 0px)
+      // );
+    }
+
+    &::after {
+      width: var(--navbar-padding-inline-end, 0px);
+    }
+  }
+
+  ::part(#{vars.$scroll-view-toolbar-part-name}) {
+    top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
+    // background-color: red;
+    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+    padding-block-end: var(--safe-area-inset-bottom);
+    transform: translateY(var(--safe-area-inset-bottom));
+
+    // > div {
+    @include mixins.make-navbar(top);
+    // }
+  }
+
+  ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
+    // > span {
+    &::before {
+      width: var(--toolbar-padding-inline-start);
+    }
+
+    &::after {
+      width: var(--toolbar-padding-inline-end);
+    }
+  }
+}

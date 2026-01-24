@@ -10,6 +10,10 @@
     height: 100%;
     position: relative;
 
+    & > * {
+      @include mixins.span-all;
+    }
+
     // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
     @media (prefers-reduced-motion: no-preference) {
       @include mixins.if-2col-split-view-fits {

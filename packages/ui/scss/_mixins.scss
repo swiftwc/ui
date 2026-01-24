@@ -6,7 +6,7 @@
 }
 
 @mixin make-scrollable {
-  & > * {
+  & > *:not([slot]) {
     @include span-all;
     // grid-column: 1 / -1; // span all columns
     // grid-row: 1 / -1; // span all rows

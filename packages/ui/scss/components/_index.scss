@@ -14,11 +14,13 @@
   tool-bar-item,
   tool-bar-item-group,
   sidebar-toggle,
-  navigation-bar,
-  bottom-bar,
+  ::part(navigation-bar),
+  ::part(bottom-bar),
   tab-bar-stack,
   v-stack,
-  tool-bar {
+  // tool-bar,
+  ::part(#{vars.$scroll-view-navbar-part-name}),
+  ::part(#{vars.$scroll-view-toolbar-part-name}) {
     display: grid;
   }
 }

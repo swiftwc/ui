@@ -15,7 +15,8 @@
 
   *,
   *::before,
-  *::after {
+  *::after,
+  *::part(root) {
     box-sizing: border-box;
   }
 
@@ -54,7 +55,14 @@
     toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
     toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
     //
-    toolbar-principal-inline-part-name: vars.$toolbar-principal-inline-part-name,
+    scroll-view-navbar-part-name:
+      vars.$scroll-view-navbar-part-name,
+    scroll-view-navbar-stack-part-name:
+      vars.$scroll-view-navbar-stack-part-name,
+    scroll-view-toolbar-part-name:
+      vars.$scroll-view-toolbar-part-name,
+    scroll-view-toolbar-stack-part-name:
+      vars.$scroll-view-toolbar-stack-part-name,
   );
 
   @debug functions.map-to-query($CONFIG);

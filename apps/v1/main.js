@@ -57,19 +57,19 @@ document.body.addEventListener('click', async (event) => {
                           root.querySelectorAll('scroll-view').length
                         }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
+                      <span slot="navigation-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</span>
+                      <span slot="bottom-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</span>
                     </scroll-view>
-                    <navigation-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">a${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">c${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                    </navigation-bar>
-                    <bottom-bar>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0">a${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item slot="leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="leading"><tool-bar-item><button type="button" tabindex="0">c${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                    </bottom-bar>
+                    <tool-bar>
+                      <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><i class="ph ph-smiley"></i></button></tool-bar-item>
+                      <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0" disabled><i class="ph ph-smiley"></i></button></tool-bar-item>
+                      <tool-bar-item-group slot="navigation-bar-leading"><tool-bar-item><button type="button" tabindex="0"><i class="ph ph-smiley"></i></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><i class="ph ph-smiley"></i></button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="navigation-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0">a${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0">c${root.querySelectorAll('scroll-view').length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                    </tool-bar>
                   </${6 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
             )

@@ -2,6 +2,7 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" />
     <link rel="stylesheet" href="../../styles.css" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
@@ -67,20 +68,24 @@
             <p>...</p>
           </v-stack>
         </scroll-view>
-        <navigation-bar>
-          <tool-bar-item slot="leading">
-            <button type="button">dssdds1</button>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button">leading</button>
           </tool-bar-item>
 
-          <tool-bar-item slot="trailing">
-            <button type="button">dssdds3</button>
+          <tool-bar-item slot="navigation-bar-trailing">
+            <button type="button">
+              <div style="display: grid">trailing</div>
+            </button>
           </tool-bar-item>
-        </navigation-bar>
+        </tool-bar>
       </dialog>
 
       <sidebar-toggle>
         <tool-bar-item>
-          <button type="button">sss333344</button>
+          <button type="button">
+            <i class="ph ph-sidebar" style="font-size: 2rem"></i>
+          </button>
         </tool-bar-item>
       </sidebar-toggle>
     </navigation-split-view>

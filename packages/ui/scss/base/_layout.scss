@@ -30,16 +30,19 @@
       transform: translateX(var(--view-transition-leading-x));
     }
 
-    & > navigation-bar > tool-bar-item,
-    & > bottom-bar > tool-bar-item,
-    & > navigation-bar > tool-bar-item-group,
-    & > bottom-bar > tool-bar-item-group,
-    & > [is='sidebar-view'] > navigation-bar > tool-bar-item,
-    & > [is='sidebar-view'] > bottom-bar > tool-bar-item,
-    & > [is='sidebar-view'] > navigation-bar > tool-bar-item-group,
-    & > [is='sidebar-view'] > bottom-bar > tool-bar-item-group {
-      // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      @include mixins.vt-toolbar-item-offscreen-keyframe;
+    // & > navigation-bar > tool-bar-item,
+    // & > bottom-bar > tool-bar-item,
+    // & > navigation-bar > tool-bar-item-group,
+    // & > bottom-bar > tool-bar-item-group,
+    // & > [is='sidebar-view'] > navigation-bar > tool-bar-item,
+    // & > [is='sidebar-view'] > bottom-bar > tool-bar-item,
+    // & > [is='sidebar-view'] > navigation-bar > tool-bar-item-group,
+    // & > [is='sidebar-view'] > bottom-bar > tool-bar-item-group {
+    & > tool-bar > tool-bar-item,
+    & > tool-bar > tool-bar-item-group,
+    & > [is='sidebar-view'] > tool-bar > tool-bar-item,
+    & > [is='sidebar-view'] > tool-bar > tool-bar-item-group {
+      @include mixins.vt-toolbar-item-offscreen-keyframe; // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
     }
   }
 }

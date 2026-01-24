@@ -30,10 +30,12 @@
 
 @forward 'components/v-stack';
 
-@forward 'components/tool-bar';
+@forward 'components/scroll-view-toolbars';
 
 @forward 'components/tool-bar-item';
 
 @forward 'components/tool-bar-item-group';
 
 @forward 'components/borderless-button';
+
+@forward 'components/tool-bar';

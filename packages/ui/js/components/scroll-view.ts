@@ -1,12 +1,23 @@
+import { Snapshot } from '../snapshot'
+
 export class ScrollView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<slot></slot>
-  <slot name="navigation-bar"></slot>
-  <slot name="bottom-bar"></slot>`,
+        innerHTML: `
+        <slot></slot>
+  <div part="root ${Snapshot.config!['scroll-view-navbar-part-name']}">
+    <div part="root ${Snapshot.config!['scroll-view-navbar-stack-part-name']}">
+      <slot name="navigation-bar-principal"></slot>
+    </div>
+  </div>
+  <div part="root ${Snapshot.config!['scroll-view-toolbar-part-name']}">
+    <div part="root ${Snapshot.config!['scroll-view-toolbar-stack-part-name']}">
+      <slot name="bottom-bar-principal"></slot>
+    </div>
+  </div>`,
       })
 
     return this.#template
@@ -19,12 +30,14 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    this.#shadowRoot.appendChild(
-      document.importNode(
-        (this.constructor as typeof ScrollView).template.content,
-        true
+    Snapshot.waitReady.then(() => {
+      this.#shadowRoot.appendChild(
+        document.importNode(
+          (this.constructor as typeof ScrollView).template.content,
+          true
+        )
       )
-    )
+    })
 
     // this.addEventListener(
     //   'scrollend',
@@ -44,27 +57,28 @@ export class ScrollView extends HTMLElement {
 
     // const nSlot = this.shadowRoot.querySelector('slot[name=navigation-bar]')!
 
-    if (
-      0 ===
-      this.#shadowRoot
-        .querySelector<HTMLSlotElement>('slot[name=navigation-bar]')!
-        .assignedNodes({ flatten: true }).length
-    )
-      this.insertAdjacentHTML(
-        'beforeend',
-        `<tool-bar slot="navigation-bar">ghjh</tool-bar>`
-      )
-
-    if (
-      0 ===
-      this.#shadowRoot
-        .querySelector<HTMLSlotElement>('slot[name=bottom-bar]')!
-        .assignedNodes({ flatten: true }).length
-    )
-      this.insertAdjacentHTML(
-        'beforeend',
-        `<tool-bar slot="bottom-bar">ghj</tool-bar>`
-      )
+    // Snapshot.waitReady.then(() => {
+    // if (
+    //   0 ===
+    //   this.#shadowRoot
+    //     .querySelector<HTMLSlotElement>('slot[name=navigation-bar]')!
+    //     .assignedNodes({ flatten: true }).length
+    // )
+    //   this.insertAdjacentHTML(
+    //     'beforeend',
+    //     `<tool-bar slot="navigation-bar">ghjh</tool-bar>`
+    //   )
+    // if (
+    //   0 ===
+    //   this.#shadowRoot
+    //     .querySelector<HTMLSlotElement>('slot[name=bottom-bar]')!
+    //     .assignedNodes({ flatten: true }).length
+    // )
+    //   this.insertAdjacentHTML(
+    //     'beforeend',
+    //     `<tool-bar slot="bottom-bar">ghj</tool-bar>`
+    //   )
+    // })
   }
 
   scrollToElement(el: Element) {

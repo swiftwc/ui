@@ -1,6 +1,14 @@
 @use '../vars';
 @use '../mixins';
 
+@mixin make-floating-tabbar {
+  background: #ffffff9e;
+  backdrop-filter: blur(4px);
+  box-shadow:
+    0 0 0 1px #fff inset,
+    0px 0px 4px 2px #0000001c;
+}
+
 @layer #{vars.$components-layer} {
   [is='tab-bar'] {
     @include mixins.reset-dialog;
@@ -12,12 +20,12 @@
 
     position: fixed; // show always
 
-    background: #ffffff9e;
-    backdrop-filter: blur(4px);
+    // background: #ffffff9e;
+    // backdrop-filter: blur(4px);
 
-    box-shadow:
-      0 0 0 1px #fff inset,
-      0px 0px 4px 2px #0000001c;
+    // box-shadow:
+    //   0 0 0 1px #fff inset,
+    //   0px 0px 4px 2px #0000001c;
 
     transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
 
@@ -29,22 +37,46 @@
     // }
 
     @include mixins.if-iphone-portrait {
-      max-width: var(--tab-bar-iphone-max-width);
-      height: var(--tab-bar-iphone-height);
+      // max-width: var(--tab-bar-iphone-max-width);
+      // height: var(--tab-bar-iphone-height);
       // left: 50%;
-      border-radius: var(--tab-bar-iphone-border-radius);
-      inset: auto auto
-        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
-      transform: translateX(-50%);
+      // border-radius: var(--tab-bar-iphone-border-radius);
+      // inset: auto auto
+      //   max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      inset: auto 0 0 0;
+      width: 100lvw;
+
+      place-content: center;
+      // transform: translateX(-50%);
       //
       grid-auto-flow: column;
 
+      @include mixins.make-navbar(top);
+
       &:not([open]) {
-        // tool-bar {
+        tool-bar,
         ::part(#{vars.$scroll-view-navbar-part-name}),
         ::part(#{vars.$scroll-view-toolbar-part-name}) {
           display: none;
         }
+      }
+
+      box-shadow: inset 0 0 0 3px blue;
+
+      > scroll-view {
+        margin-block: 0
+          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+
+        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+
+        max-width: var(--tab-bar-iphone-max-width);
+        height: var(--tab-bar-iphone-height);
+
+        border-radius: var(--tab-bar-iphone-border-radius);
+
+        @include make-floating-tabbar;
+
+        overflow: clip;
       }
     }
 
@@ -55,6 +87,8 @@
       inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
         auto auto 50%;
       transform: translateX(-50%);
+
+      @include make-floating-tabbar;
 
       border-radius: var(--tab-bar-ipad-border-radius);
 
@@ -111,6 +145,8 @@
 
       border-radius: var(--tab-bar-sidebar-border-radius);
 
+      @include make-floating-tabbar;
+
       &[open] {
         left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
         // transform: translateX(0);
@@ -139,6 +175,8 @@
         max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       width: var(--tab-bar-sidebar-width);
+
+      @include make-floating-tabbar;
 
       // max-height: calc(
       //   var(--100lvh, 100lvh) - max(

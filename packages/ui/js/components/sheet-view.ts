@@ -20,8 +20,11 @@ export class SheetView extends DialogBase {
   static polyfillDisconnectedCallback(el: SheetView) {
     el.removeEventListener('cancel', SheetView.handleCancel)
   }
+
   static polyfillConnectedCallback(el: SheetView) {
     el.addEventListener('cancel', SheetView.handleCancel)
+
+    el.autofocus = true
   }
 
   static handleCancel = (event: Event) => {

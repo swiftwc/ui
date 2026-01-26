@@ -63,7 +63,7 @@
       // transition: all 250ms ease-out allow-discrete;
 
       &:not([open]) {
-        // tool-bar {
+        tool-bar,
         ::part(#{vars.$scroll-view-navbar-part-name}),
         ::part(#{vars.$scroll-view-toolbar-part-name}) {
           display: none;
@@ -86,12 +86,16 @@
 
         grid-auto-flow: row;
 
-        & > * {
+        > * {
           @include mixins.span-all;
 
           //????
           --safe-area-inset-top: 0px !important; // reset navbar > span
           --safe-area-inset-bottom: 0px !important; // reset navbar > span
+        }
+
+        > scroll-view {
+          @include mixins.create-v-scroll-view;
         }
 
         // animation: slide-in 250ms ease-out forwards;
@@ -113,7 +117,13 @@
 
         #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // override tab-view prop
 
+        > * {
+          @include mixins.span-all;
+        }
+
         > scroll-view {
+          @include mixins.create-v-scroll-view;
+
           --canvas-bg: #ffffff9e;
         }
       }
@@ -140,6 +150,14 @@
       border-radius: var(--tab-bar-sidebar-border-radius);
 
       overflow: clip;
+
+      > * {
+        @include mixins.span-all;
+      }
+
+      > scroll-view {
+        @include mixins.create-v-scroll-view;
+      }
 
       // animation: slide-in 250ms ease-out forwards;
     }

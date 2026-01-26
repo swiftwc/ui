@@ -16,6 +16,22 @@
     grid-area: toolbar;
 
     pointer-events: none;
+
+    visibility: collapse;
+  }
+
+  scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
+  scroll-view:has(> [slot^='navigation-bar']) {
+    &::part(#{vars.$scroll-view-navbar-part-name}) {
+      visibility: visible;
+    }
+  }
+
+  scroll-view:has(~ tool-bar > [slot^='bottom-bar']),
+  scroll-view:has(> [slot^='bottom-bar']) {
+    &::part(#{vars.$scroll-view-toolbar-part-name}) {
+      visibility: visible;
+    }
   }
 
   ::part(#{vars.$scroll-view-navbar-stack-part-name}),

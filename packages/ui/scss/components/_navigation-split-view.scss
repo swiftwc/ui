@@ -159,18 +159,20 @@
 
             // ~ navigation-bar {
             ~ tool-bar {
-              --safe-area-inset-top: max(
-                env(safe-area-inset-top),
-                var(--tab-bar-sidebar-spacing)
-              );
+              --safe-area-inset-top: 0px;
+              // max(
+              //   env(safe-area-inset-top),
+              //   var(--tab-bar-sidebar-spacing)
+              // );
             }
 
             // ~ bottom-bar {
             ~ tool-bar {
-              --safe-area-inset-bottom: max(
-                env(safe-area-inset-bottom),
-                var(--tab-bar-sidebar-spacing)
-              );
+              --safe-area-inset-bottom: 0px;
+              // max(
+              //   env(safe-area-inset-bottom),
+              //   var(--tab-bar-sidebar-spacing)
+              // );
             }
           }
         }

@@ -16,13 +16,16 @@ export class TabBar extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
-    el.removeEventListener('click', TabBar.handleClick)
-  }
-  static polyfillConnectedCallback(el: HTMLDialogElement) {
-    el.addEventListener('click', TabBar.handleClick)
+    el.removeEventListener('click', TabBar.#handleClick)
   }
 
-  static handleClick = async (event: Event) => {
+  static polyfillConnectedCallback(el: HTMLDialogElement) {
+    el.addEventListener('click', TabBar.#handleClick)
+
+    el.autofocus = true
+  }
+
+  static #handleClick = async (event: Event) => {
     if (
       'DIALOG' === (event.target as HTMLElement).tagName &&
       'tab-bar' === (event.target as HTMLElement).getAttribute('is')

@@ -39,7 +39,7 @@ export class DisclosureGroup extends DetailsBase {
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    el.removeEventListener('click', DisclosureGroup.handleClick)
+    el.removeEventListener('click', DisclosureGroup.#handleClick)
 
     observers?.get(el)?.unobserve?.(el)
   }
@@ -48,11 +48,11 @@ export class DisclosureGroup extends DetailsBase {
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
     Snapshot.waitReady.then(() =>
-      el.addEventListener('click', DisclosureGroup.handleClick)
+      el.addEventListener('click', DisclosureGroup.#handleClick)
     )
   }
 
-  static handleClick = async (event: Event) => {
+  static #handleClick = async (event: Event) => {
     if (!(event.target as HTMLElement).closest('summary')) return
 
     const el = (event.target as HTMLElement).closest<HTMLDetailsElement>(

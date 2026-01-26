@@ -1,6 +1,8 @@
 import { Snapshot } from '../snapshot'
 
 export class ScrollView extends HTMLElement {
+  static observedAttributes = ['navigation-title']
+
   static #template: HTMLTemplateElement
 
   static get template() {
@@ -46,6 +48,51 @@ export class ScrollView extends HTMLElement {
     //   },
     //   { passive: true }
     // )
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.debug(`${ScrollView.name} ⚡️ [${name}] change`)
+
+    // @ts-expect-error
+    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
+      createHTML: (string: string) =>
+        string
+          .replace(/&/g, '&amp;')
+          .replace(/</g, '&lt;')
+          .replace(/>/g, '&gt;')
+          .replace(/"/g, '&quot;')
+          .replace(/'/g, '&#39;'),
+    })
+
+    Snapshot.waitReady.then(() => {
+      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>(
+        'slot[name=navigation-bar-principal]'
+      )
+      if (!slot) return
+
+      const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
+
+      let el = assigned[0] as HTMLElement | undefined
+      if (!el) {
+        el = document.createElement('span')
+        el.slot = 'navigation-bar-principal'
+        this.append(el)
+      }
+
+      el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+      // if (
+      //   0 ===
+      //   this.#shadowRoot
+      //     .querySelector<HTMLSlotElement>(
+      //       'slot[name=navigation-bar-principal]'
+      //     )!
+      //     .assignedNodes({ flatten: true }).length
+      // )
+      //   this.insertAdjacentHTML(
+      //     'beforeend',
+      //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
+      //   )
+    })
   }
 
   disconnectedCallback() {

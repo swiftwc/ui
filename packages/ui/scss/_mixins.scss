@@ -5,12 +5,29 @@
   grid-row: 1 / -1; // span all rows
 }
 
-@mixin make-scrollable {
+@mixin create-v-scroll-view {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 0 minmax(max-content, 1fr);
+  grid-template-areas:
+    'toolbar'
+    'main';
+
   & > *:not([slot]) {
-    @include span-all;
-    // grid-column: 1 / -1; // span all columns
-    // grid-row: 1 / -1; // span all rows
+    grid-area: main;
   }
+
+  &:has(~ tool-bar > [slot^='navigation-bar']),
+  &:has(> [slot^='navigation-bar']) {
+    grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+  }
+}
+
+@mixin make-scrollable {
+  // & > *:not([slot]) {
+  //   @include span-all;
+  //   // grid-column: 1 / -1; // span all columns
+  //   // grid-row: 1 / -1; // span all rows
+  // }
 
   &::before {
     @include span-all;

@@ -16,14 +16,17 @@ export class SidebarView extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
-    el.removeEventListener('click', SidebarView.handleClick)
+    el.removeEventListener('click', SidebarView.#handleClick)
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
-    el.addEventListener('click', SidebarView.handleClick)
+    el.addEventListener('click', SidebarView.#handleClick)
+
+    el.autofocus = true
   }
 
-  static handleClick = async (event: Event) => {
+  /** Autoclose on click outside. */
+  static #handleClick = async (event: Event) => {
     if (
       'DIALOG' === (event.target as HTMLElement).tagName &&
       'sidebar-view' === (event.target as HTMLElement).getAttribute('is')

@@ -2,17 +2,20 @@ import { type TabBar } from './tab-bar'
 import { type SidebarView } from './sidebar-view'
 import { debounce } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { ResizeObserverSingleton } from '../internal/resize-observer'
+
+const observers = new ResizeObserverSingleton()
 
 export class SidebarToggle extends HTMLElement {
-  #ro
+  // #ro
   // #io
 
   constructor() {
     super()
 
-    this.#ro = new ResizeObserver(
-      debounce(this.#handleMeasure.bind(this), 100, true)
-    )
+    // this.#ro = new ResizeObserver(
+    //   debounce(this.#handleMeasure.bind(this), 100, true)
+    // )
 
     // this.#io = new IntersectionObserver((entries) => {
     //   this._checkVisibility2(entries)
@@ -29,93 +32,95 @@ export class SidebarToggle extends HTMLElement {
     }
 
     Snapshot.waitReady.then(() => {
-      this.#ro?.observe(this)
+      observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
       // this.#io.observe(this)
 
       // @ts-expect-error
-      this.#handleMeasure([entry])
+      SidebarToggle.#handleMeasure([entry])
     })
   }
 
   disconnectedCallback() {
     console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
 
-    this.#ro?.disconnect()
+    observers.unobserve(this) //this.#ro?.disconnect()
     // this.#io.disconnect()
 
     this.removeEventListener('click', this.#handleClick)
   }
 
   // This triggers on show/hide of any of sidebar-toggle elements
-  #handleMeasure(entries: ResizeObserverEntry[] = []) {
-    console.debug(`${SidebarToggle.name} ⚡️ measure (${entries.length})`)
+  static #handleMeasure(entry?: ResizeObserverEntry) {
+    console.debug(`${SidebarToggle.name} ⚡️ measure`)
+
+    const target = entry?.target
 
     // set/remove css var/prop to parent based on shown/hidden
-    for (const { target } of entries) {
-      const tv = target.parentElement,
-        width = (target as HTMLElement)?.offsetWidth ?? 0
+    // for (const { target } of entries) {
 
-      // const gapProp =
-      //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
-      //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
-      if (0 < width)
-        tv?.style?.setProperty?.(
-          Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'],
-          `${width}px`
-        )
-      else
-        tv?.style?.removeProperty?.(
-          Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop']
-        )
-    }
+    const tv = target?.parentElement,
+      width = (target as HTMLElement)?.offsetWidth ?? 0
+
+    // const gapProp =
+    //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
+    //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
+    if (0 < width)
+      tv?.style?.setProperty?.(
+        Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'],
+        `${width}px`
+      )
+    else
+      tv?.style?.removeProperty?.(
+        Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop']
+      )
+    // }
 
     // auto close IF open
-    for (const { target } of entries) {
-      const lm = target.closest('navigation-split-view,tab-view')
+    // for (const { target } of entries) {
+    const lm = target?.closest('navigation-split-view,tab-view')
 
-      switch (lm?.tagName) {
-        case 'NAVIGATION-SPLIT-VIEW':
-          const sideBar =
-            target.parentElement?.querySelector<HTMLDialogElement>(
-              ':scope > dialog[is=sidebar-view]'
-            )
+    switch (lm?.tagName) {
+      case 'NAVIGATION-SPLIT-VIEW':
+        const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(
+          ':scope > dialog[is=sidebar-view]'
+        )
 
-          if (!sideBar?.open) continue
+        if (!sideBar?.open) return
 
-          if (
-            0 < (target as HTMLElement).offsetWidth &&
-            0 < (target as HTMLElement).offsetHeight
+        if (
+          0 < (target as HTMLElement).offsetWidth &&
+          0 < (target as HTMLElement).offsetHeight
+        )
+          return
+
+        sideBar?.close?.()
+
+        break
+      case 'TAB-VIEW':
+        const tabBar = lm.querySelector<HTMLDialogElement>(
+          ':scope > dialog[is=tab-bar]'
+        )
+
+        if (!tabBar?.open) return
+
+        // scan all toggles for anyone that is visible, sign that sidebar should stay open
+        if (
+          [
+            ...lm.querySelectorAll<HTMLElement>(
+              ':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle'
+            ),
+          ].some(
+            ({ offsetWidth, offsetHeight }) =>
+              0 < offsetWidth && 0 < offsetHeight
           )
-            continue
+        )
+          return
 
-          sideBar?.close?.()
+        tabBar?.close?.()
 
-          break
-        case 'TAB-VIEW':
-          const tabBar = lm.querySelector<HTMLDialogElement>(
-            ':scope > dialog[is=tab-bar]'
-          )
-
-          if (!tabBar?.open) continue
-
-          // scan all toggles for anyone that is visible, sign that sidebar should stay open
-          if (
-            [
-              ...lm.querySelectorAll<HTMLElement>(
-                ':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle'
-              ),
-            ].some(
-              ({ offsetWidth, offsetHeight }) =>
-                0 < offsetWidth && 0 < offsetHeight
-            )
-          )
-            continue
-
-          tabBar?.close?.()
-
-          break
-      }
+        break
     }
+    // }
   }
 
   // _checkVisibility2(entries) {

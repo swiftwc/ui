@@ -1,8 +1,9 @@
 import { DetailsBase } from '../internal/class'
 import { cssTime } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { ResizeObserverSingleton } from '../internal/resize-observer'
 
-const observers = new WeakMap()
+const observers = new ResizeObserverSingleton()
 
 export class DisclosureGroup extends DetailsBase {
   static observedAttributes = ['open']
@@ -41,7 +42,7 @@ export class DisclosureGroup extends DetailsBase {
 
     el.removeEventListener('click', DisclosureGroup.#handleClick)
 
-    observers?.get(el)?.unobserve?.(el)
+    observers.unobserve(el)
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
@@ -96,26 +97,22 @@ export class DisclosureGroup extends DetailsBase {
     )
 
     if (node.open) {
-      observers.set(
-        node,
-        new ResizeObserver(([entry]) => {
-          const { height } = entry.contentRect
-
-          node?.style?.setProperty?.(
-            Snapshot.config!['disclosure-group-contents-height-css-prop'],
-            `${height}px`
-          )
-        })
-      )
-
-      observers.get(node).observe(node)
+      observers.observe(node, DisclosureGroup.#handleMeasure)
     } else {
-      observers.get(node)?.unobserve?.(node)
-      observers.delete(node)
+      observers.unobserve(node)
 
       node?.style?.removeProperty?.(
         Snapshot.config!['disclosure-group-contents-height-css-prop']
       )
     }
+  }
+
+  static #handleMeasure({ contentRect, target }: ResizeObserverEntry) {
+    const { height } = contentRect
+
+    ;(target as HTMLElement)?.style?.setProperty?.(
+      Snapshot.config!['disclosure-group-contents-height-css-prop'],
+      `${height}px`
+    )
   }
 }

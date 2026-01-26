@@ -1,105 +1,7 @@
 import { Snapshot } from '../snapshot'
+import { ResizeObserverSingleton } from '../internal/resize-observer'
 
-class ToolbarWatcher {
-  #observers = new WeakMap<
-    Element,
-    (prop: string, rect: DOMRectReadOnly) => void
-  >()
-  public readonly observer: Promise<ResizeObserver>
-
-  constructor() {
-    this.observer = Snapshot.waitReady.then(() => {
-      const leading = Snapshot.config!['toolbar-leading-stack-part-name'],
-        trailing = Snapshot.config!['toolbar-trailing-stack-part-name']
-
-      const parentMap = {
-        'navigation-bar': 'navbar',
-        'bottom-bar': 'bottombar',
-      } as const
-
-      return new ResizeObserver((entries) => {
-        console.debug(`tool-bar ⚡️ measure`)
-
-        for (const { contentRect, target } of entries) {
-          const parentPart = target.parentElement?.part.contains(
-            'navigation-bar'
-          )
-            ? 'navigation-bar'
-            : target.parentElement?.part.contains('bottom-bar')
-              ? 'bottom-bar'
-              : null
-          if (!parentPart) continue
-
-          const side = target.part.contains(leading)
-            ? 'inline-start'
-            : target.part.contains(trailing)
-              ? 'inline-end'
-              : null
-          if (!side) continue
-
-          const prop = `--${parentMap[parentPart]}-padding-${side}`
-
-          this.#observers.get(target)?.(prop, contentRect)
-        }
-
-        // for (const { contentRect, target } of entries) {
-        //   let prop
-        //   if (target.parentElement?.part.contains('navigation-bar')) {
-        //     if (
-        //       target.part.contains(
-        //         Snapshot.config!['toolbar-leading-stack-part-name']
-        //       )
-        //     )
-        //       prop = '--navbar-padding-inline-start'
-        //     else if (
-        //       target.part.contains(
-        //         Snapshot.config!['toolbar-trailing-stack-part-name']
-        //       )
-        //     )
-        //       prop = '--navbar-padding-inline-end'
-        //   } else if (target.parentElement?.part.contains('bottom-bar')) {
-        //     if (
-        //       target.part.contains(
-        //         Snapshot.config!['toolbar-leading-stack-part-name']
-        //       )
-        //     )
-        //       prop = '--bottombar-padding-inline-start'
-        //     else if (
-        //       target.part.contains(
-        //         Snapshot.config!['toolbar-trailing-stack-part-name']
-        //       )
-        //     )
-        //       prop = '--bottombar-padding-inline-end'
-        //   }
-
-        //   if (prop)
-        //     (this.#sibling as HTMLElement)?.style?.setProperty?.(
-        //       prop,
-        //       `${Math.round(contentRect.width)}px`
-        //     )
-        // }
-      })
-
-      // return observer
-    })
-  }
-
-  public async observe(
-    target: Element,
-    callback: (prop: string, rect: DOMRectReadOnly) => void
-  ) {
-    this.#observers.set(target, callback)
-    ;(await this.observer).observe(target)
-  }
-
-  public async unobserve(target: Element) {
-    ;(await this.observer).unobserve(target)
-
-    this.#observers.delete(target)
-  }
-}
-
-const watcher = new ToolbarWatcher()
+const observers = new ResizeObserverSingleton()
 
 export class ToolBar extends HTMLElement {
   static #template: HTMLTemplateElement
@@ -176,18 +78,45 @@ export class ToolBar extends HTMLElement {
       for (const el of this.#shadowRoot.querySelectorAll(
         `[part*="${Snapshot.config!['toolbar-leading-stack-part-name']}"],[part*="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
       ))
-        watcher.observe(el, this.#measureStacks.bind(this))
+        observers.observe(el, this.#measureStacks.bind(this))
     })
   }
 
   disconnectedCallback() {
     console.debug(`${ToolBar.name} ⚡️ disconnect`)
 
-    watcher.unobserve(this)
+    observers.unobserve(this)
   }
 
-  #measureStacks(prop: string, contentRect: DOMRectReadOnly) {
+  #measureStacks(entry: ResizeObserverEntry) {
     console.debug(`${ToolBar.name} ⚡️ measure`)
+
+    const leading = Snapshot.config!['toolbar-leading-stack-part-name'],
+      trailing = Snapshot.config!['toolbar-trailing-stack-part-name']
+
+    const parentMap = {
+      'navigation-bar': 'navbar',
+      'bottom-bar': 'bottombar',
+    } as const
+
+    const { contentRect, target } = entry
+
+    const parentPart = target.parentElement?.part.contains('navigation-bar')
+      ? 'navigation-bar'
+      : target.parentElement?.part.contains('bottom-bar')
+        ? 'bottom-bar'
+        : null
+    if (!parentPart) return
+
+    const side = target.part.contains(leading)
+      ? 'inline-start'
+      : target.part.contains(trailing)
+        ? 'inline-end'
+        : null
+    if (!side) return
+
+    const prop = `--${parentMap[parentPart]}-padding-${side}`
+
     ;(this.#sibling as HTMLElement)?.style?.setProperty(
       prop,
       `${Math.round(contentRect.width)}px`

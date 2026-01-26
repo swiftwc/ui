@@ -67,6 +67,17 @@
         );
       }
     }
+    scroll-view:not(:has(~ tool-bar > [slot^='bottom-bar'])),
+    scroll-view:not(:has(> [slot^='bottom-bar'])) {
+      tab-view navigation-stack > &,
+      tab-view navigation-split-view > &,
+      tab-view body-view > & {
+        --safe-area-inset-bottom: calc(
+          max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) +
+            var(--tab-bar-iphone-height)
+        );
+      }
+    }
     tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
       // --safe-area-inset-bottom: max(
       //   env(safe-area-inset-bottom),

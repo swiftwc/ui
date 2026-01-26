@@ -14,28 +14,22 @@ export class ToolBar extends HTMLElement {
       <slot name="navigation-bar-leading"></slot>
     </div>
     <div part="root ${Snapshot.config!['toolbar-principal-stack-part-name']}">
-      <slot></slot>
+      <slot name="navigation-bar-principal"></slot>
     </div>
     <div part="root ${Snapshot.config!['toolbar-trailing-stack-part-name']}">
       <slot name="navigation-bar-trailing"></slot>
     </div>
-    <!--<slot name="navigation-bar-leading" slot="leading"></slot>
-    <slot name="navigation-bar-principal"></slot>
-    <slot name="navigation-bar-trailing" slot="trailing"></slot>-->
   </div>
   <div part="root bottom-bar">
     <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
-      <slot name="navigation-bar-leading"></slot>
+      <slot name="bottom-bar-leading"></slot>
     </div>
     <div part="root ${Snapshot.config!['toolbar-principal-stack-part-name']}">
-      <slot></slot>
+      <slot name="bottom-bar-principal"></slot>
     </div>
     <div part="root ${Snapshot.config!['toolbar-trailing-stack-part-name']}">
-      <slot name="navigation-bar-trailing"></slot>
+      <slot name="bottom-bar-trailing"></slot>
     </div>
-    <!--<slot name="bottom-bar-leading" slot="leading"></slot>
-    <slot name="bottom-bar-principal"></slot>
-    <slot name="bottom-bar-trailing" slot="trailing"></slot>-->
   </div>`,
       })
 
@@ -43,12 +37,6 @@ export class ToolBar extends HTMLElement {
   }
 
   #shadowRoot
-
-  // get #rootHost() {
-  //   const root = this.getRootNode()
-
-  //   if (root instanceof ShadowRoot) return root.host
-  // }
 
   get #sibling() {
     return (

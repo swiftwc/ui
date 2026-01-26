@@ -60,15 +60,22 @@
 
     --toolbar-col-gap: 0.6rem;
     --toolbar-cell-bg: white;
-    --toolbar-cell-inline-padding: 0.3rem;
-    --toolbar-cell-block-padding: 0.3rem;
+    --toolbar-cell-inline-padding-start: 0.3rem;
+    --toolbar-cell-inline-padding-end: 0.3rem;
+    --toolbar-cell-block-padding-start: 0.3rem;
+    --toolbar-cell-block-padding-end: 0.3rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
-    --toolbar-cell-min-size: 2rem;
+    --toolbar-cell-min-size: 2.8rem;
 
     --toolbar-cell-focus-bg: lightpink;
     --toolbar-cell-active-bg: gray;
 
     #{vars.$disclosure-group-animation-duration-css-prop}: 500ms;
     --disclosure-group-animation-easing: ease-out;
+
+    // --glass-shadow:
+    //   inset -1px -1px 0px -0.5px #fff, inset 1px 1px 0px -0.5px #fff, inset 3px 3px 10px -3px #ddd, inset -3px -3px 10px -3px #ddd, inset 0 0 5px 1px #fff,
+    //   inset 0 0 0 0.5px #00000040, inset 0 0 24px 0 #0000001a, 0 0 25px 0 #0003;
+    --glass-shadow: 0 0 25px 0 #0003;
   }
 }

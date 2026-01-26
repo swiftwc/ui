@@ -61,7 +61,7 @@
         }
       }
 
-      box-shadow: inset 0 0 0 3px blue;
+      // box-shadow: inset 0 0 0 3px blue;
 
       > scroll-view {
         margin-block: 0
@@ -161,6 +161,11 @@
           @include mixins.create-v-scroll-view;
 
           --canvas-bg: #ffffff9e;
+        }
+
+        > tool-bar {
+          --safe-area-inset-left: 0px;
+          --safe-area-inset-right: 0px;
         }
       }
     }

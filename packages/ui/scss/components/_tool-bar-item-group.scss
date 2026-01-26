@@ -10,14 +10,18 @@
     column-gap: var(--toolbar-col-gap);
 
     background-color: var(--toolbar-cell-bg);
-    padding-inline: var(--toolbar-cell-inline-padding);
-    padding-block: var(--toolbar-cell-block-padding);
+    padding-inline: var(--toolbar-cell-inline-padding-start) var(--toolbar-cell-inline-padding-end);
+    padding-block: var(--toolbar-cell-block-padding-start) var(--toolbar-cell-block-padding-end);
     border-radius: var(--toolbar-cell-border-radius);
     border-width: 0;
 
     tab-item {
       // --component-padding-inline: var(--toolbar-cell-inline-padding);
       // --component-padding-block: var(--toolbar-cell-block-padding);
+    }
+
+    > * {
+      min-width: calc(var(--toolbar-cell-min-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
 
     //

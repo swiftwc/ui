@@ -61,7 +61,7 @@
     z-index: 999999999;
   }
 }
-@layer sw-components {
+@layer components {
   :root {
     --safe-area-inset-top: env(safe-area-inset-top);
     --safe-area-inset-right: env(safe-area-inset-right);
@@ -97,18 +97,21 @@
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
     --toolbar-cell-bg: white;
-    --toolbar-cell-inline-padding: 0.3rem;
-    --toolbar-cell-block-padding: 0.3rem;
+    --toolbar-cell-inline-padding-start: 0.3rem;
+    --toolbar-cell-inline-padding-end: 0.3rem;
+    --toolbar-cell-block-padding-start: 0.3rem;
+    --toolbar-cell-block-padding-end: 0.3rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
-    --toolbar-cell-min-size: 2rem;
+    --toolbar-cell-min-size: 2.8rem;
     --toolbar-cell-focus-bg: lightpink;
     --toolbar-cell-active-bg: gray;
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
+    --glass-shadow: 0 0 25px 0 #0003;
   }
 }
-@layer sw-base, sw-components, sw-colors, sw-actions, sw-transitions, sw-final;
-@layer sw-base {
+@layer base, components, colors, actions, transitions, final;
+@layer base {
   :root {
     interpolate-size: allow-keywords;
   }
@@ -129,12 +132,31 @@
     padding: 0;
     touch-action: none !important;
   }
+  label {
+    display: inline-grid;
+    position: relative;
+    container-type: inline-size;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    place-content: center;
+    place-items: center;
+  }
+  label > svg {
+    display: inline-grid;
+    width: 2rem;
+    height: 2rem;
+  }
+  label > i {
+    display: inline-grid;
+    font-size: 2rem;
+    color: black;
+  }
   html::before {
     content: "scroll-view-toolbar-stack-part-name=scroll-view-toolbar-stack&scroll-view-toolbar-part-name=scroll-view-toolbar&scroll-view-navbar-stack-part-name=scroll-view-navbar-stack&scroll-view-navbar-part-name=scroll-view-navbar&toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
     display: none;
   }
 }
-@layer sw-components {
+@layer components {
   body-view,
   navigation-stack,
   navigation-split-view,
@@ -186,7 +208,7 @@
     opacity: 0;
   }
 }
-@layer sw-components {
+@layer components {
   navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
   scroll-view,
@@ -204,11 +226,13 @@
   tab-bar-stack,
   v-stack,
   ::part(scroll-view-navbar),
-  ::part(scroll-view-toolbar) {
+  ::part(scroll-view-toolbar),
+  ::part(scroll-view-navbar-stack),
+  ::part(scroll-view-toolbar-stack) {
     display: grid;
   }
 }
-@layer sw-components {
+@layer components {
   v-keyboard {
     position: fixed;
     inset: 0lvh auto auto 0lvw;
@@ -216,7 +240,7 @@
     height: 100lvh;
   }
 }
-@layer sw-components {
+@layer components {
   [is=disclosure-group] {
     display: grid;
     overflow: clip;
@@ -251,8 +275,8 @@
     }
   }
 }
-@layer sw-components {}
-@layer sw-components {
+@layer components {}
+@layer components {
   tab-view {
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
@@ -278,6 +302,15 @@
       --safe-area-inset-bottom: max(
         env(safe-area-inset-bottom),
         var(--tab-bar-sidebar-spacing)
+      );
+    }
+    tab-view navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
+    tab-view navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view body-view > scroll-view:not(:has(> [slot^=bottom-bar])) {
+      --safe-area-inset-bottom: calc(
+        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) +
+          var(--tab-bar-iphone-height)
       );
     }
   }
@@ -319,7 +352,7 @@
     }
   }
 }
-@layer sw-final {
+@layer final {
   @media (min-width: 43rem) and (orientation: portrait) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-top: calc(
@@ -329,7 +362,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   [is=tab-bar] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -374,9 +407,6 @@
     [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
     [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
       display: none;
-    }
-    [is=tab-bar] {
-      box-shadow: inset 0 0 0 3px blue;
     }
     [is=tab-bar] > scroll-view {
       margin-block: 0 max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
@@ -464,6 +494,10 @@
     [is=tab-bar][open] > scroll-view {
       --canvas-bg: #ffffff9e;
     }
+    [is=tab-bar][open] > tool-bar {
+      --safe-area-inset-left: 0px;
+      --safe-area-inset-right: 0px;
+    }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
     [is=tab-bar] {
@@ -492,7 +526,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     [is=tab-bar] > scroll-view {
       grid-auto-flow: column;
@@ -575,7 +609,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   sidebar-toggle {
     box-shadow: inset 0 0 0 4px coral;
     place-items: center;
@@ -634,7 +668,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   [is=full-screen] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -651,7 +685,7 @@
     height: var(--100lvh, 100lvh);
   }
 }
-@layer sw-components {
+@layer components {
   [is=sheet-view] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -686,13 +720,13 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   navigation-stack {
     touch-action: none;
     height: var(--100lvh, 100lvh);
   }
 }
-@layer sw-components {
+@layer components {
   navigation-split-view {
     touch-action: none;
     height: var(--100lvh, 100lvh);
@@ -811,7 +845,7 @@
     }
   }
 }
-@layer sw-final {
+@layer final {
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
     navigation-split-view > [is=sidebar-view] > scroll-view {
@@ -856,7 +890,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   [is=sidebar-view] {
     inset-inline: 0px;
     inset-block: 0px;
@@ -904,12 +938,12 @@
     }
   }
 }
-@layer sw-final {
+@layer final {
   [is=sidebar-view][open] {
     margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) !important;
   }
 }
-@layer sw-components {
+@layer components {
   scroll-view:has(~ tool-bar > [slot^=bottom-bar]) > *:not([slot]),
   scroll-view:has(> [slot^=bottom-bar]) > *:not([slot]) {
     margin-block-end: var(--tool-bar-height);
@@ -983,7 +1017,7 @@
     }
   }
 }
-@layer sw-components {
+@layer components {
   v-stack {
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
@@ -991,7 +1025,7 @@
     place-content: center;
   }
 }
-@layer sw-components {
+@layer components {
   ::part(scroll-view-navbar),
   ::part(scroll-view-toolbar) {
     position: sticky;
@@ -1012,7 +1046,6 @@
   }
   ::part(scroll-view-navbar-stack),
   ::part(scroll-view-toolbar-stack) {
-    display: grid;
     grid-template-columns: 1fr auto 1fr;
     pointer-events: all;
   }
@@ -1092,12 +1125,11 @@
     width: var(--toolbar-padding-inline-end);
   }
 }
-@layer sw-components {
+@layer components {
   tool-bar-item,
   tab-item {
     pointer-events: all;
-    min-height: var(--toolbar-cell-min-size);
-    min-width: var(--toolbar-cell-min-size);
+    border-radius: var(--pill-border-radius);
     --component-bg: var(--toolbar-cell-bg);
     --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
@@ -1107,6 +1139,7 @@
   tab-item button,
   tab-item input {
     all: unset;
+    display: grid;
     appearance: none;
     -webkit-appearance: none;
     border: var(--component-border-width);
@@ -1116,12 +1149,8 @@
     border-radius: var(--component-border-radius);
     min-width: 25px;
   }
-  tool-bar-item {
-    min-height: var(--toolbar-cell-min-size);
-    min-width: var(--toolbar-cell-min-size);
-  }
 }
-@layer sw-colors {
+@layer colors {
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
   tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
   tab-item button:not(:disabled):not([readonly]):focus-visible,
@@ -1137,7 +1166,7 @@
     }
   }
 }
-@layer sw-actions {
+@layer actions {
   tool-bar-item button:not(:disabled):not([readonly]):active,
   tool-bar-item input:not(:disabled):not([readonly]):active,
   tab-item button:not(:disabled):not([readonly]):active,
@@ -1145,26 +1174,29 @@
     background-color: var(--toolbar-cell-active-bg);
   }
 }
-@layer sw-components {
+@layer components {
   tool-bar-item-group {
     grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr);
     column-gap: var(--toolbar-col-gap);
     background-color: var(--toolbar-cell-bg);
-    padding-inline: var(--toolbar-cell-inline-padding);
-    padding-block: var(--toolbar-cell-block-padding);
+    padding-inline: var(--toolbar-cell-inline-padding-start) var(--toolbar-cell-inline-padding-end);
+    padding-block: var(--toolbar-cell-block-padding-start) var(--toolbar-cell-block-padding-end);
     border-radius: var(--toolbar-cell-border-radius);
     border-width: 0;
   }
+  tool-bar-item-group > * {
+    min-width: calc(var(--toolbar-cell-min-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+  }
 }
-@layer sw-components {
+@layer components {
   [is=borderless-button] {
     display: grid;
     place-items: center;
     place-content: center;
   }
 }
-@layer sw-components {
+@layer components {
   tool-bar {
     display: grid;
     pointer-events: none;
@@ -1172,6 +1204,10 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "navigation-bar" "spacer" "bottom-bar";
+  }
+  tool-bar > * {
+    box-shadow: var(--glass-shadow);
+    min-width: var(--toolbar-cell-min-size);
   }
   ::part(navigation-bar),
   ::part(bottom-bar) {
@@ -1181,7 +1217,8 @@
     pointer-events: none;
     grid-template-columns: auto 1fr auto;
     column-gap: var(--toolbar-col-gap);
-    grid-template-rows: 3rem;
+    grid-template-rows: var(--toolbar-cell-min-size);
+    place-content: center;
     /* > * {
       pointer-events: all;
 
@@ -1227,7 +1264,7 @@
     }
   }
 }
-@layer sw-transitions {
+@layer transitions {
   @media (prefers-reduced-motion: no-preference) {
     scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
       transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start var(--sidebar-transition-duration) ease-out allow-discrete, margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
@@ -1300,7 +1337,7 @@
     animation: var(--view-transition-duration) ease-out both expand-from-tiny;
   } */
 }
-@layer sw-transitions {
+@layer transitions {
   scroll-view.fwd {
     pointer-events: none;
   }
@@ -1316,7 +1353,7 @@
     transform: translateX(var(--view-transition-leading-x));
   }
 }
-@layer sw-transitions {
+@layer transitions {
   scroll-view.bwd {
     transform: translateX(var(--view-transition-trailing-x));
   }
@@ -1335,7 +1372,7 @@
     pointer-events: none;
   }
 }
-@layer sw-transitions {
+@layer transitions {
   tool-bar-item.fwn,
   tool-bar-item-group.fwn {
     transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
@@ -1363,7 +1400,7 @@
     opacity: 0;
   }
 }
-@layer sw-transitions {
+@layer transitions {
   tool-bar-item.bwn,
   tool-bar-item-group.bwn {
     transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
@@ -1383,7 +1420,7 @@
     opacity: 0;
   }
 }
-@layer sw-transitions {
+@layer transitions {
   [is=sheet-view]:not([open]) {
     z-index: var(--top-layer-polyfill-z-index);
   }
@@ -1409,7 +1446,7 @@
     }
   }
 }
-@layer sw-colors {
+@layer colors {
   navigation-stack,
   navigation-split-view,
   body-view {

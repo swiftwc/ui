@@ -40,29 +40,49 @@
     touch-action: none !important;
   }
 
+  label {
+    // remove this
+    display: inline-grid;
+    position: relative;
+    // min-height: var(--toolbar-cell-min-size);
+    // min-width: var(--toolbar-cell-min-size);
+    container-type: inline-size;
+
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+
+    place-content: center;
+    place-items: center;
+    // line-height: 1;
+
+    > svg {
+      display: inline-grid;
+      width: 2rem;
+      height: 2rem;
+    }
+
+    > i {
+      display: inline-grid;
+      font-size: 2rem;
+      color: black;
+    }
+  }
+
   $CONFIG: (
     vt-fwd-class-name: vars.$vt-fwd-class-name,
-    disclosure-group-contents-height-css-prop:
-      vars.$disclosure-group-contents-height-css-prop,
-    disclosure-group-animation-duration-css-prop:
-      vars.$disclosure-group-animation-duration-css-prop,
-    disclosure-group-animation-close-class:
-      vars.$disclosure-group-animation-close-class,
-    sidebar-toggle-padding-inline-start-css-prop:
-      vars.$sidebar-toggle-padding-inline-start-css-prop,
+    disclosure-group-contents-height-css-prop: vars.$disclosure-group-contents-height-css-prop,
+    disclosure-group-animation-duration-css-prop: vars.$disclosure-group-animation-duration-css-prop,
+    disclosure-group-animation-close-class: vars.$disclosure-group-animation-close-class,
+    sidebar-toggle-padding-inline-start-css-prop: vars.$sidebar-toggle-padding-inline-start-css-prop,
     //
     toolbar-leading-stack-part-name: vars.$toolbar-leading-stack-part-name,
     toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
     toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
     //
-    scroll-view-navbar-part-name:
-      vars.$scroll-view-navbar-part-name,
-    scroll-view-navbar-stack-part-name:
-      vars.$scroll-view-navbar-stack-part-name,
-    scroll-view-toolbar-part-name:
-      vars.$scroll-view-toolbar-part-name,
-    scroll-view-toolbar-stack-part-name:
-      vars.$scroll-view-toolbar-stack-part-name,
+    scroll-view-navbar-part-name: vars.$scroll-view-navbar-part-name,
+    scroll-view-navbar-stack-part-name: vars.$scroll-view-navbar-stack-part-name,
+    scroll-view-toolbar-part-name: vars.$scroll-view-toolbar-part-name,
+    scroll-view-toolbar-stack-part-name: vars.$scroll-view-toolbar-stack-part-name,
   );
 
   @debug functions.map-to-query($CONFIG);

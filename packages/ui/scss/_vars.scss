@@ -1,12 +1,12 @@
 @use 'functions';
 @use 'sass:math';
 
-$base-layer: sw-base !default;
-$components-layer: sw-components !default;
-$colors-layer: sw-colors !default;
-$ui-layer: sw-actions !default;
-$transitions-layer: sw-transitions !default;
-$final-layer: sw-final !default;
+$base-layer: base !default;
+$components-layer: components !default;
+$colors-layer: colors !default;
+$ui-layer: actions !default;
+$transitions-layer: transitions !default;
+$final-layer: final !default;
 
 $vt-fwd-class-name: fwd !default;
 

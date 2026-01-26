@@ -37,7 +37,7 @@
   ::part(#{vars.$scroll-view-navbar-stack-part-name}),
   ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
     // > span {
-    display: grid;
+    // display: grid;
     grid-template-columns: 1fr auto 1fr;
     pointer-events: all;
 

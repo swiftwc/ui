@@ -15,6 +15,14 @@
       'navigation-bar'
       'spacer'
       'bottom-bar';
+
+    > * {
+      box-shadow: var(--glass-shadow);
+
+      min-width: var(--toolbar-cell-min-size);
+
+      // min-width: calc(var(--tool-bar-height) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+    }
   }
 
   ::part(navigation-bar),
@@ -31,10 +39,10 @@
     column-gap: var(--toolbar-col-gap);
     // grid-auto-rows: 40px;
 
-    grid-template-rows: 3rem;
+    grid-template-rows: var(--toolbar-cell-min-size);
 
     // place-items: center;
-    // place-content: center;
+    place-content: center; // middle of y axis
 
     /* > * {
       pointer-events: all;

@@ -7,13 +7,13 @@
     // moved from > * of old
     pointer-events: all;
 
-    min-height: var(--toolbar-cell-min-size);
-    min-width: var(--toolbar-cell-min-size);
+    // min-height: var(--toolbar-cell-min-size);
+    // min-width: var(--toolbar-cell-min-size);
     // moved from > * of old
 
     // background-color: red;
     // padding: 5px;
-    // border-radius: 99999px;
+    border-radius: var(--pill-border-radius);
 
     // height: 40px;
 
@@ -38,6 +38,10 @@
       // }
 
       all: unset;
+      display: grid;
+
+      // place-items: center;
+      // place-content: center;
 
       appearance: none;
       -webkit-appearance: none;
@@ -69,8 +73,8 @@
   }
 
   tool-bar-item {
-    min-height: var(--toolbar-cell-min-size);
-    min-width: var(--toolbar-cell-min-size);
+    // min-height: var(--toolbar-cell-min-size);
+    // min-width: var(--toolbar-cell-min-size);
   }
 }
 

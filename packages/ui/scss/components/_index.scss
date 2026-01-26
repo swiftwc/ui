@@ -20,7 +20,9 @@
   v-stack,
   // tool-bar,
   ::part(#{vars.$scroll-view-navbar-part-name}),
-  ::part(#{vars.$scroll-view-toolbar-part-name}) {
+  ::part(#{vars.$scroll-view-toolbar-part-name}),
+  ::part(#{vars.$scroll-view-navbar-stack-part-name}),
+  ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
     display: grid;
   }
 }

@@ -250,6 +250,9 @@
   ::part(bottom-bar),
   [is=tab-bar-stack],
   v-stack,
+  i-label,
+  ::part(label-image-stack),
+  ::part(label-title-stack),
   ::part(scroll-view-navbar),
   ::part(scroll-view-toolbar),
   ::part(scroll-view-navbar-stack),
@@ -1080,13 +1083,13 @@
     content: "";
     display: grid;
   }
-  ::part(scroll-view-navbar-stack) html:has(#console)::before,
-  ::part(scroll-view-toolbar-stack) html:has(#console)::before {
+  html:has(#console) ::part(scroll-view-navbar-stack)::before,
+  html:has(#console) ::part(scroll-view-toolbar-stack)::before {
     height: 20px;
     background: green;
   }
-  ::part(scroll-view-navbar-stack) html:has(#console)::after,
-  ::part(scroll-view-toolbar-stack) html:has(#console)::after {
+  html:has(#console) ::part(scroll-view-navbar-stack)::after,
+  html:has(#console) ::part(scroll-view-toolbar-stack)::after {
     height: 20px;
     background: darkgoldenrod;
   }
@@ -1293,6 +1296,28 @@
     [is=sheet-view] ::part(bottom-bar) {
       --safe-area-inset-bottom: 0px;
     }
+  }
+}
+@layer components {
+  i-label {
+    place-items: center;
+    place-content: center;
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+    grid-template-areas: "label-image-stack" "label-title-stack";
+  }
+  i-label > *:not([slot]) {
+    grid-area: label-title-stack;
+  }
+  ::part(label-image-stack) {
+    aspect-ratio: 1/1;
+    width: 2rem;
+  }
+  html:has(#console) ::part(label-image-stack) {
+    box-shadow: inset 0 0 0 4px coral;
+  }
+  ::part(label-title-stack) {
+    text-decoration: underline;
   }
 }
 @layer transitions {

@@ -48,8 +48,11 @@
       content: '';
       display: grid;
     }
+  }
 
-    html:has(#console) {
+  html:has(#console) {
+    ::part(#{vars.$scroll-view-navbar-stack-part-name}),
+    ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
       &::before {
         height: 20px;
         background: green;

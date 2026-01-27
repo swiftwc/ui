@@ -761,7 +761,7 @@
       );
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view)::part(scroll-view-navbar-stack)::before {
-      margin-inline-start: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) * -1);
+      margin-inline-start: calc(env(safe-area-inset-left) * -1);
       width: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) + var(--navbar-padding-inline-start, 0px));
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view)::part(scroll-view-navbar-stack)::before {

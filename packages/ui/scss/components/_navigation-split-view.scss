@@ -224,18 +224,15 @@
                   &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
                     &::before {
                       // --sidebar-toggle-padding-inline-start: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
-                      margin-inline-start: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) * -1);
+                      // FIXME: iOS bug??!!
+                      margin-inline-start: calc(env(safe-area-inset-left) * -1);
+
                       width: calc(
                         max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) +
                           var(--navbar-padding-inline-start, 0px)
                       );
                     }
                   }
-
-                  // FIXME: Somehow apple only to topbar of toolbar
-                  // & ~ navigation-bar {
-                  //   --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
-                  // }
                 }
 
                 > body-view {

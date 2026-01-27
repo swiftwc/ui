@@ -136,6 +136,13 @@
           // make it opaque for navbars!
           --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
 
+          // re-apply width for dialog too (not dialog by default)
+          &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+            &::before {
+              width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
+            }
+          }
+
           // move ONLY navbar to the side
           ~ tool-bar::part(navigation-bar) {
             --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px); // reset navbar > span

@@ -56,11 +56,11 @@
     padding-block-start: var(--safe-area-inset-top);
     transform: translateY(calc(var(--safe-area-inset-top) * -1));
 
-    @media (pointer: fine) {
-      & {
-        justify-items: start;
-      }
+    // @media (pointer: fine) {
+    & {
+      justify-items: start;
     }
+    // }
 
     // > div {
     @include mixins.make-navbar(bottom);
@@ -68,15 +68,16 @@
     // }
   }
 
-  ::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  scroll-view::part(#{vars.$scroll-view-navbar-stack-part-name}) {
     // > span {
     @media (pointer: fine) {
       & {
         grid-template-columns: max-content auto 1fr;
       }
     }
+
     &::before {
-      width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
+      width: var(--navbar-padding-inline-start, 0px);
 
       // width: calc(
       //   var(--navbar-padding-inline-start, 0px) +
@@ -86,6 +87,13 @@
 
     &::after {
       width: var(--navbar-padding-inline-end, 0px);
+    }
+  }
+
+  // force measurer of sidebars on non dialog scroll-views
+  scroll-view:not(dialog scroll-view)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+    &::before {
+      width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
     }
   }
 

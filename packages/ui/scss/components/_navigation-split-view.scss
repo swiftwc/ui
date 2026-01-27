@@ -121,21 +121,14 @@
         > tool-bar {
           width: var(--nav-split-view-sidebar-width); // override
 
-          margin-inline-start: max(
-            env(safe-area-inset-left),
-            var(--tab-bar-sidebar-spacing)
-          ); // float
+          margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)); // float
 
           --safe-area-inset-left: 0px; // now a floating
         }
 
         // restyle scroll-view of floating sidebar
         > [is='sidebar-view'] {
-          padding-block: max(
-              var(--safe-area-inset-top),
-              var(--tab-bar-sidebar-spacing)
-            )
-            max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+          padding-block: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
 
           overflow: clip;
 
@@ -150,7 +143,7 @@
           // );
 
           > scroll-view {
-            --canvas-bg: #ffffff9e;
+            --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / var(--tab-bar-sidebar-bg-alpha));
 
             --safe-area-inset-top: 0px;
             --safe-area-inset-bottom: 0px;
@@ -189,26 +182,17 @@
               margin-inline-start: 0px;
 
               // add start padding instead
-              --safe-area-inset-left: calc(
-                var(--nav-split-view-sidebar-width) +
-                  max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
-              );
+              --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
             }
             &,
             // & ~ navigation-bar {
             & ~ tool-bar {
-              --safe-area-inset-top: max(
-                env(safe-area-inset-top),
-                var(--tab-bar-sidebar-spacing)
-              );
+              --safe-area-inset-top: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing));
             }
             &,
             // & ~ bottom-bar {
             & ~ tool-bar {
-              --safe-area-inset-bottom: max(
-                env(safe-area-inset-bottom),
-                var(--tab-bar-sidebar-spacing)
-              );
+              --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
             }
           }
         }
@@ -227,9 +211,7 @@
               // > navigation-bar,
               > tool-bar {
                 // hide off screen
-                margin-inline-start: calc(
-                  var(--nav-split-view-sidebar-width) * -1
-                );
+                margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
               }
 
               // move descendants to left edge of screen
@@ -264,11 +246,7 @@
                   // FIXME: Somehow apple only to topbar of toolbar
                   & ~ navigation-bar {
                     --safe-area-inset-left: calc(
-                      max(
-                          env(safe-area-inset-left),
-                          var(--tab-bar-sidebar-spacing)
-                        ) +
-                        var(--sidebar-toggle-padding-inline-start, 0px)
+                      max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px)
                     );
                   }
                 }
@@ -293,10 +271,7 @@
               > scroll-view,
               // > navigation-bar,
               > tool-bar {
-                width: calc(
-                  var(--nav-split-view-content-width) +
-                    var(--nav-split-view-sidebar-width)
-                ); // shrink to be now a col
+                width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width)); // shrink to be now a col
 
                 --safe-area-inset-right: 0px;
               }
@@ -318,10 +293,7 @@
                     // margin-inline-start: 0px;
                     --safe-area-inset-left: 0px; // override
 
-                    margin-inline-start: calc(
-                      var(--nav-split-view-sidebar-width) +
-                        var(--nav-split-view-content-width)
-                    ); // override
+                    margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width)); // override
                   }
                 }
               }
@@ -366,9 +338,7 @@
 
       // SIDEBAR | EXPANDED
       // @include mixins.if-2col-split-view-fits {
-      &:has(> dialog[is='sidebar-view']):not(
-          [column-visibility='double-column']
-        ) {
+      &:has(> dialog[is='sidebar-view']):not([column-visibility='double-column']) {
         &[preferred-compact-column='content'] {
           // move descendants to right
           > body-view {

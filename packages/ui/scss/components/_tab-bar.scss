@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @mixin make-floating-tabbar {
-  background: #ffffff9e;
+  background: oklch(var(--tab-bar-sidebar-bg-lch) / var(--tab-bar-sidebar-bg-alpha));
   backdrop-filter: blur(4px);
   box-shadow:
     0 0 0 1px #fff inset,
@@ -158,7 +158,7 @@
         > scroll-view {
           @include mixins.create-v-scroll-view;
 
-          --canvas-bg: #ffffff9e;
+          --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / 1);
         }
 
         > tool-bar {

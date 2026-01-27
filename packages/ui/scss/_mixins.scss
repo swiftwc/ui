@@ -92,19 +92,13 @@
   }
 
   &:after {
-    background-image: linear-gradient(
-      to #{$dir},
-      var(--canvas-bg) 0,
-      #0000 100%
-    );
+    background-image: linear-gradient(to #{$dir}, var(--canvas-bg) 0, #0000 100%);
   }
 }
 
 @mixin vt-toolbar-item-offscreen-keyframe($important: false) {
   @if $important {
-    transform: scale(
-      var(--view-transition-toolbar-cell-offscreen-scale)
-    ) !important;
+    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale)) !important;
     filter: blur(10px) !important;
     opacity: 0 !important;
   } @else {
@@ -116,9 +110,7 @@
 
 @mixin vt-toolbar-item-onscreen-keyframe($important: false) {
   @if $important {
-    transform: scale(
-      var(--view-transition-toolbar-cell-onscreen-scale)
-    ) !important;
+    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
     filter: none !important;
     opacity: 1 !important;
   } @else {

@@ -31,6 +31,8 @@
 
   body {
     display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0px, 1fr);
 
     position: absolute;
     inset: 0;
@@ -41,32 +43,32 @@
     touch-action: none !important;
   }
 
-  label {
-    // remove this
-    display: inline-grid;
-    position: relative;
-    // min-height: var(--toolbar-cell-min-size);
-    // min-width: var(--toolbar-cell-min-size);
-    // container-type: inline-size;
+  // label {
+  //   // remove this
+  //   display: inline-grid;
+  //   position: relative;
+  //   // min-height: var(--toolbar-cell-min-size);
+  //   // min-width: var(--toolbar-cell-min-size);
+  //   // container-type: inline-size;
 
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
+  //   grid-template-columns: minmax(0, 1fr);
+  //   grid-template-rows: minmax(0, 1fr);
 
-    place-content: center;
-    place-items: center;
-    // line-height: 1;
+  //   place-content: center;
+  //   place-items: center;
+  //   // line-height: 1;
 
-    > svg {
-      display: inline-grid;
-      width: 2rem;
-      height: 2rem;
-    }
+  //   > svg {
+  //     display: inline-grid;
+  //     width: 2rem;
+  //     height: 2rem;
+  //   }
 
-    > i {
-      display: inline-grid;
-      font-size: 2rem;
-    }
-  }
+  //   > i {
+  //     display: inline-grid;
+  //     font-size: 2rem;
+  //   }
+  // }
 
   $CONFIG: (
     vt-fwd-class-name: vars.$vt-fwd-class-name,

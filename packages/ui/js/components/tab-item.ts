@@ -1,6 +1,7 @@
 import { type TabView } from './tab-view'
+import { ButtonBase } from '../client/privateNamespace'
 
-export class TabItem extends HTMLElement {
+export class TabItem extends ButtonBase {
   constructor() {
     super()
   }
@@ -8,27 +9,35 @@ export class TabItem extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${TabItem.name} ⚡️ disconnect`)
 
-    this.removeEventListener('click', this.#handleClick)
+    TabItem.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
-    this.addEventListener('click', this.#handleClick)
+    TabItem.polyfillConnectedCallback(this)
   }
 
-  #handleClick = () => {
+  static polyfillDisconnectedCallback(el: HTMLButtonElement) {
+    console.debug(`${TabItem.name} ⚡️ disconnect`)
+
+    el.removeEventListener('click', TabItem.#handleClick)
+  }
+
+  static polyfillConnectedCallback(el: HTMLButtonElement) {
+    console.debug(`${TabItem.name} ⚡️ connect`)
+
+    el.addEventListener('click', TabItem.#handleClick)
+  }
+
+  static #handleClick = async (event: Event) => {
     console.debug(`${TabItem.name} ⚡️ click`)
 
-    const tag = this.getAttribute('tag')
+    const tag = (event.currentTarget as HTMLElement).getAttribute('value')
 
-    if (!tag)
-      throw new DOMException(
-        `Attribute "tag" is set but invalid`,
-        'InvalidStateError'
-      )
+    if (!tag) throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')
 
-    const tv = this.closest<TabView>('tab-view')
+    const tv = (event.currentTarget as HTMLElement).closest<TabView>('tab-view')
     if (!tv) throw new Error('Element not found')
 
     const newTab = tv?.querySelector<HTMLElement>(`#${tag}`)

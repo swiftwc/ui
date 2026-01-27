@@ -2,8 +2,7 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  tool-bar-item,
-  tab-item {
+  tool-bar-item {
     // moved from > * of old
     pointer-events: all;
 
@@ -26,73 +25,72 @@
     // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
     --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
-
-    button,
-    input {
-      // display: grid;
-      // place-items: center;
-      // place-content: center;
-      // container-type: inline-size;
-      // > * {
-      //   font-size: 100cqw;
-      // }
-
-      all: unset;
-      display: grid;
-
-      // place-items: center;
-      // place-content: center;
-
-      appearance: none;
-      -webkit-appearance: none;
-      // box-shadow: none;
-      // outline: 0;
-      border: var(--component-border-width);
-      background-color: var(--component-bg);
-      padding-inline: var(--component-padding-inline);
-      padding-block: var(--component-padding-block);
-      border-radius: var(--component-border-radius);
-      min-width: 25px; // NOTE: For inputs overflowing-x
-
-      // &:not(:disabled):not([readonly]) {
-      //   &:focus-visible {
-      //     background-color: var(--toolbar-cell-focus-bg);
-      //   }
-      //   // order matters! BEFORE active
-      //   @media (pointer: fine) {
-      //     &:hover {
-      //       background-color: var(--toolbar-cell-focus-bg);
-      //     }
-      //   }
-      //   // order matters! AFTER hover/fvisible
-      //   &:active {
-      //     background-color: var(--toolbar-cell-active-bg);
-      //   }
-      // }
-    }
   }
 
-  tool-bar-item {
-    // min-height: var(--toolbar-cell-min-size);
-    // min-width: var(--toolbar-cell-min-size);
+  tool-bar-item button,
+  tool-bar-item input,
+  [is='tab-item'] {
+    // display: grid;
+    // place-items: center;
+    // place-content: center;
+    // container-type: inline-size;
+    // > * {
+    //   font-size: 100cqw;
+    // }
+
+    all: unset;
+    display: grid;
+
+    // place-items: center;
+    // place-content: center;
+
+    appearance: none;
+    -webkit-appearance: none;
+    // box-shadow: none;
+    // outline: 0;
+    border: var(--component-border-width);
+    background-color: var(--component-bg);
+    padding-inline: var(--component-padding-inline);
+    padding-block: var(--component-padding-block);
+    border-radius: var(--component-border-radius);
+    min-width: 25px; // NOTE: For inputs overflowing-x
+
+    // &:not(:disabled):not([readonly]) {
+    //   &:focus-visible {
+    //     background-color: var(--toolbar-cell-focus-bg);
+    //   }
+    //   // order matters! BEFORE active
+    //   @media (pointer: fine) {
+    //     &:hover {
+    //       background-color: var(--toolbar-cell-focus-bg);
+    //     }
+    //   }
+    //   // order matters! AFTER hover/fvisible
+    //   &:active {
+    //     background-color: var(--toolbar-cell-active-bg);
+    //   }
+    // }
   }
+
+  // tool-bar-item {
+  // min-height: var(--toolbar-cell-min-size);
+  // min-width: var(--toolbar-cell-min-size);
+  // }
 }
 
 @layer #{vars.$colors-layer} {
-  tool-bar-item,
-  tab-item {
-    button,
-    input {
-      &:not(:disabled):not([readonly]) {
-        &:focus-visible {
-          background-color: var(--toolbar-cell-focus-bg);
-        }
+  tool-bar-item button,
+  tool-bar-item input,
+  [is='tab-item'] {
+    &:not(:disabled):not([readonly]) {
+      &:focus-visible {
+        background-color: var(--toolbar-cell-focus-bg);
+      }
 
-        // order matters! BEFORE active
-        @media (pointer: fine) {
-          &:hover {
-            background-color: var(--toolbar-cell-focus-bg);
-          }
+      // order matters! BEFORE active
+      @media (pointer: fine) {
+        &:hover {
+          background-color: var(--toolbar-cell-focus-bg);
         }
       }
     }
@@ -100,14 +98,12 @@
 }
 
 @layer #{vars.$ui-layer} {
-  tool-bar-item,
-  tab-item {
-    button,
-    input {
-      &:not(:disabled):not([readonly]) {
-        &:active {
-          background-color: var(--toolbar-cell-active-bg);
-        }
+  tool-bar-item button,
+  tool-bar-item input,
+  [is='tab-item'] {
+    &:not(:disabled):not([readonly]) {
+      &:active {
+        background-color: var(--toolbar-cell-active-bg);
       }
     }
   }

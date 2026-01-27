@@ -1,4 +1,4 @@
-import { DialogBase } from '../internal/class'
+import { DialogBase } from '../client/privateNamespace'
 
 export class SheetView extends DialogBase {
   constructor() {

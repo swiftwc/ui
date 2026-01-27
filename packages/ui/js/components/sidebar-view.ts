@@ -1,4 +1,4 @@
-import { DialogBase } from '../internal/class'
+import { DialogBase } from '../client/privateNamespace'
 
 export class SidebarView extends DialogBase {
   constructor() {
@@ -27,10 +27,7 @@ export class SidebarView extends DialogBase {
 
   /** Autoclose on click outside. */
   static #handleClick = async (event: Event) => {
-    if (
-      'DIALOG' === (event.target as HTMLElement).tagName &&
-      'sidebar-view' === (event.target as HTMLElement).getAttribute('is')
-    )
+    if ('DIALOG' === (event.target as HTMLElement).tagName && 'sidebar-view' === (event.target as HTMLElement).getAttribute('is'))
       (event?.target as HTMLDialogElement)?.close?.()
   }
 }

@@ -81,9 +81,25 @@
     --navigation-bar-height: var(--tool-bar-height);
     --nav-split-view-sidebar-width: 20rem;
     --nav-split-view-content-width: 25rem;
-    --primary-text: black;
+    --primary-text: oklch(0 0 0);
+    --primary-bg: oklch(0.9566 0.0067 286.27);
+    --secondary-bg: burlywood;
+  }
+  @media (pointer: fine) {
+    :root {
+      --primary-bg: oklch(0.9761 0 0);
+    }
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --primary-bg: oklch(0 0 0);
+    }
+  }
+  :root html:has(#console) {
     --primary-bg: aliceblue;
     --secondary-bg: burlywood;
+  }
+  :root {
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
@@ -96,7 +112,7 @@
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
-    --toolbar-cell-bg: white;
+    --toolbar-cell-bg: oklch(1 0 0);
     --toolbar-cell-inline-padding-start: 0.3rem;
     --toolbar-cell-inline-padding-end: 0.3rem;
     --toolbar-cell-block-padding-start: 0.3rem;
@@ -108,6 +124,16 @@
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
     --glass-shadow: 0 0 25px 0 #0003;
+  }
+  html:has(color-scheme[theme=dark]) {
+    --primary-text: oklch(1 0 0);
+    --primary-bg: oklch(0 0 0);
+  }
+  @media (pointer: fine) {
+    html:has(color-scheme[theme=dark]) {
+      --primary-bg: oklch(0.2606 0.004 84.58);
+      --toolbar-cell-bg: oklch(0.2871 0.0029 17.33);
+    }
   }
 }
 @layer base, components, colors, actions, transitions, final;
@@ -123,6 +149,7 @@
   }
   body {
     background-color: var(--primary-bg);
+    color: var(--primary-text);
   }
   body {
     display: grid;
@@ -135,7 +162,6 @@
   label {
     display: inline-grid;
     position: relative;
-    container-type: inline-size;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     place-content: center;
@@ -149,7 +175,6 @@
   label > i {
     display: inline-grid;
     font-size: 2rem;
-    color: black;
   }
   html::before {
     content: "scroll-view-toolbar-stack-part-name=scroll-view-toolbar-stack&scroll-view-toolbar-part-name=scroll-view-toolbar&scroll-view-navbar-stack-part-name=scroll-view-navbar-stack&scroll-view-navbar-part-name=scroll-view-navbar&toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
@@ -223,7 +248,7 @@
   sidebar-toggle,
   ::part(navigation-bar),
   ::part(bottom-bar),
-  tab-bar-stack,
+  [is=tab-bar-stack],
   v-stack,
   ::part(scroll-view-navbar),
   ::part(scroll-view-toolbar),
@@ -287,38 +312,25 @@
   }
   @media (orientation: landscape) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
-      --safe-area-inset-top: max(
-        env(safe-area-inset-top),
-        var(--tab-bar-sidebar-spacing)
-      );
-      --safe-area-inset-bottom: max(
-        env(safe-area-inset-bottom),
-        var(--tab-bar-sidebar-spacing)
-      );
+      --safe-area-inset-top: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing));
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
     }
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
-      --safe-area-inset-bottom: max(
-        env(safe-area-inset-bottom),
-        var(--tab-bar-sidebar-spacing)
-      );
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
     }
     tab-view navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
     tab-view navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar])),
     tab-view navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar])),
     tab-view body-view > scroll-view:not(:has(> [slot^=bottom-bar])) {
-      --safe-area-inset-bottom: calc(
-        max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) +
-          var(--tab-bar-iphone-height)
-      );
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-iphone-height));
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
     tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-left: calc(
-        env(safe-area-inset-left) +
-          var(--sidebar-toggle-padding-inline-start, 0px)
+        max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px)
       );
     }
   }
@@ -345,20 +357,19 @@
   } */
   @media (min-width: 68rem) and (orientation: landscape) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
-      --safe-area-inset-left: calc(
-        max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) +
-          var(--tab-bar-sidebar-width)
-      );
+      --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-sidebar-width));
     }
   }
 }
 @layer final {
+  @media (max-width: 67.9999rem) and (orientation: landscape) {
+    ::part(scroll-view-navbar-stack)::before {
+      width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
+    }
+  }
   @media (min-width: 43rem) and (orientation: portrait) {
     tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
-      --safe-area-inset-top: calc(
-        max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) +
-          var(--tab-bar-ipad-height)
-      );
+      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) + var(--tab-bar-ipad-height));
     }
   }
 }
@@ -387,6 +398,7 @@
       width: 100lvw;
       place-content: center;
       grid-auto-flow: column;
+      pointer-events: none;
     }
     [is=tab-bar]:before, [is=tab-bar]:after {
       backface-visibility: hidden;
@@ -418,6 +430,7 @@
       backdrop-filter: blur(4px);
       box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
       overflow: clip;
+      pointer-events: all;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
@@ -531,21 +544,21 @@
     [is=tab-bar] > scroll-view {
       grid-auto-flow: column;
     }
-    tab-bar-stack {
+    [is=tab-bar-stack] {
       grid-auto-flow: column;
       margin-block: 0 !important;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
-    tab-bar-stack {
+    [is=tab-bar-stack] {
       grid-auto-flow: column;
     }
-    [is=tab-bar][open] tab-bar-stack {
+    [is=tab-bar][open] [is=tab-bar-stack] {
       grid-auto-flow: row;
       align-content: start;
       row-gap: 0.5rem;
     }
-    [is=tab-bar]:not([open]) tab-bar-stack {
+    [is=tab-bar]:not([open]) [is=tab-bar-stack] {
       margin-block: 0 !important;
     }
     [is=tab-bar] > scroll-view {
@@ -569,7 +582,7 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    tab-bar-stack {
+    [is=tab-bar-stack] {
       align-content: start;
       row-gap: 0.5rem;
     }
@@ -589,7 +602,7 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    tab-bar-stack {
+    [is=tab-bar-stack] {
       align-content: start;
       row-gap: 0.5rem;
     }
@@ -948,13 +961,20 @@
   scroll-view:has(> [slot^=bottom-bar]) > *:not([slot]) {
     margin-block-end: var(--tool-bar-height);
   }
+  html:has(#console) navigation-stack > scroll-view,
+  html:has(#console) navigation-split-view > scroll-view,
+  html:has(#console) navigation-split-view > [is=sidebar-view] > scroll-view,
+  html:has(#console) body-view > scroll-view,
+  html:has(#console) [is=full-screen] > scroll-view,
+  html:has(#console) [is=sheet-view] > scroll-view {
+    box-shadow: inset 0 0 0 2px cyan;
+  }
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
   navigation-split-view > [is=sidebar-view] > scroll-view,
   body-view > scroll-view,
   [is=full-screen] > scroll-view,
   [is=sheet-view] > scroll-view {
-    box-shadow: inset 0 0 0 2px cyan;
     overflow: clip auto;
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
@@ -1021,7 +1041,11 @@
   v-stack {
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
+  }
+  v-stack html:has(#console) {
     box-shadow: inset 0 0 0 2px magenta;
+  }
+  v-stack {
     place-content: center;
   }
 }
@@ -1032,6 +1056,7 @@
     width: 100%;
     place-items: center;
     place-content: center;
+    grid-template-columns: minmax(0, 1fr);
     grid-area: toolbar;
     pointer-events: none;
     visibility: collapse;
@@ -1055,13 +1080,13 @@
     content: "";
     display: grid;
   }
-  ::part(scroll-view-navbar-stack)::before,
-  ::part(scroll-view-toolbar-stack)::before {
+  ::part(scroll-view-navbar-stack) html:has(#console)::before,
+  ::part(scroll-view-toolbar-stack) html:has(#console)::before {
     height: 20px;
     background: green;
   }
-  ::part(scroll-view-navbar-stack)::after,
-  ::part(scroll-view-toolbar-stack)::after {
+  ::part(scroll-view-navbar-stack) html:has(#console)::after,
+  ::part(scroll-view-toolbar-stack) html:has(#console)::after {
     height: 20px;
     background: darkgoldenrod;
   }
@@ -1073,7 +1098,7 @@
   }
   @media (pointer: fine) {
     ::part(scroll-view-navbar) {
-      justify-content: start;
+      justify-items: start;
     }
   }
   ::part(scroll-view-navbar):before, ::part(scroll-view-navbar):after {
@@ -1091,8 +1116,13 @@
   ::part(scroll-view-navbar):after {
     background-image: linear-gradient(to bottom, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
   }
+  @media (pointer: fine) {
+    ::part(scroll-view-navbar-stack) {
+      grid-template-columns: max-content auto 1fr;
+    }
+  }
   ::part(scroll-view-navbar-stack)::before {
-    width: var(--navbar-padding-inline-start, 0px);
+    width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
   }
   ::part(scroll-view-navbar-stack)::after {
     width: var(--navbar-padding-inline-end, 0px);
@@ -1126,8 +1156,7 @@
   }
 }
 @layer components {
-  tool-bar-item,
-  tab-item {
+  tool-bar-item {
     pointer-events: all;
     border-radius: var(--pill-border-radius);
     --component-bg: var(--toolbar-cell-bg);
@@ -1136,8 +1165,7 @@
   }
   tool-bar-item button,
   tool-bar-item input,
-  tab-item button,
-  tab-item input {
+  [is=tab-item] {
     all: unset;
     display: grid;
     appearance: none;
@@ -1153,15 +1181,13 @@
 @layer colors {
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
   tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
-  tab-item button:not(:disabled):not([readonly]):focus-visible,
-  tab-item input:not(:disabled):not([readonly]):focus-visible {
+  [is=tab-item]:not(:disabled):not([readonly]):focus-visible {
     background-color: var(--toolbar-cell-focus-bg);
   }
   @media (pointer: fine) {
     tool-bar-item button:not(:disabled):not([readonly]):hover,
     tool-bar-item input:not(:disabled):not([readonly]):hover,
-    tab-item button:not(:disabled):not([readonly]):hover,
-    tab-item input:not(:disabled):not([readonly]):hover {
+    [is=tab-item]:not(:disabled):not([readonly]):hover {
       background-color: var(--toolbar-cell-focus-bg);
     }
   }
@@ -1169,8 +1195,7 @@
 @layer actions {
   tool-bar-item button:not(:disabled):not([readonly]):active,
   tool-bar-item input:not(:disabled):not([readonly]):active,
-  tab-item button:not(:disabled):not([readonly]):active,
-  tab-item input:not(:disabled):not([readonly]):active {
+  [is=tab-item]:not(:disabled):not([readonly]):active {
     background-color: var(--toolbar-cell-active-bg);
   }
 }
@@ -1212,7 +1237,13 @@
   ::part(navigation-bar),
   ::part(bottom-bar) {
     position: relative;
+  }
+  html:has(#console) ::part(navigation-bar),
+  html:has(#console) ::part(bottom-bar) {
     box-shadow: inset 0 0 4px red;
+  }
+  ::part(navigation-bar),
+  ::part(bottom-bar) {
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     pointer-events: none;
     grid-template-columns: auto 1fr auto;
@@ -1456,47 +1487,47 @@
   [is=full-screen] {
     --canvas-bg: var(--secondary-bg);
   }
-  body-view {
+  html:has(#console) body-view {
     --primary-bg: oklch(0.984 0.019 200.873);
     --secondary-bg: oklch(0.984 0.019 200.873);
   }
-  body-view > body-view {
+  html:has(#console) body-view > body-view {
     --primary-bg: oklch(0.956 0.045 203.388);
     --secondary-bg: oklch(0.956 0.045 203.388);
   }
-  body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view {
     --primary-bg: oklch(0.917 0.08 205.041);
     --secondary-bg: oklch(0.917 0.08 205.041);
   }
-  body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.865 0.127 207.078);
     --secondary-bg: oklch(0.865 0.127 207.078);
   }
-  body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.789 0.154 211.53);
     --secondary-bg: oklch(0.789 0.154 211.53);
   }
-  body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.715 0.143 215.221);
     --secondary-bg: oklch(0.715 0.143 215.221);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.609 0.126 221.723);
     --secondary-bg: oklch(0.609 0.126 221.723);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.52 0.105 223.128);
     --secondary-bg: oklch(0.52 0.105 223.128);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.45 0.085 224.283);
     --secondary-bg: oklch(0.45 0.085 224.283);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.398 0.07 227.392);
     --secondary-bg: oklch(0.398 0.07 227.392);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.302 0.056 229.695);
     --secondary-bg: oklch(0.302 0.056 229.695);
   }

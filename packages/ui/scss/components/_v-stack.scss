@@ -4,7 +4,10 @@
   v-stack {
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
-    box-shadow: inset 0 0 0 2px magenta;
+
+    html:has(#console) {
+      box-shadow: inset 0 0 0 2px magenta;
+    }
 
     place-content: center;
   }

@@ -51,6 +51,8 @@
       //
       grid-auto-flow: column;
 
+      pointer-events: none;
+
       @include mixins.make-navbar(top);
 
       &:not([open]) {
@@ -64,8 +66,7 @@
       // box-shadow: inset 0 0 0 3px blue;
 
       > scroll-view {
-        margin-block: 0
-          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+        margin-block: 0 max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
 
         margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
@@ -77,6 +78,8 @@
         @include make-floating-tabbar;
 
         overflow: clip;
+
+        pointer-events: all;
       }
     }
 
@@ -84,8 +87,7 @@
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto auto 50%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto 50%;
       transform: translateX(-50%);
 
       @include make-floating-tabbar;
@@ -107,9 +109,7 @@
       &[open] {
         // @include mixins.make-navbar;
 
-        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-          auto
-          max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
           max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
         height: auto; // override topbar
@@ -137,9 +137,7 @@
     }
 
     @include mixins.if-iphone-landscape {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto
-        max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
 
       width: var(--tab-bar-sidebar-width);
 
@@ -175,8 +173,7 @@
       // position: relative;
       // margin: 10px;
       // height: 100svh;
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing))
-        auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
         max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
 
       width: var(--tab-bar-sidebar-width);

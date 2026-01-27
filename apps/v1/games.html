@@ -3,7 +3,23 @@
   <head>
     <meta charset="UTF-8" />
     <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="../styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -14,14 +30,11 @@
   <body>
     <v-keyboard></v-keyboard>
 
-    <div id="console" popover="manual" inert>
-      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
-      <span id="console4"></span>
-    </div>
+    <color-scheme theme="dark"></color-scheme>
 
     <tab-view>
       <navigation-stack id="home">
-        <scroll-view>
+        <scroll-view navigation-title="Home">
           <v-stack>
             Home
             <hr style="width: 100%" />
@@ -68,14 +81,16 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button">
-              <i class="ph ph-smiley" style="font-size: 2rem"></i>
+              <label>
+                <i class="ph ph-smiley"></i>
+              </label>
             </button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
 
       <navigation-stack id="library" hidden>
-        <scroll-view>
+        <scroll-view navigation-title="Library">
           <v-stack>
             ns2section0<button type="button" class="fw">...</button>
             <p>...</p>
@@ -122,42 +137,49 @@
           </v-stack>
         </scroll-view>
 
-        <navigation-bar>
+        <tool-bar>
           <tool-bar-item slot="leading">
-            <button type="button">leading</button>
+            <button type="button">
+              <label>leading</label>
+            </button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="trailing">
-            <button type="button">trailing</button>
+            <button type="button">
+              <label>trailing</label>
+            </button>
           </tool-bar-item>
-        </navigation-bar>
+        </tool-bar>
       </navigation-stack>
 
       <sidebar-toggle>
         <tool-bar-item>
           <button type="button">
-            <i class="ph ph-sidebar" style="font-size: 2rem"></i>
+            <label>
+              <i class="ph ph-sidebar"></i>
+            </label>
           </button>
         </tool-bar-item>
       </sidebar-toggle>
 
       <dialog is="tab-bar">
         <scroll-view>
-          <tab-bar-stack>
-            <tab-item tag="home">
+          <form is="tab-bar-stack">
+            <button is="tab-item" value="home">
               <label>Home</label>
-            </tab-item>
-            <tab-item tag="library">
+            </button>
+            <button is="tab-item" value="library">
               <label>Library</label>
-            </tab-item>
-          </tab-bar-stack>
+            </button>
+          </form>
         </scroll-view>
         <sidebar-toggle>
-          <tab-item>
-            <button type="button">
-              <i class="ph ph-sidebar" style="font-size: 2rem"></i>
-            </button>
-          </tab-item>
+          <!-- <tab-item> -->
+          <button type="button">
+            <label>
+              <i class="ph ph-sidebar"></i>
+            </label>
+          </button>
+          <!-- </tab-item> -->
         </sidebar-toggle>
       </dialog>
     </tab-view>

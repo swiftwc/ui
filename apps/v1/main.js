@@ -1,7 +1,7 @@
 // import { UILabel } from './js/components'
 // console.log(444, UILabel)
 // import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
-import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/js/client'
+import { startViewTransition } from '../../packages/ui/js/client'
 
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
@@ -55,7 +55,7 @@ document.body.addEventListener('click', async (event) => {
                       <v-stack>
                         ${root.id}section${
                           root.querySelectorAll('scroll-view').length
-                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button type="submit">close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button>close</button></form><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                       <span slot="navigation-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</span>
                       <span slot="bottom-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</span>

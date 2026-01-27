@@ -9,7 +9,8 @@ export class ToolBar extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<div part="root navigation-bar"><!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
+        // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
+        innerHTML: `<div part="root navigation-bar">
     <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
       <slot name="navigation-bar-leading"></slot>
     </div>
@@ -39,9 +40,7 @@ export class ToolBar extends HTMLElement {
   #shadowRoot
 
   get #sibling() {
-    return (
-      this.parentElement?.querySelector(':scope > scroll-view') ?? undefined
-    ) //this.previousElementSibling ?? undefined
+    return this.parentElement?.querySelector(':scope > scroll-view') ?? undefined //this.previousElementSibling ?? undefined
   }
 
   constructor() {
@@ -50,12 +49,7 @@ export class ToolBar extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(
-        document.importNode(
-          (this.constructor as typeof ToolBar).template.content,
-          true
-        )
-      )
+      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
     })
   }
 
@@ -96,18 +90,11 @@ export class ToolBar extends HTMLElement {
         : null
     if (!parentPart) return
 
-    const side = target.part.contains(leading)
-      ? 'inline-start'
-      : target.part.contains(trailing)
-        ? 'inline-end'
-        : null
+    const side = target.part.contains(leading) ? 'inline-start' : target.part.contains(trailing) ? 'inline-end' : null
     if (!side) return
 
     const prop = `--${parentMap[parentPart]}-padding-${side}`
 
-    ;(this.#sibling as HTMLElement)?.style?.setProperty(
-      prop,
-      `${Math.round(contentRect.width)}px`
-    )
+    ;(this.#sibling as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
   }
 }

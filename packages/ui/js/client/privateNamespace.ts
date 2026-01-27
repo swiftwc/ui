@@ -18,3 +18,10 @@ export abstract class DetailsBase extends HTMLDetailsElement {
   static polyfillDisonnectedCallback(el: HTMLDetailsElement) {}
   static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
 }
+
+export abstract class FormBase extends HTMLFormElement {
+  static polyfillExtends = 'form' as const
+  static polyfillConnectedCallback(el: HTMLFormElement) {}
+  static polyfillDisonnectedCallback(el: HTMLFormElement) {}
+  static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
+}

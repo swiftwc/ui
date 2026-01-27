@@ -18,12 +18,8 @@
     @media (prefers-reduced-motion: no-preference) {
       @include mixins.if-2col-split-view-fits {
         @include mixins.ifnot-3col-split-view-fits {
-          navigation-split-view:has(> dialog[is='sidebar-view']):not(
-              [column-visibility='double-column']
-            )[preferred-compact-column='content']
-            & {
-            transition: margin-inline-start var(--sidebar-transition-duration)
-              ease-out allow-discrete;
+          navigation-split-view:has(> dialog[is='sidebar-view']):not([column-visibility='double-column'])[preferred-compact-column='content'] & {
+            transition: margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
           }
         }
       }
@@ -64,10 +60,7 @@
 @layer #{vars.$final-layer} {
   [is='sidebar-view'] {
     &[open] {
-      margin-inline-start: max(
-        env(safe-area-inset-left),
-        var(--tab-bar-sidebar-spacing)
-      ) !important;
+      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing)) !important;
     }
   }
 }

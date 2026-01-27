@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @mixin make-floating-tabbar {
-  background: oklch(var(--tab-bar-sidebar-bg-lch) / var(--tab-bar-sidebar-bg-alpha));
+  background: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
   backdrop-filter: blur(4px);
   box-shadow:
     0 0 0 1px #fff inset,
@@ -42,7 +42,7 @@
       // left: 50%;
       // border-radius: var(--tab-bar-iphone-border-radius);
       // inset: auto auto
-      //   max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) 50%;
+      //   max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) 50%;
       inset: auto 0 0 0;
       width: 100lvw;
 
@@ -66,7 +66,7 @@
       // box-shadow: inset 0 0 0 3px blue;
 
       > scroll-view {
-        margin-block: 0 max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+        margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
 
         margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
@@ -87,7 +87,7 @@
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
 
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto 50%;
+      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
       transform: translateX(-50%);
 
       @include make-floating-tabbar;
@@ -109,14 +109,14 @@
       &[open] {
         // @include mixins.make-navbar;
 
-        inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
-          max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+        inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
+          max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
         height: auto; // override topbar
         transform: translateX(0);
-        width: var(--tab-bar-sidebar-width);
+        width: var(--sidebar-width);
 
-        border-radius: var(--tab-bar-sidebar-border-radius);
+        border-radius: var(--sidebar-border-radius);
 
         grid-auto-flow: row;
 
@@ -134,7 +134,7 @@
           // this scroll-view does not apply bg-color per others on spec (ommited)
           // SECTION: Make room for fixed togle
           // make it opaque for navbars!
-          --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / 1);
+          --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
 
           // move ONLY navbar to the side
           ~ tool-bar::part(navigation-bar) {
@@ -154,16 +154,16 @@
     }
 
     @include mixins.if-iphone-landscape {
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing)) -100%;
+      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
 
-      width: var(--tab-bar-sidebar-width);
+      width: var(--sidebar-width);
 
-      border-radius: var(--tab-bar-sidebar-border-radius);
+      border-radius: var(--sidebar-border-radius);
 
       @include make-floating-tabbar;
 
       &[open] {
-        left: max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+        left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
         // transform: translateX(0);
 
         #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // override tab-view prop
@@ -175,7 +175,7 @@
         > scroll-view {
           @include mixins.create-v-scroll-view;
 
-          --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / 1);
+          --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
         }
 
         > tool-bar {
@@ -190,21 +190,21 @@
       // position: relative;
       // margin: 10px;
       // height: 100svh;
-      inset: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
-        max(var(--safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
+        max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
-      width: var(--tab-bar-sidebar-width);
+      width: var(--sidebar-width);
 
       @include make-floating-tabbar;
 
       // max-height: calc(
       //   var(--100lvh, 100lvh) - max(
       //       var(--safe-area-inset-top),
-      //       var(--tab-bar-sidebar-spacing)
-      //     ) - max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing))
+      //       var(--sidebar-spacing)
+      //     ) - max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
       // );
 
-      border-radius: var(--tab-bar-sidebar-border-radius);
+      border-radius: var(--sidebar-border-radius);
 
       overflow: clip;
 

@@ -77,8 +77,7 @@
     @include mixins.if-2col-split-view-fits {
       // Fix 1stChildElement as a content view
       > scroll-view,
-      > [is='sidebar-view'],
-      > tool-bar {
+      > [is='sidebar-view'] {
         width: var(--nav-split-view-content-width);
 
         --safe-area-inset-right: 0px; // reset end padding
@@ -108,40 +107,40 @@
         > tool-bar {
           width: var(--nav-split-view-sidebar-width); // override
 
-          margin-inline-start: max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)); // float
+          margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing)); // float
 
           --safe-area-inset-left: 0px; // now a floating
         }
 
         // restyle scroll-view of floating sidebar
         > [is='sidebar-view'] {
-          padding-block: max(var(--safe-area-inset-top), var(--tab-bar-sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+          padding-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
 
           overflow: clip;
 
           // height: calc(
           //   100% - max(
           //       var(--safe-area-inset-top),
-          //       var(--tab-bar-sidebar-spacing)
+          //       var(--sidebar-spacing)
           //     ) - max(
           //       var(--safe-area-inset-bottom),
-          //       var(--tab-bar-sidebar-spacing)
+          //       var(--sidebar-spacing)
           //     )
           // );
 
           > scroll-view {
-            --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / var(--tab-bar-sidebar-bg-alpha));
+            --canvas-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
 
             --safe-area-inset-top: 0px;
             --safe-area-inset-bottom: 0px;
 
-            border-radius: var(--tab-bar-sidebar-border-radius);
+            border-radius: var(--sidebar-border-radius);
 
             ~ tool-bar {
               --safe-area-inset-top: 0px;
               // max(
               //   env(safe-area-inset-top),
-              //   var(--tab-bar-sidebar-spacing)
+              //   var(--sidebar-spacing)
               // );
             }
 
@@ -150,7 +149,7 @@
               --safe-area-inset-bottom: 0px;
               // max(
               //   env(safe-area-inset-bottom),
-              //   var(--tab-bar-sidebar-spacing)
+              //   var(--sidebar-spacing)
               // );
             }
           }
@@ -165,15 +164,15 @@
               margin-inline-start: 0px;
 
               // add start padding instead
-              --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
+              --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--sidebar-spacing)));
             }
             &,
             & ~ tool-bar {
-              --safe-area-inset-top: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing));
+              --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
             }
             &,
             & ~ tool-bar {
-              --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
+              --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
             }
           }
         }
@@ -219,9 +218,7 @@
 
                   // FIXME: Somehow apple only to topbar of toolbar
                   & ~ navigation-bar {
-                    --safe-area-inset-left: calc(
-                      max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px)
-                    );
+                    --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
                   }
                 }
               }
@@ -257,7 +254,7 @@
                     // --safe-area-inset-left: calc(
                     //   var(--nav-split-view-sidebar-width) +
                     //     var(--nav-split-view-content-width) +
-                    //     max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing))
+                    //     max(env(safe-area-inset-left), var(--sidebar-spacing))
                     // ); // override
 
                     // margin-inline-start: 0px;

@@ -10,7 +10,7 @@
     navigation-split-view > & {
       position: fixed;
 
-      inset: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing));
+      inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--sidebar-spacing));
 
       height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
     }

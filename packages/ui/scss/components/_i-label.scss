@@ -8,9 +8,7 @@
 
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    grid-template-areas:
-      'label-image-stack'
-      'label-title-stack';
+    grid-template-areas: 'label-image-stack label-title-stack';
 
     gap: 0.3rem;
 

@@ -130,9 +130,26 @@
 
         > scroll-view {
           @include mixins.create-v-scroll-view;
-        }
 
-        // animation: slide-in 250ms ease-out forwards;
+          // this scroll-view does not apply bg-color per others on spec (ommited)
+          // SECTION: Make room for fixed togle
+          // make it opaque for navbars!
+          --canvas-bg: oklch(var(--tab-bar-sidebar-bg-lch) / 1);
+
+          // move ONLY navbar to the side
+          ~ tool-bar::part(navigation-bar) {
+            --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px); // reset navbar > span
+          }
+
+          // force navbar visibility bc/ of sidebartoggle shown
+          &:has(~ sidebar-toggle) {
+            &::part(#{vars.$scroll-view-navbar-part-name}) {
+              visibility: visible;
+            }
+
+            grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+          }
+        }
       }
     }
 

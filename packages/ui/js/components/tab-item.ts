@@ -35,7 +35,7 @@ export class TabItem extends ButtonBase {
 
     const tag = (event.currentTarget as HTMLElement).getAttribute('value')
 
-    if (!tag) throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')
+    if (!tag) return // sidebartoggle > tab-item //throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')
 
     const tv = (event.currentTarget as HTMLElement).closest<TabView>('tab-view')
     if (!tv) throw new Error('Element not found')

@@ -2,18 +2,10 @@
 @use '../mixins';
 
 @mixin force-disable-col-view-transitions {
-  // > scroll-view:not(dialog scroll-view).bwd,
-  // > scroll-view:not(dialog scroll-view).fwdd,
-  // > navigation-bar:not(dialog navigation-bar) .bwn,
-  // > bottom-bar:not(dialog bottom-bar) .bwn,
-  // > navigation-bar:not(dialog navigation-bar) .fwnn,
-  // > bottom-bar:not(dialog bottom-bar) .fwnn {
   > scroll-view:not(dialog scroll-view) {
     &.bwd,
     &.fwdd,
     & ~ tool-bar .bwn,
-    // & ~ bottom-bar .bwn,
-    // & ~ navigation-bar .fwnn,
     & ~ tool-bar .fwnn {
       transition-duration: 0ms !important;
     }
@@ -86,7 +78,6 @@
       // Fix 1stChildElement as a content view
       > scroll-view,
       > [is='sidebar-view'],
-      // > navigation-bar,
       > tool-bar {
         width: var(--nav-split-view-content-width);
 
@@ -96,10 +87,7 @@
       // all descendants (except dialog)
       > body-view {
         scroll-view:not(dialog scroll-view) {
-          // navigation-bar:not(dialog navigation-bar),
-          // bottom-bar:not(dialog bottom-bar) {
           &,
-          // & ~ navigation-bar,
           & ~ tool-bar {
             // add margin to make vts precise
             margin-inline-start: var(--nav-split-view-content-width);
@@ -117,7 +105,6 @@
         // turn 1stChildElement into floating sidebar
         > scroll-view,
         > [is='sidebar-view'],
-        // > navigation-bar,
         > tool-bar {
           width: var(--nav-split-view-sidebar-width); // override
 
@@ -150,7 +137,6 @@
 
             border-radius: var(--tab-bar-sidebar-border-radius);
 
-            // ~ navigation-bar {
             ~ tool-bar {
               --safe-area-inset-top: 0px;
               // max(
@@ -173,10 +159,7 @@
         // all descendants (except dialog)
         > body-view {
           scroll-view:not(dialog scroll-view) {
-            // navigation-bar:not(dialog navigation-bar),
-            // bottom-bar:not(dialog bottom-bar) {
             &,
-            // & ~ navigation-bar,
             & ~ tool-bar {
               // override/reset added margin
               margin-inline-start: 0px;
@@ -185,12 +168,10 @@
               --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)));
             }
             &,
-            // & ~ navigation-bar {
             & ~ tool-bar {
               --safe-area-inset-top: max(env(safe-area-inset-top), var(--tab-bar-sidebar-spacing));
             }
             &,
-            // & ~ bottom-bar {
             & ~ tool-bar {
               --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--tab-bar-sidebar-spacing));
             }
@@ -208,7 +189,6 @@
             &[preferred-compact-column='content'] {
               > scroll-view,
               > [is='sidebar-view'],
-              // > navigation-bar,
               > tool-bar {
                 // hide off screen
                 margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
@@ -217,10 +197,7 @@
               // move descendants to left edge of screen
               > body-view {
                 scroll-view:not(dialog scroll-view) {
-                  // navigation-bar:not(dialog navigation-bar),
-                  // bottom-bar:not(dialog bottom-bar) {
                   &,
-                  // & ~ navigation-bar,
                   & ~ tool-bar {
                     margin-inline-start: var(--nav-split-view-content-width);
 
@@ -229,10 +206,7 @@
                 }
 
                 > scroll-view:not(dialog scroll-view) {
-                  // > navigation-bar:not(dialog navigation-bar),
-                  // > bottom-bar:not(dialog bottom-bar) {
                   &,
-                  // & ~ navigation-bar,
                   & ~ tool-bar {
                     margin-inline-start: 0px;
 
@@ -269,7 +243,6 @@
 
               // shrink 2nd-child
               > scroll-view,
-              // > navigation-bar,
               > tool-bar {
                 width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width)); // shrink to be now a col
 
@@ -279,10 +252,7 @@
               // container of details col (trailing)
               > body-view {
                 scroll-view:not(dialog scroll-view) {
-                  // navigation-bar:not(dialog navigation-bar),
-                  // bottom-bar:not(dialog bottom-bar) {
                   &,
-                  // & ~ navigation-bar,
                   & ~ tool-bar {
                     // --safe-area-inset-left: calc(
                     //   var(--nav-split-view-sidebar-width) +
@@ -319,7 +289,6 @@
         transform: translateX(0px) !important;
 
         // Cancel animations
-        // ~ navigation-bar,
         ~ tool-bar {
           > tool-bar-item,
           > tool-bar-item-group {
@@ -345,7 +314,6 @@
             > scroll-view {
               transform: translateX(0px) !important;
 
-              // ~ navigation-bar,
               ~ tool-bar {
                 > tool-bar-item,
                 > tool-bar-item-group {
@@ -374,7 +342,6 @@
               transform: translateX(0px) !important;
 
               // cancel animations
-              // ~ navigation-bar,
               ~ tool-bar {
                 > tool-bar-item,
                 > tool-bar-item-group {

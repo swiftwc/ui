@@ -63,11 +63,21 @@
 
   @include mixins.if-iphone-landscape {
     scroll-view:not(dialog scroll-view) {
-      tab-view & ~ tool-bar {
-        // FIXME: Make this apply only to navbar and NOT bottombar (add a var)
+      // SECTION: Make room for fixed togle
+      // move ONLY navbar to the side
+      tab-view & ~ tool-bar::part(navigation-bar) {
         --safe-area-inset-left: calc(
           max(env(safe-area-inset-left), var(--tab-bar-sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px)
         );
+      }
+
+      // force navbar visibility bc/ of sidebartoggle shown
+      tab-view & {
+        &::part(#{vars.$scroll-view-navbar-part-name}) {
+          visibility: visible;
+        }
+
+        grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
       }
     }
   }

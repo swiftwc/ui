@@ -35,10 +35,6 @@
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
   [is='sheet-view'] > scroll-view {
-    html:has(#console) & {
-      box-shadow: inset 0 0 0 2px cyan;
-    }
-
     overflow: clip auto;
     @include mixins.contain-overscroll;
 

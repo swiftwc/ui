@@ -30,9 +30,6 @@
     position: relative; // SAFARI BUG
 
     // background-color: blue;
-    html:has(#console) & {
-      box-shadow: inset 0 0 4px red;
-    }
 
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     pointer-events: none;

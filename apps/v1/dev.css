@@ -1,66 +1,3 @@
-@layer final {
-  #console {
-    position: fixed;
-    left: 30%;
-    bottom: 50%;
-    z-index: 999999999;
-  }
-  #tb {
-    position: fixed;
-    box-shadow: inset 0 0 0 12px greenyellow;
-    top: env(titlebar-area-y);
-    width: env(titlebar-area-width);
-    left: env(titlebar-area-x);
-    height: env(titlebar-area-height);
-    z-index: 999999999;
-  }
-  #sa {
-    position: fixed;
-    box-shadow: inset 0 0 0 10px green;
-    inset: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
-    z-index: 999999999;
-  }
-  #kb {
-    display: grid;
-    position: fixed;
-    box-shadow: inset 0 0 0 8px red;
-    background-color: rosybrown;
-    top: env(keyboard-inset-top, var(--keyboard-inset-top));
-    /* right: env(keyboard-inset-right, 0); */
-    left: env(keyboard-inset-left, 0);
-    /* bottom: env(keyboard-inset-bottom, 0px); */
-    height: env(keyboard-inset-height, var(--keyboard-inset-height));
-    width: env(keyboard-inset-width, 100lvw);
-    z-index: 999999999;
-  }
-  #dv {
-    position: fixed;
-    box-shadow: inset 0 0 0 6px blue;
-    top: 0vh;
-    left: 0vw;
-    width: 100vw;
-    height: 100vh;
-    z-index: 999999999;
-  }
-  #sv {
-    position: fixed;
-    box-shadow: inset 0 0 0 4px magenta;
-    top: 0svh;
-    left: 0svw;
-    width: 100svw;
-    height: 100svh;
-    z-index: 999999999;
-  }
-  #lv {
-    position: fixed;
-    box-shadow: inset 0 0 0 2px maroon;
-    top: 0lvh;
-    left: 0lvw;
-    width: 100lvw;
-    height: 100lvh;
-    z-index: 999999999;
-  }
-}
 @layer components {
   :root {
     --safe-area-inset-top: env(safe-area-inset-top);
@@ -94,10 +31,6 @@
     :root {
       --primary-bg: oklch(0 0 0);
     }
-  }
-  :root html:has(#console) {
-    --primary-bg: aliceblue;
-    --secondary-bg: burlywood;
   }
   :root {
     --view-transition-leading-x: -50%;
@@ -964,14 +897,6 @@
   scroll-view:has(> [slot^=bottom-bar]) > *:not([slot]) {
     margin-block-end: var(--tool-bar-height);
   }
-  html:has(#console) navigation-stack > scroll-view,
-  html:has(#console) navigation-split-view > scroll-view,
-  html:has(#console) navigation-split-view > [is=sidebar-view] > scroll-view,
-  html:has(#console) body-view > scroll-view,
-  html:has(#console) [is=full-screen] > scroll-view,
-  html:has(#console) [is=sheet-view] > scroll-view {
-    box-shadow: inset 0 0 0 2px cyan;
-  }
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
   navigation-split-view > [is=sidebar-view] > scroll-view,
@@ -1044,11 +969,6 @@
   v-stack {
     place-items: center;
     grid-template-columns: minmax(0, 1fr);
-  }
-  v-stack html:has(#console) {
-    box-shadow: inset 0 0 0 2px magenta;
-  }
-  v-stack {
     place-content: center;
   }
 }
@@ -1082,16 +1002,6 @@
   ::part(scroll-view-toolbar-stack)::after {
     content: "";
     display: grid;
-  }
-  html:has(#console) ::part(scroll-view-navbar-stack)::before,
-  html:has(#console) ::part(scroll-view-toolbar-stack)::before {
-    height: 20px;
-    background: green;
-  }
-  html:has(#console) ::part(scroll-view-navbar-stack)::after,
-  html:has(#console) ::part(scroll-view-toolbar-stack)::after {
-    height: 20px;
-    background: darkgoldenrod;
   }
   ::part(scroll-view-navbar) {
     top: 0;
@@ -1240,13 +1150,6 @@
   ::part(navigation-bar),
   ::part(bottom-bar) {
     position: relative;
-  }
-  html:has(#console) ::part(navigation-bar),
-  html:has(#console) ::part(bottom-bar) {
-    box-shadow: inset 0 0 4px red;
-  }
-  ::part(navigation-bar),
-  ::part(bottom-bar) {
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     pointer-events: none;
     grid-template-columns: auto 1fr auto;
@@ -1305,6 +1208,7 @@
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     grid-template-areas: "label-image-stack" "label-title-stack";
+    gap: 0.3rem;
   }
   i-label > *:not([slot]) {
     grid-area: label-title-stack;
@@ -1312,9 +1216,8 @@
   ::part(label-image-stack) {
     aspect-ratio: 1/1;
     width: 2rem;
-  }
-  html:has(#console) ::part(label-image-stack) {
-    box-shadow: inset 0 0 0 4px coral;
+    font-size: 2rem;
+    line-height: 1;
   }
   ::part(label-title-stack) {
     text-decoration: underline;
@@ -1512,50 +1415,140 @@
   [is=full-screen] {
     --canvas-bg: var(--secondary-bg);
   }
-  html:has(#console) body-view {
+}
+@layer final {
+  #console {
+    position: fixed;
+    left: 30%;
+    bottom: 50%;
+    z-index: 999999999;
+  }
+  #tb {
+    position: fixed;
+    box-shadow: inset 0 0 0 12px greenyellow;
+    top: env(titlebar-area-y);
+    width: env(titlebar-area-width);
+    left: env(titlebar-area-x);
+    height: env(titlebar-area-height);
+    z-index: 999999999;
+  }
+  #sa {
+    position: fixed;
+    box-shadow: inset 0 0 0 10px green;
+    inset: env(safe-area-inset-top) env(safe-area-inset-right) env(safe-area-inset-bottom) env(safe-area-inset-left);
+    z-index: 999999999;
+  }
+  #kb {
+    display: grid;
+    position: fixed;
+    box-shadow: inset 0 0 0 8px red;
+    background-color: rosybrown;
+    top: env(keyboard-inset-top, var(--keyboard-inset-top));
+    /* right: env(keyboard-inset-right, 0); */
+    left: env(keyboard-inset-left, 0);
+    /* bottom: env(keyboard-inset-bottom, 0px); */
+    height: env(keyboard-inset-height, var(--keyboard-inset-height));
+    width: env(keyboard-inset-width, 100lvw);
+    z-index: 999999999;
+  }
+  #dv {
+    position: fixed;
+    box-shadow: inset 0 0 0 6px blue;
+    top: 0vh;
+    left: 0vw;
+    width: 100vw;
+    height: 100vh;
+    z-index: 999999999;
+  }
+  #sv {
+    position: fixed;
+    box-shadow: inset 0 0 0 4px magenta;
+    top: 0svh;
+    left: 0svw;
+    width: 100svw;
+    height: 100svh;
+    z-index: 999999999;
+  }
+  #lv {
+    position: fixed;
+    box-shadow: inset 0 0 0 2px maroon;
+    top: 0lvh;
+    left: 0lvw;
+    width: 100lvw;
+    height: 100lvh;
+    z-index: 999999999;
+  }
+  :root {
+    --primary-bg: aliceblue;
+    --secondary-bg: burlywood;
+  }
+  ::part(label-image-stack) {
+    box-shadow: inset 0 0 0 4px coral;
+  }
+  v-stack {
+    box-shadow: inset 0 0 0 2px magenta;
+  }
+  ::part(navigation-bar),
+  ::part(bottom-bar) {
+    box-shadow: inset 0 0 4px red;
+  }
+  scroll-view {
+    box-shadow: inset 0 0 0 2px cyan;
+  }
+  ::part(scroll-view-navbar-stack)::before,
+  ::part(scroll-view-toolbar-stack)::before {
+    height: 20px;
+    background: green;
+  }
+  ::part(scroll-view-navbar-stack)::after,
+  ::part(scroll-view-toolbar-stack)::after {
+    height: 20px;
+    background: darkgoldenrod;
+  }
+  body-view {
     --primary-bg: oklch(0.984 0.019 200.873);
     --secondary-bg: oklch(0.984 0.019 200.873);
   }
-  html:has(#console) body-view > body-view {
+  body-view > body-view {
     --primary-bg: oklch(0.956 0.045 203.388);
     --secondary-bg: oklch(0.956 0.045 203.388);
   }
-  html:has(#console) body-view > body-view > body-view {
+  body-view > body-view > body-view {
     --primary-bg: oklch(0.917 0.08 205.041);
     --secondary-bg: oklch(0.917 0.08 205.041);
   }
-  html:has(#console) body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.865 0.127 207.078);
     --secondary-bg: oklch(0.865 0.127 207.078);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.789 0.154 211.53);
     --secondary-bg: oklch(0.789 0.154 211.53);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.715 0.143 215.221);
     --secondary-bg: oklch(0.715 0.143 215.221);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.609 0.126 221.723);
     --secondary-bg: oklch(0.609 0.126 221.723);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.52 0.105 223.128);
     --secondary-bg: oklch(0.52 0.105 223.128);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.45 0.085 224.283);
     --secondary-bg: oklch(0.45 0.085 224.283);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.398 0.07 227.392);
     --secondary-bg: oklch(0.398 0.07 227.392);
   }
-  html:has(#console) body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
     --primary-bg: oklch(0.302 0.056 229.695);
     --secondary-bg: oklch(0.302 0.056 229.695);
   }
 }
 
-/*# sourceMappingURL=styles.css.map */
+/*# sourceMappingURL=dev.css.map */

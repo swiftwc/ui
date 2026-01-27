@@ -38,4 +38,24 @@ export class ILabel extends HTMLElement {
   connectedCallback() {
     console.debug(`${ILabel.name} ⚡️ connect`)
   }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.debug(`${ILabel.name} ⚡️ [${name}] change`)
+
+    Snapshot.waitReady.then(() => {
+      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
+      if (!slot) return
+
+      const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
+
+      let el = assigned[0] as HTMLElement | undefined
+      if (!el) {
+        el = document.createElement('i')
+        el.slot = 'image'
+        this.append(el)
+      }
+
+      el.setAttribute('class', `ph ph-${newValue}`)
+    })
+  }
 }

@@ -48,11 +48,6 @@
       --primary-bg: oklch(0 0 0);
     }
 
-    html:has(#console) {
-      --primary-bg: aliceblue;
-      --secondary-bg: burlywood;
-    }
-
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;

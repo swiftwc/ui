@@ -54,7 +54,7 @@
     "build": "npm run build:ts && npm run build:scss",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
-    "build:scss": "sass --no-source-map scss/index.scss generated/css/index.css",
+    "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write"
   },

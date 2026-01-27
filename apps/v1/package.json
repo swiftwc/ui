@@ -4,8 +4,9 @@
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "dev:scss": "sass ../../packages/ui/scss/index.scss styles.css --watch",
-    "dev:tunnel": "ngrok http --config .config/ngrok.yml 5173"
+    "dev:scss": "sass dev.scss dev.css --watch",
+    "dev:tunnel": "ngrok http --config .config/ngrok.yml 5173",
+    "preview:scss": "sass ../../packages/ui/scss/index.scss preview.css --watch"
   },
   "devDependencies": {
     "vite": "^7.3.1"

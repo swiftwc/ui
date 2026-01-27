@@ -33,12 +33,7 @@ export class ScrollView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(
-        document.importNode(
-          (this.constructor as typeof ScrollView).template.content,
-          true
-        )
-      )
+      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
     })
 
     // this.addEventListener(
@@ -55,26 +50,18 @@ export class ScrollView extends HTMLElement {
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
-      createHTML: (string: string) =>
-        string
-          .replace(/&/g, '&amp;')
-          .replace(/</g, '&lt;')
-          .replace(/>/g, '&gt;')
-          .replace(/"/g, '&quot;')
-          .replace(/'/g, '&#39;'),
+      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
     })
 
     Snapshot.waitReady.then(() => {
-      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>(
-        'slot[name=navigation-bar-principal]'
-      )
+      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')
       if (!slot) return
 
       const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
 
       let el = assigned[0] as HTMLElement | undefined
       if (!el) {
-        el = document.createElement('span')
+        el = document.createElement('i-label')
         el.slot = 'navigation-bar-principal'
         this.append(el)
       }
@@ -141,12 +128,7 @@ export class ScrollView extends HTMLElement {
     const childRect = child.getBoundingClientRect()
 
     // current scroll + offset of child relative to parent
-    const scrollTop =
-      this.scrollTop +
-      childRect.top -
-      parentRect.top -
-      parentRect.height / 2 +
-      childRect.height / 2
+    const scrollTop = this.scrollTop + childRect.top - parentRect.top - parentRect.height / 2 + childRect.height / 2
 
     this.scrollTo({
       top: scrollTop,

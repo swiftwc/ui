@@ -50,21 +50,6 @@
     }
   }
 
-  html:has(#console) {
-    ::part(#{vars.$scroll-view-navbar-stack-part-name}),
-    ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
-      &::before {
-        height: 20px;
-        background: green;
-      }
-
-      &::after {
-        height: 20px;
-        background: darkgoldenrod;
-      }
-    }
-  }
-
   ::part(#{vars.$scroll-view-navbar-part-name}) {
     top: 0;
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));

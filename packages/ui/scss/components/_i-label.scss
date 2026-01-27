@@ -12,6 +12,8 @@
       'label-image-stack'
       'label-title-stack';
 
+    gap: 0.3rem;
+
     & > *:not([slot]) {
       grid-area: label-title-stack;
     }
@@ -25,10 +27,8 @@
     aspect-ratio: 1 / 1;
 
     width: 2rem;
-
-    html:has(#console) & {
-      box-shadow: inset 0 0 0 4px coral;
-    }
+    font-size: 2rem;
+    line-height: 1;
   }
 
   ::part(label-title-stack) {

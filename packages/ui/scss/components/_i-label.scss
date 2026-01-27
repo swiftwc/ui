@@ -12,13 +12,18 @@
 
     gap: 0.3rem;
 
-    & > *:not([slot]) {
+    > *:not([slot]) {
       grid-area: label-title-stack;
+    }
+
+    &[line-limit='1'] {
+      white-space: nowrap;
     }
   }
 
   ::part(label-image-stack),
   ::part(label-title-stack) {
+    // grid-auto-columns: minmax(0, 1fr);
   }
 
   ::part(label-image-stack) {
@@ -27,9 +32,24 @@
     width: 2rem;
     font-size: 2rem;
     line-height: 1;
+
+    grid-area: label-image-stack;
   }
 
   ::part(label-title-stack) {
     text-decoration: underline;
+
+    grid-area: label-title-stack;
+  }
+
+  // i-label[line-limit='1']::part(label-title-stack) {
+  //   white-space: nowrap;
+  // }
+
+  i-label[truncation-mode='tail'] {
+    > *:not([slot]) {
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
   }
 }

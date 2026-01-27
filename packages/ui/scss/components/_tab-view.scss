@@ -142,15 +142,15 @@
 }
 
 @layer #{vars.$final-layer} {
-  @include mixins.if-iphone-landscape {
-    ::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-      &::before {
-        width: calc(
-          var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px) + max(env(safe-area-inset-left), var(--sidebar-spacing))
-        );
-      }
-    }
-  }
+  // @include mixins.if-iphone-landscape {
+  //   ::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  //     &::before {
+  //       width: calc(
+  //         var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px) + max(env(safe-area-inset-left), var(--sidebar-spacing))
+  //       );
+  //     }
+  //   }
+  // }
   @include mixins.if-ipad-portrait {
     scroll-view:not(dialog scroll-view) {
       tab-view navigation-stack > &,

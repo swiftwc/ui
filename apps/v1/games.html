@@ -138,12 +138,12 @@
         <tool-bar>
           <tool-bar-item slot="leading">
             <button type="button">
-              <i-label><i-label>leading</i-label></i-label>
+              <i-label title="leading" />
             </button>
           </tool-bar-item>
           <tool-bar-item slot="trailing">
             <button type="button">
-              <i-label><i-label>trailing</i-label></i-label>
+              <i-label title="trailing" />
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -152,9 +152,7 @@
       <sidebar-toggle>
         <tool-bar-item>
           <button type="button">
-            <i-label>
-              <i class="ph ph-sidebar"></i>
-            </i-label>
+            <i-label system-image="sidebar" />
           </button>
         </tool-bar-item>
       </sidebar-toggle>
@@ -163,19 +161,17 @@
         <scroll-view>
           <form is="tab-bar-stack">
             <button is="tab-item" value="home">
-              <i-label>Home</i-label>
+              <i-label title="Home" />
             </button>
             <button is="tab-item" value="library">
-              <i-label>Library</i-label>
+              <i-label title="Library" />
             </button>
           </form>
         </scroll-view>
         <sidebar-toggle>
           <!-- <tab-item> -->
           <button type="button">
-            <i-label>
-              <i class="ph ph-sidebar"></i>
-            </i-label>
+            <i-label system-image="sidebar" />
           </button>
           <!-- </tab-item> -->
         </sidebar-toggle>

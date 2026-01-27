@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 
 export class ILabel extends HTMLElement {
-  static observedAttributes = ['system-image']
+  static observedAttributes = ['system-image', 'title', 'line-limit', 'truncation-mode']
 
   static #template: HTMLTemplateElement
 
@@ -42,20 +42,45 @@ export class ILabel extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
     console.debug(`${ILabel.name} ⚡️ [${name}] change`)
 
+    // @ts-expect-error
+    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
+      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
+    })
+
     Snapshot.waitReady.then(() => {
-      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
-      if (!slot) return
+      switch (name) {
+        case 'system-image':
+          const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
+          if (!imgSlot) break
 
-      const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
+          const assigned = imgSlot.assignedElements({ flatten: true }) as HTMLElement[]
 
-      let el = assigned[0] as HTMLElement | undefined
-      if (!el) {
-        el = document.createElement('i')
-        el.slot = 'image'
-        this.append(el)
+          let el = assigned[0] as HTMLElement | undefined
+          if (!el) {
+            el = document.createElement('i')
+            el.slot = 'image'
+            this.append(el)
+          }
+
+          el.setAttribute('class', `ph ph-${newValue}`)
+
+          break
+        case 'title':
+          const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
+          if (!titleSlot) break
+
+          const assigned2 = titleSlot.assignedElements({ flatten: true }) as HTMLElement[]
+
+          let el2 = assigned2[0] as HTMLElement | undefined
+          if (!el2) {
+            el2 = document.createElement('span')
+            this.append(el2)
+          }
+
+          el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+
+          break
       }
-
-      el.setAttribute('class', `ph ph-${newValue}`)
     })
   }
 }

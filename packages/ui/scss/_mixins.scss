@@ -5,6 +5,16 @@
   grid-row: 1 / -1; // span all rows
 }
 
+@mixin reposition-sentinel-for-sidebar {
+  &::before {
+    margin-inline-start: calc(env(safe-area-inset-left) * -1);
+    width: calc(
+      max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
+        var(--navbar-padding-inline-start, 0px)
+    );
+  }
+}
+
 @mixin create-v-scroll-view {
   grid-template-columns: minmax(0, 1fr);
   grid-template-rows: 0 minmax(max-content, 1fr);

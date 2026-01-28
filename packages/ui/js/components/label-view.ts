@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 
-export class ILabel extends HTMLElement {
-  static observedAttributes = ['system-image', 'title', 'line-limit', 'truncation-mode']
+export class LabelView extends HTMLElement {
+  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode']
 
   static #template: HTMLTemplateElement
 
@@ -27,20 +27,32 @@ export class ILabel extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ILabel).template.content, true))
+      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
+
+      const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')!
+      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')!
+
+      const update = () => {
+        this.toggleAttribute('has-title', slot.assignedElements({ flatten: true }).length > 0)
+        this.toggleAttribute('has-image', imgSlot.assignedElements({ flatten: true }).length > 0)
+      }
+
+      slot.addEventListener('slotchange', update)
+      imgSlot.addEventListener('slotchange', update)
+      update()
     })
   }
 
   disconnectedCallback() {
-    console.debug(`${ILabel.name} ⚡️ disconnect`)
+    console.debug(`${LabelView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    console.debug(`${ILabel.name} ⚡️ connect`)
+    console.debug(`${LabelView.name} ⚡️ connect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.debug(`${ILabel.name} ⚡️ [${name}] change`)
+    console.debug(`${LabelView.name} ⚡️ [${name}] change`)
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
@@ -65,7 +77,7 @@ export class ILabel extends HTMLElement {
           el.setAttribute('class', `ph ph-${newValue}`)
 
           break
-        case 'title':
+        case 'label':
           const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
           if (!titleSlot) break
 

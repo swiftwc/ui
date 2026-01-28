@@ -77,6 +77,7 @@
     @include mixins.if-2col-split-view-fits {
       // Fix 1stChildElement as a content view
       > scroll-view,
+      > tool-bar,
       > [is='sidebar-view'] {
         width: var(--nav-split-view-content-width);
 
@@ -91,8 +92,14 @@
             // add margin to make vts precise
             margin-inline-start: var(--nav-split-view-content-width);
 
-            // reset start padding
-            --safe-area-inset-left: 0px;
+            --safe-area-inset-left: 0px; // reset start padding
+
+            #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
+            // --navbar-padding-inline-start: 0px !important;
+          }
+
+          & ~ tool-bar::part(navigation-bar) {
+            --safe-area-inset-left: 0px; // tabview adds to safe area in navbars. reset it
           }
         }
       }
@@ -222,16 +229,17 @@
 
                   // reapply correctly (add safearea) to most left col of navbar measurer
                   &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-                    &::before {
-                      // --sidebar-toggle-padding-inline-start: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
-                      // FIXME: iOS bug??!!
-                      margin-inline-start: calc(env(safe-area-inset-left) * -1);
+                    @include mixins.reposition-sentinel-for-sidebar;
+                    // &::before {
+                    //   // --sidebar-toggle-padding-inline-start: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
+                    //   // FIXME: iOS bug??!!
+                    //   margin-inline-start: calc(env(safe-area-inset-left) * -1);
 
-                      width: calc(
-                        max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) +
-                          var(--navbar-padding-inline-start, 0px)
-                      );
-                    }
+                    //   width: calc(
+                    //     max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) +
+                    //       var(--navbar-padding-inline-start, 0px)
+                    //   );
+                    // }
                   }
                 }
 

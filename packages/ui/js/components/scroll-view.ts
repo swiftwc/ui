@@ -61,7 +61,7 @@ export class ScrollView extends HTMLElement {
 
       let el = assigned[0] as HTMLElement | undefined
       if (!el) {
-        el = document.createElement('i-label')
+        el = document.createElement('label-view')
         el.slot = 'navigation-bar-principal'
         this.append(el)
       }

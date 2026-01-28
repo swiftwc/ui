@@ -77,6 +77,10 @@
 
         grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
       }
+
+      tab-view navigation-split-view > &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+        @include mixins.reposition-sentinel-for-sidebar;
+      }
     }
   }
 

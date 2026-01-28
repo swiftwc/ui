@@ -170,7 +170,7 @@
   ::part(bottom-bar),
   [is=tab-bar-stack],
   v-stack,
-  i-label,
+  label-view,
   ::part(label-image-stack),
   ::part(label-title-stack),
   ::part(scroll-view-navbar),
@@ -255,6 +255,10 @@
     }
     tab-view scroll-view:not(dialog scroll-view) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    }
+    tab-view navigation-split-view > scroll-view:not(dialog scroll-view)::part(scroll-view-navbar-stack)::before {
+      margin-inline-start: calc(env(safe-area-inset-left) * -1);
+      width: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) + var(--navbar-padding-inline-start, 0px));
     }
   }
   /* @include mixins.if-ipad-portrait {
@@ -700,12 +704,17 @@
   }
   @media (min-width: 43rem) {
     navigation-split-view > scroll-view,
+    navigation-split-view > tool-bar,
     navigation-split-view > [is=sidebar-view] {
       width: var(--nav-split-view-content-width);
       --safe-area-inset-right: 0px;
     }
     navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar {
       margin-inline-start: var(--nav-split-view-content-width);
+      --safe-area-inset-left: 0px;
+      --sidebar-toggle-padding-inline-start: 0px;
+    }
+    navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar::part(navigation-bar) {
       --safe-area-inset-left: 0px;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > scroll-view,
@@ -1189,33 +1198,55 @@
   }
 }
 @layer components {
-  i-label {
+  label-view {
     place-items: center;
     place-content: center;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-auto-flow: column;
+    grid-auto-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    grid-template-areas: "label-image-stack label-title-stack";
+  }
+  label-view > *:not([slot]) {
+    overflow: var(--label-overflow);
+    text-overflow: var(--label-text-overflow);
+  }
+  label-view[line-limit="1"] {
+    --label-white-space: nowrap;
+  }
+  label-view {
+    white-space: var(--label-white-space);
+  }
+  label-view[has-image][has-title] {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
+  label-view[has-title] {
     gap: 0.3rem;
   }
-  i-label > *:not([slot]) {
-    grid-area: label-title-stack;
+  label-view[has-image]::part(label-image-stack) {
+    display: grid;
   }
-  i-label[line-limit="1"] {
-    white-space: nowrap;
+  label-view[has-title]::part(label-title-stack) {
+    display: grid;
+  }
+  label-view {
+    --label-image-size: 2rem;
+  }
+  ::part(label-image-stack),
+  ::part(label-title-stack) {
+    display: none;
+    grid-auto-columns: minmax(0, 1fr);
+    grid-auto-rows: minmax(0, 1fr);
   }
   ::part(label-image-stack) {
     aspect-ratio: 1/1;
-    width: 2rem;
-    font-size: 2rem;
-    grid-area: label-image-stack;
+    width: var(--label-image-size);
+    font-size: var(--label-image-size);
   }
   ::part(label-title-stack) {
     text-decoration: underline;
-    grid-area: label-title-stack;
   }
-  i-label[truncation-mode=tail] > *:not([slot]) {
-    overflow: hidden;
-    text-overflow: ellipsis;
+  label-view[truncation-mode=tail] > *:not([slot]) {
+    --label-overflow: hidden;
+    --label-text-overflow: ellipsis;
   }
 }
 @layer transitions {

@@ -3,29 +3,15 @@
   <head>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" /> -->
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>books</title>
-    <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
-    <style>
-      :root {
-        font-family: Inter, sans-serif;
-        font-feature-settings:
-          'liga' 1,
-          'calt' 1;
-      }
-      @supports (font-variation-settings: normal) {
-        :root {
-          font-family: InterVariable, sans-serif;
-        }
-      }
-    </style>
+    <title>tab-view</title>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -36,65 +22,66 @@
     </div>
 
     <tab-view>
-      <navigation-split-view id="ns1">
-        <scroll-view navigation-title="ghjf0">
-          <v-stack>
-            <p>...</p>
-            ns1section0<button type="button" class="fw">...</button>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-          </v-stack>
-        </scroll-view>
+      <navigation-split-view column-visibility="double-column" id="ns1">
+        <dialog is="sidebar-view">
+          <scroll-view navigation-title="ghjf0">
+            <v-stack>
+              <p>...</p>
+              ns1section0<button type="button" class="fw">...</button>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <hr style="width: 100%" />
+              <hr style="width: 100cqi" />
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+            </v-stack>
+          </scroll-view>
 
-        <tool-bar>
-          <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
-          </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
-          <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
-          </tool-bar-item>
-        </tool-bar>
-
+          <tool-bar>
+            <tool-bar-item slot="navigation-bar-leading">
+              <button type="button"><label-view label="leading" /></button>
+            </tool-bar-item>
+            <!-- <tool-bar-item>2</tool-bar-item> -->
+            <tool-bar-item slot="navigation-bar-trailing">
+              <button type="button"><label-view label="trailing" /></button>
+            </tool-bar-item>
+          </tool-bar>
+        </dialog>
         <sidebar-toggle>
           <tool-bar-item>
             <button type="button"><label-view label="sss333344" /></button>
@@ -154,15 +141,7 @@
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button"><label-view label="leading" /></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
-          </tool-bar-item>
-          <tool-bar-item slot="bottom-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
-          </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
-          <tool-bar-item slot="bottom-bar-trailing">
             <button type="button"><label-view label="trailing" /></button>
           </tool-bar-item>
         </tool-bar>
@@ -280,7 +259,6 @@
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button"><label-view label="leading" /></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button"><label-view label="trailing" /></button>
           </tool-bar-item>
@@ -289,14 +267,14 @@
 
       <sidebar-toggle>
         <tool-bar-item>
-          <button type="button">
+          <button type="button" tabindex="0">
             <label-view label="tabsdbr" />
           </button>
         </tool-bar-item>
       </sidebar-toggle>
 
       <dialog is="tab-bar">
-        <!-- <input type="checkbox" /> -->
+        <!-- WORKS!<scroll-view navigation-title="sdbarrr"> -->
         <scroll-view>
           <form is="tab-bar-stack">
             <button is="tab-item" value="ns1">
@@ -304,99 +282,6 @@
             </button>
             <button is="tab-item" value="ns2">
               <label-view label="Order" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more" type="button">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
-            </button>
-            <button is="tab-item" value="more">
-              <label-view label="More" />
             </button>
             <button is="tab-item" value="more">
               <label-view label="More" />
@@ -451,21 +336,17 @@
             </button>
           </form>
         </scroll-view>
-        <!-- add this for MORE fn on iPad -->
-        <sidebar-toggle>
-          <!-- <tab-item> -->
-          <button type="button"><label-view label="sss3" /></button>
-          <!-- </tab-item> -->
-        </sidebar-toggle>
-        <!-- <navigation-bar>
-          <tool-bar-item slot="leading">
+        <!-- <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
             <button type="button"><label-view label="leading" /></button>
           </tool-bar-item>
-
-          <tool-bar-item slot="trailing">
+          <tool-bar-item slot="navigation-bar-trailing">
             <button type="button"><label-view label="trailing" /></button>
           </tool-bar-item>
-        </navigation-bar> -->
+        </tool-bar> -->
+        <sidebar-toggle>
+          <button is="tab-item" type="button"><label-view label="sss3" /></button>
+        </sidebar-toggle>
       </dialog>
     </tab-view>
 

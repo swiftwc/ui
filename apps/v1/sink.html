@@ -2,33 +2,25 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
-    <script src="https://unpkg.com/@phosphor-icons/web"></script>
-    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" />
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
-    <title>books</title>
-    <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
-    <style>
-      :root {
-        font-family: Inter, sans-serif;
-        font-feature-settings:
-          'liga' 1,
-          'calt' 1;
-      }
-      @supports (font-variation-settings: normal) {
-        :root {
-          font-family: InterVariable, sans-serif;
-        }
-      }
-    </style>
+    <title>kitchensink</title>
   </head>
   <body>
     <v-keyboard></v-keyboard>
+
+    <!-- <div id="tb" inert></div>
+    <div id="sa" inert></div>
+    <div id="kb" inert></div>
+    <div id="dv" inert></div>
+    <div id="sv" inert></div>
+    <div id="lv" inert></div> -->
 
     <div id="console" popover="manual" inert>
       <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
@@ -36,7 +28,9 @@
     </div>
 
     <tab-view>
-      <navigation-split-view id="ns1">
+      <!-- Prefer compact col = make sidebar retractable on compact layouts ONLY on 3col layouts (no double-cols) -->
+      <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1">
+        <!-- <dialog is="sidebar-view"> -->
         <scroll-view navigation-title="ghjf0">
           <v-stack>
             <p>...</p>
@@ -94,7 +88,7 @@
             <button type="button"><label-view label="trailing" /></button>
           </tool-bar-item>
         </tool-bar>
-
+        <!-- </dialog> -->
         <sidebar-toggle>
           <tool-bar-item>
             <button type="button"><label-view label="sss333344" /></button>

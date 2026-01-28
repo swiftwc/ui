@@ -26,7 +26,7 @@ SwiftWC uses a declarative syntax.
       name="apple-mobile-web-app-status-bar-style"
       content="black-translucent"
     />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>hello-world</title>
   </head>
   <body>

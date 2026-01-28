@@ -229,34 +229,45 @@
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
   }
+  @media (pointer: coarse) {
+    tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] scroll-view:not(dialog scroll-view) ~ tool-bar {
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+    }
+    tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
+    tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(> [slot^=bottom-bar])) {
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--tab-bar-iphone-height));
+    }
+  }
   @media (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
-    tab-view navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar])),
-    tab-view navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar])),
-    tab-view body-view > scroll-view:not(:has(> [slot^=bottom-bar])) {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar])),
+    tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(> [slot^=bottom-bar])) {
       --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--tab-bar-iphone-height));
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    tab-view scroll-view:not(dialog scroll-view) ~ tool-bar::part(navigation-bar) {
+    tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) ~ tool-bar::part(navigation-bar) {
       --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
     }
-    tab-view scroll-view:not(dialog scroll-view)::part(scroll-view-navbar) {
+    tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view)::part(scroll-view-navbar) {
       visibility: visible;
     }
-    tab-view scroll-view:not(dialog scroll-view) {
+    tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
-    tab-view navigation-split-view > scroll-view:not(dialog scroll-view)::part(scroll-view-navbar-stack)::before {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view)::part(scroll-view-navbar-stack)::before {
       margin-inline-start: calc(env(safe-area-inset-left) * -1);
       width: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) + var(--navbar-padding-inline-start, 0px));
     }
@@ -283,17 +294,25 @@
     }
   } */
   @media (min-width: 68rem) and (orientation: landscape) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-width));
     }
   }
 }
 @layer final {
-  @media (min-width: 43rem) and (orientation: portrait) {
-    tab-view navigation-stack > scroll-view:not(dialog scroll-view), tab-view navigation-split-view > scroll-view:not(dialog scroll-view), tab-view body-view > scroll-view:not(dialog scroll-view), tab-view scroll-view:not(dialog scroll-view) ~ tool-bar {
+  @media (pointer: fine) {
+    tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] scroll-view:not(dialog scroll-view) ~ tool-bar {
       --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
     }
-    tab-view navigation-split-view > [is=sidebar-view] {
+    tab-view[tab-view-style=tab-bar-only] navigation-split-view > [is=sidebar-view] {
+      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+    }
+  }
+  @media (min-width: 43rem) and (orientation: portrait) {
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view) ~ tool-bar {
+      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] {
       padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
     }
   }
@@ -317,15 +336,15 @@
     transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
     touch-action: none;
   }
-  @media (max-width: 42.9999rem) and (orientation: portrait) {
-    [is=tab-bar] {
+  @media (pointer: coarse) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] {
       inset: auto 0 0 0;
       width: 100lvw;
       place-content: center;
       grid-auto-flow: column;
       pointer-events: none;
     }
-    [is=tab-bar]:before, [is=tab-bar]:after {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:before, tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:after {
       backface-visibility: hidden;
       content: "";
       inset: 0;
@@ -333,19 +352,118 @@
       pointer-events: none;
       z-index: -1;
     }
-    [is=tab-bar]:before {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:before {
       backdrop-filter: blur(2px);
       mask-image: linear-gradient(to top, #000 50%, rgba(0, 0, 0, 0) 100%);
     }
-    [is=tab-bar]:after {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:after {
       background-image: linear-gradient(to top, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
     }
-    [is=tab-bar]:not([open]) tool-bar,
-    [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
-    [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) tool-bar,
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
       display: none;
     }
-    [is=tab-bar] > scroll-view {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view {
+      margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+      max-width: var(--tab-bar-iphone-max-width);
+      height: var(--tab-bar-iphone-height);
+      border-radius: var(--tab-bar-iphone-border-radius);
+      background: oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha));
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
+      overflow: clip;
+      pointer-events: all;
+    }
+  }
+  @media (pointer: fine) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] {
+      width: var(--tab-bar-ipad-width);
+      height: var(--tab-bar-ipad-height);
+      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
+      transform: translateX(-50%);
+      background: oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha));
+      backdrop-filter: blur(4px);
+      box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
+      border-radius: var(--tab-bar-ipad-border-radius);
+      grid-auto-flow: column;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) tool-bar,
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
+      display: none;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] {
+      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
+      height: auto;
+      transform: translateX(0);
+      width: var(--sidebar-width);
+      border-radius: var(--sidebar-border-radius);
+      grid-auto-flow: row;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > * {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+      --safe-area-inset-top: 0px !important;
+      --safe-area-inset-bottom: 0px !important;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 0 minmax(max-content, 1fr);
+      grid-template-areas: "toolbar" "main";
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view > *:not([slot]) {
+      grid-area: main;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view:has(> [slot^=navigation-bar]) {
+      grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view {
+      --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view::part(scroll-view-navbar-stack)::before {
+      width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view ~ tool-bar::part(navigation-bar) {
+      --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px);
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle)::part(scroll-view-navbar) {
+      visibility: visible;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle) {
+      grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    }
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] {
+      inset: auto 0 0 0;
+      width: 100lvw;
+      place-content: center;
+      grid-auto-flow: column;
+      pointer-events: none;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:before, tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:after {
+      backface-visibility: hidden;
+      content: "";
+      inset: 0;
+      position: absolute;
+      pointer-events: none;
+      z-index: -1;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:before {
+      backdrop-filter: blur(2px);
+      mask-image: linear-gradient(to top, #000 50%, rgba(0, 0, 0, 0) 100%);
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:after {
+      background-image: linear-gradient(to top, var(--canvas-bg) 0, rgba(0, 0, 0, 0) 100%);
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) tool-bar,
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
+      display: none;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
       margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-width: var(--tab-bar-iphone-max-width);
@@ -359,7 +477,7 @@
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
-    [is=tab-bar] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] {
       width: var(--tab-bar-ipad-width);
       height: var(--tab-bar-ipad-height);
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
@@ -370,12 +488,12 @@
       border-radius: var(--tab-bar-ipad-border-radius);
       grid-auto-flow: column;
     }
-    [is=tab-bar]:not([open]) tool-bar,
-    [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
-    [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) tool-bar,
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) ::part(scroll-view-navbar),
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) ::part(scroll-view-toolbar) {
       display: none;
     }
-    [is=tab-bar][open] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
       height: auto;
       transform: translateX(0);
@@ -383,41 +501,41 @@
       border-radius: var(--sidebar-border-radius);
       grid-auto-flow: row;
     }
-    [is=tab-bar][open] > * {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > * {
       grid-column: 1/-1;
       grid-row: 1/-1;
       --safe-area-inset-top: 0px !important;
       --safe-area-inset-bottom: 0px !important;
     }
-    [is=tab-bar][open] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 0 minmax(max-content, 1fr);
       grid-template-areas: "toolbar" "main";
     }
-    [is=tab-bar][open] > scroll-view > *:not([slot]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view > *:not([slot]) {
       grid-area: main;
     }
-    [is=tab-bar][open] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), [is=tab-bar][open] > scroll-view:has(> [slot^=navigation-bar]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(> [slot^=navigation-bar]) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
-    [is=tab-bar][open] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view {
       --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
     }
-    [is=tab-bar][open] > scroll-view::part(scroll-view-navbar-stack)::before {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view::part(scroll-view-navbar-stack)::before {
       width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
     }
-    [is=tab-bar][open] > scroll-view ~ tool-bar::part(navigation-bar) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view ~ tool-bar::part(navigation-bar) {
       --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px);
     }
-    [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle)::part(scroll-view-navbar) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle)::part(scroll-view-navbar) {
       visibility: visible;
     }
-    [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(~ sidebar-toggle) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    [is=tab-bar] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
       width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
@@ -425,35 +543,35 @@
       backdrop-filter: blur(4px);
       box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
     }
-    [is=tab-bar][open] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] {
       left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
       --sidebar-toggle-padding-inline-start: 0px !important;
     }
-    [is=tab-bar][open] > * {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > * {
       grid-column: 1/-1;
       grid-row: 1/-1;
     }
-    [is=tab-bar][open] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 0 minmax(max-content, 1fr);
       grid-template-areas: "toolbar" "main";
     }
-    [is=tab-bar][open] > scroll-view > *:not([slot]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view > *:not([slot]) {
       grid-area: main;
     }
-    [is=tab-bar][open] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), [is=tab-bar][open] > scroll-view:has(> [slot^=navigation-bar]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view:has(> [slot^=navigation-bar]) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
-    [is=tab-bar][open] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view {
       --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
     }
-    [is=tab-bar][open] > tool-bar {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > tool-bar {
       --safe-area-inset-left: 0px;
       --safe-area-inset-right: 0px;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    [is=tab-bar] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
       width: var(--sidebar-width);
       background: oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha));
@@ -462,56 +580,97 @@
       border-radius: var(--sidebar-border-radius);
       overflow: clip;
     }
-    [is=tab-bar] > * {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > * {
       grid-column: 1/-1;
       grid-row: 1/-1;
     }
-    [is=tab-bar] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: 0 minmax(max-content, 1fr);
       grid-template-areas: "toolbar" "main";
     }
-    [is=tab-bar] > scroll-view > *:not([slot]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view > *:not([slot]) {
       grid-area: main;
     }
-    [is=tab-bar] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), [is=tab-bar] > scroll-view:has(> [slot^=navigation-bar]) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view:has(~ tool-bar > [slot^=navigation-bar]), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view:has(> [slot^=navigation-bar]) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
   }
 }
 @layer components {
-  @media (max-width: 42.9999rem) and (orientation: portrait) {
-    [is=tab-bar] > scroll-view {
+  @media (pointer: coarse) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view {
       grid-auto-flow: column;
     }
-    [is=tab-bar-stack] {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar-stack] {
       grid-auto-flow: column;
       margin-block: 0 !important;
     }
   }
-  @media (min-width: 43rem) and (orientation: portrait) {
-    [is=tab-bar-stack] {
+  @media (pointer: fine) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar-stack] {
       grid-auto-flow: column;
     }
-    [is=tab-bar][open] [is=tab-bar-stack] {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] [is=tab-bar-stack] {
       grid-auto-flow: row;
       align-content: start;
       row-gap: 0.5rem;
     }
-    [is=tab-bar]:not([open]) [is=tab-bar-stack] {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) [is=tab-bar-stack] {
       margin-block: 0 !important;
     }
-    [is=tab-bar] > scroll-view {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view {
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
       grid-auto-flow: column;
       overflow: auto clip;
     }
-    [is=tab-bar][open] > scroll-view {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view {
       grid-auto-flow: row;
       overflow: clip auto;
     }
-    [is=tab-bar][open] > scroll-view::before {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view::before {
+      grid-column: 1/-1;
+      grid-row: 1/-1;
+      content: "";
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
+      grid-auto-flow: column;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack] {
+      grid-auto-flow: column;
+      margin-block: 0 !important;
+    }
+  }
+  @media (min-width: 43rem) and (orientation: portrait) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack] {
+      grid-auto-flow: column;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] [is=tab-bar-stack] {
+      grid-auto-flow: row;
+      align-content: start;
+      row-gap: 0.5rem;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) [is=tab-bar-stack] {
+      margin-block: 0 !important;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
+      overscroll-behavior: contain;
+      -webkit-overflow-scrolling: touch;
+      grid-auto-flow: column;
+      overflow: auto clip;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view {
+      grid-auto-flow: row;
+      overflow: clip auto;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view::before {
       grid-column: 1/-1;
       grid-row: 1/-1;
       content: "";
@@ -522,16 +681,16 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    [is=tab-bar-stack] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack] {
       align-content: start;
       row-gap: 0.5rem;
     }
-    [is=tab-bar] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
       overflow: clip auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
     }
-    [is=tab-bar] > scroll-view::before {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view::before {
       grid-column: 1/-1;
       grid-row: 1/-1;
       content: "";
@@ -542,16 +701,16 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    [is=tab-bar-stack] {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack] {
       align-content: start;
       row-gap: 0.5rem;
     }
-    [is=tab-bar] > scroll-view {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view {
       overflow: clip auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
     }
-    [is=tab-bar] > scroll-view::before {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view::before {
       grid-column: 1/-1;
       grid-row: 1/-1;
       content: "";
@@ -567,37 +726,51 @@
     place-items: center;
     place-content: center;
   }
-  tab-view > sidebar-toggle, navigation-split-view > sidebar-toggle {
+  @media (pointer: fine) {
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > sidebar-toggle {
+      width: fit-content;
+      order: -1;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > sidebar-toggle {
+      position: sticky;
+      inset: 0 auto auto 0;
+      height: var(--navigation-bar-height);
+    }
+    tab-view[tab-view-style=tab-bar-only] > sidebar-toggle {
+      display: none;
+    }
+  }
+  tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle, navigation-split-view > sidebar-toggle {
     position: fixed;
     inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--sidebar-spacing));
     height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
-    [is=tab-bar] > sidebar-toggle, tab-view > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle {
       display: none;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
-    [is=tab-bar] > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle {
       width: fit-content;
       order: -1;
     }
-    [is=tab-bar][open] > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > sidebar-toggle {
       position: sticky;
       inset: 0 auto auto 0;
       height: var(--navigation-bar-height);
     }
-    tab-view > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle {
       display: none;
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    [is=tab-bar] > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle {
       display: none;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    [is=tab-bar] > sidebar-toggle, tab-view > sidebar-toggle {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle {
       display: none;
     }
   }
@@ -714,11 +887,7 @@
     }
     navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar {
       margin-inline-start: var(--nav-split-view-content-width);
-      --safe-area-inset-left: 0px;
       --sidebar-toggle-padding-inline-start: 0px;
-    }
-    navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar::part(navigation-bar) {
-      --safe-area-inset-left: 0px;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > scroll-view,
     navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view],
@@ -729,13 +898,13 @@
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] {
       padding-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
-      overflow: clip;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view {
       --canvas-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
       --safe-area-inset-top: 0px;
       --safe-area-inset-bottom: 0px;
       border-radius: var(--sidebar-border-radius);
+      box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px rgba(0, 0, 0, 0.1098039216);
     }
     navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view ~ tool-bar {
       --safe-area-inset-top: 0px;
@@ -818,6 +987,12 @@
     }
     navigation-split-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .fwnn {
       transition-duration: 0ms !important;
+    }
+    navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar {
+      --safe-area-inset-left: 0px;
+    }
+    navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar::part(navigation-bar) {
+      --safe-area-inset-left: 0px;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view {
       transform: translateX(0px) !important;

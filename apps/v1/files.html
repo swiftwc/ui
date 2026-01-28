@@ -1,0 +1,220 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>files</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <div id="console" popover="manual" inert>
+      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
+      <span id="console4"></span>
+    </div>
+
+    <tab-view tab-view-style="tab-bar-only">
+      <navigation-stack id="recents">
+        <scroll-view navigation-title="Recents">
+          <v-stack>
+            ns2section0<button type="button" class="fw">...</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <hr style="width: 100%" />
+            <hr style="width: 100cqi" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-trailing">
+            <button type="button">
+              <label-view label="Select" />
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="navigation-bar-trailing">
+            <button type="button">
+              <label-view system-image="squares-four" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="browse" hidden>
+        <dialog is="sidebar-view">
+          <scroll-view navigation-title="Browse">
+            <v-stack>
+              <button type="button" id="cloud_drive">Cloud Drive</button>
+            </v-stack>
+          </scroll-view>
+
+          <tool-bar>
+            <tool-bar-item slot="navigation-bar-trailing">
+              <button type="button">
+                <label-view system-image="dots-three" />
+              </button>
+            </tool-bar-item>
+          </tool-bar>
+        </dialog>
+
+        <sidebar-toggle>
+          <tool-bar-item>
+            <button type="button">
+              <label-view system-image="sidebar" />
+            </button>
+          </tool-bar-item>
+        </sidebar-toggle>
+      </navigation-split-view>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button">
+            <label-view system-image="sidebar" />
+          </button>
+        </tool-bar-item>
+      </sidebar-toggle>
+
+      <dialog is="tab-bar">
+        <scroll-view>
+          <form is="tab-bar-stack">
+            <button is="tab-item" value="recents">
+              <label-view label="Recents" />
+            </button>
+            <button is="tab-item" value="browse">
+              <label-view label="Browse" />
+            </button>
+          </form>
+        </scroll-view>
+      </dialog>
+    </tab-view>
+
+    <script type="module" src="/main.js"></script>
+    <script type="module">
+      import { startViewTransition } from '../../packages/ui/js/client'
+
+      document.querySelector('#cloud_drive').addEventListener('click', async (event) => {
+        console.debug(`⚡️ click`)
+
+        const sv = event.target.closest('scroll-view'),
+          root = sv.closest('navigation-stack,navigation-split-view'),
+          lm = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
+          frame = lm.parentElement
+
+        await startViewTransition(event, 'forwards', async () => {
+          let position = 'afterend'
+          let lookFor = 'nextElementSibling'
+
+          if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
+            position = 'beforebegin'
+            lookFor = 'previousElementSibling'
+          } else if (
+            frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
+            frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
+            frame.tagName === 'BODY-VIEW'
+          ) {
+            position = 'beforebegin'
+            lookFor = 'previousElementSibling'
+          }
+
+          if (!['BODY-VIEW', 'DIALOG'].includes(lm[lookFor]?.tagName)) {
+            lm.insertAdjacentHTML(
+              position,
+              `<body-view>
+          <scroll-view navigation-title="Cloud Drive">
+            <v-stack>
+              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
+              <p>...</p>
+              <p>...</p>
+            </v-stack>
+          </scroll-view>
+          <tool-bar>
+            <tool-bar-item slot="navigation-bar-trailing">
+              <button type="button">
+                <label-view label="Select" />
+              </button>
+            </tool-bar-item>
+            <tool-bar-item-group slot="navigation-bar-trailing">
+              <tool-bar-item>
+                <button type="button">
+                  <label-view system-image="squares-four" />
+                </button>
+              </tool-bar-item>
+              <tool-bar-item>
+                <button type="button">
+                  <label-view system-image="folder-plus" />
+                </button>
+              </tool-bar-item>
+            </tool-bar-item-group>
+          </tool-bar>
+        </body-view>`
+            )
+          }
+        })
+        // document.startViewTransition({
+        //   async update() {
+        //     startViewTransition(event, false)
+        //   },
+        //   types: ['forwards'],
+        // })
+      })
+    </script>
+  </body>
+</html>

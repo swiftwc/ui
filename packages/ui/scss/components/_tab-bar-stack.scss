@@ -1,98 +1,106 @@
 @use '../vars';
 @use '../mixins';
 
+@mixin make-iphone-tabbarstack {
+  [is='tab-bar'] > scroll-view {
+    grid-auto-flow: column;
+  }
+
+  [is='tab-bar-stack'] {
+    grid-auto-flow: column;
+    margin-block: 0 !important; // scroll-view > * override
+  }
+}
+
+@mixin make-ipad-tabbarstack {
+  [is='tab-bar-stack'] {
+    grid-auto-flow: column;
+  }
+
+  [is='tab-bar'][open] [is='tab-bar-stack'] {
+    grid-auto-flow: row;
+
+    align-content: start;
+
+    row-gap: 0.5rem;
+  }
+
+  [is='tab-bar']:not([open]) [is='tab-bar-stack'] {
+    margin-block: 0 !important; // scroll-view > * override
+  }
+
+  [is='tab-bar'] > scroll-view {
+    @include mixins.contain-overscroll;
+
+    grid-auto-flow: column;
+
+    overflow: auto clip;
+  }
+
+  [is='tab-bar'][open] > scroll-view {
+    // padding-block-start: 30px;
+    grid-auto-flow: row;
+
+    overflow: clip auto;
+
+    @include mixins.make-scrollable;
+  }
+}
+
 @layer #{vars.$components-layer} {
-  // [is='tab-bar'] > scroll-view {
-  //   display: grid;
-  //   // border-radius: inherit;
-  // }
-
-  // [is='tab-bar-stack'] {
-  // box-shadow: inset 0 0 0 12px firebrick;
-  // }
-
-  @include mixins.if-iphone-portrait {
-    [is='tab-bar'] > scroll-view {
-      grid-auto-flow: column;
-
-      // @include mixins.contain-overscroll;
-
-      // grid-auto-flow: column;
-
-      // overflow: auto clip;
+  tab-view[tab-view-style='tab-bar-only'] {
+    @media (pointer: coarse) {
+      @include make-iphone-tabbarstack;
     }
 
-    [is='tab-bar-stack'] {
-      grid-auto-flow: column;
-      margin-block: 0 !important; // scroll-view > * override
+    @media (pointer: fine) {
+      @include make-ipad-tabbarstack;
+    }
+  }
+
+  @include mixins.if-iphone-portrait {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      @include make-iphone-tabbarstack;
     }
   }
 
   @include mixins.if-ipad-portrait {
-    [is='tab-bar-stack'] {
-      grid-auto-flow: column;
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      @include make-ipad-tabbarstack;
+    }
+  }
 
-      [is='tab-bar'][open] & {
-        grid-auto-flow: row;
-
+  @include mixins.if-iphone-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      [is='tab-bar-stack'] {
         align-content: start;
 
         row-gap: 0.5rem;
       }
 
-      [is='tab-bar']:not([open]) & {
-        margin-block: 0 !important; // scroll-view > * override
-      }
-    }
-
-    scroll-view {
-      [is='tab-bar'] > & {
-        @include mixins.contain-overscroll;
-
-        grid-auto-flow: column;
-
-        overflow: auto clip;
-      }
-
-      [is='tab-bar'][open] > & {
-        // padding-block-start: 30px;
-        grid-auto-flow: row;
-
+      [is='tab-bar'] > scroll-view {
         overflow: clip auto;
-
+        @include mixins.contain-overscroll;
         @include mixins.make-scrollable;
       }
     }
   }
 
-  @include mixins.if-iphone-landscape {
-    [is='tab-bar-stack'] {
-      align-content: start;
-
-      row-gap: 0.5rem;
-    }
-
-    [is='tab-bar'] > scroll-view {
-      overflow: clip auto;
-      @include mixins.contain-overscroll;
-      @include mixins.make-scrollable;
-    }
-  }
-
   @include mixins.if-ipad-landscape {
-    [is='tab-bar-stack'] {
-      align-content: start;
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      [is='tab-bar-stack'] {
+        align-content: start;
 
-      row-gap: 0.5rem;
-    }
+        row-gap: 0.5rem;
+      }
 
-    [is='tab-bar'] > scroll-view {
-      //
+      [is='tab-bar'] > scroll-view {
+        overflow: clip auto;
 
-      overflow: clip auto;
-      @include mixins.contain-overscroll;
+        @include mixins.contain-overscroll;
 
-      @include mixins.make-scrollable;
+        @include mixins.make-scrollable;
+      }
     }
   }
 }

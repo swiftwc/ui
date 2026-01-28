@@ -1,12 +1,36 @@
 @use '../vars';
 @use '../mixins';
 
+@mixin make-ipad-stoggle($selector) {
+  #{$selector} [is='tab-bar'] > & {
+    // position: sticky;
+    // left: 0;
+    // top: 0;
+    width: fit-content;
+    order: -1;
+  }
+
+  #{$selector} [is='tab-bar'][open] > & {
+    position: sticky;
+    inset: 0 auto auto 0;
+    height: var(--navigation-bar-height);
+  }
+
+  #{$selector} > & {
+    display: none;
+  }
+}
+
 @layer #{vars.$components-layer} {
   sidebar-toggle {
     place-items: center;
     place-content: center;
 
-    tab-view > &,
+    @media (pointer: fine) {
+      @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
+    }
+
+    tab-view:not([tab-view-style='tab-bar-only']) > &, // this is landscape toggle
     navigation-split-view > & {
       position: fixed;
 
@@ -16,41 +40,25 @@
     }
 
     @include mixins.if-iphone-portrait {
-      [is='tab-bar'] > &,
-      tab-view > & {
+      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &,
+      tab-view:not([tab-view-style='tab-bar-only']) > & {
         display: none;
       }
     }
 
     @include mixins.if-ipad-portrait {
-      [is='tab-bar'] > & {
-        // position: sticky;
-        // left: 0;
-        // top: 0;
-        width: fit-content;
-        order: -1;
-      }
-
-      [is='tab-bar'][open] > & {
-        position: sticky;
-        inset: 0 auto auto 0;
-        height: var(--navigation-bar-height);
-      }
-
-      tab-view > & {
-        display: none;
-      }
+      @include make-ipad-stoggle("tab-view:not([tab-view-style='tab-bar-only'])");
     }
 
     @include mixins.if-iphone-landscape {
-      [is='tab-bar'] > & {
+      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > & {
         display: none;
       }
     }
 
     @include mixins.if-ipad-landscape {
-      [is='tab-bar'] > &,
-      tab-view > & {
+      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &,
+      tab-view:not([tab-view-style='tab-bar-only']) > & {
         display: none;
       }
     }

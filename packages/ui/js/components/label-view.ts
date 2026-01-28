@@ -33,8 +33,9 @@ export class LabelView extends HTMLElement {
       const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')!
 
       const update = () => {
-        this.toggleAttribute('has-title', slot.assignedElements({ flatten: true }).length > 0)
-        this.toggleAttribute('has-image', imgSlot.assignedElements({ flatten: true }).length > 0)
+        console.log(99, 'slotchange', slot.assignedNodes({ flatten: true }).length)
+        this.toggleAttribute('has-title', slot.assignedNodes({ flatten: true }).length > 0)
+        this.toggleAttribute('has-image', imgSlot.assignedNodes({ flatten: true }).length > 0)
       }
 
       slot.addEventListener('slotchange', update)

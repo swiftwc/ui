@@ -66,7 +66,7 @@ export class ScrollView extends HTMLElement {
         this.append(el)
       }
 
-      el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+     el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
       // if (
       //   0 ===
       //   this.#shadowRoot

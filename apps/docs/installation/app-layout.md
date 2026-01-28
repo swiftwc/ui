@@ -37,7 +37,7 @@ First thing we should do for our App is to create index.html file with app's ske
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>
@@ -79,7 +79,7 @@ First thing we should do for our App is to create index.html file with app's ske
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
     <!-- [!code focus] -->
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>
@@ -124,7 +124,7 @@ First thing we should do for our App is to create index.html file with app's ske
     <!-- [!code focus] -->
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>
@@ -161,7 +161,7 @@ First thing we should do for our App is to create index.html file with app's ske
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>
@@ -199,7 +199,7 @@ First thing we should do for our App is to create index.html file with app's ske
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
-    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>

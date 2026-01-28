@@ -23,10 +23,8 @@
       }
     }
     // tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
-    // --safe-area-inset-top: max(
-    //   env(safe-area-inset-top),
-    //   var(--sidebar-spacing)
-    // );
+    //   --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
+    // }
 
     // --safe-area-inset-bottom: max(
     //   env(safe-area-inset-bottom),
@@ -164,11 +162,8 @@
         --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
       }
     }
-    // tab-view navigation-split-view > [is='sidebar-view'] > scroll-view {
-    // --safe-area-inset-top: calc(
-    //   max(env(safe-area-inset-top), var(--sidebar-spacing)) +
-    //     var(--tab-bar-ipad-height)
-    // );
-    // }
+    tab-view navigation-split-view > [is='sidebar-view'] {
+      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+    }
   }
 }

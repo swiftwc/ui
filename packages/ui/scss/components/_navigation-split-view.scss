@@ -218,12 +218,14 @@
                     --safe-area-inset-left: env(safe-area-inset-left);
 
                     --safe-area-inset-right: 0px;
+
+                    #{vars.$sidebar-toggle-padding-inline-start-css-prop}: inherit;
                   }
 
                   // move ONLY navbar to the side
                   ~ tool-bar::part(navigation-bar) {
                     --safe-area-inset-left: calc(
-                      max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) +
+                      max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
                         var(--navbar-padding-inline-start, 0px)
                     );
                   }
@@ -248,8 +250,12 @@
                   scroll-view:not(dialog scroll-view) {
                     &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
                       &::before {
-                        --sidebar-toggle-padding-inline-start: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
+                        #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
                       }
+                    }
+
+                    ~ tool-bar::part(navigation-bar) {
+                      --safe-area-inset-left: 0px;
                     }
                   }
                 }
@@ -293,6 +299,9 @@
                     --safe-area-inset-left: 0px; // override
 
                     margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width)); // override
+                  }
+                  ~ tool-bar::part(navigation-bar) {
+                    --safe-area-inset-left: 0px; // override
                   }
                 }
               }

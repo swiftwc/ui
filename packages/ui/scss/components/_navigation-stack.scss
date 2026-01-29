@@ -1,7 +1,7 @@
 @use '../vars';
 
 @layer #{vars.$components-layer} {
-  navigation-stack {
+  :where(navigation-stack) {
     // grid-area: main;
     touch-action: none;
     height: var(--100lvh, 100lvh);

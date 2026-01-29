@@ -23,12 +23,7 @@
   tool-bar-item-group {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
-      @include mixins.vt-toolbar-item-offscreen-keyframe;
-
-      // @starting-style {
-      // transform: scale(1);
-      // opacity: 1;
-      // }
+      // @include mixins.vt-toolbar-item-offscreen-keyframe;
     }
 
     &.fwnn {

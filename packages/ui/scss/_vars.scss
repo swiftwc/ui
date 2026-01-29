@@ -1,12 +1,14 @@
 @use 'functions';
 @use 'sass:math';
 
-$base-layer: base !default;
-$components-layer: components !default;
-$colors-layer: colors !default;
-$ui-layer: actions !default;
-$transitions-layer: transitions !default;
-$final-layer: final !default;
+$base-layer: sw-base !default;
+$components-layer: sw-components !default;
+$nav-components-layer: sw-nav-components !default;
+$tab-components-layer: sw-tab-components !default;
+$colors-layer: sw-colors !default;
+$ui-layer: sw-actions !default;
+$transitions-layer: sw-transitions !default;
+$final-layer: sw-final !default;
 
 $vt-fwd-class-name: fwd !default;
 
@@ -46,10 +48,7 @@ $ipad-portrait-bp-min: $ipad-portrait-bp;
 $ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
 $ipad-landscape-bp-min: $ipad-landscape-bp;
 
-$ipad-sheet-view-height: math.div(
-  $ipad-sheet-view-width,
-  $ipad-sheet-view-aspect-ratio
-); //4/3
+$ipad-sheet-view-height: math.div($ipad-sheet-view-width, $ipad-sheet-view-aspect-ratio); //4/3
 
 $nav-split-view-2col-bp-max: #{functions.subtract-tiny($nav-split-view-2col-bp)};
 $nav-split-view-2col-bp-min: $nav-split-view-2col-bp;

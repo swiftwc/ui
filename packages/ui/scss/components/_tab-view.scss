@@ -41,7 +41,7 @@
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$tab-components-layer} {
   tab-view {
     :where(&) {
       grid-template-columns: subgrid; // inherits columns from container
@@ -53,6 +53,7 @@
   // grid-template: 'aside main' 1fr / 300px minmax(0, 1fr);
   // }
 
+  // if iphone
   @media (pointer: coarse) {
     @include make-iphone-tabview("tab-view[tab-view-style='tab-bar-only']");
   }
@@ -88,9 +89,21 @@
     scroll-view:not(dialog scroll-view) {
       // SECTION: Make room for fixed togle
       // move ONLY navbar to the side
-      :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
+      tab-view:not([tab-view-style='tab-bar-only']) & {
+        @include mixins.create-sidebar-measure;
       }
+      // :where(tab-view:not([tab-view-style='tab-bar-only']) &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+      //   margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
+      // }
+
+      // :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar)::part(navigation-bar) {
+      //   // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+      //   --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
+      // }
+
+      //   :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+      //     @include mixins.reposition-sentinel-for-sidebar;
+      //   }
 
       // force navbar visibility bc/ of sidebartoggle shown
       :where(tab-view:not([tab-view-style='tab-bar-only']) &) {
@@ -99,10 +112,6 @@
         }
 
         grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
-      }
-
-      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-        @include mixins.reposition-sentinel-for-sidebar;
       }
     }
   }

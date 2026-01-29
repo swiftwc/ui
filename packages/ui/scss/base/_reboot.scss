@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../functions';
 
-@layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$colors-layer}, #{vars.$ui-layer}, #{vars.$transitions-layer}, #{vars.$final-layer};
+@layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$nav-components-layer}, #{vars.$tab-components-layer}, #{vars.$colors-layer}, #{vars.$ui-layer}, #{vars.$transitions-layer}, #{vars.$final-layer};
 
 @layer #{vars.$base-layer} {
   // html,

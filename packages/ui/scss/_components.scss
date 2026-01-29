@@ -4,25 +4,9 @@
 
 @forward 'components/disclosure-group';
 
-@forward 'components/body-view';
-
-@forward 'components/tab-view';
-
-@forward 'components/tab-bar';
-
-@forward 'components/tab-bar-stack';
-
-@forward 'components/sidebar-toggle';
-
 @forward 'components/full-screen';
 
 @forward 'components/sheet-view';
-
-@forward 'components/navigation-stack';
-
-@forward 'components/navigation-split-view';
-
-@forward 'components/sidebar-view';
 
 @forward 'components/scroll-view';
 
@@ -39,3 +23,16 @@
 @forward 'components/tool-bar';
 
 @forward 'components/label-view';
+
+@forward 'components/body-view';
+
+@forward 'components/sidebar-toggle';
+
+@forward 'components/sidebar-view';
+
+@forward 'components/navigation-stack';
+@forward 'components/navigation-split-view';
+
+@forward 'components/tab-view';
+@forward 'components/tab-bar';
+@forward 'components/tab-bar-stack';

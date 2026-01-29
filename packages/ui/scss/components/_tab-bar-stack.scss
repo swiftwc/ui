@@ -47,7 +47,7 @@
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$tab-components-layer} {
   tab-view[tab-view-style='tab-bar-only'] {
     @media (pointer: coarse) {
       @include make-iphone-tabbarstack;

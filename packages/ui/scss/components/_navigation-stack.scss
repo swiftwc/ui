@@ -1,6 +1,6 @@
 @use '../vars';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$nav-components-layer} {
   navigation-stack {
     :where(&) {
       // grid-area: main;

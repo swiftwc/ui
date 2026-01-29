@@ -51,6 +51,8 @@
 
       padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
+      box-shadow: 0 0 10px 10px black !important;
+
       // grid-auto-rows: minmax(0, max-content);
       // grid-template-rows: 100% 1px;
       @include mixins.make-scrollable;

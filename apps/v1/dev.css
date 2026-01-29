@@ -82,12 +82,12 @@
   }
   ::part(scroll-view-navbar-stack)::before,
   ::part(scroll-view-toolbar-stack)::before {
-    height: 20px;
+    height: 29px;
     background: green;
   }
   ::part(scroll-view-navbar-stack)::after,
   ::part(scroll-view-toolbar-stack)::after {
-    height: 20px;
+    height: 29px;
     background: darkgoldenrod;
   }
   body-view {

@@ -94,12 +94,12 @@
   ::part(scroll-view-navbar-stack),
   ::part(scroll-view-toolbar-stack) {
     &::before {
-      height: 20px;
+      height: 29px;
       background: green;
     }
 
     &::after {
-      height: 20px;
+      height: 29px;
       background: darkgoldenrod;
     }
   }

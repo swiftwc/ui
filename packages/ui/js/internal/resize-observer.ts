@@ -8,15 +8,14 @@ export class ResizeObserverSingleton {
   constructor() {
     this.observer = Snapshot.waitReady.then(() => {
       return new ResizeObserver((entries) => {
-        for (const entry of entries) this.#observers.get(entry.target)?.(entry)
+        self.requestAnimationFrame(() => {
+          for (const entry of entries) this.#observers.get(entry.target)?.(entry)
+        })
       })
     })
   }
 
-  public async observe(
-    target: Element,
-    callback: (entry: ResizeObserverEntry) => void
-  ) {
+  public async observe(target: Element, callback: (entry: ResizeObserverEntry) => void) {
     this.#observers.set(target, callback)
     ;(await this.observer).observe(target)
   }

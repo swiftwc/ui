@@ -16,14 +16,14 @@
   // [is='tab-bar-stack'], {
   scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
   scroll-view:has(> [slot^='navigation-bar']) {
-    > *:not([slot]) {
+    :where(& > *:not([slot])) {
       // margin-block-start: var(--navigation-bar-height);
     }
   }
 
   scroll-view:has(~ tool-bar > [slot^='bottom-bar']),
   scroll-view:has(> [slot^='bottom-bar']) {
-    > *:not([slot]) {
+    :where(& > *:not([slot])) {
       margin-block-end: var(--tool-bar-height);
     }
   }
@@ -35,35 +35,37 @@
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
   [is='sheet-view'] > scroll-view {
-    overflow: clip auto;
-    @include mixins.contain-overscroll;
+    :where(&) {
+      overflow: clip auto;
+      @include mixins.contain-overscroll;
 
-    // overflow-y: auto;
-    // overflow-x: clip;
-    // overscroll-behavior: contain;
-    // -webkit-overflow-scrolling: touch;
-    padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
-    container: scroll-view / inline-size;
-    background-color: var(--canvas-bg);
-    // place-items: center;
-    //
+      // overflow-y: auto;
+      // overflow-x: clip;
+      // overscroll-behavior: contain;
+      // -webkit-overflow-scrolling: touch;
+      padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
+      container: scroll-view / inline-size;
+      background-color: var(--canvas-bg);
+      // place-items: center;
+      //
 
-    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+      padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-    // grid-auto-rows: minmax(0, max-content);
-    // grid-template-rows: 100% 1px;
-    @include mixins.make-scrollable;
+      // grid-auto-rows: minmax(0, max-content);
+      // grid-template-rows: 100% 1px;
+      @include mixins.make-scrollable;
 
-    // @include mixins.make-navbar;
-    @include mixins.create-v-scroll-view;
+      // @include mixins.make-navbar;
+      @include mixins.create-v-scroll-view;
 
-    // &:has(> tool-bar[slot='navigation-bar']) {
-    //   margin-top: var(--navigation-bar-height);
-    // }
+      // &:has(> tool-bar[slot='navigation-bar']) {
+      //   margin-top: var(--navigation-bar-height);
+      // }
 
-    // &:has(> tool-bar[slot='bottom-bar']) {
-    //   margin-bottom: var(--tool-bar-height);
-    // };
+      // &:has(> tool-bar[slot='bottom-bar']) {
+      //   margin-bottom: var(--tool-bar-height);
+      // };
+    }
   }
 
   // navigation-split-view scroll-view {
@@ -78,7 +80,7 @@
 
   @include mixins.if-ipad-sheet-fits {
     [is='sheet-view'] {
-      scroll-view {
+      :where(& scroll-view) {
         --safe-area-inset-top: 0px;
         --safe-area-inset-right: 0px;
         --safe-area-inset-bottom: 0px;

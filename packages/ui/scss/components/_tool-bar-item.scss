@@ -3,73 +3,77 @@
 
 @layer #{vars.$components-layer} {
   tool-bar-item {
-    // moved from > * of old
-    pointer-events: all;
+    :where(&) {
+      // moved from > * of old
+      pointer-events: all;
 
-    // min-height: var(--toolbar-cell-min-size);
-    // min-width: var(--toolbar-cell-min-size);
-    // moved from > * of old
+      // min-height: var(--toolbar-cell-min-size);
+      // min-width: var(--toolbar-cell-min-size);
+      // moved from > * of old
 
-    // background-color: red;
-    // padding: 5px;
-    border-radius: var(--pill-border-radius);
+      // background-color: red;
+      // padding: 5px;
+      border-radius: var(--pill-border-radius);
 
-    // height: 40px;
+      // height: 40px;
 
-    // pointer-events: all;
-    // container-type: inline-size;
+      // pointer-events: all;
+      // container-type: inline-size;
 
-    //
-    --component-bg: var(--toolbar-cell-bg);
-    // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
-    // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
-    --component-border-radius: var(--toolbar-cell-border-radius);
-    --component-border-width: 0;
+      //
+      --component-bg: var(--toolbar-cell-bg);
+      // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
+      // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
+      --component-border-radius: var(--toolbar-cell-border-radius);
+      --component-border-width: 0;
+    }
   }
 
   tool-bar-item button,
   tool-bar-item input,
   [is='tab-item'] {
-    // display: grid;
-    // place-items: center;
-    // place-content: center;
-    // container-type: inline-size;
-    // > * {
-    //   font-size: 100cqw;
-    // }
+    :where(&) {
+      // display: grid;
+      // place-items: center;
+      // place-content: center;
+      // container-type: inline-size;
+      // > * {
+      //   font-size: 100cqw;
+      // }
 
-    all: unset;
-    display: grid;
+      all: unset;
+      display: grid;
 
-    // place-items: center;
-    // place-content: center;
+      // place-items: center;
+      // place-content: center;
 
-    appearance: none;
-    -webkit-appearance: none;
-    // box-shadow: none;
-    // outline: 0;
-    border: var(--component-border-width);
-    background-color: var(--component-bg);
-    padding-inline: var(--component-padding-inline);
-    padding-block: var(--component-padding-block);
-    border-radius: var(--component-border-radius);
-    min-width: 25px; // NOTE: For inputs overflowing-x
+      appearance: none;
+      -webkit-appearance: none;
+      // box-shadow: none;
+      // outline: 0;
+      border: var(--component-border-width);
+      background-color: var(--component-bg);
+      padding-inline: var(--component-padding-inline);
+      padding-block: var(--component-padding-block);
+      border-radius: var(--component-border-radius);
+      min-width: 25px; // NOTE: For inputs overflowing-x
 
-    // &:not(:disabled):not([readonly]) {
-    //   &:focus-visible {
-    //     background-color: var(--toolbar-cell-focus-bg);
-    //   }
-    //   // order matters! BEFORE active
-    //   @media (pointer: fine) {
-    //     &:hover {
-    //       background-color: var(--toolbar-cell-focus-bg);
-    //     }
-    //   }
-    //   // order matters! AFTER hover/fvisible
-    //   &:active {
-    //     background-color: var(--toolbar-cell-active-bg);
-    //   }
-    // }
+      // &:not(:disabled):not([readonly]) {
+      //   &:focus-visible {
+      //     background-color: var(--toolbar-cell-focus-bg);
+      //   }
+      //   // order matters! BEFORE active
+      //   @media (pointer: fine) {
+      //     &:hover {
+      //       background-color: var(--toolbar-cell-focus-bg);
+      //     }
+      //   }
+      //   // order matters! AFTER hover/fvisible
+      //   &:active {
+      //     background-color: var(--toolbar-cell-active-bg);
+      //   }
+      // }
+    }
   }
 
   // tool-bar-item {
@@ -83,13 +87,13 @@
   tool-bar-item input,
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
-      &:focus-visible {
+      :where(&:focus-visible) {
         background-color: var(--toolbar-cell-focus-bg);
       }
 
       // order matters! BEFORE active
       @media (pointer: fine) {
-        &:hover {
+        :where(&:hover) {
           background-color: var(--toolbar-cell-focus-bg);
         }
       }
@@ -102,7 +106,7 @@
   tool-bar-item input,
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
-      &:active {
+      :where(&:active) {
         background-color: var(--toolbar-cell-active-bg);
       }
     }

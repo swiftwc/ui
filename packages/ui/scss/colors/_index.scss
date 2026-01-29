@@ -1,14 +1,11 @@
 @use '../vars';
 
 @layer #{vars.$colors-layer} {
-  navigation-stack,
-  navigation-split-view,
-  body-view {
+  :where(navigation-stack, navigation-split-view, body-view) {
     --canvas-bg: var(--primary-bg);
   }
 
-  [is='sheet-view'],
-  [is='full-screen'] {
+  :where([is='sheet-view'], [is='full-screen']) {
     --canvas-bg: var(--secondary-bg);
   }
 }

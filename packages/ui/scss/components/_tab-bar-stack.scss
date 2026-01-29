@@ -2,22 +2,22 @@
 @use '../mixins';
 
 @mixin make-iphone-tabbarstack {
-  [is='tab-bar'] > scroll-view {
+  :where(& [is='tab-bar'] > scroll-view) {
     grid-auto-flow: column;
   }
 
-  [is='tab-bar-stack'] {
+  :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
     margin-block: 0 !important; // scroll-view > * override
   }
 }
 
 @mixin make-ipad-tabbarstack {
-  [is='tab-bar-stack'] {
+  :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
   }
 
-  [is='tab-bar'][open] [is='tab-bar-stack'] {
+  :where(& [is='tab-bar'][open] [is='tab-bar-stack']) {
     grid-auto-flow: row;
 
     align-content: start;
@@ -25,11 +25,11 @@
     row-gap: 0.5rem;
   }
 
-  [is='tab-bar']:not([open]) [is='tab-bar-stack'] {
+  :where(& [is='tab-bar']:not([open]) [is='tab-bar-stack']) {
     margin-block: 0 !important; // scroll-view > * override
   }
 
-  [is='tab-bar'] > scroll-view {
+  :where(& [is='tab-bar'] > scroll-view) {
     @include mixins.contain-overscroll;
 
     grid-auto-flow: column;
@@ -37,7 +37,7 @@
     overflow: auto clip;
   }
 
-  [is='tab-bar'][open] > scroll-view {
+  :where(& [is='tab-bar'][open] > scroll-view) {
     // padding-block-start: 30px;
     grid-auto-flow: row;
 
@@ -72,13 +72,13 @@
 
   @include mixins.if-iphone-landscape {
     tab-view:not([tab-view-style='tab-bar-only']) {
-      [is='tab-bar-stack'] {
+      :where(& [is='tab-bar-stack']) {
         align-content: start;
 
         row-gap: 0.5rem;
       }
 
-      [is='tab-bar'] > scroll-view {
+      :where(& [is='tab-bar'] > scroll-view) {
         overflow: clip auto;
         @include mixins.contain-overscroll;
         @include mixins.make-scrollable;
@@ -88,13 +88,13 @@
 
   @include mixins.if-ipad-landscape {
     tab-view:not([tab-view-style='tab-bar-only']) {
-      [is='tab-bar-stack'] {
+      :where(& [is='tab-bar-stack']) {
         align-content: start;
 
         row-gap: 0.5rem;
       }
 
-      [is='tab-bar'] > scroll-view {
+      :where(& [is='tab-bar'] > scroll-view) {
         overflow: clip auto;
 
         @include mixins.contain-overscroll;

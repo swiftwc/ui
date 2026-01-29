@@ -3,16 +3,18 @@
 
 @layer #{vars.$components-layer} {
   [is='sheet-view'] {
-    @include mixins.reset-dialog;
+    :where(&) {
+      @include mixins.reset-dialog;
 
-    // dowh
-    overflow: clip;
-    width: 100lvw;
-    height: var(--100lvh, 100lvh);
+      // dowh
+      overflow: clip;
+      width: 100lvw;
+      height: var(--100lvh, 100lvh);
 
-    transform: translateY(var(--view-transition-dialog-offscreen-y));
+      transform: translateY(var(--view-transition-dialog-offscreen-y));
+    }
 
-    &::backdrop {
+    :where(&::backdrop) {
       background-color: transparent;
     }
 
@@ -23,24 +25,15 @@
 
       border-radius: 26px;
 
-      margin: var(--safe-area-inset-top) var(--safe-area-inset-right)
-        var(--safe-area-inset-bottom) var(--safe-area-inset-left);
+      margin: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
 
       height: auto;
 
-      inset-inline-start: calc(
-        50lvw - calc(#{vars.$ipad-sheet-view-width} / 2) - calc(
-            calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2
-          )
-      );
+      inset-inline-start: calc(50lvw - calc(#{vars.$ipad-sheet-view-width} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2));
 
-      inset-block-start: calc(
-        50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(
-            calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2
-          )
-      );
+      inset-block-start: calc(50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2));
 
-      scroll-view {
+      :where(& scroll-view) {
         border-radius: 26px;
       }
 

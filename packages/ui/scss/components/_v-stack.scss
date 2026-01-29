@@ -2,9 +2,11 @@
 
 @layer #{vars.$components-layer} {
   v-stack {
-    place-items: center;
-    grid-template-columns: minmax(0, 1fr);
+    :where(&) {
+      place-items: center;
+      grid-template-columns: minmax(0, 1fr);
 
-    place-content: center;
+      place-content: center;
+    }
   }
 }

@@ -3,6 +3,8 @@
 
 @layer #{vars.$components-layer} {
   body-view {
-    // pointer-events: none;
+    :where(&) {
+      // pointer-events: none;
+    }
   }
 }

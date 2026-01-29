@@ -2,7 +2,7 @@
 
 @layer #{vars.$components-layer} {
   // all is a grid
-  navigation-stack:not([hidden]),
+  :where(navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
   scroll-view,
   body-view,
@@ -14,14 +14,15 @@
   tool-bar-item,
   tool-bar-item-group,
   sidebar-toggle,
-  ::part(navigation-bar),
-  ::part(bottom-bar),
   [is='tab-bar-stack'],
   v-stack,
-  label-view,
+  tool-bar,
+  label-view),
+  // tool-bar,
+  ::part(navigation-bar),
+  ::part(bottom-bar),
   ::part(label-image-stack),
   ::part(label-title-stack),
-  // tool-bar,
   ::part(#{vars.$scroll-view-navbar-part-name}),
   ::part(#{vars.$scroll-view-toolbar-part-name}),
   ::part(#{vars.$scroll-view-navbar-stack-part-name}),

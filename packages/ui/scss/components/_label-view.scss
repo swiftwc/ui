@@ -3,71 +3,73 @@
 
 @layer #{vars.$components-layer} {
   label-view {
-    place-items: center;
-    place-content: center;
+    :where(&) {
+      place-items: center;
+      place-content: center;
 
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
-    // grid-template-areas: 'label-image-stack label-title-stack';
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+      // grid-template-areas: 'label-image-stack label-title-stack';
 
-    // gap: 0;
+      // gap: 0;
 
-    > *:not([slot]) {
+      white-space: var(--label-white-space);
+
+      --label-image-size: 2rem;
+    }
+
+    :where(& > *:not([slot])) {
       // grid-area: label-title-stack;
       overflow: var(--label-overflow);
       text-overflow: var(--label-text-overflow);
     }
 
-    &[line-limit='1'] {
+    :where(&[line-limit='1']) {
       --label-white-space: nowrap;
     }
 
-    white-space: var(--label-white-space);
+    :where(&)::part(label-image-stack),
+    :where(&)::part(label-title-stack) {
+      display: none;
 
-    &[has-image][has-title] {
+      grid-auto-columns: minmax(0, 1fr);
+      grid-auto-rows: minmax(0, 1fr);
+      // grid-template-columns: subgrid;
+      // grid-template-rows: subgrid;
+    }
+
+    :where(&)::part(label-image-stack) {
+      aspect-ratio: 1 / 1;
+
+      width: var(--label-image-size);
+      font-size: var(--label-image-size);
+
+      // line-height: 1;
+
+      // grid-area: label-image-stack;
+    }
+
+    :where(&)::part(label-title-stack) {
+      text-decoration: underline;
+
+      // grid-area: label-title-stack;
+    }
+
+    :where(&[has-image][has-title]) {
       grid-template-columns: auto minmax(0, 1fr);
     }
 
-    &[has-title] {
+    :where(&[has-title]) {
       gap: 0.3rem;
     }
 
-    &[has-image]::part(label-image-stack) {
+    :where(&[has-image])::part(label-image-stack) {
       display: grid;
     }
-    &[has-title]::part(label-title-stack) {
+    :where(&[has-title])::part(label-title-stack) {
       display: grid;
     }
-
-    --label-image-size: 2rem;
-  }
-
-  ::part(label-image-stack),
-  ::part(label-title-stack) {
-    display: none;
-
-    grid-auto-columns: minmax(0, 1fr);
-    grid-auto-rows: minmax(0, 1fr);
-    // grid-template-columns: subgrid;
-    // grid-template-rows: subgrid;
-  }
-
-  ::part(label-image-stack) {
-    aspect-ratio: 1 / 1;
-
-    width: var(--label-image-size);
-    font-size: var(--label-image-size);
-
-    // line-height: 1;
-
-    // grid-area: label-image-stack;
-  }
-
-  ::part(label-title-stack) {
-    text-decoration: underline;
-
-    // grid-area: label-title-stack;
   }
 
   // label-view[line-limit='1']::part(label-title-stack) {
@@ -75,7 +77,7 @@
   // }
 
   label-view[truncation-mode='tail'] {
-    > *:not([slot]) {
+    :where(& > *:not([slot])) {
       --label-overflow: hidden;
       --label-text-overflow: ellipsis;
     }

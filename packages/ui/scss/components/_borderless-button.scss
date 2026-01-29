@@ -2,13 +2,15 @@
 
 @layer #{vars.$components-layer} {
   [is='borderless-button'] {
-    display: grid;
+    :where(&) {
+      display: grid;
 
-    place-items: center;
-    place-content: center;
+      place-items: center;
+      place-content: center;
 
-    // background-color: transparent;
-    // color: blue;
-    // border: none;
+      // background-color: transparent;
+      // color: blue;
+      // border: none;
+    }
   }
 }

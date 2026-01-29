@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @mixin make-ipad-stoggle($selector) {
-  #{$selector} [is='tab-bar'] > & {
+  :where(#{$selector} [is='tab-bar'] > &) {
     // position: sticky;
     // left: 0;
     // top: 0;
@@ -10,28 +10,30 @@
     order: -1;
   }
 
-  #{$selector} [is='tab-bar'][open] > & {
+  :where(#{$selector} [is='tab-bar'][open] > &) {
     position: sticky;
     inset: 0 auto auto 0;
     height: var(--navigation-bar-height);
   }
 
-  #{$selector} > & {
+  :where(#{$selector} > &) {
     display: none;
   }
 }
 
 @layer #{vars.$components-layer} {
-  sidebar-toggle {
+  :where(sidebar-toggle) {
     place-items: center;
     place-content: center;
+  }
 
+  sidebar-toggle {
     @media (pointer: fine) {
       @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
     }
 
-    tab-view:not([tab-view-style='tab-bar-only']) > &, // this is landscape toggle
-    navigation-split-view > & {
+    :where(tab-view:not([tab-view-style='tab-bar-only']) > &), // this is landscape toggle
+    :where(navigation-split-view > &) {
       position: fixed;
 
       inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--sidebar-spacing));
@@ -40,8 +42,7 @@
     }
 
     @include mixins.if-iphone-portrait {
-      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &,
-      tab-view:not([tab-view-style='tab-bar-only']) > & {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
         display: none;
       }
     }
@@ -51,37 +52,38 @@
     }
 
     @include mixins.if-iphone-landscape {
-      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > & {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &) {
         display: none;
       }
     }
 
     @include mixins.if-ipad-landscape {
-      tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &,
-      tab-view:not([tab-view-style='tab-bar-only']) > & {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
         display: none;
       }
     }
 
     @include mixins.ifnot-2col-split-view-fits {
-      navigation-split-view > & {
+      :where(navigation-split-view > &) {
         display: none;
       }
     }
 
     @include mixins.if-3col-split-view-fits {
-      navigation-split-view > & {
+      :where(navigation-split-view > &) {
         display: none;
       }
     }
 
     @include mixins.if-2col-split-view-fits {
-      navigation-split-view:not(:has(> dialog[is='sidebar-view'])) > & {
+      :where(navigation-split-view:not(:has(> dialog[is='sidebar-view'])) > &) {
         display: none;
       }
 
-      navigation-split-view:has(> dialog[is='sidebar-view']):not([preferred-compact-column='content']) > &,
-      navigation-split-view:has(> dialog[is='sidebar-view'])[column-visibility='double-column'] > & {
+      :where(
+        navigation-split-view:has(> dialog[is='sidebar-view']):not([preferred-compact-column='content']) > &,
+        navigation-split-view:has(> dialog[is='sidebar-view'])[column-visibility='double-column'] > &
+      ) {
         display: none;
       }
     }

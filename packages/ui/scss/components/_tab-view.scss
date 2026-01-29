@@ -3,19 +3,19 @@
 
 @mixin make-iphone-tabview($selector) {
   scroll-view:not(dialog scroll-view) {
-    #{$selector} navigation-stack > &,
-    #{$selector} navigation-split-view > &,
-    #{$selector} body-view > &,
-    #{$selector} & ~ tool-bar {
+    :where(#{$selector} navigation-stack > &),
+    :where(#{$selector} navigation-split-view > &),
+    :where(#{$selector} body-view > &),
+    :where(#{$selector} & ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
   }
 
   scroll-view:not(:has(~ tool-bar > [slot^='bottom-bar'])),
   scroll-view:not(:has(> [slot^='bottom-bar'])) {
-    #{$selector} navigation-stack > &,
-    #{$selector} navigation-split-view > &,
-    #{$selector} body-view > & {
+    :where(#{$selector} navigation-stack > &),
+    :where(#{$selector} navigation-split-view > &),
+    :where(#{$selector} body-view > &) {
       --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--tab-bar-iphone-height));
     }
   }
@@ -29,22 +29,24 @@
 
 @mixin make-ipad-tabview($selector) {
   scroll-view:not(dialog scroll-view) {
-    #{$selector} navigation-stack > &,
-    #{$selector} navigation-split-view > &,
-    #{$selector} body-view > &,
-    #{$selector} & ~ tool-bar {
+    :where(#{$selector} navigation-stack > &),
+    :where(#{$selector} navigation-split-view > &),
+    :where(#{$selector} body-view > &),
+    :where(#{$selector} & ~ tool-bar) {
       --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
     }
   }
-  #{$selector} navigation-split-view > [is='sidebar-view'] {
+  :where(#{$selector} navigation-split-view > [is='sidebar-view']) {
     padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
   }
 }
 
 @layer #{vars.$components-layer} {
   tab-view {
-    grid-template-columns: subgrid; // inherits columns from container
-    grid-template-rows: subgrid; // inherits rows if needed
+    :where(&) {
+      grid-template-columns: subgrid; // inherits columns from container
+      grid-template-rows: subgrid; // inherits rows if needed
+    }
   }
 
   // body:has(tab-view input[type='checkbox']:checked) {
@@ -58,10 +60,10 @@
   // if iphone landscape OR ipad landscape
   @media (orientation: landscape) {
     scroll-view:not(dialog scroll-view) {
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &,
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &,
-      tab-view:not([tab-view-style='tab-bar-only']) body-view > &,
-      tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) body-view > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar) {
         --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
 
         --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
@@ -86,12 +88,12 @@
     scroll-view:not(dialog scroll-view) {
       // SECTION: Make room for fixed togle
       // move ONLY navbar to the side
-      tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar::part(navigation-bar) {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar)::part(navigation-bar) {
         --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
       }
 
       // force navbar visibility bc/ of sidebartoggle shown
-      tab-view:not([tab-view-style='tab-bar-only']) & {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) &) {
         &::part(#{vars.$scroll-view-navbar-part-name}) {
           visibility: visible;
         }
@@ -99,7 +101,7 @@
         grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
       }
 
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
         @include mixins.reposition-sentinel-for-sidebar;
       }
     }
@@ -143,10 +145,10 @@
     //     var(--sidebar-width)
     // );
     scroll-view:not(dialog scroll-view) {
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &,
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &,
-      tab-view:not([tab-view-style='tab-bar-only']) body-view > &,
-      tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) body-view > &),
+      :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar) {
         --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-width));
       }
     }

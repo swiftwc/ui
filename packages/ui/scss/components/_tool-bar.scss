@@ -3,47 +3,46 @@
 
 @layer #{vars.$components-layer} {
   tool-bar {
-    display: grid;
+    :where(&) {
+      pointer-events: none;
 
-    pointer-events: none;
+      touch-action: none;
 
-    touch-action: none;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        'navigation-bar'
+        'spacer'
+        'bottom-bar';
+    }
 
-    grid-template-columns: minmax(0, 1fr);
-    grid-template-rows: auto 1fr auto;
-    grid-template-areas:
-      'navigation-bar'
-      'spacer'
-      'bottom-bar';
-
-    > * {
+    :where(& > *) {
       box-shadow: var(--glass-shadow);
 
       min-width: var(--toolbar-cell-min-size);
 
       // min-width: calc(var(--tool-bar-height) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
-  }
 
-  ::part(navigation-bar),
-  ::part(bottom-bar) {
-    position: relative; // SAFARI BUG
+    :where(&)::part(navigation-bar),
+    :where(&)::part(bottom-bar) {
+      position: relative; // SAFARI BUG
 
-    // background-color: blue;
+      // background-color: blue;
 
-    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
-    pointer-events: none;
+      padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+      pointer-events: none;
 
-    grid-template-columns: auto 1fr auto;
-    column-gap: var(--toolbar-col-gap);
-    // grid-auto-rows: 40px;
+      grid-template-columns: auto 1fr auto;
+      column-gap: var(--toolbar-col-gap);
+      // grid-auto-rows: 40px;
 
-    grid-template-rows: var(--toolbar-cell-min-size);
+      grid-template-rows: var(--toolbar-cell-min-size);
 
-    // place-items: center;
-    place-content: center; // middle of y axis
+      // place-items: center;
+      place-content: center; // middle of y axis
 
-    /* > * {
+      /* > * {
       pointer-events: all;
 
       // grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
@@ -55,73 +54,72 @@
       min-width: var(--toolbar-cell-min-size);
       // height: 40px;
     } */
-  }
+    }
 
-  ::part(navigation-bar) {
-    // padding-inline: calc(
-    //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
-    //   )
-    //   calc(
-    //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
-    //   );
+    :where(&)::part(navigation-bar) {
+      // padding-inline: calc(
+      //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
+      //   )
+      //   calc(
+      //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
+      //   );
 
-    // inset: 0 0 auto 0;
-    grid-area: navigation-bar;
+      // inset: 0 0 auto 0;
+      grid-area: navigation-bar;
 
-    height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+      height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
 
-    padding-block-start: var(--safe-area-inset-top);
+      padding-block-start: var(--safe-area-inset-top);
 
-    // dialog & {
-    //   transform: translateY(max(-33cqw, -200px));
-    //   inset: auto;
-    // }
-  }
+      // dialog & {
+      //   transform: translateY(max(-33cqw, -200px));
+      //   inset: auto;
+      // }
+    }
 
-  ::part(bottom-bar) {
-    // padding-inline: calc(
-    //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
-    //   )
-    //   calc(
-    //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
-    //   );
+    :where(&)::part(bottom-bar) {
+      // padding-inline: calc(
+      //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
+      //   )
+      //   calc(
+      //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
+      //   );
 
-    // inset: auto 0 0 0;
-    grid-area: bottom-bar;
-    // background-color: blue;
+      // inset: auto 0 0 0;
+      grid-area: bottom-bar;
+      // background-color: blue;
 
-    height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+      height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
 
-    padding-block-end: var(--safe-area-inset-bottom);
-  }
+      padding-block-end: var(--safe-area-inset-bottom);
+    }
 
-  ::part(#{vars.$toolbar-leading-stack-part-name}),
-  ::part(#{vars.$toolbar-principal-stack-part-name}),
-  ::part(#{vars.$toolbar-trailing-stack-part-name}) {
-    display: grid;
+    :where(&)::part(#{vars.$toolbar-leading-stack-part-name}),
+    :where(&)::part(#{vars.$toolbar-principal-stack-part-name}),
+    :where(&)::part(#{vars.$toolbar-trailing-stack-part-name}) {
+      display: grid;
 
-    grid-auto-flow: column;
-    grid-template-columns: minmax(0, 1fr);
+      grid-auto-flow: column;
+      grid-template-columns: minmax(0, 1fr);
 
-    column-gap: var(--toolbar-col-gap);
-  }
+      column-gap: var(--toolbar-col-gap);
+    }
 
-  @include mixins.if-ipad-sheet-fits {
-    [is='sheet-view'] {
-      ::part(navigation-bar),
-      ::part(bottom-bar) {
+    @include mixins.if-ipad-sheet-fits {
+      :where([is='sheet-view'] &)::part(navigation-bar),
+      :where([is='sheet-view'] &)::part(bottom-bar) {
         --safe-area-inset-left: 0px;
         --safe-area-inset-right: 0px;
         // padding-inline: 0;
       }
 
-      ::part(navigation-bar) {
+      :where([is='sheet-view'] &)::part(navigation-bar) {
         --safe-area-inset-top: 0px;
         // padding-block-start: 0;
         // height: var(--navigation-bar-height);
       }
 
-      ::part(bottom-bar) {
+      :where([is='sheet-view'] &)::part(bottom-bar) {
         --safe-area-inset-bottom: 0px;
         // padding-block-end: 0;
       }

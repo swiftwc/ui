@@ -21,7 +21,7 @@
       // container-type: inline-size;
 
       //
-      --component-bg: var(--toolbar-cell-bg);
+      // --component: var(--toolbar-cell-bg);
       // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
       // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
       --component-border-radius: var(--toolbar-cell-border-radius);
@@ -44,15 +44,15 @@
       all: unset;
       display: grid;
 
+      appearance: none;
+      -webkit-appearance: none;
       // place-items: center;
       // place-content: center;
 
-      appearance: none;
-      -webkit-appearance: none;
       // box-shadow: none;
       // outline: 0;
       border: var(--component-border-width);
-      background-color: var(--component-bg);
+      background: var(--component);
       padding-inline: var(--component-padding-inline);
       padding-block: var(--component-padding-block);
       border-radius: var(--component-border-radius);

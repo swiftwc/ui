@@ -25,8 +25,8 @@
   // }
 
   body {
-    background-color: var(--primary-bg);
-    color: var(--primary-text);
+    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
+    color: light-dark(var(--primary-text), var(--primary-text-dark));
   }
 
   body {

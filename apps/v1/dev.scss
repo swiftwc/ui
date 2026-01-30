@@ -89,6 +89,7 @@
 
   scroll-view {
     box-shadow: inset 0 0 0 2px cyan;
+    // var(--screen-box-shadow);
   }
 
   ::part(scroll-view-navbar-stack),

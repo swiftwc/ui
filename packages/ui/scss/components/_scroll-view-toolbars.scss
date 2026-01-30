@@ -68,7 +68,7 @@
         // }
 
         // > div {
-        @include mixins.make-navbar(bottom);
+        @include mixins.make-toolbar(bottom);
         // height: calc(var(--safe-area-inset-top) + 50px);
         // }
       }
@@ -81,7 +81,7 @@
         transform: translateY(var(--safe-area-inset-bottom));
 
         // > div {
-        @include mixins.make-navbar(top);
+        @include mixins.make-toolbar(top);
         // }
       }
 

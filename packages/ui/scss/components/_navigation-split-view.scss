@@ -157,7 +157,7 @@
 
           > scroll-view {
             :where(&) {
-              --canvas-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+              // --canvas: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
 
               --safe-area-inset-top: 0px;
               --safe-area-inset-bottom: 0px;

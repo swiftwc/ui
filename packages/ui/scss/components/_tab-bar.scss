@@ -27,7 +27,7 @@
 
     pointer-events: none;
 
-    @include mixins.make-navbar(top);
+    @include mixins.make-toolbar(top);
   }
 
   &:not([open]) {
@@ -83,7 +83,7 @@
 
   &[open] {
     :where(&) {
-      // @include mixins.make-navbar;
+      // @include mixins.make-toolbar;
 
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
         max(var(--safe-area-inset-left), var(--sidebar-spacing));
@@ -112,7 +112,7 @@
         // this scroll-view does not apply bg-color per others on spec (ommited)
         // SECTION: Make room for fixed togle
         // make it opaque for navbars!
-        --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
+        --canvas: oklch(var(--sidebar-bg-lch) / 1);
       }
 
       // re-apply width for dialog too (not dialog by default)
@@ -215,7 +215,7 @@
           :where(& > scroll-view) {
             @include mixins.create-v-scroll-view;
 
-            --canvas-bg: oklch(var(--sidebar-bg-lch) / 1);
+            --canvas: oklch(var(--sidebar-bg-lch) / 1);
           }
 
           :where(& > tool-bar) {

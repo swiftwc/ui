@@ -101,7 +101,7 @@
   border: none; //border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;
   padding: 0px; //padding-top: 1em;
   background-color: transparent; //background-color: canvas;
-  color: var(--primary-text); //color: canvastext;
+  color: transparent; //color: canvastext;
   // display: none;
 
   // dialog:modal {
@@ -117,7 +117,7 @@
   outline: none;
 }
 
-@mixin make-navbar($dir: bottom) {
+@mixin make-toolbar($dir: bottom) {
   &:before,
   &:after {
     backface-visibility: hidden;
@@ -132,11 +132,11 @@
 
   &:before {
     backdrop-filter: blur(2px);
-    mask-image: linear-gradient(to #{$dir}, #000 50%, #0000 100%);
+    mask-image: linear-gradient(to #{$dir}, oklch(0 0 0) 50%, oklch(0 0 0 / 0%) 100%);
   }
 
   &:after {
-    background-image: linear-gradient(to #{$dir}, var(--canvas-bg) 0, #0000 100%);
+    background-image: linear-gradient(to #{$dir}, var(--canvas) 0, oklch(0 0 0 / 0%) 100%);
   }
 }
 
@@ -223,3 +223,15 @@
     @content;
   }
 }
+
+// @mixin if-dark-mode {
+//   @media (prefers-color-scheme: dark) {
+//     :root {
+//       @content;
+//     }
+//   }
+
+//   html:has(color-scheme[theme='dark']) & {
+//     @content;
+//   }
+// }

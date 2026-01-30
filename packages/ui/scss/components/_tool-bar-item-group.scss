@@ -10,7 +10,7 @@
       grid-template-columns: minmax(0, 1fr);
       column-gap: var(--toolbar-col-gap);
 
-      background-color: var(--toolbar-cell-bg);
+      background: var(--component);
       padding-inline: var(--toolbar-cell-inline-padding-start) var(--toolbar-cell-inline-padding-end);
       padding-block: var(--toolbar-cell-block-padding-start) var(--toolbar-cell-block-padding-end);
       border-radius: var(--toolbar-cell-border-radius);
@@ -27,7 +27,7 @@
     }
 
     //
-    // --component-bg: white;
+    // --component: white;
     // --component-padding-inline: 5px;
     // --component-padding-block: 5px;
     // --component-border-radius: 99999px;
@@ -39,7 +39,7 @@
     //   // box-shadow: none;
     //   // outline: 0;
     //   border: var(--component-border-width);
-    //   background-color: var(--component-bg);
+    //   background-color: var(--component);
     //   padding-inline: var(--component-padding-inline);
     //   padding-block: var(--component-padding-block);
     //   border-radius: var(--component-border-radius);

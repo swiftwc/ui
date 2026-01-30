@@ -45,19 +45,22 @@
       // -webkit-overflow-scrolling: touch;
       padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
       container: scroll-view / inline-size;
-      background-color: var(--canvas-bg);
+      background-color: var(--canvas);
+      color: var(--canvastext);
       // place-items: center;
       //
 
       padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      box-shadow: 0 0 10px 10px black !important;
+      // box-shadow:
+      //   2px 0 6px oklch(0 0 0 / 48%),
+      //   6px 0 16px oklch(0 0 0 / 67%) !important;
 
       // grid-auto-rows: minmax(0, max-content);
       // grid-template-rows: 100% 1px;
       @include mixins.make-scrollable;
 
-      // @include mixins.make-navbar;
+      // @include mixins.make-toolbar;
       @include mixins.create-v-scroll-view;
 
       // &:has(> tool-bar[slot='navigation-bar']) {

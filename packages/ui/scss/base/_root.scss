@@ -39,6 +39,9 @@
     --sidebar-bg-alpha: 61.96%;
     --sidebar-bg-alpha-dark: 61.96%;
 
+    --liquid-glass-backdrop-filter: blur(4px);
+    --liquid-glass-box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px #0000001c;
+
     --navigation-bar-height: var(--tool-bar-height);
 
     --nav-split-view-sidebar-width: 20rem;

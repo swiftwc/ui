@@ -2,11 +2,9 @@
 @use '../mixins';
 
 @mixin make-floating-tabbar {
-  background: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-  backdrop-filter: blur(4px);
-  box-shadow:
-    0 0 0 1px #fff inset,
-    0px 0px 4px 2px #0000001c;
+  background: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+  backdrop-filter: var(--liquid-glass-backdrop-filter);
+  box-shadow: var(--liquid-glass-box-shadow);
 }
 
 @mixin make-iphone-tabbar {
@@ -112,7 +110,7 @@
         // this scroll-view does not apply bg-color per others on spec (ommited)
         // SECTION: Make room for fixed togle
         // make it opaque for navbars!
-        --canvas: oklch(var(--sidebar-bg-lch) / 1);
+        // --canvas: oklch(var(--sidebar-bg-lch) / 1);
       }
 
       // re-apply width for dialog too (not dialog by default)
@@ -215,7 +213,7 @@
           :where(& > scroll-view) {
             @include mixins.create-v-scroll-view;
 
-            --canvas: oklch(var(--sidebar-bg-lch) / 1);
+            // --canvas: oklch(var(--sidebar-bg-lch) / 1);
           }
 
           :where(& > tool-bar) {

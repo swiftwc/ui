@@ -21,7 +21,7 @@
       // container-type: inline-size;
 
       //
-      // --component: var(--toolbar-cell-bg);
+      // --componentface: var(--toolbar-cell-bg);
       // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
       // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
       --component-border-radius: var(--toolbar-cell-border-radius);
@@ -29,6 +29,7 @@
     }
   }
 
+  sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
   [is='tab-item'] {
@@ -52,7 +53,8 @@
       // box-shadow: none;
       // outline: 0;
       border: var(--component-border-width);
-      background: var(--component);
+      background: var(--componentface);
+      color: var(--componenttext);
       padding-inline: var(--component-padding-inline);
       padding-block: var(--component-padding-block);
       border-radius: var(--component-border-radius);
@@ -83,6 +85,7 @@
 }
 
 @layer #{vars.$colors-layer} {
+  sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
   [is='tab-item'] {
@@ -102,6 +105,7 @@
 }
 
 @layer #{vars.$ui-layer} {
+  sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
   [is='tab-item'] {

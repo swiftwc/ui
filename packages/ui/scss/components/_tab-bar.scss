@@ -66,6 +66,8 @@
 
     @include make-floating-tabbar;
 
+    @include mixins.make-transitionable-dialog-backdrop;
+
     border-radius: var(--tab-bar-ipad-border-radius);
 
     grid-auto-flow: column;
@@ -80,6 +82,8 @@
   }
 
   &[open] {
+    @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+
     :where(&) {
       // @include mixins.make-toolbar;
 
@@ -196,9 +200,13 @@
           border-radius: var(--sidebar-border-radius);
 
           @include make-floating-tabbar;
+
+          @include mixins.make-transitionable-dialog-backdrop;
         }
 
         &[open] {
+          @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+
           :where(&) {
             left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
             // transform: translateX(0);

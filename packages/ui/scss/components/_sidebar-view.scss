@@ -11,15 +11,7 @@
       height: 100%;
       position: relative;
 
-      &::backdrop {
-        @media (prefers-reduced-motion: no-preference) {
-          transition:
-            display var(--view-transition-duration) allow-discrete,
-            overlay var(--view-transition-duration) allow-discrete,
-            background-color var(--view-transition-duration);
-          will-change: background-color, overlay, display;
-        }
-      }
+      @include mixins.make-transitionable-dialog-backdrop;
     }
 
     :where(& > *) {
@@ -39,18 +31,8 @@
 
     &[open] {
       :where(&) {
-        &::backdrop {
-          background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-        }
+        @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
       }
-
-      // @starting-style {
-      //   :where(&) {
-      //     &::backdrop {
-      //       background-color: transparent;
-      //     }
-      //   }
-      // }
 
       @starting-style {
         :where(&) {

@@ -121,14 +121,28 @@
       background-color: transparent;
     }
   }
+}
 
-  &[open] {
-    @starting-style {
-      :where(&) {
-        &::backdrop {
-          background-color: transparent;
-        }
-      }
+@mixin make-transitionable-dialog-backdrop {
+  &::backdrop {
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        display var(--view-transition-duration) allow-discrete,
+        overlay var(--view-transition-duration) allow-discrete,
+        background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+  }
+}
+
+@mixin add-dialog-backdrop-transition-frames($new-background-color) {
+  &::backdrop {
+    background-color: $new-background-color;
+  }
+  // must be after above rule!
+  @starting-style {
+    &::backdrop {
+      background-color: transparent;
     }
   }
 }

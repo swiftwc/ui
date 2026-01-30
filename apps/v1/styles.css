@@ -262,11 +262,6 @@
   :where([is=full-screen])::backdrop {
     background-color: transparent;
   }
-  @starting-style {
-    :where([is=full-screen][open])::backdrop {
-      background-color: transparent;
-    }
-  }
   :where([is=full-screen]) {
     overflow: clip;
     width: 100lvw;
@@ -288,11 +283,6 @@
   }
   :where([is=sheet-view])::backdrop {
     background-color: transparent;
-  }
-  @starting-style {
-    :where([is=sheet-view][open])::backdrop {
-      background-color: transparent;
-    }
   }
   :where([is=sheet-view]) {
     overflow: clip;
@@ -759,11 +749,6 @@
   :where([is=sidebar-view])::backdrop {
     background-color: transparent;
   }
-  @starting-style {
-    :where([is=sidebar-view][open])::backdrop {
-      background-color: transparent;
-    }
-  }
   :where([is=sidebar-view]) {
     width: 100%;
     height: 100%;
@@ -786,6 +771,11 @@
   }
   :where([is=sidebar-view][open])::backdrop {
     background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+  }
+  @starting-style {
+    :where([is=sidebar-view][open])::backdrop {
+      background-color: transparent;
+    }
   }
   @starting-style {
     :where([is=sidebar-view][open]) {
@@ -851,6 +841,7 @@
       width: var(--nav-split-view-sidebar-width);
       margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
       --safe-area-inset-left: 0px;
+      overflow: visible;
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view]) {
       padding-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
@@ -1166,11 +1157,6 @@
   :where([is=tab-bar])::backdrop {
     background-color: transparent;
   }
-  @starting-style {
-    :where([is=tab-bar][open])::backdrop {
-      background-color: transparent;
-    }
-  }
   :where([is=tab-bar]) {
     overflow: clip;
     width: fit-content;
@@ -1227,11 +1213,29 @@
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
+    }
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
       border-radius: var(--tab-bar-ipad-border-radius);
       grid-auto-flow: column;
     }
+  }
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar])::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+  }
+  @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) tool-bar, tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
       display: none;
+    }
+    tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open]::backdrop {
+      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+    }
+    @starting-style {
+      tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open]::backdrop {
+        background-color: transparent;
+      }
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
@@ -1319,11 +1323,29 @@
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       border-radius: var(--tab-bar-ipad-border-radius);
       grid-auto-flow: column;
     }
+  }
+  @media (min-width: 43rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+  }
+  @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) tool-bar, tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
       display: none;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]::backdrop {
+      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+    }
+    @starting-style {
+      tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]::backdrop {
+        background-color: transparent;
+      }
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
@@ -1371,6 +1393,22 @@
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) {
+    tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]::backdrop {
+      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+    }
+    @starting-style {
+      tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]::backdrop {
+        background-color: transparent;
+      }
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]) {
       left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
@@ -1562,17 +1600,17 @@
       transition: transform var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, display var(--view-transition-duration) allow-discrete;
       will-change: transform, overlay, display;
     }
+  }
+  @media (prefers-reduced-motion: no-preference) and (prefers-reduced-motion: no-preference) {
     [is=sheet-view]::backdrop {
       transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
       will-change: background-color, overlay, display;
     }
+  }
+  @media (prefers-reduced-motion: no-preference) {
     [is=sheet-view][open] {
       transform: translateY(var(--view-transition-dialog-onscreen-y));
     }
-    [is=sheet-view][open]::backdrop {
-      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-    }
-    @starting-style {}
     @starting-style {
       [is=sheet-view][open] {
         transform: translateY(var(--view-transition-dialog-offscreen-y));

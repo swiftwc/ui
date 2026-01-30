@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$transitions-layer} {
   // ::view-transition-old(root),
@@ -55,26 +56,10 @@
       //   allow-discrete;
       will-change: transform, overlay, display;
 
-      &::backdrop {
-        transition:
-          display var(--view-transition-duration) allow-discrete,
-          overlay var(--view-transition-duration) allow-discrete,
-          background-color var(--view-transition-duration);
-        will-change: background-color, overlay, display;
-      }
+      @include mixins.make-transitionable-dialog-backdrop;
 
       &[open] {
         transform: translateY(var(--view-transition-dialog-onscreen-y));
-
-        &::backdrop {
-          background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-        }
-
-        @starting-style {
-          &::backdrop {
-            // background-color: transparent;
-          }
-        }
 
         @starting-style {
           & {

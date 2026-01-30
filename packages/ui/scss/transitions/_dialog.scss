@@ -17,15 +17,7 @@
       }
     }
 
-    &::backdrop {
-      background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-    }
-
-    @starting-style {
-      &::backdrop {
-        background-color: transparent;
-      }
-    }
+    @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
 
     @starting-style {
       & {

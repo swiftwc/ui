@@ -17,14 +17,22 @@
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
     --sidebar-bg-lch: 1 0 0;
-    --sidebar-bg-lch-dark: 1 0 0;
-    --sidebar-bg-alpha: 61.96%;
-    --sidebar-bg-alpha-dark: 61.96%;
-    --liquid-glass-backdrop-filter: blur(4px);
-    --liquid-glass-box-shadow: 0 0 0 1px #fff inset, 0px 0px 4px 2px #0000001c;
+    --sidebar-bg-lch-dark: 0.3171 0 0;
+    --sidebar-bg-alpha: 74.9%;
+    --sidebar-bg-alpha-dark: 50.2%;
+    --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
+    --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-Soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
+    --liquid-glass-box-shadow:
+      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-Soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626),
+      inset -3px -3px 10px -3px light-dark(#ddd, #262626), inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26),
+      inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
     --navigation-bar-height: var(--tool-bar-height);
     --nav-split-view-sidebar-width: 20rem;
     --nav-split-view-content-width: 25rem;
+    --nav-split-view-separator-color: oklch(0 0 0);
+    --nav-split-view-separator-color-dark: oklch(1 0 0);
     --primary-text: oklch(0 0 0);
     --primary-text-dark: oklch(1 0 0);
     --secondary-text: oklch(0 0 0);
@@ -33,15 +41,6 @@
     --primary-bg-dark: oklch(0 0 0);
     --secondary-bg: burlywood;
     --secondary-bg-dark: burlywood;
-  }
-  @media (pointer: fine) {
-    :root {
-      --primary-bg: oklch(0.9761 0 0);
-      --primary-bg-dark: oklch(0.2606 0.004 84.58);
-      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
-    }
-  }
-  :root {
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
@@ -54,19 +53,33 @@
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
-    --toolbar-cell-bg: oklch(1 0 0);
-    --toolbar-cell-bg-dark: oklch(0 0 0);
+    --toolbar-cell-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.3rem;
     --toolbar-cell-inline-padding-end: 0.3rem;
     --toolbar-cell-block-padding-start: 0.3rem;
     --toolbar-cell-block-padding-end: 0.3rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
-    --toolbar-cell-focus-bg: lightpink;
-    --toolbar-cell-active-bg: gray;
+    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
+  }
+  @media (pointer: fine) {
+    :root {
+      /*--primary-bg: oklch(0.9761 0 0);
+      --primary-bg-dark: oklch(0.2606 0.004 84.58);
+      */
+      --toolbar-cell-bg: oklch(1 0 0);
+      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+      --toolbar-cell-focus-bg: lightpink;
+      --toolbar-cell-active-bg: gray;
+      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-Soft-bevel-blur), var(--liquid-glass-bs-outer);
+    }
+  }
+  :root {
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
-    --glass-shadow: 0 0 25px 0 #0003;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
   }
   html:has(color-scheme[dark]) {
@@ -300,6 +313,7 @@
     background-color: var(--canvas);
     color: var(--canvastext);
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+    box-shadow: var(--screen-box-shadow);
   }
   :where(navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
@@ -534,7 +548,8 @@
     grid-template-areas: "navigation-bar" "spacer" "bottom-bar";
   }
   :where(tool-bar > *) {
-    box-shadow: var(--glass-shadow);
+    backdrop-filter: var(--liquid-glass-backdrop-filter);
+    box-shadow: var(--toolbar-cell-box-shadow);
     min-width: var(--toolbar-cell-min-size);
   }
   :where(tool-bar)::part(navigation-bar), :where(tool-bar)::part(bottom-bar) {
@@ -803,7 +818,8 @@
       width: var(--nav-split-view-content-width);
     }
     :where(navigation-split-view > scroll-view) {
-      border-right: solid 1px black;
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      --screen-box-shadow: none;
     }
     :where(navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
@@ -815,6 +831,7 @@
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view]) {
       padding-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+      border-radius: var(--sidebar-border-radius);
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view) {
       --safe-area-inset-top: 0px;
@@ -833,7 +850,7 @@
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view) {
-      border-right: solid 1px black;
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
     }
   }
   @media (min-width: 43rem) and (max-width: 63.9999rem) {
@@ -1660,7 +1677,7 @@
   }
 }
 @layer sw-colors {
-  :where(body-view) {
+  :where(body-view:not(dialog body-view)) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
     --canvastext: light-dark(var(--primary-text), var(--primary-text-dark));
   }
@@ -1679,8 +1696,7 @@
     }
   }
   :where([is=tab-bar]) {
-    --canvastext: red;
-    --componenttext: red;
+    --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));

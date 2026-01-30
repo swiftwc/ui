@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @layer #{vars.$colors-layer} {
-  :where(body-view) {
+  :where(body-view:not(dialog body-view)) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
     --canvastext: light-dark(var(--primary-text), var(--primary-text-dark));
   }
@@ -23,10 +23,7 @@
   }
 
   :where([is='tab-bar']) {
-    --canvastext: red;
-    --componenttext: red;
-    // --canvas: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-    // --canvastext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {

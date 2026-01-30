@@ -17,7 +17,8 @@
     }
 
     :where(& > *) {
-      box-shadow: var(--glass-shadow);
+      backdrop-filter: var(--liquid-glass-backdrop-filter);
+      box-shadow: var(--toolbar-cell-box-shadow);
 
       min-width: var(--toolbar-cell-min-size);
 

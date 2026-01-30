@@ -3,11 +3,9 @@
 @layer #{vars.$nav-components-layer} {
   navigation-stack {
     :where(&) {
-      // grid-area: main;
       touch-action: none;
+
       height: var(--100lvh, 100lvh);
-      // height: 100lvh;
-      // overflow: clip;
     }
   }
 }

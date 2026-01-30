@@ -47,14 +47,6 @@
             z-index: -1;
           }
         }
-                 
-        // &:not(
-        //     [column-visibility='double-column']
-        //   )[preferred-compact-column='content'] {
-        //> body-view> body-view
-        // body-view:has(> body-view) > scroll-view:not(dialog scroll-view) {
-        // z-index: -1;
-        // }
 
         // body-view > body-view {
         // clip-path: inset(
@@ -107,19 +99,8 @@
             :where(&) {
               // add margin to make vts precise
               margin-inline-start: var(--nav-split-view-content-width);
-
-              // NOTE: MOVED TO FINAL
-              // --safe-area-inset-left: 0px; // reset start padding
-
-              // #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
-              // --navbar-padding-inline-start: 0px !important;
             }
           }
-
-          // NOTE: MOVED TO FINAL
-          // :where(& ~ tool-bar)::part(navigation-bar) {
-          // --safe-area-inset-left: 0px; // tabview adds to safe area in navbars. reset it
-          // }
         }
       }
 
@@ -199,18 +180,8 @@
                 --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
               }
             }
-
-            // :where(& ~ tool-bar)::part(navigation-bar) {
-            //   --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--sidebar-spacing)));
-            // }
-          }
-
-          :where(& > scroll-view) {
-            border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
           }
         }
-        // }
-        // }
 
         // ANCHOR 3_COL FOR COMPACT-DEFAULTS
 
@@ -241,6 +212,11 @@
                   }
                 }
 
+                :where(& > scroll-view) {
+                  border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+                  --screen-box-shadow: none;
+                }
+
                 > scroll-view:not(dialog scroll-view) {
                   &,
                   & ~ tool-bar {
@@ -259,55 +235,9 @@
 
                   // move ONLY navbar to the side
                   @include mixins.create-sidebar-measure;
-                  // :where(& ~ tool-bar)::part(navigation-bar) {
-                  // --safe-area-inset-left: 50px;
-                  // --safe-area-inset-left: calc(
-                  //   max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px)
-                  // );
-                  // --safe-area-inset-left: calc(
-                  //   max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
-                  //     var(--navbar-padding-inline-start, 0px)
-                  // );
-                  // }
-
-                  // reapply correctly (add safearea) to most left col of navbar measurer
-                  // :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-                  //   margin-inline-start: calc(
-                  //     env(safe-area-inset-left) * -1
-                  //   ); // escape the possible paddings of scroll-view and move to left edge, for new calcs
-                  // }
-
-                  // &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-                  //   @include mixins.reposition-sentinel-for-sidebar;
-                  // &::before {
-                  //   // --sidebar-toggle-padding-inline-start: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
-                  //   // FIXME: iOS bug??!!
-                  //   margin-inline-start: calc(env(safe-area-inset-left) * -1);
-
-                  //   width: calc(
-                  //     max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px) +
-                  //       var(--navbar-padding-inline-start, 0px)
-                  //   );
-                  // }
-                  // }
                 }
-
-                // > body-view {
-                //   scroll-view:not(dialog scroll-view) {
-                // &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-                //   &::before {
-                // #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // width: var(--navbar-padding-inline-start, 0px);
-                //   }
-                // }
-
-                // ~ tool-bar::part(navigation-bar) {
-                // --safe-area-inset-left: 0px;
-                // }
-                //   }
-                // }
               }
             }
-            // }
           }
 
           // ANCHOR 3_COL DEFAULTS
@@ -332,33 +262,26 @@
                 }
               }
 
+              :where(& > scroll-view) {
+                border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+                --screen-box-shadow: none;
+              }
+
               // container of details col (trailing)
               > body-view {
                 scroll-view:not(dialog scroll-view) {
                   &,
                   & ~ tool-bar {
                     :where(&) {
-                      // --safe-area-inset-left: calc(
-                      //   var(--nav-split-view-sidebar-width) +
-                      //     var(--nav-split-view-content-width) +
-                      //     max(env(safe-area-inset-left), var(--sidebar-spacing))
-                      // ); // override
-
                       // margin-inline-start: 0px;
                       --safe-area-inset-left: 0px; // override
 
                       margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width)); // override
                     }
                   }
-
-                  // :where(& ~ tool-bar)::part(navigation-bar) {
-                  // --safe-area-inset-left: 0px; // override
-                  // }
                 }
               }
             }
-            // }
-            // }
           }
         }
       }
@@ -508,13 +431,14 @@
                 }
               }
             }
-            // &:not([preferred-compact-column='content']) {
-            //   > body-view {
-            //     scroll-view:not(dialog scroll-view) {
-            // @include mixins.discard-sidebar-measures;
-            //     }
-            //   }
-            // }
+            //ns +sbar -comp-col -dbl-col @918px
+            &:not([preferred-compact-column='content']) {
+              > body-view {
+                scroll-view:not(dialog scroll-view) {
+                  @include mixins.discard-sidebar-measures;
+                }
+              }
+            }
           }
 
           // ANCHOR 2_COL OVERRIDE FOR COMPACT VIEWS

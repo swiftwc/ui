@@ -2,9 +2,8 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  body-view {
-    :where(&) {
-      // pointer-events: none;
-    }
-  }
+  // body-view {
+  //   :where(&) {
+  //   }
+  // }
 }

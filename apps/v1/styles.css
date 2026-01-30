@@ -33,10 +33,12 @@
     --nav-split-view-content-width: 25rem;
     --nav-split-view-separator-color: oklch(0 0 0);
     --nav-split-view-separator-color-dark: oklch(1 0 0);
-    --primary-text: oklch(0 0 0);
-    --primary-text-dark: oklch(1 0 0);
+    --primary-label: oklch(0 0 0);
+    --primary-label-dark: oklch(1 0 0);
     --secondary-text: oklch(0 0 0);
     --secondary-text-dark: oklch(1 0 0);
+    --tint-lch: 0.452 0.313214 264.052;
+    --tint-lch-dark: 0.452 0.313214 264.052;
     --primary-bg: oklch(0.9566 0.0067 286.27);
     --primary-bg-dark: oklch(0 0 0);
     --secondary-bg: burlywood;
@@ -62,7 +64,9 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
     --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
   }
   @media (pointer: fine) {
@@ -102,7 +106,7 @@
   }
   body {
     background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    color: light-dark(var(--primary-text), var(--primary-text-dark));
+    color: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   body {
     display: grid;
@@ -254,6 +258,16 @@
     max-width: 100lvw;
     max-height: 100lvh;
     outline: none;
+  }
+  :where([is=full-screen])::backdrop {
+    background-color: transparent;
+  }
+  @starting-style {
+    :where([is=full-screen][open])::backdrop {
+      background-color: transparent;
+    }
+  }
+  :where([is=full-screen]) {
     overflow: clip;
     width: 100lvw;
     height: var(--100lvh, 100lvh);
@@ -271,13 +285,20 @@
     max-width: 100lvw;
     max-height: 100lvh;
     outline: none;
+  }
+  :where([is=sheet-view])::backdrop {
+    background-color: transparent;
+  }
+  @starting-style {
+    :where([is=sheet-view][open])::backdrop {
+      background-color: transparent;
+    }
+  }
+  :where([is=sheet-view]) {
     overflow: clip;
     width: 100lvw;
     height: var(--100lvh, 100lvh);
     transform: translateY(var(--view-transition-dialog-offscreen-y));
-  }
-  :where([is=sheet-view]::backdrop) {
-    background-color: transparent;
   }
   @media (min-width: 37rem) and (min-height: 27.75rem) {
     [is=sheet-view] {
@@ -498,14 +519,14 @@
   tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
   tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
   [is=tab-item]:not(:disabled):not([readonly]):focus-visible) {
-    background-color: var(--toolbar-cell-focus-bg);
+    --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
     :where(sidebar-toggle button:not(:disabled):not([readonly]):hover,
     tool-bar-item button:not(:disabled):not([readonly]):hover,
     tool-bar-item input:not(:disabled):not([readonly]):hover,
     [is=tab-item]:not(:disabled):not([readonly]):hover) {
-      background-color: var(--toolbar-cell-focus-bg);
+      --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
 }
@@ -514,7 +535,7 @@
   tool-bar-item button:not(:disabled):not([readonly]):active,
   tool-bar-item input:not(:disabled):not([readonly]):active,
   [is=tab-item]:not(:disabled):not([readonly]):active) {
-    background-color: var(--toolbar-cell-active-bg);
+    --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
 }
 @layer sw-components {
@@ -734,9 +755,25 @@
     max-width: 100lvw;
     max-height: 100lvh;
     outline: none;
+  }
+  :where([is=sidebar-view])::backdrop {
+    background-color: transparent;
+  }
+  @starting-style {
+    :where([is=sidebar-view][open])::backdrop {
+      background-color: transparent;
+    }
+  }
+  :where([is=sidebar-view]) {
     width: 100%;
     height: 100%;
     position: relative;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=sidebar-view])::backdrop {
+      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
+      will-change: background-color, overlay, display;
+    }
   }
   :where([is=sidebar-view] > *) {
     grid-column: 1/-1;
@@ -747,22 +784,8 @@
       transition: margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
     }
   }
-  :where([is=sidebar-view]::backdrop) {
-    background-color: transparent;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=sidebar-view]::backdrop) {
-      transition: display var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, background-color var(--view-transition-duration);
-      will-change: background-color, overlay, display;
-    }
-  }
-  :where([is=sidebar-view][open]::backdrop) {
+  :where([is=sidebar-view][open])::backdrop {
     background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
-  }
-  @starting-style {
-    :where([is=sidebar-view][open]::backdrop) {
-      background-color: transparent;
-    }
   }
   @starting-style {
     :where([is=sidebar-view][open]) {
@@ -849,9 +872,6 @@
       --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]) > body-view > scroll-view) {
-      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-    }
   }
   @media (min-width: 43rem) and (max-width: 63.9999rem) {
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > scroll-view,
@@ -862,6 +882,10 @@
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
       --safe-area-inset-left: 0px;
+    }
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view) {
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      --screen-box-shadow: none;
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       width: var(--nav-split-view-content-width);
@@ -881,6 +905,10 @@
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > tool-bar) {
       width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width));
       --safe-area-inset-right: 0px;
+    }
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view) {
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      --screen-box-shadow: none;
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-left: 0px;
@@ -1008,6 +1036,15 @@
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
       --safe-area-inset-left: unset;
     }
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view))::part(scroll-view-navbar-stack) {
+      margin-inline-start: unset;
+      --sidebar-spacing: 0px;
+      --sidebar-toggle-padding-inline-start: 0px;
+      --safe-area-inset-left: 0px;
+    }
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: unset;
+    }
   }
   @media (min-width: 43rem) and (min-width: 64rem) {
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view))::part(scroll-view-navbar-stack) {
@@ -1125,6 +1162,16 @@
     max-width: 100lvw;
     max-height: 100lvh;
     outline: none;
+  }
+  :where([is=tab-bar])::backdrop {
+    background-color: transparent;
+  }
+  @starting-style {
+    :where([is=tab-bar][open])::backdrop {
+      background-color: transparent;
+    }
+  }
+  :where([is=tab-bar]) {
     overflow: clip;
     width: fit-content;
     height: auto;
@@ -1525,11 +1572,7 @@
     [is=sheet-view][open]::backdrop {
       background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
     }
-    @starting-style {
-      [is=sheet-view][open]::backdrop {
-        background-color: transparent;
-      }
-    }
+    @starting-style {}
     @starting-style {
       [is=sheet-view][open] {
         transform: translateY(var(--view-transition-dialog-offscreen-y));
@@ -1677,9 +1720,9 @@
   }
 }
 @layer sw-colors {
-  :where(body-view:not(dialog body-view)) {
+  :where(navigation-view, navigation-split-view) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --canvastext: light-dark(var(--primary-text), var(--primary-text-dark));
+    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   :where([is=sheet-view], [is=full-screen]) {
     --canvas: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
@@ -1687,7 +1730,7 @@
   }
   :where([is=sidebar-view]) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --canvastext: light-dark(var(--primary-text), var(--primary-text-dark));
+    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   @media (min-width: 43rem) {
     :where([is=sidebar-view]) {
@@ -1700,7 +1743,13 @@
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-    --componenttext: light-dark(var(--primary-text), var(--primary-text-dark));
+    --componenttext: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+  }
+  @media (pointer: fine) {
+    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+      --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
+    }
   }
 }
 

@@ -92,29 +92,45 @@
 }
 
 @mixin reset-dialog {
-  // position: absolute;
-  inset-inline: 0px;
-  inset-block: 0px; //inset-inline-start: 0px;
-  // width: fit-content;
-  // height: fit-content;
-  margin: 0px; //margin-top: auto;
-  border: none; //border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;
-  padding: 0px; //padding-top: 1em;
-  background-color: transparent; //background-color: canvas;
-  color: transparent; //color: canvastext;
-  // display: none;
+  :where(&) {
+    // position: absolute;
+    inset-inline: 0px;
+    inset-block: 0px; //inset-inline-start: 0px;
+    // width: fit-content;
+    // height: fit-content;
+    margin: 0px; //margin-top: auto;
+    border: none; //border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;
+    padding: 0px; //padding-top: 1em;
+    background-color: transparent; //background-color: canvas;
+    color: transparent; //color: canvastext;
+    // display: none;
 
-  // dialog:modal {
-  // position: fixed;
-  // overflow-x: auto;
-  // overflow-y: auto;
-  // inset-block-start: 0px;
-  max-width: 100lvw; //max-width: calc(100% - 2em - 6px);
-  max-height: 100lvh; //max-height: calc(100% - 2em - 6px);
-  // visibility: visible;
-  // }
+    // dialog:modal {
+    // position: fixed;
+    // overflow-x: auto;
+    // overflow-y: auto;
+    // inset-block-start: 0px;
+    max-width: 100lvw; //max-width: calc(100% - 2em - 6px);
+    max-height: 100lvh; //max-height: calc(100% - 2em - 6px);
+    // visibility: visible;
+    // }
 
-  outline: none;
+    outline: none;
+
+    &::backdrop {
+      background-color: transparent;
+    }
+  }
+
+  &[open] {
+    @starting-style {
+      :where(&) {
+        &::backdrop {
+          background-color: transparent;
+        }
+      }
+    }
+  }
 }
 
 @mixin make-toolbar($dir: bottom) {
@@ -223,15 +239,3 @@
     @content;
   }
 }
-
-// @mixin if-dark-mode {
-//   @media (prefers-color-scheme: dark) {
-//     :root {
-//       @content;
-//     }
-//   }
-
-//   html:has(color-scheme[theme='dark']) & {
-//     @content;
-//   }
-// }

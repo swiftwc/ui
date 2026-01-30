@@ -20,10 +20,8 @@
       &.bwdd {
         transition:
           transform var(--view-transition-duration) ease-out allow-discrete,
-          padding-inline-start var(--sidebar-transition-duration) ease-out
-            allow-discrete,
-          margin-inline-start var(--sidebar-transition-duration) ease-out
-            allow-discrete;
+          padding-inline-start var(--sidebar-transition-duration) ease-out allow-discrete,
+          margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
 
         will-change: transform, padding-inline-start, margin-inline-start;
       }
@@ -74,7 +72,7 @@
 
         @starting-style {
           &::backdrop {
-            background-color: transparent;
+            // background-color: transparent;
           }
         }
 

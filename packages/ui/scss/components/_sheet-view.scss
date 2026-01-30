@@ -3,19 +3,15 @@
 
 @layer #{vars.$components-layer} {
   [is='sheet-view'] {
-    :where(&) {
-      @include mixins.reset-dialog;
+    @include mixins.reset-dialog;
 
+    :where(&) {
       // dowh
       overflow: clip;
       width: 100lvw;
       height: var(--100lvh, 100lvh);
 
       transform: translateY(var(--view-transition-dialog-offscreen-y));
-    }
-
-    :where(&::backdrop) {
-      background-color: transparent;
     }
 
     @include mixins.if-ipad-sheet-fits {

@@ -91,13 +91,13 @@
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
       :where(&:focus-visible) {
-        background-color: var(--toolbar-cell-focus-bg);
+        --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
       }
 
       // order matters! BEFORE active
       @media (pointer: fine) {
         :where(&:hover) {
-          background-color: var(--toolbar-cell-focus-bg);
+          --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
         }
       }
     }
@@ -111,7 +111,7 @@
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
       :where(&:active) {
-        background-color: var(--toolbar-cell-active-bg);
+        --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
       }
     }
   }

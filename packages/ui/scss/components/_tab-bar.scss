@@ -141,9 +141,9 @@
 
 @layer #{vars.$tab-components-layer} {
   [is='tab-bar'] {
-    :where(&) {
-      @include mixins.reset-dialog;
+    @include mixins.reset-dialog;
 
+    :where(&) {
       // dowh
       overflow: clip;
       width: fit-content;

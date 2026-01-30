@@ -56,10 +56,13 @@
     --nav-split-view-separator-color: oklch(0 0 0);
     --nav-split-view-separator-color-dark: oklch(1 0 0);
 
-    --primary-text: oklch(0 0 0);
-    --primary-text-dark: oklch(1 0 0);
+    --primary-label: oklch(0 0 0);
+    --primary-label-dark: oklch(1 0 0);
     --secondary-text: oklch(0 0 0);
     --secondary-text-dark: oklch(1 0 0);
+
+    --tint-lch: 0.452 0.313214 264.052;
+    --tint-lch-dark: 0.452 0.313214 264.052;
 
     --primary-bg: oklch(0.9566 0.0067 286.27);
     --primary-bg-dark: oklch(0 0 0);
@@ -96,7 +99,9 @@
     --toolbar-cell-min-size: 2.8rem;
 
     --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 

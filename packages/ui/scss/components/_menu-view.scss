@@ -3,22 +3,19 @@
 
 @layer #{vars.$components-layer} {
   menu-view {
-    &:hover {
-      background-color: red;
-    }
-    :where(&)::part(menu-details) {
-    }
+    // :where(&)::part(menu-details) {
+    // }
 
     :where(&)::part(menu-summary) {
-      // anchor-name: --my-anchor;
+      // anchor-name: --my-anchor; //overriden
 
       @media (prefers-reduced-motion: no-preference) {
-        transition: all 400ms allow-discrete;
+        transition:
+          display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
         will-change: transform, overlay, display;
       }
-
-      transform: scale(1);
-      filter: blur(0px);
     }
 
     :where(&)::part(menu-form) {
@@ -35,11 +32,14 @@
     :where(&)::part(menu-dialog) {
       @include mixins.reset-dialog;
 
-      // @include mixins.make-transitionable-dialog-backdrop;
-
       @media (prefers-reduced-motion: no-preference) {
-        transition: all 400ms allow-discrete;
-        will-change: transform, overlay, display;
+        transition:
+          block-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          inline-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+          transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
+        will-change: block-size, inline-size, transform, overlay, display;
       }
 
       position: fixed;
@@ -47,48 +47,26 @@
       inline-size: anchor-size();
       block-size: anchor-size();
 
-      // position-area: block-end span-inline-end;
-      // position-try-fallbacks: block-end span-inline-start;
-
-      // inset-block-start: anchor(start);
-
       transform: scale(0);
 
-      // position-anchor: --my-anchor;
-      position-area: center;
+      // position-anchor: --my-anchor; // overriden
+      position-area: center; // overriden
 
       overflow: clip;
       border-radius: 22px;
 
       box-shadow: 0 0 10px 10px black;
-
-      // opacity: 0;
     }
 
     &[open] {
       :where(&)::part(menu-dialog) {
         transform: scale(1);
-        // opacity: 1;
 
-        inline-size: fit-content; //200px;
-        block-size: var(--sert, 300px); //300px; //fit-content;
-
-        // margin-block-start: anchor-size();
-      }
-      @starting-style {
-        :where(&)::part(menu-dialog) {
-          // opacity: 0;
-          transform: scale(0);
-        }
-      }
-
-      :where(&)::part(menu-summary) {
-        transform: scale(0);
-        filter: blur(10px);
+        inline-size: fit-content; //fit-content;
+        block-size: var(--sert, 300px); //fit-content;
 
         @starting-style {
-          transform: scale(1);
-          filter: blur(0);
+          transform: scale(0);
         }
       }
     }

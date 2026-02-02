@@ -61,11 +61,11 @@
         padding-block-start: var(--safe-area-inset-top);
         transform: translateY(calc(var(--safe-area-inset-top) * -1));
 
-        // @media (pointer: fine) { FIXME
-        & {
-          justify-items: start;
+        @media (pointer: fine) {
+          & {
+            justify-items: start;
+          }
         }
-        // }
 
         // > div {
         @include mixins.make-toolbar(bottom);

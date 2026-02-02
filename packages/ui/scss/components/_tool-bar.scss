@@ -127,3 +127,19 @@
     }
   }
 }
+
+@layer #{vars.$final-layer} {
+  tool-bar-item[slot^='navigation-bar'],
+  tool-bar-item-group[slot^='navigation-bar'] {
+    :where(& menu-view, & tool-bar-item-group[slot^='navigation-bar'] menu-view)::part(menu-dialog) {
+      position-area: center block-end;
+    }
+  }
+
+  tool-bar-item[slot^='bottom-bar'],
+  tool-bar-item-group[slot^='bottom-bar'] {
+    :where(& menu-view, & menu-view)::part(menu-dialog) {
+      position-area: center block-start;
+    }
+  }
+}

@@ -84,6 +84,8 @@
   :root {
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
+    --menu-animation-duration: 300ms;
+    --menu-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
   }
   html:has(color-scheme[dark]) {
@@ -423,8 +425,10 @@
     padding-block-start: var(--safe-area-inset-top);
     transform: translateY(calc(var(--safe-area-inset-top) * -1));
   }
-  :where(scroll-view)::part(scroll-view-navbar) {
-    justify-items: start;
+  @media (pointer: fine) {
+    :where(scroll-view)::part(scroll-view-navbar) {
+      justify-items: start;
+    }
   }
   :where(scroll-view)::part(scroll-view-navbar):before, :where(scroll-view)::part(scroll-view-navbar):after {
     backface-visibility: hidden;
@@ -490,10 +494,8 @@
     --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
   }
-  :where(sidebar-toggle button,
-  tool-bar-item button,
-  tool-bar-item input,
-  [is=tab-item]) {
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item]),
+  :where(tool-bar-item menu-view)::part(menu-summary) {
     all: unset;
     display: grid;
     appearance: none;
@@ -506,28 +508,51 @@
     border-radius: var(--component-border-radius);
     min-width: 25px;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    tool-bar-item[slot],
+    tool-bar-item-group {
+      transition: display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
+      will-change: transform, overlay, display;
+    }
+  }
+  tool-bar-item[slot]:has(> menu-view[open]),
+  tool-bar-item-group:has(> tool-bar-item > menu-view[open]) {
+    transform: scale(0);
+    filter: blur(10px);
+  }
 }
 @layer sw-colors {
-  :where(sidebar-toggle button:not(:disabled):not([readonly]):focus-visible,
-  tool-bar-item button:not(:disabled):not([readonly]):focus-visible,
-  tool-bar-item input:not(:disabled):not([readonly]):focus-visible,
-  [is=tab-item]:not(:disabled):not([readonly]):focus-visible) {
+  :where(sidebar-toggle button:not(:disabled):not([readonly]),
+  tool-bar-item button:not(:disabled):not([readonly]),
+  tool-bar-item input:not(:disabled):not([readonly]),
+  [is=tab-item]:not(:disabled):not([readonly])):focus-visible {
     --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
-    :where(sidebar-toggle button:not(:disabled):not([readonly]):hover,
-    tool-bar-item button:not(:disabled):not([readonly]):hover,
-    tool-bar-item input:not(:disabled):not([readonly]):hover,
-    [is=tab-item]:not(:disabled):not([readonly]):hover) {
+    :where(sidebar-toggle button:not(:disabled):not([readonly]),
+    tool-bar-item button:not(:disabled):not([readonly]),
+    tool-bar-item input:not(:disabled):not([readonly]),
+    [is=tab-item]:not(:disabled):not([readonly])):hover {
+      --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    }
+  }
+  :where(tool-bar-item menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+    --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+  }
+  @media (pointer: fine) {
+    :where(tool-bar-item menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
       --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
 }
 @layer sw-actions {
-  :where(sidebar-toggle button:not(:disabled):not([readonly]):active,
-  tool-bar-item button:not(:disabled):not([readonly]):active,
-  tool-bar-item input:not(:disabled):not([readonly]):active,
-  [is=tab-item]:not(:disabled):not([readonly]):active) {
+  :where(sidebar-toggle button:not(:disabled):not([readonly]),
+  tool-bar-item button:not(:disabled):not([readonly]),
+  tool-bar-item input:not(:disabled):not([readonly]),
+  [is=tab-item]:not(:disabled):not([readonly])):active {
+    --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+  }
+  :where(tool-bar-item menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
 }
@@ -614,6 +639,18 @@
     :where([is=sheet-view] tool-bar)::part(bottom-bar) {
       --safe-area-inset-bottom: 0px;
     }
+  }
+}
+@layer sw-final {
+  :where(tool-bar-item[slot^=navigation-bar] menu-view, tool-bar-item[slot^=navigation-bar] tool-bar-item-group[slot^=navigation-bar] menu-view,
+  tool-bar-item-group[slot^=navigation-bar] menu-view,
+  tool-bar-item-group[slot^=navigation-bar] tool-bar-item-group[slot^=navigation-bar] menu-view)::part(menu-dialog) {
+    position-area: center block-end;
+  }
+  :where(tool-bar-item[slot^=bottom-bar] menu-view, tool-bar-item[slot^=bottom-bar] menu-view,
+  tool-bar-item-group[slot^=bottom-bar] menu-view,
+  tool-bar-item-group[slot^=bottom-bar] menu-view)::part(menu-dialog) {
+    position-area: center block-start;
   }
 }
 @layer sw-components {
@@ -743,18 +780,11 @@
   }
 }
 @layer sw-components {
-  menu-view:hover {
-    background-color: red;
-  }
   @media (prefers-reduced-motion: no-preference) {
     :where(menu-view)::part(menu-summary) {
-      transition: all 400ms allow-discrete;
+      transition: display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
       will-change: transform, overlay, display;
     }
-  }
-  :where(menu-view)::part(menu-summary) {
-    transform: scale(1);
-    filter: blur(0px);
   }
   :where(menu-view)::part(menu-form) {
     inline-size: 200px;
@@ -780,8 +810,8 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     :where(menu-view)::part(menu-dialog) {
-      transition: all 400ms allow-discrete;
-      will-change: transform, overlay, display;
+      transition: block-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), inline-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
+      will-change: block-size, inline-size, transform, overlay, display;
     }
   }
   :where(menu-view)::part(menu-dialog) {
@@ -803,16 +833,6 @@
   @starting-style {
     :where(menu-view[open])::part(menu-dialog) {
       transform: scale(0);
-    }
-  }
-  :where(menu-view[open])::part(menu-summary) {
-    transform: scale(0);
-    filter: blur(10px);
-  }
-  @starting-style {
-    :where(menu-view[open])::part(menu-summary) {
-      transform: scale(1);
-      filter: blur(0);
     }
   }
 }

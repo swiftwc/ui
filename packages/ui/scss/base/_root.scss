@@ -121,6 +121,9 @@
     #{vars.$disclosure-group-animation-duration-css-prop}: 500ms;
     --disclosure-group-animation-easing: ease-out;
 
+    --menu-animation-duration: 300ms;
+    --menu-animation-easing: ease-out;
+
     // --glass-shadow:
     //   inset -1px -1px 0px -0.5px #fff, inset 1px 1px 0px -0.5px #fff, inset 3px 3px 10px -3px #ddd, inset -3px -3px 10px -3px #ddd, inset 0 0 5px 1px #fff,
     //   inset 0 0 0 0.5px #00000040, inset 0 0 24px 0 #0000001a, 0 0 25px 0 #0003;

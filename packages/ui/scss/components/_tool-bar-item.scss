@@ -29,53 +29,65 @@
     }
   }
 
-  sidebar-toggle button,
-  tool-bar-item button,
-  tool-bar-item input,
-  [is='tab-item'] {
-    :where(&) {
-      // display: grid;
-      // place-items: center;
-      // place-content: center;
-      // container-type: inline-size;
-      // > * {
-      //   font-size: 100cqw;
-      // }
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item']),
+  :where(tool-bar-item menu-view)::part(menu-summary) {
+    // display: grid;
+    // place-items: center;
+    // place-content: center;
+    // container-type: inline-size;
+    // > * {
+    //   font-size: 100cqw;
+    // }
 
-      all: unset;
-      display: grid;
+    all: unset;
+    display: grid;
 
-      appearance: none;
-      -webkit-appearance: none;
-      // place-items: center;
-      // place-content: center;
+    appearance: none;
+    -webkit-appearance: none;
+    // place-items: center;
+    // place-content: center;
 
-      // box-shadow: none;
-      // outline: 0;
-      border: var(--component-border-width);
-      background: var(--componentface);
-      color: var(--componenttext);
-      padding-inline: var(--component-padding-inline);
-      padding-block: var(--component-padding-block);
-      border-radius: var(--component-border-radius);
-      min-width: 25px; // NOTE: For inputs overflowing-x
+    // box-shadow: none;
+    // outline: 0;
+    border: var(--component-border-width);
+    background: var(--componentface);
+    color: var(--componenttext);
+    padding-inline: var(--component-padding-inline);
+    padding-block: var(--component-padding-block);
+    border-radius: var(--component-border-radius);
+    min-width: 25px; // NOTE: For inputs overflowing-x
 
-      // &:not(:disabled):not([readonly]) {
-      //   &:focus-visible {
-      //     background-color: var(--toolbar-cell-focus-bg);
-      //   }
-      //   // order matters! BEFORE active
-      //   @media (pointer: fine) {
-      //     &:hover {
-      //       background-color: var(--toolbar-cell-focus-bg);
-      //     }
-      //   }
-      //   // order matters! AFTER hover/fvisible
-      //   &:active {
-      //     background-color: var(--toolbar-cell-active-bg);
-      //   }
-      // }
+    // &:not(:disabled):not([readonly]) {
+    //   &:focus-visible {
+    //     background-color: var(--toolbar-cell-focus-bg);
+    //   }
+    //   // order matters! BEFORE active
+    //   @media (pointer: fine) {
+    //     &:hover {
+    //       background-color: var(--toolbar-cell-focus-bg);
+    //     }
+    //   }
+    //   // order matters! AFTER hover/fvisible
+    //   &:active {
+    //     background-color: var(--toolbar-cell-active-bg);
+    //   }
+    // }
+  }
+  tool-bar-item[slot],
+  tool-bar-item-group {
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+        overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
+        transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
+      will-change: transform, overlay, display;
     }
+  }
+
+  tool-bar-item[slot]:has(> menu-view[open]),
+  tool-bar-item-group:has(> tool-bar-item > menu-view[open]) {
+    transform: scale(0);
+    filter: blur(10px);
   }
 
   // tool-bar-item {
@@ -90,13 +102,27 @@
   tool-bar-item input,
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
-      :where(&:focus-visible) {
+      :where(&):focus-visible {
         --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
       }
 
       // order matters! BEFORE active
       @media (pointer: fine) {
-        :where(&:hover) {
+        :where(&):hover {
+          --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+        }
+      }
+    }
+  }
+
+  tool-bar-item menu-view {
+    &:not(:disabled):not([readonly]) {
+      :where(&):focus-visible::part(menu-summary) {
+        --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      }
+
+      @media (pointer: fine) {
+        :where(&):hover::part(menu-summary) {
           --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
         }
       }
@@ -110,7 +136,15 @@
   tool-bar-item input,
   [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
-      :where(&:active) {
+      :where(&):active {
+        --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+      }
+    }
+  }
+
+  tool-bar-item menu-view {
+    &:not(:disabled):not([readonly]) {
+      :where(&):active::part(menu-summary) {
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
       }
     }

@@ -51,8 +51,8 @@ export class MenuView extends HTMLElement {
 
     const anchorName = `--menu-view-${self.crypto.randomUUID()}`
 
-    this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]')!.style.anchorName = anchorName
-    this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')!.style.positionAnchor = anchorName
+    this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]')!.style.setProperty('anchor-name', anchorName, 'important') //.anchorName = anchorName
+    this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')!.style.setProperty('position-anchor', anchorName)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -73,6 +73,8 @@ export class MenuView extends HTMLElement {
             if (this.hasAttribute('closing')) dialog.close()
 
             this.removeAttribute('closing')
+
+            this.style.removeProperty('--sert')
           })
         }
 
@@ -83,7 +85,7 @@ export class MenuView extends HTMLElement {
 
           const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
           let sum = 0
-          for (const node of slot?.assignedNodes({ flatten: true }) ?? []) sum += node.offsetHeight
+          for (const node of slot?.assignedNodes({ flatten: true }) ?? []) sum += (node as HTMLElement).offsetHeight
 
           this.style.setProperty('--sert', `${Math.max(this.offsetHeight, Math.min(sum, 300))}px`)
 

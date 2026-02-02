@@ -6,29 +6,29 @@ export class SheetView extends DialogBase {
   }
 
   disconnectedCallback() {
-    console.debug(`${SheetView.name} ⚡️ disconnect`)
-
     SheetView.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    console.debug(`${SheetView.name} ⚡️ connect`)
-
     SheetView.polyfillConnectedCallback(this)
   }
 
   static polyfillDisconnectedCallback(el: SheetView) {
-    el.removeEventListener('cancel', SheetView.handleCancel)
+    console.debug(`${SheetView.name} ⚡️ disconnect`)
+
+    el.removeEventListener('cancel', SheetView.#handleCancel)
   }
 
   static polyfillConnectedCallback(el: SheetView) {
-    el.addEventListener('cancel', SheetView.handleCancel)
+    console.debug(`${SheetView.name} ⚡️ connect`)
+
+    el.addEventListener('cancel', SheetView.#handleCancel)
 
     el.autofocus = true
   }
 
-  static handleCancel = (event: Event) => {
-    console.debug(`${SheetView.name} ⚡️ cancel (${event.cancelable})`)
+  static #handleCancel = (event: Event) => {
+    console.debug(`${SheetView.name} ⚡️ ${event?.type} (${event.cancelable})`)
 
     if (!event.cancelable) return
 

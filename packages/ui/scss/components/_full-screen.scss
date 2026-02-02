@@ -3,9 +3,9 @@
 
 @layer #{vars.$components-layer} {
   [is='full-screen'] {
-    @include mixins.reset-dialog;
-
     :where(&) {
+      @include mixins.reset-dialog;
+
       // dowh
       overflow: clip;
       width: 100lvw;

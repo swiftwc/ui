@@ -191,7 +191,10 @@
   [is=tab-bar-stack],
   v-stack,
   tool-bar,
-  label-view),
+  label-view, menu-view),
+  ::part(menu-details),
+  ::part(menu-summary),
+  ::part(menu-form),
   ::part(navigation-bar),
   ::part(bottom-bar),
   ::part(label-image-stack),
@@ -660,7 +663,13 @@
     --label-text-overflow: ellipsis;
   }
 }
-@layer sw-components {}
+@layer sw-components {
+  :where(detail[is=tooltip], detail[is=tooltip] > summary) {
+    display: grid;
+    grid-template-columns: subgrid;
+    grid-template-rows: subgrid;
+  }
+}
 @layer sw-components {
   :where(sidebar-toggle) {
     place-items: center;
@@ -730,6 +739,34 @@
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([preferred-compact-column=content]) > sidebar-toggle, navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > sidebar-toggle) {
       display: none;
+    }
+  }
+}
+@layer sw-components {
+  :where(menu-view)::part(menu-dialog) {
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: transparent;
+    max-width: 100lvw;
+    max-height: 100lvh;
+    outline: none;
+  }
+  :where(menu-view)::part(menu-dialog)::backdrop {
+    background-color: transparent;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where(menu-view)::part(menu-dialog) {
+      transition: transform 3s allow-discrete, overlay 3s allow-discrete, display 3s allow-discrete;
+      will-change: transform, overlay, display;
+    }
+  }
+  @starting-style {
+    :where(menu-view)::part(menu-dialog) {
+      transform: translateY(100%);
     }
   }
 }

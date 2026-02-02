@@ -21,6 +21,9 @@ export class LabelView extends HTMLElement {
 
   #shadowRoot
 
+  #imgSlot?: HTMLSlotElement
+  #slot?: HTMLSlotElement
+
   constructor() {
     super()
 
@@ -29,18 +32,13 @@ export class LabelView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
 
-      const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')!
-      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')!
+      this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
+      this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-      const update = () => {
-        console.log(99, 'slotchange', slot.assignedNodes({ flatten: true }).length)
-        this.toggleAttribute('has-title', slot.assignedNodes({ flatten: true }).length > 0)
-        this.toggleAttribute('has-image', imgSlot.assignedNodes({ flatten: true }).length > 0)
-      }
+      this.#slot?.addEventListener('slotchange', this.#handleSlotChange)
+      this.#imgSlot?.addEventListener('slotchange', this.#handleSlotChange)
 
-      slot.addEventListener('slotchange', update)
-      imgSlot.addEventListener('slotchange', update)
-      update()
+      this.#handleSlotChange()
     })
   }
 
@@ -95,5 +93,12 @@ export class LabelView extends HTMLElement {
           break
       }
     })
+  }
+
+  #handleSlotChange = () => {
+    console.debug(`${LabelView.name} ⚡️ disconnect`)
+
+    this.toggleAttribute('has-title', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0)
+    this.toggleAttribute('has-image', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0)
   }
 }

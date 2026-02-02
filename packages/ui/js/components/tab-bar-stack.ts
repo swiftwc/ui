@@ -21,5 +21,7 @@ export class TabBarStack extends FormBase {
     console.debug(`${TabBarStack.name} ⚡️ connect`)
 
     el.method = 'dialog'
+
+    el.noValidate = true
   }
 }

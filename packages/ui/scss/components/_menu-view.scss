@@ -1,0 +1,32 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  menu-view {
+    :where(&)::part(menu-dialog) {
+      @include mixins.reset-dialog;
+
+      // @include mixins.make-transitionable-dialog-backdrop;
+
+      @media (prefers-reduced-motion: no-preference) {
+        transition:
+          transform 3s allow-discrete,
+          overlay 3s allow-discrete,
+          display 3s allow-discrete;
+        will-change: transform, overlay, display;
+      }
+    }
+
+    // &[open] {
+    :where(&)::part(menu-dialog)[open] {
+      // transform: translateY(0%);
+      // @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+    }
+    @starting-style {
+      :where(&)::part(menu-dialog) {
+        transform: translateY(100%);
+      }
+    }
+    // }
+  }
+}

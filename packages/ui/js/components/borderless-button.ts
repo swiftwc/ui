@@ -6,22 +6,22 @@ export class BorderlessButton extends ButtonBase {
   }
 
   disconnectedCallback() {
-    console.debug(`${BorderlessButton.name} ⚡️ disconnect`)
-
     BorderlessButton.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    console.debug(`${BorderlessButton.name} ⚡️ connect`)
-
     BorderlessButton.polyfillConnectedCallback(this)
   }
 
   static polyfillDisconnectedCallback(el: BorderlessButton) {
+    console.debug(`${BorderlessButton.name} ⚡️ disconnect`)
+
     el.removeEventListener('click', BorderlessButton.handleClick)
   }
 
   static polyfillConnectedCallback(el: BorderlessButton) {
+    console.debug(`${BorderlessButton.name} ⚡️ connect`)
+
     el.addEventListener('click', BorderlessButton.handleClick)
   }
 

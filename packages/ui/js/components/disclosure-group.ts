@@ -30,14 +30,16 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   disconnectedCallback() {
-    console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
+    DisclosureGroup.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    console.debug(`${DisclosureGroup.name} ⚡️ connect`)
+    DisclosureGroup.polyfillConnectedCallback(this)
   }
 
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
+    console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
+
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
     el.removeEventListener('click', DisclosureGroup.#handleClick)
@@ -46,6 +48,8 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
+    console.debug(`${DisclosureGroup.name} ⚡️ connect`)
+
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
     Snapshot.waitReady.then(() => el.addEventListener('click', DisclosureGroup.#handleClick))

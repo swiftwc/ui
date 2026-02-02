@@ -3,9 +3,9 @@
 
 @layer #{vars.$components-layer} {
   [is='sidebar-view'] {
-    @include mixins.reset-dialog;
-
     :where(&) {
+      @include mixins.reset-dialog;
+
       // dowh
       width: 100%;
       height: 100%;

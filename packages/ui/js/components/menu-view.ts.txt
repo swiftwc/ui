@@ -1,0 +1,67 @@
+import { DetailsBase } from '../client/privateNamespace'
+import { Snapshot } from '../snapshot'
+
+export class MenuView extends DetailsBase {
+  static observedAttributes = ['open']
+
+  constructor() {
+    super()
+  }
+
+  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
+    console.debug(`${MenuView.name} ⚡️ [${name}] change`)
+
+    const entry = {
+      attributeName: name,
+      oldValue: oldValue,
+      target: this,
+    }
+
+    Snapshot.waitReady.then(() => {
+      // @ts-expect-error
+      MenuView.polyfillAttributeChangedCallback([entry])
+    })
+  }
+
+  disconnectedCallback() {
+    MenuView.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    MenuView.polyfillConnectedCallback(this)
+  }
+
+  static polyfillDisconnectedCallback(el: MenuView) {
+    console.debug(`${MenuView.name} ⚡️ disconnect`)
+
+    el.removeEventListener('toggle', MenuView.#handleToggle)
+  }
+
+  static polyfillConnectedCallback(el: MenuView) {
+    console.debug(`${MenuView.name} ⚡️ connect`)
+
+    Snapshot.waitReady.then(() => el.addEventListener('toggle', MenuView.#handleToggle))
+  }
+
+  static #handleToggle = async (event: Event) => {
+    console.log(88, event.target)
+
+    // if (!(event.target as HTMLElement).closest('summary')) return
+
+    const el = (event.target as HTMLElement).closest<HTMLDetailsElement>('details')
+    if (!el) return
+
+    console.log(99, event.target.querySelector('dialog'))
+
+    const dialog = event.target.querySelector('dialog')
+    if (dialog) {
+      dialog.showModal()
+    }
+  }
+
+  static async polyfillAttributeChangedCallback([entry]: MutationRecord[]) {
+    const node = entry.target as HTMLDetailsElement
+
+    alert(node.open)
+  }
+}

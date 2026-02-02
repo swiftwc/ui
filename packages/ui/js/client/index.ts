@@ -10,14 +10,10 @@ type TransitionType = 'forwards' | 'backwards' | 'reload'
 for (const [k, v] of Object.entries(Components)) {
   const is = kebabCase(k)
 
-  if (
-    'polyfillExtends' in v &&
-    'string' === typeof (v as any).polyfillExtends
-  ) {
+  if ('polyfillExtends' in v && 'string' === typeof (v as any).polyfillExtends) {
     customElements.define(is, v, { extends: v.polyfillExtends })
 
-    if (!(document.createElement(v.polyfillExtends, { is }) instanceof v))
-      polyfills.set(is, v)
+    if (!(document.createElement(v.polyfillExtends, { is }) instanceof v)) polyfills.set(is, v)
 
     continue
   }
@@ -28,11 +24,7 @@ for (const [k, v] of Object.entries(Components)) {
 console.debug(polyfills)
 
 if (0 < polyfills.size) {
-  const polyfillTagNamesCache = new Set(
-    [...polyfills.values()]
-      .map((v) => String(v.polyfillExtends ?? '').toUpperCase())
-      .filter(Boolean)
-  ) // ['TAG-NAME1', 'TAG-NAME2', ...]
+  const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
 
   const handlers = new WeakMap()
   // @ts-expect-error
@@ -42,27 +34,24 @@ if (0 < polyfills.size) {
 
       handlers.set(
         el,
-        new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(
-          el,
-          {
-            attributes: true,
-            attributeFilter: polyfill.observedAttributes,
-            attributeOldValue: true,
-          }
-        )
+        new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(el, {
+          attributes: true,
+          attributeFilter: polyfill.observedAttributes,
+          attributeOldValue: true,
+        })
       )
     },
     // @ts-expect-error
     unobserve = (el) => {
       handlers.delete(el)
-    }
+    },
+    polyfillTagNamesCacheSelector = [...polyfillTagNamesCache.values()].map((v) => `${v}`.toLowerCase()).join(','),
+    flatten = (node: HTMLElement) => [node, ...(node.querySelectorAll?.(polyfillTagNamesCacheSelector) ?? [])]
 
-  console.debug(polyfillTagNamesCache)
+  console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
 
   for (const [is, polyfill] of polyfills)
-    for (const el of document.querySelectorAll<HTMLElement>(
-      `${polyfill.polyfillExtends}[is="${is}"]`
-    )) {
+    for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${is}"]`)) {
       polyfill.polyfillConnectedCallback(el)
 
       observe(el, polyfill)
@@ -71,32 +60,40 @@ if (0 < polyfills.size) {
   // observer callback
   const observer = new MutationObserver((mutations) => {
     for (const { addedNodes, removedNodes } of mutations) {
-      for (const node of addedNodes) {
-        if (!(node instanceof HTMLElement)) continue
+      for (const root of addedNodes) {
+        if (!(root instanceof HTMLElement)) continue
 
-        if (!polyfillTagNamesCache.has(node.tagName)) continue
+        for (const node of flatten(root)) {
+          if (!(node instanceof HTMLElement)) continue
 
-        const is = node?.getAttribute('is') ?? ''
+          if (!polyfillTagNamesCache.has(node.tagName)) continue
 
-        if (!polyfills.has(is)) continue
+          const is = node?.getAttribute('is') ?? ''
 
-        polyfills.get(is)?.polyfillConnectedCallback(node)
+          if (!polyfills.has(is)) continue
 
-        observe(node, polyfills.get(is))
+          polyfills.get(is)?.polyfillConnectedCallback(node)
+
+          observe(node, polyfills.get(is))
+        }
       }
 
-      for (const node of removedNodes) {
-        if (!(node instanceof HTMLElement)) continue
+      for (const root of removedNodes) {
+        if (!(root instanceof HTMLElement)) continue
 
-        if (!polyfillTagNamesCache.has(node.tagName)) continue
+        for (const node of flatten(root)) {
+          if (!(node instanceof HTMLElement)) continue
 
-        const is = node?.getAttribute('is') ?? ''
+          if (!polyfillTagNamesCache.has(node.tagName)) continue
 
-        if (!polyfills.has(is)) continue
+          const is = node?.getAttribute('is') ?? ''
 
-        polyfills.get(is)?.polyfillDisconnectedCallback(node)
+          if (!polyfills.has(is)) continue
 
-        unobserve(node)
+          polyfills.get(is)?.polyfillDisconnectedCallback(node)
+
+          unobserve(node)
+        }
       }
     }
   })
@@ -108,41 +105,21 @@ if (0 < polyfills.size) {
 }
 
 const cleanup = (lm?: Element, dir?: TransitionType) => {
-  let arr: string[] = [
-    Snapshot.config!['vt-fwd-class-name'],
-    'fwdd',
-    'fwn',
-    'fwnn',
-    'bwd',
-    'bwdd',
-    'bwn',
-    'bwnn',
-  ]
+  let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 
   if (['backwards', 'forwards'].includes(dir ?? ''))
-    for (let i = arr.length - 1; i >= 0; i--)
-      if (arr[i].startsWith('backwards' === dir ? 'fw' : 'bw')) arr.splice(i, 1)
+    for (let i = arr.length - 1; i >= 0; i--) if (arr[i].startsWith('backwards' === dir ? 'fw' : 'bw')) arr.splice(i, 1)
 
-  for (const el of [
-    ...(lm?.querySelectorAll(arr.map((v) => `.${v}`).join(',')) ?? []),
-  ])
-    el.classList.remove(...arr)
+  for (const el of [...(lm?.querySelectorAll(arr.map((v) => `.${v}`).join(',')) ?? [])]) el.classList.remove(...arr)
 }
 
-export const startViewTransition = async (
-  event: Event,
-  type: TransitionType = 'forwards',
-  updateCallback = async () => {}
-) => {
+export const startViewTransition = async (event: Event, type: TransitionType = 'forwards', updateCallback = async () => {}) => {
   await Snapshot.waitReady
   // const sv =
   //   (event.target as HTMLElement).closest<Components.ScrollView>(
   //     'scroll-view'
   //   ) ?? undefined,
-  const from =
-    (event.target as HTMLElement).closest<Components.ScrollView>(
-      'scroll-view'
-    ) ?? undefined
+  const from = (event.target as HTMLElement).closest<Components.ScrollView>('scroll-view') ?? undefined
 
   if ('forwards' === type) {
     // const sis = Router.toolbarItems //sv.parentElement.querySelectorAll(`:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`)
@@ -174,9 +151,7 @@ export const startViewTransition = async (
     if ('DIALOG' === toFrame?.tagName) {
       ;(toFrame as HTMLDialogElement).showModal()
       console.debug(`⚡️ view-transition-start (${type})`)
-      await Promise.allSettled(
-        toFrame.getAnimations().map(({ finished }) => finished)
-      )
+      await Promise.allSettled(toFrame.getAnimations().map(({ finished }) => finished))
       console.debug(`⚡️ view-transition-end (${type})`)
       return
     }
@@ -213,10 +188,7 @@ export const startViewTransition = async (
 
     console.debug(`⚡️ view-transition-start (${type})`)
 
-    await Promise.allSettled([
-      ...(from?.getAnimations().map(({ finished }) => finished) ?? []),
-      ...(to?.getAnimations().map(({ finished }) => finished) ?? []),
-    ])
+    await Promise.allSettled([...(from?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.getAnimations().map(({ finished }) => finished) ?? [])])
     // await Promise.allSettled(
     //   from.getAnimations().map(({ finished }) => finished)
     // )
@@ -227,15 +199,7 @@ export const startViewTransition = async (
 
     // sv2.classList.remove("fwdd");
 
-    if (
-      0 <
-      (
-        toFrame?.querySelectorAll(
-          `.${Snapshot.config?.['vt-fwd-class-name']},.bwd`
-        ) ?? []
-      ).length
-    )
-      return
+    if (0 < (toFrame?.querySelectorAll(`.${Snapshot.config?.['vt-fwd-class-name']},.bwd`) ?? []).length) return
 
     cleanup(Snapshot.root)
   } else {
@@ -259,9 +223,7 @@ export const startViewTransition = async (
     if ('DIALOG' === fromFrame?.tagName) {
       ;(fromFrame as HTMLDialogElement).close()
       console.debug(`⚡️ view-transition-start (${type})`)
-      await Promise.allSettled(
-        fromFrame.getAnimations().map(({ finished }) => finished)
-      )
+      await Promise.allSettled(fromFrame.getAnimations().map(({ finished }) => finished))
       console.debug(`⚡️ view-transition-end (${type})`)
       if (fromFrame.matches('[open]')) return
       await updateCallback()
@@ -284,10 +246,7 @@ export const startViewTransition = async (
 
     console.debug(`⚡️ view-transition-start (${type})`)
 
-    await Promise.allSettled([
-      ...(from?.getAnimations().map(({ finished }) => finished) ?? []),
-      ...(to?.getAnimations().map(({ finished }) => finished) ?? []),
-    ])
+    await Promise.allSettled([...(from?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.getAnimations().map(({ finished }) => finished) ?? [])])
     // await Promise.allSettled(
     //   from.getAnimations().map(({ finished }) => finished)
     // )

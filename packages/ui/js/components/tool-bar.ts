@@ -39,7 +39,7 @@ export class ToolBar extends HTMLElement {
 
   #shadowRoot
 
-  get #sibling() {
+  get #scrollView() {
     return this.parentElement?.querySelector(':scope > scroll-view') ?? undefined //this.previousElementSibling ?? undefined
   }
 
@@ -95,6 +95,6 @@ export class ToolBar extends HTMLElement {
 
     const prop = `--${parentMap[parentPart]}-padding-${side}`
 
-    ;(this.#sibling as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
+    ;(this.#scrollView as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
   }
 }

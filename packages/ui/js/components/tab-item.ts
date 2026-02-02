@@ -7,14 +7,10 @@ export class TabItem extends ButtonBase {
   }
 
   disconnectedCallback() {
-    console.debug(`${TabItem.name} ⚡️ disconnect`)
-
     TabItem.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
-    console.debug(`${TabItem.name} ⚡️ connect`)
-
     TabItem.polyfillConnectedCallback(this)
   }
 

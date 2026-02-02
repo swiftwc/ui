@@ -81,6 +81,12 @@ export class MenuView extends HTMLElement {
 
           this.removeAttribute('closing')
 
+          const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
+          let sum = 0
+          for (const node of slot?.assignedNodes({ flatten: true }) ?? []) sum += node.offsetHeight
+
+          this.style.setProperty('--sert', `${Math.max(this.offsetHeight, Math.min(sum, 300))}px`)
+
           dialog.showModal()
         }
 

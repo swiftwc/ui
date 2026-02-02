@@ -13,17 +13,17 @@
       // anchor-name: --my-anchor;
 
       @media (prefers-reduced-motion: no-preference) {
-        transition: all 2400ms allow-discrete;
+        transition: all 400ms allow-discrete;
         will-change: transform, overlay, display;
       }
 
-      /* transform: scale(1);
-      filter: blur(0px); */
+      transform: scale(1);
+      filter: blur(0px);
     }
 
     :where(&)::part(menu-form) {
       inline-size: 200px;
-      block-size: 300px; //fit-content;
+      // block-size: 300px; //fit-content;
 
       overflow: clip auto;
       border-radius: inherit;
@@ -38,7 +38,7 @@
       // @include mixins.make-transitionable-dialog-backdrop;
 
       @media (prefers-reduced-motion: no-preference) {
-        transition: all 2400ms allow-discrete;
+        transition: all 400ms allow-discrete;
         will-change: transform, overlay, display;
       }
 
@@ -47,41 +47,42 @@
       inline-size: anchor-size();
       block-size: anchor-size();
 
-      box-shadow: 0 0 10px 10px black;
-
       // position-area: block-end span-inline-end;
       // position-try-fallbacks: block-end span-inline-start;
 
       // inset-block-start: anchor(start);
 
       transform: scale(0);
-      // filter: blur(10px);
 
       // position-anchor: --my-anchor;
       position-area: center;
 
       overflow: clip;
       border-radius: 22px;
+
+      box-shadow: 0 0 10px 10px black;
+
+      // opacity: 0;
     }
 
     &[open] {
       :where(&)::part(menu-dialog) {
         transform: scale(1);
-        // filter: blur(0);
+        // opacity: 1;
 
         inline-size: fit-content; //200px;
-        block-size: fit-content; //300px; //fit-content;
-        height: auto;
+        block-size: var(--sert, 300px); //300px; //fit-content;
 
         // margin-block-start: anchor-size();
-
-        @starting-style {
+      }
+      @starting-style {
+        :where(&)::part(menu-dialog) {
+          // opacity: 0;
           transform: scale(0);
-          // filter: blur(10px);
         }
       }
 
-      /* :where(&)::part(menu-summary) {
+      :where(&)::part(menu-summary) {
         transform: scale(0);
         filter: blur(10px);
 
@@ -89,7 +90,7 @@
           transform: scale(1);
           filter: blur(0);
         }
-      } */
+      }
     }
   }
 }

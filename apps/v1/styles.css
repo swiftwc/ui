@@ -748,17 +748,16 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     :where(menu-view)::part(menu-summary) {
-      transition: all 2400ms allow-discrete;
+      transition: all 400ms allow-discrete;
       will-change: transform, overlay, display;
     }
   }
   :where(menu-view)::part(menu-summary) {
-    /* transform: scale(1);
-    filter: blur(0px); */
+    transform: scale(1);
+    filter: blur(0px);
   }
   :where(menu-view)::part(menu-form) {
     inline-size: 200px;
-    block-size: 300px;
     overflow: clip auto;
     border-radius: inherit;
     background: black;
@@ -781,7 +780,7 @@
   }
   @media (prefers-reduced-motion: no-preference) {
     :where(menu-view)::part(menu-dialog) {
-      transition: all 2400ms allow-discrete;
+      transition: all 400ms allow-discrete;
       will-change: transform, overlay, display;
     }
   }
@@ -790,33 +789,31 @@
     display: grid;
     inline-size: anchor-size();
     block-size: anchor-size();
-    box-shadow: 0 0 10px 10px black;
     transform: scale(0);
     position-area: center;
     overflow: clip;
     border-radius: 22px;
+    box-shadow: 0 0 10px 10px black;
   }
   :where(menu-view[open])::part(menu-dialog) {
     transform: scale(1);
     inline-size: fit-content;
-    block-size: fit-content;
-    height: auto;
+    block-size: var(--sert, 300px);
   }
   @starting-style {
     :where(menu-view[open])::part(menu-dialog) {
       transform: scale(0);
     }
   }
-  menu-view[open] {
-    /* :where(&)::part(menu-summary) {
-      transform: scale(0);
-      filter: blur(10px);
-
-      @starting-style {
-        transform: scale(1);
-        filter: blur(0);
-      }
-    } */
+  :where(menu-view[open])::part(menu-summary) {
+    transform: scale(0);
+    filter: blur(10px);
+  }
+  @starting-style {
+    :where(menu-view[open])::part(menu-summary) {
+      transform: scale(1);
+      filter: blur(0);
+    }
   }
 }
 @layer sw-components {

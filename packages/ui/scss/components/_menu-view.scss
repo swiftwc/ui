@@ -8,6 +8,7 @@
     }
 
     :where(&)::part(menu-form) {
+      min-width: 200px; // FIXME: del this
       inline-size: min-content; //var(--menu-inline-size);
       block-size: min-content;
 
@@ -17,7 +18,7 @@
       overflow: clip auto;
       border-radius: inherit;
 
-      background: var(--menu-bg);
+      background: light-dark(var(--menu-bg), var(--menu-bg-dark));
       // border: transparent solid 1px; make sure bezel is not covered
 
       @include mixins.make-scrollable;
@@ -47,6 +48,7 @@
       overflow: clip;
       border-radius: 22px;
 
+      backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--menu-popover-box-shadow); //0 0 10px 10px black;
     }
 

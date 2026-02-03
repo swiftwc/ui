@@ -52,6 +52,7 @@
         &::after {
           content: '';
           display: grid;
+          pointer-events: none !important;
         }
       }
 

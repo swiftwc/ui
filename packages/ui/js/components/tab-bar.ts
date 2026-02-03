@@ -33,6 +33,7 @@ export class TabBar extends DialogBase {
       el,
       (t) => t,
       (event: PointerEvent) => {
+        if ((event.target as HTMLElement).matches('[is=tab-bar]')) return false
         if ((event.target as HTMLElement).closest('tool-bar-item')) return false
 
         return true

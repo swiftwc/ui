@@ -89,8 +89,8 @@
     --pill-border-radius: 99999px;
 
     --toolbar-col-gap: 0.6rem;
-    --toolbar-cell-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.3rem;
     --toolbar-cell-inline-padding-end: 0.3rem;
     --toolbar-cell-block-padding-start: 0.3rem;
@@ -109,8 +109,8 @@
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 
-    --menu-bg: oklch(0 0 0 / 0%);
-    --menu-bg-dark: oklch(0 0 0 / 0%);
+    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --menu-max-inline-size: 200px;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;

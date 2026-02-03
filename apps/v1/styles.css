@@ -55,8 +55,8 @@
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
-    --toolbar-cell-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --toolbar-cell-inline-padding-start: 0.3rem;
     --toolbar-cell-inline-padding-end: 0.3rem;
     --toolbar-cell-block-padding-start: 0.3rem;
@@ -71,8 +71,8 @@
     --toolbar-cell-filter: ;
     --toolbar-cell-opacity: ;
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
-    --menu-bg: oklch(0 0 0 / 0%);
-    --menu-bg-dark: oklch(0 0 0 / 0%);
+    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --menu-max-inline-size: 200px;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -118,6 +118,16 @@
   *::after,
   *::part(root) {
     box-sizing: border-box;
+  }
+  * {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  * {
+    -webkit-touch-callout: none; /* disables long-press menu */
+  }
+  *:not(input, textarea) {
+    -webkit-user-select: none;
+    user-select: none;
   }
   body {
     background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
@@ -433,6 +443,7 @@
   :where(scroll-view)::part(scroll-view-navbar-stack)::before, :where(scroll-view)::part(scroll-view-navbar-stack)::after, :where(scroll-view)::part(scroll-view-toolbar-stack)::before, :where(scroll-view)::part(scroll-view-toolbar-stack)::after {
     content: "";
     display: grid;
+    pointer-events: none !important;
   }
   :where(scroll-view)::part(scroll-view-navbar) {
     top: 0;
@@ -786,13 +797,14 @@
     height: calc(100% + 1px);
   }
   :where(menu-view)::part(menu-form) {
+    min-width: 200px;
     inline-size: min-content;
     block-size: min-content;
     max-inline-size: var(--menu-max-inline-size);
     max-block-size: var(--menu-max-block-size);
     overflow: clip auto;
     border-radius: inherit;
-    background: var(--menu-bg);
+    background: light-dark(var(--menu-bg), var(--menu-bg-dark));
     scrollbar-width: thin;
   }
   :where(menu-view)::part(menu-form)::before {
@@ -835,6 +847,7 @@
     position-area: center;
     overflow: clip;
     border-radius: 22px;
+    backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--menu-popover-box-shadow);
   }
   :where(menu-view[open])::part(menu-dialog) {
@@ -1929,7 +1942,7 @@
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-    --componenttext: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   @media (pointer: fine) {
     :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
@@ -1939,35 +1952,33 @@
   }
 }
 @layer sw-final {
-  @media (pointer: coarse) {
-    :where(menu-view[touch-glass])::part(menu-dialog) {
-      transform: scale(1.03);
-      transition-duration: 100ms;
-    }
-    :where(tool-bar > *[touch-glass]) {
-      transform: scale(1.07);
-      transition-duration: 100ms;
-    }
+  :where(menu-view[touch-glass])::part(menu-dialog) {
+    transform: scale(1.03);
+    transition-duration: 100ms;
   }
-  @media (pointer: coarse) and (max-width: 42.9999rem) and (orientation: portrait) {
+  :where(tool-bar > *[touch-glass]) {
+    transform: scale(1.07);
+    transition-duration: 100ms;
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (pointer: coarse) and (max-width: 67.9999rem) and (orientation: landscape) {
+  @media (max-width: 67.9999rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (pointer: coarse) and (min-width: 68rem) and (orientation: landscape) {
+  @media (min-width: 68rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (pointer: coarse) and (min-width: 43rem) {
+  @media (min-width: 43rem) {
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > dialog[is=sidebar-view][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;

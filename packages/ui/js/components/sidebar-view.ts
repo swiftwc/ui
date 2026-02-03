@@ -31,7 +31,7 @@ export class SidebarView extends DialogBase {
       el,
       (t) => t,
       (event: PointerEvent) => {
-        if ((event.target as HTMLElement).matches('dialog')) return false
+        if ((event.target as HTMLElement).matches('[is=sidebar-view]')) return false
         if ((event.target as HTMLElement).closest('tool-bar-item')) return false
 
         return true

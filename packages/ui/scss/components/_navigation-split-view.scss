@@ -306,7 +306,7 @@
         ~ tool-bar {
           > tool-bar-item,
           > tool-bar-item-group {
-            @include mixins.vt-toolbar-item-onscreen-keyframe(true);
+            @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
           }
         }
       }
@@ -330,7 +330,7 @@
                   ~ tool-bar {
                     > tool-bar-item,
                     > tool-bar-item-group {
-                      @include mixins.vt-toolbar-item-onscreen-keyframe(true);
+                      @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
                     }
                   }
                 }
@@ -356,13 +356,13 @@
                 ~ tool-bar {
                   > tool-bar-item,
                   > tool-bar-item-group {
-                    @include mixins.vt-toolbar-item-onscreen-keyframe(true);
+                    @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
                   }
                 }
               }
 
               > body-view {
-                @include force-disable-col-view-transitions();
+                @include force-disable-col-view-transitions;
               }
             }
           }

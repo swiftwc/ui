@@ -27,6 +27,10 @@
       --component-border-radius: var(--toolbar-cell-border-radius);
       --component-border-width: 0;
     }
+
+    :where(&:has([disabled])) {
+      pointer-events: none;
+    }
   }
 
   :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item']),
@@ -73,21 +77,22 @@
     //   }
     // }
   }
-  tool-bar-item[slot],
-  tool-bar-item-group {
-    @media (prefers-reduced-motion: no-preference) {
-      transition:
-        display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-        overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-        transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-      will-change: transform, overlay, display;
-    }
-  }
+
+  // tool-bar-item[slot],
+  // tool-bar-item-group {
+  // @media (prefers-reduced-motion: no-preference) {
+  //   transition:
+  //     display var(--menu-animation-duration) allow-discrete ease-out,
+  //     overlay var(--menu-animation-duration) allow-discrete ease-out,
+  //     transform var(--menu-animation-duration) allow-discrete ease-out;
+  //   will-change: transform, overlay, display;
+  // }
+  // }
 
   tool-bar-item[slot]:has(> menu-view[open]),
   tool-bar-item-group:has(> tool-bar-item > menu-view[open]) {
-    transform: scale(0);
-    filter: blur(10px);
+    transform: var(--menu-host-offscreen-transform);
+    filter: var(--menu-host-offscreen-filter);
   }
 
   // tool-bar-item {

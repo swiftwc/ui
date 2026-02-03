@@ -19,9 +19,11 @@
   tool-bar,
   label-view, menu-view),
   // tool-bar,
-  ::part(menu-details),
+
+  ::part(menu-dialog),
   ::part(menu-summary),
   ::part(menu-form),
+  ::part(menu-scrollable),
   
   ::part(navigation-bar),
   ::part(bottom-bar),

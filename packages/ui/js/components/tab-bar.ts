@@ -1,6 +1,9 @@
 import { DialogBase } from '../client/privateNamespace'
+import { touchGlass } from '../internal/utils'
 
 export class TabBar extends DialogBase {
+  static #cleanup?: () => void
+
   constructor() {
     super()
   }
@@ -17,12 +20,26 @@ export class TabBar extends DialogBase {
     console.debug(`${TabBar.name} ⚡️ disconnect`)
 
     el.removeEventListener('click', TabBar.#handleClick)
+
+    this.#cleanup?.()
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
     console.debug(`${TabBar.name} ⚡️ connect`)
 
     el.addEventListener('click', TabBar.#handleClick)
+
+    const { on } = touchGlass(
+      el,
+      (t) => t,
+      (event: PointerEvent) => {
+        if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+
+        return true
+      }
+    )
+
+    this.#cleanup = on()
 
     el.autofocus = true
   }

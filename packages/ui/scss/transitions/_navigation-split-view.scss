@@ -1,0 +1,23 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$ui-layer} {
+  navigation-split-view {
+    @include mixins.if-2col-split-view-fits {
+      &:has(> dialog[is='sidebar-view']) {
+        @include mixins.if-3col-split-view-fits {
+          > [is='sidebar-view'] {
+            :where(&) {
+              @media (prefers-reduced-motion: no-preference) {
+                transition:
+                  filter var(--touchglass-transition-duration) allow-discrete ease-out,
+                  transform var(--touchglass-transition-duration) allow-discrete ease-out;
+                will-change: filter, transform;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

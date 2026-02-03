@@ -1,6 +1,9 @@
 import { DialogBase } from '../client/privateNamespace'
+import { touchGlass } from '../internal/utils'
 
 export class SidebarView extends DialogBase {
+  static #cleanup?: () => void
+
   constructor() {
     super()
   }
@@ -17,10 +20,25 @@ export class SidebarView extends DialogBase {
 
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
     el.removeEventListener('click', SidebarView.#handleClick)
+
+    this.#cleanup?.()
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
     el.addEventListener('click', SidebarView.#handleClick)
+
+    const { on } = touchGlass(
+      el,
+      (t) => t,
+      (event: PointerEvent) => {
+        if ((event.target as HTMLElement).matches('dialog')) return false
+        if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+
+        return true
+      }
+    )
+
+    this.#cleanup = on()
 
     el.autofocus = true
   }

@@ -10,10 +10,7 @@ export class VKeyboard extends HTMLElement {
    * document.querySelector('v-keyboard').shouldKeyboardBeOpen = () => document.activeElement.tagName === 'INPUT'
    */
   #shouldKeyboardBeOpenCallback = () => {
-    return (
-      'INPUT' === document.activeElement?.tagName &&
-      'text' === document.activeElement?.getAttribute('type')
-    )
+    return 'INPUT' === document.activeElement?.tagName && 'text' === document.activeElement?.getAttribute('type')
   }
 
   constructor() {
@@ -25,15 +22,9 @@ export class VKeyboard extends HTMLElement {
 
     self.removeEventListener('resize', this.#handleWindowScroll)
 
-    self.visualViewport?.removeEventListener(
-      'resize',
-      this.#handleVisualViewportResize
-    )
+    self.visualViewport?.removeEventListener('resize', this.#handleVisualViewportResize)
 
-    self.removeEventListener(
-      'orientationchange',
-      this.#handleWindowOrientationChange
-    )
+    self.removeEventListener('orientationchange', this.#handleWindowOrientationChange)
 
     document.body.removeEventListener('focusin', this.#handleBodyFocusIn)
   }
@@ -45,19 +36,13 @@ export class VKeyboard extends HTMLElement {
 
     self.addEventListener('scroll', this.#handleWindowScroll)
 
-    self.visualViewport?.addEventListener(
-      'resize',
-      this.#handleVisualViewportResize
-    )
+    self.visualViewport?.addEventListener('resize', this.#handleVisualViewportResize)
 
     this.#handleVisualViewportResize()
 
     //
 
-    self.addEventListener(
-      'orientationchange',
-      this.#handleWindowOrientationChange
-    )
+    self.addEventListener('orientationchange', this.#handleWindowOrientationChange)
 
     document.body.addEventListener('focusin', this.#handleBodyFocusIn)
   }
@@ -70,28 +55,16 @@ export class VKeyboard extends HTMLElement {
     const dvh = self.visualViewport?.height ?? 0,
       fullLvh = this.offsetHeight
 
-    const diff = Math.abs(
-      self.outerHeight - (this.#shouldKeyboardBeOpenCallback() ? dvh : fullLvh)
-    )
+    const diff = Math.abs(self.outerHeight - (this.#shouldKeyboardBeOpenCallback() ? dvh : fullLvh))
 
-    document.documentElement.style.setProperty(
-      '--100lvh',
-      30 < diff ? `${dvh}px` : `${fullLvh}px`
-    )
-    document.documentElement.style.setProperty(
-      '--keyboard-inset-top',
-      30 < diff ? `${dvh}px` : `${fullLvh}px`
-    )
-    document.documentElement.style.setProperty(
-      '--keyboard-inset-height',
-      30 < diff ? `${diff}px` : `0px`
-    )
+    document.documentElement.style.setProperty('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
 
     // @ts-expect-error
     if (import.meta?.env?.DEV) {
       // @ts-expect-error
-      document.querySelector('#console0').innerHTML =
-        `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`
+      document.querySelector('#console0').innerHTML = `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`
       // @ts-expect-error
       document.querySelector('#console').hidePopover()
       // @ts-expect-error

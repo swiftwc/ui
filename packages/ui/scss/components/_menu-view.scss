@@ -3,71 +3,72 @@
 
 @layer #{vars.$components-layer} {
   menu-view {
-    // :where(&)::part(menu-details) {
-    // }
-
-    :where(&)::part(menu-summary) {
-      // anchor-name: --my-anchor; //overriden
-
-      @media (prefers-reduced-motion: no-preference) {
-        transition:
-          display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-        will-change: transform, overlay, display;
-      }
+    :where(&)::part(menu-scrollable) {
+      @include mixins.make-scrollable(true);
     }
 
     :where(&)::part(menu-form) {
-      inline-size: 200px;
-      // block-size: 300px; //fit-content;
+      inline-size: min-content; //var(--menu-inline-size);
+      block-size: min-content;
+
+      max-inline-size: var(--menu-max-inline-size);
+      max-block-size: var(--menu-max-block-size);
 
       overflow: clip auto;
       border-radius: inherit;
 
-      background: black;
-      border: red solid 1px;
+      background: var(--menu-bg);
+      // border: transparent solid 1px; make sure bezel is not covered
+
+      @include mixins.make-scrollable;
+      @include mixins.contain-overscroll;
+
+      // touch-action: all;
     }
 
     :where(&)::part(menu-dialog) {
       @include mixins.reset-dialog;
 
-      @media (prefers-reduced-motion: no-preference) {
-        transition:
-          block-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          inline-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing),
-          transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-        will-change: block-size, inline-size, transform, overlay, display;
-      }
+      touch-action: none;
 
       position: fixed;
-      display: grid;
-      inline-size: anchor-size();
-      block-size: anchor-size();
+
+      inline-size: fit-content;
+      block-size: fit-content;
+      height: auto; // safari
+      max-width: anchor-size();
+      max-height: anchor-size();
 
       transform: scale(0);
 
       // position-anchor: --my-anchor; // overriden
-      position-area: center; // overriden
+      position-area: center;
 
       overflow: clip;
       border-radius: 22px;
 
-      box-shadow: 0 0 10px 10px black;
+      box-shadow: var(--menu-popover-box-shadow); //0 0 10px 10px black;
     }
 
     &[open] {
       :where(&)::part(menu-dialog) {
-        transform: scale(1);
+        max-width: 100vw;
+        max-height: 100vh;
+        margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+        margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
-        inline-size: fit-content; //fit-content;
-        block-size: var(--sert, 300px); //fit-content;
+        transform: scale(1);
 
         @starting-style {
           transform: scale(0);
         }
+      }
+    }
+
+    &[closing] {
+      :where(&)::part(menu-dialog) {
+        max-width: anchor-size();
+        max-height: anchor-size();
       }
     }
   }

@@ -22,6 +22,11 @@
 
       min-width: var(--toolbar-cell-min-size);
 
+      // tfo
+      transform: var(--toolbar-cell-transform);
+      filter: var(--toolbar-cell-filter);
+      opacity: var(--toolbar-cell-opacity);
+
       // min-width: calc(var(--tool-bar-height) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
 
@@ -128,18 +133,18 @@
   }
 }
 
-@layer #{vars.$final-layer} {
-  tool-bar-item[slot^='navigation-bar'],
-  tool-bar-item-group[slot^='navigation-bar'] {
-    :where(& menu-view, & tool-bar-item-group[slot^='navigation-bar'] menu-view)::part(menu-dialog) {
-      position-area: center block-end;
-    }
-  }
+// @layer #{vars.$final-layer} {
+//   tool-bar-item[slot^='navigation-bar'],
+//   tool-bar-item-group[slot^='navigation-bar'] {
+//     :where(& menu-view, & tool-bar-item-group[slot^='navigation-bar'] menu-view)::part(menu-dialog) {
+//       // position-area: center block-end;
+//     }
+//   }
 
-  tool-bar-item[slot^='bottom-bar'],
-  tool-bar-item-group[slot^='bottom-bar'] {
-    :where(& menu-view, & menu-view)::part(menu-dialog) {
-      position-area: center block-start;
-    }
-  }
-}
+//   tool-bar-item[slot^='bottom-bar'],
+//   tool-bar-item-group[slot^='bottom-bar'] {
+//     :where(& menu-view, & menu-view)::part(menu-dialog) {
+//       // position-area: center block-start;
+//     }
+//   }
+// }

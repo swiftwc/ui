@@ -22,10 +22,10 @@
     --sidebar-bg-alpha-dark: 50.2%;
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
-    --liquid-glass-bs-Soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
     --liquid-glass-box-shadow:
-      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-Soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626),
+      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626),
       inset -3px -3px 10px -3px light-dark(#ddd, #262626), inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26),
       inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
     --navigation-bar-height: var(--tool-bar-height);
@@ -67,7 +67,19 @@
     --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-transform: ;
+    --toolbar-cell-filter: ;
+    --toolbar-cell-opacity: ;
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
+    --menu-bg: oklch(0 0 0 / 0%);
+    --menu-bg-dark: oklch(0 0 0 / 0%);
+    --menu-max-inline-size: 200px;
+    --menu-max-block-size: 60vh;
+    --menu-spacing: 1rem;
+    --menu-host-offscreen-transform: scale(0);
+    --menu-host-offscreen-filter: blur(10px);
+    --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+    --touchglass-transition-duration: 300ms;
   }
   @media (pointer: fine) {
     :root {
@@ -76,16 +88,17 @@
       */
       --toolbar-cell-bg: oklch(1 0 0);
       --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+      --menu-bg: oklch(1 0 0);
+      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
       --toolbar-cell-focus-bg: lightpink;
       --toolbar-cell-active-bg: gray;
-      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-Soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
     }
   }
   :root {
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
-    --menu-animation-duration: 300ms;
-    --menu-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
   }
   html:has(color-scheme[dark]) {
@@ -172,9 +185,9 @@
   body-view:has(> body-view) > tool-bar > tool-bar-item-group,
   body-view:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item,
   body-view:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item-group {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    filter: blur(10px);
-    opacity: 0;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
   }
 }
 @layer sw-components {
@@ -194,9 +207,10 @@
   v-stack,
   tool-bar,
   label-view, menu-view),
-  ::part(menu-details),
+  ::part(menu-dialog),
   ::part(menu-summary),
   ::part(menu-form),
+  ::part(menu-scrollable),
   ::part(navigation-bar),
   ::part(bottom-bar),
   ::part(label-image-stack),
@@ -330,6 +344,7 @@
     color: var(--canvastext);
     padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     box-shadow: var(--screen-box-shadow);
+    scrollbar-width: thin;
   }
   :where(navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
@@ -494,6 +509,9 @@
     --component-border-radius: var(--toolbar-cell-border-radius);
     --component-border-width: 0;
   }
+  :where(tool-bar-item:has([disabled])) {
+    pointer-events: none;
+  }
   :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item]),
   :where(tool-bar-item menu-view)::part(menu-summary) {
     all: unset;
@@ -508,17 +526,10 @@
     border-radius: var(--component-border-radius);
     min-width: 25px;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    tool-bar-item[slot],
-    tool-bar-item-group {
-      transition: display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-      will-change: transform, overlay, display;
-    }
-  }
   tool-bar-item[slot]:has(> menu-view[open]),
   tool-bar-item-group:has(> tool-bar-item > menu-view[open]) {
-    transform: scale(0);
-    filter: blur(10px);
+    transform: var(--menu-host-offscreen-transform);
+    filter: var(--menu-host-offscreen-filter);
   }
 }
 @layer sw-colors {
@@ -590,6 +601,9 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     min-width: var(--toolbar-cell-min-size);
+    transform: var(--toolbar-cell-transform);
+    filter: var(--toolbar-cell-filter);
+    opacity: var(--toolbar-cell-opacity);
   }
   :where(tool-bar)::part(navigation-bar), :where(tool-bar)::part(bottom-bar) {
     position: relative;
@@ -639,18 +653,6 @@
     :where([is=sheet-view] tool-bar)::part(bottom-bar) {
       --safe-area-inset-bottom: 0px;
     }
-  }
-}
-@layer sw-final {
-  :where(tool-bar-item[slot^=navigation-bar] menu-view, tool-bar-item[slot^=navigation-bar] tool-bar-item-group[slot^=navigation-bar] menu-view,
-  tool-bar-item-group[slot^=navigation-bar] menu-view,
-  tool-bar-item-group[slot^=navigation-bar] tool-bar-item-group[slot^=navigation-bar] menu-view)::part(menu-dialog) {
-    position-area: center block-end;
-  }
-  :where(tool-bar-item[slot^=bottom-bar] menu-view, tool-bar-item[slot^=bottom-bar] menu-view,
-  tool-bar-item-group[slot^=bottom-bar] menu-view,
-  tool-bar-item-group[slot^=bottom-bar] menu-view)::part(menu-dialog) {
-    position-area: center block-start;
   }
 }
 @layer sw-components {
@@ -780,18 +782,31 @@
   }
 }
 @layer sw-components {
-  @media (prefers-reduced-motion: no-preference) {
-    :where(menu-view)::part(menu-summary) {
-      transition: display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-      will-change: transform, overlay, display;
-    }
+  :where(menu-view)::part(menu-scrollable) {
+    height: calc(100% + 1px);
   }
   :where(menu-view)::part(menu-form) {
-    inline-size: 200px;
+    inline-size: min-content;
+    block-size: min-content;
+    max-inline-size: var(--menu-max-inline-size);
+    max-block-size: var(--menu-max-block-size);
     overflow: clip auto;
     border-radius: inherit;
-    background: black;
-    border: red solid 1px;
+    background: var(--menu-bg);
+    scrollbar-width: thin;
+  }
+  :where(menu-view)::part(menu-form)::before {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    content: "";
+    display: block;
+    height: calc(100% + 1px); /* creates overflow */
+    z-index: -1;
+    pointer-events: none;
+  }
+  :where(menu-view)::part(menu-form) {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
   }
   :where(menu-view)::part(menu-dialog) {
     inset-inline: 0px;
@@ -808,32 +823,35 @@
   :where(menu-view)::part(menu-dialog)::backdrop {
     background-color: transparent;
   }
-  @media (prefers-reduced-motion: no-preference) {
-    :where(menu-view)::part(menu-dialog) {
-      transition: block-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), inline-size var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), display var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), overlay var(--menu-animation-duration) allow-discrete var(--menu-animation-easing), transform var(--menu-animation-duration) allow-discrete var(--menu-animation-easing);
-      will-change: block-size, inline-size, transform, overlay, display;
-    }
-  }
   :where(menu-view)::part(menu-dialog) {
+    touch-action: none;
     position: fixed;
-    display: grid;
-    inline-size: anchor-size();
-    block-size: anchor-size();
+    inline-size: fit-content;
+    block-size: fit-content;
+    height: auto;
+    max-width: anchor-size();
+    max-height: anchor-size();
     transform: scale(0);
     position-area: center;
     overflow: clip;
     border-radius: 22px;
-    box-shadow: 0 0 10px 10px black;
+    box-shadow: var(--menu-popover-box-shadow);
   }
   :where(menu-view[open])::part(menu-dialog) {
+    max-width: 100vw;
+    max-height: 100vh;
+    margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+    margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     transform: scale(1);
-    inline-size: fit-content;
-    block-size: var(--sert, 300px);
   }
   @starting-style {
     :where(menu-view[open])::part(menu-dialog) {
       transform: scale(0);
     }
+  }
+  :where(menu-view[closing])::part(menu-dialog) {
+    max-width: anchor-size();
+    max-height: anchor-size();
   }
 }
 @layer sw-components {
@@ -1020,9 +1038,9 @@
     navigation-split-view > scroll-view ~ tool-bar > tool-bar-item-group,
     navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar > tool-bar-item-group {
-      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
-      filter: none !important;
-      opacity: 1 !important;
+      --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+      --toolbar-cell-filter: none;
+      --toolbar-cell-opacity: 1;
     }
     navigation-split-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .bwn, navigation-split-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .fwnn {
       transition-duration: 0ms;
@@ -1034,9 +1052,9 @@
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item-group {
-      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
-      filter: none !important;
-      opacity: 1 !important;
+      --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+      --toolbar-cell-filter: none;
+      --toolbar-cell-opacity: 1;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .bwn, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .fwnn {
       transition-duration: 0ms;
@@ -1048,9 +1066,9 @@
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view ~ tool-bar > tool-bar-item-group {
-      transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
-      filter: none !important;
-      opacity: 1 !important;
+      --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+      --toolbar-cell-filter: none;
+      --toolbar-cell-opacity: 1;
     }
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view).bwd, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view).fwdd, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .bwn, navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view > scroll-view:not(dialog scroll-view) ~ tool-bar .fwnn {
       transition-duration: 0ms;
@@ -1595,6 +1613,7 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view) {
       grid-auto-flow: row;
       overflow: clip auto;
+      scrollbar-width: thin;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view)::before {
       grid-column: 1/-1;
@@ -1636,6 +1655,7 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view) {
       grid-auto-flow: row;
       overflow: clip auto;
+      scrollbar-width: thin;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view)::before {
       grid-column: 1/-1;
@@ -1656,6 +1676,7 @@
       overflow: clip auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::before {
       grid-column: 1/-1;
@@ -1676,6 +1697,7 @@
       overflow: clip auto;
       overscroll-behavior: contain;
       -webkit-overflow-scrolling: touch;
+      scrollbar-width: thin;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::before {
       grid-column: 1/-1;
@@ -1694,10 +1716,18 @@
       transition: transform var(--view-transition-duration) ease-out allow-discrete, padding-inline-start var(--sidebar-transition-duration) ease-out allow-discrete, margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
       will-change: transform, padding-inline-start, margin-inline-start;
     }
-    tool-bar-item,
-    tool-bar-item-group {
+    tool-bar-item.fwn, tool-bar-item.fwnn, tool-bar-item.bwn, tool-bar-item.bwnn,
+    tool-bar-item-group.fwn,
+    tool-bar-item-group.fwnn,
+    tool-bar-item-group.bwn,
+    tool-bar-item-group.bwnn {
       transition: transform var(--view-transition-duration) ease-out allow-discrete, opacity var(--view-transition-duration) ease-out allow-discrete, filter var(--view-transition-duration) ease-out allow-discrete;
       will-change: transform, opacity, filter;
+    }
+    :where(tool-bar-item,
+    tool-bar-item-group) {
+      transition: transform var(--touchglass-transition-duration) ease-out allow-discrete, filter var(--touchglass-transition-duration) ease-out allow-discrete;
+      will-change: transform, filter;
     }
     [is=sheet-view] {
       transition: transform var(--view-transition-duration) allow-discrete, overlay var(--view-transition-duration) allow-discrete, display var(--view-transition-duration) allow-discrete;
@@ -1795,43 +1825,43 @@
 @layer sw-transitions {
   tool-bar-item.fwnn,
   tool-bar-item-group.fwnn {
-    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-    filter: none;
-    opacity: 1;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+    --toolbar-cell-filter: none;
+    --toolbar-cell-opacity: 1;
   }
   @starting-style {
     tool-bar-item.fwnn,
     tool-bar-item-group.fwnn {
-      transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      filter: blur(10px);
-      opacity: 0;
+      --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+      --toolbar-cell-filter: blur(10px);
+      --toolbar-cell-opacity: 0;
     }
   }
   tool-bar-item.fwnn.fwn,
   tool-bar-item-group.fwnn.fwn {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    filter: blur(10px);
-    opacity: 0;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
   }
 }
 @layer sw-transitions {
   tool-bar-item.bwn,
   tool-bar-item-group.bwn {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    filter: blur(10px);
-    opacity: 0;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
   }
   tool-bar-item.bwnn,
   tool-bar-item-group.bwnn {
-    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-    filter: none;
-    opacity: 1;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+    --toolbar-cell-filter: none;
+    --toolbar-cell-opacity: 1;
   }
   tool-bar-item.bwnn.bwn,
   tool-bar-item-group.bwnn.bwn {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    filter: blur(10px);
-    opacity: 0;
+    --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
   }
 }
 @layer sw-transitions {
@@ -1860,8 +1890,23 @@
     }
   }
 }
+@layer sw-actions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where(menu-view)::part(menu-dialog) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+  }
+}
+@layer sw-actions {
+  @media (min-width: 43rem) and (min-width: 64rem) and (prefers-reduced-motion: no-preference) {
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view]) {
+      transition: filter var(--touchglass-transition-duration) allow-discrete ease-out, transform var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: filter, transform;
+    }
+  }
+}
 @layer sw-colors {
-  :where(navigation-view, navigation-split-view) {
+  :where(navigation-stack, navigation-split-view) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
     --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
@@ -1890,6 +1935,42 @@
     :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
       --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
+    }
+  }
+}
+@layer sw-final {
+  @media (pointer: coarse) {
+    :where(menu-view[touch-glass])::part(menu-dialog) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
+    }
+    :where(tool-bar > *[touch-glass]) {
+      transform: scale(1.07);
+      transition-duration: 100ms;
+    }
+  }
+  @media (pointer: coarse) and (max-width: 42.9999rem) and (orientation: portrait) {
+    :where([is=tab-bar][touch-glass]) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
+    }
+  }
+  @media (pointer: coarse) and (max-width: 67.9999rem) and (orientation: landscape) {
+    :where([is=tab-bar][touch-glass]) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
+    }
+  }
+  @media (pointer: coarse) and (min-width: 68rem) and (orientation: landscape) {
+    :where([is=tab-bar][touch-glass]) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
+    }
+  }
+  @media (pointer: coarse) and (min-width: 43rem) {
+    :where(navigation-split-view:has(> dialog[is=sidebar-view]) > dialog[is=sidebar-view][touch-glass]) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
     }
   }
 }

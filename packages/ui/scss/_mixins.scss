@@ -68,23 +68,27 @@
   }
 }
 
-@mixin make-scrollable {
-  // & > *:not([slot]) {
-  //   @include span-all;
-  //   // grid-column: 1 / -1; // span all columns
-  //   // grid-row: 1 / -1; // span all rows
-  // }
+@mixin make-scrollable($container: false) {
+  @if $container {
+    height: calc(100% + 1px);
+  } @else {
+    scrollbar-width: thin;
+    // & > *:not([slot]) {
+    //   @include span-all;
+    //   // grid-column: 1 / -1; // span all columns
+    //   // grid-row: 1 / -1; // span all rows
+    // }
 
-  &::before {
-    @include span-all;
-    // grid-column: 1 / -1; // span all columns
-    // grid-row: 1 / -1; // span all rows
-    content: '';
-    display: block;
-    height: calc(100% + 1px); /* creates overflow */
-    // background-color: red;
-    z-index: -1;
-    pointer-events: none;
+    &::before {
+      @include span-all;
+      // grid-column: 1 / -1; // span all columns
+      // grid-row: 1 / -1; // span all rows
+      content: '';
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
   }
 }
 
@@ -117,27 +121,30 @@
 }
 
 @mixin vt-toolbar-item-offscreen-keyframe($important: false) {
-  @if $important {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale)) !important;
-    filter: blur(10px) !important;
-    opacity: 0 !important;
-  } @else {
-    transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    filter: blur(10px);
-    opacity: 0;
-  }
+  // @if $important {
+  //   transform: scale(var(--view-transition-toolbar-cell-offscreen-scale)) !important;
+  //   filter: blur(10px) !important;
+  //   opacity: 0 !important;
+  // } @else {
+  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+  --toolbar-cell-filter: blur(10px);
+  --toolbar-cell-opacity: 0;
+  // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+  // filter: blur(10px);
+  // opacity:
+  // }
 }
 
 @mixin vt-toolbar-item-onscreen-keyframe($important: false) {
-  @if $important {
-    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
-    filter: none !important;
-    opacity: 1 !important;
-  } @else {
-    transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-    filter: none;
-    opacity: 1;
-  }
+  // @if $important {
+  //   transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
+  //   filter: none !important;
+  //   opacity: 1 !important;
+  // } @else {
+  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+  --toolbar-cell-filter: none;
+  --toolbar-cell-opacity: 1;
+  // }
 }
 
 @mixin toolbar-item-vt-state($transform, $filter, $opacity) {

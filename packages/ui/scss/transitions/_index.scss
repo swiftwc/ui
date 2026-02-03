@@ -30,21 +30,33 @@
 
     tool-bar-item,
     tool-bar-item-group {
-      // &.fwn,
-      // &.fwnn,
-      // &.bwn,
-      // &.bwnn {
-      transition:
-        transform var(--view-transition-duration) ease-out allow-discrete,
-        opacity var(--view-transition-duration) ease-out allow-discrete,
-        filter var(--view-transition-duration) ease-out allow-discrete;
+      &.fwn,
+      &.fwnn,
+      &.bwn,
+      &.bwnn {
+        transition:
+          transform var(--view-transition-duration) ease-out allow-discrete,
+          opacity var(--view-transition-duration) ease-out allow-discrete,
+          filter var(--view-transition-duration) ease-out allow-discrete;
 
-      will-change: transform, opacity, filter;
+        will-change: transform, opacity, filter;
+      }
       // > * {
       // transition: filter var(--view-transition-duration) ease-out allow-discrete;
       // will-change: filter;
       // }
       // }
+    }
+
+    tool-bar-item,
+    tool-bar-item-group {
+      :where(&) {
+        transition:
+          transform var(--touchglass-transition-duration) ease-out allow-discrete,
+          filter var(--touchglass-transition-duration) ease-out allow-discrete;
+
+        will-change: transform, filter;
+      }
     }
 
     [is='sheet-view'] {

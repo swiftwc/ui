@@ -2,7 +2,7 @@ import { DialogBase } from '../client/privateNamespace'
 import { touchGlass } from '../internal/utils'
 
 export class TabBar extends DialogBase {
-  static #cleanup?: () => void
+  static #cleanups = new WeakMap()
 
   constructor() {
     super()
@@ -21,7 +21,9 @@ export class TabBar extends DialogBase {
 
     el.removeEventListener('click', TabBar.#handleClick)
 
-    this.#cleanup?.()
+    this.#cleanups.get(el)?.()
+
+    this.#cleanups.delete(el)
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
@@ -40,7 +42,7 @@ export class TabBar extends DialogBase {
       }
     )
 
-    this.#cleanup = on()
+    this.#cleanups.set(el, on())
 
     el.autofocus = true
   }

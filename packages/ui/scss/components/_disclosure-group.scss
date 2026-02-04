@@ -22,16 +22,11 @@
     //   background-color: red;
     // }
 
-    :where(&::details-content) {
+    :where(&)::details-content {
       background: transparent !important;
       block-size: 0;
 
       // display: grid;
-
-      transition:
-        block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-        content-visibility var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: block-size, content-visibility;
     }
 
     :where(& > *:not(summary)) {
@@ -39,32 +34,27 @@
     }
 
     &[open] {
-      :where(&::details-content) {
+      :where(&)::details-content {
         block-size: auto;
       }
     }
 
     @supports not (interpolate-size: allow-keywords) {
       // [is='disclosure-group'] {
-      :where(&::details-content) {
+      :where(&)::details-content {
         block-size: auto !important;
-
-        transition:
-          max-height var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-          transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
-        will-change: max-height, transform;
 
         max-height: 0;
       }
 
       &[open] {
-        :where(&::details-content) {
+        :where(&)::details-content {
           max-height: calc(var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) + 100px);
         }
       }
 
       &.#{vars.$disclosure-group-animation-close-class} {
-        :where(&::details-content) {
+        :where(&)::details-content {
           max-height: 0 !important;
         }
       }

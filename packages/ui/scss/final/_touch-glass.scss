@@ -2,51 +2,51 @@
 @use '../mixins';
 
 @layer #{vars.$final-layer} {
-  // @media (pointer: coarse) {
-  menu-view {
-    :where(&[touch-glass])::part(menu-dialog) {
-      transform: scale(1.03);
-      transition-duration: 100ms;
-    }
-  }
-
-  tool-bar {
-    :where(& > *[touch-glass]) {
-      transform: scale(1.07);
-      transition-duration: 100ms;
-    }
-  }
-
-  [is='tab-bar'] {
-    @include mixins.if-iphone-portrait {
-      :where(&[touch-glass]) {
+  @media (pointer: coarse) {
+    menu-view {
+      :where(&[touch-glass])::part(menu-dialog) {
         transform: scale(1.03);
         transition-duration: 100ms;
       }
     }
-    @include mixins.if-iphone-landscape {
-      :where(&[touch-glass]) {
-        transform: scale(1.03);
-        transition-duration: 100ms;
-      }
-    }
-    @include mixins.if-ipad-landscape {
-      :where(&[touch-glass]) {
-        transform: scale(1.03);
-        transition-duration: 100ms;
-      }
-    }
-  }
 
-  navigation-split-view {
-    &:has(> dialog[is='sidebar-view']) {
-      @include mixins.if-2col-split-view-fits {
-        :where(& > dialog[is='sidebar-view'][touch-glass]) {
+    tool-bar {
+      :where(& > *[touch-glass]) {
+        transform: scale(1.07);
+        transition-duration: 100ms;
+      }
+    }
+
+    [is='tab-bar'] {
+      @include mixins.if-iphone-portrait {
+        :where(&[touch-glass]) {
+          transform: scale(1.03);
+          transition-duration: 100ms;
+        }
+      }
+      @include mixins.if-iphone-landscape {
+        :where(&[touch-glass]) {
+          transform: scale(1.03);
+          transition-duration: 100ms;
+        }
+      }
+      @include mixins.if-ipad-landscape {
+        :where(&[touch-glass]) {
           transform: scale(1.03);
           transition-duration: 100ms;
         }
       }
     }
+
+    navigation-split-view {
+      &:has(> dialog[is='sidebar-view']) {
+        @include mixins.if-2col-split-view-fits {
+          :where(& > dialog[is='sidebar-view'][touch-glass]) {
+            transform: scale(1.03);
+            transition-duration: 100ms;
+          }
+        }
+      }
+    }
   }
-  // }
 }

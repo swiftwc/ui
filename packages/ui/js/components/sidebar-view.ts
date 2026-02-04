@@ -2,7 +2,7 @@ import { DialogBase } from '../client/privateNamespace'
 import { touchGlass } from '../internal/utils'
 
 export class SidebarView extends DialogBase {
-  static #cleanup?: () => void
+  static #cleanups = new WeakMap()
 
   constructor() {
     super()
@@ -21,7 +21,9 @@ export class SidebarView extends DialogBase {
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
     el.removeEventListener('click', SidebarView.#handleClick)
 
-    this.#cleanup?.()
+    this.#cleanups.get(el)?.()
+
+    this.#cleanups.delete(el)
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
@@ -38,7 +40,7 @@ export class SidebarView extends DialogBase {
       }
     )
 
-    this.#cleanup = on()
+    this.#cleanups.set(el, on())
 
     el.autofocus = true
   }

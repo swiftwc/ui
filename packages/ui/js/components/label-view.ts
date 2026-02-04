@@ -50,8 +50,8 @@ export class LabelView extends HTMLElement {
     console.debug(`${LabelView.name} ⚡️ connect`)
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.debug(`${LabelView.name} ⚡️ [${name}] change`)
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${LabelView.name} ⚡️ [${name}] change ("${oldValue}" → "${newValue}")`)
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {

@@ -45,8 +45,8 @@ export class ScrollView extends HTMLElement {
     // )
   }
 
-  attributeChangedCallback(name: string, oldValue: string, newValue: string) {
-    console.debug(`${ScrollView.name} ⚡️ [${name}] change`)
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${ScrollView.name} ⚡️ [${name}] change ("${oldValue}" → "${newValue}")`)
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
@@ -54,31 +54,35 @@ export class ScrollView extends HTMLElement {
     })
 
     Snapshot.waitReady.then(() => {
-      const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')
-      if (!slot) return
+      switch (name) {
+        case 'navigation-title':
+          const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')
+          if (!slot) return
 
-      const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
+          const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
 
-      let el = assigned[0] as HTMLElement | undefined
-      if (!el) {
-        el = document.createElement('label-view')
-        el.slot = 'navigation-bar-principal'
-        this.append(el)
+          let el = assigned[0] as HTMLElement | undefined
+          if (!el) {
+            el = document.createElement('label-view')
+            el.slot = 'navigation-bar-principal'
+            this.append(el)
+          }
+
+          el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          // if (
+          //   0 ===
+          //   this.#shadowRoot
+          //     .querySelector<HTMLSlotElement>(
+          //       'slot[name=navigation-bar-principal]'
+          //     )!
+          //     .assignedNodes({ flatten: true }).length
+          // )
+          //   this.insertAdjacentHTML(
+          //     'beforeend',
+          //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
+          //   )
+          break
       }
-
-     el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-      // if (
-      //   0 ===
-      //   this.#shadowRoot
-      //     .querySelector<HTMLSlotElement>(
-      //       'slot[name=navigation-bar-principal]'
-      //     )!
-      //     .assignedNodes({ flatten: true }).length
-      // )
-      //   this.insertAdjacentHTML(
-      //     'beforeend',
-      //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
-      //   )
     })
   }
 

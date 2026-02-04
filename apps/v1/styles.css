@@ -248,29 +248,25 @@
   :where([is=disclosure-group] summary) {
     list-style: none;
   }
-  :where([is=disclosure-group]::details-content) {
+  :where([is=disclosure-group])::details-content {
     background: transparent !important;
     block-size: 0;
-    transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-    will-change: block-size, content-visibility;
   }
   :where([is=disclosure-group] > *:not(summary)) {
     margin: 0 !important;
   }
-  :where([is=disclosure-group][open]::details-content) {
+  :where([is=disclosure-group][open])::details-content {
     block-size: auto;
   }
   @supports not (interpolate-size: allow-keywords) {
-    :where([is=disclosure-group]::details-content) {
+    :where([is=disclosure-group])::details-content {
       block-size: auto !important;
-      transition: max-height var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: max-height, transform;
       max-height: 0;
     }
-    :where([is=disclosure-group][open]::details-content) {
+    :where([is=disclosure-group][open])::details-content {
       max-height: calc(var(--disclosure-group-contents-height, 100vh) + 100px);
     }
-    :where([is=disclosure-group].close::details-content) {
+    :where([is=disclosure-group].close)::details-content {
       max-height: 0 !important;
     }
   }
@@ -922,6 +918,12 @@
     margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing)) !important;
   }
 }
+@layer sw-components {
+  :where(list-view li) {
+    display: grid;
+    list-style: none;
+  }
+}
 @layer sw-nav-components {
   :where(navigation-stack) {
     touch-action: none;
@@ -976,8 +978,6 @@
       margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
       --safe-area-inset-left: 0px;
       overflow: visible;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view]) {
       padding-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       border-radius: var(--sidebar-border-radius);
     }
@@ -1918,6 +1918,18 @@
     }
   }
 }
+@layer sw-transitions {
+  :where([is=disclosure-group])::details-content {
+    transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+    will-change: block-size, content-visibility;
+  }
+  @supports not (interpolate-size: allow-keywords) {
+    :where([is=disclosure-group])::details-content {
+      transition: max-height var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: max-height, transform;
+    }
+  }
+}
 @layer sw-colors {
   :where(navigation-stack, navigation-split-view) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
@@ -1952,33 +1964,35 @@
   }
 }
 @layer sw-final {
-  :where(menu-view[touch-glass])::part(menu-dialog) {
-    transform: scale(1.03);
-    transition-duration: 100ms;
+  @media (pointer: coarse) {
+    :where(menu-view[touch-glass])::part(menu-dialog) {
+      transform: scale(1.03);
+      transition-duration: 100ms;
+    }
+    :where(tool-bar > *[touch-glass]) {
+      transform: scale(1.07);
+      transition-duration: 100ms;
+    }
   }
-  :where(tool-bar > *[touch-glass]) {
-    transform: scale(1.07);
-    transition-duration: 100ms;
-  }
-  @media (max-width: 42.9999rem) and (orientation: portrait) {
+  @media (pointer: coarse) and (max-width: 42.9999rem) and (orientation: portrait) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (max-width: 67.9999rem) and (orientation: landscape) {
+  @media (pointer: coarse) and (max-width: 67.9999rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (min-width: 68rem) and (orientation: landscape) {
+  @media (pointer: coarse) and (min-width: 68rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;
     }
   }
-  @media (min-width: 43rem) {
+  @media (pointer: coarse) and (min-width: 43rem) {
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > dialog[is=sidebar-view][touch-glass]) {
       transform: scale(1.03);
       transition-duration: 100ms;

@@ -1,0 +1,22 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  [is='disclosure-group'] {
+    :where(&)::details-content {
+      transition:
+        block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+        content-visibility var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: block-size, content-visibility;
+    }
+
+    @supports not (interpolate-size: allow-keywords) {
+      :where(&)::details-content {
+        transition:
+          max-height var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+          transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+        will-change: max-height, transform;
+      }
+    }
+  }
+}

@@ -1,0 +1,12 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  list-view {
+    :where(& li) {
+      display: grid;
+
+      list-style: none;
+    }
+  }
+}

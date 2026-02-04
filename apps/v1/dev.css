@@ -71,10 +71,7 @@
   }
   ::part(navigation-bar),
   ::part(bottom-bar) {
-    box-shadow: inset 0 0 4px red;
-  }
-  scroll-view {
-    box-shadow: inset 0 0 0 2px cyan;
+    box-shadow: inset 0 0 0 2px red;
   }
   ::part(scroll-view-navbar-stack)::before,
   ::part(scroll-view-toolbar-stack)::before {
@@ -89,38 +86,41 @@
   scroll-view::part(scroll-view-navbar) {
     justify-items: start;
   }
-  body-view {
-    box-shadow: inset 0 0 0 2px oklch(98.4% 0.019 200.873deg);
+  scroll-view {
+    box-shadow: inset 0 0 0 4px cyan;
   }
-  body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(95.6% 0.045 203.388deg);
+  body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(98.4% 0.019 200.873deg);
   }
-  body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(91.7% 0.08 205.041deg);
+  body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(95.6% 0.045 203.388deg);
   }
-  body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(86.5% 0.127 207.078deg);
+  body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(91.7% 0.08 205.041deg);
   }
-  body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(78.9% 0.154 211.53deg);
+  body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(86.5% 0.127 207.078deg);
   }
-  body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(71.5% 0.143 215.221deg);
+  body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(78.9% 0.154 211.53deg);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(60.9% 0.126 221.723deg);
+  body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(71.5% 0.143 215.221deg);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(52% 0.105 223.128deg);
+  body-view > body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(60.9% 0.126 221.723deg);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(45% 0.085 224.283deg);
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(52% 0.105 223.128deg);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(39.8% 0.07 227.392deg);
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(45% 0.085 224.283deg);
   }
-  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view {
-    box-shadow: inset 0 0 0 2px oklch(30.2% 0.056 229.695deg);
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(39.8% 0.07 227.392deg);
+  }
+  body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > body-view > scroll-view {
+    box-shadow: inset 0 0 0 4px oklch(30.2% 0.056 229.695deg);
   }
 }
 

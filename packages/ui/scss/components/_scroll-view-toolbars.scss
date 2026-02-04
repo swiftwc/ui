@@ -43,8 +43,6 @@
     :where(&) {
       &::part(#{vars.$scroll-view-navbar-stack-part-name}),
       &::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
-        // > span {
-        // display: grid;
         grid-template-columns: 1fr auto 1fr;
         pointer-events: all;
 
@@ -68,26 +66,20 @@
           }
         }
 
-        // > div {
         @include mixins.make-toolbar(bottom);
-        // height: calc(var(--safe-area-inset-top) + 50px);
-        // }
       }
 
       &::part(#{vars.$scroll-view-toolbar-part-name}) {
         top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
-        // background-color: red;
+
         height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
         padding-block-end: var(--safe-area-inset-bottom);
         transform: translateY(var(--safe-area-inset-bottom));
 
-        // > div {
         @include mixins.make-toolbar(top);
-        // }
       }
 
       &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-        // > span {
         @media (pointer: fine) {
           & {
             grid-template-columns: max-content auto 1fr;
@@ -96,11 +88,6 @@
 
         &::before {
           width: var(--navbar-padding-inline-start, 0px);
-
-          // width: calc(
-          //   var(--navbar-padding-inline-start, 0px) +
-          //     var(--toolbar-area-inset-left, 0px)
-          // );
         }
 
         &::after {
@@ -109,7 +96,6 @@
       }
 
       &::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
-        // > span {
         &::before {
           width: var(--toolbar-padding-inline-start);
         }

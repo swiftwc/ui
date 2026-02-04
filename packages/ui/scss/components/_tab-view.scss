@@ -90,13 +90,15 @@
         @include mixins.create-sidebar-measure;
       }
 
-      // force navbar visibility bc/ of sidebartoggle shown
-      :where(tab-view:not([tab-view-style='tab-bar-only']) &) {
-        &::part(#{vars.$scroll-view-navbar-part-name}) {
-          visibility: visible;
-        }
+      tab-view:not([tab-view-style='tab-bar-only']) & {
+        :where(&) {
+          grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
 
-        grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+          // force navbar visibility bc/ of sidebartoggle shown
+          &::part(#{vars.$scroll-view-navbar-part-name}) {
+            visibility: visible;
+          }
+        }
       }
     }
   }

@@ -87,37 +87,38 @@
         }
 
         &::before {
-          width: var(--navbar-padding-inline-start, 0px);
+          inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--navbar-safe-area-inset-left, 0px));
         }
 
         &::after {
-          width: var(--navbar-padding-inline-end, 0px);
+          inline-size: calc(var(--navbar-padding-inline-end, 0px) + var(--navbar-safe-area-inset-right, 0px));
         }
       }
 
       &::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
         &::before {
-          width: var(--toolbar-padding-inline-start);
+          inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px));
         }
 
         &::after {
-          width: var(--toolbar-padding-inline-end);
+          inline-size: calc(var(--toolbar-padding-inline-end) + var(--toolbar-safe-area-inset-right, 0px));
         }
       }
     }
 
     // force measurer to take into account possible sidebar toggles
-    &:not(dialog &) {
-      :where(&) {
-        &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
-          &::before {
-            width: calc(
-              var(--navbar-padding-inline-start, 0px) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
-                max(var(--safe-area-inset-left), var(--sidebar-spacing, 0px))
-            );
-          }
-        }
-      }
-    }
+    // &:not(dialog &) {
+    //   :where(&) {
+    //     &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+    //       &::before {
+    //         inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
+    //         // width: calc(
+    //         //   var(--navbar-padding-inline-start, 0px) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
+    //         //     max(var(--safe-area-inset-left), var(--sidebar-spacing, 0px))
+    //         // );
+    //       }
+    //     }
+    //   }
+    // }
   }
 }

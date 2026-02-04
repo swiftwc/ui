@@ -36,7 +36,8 @@
     :where(navigation-split-view > &) {
       position: fixed;
 
-      inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto max(env(safe-area-inset-left), var(--sidebar-spacing));
+      inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
+      padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
 
       height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
     }

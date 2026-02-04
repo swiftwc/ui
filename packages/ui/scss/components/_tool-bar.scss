@@ -36,7 +36,7 @@
 
       // background-color: blue;
 
-      padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+      padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
       pointer-events: none;
 
       grid-template-columns: auto 1fr auto;

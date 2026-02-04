@@ -8,17 +8,43 @@
 }
 
 @mixin create-sidebar-measure {
-  :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  :where(&) {
+    --navbar-safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - env(safe-area-inset-left));
+  }
+
+  :where(& ~ tool-bar) {
+    &::part(bottom-bar) {
+      --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+    }
+
+    &::part(navigation-bar) {
+      --safe-area-inset-left: var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px);
+    }
+  }
+  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
     margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
   }
   :where(& ~ tool-bar)::part(navigation-bar) {
     // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
     --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
-  }
+  } */
 }
 
 @mixin discard-sidebar-measures {
-  :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  :where(&) {
+    --navbar-safe-area-inset-left: revert;
+  }
+
+  :where(& ~ tool-bar) {
+    &::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+
+    &::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+  }
+  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
     margin-inline-start: unset;
     --sidebar-spacing: 0px;
     #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
@@ -26,7 +52,7 @@
   }
   :where(& ~ tool-bar)::part(navigation-bar) {
     --safe-area-inset-left: unset;
-  }
+  } */
 }
 
 // @mixin discard-tabview-sidebar-sentinel {

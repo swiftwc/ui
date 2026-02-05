@@ -1,9 +1,9 @@
 import { DetailsBase } from '../client/privateNamespace'
-import { cssTime } from '../internal/utils'
-import { Snapshot } from '../snapshot'
+// import { cssTime } from '../internal/utils'
+// import { Snapshot } from '../snapshot'
 import { ResizeObserverSingleton } from '../internal/resize-observer'
 
-const observers = new ResizeObserverSingleton()
+// const observers = new ResizeObserverSingleton()
 
 export class DisclosureGroup extends DetailsBase {
   static observedAttributes = ['open']
@@ -17,16 +17,16 @@ export class DisclosureGroup extends DetailsBase {
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    const entry = {
-      attributeName: name,
-      oldValue: oldValue,
-      target: this,
-    }
+    // const entry = {
+    //   attributeName: name,
+    //   oldValue: oldValue,
+    //   target: this,
+    // }
 
-    Snapshot.waitReady.then(() => {
-      // @ts-expect-error
-      DisclosureGroup.polyfillAttributeChangedCallback([entry])
-    })
+    // Snapshot.waitReady.then(() => {
+    //   // @ts-expect-error
+    //   DisclosureGroup.polyfillAttributeChangedCallback([entry])
+    // })
   }
 
   disconnectedCallback() {
@@ -42,9 +42,9 @@ export class DisclosureGroup extends DetailsBase {
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    el.removeEventListener('click', DisclosureGroup.#handleClick)
+    // el.removeEventListener('click', DisclosureGroup.#handleClick)
 
-    observers.unobserve(el)
+    // observers.unobserve(el)
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
@@ -52,62 +52,63 @@ export class DisclosureGroup extends DetailsBase {
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-    Snapshot.waitReady.then(() => el.addEventListener('click', DisclosureGroup.#handleClick))
+    // Snapshot.waitReady.then(() => el.addEventListener('click', DisclosureGroup.#handleClick))
   }
 
-  static #handleClick = async (event: Event) => {
-    console.debug(`${DisclosureGroup.name} ⚡️ ${event?.type}`)
+  // static #handleClick = async (event: Event) => {
+  //   console.debug(`${DisclosureGroup.name} ⚡️ ${event?.type}`)
 
-    if (!(event.target as HTMLElement).closest('summary')) return
+  //   if (!(event.target as HTMLElement).closest('summary')) return
 
-    const el = (event.target as HTMLElement).closest<HTMLDetailsElement>('details')
-    if (!el) return
+  //   const el = (event.target as HTMLElement).closest<HTMLDetailsElement>('details')
+  //   if (!el) return
 
-    const wasOpen = el.open // will close after this event
+  //   const wasOpen = el.open // will close after this event
 
-    el.inert = true
+  //   el.inert = true
 
-    if (wasOpen) {
-      el.classList.add(Snapshot.config!['disclosure-group-animation-close-class'])
+  //   if (wasOpen) {
+  //     el.classList.add(Snapshot.config!['disclosure-group-animation-close-class'])
 
-      event.preventDefault()
-      event.stopPropagation()
-      event.stopImmediatePropagation()
-    }
+  //     event.preventDefault()
+  //     event.stopPropagation()
+  //     event.stopImmediatePropagation()
+  //   }
 
-    await new Promise((r) => setTimeout(r, cssTime(`${el.computedStyleMap().get(Snapshot.config!['disclosure-group-animation-duration-css-prop'])}`)))
+  //   await new Promise((r) => setTimeout(r, cssTime(`${el.computedStyleMap().get(Snapshot.config!['disclosure-group-animation-duration-css-prop'])}`)))
 
-    el.inert = false
+  //   el.inert = false
 
-    if (wasOpen) el.open = false
-  }
+  //   if (wasOpen) el.open = false
+  // }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
-    console.debug(`${DisclosureGroup.name} ⚡️ [${attributeName}] change ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+  // static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
+  //   console.debug(`${DisclosureGroup.name} ⚡️ [${attributeName}] change ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-    switch (attributeName) {
-      case 'open':
-        const node = target as HTMLDetailsElement
+  //   switch (attributeName) {
+  //     case 'open':
+  //       const node = target as HTMLDetailsElement
 
-        node.classList.remove(Snapshot.config!['disclosure-group-animation-close-class'])
+  //       node.classList.remove(Snapshot.config!['disclosure-group-animation-close-class'])
 
-        if (node.open) {
-          observers.observe(node, DisclosureGroup.#handleMeasure)
-        } else {
-          observers.unobserve(node)
+  //       if (node.open) {
+  //         // console.log(999, node.querySelector('summary')!.offsetHeight, node.getBoundingClientRect().height)
+  //         observers.observe(node, DisclosureGroup.#handleMeasure)
+  //       } else {
+  //         observers.unobserve(node)
 
-          node?.style?.removeProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'])
-        }
+  //         node?.style?.removeProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'])
+  //       }
 
-        break
-    }
-  }
+  //       break
+  //   }
+  // }
 
-  static #handleMeasure({ contentRect, target }: ResizeObserverEntry) {
-    console.debug(`${DisclosureGroup.name} ⚡️ measure`)
+  // static #handleMeasure({ contentRect, target }: ResizeObserverEntry) {
+  //   console.debug(`${DisclosureGroup.name} ⚡️ measure`)
 
-    const { height } = contentRect
+  //   const { height } = contentRect
 
-    ;(target as HTMLElement)?.style?.setProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'], `${height}px`)
-  }
+  //   ;(target as HTMLElement)?.style?.setProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'], `${height}px`)
+  // }
 }

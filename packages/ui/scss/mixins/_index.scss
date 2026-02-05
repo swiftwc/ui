@@ -1,0 +1,246 @@
+@use '../vars';
+
+@mixin span-all {
+  grid-column: 1 / -1; // span all columns
+  grid-row: 1 / -1; // span all rows
+}
+
+@mixin create-sidebar-measure($floating: false) {
+  @if $floating {
+    :where(&) {
+      --navbar-safe-area-inset-left: calc(
+        var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing))
+      );
+    }
+
+    :where(& ~ tool-bar) {
+      &::part(navigation-bar) {
+        --safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing)));
+      }
+    }
+  } @else {
+    :where(&) {
+      --navbar-safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - env(safe-area-inset-left));
+    }
+
+    :where(& ~ tool-bar) {
+      &::part(bottom-bar) {
+        --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+      }
+
+      &::part(navigation-bar) {
+        --safe-area-inset-left: var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px);
+      }
+    }
+  }
+  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+    margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
+  }
+  :where(& ~ tool-bar)::part(navigation-bar) {
+    // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+    --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
+  } */
+}
+
+@mixin discard-sidebar-measures {
+  :where(&) {
+    --navbar-safe-area-inset-left: revert;
+  }
+
+  :where(& ~ tool-bar) {
+    &::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+
+    &::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+  }
+  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+    margin-inline-start: unset;
+    --sidebar-spacing: 0px;
+    #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
+    --safe-area-inset-left: 0px;
+  }
+  :where(& ~ tool-bar)::part(navigation-bar) {
+    --safe-area-inset-left: unset;
+  } */
+}
+
+// @mixin discard-tabview-sidebar-sentinel {
+//   scroll-view:not(dialog scroll-view) {
+//     :where(tab-view:not([tab-view-style='tab-bar-only']) &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+//       margin-inline-start: unset;
+//       --sidebar-spacing: 0px;
+//     }
+//     :where(tab-view:not([tab-view-style='tab-bar-only']) & ~ tool-bar)::part(navigation-bar) {
+//       --safe-area-inset-left: unset;
+//     }
+//   }
+// }
+
+// @mixin reposition-sentinel-for-sidebar {
+//   &::before {
+//     // margin-inline-start: calc(env(safe-area-inset-left) * -1);
+//     // width: calc(
+//     //   max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) +
+//     //     var(--navbar-padding-inline-start, 0px)
+//     // );
+//   }
+// }
+
+@mixin create-v-scroll-view {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 0 minmax(max-content, 1fr);
+  grid-template-areas:
+    'toolbar'
+    'main';
+
+  & > *:not([slot]) {
+    grid-area: main;
+  }
+
+  &:has(~ tool-bar > [slot^='navigation-bar']),
+  &:has(> [slot^='navigation-bar']) {
+    grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+  }
+}
+
+@mixin make-scrollable($container: false) {
+  @if $container {
+    height: calc(100% + 1px);
+  } @else {
+    scrollbar-width: thin;
+    // & > *:not([slot]) {
+    //   @include span-all;
+    //   // grid-column: 1 / -1; // span all columns
+    //   // grid-row: 1 / -1; // span all rows
+    // }
+
+    &::before {
+      @include span-all;
+      // grid-column: 1 / -1; // span all columns
+      // grid-row: 1 / -1; // span all rows
+      content: '';
+      display: block;
+      height: calc(100% + 1px); /* creates overflow */
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin contain-overscroll() {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin make-toolbar($dir: bottom) {
+  &:before,
+  &:after {
+    backface-visibility: hidden;
+
+    content: '';
+    inset: 0;
+    position: absolute;
+    pointer-events: none;
+
+    z-index: -1;
+  }
+
+  &:before {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(to #{$dir}, oklch(0 0 0) 50%, oklch(0 0 0 / 0%) 100%);
+  }
+
+  &:after {
+    background-image: linear-gradient(to #{$dir}, var(--canvas) 0, oklch(0 0 0 / 0%) 100%);
+  }
+}
+
+@mixin vt-toolbar-item-offscreen-keyframe($important: false) {
+  // @if $important {
+  //   transform: scale(var(--view-transition-toolbar-cell-offscreen-scale)) !important;
+  //   filter: blur(10px) !important;
+  //   opacity: 0 !important;
+  // } @else {
+  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+  --toolbar-cell-filter: blur(10px);
+  --toolbar-cell-opacity: 0;
+  // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+  // filter: blur(10px);
+  // opacity:
+  // }
+}
+
+@mixin vt-toolbar-item-onscreen-keyframe($important: false) {
+  // @if $important {
+  //   transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
+  //   filter: none !important;
+  //   opacity: 1 !important;
+  // } @else {
+  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+  --toolbar-cell-filter: none;
+  --toolbar-cell-opacity: 1;
+  // }
+}
+
+@mixin toolbar-item-vt-state($transform, $filter, $opacity) {
+  transform: $transform;
+  filter: $filter;
+  opacity: $opacity;
+}
+
+@mixin if-iphone-landscape {
+  @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-iphone-portrait {
+  @media (max-width: #{vars.$ipad-portrait-bp-max}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-landscape {
+  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-ipad-portrait {
+  @media (min-width: #{vars.$ipad-portrait-bp-min}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-sheet-fits {
+  @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {
+    @content;
+  }
+}
+
+@mixin if-2col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-2col-bp-min}) {
+    @content;
+  }
+}
+
+@mixin if-3col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-3col-bp-min}) {
+    @content;
+  }
+}
+
+@mixin ifnot-2col-split-view-fits {
+  @media (max-width: #{vars.$nav-split-view-2col-bp-max}) {
+    @content;
+  }
+}
+
+@mixin ifnot-3col-split-view-fits {
+  @media (max-width: #{vars.$nav-split-view-3col-bp-max}) {
+    @content;
+  }
+}

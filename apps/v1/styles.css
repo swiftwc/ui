@@ -249,25 +249,51 @@
     list-style: none;
   }
   :where([is=disclosure-group])::details-content {
-    background: transparent !important;
+    display: grid;
+    background: transparent;
     block-size: 0;
   }
   :where([is=disclosure-group] > *:not(summary)) {
-    margin: 0 !important;
+    margin: 0;
   }
   :where([is=disclosure-group][open])::details-content {
     block-size: auto;
   }
   @supports not (interpolate-size: allow-keywords) {
+    :where([is=disclosure-group]) {
+      grid-template-rows: auto 0fr;
+      place-items: start;
+      place-content: start;
+    }
     :where([is=disclosure-group])::details-content {
-      block-size: auto !important;
-      max-height: 0;
+      block-size: auto;
+      content-visibility: visible;
+      min-height: 0;
     }
-    :where([is=disclosure-group][open])::details-content {
-      max-height: calc(var(--disclosure-group-contents-height, 100vh) + 100px);
+    :where([is=disclosure-group][open]) {
+      grid-template-rows: auto 1fr;
     }
-    :where([is=disclosure-group].close)::details-content {
-      max-height: 0 !important;
+    [is=disclosure-group] {
+      /* // [is='disclosure-group'] {
+      :where(&)::details-content {
+        block-size: auto !important;
+
+        max-block-size: 0px; // max-height: 0;
+      }
+
+      &[open] {
+        :where(&)::details-content {
+          max-block-size: calc(
+            var(--disclosure-group-contents-height, 100vh) + 100px
+          ); // max-height: calc(var(--disclosure-group-contents-height, 100vh) + 100px);
+        }
+      }
+
+      &.close {
+        :where(&)::details-content {
+          max-block-size: 0 !important; // max-height: 0 !important;
+        }
+      } */
     }
   }
 }
@@ -345,10 +371,10 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
+    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     container: scroll-view/inline-size;
     background-color: var(--canvas);
     color: var(--canvastext);
-    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
     box-shadow: var(--screen-box-shadow);
     scrollbar-width: thin;
   }
@@ -365,6 +391,14 @@
     height: calc(100% + 1px); /* creates overflow */
     z-index: -1;
     pointer-events: none;
+  }
+  :where(navigation-stack > scroll-view,
+  navigation-split-view > scroll-view,
+  navigation-split-view > [is=sidebar-view] > scroll-view,
+  body-view > scroll-view,
+  [is=full-screen] > scroll-view,
+  [is=sheet-view] > scroll-view)::before {
+    height: calc(100% + var(--safe-area-inset-bottom) + 1px);
   }
   :where(navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
@@ -917,9 +951,8 @@
   }
 }
 @layer sw-components {
-  :where(list-view li) {
+  list-view {
     display: grid;
-    list-style: none;
   }
 }
 @layer sw-nav-components {
@@ -1097,200 +1130,6 @@
       transition-duration: 0ms;
     }
   }
-  @media (max-width: 42.9999rem) {
-    :where(:not(tab-view navigation-split-view > body-view scroll-view:not(dialog scroll-view))) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(:not(tab-view navigation-split-view > body-view scroll-view:not(dialog scroll-view)) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(:not(tab-view navigation-split-view > body-view scroll-view:not(dialog scroll-view)) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :not(tab-view navigation-split-view > body-view scroll-view:not(dialog scroll-view)) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (max-width: 42.9999rem) and (max-width: 42.9999rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (max-width: 42.9999rem) and (min-width: 43rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (max-width: 42.9999rem) and (min-width: 68rem) and (orientation: landscape) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (min-width: 43rem) {
-    :where(navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (min-width: 43rem) and (max-width: 63.9999rem) {
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
-  @media (min-width: 43rem) and (min-width: 64rem) {
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view)) {
-      --navbar-safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
-      --safe-area-inset-left: revert;
-    }
-    :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
-      --safe-area-inset-left: revert;
-    }
-    navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) {
-      /* :where(&)::part(scroll-view-navbar-stack) {
-        margin-inline-start: unset;
-        --sidebar-spacing: 0px;
-        --sidebar-toggle-padding-inline-start: 0px;
-        --safe-area-inset-left: 0px;
-      }
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: unset;
-      } */
-    }
-  }
 }
 @layer sw-tab-components {
   :where(tab-view) {
@@ -1314,6 +1153,12 @@
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
   }
+  @media (orientation: landscape) and (max-width: 42.9999rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar) {
+      --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+    }
+  }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
@@ -1326,6 +1171,12 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view)) {
+      grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view))::part(scroll-view-navbar) {
+      visibility: visible;
+    }
     :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view)) {
       --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - env(safe-area-inset-left));
     }
@@ -1344,11 +1195,152 @@
         --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
       } */
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view)) {
-      grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (max-width: 42.9999rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view) {
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - env(safe-area-inset-left));
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view))::part(scroll-view-navbar) {
-      visibility: visible;
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px);
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+        --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
+      } */
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view) {
+      --navbar-safe-area-inset-left: calc(
+        var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing))
+      );
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing)));
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+        --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-toggle-padding-inline-start, 0px));
+      } */
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view)) {
+      --navbar-safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:not(:has(> dialog[is=sidebar-view])) > body-view scroll-view:not(dialog scroll-view) {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: unset;
+        --sidebar-spacing: 0px;
+        --sidebar-toggle-padding-inline-start: 0px;
+        --safe-area-inset-left: 0px;
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        --safe-area-inset-left: unset;
+      } */
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view)) {
+      --navbar-safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]):not([preferred-compact-column=content]) > body-view scroll-view:not(dialog scroll-view) {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: unset;
+        --sidebar-spacing: 0px;
+        --sidebar-toggle-padding-inline-start: 0px;
+        --safe-area-inset-left: 0px;
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        --safe-area-inset-left: unset;
+      } */
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) and (max-width: 63.9999rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view)) {
+      --navbar-safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > body-view scroll-view:not(dialog scroll-view) {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: unset;
+        --sidebar-spacing: 0px;
+        --sidebar-toggle-padding-inline-start: 0px;
+        --safe-area-inset-left: 0px;
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        --safe-area-inset-left: unset;
+      } */
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) and (min-width: 64rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view)) {
+      --navbar-safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view scroll-view:not(dialog scroll-view) {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: unset;
+        --sidebar-spacing: 0px;
+        --sidebar-toggle-padding-inline-start: 0px;
+        --safe-area-inset-left: 0px;
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        --safe-area-inset-left: unset;
+      } */
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view)) {
+      --navbar-safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) ~ tool-bar)::part(navigation-bar) {
+      --safe-area-inset-left: revert;
+    }
+    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:has(> dialog[is=sidebar-view])[column-visibility=double-column] > body-view scroll-view:not(dialog scroll-view) {
+      /* :where(&)::part(scroll-view-navbar-stack) {
+        margin-inline-start: unset;
+        --sidebar-spacing: 0px;
+        --sidebar-toggle-padding-inline-start: 0px;
+        --safe-area-inset-left: 0px;
+      }
+      :where(& ~ tool-bar)::part(navigation-bar) {
+        --safe-area-inset-left: unset;
+      } */
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
@@ -2024,9 +2016,9 @@
     will-change: block-size, content-visibility;
   }
   @supports not (interpolate-size: allow-keywords) {
-    :where([is=disclosure-group])::details-content {
-      transition: max-height var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: max-height, transform;
+    :where([is=disclosure-group]) {
+      transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: grid-template-rows;
     }
   }
 }

@@ -103,14 +103,24 @@
           <scroll-view navigation-title="Browse">
             <v-stack>
               <button type="button" id="cloud_drive">Cloud Drive</button>
+              <list-view></list-view>
             </v-stack>
           </scroll-view>
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button">
-                <label-view system-image="dots-three" />
-              </button>
+              <menu-view>
+                <label-view slot="label" system-image="dots-three"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="dots-three" label="Scan Documents" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="dots-three" label="Connect to Server" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view label="Edit Sidebar" />
+                </button>
+              </menu-view>
             </tool-bar-item>
           </tool-bar>
         </dialog>
@@ -194,13 +204,34 @@
             <tool-bar-item-group slot="navigation-bar-trailing">
               <tool-bar-item>
                 <button type="button">
-                  <label-view system-image="squares-four" />
+                  <label-view system-image="folder-plus" />
                 </button>
               </tool-bar-item>
               <tool-bar-item>
-                <button type="button">
-                  <label-view system-image="folder-plus" />
-                </button>
+                <menu-view>
+                  <label-view slot="label" system-image="squares-four"></label-view>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Icons" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="List" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Name" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Kind" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Date" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Size" />
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="squares-four" label="Tags" />
+                  </button>
+                </menu-view>
               </tool-bar-item>
             </tool-bar-item-group>
           </tool-bar>

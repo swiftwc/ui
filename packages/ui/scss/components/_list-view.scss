@@ -3,10 +3,10 @@
 
 @layer #{vars.$components-layer} {
   list-view {
-    :where(& li) {
-      display: grid;
+    display: grid;
 
-      list-style: none;
+    :where(& > *) {
+      // display: grid;
     }
   }
 }

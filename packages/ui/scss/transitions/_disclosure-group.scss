@@ -11,12 +11,17 @@
     }
 
     @supports not (interpolate-size: allow-keywords) {
-      :where(&)::details-content {
-        transition:
-          max-height var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-          transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
-        will-change: max-height, transform;
+      :where(&) {
+        transition: grid-template-rows var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+        will-change: grid-template-rows;
       }
+      // :where(&)::details-content {
+      //   transition:
+      //     max-block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+      //     block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+      //     transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+      //   will-change: max-block-size, block-size, transform;
+      // }
     }
   }
 }

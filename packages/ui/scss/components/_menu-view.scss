@@ -40,7 +40,9 @@
       max-width: anchor-size();
       max-height: anchor-size();
 
-      transform: scale(0);
+      transform: var(--menu-dialog-scale);
+
+      --menu-dialog-scale: scale(0);
 
       // position-anchor: --my-anchor; // overriden
       position-area: center;
@@ -59,10 +61,10 @@
         margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
         margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
-        transform: scale(1);
+        --menu-dialog-scale: scale(1);
 
         @starting-style {
-          transform: scale(0);
+          --menu-dialog-scale: scale(0);
         }
       }
     }

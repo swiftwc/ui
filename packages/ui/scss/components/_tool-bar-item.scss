@@ -89,12 +89,6 @@
   // }
   // }
 
-  tool-bar-item[slot]:has(> menu-view[open]),
-  tool-bar-item-group:has(> tool-bar-item > menu-view[open]) {
-    transform: var(--menu-host-offscreen-transform);
-    filter: var(--menu-host-offscreen-filter);
-  }
-
   // tool-bar-item {
   // min-height: var(--toolbar-cell-min-size);
   // min-width: var(--toolbar-cell-min-size);
@@ -153,5 +147,11 @@
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
       }
     }
+  }
+
+  :where(tool-bar-item[slot]:has(> menu-view[open])),
+  :where(tool-bar-item-group:has(> tool-bar-item > menu-view[open])) {
+    --toolbar-cell-scale: var(--menu-host-offscreen-transform);
+    --toolbar-cell-filter: var(--menu-host-offscreen-filter);
   }
 }

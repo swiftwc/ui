@@ -11,7 +11,9 @@
       width: 100lvw;
       height: var(--100lvh, 100lvh);
 
-      transform: translateY(var(--view-transition-dialog-offscreen-y));
+      transform: var(--sheet-view-translate);
+
+      --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
     }
 
     @include mixins.if-ipad-sheet-fits {

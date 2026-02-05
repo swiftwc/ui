@@ -1,0 +1,28 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  [is='sidebar-view'] {
+    // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
+    @media (prefers-reduced-motion: no-preference) {
+      @include mixins.if-2col-split-view-fits {
+        :where(navigation-split-view:has(> dialog[is='sidebar-view']) &) {
+          transition:
+            filter var(--touchglass-transition-duration) ease-out allow-discrete,
+            transform var(--touchglass-transition-duration) ease-out allow-discrete;
+          will-change: transform; // BUG: do NOT add filter here, it breaks webkit backdrop-filter
+        }
+
+        @include mixins.ifnot-3col-split-view-fits {
+          :where(navigation-split-view:has(> dialog[is='sidebar-view']):not([column-visibility='double-column'])[preferred-compact-column='content'] &) {
+            transition:
+              filter var(--touchglass-transition-duration) ease-out allow-discrete,
+              transform var(--touchglass-transition-duration) ease-out allow-discrete,
+              margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
+            will-change: transform, margin-inline-start; // BUG: do NOT add filter here, it breaks webkit backdrop-filter
+          }
+        }
+      }
+    }
+  }
+}

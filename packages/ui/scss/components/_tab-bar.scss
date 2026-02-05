@@ -18,7 +18,6 @@
     width: 100lvw;
 
     place-content: center;
-    // transform: translateX(-50%);
     //
     grid-auto-flow: column;
 
@@ -61,7 +60,7 @@
     height: var(--tab-bar-ipad-height);
 
     inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
-    transform: translateX(-50%);
+    --tab-bar-translate: translateX(-50%);
 
     @include make-floating-tabbar;
 
@@ -90,7 +89,7 @@
         max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
       height: auto; // override topbar
-      transform: translateX(0);
+      --tab-bar-translate: translateX(0);
       width: var(--sidebar-width);
 
       border-radius: var(--sidebar-border-radius);
@@ -161,7 +160,9 @@
       //   0 0 0 1px #fff inset,
       //   0px 0px 4px 2px #0000001c;
 
-      transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
+      transform: var(--tab-bar-translate) var(--tab-bar-scale);
+
+      // transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
 
       touch-action: none; // important for backdrop pans!
 
@@ -208,7 +209,6 @@
 
           :where(&) {
             left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
-            // transform: translateX(0);
 
             #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // override tab-view prop
           }

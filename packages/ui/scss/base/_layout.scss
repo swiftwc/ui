@@ -27,7 +27,7 @@
   body-view:has(> body-view) {
     & > scroll-view,
     & > [is='sidebar-view'] > scroll-view {
-      transform: translateX(var(--view-transition-leading-x));
+      --scroll-view-translate: translateX(var(--view-transition-leading-x));
     }
 
     // & > navigation-bar > tool-bar-item,
@@ -42,7 +42,7 @@
     & > tool-bar > tool-bar-item-group,
     & > [is='sidebar-view'] > tool-bar > tool-bar-item,
     & > [is='sidebar-view'] > tool-bar > tool-bar-item-group {
-      @include mixins.vt-toolbar-item-offscreen-keyframe; // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
     }
   }
 }

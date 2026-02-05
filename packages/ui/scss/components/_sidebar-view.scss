@@ -12,21 +12,12 @@
       position: relative;
 
       @include mixins.make-transitionable-dialog-backdrop;
+
+      transform: var(--sidebar-view-scale);
     }
 
     :where(& > *) {
       @include mixins.span-all;
-    }
-
-    // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
-    @media (prefers-reduced-motion: no-preference) {
-      @include mixins.if-2col-split-view-fits {
-        @include mixins.ifnot-3col-split-view-fits {
-          :where(navigation-split-view:has(> dialog[is='sidebar-view']):not([column-visibility='double-column'])[preferred-compact-column='content'] &) {
-            transition: margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
-          }
-        }
-      }
     }
 
     &[open] {
@@ -34,11 +25,11 @@
         @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
       }
 
-      @starting-style {
-        :where(&) {
-          transform: translateY(var(--view-transition-dialog-offscreen-y));
-        }
-      }
+      // @starting-style {
+      //   :where(&) {
+      //     transform: translateY(var(--view-transition-dialog-offscreen-y));
+      //   }
+      // }
     }
   }
 }
@@ -46,7 +37,7 @@
 @layer #{vars.$final-layer} {
   [is='sidebar-view'] {
     :where(&[open]) {
-      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing)) !important;
+      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
     }
   }
 }

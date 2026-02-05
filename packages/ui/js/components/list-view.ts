@@ -8,9 +8,10 @@ export class ListView extends HTMLElement {
   }
 
   connectedCallback() {
-    this.insertAdjacentHTML(
-      'beforeend',
-      `<button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
+    if (this.matches(':empty'))
+      this.insertAdjacentHTML(
+        'beforeend',
+        `<button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
@@ -46,6 +47,6 @@ export class ListView extends HTMLElement {
             </details>
             <button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button"><label-view system-image="smiley" label="Item 1"></label-view></button>`
-    )
+      )
   }
 }

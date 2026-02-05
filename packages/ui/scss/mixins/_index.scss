@@ -158,37 +158,16 @@
   }
 }
 
-@mixin vt-toolbar-item-offscreen-keyframe($important: false) {
-  // @if $important {
-  //   transform: scale(var(--view-transition-toolbar-cell-offscreen-scale)) !important;
-  //   filter: blur(10px) !important;
-  //   opacity: 0 !important;
-  // } @else {
-  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+@mixin vt-toolbar-cell-offscreen-keyframe() {
+  --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
   --toolbar-cell-filter: blur(10px);
   --toolbar-cell-opacity: 0;
-  // transform: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-  // filter: blur(10px);
-  // opacity:
-  // }
 }
 
-@mixin vt-toolbar-item-onscreen-keyframe($important: false) {
-  // @if $important {
-  //   transform: scale(var(--view-transition-toolbar-cell-onscreen-scale)) !important;
-  //   filter: none !important;
-  //   opacity: 1 !important;
-  // } @else {
-  --toolbar-cell-transform: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+@mixin vt-toolbar-cell-onscreen-keyframe() {
+  --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
   --toolbar-cell-filter: none;
   --toolbar-cell-opacity: 1;
-  // }
-}
-
-@mixin toolbar-item-vt-state($transform, $filter, $opacity) {
-  transform: $transform;
-  filter: $filter;
-  opacity: $opacity;
 }
 
 @mixin if-iphone-landscape {

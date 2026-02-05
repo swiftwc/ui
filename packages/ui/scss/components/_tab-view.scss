@@ -111,7 +111,7 @@
       }
 
       // APPLY FOR NSV
-      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > [is='sidebar-view'] > & {
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > [is='sidebar-view']:not([open]) > & {
         @include mixins.ifnot-2col-split-view-fits {
           @include mixins.create-sidebar-measure;
         }

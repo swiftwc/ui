@@ -3,13 +3,7 @@
 @layer #{vars.$transitions-layer} {
   scroll-view {
     &.bwd {
-      // visibility: collapse;
-
-      transform: translateX(var(--view-transition-trailing-x));
-
-      // @starting-style {
-      // transform: translateX(0%);
-      // }
+      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
     }
 
     &.bwdd {
@@ -24,20 +18,12 @@
       }
 
       // IMPORTANT: This requires `!important` bc/ css does not enforce this over the general keep-things-stacked-offscreen rule.
-      transform: translateX(var(--view-transition-principal-x));
-
-      // @starting-style {
-      // transform: translateX(-70%);
-      // }
+      --scroll-view-translate: translateX(var(--view-transition-principal-x));
     }
 
     &.bwdd.bwd {
-      transform: translateX(var(--view-transition-trailing-x));
+      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
     }
-
-    // [is='sheet-view'] > &.bwd {
-    //   transform: translateY(100lvh);
-    // }
   }
 
   // NOTE: Cannot force root scroll-view to be interacted with! Tabbar gets below the stack.
@@ -48,8 +34,4 @@
     pointer-events: none;
     // z-index: 1;
   }
-
-  // scroll-view.fwdd.bwd {
-  //   transform: translateX(var(--view-transition-principal-x));
-  // }
 }

@@ -23,7 +23,7 @@
       min-width: var(--toolbar-cell-min-size);
 
       // tfo
-      transform: var(--toolbar-cell-transform);
+      transform: var(--toolbar-cell-scale);
       filter: var(--toolbar-cell-filter);
       opacity: var(--toolbar-cell-opacity);
 
@@ -76,11 +76,6 @@
       height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
 
       padding-block-start: var(--safe-area-inset-top);
-
-      // dialog & {
-      //   transform: translateY(max(-33cqw, -200px));
-      //   inset: auto;
-      // }
     }
 
     :where(&)::part(bottom-bar) {

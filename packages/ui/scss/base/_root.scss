@@ -30,6 +30,17 @@
     --tab-bar-ipad-height: 3rem;
     --tab-bar-ipad-border-radius: 9999px;
 
+    --scroll-view-translate: ;
+
+    --sheet-view-translate: ;
+
+    --tab-bar-translate: ;
+    --tab-bar-scale: ;
+
+    --sidebar-view-scale: ;
+
+    --menu-dialog-scale: ;
+
     --sidebar-width: 20rem;
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
@@ -103,7 +114,7 @@
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
 
-    --toolbar-cell-transform: ;
+    --toolbar-cell-scale: ;
     --toolbar-cell-filter: ;
     --toolbar-cell-opacity: ;
 

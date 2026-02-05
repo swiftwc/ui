@@ -5,25 +5,15 @@
   tool-bar-item,
   tool-bar-item-group {
     &.bwn {
-      @include mixins.vt-toolbar-item-offscreen-keyframe;
-
-      // @starting-style {
-      //   transform: scale(1);
-      //   // opacity: 1;
-      // }
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
     }
 
     &.bwnn {
-      @include mixins.vt-toolbar-item-onscreen-keyframe;
-
-      // @starting-style {
-      //   transform: scale(0);
-      //   // opacity: 0;
-      // }
+      @include mixins.vt-toolbar-cell-onscreen-keyframe;
     }
 
     &.bwnn.bwn {
-      @include mixins.vt-toolbar-item-offscreen-keyframe;
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
     }
   }
 }

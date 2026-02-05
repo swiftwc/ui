@@ -23,19 +23,19 @@
   tool-bar-item-group {
     &.fwn {
       // BUG: Safari doesn't enforce scaling without this here again redundantly!
-      // @include mixins.vt-toolbar-item-offscreen-keyframe;
+      // @include mixins.vt-toolbar-cell-offscreen-keyframe;
     }
 
     &.fwnn {
-      @include mixins.vt-toolbar-item-onscreen-keyframe;
+      @include mixins.vt-toolbar-cell-onscreen-keyframe;
 
       @starting-style {
-        @include mixins.vt-toolbar-item-offscreen-keyframe;
+        @include mixins.vt-toolbar-cell-offscreen-keyframe;
       }
     }
 
     &.fwnn.fwn {
-      @include mixins.vt-toolbar-item-offscreen-keyframe;
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
     }
   }
 }

@@ -1,0 +1,9 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  [is='tab-bar'] {
+    :where(&) {
+      transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
+    }
+  }
+}

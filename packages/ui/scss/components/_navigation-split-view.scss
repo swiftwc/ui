@@ -78,10 +78,25 @@
       }
 
       // Fix 1stChildElement as a content view
+      > scroll-view {
+        &,
+        & ~ tool-bar {
+          :where(&) {
+            width: var(--nav-split-view-content-width);
+          }
+        }
+      }
+
+      // Cancel animations
       > scroll-view,
-      > tool-bar {
-        :where(&) {
-          width: var(--nav-split-view-content-width);
+      > [is='sidebar-view'] > scroll-view {
+        ~ tool-bar {
+          > tool-bar-item,
+          > tool-bar-item-group {
+            :where(&) {
+              @include mixins.vt-toolbar-cell-onscreen-keyframe;
+            }
+          }
         }
       }
 
@@ -143,6 +158,8 @@
 
               border-radius: var(--sidebar-border-radius);
 
+              backdrop-filter: var(--liquid-glass-backdrop-filter);
+
               box-shadow: var(--liquid-glass-box-shadow);
             }
 
@@ -188,8 +205,8 @@
             // &:has(> dialog[is='sidebar-view']) {
             &[preferred-compact-column='content'] {
               > scroll-view,
-              > [is='sidebar-view'],
-              > tool-bar {
+              > tool-bar,
+              > [is='sidebar-view'] {
                 :where(&) {
                   // hide off screen
                   margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
@@ -212,6 +229,17 @@
                 :where(& > scroll-view) {
                   border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
                   --screen-box-shadow: none;
+                }
+
+                > scroll-view {
+                  ~ tool-bar {
+                    > tool-bar-item,
+                    > tool-bar-item-group {
+                      :where(&) {
+                        @include mixins.vt-toolbar-cell-onscreen-keyframe; //(true);
+                      }
+                    }
+                  }
                 }
 
                 > scroll-view:not(dialog scroll-view) {
@@ -241,21 +269,35 @@
 
           // SIDEBAR | COMPACT | EXPANDED
           @include mixins.if-3col-split-view-fits {
+            // container of compact col (middle)
             // &:has(> dialog[is='sidebar-view']) {
             // &:not([column-visibility='double-column']) {
             // container of content col (principal)
             > body-view {
+              // cancel animations
+              > scroll-view {
+                ~ tool-bar {
+                  > tool-bar-item,
+                  > tool-bar-item-group {
+                    :where(&) {
+                      @include mixins.vt-toolbar-cell-onscreen-keyframe; //(true);
+                    }
+                  }
+                }
+              }
               // clip-path: inset(
               //   0 0 0 var(--nav-split-view-sidebar-width)
               // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
 
               // shrink 2nd-child
-              > scroll-view,
-              > tool-bar {
-                :where(&) {
-                  width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width)); // shrink to be now a col
+              > scroll-view {
+                &,
+                & ~ tool-bar {
+                  :where(&) {
+                    width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width)); // shrink to be now a col
 
-                  --safe-area-inset-right: 0px;
+                    --safe-area-inset-right: 0px;
+                  }
                 }
               }
 
@@ -297,15 +339,7 @@
       // Cancel transitions as it is now an inert col
       > scroll-view,
       > [is='sidebar-view'] > scroll-view {
-        transform: translateX(var(--view-transition-principal-x)); //!important
-
-        // Cancel animations
-        ~ tool-bar {
-          > tool-bar-item,
-          > tool-bar-item-group {
-            @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
-          }
-        }
+        --scroll-view-translate: translateX(var(--view-transition-principal-x)); //!important
       }
 
       > body-view {
@@ -322,14 +356,7 @@
               // move descendants to right
               > body-view {
                 > scroll-view {
-                  transform: translateX(var(--view-transition-principal-x)); //!important;
-
-                  ~ tool-bar {
-                    > tool-bar-item,
-                    > tool-bar-item-group {
-                      @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
-                    }
-                  }
+                  --scroll-view-translate: translateX(var(--view-transition-principal-x)); //!important;
                 }
 
                 > body-view {
@@ -347,15 +374,7 @@
             > body-view {
               // Fix position as compact col in the middle
               > scroll-view {
-                transform: translateX(var(--view-transition-principal-x)); // !important;
-
-                // cancel animations
-                ~ tool-bar {
-                  > tool-bar-item,
-                  > tool-bar-item-group {
-                    @include mixins.vt-toolbar-item-onscreen-keyframe; //(true);
-                  }
-                }
+                --scroll-view-translate: translateX(var(--view-transition-principal-x)); // !important;
               }
 
               > body-view {
@@ -366,90 +385,5 @@
         }
       }
     }
-
-    // ANCHOR sidebar
-
-    // reset parent tab-vew
-    // @include mixins.ifnot-2col-split-view-fits {
-    //   > body-view {
-    //     scroll-view:not(dialog scroll-view) {
-    // :not(tab-view &) {
-    //   @include mixins.discard-sidebar-measures;
-    // }
-
-    // tab-view:not([tab-view-style='tab-bar-only']) & {
-    //   @include mixins.if-iphone-portrait {
-    //     @include mixins.discard-sidebar-measures;
-    //   }
-    //   @include mixins.if-ipad-portrait {
-    //     @include mixins.discard-sidebar-measures;
-    //   }
-    //   @include mixins.if-ipad-landscape {
-    //     @include mixins.discard-sidebar-measures;
-    //   }
-    // }
-    //     }
-    //   }
-    // }
-
-    // ANCHOR 2_COL COMPACT-DEFAULTS
-
-    // COMPACT | EXPANDED
-    // @include mixins.if-2col-split-view-fits {
-    //   // &:not(:has(> dialog[is='sidebar-view'])) {
-    //   //   > body-view {
-    //   //     scroll-view:not(dialog scroll-view) {
-    //   // @include mixins.discard-sidebar-measures;
-    //   //     }
-    //   //   }
-    //   // }
-
-    //   // ANCHOR 3_COL FOR COMPACT-DEFAULTS
-
-    //   // SIDEBAR | EXPANDED
-    //   &:has(> dialog[is='sidebar-view']) {
-    //     // &[column-visibility='double-column'] {
-    //     //   > body-view {
-    //     //     scroll-view:not(dialog scroll-view) {
-    //     // @include mixins.discard-sidebar-measures;
-    //     //     }
-    //     //   }
-    //     // }
-
-    //     &:not([column-visibility='double-column']) {
-    //       @include mixins.ifnot-3col-split-view-fits {
-    //         &[preferred-compact-column='content'] {
-    //           // move descendants to right
-    //           // > body-view {
-    //           //   > body-view {
-    //           //     scroll-view:not(dialog scroll-view) {
-    //           // @include mixins.discard-sidebar-measures;
-    //           //     }
-    //           //   }
-    //           // }
-    //         }
-    //         //ns +sbar -comp-col -dbl-col @918px
-    //         // &:not([preferred-compact-column='content']) {
-    //         //   > body-view {
-    //         //     scroll-view:not(dialog scroll-view) {
-    //         // @include mixins.discard-sidebar-measures;
-    //         //     }
-    //         //   }
-    //         // }
-    //       }
-
-    //       // ANCHOR 2_COL OVERRIDE FOR COMPACT VIEWS
-
-    //       // SIDEBAR | COMPACT | EXPANDED
-    //       // @include mixins.if-3col-split-view-fits {
-    //       //   > body-view {
-    //       //     scroll-view:not(dialog scroll-view) {
-    //       //       @include mixins.discard-sidebar-measures;
-    //       //     }
-    //       //   }
-    //       // }
-    //     }
-    //   }
-    // }
   }
 }

@@ -34,9 +34,9 @@
   &::backdrop {
     @media (prefers-reduced-motion: no-preference) {
       transition:
-        display var(--view-transition-duration) allow-discrete,
-        overlay var(--view-transition-duration) allow-discrete,
-        background-color var(--view-transition-duration);
+        display var(--view-transition-duration) ease-out allow-discrete,
+        overlay var(--view-transition-duration) ease-out allow-discrete,
+        background-color var(--view-transition-duration) ease-out allow-discrete;
       will-change: background-color, overlay, display;
     }
   }

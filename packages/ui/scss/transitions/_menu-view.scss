@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$ui-layer} {
+@layer #{vars.$transitions-layer} {
   menu-view {
     :where(&)::part(menu-dialog) {
       @media (prefers-reduced-motion: no-preference) {

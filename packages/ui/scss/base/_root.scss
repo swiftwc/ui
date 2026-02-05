@@ -22,24 +22,13 @@
 
     --top-layer-polyfill-z-index: 999999;
 
-    --tab-bar-iphone-max-width: 90svw;
-    --tab-bar-iphone-height: var(--tool-bar-height);
-    --tab-bar-iphone-border-radius: 9999px;
+    --iphone-tabbar-max-width: 90svw;
+    --iphone-tabbar-height: var(--tool-bar-height);
+    --iphone-tabbar-border-radius: 9999px;
 
-    --tab-bar-ipad-width: 21rem;
-    --tab-bar-ipad-height: 3rem;
-    --tab-bar-ipad-border-radius: 9999px;
-
-    --scroll-view-translate: ;
-
-    --sheet-view-translate: ;
-
-    --tab-bar-translate: ;
-    --tab-bar-scale: ;
-
-    --sidebar-view-scale: ;
-
-    --menu-dialog-scale: ;
+    --ipad-tabbar-width: 21rem;
+    --ipad-tabbar-height: 3rem;
+    --ipad-tabbar-border-radius: 9999px;
 
     --sidebar-width: 20rem;
     --sidebar-border-radius: 1rem;
@@ -113,10 +102,6 @@
     --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
-
-    --toolbar-cell-scale: ;
-    --toolbar-cell-filter: ;
-    --toolbar-cell-opacity: ;
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 

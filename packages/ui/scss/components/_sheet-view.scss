@@ -11,7 +11,7 @@
       width: 100lvw;
       height: var(--100lvh, 100lvh);
 
-      transform: var(--sheet-view-translate);
+      transform: var(--sheet-view-translate,);
 
       --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
     }

@@ -23,9 +23,9 @@
       min-width: var(--toolbar-cell-min-size);
 
       // tfo
-      transform: var(--toolbar-cell-scale);
-      filter: var(--toolbar-cell-filter);
-      opacity: var(--toolbar-cell-opacity);
+      transform: var(--toolbar-cell-scale,);
+      filter: var(--toolbar-cell-filter,);
+      opacity: var(--toolbar-cell-opacity,);
 
       // min-width: calc(var(--tool-bar-height) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }

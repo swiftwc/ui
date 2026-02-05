@@ -7,18 +7,12 @@
     --safe-area-inset-left: env(safe-area-inset-left);
     --tool-bar-height: 4rem;
     --top-layer-polyfill-z-index: 999999;
-    --tab-bar-iphone-max-width: 90svw;
-    --tab-bar-iphone-height: var(--tool-bar-height);
-    --tab-bar-iphone-border-radius: 9999px;
-    --tab-bar-ipad-width: 21rem;
-    --tab-bar-ipad-height: 3rem;
-    --tab-bar-ipad-border-radius: 9999px;
-    --scroll-view-translate: ;
-    --sheet-view-translate: ;
-    --tab-bar-translate: ;
-    --tab-bar-scale: ;
-    --sidebar-view-scale: ;
-    --menu-dialog-scale: ;
+    --iphone-tabbar-max-width: 90svw;
+    --iphone-tabbar-height: var(--tool-bar-height);
+    --iphone-tabbar-border-radius: 9999px;
+    --ipad-tabbar-width: 21rem;
+    --ipad-tabbar-height: 3rem;
+    --ipad-tabbar-border-radius: 9999px;
     --sidebar-width: 20rem;
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
@@ -73,9 +67,6 @@
     --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
-    --toolbar-cell-scale: ;
-    --toolbar-cell-filter: ;
-    --toolbar-cell-opacity: ;
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
     --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
     --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
@@ -345,7 +336,7 @@
     overflow: clip;
     width: 100lvw;
     height: var(--100lvh, 100lvh);
-    transform: var(--sheet-view-translate);
+    transform: var(--sheet-view-translate, );
     --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
   }
   @media (min-width: 37rem) and (min-height: 27.75rem) {
@@ -364,9 +355,6 @@
   }
 }
 @layer sw-components {
-  :where(scroll-view) {
-    transform: var(--scroll-view-translate);
-  }
   :where(scroll-view:has(~ tool-bar > [slot^=bottom-bar]) > *:not([slot]),
   scroll-view:has(> [slot^=bottom-bar]) > *:not([slot])) {
     margin-block-end: var(--tool-bar-height);
@@ -385,7 +373,9 @@
     container: scroll-view/inline-size;
     background-color: var(--canvas);
     color: var(--canvastext);
-    box-shadow: var(--screen-box-shadow);
+    box-shadow: var(--scroll-view-box-shadow, );
+    transform: var(--scroll-view-translate, );
+    --scroll-view-box-shadow: var(--screen-box-shadow);
     scrollbar-width: thin;
   }
   :where(navigation-stack > scroll-view,
@@ -649,9 +639,9 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     min-width: var(--toolbar-cell-min-size);
-    transform: var(--toolbar-cell-scale);
-    filter: var(--toolbar-cell-filter);
-    opacity: var(--toolbar-cell-opacity);
+    transform: var(--toolbar-cell-scale, );
+    filter: var(--toolbar-cell-filter, );
+    opacity: var(--toolbar-cell-opacity, );
   }
   :where(tool-bar)::part(navigation-bar), :where(tool-bar)::part(bottom-bar) {
     position: relative;
@@ -881,7 +871,7 @@
     height: auto;
     max-width: anchor-size();
     max-height: anchor-size();
-    transform: var(--menu-dialog-scale);
+    transform: var(--menu-dialog-scale, );
     --menu-dialog-scale: scale(0);
     position-area: center;
     overflow: clip;
@@ -934,7 +924,7 @@
     }
   }
   :where([is=sidebar-view]) {
-    transform: var(--sidebar-view-scale);
+    transform: var(--sidebar-view-scale, );
   }
   :where([is=sidebar-view] > *) {
     grid-column: 1/-1;
@@ -991,6 +981,11 @@
       z-index: -1;
     }
   }
+  @media (max-width: 42.9999rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view]) > [is=sidebar-view] > scroll-view) {
+      --scroll-view-box-shadow: none;
+    }
+  }
   @media (min-width: 43rem) {
     :where(navigation-split-view > scroll-view,
     navigation-split-view > tool-bar,
@@ -1010,7 +1005,7 @@
     }
     :where(navigation-split-view > scroll-view) {
       border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-      --screen-box-shadow: none;
+      --scroll-view-box-shadow: none;
     }
     :where(navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       margin-inline-start: var(--nav-split-view-content-width);
@@ -1028,7 +1023,7 @@
       --safe-area-inset-bottom: 0px;
       border-radius: var(--sidebar-border-radius);
       backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--liquid-glass-box-shadow);
+      --scroll-view-box-shadow: var(--liquid-glass-box-shadow);
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > [is=sidebar-view] > scroll-view ~ tool-bar) {
       --safe-area-inset-top: 0px;
@@ -1053,7 +1048,7 @@
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view) {
       border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-      --screen-box-shadow: none;
+      --scroll-view-box-shadow: none;
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item-group) {
@@ -1099,7 +1094,7 @@
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view) {
       border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-      --screen-box-shadow: none;
+      --scroll-view-box-shadow: none;
     }
     :where(navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> dialog[is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-left: 0px;
@@ -1147,7 +1142,7 @@
     tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
     tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
     tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(> [slot^=bottom-bar]))) {
-      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--tab-bar-iphone-height));
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-height));
     }
   }
   @media (orientation: landscape) {
@@ -1170,7 +1165,7 @@
     tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
     tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
     tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(> [slot^=bottom-bar]))) {
-      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--tab-bar-iphone-height));
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-height));
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
@@ -1355,18 +1350,18 @@
 @layer sw-final {
   @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
-      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-height));
     }
     :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > [is=sidebar-view]) {
-      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-height));
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
-      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+      --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-height));
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view]) {
-      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--tab-bar-ipad-height));
+      padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-height));
     }
   }
 }
@@ -1388,16 +1383,17 @@
   }
   :where([is=tab-bar]) {
     overflow: clip;
-    width: fit-content;
+    width: var(--tab-bar-width);
     height: auto;
     position: fixed;
-    transform: var(--tab-bar-translate) var(--tab-bar-scale);
+    --tab-bar-width: fit-content;
+    transform: var(--tab-bar-translate, ) var(--tab-bar-scale, );
     touch-action: none;
   }
   @media (pointer: coarse) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
       inset: auto 0 0 0;
-      width: 100lvw;
+      --tab-bar-width: 100lvw;
       place-content: center;
       grid-auto-flow: column;
       pointer-events: none;
@@ -1423,9 +1419,9 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view) {
       margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
-      max-width: var(--tab-bar-iphone-max-width);
-      height: var(--tab-bar-iphone-height);
-      border-radius: var(--tab-bar-iphone-border-radius);
+      max-width: var(--iphone-tabbar-max-width);
+      height: var(--iphone-tabbar-height);
+      border-radius: var(--iphone-tabbar-border-radius);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
@@ -1435,8 +1431,8 @@
   }
   @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
-      width: var(--tab-bar-ipad-width);
-      height: var(--tab-bar-ipad-height);
+      --tab-bar-width: var(--ipad-tabbar-width);
+      height: var(--ipad-tabbar-height);
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
       --tab-bar-translate: translateX(-50%);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
@@ -1444,7 +1440,7 @@
       box-shadow: var(--liquid-glass-box-shadow);
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
-      border-radius: var(--tab-bar-ipad-border-radius);
+      border-radius: var(--ipad-tabbar-border-radius);
       grid-auto-flow: column;
     }
   }
@@ -1470,7 +1466,7 @@
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
       height: auto;
       --tab-bar-translate: translateX(0);
-      width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
       grid-auto-flow: row;
     }
@@ -1507,7 +1503,7 @@
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       inset: auto 0 0 0;
-      width: 100lvw;
+      --tab-bar-width: 100lvw;
       place-content: center;
       grid-auto-flow: column;
       pointer-events: none;
@@ -1533,9 +1529,9 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view) {
       margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
-      max-width: var(--tab-bar-iphone-max-width);
-      height: var(--tab-bar-iphone-height);
-      border-radius: var(--tab-bar-iphone-border-radius);
+      max-width: var(--iphone-tabbar-max-width);
+      height: var(--iphone-tabbar-height);
+      border-radius: var(--iphone-tabbar-border-radius);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
@@ -1545,8 +1541,8 @@
   }
   @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
-      width: var(--tab-bar-ipad-width);
-      height: var(--tab-bar-ipad-height);
+      --tab-bar-width: var(--ipad-tabbar-width);
+      height: var(--ipad-tabbar-height);
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
       --tab-bar-translate: translateX(-50%);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
@@ -1554,7 +1550,7 @@
       box-shadow: var(--liquid-glass-box-shadow);
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
-      border-radius: var(--tab-bar-ipad-border-radius);
+      border-radius: var(--ipad-tabbar-border-radius);
       grid-auto-flow: column;
     }
   }
@@ -1580,7 +1576,7 @@
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
       height: auto;
       --tab-bar-translate: translateX(0);
-      width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
       grid-auto-flow: row;
     }
@@ -1617,7 +1613,7 @@
   @media (max-width: 67.9999rem) and (orientation: landscape) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
-      width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
@@ -1666,7 +1662,7 @@
   @media (min-width: 68rem) and (orientation: landscape) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
-      width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-width);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--liquid-glass-box-shadow);
@@ -2032,33 +2028,35 @@
   }
 }
 @layer sw-final {
-  :where(menu-view[touch-glass])::part(menu-dialog) {
-    --menu-dialog-scale: scale(1.02);
-    transition-duration: 100ms;
+  @media (pointer: coarse) {
+    :where(menu-view[touch-glass])::part(menu-dialog) {
+      --menu-dialog-scale: scale(1.02);
+      transition-duration: 100ms;
+    }
+    :where(tool-bar > *[touch-glass]) {
+      --toolbar-cell-scale: scale(1.07);
+      transition-duration: 100ms;
+    }
   }
-  :where(tool-bar > *[touch-glass]) {
-    --toolbar-cell-scale: scale(1.07);
-    transition-duration: 100ms;
-  }
-  @media (max-width: 42.9999rem) and (orientation: portrait) {
+  @media (pointer: coarse) and (max-width: 42.9999rem) and (orientation: portrait) {
     :where([is=tab-bar][touch-glass]) {
       --tab-bar-scale: scale(1.02);
       transition-duration: 100ms;
     }
   }
-  @media (max-width: 67.9999rem) and (orientation: landscape) {
+  @media (pointer: coarse) and (max-width: 67.9999rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       --tab-bar-scale: scale(1.02);
       transition-duration: 100ms;
     }
   }
-  @media (min-width: 68rem) and (orientation: landscape) {
+  @media (pointer: coarse) and (min-width: 68rem) and (orientation: landscape) {
     :where([is=tab-bar][touch-glass]) {
       --tab-bar-scale: scale(1.02);
       transition-duration: 100ms;
     }
   }
-  @media (min-width: 43rem) {
+  @media (pointer: coarse) and (min-width: 43rem) {
     :where(navigation-split-view:has(> dialog[is=sidebar-view]) > dialog[is=sidebar-view][touch-glass]) {
       --sidebar-view-scale: scale(1.02);
       transition-duration: 100ms;

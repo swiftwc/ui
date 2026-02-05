@@ -40,7 +40,7 @@
       max-width: anchor-size();
       max-height: anchor-size();
 
-      transform: var(--menu-dialog-scale);
+      transform: var(--menu-dialog-scale,);
 
       --menu-dialog-scale: scale(0);
 

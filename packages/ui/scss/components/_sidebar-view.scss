@@ -13,7 +13,7 @@
 
       @include mixins.make-transitionable-dialog-backdrop;
 
-      transform: var(--sidebar-view-scale);
+      transform: var(--sidebar-view-scale,);
     }
 
     :where(& > *) {

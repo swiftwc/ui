@@ -9,13 +9,13 @@
 
 @mixin make-iphone-tabbar {
   :where(&) {
-    // max-width: var(--tab-bar-iphone-max-width);
-    // height: var(--tab-bar-iphone-height);
+    // max-width: var(--iphone-tabbar-max-width);
+    // height: var(--iphone-tabbar-height);
     // left: 50%;
-    // border-radius: var(--tab-bar-iphone-border-radius);
+    // border-radius: var(--iphone-tabbar-border-radius);
 
     inset: auto 0 0 0;
-    width: 100lvw;
+    --tab-bar-width: 100lvw;
 
     place-content: center;
     //
@@ -40,10 +40,10 @@
 
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      max-width: var(--tab-bar-iphone-max-width);
-      height: var(--tab-bar-iphone-height);
+      max-width: var(--iphone-tabbar-max-width);
+      height: var(--iphone-tabbar-height);
 
-      border-radius: var(--tab-bar-iphone-border-radius);
+      border-radius: var(--iphone-tabbar-border-radius);
 
       @include make-floating-tabbar;
 
@@ -56,8 +56,8 @@
 
 @mixin make-ipad-tabbar {
   :where(&) {
-    width: var(--tab-bar-ipad-width);
-    height: var(--tab-bar-ipad-height);
+    --tab-bar-width: var(--ipad-tabbar-width);
+    height: var(--ipad-tabbar-height);
 
     inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
     --tab-bar-translate: translateX(-50%);
@@ -66,7 +66,7 @@
 
     @include mixins.make-transitionable-dialog-backdrop;
 
-    border-radius: var(--tab-bar-ipad-border-radius);
+    border-radius: var(--ipad-tabbar-border-radius);
 
     grid-auto-flow: column;
 
@@ -90,7 +90,7 @@
 
       height: auto; // override topbar
       --tab-bar-translate: translateX(0);
-      width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-width);
 
       border-radius: var(--sidebar-border-radius);
 
@@ -148,10 +148,12 @@
 
       // dowh
       overflow: clip;
-      width: fit-content;
+      width: var(--tab-bar-width);
       height: auto;
 
       position: fixed; // show always
+
+      --tab-bar-width: fit-content;
 
       // background: #ffffff9e;
       // backdrop-filter: blur(4px);
@@ -160,7 +162,7 @@
       //   0 0 0 1px #fff inset,
       //   0px 0px 4px 2px #0000001c;
 
-      transform: var(--tab-bar-translate) var(--tab-bar-scale);
+      transform: var(--tab-bar-translate,) var(--tab-bar-scale,);
 
       // transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
 
@@ -195,7 +197,7 @@
         :where(&) {
           inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
 
-          width: var(--sidebar-width);
+          --tab-bar-width: var(--sidebar-width);
 
           border-radius: var(--sidebar-border-radius);
 
@@ -239,7 +241,7 @@
           inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
             max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
-          width: var(--sidebar-width);
+          --tab-bar-width: var(--sidebar-width);
 
           @include make-floating-tabbar;
 

@@ -65,6 +65,14 @@
       }
     }
 
+    @include mixins.ifnot-2col-split-view-fits {
+      &:has(> [is='sidebar-view']) {
+        :where(& > [is='sidebar-view'] > scroll-view) {
+          --scroll-view-box-shadow: none;
+        }
+      }
+    }
+
     // ANCHOR 2_COL COMPACT-DEFAULTS
 
     @include mixins.if-2col-split-view-fits {
@@ -103,7 +111,7 @@
       > scroll-view {
         :where(&) {
           border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-          --screen-box-shadow: none;
+          --scroll-view-box-shadow: none;
         }
       }
 
@@ -160,7 +168,7 @@
 
               backdrop-filter: var(--liquid-glass-backdrop-filter);
 
-              box-shadow: var(--liquid-glass-box-shadow);
+              --scroll-view-box-shadow: var(--liquid-glass-box-shadow);
             }
 
             :where(& ~ tool-bar) {
@@ -228,7 +236,7 @@
 
                 :where(& > scroll-view) {
                   border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-                  --screen-box-shadow: none;
+                  --scroll-view-box-shadow: none;
                 }
 
                 > scroll-view {
@@ -303,7 +311,7 @@
 
               :where(& > scroll-view) {
                 border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-                --screen-box-shadow: none;
+                --scroll-view-box-shadow: none;
               }
 
               // container of details col (trailing)

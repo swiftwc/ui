@@ -12,12 +12,6 @@
   //   position: static;
   // }
 
-  scroll-view {
-    :where(&) {
-      transform: var(--scroll-view-translate);
-    }
-  }
-
   // v-stack,
   // [is='tab-bar-stack'], {
   scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
@@ -58,7 +52,11 @@
       background-color: var(--canvas);
       color: var(--canvastext);
 
-      box-shadow: var(--screen-box-shadow);
+      box-shadow: var(--scroll-view-box-shadow,);
+
+      transform: var(--scroll-view-translate,);
+
+      --scroll-view-box-shadow: var(--screen-box-shadow);
 
       // place-items: center;
       //

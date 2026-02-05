@@ -5,14 +5,14 @@
   [is='disclosure-group'] {
     :where(&)::details-content {
       transition:
-        block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-        content-visibility var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+        block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing),
+        content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
       will-change: block-size, content-visibility;
     }
 
     @supports not (interpolate-size: allow-keywords) {
       :where(&) {
-        transition: grid-template-rows var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+        transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
         will-change: grid-template-rows;
       }
       // :where(&)::details-content {

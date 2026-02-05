@@ -14,18 +14,34 @@
 
       // gap: 0;
 
-      white-space: var(--label-white-space);
+      white-space: var(--label-white-space,);
 
-      --label-image-size: 2rem;
+      // --label-style: automatic;
+      // --label-style: icon-only;
+      // background-color: if(style(--label-style: icon-only): red ; style(--label-style: label-only): yellow ; else: green;);
+
+      // grid-template-columns: if(style(--label-style: title-and-icon): auto minmax(0, 1fr) ; else: none;);
+
+      // gap: if(style(--label-style: title-and-icon): 0.3rem ; else: none;);
     }
+
+    // :where(&[label-style='title-only']) {
+    //   --label-style: title-only;
+    // }
+    // :where(&[label-style='icon-only']) {
+    //   --label-style: icon-only;
+    // }
+    // :where(&[label-style='title-and-icon']) {
+    //   --label-style: title-and-icon;
+    // }
 
     :where(& > *:not([slot])) {
       // grid-area: label-title-stack;
-      overflow: var(--label-overflow);
-      text-overflow: var(--label-text-overflow);
+      overflow: var(--label-overflow,);
+      text-overflow: var(--label-text-overflow,);
     }
 
-    :where(&[line-limit='1']) {
+    :where(&[line-limit]) {
       --label-white-space: nowrap;
     }
 
@@ -42,8 +58,8 @@
     :where(&)::part(label-image-stack) {
       aspect-ratio: 1 / 1;
 
-      width: var(--label-image-size);
-      font-size: var(--label-image-size);
+      width: var(--label-image-size, 2rem);
+      font-size: var(--label-image-size, 2rem);
 
       // line-height: 1;
 
@@ -56,18 +72,19 @@
       // grid-area: label-title-stack;
     }
 
-    :where(&[has-image][has-title]) {
+    :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
       grid-template-columns: auto minmax(0, 1fr);
     }
 
-    :where(&[has-title]) {
+    :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
       gap: 0.3rem;
     }
 
-    :where(&[has-image])::part(label-image-stack) {
+    :where(&[has-image]:not([label-style='title-only']), &[label-style='title-and-icon'])::part(label-image-stack) {
       display: grid;
     }
-    :where(&[has-title])::part(label-title-stack) {
+
+    :where(&[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon'])::part(label-title-stack) {
       display: grid;
     }
   }

@@ -10,13 +10,13 @@ export class ScrollView extends HTMLElement {
       this.#template = Object.assign(document.createElement('template'), {
         innerHTML: `
         <slot></slot>
-  <div part="root ${Snapshot.config!['scroll-view-navbar-part-name']}">
-    <div part="root ${Snapshot.config!['scroll-view-navbar-stack-part-name']}">
+  <div part="root scroll-view-navbar">
+    <div part="root scroll-view-navbar-stack">
       <slot name="navigation-bar-principal"></slot>
     </div>
   </div>
-  <div part="root ${Snapshot.config!['scroll-view-toolbar-part-name']}">
-    <div part="root ${Snapshot.config!['scroll-view-toolbar-stack-part-name']}">
+  <div part="root scroll-view-toolbar">
+    <div part="root scroll-view-toolbar-stack">
       <slot name="bottom-bar-principal"></slot>
     </div>
   </div>`,

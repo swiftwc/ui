@@ -1,7 +1,10 @@
 import { type TabView } from './tab-view'
 import { ButtonBase } from '../client/privateNamespace'
+import { Snapshot } from '../snapshot'
 
 export class TabItem extends ButtonBase {
+  static #cleanups = new WeakMap()
+
   constructor() {
     super()
   }
@@ -18,12 +21,37 @@ export class TabItem extends ButtonBase {
     console.debug(`${TabItem.name} ⚡️ disconnect`)
 
     el.removeEventListener('click', TabItem.#handleClick)
+
+    this.#cleanups.get(el)?.()
+
+    this.#cleanups.delete(el)
   }
 
   static polyfillConnectedCallback(el: HTMLButtonElement) {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
     el.addEventListener('click', TabItem.#handleClick)
+
+    const handler = TabItem.#handleTabReveal.bind(null, el),
+      tv = el.closest<TabView>('tab-view')
+
+    tv?.addEventListener('tabreveal', handler)
+
+    this.#cleanups.set(el, () => {
+      tv?.removeEventListener('tabreveal', handler)
+    })
+
+    Snapshot.waitReady.then(() => {
+      console.log(999, el.closest<TabView>('tab-view'))
+      if (el.closest('tab-view').selection?.id === el.value) el.style.setProperty('anchor-name', '--my-b')
+    })
+  }
+
+  static #handleTabReveal = async (el: HTMLButtonElement, event: CustomEvent) => {
+    await Snapshot.waitReady
+
+    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', '--my-b')
+    else el.style.removeProperty('anchor-name')
   }
 
   static #handleClick = async (event: Event) => {

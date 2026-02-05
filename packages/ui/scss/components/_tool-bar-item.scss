@@ -53,12 +53,12 @@
 
     // box-shadow: none;
     // outline: 0;
-    border: var(--component-border-width);
-    background: var(--componentface);
-    color: var(--componenttext);
-    padding-inline: var(--component-padding-inline);
-    padding-block: var(--component-padding-block);
-    border-radius: var(--component-border-radius);
+    border: var(--component-border-width,);
+    background: var(--componentface,);
+    color: var(--componenttext,);
+    padding-inline: var(--component-padding-inline,);
+    padding-block: var(--component-padding-block,);
+    border-radius: var(--component-border-radius,);
     min-width: 25px; // NOTE: For inputs overflowing-x
 
     // &:not(:disabled):not([readonly]) {

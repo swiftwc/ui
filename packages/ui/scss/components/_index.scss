@@ -29,10 +29,10 @@
   ::part(bottom-bar),
   ::part(label-image-stack),
   ::part(label-title-stack),
-  ::part(#{vars.$scroll-view-navbar-part-name}),
-  ::part(#{vars.$scroll-view-toolbar-part-name}),
-  ::part(#{vars.$scroll-view-navbar-stack-part-name}),
-  ::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
+  ::part(scroll-view-navbar),
+  ::part(scroll-view-toolbar),
+  ::part(scroll-view-navbar-stack),
+  ::part(scroll-view-toolbar-stack) {
     display: grid;
   }
 }

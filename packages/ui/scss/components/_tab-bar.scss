@@ -1,6 +1,28 @@
 @use '../vars';
 @use '../mixins';
 
+@mixin make-pseudo-tracking-thumb {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    width: 100px;
+    height: 100px;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    // left: 0;
+    // top: 0;
+    position-anchor: --my-b;
+    // position-area: center;
+    left: anchor(--my-b left);
+    top: anchor(--my-b top);
+    inline-size: anchor-size();
+    block-size: anchor-size();
+    border-radius: 9999px;
+    transition: left 150ms ease-out allow-discrete;
+  }
+}
+
 @mixin make-floating-tabbar {
   background: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
   backdrop-filter: var(--liquid-glass-backdrop-filter);
@@ -23,12 +45,16 @@
 
     pointer-events: none;
 
-    @include mixins.make-toolbar(top);
+    @include mixins.make-toolbar-pseudos(top);
   }
 
   &:not([open]) {
-    :where(& tool-bar, &::part(#{vars.$scroll-view-navbar-part-name}), &::part(#{vars.$scroll-view-toolbar-part-name})) {
-      display: none;
+    & > scroll-view {
+      :where(&)::part(scroll-view-navbar),
+      :where(&)::part(scroll-view-toolbar),
+      :where(& ~ tool-bar) {
+        display: none;
+      }
     }
   }
 
@@ -50,6 +76,8 @@
       overflow: clip;
 
       pointer-events: all;
+
+      @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
     }
   }
 }
@@ -57,7 +85,7 @@
 @mixin make-ipad-tabbar {
   :where(&) {
     --tab-bar-width: var(--ipad-tabbar-width);
-    height: var(--ipad-tabbar-height);
+    --tab-bar-height: var(--ipad-tabbar-height);
 
     inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
     --tab-bar-translate: translateX(-50%);
@@ -69,13 +97,19 @@
     border-radius: var(--ipad-tabbar-border-radius);
 
     grid-auto-flow: column;
+  }
 
-    // transition: all 250ms ease-out allow-discrete;
+  :where(& > scroll-view) {
+    @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
   }
 
   &:not([open]) {
-    :where(& tool-bar, &::part(#{vars.$scroll-view-navbar-part-name}), &::part(#{vars.$scroll-view-toolbar-part-name})) {
-      display: none;
+    & > scroll-view {
+      :where(&)::part(scroll-view-navbar),
+      :where(&)::part(scroll-view-toolbar),
+      :where(& ~ tool-bar) {
+        display: none;
+      }
     }
   }
 
@@ -83,12 +117,12 @@
     @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
 
     :where(&) {
-      // @include mixins.make-toolbar;
+      // @include mixins.make-toolbar-pseudos;
 
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
         max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
-      height: auto; // override topbar
+      --tab-bar-height: auto; // override topbar
       --tab-bar-translate: translateX(0);
       --tab-bar-width: var(--sidebar-width);
 
@@ -116,7 +150,7 @@
       }
 
       // re-apply width for dialog too (not dialog by default)
-      :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+      :where(&)::part(scroll-view-navbar-stack) {
         &::before {
           width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
         }
@@ -129,7 +163,7 @@
 
       // force navbar visibility bc/ of sidebartoggle shown
       &:has(~ sidebar-toggle) {
-        :where(&)::part(#{vars.$scroll-view-navbar-part-name}) {
+        :where(&)::part(scroll-view-navbar) {
           visibility: visible;
         }
 
@@ -148,12 +182,13 @@
 
       // dowh
       overflow: clip;
-      width: var(--tab-bar-width);
-      height: auto;
+      width: var(--tab-bar-width,);
+      height: var(--tab-bar-height,);
 
       position: fixed; // show always
 
       --tab-bar-width: fit-content;
+      --tab-bar-height: auto;
 
       // background: #ffffff9e;
       // backdrop-filter: blur(4px);
@@ -263,6 +298,8 @@
 
         :where(& > scroll-view) {
           @include mixins.create-v-scroll-view;
+
+          @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
         }
       }
     }

@@ -101,7 +101,7 @@
           grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
 
           // force navbar visibility bc/ of sidebartoggle shown
-          &::part(#{vars.$scroll-view-navbar-part-name}) {
+          &::part(scroll-view-navbar) {
             visibility: visible;
           }
         }

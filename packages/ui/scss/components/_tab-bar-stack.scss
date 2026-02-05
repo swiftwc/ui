@@ -4,17 +4,25 @@
 @mixin make-iphone-tabbarstack {
   :where(& [is='tab-bar'] > scroll-view) {
     grid-auto-flow: column;
+    grid-template-rows: minmax(0, 1fr);
   }
 
   :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
     margin-block: 0 !important; // scroll-view > * override
+    grid-template-rows: minmax(0, 1fr);
+  }
+
+  :where(& [is='tab-bar'] > scroll-view [is='tab-item']) {
+    min-inline-size: 64px;
   }
 }
 
 @mixin make-ipad-tabbarstack {
   :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
+
+    --label-white-space: nowrap;
   }
 
   :where(& [is='tab-bar'][open] [is='tab-bar-stack']) {

@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 
 export class LabelView extends HTMLElement {
-  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode']
+  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode', 'label-style']
 
   static #template: HTMLTemplateElement
 
@@ -38,7 +38,7 @@ export class LabelView extends HTMLElement {
       this.#slot?.addEventListener('slotchange', this.#handleSlotChange)
       this.#imgSlot?.addEventListener('slotchange', this.#handleSlotChange)
 
-      this.#handleSlotChange()
+      this.#handleSlotChange(new CustomEvent('slotchange'))
     })
   }
 
@@ -91,14 +91,20 @@ export class LabelView extends HTMLElement {
           el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
+
+        case 'label-style':
+          // if ('icon-only' === newValue) this.toggleAttribute('has-title', false)
+          // if ('title-only' === newValue) this.toggleAttribute('has-image', false)
+
+          break
       }
     })
   }
 
-  #handleSlotChange = () => {
-    console.debug(`${LabelView.name} ⚡️ disconnect`)
+  #handleSlotChange = (event: Event) => {
+    console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
-    this.toggleAttribute('has-title', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0)
-    this.toggleAttribute('has-image', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0)
+    this.toggleAttribute('has-title', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0) // && 'icon-only' !== this.getAttribute('label-style'))
+    this.toggleAttribute('has-image', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0) // && 'title-only' !== this.getAttribute('label-style'))
   }
 }

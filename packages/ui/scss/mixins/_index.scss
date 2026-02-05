@@ -33,7 +33,7 @@
       }
     }
   }
-  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  /* :where(&)::part(scroll-view-navbar-stack) {
     margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
   }
   :where(& ~ tool-bar)::part(navigation-bar) {
@@ -56,7 +56,7 @@
       --safe-area-inset-left: revert;
     }
   }
-  /* :where(&)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+  /* :where(&)::part(scroll-view-navbar-stack) {
     margin-inline-start: unset;
     --sidebar-spacing: 0px;
     #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
@@ -69,7 +69,7 @@
 
 // @mixin discard-tabview-sidebar-sentinel {
 //   scroll-view:not(dialog scroll-view) {
-//     :where(tab-view:not([tab-view-style='tab-bar-only']) &)::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+//     :where(tab-view:not([tab-view-style='tab-bar-only']) &)::part(scroll-view-navbar-stack) {
 //       margin-inline-start: unset;
 //       --sidebar-spacing: 0px;
 //     }
@@ -106,8 +106,8 @@
   }
 }
 
-@mixin make-scrollable($container: false) {
-  @if $container {
+@mixin make-scrollable($pseudo: false) {
+  @if $pseudo {
     height: calc(100% + 1px);
   } @else {
     scrollbar-width: thin;
@@ -135,7 +135,7 @@
   -webkit-overflow-scrolling: touch;
 }
 
-@mixin make-toolbar($dir: bottom) {
+@mixin make-toolbar-pseudos($dir: bottom) {
   &:before,
   &:after {
     backface-visibility: hidden;

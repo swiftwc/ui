@@ -64,15 +64,8 @@ export class SidebarToggle extends HTMLElement {
     // const gapProp =
     //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
     //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
-    if (0 < width)
-      tv?.style?.setProperty?.(
-        Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'],
-        `${width}px`
-      )
-    else
-      tv?.style?.removeProperty?.(
-        Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop']
-      )
+    if (0 < width) tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
+    else tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
     // }
 
     // auto close IF open
@@ -81,37 +74,24 @@ export class SidebarToggle extends HTMLElement {
 
     switch (lm?.tagName) {
       case 'NAVIGATION-SPLIT-VIEW':
-        const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(
-          ':scope > dialog[is=sidebar-view]'
-        )
+        const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
 
         if (!sideBar?.open) return
 
-        if (
-          0 < (target as HTMLElement).offsetWidth &&
-          0 < (target as HTMLElement).offsetHeight
-        )
-          return
+        if (0 < (target as HTMLElement).offsetWidth && 0 < (target as HTMLElement).offsetHeight) return
 
         sideBar?.close?.()
 
         break
       case 'TAB-VIEW':
-        const tabBar = lm.querySelector<HTMLDialogElement>(
-          ':scope > dialog[is=tab-bar]'
-        )
+        const tabBar = lm.querySelector<HTMLDialogElement>(':scope > dialog[is=tab-bar]')
 
         if (!tabBar?.open) return
 
         // scan all toggles for anyone that is visible, sign that sidebar should stay open
         if (
-          [
-            ...lm.querySelectorAll<HTMLElement>(
-              ':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle'
-            ),
-          ].some(
-            ({ offsetWidth, offsetHeight }) =>
-              0 < offsetWidth && 0 < offsetHeight
+          [...lm.querySelectorAll<HTMLElement>(':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle')].some(
+            ({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight
           )
         )
           return
@@ -136,10 +116,7 @@ export class SidebarToggle extends HTMLElement {
 
     const lm = target?.closest('tab-view,navigation-split-view')
 
-    const dialog =
-      'TAB-VIEW' === lm?.tagName
-        ? lm.querySelector<TabBar>('dialog[is="tab-bar"]')
-        : lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
+    const dialog = 'TAB-VIEW' === lm?.tagName ? lm.querySelector<TabBar>('dialog[is="tab-bar"]') : lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
 
     if (!dialog?.open) dialog?.showModal()
     else dialog.close()

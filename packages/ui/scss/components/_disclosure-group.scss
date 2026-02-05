@@ -61,26 +61,6 @@
           grid-template-rows: auto 1fr;
         }
       }
-      /* // [is='disclosure-group'] {
-      :where(&)::details-content {
-        block-size: auto !important;
-
-        max-block-size: 0px; // max-height: 0;
-      }
-
-      &[open] {
-        :where(&)::details-content {
-          max-block-size: calc(
-            var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) + 100px
-          ); // max-height: calc(var(#{vars.$disclosure-group-contents-height-css-prop}, 100vh) + 100px);
-        }
-      }
-
-      &.#{vars.$disclosure-group-animation-close-class} {
-        :where(&)::details-content {
-          max-block-size: 0 !important; // max-height: 0 !important;
-        }
-      } */
     }
   }
 }

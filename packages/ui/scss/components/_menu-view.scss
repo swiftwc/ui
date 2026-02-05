@@ -12,8 +12,8 @@
       inline-size: min-content; //var(--menu-inline-size);
       block-size: min-content;
 
-      max-inline-size: var(--menu-max-inline-size);
-      max-block-size: var(--menu-max-block-size);
+      max-inline-size: var(--menu-max-inline-size,);
+      max-block-size: var(--menu-max-block-size,);
 
       overflow: clip auto;
       border-radius: inherit;
@@ -50,8 +50,8 @@
       overflow: clip;
       border-radius: 22px;
 
-      backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--menu-popover-box-shadow); //0 0 10px 10px black;
+      backdrop-filter: var(--liquid-glass-backdrop-filter,);
+      box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
     }
 
     &[open] {

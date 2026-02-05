@@ -141,7 +141,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "scroll-view-toolbar-stack-part-name=scroll-view-toolbar-stack&scroll-view-toolbar-part-name=scroll-view-toolbar&scroll-view-navbar-stack-part-name=scroll-view-navbar-stack&scroll-view-navbar-part-name=scroll-view-navbar&toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&disclosure-group-animation-close-class=close&disclosure-group-animation-duration-css-prop=--disclosure-group-animation-duration&disclosure-group-contents-height-css-prop=--disclosure-group-contents-height&vt-fwd-class-name=fwd";
+    content: "toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -269,28 +269,6 @@
     }
     :where([is=disclosure-group][open]) {
       grid-template-rows: auto 1fr;
-    }
-    [is=disclosure-group] {
-      /* // [is='disclosure-group'] {
-      :where(&)::details-content {
-        block-size: auto !important;
-
-        max-block-size: 0px; // max-height: 0;
-      }
-
-      &[open] {
-        :where(&)::details-content {
-          max-block-size: calc(
-            var(--disclosure-group-contents-height, 100vh) + 100px
-          ); // max-height: calc(var(--disclosure-group-contents-height, 100vh) + 100px);
-        }
-      }
-
-      &.close {
-        :where(&)::details-content {
-          max-block-size: 0 !important; // max-height: 0 !important;
-        }
-      } */
     }
   }
 }
@@ -556,12 +534,12 @@
     display: grid;
     appearance: none;
     -webkit-appearance: none;
-    border: var(--component-border-width);
-    background: var(--componentface);
-    color: var(--componenttext);
-    padding-inline: var(--component-padding-inline);
-    padding-block: var(--component-padding-block);
-    border-radius: var(--component-border-radius);
+    border: var(--component-border-width, );
+    background: var(--componentface, );
+    color: var(--componenttext, );
+    padding-inline: var(--component-padding-inline, );
+    padding-block: var(--component-padding-block, );
+    border-radius: var(--component-border-radius, );
     min-width: 25px;
   }
 }
@@ -700,14 +678,13 @@
     grid-auto-flow: column;
     grid-auto-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    white-space: var(--label-white-space);
-    --label-image-size: 2rem;
+    white-space: var(--label-white-space, );
   }
   :where(label-view > *:not([slot])) {
-    overflow: var(--label-overflow);
-    text-overflow: var(--label-text-overflow);
+    overflow: var(--label-overflow, );
+    text-overflow: var(--label-text-overflow, );
   }
-  :where(label-view[line-limit="1"]) {
+  :where(label-view[line-limit]) {
     --label-white-space: nowrap;
   }
   :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
@@ -717,22 +694,22 @@
   }
   :where(label-view)::part(label-image-stack) {
     aspect-ratio: 1/1;
-    width: var(--label-image-size);
-    font-size: var(--label-image-size);
+    width: var(--label-image-size, 2rem);
+    font-size: var(--label-image-size, 2rem);
   }
   :where(label-view)::part(label-title-stack) {
     text-decoration: underline;
   }
-  :where(label-view[has-image][has-title]) {
+  :where(label-view[has-image]:not([label-style=title-only])[has-title]:not([label-style=icon-only]), label-view[label-style=title-and-icon]) {
     grid-template-columns: auto minmax(0, 1fr);
   }
-  :where(label-view[has-title]) {
+  :where(label-view[has-image]:not([label-style=title-only])[has-title]:not([label-style=icon-only]), label-view[label-style=title-and-icon]) {
     gap: 0.3rem;
   }
-  :where(label-view[has-image])::part(label-image-stack) {
+  :where(label-view[has-image]:not([label-style=title-only]), label-view[label-style=title-and-icon])::part(label-image-stack) {
     display: grid;
   }
-  :where(label-view[has-title])::part(label-title-stack) {
+  :where(label-view[has-title]:not([label-style=icon-only]), label-view[label-style=title-and-icon])::part(label-title-stack) {
     display: grid;
   }
   :where(label-view[truncation-mode=tail] > *:not([slot])) {
@@ -828,8 +805,8 @@
     min-width: 200px;
     inline-size: min-content;
     block-size: min-content;
-    max-inline-size: var(--menu-max-inline-size);
-    max-block-size: var(--menu-max-block-size);
+    max-inline-size: var(--menu-max-inline-size, );
+    max-block-size: var(--menu-max-block-size, );
     overflow: clip auto;
     border-radius: inherit;
     background: light-dark(var(--menu-bg), var(--menu-bg-dark));
@@ -876,8 +853,8 @@
     position-area: center;
     overflow: clip;
     border-radius: 22px;
-    backdrop-filter: var(--liquid-glass-backdrop-filter);
-    box-shadow: var(--menu-popover-box-shadow);
+    backdrop-filter: var(--liquid-glass-backdrop-filter, );
+    box-shadow: var(--menu-popover-box-shadow, );
   }
   :where(menu-view[open])::part(menu-dialog) {
     max-width: 100vw;
@@ -1383,10 +1360,11 @@
   }
   :where([is=tab-bar]) {
     overflow: clip;
-    width: var(--tab-bar-width);
-    height: auto;
+    width: var(--tab-bar-width, );
+    height: var(--tab-bar-height, );
     position: fixed;
     --tab-bar-width: fit-content;
+    --tab-bar-height: auto;
     transform: var(--tab-bar-translate, ) var(--tab-bar-scale, );
     touch-action: none;
   }
@@ -1413,7 +1391,7 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]):after {
       background-image: linear-gradient(to top, var(--canvas) 0, oklch(0% 0 0deg / 0) 100%);
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) tool-bar, tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-navbar), :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-toolbar), :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view ~ tool-bar) {
       display: none;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view) {
@@ -1428,11 +1406,27 @@
       overflow: clip;
       pointer-events: all;
     }
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --my-b;
+      left: anchor(--my-b left);
+      top: anchor(--my-b top);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: 9999px;
+      transition: left 150ms ease-out allow-discrete;
+    }
   }
   @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
       --tab-bar-width: var(--ipad-tabbar-width);
-      height: var(--ipad-tabbar-height);
+      --tab-bar-height: var(--ipad-tabbar-height);
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
       --tab-bar-translate: translateX(-50%);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
@@ -1451,7 +1445,23 @@
     }
   }
   @media (pointer: fine) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) tool-bar, tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --my-b;
+      left: anchor(--my-b left);
+      top: anchor(--my-b top);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: 9999px;
+      transition: left 150ms ease-out allow-discrete;
+    }
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-navbar), :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-toolbar), :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view ~ tool-bar) {
       display: none;
     }
     tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open]::backdrop {
@@ -1464,7 +1474,7 @@
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
-      height: auto;
+      --tab-bar-height: auto;
       --tab-bar-translate: translateX(0);
       --tab-bar-width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
@@ -1523,7 +1533,7 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):after {
       background-image: linear-gradient(to top, var(--canvas) 0, oklch(0% 0 0deg / 0) 100%);
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) tool-bar, tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-navbar), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-toolbar), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view ~ tool-bar) {
       display: none;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view) {
@@ -1538,11 +1548,27 @@
       overflow: clip;
       pointer-events: all;
     }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --my-b;
+      left: anchor(--my-b left);
+      top: anchor(--my-b top);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: 9999px;
+      transition: left 150ms ease-out allow-discrete;
+    }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       --tab-bar-width: var(--ipad-tabbar-width);
-      height: var(--ipad-tabbar-height);
+      --tab-bar-height: var(--ipad-tabbar-height);
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
       --tab-bar-translate: translateX(-50%);
       background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
@@ -1561,7 +1587,23 @@
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) tool-bar, tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-navbar), tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open])::part(scroll-view-toolbar)) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --my-b;
+      left: anchor(--my-b left);
+      top: anchor(--my-b top);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: 9999px;
+      transition: left 150ms ease-out allow-discrete;
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-navbar), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view)::part(scroll-view-toolbar), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view ~ tool-bar) {
       display: none;
     }
     tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]::backdrop {
@@ -1574,7 +1616,7 @@
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open]) {
       inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) max(var(--safe-area-inset-left), var(--sidebar-spacing));
-      height: auto;
+      --tab-bar-height: auto;
       --tab-bar-translate: translateX(0);
       --tab-bar-width: var(--sidebar-width);
       border-radius: var(--sidebar-border-radius);
@@ -1684,21 +1726,43 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view):has(~ tool-bar > [slot^=navigation-bar]), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view):has(> [slot^=navigation-bar]) {
       grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
     }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      width: 100px;
+      height: 100px;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --my-b;
+      left: anchor(--my-b left);
+      top: anchor(--my-b top);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: 9999px;
+      transition: left 150ms ease-out allow-discrete;
+    }
   }
 }
 @layer sw-tab-components {
   @media (pointer: coarse) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view) {
       grid-auto-flow: column;
+      grid-template-rows: minmax(0, 1fr);
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar-stack]) {
       grid-auto-flow: column;
       margin-block: 0 !important;
+      grid-template-rows: minmax(0, 1fr);
+    }
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view [is=tab-item]) {
+      min-inline-size: 64px;
     }
   }
   @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar-stack]) {
       grid-auto-flow: column;
+      --label-white-space: nowrap;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] [is=tab-bar-stack]) {
       grid-auto-flow: row;
@@ -1732,15 +1796,21 @@
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view) {
       grid-auto-flow: column;
+      grid-template-rows: minmax(0, 1fr);
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack]) {
       grid-auto-flow: column;
       margin-block: 0 !important;
+      grid-template-rows: minmax(0, 1fr);
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view [is=tab-item]) {
+      min-inline-size: 64px;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack]) {
       grid-auto-flow: column;
+      --label-white-space: nowrap;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] [is=tab-bar-stack]) {
       grid-auto-flow: row;

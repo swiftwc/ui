@@ -4,8 +4,8 @@
 @layer #{vars.$components-layer} {
   scroll-view {
     :where(&) {
-      &::part(#{vars.$scroll-view-navbar-part-name}),
-      &::part(#{vars.$scroll-view-toolbar-part-name}) {
+      &::part(scroll-view-navbar),
+      &::part(scroll-view-toolbar) {
         // background-color: red;
         position: sticky;
         width: 100%;
@@ -27,22 +27,22 @@
 
   scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
   scroll-view:has(> [slot^='navigation-bar']) {
-    :where(&)::part(#{vars.$scroll-view-navbar-part-name}) {
+    :where(&)::part(scroll-view-navbar) {
       visibility: visible;
     }
   }
 
   scroll-view:has(~ tool-bar > [slot^='bottom-bar']),
   scroll-view:has(> [slot^='bottom-bar']) {
-    :where(&)::part(#{vars.$scroll-view-toolbar-part-name}) {
+    :where(&)::part(scroll-view-toolbar) {
       visibility: visible;
     }
   }
 
   scroll-view {
     :where(&) {
-      &::part(#{vars.$scroll-view-navbar-stack-part-name}),
-      &::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
+      &::part(scroll-view-navbar-stack),
+      &::part(scroll-view-toolbar-stack) {
         grid-template-columns: 1fr auto 1fr;
         pointer-events: all;
 
@@ -54,7 +54,7 @@
         }
       }
 
-      &::part(#{vars.$scroll-view-navbar-part-name}) {
+      &::part(scroll-view-navbar) {
         top: 0;
         height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
         padding-block-start: var(--safe-area-inset-top);
@@ -66,20 +66,20 @@
           }
         }
 
-        @include mixins.make-toolbar(bottom);
+        @include mixins.make-toolbar-pseudos(bottom);
       }
 
-      &::part(#{vars.$scroll-view-toolbar-part-name}) {
+      &::part(scroll-view-toolbar) {
         top: calc(100% - var(--tool-bar-height) - var(--safe-area-inset-bottom));
 
         height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
         padding-block-end: var(--safe-area-inset-bottom);
         transform: translateY(var(--safe-area-inset-bottom));
 
-        @include mixins.make-toolbar(top);
+        @include mixins.make-toolbar-pseudos(top);
       }
 
-      &::part(#{vars.$scroll-view-navbar-stack-part-name}) {
+      &::part(scroll-view-navbar-stack) {
         @media (pointer: fine) {
           & {
             grid-template-columns: max-content auto 1fr;
@@ -95,7 +95,7 @@
         }
       }
 
-      &::part(#{vars.$scroll-view-toolbar-stack-part-name}) {
+      &::part(scroll-view-toolbar-stack) {
         &::before {
           inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px));
         }

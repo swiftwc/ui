@@ -17,14 +17,14 @@
   scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
   scroll-view:has(> [slot^='navigation-bar']) {
     :where(& > *:not([slot])) {
-      // margin-block-start: var(--navigation-bar-height);
+      // margin-block-start: var(--navigation-bar-block-size);
     }
   }
 
   scroll-view:has(~ tool-bar > [slot^='bottom-bar']),
   scroll-view:has(> [slot^='bottom-bar']) {
     :where(& > *:not([slot])) {
-      margin-block-end: var(--tool-bar-height);
+      margin-block-end: var(--tool-bar-block-size);
     }
   }
   // }
@@ -69,7 +69,7 @@
       @include mixins.make-scrollable;
 
       &::before {
-        height: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
+        block-size: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
       }
 
       // @include mixins.make-toolbar-pseudos;

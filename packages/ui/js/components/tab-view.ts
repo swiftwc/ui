@@ -1,3 +1,13 @@
+export type TabRevealDetail = {
+  tag: string
+}
+
+declare global {
+  interface HTMLElementEventMap {
+    tabreveal: CustomEvent<TabRevealDetail>
+  }
+}
+
 export class TabView extends HTMLElement {
   constructor() {
     super()
@@ -12,14 +22,12 @@ export class TabView extends HTMLElement {
   }
 
   get selection() {
-    console.log(1999)
     const selectedTab = this.querySelector<HTMLElement>(':scope > navigation-stack:not([hidden]),:scope > navigation-split-view:not([hidden])')
 
     return selectedTab
   }
 
   set selection(nv) {
-    console.log(88)
     if (!['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(nv?.tagName ?? '')) throw new Error('Element not found')
 
     if (nv === this.selection) return

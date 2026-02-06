@@ -17,7 +17,7 @@
     :where(&) {
       touch-action: none;
 
-      height: var(--100lvh, 100lvh);
+      block-size: var(--100lvh, 100lvh);
     }
 
     // ANCHOR Z_INDEX STYLES
@@ -50,7 +50,7 @@
 
         // body-view > body-view {
         // clip-path: inset(
-        //   0 0 0 var(--nav-split-view-content-width)
+        //   0 0 0 var(--nav-split-view-content-inline-size)
         // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
         // }
         // }
@@ -90,7 +90,7 @@
         &,
         & ~ tool-bar {
           :where(&) {
-            width: var(--nav-split-view-content-width);
+            inline-size: var(--nav-split-view-content-inline-size);
           }
         }
       }
@@ -121,7 +121,7 @@
           & ~ tool-bar {
             :where(&) {
               // add margin to make vts precise
-              margin-inline-start: var(--nav-split-view-content-width);
+              margin-inline-start: var(--nav-split-view-content-inline-size);
             }
           }
         }
@@ -134,7 +134,7 @@
         > [is='sidebar-view'] {
           :where(&) {
             // turn 1stChildElement into floating sidebar
-            width: var(--nav-split-view-sidebar-width); // override
+            inline-size: var(--nav-split-view-sidebar-inline-size); // override
 
             margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing)); // float
 
@@ -195,7 +195,7 @@
                 margin-inline-start: 0px;
 
                 // add start padding instead
-                --safe-area-inset-left: calc(var(--nav-split-view-sidebar-width) + max(env(safe-area-inset-left), var(--sidebar-spacing)));
+                --safe-area-inset-left: calc(var(--nav-split-view-sidebar-inline-size) + max(env(safe-area-inset-left), var(--sidebar-spacing)));
 
                 --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
 
@@ -217,7 +217,7 @@
               > [is='sidebar-view'] {
                 :where(&) {
                   // hide off screen
-                  margin-inline-start: calc(var(--nav-split-view-sidebar-width) * -1);
+                  margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1);
                 }
               }
 
@@ -227,7 +227,7 @@
                   &,
                   & ~ tool-bar {
                     :where(&) {
-                      margin-inline-start: var(--nav-split-view-content-width);
+                      margin-inline-start: var(--nav-split-view-content-inline-size);
 
                       --safe-area-inset-left: 0px;
                     }
@@ -254,7 +254,7 @@
                   &,
                   & ~ tool-bar {
                     :where(&) {
-                      width: var(--nav-split-view-content-width);
+                      inline-size: var(--nav-split-view-content-inline-size);
 
                       margin-inline-start: 0px;
 
@@ -294,7 +294,7 @@
                 }
               }
               // clip-path: inset(
-              //   0 0 0 var(--nav-split-view-sidebar-width)
+              //   0 0 0 var(--nav-split-view-sidebar-inline-size)
               // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
 
               // shrink 2nd-child
@@ -302,7 +302,7 @@
                 &,
                 & ~ tool-bar {
                   :where(&) {
-                    width: calc(var(--nav-split-view-content-width) + var(--nav-split-view-sidebar-width)); // shrink to be now a col
+                    inline-size: calc(var(--nav-split-view-content-inline-size) + var(--nav-split-view-sidebar-inline-size)); // shrink to be now a col
 
                     --safe-area-inset-right: 0px;
                   }
@@ -323,7 +323,7 @@
                       // margin-inline-start: 0px;
                       --safe-area-inset-left: 0px; // override
 
-                      margin-inline-start: calc(var(--nav-split-view-sidebar-width) + var(--nav-split-view-content-width)); // override
+                      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view-content-inline-size)); // override
                     }
                   }
                 }

@@ -30,7 +30,7 @@
   // }
 }
 
-@mixin make-transitionable-dialog-backdrop {
+@mixin make-backdrop-transitionable {
   &::backdrop {
     @media (prefers-reduced-motion: no-preference) {
       transition:

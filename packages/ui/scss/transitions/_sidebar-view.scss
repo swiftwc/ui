@@ -2,9 +2,9 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
-  [is='sidebar-view'] {
-    // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
-    @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) {
+    [is='sidebar-view'] {
+      // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions
       @include mixins.if-2col-split-view-fits {
         :where(navigation-split-view:has(> dialog[is='sidebar-view']) &) {
           transition:

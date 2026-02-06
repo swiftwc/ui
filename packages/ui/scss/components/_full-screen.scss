@@ -8,8 +8,8 @@
 
       // dowh
       overflow: clip;
-      width: 100lvw;
-      height: var(--100lvh, 100lvh);
+      inline-size: 100lvw;
+      block-size: var(--100lvh, 100lvh);
     }
   }
 }

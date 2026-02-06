@@ -102,13 +102,13 @@
 
   &:has(~ tool-bar > [slot^='navigation-bar']),
   &:has(> [slot^='navigation-bar']) {
-    grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+    grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
   }
 }
 
 @mixin make-scrollable($pseudo: false) {
   @if $pseudo {
-    height: calc(100% + 1px);
+    block-size: calc(100% + 1px);
   } @else {
     scrollbar-width: thin;
     // & > *:not([slot]) {
@@ -123,7 +123,7 @@
       // grid-row: 1 / -1; // span all rows
       content: '';
       display: block;
-      height: calc(100% + 1px); /* creates overflow */
+      block-size: calc(100% + 1px); /* creates overflow */
       z-index: -1;
       pointer-events: none;
     }
@@ -195,7 +195,7 @@
 }
 
 @mixin if-ipad-sheet-fits {
-  @media (min-width: #{vars.$ipad-sheet-view-width}) and (min-height: #{vars.$ipad-sheet-view-height}) {
+  @media (min-width: #{vars.$ipad-sheet-view-inline-size}) and (min-height: #{vars.$ipad-sheet-view-height}) {
     @content;
   }
 }

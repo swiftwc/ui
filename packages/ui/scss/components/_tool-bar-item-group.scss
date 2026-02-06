@@ -23,7 +23,7 @@
     }
 
     :where(& > *) {
-      min-width: calc(var(--toolbar-cell-min-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+      min-inline-size: calc(var(--toolbar-cell-min-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
 
     //

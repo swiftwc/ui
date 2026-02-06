@@ -21,8 +21,8 @@ $sidebar-toggle-padding-inline-start-css-prop: --sidebar-toggle-padding-inline-s
 $nav-split-view-2col-bp: 43rem !default;
 $nav-split-view-3col-bp: 64rem !default;
 
-// $ipad-sheet-view-width: 12rem !default;
-$ipad-sheet-view-width: 37rem !default;
+// $ipad-sheet-view-inline-size: 12rem !default;
+$ipad-sheet-view-inline-size: 37rem !default;
 
 $ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
 
@@ -39,7 +39,7 @@ $ipad-portrait-bp-min: $ipad-portrait-bp;
 $ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
 $ipad-landscape-bp-min: $ipad-landscape-bp;
 
-$ipad-sheet-view-height: math.div($ipad-sheet-view-width, $ipad-sheet-view-aspect-ratio); //4/3
+$ipad-sheet-view-height: math.div($ipad-sheet-view-inline-size, $ipad-sheet-view-aspect-ratio); //4/3
 
 $nav-split-view-2col-bp-max: #{functions.subtract-tiny($nav-split-view-2col-bp)};
 $nav-split-view-2col-bp-min: $nav-split-view-2col-bp;
@@ -50,8 +50,8 @@ $nav-split-view-3col-bp-min: $nav-split-view-3col-bp;
 
 // checks
 
-@if ($ipad-portrait-bp < $ipad-sheet-view-width) {
-  @warn "$ipad-sheet-view-width should not be larger than $ipad-portrait-bp! Breaks centering";
+@if ($ipad-portrait-bp < $ipad-sheet-view-inline-size) {
+  @warn "$ipad-sheet-view-inline-size should not be larger than $ipad-portrait-bp! Breaks centering";
 }
 
 @if ($nav-split-view-3col-bp < $nav-split-view-2col-bp) {

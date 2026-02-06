@@ -1,0 +1,48 @@
+@use '../vars';
+
+@mixin set-label-style($value) {
+  --label-style: #{$value};
+
+  @supports not (x: #{unquote('if(else:red)')}) {
+    @if $value == 'title-and-icon' {
+      --label--grid-template-columns: auto minmax(0, 1fr);
+
+      --label--gap: 0.3rem;
+
+      --label--iconstack-display: grid;
+      --label--titlestack-display: grid;
+    } @else if $value == 'icon-only' {
+      --label--iconstack-display: grid;
+    } @else if $value == 'title-only' {
+      --label--titlestack-display: grid;
+    }
+  }
+}
+
+@mixin set-label-truncation-mode($value) {
+  --label-truncation-mode: #{$value};
+
+  @supports not (x: #{unquote('if(else:red)')}) {
+    @if $value == 'tail' {
+      --label--overflow: hidden;
+
+      --label--text-overflow: ellipsis;
+    }
+  }
+}
+
+@mixin set-label-line-limit($value) {
+  --label-line-limit: #{$value};
+
+  @supports not (x: #{unquote('if(else:red)')}) {
+    // fallback
+    @if $value == 1 {
+      --label--white-space: nowrap;
+    } @else {
+      --label--white-space: normal;
+      --label--display: -webkit-box;
+      --label--box-orient: vertical;
+      --label--line-clamp: #{$value};
+    }
+  }
+}

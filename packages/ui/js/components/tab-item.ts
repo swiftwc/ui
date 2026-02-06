@@ -1,4 +1,4 @@
-import { type TabView } from './tab-view'
+import { type TabView, type TabRevealDetail } from './tab-view'
 import { ButtonBase } from '../client/privateNamespace'
 import { Snapshot } from '../snapshot'
 
@@ -27,41 +27,47 @@ export class TabItem extends ButtonBase {
     this.#cleanups.delete(el)
   }
 
-  static polyfillConnectedCallback(el: HTMLButtonElement) {
+  static polyfillConnectedCallback(el: TabItem) {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
-    el.addEventListener('click', TabItem.#handleClick)
-
-    const handler = TabItem.#handleTabReveal.bind(null, el),
-      tv = el.closest<TabView>('tab-view')
-
-    tv?.addEventListener('tabreveal', handler)
-
-    this.#cleanups.set(el, () => {
-      tv?.removeEventListener('tabreveal', handler)
-    })
-
     Snapshot.waitReady.then(() => {
-      console.log(999, el.closest<TabView>('tab-view'))
-      if (el.closest('tab-view').selection?.id === el.value) el.style.setProperty('anchor-name', '--my-b')
+      el.addEventListener('click', TabItem.#handleClick)
+
+      const handler = TabItem.#handleTabReveal.bind(null, el),
+        tv = el.closest<TabView>('tab-view')
+
+      tv?.addEventListener('tabreveal', handler)
+
+      this.#cleanups.set(el, () => {
+        tv?.removeEventListener('tabreveal', handler)
+      })
+
+      if (tv?.selection?.id === el.value) void this.#handleTabReveal(el, new CustomEvent<TabRevealDetail>('slotchange', { detail: { tag: el.value } }))
     })
   }
 
-  static #handleTabReveal = async (el: HTMLButtonElement, event: CustomEvent) => {
+  static #handleTabReveal = async (el: HTMLButtonElement, event: CustomEvent<TabRevealDetail>) => {
     await Snapshot.waitReady
 
-    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', '--my-b')
+    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', '--tab-view-selection')
     else el.style.removeProperty('anchor-name')
   }
 
   static #handleClick = async (event: Event) => {
     console.debug(`${TabItem.name} ⚡️ click`)
 
-    const tag = (event.currentTarget as HTMLElement).getAttribute('value')
+    const tabItem = event.currentTarget as HTMLElement
 
+    tabItem.scrollIntoView({
+      behavior: 'smooth',
+      block: 'center',
+      inline: 'nearest',
+    })
+
+    const tag = tabItem.getAttribute('value')
     if (!tag) return // sidebartoggle > tab-item //throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')
 
-    const tv = (event.currentTarget as HTMLElement).closest<TabView>('tab-view')
+    const tv = tabItem.closest<TabView>('tab-view')
     if (!tv) throw new Error('Element not found')
 
     const newTab = tv?.querySelector<HTMLElement>(`#${tag}`)

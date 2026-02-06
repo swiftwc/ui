@@ -5,7 +5,7 @@
     :where(&) {
       touch-action: none;
 
-      height: var(--100lvh, 100lvh);
+      block-size: var(--100lvh, 100lvh);
     }
   }
 }

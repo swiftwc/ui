@@ -6,20 +6,21 @@
     content: '';
     display: block;
     position: absolute;
-    width: 100px;
-    height: 100px;
     background-color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
-    // left: 0;
-    // top: 0;
-    position-anchor: --my-b;
+
+    position-anchor: --tab-view-selection;
     // position-area: center;
-    left: anchor(--my-b left);
-    top: anchor(--my-b top);
+    inset: anchor(--tab-view-selection top) auto auto anchor(--tab-view-selection left);
+
     inline-size: anchor-size();
     block-size: anchor-size();
-    border-radius: 9999px;
-    transition: left 150ms ease-out allow-discrete;
+
+    border-radius: var(--pill-border-radius);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: left 150ms ease-out allow-discrete; //FIXME:
+    }
   }
 }
 
@@ -31,8 +32,8 @@
 
 @mixin make-iphone-tabbar {
   :where(&) {
-    // max-width: var(--iphone-tabbar-max-width);
-    // height: var(--iphone-tabbar-height);
+    // max-width: var(--iphone-tabbar-max-inline-size);
+    // height: var(--iphone-tabbar-block-size);
     // left: 50%;
     // border-radius: var(--iphone-tabbar-border-radius);
 
@@ -66,8 +67,8 @@
 
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      max-width: var(--iphone-tabbar-max-width);
-      height: var(--iphone-tabbar-height);
+      max-inline-size: var(--iphone-tabbar-max-inline-size);
+      block-size: var(--iphone-tabbar-block-size);
 
       border-radius: var(--iphone-tabbar-border-radius);
 
@@ -84,15 +85,15 @@
 
 @mixin make-ipad-tabbar {
   :where(&) {
-    --tab-bar-width: var(--ipad-tabbar-width);
-    --tab-bar-height: var(--ipad-tabbar-height);
+    --tab-bar-width: var(--ipad-tabbar-inline-size);
+    --tab-bar-height: var(--ipad-tabbar-block-size);
 
     inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
     --tab-bar-translate: translateX(-50%);
 
     @include make-floating-tabbar;
 
-    @include mixins.make-transitionable-dialog-backdrop;
+    @include mixins.make-backdrop-transitionable;
 
     border-radius: var(--ipad-tabbar-border-radius);
 
@@ -124,7 +125,7 @@
 
       --tab-bar-height: auto; // override topbar
       --tab-bar-translate: translateX(0);
-      --tab-bar-width: var(--sidebar-width);
+      --tab-bar-width: var(--sidebar-inline-size);
 
       border-radius: var(--sidebar-border-radius);
 
@@ -152,7 +153,7 @@
       // re-apply width for dialog too (not dialog by default)
       :where(&)::part(scroll-view-navbar-stack) {
         &::before {
-          width: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
+          inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
         }
       }
 
@@ -168,7 +169,7 @@
         }
 
         :where(&) {
-          grid-template-rows: var(--navigation-bar-height) minmax(max-content, 1fr);
+          grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
         }
       }
     }
@@ -182,8 +183,8 @@
 
       // dowh
       overflow: clip;
-      width: var(--tab-bar-width,);
-      height: var(--tab-bar-height,);
+      inline-size: var(--tab-bar-width,);
+      block-size: var(--tab-bar-height,);
 
       position: fixed; // show always
 
@@ -232,13 +233,13 @@
         :where(&) {
           inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
 
-          --tab-bar-width: var(--sidebar-width);
+          --tab-bar-width: var(--sidebar-inline-size);
 
           border-radius: var(--sidebar-border-radius);
 
           @include make-floating-tabbar;
 
-          @include mixins.make-transitionable-dialog-backdrop;
+          @include mixins.make-backdrop-transitionable;
         }
 
         &[open] {
@@ -276,7 +277,7 @@
           inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
             max(var(--safe-area-inset-left), var(--sidebar-spacing));
 
-          --tab-bar-width: var(--sidebar-width);
+          --tab-bar-width: var(--sidebar-inline-size);
 
           @include make-floating-tabbar;
 

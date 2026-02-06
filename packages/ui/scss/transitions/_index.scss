@@ -2,18 +2,18 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
-  // ::view-transition-old(root),
-  // ::view-transition-new(root) {
-  //   animation-duration: 15s;
-  // }
-  // ::view-transition-old(root) {
-  //   animation: 15s ease-out both slide-to-left;
-  // }
-
-  // ::view-transition-new(root) {
-  //   animation: 15s ease-out both slide-from-right;
-  // }
   @media (prefers-reduced-motion: no-preference) {
+    // ::view-transition-old(root),
+    // ::view-transition-new(root) {
+    //   animation-duration: 15s;
+    // }
+    // ::view-transition-old(root) {
+    //   animation: 15s ease-out both slide-to-left;
+    // }
+
+    // ::view-transition-new(root) {
+    //   animation: 15s ease-out both slide-from-right;
+    // }
     scroll-view {
       &.#{vars.$vt-fwd-class-name},
       &.fwdd,
@@ -68,7 +68,7 @@
       //   allow-discrete;
       will-change: transform, overlay, display;
 
-      @include mixins.make-transitionable-dialog-backdrop;
+      @include mixins.make-backdrop-transitionable;
     }
   }
 }

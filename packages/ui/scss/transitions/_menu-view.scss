@@ -2,9 +2,9 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
-  menu-view {
-    :where(&)::part(menu-dialog) {
-      @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) {
+    menu-view {
+      :where(&)::part(menu-dialog) {
         // transition:
         //   block-size var(--menu-animation-duration) allow-discrete ease-out,
         //   inline-size var(--menu-animation-duration) allow-discrete ease-out,

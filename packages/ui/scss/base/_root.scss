@@ -18,19 +18,19 @@
     --safe-area-inset-bottom: env(safe-area-inset-bottom);
     --safe-area-inset-left: env(safe-area-inset-left);
 
-    --tool-bar-height: 4rem;
+    --tool-bar-block-size: 4rem;
 
     --top-layer-polyfill-z-index: 999999;
 
-    --iphone-tabbar-max-width: 90svw;
-    --iphone-tabbar-height: var(--tool-bar-height);
+    --iphone-tabbar-max-inline-size: 90svw;
+    --iphone-tabbar-block-size: var(--tool-bar-block-size);
     --iphone-tabbar-border-radius: 9999px;
 
-    --ipad-tabbar-width: 21rem;
-    --ipad-tabbar-height: 3rem;
+    --ipad-tabbar-inline-size: 21rem;
+    --ipad-tabbar-block-size: 3rem;
     --ipad-tabbar-border-radius: 9999px;
 
-    --sidebar-width: 20rem;
+    --sidebar-inline-size: 20rem;
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
 
@@ -48,10 +48,10 @@
       inset -3px -3px 10px -3px light-dark(#ddd, #262626), inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26),
       inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
 
-    --navigation-bar-height: var(--tool-bar-height);
+    --navigation-bar-block-size: var(--tool-bar-block-size);
 
-    --nav-split-view-sidebar-width: 20rem;
-    --nav-split-view-content-width: 25rem;
+    --nav-split-view-sidebar-inline-size: 20rem;
+    --nav-split-view-content-inline-size: 25rem;
 
     --nav-split-view-separator-color: oklch(0 0 0);
     --nav-split-view-separator-color-dark: oklch(1 0 0);

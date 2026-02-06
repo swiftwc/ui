@@ -6,14 +6,14 @@
     // position: sticky;
     // left: 0;
     // top: 0;
-    width: fit-content;
+    inline-size: fit-content;
     order: -1;
   }
 
   :where(#{$selector} [is='tab-bar'][open] > &) {
     position: sticky;
     inset: 0 auto auto 0;
-    height: var(--navigation-bar-height);
+    block-size: var(--navigation-bar-block-size);
   }
 
   :where(#{$selector} > &) {
@@ -39,7 +39,7 @@
       inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
       padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
 
-      height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+      block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
     }
 
     @include mixins.if-iphone-portrait {

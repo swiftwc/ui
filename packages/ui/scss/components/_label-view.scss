@@ -14,7 +14,39 @@
 
       // gap: 0;
 
-      white-space: var(--label-white-space,);
+      white-space: var(--label--white-space,);
+      grid-template-columns: var(--label--grid-template-columns,);
+      gap: var(--label--gap,);
+
+      // ifs finally
+      @supports (x: #{unquote('attr(x type(*))')}) {
+        --label-style: attr(label-style type(<custom-ident>), inherit);
+        --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
+        --label-line-limit: attr(line-limit type(<number>), inherit);
+        --label-image-hint: attr(image-hint type(<custom-ident>), inherit);
+        --label-title-hint: attr(title-hint type(<custom-ident>), inherit);
+      }
+
+      @supports (x: #{unquote('if(else:red)')}) {
+        --label--white-space: if(style(--label-line-limit: 1): nowrap ;style(--label-line-limit: 2): normal ;);
+        //
+        --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
+
+        --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
+
+        --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
+        --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
+        --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
+
+        --label--iconstack-display: if(
+          style(--label-style: icon-only): grid ; style(--label-style: title-and-icon): grid ; style(--label-image-hint: yes): grid ;
+        );
+        --label--titlestack-display: if(
+          style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; style(--label-title-hint: yes): grid ;
+        );
+      }
+
+      //
 
       // --label-style: automatic;
       // --label-style: icon-only;
@@ -23,6 +55,38 @@
       // grid-template-columns: if(style(--label-style: title-and-icon): auto minmax(0, 1fr) ; else: none;);
 
       // gap: if(style(--label-style: title-and-icon): 0.3rem ; else: none;);
+    }
+
+    @supports not (x: #{unquote('attr(x type(*))')}) {
+      :where(&[label-style='title-and-icon']) {
+        @include mixins.set-label-style('title-and-icon');
+      }
+      :where(&[label-style='title-only']) {
+        @include mixins.set-label-style('title-only');
+      }
+      :where(&[label-style='icon-only']) {
+        @include mixins.set-label-style('icon-only');
+      }
+      &:not([label-style]) {
+        :where(&[image-hint='yes'][title-hint='yes']) {
+          @include mixins.set-label-style('title-and-icon');
+        }
+        :where(&[image-hint='yes']:not([title-hint='yes'])) {
+          @include mixins.set-label-style('icon-only');
+        }
+        :where(&[title-hint='yes']:not([image-hint='yes'])) {
+          @include mixins.set-label-style('itle-only');
+        }
+      }
+      :where(&[line-limit='1']) {
+        @include mixins.set-label-line-limit(1);
+      }
+      :where(&[line-limit='2']) {
+        @include mixins.set-label-line-limit(2);
+      }
+      :where(&[truncation-mode='tail']) {
+        @include mixins.set-label-truncation-mode(tail);
+      }
     }
 
     // :where(&[label-style='title-only']) {
@@ -37,17 +101,43 @@
 
     :where(& > *:not([slot])) {
       // grid-area: label-title-stack;
-      overflow: var(--label-overflow,);
-      text-overflow: var(--label-text-overflow,);
+      overflow: var(--label--overflow,);
+
+      text-overflow: var(--label--text-overflow,);
+
+      display: var(--label--display,);
+      -webkit-box-orient: var(--label--box-orient,);
+      line-clamp: var(--label--line-clamp,);
+      -webkit-line-clamp: var(--label--line-clamp,);
     }
 
-    :where(&[line-limit]) {
-      --label-white-space: nowrap;
+    /* &[truncation-mode='tail'] {
+      @include mixins.set-label-truncation-mode(tail);
+      // --label-truncation-mode: tail;
+
+      // // :where(& > *:not([slot])) {
+      // --label--overflow: hidden;
+
+      // --label--text-overflow: ellipsis;
+      // // }
     }
+
+    :where(&[line-limit='1']) {
+      @include mixins.set-label-line-limit(1);
+      // --label--white-space: nowrap;
+    }
+
+    :where(&[line-limit='2']) {
+      @include mixins.set-label-line-limit(2);
+      // --label--white-space: normal;
+      // --label--display: -webkit-box;
+      // --label--box-orient: vertical;
+      // --label--line-clamp: 2;
+    } */
 
     :where(&)::part(label-image-stack),
     :where(&)::part(label-title-stack) {
-      display: none;
+      // display: none;
 
       grid-auto-columns: minmax(0, 1fr);
       grid-auto-rows: minmax(0, 1fr);
@@ -56,9 +146,17 @@
     }
 
     :where(&)::part(label-image-stack) {
+      display: var(--label--iconstack-display, none);
+    }
+
+    :where(&)::part(label-title-stack) {
+      display: var(--label--titlestack-display, none);
+    }
+
+    :where(&)::part(label-image-stack) {
       aspect-ratio: 1 / 1;
 
-      width: var(--label-image-size, 2rem);
+      inline-size: var(--label-image-size, 2rem);
       font-size: var(--label-image-size, 2rem);
 
       // line-height: 1;
@@ -72,7 +170,21 @@
       // grid-area: label-title-stack;
     }
 
-    :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
+    @supports not (x: #{unquote('if(else:red)')}) {
+      &:not([label-style]) {
+        :where(&[image-hint='yes'][title-hint='yes']) {
+          @include mixins.set-label-style('title-and-icon');
+        }
+        :where(&[image-hint='yes']:not([title-hint='yes'])) {
+          @include mixins.set-label-style('icon-only');
+        }
+        :where(&[title-hint='yes']:not([image-hint='yes'])) {
+          @include mixins.set-label-style('title-only');
+        }
+      }
+    }
+
+    /* :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
       grid-template-columns: auto minmax(0, 1fr);
     }
 
@@ -86,17 +198,10 @@
 
     :where(&[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon'])::part(label-title-stack) {
       display: grid;
-    }
+    } */
   }
 
   // label-view[line-limit='1']::part(label-title-stack) {
   //   white-space: nowrap;
   // }
-
-  label-view[truncation-mode='tail'] {
-    :where(& > *:not([slot])) {
-      --label-overflow: hidden;
-      --label-text-overflow: ellipsis;
-    }
-  }
 }

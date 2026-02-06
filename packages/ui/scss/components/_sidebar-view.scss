@@ -11,7 +11,7 @@
       height: 100%;
       position: relative;
 
-      @include mixins.make-transitionable-dialog-backdrop;
+      @include mixins.make-backdrop-transitionable;
 
       transform: var(--sidebar-view-scale,);
     }

@@ -59,7 +59,7 @@
     padding-inline: var(--component-padding-inline,);
     padding-block: var(--component-padding-block,);
     border-radius: var(--component-border-radius,);
-    min-width: 25px; // NOTE: For inputs overflowing-x
+    min-inline-size: 25px; // NOTE: For inputs overflowing-x
 
     // &:not(:disabled):not([readonly]) {
     //   &:focus-visible {

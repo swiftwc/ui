@@ -104,7 +104,7 @@ export class LabelView extends HTMLElement {
   #handleSlotChange = (event: Event) => {
     console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
-    this.toggleAttribute('has-title', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0) // && 'icon-only' !== this.getAttribute('label-style'))
-    this.toggleAttribute('has-image', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0) // && 'title-only' !== this.getAttribute('label-style'))
+    this.setAttribute('title-hint', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no') // && 'icon-only' !== this.getAttribute('label-style'))
+    this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no') // && 'title-only' !== this.getAttribute('label-style'))
   }
 }

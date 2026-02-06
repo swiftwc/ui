@@ -7,8 +7,8 @@
 
       inset: 0lvh auto auto 0lvw;
 
-      width: 100lvw;
-      height: 100lvh;
+      inline-size: 100lvw; //width
+      block-size: 100lvh; //height
     }
   }
 }

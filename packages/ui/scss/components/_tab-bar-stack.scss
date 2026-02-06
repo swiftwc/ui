@@ -2,19 +2,21 @@
 @use '../mixins';
 
 @mixin make-iphone-tabbarstack {
-  :where(& [is='tab-bar'] > scroll-view) {
-    grid-auto-flow: column;
-    grid-template-rows: minmax(0, 1fr);
+  & [is='tab-bar'] {
+    :where(& > scroll-view) {
+      grid-auto-flow: column;
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(& > scroll-view [is='tab-item']) {
+      min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
+    }
   }
 
   :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
-    margin-block: 0 !important; // scroll-view > * override
+    // margin-block: 0 !important; // scroll-view > * override
     grid-template-rows: minmax(0, 1fr);
-  }
-
-  :where(& [is='tab-bar'] > scroll-view [is='tab-item']) {
-    min-inline-size: 64px;
   }
 }
 
@@ -22,36 +24,52 @@
   :where(& [is='tab-bar-stack']) {
     grid-auto-flow: column;
 
-    --label-white-space: nowrap;
+    // --label--white-space: nowrap;
   }
 
-  :where(& [is='tab-bar'][open] [is='tab-bar-stack']) {
-    grid-auto-flow: row;
+  & [is='tab-bar'] {
+    :where(& > scroll-view) {
+      @include mixins.contain-overscroll;
 
-    align-content: start;
+      grid-auto-flow: column;
 
-    row-gap: 0.5rem;
-  }
+      overflow: auto clip;
+    }
 
-  :where(& [is='tab-bar']:not([open]) [is='tab-bar-stack']) {
-    margin-block: 0 !important; // scroll-view > * override
-  }
+    &:not([open]) {
+      :where(& [is='tab-bar-stack']) {
+        // margin-block: 0 !important; // scroll-view > * override
 
-  :where(& [is='tab-bar'] > scroll-view) {
-    @include mixins.contain-overscroll;
+        @include mixins.set-label-line-limit(1);
 
-    grid-auto-flow: column;
+        @include mixins.set-label-truncation-mode(tail);
 
-    overflow: auto clip;
-  }
+        @include mixins.set-label-style('icon-only');
+      }
 
-  :where(& [is='tab-bar'][open] > scroll-view) {
-    // padding-block-start: 30px;
-    grid-auto-flow: row;
+      :where(& > scroll-view [is='tab-item']) {
+        min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
+      }
+    }
 
-    overflow: clip auto;
+    &[open] {
+      :where(& [is='tab-bar-stack']) {
+        grid-auto-flow: row;
 
-    @include mixins.make-scrollable;
+        align-content: start;
+
+        row-gap: 0.5rem;
+      }
+
+      :where(& > scroll-view) {
+        // padding-block-start: 30px;
+        grid-auto-flow: row;
+
+        overflow: clip auto;
+
+        @include mixins.make-scrollable;
+      }
+    }
   }
 }
 

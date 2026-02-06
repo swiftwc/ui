@@ -2,26 +2,28 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
-  [is='disclosure-group'] {
-    :where(&)::details-content {
-      transition:
-        block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing),
-        content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: block-size, content-visibility;
-    }
-
-    @supports not (interpolate-size: allow-keywords) {
-      :where(&) {
-        transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-        will-change: grid-template-rows;
+  @media (prefers-reduced-motion: no-preference) {
+    [is='disclosure-group'] {
+      :where(&)::details-content {
+        transition:
+          block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing),
+          content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+        will-change: block-size, content-visibility;
       }
-      // :where(&)::details-content {
-      //   transition:
-      //     max-block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-      //     block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
-      //     transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
-      //   will-change: max-block-size, block-size, transform;
-      // }
+
+      @supports not (interpolate-size: allow-keywords) {
+        :where(&) {
+          transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+          will-change: grid-template-rows;
+        }
+        // :where(&)::details-content {
+        //   transition:
+        //     max-block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+        //     block-size var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing),
+        //     transform var(#{vars.$disclosure-group-animation-duration-css-prop}) allow-discrete var(--disclosure-group-animation-easing);
+        //   will-change: max-block-size, block-size, transform;
+        // }
+      }
     }
   }
 }

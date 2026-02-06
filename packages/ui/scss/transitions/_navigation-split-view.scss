@@ -2,13 +2,13 @@
 @use '../mixins';
 
 @layer #{vars.$transitions-layer} {
-  navigation-split-view {
-    @include mixins.if-2col-split-view-fits {
-      &:has(> dialog[is='sidebar-view']) {
-        @include mixins.if-3col-split-view-fits {
-          > [is='sidebar-view'] {
-            :where(&) {
-              @media (prefers-reduced-motion: no-preference) {
+  @media (prefers-reduced-motion: no-preference) {
+    navigation-split-view {
+      @include mixins.if-2col-split-view-fits {
+        &:has(> dialog[is='sidebar-view']) {
+          @include mixins.if-3col-split-view-fits {
+            > [is='sidebar-view'] {
+              :where(&) {
                 transition:
                   filter var(--touchglass-transition-duration) allow-discrete ease-out,
                   transform var(--touchglass-transition-duration) allow-discrete ease-out;

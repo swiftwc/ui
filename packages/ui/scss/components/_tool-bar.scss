@@ -20,14 +20,14 @@
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--toolbar-cell-box-shadow);
 
-      min-width: var(--toolbar-cell-min-size);
+      min-inline-size: var(--toolbar-cell-min-size);
 
       // tfo
       transform: var(--toolbar-cell-scale,);
       filter: var(--toolbar-cell-filter,);
       opacity: var(--toolbar-cell-opacity,);
 
-      // min-width: calc(var(--tool-bar-height) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+      // min-width: calc(var(--tool-bar-block-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
 
     :where(&)::part(navigation-bar),
@@ -73,7 +73,7 @@
       // inset: 0 0 auto 0;
       grid-area: navigation-bar;
 
-      height: calc(var(--safe-area-inset-top) + var(--navigation-bar-height));
+      block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
 
       padding-block-start: var(--safe-area-inset-top);
     }
@@ -90,7 +90,7 @@
       grid-area: bottom-bar;
       // background-color: blue;
 
-      height: calc(var(--safe-area-inset-bottom) + var(--tool-bar-height));
+      block-size: calc(var(--safe-area-inset-bottom) + var(--tool-bar-block-size));
 
       padding-block-end: var(--safe-area-inset-bottom);
     }
@@ -117,7 +117,7 @@
       :where([is='sheet-view'] &)::part(navigation-bar) {
         --safe-area-inset-top: 0px;
         // padding-block-start: 0;
-        // height: var(--navigation-bar-height);
+        // height: var(--navigation-bar-block-size);
       }
 
       :where([is='sheet-view'] &)::part(bottom-bar) {

@@ -40,11 +40,11 @@
       :where(& [is='tab-bar-stack']) {
         // margin-block: 0 !important; // scroll-view > * override
 
-        @include mixins.set-label-line-limit(1);
+        --label-line-limit: 1;
 
-        @include mixins.set-label-truncation-mode(tail);
+        --label-truncation-mode: tail;
 
-        @include mixins.set-label-style('icon-only');
+        --label-style: title-and-icon;
       }
 
       :where(& > scroll-view [is='tab-item']) {

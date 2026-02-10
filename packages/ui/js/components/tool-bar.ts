@@ -73,6 +73,8 @@ export class ToolBar extends HTMLElement {
   #measureStacks(entry: ResizeObserverEntry) {
     console.debug(`${ToolBar.name} ⚡️ measure`)
 
+    if (this.closest('[hidden]')) return
+
     const leading = Snapshot.config!['toolbar-leading-stack-part-name'],
       trailing = Snapshot.config!['toolbar-trailing-stack-part-name']
 

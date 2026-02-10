@@ -682,177 +682,6 @@
     grid-template-columns: var(--label--grid-template-columns, );
     gap: var(--label--gap, );
   }
-  @supports (x: attr(x type(*))) {
-    :where(label-view) {
-      --label-style: attr(label-style type(<custom-ident>), inherit);
-      --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
-      --label-line-limit: attr(line-limit type(<number>), inherit);
-      --label-has-icon: attr(image-hint type(<custom-ident>), inherit);
-      --label-title-hint: attr(title-hint type(<custom-ident>), inherit);
-    }
-  }
-  @supports (x: if(else:red)) {
-    :where(label-view) {
-      --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
-      --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
-      --label--white-space: if(style(--label-line-limit: 1): nowrap ;style(--label-line-limit: 2): normal ;);
-      --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
-      --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
-      --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
-      --label--iconstack-display: if(
-        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
-          style(--label-style: title-and-icon): grid ; else: if(style(--label-has-icon: yes): grid ; else: none;) ;
-      );
-      --label--titlestack-display: if(
-        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
-          style(--label-title-hint: yes): grid ; else: if(style(--label-has-title: yes): grid ; else: none;) ;
-      );
-    }
-  }
-  @supports not (x: if(else:red)) {
-    @container style(--label-style: icon-only) {
-      :where(label-view)::part(label-image-stack) {
-        --label--iconstack-display: grid;
-      }
-    }
-    @container style(--label-style: title-only) {
-      :where(label-view)::part(label-title-stack) {
-        --label--titlestack-display: grid;
-      }
-    }
-    @container style(--label-style: title-and-icon) {
-      :where(label-view)::part(label-image-stack) {
-        --label--iconstack-display: grid;
-      }
-      :where(label-view)::part(label-title-stack) {
-        --label--titlestack-display: grid;
-      }
-    }
-    @container style(--label-has-icon: yes) and (not style(--label-style)) {
-      :where(label-view)::part(label-image-stack) {
-        --label--iconstack-display: grid;
-      }
-    }
-    @container style(--label-has-title: yes) and (not style(--label-style)) {
-      :where(label-view)::part(label-title-stack) {
-        --label--titlestack-display: grid;
-      }
-    }
-    @container style(--label-style: icon-only) {}
-    @container style(--label-style: title-only) {}
-    @container style(--label-style: title-and-icon) {
-      @supports not (x: if(else:red)) {
-        :where(label-view) {
-          --label--grid-template-columns: auto minmax(0, 1fr);
-          --label--gap: 0.3rem;
-        }
-      }
-    }
-    @container not style(--label-style) {
-      @supports not (x: if(else:red)) {
-        :where(:where(label-view)[label-style=title-and-icon]) {
-          --label--grid-template-columns: auto minmax(0, 1fr);
-          --label--gap: 0.3rem;
-        }
-      }
-    }
-    @container style(--label-line-limit: 1) {
-      :where(label-view) {
-        --label--white-space: nowrap;
-      }
-    }
-    @container not style(--label-line-limit: 1) {
-      :where(:where(label-view)[line-limit="1"]) {
-        --label--white-space: nowrap;
-      }
-    }
-    @container style(--label-line-limit: 2) {
-      :where(label-view) {
-        --label--white-space: normal;
-        --label--display: -webkit-box;
-        --label--box-orient: vertical;
-        --label--line-clamp: 2;
-      }
-    }
-    @container not style(--label-line-limit: 2) {
-      :where(:where(label-view)[line-limit="2"]) {
-        --label--white-space: normal;
-        --label--display: -webkit-box;
-        --label--box-orient: vertical;
-        --label--line-clamp: 2;
-      }
-    }
-    @container style(--label-truncation-mode: tail) {
-      :where(label-view) {
-        --label--overflow: hidden;
-        --label--text-overflow: ellipsis;
-      }
-    }
-    @container not style(--label-truncation-mode: tail) {
-      :where(:where(label-view)[truncation-mode=tail]) {
-        --label--overflow: hidden;
-        --label--text-overflow: ellipsis;
-      }
-    }
-  }
-  @supports not (x: attr(x type(*))) {
-    :where(label-view[label-style=title-and-icon]) {
-      --label-style: title-and-icon;
-    }
-    :where(label-view[label-style=title-only]) {
-      --label-style: title-only;
-    }
-    :where(label-view[label-style=icon-only]) {
-      --label-style: icon-only;
-    }
-  }
-  @supports not (x: attr(x type(*))) {
-    :where(label-view[image-hint=yes]) {
-      --label-has-icon: yes;
-    }
-    :where(label-view[image-hint=no]) {
-      --label-has-icon: no;
-    }
-    :where(label-view[title-hint=yes]) {
-      --label-has-title: yes;
-    }
-    :where(label-view[title-hint=no]) {
-      --label-has-title: no;
-    }
-  }
-  :where(label-view > *:not([slot])) {
-    overflow: var(--label--overflow, );
-    text-overflow: var(--label--text-overflow, );
-    display: var(--label--display, );
-    -webkit-box-orient: var(--label--box-orient, );
-    line-clamp: var(--label--line-clamp, );
-    -webkit-line-clamp: var(--label--line-clamp, );
-  }
-  label-view {
-    /* &[truncation-mode='tail'] {
-      @include set-label-truncation-mode(tail);
-      // --label-truncation-mode: tail;
-
-      // // :where(& > *:not([slot])) {
-      // --label--overflow: hidden;
-
-      // --label--text-overflow: ellipsis;
-      // // }
-    }
-
-    :where(&[line-limit='1']) {
-      @include set-label-line-limit(1);
-      // --label--white-space: nowrap;
-    }
-
-    :where(&[line-limit='2']) {
-      @include set-label-line-limit(2);
-      // --label--white-space: normal;
-      // --label--display: -webkit-box;
-      // --label--box-orient: vertical;
-      // --label--line-clamp: 2;
-    } */
-  }
   :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
     grid-auto-columns: minmax(0, 1fr);
     grid-auto-rows: minmax(0, 1fr);
@@ -871,32 +700,165 @@
   :where(label-view)::part(label-title-stack) {
     text-decoration: underline;
   }
+  :where(label-view > *:not([slot])) {
+    overflow: var(--label--overflow, );
+    text-overflow: var(--label--text-overflow, );
+    display: var(--label--display, );
+    -webkit-box-orient: var(--label--box-orient, );
+    line-clamp: var(--label--line-clamp, );
+    -webkit-line-clamp: var(--label--line-clamp, );
+  }
+  @supports (x: if(else:red)) {
+    :where(label-view) {
+      --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
+      --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
+      --label--white-space: if(style(--label-line-limit: 1): nowrap ;style(--label-line-limit: 2): normal ;);
+      --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
+      --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
+      --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
+      --label--iconstack-display: if(
+        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
+          style(--label-style: title-and-icon): grid ; else: if(style(--label-has-icon: yes): grid ; else: none;) ;
+      );
+      --label--titlestack-display: if(
+        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
+          style(--label-has-title: yes): grid ; else: if(style(--label-has-title: yes): grid ; else: none;) ;
+      );
+    }
+  }
   @supports not (x: if(else:red)) {
-    @container not style(--label-style) {
+    @container style(--label-style: icon-only) {
       @supports not (x: if(else:red)) {
-        :where(label-view[image-hint=yes][title-hint=yes]) {
-          --label--grid-template-columns: auto minmax(0, 1fr);
-          --label--gap: 0.3rem;
+        :where(label-view) {
+          --label--iconstack-display: grid;
         }
       }
     }
+    @container style(--label-style: title-only) {
+      @supports not (x: if(else:red)) {
+        :where(label-view) {
+          --label--titlestack-display: grid;
+        }
+      }
+    }
+    @container style(--label-style: title-and-icon) {
+      @supports not (x: if(else:red)) {
+        :where(label-view) {
+          --label--grid-template-columns: auto minmax(0, 1fr);
+          --label--gap: 0.3rem;
+          --label--iconstack-display: grid;
+          --label--titlestack-display: grid;
+        }
+      }
+    }
+    @container not style(--label-style) {
+      @supports not (x: if(else:red)) {
+        :where(label-view[label-style=title-and-icon]) {
+          --label--grid-template-columns: auto minmax(0, 1fr);
+          --label--gap: 0.3rem;
+          --label--iconstack-display: grid;
+          --label--titlestack-display: grid;
+        }
+      }
+      @supports not (x: if(else:red)) {
+        :where(label-view[label-style=title-only]) {
+          --label--titlestack-display: grid;
+        }
+      }
+      @supports not (x: if(else:red)) {
+        :where(label-view[label-style=icon-only]) {
+          --label--iconstack-display: grid;
+        }
+      }
+      @supports not (x: if(else:red)) {
+        :where(label-view:not([label-style])[image-hint=yes][title-hint=yes]) {
+          --label--grid-template-columns: auto minmax(0, 1fr);
+          --label--gap: 0.3rem;
+          --label--iconstack-display: grid;
+          --label--titlestack-display: grid;
+        }
+      }
+      @supports not (x: if(else:red)) {
+        :where(label-view:not([label-style])[image-hint=yes]:not([title-hint=yes])) {
+          --label--iconstack-display: grid;
+        }
+      }
+      @supports not (x: if(else:red)) {
+        :where(label-view:not([label-style])[title-hint=yes]:not([image-hint=yes])) {
+          --label--titlestack-display: grid;
+        }
+      }
+    }
+    @container style(--label-line-limit: 1) {
+      :where(label-view) {
+        --label--white-space: nowrap;
+      }
+    }
+    @container not style(--label-line-limit: 1) {
+      :where(label-view[line-limit="1"]) {
+        --label--white-space: nowrap;
+      }
+    }
+    @container style(--label-line-limit: 2) {
+      :where(label-view) {
+        --label--white-space: normal;
+        --label--display: -webkit-box;
+        --label--box-orient: vertical;
+        --label--line-clamp: 2;
+      }
+    }
+    @container not style(--label-line-limit: 2) {
+      :where(label-view[line-limit="2"]) {
+        --label--white-space: normal;
+        --label--display: -webkit-box;
+        --label--box-orient: vertical;
+        --label--line-clamp: 2;
+      }
+    }
+    @container style(--label-truncation-mode: tail) {
+      :where(label-view) {
+        --label--overflow: hidden;
+        --label--text-overflow: ellipsis;
+      }
+    }
+    @container not style(--label-truncation-mode: tail) {
+      :where(label-view[truncation-mode=tail]) {
+        --label--overflow: hidden;
+        --label--text-overflow: ellipsis;
+      }
+    }
   }
-  label-view {
-    /* :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
-      grid-template-columns: auto minmax(0, 1fr);
+  @supports (x: attr(x type(*))) {
+    :where(label-view) {
+      --label-style: attr(label-style type(<custom-ident>), inherit);
+      --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
+      --label-line-limit: attr(line-limit type(<number>), inherit);
+      --label-has-icon: attr(image-hint type(<custom-ident>), inherit);
+      --label-has-title: attr(title-hint type(<custom-ident>), inherit);
     }
-
-    :where(&[has-image]:not([label-style='title-only'])[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon']) {
-      gap: 0.3rem;
+  }
+  @supports not (x: attr(x type(*))) {
+    :where(label-view[line-limit="1"]) {
+      --label-line-limit: 1;
     }
-
-    :where(&[has-image]:not([label-style='title-only']), &[label-style='title-and-icon'])::part(label-image-stack) {
-      display: grid;
+    :where(label-view[line-limit="2"]) {
+      --label-line-limit: 2;
     }
-
-    :where(&[has-title]:not([label-style='icon-only']), &[label-style='title-and-icon'])::part(label-title-stack) {
-      display: grid;
-    } */
+    :where(label-view[truncation-mode=tail]) {
+      --label-truncation-mode: tail;
+    }
+    :where(label-view[image-hint=yes]) {
+      --label-has-icon: yes;
+    }
+    :where(label-view[image-hint=no]) {
+      --label-has-icon: no;
+    }
+    :where(label-view[title-hint=yes]) {
+      --label-has-title: yes;
+    }
+    :where(label-view[title-hint=no]) {
+      --label-has-title: no;
+    }
   }
 }
 @layer sw-components {
@@ -1297,10 +1259,19 @@
     :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
-    :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(> [slot^=bottom-bar]))) {
+  }
+  @media (pointer: coarse) and (max-width: 42.9999rem) {
+    :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > [is=sidebar-view] > scroll-view, tab-view[tab-view-style=tab-bar-only] navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar) {
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+    }
+  }
+  @media (pointer: coarse) {
+    :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))), :where(tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))) {
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
+    }
+  }
+  @media (pointer: coarse) and (max-width: 42.9999rem) {
+    :where(tab-view[tab-view-style=tab-bar-only] navigation-split-view > [is=sidebar-view] > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))) {
       --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
     }
   }
@@ -1320,10 +1291,19 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])),
-    tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(> [slot^=bottom-bar]))) {
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) and (max-width: 42.9999rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view ~ tool-bar) {
+      --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+    }
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))), :where(tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))) {
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
+    }
+  }
+  @media (max-width: 42.9999rem) and (orientation: portrait) and (max-width: 42.9999rem) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view] > scroll-view:not(:has(~ tool-bar > [slot^=bottom-bar])):not(:has(> [slot^=bottom-bar]))) {
       --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
     }
   }
@@ -1603,7 +1583,7 @@
   }
   @media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view)::after {
-      transition: left 150ms ease-out allow-discrete;
+      transition: inset 150ms ease-out allow-discrete;
     }
   }
   @media (pointer: fine) {
@@ -1643,7 +1623,7 @@
   }
   @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > scroll-view)::after {
-      transition: left 150ms ease-out allow-discrete;
+      transition: inset 150ms ease-out allow-discrete;
     }
   }
   @media (pointer: fine) {
@@ -1749,7 +1729,7 @@
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
-      transition: left 150ms ease-out allow-discrete;
+      transition: inset 150ms ease-out allow-discrete;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
@@ -1789,7 +1769,7 @@
   }
   @media (min-width: 43rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
-      transition: left 150ms ease-out allow-discrete;
+      transition: inset 150ms ease-out allow-discrete;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
@@ -1886,6 +1866,25 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view):has(~ tool-bar > [slot^=navigation-bar]), :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view):has(> [slot^=navigation-bar]) {
       grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
     }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      position-anchor: --tab-view-selection;
+      inset: anchor(--tab-view-selection top) auto auto anchor(--tab-view-selection left);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: var(--pill-border-radius);
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view)::after {
+      transition: inset 150ms ease-out allow-discrete;
+    }
+  }
+  @media (max-width: 67.9999rem) and (orientation: landscape) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > tool-bar) {
       --safe-area-inset-left: 0px;
       --safe-area-inset-right: 0px;
@@ -1931,7 +1930,7 @@
   }
   @media (min-width: 68rem) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view)::after {
-      transition: left 150ms ease-out allow-discrete;
+      transition: inset 150ms ease-out allow-discrete;
     }
   }
 }
@@ -1962,7 +1961,6 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) [is=tab-bar-stack]) {
       --label-line-limit: 1;
       --label-truncation-mode: tail;
-      --label-style: title-and-icon;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]:not([open]) > scroll-view [is=tab-item]) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
@@ -1971,6 +1969,8 @@
       grid-auto-flow: row;
       align-content: start;
       row-gap: 0.5rem;
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > scroll-view) {
       grid-auto-flow: row;
@@ -2013,7 +2013,6 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) [is=tab-bar-stack]) {
       --label-line-limit: 1;
       --label-truncation-mode: tail;
-      --label-style: title-and-icon;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]:not([open]) > scroll-view [is=tab-item]) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
@@ -2022,6 +2021,8 @@
       grid-auto-flow: row;
       align-content: start;
       row-gap: 0.5rem;
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > scroll-view) {
       grid-auto-flow: row;
@@ -2042,6 +2043,8 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack]) {
       align-content: start;
       row-gap: 0.5rem;
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view) {
       overflow: clip auto;
@@ -2063,6 +2066,8 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar-stack]) {
       align-content: start;
       row-gap: 0.5rem;
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > scroll-view) {
       overflow: clip auto;

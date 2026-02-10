@@ -44,7 +44,7 @@
 
         --label-truncation-mode: tail;
 
-        --label-style: title-and-icon;
+        // --label-style: title-and-icon;
       }
 
       :where(& > scroll-view [is='tab-item']) {
@@ -59,6 +59,10 @@
         align-content: start;
 
         row-gap: 0.5rem;
+
+        --label-line-limit: 1;
+
+        --label-truncation-mode: tail;
       }
 
       :where(& > scroll-view) {
@@ -102,6 +106,10 @@
         align-content: start;
 
         row-gap: 0.5rem;
+
+        --label-line-limit: 1;
+
+        --label-truncation-mode: tail;
       }
 
       :where(& [is='tab-bar'] > scroll-view) {
@@ -118,6 +126,10 @@
         align-content: start;
 
         row-gap: 0.5rem;
+
+        --label-line-limit: 1;
+
+        --label-truncation-mode: tail;
       }
 
       :where(& [is='tab-bar'] > scroll-view) {

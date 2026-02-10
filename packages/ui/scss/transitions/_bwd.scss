@@ -4,6 +4,8 @@
   scroll-view {
     &.bwd {
       --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+
+      --scroll-view-box-shadow: var(--screen-box-shadow);
     }
 
     &.bwdd {

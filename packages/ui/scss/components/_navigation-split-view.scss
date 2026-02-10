@@ -68,7 +68,7 @@
     @include mixins.ifnot-2col-split-view-fits {
       &:has(> [is='sidebar-view']) {
         :where(& > [is='sidebar-view'] > scroll-view) {
-          --scroll-view-box-shadow: none;
+          // --scroll-view-box-shadow: none;
         }
       }
     }
@@ -111,7 +111,7 @@
       > scroll-view {
         :where(&) {
           border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-          --scroll-view-box-shadow: none;
+          // --scroll-view-box-shadow: none;
         }
       }
 
@@ -236,7 +236,7 @@
 
                 :where(& > scroll-view) {
                   border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-                  --scroll-view-box-shadow: none;
+                  // --scroll-view-box-shadow: none;
                 }
 
                 > scroll-view {
@@ -311,7 +311,7 @@
 
               :where(& > scroll-view) {
                 border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
-                --scroll-view-box-shadow: none;
+                // --scroll-view-box-shadow: none;
               }
 
               // container of details col (trailing)

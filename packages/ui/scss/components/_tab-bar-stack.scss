@@ -6,6 +6,8 @@
     :where(& > scroll-view) {
       grid-auto-flow: column;
       grid-template-rows: minmax(0, 1fr);
+
+      overflow: auto clip;
     }
 
     :where(& > scroll-view [is='tab-item']) {

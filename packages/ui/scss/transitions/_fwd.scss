@@ -10,6 +10,8 @@
     &.fwdd {
       --scroll-view-translate: translateX(var(--view-transition-principal-x));
 
+      --scroll-view-box-shadow: var(--screen-box-shadow);
+
       @starting-style {
         --scroll-view-translate: translateX(var(--view-transition-trailing-x));
       }

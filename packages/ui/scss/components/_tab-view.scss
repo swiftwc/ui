@@ -64,6 +64,19 @@
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed
     }
+
+    :where(& > *) {
+      transform: scale(1);
+      transform-origin: bottom;
+      transition: transform 100ms ease-out allow-discrete;
+      @starting-style {
+        transform: scale(0.99);
+      }
+    }
+
+    :where(& > [hidden]) {
+      z-index: -1;
+    }
   }
 
   // body:has(tab-view input[type='checkbox']:checked) {

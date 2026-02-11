@@ -16,7 +16,7 @@
         'bottom-bar';
     }
 
-    :where(& > *) {
+    :where(& > *:not(sidebar-toggle), & > sidebar-toggle > tool-bar-item) {
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--toolbar-cell-box-shadow);
 

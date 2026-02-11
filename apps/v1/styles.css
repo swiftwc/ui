@@ -612,7 +612,7 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "navigation-bar" "spacer" "bottom-bar";
   }
-  :where(tool-bar > *) {
+  :where(tool-bar > *:not(sidebar-toggle), tool-bar > sidebar-toggle > tool-bar-item) {
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     min-inline-size: var(--toolbar-cell-min-size);

@@ -675,6 +675,19 @@
         </scroll-view>
 
         <tool-bar>
+          <!-- add this for MORE fn on iPad -->
+          <sidebar-toggle slot="navigation-bar-leading">
+            <tool-bar-item>
+              <button type="button">
+                <label-view label="tb" />
+              </button>
+            </tool-bar-item>
+          </sidebar-toggle>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button">
+              <label-view label="Edit" />
+            </button>
+          </tool-bar-item>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button">
               <label-view label="Edit" />
@@ -691,11 +704,11 @@
       <dialog is="tab-bar">
         <form is="form-view">
           <!-- add this for MORE fn on iPad -->
-          <!-- <sidebar-toggle>
+          <sidebar-toggle>
             <button type="button">
               <label-view system-image="sidebar" label="sss3" label-style="icon-only" />
             </button>
-          </sidebar-toggle> -->
+          </sidebar-toggle>
           <button is="tab-item" value="ns1">
             <label-view system-image="smiley" label="all" label-style="icon-only" />
           </button>

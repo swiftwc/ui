@@ -295,10 +295,130 @@
         </tool-bar-item>
       </sidebar-toggle>
 
-      <dialog is="tab-bar">
-        <!-- <input type="checkbox" /> -->
+      <dialog is="sidebar-view">
+        <scroll-view navigation-title="Mailboxes">
+          <v-stack>
+            <form is="form-view">
+              <button is="tab-item" value="ns1">
+                <label-view system-image="smiley" label="all" label-style="icon-only" />
+              </button>
+              <button is="tab-item" value="ns2">
+                <label-view label="Order" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more" type="button">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+              <button is="tab-item" value="more">
+                <label-view label="More" />
+              </button>
+            </form>
+          </v-stack>
+        </scroll-view>
 
+        <tool-bar>
+          <!-- add this for MORE fn on iPad -->
+          <sidebar-toggle slot="navigation-bar-leading">
+            <tool-bar-item>
+              <button type="button">
+                <label-view label="tb" />
+              </button>
+            </tool-bar-item>
+          </sidebar-toggle>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button">
+              <label-view label="Edit" />
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button">
+              <label-view label="Edit" />
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="bottom-bar-trailing">
+            <button type="button">
+              <label-view system-image="pencil-simple-line" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+
+      <dialog is="tab-bar">
         <form is="form-view">
+          <!-- add this for MORE fn on iPad -->
+          <sidebar-toggle>
+            <button type="button">
+              <label-view system-image="sidebar" label="sss3" label-style="icon-only" />
+            </button>
+          </sidebar-toggle>
           <button is="tab-item" value="ns1">
             <label-view label="Menu" />
           </button>
@@ -452,11 +572,11 @@
         </form>
 
         <!-- add this for MORE fn on iPad -->
-        <sidebar-toggle>
-          <!-- <tab-item> -->
-          <button type="button"><label-view label="sss3" /></button>
-          <!-- </tab-item> -->
-        </sidebar-toggle>
+        <!-- <sidebar-toggle> -->
+        <!-- <tab-item> -->
+        <!-- <button type="button"><label-view label="sss3" /></button> -->
+        <!-- </tab-item> -->
+        <!-- </sidebar-toggle> -->
         <!-- <navigation-bar>
           <tool-bar-item slot="leading">
             <button type="button"><label-view label="leading" /></button>

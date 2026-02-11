@@ -2,18 +2,14 @@
 @use '../mixins';
 
 @mixin make-ipad-stoggle($selector) {
-  :where(#{$selector} [is='tab-bar'] > &) {
-    // position: sticky;
-    // left: 0;
-    // top: 0;
-    inline-size: fit-content;
-    order: -1;
-  }
-
-  :where(#{$selector} [is='tab-bar'][open] > &) {
+  :where(#{$selector} [is='tab-bar'] > [is='form-view'] > &) {
     position: sticky;
-    inset: 0 auto auto 0;
-    block-size: var(--navigation-bar-block-size);
+
+    left: 0;
+
+    backdrop-filter: blur(20px);
+    // inline-size: fit-content;
+    // order: -1;
   }
 
   :where(#{$selector} > &) {
@@ -22,11 +18,6 @@
 }
 
 @layer #{vars.$components-layer} {
-  :where(sidebar-toggle) {
-    place-items: center;
-    place-content: center;
-  }
-
   sidebar-toggle {
     @media (pointer: fine) {
       @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
@@ -40,10 +31,14 @@
       padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
 
       block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+
+      place-items: center;
+
+      place-content: center;
     }
 
     @include mixins.if-iphone-portrait {
-      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
         display: none;
       }
     }
@@ -53,13 +48,13 @@
     }
 
     @include mixins.if-iphone-landscape {
-      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &) {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &) {
         display: none;
       }
     }
 
     @include mixins.if-ipad-landscape {
-      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
         display: none;
       }
     }

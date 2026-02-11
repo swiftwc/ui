@@ -689,11 +689,13 @@
       </dialog>
 
       <dialog is="tab-bar">
-        <!-- <scroll-view> -->
         <form is="form-view">
-          <button is="tab-item" value="ns1" style="position: sticky; left: 0; backdrop-filter: blur(20px)">
-            <label-view system-image="sidebar" label="all" label-style="icon-only" />
-          </button>
+          <!-- add this for MORE fn on iPad -->
+          <sidebar-toggle>
+            <button type="button">
+              <label-view system-image="sidebar" label="sss3" label-style="icon-only" />
+            </button>
+          </sidebar-toggle>
           <button is="tab-item" value="ns1">
             <label-view system-image="smiley" label="all" label-style="icon-only" />
           </button>
@@ -791,13 +793,10 @@
             <label-view label="More" />
           </button>
         </form>
-        <!-- </scroll-view> -->
         <!-- add this for MORE fn on iPad -->
-        <sidebar-toggle>
-          <!-- <tab-item> -->
+        <!-- <sidebar-toggle>
           <button type="button"><label-view label="sss3" /></button>
-          <!-- </tab-item> -->
-        </sidebar-toggle>
+        </sidebar-toggle> -->
         <!-- <navigation-bar>
           <tool-bar-item slot="leading">
             <button type="button"><label-view label="leading" /></button>

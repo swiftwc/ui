@@ -527,7 +527,7 @@
   :where(tool-bar-item:has([disabled])) {
     pointer-events: none;
   }
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item]),
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item], [is=tab-bar] > [is=form-view] > button),
   :where(tool-bar-item menu-view)::part(menu-summary) {
     all: unset;
     display: grid;
@@ -546,14 +546,16 @@
   :where(sidebar-toggle button:not(:disabled):not([readonly]),
   tool-bar-item button:not(:disabled):not([readonly]),
   tool-bar-item input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly])):focus-visible {
+  [is=tab-item]:not(:disabled):not([readonly]),
+  [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):focus-visible {
     --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
     :where(sidebar-toggle button:not(:disabled):not([readonly]),
     tool-bar-item button:not(:disabled):not([readonly]),
     tool-bar-item input:not(:disabled):not([readonly]),
-    [is=tab-item]:not(:disabled):not([readonly])):hover {
+    [is=tab-item]:not(:disabled):not([readonly]),
+    [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):hover {
       --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
@@ -570,7 +572,8 @@
   :where(sidebar-toggle button:not(:disabled):not([readonly]),
   tool-bar-item button:not(:disabled):not([readonly]),
   tool-bar-item input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly])):active {
+  [is=tab-item]:not(:disabled):not([readonly]),
+  [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):active {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   :where(tool-bar-item menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
@@ -855,19 +858,11 @@
   }
 }
 @layer sw-components {
-  :where(sidebar-toggle) {
-    place-items: center;
-    place-content: center;
-  }
   @media (pointer: fine) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > sidebar-toggle) {
-      inline-size: fit-content;
-      order: -1;
-    }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar][open] > sidebar-toggle) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] > sidebar-toggle) {
       position: sticky;
-      inset: 0 auto auto 0;
-      block-size: var(--navigation-bar-block-size);
+      left: 0;
+      backdrop-filter: blur(20px);
     }
     :where(tab-view[tab-view-style=tab-bar-only] > sidebar-toggle) {
       display: none;
@@ -878,33 +873,31 @@
     inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0;
     padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
     block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+    place-items: center;
+    place-content: center;
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
       display: none;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle) {
-      inline-size: fit-content;
-      order: -1;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar][open] > sidebar-toggle) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle) {
       position: sticky;
-      inset: 0 auto auto 0;
-      block-size: var(--navigation-bar-block-size);
+      left: 0;
+      backdrop-filter: blur(20px);
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
       display: none;
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle) {
       display: none;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
       display: none;
     }
   }
@@ -1570,7 +1563,7 @@
       background-image: linear-gradient(to top, var(--canvas) 0, oklch(0% 0 0deg / 0) 100%);
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+      margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--iphone-tabbar-max-inline-size);
       block-size: var(--iphone-tabbar-block-size);
@@ -1605,7 +1598,7 @@
       inset: 0 0 auto 0;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      margin-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) 0;
+      margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--ipad-tabbar-max-inline-size);
       block-size: var(--ipad-tabbar-block-size);
@@ -1635,8 +1628,8 @@
     }
   }
   @media (pointer: fine) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=sidebar-view][open] ~ [is=tab-bar]) {
-      inset-block-start: calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1);
+    :where(tab-view[tab-view-style=tab-bar-only] [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
+      transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
     }
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
@@ -1660,7 +1653,7 @@
       background-image: linear-gradient(to top, var(--canvas) 0, oklch(0% 0 0deg / 0) 100%);
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+      margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--iphone-tabbar-max-inline-size);
       block-size: var(--iphone-tabbar-block-size);
@@ -1695,7 +1688,7 @@
       inset: 0 0 auto 0;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      margin-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) 0;
+      margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--ipad-tabbar-max-inline-size);
       block-size: var(--ipad-tabbar-block-size);
@@ -1724,12 +1717,17 @@
       transition: inset 150ms ease-out allow-discrete;
     }
   }
+  @media (min-width: 43rem) and (orientation: portrait) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
+      transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
+    }
+  }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       --tab-bar-width: 100lvw;
       inset: auto 0 0 0;
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])):before, :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])):after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):before, :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):after {
       backface-visibility: hidden;
       content: "";
       inset: 0;
@@ -1737,15 +1735,15 @@
       pointer-events: none;
       z-index: -1;
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])):before {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):before {
       backdrop-filter: blur(2px);
       mask-image: linear-gradient(to top, oklch(0% 0 0deg) 50%, oklch(0% 0 0deg / 0) 100%);
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])):after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):after {
       background-image: linear-gradient(to top, var(--canvas) 0, oklch(0% 0 0deg / 0) 100%);
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view]) {
-      margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
+      margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--iphone-tabbar-max-inline-size);
       block-size: var(--iphone-tabbar-block-size);
@@ -1755,7 +1753,7 @@
       box-shadow: var(--liquid-glass-box-shadow);
       overflow: clip;
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view])::after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
       content: "";
       display: block;
       position: absolute;
@@ -1770,17 +1768,22 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view])::after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
       transition: inset 150ms ease-out allow-discrete;
     }
   }
+  @media (max-width: 67.9999rem) and (orientation: landscape) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
+      transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) + 120%));
+    }
+  }
   @media (min-width: 68rem) and (orientation: landscape) {
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar])) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       --tab-bar-width: 100lvw;
       inset: 0 0 auto 0;
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view]) {
-      margin-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) 0;
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
+      margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
       margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--ipad-tabbar-max-inline-size);
       block-size: var(--ipad-tabbar-block-size);
@@ -1790,7 +1793,7 @@
       box-shadow: var(--liquid-glass-box-shadow);
       overflow: clip;
     }
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view])::after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
       content: "";
       display: block;
       position: absolute;
@@ -1805,29 +1808,25 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) and (prefers-reduced-motion: no-preference) {
-    :where(:where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) > [is=form-view])::after {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
       transition: inset 150ms ease-out allow-discrete;
     }
   }
-  @media (min-width: 43rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar]) {
-      inset-block-start: calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1);
-    }
-  }
   @media (min-width: 68rem) and (orientation: landscape) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) > [is=sidebar-view]) {
-      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
+      transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
+    }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
+      transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
     }
   }
-}
-@layer sw-tab-components {
   @media (pointer: coarse) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
       grid-auto-flow: column;
       grid-template-rows: minmax(0, 1fr);
       overflow: auto clip;
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] [is=tab-item]) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
     }
   }
@@ -1846,7 +1845,7 @@
       padding-block: 5px;
       padding-inline: 5px;
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] [is=tab-item]) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
     }
   }
@@ -1856,7 +1855,7 @@
       grid-template-rows: minmax(0, 1fr);
       overflow: auto clip;
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] [is=tab-item]) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
     }
   }
@@ -1875,8 +1874,13 @@
       padding-block: 5px;
       padding-inline: 5px;
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] [is=tab-item]) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
+    }
+  }
+  @media (min-width: 68rem) and (orientation: landscape) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) > [is=sidebar-view]) {
+      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
     }
   }
 }
@@ -2060,8 +2064,9 @@
 }
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
-    :where([is=tab-bar]) {
-      transition: inset var(--sidebar-transition-duration) ease-out allow-discrete;
+    :where([is=tab-bar] > [is=form-view]) {
+      transition: transform var(--sidebar-transition-duration) ease-out allow-discrete;
+      will-change: transform;
     }
   }
 }

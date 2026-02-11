@@ -32,64 +32,116 @@
   box-shadow: var(--liquid-glass-box-shadow);
 }
 
-@mixin make-iphone-tabbar {
-  :where(&) {
-    --tab-bar-width: 100lvw;
-
-    inset: auto 0 0 0;
-
-    @include mixins.make-toolbar-pseudos(top);
-  }
-
-  > [is='form-view'] {
+@mixin make-iphone-tabbar($selector) {
+  #{$selector} & {
     :where(&) {
-      margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+      --tab-bar-width: 100lvw;
 
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+      inset: auto 0 0 0;
 
-      max-inline-size: var(--iphone-tabbar-max-inline-size);
-      block-size: var(--iphone-tabbar-block-size);
+      @include mixins.make-toolbar-pseudos(top);
+    }
 
-      border-radius: var(--iphone-tabbar-border-radius);
+    > [is='form-view'] {
+      :where(&) {
+        margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
 
-      @include make-floating-tabbar;
+        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      overflow: clip;
+        max-inline-size: var(--iphone-tabbar-max-inline-size);
+        block-size: var(--iphone-tabbar-block-size);
 
-      @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+        border-radius: var(--iphone-tabbar-border-radius);
+
+        @include make-floating-tabbar;
+
+        overflow: clip;
+
+        @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+      }
     }
   }
 }
 
-@mixin make-ipad-tabbar2($selector) {
-  :where(#{$selector} [is='sidebar-view'][open] ~ &) {
-    inset-block-start: calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1);
+@mixin make-ipad-tabbar($selector) {
+  #{$selector} & {
+    :where(&) {
+      --tab-bar-width: 100lvw;
+
+      inset: 0 0 auto 0;
+    }
+
+    > [is='form-view'] {
+      :where(&) {
+        margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
+
+        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+
+        max-inline-size: var(--ipad-tabbar-max-inline-size);
+        block-size: var(--ipad-tabbar-block-size);
+
+        border-radius: var(--ipad-tabbar-border-radius);
+
+        @include make-floating-tabbar;
+
+        overflow: clip;
+
+        @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+      }
+    }
+  }
+
+  #{$selector} [is='sidebar-view'][open] ~ & > [is='form-view'] {
+    :where(&) {
+      transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
+    }
   }
 }
 
-@mixin make-ipad-tabbar {
-  :where(&) {
-    --tab-bar-width: 100lvw;
+@mixin make-iphone-tabbarstack {
+  & [is='tab-bar'] {
+    & > [is='form-view'] {
+      :where(&) {
+        grid-auto-flow: column;
+        grid-template-rows: minmax(0, 1fr);
 
-    inset: 0 0 auto 0;
+        overflow: auto clip;
+      }
+
+      :where(& button) {
+        min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
+      }
+    }
   }
+}
 
-  > [is='form-view'] {
-    :where(&) {
-      margin-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) 0;
+@mixin make-ipad-tabbarstack {
+  & [is='tab-bar'] {
+    & > [is='form-view'] {
+      :where(&) {
+        @include mixins.contain-overscroll;
 
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+        grid-auto-flow: column;
 
-      max-inline-size: var(--ipad-tabbar-max-inline-size);
-      block-size: var(--ipad-tabbar-block-size);
+        overflow: auto clip;
+      }
 
-      border-radius: var(--ipad-tabbar-border-radius);
+      :where(&) {
+        --label-line-limit: 1;
 
-      @include make-floating-tabbar;
+        --label-truncation-mode: tail;
 
-      overflow: clip;
+        // --label-style: title-and-icon;
+      }
 
-      @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+      :where(&) {
+        padding-block: 5px;
+        padding-inline: 5px;
+      }
+
+      :where(& button) {
+        min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
+      }
     }
   }
 }
@@ -126,53 +178,75 @@
       }
     }
 
-    tab-view[tab-view-style='tab-bar-only'] & {
-      @media (pointer: coarse) {
-        @include make-iphone-tabbar;
-      }
+    // ANCHOR
 
-      @media (pointer: fine) {
-        @include make-ipad-tabbar;
-      }
+    @media (pointer: coarse) {
+      @include make-iphone-tabbar("tab-view[tab-view-style='tab-bar-only']");
     }
 
     @media (pointer: fine) {
-      @include make-ipad-tabbar2("tab-view[tab-view-style='tab-bar-only']");
+      @include make-ipad-tabbar("tab-view[tab-view-style='tab-bar-only']");
     }
 
-    tab-view:not([tab-view-style='tab-bar-only']) & {
-      @include mixins.if-iphone-portrait {
-        @include make-iphone-tabbar;
-      }
+    // ANCHOR
 
-      @include mixins.if-ipad-portrait {
-        @include make-ipad-tabbar;
-      }
-
-      @include mixins.if-iphone-landscape {
-        :where(&) {
-          @include make-iphone-tabbar;
-        }
-      }
-
-      @include mixins.if-ipad-landscape {
-        :where(&) {
-          @include make-ipad-tabbar;
-        }
-      }
+    @include mixins.if-iphone-portrait {
+      @include make-iphone-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
     }
 
     @include mixins.if-ipad-portrait {
-      @include make-ipad-tabbar2("tab-view:not([tab-view-style='tab-bar-only'])");
+      @include make-ipad-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
+    }
+
+    // ANCHOR
+
+    @include mixins.if-iphone-landscape {
+      @include make-iphone-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
+
+      tab-view:not([tab-view-style='tab-bar-only']) & {
+        :where(& > [is='form-view']) {
+          transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) + 120%));
+        }
+      }
+    }
+
+    @include mixins.if-ipad-landscape {
+      @include make-ipad-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
+
+      tab-view:not([tab-view-style='tab-bar-only']) & {
+        :where(& > [is='form-view']) {
+          transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
+        }
+      }
     }
   }
 
-  [is='sidebar-view'] {
-    tab-view:not([tab-view-style='tab-bar-only']) > & {
-      @include mixins.if-ipad-landscape {
-        :where(&) {
-          margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
-        }
+  // ANCHOR
+
+  tab-view[tab-view-style='tab-bar-only'] {
+    @media (pointer: coarse) {
+      @include make-iphone-tabbarstack;
+    }
+
+    @media (pointer: fine) {
+      @include make-ipad-tabbarstack;
+    }
+  }
+
+  tab-view:not([tab-view-style='tab-bar-only']) {
+    @include mixins.if-iphone-portrait {
+      @include make-iphone-tabbarstack;
+    }
+
+    @include mixins.if-ipad-portrait {
+      @include make-ipad-tabbarstack;
+    }
+  }
+
+  @include mixins.if-ipad-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) > [is='sidebar-view'] {
+      :where(&) {
+        margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
       }
     }
   }

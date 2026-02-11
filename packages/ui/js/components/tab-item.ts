@@ -51,7 +51,16 @@ export class TabItem extends ButtonBase {
   static #handleTabReveal = async (el: HTMLButtonElement, event: CustomEvent<TabRevealDetail>) => {
     await Snapshot.waitReady
 
-    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', '--tab-view-selection')
+    if (event.detail?.tag === el.value)
+      el.scrollIntoView({
+        behavior: 'smooth',
+        block: 'nearest',
+        inline: 'nearest',
+      })
+
+    const type = el.closest('[is=sidebar-view]') ? 'sidebar' : 'tabbar'
+
+    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', `--tab-view-${type}-selection`)
     else el.style.removeProperty('anchor-name')
   }
 
@@ -59,12 +68,6 @@ export class TabItem extends ButtonBase {
     console.debug(`${TabItem.name} ⚡️ click`)
 
     const tabItem = event.currentTarget as HTMLElement
-
-    tabItem.scrollIntoView({
-      behavior: 'smooth',
-      block: 'center',
-      inline: 'nearest',
-    })
 
     const tag = tabItem.getAttribute('value')
     if (!tag) return // sidebartoggle > tab-item //throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')

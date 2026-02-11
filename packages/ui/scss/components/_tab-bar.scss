@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@mixin make-pseudo-tracking-thumb {
+@mixin make-pseudo-tracking-thumb($anchor-name) {
   &::after {
     content: '';
     display: block;
@@ -9,9 +9,9 @@
     background-color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
 
-    position-anchor: --tab-view-selection;
+    position-anchor: #{$anchor-name};
     // position-area: center;
-    inset: anchor(--tab-view-selection top) auto auto anchor(--tab-view-selection left);
+    inset: anchor(#{$anchor-name} top) auto auto anchor(#{$anchor-name} left);
 
     inline-size: anchor-size();
     block-size: anchor-size();
@@ -57,7 +57,7 @@
 
         overflow: clip;
 
-        @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+        @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
       }
     }
   }
@@ -86,7 +86,9 @@
 
         overflow: clip;
 
-        @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+        @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+
+        scroll-padding-left: var(--sidebar-toggle-padding-inline-start, 0px);
       }
     }
   }
@@ -241,6 +243,10 @@
     @include mixins.if-ipad-portrait {
       @include make-ipad-tabbarstack;
     }
+  }
+
+  tab-view > [is='sidebar-view'] > scroll-view {
+    @include make-pseudo-tracking-thumb(--tab-view-sidebar-selection); // NOTE: before is already taken!
   }
 
   @include mixins.if-ipad-landscape {

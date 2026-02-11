@@ -60,13 +60,13 @@ export class SidebarToggle extends HTMLElement {
   static #handleMeasure(entry?: ResizeObserverEntry) {
     console.debug(`${SidebarToggle.name} ⚡️ measure`)
 
-    const target = entry?.target
+    const target = entry?.target as HTMLElement
 
     // set/remove css var/prop to parent based on shown/hidden
     // for (const { target } of entries) {
 
     const tv = target?.parentElement,
-      width = (target as HTMLElement)?.offsetWidth ?? 0
+      width = target?.offsetWidth ?? 0
 
     // const gapProp =
     //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
@@ -77,7 +77,7 @@ export class SidebarToggle extends HTMLElement {
 
     // auto close IF open
     // for (const { target } of entries) {
-    const { container, sideBar } = SidebarToggle.query(target as HTMLElement) //target?.closest('navigation-split-view,tab-view')
+    const { container, sideBar } = SidebarToggle.query(target) //target?.closest('navigation-split-view,tab-view')
 
     // const sideBar = container?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
 

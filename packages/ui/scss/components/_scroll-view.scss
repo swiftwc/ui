@@ -16,6 +16,10 @@
   // [is='tab-bar-stack'], {
   scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
   scroll-view:has(> [slot^='navigation-bar']) {
+    :where(&) {
+      scroll-padding-top: var(--navigation-bar-block-size);
+    }
+
     :where(& > *:not([slot])) {
       // margin-block-start: var(--navigation-bar-block-size);
     }
@@ -23,6 +27,10 @@
 
   scroll-view:has(~ tool-bar > [slot^='bottom-bar']),
   scroll-view:has(> [slot^='bottom-bar']) {
+    :where(&) {
+      scroll-padding-bottom: var(--tool-bar-block-size);
+    }
+
     :where(& > *:not([slot])) {
       margin-block-end: var(--tool-bar-block-size);
     }

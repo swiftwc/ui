@@ -19,22 +19,33 @@
 
 @layer #{vars.$components-layer} {
   sidebar-toggle {
-    @media (pointer: fine) {
-      @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
+    tab-view:not([tab-view-style='tab-bar-only']) > &, // this is landscape toggle
+    navigation-split-view > & {
+      :where(&) {
+        position: fixed;
+
+        inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
+
+        padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+
+        block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+
+        // place-items: center;
+
+        place-content: center;
+
+        grid-template-rows: var(--toolbar-cell-min-size);
+      }
+
+      :where(& > *) {
+        min-inline-size: var(--toolbar-cell-min-size);
+      }
     }
 
-    :where(tab-view:not([tab-view-style='tab-bar-only']) > &), // this is landscape toggle
-    :where(navigation-split-view > &) {
-      position: fixed;
+    // ANCHOR: TABVIEW
 
-      inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
-      padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
-
-      block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
-
-      place-items: center;
-
-      place-content: center;
+    @media (pointer: fine) {
+      @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
     }
 
     @include mixins.if-iphone-portrait {
@@ -58,6 +69,8 @@
         display: none;
       }
     }
+
+    // ANCHOR: NSPLITVIEW
 
     @include mixins.ifnot-2col-split-view-fits {
       :where(navigation-split-view > &) {

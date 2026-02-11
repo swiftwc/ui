@@ -34,8 +34,6 @@
     :where(&)::part(bottom-bar) {
       position: relative; // SAFARI BUG
 
-      // background-color: blue;
-
       padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
       pointer-events: none;
 
@@ -47,19 +45,6 @@
 
       // place-items: center;
       place-content: center; // middle of y axis
-
-      /* > * {
-      pointer-events: all;
-
-      // grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
-      // grid-template-rows: minmax(0, 1fr);
-
-      // align-self: center;
-
-      min-height: var(--toolbar-cell-min-size);
-      min-width: var(--toolbar-cell-min-size);
-      // height: 40px;
-    } */
     }
 
     :where(&)::part(navigation-bar) {
@@ -70,7 +55,6 @@
       //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
       //   );
 
-      // inset: 0 0 auto 0;
       grid-area: navigation-bar;
 
       block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
@@ -86,9 +70,7 @@
       //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
       //   );
 
-      // inset: auto 0 0 0;
       grid-area: bottom-bar;
-      // background-color: blue;
 
       block-size: calc(var(--safe-area-inset-bottom) + var(--tool-bar-block-size));
 
@@ -110,19 +92,16 @@
       :where([is='sheet-view'] &)::part(navigation-bar),
       :where([is='sheet-view'] &)::part(bottom-bar) {
         --safe-area-inset-left: 0px;
+
         --safe-area-inset-right: 0px;
-        // padding-inline: 0;
       }
 
       :where([is='sheet-view'] &)::part(navigation-bar) {
         --safe-area-inset-top: 0px;
-        // padding-block-start: 0;
-        // height: var(--navigation-bar-block-size);
       }
 
       :where([is='sheet-view'] &)::part(bottom-bar) {
         --safe-area-inset-bottom: 0px;
-        // padding-block-end: 0;
       }
     }
   }

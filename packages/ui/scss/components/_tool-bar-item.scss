@@ -33,7 +33,7 @@
     }
   }
 
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item'], [is='tab-bar'] > [is='form-view'] > button),
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item']),
   :where(tool-bar-item menu-view)::part(menu-summary) {
     // display: grid;
     // place-items: center;
@@ -99,8 +99,7 @@
   sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
-  [is='tab-item'],
-  [is='tab-bar'] > [is='form-view'] > button {
+  [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
       :where(&):focus-visible {
         --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
@@ -134,8 +133,7 @@
   sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
-  [is='tab-item'],
-  [is='tab-bar'] > [is='form-view'] > button {
+  [is='tab-item'] {
     &:not(:disabled):not([readonly]) {
       :where(&):active {
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));

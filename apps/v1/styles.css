@@ -527,7 +527,7 @@
   :where(tool-bar-item:has([disabled])) {
     pointer-events: none;
   }
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item], [is=tab-bar] > [is=form-view] > button),
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item]),
   :where(tool-bar-item menu-view)::part(menu-summary) {
     all: unset;
     display: grid;
@@ -546,16 +546,14 @@
   :where(sidebar-toggle button:not(:disabled):not([readonly]),
   tool-bar-item button:not(:disabled):not([readonly]),
   tool-bar-item input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly]),
-  [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):focus-visible {
+  [is=tab-item]:not(:disabled):not([readonly])):focus-visible {
     --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
     :where(sidebar-toggle button:not(:disabled):not([readonly]),
     tool-bar-item button:not(:disabled):not([readonly]),
     tool-bar-item input:not(:disabled):not([readonly]),
-    [is=tab-item]:not(:disabled):not([readonly]),
-    [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):hover {
+    [is=tab-item]:not(:disabled):not([readonly])):hover {
       --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
@@ -572,8 +570,7 @@
   :where(sidebar-toggle button:not(:disabled):not([readonly]),
   tool-bar-item button:not(:disabled):not([readonly]),
   tool-bar-item input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly]),
-  [is=tab-bar] > [is=form-view] > button:not(:disabled):not([readonly])):active {
+  [is=tab-item]:not(:disabled):not([readonly])):active {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   :where(tool-bar-item menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
@@ -631,18 +628,6 @@
     column-gap: var(--toolbar-col-gap);
     grid-template-rows: var(--toolbar-cell-min-size);
     place-content: center;
-    /* > * {
-      pointer-events: all;
-
-      // grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
-      // grid-template-rows: minmax(0, 1fr);
-
-      // align-self: center;
-
-      min-height: var(--toolbar-cell-min-size);
-      min-width: var(--toolbar-cell-min-size);
-      // height: 40px;
-    } */
   }
   :where(tool-bar)::part(navigation-bar) {
     grid-area: navigation-bar;
@@ -858,6 +843,17 @@
   }
 }
 @layer sw-components {
+  :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle, navigation-split-view > sidebar-toggle) {
+    position: fixed;
+    inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0;
+    padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+    block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+    place-content: center;
+    grid-template-rows: var(--toolbar-cell-min-size);
+  }
+  :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle > *, navigation-split-view > sidebar-toggle > *) {
+    min-inline-size: var(--toolbar-cell-min-size);
+  }
   @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] > sidebar-toggle) {
       position: sticky;
@@ -867,14 +863,6 @@
     :where(tab-view[tab-view-style=tab-bar-only] > sidebar-toggle) {
       display: none;
     }
-  }
-  :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle), :where(navigation-split-view > sidebar-toggle) {
-    position: fixed;
-    inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0;
-    padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
-    block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
-    place-items: center;
-    place-content: center;
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {

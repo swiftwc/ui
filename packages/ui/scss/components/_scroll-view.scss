@@ -31,7 +31,7 @@
 
   navigation-stack > scroll-view,
   navigation-split-view > scroll-view,
-  navigation-split-view > [is='sidebar-view'] > scroll-view,
+  [is='sidebar-view'] > scroll-view,
   body-view > scroll-view,
   [is='full-screen'] > scroll-view,
   [is='sheet-view'] > scroll-view {

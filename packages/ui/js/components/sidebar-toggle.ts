@@ -49,6 +49,13 @@ export class SidebarToggle extends HTMLElement {
     this.removeEventListener('click', this.#handleClick)
   }
 
+  private static query(target?: HTMLElement) {
+    const container = target?.closest('navigation-split-view,tab-view'),
+      sideBar = container?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
+
+    return { container, sideBar }
+  }
+
   // This triggers on show/hide of any of sidebar-toggle elements
   static #handleMeasure(entry?: ResizeObserverEntry) {
     console.debug(`${SidebarToggle.name} ⚡️ measure`)
@@ -70,36 +77,42 @@ export class SidebarToggle extends HTMLElement {
 
     // auto close IF open
     // for (const { target } of entries) {
-    const lm = target?.closest('navigation-split-view,tab-view')
+    const { container, sideBar } = SidebarToggle.query(target as HTMLElement) //target?.closest('navigation-split-view,tab-view')
 
-    switch (lm?.tagName) {
+    // const sideBar = container?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
+
+    if (!sideBar?.open) return
+
+    switch (container?.tagName) {
       case 'NAVIGATION-SPLIT-VIEW':
-        const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
+        // const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
 
-        if (!sideBar?.open) return
+        // if (!sideBar?.open) return
 
         if (0 < (target as HTMLElement).offsetWidth && 0 < (target as HTMLElement).offsetHeight) return
 
-        sideBar?.close?.()
+        // sideBar?.close?.()
 
         break
       case 'TAB-VIEW':
-        const tabBar = lm.querySelector<HTMLDialogElement>(':scope > dialog[is=tab-bar]')
+        // const tabBar = container.querySelector<HTMLDialogElement>(':scope > dialog[is=tab-bar]')
 
-        if (!tabBar?.open) return
+        // if (!tabBar?.open) return
 
         // scan all toggles for anyone that is visible, sign that sidebar should stay open
         if (
-          [...lm.querySelectorAll<HTMLElement>(':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle')].some(
+          [...container.querySelectorAll<HTMLElement>(':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle')].some(
             ({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight
           )
         )
           return
 
-        tabBar?.close?.()
+        //tabBar?.close?.()
 
         break
     }
+
+    sideBar?.close?.()
     // }
   }
 
@@ -114,11 +127,16 @@ export class SidebarToggle extends HTMLElement {
 
     if (!target?.closest('button')) return
 
-    const lm = target?.closest('tab-view,navigation-split-view')
+    const { sideBar } = SidebarToggle.query(target as HTMLElement)
 
-    const dialog = 'TAB-VIEW' === lm?.tagName ? lm.querySelector<TabBar>('dialog[is="tab-bar"]') : lm?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
+    // const container = target?.closest('tab-view,navigation-split-view')
 
-    if (!dialog?.open) dialog?.showModal()
-    else dialog.close()
+    // const dialog =
+    //   'TAB-VIEW' === container?.tagName
+    //     ? container.querySelector<TabBar>('dialog[is="tab-bar"]')
+    //     : container?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
+
+    if (!sideBar?.open) sideBar?.showModal()
+    else sideBar.close()
   }
 }

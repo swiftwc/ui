@@ -9,10 +9,10 @@
           @include mixins.if-3col-split-view-fits {
             > [is='sidebar-view'] {
               :where(&) {
-                transition:
-                  filter var(--touchglass-transition-duration) allow-discrete ease-out,
-                  transform var(--touchglass-transition-duration) allow-discrete ease-out;
-                will-change: filter, transform;
+                // transition:
+                //   filter var(--touchglass-transition-duration) allow-discrete ease-out,
+                //   transform var(--touchglass-transition-duration) allow-discrete ease-out;
+                // will-change: filter, transform;
               }
             }
           }

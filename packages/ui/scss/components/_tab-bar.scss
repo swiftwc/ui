@@ -18,6 +18,8 @@
 
     border-radius: var(--pill-border-radius);
 
+    z-index: -1;
+
     @media (prefers-reduced-motion: no-preference) {
       transition: inset 150ms ease-out allow-discrete; //FIXME:
     }
@@ -32,36 +34,14 @@
 
 @mixin make-iphone-tabbar {
   :where(&) {
-    // max-width: var(--iphone-tabbar-max-inline-size);
-    // height: var(--iphone-tabbar-block-size);
-    // left: 50%;
-    // border-radius: var(--iphone-tabbar-border-radius);
-
-    inset: auto 0 0 0;
     --tab-bar-width: 100lvw;
 
-    place-content: center;
-    //
-    grid-auto-flow: column;
-
-    pointer-events: none;
+    inset: auto 0 0 0;
 
     @include mixins.make-toolbar-pseudos(top);
   }
 
-  &:not([open]) {
-    & > scroll-view {
-      :where(&)::part(scroll-view-navbar),
-      :where(&)::part(scroll-view-toolbar),
-      :where(& ~ tool-bar) {
-        display: none;
-      }
-    }
-  }
-
-  // box-shadow: inset 0 0 0 3px blue;
-
-  > scroll-view {
+  > [is='form-view'] {
     :where(&) {
       margin-block: 0 max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
 
@@ -76,102 +56,40 @@
 
       overflow: clip;
 
-      pointer-events: all;
-
       @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
     }
   }
 }
 
+@mixin make-ipad-tabbar2($selector) {
+  :where(#{$selector} [is='sidebar-view'][open] ~ &) {
+    inset-block-start: calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1);
+  }
+}
+
 @mixin make-ipad-tabbar {
   :where(&) {
-    --tab-bar-width: var(--ipad-tabbar-inline-size);
-    --tab-bar-height: var(--ipad-tabbar-block-size);
+    --tab-bar-width: 100lvw;
 
-    inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto auto 50%;
-    --tab-bar-translate: translateX(-50%);
-
-    @include make-floating-tabbar;
-
-    @include mixins.make-backdrop-transitionable;
-
-    border-radius: var(--ipad-tabbar-border-radius);
-
-    grid-auto-flow: column;
+    inset: 0 0 auto 0;
   }
 
-  :where(& > scroll-view) {
-    @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
-  }
-
-  &:not([open]) {
-    & > scroll-view {
-      :where(&)::part(scroll-view-navbar),
-      :where(&)::part(scroll-view-toolbar),
-      :where(& ~ tool-bar) {
-        display: none;
-      }
-    }
-  }
-
-  &[open] {
-    @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
-
+  > [is='form-view'] {
     :where(&) {
-      // @include mixins.make-toolbar-pseudos;
+      margin-block: max(var(--safe-area-inset-top), var(--sidebar-spacing)) 0;
 
-      inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
-        max(var(--safe-area-inset-left), var(--sidebar-spacing));
+      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      --tab-bar-height: auto; // override topbar
-      --tab-bar-translate: translateX(0);
-      --tab-bar-width: var(--sidebar-inline-size);
+      max-inline-size: var(--ipad-tabbar-max-inline-size);
+      block-size: var(--ipad-tabbar-block-size);
 
-      border-radius: var(--sidebar-border-radius);
+      border-radius: var(--ipad-tabbar-border-radius);
 
-      grid-auto-flow: row;
-    }
+      @include make-floating-tabbar;
 
-    :where(& > *) {
-      @include mixins.span-all;
+      overflow: clip;
 
-      //????
-      --safe-area-inset-top: 0px !important; // reset navbar > span
-      --safe-area-inset-bottom: 0px !important; // reset navbar > span
-    }
-
-    > scroll-view {
-      :where(&) {
-        @include mixins.create-v-scroll-view;
-
-        // this scroll-view does not apply bg-color per others on spec (ommited)
-        // SECTION: Make room for fixed togle
-        // make it opaque for navbars!
-        // --canvas: oklch(var(--sidebar-bg-lch) / 1);
-      }
-
-      // re-apply width for dialog too (not dialog by default)
-      :where(&)::part(scroll-view-navbar-stack) {
-        &::before {
-          inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--sidebar-toggle-padding-inline-start, 0px));
-        }
-      }
-
-      // move ONLY navbar to the side
-      :where(& ~ tool-bar)::part(navigation-bar) {
-        --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px); // reset navbar > span
-      }
-
-      // force navbar visibility bc/ of sidebartoggle shown
-      &:has(~ sidebar-toggle) {
-        :where(&)::part(scroll-view-navbar) {
-          visibility: visible;
-        }
-
-        :where(&) {
-          grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
-        }
-      }
+      @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
     }
   }
 }
@@ -182,32 +100,30 @@
       @include mixins.reset-dialog;
 
       // dowh
-      overflow: clip;
+      // overflow: clip;
       inline-size: var(--tab-bar-width,);
       block-size: var(--tab-bar-height,);
 
       position: fixed; // show always
 
-      --tab-bar-width: fit-content;
-      --tab-bar-height: auto;
-
-      // background: #ffffff9e;
-      // backdrop-filter: blur(4px);
-
-      // box-shadow:
-      //   0 0 0 1px #fff inset,
-      //   0px 0px 4px 2px #0000001c;
-
       transform: var(--tab-bar-translate,) var(--tab-bar-scale,);
 
-      // transition: all var(--sidebar-transition-duration) ease-out allow-discrete;
+      grid-auto-flow: column;
+
+      place-content: center;
 
       touch-action: none; // important for backdrop pans!
 
-      // navigation-bar,
-      // bottom-bar {
-      //   padding-inline: 0;
-      // }
+      pointer-events: none;
+
+      --tab-bar-width: fit-content;
+      --tab-bar-height: auto;
+    }
+
+    > [is='form-view'] {
+      :where(&) {
+        pointer-events: all;
+      }
     }
 
     tab-view[tab-view-style='tab-bar-only'] & {
@@ -218,6 +134,10 @@
       @media (pointer: fine) {
         @include make-ipad-tabbar;
       }
+    }
+
+    @media (pointer: fine) {
+      @include make-ipad-tabbar2("tab-view[tab-view-style='tab-bar-only']");
     }
 
     tab-view:not([tab-view-style='tab-bar-only']) & {
@@ -231,78 +151,27 @@
 
       @include mixins.if-iphone-landscape {
         :where(&) {
-          inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing)) -100%;
-
-          --tab-bar-width: var(--sidebar-inline-size);
-
-          border-radius: var(--sidebar-border-radius);
-
-          @include make-floating-tabbar;
-
-          @include mixins.make-backdrop-transitionable;
-        }
-
-        &[open] {
-          @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
-
-          :where(&) {
-            left: max(var(--safe-area-inset-left), var(--sidebar-spacing));
-
-            #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px !important; // override tab-view prop
-          }
-
-          :where(& > *) {
-            @include mixins.span-all;
-          }
-
-          :where(& > scroll-view) {
-            @include mixins.create-v-scroll-view;
-
-            // --canvas: oklch(var(--sidebar-bg-lch) / 1);
-
-            @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
-          }
-
-          :where(& > tool-bar) {
-            --safe-area-inset-left: 0px;
-            --safe-area-inset-right: 0px;
-          }
+          @include make-iphone-tabbar;
         }
       }
 
       @include mixins.if-ipad-landscape {
         :where(&) {
-          // grid-area: aside;
-          // position: relative;
-          // margin: 10px;
-          // height: 100svh;
-          inset: max(var(--safe-area-inset-top), var(--sidebar-spacing)) auto max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
-            max(var(--safe-area-inset-left), var(--sidebar-spacing));
-
-          --tab-bar-width: var(--sidebar-inline-size);
-
-          @include make-floating-tabbar;
-
-          // max-height: calc(
-          //   var(--100lvh, 100lvh) - max(
-          //       var(--safe-area-inset-top),
-          //       var(--sidebar-spacing)
-          //     ) - max(var(--safe-area-inset-bottom), var(--sidebar-spacing))
-          // );
-
-          border-radius: var(--sidebar-border-radius);
-
-          overflow: clip;
+          @include make-ipad-tabbar;
         }
+      }
+    }
 
-        :where(& > *) {
-          @include mixins.span-all;
-        }
+    @include mixins.if-ipad-portrait {
+      @include make-ipad-tabbar2("tab-view:not([tab-view-style='tab-bar-only'])");
+    }
+  }
 
-        :where(& > scroll-view) {
-          @include mixins.create-v-scroll-view;
-
-          @include make-pseudo-tracking-thumb; // NOTE: before is already taken!
+  [is='sidebar-view'] {
+    tab-view:not([tab-view-style='tab-bar-only']) > & {
+      @include mixins.if-ipad-landscape {
+        :where(&) {
+          margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
         }
       }
     }

@@ -20,19 +20,17 @@
 // }
 
 @mixin set-label-style($value) {
-  @supports not (x: #{string.unquote('if(else:red)')}) {
-    @if $value == 'title-and-icon' {
-      --label--grid-template-columns: auto minmax(0, 1fr);
+  @if $value == 'title-and-icon' {
+    --label--grid-template-columns: auto minmax(0, 1fr);
 
-      --label--gap: 0.3rem;
+    --label--gap: 0.3rem;
 
-      --label--iconstack-display: grid;
-      --label--titlestack-display: grid;
-    } @else if $value == 'icon-only' {
-      --label--iconstack-display: grid;
-    } @else if $value == 'title-only' {
-      --label--titlestack-display: grid;
-    }
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
+  } @else if $value == 'icon-only' {
+    --label--iconstack-display: grid;
+  } @else if $value == 'title-only' {
+    --label--titlestack-display: grid;
   }
 }
 
@@ -138,13 +136,20 @@
         --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
 
         // ANCHOR: label-style
+        --label--grid-template-columns: if(
+          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
+            minmax(0, 1fr) ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
+        );
+
+        --label--gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): 0.3rem ;) ;);
+
         --label--iconstack-display: if(
           style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
-            style(--label-style: title-and-icon): grid ; else: if(style(--label-has-icon: yes): grid ; else: none;) ;
+            else: if(style(--label-has-icon: yes): grid ; else: none;) ;
         );
         --label--titlestack-display: if(
           style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
-            style(--label-has-title: yes): grid ; else: if(style(--label-has-title: yes): grid ; else: none;) ;
+            else: if(style(--label-has-title: yes): grid ; else: none;) ;
         );
       }
     }

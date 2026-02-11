@@ -65,7 +65,7 @@
       grid-template-rows: subgrid; // inherits rows if needed
     }
 
-    :where(& > *) {
+    :where(& > navigation-stack, & > navigation-split-view) {
       transform: scale(1);
       transform-origin: bottom;
       transition: transform 100ms ease-out allow-discrete;
@@ -74,8 +74,14 @@
       }
     }
 
-    :where(& > [hidden]) {
+    :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
       z-index: -1;
+    }
+
+    :where(& > [is='sidebar-view']) {
+      @include mixins.make-floating-sidebar;
+
+      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1); // hide off screen
     }
   }
 

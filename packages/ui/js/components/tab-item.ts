@@ -30,6 +30,8 @@ export class TabItem extends ButtonBase {
   static polyfillConnectedCallback(el: TabItem) {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
+    el.tabIndex = 0
+
     Snapshot.waitReady.then(() => {
       el.addEventListener('click', TabItem.#handleClick)
 

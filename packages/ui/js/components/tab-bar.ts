@@ -31,6 +31,28 @@ export class TabBar extends DialogBase {
 
     el.addEventListener('click', TabBar.#handleClick)
 
+    // console.log(99, el)
+    // el.querySelector(':scope > scroll-view').addEventListener('scroll', (event) => {
+    //   // console.log(999)
+    //   event.currentTarget.classList.add('js-scrolling')
+    //   // if (!['left', 'top'].includes(event.propertyName)) return
+    //   // if ('::after' !== event.pseudoElement) return
+
+    //   event.currentTarget.addEventListener('transitionend', (event) => {
+    //     console.log(999)
+    //   })
+
+    //   // event.target.closest('scroll-view').classList.add('js-touched')
+    // })
+    // el.addEventListener('transitionend', (event) => {
+    //   if (!['left', 'top'].includes(event.propertyName)) return
+    //   if ('::after' !== event.pseudoElement) return
+
+    //   event.target.closest('scroll-view').classList.remove('js-touched')
+
+    //   console.log(999, event.propertyName, event.pseudoElement)
+    // })
+
     const { on } = touchGlass(
       el,
       (t) => t,

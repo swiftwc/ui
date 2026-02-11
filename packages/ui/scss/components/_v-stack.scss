@@ -7,6 +7,19 @@
       grid-template-columns: minmax(0, 1fr);
 
       place-content: center;
+
+      :where(&[frame-alignment='leading']) {
+        align-self: start;
+      }
+      :where(&[frame-alignment='center']) {
+        align-self: center;
+      }
+      :where(&[frame-alignment='trailing']) {
+        align-self: end;
+      }
+      :where(&[alignment='stretch']) {
+        place-items: stretch;
+      }
     }
   }
 }

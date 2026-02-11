@@ -82,27 +82,32 @@ export class DisclosureGroup extends DetailsBase {
   //   if (wasOpen) el.open = false
   // }
 
-  // static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
-  //   console.debug(`${DisclosureGroup.name} ⚡️ [${attributeName}] change ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
+    console.debug(`${DisclosureGroup.name} ⚡️ [${attributeName}] change ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-  //   switch (attributeName) {
-  //     case 'open':
-  //       const node = target as HTMLDetailsElement
+    if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
-  //       node.classList.remove(Snapshot.config!['disclosure-group-animation-close-class'])
+    switch (attributeName) {
+      case 'open':
+        const node = target as HTMLDetailsElement
 
-  //       if (node.open) {
-  //         // console.log(999, node.querySelector('summary')!.offsetHeight, node.getBoundingClientRect().height)
-  //         observers.observe(node, DisclosureGroup.#handleMeasure)
-  //       } else {
-  //         observers.unobserve(node)
+        for (const el of node.querySelectorAll<HTMLElement>(':scope > *:not(summary)')) el.inert = !node.open
+        //       const node = target as HTMLDetailsElement
 
-  //         node?.style?.removeProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'])
-  //       }
+        //       node.classList.remove(Snapshot.config!['disclosure-group-animation-close-class'])
 
-  //       break
-  //   }
-  // }
+        //       if (node.open) {
+        //         // console.log(999, node.querySelector('summary')!.offsetHeight, node.getBoundingClientRect().height)
+        //         observers.observe(node, DisclosureGroup.#handleMeasure)
+        //       } else {
+        //         observers.unobserve(node)
+
+        //         node?.style?.removeProperty?.(Snapshot.config!['disclosure-group-contents-height-css-prop'])
+        //       }
+
+        break
+    }
+  }
 
   // static #handleMeasure({ contentRect, target }: ResizeObserverEntry) {
   //   console.debug(`${DisclosureGroup.name} ⚡️ measure`)

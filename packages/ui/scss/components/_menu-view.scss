@@ -75,5 +75,7 @@
         max-block-size: anchor-size();
       }
     }
+
+    @extend %list-item;
   }
 }

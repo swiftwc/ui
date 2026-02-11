@@ -42,6 +42,12 @@
       }
     }
 
+    @include mixins.if-ipad-portrait {
+      tab-view navigation-split-view > & {
+        inset-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-block-size));
+      }
+    }
+
     // ANCHOR: TABVIEW
 
     @media (pointer: fine) {

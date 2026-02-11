@@ -33,7 +33,7 @@
     }
   }
 
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item']),
+  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item'], list-view button, [is='disclosure-group'] summary),
   :where(tool-bar-item menu-view)::part(menu-summary) {
     // display: grid;
     // place-items: center;
@@ -99,7 +99,9 @@
   sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
-  [is='tab-item'] {
+  [is='tab-item'],
+  list-view button,
+  [is='disclosure-group'] summary {
     &:not(:disabled):not([readonly]) {
       :where(&):focus-visible {
         --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
@@ -133,7 +135,9 @@
   sidebar-toggle button,
   tool-bar-item button,
   tool-bar-item input,
-  [is='tab-item'] {
+  [is='tab-item'],
+  list-view button,
+  [is='disclosure-group'] summary {
     &:not(:disabled):not([readonly]) {
       :where(&):active {
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));

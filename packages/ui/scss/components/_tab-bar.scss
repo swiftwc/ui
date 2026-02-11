@@ -202,25 +202,33 @@
 
     // ANCHOR
 
-    @include mixins.if-iphone-landscape {
-      @include make-iphone-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
-
+    @media (orientation: landscape) {
       tab-view:not([tab-view-style='tab-bar-only']) & {
-        :where(& > [is='form-view']) {
-          transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) + 120%));
+        :where(&) {
+          display: none; // visibility: collapse;
         }
       }
     }
 
-    @include mixins.if-ipad-landscape {
-      @include make-ipad-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
+    // @include mixins.if-iphone-landscape {
+    //   @include make-iphone-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
 
-      tab-view:not([tab-view-style='tab-bar-only']) & {
-        :where(& > [is='form-view']) {
-          transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
-        }
-      }
-    }
+    //   tab-view:not([tab-view-style='tab-bar-only']) & {
+    //     :where(& > [is='form-view']) {
+    //       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) + 120%));
+    //     }
+    //   }
+    // }
+
+    // @include mixins.if-ipad-landscape {
+    //   @include make-ipad-tabbar("tab-view:not([tab-view-style='tab-bar-only'])");
+
+    //   tab-view:not([tab-view-style='tab-bar-only']) & {
+    //     :where(& > [is='form-view']) {
+    //       transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
+    //     }
+    //   }
+    // }
   }
 
   // ANCHOR

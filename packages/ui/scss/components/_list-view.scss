@@ -3,7 +3,7 @@
 
 @layer #{vars.$components-layer} {
   list-view {
-    display: grid;
+    @extend %list-view;
 
     :where(& > *) {
       // display: grid;

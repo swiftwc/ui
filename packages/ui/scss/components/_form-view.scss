@@ -2,8 +2,8 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  form-view {
-    display: grid;
+  [is='form-view'] {
+    @extend %list-view;
 
     :where(& > *) {
       // display: grid;

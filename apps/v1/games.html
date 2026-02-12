@@ -157,6 +157,31 @@
         </tool-bar-item>
       </sidebar-toggle>
 
+      <dialog is="sidebar-view">
+        <scroll-view>
+          <v-stack>
+            <form is="form-view">
+              <button is="tab-item" value="home">
+                <label-view label="Home" />
+              </button>
+              <button is="tab-item" value="library">
+                <label-view label="Library" />
+              </button>
+            </form>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <sidebar-toggle slot="navigation-bar-leading">
+            <tool-bar-item>
+              <button type="button">
+                <label-view system-image="sidebar" />
+              </button>
+            </tool-bar-item>
+          </sidebar-toggle>
+        </tool-bar>
+      </dialog>
+
       <dialog is="tab-bar">
         <form is="form-view">
           <button is="tab-item" value="home">
@@ -167,13 +192,11 @@
           </button>
         </form>
 
-        <sidebar-toggle>
-          <!-- <tab-item> -->
+        <!-- <sidebar-toggle>
           <button type="button">
             <label-view system-image="sidebar" />
           </button>
-          <!-- </tab-item> -->
-        </sidebar-toggle>
+        </sidebar-toggle> -->
       </dialog>
     </tab-view>
 

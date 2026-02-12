@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @mixin make-pseudo-tracking-thumb($anchor-name) {
-  &::after {
+  :where(&)::after {
     content: '';
     display: block;
     position: absolute;
@@ -19,10 +19,6 @@
     border-radius: var(--pill-border-radius);
 
     z-index: -1;
-
-    @media (prefers-reduced-motion: no-preference) {
-      transition: inset 150ms ease-out allow-discrete; //FIXME:
-    }
   }
 }
 
@@ -46,18 +42,28 @@
       :where(&) {
         margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
 
-        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
-
         max-inline-size: var(--iphone-tabbar-max-inline-size);
         block-size: var(--iphone-tabbar-block-size);
 
         border-radius: var(--iphone-tabbar-border-radius);
 
-        @include make-floating-tabbar;
+        // @include make-floating-tabbar;
 
-        overflow: clip;
+        // overflow: clip;
 
-        @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+        padding-block: var(--iphone-tabbar-block-padding-start) var(--iphone-tabbar-block-padding-end);
+        padding-inline: var(--iphone-tabbar-inline-padding-start) var(--iphone-tabbar-inline-padding-end);
+
+        // overflow: auto clip;
+
+        --label-flow: vertical;
+        --label-line-limit: 2;
+        --label-truncation-mode: tail;
+      }
+
+      :where(& button) {
+        min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
+        place-items: center;
       }
     }
   }
@@ -73,22 +79,36 @@
 
     > [is='form-view'] {
       :where(&) {
-        margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
+        grid-auto-columns: minmax(max-content, 1fr);
 
-        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+        margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
 
         max-inline-size: var(--ipad-tabbar-max-inline-size);
         block-size: var(--ipad-tabbar-block-size);
 
         border-radius: var(--ipad-tabbar-border-radius);
 
-        @include make-floating-tabbar;
+        // @include make-floating-tabbar;
 
-        overflow: clip;
+        // overflow: clip;
 
-        @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+        scroll-padding-left: calc(
+          var(--sidebar-toggle-padding-inline-start, 0px) + var(--ipad-tabbar-block-padding-start) + var(--ipad-tabbar-block-padding-end)
+        );
 
-        scroll-padding-left: var(--sidebar-toggle-padding-inline-start, 0px);
+        // overflow: auto clip;
+
+        padding-block: var(--ipad-tabbar-block-padding-start) var(--ipad-tabbar-block-padding-end);
+        padding-inline: var(--ipad-tabbar-inline-padding-start) var(--ipad-tabbar-inline-padding-end);
+
+        --label-line-limit: 1;
+        --label-truncation-mode: tail;
+      }
+
+      :where(& button) {
+        min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
+        place-items: center;
+        max-inline-size: max(15vw, 200px);
       }
     }
   }
@@ -96,54 +116,6 @@
   #{$selector} [is='sidebar-view'][open] ~ & > [is='form-view'] {
     :where(&) {
       transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
-    }
-  }
-}
-
-@mixin make-iphone-tabbarstack {
-  & [is='tab-bar'] {
-    & > [is='form-view'] {
-      :where(&) {
-        grid-auto-flow: column;
-        grid-template-rows: minmax(0, 1fr);
-
-        overflow: auto clip;
-      }
-
-      :where(& button) {
-        min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-      }
-    }
-  }
-}
-
-@mixin make-ipad-tabbarstack {
-  & [is='tab-bar'] {
-    & > [is='form-view'] {
-      :where(&) {
-        @include mixins.contain-overscroll;
-
-        grid-auto-flow: column;
-
-        overflow: auto clip;
-      }
-
-      :where(&) {
-        --label-line-limit: 1;
-
-        --label-truncation-mode: tail;
-
-        // --label-style: title-and-icon;
-      }
-
-      :where(&) {
-        padding-block: 5px;
-        padding-inline: 5px;
-      }
-
-      :where(& button) {
-        min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-      }
     }
   }
 }
@@ -175,8 +147,21 @@
     }
 
     > [is='form-view'] {
+      @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+
       :where(&) {
+        @include mixins.contain-overscroll;
+
         pointer-events: all;
+
+        grid-auto-flow: column;
+        grid-template-rows: minmax(0, 1fr);
+
+        margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+
+        @include make-floating-tabbar;
+
+        overflow: auto clip;
       }
     }
 
@@ -233,28 +218,15 @@
 
   // ANCHOR
 
-  tab-view[tab-view-style='tab-bar-only'] {
-    @media (pointer: coarse) {
-      @include make-iphone-tabbarstack;
-    }
-
-    @media (pointer: fine) {
-      @include make-ipad-tabbarstack;
-    }
-  }
-
-  tab-view:not([tab-view-style='tab-bar-only']) {
-    @include mixins.if-iphone-portrait {
-      @include make-iphone-tabbarstack;
-    }
-
-    @include mixins.if-ipad-portrait {
-      @include make-ipad-tabbarstack;
-    }
-  }
-
   tab-view > [is='sidebar-view'] > scroll-view {
     @include make-pseudo-tracking-thumb(--tab-view-sidebar-selection); // NOTE: before is already taken!
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :where(tab-view[js-aftertabreveal] > [is='tab-bar'] > [is='form-view'])::after,
+    :where(tab-view[js-aftertabreveal] > [is='sidebar-view'] > scroll-view)::after {
+      transition: inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+    }
   }
 
   @include mixins.if-ipad-landscape {

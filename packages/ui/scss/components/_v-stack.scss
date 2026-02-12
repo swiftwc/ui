@@ -3,9 +3,9 @@
 @layer #{vars.$components-layer} {
   v-stack {
     :where(&) {
-      place-items: center;
       grid-template-columns: minmax(0, 1fr);
 
+      place-items: center;
       place-content: center;
 
       :where(&[frame-alignment='leading']) {

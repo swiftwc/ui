@@ -1,3 +1,5 @@
+import { cssTime } from '../internal/utils'
+
 export type TabRevealDetail = {
   tag: string
 }
@@ -19,6 +21,8 @@ export class TabView extends HTMLElement {
 
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
+
+    this.addEventListener('tabreveal', this.#handleTabReveal)
   }
 
   get selection() {
@@ -45,5 +49,21 @@ export class TabView extends HTMLElement {
     nv!.hidden = false
 
     this.dispatchEvent(new CustomEvent('tabreveal', { detail: { x: 42, tag: nv?.id } }))
+  }
+
+  #afterTabRevealTimer?: number
+
+  #handleTabReveal = (event: Event) => {
+    this.setAttribute('js-aftertabreveal', '')
+
+    if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
+
+    this.#afterTabRevealTimer = setTimeout(
+      () => {
+        this.removeAttribute('js-aftertabreveal')
+        this.#afterTabRevealTimer = undefined
+      },
+      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+    )
   }
 }

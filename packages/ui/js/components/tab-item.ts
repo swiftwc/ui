@@ -53,7 +53,7 @@ export class TabItem extends ButtonBase {
 
     if (event.detail?.tag === el.value)
       el.scrollIntoView({
-        behavior: 'smooth',
+        behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
         block: 'nearest',
         inline: 'nearest',
       })

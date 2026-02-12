@@ -3,7 +3,7 @@
   scroll-view & > [is='disclosure-group'] {
     @extend %list-item;
 
-    grid-auto-rows: minmax(0, 1fr);
+    // grid-auto-rows: minmax(0, 1fr);
     grid-template-columns: minmax(0, 1fr);
   }
 }

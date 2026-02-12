@@ -136,7 +136,7 @@ export class ScrollView extends HTMLElement {
 
     this.scrollTo({
       top: scrollTop,
-      behavior: 'smooth', // optional: smooth scroll
+      behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant', // optional: smooth scroll
     })
   }
 }

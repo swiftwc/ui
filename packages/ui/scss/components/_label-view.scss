@@ -20,16 +20,33 @@
 // }
 
 @mixin set-label-style($value) {
-  @if $value == 'title-and-icon' {
+  @if $value == 'h-title-and-icon' {
     --label--grid-template-columns: auto minmax(0, 1fr);
+    --label--grid-template-rows: minmax(0, 1fr);
+    --label--align-items: center;
+    --label--justify-items: normal;
 
     --label--gap: 0.3rem;
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
-  } @else if $value == 'icon-only' {
+  } @else if $value == 'h-icon-only' {
     --label--iconstack-display: grid;
-  } @else if $value == 'title-only' {
+  } @else if $value == 'h-title-only' {
+    --label--titlestack-display: grid;
+  } @else if $value == 'v-title-and-icon' {
+    --label--grid-template-columns: minmax(0, 1fr);
+    --label--grid-template-rows: auto minmax(0, 1fr);
+    --label--align-items: normal;
+    --label--justify-items: center;
+
+    --label--gap: 0.3rem;
+
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
+  } @else if $value == 'v-icon-only' {
+    --label--iconstack-display: grid;
+  } @else if $value == 'v-title-only' {
     --label--titlestack-display: grid;
   }
 }
@@ -56,19 +73,21 @@
 @layer #{vars.$components-layer} {
   label-view {
     :where(&) {
-      place-items: center;
-      place-content: center;
+      align-items: var(--label--align-items,);
+      justify-items: var(--label--justify-items,);
+      // place-items: center;
+      // place-content: center;
 
-      grid-auto-flow: column;
-      grid-auto-columns: minmax(0, 1fr);
-      grid-template-rows: minmax(0, 1fr);
+      // grid-auto-flow: column;
+      // grid-auto-columns: minmax(0, 1fr);
+      grid-template-columns: var(--label--grid-template-columns,);
+      grid-template-rows: var(--label--grid-template-rows,);
       // grid-template-areas: 'label-image-stack label-title-stack';
 
+      gap: var(--label--gap,);
       // gap: 0;
 
       white-space: var(--label--white-space,);
-      grid-template-columns: var(--label--grid-template-columns,);
-      gap: var(--label--gap,);
 
       &::part(label-image-stack),
       &::part(label-title-stack) {
@@ -135,10 +154,28 @@
         --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
         --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
 
+        // ANCHOR: label-flow
+        --label--align-items: if(style(--label-flow: vertical): normal ; else: center ;);
+        --label--justify-items: if(style(--label-flow: vertical): center ; else: normal ;);
+
         // ANCHOR: label-style
         --label--grid-template-columns: if(
           style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-            minmax(0, 1fr) ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
+            minmax(0, 1fr) ;
+            else: if(
+              style(--label-has-icon: yes) and style(--label-has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
+                else: minmax(0, 1fr) ;
+            )
+            ;
+        );
+        --label--grid-template-rows: if(
+          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
+            minmax(0, 1fr) ;
+            else: if(
+              style(--label-has-icon: yes) and style(--label-has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
+                else: minmax(0, 1fr) ;
+            )
+            ;
         );
 
         --label--gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): 0.3rem ;) ;);
@@ -188,41 +225,80 @@
       // @container style(--label-has-icon: yes) and style(--label-has-title: yes) and style(--label-style: automatic) {
       @container style(--label-style: icon-only) {
         :where(&) {
-          @include set-label-style('icon-only');
+          @include set-label-style('h-icon-only');
         }
       }
       @container style(--label-style: title-only) {
         :where(&) {
-          @include set-label-style('title-only');
+          @include set-label-style('h-title-only');
         }
       }
       @container style(--label-style: title-and-icon) {
         :where(&) {
-          @include set-label-style('title-and-icon');
+          @include set-label-style('h-title-and-icon');
         }
       }
       @container not style(--label-style) {
         :where(&[label-style='title-and-icon']) {
-          @include set-label-style('title-and-icon');
+          @include set-label-style('h-title-and-icon');
         }
         :where(&[label-style='title-only']) {
-          @include set-label-style('title-only');
+          @include set-label-style('h-title-only');
         }
         :where(&[label-style='icon-only']) {
-          @include set-label-style('icon-only');
+          @include set-label-style('h-icon-only');
         }
         &:not([label-style]) {
           :where(&[image-hint='yes'][title-hint='yes']) {
-            @include set-label-style('title-and-icon');
+            @include set-label-style('h-title-and-icon');
           }
           :where(&[image-hint='yes']:not([title-hint='yes'])) {
-            @include set-label-style('icon-only');
+            @include set-label-style('h-icon-only');
           }
           :where(&[title-hint='yes']:not([image-hint='yes'])) {
-            @include set-label-style('title-only');
+            @include set-label-style('h-title-only');
           }
         }
       }
+      // AGAIN
+      @container style(--label-style: icon-only) and style(--label-flow: vertical) {
+        :where(&) {
+          @include set-label-style('v-icon-only');
+        }
+      }
+      @container style(--label-style: title-only) and style(--label-flow: vertical) {
+        :where(&) {
+          @include set-label-style('v-title-only');
+        }
+      }
+      @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
+        :where(&) {
+          @include set-label-style('v-title-and-icon');
+        }
+      }
+      @container (not style(--label-style)) and style(--label-flow: vertical) {
+        :where(&[label-style='title-and-icon']) {
+          @include set-label-style('v-title-and-icon');
+        }
+        :where(&[label-style='title-only']) {
+          @include set-label-style('v-title-only');
+        }
+        :where(&[label-style='icon-only']) {
+          @include set-label-style('v-icon-only');
+        }
+        &:not([label-style]) {
+          :where(&[image-hint='yes'][title-hint='yes']) {
+            @include set-label-style('v-title-and-icon');
+          }
+          :where(&[image-hint='yes']:not([title-hint='yes'])) {
+            @include set-label-style('v-icon-only');
+          }
+          :where(&[title-hint='yes']:not([image-hint='yes'])) {
+            @include set-label-style('v-title-only');
+          }
+        }
+      }
+      //
       @container style(--label-line-limit: 1) {
         :where(&) {
           @include set-label-line-limit(1);

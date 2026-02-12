@@ -33,8 +33,17 @@
     }
   }
 
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is='tab-item'], list-view button, [is='disclosure-group'] summary),
-  :where(tool-bar-item menu-view)::part(menu-summary) {
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is='tab-item'],
+    list-view > button,
+    menu-view > button,
+    [is='disclosure-group'] > button,
+    [is='disclosure-group'] > summary
+  ),
+  :where(menu-view)::part(menu-summary) {
     // display: grid;
     // place-items: center;
     // place-content: center;
@@ -78,6 +87,15 @@
     // }
   }
 
+  // NOTE: MUST be right-after the above `all: unset` in this SAME page!
+  tool-bar-item {
+    :where(& > button),
+    :where(& > menu-view)::part(menu-summary) {
+      place-items: center;
+      place-content: center;
+    }
+  }
+
   // tool-bar-item[slot],
   // tool-bar-item-group {
   // @media (prefers-reduced-motion: no-preference) {
@@ -96,12 +114,14 @@
 }
 
 @layer #{vars.$colors-layer} {
-  sidebar-toggle button,
-  tool-bar-item button,
-  tool-bar-item input,
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
   [is='tab-item'],
-  list-view button,
-  [is='disclosure-group'] summary {
+  list-view > button,
+  menu-view > button,
+  [is='disclosure-group'] > button,
+  [is='disclosure-group'] > summary {
     &:not(:disabled):not([readonly]) {
       :where(&):focus-visible {
         --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
@@ -116,7 +136,7 @@
     }
   }
 
-  tool-bar-item menu-view {
+  menu-view {
     &:not(:disabled):not([readonly]) {
       :where(&):focus-visible::part(menu-summary) {
         --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
@@ -132,12 +152,14 @@
 }
 
 @layer #{vars.$ui-layer} {
-  sidebar-toggle button,
-  tool-bar-item button,
-  tool-bar-item input,
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
   [is='tab-item'],
-  list-view button,
-  [is='disclosure-group'] summary {
+  list-view > button,
+  menu-view > button,
+  [is='disclosure-group'] > summary,
+  [is='disclosure-group'] > button {
     &:not(:disabled):not([readonly]) {
       :where(&):active {
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
@@ -145,7 +167,7 @@
     }
   }
 
-  tool-bar-item menu-view {
+  menu-view {
     &:not(:disabled):not([readonly]) {
       :where(&):active::part(menu-summary) {
         --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));

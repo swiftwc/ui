@@ -25,10 +25,20 @@
     --iphone-tabbar-max-inline-size: 90svw;
     --iphone-tabbar-block-size: var(--tool-bar-block-size);
     --iphone-tabbar-border-radius: 9999px;
+    --iphone-tabbar-inline-padding-start: 3px;
+    --iphone-tabbar-inline-padding-end: 3px;
+    --iphone-tabbar-block-padding-start: 3px;
+    --iphone-tabbar-block-padding-end: 3px;
 
     --ipad-tabbar-max-inline-size: 60svw;
     --ipad-tabbar-block-size: 3rem;
     --ipad-tabbar-border-radius: 9999px;
+    --ipad-tabbar-inline-padding-start: 5px;
+    --ipad-tabbar-inline-padding-end: 5px;
+    --ipad-tabbar-block-padding-start: 5px;
+    --ipad-tabbar-block-padding-end: 5px;
+
+    --tabbar-after-tabreveal-duration: 150ms;
 
     --sidebar-inline-size: 20rem;
     --sidebar-border-radius: 1rem;

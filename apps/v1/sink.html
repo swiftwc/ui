@@ -45,7 +45,7 @@
               <p>...</p>
               ns1section0<button type="button" class="fw">...</button>
               <p>...</p>
-              <form is="form-view">
+              <form is="form-view" frame-width="infinity">
                 <section>
                   <header>Personal Info</header>
                   <input is="text-field" />
@@ -69,7 +69,7 @@
                 </section>
               </form>
               <input type="text" />
-              <list-view></list-view>
+              <list-view frame-width="infinity"></list-view>
               <p>...</p>
               <p>...</p>
               <input type="text" />
@@ -624,6 +624,15 @@
               <button is="tab-item" value="more" type="button">
                 <label-view label="More" />
               </button>
+              <details is="disclosure-group">
+                <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
+              </details>
               <button is="tab-item" value="more">
                 <label-view label="More" />
               </button>

@@ -43,8 +43,8 @@
       :where(&) {
         grid-template-rows: auto 0fr;
 
-        place-items: start;
-        place-content: start;
+        align-items: start;
+        align-content: start;
       }
 
       :where(&)::details-content {

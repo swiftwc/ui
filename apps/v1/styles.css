@@ -1,5 +1,4 @@
 scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > [is=disclosure-group], scroll-view list-view > [is=disclosure-group] {
-  grid-auto-rows: minmax(0, 1fr);
   grid-template-columns: minmax(0, 1fr);
 }
 
@@ -15,9 +14,18 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --iphone-tabbar-max-inline-size: 90svw;
     --iphone-tabbar-block-size: var(--tool-bar-block-size);
     --iphone-tabbar-border-radius: 9999px;
+    --iphone-tabbar-inline-padding-start: 3px;
+    --iphone-tabbar-inline-padding-end: 3px;
+    --iphone-tabbar-block-padding-start: 3px;
+    --iphone-tabbar-block-padding-end: 3px;
     --ipad-tabbar-max-inline-size: 60svw;
     --ipad-tabbar-block-size: 3rem;
     --ipad-tabbar-border-radius: 9999px;
+    --ipad-tabbar-inline-padding-start: 5px;
+    --ipad-tabbar-inline-padding-end: 5px;
+    --ipad-tabbar-block-padding-start: 5px;
+    --ipad-tabbar-block-padding-end: 5px;
+    --tabbar-after-tabreveal-duration: 150ms;
     --sidebar-inline-size: 20rem;
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
@@ -110,7 +118,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     color-scheme: light;
   }
 }
-@layer sw-base, sw-components, sw-nav-components, sw-tab-components, sw-colors, sw-actions, sw-transitions, sw-final;
+@layer sw-base, sw-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
 @layer sw-base {
   :root {
     interpolate-size: allow-keywords;
@@ -212,6 +220,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   [is=tab-bar],
   [is=full-screen],
   [is=sheet-view],
+  [is=form-view],
+  list-view,
   tool-bar-item,
   tool-bar-item-group,
   sidebar-toggle,
@@ -264,8 +274,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   @supports not (interpolate-size: allow-keywords) {
     :where([is=disclosure-group]) {
       grid-template-rows: auto 0fr;
-      place-items: start;
-      place-content: start;
+      align-items: start;
+      align-content: start;
     }
     :where([is=disclosure-group])::details-content {
       block-size: auto;
@@ -432,8 +442,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 }
 @layer sw-components {
   :where(v-stack) {
-    place-items: center;
     grid-template-columns: minmax(0, 1fr);
+    place-items: center;
     place-content: center;
   }
   :where(:where(v-stack)[frame-alignment=leading]) {
@@ -552,8 +562,15 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(tool-bar-item:has([disabled])) {
     pointer-events: none;
   }
-  :where(sidebar-toggle button, tool-bar-item button, tool-bar-item input, [is=tab-item], list-view button, [is=disclosure-group] summary),
-  :where(tool-bar-item menu-view)::part(menu-summary) {
+  :where(sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is=tab-item],
+  list-view > button,
+  menu-view > button,
+  [is=disclosure-group] > button,
+  [is=disclosure-group] > summary),
+  :where(menu-view)::part(menu-summary) {
     all: unset;
     display: grid;
     appearance: none;
@@ -566,45 +583,55 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     border-radius: var(--component-border-radius, );
     min-inline-size: 25px;
   }
+  :where(tool-bar-item > button), :where(tool-bar-item > menu-view)::part(menu-summary) {
+    place-items: center;
+    place-content: center;
+  }
 }
 @layer sw-colors {
-  :where(sidebar-toggle button:not(:disabled):not([readonly]),
-  tool-bar-item button:not(:disabled):not([readonly]),
-  tool-bar-item input:not(:disabled):not([readonly]),
+  :where(sidebar-toggle > button:not(:disabled):not([readonly]),
+  tool-bar-item > button:not(:disabled):not([readonly]),
+  tool-bar-item > input:not(:disabled):not([readonly]),
   [is=tab-item]:not(:disabled):not([readonly]),
-  list-view button:not(:disabled):not([readonly]),
-  [is=disclosure-group] summary:not(:disabled):not([readonly])):focus-visible {
+  list-view > button:not(:disabled):not([readonly]),
+  menu-view > button:not(:disabled):not([readonly]),
+  [is=disclosure-group] > button:not(:disabled):not([readonly]),
+  [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
-    :where(sidebar-toggle button:not(:disabled):not([readonly]),
-    tool-bar-item button:not(:disabled):not([readonly]),
-    tool-bar-item input:not(:disabled):not([readonly]),
+    :where(sidebar-toggle > button:not(:disabled):not([readonly]),
+    tool-bar-item > button:not(:disabled):not([readonly]),
+    tool-bar-item > input:not(:disabled):not([readonly]),
     [is=tab-item]:not(:disabled):not([readonly]),
-    list-view button:not(:disabled):not([readonly]),
-    [is=disclosure-group] summary:not(:disabled):not([readonly])):hover {
+    list-view > button:not(:disabled):not([readonly]),
+    menu-view > button:not(:disabled):not([readonly]),
+    [is=disclosure-group] > button:not(:disabled):not([readonly]),
+    [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
       --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
-  :where(tool-bar-item menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
     --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
   }
   @media (pointer: fine) {
-    :where(tool-bar-item menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
+    :where(menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
       --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
   }
 }
 @layer sw-actions {
-  :where(sidebar-toggle button:not(:disabled):not([readonly]),
-  tool-bar-item button:not(:disabled):not([readonly]),
-  tool-bar-item input:not(:disabled):not([readonly]),
+  :where(sidebar-toggle > button:not(:disabled):not([readonly]),
+  tool-bar-item > button:not(:disabled):not([readonly]),
+  tool-bar-item > input:not(:disabled):not([readonly]),
   [is=tab-item]:not(:disabled):not([readonly]),
-  list-view button:not(:disabled):not([readonly]),
-  [is=disclosure-group] summary:not(:disabled):not([readonly])):active {
+  list-view > button:not(:disabled):not([readonly]),
+  menu-view > button:not(:disabled):not([readonly]),
+  [is=disclosure-group] > summary:not(:disabled):not([readonly]),
+  [is=disclosure-group] > button:not(:disabled):not([readonly])):active {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
-  :where(tool-bar-item menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
+  :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   :where(tool-bar-item[slot]:has(> menu-view[open])),
@@ -691,14 +718,12 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 }
 @layer sw-components {
   :where(label-view) {
-    place-items: center;
-    place-content: center;
-    grid-auto-flow: column;
-    grid-auto-columns: minmax(0, 1fr);
-    grid-template-rows: minmax(0, 1fr);
-    white-space: var(--label--white-space, );
+    align-items: var(--label--align-items, );
+    justify-items: var(--label--justify-items, );
     grid-template-columns: var(--label--grid-template-columns, );
+    grid-template-rows: var(--label--grid-template-rows, );
     gap: var(--label--gap, );
+    white-space: var(--label--white-space, );
   }
   :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
     grid-auto-columns: minmax(0, 1fr);
@@ -734,9 +759,25 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
       --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
       --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
+      --label--align-items: if(style(--label-flow: vertical): normal ; else: center ;);
+      --label--justify-items: if(style(--label-flow: vertical): center ; else: normal ;);
       --label--grid-template-columns: if(
         style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-          minmax(0, 1fr) ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
+          minmax(0, 1fr) ;
+          else: if(
+            style(--label-has-icon: yes) and style(--label-has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
+              else: minmax(0, 1fr) ;
+          )
+          ;
+      );
+      --label--grid-template-rows: if(
+        style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
+          minmax(0, 1fr) ;
+          else: if(
+            style(--label-has-icon: yes) and style(--label-has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
+              else: minmax(0, 1fr) ;
+          )
+          ;
       );
       --label--gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label-has-icon: yes) and style(--label-has-title: yes): 0.3rem ;) ;);
       --label--iconstack-display: if(
@@ -763,6 +804,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     @container style(--label-style: title-and-icon) {
       :where(label-view) {
         --label--grid-template-columns: auto minmax(0, 1fr);
+        --label--grid-template-rows: minmax(0, 1fr);
+        --label--align-items: center;
+        --label--justify-items: normal;
         --label--gap: 0.3rem;
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
@@ -771,6 +815,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     @container not style(--label-style) {
       :where(label-view[label-style=title-and-icon]) {
         --label--grid-template-columns: auto minmax(0, 1fr);
+        --label--grid-template-rows: minmax(0, 1fr);
+        --label--align-items: center;
+        --label--justify-items: normal;
         --label--gap: 0.3rem;
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
@@ -783,6 +830,62 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       }
       :where(label-view:not([label-style])[image-hint=yes][title-hint=yes]) {
         --label--grid-template-columns: auto minmax(0, 1fr);
+        --label--grid-template-rows: minmax(0, 1fr);
+        --label--align-items: center;
+        --label--justify-items: normal;
+        --label--gap: 0.3rem;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
+      }
+      :where(label-view:not([label-style])[image-hint=yes]:not([title-hint=yes])) {
+        --label--iconstack-display: grid;
+      }
+      :where(label-view:not([label-style])[title-hint=yes]:not([image-hint=yes])) {
+        --label--titlestack-display: grid;
+      }
+    }
+    @container style(--label-style: icon-only) and style(--label-flow: vertical) {
+      :where(label-view) {
+        --label--iconstack-display: grid;
+      }
+    }
+    @container style(--label-style: title-only) and style(--label-flow: vertical) {
+      :where(label-view) {
+        --label--titlestack-display: grid;
+      }
+    }
+    @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
+      :where(label-view) {
+        --label--grid-template-columns: minmax(0, 1fr);
+        --label--grid-template-rows: auto minmax(0, 1fr);
+        --label--align-items: normal;
+        --label--justify-items: center;
+        --label--gap: 0.3rem;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
+      }
+    }
+    @container (not style(--label-style)) and style(--label-flow: vertical) {
+      :where(label-view[label-style=title-and-icon]) {
+        --label--grid-template-columns: minmax(0, 1fr);
+        --label--grid-template-rows: auto minmax(0, 1fr);
+        --label--align-items: normal;
+        --label--justify-items: center;
+        --label--gap: 0.3rem;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
+      }
+      :where(label-view[label-style=title-only]) {
+        --label--titlestack-display: grid;
+      }
+      :where(label-view[label-style=icon-only]) {
+        --label--iconstack-display: grid;
+      }
+      :where(label-view:not([label-style])[image-hint=yes][title-hint=yes]) {
+        --label--grid-template-columns: minmax(0, 1fr);
+        --label--grid-template-rows: auto minmax(0, 1fr);
+        --label--align-items: normal;
+        --label--justify-items: center;
         --label--gap: 0.3rem;
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
@@ -945,6 +1048,10 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-components {
+  :where(menu-view)::part(menu-summary) {
+    transform: var(--menu-summary-scale, );
+    filter: var(--menu-summary-filter, );
+  }
   :where(menu-view)::part(menu-scrollable) {
     block-size: calc(100% + 1px);
   }
@@ -1018,6 +1125,10 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(menu-view[closing])::part(menu-dialog) {
     max-inline-size: anchor-size();
     max-block-size: anchor-size();
+  }
+  menu-view[open] > menu-view[open] {
+    --menu-summary-scale: scale(0.01);
+    --menu-summary-filter: blur(10px);
   }
 }
 @layer sw-components {
@@ -1555,8 +1666,30 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --tab-bar-width: fit-content;
     --tab-bar-height: auto;
   }
+  :where([is=tab-bar] > [is=form-view])::after {
+    content: "";
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    position-anchor: --tab-view-tabbar-selection;
+    inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
+    inline-size: anchor-size();
+    block-size: anchor-size();
+    border-radius: var(--pill-border-radius);
+    z-index: -1;
+  }
   :where([is=tab-bar] > [is=form-view]) {
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
     pointer-events: all;
+    grid-auto-flow: column;
+    grid-template-rows: minmax(0, 1fr);
+    margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+    background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
+    backdrop-filter: var(--liquid-glass-backdrop-filter);
+    box-shadow: var(--liquid-glass-box-shadow);
+    overflow: auto clip;
   }
   @media (pointer: coarse) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
@@ -1580,32 +1713,18 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
       margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--iphone-tabbar-max-inline-size);
       block-size: var(--iphone-tabbar-block-size);
       border-radius: var(--iphone-tabbar-border-radius);
-      background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
-      backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--liquid-glass-box-shadow);
-      overflow: clip;
+      padding-block: var(--iphone-tabbar-block-padding-start) var(--iphone-tabbar-block-padding-end);
+      padding-inline: var(--iphone-tabbar-inline-padding-start) var(--iphone-tabbar-inline-padding-end);
+      --label-flow: vertical;
+      --label-line-limit: 2;
+      --label-truncation-mode: tail;
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view])::after {
-      content: "";
-      display: block;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-      position-anchor: --tab-view-tabbar-selection;
-      inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
-      inline-size: anchor-size();
-      block-size: anchor-size();
-      border-radius: var(--pill-border-radius);
-      z-index: -1;
-    }
-  }
-  @media (pointer: coarse) and (prefers-reduced-motion: no-preference) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view])::after {
-      transition: inset 150ms ease-out allow-discrete;
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
+      min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
+      place-items: center;
     }
   }
   @media (pointer: fine) {
@@ -1614,39 +1733,22 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       inset: 0 0 auto 0;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
+      grid-auto-columns: minmax(max-content, 1fr);
       margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--ipad-tabbar-max-inline-size);
       block-size: var(--ipad-tabbar-block-size);
       border-radius: var(--ipad-tabbar-border-radius);
-      background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
-      backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--liquid-glass-box-shadow);
-      overflow: clip;
+      scroll-padding-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) + var(--ipad-tabbar-block-padding-start) + var(--ipad-tabbar-block-padding-end));
+      padding-block: var(--ipad-tabbar-block-padding-start) var(--ipad-tabbar-block-padding-end);
+      padding-inline: var(--ipad-tabbar-inline-padding-start) var(--ipad-tabbar-inline-padding-end);
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view])::after {
-      content: "";
-      display: block;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-      position-anchor: --tab-view-tabbar-selection;
-      inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
-      inline-size: anchor-size();
-      block-size: anchor-size();
-      border-radius: var(--pill-border-radius);
-      z-index: -1;
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
+      min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
+      place-items: center;
+      max-inline-size: max(15vw, 200px);
     }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      scroll-padding-left: var(--sidebar-toggle-padding-inline-start, 0px);
-    }
-  }
-  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view])::after {
-      transition: inset 150ms ease-out allow-discrete;
-    }
-  }
-  @media (pointer: fine) {
     :where(tab-view[tab-view-style=tab-bar-only] [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
     }
@@ -1673,32 +1775,18 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
       margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--iphone-tabbar-max-inline-size);
       block-size: var(--iphone-tabbar-block-size);
       border-radius: var(--iphone-tabbar-border-radius);
-      background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
-      backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--liquid-glass-box-shadow);
-      overflow: clip;
+      padding-block: var(--iphone-tabbar-block-padding-start) var(--iphone-tabbar-block-padding-end);
+      padding-inline: var(--iphone-tabbar-inline-padding-start) var(--iphone-tabbar-inline-padding-end);
+      --label-flow: vertical;
+      --label-line-limit: 2;
+      --label-truncation-mode: tail;
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
-      content: "";
-      display: block;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-      position-anchor: --tab-view-tabbar-selection;
-      inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
-      inline-size: anchor-size();
-      block-size: anchor-size();
-      border-radius: var(--pill-border-radius);
-      z-index: -1;
-    }
-  }
-  @media (max-width: 42.9999rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
-      transition: inset 150ms ease-out allow-discrete;
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
+      min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
+      place-items: center;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
@@ -1707,39 +1795,22 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       inset: 0 0 auto 0;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
+      grid-auto-columns: minmax(max-content, 1fr);
       margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
-      margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
       max-inline-size: var(--ipad-tabbar-max-inline-size);
       block-size: var(--ipad-tabbar-block-size);
       border-radius: var(--ipad-tabbar-border-radius);
-      background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
-      backdrop-filter: var(--liquid-glass-backdrop-filter);
-      box-shadow: var(--liquid-glass-box-shadow);
-      overflow: clip;
+      scroll-padding-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) + var(--ipad-tabbar-block-padding-start) + var(--ipad-tabbar-block-padding-end));
+      padding-block: var(--ipad-tabbar-block-padding-start) var(--ipad-tabbar-block-padding-end);
+      padding-inline: var(--ipad-tabbar-inline-padding-start) var(--ipad-tabbar-inline-padding-end);
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
-      content: "";
-      display: block;
-      position: absolute;
-      background-color: rgba(0, 0, 0, 0.4);
-      pointer-events: none;
-      position-anchor: --tab-view-tabbar-selection;
-      inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
-      inline-size: anchor-size();
-      block-size: anchor-size();
-      border-radius: var(--pill-border-radius);
-      z-index: -1;
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
+      min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
+      place-items: center;
+      max-inline-size: max(15vw, 200px);
     }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      scroll-padding-left: var(--sidebar-toggle-padding-inline-start, 0px);
-    }
-  }
-  @media (min-width: 43rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view])::after {
-      transition: inset 150ms ease-out allow-discrete;
-    }
-  }
-  @media (min-width: 43rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
     }
@@ -1749,65 +1820,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       display: none;
     }
   }
-  @media (pointer: coarse) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      grid-auto-flow: column;
-      grid-template-rows: minmax(0, 1fr);
-      overflow: auto clip;
-    }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
-      min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-    }
-  }
-  @media (pointer: fine) {
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-      grid-auto-flow: column;
-      overflow: auto clip;
-    }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      --label-line-limit: 1;
-      --label-truncation-mode: tail;
-    }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
-      padding-block: 5px;
-      padding-inline: 5px;
-    }
-    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
-      min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-    }
-  }
-  @media (max-width: 42.9999rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      grid-auto-flow: column;
-      grid-template-rows: minmax(0, 1fr);
-      overflow: auto clip;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
-      min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-    }
-  }
-  @media (min-width: 43rem) and (orientation: portrait) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      overscroll-behavior: contain;
-      -webkit-overflow-scrolling: touch;
-      grid-auto-flow: column;
-      overflow: auto clip;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      --label-line-limit: 1;
-      --label-truncation-mode: tail;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
-      padding-block: 5px;
-      padding-inline: 5px;
-    }
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
-      min-inline-size: calc(var(--iphone-tabbar-block-size) + 1rem);
-    }
-  }
-  tab-view > [is=sidebar-view] > scroll-view::after {
+  :where(tab-view > [is=sidebar-view] > scroll-view)::after {
     content: "";
     display: block;
     position: absolute;
@@ -1821,14 +1834,21 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     z-index: -1;
   }
   @media (prefers-reduced-motion: no-preference) {
-    tab-view > [is=sidebar-view] > scroll-view::after {
-      transition: inset 150ms ease-out allow-discrete;
+    :where(tab-view[js-aftertabreveal] > [is=tab-bar] > [is=form-view])::after,
+    :where(tab-view[js-aftertabreveal] > [is=sidebar-view] > scroll-view)::after {
+      transition: inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) > [is=sidebar-view]) {
       margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
     }
+  }
+}
+@layer sw-utils {}
+@layer sw-utils {
+  :where([frame-width=infinity]) {
+    justify-self: stretch;
   }
 }
 @layer sw-transitions {
@@ -1969,6 +1989,10 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 }
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
+    :where(menu-view)::part(menu-summary) {
+      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out, filter var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform;
+    }
     :where(menu-view)::part(menu-dialog) {
       transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
     }

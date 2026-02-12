@@ -142,6 +142,13 @@ export class MenuView extends HTMLElement {
 
     if ((event.target as HTMLElement).matches('dialog')) return this.toggleAttribute('open', false) // click outside
 
+    const target = event.target as HTMLElement
+
+    target.scrollIntoView({
+      behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
+      block: 'nearest',
+      inline: 'nearest',
+    })
     // if ((event.target as HTMLElement).closest('button')) alert(9)
     // TODO: Handle btns this.toggleAttribute('open', false)
   }

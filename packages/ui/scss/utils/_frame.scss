@@ -1,0 +1,7 @@
+@use '../vars';
+
+@layer #{vars.$utils-layer} {
+  :where([frame-width='infinity']) {
+    justify-self: stretch;
+  }
+}

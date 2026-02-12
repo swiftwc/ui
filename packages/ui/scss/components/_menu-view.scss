@@ -3,6 +3,11 @@
 
 @layer #{vars.$components-layer} {
   menu-view {
+    :where(&)::part(menu-summary) {
+      transform: var(--menu-summary-scale,);
+      filter: var(--menu-summary-filter,);
+    }
+
     :where(&)::part(menu-scrollable) {
       @include mixins.make-scrollable(true);
     }
@@ -74,6 +79,11 @@
         max-inline-size: anchor-size();
         max-block-size: anchor-size();
       }
+    }
+
+    &[open] > &[open] {
+      --menu-summary-scale: scale(0.01);
+      --menu-summary-filter: blur(10px);
     }
 
     @extend %list-item;

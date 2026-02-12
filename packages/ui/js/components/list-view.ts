@@ -16,7 +16,7 @@ export class ListView extends HTMLElement {
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
@@ -28,7 +28,7 @@ export class ListView extends HTMLElement {
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
             <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
@@ -37,7 +37,7 @@ export class ListView extends HTMLElement {
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
             </details>
             <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
               <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>

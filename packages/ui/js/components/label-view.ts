@@ -35,10 +35,10 @@ export class LabelView extends HTMLElement {
       this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
       this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-      this.#slot?.addEventListener('slotchange', this.#handleSlotChange)
-      this.#imgSlot?.addEventListener('slotchange', this.#handleSlotChange)
+      this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
+      this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
-      this.#handleSlotChange(new CustomEvent('slotchange'))
+      this.#handleSlotchange(new CustomEvent('slotchange'))
     })
   }
 
@@ -100,7 +100,7 @@ export class LabelView extends HTMLElement {
     })
   }
 
-  #handleSlotChange = (event: Event) => {
+  #handleSlotchange = (event: Event) => {
     console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
     this.setAttribute(

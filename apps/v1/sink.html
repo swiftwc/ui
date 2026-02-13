@@ -53,26 +53,51 @@
                 </section-view>
                 <section-view>
                   <header slot="header">Personal Info1</header>
-                  <picker-view placeholder="here" label="pickk" list="tickmarks" picker-style="inline"></picker-view>
-                  <picker-view placeholder="here" label="pickk" list="tickmarks" picker-style="menu"></picker-view>
                   <picker-view placeholder="here" label="pickk" picker-style="inline">
+                    <datalist slot="list">
+                      <option value="0" label="0%"></option>
+                      <option value="10" label="Minimum Tip"></option>
+                      <option value="20" label="Standard"></option>
+                      <option value="30" label="Generous"></option>
+                      <option value="50" label="Very Generous"></option>
+                    </datalist>
+                  </picker-view>
+                  <picker-view placeholder="here" label="pickk" picker-style="menu">
+                    <datalist slot="list" id="gg">
+                      <option value="0" label="0%"></option>
+                      <option value="10" label="Minimum Tip"></option>
+                      <option value="20" label="Standard"></option>
+                      <option value="30" label="Generous"></option>
+                      <option value="50" label="Very Generous"></option>
+                    </datalist>
+                  </picker-view>
+                  <picker-view placeholder="here" label="pickk">
+                    <datalist slot="list" id="gg2">
+                      <option value="0" label="0%"></option>
+                      <option value="10" label="Minimum Tip"></option>
+                      <option value="20" label="Standard"></option>
+                      <option value="30" label="Generous"></option>
+                      <option value="50" label="Very Generous"></option>
+                    </datalist>
+                  </picker-view>
+                  <picker-view>
                     <button type="button">ddd</button>
                     <button type="button">ddd</button>
                     <button type="button">ddd</button>
                     <button type="button">ddd</button>
                     <button type="button">ddd</button>
+                    <datalist slot="list" id="gg3">
+                      <option value="0" label="0%"></option>
+                      <option value="10" label="Minimum Tip"></option>
+                      <option value="20" label="Standard"></option>
+                      <option value="30" label="Generous"></option>
+                      <option value="50" label="Very Generous"></option>
+                    </datalist>
                   </picker-view>
                   <text-field placeholder="here" label="Name"></text-field>
                   <text-field placeholder="here" label="Name"></text-field>
                   <text-field placeholder="here" label="Name"></text-field>
                   <footer slot="footer">All is required</footer>
-                  <datalist id="tickmarks">
-                    <option value="0" label="0%"></option>
-                    <option value="10" label="Minimum Tip"></option>
-                    <option value="20" label="Standard"></option>
-                    <option value="30" label="Generous"></option>
-                    <option value="50" label="Very Generous"></option>
-                  </datalist>
                 </section-view>
                 <section-view>
                   <header slot="header">Personal Info</header>

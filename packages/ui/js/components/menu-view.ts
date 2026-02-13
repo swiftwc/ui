@@ -88,13 +88,13 @@ export class MenuView extends HTMLElement {
 
       this.#cleanup = on()
 
-      const anchorName = `--menu-view-${self.crypto.randomUUID()}`
+      const newAnchorName = `--menu-view-${self.crypto.randomUUID()}`
 
       const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
         dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
 
-      summaryPart?.style.setProperty('anchor-name', anchorName, 'important') // override unset:all
-      dialogPart?.style.setProperty('position-anchor', anchorName)
+      summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all
+      dialogPart?.style.setProperty('position-anchor', newAnchorName)
     })
   }
 

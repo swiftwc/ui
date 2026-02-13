@@ -43,12 +43,12 @@ export class TabView extends HTMLElement {
 
       ns.hidden = true
 
-      this.dispatchEvent(new CustomEvent('tabswap', { detail: { x: 42 } }))
+      this.dispatchEvent(new CustomEvent('tabswap', { detail: { x: 42 }, bubbles: true, composed: true }))
     }
 
     nv!.hidden = false
 
-    this.dispatchEvent(new CustomEvent('tabreveal', { detail: { x: 42, tag: nv?.id } }))
+    this.dispatchEvent(new CustomEvent('tabreveal', { detail: { x: 42, tag: nv?.id, bubbles: true, composed: true } }))
   }
 
   #afterTabRevealTimer?: number

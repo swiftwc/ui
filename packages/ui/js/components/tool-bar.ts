@@ -1,5 +1,5 @@
 import { Snapshot } from '../snapshot'
-import { ResizeObserverSingleton } from '../internal/resize-observer'
+import { ResizeObserverSingleton } from '../internal/resize-observer-singleton'
 
 const observers = new ResizeObserverSingleton()
 

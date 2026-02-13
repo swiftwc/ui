@@ -153,15 +153,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     padding: 0;
     touch-action: none !important;
   }
-  picker-view {
-    background-color: red;
-  }
-  menu-view :host {
-    background-color: green;
-  }
-  menu-view {
-    background-color: green;
-  }
   html::before {
     content: "toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&vt-fwd-class-name=fwd";
     display: none;
@@ -2114,12 +2105,12 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where([is=tab-bar]) {
     --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   @media (pointer: fine) {
-    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
       --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
     }

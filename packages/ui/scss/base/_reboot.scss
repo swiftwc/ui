@@ -56,16 +56,6 @@
     touch-action: none !important;
   }
 
-  picker-view {
-    background-color: red;
-  }
-  menu-view {
-    :host {
-      background-color: green;
-    }
-    background-color: green;
-  }
-
   // label {
   //   // remove this
   //   display: inline-grid;

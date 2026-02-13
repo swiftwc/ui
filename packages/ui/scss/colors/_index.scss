@@ -26,7 +26,7 @@
     --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is='form-view'], list-view) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --componenttext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 

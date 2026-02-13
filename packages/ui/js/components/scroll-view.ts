@@ -56,19 +56,30 @@ export class ScrollView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'navigation-title':
-          const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')
-          if (!slot) return
-
-          const assigned = slot.assignedElements({ flatten: true }) as HTMLElement[]
-
-          let el = assigned[0] as HTMLElement | undefined
-          if (!el) {
-            el = document.createElement('label-view')
-            el.slot = 'navigation-bar-principal'
-            this.append(el)
-          }
+          const el =
+            (this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })[0] as HTMLElement) ??
+            (() => {
+              const el = document.createElement('label-view')
+              el.slot = 'navigation-bar-principal'
+              return this.appendChild(el)
+            })()
 
           el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+
+          // const el =
+          //   assigned?.[0] ??
+          //   (() => {
+          //     // el = document.createElement('label-view')
+          //     // el.slot = 'navigation-bar-principal'
+          //     return this.insertAdjacentElement('beforeend', (document.createElement('label-view').slot = 'navigation-bar-principal'))
+          //   })()
+          // if (!el) {
+          //   el = document.createElement('label-view')
+          //   el.slot = 'navigation-bar-principal'
+          //   this.insertAdjacentElement('beforeend', el)
+          // }
+
+          // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
           // if (
           //   0 ===
           //   this.#shadowRoot

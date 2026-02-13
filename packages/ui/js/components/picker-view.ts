@@ -1,39 +1,42 @@
 import { Snapshot } from '../snapshot'
+import { MutationObserverSingleton } from '../internal/mutation-observer-singleton'
+
+const observers = new MutationObserverSingleton()
 
 export class PickerView extends HTMLElement {
   static observedAttributes = ['placeholder', 'label', 'picker-style']
 
   static formAssociated = true
 
-  #currentStyle?: string
+  #lastRenderedStyle?: string | null
 
   get template(): HTMLTemplateElement {
     const style = this.getAttribute('picker-style')
+
     const template = document.createElement('template')
 
     switch (style) {
-      case 'inline':
-        template.innerHTML = `
-          <list-view frame-width="infinity" part="root inline-form">
-            <slot></slot>
-          </list-view>
-        `
-        break
+      // case 'inline':
+      //   template.innerHTML = `
+      //     <list-view frame-width="infinity" part="root inline-form">
+      //       <slot></slot>
+      //     </list-view>
+      //   `
+
+      //   break
       case 'menu':
         template.innerHTML = `
-          <menu-view>
-            <label-view slot="label" system-image="dots-three"></label-view>
-            <button type="button" tabindex="0">
-              <label-view system-image="dots-three" label="Scan Documents" />
-            </button>
-            <button type="button" tabindex="0">
-              <label-view system-image="dots-three" label="Connect to Server" />
-            </button>
-            <button type="button" tabindex="0">
-              <label-view label="Edit Sidebar" />
-            </button>
-          </menu-view>
+        <label part="root text-field-stack">
+    <div part="root text-field-label-stack">
+      <slot name="label"></slot>
+    </div>
+    <div part="root text-field-input-stack">
+      <slot></slot>
+    </div>
+    <slot name="list"></slot>
+  </label>
         `
+
         break
       case 'compact':
         template.innerHTML = `
@@ -41,8 +44,8 @@ export class PickerView extends HTMLElement {
             <input type="text" part="compact-input">
           </label>
         `
-        break
 
+        break
       case 'fancy':
         template.innerHTML = `
           <div part="fancy-picker">
@@ -50,11 +53,10 @@ export class PickerView extends HTMLElement {
             <input type="text" part="fancy-input">
           </div>
         `
-        break
 
-      default:
-        template.innerHTML = `
-          <label part="root text-field-stack">
+        break
+      case 'gg':
+        template.innerHTML = `<label part="root text-field-stack">
     <div part="root text-field-label-stack">
       <slot name="label"></slot>
     </div>
@@ -62,11 +64,15 @@ export class PickerView extends HTMLElement {
       <input type="text" part="root text-field-form-input" list="tickmarks">
       <datalist id="tickmarks">
         <option value="0" label="0%"></option>
-        <slot name="datalist"></slot>
       </datalist>
     </div>
-  </label>
-        `
+    <slot name="list"></slot>
+  </label>`
+
+        break
+      case 'inline':
+      default:
+        template.innerHTML = `    <slot name="list"></slot><slot></slot>        `
         break
     }
 
@@ -77,6 +83,7 @@ export class PickerView extends HTMLElement {
 
   #slot?: HTMLSlotElement
   #labelSlot?: HTMLSlotElement
+  #datalistSlot?: HTMLSlotElement
 
   #internals?: ElementInternals
 
@@ -87,19 +94,17 @@ export class PickerView extends HTMLElement {
 
     this.#internals = this.attachInternals()
 
-    Snapshot.waitReady.then(() => {
-      this.#render() // initial render
-
-      // const input = this.#shadowRoot.querySelector('input')
-
-      // input!.addEventListener('input', () => {
-      //   this.#internals!.setFormValue(input!.value)
-      // })
-    })
+    Snapshot.waitReady.then(this.#render.bind(this))
   }
 
   connectedCallback() {
     console.debug(`${PickerView.name} ⚡️ connect`)
+
+    Snapshot.waitReady.then(() => {
+      if (this.hasAttribute('picker-style')) return // will be picked up by attr-change!
+
+      this.#render()
+    })
   }
 
   disconnectedCallback() {
@@ -109,25 +114,22 @@ export class PickerView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // @ts-expect-error
-    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
-      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
-    })
-
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'placeholder':
           this.#updatePlaceholder(newValue)
 
           break
-
         case 'label':
           this.#updateLabel(newValue)
 
           break
-
         case 'picker-style':
           if (oldValue !== newValue) this.#render()
+
+          break
+        case 'list':
+          // console.log(99, document.querySelector(`#${newValue}`))
 
           break
       }
@@ -135,39 +137,112 @@ export class PickerView extends HTMLElement {
   }
 
   #render() {
+    console.debug(`${PickerView.name} ⚡️ render (${this.getAttribute('picker-style')})`)
+
     const style = this.getAttribute('picker-style')
-
-    if (this.#currentStyle === style) return // skip if already applied
-
-    this.#currentStyle = style
+    if (this.#lastRenderedStyle === style) return // skip if already applied
+    this.#lastRenderedStyle = style
 
     // clear shadow DOM
-    this.#shadowRoot.innerHTML = ''
+    this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
 
-    // append current template
-    this.#shadowRoot.appendChild(document.importNode(this.template.content, true))
-
-    // reattach input listener
-    const input = this.#shadowRoot.querySelector('input')
-    if (input) {
-      input.addEventListener('input', () => {
-        this.#internals!.setFormValue(input.value)
-      })
-
-      // restore placeholder if set
-      const placeholder = this.getAttribute('placeholder')
-      if (placeholder) input.setAttribute('placeholder', placeholder)
-    }
-
-    // refresh label slot reference
+    this.#datalistSlot = this.#shadowRoot.querySelector('slot[name=list]') ?? undefined
     this.#labelSlot = this.#shadowRoot.querySelector('slot[name=label]') ?? undefined
     this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
-    this.#slot?.addEventListener('slotchange', () => console.log(99))
+    this.#datalistSlot?.addEventListener('slotchange', this.#handleDatalistSlotchange)
 
-    // restore label if set
-    const label = this.getAttribute('label')
-    if (label) this.#updateLabel(label)
+    switch (this.getAttribute('picker-style')) {
+      case 'menu':
+        this.#handleMenuDatalistMutation()
+
+        break
+      case 'gg':
+        // reattach input listener
+        const input = this.#shadowRoot.querySelector('input')
+        if (input) {
+          input.addEventListener('input', () => {
+            this.#internals!.setFormValue(input.value)
+          })
+
+          // restore placeholder if set
+          const placeholder = this.getAttribute('placeholder')
+          if (placeholder) input.setAttribute('placeholder', placeholder)
+        }
+
+        // restore label if set
+        const label = this.getAttribute('label')
+        if (label) this.#updateLabel(label)
+
+        break
+      case 'inline':
+      default:
+        this.#handleInlineDatalistMutation()
+
+        break
+    }
+  }
+
+  #handleDatalistSlotchange = (event: Event) => {
+    console.debug(`${PickerView.name} ⚡️ ${event?.type}`)
+
+    const dl = (event.target as HTMLSlotElement).assignedElements({ flatten: true })[0]
+
+    switch (this.getAttribute('picker-style')) {
+      case 'menu':
+        observers.observe(dl, this.#handleMenuDatalistMutation, {
+          attributes: true,
+          characterData: true,
+          subtree: true,
+          childList: true,
+        })
+
+        break
+      case 'inline':
+      default:
+        observers.observe(dl, this.#handleInlineDatalistMutation, {
+          attributes: true,
+          characterData: true,
+          subtree: true,
+          childList: true,
+        })
+    }
+  }
+
+  #handleInlineDatalistMutation = (entry?: MutationRecord) => {
+    console.debug(`${PickerView.name} ⚡️ mutation`)
+
+    // const target = entry?.target as HTMLElement
+    for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
+
+    for (const opt of this.#datalistSlot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option') ?? [])
+      this?.insertAdjacentHTML(
+        'beforeend',
+        `<button type="button" tabindex="0">
+            <label-view label="${opt.label}" />
+          </button>`
+      )
+  }
+
+  #handleMenuDatalistMutation = (entry?: MutationRecord) => {
+    console.debug(`${PickerView.name} ⚡️ mutation`)
+
+    // const target = entry?.target as HTMLElement
+    for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
+
+    let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
+
+    if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
+
+    possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" label="rtyty"></label-view>`
+
+    for (const opt of this.#datalistSlot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option') ?? [])
+      possibleMv?.insertAdjacentHTML(
+        'beforeend',
+        `<button type="button" tabindex="0">
+          <label-view label="${opt.label}" />
+        </button>`
+      )
   }
 
   #updatePlaceholder(value: string | null) {
@@ -179,14 +254,24 @@ export class PickerView extends HTMLElement {
   }
 
   #updateLabel(value: string | null) {
-    const assigned = this.#labelSlot?.assignedElements({ flatten: true }) as HTMLElement[] | undefined
-    let el = assigned?.[0]
-    if (!el) {
-      el = document.createElement('span')
-      el.slot = 'label'
-      this.append(el)
-    }
-    el.textContent = value ?? ''
+    const el =
+      (this.#labelSlot?.assignedElements({ flatten: true })[0] as HTMLElement) ??
+      (() => {
+        const el = document.createElement('span')
+        el.slot = 'label'
+        return this.appendChild(el)
+      })()
+
+    el.textContent = value ?? '' // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+
+    // const assigned = this.#labelSlot?.assignedElements({ flatten: true }) as HTMLElement[] | undefined
+    // let el = assigned?.[0]
+    // if (!el) {
+    //   el = document.createElement('span')
+    //   el.slot = 'label'
+    //   this.append(el)
+    // }
+    // el.textContent = value ?? ''
   }
 
   // Optional: form participation properties

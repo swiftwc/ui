@@ -160,6 +160,7 @@
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }
+    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
 
   html:has(color-scheme[dark]) {

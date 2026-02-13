@@ -33,6 +33,7 @@
     }
   }
 
+  // picker-view[picker-style='inline'] > button,
   :where(
     sidebar-toggle > button,
     tool-bar-item > button,
@@ -40,7 +41,6 @@
     [is='tab-item'],
     list-view > button,
     menu-view > button,
-    picker-view[picker-style='inline'] > button,
     [is='disclosure-group'] > button,
     [is='disclosure-group'] > summary
   ),
@@ -176,8 +176,8 @@
     }
   }
 
-  :where(tool-bar-item[slot]:has(> menu-view[open])),
-  :where(tool-bar-item-group:has(> tool-bar-item > menu-view[open])) {
+  :where(tool-bar-item[slot]:has(menu-view[open])),
+  :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
     --toolbar-cell-scale: var(--menu-host-offscreen-transform);
     --toolbar-cell-filter: var(--menu-host-offscreen-filter);
   }

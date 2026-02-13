@@ -110,6 +110,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
+    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   html:has(color-scheme[dark]) {
     color-scheme: dark;
@@ -234,6 +235,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   ::part(menu-summary),
   ::part(menu-form),
   ::part(menu-scrollable),
+  ::part(picker-container-stack),
+  ::part(picker-label-stack),
+  ::part(picker-input-stack),
   ::part(navigation-bar),
   ::part(bottom-bar),
   ::part(label-image-stack),
@@ -570,7 +574,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   [is=tab-item],
   list-view > button,
   menu-view > button,
-  picker-view[picker-style=inline] > button,
   [is=disclosure-group] > button,
   [is=disclosure-group] > summary),
   :where(menu-view)::part(menu-summary) {
@@ -637,8 +640,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
     --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
-  :where(tool-bar-item[slot]:has(> menu-view[open])),
-  :where(tool-bar-item-group:has(> tool-bar-item > menu-view[open])) {
+  :where(tool-bar-item[slot]:has(menu-view[open])),
+  :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
     --toolbar-cell-scale: var(--menu-host-offscreen-transform);
     --toolbar-cell-filter: var(--menu-host-offscreen-filter);
   }
@@ -1131,7 +1134,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     max-inline-size: anchor-size();
     max-block-size: anchor-size();
   }
-  menu-view[open] > menu-view[open] {
+  menu-view[open] > menu-view[open], menu-view[open]:not(tool-bar-item menu-view) {
     --menu--summary-scale: scale(0.01);
     --menu--summary-filter: blur(10px);
   }
@@ -1213,6 +1216,11 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(text-field)::part(text-field-form-input) {
     display: grid;
     text-align: end;
+  }
+}
+@layer sw-components {
+  :where(picker-view) {
+    display: grid;
   }
 }
 @layer sw-nav-components {
@@ -2084,6 +2092,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-colors {
+  :root {
+    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
+  }
   :where(navigation-stack, navigation-split-view) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));
     --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
@@ -2107,12 +2118,10 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
   @media (pointer: fine) {
     :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-      --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
     }
   }
 }

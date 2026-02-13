@@ -25,17 +25,18 @@ export class PickerView extends HTMLElement {
 
       //   break
       case 'menu':
-        template.innerHTML = `
-        <label part="root text-field-stack">
-    <div part="root text-field-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root text-field-input-stack">
-      <slot></slot>
-    </div>
-    <slot name="list"></slot>
-  </label>
-        `
+        template.innerHTML = `<slot name="list"></slot><slot></slot>`
+        //       template.innerHTML = `
+        //       <label part="root picker-container-stack">
+        //   <div part="root picker-label-stack">
+        //     <slot name="label"></slot>
+        //   </div>
+        //   <div part="root picker-input-stack">
+        //     <slot></slot>
+        //   </div>
+        //   <slot name="list"></slot>
+        // </label>
+        //       `
 
         break
       case 'compact':

@@ -82,7 +82,8 @@
       }
     }
 
-    &[open] > &[open] {
+    &[open] > &[open],
+    &[open]:not(tool-bar-item &) {
       --menu--summary-scale: scale(0.01);
       --menu--summary-filter: blur(10px);
     }

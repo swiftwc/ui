@@ -1,0 +1,103 @@
+import { Snapshot } from '../snapshot'
+
+export class TextField extends HTMLElement {
+  static observedAttributes = ['placeholder', 'label']
+
+  static formAssociated = true
+
+  static #template: HTMLTemplateElement
+
+  static get template() {
+    if (!this.#template)
+      this.#template = Object.assign(document.createElement('template'), {
+        innerHTML: `<label part="root text-field-stack">
+    <div part="root text-field-label-stack">
+      <slot name="label"></slot>
+    </div>
+    <div part="root text-field-input-stack">
+      <input type="text" part="root text-field-form-input">
+    </div>
+  </label>`,
+      })
+
+    return this.#template
+  }
+
+  #shadowRoot
+
+  #labelSlot?: HTMLSlotElement
+
+  #internals?: ElementInternals
+
+  constructor() {
+    super()
+
+    this.#shadowRoot = this.attachShadow({ mode: 'open' })
+
+    Snapshot.waitReady.then(() => {
+      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
+
+      this.#labelSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=label]') ?? undefined
+
+      this.#internals = this.attachInternals()
+
+      const input = this.#shadowRoot.querySelector('input')
+
+      input!.addEventListener('input', () => {
+        this.#internals.setFormValue(input!.value)
+      })
+    })
+  }
+
+  connectedCallback() {
+    console.debug(`${TextField.name} ⚡️ connect`)
+  }
+
+  disconnectedCallback() {
+    console.debug(`${TextField.name} ⚡️ disconnect`)
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    // @ts-expect-error
+    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
+      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
+    })
+
+    Snapshot.waitReady.then(() => {
+      switch (name) {
+        case 'placeholder':
+          if (newValue) this.#shadowRoot.querySelector('input')?.setAttribute(name, newValue)
+          else this.#shadowRoot.querySelector('input')?.removeAttribute(name)
+
+          break
+
+        case 'label':
+          const assigned2 = this.#labelSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+
+          let el2 = assigned2[0] as HTMLElement | undefined
+          if (!el2) {
+            el2 = document.createElement('span')
+            el2.slot = 'label'
+            this.append(el2)
+          }
+
+          el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+
+          break
+      }
+    })
+  }
+
+  // Optional: form participation properties
+  get form() {
+    return this.#internals.form
+  }
+  get name() {
+    return this.getAttribute('name')
+  }
+  get type() {
+    return 'text'
+  }
+}

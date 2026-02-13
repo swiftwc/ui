@@ -1,0 +1,25 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$tab-components-layer} {
+  [is='tab-item'] {
+    :where(&) {
+    }
+
+    [is='sidebar-view'] & {
+      &[aria-selected='true'] {
+        :where(&) {
+          anchor-name: --tab-view-sidebar-selection;
+        }
+      }
+    }
+
+    [is='tab-bar'] & {
+      &[aria-selected='true'] {
+        :where(&) {
+          anchor-name: --tab-view-tabbar-selection;
+        }
+      }
+    }
+  }
+}

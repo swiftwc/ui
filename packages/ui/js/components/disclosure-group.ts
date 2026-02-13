@@ -13,7 +13,7 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${DisclosureGroup.name} ⚡️ [${name}] change`)
+    console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
@@ -83,7 +83,7 @@ export class DisclosureGroup extends DetailsBase {
   // }
 
   static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
-    console.debug(`${DisclosureGroup.name} ⚡️ [${attributeName}] change ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     if (CSS.supports('interpolate-size', 'allow-keywords')) return
 

@@ -31,6 +31,7 @@ export class TabItem extends ButtonBase {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
     el.tabIndex = 0
+    el.ariaSelected = 'false'
 
     Snapshot.waitReady.then(() => {
       el.addEventListener('click', TabItem.#handleClick)
@@ -58,10 +59,12 @@ export class TabItem extends ButtonBase {
         inline: 'nearest',
       })
 
-    const type = el.closest('[is=sidebar-view]') ? 'sidebar' : 'tabbar'
+    el.ariaSelected = `${event.detail?.tag === el.value}`
 
-    if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', `--tab-view-${type}-selection`)
-    else el.style.removeProperty('anchor-name')
+    // const type = el.closest('[is=sidebar-view]') ? 'sidebar' : 'tabbar'
+
+    // if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', `--tab-view-${type}-selection`)
+    // else el.style.removeProperty('anchor-name')
   }
 
   static #handleClick = async (event: Event) => {

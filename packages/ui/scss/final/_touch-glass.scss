@@ -5,7 +5,7 @@
   @media (pointer: coarse) {
     menu-view {
       :where(&[touch-glass])::part(menu-dialog) {
-        --menu-dialog-scale: scale(1.02);
+        --menu--dialog-scale: scale(1.02);
         transition-duration: 100ms;
       }
     }

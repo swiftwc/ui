@@ -34,9 +34,13 @@
 
 @forward 'components/list-view';
 @forward 'components/form-view';
+@forward 'components/section-view';
+
+@forward 'components/text-field';
 
 @forward 'components/navigation-stack';
 @forward 'components/navigation-split-view';
 
 @forward 'components/tab-view';
 @forward 'components/tab-bar';
+@forward 'components/tab-item';

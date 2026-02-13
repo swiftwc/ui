@@ -99,7 +99,7 @@ export class MenuView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${MenuView.name} ⚡️ [${name}] change ("${oldValue}" → "${newValue}")`)
+    console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (!this.#dialog) return
 

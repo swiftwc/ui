@@ -1,0 +1,10 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  section-view {
+    :where(& > *) {
+      display: grid;
+    }
+  }
+}

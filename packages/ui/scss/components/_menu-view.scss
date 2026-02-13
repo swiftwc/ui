@@ -4,8 +4,8 @@
 @layer #{vars.$components-layer} {
   menu-view {
     :where(&)::part(menu-summary) {
-      transform: var(--menu-summary-scale,);
-      filter: var(--menu-summary-filter,);
+      transform: var(--menu--summary-scale,);
+      filter: var(--menu--summary-filter,);
     }
 
     :where(&)::part(menu-scrollable) {
@@ -45,9 +45,7 @@
       max-inline-size: anchor-size();
       max-block-size: anchor-size();
 
-      transform: var(--menu-dialog-scale,);
-
-      --menu-dialog-scale: scale(0);
+      transform: var(--menu--dialog-scale,);
 
       // position-anchor: --my-anchor; // overriden
       position-area: center;
@@ -57,6 +55,9 @@
 
       backdrop-filter: var(--liquid-glass-backdrop-filter,);
       box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
+
+      // finally
+      --menu--dialog-scale: scale(0);
     }
 
     &[open] {
@@ -66,10 +67,10 @@
         margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
         margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
-        --menu-dialog-scale: scale(1);
+        --menu--dialog-scale: scale(1);
 
         @starting-style {
-          --menu-dialog-scale: scale(0);
+          --menu--dialog-scale: scale(0);
         }
       }
     }
@@ -82,8 +83,8 @@
     }
 
     &[open] > &[open] {
-      --menu-summary-scale: scale(0.01);
-      --menu-summary-filter: blur(10px);
+      --menu--summary-scale: scale(0.01);
+      --menu--summary-filter: blur(10px);
     }
 
     @extend %list-item;

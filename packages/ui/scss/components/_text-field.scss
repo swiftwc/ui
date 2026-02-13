@@ -1,0 +1,37 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  text-field {
+    :where(&) {
+      display: grid;
+
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(text-field-stack) {
+      display: grid;
+
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(text-field-label-stack) {
+      display: grid;
+    }
+
+    :where(&)::part(text-field-input-stack) {
+      display: grid;
+
+      place-items: stretch;
+      place-content: stretch;
+    }
+
+    :where(&)::part(text-field-form-input) {
+      display: grid;
+
+      text-align: end;
+    }
+  }
+}

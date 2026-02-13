@@ -46,27 +46,44 @@
               ns1section0<button type="button" class="fw">...</button>
               <p>...</p>
               <form is="form-view" frame-width="infinity">
-                <section>
-                  <header>Personal Info</header>
-                  <input is="text-field" />
-                  <footer>All is required</footer>
-                </section>
-                <section>
-                  <header>Personal Info</header>
-                  <input is="text-field" />
-                  <input is="text-field" />
-                  <footer>All is required</footer>
-                </section>
-                <section>
-                  <header>Personal Info</header>
+                <section-view>
+                  <header slot="header">Personal Info</header>
+                  <text-field placeholder="here" label="Name"></text-field>
+                  <footer slot="footer">All is required</footer>
+                </section-view>
+                <section-view>
+                  <header slot="header">Personal Info1</header>
+                  <picker-view placeholder="here" label="pickk" list="tickmarks" picker-style="inline"></picker-view>
+                  <picker-view placeholder="here" label="pickk" list="tickmarks" picker-style="menu"></picker-view>
+                  <picker-view placeholder="here" label="pickk" picker-style="inline">
+                    <button type="button">ddd</button>
+                    <button type="button">ddd</button>
+                    <button type="button">ddd</button>
+                    <button type="button">ddd</button>
+                    <button type="button">ddd</button>
+                  </picker-view>
+                  <text-field placeholder="here" label="Name"></text-field>
+                  <text-field placeholder="here" label="Name"></text-field>
+                  <text-field placeholder="here" label="Name"></text-field>
+                  <footer slot="footer">All is required</footer>
+                  <datalist id="tickmarks">
+                    <option value="0" label="0%"></option>
+                    <option value="10" label="Minimum Tip"></option>
+                    <option value="20" label="Standard"></option>
+                    <option value="30" label="Generous"></option>
+                    <option value="50" label="Very Generous"></option>
+                  </datalist>
+                </section-view>
+                <section-view>
+                  <header slot="header">Personal Info</header>
                   <select is="picker"></select>
-                  <footer>All is required</footer>
-                </section>
-                <section>
-                  <header>Personal Info</header>
+                  <footer slot="footer">All is required</footer>
+                </section-view>
+                <section-view>
+                  <header slot="header">Personal Info</header>
                   <button is="picker">bgbgbg</button>
-                  <footer>All is required</footer>
-                </section>
+                  <footer slot="footer">All is required</footer>
+                </section-view>
               </form>
               <input type="text" />
               <list-view frame-width="infinity"></list-view>

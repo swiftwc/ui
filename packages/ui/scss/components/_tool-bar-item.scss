@@ -40,6 +40,7 @@
     [is='tab-item'],
     list-view > button,
     menu-view > button,
+    picker-view[picker-style='inline'] > button,
     [is='disclosure-group'] > button,
     [is='disclosure-group'] > summary
   ),

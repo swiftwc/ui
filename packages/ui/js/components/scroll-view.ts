@@ -46,7 +46,7 @@ export class ScrollView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${ScrollView.name} ⚡️ [${name}] change ("${oldValue}" → "${newValue}")`)
+    console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {

@@ -51,7 +51,7 @@ export class LabelView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${LabelView.name} ⚡️ [${name}] change ("${oldValue}" → "${newValue}")`)
+    console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     // @ts-expect-error
     const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
@@ -77,10 +77,10 @@ export class LabelView extends HTMLElement {
 
           break
         case 'label':
-          const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
-          if (!titleSlot) break
+          // const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
+          // if (!titleSlot) break
 
-          const assigned2 = titleSlot.assignedElements({ flatten: true }) as HTMLElement[]
+          const assigned2 = this.#slot!.assignedElements({ flatten: true }) as HTMLElement[]
 
           let el2 = assigned2[0] as HTMLElement | undefined
           if (!el2) {
@@ -91,7 +91,6 @@ export class LabelView extends HTMLElement {
           el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
-
         case 'label-style':
           // if ('icon-only' === newValue) this.toggleAttribute('has-title', false)
           // if ('title-only' === newValue) this.toggleAttribute('has-image', false)

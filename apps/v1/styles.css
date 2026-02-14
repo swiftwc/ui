@@ -235,7 +235,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   ::part(menu-summary),
   ::part(menu-form),
   ::part(menu-scrollable),
-  ::part(picker-container-stack),
+  ::part(picker-stack),
   ::part(picker-label-stack),
   ::part(picker-input-stack),
   ::part(navigation-bar),
@@ -1221,6 +1221,21 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 @layer sw-components {
   :where(picker-view) {
     display: grid;
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  :where(picker-view)::part(picker-stack) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  :where(picker-view)::part(picker-label-stack) {
+    display: none;
+  }
+  :where(form picker-view)::part(picker-label-stack) {
+    display: grid;
+  }
+  :where(tool-bar-item picker-view)::part(picker-stack) {
+    grid-template-columns: minmax(0, 1fr);
   }
 }
 @layer sw-nav-components {

@@ -3,6 +3,10 @@
 // import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
 import { startViewTransition } from '../../packages/ui/js/client'
 
+document.body.addEventListener('selection', async (event) => {
+  alert(event.detail.tag)
+})
+
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
 
@@ -55,7 +59,20 @@ document.body.addEventListener('click', async (event) => {
                       <v-stack>
                         ${root.id}section${
                           root.querySelectorAll('scroll-view').length
-                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button>close</button></form><p>...</p><input type="text" /><p>...</p><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view><p>...</p><picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+                        }<button type="button" class="bw">...</button><button type="button" class="fw">...</button><p>...</p><p>...</p><form method="dialog"><button>close</button></form><p>...</p><input type="text" /><p>...</p><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view><p>...</p>
+                        
+                        <picker-view picker-style="menu">
+                        <label-view slot="label" system-image="dots-three" label="rtyty"></label-view>
+                        <label-view slot="tag" label="0%"></label-view>
+                        <label-view slot="tag" label="Minimum Tip"></label-view>
+                        <label-view slot="tag" label="Standard"></label-view>
+                        <label-view slot="tag" label="Generous"></label-view>
+                        <label-view slot="tag" label="Very Generous"></label-view>
+                        </picker-view>
+        
+        <picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view>
+        
+        <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                       <label-view slot="navigation-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</label-view>
                       <label-view slot="bottom-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</label-view>

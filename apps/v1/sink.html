@@ -53,7 +53,7 @@
                 </section-view>
                 <section-view>
                   <header slot="header">Personal Info1</header>
-                  <picker-view placeholder="here" label="pickk" picker-style="inline">
+                  <picker-view placeholder="here" label="inline1" picker-style="inline">
                     <datalist slot="list">
                       <option value="0" label="0%"></option>
                       <option value="10" label="Minimum Tip"></option>
@@ -62,8 +62,16 @@
                       <option value="50" label="Very Generous"></option>
                     </datalist>
                   </picker-view>
-                  <picker-view placeholder="here" label="pickk" picker-style="menu">
-                    <datalist slot="list" id="gg">
+                  <picker-view placeholder="here" picker-style="inline" id="gg">
+                    <label-view slot="label" label="inline2"></label-view>
+                    <label-view slot="tag" label="0%"></label-view>
+                    <label-view slot="tag" label="Minimum Tip"></label-view>
+                    <label-view slot="tag" label="Standard"></label-view>
+                    <label-view slot="tag" label="Generous"></label-view>
+                    <label-view slot="tag" label="Very Generous"></label-view>
+                  </picker-view>
+                  <picker-view placeholder="here" label="menu/list" picker-style="menu">
+                    <datalist slot="list">
                       <option value="0" label="0%"></option>
                       <option value="10" label="Minimum Tip"></option>
                       <option value="20" label="Standard"></option>

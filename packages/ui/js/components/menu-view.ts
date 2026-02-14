@@ -158,8 +158,13 @@ export class MenuView extends HTMLElement {
       block: 'nearest',
       inline: 'nearest',
     })
-    // if ((event.target as HTMLElement).closest('button')) alert(9)
+
+    if (!(event.target as HTMLElement).closest('button')) return
     // TODO: Handle btns this.toggleAttribute('open', false)
+
+    this.toggleAttribute('open', false)
+
+    // event.stopPropagation() //NOTE: add this only if not nested, disposes all nicely if ommited
   }
 
   #handleTriggerClick = (event: Event) => {

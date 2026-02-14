@@ -25,18 +25,19 @@ export class PickerView extends HTMLElement {
 
       //   break
       case 'menu':
-        template.innerHTML = `<slot name="list"></slot><slot></slot>`
-        //       template.innerHTML = `
-        //       <label part="root picker-container-stack">
-        //   <div part="root picker-label-stack">
-        //     <slot name="label"></slot>
-        //   </div>
-        //   <div part="root picker-input-stack">
-        //     <slot></slot>
-        //   </div>
-        //   <slot name="list"></slot>
-        // </label>
-        //       `
+        // template.innerHTML = `<slot name="list"></slot><slot></slot>`
+        template.innerHTML = `
+              <label part="root picker-stack">
+          <div part="root picker-label-stack">
+            <slot name="label"></slot>
+          </div>
+          <div part="root picker-input-stack">
+            <slot></slot>
+          </div>
+          <slot name="list"></slot>
+          <slot name="tag" hidden></slot>
+        </label>
+              `
 
         break
       case 'compact':
@@ -73,7 +74,16 @@ export class PickerView extends HTMLElement {
         break
       case 'inline':
       default:
-        template.innerHTML = `    <slot name="list"></slot><slot></slot>        `
+        template.innerHTML = `<label part="root text-field-stack">
+    <div part="root text-field-label-stack">
+      <slot name="label"></slot>
+    </div>
+    <div part="root text-field-input-stack">
+      <slot></slot>
+    </div>
+    <slot name="list"></slot>
+    <slot name="tag" hidden></slot>
+  </label>`
         break
     }
 
@@ -85,6 +95,9 @@ export class PickerView extends HTMLElement {
   #slot?: HTMLSlotElement
   #labelSlot?: HTMLSlotElement
   #datalistSlot?: HTMLSlotElement
+  #tagSlot?: HTMLSlotElement
+
+  #trackedElements = new Set<Element>()
 
   #internals?: ElementInternals
 
@@ -94,6 +107,8 @@ export class PickerView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     this.#internals = this.attachInternals()
+
+    this.addEventListener('click', this.#handleClick)
 
     Snapshot.waitReady.then(this.#render.bind(this))
   }
@@ -110,6 +125,10 @@ export class PickerView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${PickerView.name} ⚡️ disconnect`)
+
+    this.removeEventListener('click', this.#handleClick)
+
+    this.#trackedElements.clear()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -129,10 +148,6 @@ export class PickerView extends HTMLElement {
           if (oldValue !== newValue) this.#render()
 
           break
-        case 'list':
-          // console.log(99, document.querySelector(`#${newValue}`))
-
-          break
       }
     })
   }
@@ -149,15 +164,20 @@ export class PickerView extends HTMLElement {
 
     this.#datalistSlot = this.#shadowRoot.querySelector('slot[name=list]') ?? undefined
     this.#labelSlot = this.#shadowRoot.querySelector('slot[name=label]') ?? undefined
+    this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
     this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
-    this.#datalistSlot?.addEventListener('slotchange', this.#handleDatalistSlotchange)
+    this.#datalistSlot?.addEventListener('slotchange', this.#handleSlotchange)
+    this.#tagSlot?.addEventListener('slotchange', this.#handleSlotchange)
+
+    // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
+    // if (0 < (this.#tagSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
 
     switch (this.getAttribute('picker-style')) {
-      case 'menu':
-        this.#handleMenuDatalistMutation()
+      // case 'menu':
+      //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
 
-        break
+      //   break
       case 'gg':
         // reattach input listener
         const input = this.#shadowRoot.querySelector('input')
@@ -176,74 +196,135 @@ export class PickerView extends HTMLElement {
         if (label) this.#updateLabel(label)
 
         break
-      case 'inline':
-      default:
-        this.#handleInlineDatalistMutation()
+      // case 'inline':
+      // default:
+      //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
 
-        break
+      //   break
     }
   }
 
-  #handleDatalistSlotchange = (event: Event) => {
+  #handleClick(event: Event) {
+    const target = event.target as HTMLElement,
+      btn = target?.closest('button')
+
+    if (!btn) return
+
+    if (btn.hasAttribute('tag'))
+      return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.getAttribute('tag') }, bubbles: true, composed: true }))
+
+    return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.textContent }, bubbles: true, composed: true }))
+  }
+
+  #handleSlotchange = (event: Event) => {
     console.debug(`${PickerView.name} ⚡️ ${event?.type}`)
 
-    const dl = (event.target as HTMLSlotElement).assignedElements({ flatten: true })[0]
+    const slot = event.target as HTMLSlotElement,
+      assigned = slot.assignedElements({ flatten: true })
+
+    for (const el of this.#trackedElements)
+      if (!assigned.includes(el)) {
+        observers.unobserve(el)
+        this.#trackedElements.delete(el)
+      }
+
+    for (const el of assigned) {
+      observers.observe(el, this.#handleTagMutation, {
+        attributes: true,
+        characterData: true,
+        subtree: true,
+        childList: true,
+      })
+
+      this.#trackedElements.add(el)
+    }
+
+    if (0 < assigned.length) this.#handleTagMutation()
+  }
+
+  static sourceNodes(slot?: HTMLSlotElement) {
+    switch (slot?.name) {
+      case 'tag':
+        return slot?.assignedElements({ flatten: true })
+
+      case 'list':
+      default:
+        return slot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option')
+    }
+  }
+
+  static wrapTag(node: Element, slotName?: string) {
+    const btn = document.createElement('button')
+    btn.type = 'button'
+    btn.tabIndex = 0
+
+    switch (slotName) {
+      case 'tag':
+        if (node.hasAttribute('tag')) btn.setAttribute('tag', node.getAttribute('tag') ?? '')
+
+        btn.appendChild(node.cloneNode(true))
+
+        break
+
+      case 'list':
+      default:
+        if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
+
+        const label = document.createElement('label-view')
+
+        if (node.hasAttribute('label')) label.setAttribute('label', node.getAttribute('label') ?? '')
+
+        btn.appendChild(label)
+
+        break
+    }
+
+    return btn
+  }
+
+  #handleTagMutation = (entry?: MutationRecord) => {
+    console.debug(`${PickerView.name} ⚡️ mutation`)
+
+    const sourceSlot = 0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length ? this.#datalistSlot : this.#tagSlot
 
     switch (this.getAttribute('picker-style')) {
       case 'menu':
-        observers.observe(dl, this.#handleMenuDatalistMutation, {
-          attributes: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
-        })
+        let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
+
+        if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
+
+        possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" label="rtyty"></label-view>`
+
+        for (const el of PickerView.sourceNodes(sourceSlot) ?? []) possibleMv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 
         break
       case 'inline':
       default:
-        observers.observe(dl, this.#handleInlineDatalistMutation, {
-          attributes: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
-        })
+        let possibleLv = this.#slot?.assignedElements({ flatten: true })[0]
+
+        if ('LIST-VIEW' !== possibleLv?.tagName) possibleLv = this.appendChild(document.createElement('list-view'))
+
+        const sv = document.createElement('list-view')
+        sv.setAttribute('header', 'dfdfdf')
+
+        possibleLv.appendChild(sv)
+
+        for (const el of PickerView.sourceNodes(sourceSlot) ?? []) sv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+
+        // for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
+
+        // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) {
+        //   const btn = document.createElement('button')
+        //   btn.type = 'button'
+        //   btn.tabIndex = 0
+
+        //   btn.appendChild(PickerView.wrapTag(el, sourceSlot?.name))
+
+        //   this.insertAdjacentElement('beforeend', btn)
+        // }
+
+        break
     }
-  }
-
-  #handleInlineDatalistMutation = (entry?: MutationRecord) => {
-    console.debug(`${PickerView.name} ⚡️ mutation`)
-
-    // const target = entry?.target as HTMLElement
-    for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
-
-    for (const opt of this.#datalistSlot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option') ?? [])
-      this?.insertAdjacentHTML(
-        'beforeend',
-        `<button type="button" tabindex="0">
-            <label-view label="${opt.label}" />
-          </button>`
-      )
-  }
-
-  #handleMenuDatalistMutation = (entry?: MutationRecord) => {
-    console.debug(`${PickerView.name} ⚡️ mutation`)
-
-    // const target = entry?.target as HTMLElement
-    for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
-
-    let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
-
-    if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
-
-    possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" label="rtyty"></label-view>`
-
-    for (const opt of this.#datalistSlot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option') ?? [])
-      possibleMv?.insertAdjacentHTML(
-        'beforeend',
-        `<button type="button" tabindex="0">
-          <label-view label="${opt.label}" />
-        </button>`
-      )
   }
 
   #updatePlaceholder(value: string | null) {
@@ -255,6 +336,19 @@ export class PickerView extends HTMLElement {
   }
 
   #updateLabel(value: string | null) {
+    // switch (this.getAttribute('picker-style')) {
+    //   case 'menu':
+    //     this.#slot!.assignedElements({ flatten: true })[0].setAttribute('label', value ?? '')
+    //     // if (!mv) {
+    //     //   mv = document.createElement('label-view')
+    //     //   mv.slot = 'label'
+    //     //   this.append(mv)
+    //     // }
+
+    //     // mv.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+
+    //     break
+    //   default:
     const el =
       (this.#labelSlot?.assignedElements({ flatten: true })[0] as HTMLElement) ??
       (() => {
@@ -264,6 +358,8 @@ export class PickerView extends HTMLElement {
       })()
 
     el.textContent = value ?? '' // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+    // break
+    // }
 
     // const assigned = this.#labelSlot?.assignedElements({ flatten: true }) as HTMLElement[] | undefined
     // let el = assigned?.[0]

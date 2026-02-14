@@ -5,8 +5,28 @@
     :where(&) {
       display: grid;
 
-      // grid-template-columns: subgrid;
-      // grid-template-rows: subgrid;
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(picker-stack) {
+      grid-template-columns: auto minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(picker-label-stack) {
+      display: none;
+    }
+
+    :where(tool-bar-item &) {
+    }
+
+    :where(form &)::part(picker-label-stack) {
+      display: grid;
+    }
+
+    :where(tool-bar-item &)::part(picker-stack) {
+      grid-template-columns: minmax(0, 1fr);
     }
   }
 }

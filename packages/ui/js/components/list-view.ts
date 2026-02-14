@@ -7,46 +7,46 @@ export class ListView extends HTMLElement {
     //
   }
 
-  connectedCallback() {
-    if (this.matches(':empty'))
-      this.insertAdjacentHTML(
-        'beforeend',
-        `<button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            </details>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            </details>
-            <details is="disclosure-group">
-              <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-              <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            </details>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>`
-      )
-  }
+  // connectedCallback() {
+  //   if (this.matches(':empty'))
+  //     this.insertAdjacentHTML(
+  //       'beforeend',
+  //       `<button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <details is="disclosure-group">
+  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           </details>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <details is="disclosure-group">
+  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           </details>
+  //           <details is="disclosure-group">
+  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           </details>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>`
+  //     )
+  // }
 }

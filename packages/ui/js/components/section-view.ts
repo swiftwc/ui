@@ -59,11 +59,6 @@ export class SectionView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // @ts-expect-error
-    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
-      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
-    })
-
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'header':
@@ -75,7 +70,7 @@ export class SectionView extends HTMLElement {
             this.append(el2)
           }
 
-          el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          el2.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
         case 'footer':
@@ -87,7 +82,7 @@ export class SectionView extends HTMLElement {
             this.append(el3)
           }
 
-          el3.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          el3.textContent = newValue //el3.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
       }

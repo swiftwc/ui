@@ -48,10 +48,10 @@ export class ScrollView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // @ts-expect-error
-    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
-      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
-    })
+    //// @ts-expect-error
+    // const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
+    //   createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
+    // })
 
     Snapshot.waitReady.then(() => {
       switch (name) {
@@ -64,7 +64,7 @@ export class ScrollView extends HTMLElement {
               return this.appendChild(el)
             })()
 
-          el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          el.textContent = newValue //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           // const el =
           //   assigned?.[0] ??

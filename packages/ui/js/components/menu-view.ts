@@ -2,7 +2,7 @@ import { Snapshot } from '../snapshot'
 import { touchGlass } from '../internal/utils'
 
 export class MenuView extends HTMLElement {
-  static observedAttributes = ['open', 'closing']
+  static observedAttributes = ['open', 'closing', 'label']
 
   static #template: HTMLTemplateElement
 
@@ -101,12 +101,10 @@ export class MenuView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    if (!this.#dialog) return
-
-    const form = this.#shadowRoot.querySelector<HTMLElement>('form')!
-
     switch (name) {
       case 'open':
+        if (!this.#dialog) break
+
         this.#dialog.inert = null === newValue
 
         if (null === newValue && this.#dialog.open) {
@@ -128,10 +126,21 @@ export class MenuView extends HTMLElement {
 
           this.removeAttribute('closing')
 
+          const form = this.#shadowRoot.querySelector<HTMLElement>('form')!
+
           form.scrollTop = 0
 
           this.#dialog.showModal()
         }
+
+        break
+      case 'label':
+        for (const el of this.querySelectorAll(':scope>[slot=label]')) el.remove()
+
+        const el = document.createElement('label-view')
+        el.slot = 'label'
+        el.setAttribute('label', newValue ?? '')
+        this.append(el)
 
         break
     }

@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 
 export class LabelView extends HTMLElement {
-  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode', 'label-style']
+  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode']
 
   static #template: HTMLTemplateElement
 
@@ -53,11 +53,6 @@ export class LabelView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // @ts-expect-error
-    const escapeHTMLPolicy = self.trustedTypes.createPolicy('myEscapePolicy', {
-      createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
-    })
-
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'system-image':
@@ -88,12 +83,7 @@ export class LabelView extends HTMLElement {
             this.append(el2)
           }
 
-          el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-
-          break
-        case 'label-style':
-          // if ('icon-only' === newValue) this.toggleAttribute('has-title', false)
-          // if ('title-only' === newValue) this.toggleAttribute('has-image', false)
+          el2.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
       }
@@ -109,7 +99,8 @@ export class LabelView extends HTMLElement {
         .length > 0
         ? 'yes'
         : 'no'
-    ) // && 'icon-only' !== this.getAttribute('label-style'))
-    this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no') // && 'title-only' !== this.getAttribute('label-style'))
+    )
+
+    this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
   }
 }

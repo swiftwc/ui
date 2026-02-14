@@ -8,86 +8,119 @@ export class PickerView extends HTMLElement {
 
   static formAssociated = true
 
+  static #templates: Map<string, HTMLTemplateElement> = new Map()
+
   #lastRenderedStyle?: string | null
 
   get template(): HTMLTemplateElement {
-    const style = this.getAttribute('picker-style')
+    const style = this.getAttribute('picker-style') ?? ''
 
-    const template = document.createElement('template')
+    if (!PickerView.#templates.has(style)) {
+      // const template = document.createElement('template')
 
-    switch (style) {
-      // case 'inline':
-      //   template.innerHTML = `
-      //     <list-view frame-width="infinity" part="root inline-form">
-      //       <slot></slot>
-      //     </list-view>
-      //   `
+      switch (style) {
+        // case 'inline':
+        //   template.innerHTML = `
+        //     <list-view frame-width="infinity" part="root inline-form">
+        //       <slot></slot>
+        //     </list-view>
+        //   `
 
-      //   break
-      case 'menu':
-        // template.innerHTML = `<slot name="list"></slot><slot></slot>`
-        template.innerHTML = `
-              <label part="root picker-stack">
-          <div part="root picker-label-stack">
-            <slot name="label"></slot>
-          </div>
-          <div part="root picker-input-stack">
-            <slot></slot>
-          </div>
-          <slot name="list"></slot>
-          <slot name="tag" hidden></slot>
-        </label>
-              `
-
-        break
-      case 'compact':
-        template.innerHTML = `
-          <label part="compact-picker">
-            <input type="text" part="compact-input">
+        //   break
+        case 'menu':
+          // template.innerHTML = `<slot name="list"></slot><slot></slot>`
+          PickerView.#templates.set(
+            style,
+            Object.assign(document.createElement('template'), {
+              innerHTML: `
+                <label part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root picker-input-stack">
+              <slot></slot>
+            </div>
+            <slot name="list"></slot>
+            <slot name="tag" hidden></slot>
           </label>
-        `
+                `,
+            })
+          )
 
-        break
-      case 'fancy':
-        template.innerHTML = `
-          <div part="fancy-picker">
-            <span>Fancy Picker</span>
-            <input type="text" part="fancy-input">
-          </div>
-        `
+          break
+        case 'compact':
+          PickerView.#templates.set(
+            style,
+            Object.assign(document.createElement('template'), {
+              innerHTML: `
+            <label part="compact-picker">
+              <input type="text" part="compact-input">
+            </label>
+          `,
+            })
+          )
 
-        break
-      case 'gg':
-        template.innerHTML = `<label part="root text-field-stack">
-    <div part="root text-field-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root text-field-input-stack">
-      <input type="text" part="root text-field-form-input" list="tickmarks">
-      <datalist id="tickmarks">
-        <option value="0" label="0%"></option>
-      </datalist>
-    </div>
-    <slot name="list"></slot>
-  </label>`
+          break
+        case 'fancy':
+          PickerView.#templates.set(
+            style,
+            Object.assign(document.createElement('template'), {
+              innerHTML: `
+            <div part="fancy-picker">
+              <span>Fancy Picker</span>
+              <input type="text" part="fancy-input">
+            </div>
+          `,
+            })
+          )
 
-        break
-      case 'inline':
-      default:
-        template.innerHTML = `<label part="root text-field-stack">
-    <div part="root text-field-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root text-field-input-stack">
-      <slot></slot>
-    </div>
-    <slot name="list"></slot>
-    <slot name="tag" hidden></slot>
-  </label>`
-        break
+          break
+        case 'gg':
+          PickerView.#templates.set(
+            style,
+            Object.assign(document.createElement('template'), {
+              innerHTML: `<label part="root text-field-stack">
+      <div part="root text-field-label-stack">
+        <slot name="label"></slot>
+      </div>
+      <div part="root text-field-input-stack">
+        <input type="text" part="root text-field-form-input" list="tickmarks">
+        <datalist id="tickmarks">
+          <option value="0" label="0%"></option>
+        </datalist>
+      </div>
+      <slot name="list"></slot>
+    </label>`,
+            })
+          )
+
+          break
+        case 'inline':
+        default:
+          PickerView.#templates.set(
+            style,
+            Object.assign(document.createElement('template'), {
+              innerHTML: `<label part="root text-field-stack">
+      <div part="root text-field-label-stack">
+        <slot name="label"></slot>
+      </div>
+      <div part="root text-field-input-stack">
+        <slot></slot>
+      </div>
+      <slot name="list"></slot>
+      <slot name="tag" hidden></slot>
+    </label>`,
+            })
+          )
+
+          break
+      }
+
+      // return template
+      // PickerView.#templates.set(style, template)
     }
 
-    return template
+    return PickerView.#templates.get(style)!
   }
 
   #shadowRoot
@@ -167,7 +200,10 @@ export class PickerView extends HTMLElement {
     this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
     this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
+    this.#datalistSlot?.removeEventListener('slotchange', this.#handleSlotchange)
     this.#datalistSlot?.addEventListener('slotchange', this.#handleSlotchange)
+
+    this.#tagSlot?.removeEventListener('slotchange', this.#handleSlotchange)
     this.#tagSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
     // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
@@ -229,12 +265,13 @@ export class PickerView extends HTMLElement {
       }
 
     for (const el of assigned) {
-      observers.observe(el, this.#handleTagMutation, {
-        attributes: true,
-        characterData: true,
-        subtree: true,
-        childList: true,
-      })
+      if (!this.#trackedElements.has(el))
+        observers.observe(el, this.#handleTagMutation, {
+          attributes: true,
+          characterData: true,
+          subtree: true,
+          childList: true,
+        })
 
       this.#trackedElements.add(el)
     }

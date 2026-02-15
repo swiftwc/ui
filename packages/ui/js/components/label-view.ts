@@ -35,10 +35,10 @@ export class LabelView extends HTMLElement {
       this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
       this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-      this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
-      this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
+      // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
+      // this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
-      this.#handleSlotchange(new CustomEvent('slotchange'))
+      // this.#handleSlotchange(new CustomEvent('slotchange'))
     })
   }
 
@@ -56,10 +56,10 @@ export class LabelView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'system-image':
-          const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
-          if (!imgSlot) break
+          // const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
+          // if (!imgSlot) break
 
-          const assigned = imgSlot.assignedElements({ flatten: true }) as HTMLElement[]
+          const assigned = this.#imgSlot!.assignedElements({ flatten: true }) as HTMLElement[]
 
           let el = assigned[0] as HTMLElement | undefined
           if (!el) {
@@ -90,17 +90,17 @@ export class LabelView extends HTMLElement {
     })
   }
 
-  #handleSlotchange = (event: Event) => {
-    console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
+  // #handleSlotchange = (event: Event) => {
+  //   console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
-    this.setAttribute(
-      'title-hint',
-      (this.#slot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
-        .length > 0
-        ? 'yes'
-        : 'no'
-    )
+  //   this.setAttribute(
+  //     'title-hint',
+  //     (this.#slot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
+  //       .length > 0
+  //       ? 'yes'
+  //       : 'no'
+  //   )
 
-    this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
-  }
+  //   this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
+  // }
 }

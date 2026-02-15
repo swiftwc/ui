@@ -2,9 +2,9 @@
 @use '../mixins';
 
 @layer #{vars.$colors-layer} {
-  :root {
-    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
-  }
+  // :root {
+  //   --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
+  // }
 
   :where(navigation-stack, navigation-split-view) {
     --canvas: light-dark(var(--primary-bg), var(--primary-bg-dark));

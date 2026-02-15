@@ -65,7 +65,7 @@
     // outline: 0;
     border: var(--component-border-width,);
     background: var(--componentface,);
-    color: var(--componenttext,);
+    color: var(--componenttext, var(--canvastext));
     padding-inline: var(--component-padding-inline,);
     padding-block: var(--component-padding-block,);
     border-radius: var(--component-border-radius,);

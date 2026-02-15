@@ -125,6 +125,15 @@
       }
     }
 
+    :where(&:has([slot='image'])) {
+      --label--has-icon: yes;
+      // background-color: green;
+    }
+    :where(&:has(:not([slot]))) {
+      --label--has-title: yes;
+      // background-color: red;
+    }
+
     :where(& > *:not([slot])) {
       // grid-area: label-title-stack;
       overflow: var(--label--overflow,);
@@ -186,6 +195,7 @@
           style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
             else: if(style(--label--has-icon: yes): grid ; else: none;) ;
         );
+
         --label--titlestack-display: if(
           style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
             else: if(style(--label--has-title: yes): grid ; else: none;) ;
@@ -247,13 +257,16 @@
           @include set-label-style('h-icon-only');
         }
         &:not([label-style]) {
-          :where(&[image-hint='yes'][title-hint='yes']) {
+          // :where(&[image-hint='yes'][title-hint='yes']) {
+          :where(&:has([slot='image']):has(:not([slot]))) {
             @include set-label-style('h-title-and-icon');
           }
-          :where(&[image-hint='yes']:not([title-hint='yes'])) {
+          // :where(&[image-hint='yes']:not([title-hint='yes'])) {
+          :where(&:has([slot='image']):not(:has(:not([slot])))) {
             @include set-label-style('h-icon-only');
           }
-          :where(&[title-hint='yes']:not([image-hint='yes'])) {
+          // :where(&[title-hint='yes']:not([image-hint='yes'])) {
+          :where(&:has(:not([slot])):not(:has([slot='image']))) {
             @include set-label-style('h-title-only');
           }
         }
@@ -281,13 +294,13 @@
           @include set-label-style('v-icon-only');
         }
         &:not([label-style]) {
-          :where(&[image-hint='yes'][title-hint='yes']) {
+          :where(&:has([slot='image']):has(:not([slot]))) {
             @include set-label-style('v-title-and-icon');
           }
-          :where(&[image-hint='yes']:not([title-hint='yes'])) {
+          :where(&:has([slot='image']):not(:has(:not([slot])))) {
             @include set-label-style('v-icon-only');
           }
-          :where(&[title-hint='yes']:not([image-hint='yes'])) {
+          :where(&:has(:not([slot])):not(:has([slot='image']))) {
             @include set-label-style('v-title-only');
           }
         }
@@ -332,8 +345,8 @@
         --label-style: attr(label-style type(<custom-ident>), inherit);
         --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
         --label-line-limit: attr(line-limit type(<number>), inherit);
-        --label--has-icon: attr(image-hint type(<custom-ident>), inherit);
-        --label--has-title: attr(title-hint type(<custom-ident>), inherit);
+        // --label--has-icon: attr(image-hint type(<custom-ident>), inherit);
+        // --label--has-title: attr(title-hint type(<custom-ident>), inherit);
       }
     }
 
@@ -347,18 +360,18 @@
       :where(&[truncation-mode='tail']) {
         --label-truncation-mode: tail;
       }
-      :where(&[image-hint='yes']) {
-        --label--has-icon: yes;
-      }
-      :where(&[image-hint='no']) {
-        --label--has-icon: no;
-      }
-      :where(&[title-hint='yes']) {
-        --label--has-title: yes;
-      }
-      :where(&[title-hint='no']) {
-        --label--has-title: no;
-      }
+      // :where(&[image-hint='yes']) {
+      //   --label--has-icon: yes;
+      // }
+      // :where(&[image-hint='no']) {
+      //   --label--has-icon: no;
+      // }
+      // :where(&[title-hint='yes']) {
+      //   --label--has-title: yes;
+      // }
+      // :where(&[title-hint='no']) {
+      //   --label--has-title: no;
+      // }
     }
   }
 }

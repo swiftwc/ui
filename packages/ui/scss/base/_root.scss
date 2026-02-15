@@ -129,9 +129,9 @@
     // --touchglass-transition-duration: 15s;
 
     @media (pointer: fine) {
-      /*--primary-bg: oklch(0.9761 0 0);
+      --primary-bg: oklch(0.9761 0 0);
       --primary-bg-dark: oklch(0.2606 0.004 84.58);
-      */
+
       --toolbar-cell-bg: oklch(1 0 0);
       --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
 
@@ -160,7 +160,6 @@
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }
-    --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
   }
 
   html:has(color-scheme[dark]) {

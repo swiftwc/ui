@@ -15,9 +15,7 @@ export class PickerView extends HTMLElement {
   get template(): HTMLTemplateElement {
     const style = this.getAttribute('picker-style') ?? ''
 
-    if (!PickerView.#templates.has(style)) {
-      // const template = document.createElement('template')
-
+    if (!PickerView.#templates.has(style))
       switch (style) {
         // case 'inline':
         //   template.innerHTML = `
@@ -90,7 +88,7 @@ export class PickerView extends HTMLElement {
         </datalist>
       </div>
       <slot name="list"></slot>
-    </label>`,
+      </label>`,
             })
           )
 
@@ -101,24 +99,20 @@ export class PickerView extends HTMLElement {
             style,
             Object.assign(document.createElement('template'), {
               innerHTML: `<label part="root text-field-stack">
-      <div part="root text-field-label-stack">
-        <slot name="label"></slot>
-      </div>
-      <div part="root text-field-input-stack">
-        <slot></slot>
-      </div>
-      <slot name="list"></slot>
-      <slot name="tag" hidden></slot>
-    </label>`,
+          <div part="root text-field-label-stack">
+            <slot name="label"></slot>
+          </div>
+          <div part="root text-field-input-stack">
+            <slot></slot>
+          </div>
+          <slot name="list"></slot>
+          <slot name="tag" hidden></slot>
+        </label>`,
             })
           )
 
           break
       }
-
-      // return template
-      // PickerView.#templates.set(style, template)
-    }
 
     return PickerView.#templates.get(style)!
   }

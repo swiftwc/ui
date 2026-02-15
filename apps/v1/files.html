@@ -30,15 +30,10 @@
   <body>
     <v-keyboard></v-keyboard>
 
-    <div id="console" popover="manual" inert>
-      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
-      <span id="console4"></span>
-    </div>
-
     <tab-view tab-view-style="tab-bar-only">
       <navigation-stack id="recents">
         <scroll-view navigation-title="Recents">
-          <v-stack>
+          <v-stack frame-alignment="leading" alignment="stretch">
             ns2section0<button type="button" class="fw">...</button>
             <p>...</p>
             <p>...</p>
@@ -98,10 +93,10 @@
         </tool-bar>
       </navigation-stack>
 
-      <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="browse" hidden>
+      <navigation-split-view id="browse" preferred-compact-column="content" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-title="Browse">
-            <v-stack>
+            <v-stack frame-alignment="leading" alignment="stretch">
               <list-view>
                 <button type="button" id="cloud_drive">Cloud Drive</button>
               </list-view>
@@ -157,38 +152,24 @@
 
     <script type="module" src="/main.js"></script>
     <script type="module">
-      import { startViewTransition } from '../../packages/ui/js/client'
+      import { startViewTransition, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
 
       document.querySelector('#cloud_drive').addEventListener('click', async (event) => {
         console.debug(`⚡️ click`)
 
-        const sv = event.target.closest('scroll-view'),
-          root = sv.closest('navigation-stack,navigation-split-view'),
-          lm = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
-          frame = lm.parentElement
+        const sv = queryLandmark(event.target),
+          { root } = queryRoot(sv),
+          { scene, frame } = queryFrameToolbars(sv),
+          position = queryInsertPosition(frame),
+          lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
         await startViewTransition(event, 'forwards', async () => {
-          let position = 'afterend'
-          let lookFor = 'nextElementSibling'
-
-          if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
-            position = 'beforebegin'
-            lookFor = 'previousElementSibling'
-          } else if (
-            frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-            frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
-            frame.tagName === 'BODY-VIEW'
-          ) {
-            position = 'beforebegin'
-            lookFor = 'previousElementSibling'
-          }
-
-          if (!['BODY-VIEW', 'DIALOG'].includes(lm[lookFor]?.tagName)) {
-            lm.insertAdjacentHTML(
+          if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
+            scene.insertAdjacentHTML(
               position,
               `<body-view>
           <scroll-view navigation-title="Cloud Drive">
-            <v-stack>
+            <v-stack frame-alignment="leading" alignment="stretch">
               browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
               <p>...</p>
               <p>...</p>

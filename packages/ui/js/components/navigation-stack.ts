@@ -1,5 +1,19 @@
+import { Snapshot } from '../snapshot'
+
+class NavigationPath {
+  push() {
+    alert(99)
+  }
+}
+
 export class NavigationStack extends HTMLElement {
   static observedAttributes = ['hidden']
+
+  #path = new NavigationPath()
+
+  get path() {
+    return this.#path
+  }
 
   constructor() {
     super()

@@ -2,6 +2,7 @@
 // console.log(444, UILabel)
 // import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
 import { startViewTransition } from '../../packages/ui/js/client'
+import { queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/scene'
 
 document.body.addEventListener('selection', async (event) => {
   alert(event.detail.tag)
@@ -10,10 +11,10 @@ document.body.addEventListener('selection', async (event) => {
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
 
-  if (event.target.tagName === 'BUTTON') {
-    if (event.target.classList.contains('bw')) {
-      const sv = event.target.closest('scroll-view'),
-        pr = sv.parentElement
+  if (event.target.closest('button')) {
+    if (event.target.closest('.bw')) {
+      const sv = queryLandmark(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
+        pr = queryFrameToolbars(sv).scene.parentElement //sv.parentElement
       await startViewTransition(event, 'backwards', async () => {
         if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) {
           pr.hidden = true
@@ -24,10 +25,14 @@ document.body.addEventListener('click', async (event) => {
     }
 
     if (event.target.classList.contains('fw')) {
-      const sv = event.target.closest('scroll-view'),
-        root = sv.closest('navigation-stack,navigation-split-view'),
-        lm = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
-        frame = lm.parentElement
+      const sv = queryLandmark(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
+        { root } = queryRoot(sv), //sv.closest('navigation-stack,navigation-split-view'),
+        { scene, frame } = queryFrameToolbars(sv),
+        position = queryInsertPosition(frame), //'afterend'
+        lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+      // scene = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
+      // frame = scene.parentElement
+      // console.log(99, lm, frame, queryFrameToolbars(sv).scene)
       await startViewTransition(event, 'forwards', async () => {
         // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
         //   createHTML: (string) => string.replace(/</g, '&lt;'),
@@ -35,25 +40,21 @@ document.body.addEventListener('click', async (event) => {
         if (event.target.hasAttribute('tag')) {
           document.querySelector(`#${event.target.getAttribute('tag')}`).hidden = false
         } else {
-          let position = 'afterend'
-          let lookFor = 'nextElementSibling'
+          // if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
+          //   position = 'beforebegin'
+          //   lookFor = 'previousElementSibling'
+          // } else if (
+          //   frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
+          //   frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
+          //   frame.tagName === 'BODY-VIEW'
+          // ) {
+          //   position = 'beforebegin'
+          //   lookFor = 'previousElementSibling'
+          // }
 
-          if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
-            position = 'beforebegin'
-            lookFor = 'previousElementSibling'
-          } else if (
-            frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-            frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
-            frame.tagName === 'BODY-VIEW'
-          ) {
-            position = 'beforebegin'
-            lookFor = 'previousElementSibling'
-          }
-
-          if (!['BODY-VIEW', 'DIALOG'].includes(lm[lookFor]?.tagName)) {
-            lm.insertAdjacentHTML(
-              position,
-              `
+          if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
+            const tpl = document.createElement('template')
+            tpl.innerHTML = `
                   <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
                       <v-stack>
@@ -107,8 +108,12 @@ document.body.addEventListener('click', async (event) => {
                     </tool-bar>
                   </${6 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
-            )
-            if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
+            const node = tpl.content.firstElementChild
+            scene.insertAdjacentElement(position, node)
+            // if ('DIALOG' === scene[lookFor]?.tagName) scene[lookFor].showModal()
+            // console.log(99, node.tagName, scene[lookFor]?.tagName)
+            // lm.insertAdjacentHTML(position, ``)
+            // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
           }
         }
       })

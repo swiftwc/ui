@@ -1,6 +1,7 @@
 import * as Components from '../components'
 import { kebabCase } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../scene'
 import { type WebComponentCtor } from '../namespace'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -119,7 +120,10 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
   //   (event.target as HTMLElement).closest<Components.ScrollView>(
   //     'scroll-view'
   //   ) ?? undefined,
-  const from = (event.target as HTMLElement).closest<Components.ScrollView>('scroll-view') ?? undefined
+  const from = queryLandmark(event.target as HTMLElement)
+  // (event.target as HTMLElement).closest<Components.ScrollView>('scroll-view') ??
+  // ((event.target as HTMLElement).closest<Components.ToolBar>('tool-bar')?.previousElementSibling as Components.ScrollView) ??
+  // undefined
 
   if ('forwards' === type) {
     // const sis = Router.toolbarItems //sv.parentElement.querySelectorAll(`:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`)
@@ -266,4 +270,4 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
-export { Snapshot }
+export { Snapshot, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition }

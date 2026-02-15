@@ -64,7 +64,9 @@ export class ScrollView extends HTMLElement {
               return this.appendChild(el)
             })()
 
-          el.textContent = newValue //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          if (newValue)
+            el.setAttribute('label', newValue) //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          else el.removeAttribute('value')
 
           // const el =
           //   assigned?.[0] ??

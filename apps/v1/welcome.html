@@ -1,0 +1,161 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>welcome</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack frame-alignment="leading" alignment="stretch">
+          <label-view system-image="globe"></label-view>
+          <list-view>
+            <button class="lang">
+              <label-view label="English" />
+            </button>
+          </list-view>
+          ns2section0<button type="button" class="fw">...</button>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <input type="text" />
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <hr style="width: 100%" />
+          <hr style="width: 100cqi" />
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <input type="text" />
+          <p>...</p>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+
+    <script type="module" src="/main.js"></script>
+    <script type="module">
+      import { startViewTransition, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ click`)
+
+        const sv = queryLandmark(event.target),
+          { root } = queryRoot(sv),
+          { scene, frame } = queryFrameToolbars(sv),
+          position = queryInsertPosition(frame),
+          lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+        if (event.target.closest('.lang'))
+          await startViewTransition(event, 'forwards', async () => {
+            if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
+              scene.insertAdjacentHTML(
+                position,
+                `<body-view>
+          <scroll-view navigation-title="Select Your Country or Region">
+            <v-stack frame-alignment="leading" alignment="stretch">
+              <list-view>
+                <button class="region">
+                  <label-view label="USA" />
+                </button>
+              </list-view>
+              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
+              <p>...</p>
+              <p>...</p>
+            </v-stack>
+          </scroll-view>
+          <tool-bar>
+            <tool-bar-item slot="navigation-bar-leading">
+              <button type="button" class="bw">
+                <label-view system-image="caret-left" />
+              </button>
+            </tool-bar-item>
+          </tool-bar>
+          </body-view>`
+              )
+            }
+          })
+
+        if (event.target.closest('.region'))
+          await startViewTransition(event, 'forwards', async () => {
+            if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
+              scene.insertAdjacentHTML(
+                position,
+                `<body-view>
+          <scroll-view navigation-title="Appearance">
+            <v-stack frame-alignment="leading" alignment="stretch">
+              <list-view>
+                <button class="continue">
+                  <label-view label="Continue" />
+                </button>
+              </list-view>
+              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
+            </v-stack>
+          </scroll-view>
+          <tool-bar>
+            <tool-bar-item slot="navigation-bar-leading">
+              <button type="button" class="bw">
+                <label-view system-image="caret-left" label="Back" />
+              </button>
+            </tool-bar-item>
+          </tool-bar>
+          </body-view>`
+              )
+            }
+          })
+      })
+    </script>
+  </body>
+</html>

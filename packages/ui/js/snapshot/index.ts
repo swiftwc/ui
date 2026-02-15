@@ -1,4 +1,5 @@
 import type * as Components from '../components'
+import { queryFrameToolbars, queryRoot, queryParent, queryNest } from '../scene'
 
 export class Snapshot {
   static #config?: Record<string, string>
@@ -6,9 +7,7 @@ export class Snapshot {
   static #readyCalled = false
 
   static readonly waitReady = Promise.all([
-    'complete' === document.readyState
-      ? Promise.resolve()
-      : new Promise((r) => self.addEventListener('load', r, { once: true })),
+    'complete' === document.readyState ? Promise.resolve() : new Promise((r) => self.addEventListener('load', r, { once: true })),
     (async () => {
       if (!this.#readyCalled) await this.setOwnConfig()
     })(), // Lazy config read promise, triggered on first access
@@ -21,8 +20,7 @@ export class Snapshot {
   static async setOwnConfig() {
     if (!this.#readyCalled) this.#readyCalled = true
 
-    if ('complete' !== document.readyState)
-      await new Promise((r) => self.addEventListener('load', r, { once: true }))
+    if ('complete' !== document.readyState) await new Promise((r) => self.addEventListener('load', r, { once: true }))
 
     this.#getOwnConfig()
   }
@@ -91,46 +89,23 @@ export class Snapshot {
     return this.#leafToolbarItems
   }
 
-  static #queryScrollViewRels = (sv?: Components.ScrollView) => {
-    const isSidebarWrapped = sv?.parentElement?.matches(
-      'dialog[is=sidebar-view]'
-    )
-    return {
-      frame:
-        (isSidebarWrapped ? sv?.parentElement : sv)?.parentElement ?? undefined,
-      toolbarElements: sv?.parentElement?.querySelectorAll(
-        `:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group` //`:scope > navigation-bar > tool-bar-item,:scope > bottom-bar > tool-bar-item,:scope > navigation-bar > tool-bar-item-group,:scope > bottom-bar > tool-bar-item-group`
-      ),
-    }
-  }
-
   static getSnapshot(scrollView?: Components.ScrollView) {
     console.debug(`${Snapshot.name} ⚡️ getSnapshot`)
 
     // root
-    for (
-      let e: HTMLElement | undefined | null = scrollView;
-      e;
-      e = e.parentElement
-    )
-      e.matches('navigation-stack,navigation-split-view') && (this.#root = e)
+    const { root } = queryRoot(scrollView)
+    this.#root = root
+    // for (let e: HTMLElement | undefined | null = scrollView; e; e = e.parentElement) e.matches('navigation-stack,navigation-split-view') && (this.#root = e)
 
     // current
-    const { frame, toolbarElements: toolbarItems } =
-      this.#queryScrollViewRels(scrollView)
+    const { frame, toolbarElements: toolbarItems } = queryFrameToolbars(scrollView)
     this.#container = frame
     this.#toolbarItems = toolbarItems
 
     // parent
-    const possibleParent = this.#container?.parentElement as HTMLElement | null
+    this.#parent = queryParent(this.#container)
 
-    this.#parent =
-      possibleParent?.querySelector<Components.ScrollView>(
-        `:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`
-      ) ?? undefined //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
-
-    const { frame: parentFrame, toolbarElements: parentToolbarItems } =
-      this.#queryScrollViewRels(this.#parent)
+    const { frame: parentFrame, toolbarElements: parentToolbarItems } = queryFrameToolbars(this.#parent)
     this.#parentContainer = parentFrame
     this.#parentToolbarItems = parentToolbarItems
     // const possibleParent =
@@ -147,29 +122,9 @@ export class Snapshot {
     // this.#parentToolbarItems = parentToolbarItems
 
     // detect children
-    let possibleNest = scrollView?.nextElementSibling as HTMLElement | null
+    this.#leaf = queryNest(scrollView, this.#root)
 
-    if ('NAVIGATION-SPLIT-VIEW' === this.#root?.tagName)
-      if (
-        scrollView?.matches(
-          `navigation-split-view > scroll-view${null !== this.#root.querySelector(':scope > [is=sidebar-view]') ? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view' : ''}`
-        )
-      )
-        possibleNest = (
-          scrollView?.parentElement?.matches('dialog[is=sidebar-view]')
-            ? scrollView?.parentElement
-            : scrollView
-        )?.previousElementSibling as HTMLElement | null // look for prev sibling instead
-    // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
-
-    this.#leaf = [
-      ...(possibleNest?.querySelectorAll<Components.ScrollView>(
-        'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
-      ) ?? []),
-    ]?.pop?.() //'navigation-stack:not([hidden]) scroll-view'
-
-    const { frame: leafFrame, toolbarElements: leafToolbarItems } =
-      this.#queryScrollViewRels(this.#leaf)
+    const { frame: leafFrame, toolbarElements: leafToolbarItems } = queryFrameToolbars(this.#leaf)
     this.#leafContainer = leafFrame
     this.#leafToolbarItems = leafToolbarItems
 

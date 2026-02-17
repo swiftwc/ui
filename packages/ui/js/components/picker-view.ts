@@ -1,5 +1,5 @@
 import { Snapshot } from '../snapshot'
-import { MutationObserverSingleton } from '../internal/mutation-observer-singleton'
+import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
 
 const observers = new MutationObserverSingleton()
 

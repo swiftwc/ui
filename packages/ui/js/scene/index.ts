@@ -13,47 +13,61 @@ export function queryInsertPosition(frame?: Components.BodyView | Components.She
   return 'afterend' // lookFor = 'nextElementSibling'
 }
 
-export function queryParent(frame?: HTMLElement) {
-  const possibleParent = frame?.parentElement as HTMLElement | null
+// export function queryParent(frame?: HTMLElement) {
+//   const possibleParent = frame?.parentElement as HTMLElement | null
 
-  return possibleParent?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
-}
+//   return possibleParent?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined //const sv2 = pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
+// }
 
-export function queryNest(sv?: Components.ScrollView, root?: HTMLElement) {
-  let possibleNest = sv?.nextElementSibling as HTMLElement | null
+// export function queryNest(sv?: Components.ScrollView) {
+//   const root = navigationRoot(sv)
 
-  if ('NAVIGATION-SPLIT-VIEW' === root?.tagName)
-    if (
-      sv?.matches(
-        `navigation-split-view > scroll-view${null !== root.querySelector(':scope > [is=sidebar-view]') ? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view' : ''}`
-      )
-    )
-      possibleNest = (sv?.parentElement?.matches('dialog[is=sidebar-view]') ? sv?.parentElement : sv)?.previousElementSibling as HTMLElement | null // look for prev sibling instead
-  // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
+//   let possibleNest = sv?.nextElementSibling as HTMLElement | null
 
-  return [
-    ...(possibleNest?.querySelectorAll<Components.ScrollView>(
-      'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
-    ) ?? []),
-  ]?.pop?.() //'navigation-stack:not([hidden]) scroll-view'
-}
+//   if ('NAVIGATION-SPLIT-VIEW' === root?.tagName)
+//     if (
+//       sv?.matches(
+//         `navigation-split-view > scroll-view${null !== root.querySelector(':scope > [is=sidebar-view]') ? ',navigation-split-view > [is=sidebar-view] > scroll-view,navigation-split-view > body-view > scroll-view' : ''}`
+//       )
+//     )
+//       possibleNest = (sv?.parentElement?.matches('dialog[is=sidebar-view]') ? sv?.parentElement : sv)?.previousElementSibling as HTMLElement | null // look for prev sibling instead
+//   // const possibleNest = scrollView?.nextElementSibling as HTMLElement | null
 
-export function queryRoot(sv?: Components.ScrollView) {
-  let root
-  for (let e: HTMLElement | undefined | null = sv; e; e = e.parentElement) e.matches('navigation-stack,navigation-split-view') && (root = e)
+//   if (!possibleNest?.matches('body-view,[is=sheet-view],navigation-stack')) return { scenes: [], toolbarCells: [] }
 
-  return {
-    root,
-  }
-}
+//   return {
+//     scenes: [
+//       ...(possibleNest?.querySelectorAll<Components.ScrollView>(
+//         'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
+//       ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+//     ],
+//     frames: [
+//       ...(possibleNest?.querySelectorAll(
+//         'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+//       ) ?? []),
+//     ],
+//     toolbarCells: [
+//       ...(possibleNest?.querySelectorAll(
+//         'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
+//       ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+//     ],
+//   }
+// }
 
-export function queryLandmark(target?: HTMLElement) {
-  return (
-    target?.closest<Components.ScrollView>('scroll-view') ??
-    (target?.closest<Components.ToolBar>('tool-bar')?.previousElementSibling as Components.ScrollView) ??
-    undefined
-  )
-}
+// export function navigationRoot(sv?: Components.ScrollView) {
+//   let root
+//   for (let e: HTMLElement | undefined | null = sv; e; e = e.parentElement) e.matches('navigation-stack,navigation-split-view') && (root = e)
+
+//   return root
+// }
+
+// export function closestLandmark(any?: HTMLElement) {
+//   return (
+//     any?.closest<Components.ScrollView>('scroll-view') ??
+//     (any?.closest<Components.ToolBar>('tool-bar')?.previousElementSibling as Components.ScrollView) ??
+//     undefined
+//   )
+// }
 
 export function queryFrameToolbars(sv?: Components.ScrollView) {
   const isSidebarWrapped = sv?.parentElement?.matches('dialog[is=sidebar-view]'), // boolean

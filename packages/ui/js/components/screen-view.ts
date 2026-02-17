@@ -1,4 +1,4 @@
-import { DialogBase } from '../client/privateNamespace'
+import { DialogBase } from '../internal/privateNamespace'
 
 export class ScreenView extends DialogBase {
   constructor() {

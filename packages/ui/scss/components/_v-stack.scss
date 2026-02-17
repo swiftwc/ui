@@ -3,22 +3,18 @@
 @layer #{vars.$components-layer} {
   v-stack {
     :where(&) {
+      // display: flex;
+      // flex-flow: column wrap;
       grid-template-columns: minmax(0, 1fr);
 
       place-items: center;
       place-content: center;
+    }
 
-      :where(&[frame-alignment='leading']) {
-        align-self: start;
-      }
-      :where(&[frame-alignment='center']) {
-        align-self: center;
-      }
-      :where(&[frame-alignment='trailing']) {
-        align-self: end;
-      }
-      :where(&[alignment='stretch']) {
-        place-items: stretch;
+    > * {
+      :where(&) {
+        max-width: 100%;
+        // align-self: start;
       }
     }
   }

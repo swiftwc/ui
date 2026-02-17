@@ -2,6 +2,36 @@
 
 @layer #{vars.$utils-layer} {
   :where([frame-width='infinity']) {
-    justify-self: stretch;
+    place-items: stretch; //justify-self: stretch;
+  }
+  :where([frame-alignment='leading']) {
+    align-self: start;
+  }
+  :where([frame-alignment='center']) {
+    align-self: center;
+  }
+  :where([frame-alignment='trailing']) {
+    align-self: end;
+  }
+  :where([alignment='stretch']) {
+    place-items: stretch;
+  }
+  :where([content='start']) {
+    place-content: start;
+  }
+  :where([justify-content='start']) {
+    justify-content: start;
+  }
+  :where([justify-content='start']) {
+    justify-content: start;
+  }
+  :where([spacer='top']) {
+    margin-top: auto;
+  }
+  :where([distribution='space-between']) {
+    place-content: space-between;
+  }
+  :where(spacer) {
+    margin: auto;
   }
 }

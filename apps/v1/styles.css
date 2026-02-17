@@ -65,6 +65,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;
     --view-transition-duration: 500ms;
+    --view-transition-duration: 5s;
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
@@ -450,17 +451,22 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     place-items: center;
     place-content: center;
   }
-  :where(:where(v-stack)[frame-alignment=leading]) {
-    align-self: start;
+  :where(v-stack > *) {
+    max-width: 100%;
   }
-  :where(:where(v-stack)[frame-alignment=center]) {
-    align-self: center;
+}
+@layer sw-components {
+  :where(v-flex-stack) {
+    display: flex;
+    flex-flow: column wrap;
+    place-items: center;
+    place-content: center;
   }
-  :where(:where(v-stack)[frame-alignment=trailing]) {
-    align-self: end;
+  :where(v-flex-stack > *) {
+    max-width: 100%;
   }
-  :where(:where(v-stack)[alignment=stretch]) {
-    place-items: stretch;
+  :where(v-flex-stack > [alignment=fill]) {
+    flex-grow: 1;
   }
 }
 @layer sw-components {
@@ -1812,7 +1818,37 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 @layer sw-utils {}
 @layer sw-utils {
   :where([frame-width=infinity]) {
-    justify-self: stretch;
+    place-items: stretch;
+  }
+  :where([frame-alignment=leading]) {
+    align-self: start;
+  }
+  :where([frame-alignment=center]) {
+    align-self: center;
+  }
+  :where([frame-alignment=trailing]) {
+    align-self: end;
+  }
+  :where([alignment=stretch]) {
+    place-items: stretch;
+  }
+  :where([content=start]) {
+    place-content: start;
+  }
+  :where([justify-content=start]) {
+    justify-content: start;
+  }
+  :where([justify-content=start]) {
+    justify-content: start;
+  }
+  :where([spacer=top]) {
+    margin-top: auto;
+  }
+  :where([distribution=space-between]) {
+    place-content: space-between;
+  }
+  :where(spacer) {
+    margin: auto;
   }
 }
 @layer sw-transitions {

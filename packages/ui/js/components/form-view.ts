@@ -1,4 +1,4 @@
-import { FormBase } from '../client/privateNamespace'
+import { FormBase } from '../internal/privateNamespace'
 
 export class FormView extends FormBase {
   static #cleanups = new WeakMap()

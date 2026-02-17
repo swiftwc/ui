@@ -34,7 +34,7 @@
       <navigation-stack id="recents">
         <scroll-view navigation-title="Recents">
           <v-stack frame-alignment="leading" alignment="stretch">
-            ns2section0<button type="button" class="fw">...</button>
+            ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -152,14 +152,14 @@
 
     <script type="module" src="/main.js"></script>
     <script type="module">
-      import { startViewTransition, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
+      import { startViewTransition, closestBody, getRootController, getComputedView, queryInsertPosition } from '../../packages/ui/js/client'
 
       document.querySelector('#cloud_drive').addEventListener('click', async (event) => {
         console.debug(`⚡️ click`)
 
-        const sv = queryLandmark(event.target),
-          { root } = queryRoot(sv),
-          { scene, frame } = queryFrameToolbars(sv),
+        const sv = closestBody(event.target),
+          root = getRootController(sv),
+          { body: scene, host: frame } = getComputedView(sv),
           position = queryInsertPosition(frame),
           lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
@@ -170,7 +170,7 @@
               `<body-view>
           <scroll-view navigation-title="Cloud Drive">
             <v-stack frame-alignment="leading" alignment="stretch">
-              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
+              browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
               <p>...</p>
               <p>...</p>
             </v-stack>

@@ -1,10 +1,4 @@
-import { Snapshot } from '../snapshot'
-
-class NavigationPath {
-  push() {
-    alert(99)
-  }
-}
+import { NavigationPath } from '../navigation-path'
 
 export class NavigationStack extends HTMLElement {
   static observedAttributes = ['hidden']

@@ -1,4 +1,4 @@
-import { DialogBase } from '../client/privateNamespace'
+import { DialogBase } from '../internal/privateNamespace'
 import { touchGlass } from '../internal/utils'
 
 export class TabBar extends DialogBase {

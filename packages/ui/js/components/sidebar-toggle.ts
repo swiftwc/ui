@@ -2,7 +2,7 @@ import { type TabBar } from './tab-bar'
 import { type SidebarView } from './sidebar-view'
 import { debounce } from '../internal/utils'
 import { Snapshot } from '../snapshot'
-import { ResizeObserverSingleton } from '../internal/resize-observer-singleton'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 
 const observers = new ResizeObserverSingleton()
 

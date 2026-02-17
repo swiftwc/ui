@@ -1,7 +1,7 @@
 import * as Components from '../components'
 import { kebabCase } from '../internal/utils'
 import { Snapshot } from '../snapshot'
-import { queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../scene'
+import { queryFrameToolbars, queryInsertPosition } from '../scene'
 import { type WebComponentCtor } from '../namespace'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -116,152 +116,135 @@ const cleanup = (lm?: Element, dir?: TransitionType) => {
 
 export const startViewTransition = async (event: Event, type: TransitionType = 'forwards', updateCallback = async () => {}) => {
   await Snapshot.waitReady
-  // const sv =
-  //   (event.target as HTMLElement).closest<Components.ScrollView>(
-  //     'scroll-view'
-  //   ) ?? undefined,
-  const from = queryLandmark(event.target as HTMLElement)
-  // (event.target as HTMLElement).closest<Components.ScrollView>('scroll-view') ??
-  // ((event.target as HTMLElement).closest<Components.ToolBar>('tool-bar')?.previousElementSibling as Components.ScrollView) ??
-  // undefined
+
+  const from = closestBody(event.target as HTMLElement)
 
   if ('forwards' === type) {
-    // const sis = Router.toolbarItems //sv.parentElement.querySelectorAll(`:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`)
-    // pr = Router.frame //sv.parentElement
-    // const pt = event.target.closest('navigation-stack,body-view')
-    // const inte = event.target.closest(".fwd");
-    // const st = sv.scrollTop
-    // console.log(333, lm, sv, sis)
-    // let to
-
-    // inject or unhide
-    // if (pr.tagName === 'NAVIGATION-STACK' && 'more' === pr.getAttribute('is')) {
-    //   to = document.querySelector(`#${event.target.getAttribute('tag')}`)
-    // to.hidden = false
-    // } else {
     await updateCallback() // updatetheDOMSomehow
-    //   to = sv.nextElementSibling //pr.lastElementChild //sv.nextElementSibling
-    // }
 
-    Snapshot.getSnapshot(from)
+    // Snapshot.getSnapshot(from)
 
-    const fromToolbars = Snapshot.toolbarItems
-    // from = Snapshot.landmark
+    const root = getRootController(from)
 
-    const to = Snapshot.leaf,
-      toFrame = Snapshot.leafContainer,
-      toToolbars = Snapshot.leafToolbarItems
+    const { toolBarConfig: oldToolbars } = getComputedView(from) //
+    // const oldToolbars = Snapshot.toolbarItems
+    // const { toolBarConfig: oldToolbars, host: oldHost } = getComputedView(from)
 
-    if ('DIALOG' === toFrame?.tagName) {
-      ;(toFrame as HTMLDialogElement).showModal()
-      console.debug(`⚡️ view-transition-start (${type})`)
-      await Promise.allSettled(toFrame.getAnimations().map(({ finished }) => finished))
-      console.debug(`⚡️ view-transition-end (${type})`)
-      return
-    }
+    const tos = queryBodyAll(from),
+      to = tos.slice(-1)?.pop?.(), //Snapshot.leaf, //
+      { host: newHost } = getComputedView(to),
+      newToolbars = queryToolbarConfigAll(from),
+      inbetweenModals = queryHostAll(from).filter?.((item) => item.matches('dialog')) ?? []
 
-    // purge
-    cleanup(Snapshot.root, 'backwards')
-
-    for (const ti of toToolbars ?? []) ti.classList.add('fwnn')
-
-    to?.classList.add('fwdd')
-
-    // prepare principal/leader
-    from?.classList.add(Snapshot.config!['vt-fwd-class-name'])
-    for (const ti of fromToolbars ?? []) ti.classList.add('fwn') // prepare navbs
-
-    // sv.inert = true
-
-    // if (!document.startViewTransition) {
-    //   startViewTransition(event, false)
+    // toFrame = Snapshot.leafContainer, //queryHostAll(from).slice(-1)?.pop?.(),
+    // toToolbars = Snapshot.leafToolbarItems
+    // dialogFrames = [toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item): item is HTMLDialogElement => item instanceof HTMLDialogElement) //[toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item) => item?.matches('dialog'))
+    // console.log(999, to, toFrame)
+    // if ('DIALOG' === newHost?.tagName) {
+    //   ;(newHost as HTMLDialogElement).showModal()
+    //   console.debug(`⚡️ view-transition-start (${type})`)
+    //   await Promise.allSettled(newHost.getAnimations().map(({ finished }) => finished))
+    //   console.debug(`⚡️ view-transition-end (${type})`)
     //   return
     // }
-    // With a transition:
-    // const transition = document.startViewTransition({
-    //   async update() {},
-    //   types: ['forwards'],
-    // })
-
-    // console.debug(transition)
-
-    // await transition.finished
-    // alert(3)
-
-    // return
-
-    console.debug(`⚡️ view-transition-start (${type})`)
-
-    await Promise.allSettled([...(from?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.getAnimations().map(({ finished }) => finished) ?? [])])
-    // await Promise.allSettled(
-    //   from.getAnimations().map(({ finished }) => finished)
-    // )
-
-    console.debug(`⚡️ view-transition-end (${type})`)
-
-    // console.log(9, to.querySelectorAll('.fwd'))
-
-    // sv2.classList.remove("fwdd");
-
-    if (0 < (toFrame?.querySelectorAll(`.${Snapshot.config?.['vt-fwd-class-name']},.bwd`) ?? []).length) return
-
-    cleanup(Snapshot.root)
-  } else {
-    Snapshot.getSnapshot(from)
-
-    const fromToolbars = Snapshot.toolbarItems,
-      // from = Snapshot.landmark,
-      fromFrame = Snapshot.container //sv.parentElement.querySelectorAll(`:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`)
-    // fromFrame = Router.frame //sv.parentElement
-
-    // const pt = event.target.closest('navigation-stack,body-view')
-
-    // const pt = pt0.parentElement.closest('navigation-stack,body-view')
-
-    const to = Snapshot.parent, //pr.parentElement.querySelector(`:scope > scroll-view`) //pr.previousElementSibling
-      // toFrame = Snapshot.parentContainer,
-      toToolbars = Snapshot.parentToolbarItems //sv2.parentElement?.querySelectorAll?.(      `:scope > navigation-bar > toolbar-item,:scope > bottom-bar > toolbar-item`    )
-
-    // const st2 = sv2.scrollTop
-
-    if ('DIALOG' === fromFrame?.tagName) {
-      ;(fromFrame as HTMLDialogElement).close()
-      console.debug(`⚡️ view-transition-start (${type})`)
-      await Promise.allSettled(fromFrame.getAnimations().map(({ finished }) => finished))
-      console.debug(`⚡️ view-transition-end (${type})`)
-      if (fromFrame.matches('[open]')) return
-      await updateCallback()
-      return
-    }
 
     // purge
-    cleanup(Snapshot.root, 'forwards')
+    cleanup(root, 'backwards')
 
-    // prepare others
-    for (const ti of toToolbars ?? []) ti.classList.add('bwnn')
+    // prepare old
+    from?.classList.add(Snapshot.config!['vt-fwd-class-name'])
+
+    for (const oldToolbar of oldToolbars ?? []) oldToolbar.classList.add('fwn') // prepare navbs
+
+    // prepare new
+    const toolbarExclusion =
+        0 < inbetweenModals.length
+          ? (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar,body-view ~ tool-bar)')
+          : (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(body-view ~ tool-bar)'),
+      bodyExclusion =
+        0 < inbetweenModals.length
+          ? (item: HTMLElement) => item?.matches('scroll-view:not(dialog scroll-view)')
+          : (value: Element, index: number, array: Element[]) => value
+
+    for (const bti of newToolbars?.filter?.(toolbarExclusion) ?? []) bti.classList.add('fwnn') // for (const ti of newToolbars ?? []) ti.classList.add('fwnn') //
+
+    for (const bt of tos?.filter?.(bodyExclusion) ?? []) bt?.classList.add('fwdd') //to?.classList.add('fwdd')
+
+    if (0 < inbetweenModals.length) {
+      for await (const el of inbetweenModals) (el as HTMLDialogElement).showModal()
+
+      console.debug(`⚡️ view-transition-start (${type})`)
+
+      await Promise.allSettled(inbetweenModals?.[0].getAnimations().map(({ finished }) => finished))
+
+      console.debug(`⚡️ view-transition-end (${type})`)
+    } else {
+      console.debug(`⚡️ view-transition-start (${type})`)
+
+      await Promise.allSettled([
+        ...(from?.getAnimations().map(({ finished }) => finished) ?? []),
+        // ...(to?.getAnimations().map(({ finished }) => finished) ?? []),
+      ])
+
+      console.debug(`⚡️ view-transition-end (${type})`)
+    }
+
+    if (0 < (newHost?.querySelectorAll(`.${Snapshot.config?.['vt-fwd-class-name']},.bwd`) ?? []).length) return
+
+    cleanup(root)
+  } else {
+    // Snapshot.getSnapshot(from)
+
+    const root = getRootController(from)
+
+    const { toolBarConfig: oldToolbars, host: oldHost } = getComputedView(from)
+
+    // if most-top effect is closing a modal, skip everything
+    if ('DIALOG' === oldHost?.tagName) {
+      ;(oldHost as HTMLDialogElement).close()
+      console.debug(`⚡️ view-transition-start (${type})`)
+      await Promise.allSettled(oldHost.getAnimations().map(({ finished }) => finished))
+      console.debug(`⚡️ view-transition-end (${type})`)
+      if (oldHost.matches('[open]')) return
+      await updateCallback()
+      return // just close modal
+    }
+
+    const to = closestBody(oldHost?.parentElement ?? undefined),
+      { toolBarConfig: newToolbars } = getComputedView(to)
+
+    // purge
+    cleanup(root, 'forwards')
+
+    // prepare new
+    for (const ti of newToolbars ?? []) ti.classList.add('bwnn')
+
     to?.classList.add('bwdd')
 
-    // sv2.style.visibility = "visible";
+    // prepare old
+    const inbetweenModals = queryHostAll(from).filter?.((item) => item.matches('dialog[open]')) ?? [],
+      toolbarExclusion =
+        0 < inbetweenModals.length
+          ? (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar)')
+          : (value: Element, index: number, array: Element[]) => value,
+      bodyExclusion = 0 < inbetweenModals.length ? (item: HTMLElement) => item?.matches('scroll-view:not(dialog scroll-view)') : (item: HTMLElement) => item
 
-    // prepare leader/principal (tracked)
-    for (const ti of fromToolbars ?? []) ti.classList.add('bwn')
-    from?.classList.add('bwd')
-    // pr.inert = true
+    for (const ti of [...(oldToolbars ?? []), ...(queryToolbarConfigAll(from)?.filter?.(toolbarExclusion) ?? [])]) ti.classList.add('bwn')
 
+    for (const nn of [from, ...queryBodyAll(from)?.filter?.(bodyExclusion)]) nn?.classList.add('bwd') //from?.classList.add('bwd')
+
+    for (const el of inbetweenModals) (el as HTMLDialogElement).close() // close old inbetween modals
+
+    // capture trans
     console.debug(`⚡️ view-transition-start (${type})`)
 
     await Promise.allSettled([...(from?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.getAnimations().map(({ finished }) => finished) ?? [])])
-    // await Promise.allSettled(
-    //   from.getAnimations().map(({ finished }) => finished)
-    // )
-    // await Promise.allSettled(to.getAnimations().map(({ finished }) => finished))
 
     console.debug(`⚡️ view-transition-end (${type})`)
 
-    // console.log(999, sv2.closest('.fwd'))
     if (to?.closest(`.bwd,.${Snapshot.config?.['vt-fwd-class-name']}`)) return
 
-    cleanup(Snapshot.root)
+    cleanup(root)
 
     // remove or hide
     await updateCallback()
@@ -270,4 +253,179 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
-export { Snapshot, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition }
+type NavController = Components.NavigationStack | Components.NavigationSplitView
+type NavHost = Components.BodyView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
+type NavToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGroup
+type NavDocument = Components.SidebarView | Components.ScrollView // this is a body wrapper!
+type NavView = {
+  host?: NavHost
+  document?: NavDocument // same as body or sidebar
+  body?: Components.ScrollView
+  toolBarConfig?: Array<NavToolbarConfiguration>
+}
+
+export function resolveDoc(body?: Components.ScrollView): NavDocument | undefined {
+  const possibleBody = body?.parentElement?.matches('dialog[is=sidebar-view]') ? ((body?.parentElement as Components.SidebarView | null) ?? undefined) : body
+
+  return possibleBody?.matches('scroll-view,[is=sidebar-view]') ? possibleBody : undefined
+}
+
+export function getComputedView(body?: Components.ScrollView): NavView {
+  const document = resolveDoc(body), //body?.parentElement?.matches('dialog[is=sidebar-view]') ? (body?.parentElement as Components.SidebarView) : undefined,
+    host = (document?.parentElement as NavHost) ?? body?.parentElement ?? undefined
+
+  return {
+    host,
+    document,
+    body,
+    toolBarConfig: [...(host?.querySelectorAll<NavToolbarConfiguration>(`:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group`) ?? [])],
+  }
+}
+
+/**
+ * Gets closest host (current)
+ */
+export function closestHost(any?: HTMLElement) {
+  return any?.closest<NavHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view')
+}
+
+/**
+ * Gets closest body
+ */
+export function closestBody(any?: HTMLElement) {
+  return closestHost(any)?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined
+}
+
+export function getRootController(body?: Components.ScrollView): NavController | undefined {
+  let root
+
+  for (let e: HTMLElement | undefined | null = body; e; e = e.parentElement) e.matches('navigation-stack,navigation-split-view') && (root = e as NavController)
+
+  return root
+}
+
+/**
+ * Gets host of nested views, if exists (base for quering)
+ */
+export function siblingHost(body?: Components.ScrollView): NavHost | undefined {
+  let possibleNest = body?.nextElementSibling as NavHost | null
+
+  if (
+    body?.matches(
+      `navigation-split-view > scroll-view,navigation-split-view:has(>[is=sidebar-view]) > [is=sidebar-view] > scroll-view,navigation-split-view:has(>[is=sidebar-view]) > body-view > scroll-view`
+    )
+  )
+    possibleNest = resolveDoc(body)?.previousElementSibling as NavHost | null // look for prev sibling instead
+
+  return possibleNest?.matches('body-view,[is=sheet-view],navigation-stack,navigation-split-view') ? possibleNest : undefined
+}
+
+/**
+ * Looks for child toolbarconfs (excluding current toolbarconf)
+ */
+export function queryToolbarConfig(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return (
+    possibleNest?.querySelector(
+      'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
+    ) ?? undefined
+  ) //'navigation-stack:not([hidden]) scroll-view'
+}
+export function queryToolbarConfigAll(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return [
+    ...(possibleNest?.querySelectorAll(
+      'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
+    ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+  ]
+}
+
+/**
+ * Looks for child hosts (excluding current body-host)
+ */
+export function queryHost(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return (
+    possibleNest?.querySelector(
+      'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+    ) ?? undefined
+  )
+}
+export function queryHostAll(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return [
+    ...(possibleNest?.querySelectorAll(
+      'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+    ) ?? []),
+  ]
+}
+
+/**
+ * Looks for child bodies (excluding current body)
+ */
+export function queryBody(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return (
+    possibleNest?.querySelectorAll<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
+    undefined
+  )
+}
+export function queryBodyAll(body?: Components.ScrollView) {
+  const possibleNest = siblingHost(body)
+
+  return [
+    ...(possibleNest?.querySelectorAll<Components.ScrollView>(
+      'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
+    ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+  ]
+}
+
+/**
+ * Looks for child views (excluding current view)
+ */
+export function queryView(body?: Components.ScrollView): NavView {
+  const possibleNest = siblingHost(body)
+
+  return {
+    host:
+      possibleNest?.querySelector<NavHost>(
+        'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+      ) ?? undefined,
+    body:
+      possibleNest?.querySelector<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
+      undefined,
+    toolBarConfig: [
+      ...(possibleNest?.querySelectorAll<NavToolbarConfiguration>(
+        'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
+      ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+    ],
+  }
+}
+// export function queryViewAll(body?: Components.ScrollView) {
+//   const possibleNest = getNestedHost(body)
+
+//   return {
+//     scenes: [
+//       ...(possibleNest?.querySelectorAll<Components.ScrollView>(
+//         'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
+//       ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+//     ],
+//     frames: [
+//       ...(possibleNest?.querySelectorAll(
+//         'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+//       ) ?? []),
+//     ],
+//     toolbarCells: [
+//       ...(possibleNest?.querySelectorAll(
+//         'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
+//       ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
+//     ],
+//   }
+// }
+
+export { Snapshot, queryFrameToolbars, queryInsertPosition }

@@ -1,4 +1,4 @@
-import { ButtonBase } from '../client/privateNamespace'
+import { ButtonBase } from '../internal/privateNamespace'
 
 export class BorderlessButton extends ButtonBase {
   constructor() {

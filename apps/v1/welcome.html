@@ -32,130 +32,265 @@
 
     <navigation-stack>
       <scroll-view>
-        <v-stack frame-alignment="leading" alignment="stretch">
+        <v-stack content="start" frame-width="infinity">
           <label-view system-image="globe"></label-view>
           <list-view>
-            <button class="lang">
+            <button navigation-destination="lang">
               <label-view label="English" />
             </button>
           </list-view>
-          ns2section0<button type="button" class="fw">...</button>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <input type="text" />
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <hr style="width: 100%" />
-          <hr style="width: 100cqi" />
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <p>...</p>
-          <input type="text" />
-          <p>...</p>
         </v-stack>
       </scroll-view>
     </navigation-stack>
 
     <script type="module" src="/main.js"></script>
     <script type="module">
-      import { startViewTransition, queryLandmark, queryRoot, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
+      import { startViewTransition, closestBody, getRootController, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
 
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ click`)
 
-        const sv = queryLandmark(event.target),
-          { root } = queryRoot(sv),
-          { scene, frame } = queryFrameToolbars(sv),
-          position = queryInsertPosition(frame),
-          lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+        const navDest = event.target.closest('[navigation-destination]')
 
-        if (event.target.closest('.lang'))
-          await startViewTransition(event, 'forwards', async () => {
-            if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
-              scene.insertAdjacentHTML(
-                position,
-                `<body-view>
-          <scroll-view navigation-title="Select Your Country or Region">
-            <v-stack frame-alignment="leading" alignment="stretch">
-              <list-view>
-                <button class="region">
-                  <label-view label="USA" />
-                </button>
-              </list-view>
-              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
-              <p>...</p>
-              <p>...</p>
-            </v-stack>
-          </scroll-view>
-          <tool-bar>
-            <tool-bar-item slot="navigation-bar-leading">
-              <button type="button" class="bw">
-                <label-view system-image="caret-left" />
-              </button>
-            </tool-bar-item>
-          </tool-bar>
-          </body-view>`
-              )
-            }
+        if (event.target.closest('.st')) {
+          const sv = closestBody(document.querySelector('#gg')),
+            pr = queryFrameToolbars(sv).scene.parentElement
+
+          await startViewTransition({ target: sv }, 'backwards', async () => {
+            if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) pr.hidden = true
+            else pr.remove()
+          })
+        }
+
+        if (event.target.closest('.back')) {
+          const sv = closestBody(event.target),
+            { scene, frame } = queryFrameToolbars(sv),
+            pr = queryFrameToolbars(sv).scene.parentElement
+
+          const parentScene = closestBody(frame ?? undefined) //queryParent(frame)
+
+          if (navDest && parentScene) parentScene.parentElement.inert = true
+
+          await startViewTransition(event, 'backwards', async () => {
+            if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) pr.hidden = true
+            else pr.remove()
           })
 
-        if (event.target.closest('.region'))
-          await startViewTransition(event, 'forwards', async () => {
-            if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
-              scene.insertAdjacentHTML(
-                position,
-                `<body-view>
-          <scroll-view navigation-title="Appearance">
-            <v-stack frame-alignment="leading" alignment="stretch">
-              <list-view>
-                <button class="continue">
-                  <label-view label="Continue" />
-                </button>
-              </list-view>
-              browsesection1<button type="button" class="bw">...</button><button type="button" class="fw">...</button>
-            </v-stack>
-          </scroll-view>
-          <tool-bar>
-            <tool-bar-item slot="navigation-bar-leading">
-              <button type="button" class="bw">
-                <label-view system-image="caret-left" label="Back" />
-              </button>
-            </tool-bar-item>
-          </tool-bar>
-          </body-view>`
-              )
-            }
-          })
+          if (navDest && parentScene) {
+            const sv2 = closestBody(parentScene),
+              root2 = getRootController(sv2),
+              { scene: scene2, frame: frame2 } = queryFrameToolbars(sv2),
+              position2 = queryInsertPosition(frame2),
+              lookFor2 = 'beforebegin' === position2 ? 'previousElementSibling' : 'nextElementSibling'
+
+            await startViewTransition({ target: scene2 }, 'forwards', async () => {
+              if (!['BODY-VIEW', 'DIALOG'].includes(scene2[lookFor2]?.tagName)) {
+                scene2.insertAdjacentElement(
+                  position2,
+                  document.getElementById(navDest.getAttribute('navigation-destination')).content.cloneNode(true).firstElementChild
+                )
+              }
+            })
+
+            parentScene.parentElement.inert = false
+          }
+        } else if (navDest) {
+          const sv = closestBody(event.target),
+            root = getRootController(sv),
+            { scene, frame } = queryFrameToolbars(sv),
+            position = queryInsertPosition(frame),
+            lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+          if (navDest)
+            await startViewTransition(event, 'forwards', async () => {
+              if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
+                scene.insertAdjacentElement(
+                  position,
+                  document.getElementById(navDest.getAttribute('navigation-destination')).content.cloneNode(true).firstElementChild
+                )
+              }
+            })
+        }
       })
     </script>
+
+    <template id="lang">
+      <body-view>
+        <scroll-view id="gg" navigation-title="Select Your Country or Region">
+          <v-stack content="start" frame-width="infinity">
+            <list-view>
+              <button navigation-destination="region">
+                <label-view label="USA" />
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="region">
+      <body-view>
+        <scroll-view navigation-title="Appearance">
+          <v-stack distribution="space-between" frame-width="infinity">
+            <picker-view picker-style="inline">
+              <label-view label="Auto" />
+              <label-view label="Light" />
+              <label-view label="Dark" />
+            </picker-view>
+
+            <v-stack>
+              <button navigation-destination="data-privacy">
+                <label-view label="Continue" />
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" label="Back" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="data-privacy">
+      <body-view>
+        <scroll-view navigation-title="Data & Privacy">
+          <v-stack distribution="space-between" frame-width="infinity">
+            <text-view> lorem ipsum </text-view>
+
+            <v-stack>
+              <button navigation-destination="age-range">
+                <label-view label="Continue" />
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" label="Back" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="age-range">
+      <body-view>
+        <scroll-view navigation-title="Age Range">
+          <v-stack content="start" frame-width="infinity">
+            <text-view> Select the age range </text-view>
+
+            <list-view>
+              <button navigation-destination="terms">
+                <label-view label="Child" />
+              </button>
+              <button navigation-destination="terms">
+                <label-view label="Teen" />
+              </button>
+              <button navigation-destination="terms">
+                <label-view label="Adult" />
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" label="Back" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="terms">
+      <dialog is="sheet-view">
+        <scroll-view navigation-title="Terms and Conditions">
+          <v-stack content="start" frame-width="infinity">
+            <text-view> lorem ipsum </text-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view label="Disagree" />
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="navigation-bar-trailing">
+            <button type="button" navigation-destination="location" class="back">
+              <label-view label="Agree" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template id="location">
+      <body-view>
+        <scroll-view navigation-title="Location Services">
+          <v-stack distribution="space-between" frame-width="infinity">
+            <text-view> lorem ipsum </text-view>
+
+            <v-stack>
+              <button navigation-destination="analytics">
+                <label-view label="Continue" />
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" label="Back" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="analytics">
+      <body-view>
+        <scroll-view navigation-title="Analytics">
+          <v-stack distribution="space-between" frame-width="infinity">
+            <text-view> lorem ipsum </text-view>
+
+            <v-stack>
+              <button navigation-destination="welcome">
+                <label-view label="Continue" />
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left" label="Back" />
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="welcome">
+      <body-view>
+        <scroll-view>
+          <v-flex-stack>
+            <v-stack alignment="fill">
+              <text-view> Welcome to Swift WC </text-view>
+            </v-stack>
+
+            <v-stack>
+              <button class="st">
+                <label-view label="Start Over" />
+              </button>
+            </v-stack>
+          </v-flex-stack>
+        </scroll-view>
+      </body-view>
+    </template>
   </body>
 </html>

@@ -1,5 +1,5 @@
 import { type TabView, type TabRevealDetail } from './tab-view'
-import { ButtonBase } from '../client/privateNamespace'
+import { ButtonBase } from '../internal/privateNamespace'
 import { Snapshot } from '../snapshot'
 
 export class TabItem extends ButtonBase {

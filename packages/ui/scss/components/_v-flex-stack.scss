@@ -1,0 +1,31 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  v-flex-stack {
+    :where(&) {
+      display: flex;
+      flex-flow: column wrap;
+
+      place-items: center;
+      place-content: center;
+    }
+
+    > * {
+      :where(&) {
+        max-width: 100%;
+      }
+    }
+
+    // > spacer {
+    //   :where(&) {
+    //     flex-grow: 1;
+    //   }
+    // }
+
+    > [alignment='fill'] {
+      :where(&) {
+        flex-grow: 1;
+      }
+    }
+  }
+}

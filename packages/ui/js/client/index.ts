@@ -1,7 +1,6 @@
 import * as Components from '../components'
 import { kebabCase } from '../internal/utils'
 import { Snapshot } from '../snapshot'
-import { queryFrameToolbars, queryInsertPosition } from '../scene'
 import { type WebComponentCtor } from '../namespace'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -134,8 +133,8 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
       to = tos.slice(-1)?.pop?.(), //Snapshot.leaf, //
       { host: newHost } = getComputedView(to),
       newToolbars = queryToolbarConfigAll(from),
-      inbetweenModals = queryHostAll(from).filter?.((item) => item.matches('dialog')) ?? []
-
+      modalViews = [...queryHostAll(from)].filter?.((item) => item?.matches('dialog'))
+    console.log(999, tos)
     // toFrame = Snapshot.leafContainer, //queryHostAll(from).slice(-1)?.pop?.(),
     // toToolbars = Snapshot.leafToolbarItems
     // dialogFrames = [toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item): item is HTMLDialogElement => item instanceof HTMLDialogElement) //[toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item) => item?.matches('dialog'))
@@ -158,11 +157,11 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
     // prepare new
     const toolbarExclusion =
-        0 < inbetweenModals.length
+        0 < modalViews.length
           ? (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar,body-view ~ tool-bar)')
           : (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(body-view ~ tool-bar)'),
       bodyExclusion =
-        0 < inbetweenModals.length
+        0 < modalViews.length
           ? (item: HTMLElement) => item?.matches('scroll-view:not(dialog scroll-view)')
           : (value: Element, index: number, array: Element[]) => value
 
@@ -170,14 +169,14 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
     for (const bt of tos?.filter?.(bodyExclusion) ?? []) bt?.classList.add('fwdd') //to?.classList.add('fwdd')
 
-    if (0 < inbetweenModals.length) {
-      for await (const el of inbetweenModals) (el as HTMLDialogElement).showModal()
+    if (0 < modalViews.length) {
+      for await (const el of modalViews) (el as HTMLDialogElement).showModal()
 
-      console.debug(`⚡️ view-transition-start (${type})`)
+      console.debug(`⚡️ view-dialog-transition-start (${type})`)
 
-      await Promise.allSettled(inbetweenModals?.[0].getAnimations().map(({ finished }) => finished))
+      await Promise.allSettled(modalViews?.[0].getAnimations().map(({ finished }) => finished))
 
-      console.debug(`⚡️ view-transition-end (${type})`)
+      console.debug(`⚡️ view-dialog-transition-end (${type})`)
     } else {
       console.debug(`⚡️ view-transition-start (${type})`)
 
@@ -202,9 +201,9 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
     // if most-top effect is closing a modal, skip everything
     if ('DIALOG' === oldHost?.tagName) {
       ;(oldHost as HTMLDialogElement).close()
-      console.debug(`⚡️ view-transition-start (${type})`)
+      console.debug(`⚡️ view-dialog-transition-start (${type})`)
       await Promise.allSettled(oldHost.getAnimations().map(({ finished }) => finished))
-      console.debug(`⚡️ view-transition-end (${type})`)
+      console.debug(`⚡️ view-dialog-transition-end (${type})`)
       if (oldHost.matches('[open]')) return
       await updateCallback()
       return // just close modal
@@ -222,7 +221,7 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
     to?.classList.add('bwdd')
 
     // prepare old
-    const inbetweenModals = queryHostAll(from).filter?.((item) => item.matches('dialog[open]')) ?? [],
+    const inbetweenModals = queryHostAll(from).filter?.((item) => item.matches('dialog[open]')) ?? [], // FIXME: TEst this, added oldHost too
       toolbarExclusion =
         0 < inbetweenModals.length
           ? (value: Element, index: number, array: Element[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar)')
@@ -259,7 +258,7 @@ type NavToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGr
 type NavDocument = Components.SidebarView | Components.ScrollView // this is a body wrapper!
 type NavView = {
   host?: NavHost
-  document?: NavDocument // same as body or sidebar
+  doc?: NavDocument // same as body or sidebar
   body?: Components.ScrollView
   toolBarConfig?: Array<NavToolbarConfiguration>
 }
@@ -271,12 +270,12 @@ export function resolveDoc(body?: Components.ScrollView): NavDocument | undefine
 }
 
 export function getComputedView(body?: Components.ScrollView): NavView {
-  const document = resolveDoc(body), //body?.parentElement?.matches('dialog[is=sidebar-view]') ? (body?.parentElement as Components.SidebarView) : undefined,
-    host = (document?.parentElement as NavHost) ?? body?.parentElement ?? undefined
+  const doc = resolveDoc(body), //body?.parentElement?.matches('dialog[is=sidebar-view]') ? (body?.parentElement as Components.SidebarView) : undefined,
+    host = (doc?.parentElement as NavHost) ?? body?.parentElement ?? undefined
 
   return {
     host,
-    document,
+    doc,
     body,
     toolBarConfig: [...(host?.querySelectorAll<NavToolbarConfiguration>(`:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group`) ?? [])],
   }
@@ -305,9 +304,9 @@ export function getRootController(body?: Components.ScrollView): NavController |
 }
 
 /**
- * Gets host of nested views, if exists (base for quering)
+ * Gets sub-host (of nested views) for current view, if exists (base for quering)
  */
-export function siblingHost(body?: Components.ScrollView): NavHost | undefined {
+function siblingHost(body?: Components.ScrollView): NavHost | undefined {
   let possibleNest = body?.nextElementSibling as NavHost | null
 
   if (
@@ -348,16 +347,17 @@ export function queryToolbarConfigAll(body?: Components.ScrollView) {
 export function queryHost(body?: Components.ScrollView) {
   const possibleNest = siblingHost(body)
 
-  return (
-    possibleNest?.querySelector(
-      'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
-    ) ?? undefined
-  )
+  return possibleNest
+  // possibleNest?.querySelector(
+  //   'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
+  // ) ??
+  // undefined
 }
 export function queryHostAll(body?: Components.ScrollView) {
   const possibleNest = siblingHost(body)
 
   return [
+    ...(possibleNest ? [possibleNest] : []),
     ...(possibleNest?.querySelectorAll(
       'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
     ) ?? []),
@@ -428,4 +428,4 @@ export function queryView(body?: Components.ScrollView): NavView {
 //   }
 // }
 
-export { Snapshot, queryFrameToolbars, queryInsertPosition }
+export { Snapshot }

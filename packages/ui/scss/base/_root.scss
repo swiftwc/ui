@@ -49,6 +49,11 @@
     --sidebar-bg-alpha: 74.9%;
     --sidebar-bg-alpha-dark: 50.2%;
 
+    @media (prefers-reduced-transparency: reduce) {
+      --sidebar-bg-alpha: 99%;
+      --sidebar-bg-alpha-dark: 99%;
+    }
+
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px); //blur(4px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
@@ -92,7 +97,7 @@
     --view-transition-dialog-offscreen-y: 100lvh;
 
     --view-transition-duration: 500ms;
-    --view-transition-duration: 5s;
+    // --view-transition-duration: 5s;
 
     --sidebar-transition-duration: 250ms;
 

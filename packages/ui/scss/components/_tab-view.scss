@@ -61,21 +61,25 @@
 @layer #{vars.$tab-components-layer} {
   tab-view {
     :where(&) {
+      // contain: layout paint;
+
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed
     }
 
-    :where(& > navigation-stack, & > navigation-split-view) {
-      transform: scale(1);
-      transform-origin: bottom;
-      transition: transform 100ms ease-out allow-discrete;
-      @starting-style {
-        transform: scale(0.99);
+    @media (pointer: coarse) {
+      :where(& > navigation-stack, & > navigation-split-view) {
+        transform: scale(1);
+        transform-origin: bottom;
+        transition: transform 100ms ease-out allow-discrete;
+        @starting-style {
+          transform: scale(0.99);
+        }
       }
-    }
 
-    :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
-      z-index: -1;
+      :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
+        z-index: -1;
+      }
     }
 
     :where(& > [is='sidebar-view']) {

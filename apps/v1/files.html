@@ -98,7 +98,7 @@
           <scroll-view navigation-title="Browse">
             <v-stack frame-alignment="leading" alignment="stretch">
               <list-view>
-                <button type="button" id="cloud_drive">Cloud Drive</button>
+                <button type="button" navigation-destination="cloud_drive">Cloud Drive</button>
               </list-view>
             </v-stack>
           </scroll-view>
@@ -150,81 +150,84 @@
       </dialog>
     </tab-view>
 
-    <script type="module" src="/main.js"></script>
-    <script type="module">
-      import { startViewTransition, closestBody, getRootController, getComputedView, queryInsertPosition } from '../../packages/ui/js/client'
-
-      document.querySelector('#cloud_drive').addEventListener('click', async (event) => {
-        console.debug(`⚡️ click`)
-
-        const sv = closestBody(event.target),
-          root = getRootController(sv),
-          { body: scene, host: frame } = getComputedView(sv),
-          position = queryInsertPosition(frame),
-          lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
-
-        await startViewTransition(event, 'forwards', async () => {
-          if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
-            scene.insertAdjacentHTML(
-              position,
-              `<body-view>
-          <scroll-view navigation-title="Cloud Drive">
-            <v-stack frame-alignment="leading" alignment="stretch">
-              browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-            </v-stack>
-          </scroll-view>
-          <tool-bar>
-            <tool-bar-item slot="navigation-bar-trailing">
+    <template id="cloud_drive">
+      <body-view>
+        <scroll-view navigation-title="Cloud Drive">
+          <v-stack frame-alignment="leading" alignment="stretch">
+            browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-trailing">
+            <button type="button">
+              <label-view label="Select" />
+            </button>
+          </tool-bar-item>
+          <tool-bar-item-group slot="navigation-bar-trailing">
+            <tool-bar-item>
               <button type="button">
-                <label-view label="Select" />
+                <label-view system-image="folder-plus" />
               </button>
             </tool-bar-item>
-            <tool-bar-item-group slot="navigation-bar-trailing">
-              <tool-bar-item>
-                <button type="button">
-                  <label-view system-image="folder-plus" />
+            <tool-bar-item>
+              <menu-view>
+                <label-view slot="label" system-image="squares-four"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Icons" />
                 </button>
-              </tool-bar-item>
-              <tool-bar-item>
-                <menu-view>
-                  <label-view slot="label" system-image="squares-four"></label-view>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Icons" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="List" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Name" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Kind" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Date" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Size" />
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="squares-four" label="Tags" />
-                  </button>
-                </menu-view>
-              </tool-bar-item>
-            </tool-bar-item-group>
-          </tool-bar>
-        </body-view>`
-            )
-          }
-        })
-        // document.startViewTransition({
-        //   async update() {
-        //     startViewTransition(event, false)
-        //   },
-        //   types: ['forwards'],
-        // })
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="List" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Name" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Kind" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Date" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Size" />
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" label="Tags" />
+                </button>
+              </menu-view>
+            </tool-bar-item>
+          </tool-bar-item-group>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, closestBody, getRootController, getComputedView } from '../../packages/ui/js/client'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ click`)
+
+        const navDest = event.target.closest('[navigation-destination]')
+
+        if (navDest) {
+          const sv = closestBody(event.target),
+            root = getRootController(sv),
+            view = getComputedView(sv)
+          // position = queryInsertPosition(host),
+          // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+          await startViewTransition(event, 'forwards', async () => {
+            modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+          })
+          // document.startViewTransition({
+          //   async update() {
+          //     startViewTransition(event, false)
+          //   },
+          //   types: ['forwards'],
+          // })
+        }
       })
     </script>
   </body>

@@ -1,0 +1,22 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='button-view'] {
+    :where(&) {
+      //
+    }
+
+    [button-style='bordered-prominent'] {
+      :where(&) {
+        @extend %bordered-prominent-btn;
+      }
+    }
+  }
+
+  button[is='bordered-prominent'] {
+    :where(&) {
+      @extend %bordered-prominent-btn;
+    }
+  }
+}

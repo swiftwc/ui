@@ -30,6 +30,9 @@
       @include mixins.contain-overscroll;
 
       // touch-action: all;
+
+      --menu--dialog-max-inline-size: anchor-size();
+      --menu--dialog-max-block-size: anchor-size();
     }
 
     :where(&)::part(menu-dialog) {
@@ -42,8 +45,8 @@
       inline-size: fit-content;
       block-size: fit-content;
       height: auto; // safari
-      max-inline-size: anchor-size();
-      max-block-size: anchor-size();
+      max-inline-size: var(--menu--dialog-max-inline-size,);
+      max-block-size: var(--menu--dialog-max-block-size,);
 
       transform: var(--menu--dialog-scale,);
 
@@ -62,8 +65,8 @@
 
     &[open] {
       :where(&)::part(menu-dialog) {
-        max-inline-size: 100vw;
-        max-block-size: 100vh;
+        --menu--dialog-max-inline-size: 100vw;
+        --menu--dialog-max-block-size: 100vh;
         margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
         margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
@@ -77,8 +80,8 @@
 
     &[closing] {
       :where(&)::part(menu-dialog) {
-        max-inline-size: anchor-size();
-        max-block-size: anchor-size();
+        --menu--dialog-max-inline-size: anchor-size();
+        --menu--dialog-max-block-size: anchor-size();
       }
     }
 

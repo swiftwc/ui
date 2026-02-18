@@ -2,6 +2,11 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   grid-template-columns: minmax(0, 1fr);
 }
 
+:where([is=button-view] [button-style=bordered-prominent]), :where(button[is=bordered-prominent]) {
+  padding: 20px;
+  background-color: chocolate;
+}
+
 @layer sw-components {
   :root {
     color-scheme: light dark;
@@ -33,6 +38,14 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --sidebar-bg-lch-dark: 0.3171 0 0;
     --sidebar-bg-alpha: 74.9%;
     --sidebar-bg-alpha-dark: 50.2%;
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :root {
+      --sidebar-bg-alpha: 99%;
+      --sidebar-bg-alpha-dark: 99%;
+    }
+  }
+  :root {
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
@@ -65,7 +78,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;
     --view-transition-duration: 500ms;
-    --view-transition-duration: 5s;
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
     --toolbar-col-gap: 0.6rem;
@@ -140,10 +152,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     user-select: none;
   }
   body {
-    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    color: light-dark(var(--primary-label), var(--primary-label-dark));
-  }
-  body {
     display: grid;
     grid-template-rows: 1fr;
     grid-template-columns: minmax(0px, 1fr);
@@ -151,6 +159,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     inset: 0;
     margin: 0;
     padding: 0;
+    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
+    color: light-dark(var(--primary-label), var(--primary-label-dark));
     touch-action: none !important;
   }
   html::before {
@@ -728,6 +738,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 }
 @layer sw-components {
   :where(label-view) {
+    contain: layout paint;
     align-items: var(--label--host-align-items, );
     justify-items: var(--label--host-justify-items, );
     grid-template-columns: var(--label--host-grid-template-columns, );
@@ -973,6 +984,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
 }
+@layer sw-components {}
 @layer sw-components {
   :where(detail[is=tooltip], detail[is=tooltip] > summary) {
     display: grid;
@@ -1082,6 +1094,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(menu-view)::part(menu-form) {
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
+    --menu--dialog-max-inline-size: anchor-size();
+    --menu--dialog-max-block-size: anchor-size();
   }
   :where(menu-view)::part(menu-dialog) {
     inset-inline: 0px;
@@ -1104,8 +1118,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     inline-size: fit-content;
     block-size: fit-content;
     height: auto;
-    max-inline-size: anchor-size();
-    max-block-size: anchor-size();
+    max-inline-size: var(--menu--dialog-max-inline-size, );
+    max-block-size: var(--menu--dialog-max-block-size, );
     transform: var(--menu--dialog-scale, );
     position-area: center;
     overflow: clip;
@@ -1115,8 +1129,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --menu--dialog-scale: scale(0);
   }
   :where(menu-view[open])::part(menu-dialog) {
-    max-inline-size: 100vw;
-    max-block-size: 100vh;
+    --menu--dialog-max-inline-size: 100vw;
+    --menu--dialog-max-block-size: 100vh;
     margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
     margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --menu--dialog-scale: scale(1);
@@ -1127,8 +1141,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
   :where(menu-view[closing])::part(menu-dialog) {
-    max-inline-size: anchor-size();
-    max-block-size: anchor-size();
+    --menu--dialog-max-inline-size: anchor-size();
+    --menu--dialog-max-block-size: anchor-size();
   }
   menu-view[open] > menu-view[open], menu-view[open]:not(tool-bar-item menu-view) {
     --menu--summary-scale: scale(0.01);
@@ -1400,18 +1414,20 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
   }
-  :where(tab-view > navigation-stack, tab-view > navigation-split-view) {
-    transform: scale(1);
-    transform-origin: bottom;
-    transition: transform 100ms ease-out allow-discrete;
-  }
-  @starting-style {
+  @media (pointer: coarse) {
     :where(tab-view > navigation-stack, tab-view > navigation-split-view) {
-      transform: scale(0.99);
+      transform: scale(1);
+      transform-origin: bottom;
+      transition: transform 100ms ease-out allow-discrete;
     }
-  }
-  :where(tab-view > navigation-stack[hidden], tab-view > navigation-split-view[hidden]) {
-    z-index: -1;
+    @starting-style {
+      :where(tab-view > navigation-stack, tab-view > navigation-split-view) {
+        transform: scale(0.99);
+      }
+    }
+    :where(tab-view > navigation-stack[hidden], tab-view > navigation-split-view[hidden]) {
+      z-index: -1;
+    }
   }
   :where(:where(tab-view > [is=sidebar-view])) {
     inline-size: var(--nav-split-view-sidebar-inline-size);
@@ -2108,5 +2124,3 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
 }
-
-/*# sourceMappingURL=styles.css.map */

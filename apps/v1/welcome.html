@@ -43,77 +43,6 @@
       </scroll-view>
     </navigation-stack>
 
-    <script type="module" src="/main.js"></script>
-    <script type="module">
-      import { startViewTransition, closestBody, getRootController, queryFrameToolbars, queryInsertPosition } from '../../packages/ui/js/client'
-
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ click`)
-
-        const navDest = event.target.closest('[navigation-destination]')
-
-        if (event.target.closest('.st')) {
-          const sv = closestBody(document.querySelector('#gg')),
-            pr = queryFrameToolbars(sv).scene.parentElement
-
-          await startViewTransition({ target: sv }, 'backwards', async () => {
-            if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) pr.hidden = true
-            else pr.remove()
-          })
-        }
-
-        if (event.target.closest('.back')) {
-          const sv = closestBody(event.target),
-            { scene, frame } = queryFrameToolbars(sv),
-            pr = queryFrameToolbars(sv).scene.parentElement
-
-          const parentScene = closestBody(frame ?? undefined) //queryParent(frame)
-
-          if (navDest && parentScene) parentScene.parentElement.inert = true
-
-          await startViewTransition(event, 'backwards', async () => {
-            if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) pr.hidden = true
-            else pr.remove()
-          })
-
-          if (navDest && parentScene) {
-            const sv2 = closestBody(parentScene),
-              root2 = getRootController(sv2),
-              { scene: scene2, frame: frame2 } = queryFrameToolbars(sv2),
-              position2 = queryInsertPosition(frame2),
-              lookFor2 = 'beforebegin' === position2 ? 'previousElementSibling' : 'nextElementSibling'
-
-            await startViewTransition({ target: scene2 }, 'forwards', async () => {
-              if (!['BODY-VIEW', 'DIALOG'].includes(scene2[lookFor2]?.tagName)) {
-                scene2.insertAdjacentElement(
-                  position2,
-                  document.getElementById(navDest.getAttribute('navigation-destination')).content.cloneNode(true).firstElementChild
-                )
-              }
-            })
-
-            parentScene.parentElement.inert = false
-          }
-        } else if (navDest) {
-          const sv = closestBody(event.target),
-            root = getRootController(sv),
-            { scene, frame } = queryFrameToolbars(sv),
-            position = queryInsertPosition(frame),
-            lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
-
-          if (navDest)
-            await startViewTransition(event, 'forwards', async () => {
-              if (!['BODY-VIEW', 'DIALOG'].includes(scene[lookFor]?.tagName)) {
-                scene.insertAdjacentElement(
-                  position,
-                  document.getElementById(navDest.getAttribute('navigation-destination')).content.cloneNode(true).firstElementChild
-                )
-              }
-            })
-        }
-      })
-    </script>
-
     <template id="lang">
       <body-view>
         <scroll-view id="gg" navigation-title="Select Your Country or Region">
@@ -145,7 +74,7 @@
             </picker-view>
 
             <v-stack>
-              <button navigation-destination="data-privacy">
+              <button is="bordered-prominent" navigation-destination="data-privacy">
                 <label-view label="Continue" />
               </button>
             </v-stack>
@@ -167,7 +96,7 @@
             <text-view> lorem ipsum </text-view>
 
             <v-stack>
-              <button navigation-destination="age-range">
+              <button is="bordered-prominent" navigation-destination="age-range">
                 <label-view label="Continue" />
               </button>
             </v-stack>
@@ -238,7 +167,7 @@
             <text-view> lorem ipsum </text-view>
 
             <v-stack>
-              <button navigation-destination="analytics">
+              <button is="bordered-prominent" navigation-destination="analytics">
                 <label-view label="Continue" />
               </button>
             </v-stack>
@@ -260,7 +189,7 @@
             <text-view> lorem ipsum </text-view>
 
             <v-stack>
-              <button navigation-destination="welcome">
+              <button is="bordered-prominent" navigation-destination="welcome">
                 <label-view label="Continue" />
               </button>
             </v-stack>
@@ -292,5 +221,67 @@
         </scroll-view>
       </body-view>
     </template>
+
+    <!-- <script type="module" src="/main.js"></script> -->
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ click`)
+
+        const navDest = event.target.closest('[navigation-destination]')
+
+        if (event.target.closest('.st')) {
+          const sv = closestBody(document.querySelector('#gg')),
+            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+
+          await startViewTransition({ target: sv }, 'backwards', async () => {
+            modifyDOMbackwards(pr)
+          })
+        }
+
+        if (event.target.closest('.back')) {
+          const sv = closestBody(event.target),
+            { doc, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
+            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+
+          const parentScene = closestBody(host?.parentElement ?? undefined) //queryParent(frame)
+
+          if (navDest && parentScene) parentScene.parentElement.inert = true
+
+          await startViewTransition(event, 'backwards', async () => {
+            modifyDOMbackwards(pr)
+          })
+
+          if (navDest && parentScene) {
+            const sv2 = closestBody(parentScene),
+              // root2 = getRootController(sv2),
+              view2 = getComputedView(sv2)
+            // { doc: scene2, host: frame2 } = getComputedView(sv2) //{ scene: scene2, frame: frame2 } = queryFrameToolbars(sv2),
+            // position2 = queryInsertPosition(frame2),
+            // lookFor2 = 'beforebegin' === position2 ? 'previousElementSibling' : 'nextElementSibling'
+
+            await startViewTransition({ target: view2.doc }, 'forwards', async () => {
+              modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
+            })
+
+            parentScene.parentElement.inert = false
+          }
+        } else if (navDest) {
+          const sv = closestBody(event.target),
+            // root = getRootController(sv),
+            view = getComputedView(sv)
+          // { doc, host } = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
+          // position = queryInsertPosition(host)
+          // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+          if (navDest)
+            await startViewTransition(event, 'forwards', async () => {
+              modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+            })
+        }
+      })
+    </script>
   </body>
 </html>

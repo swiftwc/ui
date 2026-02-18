@@ -33,15 +33,6 @@
     user-select: none;
   }
 
-  // dialog {
-  //   margin: 0;
-  // }
-
-  body {
-    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    color: light-dark(var(--primary-label), var(--primary-label-dark));
-  }
-
   body {
     display: grid;
     grid-template-rows: 1fr;
@@ -52,6 +43,10 @@
 
     margin: 0;
     padding: 0;
+
+    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
+
+    color: light-dark(var(--primary-label), var(--primary-label-dark));
 
     touch-action: none !important;
   }

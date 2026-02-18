@@ -71,7 +71,11 @@
     }
 
     @include mixins.if-ipad-landscape {
-      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
+      :where(
+        tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &,
+        tab-view:not([tab-view-style='tab-bar-only']) > &,
+        tab-view:not([tab-view-style='tab-bar-only']) > [is='sidebar-view'] > tool-bar > &
+      ) {
         display: none;
       }
     }

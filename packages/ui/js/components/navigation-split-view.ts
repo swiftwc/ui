@@ -1,8 +1,7 @@
 import { NavigationPath } from '../navigation-path'
+import { NavigationView } from '../internal/class/navigation-view'
 
-export class NavigationSplitView extends HTMLElement {
-  static observedAttributes = ['hidden']
-
+export class NavigationSplitView extends NavigationView {
   #path = new NavigationPath()
 
   get path() {
@@ -15,5 +14,19 @@ export class NavigationSplitView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${NavigationSplitView.name} ⚡️ disconnect`)
+
+    super.disconnectedCallback()
+  }
+
+  connectedCallback() {
+    console.debug(`${NavigationSplitView.name} ⚡️ connect`)
+
+    super.connectedCallback()
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${NavigationSplitView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    super.attributeChangedCallback(name, oldValue, newValue)
   }
 }

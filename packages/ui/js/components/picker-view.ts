@@ -235,6 +235,8 @@ export class PickerView extends HTMLElement {
   }
 
   #handleClick(event: Event) {
+    console.debug(`${PickerView.name} ⚡️ ${event?.type}`)
+
     const target = event.target as HTMLElement,
       btn = target?.closest('button')
 

@@ -30,7 +30,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --ipad-tabbar-inline-padding-end: 5px;
     --ipad-tabbar-block-padding-start: 5px;
     --ipad-tabbar-block-padding-end: 5px;
-    --tabbar-after-tabreveal-duration: 150ms;
+    --tabbar-after-tabreveal-duration: 250ms;
     --sidebar-inline-size: 20rem;
     --sidebar-border-radius: 1rem;
     --sidebar-spacing: 1rem;
@@ -738,7 +738,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 }
 @layer sw-components {
   :where(label-view) {
-    contain: layout paint;
     align-items: var(--label--host-align-items, );
     justify-items: var(--label--host-justify-items, );
     grid-template-columns: var(--label--host-grid-template-columns, );
@@ -1040,7 +1039,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
-    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle, tab-view:not([tab-view-style=tab-bar-only]) > [is=sidebar-view] > tool-bar > sidebar-toggle) {
       display: none;
     }
   }
@@ -1814,7 +1813,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   @media (prefers-reduced-motion: no-preference) {
     :where(tab-view[js-aftertabreveal] > [is=tab-bar] > [is=form-view])::after,
     :where(tab-view[js-aftertabreveal] > [is=sidebar-view] > scroll-view)::after {
-      transition: inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+      transition: block-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete, inline-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete, inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
@@ -1824,7 +1823,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-tab-components {
-  :where([is=sidebar-view] [is=tab-item][aria-selected=true]) {
+  :where([is=sidebar-view] [is=tab-item][aria-selected=true]:not([is=disclosure-group]:not([open]) [is=tab-item]), [is=sidebar-view] [is=disclosure-group]:not([open]):has(> [is=tab-item][aria-selected=true]) > summary) {
     anchor-name: --tab-view-sidebar-selection;
   }
   :where([is=tab-bar] [is=tab-item][aria-selected=true]) {
@@ -2079,11 +2078,11 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where([is=tab-bar]) {
     --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, list-view) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
   }
   @media (pointer: fine) {
-    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, [is=form-view], list-view) {
+    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, list-view) {
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     }
   }
@@ -2124,3 +2123,5 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
 }
+
+/*# sourceMappingURL=styles.css.map */

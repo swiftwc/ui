@@ -158,6 +158,24 @@
   }
 }
 
+@mixin add-focus-visible-state($selector: '') {
+  &:focus-visible#{$selector} {
+    @content;
+  }
+
+  @media (pointer: fine) {
+    &:hover#{$selector} {
+      @content;
+    }
+  }
+}
+
+@mixin add-active-state($selector: '') {
+  &:active#{$selector} {
+    @content;
+  }
+}
+
 @mixin vt-toolbar-cell-offscreen-keyframe() {
   --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
   --toolbar-cell-filter: blur(10px);

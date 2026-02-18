@@ -20,7 +20,7 @@ export class FormView extends FormBase {
 
     // finally
 
-    this.#cleanups.get(el)?.()
+    for (const fn of this.#cleanups.get(el)) fn?.()
 
     this.#cleanups.delete(el)
   }

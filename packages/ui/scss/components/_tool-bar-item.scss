@@ -124,13 +124,8 @@
   [is='disclosure-group'] > button,
   [is='disclosure-group'] > summary {
     &:not(:disabled):not([readonly]) {
-      :where(&):focus-visible {
-        --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      }
-
-      // order matters! BEFORE active
-      @media (pointer: fine) {
-        :where(&):hover {
+      :where(&) {
+        @include mixins.add-focus-visible-state {
           --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
         }
       }
@@ -139,12 +134,8 @@
 
   menu-view {
     &:not(:disabled):not([readonly]) {
-      :where(&):focus-visible::part(menu-summary) {
-        --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      }
-
-      @media (pointer: fine) {
-        :where(&):hover::part(menu-summary) {
+      :where(&) {
+        @include mixins.add-focus-visible-state('::part(menu-summary)') {
           --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
         }
       }
@@ -162,16 +153,20 @@
   [is='disclosure-group'] > summary,
   [is='disclosure-group'] > button {
     &:not(:disabled):not([readonly]) {
-      :where(&):active {
-        --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+      :where(&) {
+        @include mixins.add-active-state {
+          --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+        }
       }
     }
   }
 
   menu-view {
     &:not(:disabled):not([readonly]) {
-      :where(&):active::part(menu-summary) {
-        --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+      :where(&) {
+        @include mixins.add-active-state('::part(menu-summary)') {
+          --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+        }
       }
     }
   }

@@ -101,9 +101,11 @@ export class SidebarToggle extends HTMLElement {
 
         // scan all toggles for anyone that is visible, sign that sidebar should stay open
         if (
-          [...container.querySelectorAll<HTMLElement>(':scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle')].some(
-            ({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight
-          )
+          [
+            ...container.querySelectorAll<HTMLElement>(
+              ":scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle,:scope > [is='sidebar-view'] > tool-bar > sidebar-toggle"
+            ),
+          ].some(({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight)
         )
           return
 
@@ -123,6 +125,8 @@ export class SidebarToggle extends HTMLElement {
   // }
 
   #handleClick(event: Event) {
+    console.debug(`${SidebarToggle.name} ⚡️ ${event?.type}`)
+
     const target = event.target as HTMLElement
 
     if (!target?.closest('button')) return

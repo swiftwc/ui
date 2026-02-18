@@ -134,7 +134,7 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
       { host: newHost } = getComputedView(to),
       newToolbars = queryToolbarConfigAll(from),
       modalViews = [...queryHostAll(from)].filter?.((item) => item?.matches('dialog'))
-    console.log(999, tos)
+
     // toFrame = Snapshot.leafContainer, //queryHostAll(from).slice(-1)?.pop?.(),
     // toToolbars = Snapshot.leafToolbarItems
     // dialogFrames = [toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item): item is HTMLDialogElement => item instanceof HTMLDialogElement) //[toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item) => item?.matches('dialog'))

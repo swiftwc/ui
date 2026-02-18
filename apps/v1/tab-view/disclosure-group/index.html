@@ -23,50 +23,15 @@
 
     <tab-view>
       <navigation-stack id="ns1">
-        <!-- <button type="button" slot="sidebar-toggle">sss1</button> -->
         <scroll-view>
           <v-stack>
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
             <p>...</p>
             <label-view is="icon-only">dd</label-view>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
             <input type="text" />
             <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
+            <list-view></list-view>
             <p>...</p>
             <input type="text" />
             <p>...</p>
@@ -259,22 +224,40 @@
       </sidebar-toggle>
 
       <dialog is="sidebar-view">
-        <scroll-view navigation-title="Mailboxes">
+        <scroll-view>
           <v-stack>
             <form is="form-view">
-              <button is="tab-item" value="ns1">
-                <label-view system-image="smiley" label="all" label-style="icon-only" />
-              </button>
-              <button is="tab-item" value="ns2">
-                <label-view label="Order" />
-              </button>
-              <button is="tab-item" value="more">
+              <details is="disclosure-group">
+                <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+                <button is="tab-item" value="ns1">
+                  <label-view system-image="smiley" label="all" label-style="icon-only" />
+                </button>
+                <button is="tab-item" value="ns2">
+                  <label-view label="Order" />
+                </button>
+              </details>
+              <!-- <button is="tab-item" value="more">
                 <label-view label="More" />
               </button>
               <button is="tab-item" value="more" type="button">
                 <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
+              </button> -->
+              <details is="disclosure-group">
+                <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
+              </details>
+              <details is="disclosure-group">
+                <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
+                <button is="tab-item" value="ns3">
+                  <label-view label="NS3333" />
+                </button>
+              </details>
+              <!-- <button is="tab-item" value="more">
                 <label-view label="More" />
               </button>
               <button is="tab-item" value="more">
@@ -339,10 +322,7 @@
               </button>
               <button is="tab-item" value="more">
                 <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
+              </button> -->
             </form>
           </v-stack>
         </scroll-view>
@@ -360,6 +340,7 @@
       </dialog>
 
       <dialog is="tab-bar">
+        <!-- WORKS!<scroll-view navigation-title="sdbarrr"> -->
         <form is="form-view">
           <sidebar-toggle>
             <button type="button">
@@ -425,14 +406,6 @@
           </button>
         </form>
 
-        <!-- <tool-bar>
-          <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
-          </tool-bar-item>
-          <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
-          </tool-bar-item>
-        </tool-bar> -->
         <!-- <sidebar-toggle>
           <button is="tab-item" type="button"><label-view label="sss3" /></button>
         </sidebar-toggle> -->

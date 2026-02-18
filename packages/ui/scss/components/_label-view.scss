@@ -73,8 +73,6 @@
 @layer #{vars.$components-layer} {
   label-view {
     :where(&) {
-      contain: layout paint;
-
       align-items: var(--label--host-align-items,);
       justify-items: var(--label--host-justify-items,);
       // place-items: center;

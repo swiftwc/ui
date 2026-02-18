@@ -1,59 +1,49 @@
 import { cssTime } from '../internal/utils'
-
-export type TabRevealDetail = {
-  tag: string
-}
-
-declare global {
-  interface HTMLElementEventMap {
-    tabreveal: CustomEvent<TabRevealDetail>
-  }
-}
+import { debounce } from '../internal/utils'
+import { type TabViewChangeDetail } from '../events'
+import { type NavigationStack } from './navigation-stack'
+import { type NavigationSplitView } from './navigation-split-view'
 
 export class TabView extends HTMLElement {
+  #debouncedHandler
+
+  #afterTabRevealTimer?: number
+
   constructor() {
     super()
+
+    this.#debouncedHandler = debounce(this.#handleSelectionChange, 1, true)
   }
 
   disconnectedCallback() {
     console.debug(`${TabView.name} ⚡️ disconnect`)
+
+    this.removeEventListener('tabreveal', this.#debouncedHandler)
+    this.removeEventListener('tabswap', this.#debouncedHandler)
+
+    this.removeEventListener('tabreveal', this.#addAnimations)
+    this.removeEventListener('tabswap', this.#addAnimations)
   }
 
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
-    this.addEventListener('tabreveal', this.#handleTabReveal)
+    this.addEventListener('tabreveal', this.#debouncedHandler)
+    this.addEventListener('tabswap', this.#debouncedHandler)
+
+    this.addEventListener('tabreveal', this.#addAnimations)
+    this.addEventListener('tabswap', this.#addAnimations)
   }
 
   get selection() {
-    const selectedTab = this.querySelector<HTMLElement>(':scope > navigation-stack:not([hidden]),:scope > navigation-split-view:not([hidden])')
-
-    return selectedTab
+    return [...this.querySelectorAll<NavigationStack | NavigationSplitView>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')]
   }
 
-  set selection(nv) {
-    if (!['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(nv?.tagName ?? '')) throw new Error('Element not found')
-
-    if (nv === this.selection) return
-
-    for (const ns of this.querySelectorAll<HTMLElement>(':scope > navigation-stack,:scope > navigation-split-view')) {
-      if (nv === ns) continue
-
-      if (ns.hidden) continue
-
-      ns.hidden = true
-
-      this.dispatchEvent(new CustomEvent('tabswap', { detail: { x: 42 }, bubbles: true, composed: true }))
-    }
-
-    nv!.hidden = false
-
-    this.dispatchEvent(new CustomEvent('tabreveal', { detail: { x: 42, tag: nv?.id, bubbles: true, composed: true } }))
+  #handleSelectionChange = (event: Event) => {
+    this.#triggerChangeEvent(event)
   }
 
-  #afterTabRevealTimer?: number
-
-  #handleTabReveal = (event: Event) => {
+  #addAnimations = (event: Event) => {
     this.setAttribute('js-aftertabreveal', '')
 
     if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
@@ -65,5 +55,13 @@ export class TabView extends HTMLElement {
       },
       cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
     )
+  }
+
+  #triggerChangeEvent = (event: Event) => {
+    const eventType = 'tab-view:change'
+
+    console.debug(`${TabView.name} 💡 ${eventType}`)
+
+    this.dispatchEvent(new CustomEvent<TabViewChangeDetail>(eventType, { detail: { selection: this.selection }, bubbles: true, composed: true }))
   }
 }

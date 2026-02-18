@@ -16,14 +16,9 @@
   <body>
     <v-keyboard></v-keyboard>
 
-    <div id="console" popover="manual" inert>
-      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
-      <span id="console4"></span>
-    </div>
-
     <tab-view>
-      <navigation-stack id="ns1">
-        <scroll-view>
+      <navigation-stack id="moments">
+        <scroll-view navigation-title="Grateful Moments">
           <v-stack>
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
@@ -39,8 +34,8 @@
         </scroll-view>
       </navigation-stack>
 
-      <navigation-stack id="ns2" hidden>
-        <scroll-view>
+      <navigation-stack id="achievements" hidden>
+        <scroll-view navigation-title="Achievements">
           <v-stack>
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -97,10 +92,10 @@
         </tool-bar>
       </navigation-stack>
 
-      <navigation-stack id="more" hidden>
-        <scroll-view>
+      <navigation-stack id="settings" hidden>
+        <scroll-view navigation-title="Settings">
           <v-stack>
-            MOREsection0<button type="button" class="fw" tag="ns3">...</button>
+            ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -145,66 +140,6 @@
           </v-stack>
         </scroll-view>
 
-        <navigation-stack id="ns3" hidden>
-          <scroll-view>
-            <v-stack>
-              <p>...</p>
-              ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-            </v-stack>
-          </scroll-view>
-
-          <tool-bar>
-            <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
-            </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
-            <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
-            </tool-bar-item>
-          </tool-bar>
-        </navigation-stack>
-
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button"><label-view label="leading" /></button>
@@ -218,7 +153,7 @@
       <sidebar-toggle>
         <tool-bar-item>
           <button type="button" tabindex="0">
-            <label-view label="tabsdbr" />
+            <label-view system-image="sidebar" />
           </button>
         </tool-bar-item>
       </sidebar-toggle>
@@ -227,86 +162,14 @@
         <scroll-view>
           <v-stack>
             <form is="form-view">
-              <button is="tab-item" value="ns1">
-                <label-view system-image="smiley" label="all" label-style="icon-only" />
+              <button is="tab-item" value="moments">
+                <label-view system-image="smiley" label="Moments" />
               </button>
-              <button is="tab-item" value="ns2">
-                <label-view label="Order" />
+              <button is="tab-item" value="achievements">
+                <label-view system-image="smiley" label="Achievements" />
               </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more" type="button">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
-              </button>
-              <button is="tab-item" value="more">
-                <label-view label="More" />
+              <button is="tab-item" value="settings">
+                <label-view system-image="smiley" label="Settings" />
               </button>
             </form>
           </v-stack>
@@ -317,7 +180,7 @@
           <sidebar-toggle slot="navigation-bar-leading">
             <tool-bar-item>
               <button type="button">
-                <label-view label="tb" />
+                <label-view system-image="sidebar" />
               </button>
             </tool-bar-item>
           </sidebar-toggle>
@@ -325,75 +188,17 @@
       </dialog>
 
       <dialog is="tab-bar">
-        <!-- WORKS!<scroll-view navigation-title="sdbarrr"> -->
         <form is="form-view">
-          <sidebar-toggle>
-            <button type="button">
-              <label-view system-image="sidebar" label="sss3" label-style="icon-only" />
-            </button>
-          </sidebar-toggle>
-          <button is="tab-item" value="ns1">
-            <label-view label="Menu" />
+          <button is="tab-item" value="moments">
+            <label-view system-image="smiley" label="Moments" />
           </button>
-          <button is="tab-item" value="ns2">
-            <label-view label="Order" />
+          <button is="tab-item" value="achievements">
+            <label-view system-image="smiley" label="Achievements" />
           </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
-          </button>
-          <button is="tab-item" value="more">
-            <label-view label="More" />
+          <button is="tab-item" value="settings">
+            <label-view system-image="smiley" label="Settings" />
           </button>
         </form>
-
-        <!-- <sidebar-toggle>
-          <button is="tab-item" type="button"><label-view label="sss3" /></button>
-        </sidebar-toggle> -->
       </dialog>
     </tab-view>
 

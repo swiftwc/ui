@@ -256,11 +256,7 @@
 
           if (navDest && parentScene) {
             const sv2 = closestBody(parentScene),
-              // root2 = getRootController(sv2),
               view2 = getComputedView(sv2)
-            // { doc: scene2, host: frame2 } = getComputedView(sv2) //{ scene: scene2, frame: frame2 } = queryFrameToolbars(sv2),
-            // position2 = queryInsertPosition(frame2),
-            // lookFor2 = 'beforebegin' === position2 ? 'previousElementSibling' : 'nextElementSibling'
 
             await startViewTransition({ target: view2.doc }, 'forwards', async () => {
               modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
@@ -270,11 +266,7 @@
           }
         } else if (navDest) {
           const sv = closestBody(event.target),
-            // root = getRootController(sv),
             view = getComputedView(sv)
-          // { doc, host } = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
-          // position = queryInsertPosition(host)
-          // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
           if (navDest)
             await startViewTransition(event, 'forwards', async () => {

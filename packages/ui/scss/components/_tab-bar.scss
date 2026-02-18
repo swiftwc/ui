@@ -225,7 +225,10 @@
   @media (prefers-reduced-motion: no-preference) {
     :where(tab-view[js-aftertabreveal] > [is='tab-bar'] > [is='form-view'])::after,
     :where(tab-view[js-aftertabreveal] > [is='sidebar-view'] > scroll-view)::after {
-      transition: inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+      transition:
+        block-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+        inline-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+        inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
     }
   }
 

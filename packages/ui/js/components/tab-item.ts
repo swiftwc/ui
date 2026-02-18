@@ -1,6 +1,7 @@
-import { type TabView, type TabRevealDetail } from './tab-view'
+import { type TabView } from './tab-view'
 import { ButtonBase } from '../internal/privateNamespace'
 import { Snapshot } from '../snapshot'
+import { type TabRevealDetail } from '../events'
 
 export class TabItem extends ButtonBase {
   static #cleanups = new WeakMap()
@@ -22,7 +23,7 @@ export class TabItem extends ButtonBase {
 
     el.removeEventListener('click', TabItem.#handleClick)
 
-    this.#cleanups.get(el)?.()
+    for (const fn of this.#cleanups.get(el)) fn?.()
 
     this.#cleanups.delete(el)
   }
@@ -30,45 +31,53 @@ export class TabItem extends ButtonBase {
   static polyfillConnectedCallback(el: TabItem) {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
-    el.tabIndex = 0
-    el.ariaSelected = 'false'
+    Object.assign(el, {
+      tabIndex: 0,
+
+      ariaSelected: 'false',
+    })
 
     Snapshot.waitReady.then(() => {
       el.addEventListener('click', TabItem.#handleClick)
 
-      const handler = TabItem.#handleTabReveal.bind(null, el),
+      const handler = TabItem.#handleTabRevealOrSwap.bind(null, el),
         tv = el.closest<TabView>('tab-view')
 
       tv?.addEventListener('tabreveal', handler)
+      tv?.addEventListener('tabswap', handler)
 
-      this.#cleanups.set(el, () => {
+      if (!this.#cleanups.has(el)) this.#cleanups.set(el, [])
+      this.#cleanups.get(el).push(() => {
         tv?.removeEventListener('tabreveal', handler)
+        tv?.removeEventListener('tabswap', handler)
       })
 
-      if (tv?.selection?.id === el.value) void this.#handleTabReveal(el, new CustomEvent<TabRevealDetail>('slotchange', { detail: { tag: el.value } }))
+      if (tv?.selection?.map(({ id }) => id)?.includes(el.value))
+        void this.#handleTabRevealOrSwap(el, new CustomEvent<TabRevealDetail>('tabreveal', { detail: { tag: el.value } }))
     })
   }
 
-  static #handleTabReveal = async (el: HTMLButtonElement, event: CustomEvent<TabRevealDetail>) => {
+  static #handleTabRevealOrSwap = async (el: HTMLButtonElement, event: CustomEvent<TabRevealDetail>) => {
+    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
+
+    if (event.detail?.tag !== el.value) return
+
     await Snapshot.waitReady
 
-    if (event.detail?.tag === el.value)
+    const isSelected = 'tabreveal' === event?.type
+
+    el.ariaSelected = `${isSelected}`
+
+    if (isSelected)
       el.scrollIntoView({
         behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
         block: 'nearest',
         inline: 'nearest',
       })
-
-    el.ariaSelected = `${event.detail?.tag === el.value}`
-
-    // const type = el.closest('[is=sidebar-view]') ? 'sidebar' : 'tabbar'
-
-    // if (event.detail?.tag === el.value) el.style.setProperty('anchor-name', `--tab-view-${type}-selection`)
-    // else el.style.removeProperty('anchor-name')
   }
 
   static #handleClick = async (event: Event) => {
-    console.debug(`${TabItem.name} ⚡️ click`)
+    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
 
     const tabItem = event.currentTarget as HTMLElement
 
@@ -79,11 +88,11 @@ export class TabItem extends ButtonBase {
     if (!tv) throw new Error('Element not found')
 
     const newTab = tv?.querySelector<HTMLElement>(`#${tag}`)
-    // 'more' === tag
-    //   ? tv?.querySelector<HTMLElement>(`tab-view>[is=more]`):
-
     if (!newTab) throw new Error('Element not found')
 
-    tv.selection = newTab
+    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])'))
+      if (!ns.contains(newTab)) ns.hidden = true
+
+    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]')) if (ns.contains(newTab)) ns.hidden = false
   }
 }

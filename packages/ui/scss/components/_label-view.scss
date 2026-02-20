@@ -70,6 +70,12 @@
   }
 }
 
+@mixin set-label-font($value) {
+  @if $value == callout {
+    --label--titlestack-font-size: 0.5rem;
+  }
+}
+
 @layer #{vars.$components-layer} {
   label-view {
     :where(&) {
@@ -121,6 +127,8 @@
       &::part(label-title-stack) {
         text-decoration: underline;
 
+        font-size: var(--label--titlestack-font-size,);
+
         // grid-area: label-title-stack;
       }
     }
@@ -151,6 +159,7 @@
     // vars
     @supports (x: #{string.unquote('if(else:red)')}) {
       :where(&) {
+        --label--titlestack-font-size: if(style(--label-font: callout): 0.5rem ;);
         // ANCHOR: truncation-mode
         --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
 
@@ -337,6 +346,17 @@
           @include set-label-truncation-mode(tail);
         }
       }
+      //
+      @container style(--label-font: callout) {
+        :where(&) {
+          @include set-label-font(callout);
+        }
+      }
+      @container not style(--label-font: callout) {
+        :where(&[font='callout']) {
+          @include set-label-font(callout);
+        }
+      }
     }
 
     // ifs finally
@@ -345,6 +365,7 @@
         --label-style: attr(label-style type(<custom-ident>), inherit);
         --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
         --label-line-limit: attr(line-limit type(<number>), inherit);
+        --label-font: attr(font type(<custom-ident>), inherit);
         // --label--has-icon: attr(image-hint type(<custom-ident>), inherit);
         // --label--has-title: attr(title-hint type(<custom-ident>), inherit);
       }

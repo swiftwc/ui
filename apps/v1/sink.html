@@ -40,11 +40,12 @@
       <!-- Prefer compact col = make sidebar retractable on compact layouts ONLY on 3col layouts (no double-cols) -->
       <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1">
         <dialog is="sidebar-view">
-          <scroll-view navigation-title="ns +sbar +cmpct +dbcol">
-            <v-stack>
-              <label-view id="gg3"><span>fff</span></label-view>
-              <label-view id="gg3">error</label-view>
+          <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol" navigation-inline-subtitle="subtitle">
+            <v-stack spacing="1" padding content="start" frame-width="infinity">
+              <label-view id="gg3" padding><span>fff</span></label-view>
+              <label-view id="gg3" padding>error</label-view>
               <p>...</p>
+              <navigation-title><p>a custom titleeeee</p></navigation-title>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
               <form is="form-view" frame-width="infinity">
@@ -147,8 +148,8 @@
       </navigation-split-view>
 
       <navigation-split-view id="ns1a" hidden>
-        <scroll-view navigation-title="ns -sbar -cmpct -dbcol">
-          <v-stack>
+        <scroll-view navigation-inline-title="ns -sbar -cmpct -dbcol">
+          <v-stack content="start" frame-width="infinity">
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -183,8 +184,8 @@
 
       <navigation-split-view id="ns1b" hidden>
         <dialog is="sidebar-view">
-          <scroll-view navigation-title="ns +sbar -cmpct -dbcol">
-            <v-stack>
+          <scroll-view navigation-inline-title="ns +sbar -cmpct -dbcol">
+            <v-stack content="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -250,8 +251,8 @@
 
       <navigation-split-view column-visibility="double-column" id="ns1c" hidden>
         <dialog is="sidebar-view">
-          <scroll-view navigation-title="ns +sbar -cmpct +dbcol">
-            <v-stack>
+          <scroll-view navigation-inline-title="ns +sbar -cmpct +dbcol">
+            <v-stack content="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -320,8 +321,8 @@
 
       <navigation-split-view preferred-compact-column="content" id="ns1d" hidden>
         <dialog is="sidebar-view">
-          <scroll-view navigation-title="ns +sbar +cmpct -dbcol">
-            <v-stack>
+          <scroll-view navigation-inline-title="ns +sbar +cmpct -dbcol">
+            <v-stack content="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -387,8 +388,8 @@
 
       <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1e" hidden>
         <dialog is="sidebar-view">
-          <scroll-view navigation-title="ns +sbar +cmpct +dbcol">
-            <v-stack>
+          <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol">
+            <v-stack content="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -454,7 +455,7 @@
 
       <navigation-stack id="ns2" hidden>
         <scroll-view>
-          <v-stack>
+          <v-stack content="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -520,7 +521,7 @@
 
       <navigation-stack id="more" hidden>
         <scroll-view>
-          <v-stack>
+          <v-stack content="start" frame-width="infinity">
             MOREsection0<button type="button" class="fw" tag="ns3">→</button>
             <p>...</p>
             <p>...</p>
@@ -568,7 +569,7 @@
 
         <navigation-stack id="ns3" hidden>
           <scroll-view>
-            <v-stack>
+            <v-stack content="start" frame-width="infinity">
               <p>...</p>
               ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
               <p>...</p>
@@ -646,7 +647,7 @@
       </sidebar-toggle>
 
       <dialog is="sidebar-view">
-        <scroll-view navigation-title="Mailboxes">
+        <scroll-view navigation-inline-title="Mailboxes">
           <v-stack frame-alignment="leading" alignment="stretch">
             <form is="form-view">
               <button is="tab-item" value="ns1">

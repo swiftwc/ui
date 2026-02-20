@@ -60,6 +60,12 @@
 
 @layer #{vars.$tab-components-layer} {
   tab-view {
+    // :where(navigation-stack[hidden], navigation-split-view[hidden]) {
+    //   tab-index: -1;
+    //   opacity: 0;
+    //   pointer-events: none;
+    // }
+
     :where(&) {
       // contain: layout paint;
 

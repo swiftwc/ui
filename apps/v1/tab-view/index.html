@@ -18,8 +18,8 @@
 
     <tab-view>
       <navigation-stack id="moments">
-        <scroll-view navigation-title="Grateful Moments">
-          <v-stack>
+        <scroll-view navigation-inline-title="Grateful Moments">
+          <v-stack content="start" frame-width="infinity">
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -35,8 +35,8 @@
       </navigation-stack>
 
       <navigation-stack id="achievements" hidden>
-        <scroll-view navigation-title="Achievements">
-          <v-stack>
+        <scroll-view navigation-inline-title="Achievements">
+          <v-stack content="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -93,8 +93,8 @@
       </navigation-stack>
 
       <navigation-stack id="settings" hidden>
-        <scroll-view navigation-title="Settings">
-          <v-stack>
+        <scroll-view navigation-inline-title="Settings">
+          <v-stack content="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -160,7 +160,7 @@
 
       <dialog is="sidebar-view">
         <scroll-view>
-          <v-stack>
+          <v-stack content="start" frame-width="infinity">
             <form is="form-view">
               <button is="tab-item" value="moments">
                 <label-view system-image="smiley" label="Moments" />

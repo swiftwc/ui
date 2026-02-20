@@ -139,6 +139,23 @@
           --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
         }
       }
+
+      > button {
+        :where(&) {
+          --component-padding-inline: 0.3rem;
+          --component-padding-block: 0.3rem;
+        }
+      }
+    }
+  }
+
+  list-view > button,
+  [is='form-view'] > button {
+    &:not(:disabled):not([readonly]) {
+      :where(&) {
+        --component-padding-inline: 0.3rem;
+        --component-padding-block: 0.3rem;
+      }
     }
   }
 }

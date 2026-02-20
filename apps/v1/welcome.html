@@ -45,7 +45,7 @@
 
     <template id="lang">
       <body-view>
-        <scroll-view id="gg" navigation-title="Select Your Country or Region">
+        <scroll-view id="gg" navigation-inline-title="Select Your Country or Region">
           <v-stack content="start" frame-width="infinity">
             <list-view>
               <button navigation-destination="region">
@@ -65,7 +65,7 @@
     </template>
     <template id="region">
       <body-view>
-        <scroll-view navigation-title="Appearance">
+        <scroll-view navigation-inline-title="Appearance">
           <v-stack distribution="space-between" frame-width="infinity">
             <picker-view picker-style="inline">
               <label-view label="Auto" />
@@ -91,7 +91,7 @@
     </template>
     <template id="data-privacy">
       <body-view>
-        <scroll-view navigation-title="Data & Privacy">
+        <scroll-view navigation-inline-title="Data & Privacy">
           <v-stack distribution="space-between" frame-width="infinity">
             <text-view> lorem ipsum </text-view>
 
@@ -113,7 +113,7 @@
     </template>
     <template id="age-range">
       <body-view>
-        <scroll-view navigation-title="Age Range">
+        <scroll-view navigation-inline-title="Age Range">
           <v-stack content="start" frame-width="infinity">
             <text-view> Select the age range </text-view>
 
@@ -141,7 +141,7 @@
     </template>
     <template id="terms">
       <dialog is="sheet-view">
-        <scroll-view navigation-title="Terms and Conditions">
+        <scroll-view navigation-inline-title="Terms and Conditions">
           <v-stack content="start" frame-width="infinity">
             <text-view> lorem ipsum </text-view>
           </v-stack>
@@ -162,7 +162,7 @@
     </template>
     <template id="location">
       <body-view>
-        <scroll-view navigation-title="Location Services">
+        <scroll-view navigation-inline-title="Location Services">
           <v-stack distribution="space-between" frame-width="infinity">
             <text-view> lorem ipsum </text-view>
 
@@ -184,7 +184,7 @@
     </template>
     <template id="analytics">
       <body-view>
-        <scroll-view navigation-title="Analytics">
+        <scroll-view navigation-inline-title="Analytics">
           <v-stack distribution="space-between" frame-width="infinity">
             <text-view> lorem ipsum </text-view>
 
@@ -243,7 +243,7 @@
 
         if (event.target.closest('.back')) {
           const sv = closestBody(event.target),
-            { doc, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
+            { page, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
             pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
           const parentScene = closestBody(host?.parentElement ?? undefined) //queryParent(frame)
@@ -258,7 +258,7 @@
             const sv2 = closestBody(parentScene),
               view2 = getComputedView(sv2)
 
-            await startViewTransition({ target: view2.doc }, 'forwards', async () => {
+            await startViewTransition({ target: view2.page }, 'forwards', async () => {
               modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
             })
 

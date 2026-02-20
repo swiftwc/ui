@@ -144,7 +144,9 @@
       --menu-bg-dark: oklch(0.2871 0.0029 17.33);
 
       --toolbar-cell-focus-bg: lightpink;
+      --toolbar-cell-focus-bg-dark: darkgray;
       --toolbar-cell-active-bg: gray;
+      --toolbar-cell-active-bg-dark: gray;
 
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);

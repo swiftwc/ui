@@ -18,7 +18,8 @@ export class NavigationView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
-      this.dispatchEvent(new CustomEvent<TabRevealDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      if (this.closest('tab-view'))
+        this.dispatchEvent(new CustomEvent<TabRevealDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
     })
   }
 

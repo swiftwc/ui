@@ -34,4 +34,43 @@
   :where(spacer) {
     margin: auto;
   }
+
+  :where([padding]) {
+    margin-inline: 1rem;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :where([slow-fade], [slow-show]) {
+      transition: opacity 250ms ease-out allow-discrete;
+      will-change: opacity;
+    }
+    // :where([slow-fade='false'], [slow-show='false']) {
+    //   transition-duration: 0ms;
+    // }
+  }
+
+  [slow-fade] {
+    :where(&) {
+      opacity: 1;
+    }
+    :where(&[slow-fade='true']) {
+      opacity: 0;
+
+      @starting-style {
+        opacity: 1;
+      }
+    }
+  }
+  [slow-show] {
+    :where(&) {
+      opacity: 0;
+    }
+    :where(&[slow-show='true']) {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
 }

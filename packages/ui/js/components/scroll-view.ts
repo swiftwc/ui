@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 
 export class ScrollView extends HTMLElement {
-  static observedAttributes = ['navigation-title']
+  static observedAttributes = ['navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
 
   static #template: HTMLTemplateElement
 
@@ -27,6 +27,8 @@ export class ScrollView extends HTMLElement {
 
   #shadowRoot
 
+  #navbarPrincipalSlot?: HTMLSlotElement
+
   constructor() {
     super()
 
@@ -34,6 +36,10 @@ export class ScrollView extends HTMLElement {
 
     Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
+
+      this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
+
+      this.#navbarPrincipalSlot?.addEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
     })
 
     // this.addEventListener(
@@ -55,13 +61,13 @@ export class ScrollView extends HTMLElement {
 
     Snapshot.waitReady.then(() => {
       switch (name) {
-        case 'navigation-title':
+        case 'navigation-inline-title':
           const el =
             (this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })[0] as HTMLElement) ??
             (() => {
-              const el = document.createElement('label-view')
-              el.slot = 'navigation-bar-principal'
-              return this.appendChild(el)
+              const tpl = document.createElement('template')
+              tpl.innerHTML = `<v-stack slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail"></label-view><label-view line-limit="1" truncation-mode="tail" label="subtitle" font="callout"></label-view></v-stack>`
+              return this.appendChild(tpl.content.firstElementChild!).querySelector('label-view')
             })()
 
           if (newValue)
@@ -95,40 +101,33 @@ export class ScrollView extends HTMLElement {
           //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
           //   )
           break
+
+        case 'navigation-bar-title-display-mode':
+          // const el2 = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })?.[0]
+
+          // if (null === oldValue) el2?.removeAttribute('slow-fade')
+          if (oldValue !== newValue)
+            this.#addBehindStickyClass(
+              newValue,
+              this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })?.[0]
+            )
+
+          break
       }
     })
   }
 
   disconnectedCallback() {
     console.debug(`${ScrollView.name} ⚡️ disconnect`)
+
+    this.#navbarPrincipalSlot?.removeEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
   }
 
   connectedCallback() {
     console.debug(`${ScrollView.name} ⚡️ connect`)
 
-    // const nSlot = this.shadowRoot.querySelector('slot[name=navigation-bar]')!
-
-    // Snapshot.waitReady.then(() => {
-    // if (
-    //   0 ===
-    //   this.#shadowRoot
-    //     .querySelector<HTMLSlotElement>('slot[name=navigation-bar]')!
-    //     .assignedNodes({ flatten: true }).length
-    // )
-    //   this.insertAdjacentHTML(
-    //     'beforeend',
-    //     `<tool-bar slot="navigation-bar">ghjh</tool-bar>`
-    //   )
-    // if (
-    //   0 ===
-    //   this.#shadowRoot
-    //     .querySelector<HTMLSlotElement>('slot[name=bottom-bar]')!
-    //     .assignedNodes({ flatten: true }).length
-    // )
-    //   this.insertAdjacentHTML(
-    //     'beforeend',
-    //     `<tool-bar slot="bottom-bar">ghj</tool-bar>`
-    //   )
+    // requestAnimationFrame(() => {
+    // this.scrollTop = 500
     // })
   }
 
@@ -151,5 +150,81 @@ export class ScrollView extends HTMLElement {
       top: scrollTop,
       behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant', // optional: smooth scroll
     })
+  }
+
+  #handleNavbarPrincipalSlotchange = (event: Event) => {
+    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+
+    const el = (event.target as HTMLSlotElement)?.assignedElements({ flatten: true })?.[0] as HTMLElement
+    if (!el) return
+
+    this.#addBehindStickyClass(this.getAttribute('navigation-bar-title-display-mode'), el)
+    // if ('large' !== this.getAttribute('navigation-bar-title-display-mode')) return
+
+    // switch (this.getAttribute('navigation-bar-title-display-mode')) {
+    //   case 'large':
+    //     el?.setAttribute('slow-fade', `${false}`)
+    //     break
+    //   case 'inline':
+    //     el?.setAttribute('slow-fade', `${false}`)
+    //     break
+    //   default:
+    //     el?.removeAttribute('slow-fade')
+    //     break
+    // }
+
+    el.style.setProperty('transition-duration', '0ms')
+
+    // self.requestAnimationFrame(() => {
+    setTimeout(() => {
+      el.style.removeProperty('transition-duration')
+    }, 100)
+  }
+
+  #addBehindStickyClass = (newValue: string | null, el?: Element) => {
+    self.requestAnimationFrame(() => {
+      switch (newValue) {
+        case 'large':
+          el?.setAttribute('slow-fade', `${true}`)
+          break
+        case 'inline':
+          el?.setAttribute('slow-fade', `${false}`)
+          break
+        default:
+          el?.removeAttribute('slow-fade')
+          break
+      }
+    })
+
+    // if (null === newValue) return el2?.removeAttribute('slow-fade')
+
+    // const didHaveSlowShow = el2?.hasAttribute('slow-fade')
+
+    // if (!didHaveSlowShow) el2?.setAttribute('slow-fade', '')
+
+    // if ('large' === newValue) {
+    //   if (!didHaveSlowShow) {
+    //     self.requestAnimationFrame(() => {
+    //       el2?.setAttribute('slow-fade', `${true}`)
+    //     })
+    //   } else {
+    //     el2?.setAttribute('slow-fade', `${true}`)
+    //   }
+    // }
+    // if ('inline' === newValue) {
+    //   if (!didHaveSlowShow) {
+    //     self.requestAnimationFrame(() => {
+    //       el2?.setAttribute('slow-fade', `${false}`)
+    //     })
+    //   } else {
+    //     el2?.setAttribute('slow-fade', `${false}`)
+    //   }
+    // }
+    //   const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
+    //   const el2 = slot?.assignedElements({ flatten: true })?.[0]
+
+    //   // this.#addBehindStickyClass(newValue, el2)
+    //   console.log(999, newValue, el2)
+    //   el2.hidden = 'inline' !== newValue
   }
 }

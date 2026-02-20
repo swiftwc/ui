@@ -17,5 +17,13 @@
         // align-self: start;
       }
     }
+
+    // $spaces: 0, 1, 2, 3, 4;
+    // @each $s in $spaces {
+    @for $i from 0 through 100 {
+      :where(&[spacing='#{$i}']) {
+        gap: #{$i}rem;
+      }
+    }
   }
 }

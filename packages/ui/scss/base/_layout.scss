@@ -7,14 +7,17 @@
   navigation-split-view,
   dialog[is='full-screen'],
   dialog[is='sheet-view'] {
-    position: relative;
+    :where(&) {
+      position: relative;
 
-    grid-auto-flow: column;
+      grid-auto-flow: column;
 
-    grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
-    grid-template-rows: minmax(0, 1fr);
+      grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
+      grid-template-rows: minmax(0, 1fr);
+    }
 
-    & > *:not([slot]) {
+    :where(& > *:not([slot])) {
+      // & > *:not([slot]) {
       @include mixins.span-all;
     }
   }
@@ -27,7 +30,9 @@
   body-view:has(> body-view) {
     & > scroll-view,
     & > [is='sidebar-view'] > scroll-view {
-      --scroll-view-translate: translateX(var(--view-transition-leading-x));
+      :where(&) {
+        --scroll-view-translate: translateX(var(--view-transition-leading-x));
+      }
     }
 
     // & > navigation-bar > tool-bar-item,
@@ -42,7 +47,9 @@
     & > tool-bar > tool-bar-item-group,
     & > [is='sidebar-view'] > tool-bar > tool-bar-item,
     & > [is='sidebar-view'] > tool-bar > tool-bar-item-group {
-      @include mixins.vt-toolbar-cell-offscreen-keyframe;
+      :where(&) {
+        @include mixins.vt-toolbar-cell-offscreen-keyframe;
+      }
     }
   }
 }

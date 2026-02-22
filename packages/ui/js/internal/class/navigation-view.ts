@@ -1,5 +1,5 @@
 import { Snapshot } from '../../snapshot'
-import { type TabRevealDetail } from '../../events'
+import { type TabRevealSwapDetail } from '../../events'
 
 export class NavigationView extends HTMLElement {
   static observedAttributes = ['hidden']
@@ -19,7 +19,7 @@ export class NavigationView extends HTMLElement {
       if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
       if (this.closest('tab-view'))
-        this.dispatchEvent(new CustomEvent<TabRevealDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+        this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
     })
   }
 
@@ -35,14 +35,14 @@ export class NavigationView extends HTMLElement {
 
           console.debug(`${NavigationView.name} 💡 ${event}`)
 
-          this.dispatchEvent(new CustomEvent<TabRevealDetail>(event, { detail: { tag: this.id }, bubbles: true, composed: true }))
+          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(event, { detail: { tag: this.id }, bubbles: true, composed: true }))
 
           break
       }
     })
   }
 
-  #handleTabReveal = (event: CustomEvent<TabRevealDetail>) => {
+  #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {
     console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
 
     if (this === event.target) return

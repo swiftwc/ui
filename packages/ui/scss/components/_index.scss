@@ -2,8 +2,8 @@
 
 @layer #{vars.$components-layer} {
   // all is a grid
-  :where(navigation-stack:not([hidden]),
-  navigation-split-view:not([hidden]),
+  navigation-stack,
+  navigation-split-view,
   scroll-view,
   body-view,
   tab-view,
@@ -20,18 +20,21 @@
   [is='form-view'],
   v-stack,
   tool-bar,
-  label-view, menu-view),
+  label-view,
+  menu-view {
+    :where(&:not([hidden])) {
+      display: grid;
+    }
+  }
   // tool-bar,
 
   ::part(menu-dialog),
   ::part(menu-summary),
   ::part(menu-form),
   ::part(menu-scrollable),
-
   ::part(picker-stack),
   ::part(picker-label-stack),
   ::part(picker-input-stack),
-  
   ::part(navigation-bar),
   ::part(bottom-bar),
   ::part(label-image-stack),

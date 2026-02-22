@@ -32,11 +32,11 @@
 
     <navigation-stack>
       <scroll-view>
-        <v-stack content="start" frame-width="infinity">
+        <v-stack distribution="start" frame-width="infinity">
           <label-view system-image="globe"></label-view>
           <list-view>
             <button navigation-destination="lang">
-              <label-view label="English" />
+              <label-view label="English"></label-view>
             </button>
           </list-view>
         </v-stack>
@@ -46,10 +46,10 @@
     <template id="lang">
       <body-view>
         <scroll-view id="gg" navigation-inline-title="Select Your Country or Region">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <list-view>
               <button navigation-destination="region">
-                <label-view label="USA" />
+                <label-view label="USA"></label-view>
               </button>
             </list-view>
           </v-stack>
@@ -57,7 +57,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" />
+              <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -68,14 +68,14 @@
         <scroll-view navigation-inline-title="Appearance">
           <v-stack distribution="space-between" frame-width="infinity">
             <picker-view picker-style="inline">
-              <label-view label="Auto" />
-              <label-view label="Light" />
-              <label-view label="Dark" />
+              <label-view label="Auto"></label-view>
+              <label-view label="Light"></label-view>
+              <label-view label="Dark"></label-view>
             </picker-view>
 
             <v-stack>
               <button is="bordered-prominent" navigation-destination="data-privacy">
-                <label-view label="Continue" />
+                <label-view label="Continue"></label-view>
               </button>
             </v-stack>
           </v-stack>
@@ -83,7 +83,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" label="Back" />
+              <label-view system-image="caret-left" label="Back"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -97,7 +97,7 @@
 
             <v-stack>
               <button is="bordered-prominent" navigation-destination="age-range">
-                <label-view label="Continue" />
+                <label-view label="Continue"></label-view>
               </button>
             </v-stack>
           </v-stack>
@@ -105,7 +105,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" label="Back" />
+              <label-view system-image="caret-left" label="Back"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -114,18 +114,18 @@
     <template id="age-range">
       <body-view>
         <scroll-view navigation-inline-title="Age Range">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <text-view> Select the age range </text-view>
 
             <list-view>
               <button navigation-destination="terms">
-                <label-view label="Child" />
+                <label-view label="Child"></label-view>
               </button>
               <button navigation-destination="terms">
-                <label-view label="Teen" />
+                <label-view label="Teen"></label-view>
               </button>
               <button navigation-destination="terms">
-                <label-view label="Adult" />
+                <label-view label="Adult"></label-view>
               </button>
             </list-view>
           </v-stack>
@@ -133,7 +133,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" label="Back" />
+              <label-view system-image="caret-left" label="Back"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -142,19 +142,19 @@
     <template id="terms">
       <dialog is="sheet-view">
         <scroll-view navigation-inline-title="Terms and Conditions">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <text-view> lorem ipsum </text-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view label="Disagree" />
+              <label-view label="Disagree"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button" navigation-destination="location" class="back">
-              <label-view label="Agree" />
+              <label-view label="Agree"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -168,7 +168,7 @@
 
             <v-stack>
               <button is="bordered-prominent" navigation-destination="analytics">
-                <label-view label="Continue" />
+                <label-view label="Continue"></label-view>
               </button>
             </v-stack>
           </v-stack>
@@ -176,7 +176,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" label="Back" />
+              <label-view system-image="caret-left" label="Back"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -190,7 +190,7 @@
 
             <v-stack>
               <button is="bordered-prominent" navigation-destination="welcome">
-                <label-view label="Continue" />
+                <label-view label="Continue"></label-view>
               </button>
             </v-stack>
           </v-stack>
@@ -198,7 +198,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button" class="back">
-              <label-view system-image="caret-left" label="Back" />
+              <label-view system-image="caret-left" label="Back"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -214,7 +214,7 @@
 
             <v-stack>
               <button class="st">
-                <label-view label="Start Over" />
+                <label-view label="Start Over"></label-view>
               </button>
             </v-stack>
           </v-flex-stack>

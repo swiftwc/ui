@@ -1,7 +1,10 @@
 import { Snapshot } from '../snapshot'
+import { type TabRevealSwapDetail } from '../events'
+import { type TabView } from './tab-view'
+import { slowHideShow } from '../internal/utils'
 
 export class ScrollView extends HTMLElement {
-  static observedAttributes = ['navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
+  static observedAttributes = ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
 
   static #template: HTMLTemplateElement
 
@@ -39,7 +42,7 @@ export class ScrollView extends HTMLElement {
 
       this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
 
-      this.#navbarPrincipalSlot?.addEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
+      // this.#navbarPrincipalSlot?.addEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
     })
 
     // this.addEventListener(
@@ -62,17 +65,11 @@ export class ScrollView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'navigation-inline-title':
-          const el =
-            (this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })[0] as HTMLElement) ??
-            (() => {
-              const tpl = document.createElement('template')
-              tpl.innerHTML = `<v-stack slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail"></label-view><label-view line-limit="1" truncation-mode="tail" label="subtitle" font="callout"></label-view></v-stack>`
-              return this.appendChild(tpl.content.firstElementChild!).querySelector('label-view')
-            })()
+          this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
 
-          if (newValue)
-            el.setAttribute('label', newValue) //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-          else el.removeAttribute('value')
+          break
+        case 'navigation-inline-subtitle':
+          this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
 
           // const el =
           //   assigned?.[0] ??
@@ -102,15 +99,16 @@ export class ScrollView extends HTMLElement {
           //   )
           break
 
-        case 'navigation-bar-title-display-mode':
-          // const el2 = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })?.[0]
+        case 'navigation-title':
+          //
 
-          // if (null === oldValue) el2?.removeAttribute('slow-fade')
-          if (oldValue !== newValue)
-            this.#addBehindStickyClass(
-              newValue,
-              this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]')?.assignedElements({ flatten: true })?.[0]
-            )
+          break
+        case 'navigation-bar-title-display-mode':
+          const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
+
+          if (oldValue === newValue) break
+
+          slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 
           break
       }
@@ -120,7 +118,11 @@ export class ScrollView extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${ScrollView.name} ⚡️ disconnect`)
 
-    this.#navbarPrincipalSlot?.removeEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
+    // this.#navbarPrincipalSlot?.removeEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
+
+    this.removeEventListener('tabreveal', this.#handleTabReveal)
+
+    this.removeEventListener('beforetabswap', this.#handleTabReveal)
   }
 
   connectedCallback() {
@@ -129,6 +131,33 @@ export class ScrollView extends HTMLElement {
     // requestAnimationFrame(() => {
     // this.scrollTop = 500
     // })
+
+    this.closest<TabView>('tab-view')?.addEventListener('tabreveal', this.#handleTabReveal)
+
+    this.closest<TabView>('tab-view')?.addEventListener('beforetabswap', this.#handleTabBeforeswap)
+  }
+
+  #beforeTabSwapLastScrolltop?: number
+
+  #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {
+    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+
+    if (!(event.target as HTMLElement)?.contains(this)) return
+
+    if (undefined === this.#beforeTabSwapLastScrolltop) return
+    if (this.#beforeTabSwapLastScrolltop === this.scrollTop) return
+
+    this.scrollTop = this.#beforeTabSwapLastScrolltop
+
+    this.#beforeTabSwapLastScrolltop = undefined
+  }
+
+  #handleTabBeforeswap = (event: CustomEvent<TabRevealSwapDetail>) => {
+    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+
+    if (!(event.target as HTMLElement)?.contains(this)) return
+
+    this.#beforeTabSwapLastScrolltop = this.scrollTop
   }
 
   scrollToElement(el: Element) {
@@ -152,79 +181,89 @@ export class ScrollView extends HTMLElement {
     })
   }
 
-  #handleNavbarPrincipalSlotchange = (event: Event) => {
-    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+  #renderNavTitle = (title: string | null, subtitle: string | null) => {
+    for (const el of this.querySelectorAll(':scope>[slot=navigation-bar-principal]')) el.remove()
 
-    const el = (event.target as HTMLSlotElement)?.assignedElements({ flatten: true })?.[0] as HTMLElement
-    if (!el) return
+    const el = this.appendChild(
+        Object.assign(document.createElement('template'), {
+          innerHTML: `<v-stack alignment="start" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
+        }).content.firstElementChild!
+      ),
+      titleLabel = el.querySelector('label-view:first-child'),
+      subtitleLabel = el.querySelector('label-view:last-child')
 
-    this.#addBehindStickyClass(this.getAttribute('navigation-bar-title-display-mode'), el)
-    // if ('large' !== this.getAttribute('navigation-bar-title-display-mode')) return
+    if (null !== title) titleLabel?.setAttribute('label', title)
+    else titleLabel?.removeAttribute('label')
 
-    // switch (this.getAttribute('navigation-bar-title-display-mode')) {
-    //   case 'large':
-    //     el?.setAttribute('slow-fade', `${false}`)
-    //     break
-    //   case 'inline':
-    //     el?.setAttribute('slow-fade', `${false}`)
-    //     break
-    //   default:
-    //     el?.removeAttribute('slow-fade')
-    //     break
-    // }
-
-    el.style.setProperty('transition-duration', '0ms')
-
-    // self.requestAnimationFrame(() => {
-    setTimeout(() => {
-      el.style.removeProperty('transition-duration')
-    }, 100)
+    if (null !== subtitle) subtitleLabel?.setAttribute('label', subtitle)
+    else subtitleLabel?.removeAttribute('label')
   }
 
-  #addBehindStickyClass = (newValue: string | null, el?: Element) => {
-    self.requestAnimationFrame(() => {
-      switch (newValue) {
-        case 'large':
-          el?.setAttribute('slow-fade', `${true}`)
-          break
-        case 'inline':
-          el?.setAttribute('slow-fade', `${false}`)
-          break
-        default:
-          el?.removeAttribute('slow-fade')
-          break
-      }
-    })
+  // #handleNavbarPrincipalSlotchange = (event: Event) => {
+  //   console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
 
-    // if (null === newValue) return el2?.removeAttribute('slow-fade')
+  //   const el = (event.target as HTMLSlotElement)?.assignedElements({ flatten: true })?.[0] as HTMLElement
+  //   if (!el) return
 
-    // const didHaveSlowShow = el2?.hasAttribute('slow-fade')
+  //   this.#addBehindStickyClass(this.getAttribute('navigation-bar-title-display-mode'), el)
 
-    // if (!didHaveSlowShow) el2?.setAttribute('slow-fade', '')
+  //   // el.style.setProperty('transition-duration', '0ms')
 
-    // if ('large' === newValue) {
-    //   if (!didHaveSlowShow) {
-    //     self.requestAnimationFrame(() => {
-    //       el2?.setAttribute('slow-fade', `${true}`)
-    //     })
-    //   } else {
-    //     el2?.setAttribute('slow-fade', `${true}`)
-    //   }
-    // }
-    // if ('inline' === newValue) {
-    //   if (!didHaveSlowShow) {
-    //     self.requestAnimationFrame(() => {
-    //       el2?.setAttribute('slow-fade', `${false}`)
-    //     })
-    //   } else {
-    //     el2?.setAttribute('slow-fade', `${false}`)
-    //   }
-    // }
-    //   const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
-    //   const el2 = slot?.assignedElements({ flatten: true })?.[0]
+  //   // self.requestAnimationFrame(() => {
+  //   // // setTimeout(() => {
+  //   //   el.style.removeProperty('transition-duration')
+  //   // })
+  //   // }, 100)
+  // }
 
-    //   // this.#addBehindStickyClass(newValue, el2)
-    //   console.log(999, newValue, el2)
-    //   el2.hidden = 'inline' !== newValue
-  }
+  // #addBehindStickyClass = (newValue: string | null, el?: Element) => {
+  //   const title = this.closest('scroll-view')?.querySelector(':scope > [slot="navigation-bar-principal"]')
+  //   console.log(444, this.getAttribute('navigation-bar-title-display-mode'))
+
+  //   self.requestAnimationFrame(() => {
+  //     console.log(99, this.getAttribute('navigation-bar-title-display-mode'))
+  //   })
+
+  //   // switch (newValue) {
+  //   //   case 'large':
+  //   //     el?.setAttribute('slow-fade', `${true}`)
+  //   //     break
+  //   //   case 'inline':
+  //   //     el?.setAttribute('slow-fade', `${false}`)
+  //   //     break
+  //   //   default:
+  //   //     el?.removeAttribute('slow-fade')
+  //   //     break
+  //   // }
+  //   // if (null === newValue) return el2?.removeAttribute('slow-fade')
+
+  //   // const didHaveSlowShow = el2?.hasAttribute('slow-fade')
+
+  //   // if (!didHaveSlowShow) el2?.setAttribute('slow-fade', '')
+
+  //   // if ('large' === newValue) {
+  //   //   if (!didHaveSlowShow) {
+  //   //     self.requestAnimationFrame(() => {
+  //   //       el2?.setAttribute('slow-fade', `${true}`)
+  //   //     })
+  //   //   } else {
+  //   //     el2?.setAttribute('slow-fade', `${true}`)
+  //   //   }
+  //   // }
+  //   // if ('inline' === newValue) {
+  //   //   if (!didHaveSlowShow) {
+  //   //     self.requestAnimationFrame(() => {
+  //   //       el2?.setAttribute('slow-fade', `${false}`)
+  //   //     })
+  //   //   } else {
+  //   //     el2?.setAttribute('slow-fade', `${false}`)
+  //   //   }
+  //   // }
+  //   //   const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
+  //   //   const el2 = slot?.assignedElements({ flatten: true })?.[0]
+
+  //   //   // this.#addBehindStickyClass(newValue, el2)
+  //   //   console.log(999, newValue, el2)
+  //   //   el2.hidden = 'inline' !== newValue
+  // }
 }

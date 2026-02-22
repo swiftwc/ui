@@ -1,0 +1,56 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>navigation-title</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view navigation-inline-title="Autohiding">
+        <v-stack>
+          <navigation-large-title>
+            <label-view slot="navigation-bar-principal" label="Autohiding Navigation Title" font="large-title"></label-view>
+          </navigation-large-title>
+          <script>
+            document.currentScript.insertAdjacentHTML(
+              'afterend',
+              Array.from(
+                { length: 100 },
+                (_, i) =>
+                  `<text-view>${i + 1}${['st', 'nd', 'rd'][i % 10] && ![11, 12, 13].includes(i + 1) ? ['st', 'nd', 'rd'][i % 10] : 'th'} Line</text-view>`
+              ).join('')
+            )
+          </script>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

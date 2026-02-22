@@ -97,7 +97,7 @@
     --view-transition-dialog-offscreen-y: 100lvh;
 
     --view-transition-duration: 500ms;
-    // --view-transition-duration: 5s;
+    // --view-transition-duration: 15s;
 
     --sidebar-transition-duration: 250ms;
 
@@ -167,6 +167,14 @@
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }
+
+    // label-view
+
+    @each $label, $props in vars.$label-fonts {
+      --label-#{$label}-font-size: #{map-get($props, size)};
+      --label-#{$label}-line-height: #{map-get($props, line)};
+      --label-#{$label}-font-weight: #{map-get($props, weight)};
+    }
   }
 
   html:has(color-scheme[dark]) {

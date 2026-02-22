@@ -1,4 +1,4 @@
-export type TabRevealDetail = {
+export type TabRevealSwapDetail = {
   tag: string
 }
 
@@ -8,8 +8,10 @@ export type TabViewChangeDetail = {
 
 declare global {
   interface HTMLElementEventMap {
-    tabreveal: CustomEvent<TabRevealDetail>
-    tabswap: CustomEvent<TabRevealDetail>
+    tabreveal: CustomEvent<TabRevealSwapDetail>
+    tabswap: CustomEvent<TabRevealSwapDetail>
+    beforetabreveal: CustomEvent<TabRevealSwapDetail>
+    beforetabswap: CustomEvent<TabRevealSwapDetail>
     'tab-view:change': CustomEvent<TabViewChangeDetail>
   }
 }

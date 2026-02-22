@@ -71,8 +71,35 @@
 }
 
 @mixin set-label-font($value) {
-  @if $value == callout {
-    --label--titlestack-font-size: 0.5rem;
+  --label--titlestack-font-size: var(--label-#{$value}-font-size);
+  --label--titlestack-line-height: var(--label-#{$value}-line-height);
+  --label--titlestack-font-weight: var(--label-#{$value}-font-weight);
+}
+
+@function if-chain($labels, $prop: null) {
+  $if-chain: null;
+
+  @each $label, $size in $labels {
+    @if $if-chain == null {
+      $if-chain: 'style(--label-font: #{$label}): var(--label-#{$label}-#{$prop}) ;';
+    } @else {
+      $if-chain: '#{$if-chain} style(--label-font: #{$label}): var(--label-#{$label}-#{$prop}) ;';
+    }
+  }
+
+  @return $if-chain;
+}
+
+@mixin if-chain($label) {
+  @container style(--label-font: #{$label}) {
+    :where(&) {
+      @content;
+    }
+  }
+  @container not style(--label-font: #{$label}) {
+    :where(&[font='#{$label}']) {
+      @content;
+    }
   }
 }
 
@@ -128,6 +155,8 @@
         text-decoration: underline;
 
         font-size: var(--label--titlestack-font-size,);
+        line-height: var(--label--titlestack-line-height,);
+        font-weight: var(--label--titlestack-font-weight,);
 
         // grid-area: label-title-stack;
       }
@@ -159,13 +188,18 @@
     // vars
     @supports (x: #{string.unquote('if(else:red)')}) {
       :where(&) {
-        --label--titlestack-font-size: if(style(--label-font: callout): 0.5rem ;);
+        --label--titlestack-font-size: if(#{if-chain(vars.$label-fonts, font-size)});
+        --label--titlestack-line-height: if(#{if-chain(vars.$label-fonts, line-height)});
+        --label--titlestack-font-weight: if(#{if-chain(vars.$label-fonts, font-weight)});
+        // if(
+        //   style(--label-font: callout): 0.5rem ; style(--label-font: large-title): 3rem ; style(--label-font: large-title): 3rem ;
+        // );
         // ANCHOR: truncation-mode
         --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
 
         --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
 
-        --label--host-white-space: if(style(--label-line-limit: 1): nowrap ;style(--label-line-limit: 2): normal ;);
+        --label--host-white-space: if(style(--label-line-limit: 1): nowrap ; style(--label-line-limit: 2): normal ;);
 
         // ANCHOR: line-limit
         --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
@@ -347,16 +381,31 @@
         }
       }
       //
-      @container style(--label-font: callout) {
-        :where(&) {
-          @include set-label-font(callout);
+      @each $label, $size in vars.$label-fonts {
+        @include if-chain($label) {
+          @include set-label-font($label);
         }
       }
-      @container not style(--label-font: callout) {
-        :where(&[font='callout']) {
-          @include set-label-font(callout);
-        }
-      }
+      // @container style(--label-font: callout) {
+      //   :where(&) {
+      //     @include set-label-font(callout);
+      //   }
+      // }
+      // @container not style(--label-font: callout) {
+      //   :where(&[font='callout']) {
+      //     @include set-label-font(callout);
+      //   }
+      // }
+      // @container style(--label-font: large-title) {
+      //   :where(&) {
+      //     @include set-label-font(large-title);
+      //   }
+      // }
+      // @container not style(--label-font: large-title) {
+      //   :where(&[font='large-title']) {
+      //     @include set-label-font(large-title);
+      //   }
+      // }
     }
 
     // ifs finally

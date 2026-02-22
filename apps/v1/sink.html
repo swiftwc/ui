@@ -40,12 +40,21 @@
       <!-- Prefer compact col = make sidebar retractable on compact layouts ONLY on 3col layouts (no double-cols) -->
       <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1">
         <dialog is="sidebar-view">
-          <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol" navigation-inline-subtitle="subtitle">
-            <v-stack spacing="1" padding content="start" frame-width="infinity">
+          <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol" navigation-inline-subtitle="subtitleeeee">
+            <v-stack spacing="1" padding distribution="start" frame-width="infinity">
               <label-view id="gg3" padding><span>fff</span></label-view>
-              <label-view id="gg3" padding>error</label-view>
+              <label-view label="rett"></label-view>
+              <label-view id="gg3" padding
+                >error
+                <div>dd</div>
+                error2</label-view
+              >
               <p>...</p>
-              <navigation-title><p>a custom titleeeee</p></navigation-title>
+              <navigation-large-title navigation-bar-auto-hide>
+                <v-stack
+                  ><label-view label="a custom titleeeeeeeeeee" font="large-title"></label-view><label-view label="34343434343434" font="callout"></label-view
+                ></v-stack>
+              </navigation-large-title>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
               <form is="form-view" frame-width="infinity">
@@ -132,24 +141,23 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </dialog>
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
 
       <navigation-split-view id="ns1a" hidden>
         <scroll-view navigation-inline-title="ns -sbar -cmpct -dbcol">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -167,17 +175,16 @@
 
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </tool-bar>
 
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
@@ -185,7 +192,7 @@
       <navigation-split-view id="ns1b" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar -cmpct -dbcol">
-            <v-stack content="start" frame-width="infinity">
+            <v-stack distribution="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -234,17 +241,16 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </dialog>
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
@@ -252,7 +258,7 @@
       <navigation-split-view column-visibility="double-column" id="ns1c" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar -cmpct +dbcol">
-            <v-stack content="start" frame-width="infinity">
+            <v-stack distribution="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -301,20 +307,19 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
             <tool-bar-item slot="bottom-bar-leading">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </dialog>
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
@@ -322,7 +327,7 @@
       <navigation-split-view preferred-compact-column="content" id="ns1d" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct -dbcol">
-            <v-stack content="start" frame-width="infinity">
+            <v-stack distribution="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -371,17 +376,16 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </dialog>
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
@@ -389,7 +393,7 @@
       <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1e" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol">
-            <v-stack content="start" frame-width="infinity">
+            <v-stack distribution="start" frame-width="infinity">
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
               <p>...</p>
@@ -438,24 +442,23 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </dialog>
         <sidebar-toggle>
           <tool-bar-item>
-            <button type="button"><label-view label="sss333344" /></button>
+            <button type="button"><label-view label="sss333344"></label-view></button>
           </tool-bar-item>
         </sidebar-toggle>
       </navigation-split-view>
 
       <navigation-stack id="ns2" hidden>
         <scroll-view>
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -503,25 +506,23 @@
 
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
           <tool-bar-item slot="bottom-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="bottom-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
 
       <navigation-stack id="more" hidden>
         <scroll-view>
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             MOREsection0<button type="button" class="fw" tag="ns3">→</button>
             <p>...</p>
             <p>...</p>
@@ -569,7 +570,7 @@
 
         <navigation-stack id="ns3" hidden>
           <scroll-view>
-            <v-stack content="start" frame-width="infinity">
+            <v-stack distribution="start" frame-width="infinity">
               <p>...</p>
               ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
               <p>...</p>
@@ -618,22 +619,20 @@
 
           <tool-bar>
             <tool-bar-item slot="navigation-bar-leading">
-              <button type="button"><label-view label="leading" /></button>
+              <button type="button"><label-view label="leading"></label-view></button>
             </tool-bar-item>
-            <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="navigation-bar-trailing">
-              <button type="button"><label-view label="trailing" /></button>
+              <button type="button"><label-view label="trailing"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </navigation-stack>
 
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
-          <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
@@ -641,41 +640,42 @@
       <sidebar-toggle>
         <tool-bar-item>
           <button type="button">
-            <label-view label="tb" />
+            <label-view label="tb"></label-view>
           </button>
         </tool-bar-item>
       </sidebar-toggle>
 
       <dialog is="sidebar-view">
         <scroll-view navigation-inline-title="Mailboxes">
-          <v-stack frame-alignment="leading" alignment="stretch">
+          <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+          <v-stack distribution="start" frame-width="infinity">
             <form is="form-view">
               <button is="tab-item" value="ns1">
-                <label-view system-image="smiley" label="all" label-style="icon-only" />
+                <label-view system-image="smiley" label="all" label-style="icon-only"></label-view>
               </button>
               <button is="tab-item" value="ns1a">
-                <label-view label="default" />
+                <label-view label="default"></label-view>
               </button>
               <button is="tab-item" value="ns1b">
-                <label-view label="ns +sbar -cmpct -dbcol" />
+                <label-view label="ns +sbar -cmpct -dbcol"></label-view>
               </button>
               <button is="tab-item" value="ns1c">
-                <label-view label="ns +sbar -cmpct +dbcol" />
+                <label-view label="ns +sbar -cmpct +dbcol"></label-view>
               </button>
               <button is="tab-item" value="ns1d">
-                <label-view label="ns +sbar +cmpct -dbcol" />
+                <label-view label="ns +sbar +cmpct -dbcol"></label-view>
               </button>
               <button is="tab-item" value="ns1e">
-                <label-view label="ns1e" />
+                <label-view label="ns1e"></label-view>
               </button>
               <button is="tab-item" value="ns2">
-                <label-view label="Order" />
+                <label-view label="Order"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more" type="button">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <details is="disclosure-group">
                 <summary><label-view system-image="smiley" label="Item 1"></label-view></summary>
@@ -687,43 +687,43 @@
                 <button is="tab-item" value="more"><label-view system-image="smiley" label="Item 1"></label-view></button>
               </details>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
               <button is="tab-item" value="more">
-                <label-view label="More" />
+                <label-view label="More"></label-view>
               </button>
             </form>
           </v-stack>
@@ -734,23 +734,23 @@
           <sidebar-toggle slot="navigation-bar-leading">
             <tool-bar-item>
               <button type="button">
-                <label-view label="tb" />
+                <label-view label="tb"></label-view>
               </button>
             </tool-bar-item>
           </sidebar-toggle>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button">
-              <label-view label="Edit" />
+              <label-view label="Edit"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button">
-              <label-view label="Edit" />
+              <label-view label="Edit"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="bottom-bar-trailing">
             <button type="button">
-              <label-view system-image="pencil-simple-line" />
+              <label-view system-image="pencil-simple-line"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -761,117 +761,117 @@
           <!-- add this for MORE fn on iPad -->
           <sidebar-toggle>
             <button type="button">
-              <label-view system-image="sidebar" label="sss3" label-style="icon-only" />
+              <label-view system-image="sidebar" label="sss3" label-style="icon-only"></label-view>
             </button>
           </sidebar-toggle>
           <button is="tab-item" value="ns1">
-            <label-view system-image="smiley" label="all" label-style="icon-only" />
+            <label-view system-image="smiley" label="all" label-style="icon-only"></label-view>
           </button>
           <button is="tab-item" value="ns1a">
-            <label-view label="default" />
+            <label-view label="default"></label-view>
           </button>
           <button is="tab-item" value="ns1b">
-            <label-view label="ns +sbar -cmpct -dbcol" />
+            <label-view label="ns +sbar -cmpct -dbcol"></label-view>
           </button>
           <button is="tab-item" value="ns1c">
-            <label-view label="ns +sbar -cmpct +dbcol" />
+            <label-view label="ns +sbar -cmpct +dbcol"></label-view>
           </button>
           <button is="tab-item" value="ns1d">
-            <label-view label="ns +sbar +cmpct -dbcol" />
+            <label-view label="ns +sbar +cmpct -dbcol"></label-view>
           </button>
           <button is="tab-item" value="ns1e">
-            <label-view label="ns1e" />
+            <label-view label="ns1e"></label-view>
           </button>
           <button is="tab-item" value="ns2">
-            <label-view label="Order" />
+            <label-view label="Order"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more" type="button">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
           <button is="tab-item" value="more">
-            <label-view label="More" />
+            <label-view label="More"></label-view>
           </button>
         </form>
         <!-- add this for MORE fn on iPad -->
         <!-- <sidebar-toggle>
-          <button type="button"><label-view label="sss3" /></button>
+          <button type="button"><label-view label="sss3"></label-view></button>
         </sidebar-toggle> -->
         <!-- <navigation-bar>
           <tool-bar-item slot="leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
 
           <tool-bar-item slot="trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </navigation-bar> -->
       </dialog>

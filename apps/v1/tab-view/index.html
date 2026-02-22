@@ -19,7 +19,7 @@
     <tab-view>
       <navigation-stack id="moments">
         <scroll-view navigation-inline-title="Grateful Moments">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -36,7 +36,7 @@
 
       <navigation-stack id="achievements" hidden>
         <scroll-view navigation-inline-title="Achievements">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -84,17 +84,17 @@
 
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
 
       <navigation-stack id="settings" hidden>
         <scroll-view navigation-inline-title="Settings">
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -142,10 +142,10 @@
 
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button"><label-view label="leading" /></button>
+            <button type="button"><label-view label="leading"></label-view></button>
           </tool-bar-item>
           <tool-bar-item slot="navigation-bar-trailing">
-            <button type="button"><label-view label="trailing" /></button>
+            <button type="button"><label-view label="trailing"></label-view></button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
@@ -160,16 +160,16 @@
 
       <dialog is="sidebar-view">
         <scroll-view>
-          <v-stack content="start" frame-width="infinity">
+          <v-stack distribution="start" frame-width="infinity">
             <form is="form-view">
               <button is="tab-item" value="moments">
-                <label-view system-image="smiley" label="Moments" />
+                <label-view system-image="smiley" label="Moments"></label-view>
               </button>
               <button is="tab-item" value="achievements">
-                <label-view system-image="smiley" label="Achievements" />
+                <label-view system-image="smiley" label="Achievements"></label-view>
               </button>
               <button is="tab-item" value="settings">
-                <label-view system-image="smiley" label="Settings" />
+                <label-view system-image="smiley" label="Settings"></label-view>
               </button>
             </form>
           </v-stack>
@@ -180,7 +180,7 @@
           <sidebar-toggle slot="navigation-bar-leading">
             <tool-bar-item>
               <button type="button">
-                <label-view system-image="sidebar" />
+                <label-view system-image="sidebar"></label-view>
               </button>
             </tool-bar-item>
           </sidebar-toggle>
@@ -190,13 +190,13 @@
       <dialog is="tab-bar">
         <form is="form-view">
           <button is="tab-item" value="moments">
-            <label-view system-image="smiley" label="Moments" />
+            <label-view system-image="smiley" label="Moments"></label-view>
           </button>
           <button is="tab-item" value="achievements">
-            <label-view system-image="smiley" label="Achievements" />
+            <label-view system-image="smiley" label="Achievements"></label-view>
           </button>
           <button is="tab-item" value="settings">
-            <label-view system-image="smiley" label="Settings" />
+            <label-view system-image="smiley" label="Settings"></label-view>
           </button>
         </form>
       </dialog>

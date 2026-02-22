@@ -182,7 +182,7 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
       await Promise.allSettled([
         ...(from?.getAnimations().map(({ finished }) => finished) ?? []),
-        // ...(to?.getAnimations().map(({ finished }) => finished) ?? []),
+        ...(to?.getAnimations().map(({ finished }) => finished) ?? []),
       ])
 
       console.debug(`⚡️ view-transition-end (${type})`)
@@ -252,32 +252,58 @@ export const startViewTransition = async (event: Event, type: TransitionType = '
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
-type NavController = Components.NavigationStack | Components.NavigationSplitView
-type NavHost = Components.BodyView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
-type NavToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGroup
-type NavPage = Components.SidebarView | Components.ScrollView // this is a body wrapper!
-type NavView = {
-  host?: NavHost
-  page?: NavPage // slot of body or sidebar
+/**
+Node
+ ├─ Host          (required) → the container of the node
+ ├─ Body          (required) → main content of the node
+ ├─ Navbar?       (optional) → navigation area
+ └─ Slot?         (optional) → placeholder for another branch/subtree
+      └─ Child Node(s)
+======================================================================
+Root Node
+ ├─ Host
+ │   ├─ Navbar?
+ │   ├─ Body
+ │   └─ Slot
+ │       ├─ Child Node 1
+ │       │   ├─ Host
+ │       │   ├─ Body
+ │       │   └─ Slot
+ │       │       └─ Grandchild Node
+ │       └─ Child Node 2
+ │           ├─ Host
+ │           ├─ Body
+ │           └─ Slot (empty)
+ */
+type NavigationController = Components.NavigationStack | Components.NavigationSplitView
+type NavigationHost = Components.BodyView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
+type NavigationToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGroup
+type NavigationBody = Components.SidebarView | Components.ScrollView // this is a body wrapper!
+type NavigationItem = {
+  host?: NavigationHost
+  page?: NavigationBody // slot of body or sidebar
   body?: Components.ScrollView // this is what actually gets animated
-  toolBarConfig?: Array<NavToolbarConfiguration>
+  toolBarConfig?: Array<NavigationToolbarConfiguration>
+  slot?: NavigationHost
 }
 
-export function resolveDoc(body?: Components.ScrollView): NavPage | undefined {
+export function resolveDoc(body?: Components.ScrollView): NavigationBody | undefined {
   const possibleBody = body?.parentElement?.matches('dialog[is=sidebar-view]') ? ((body?.parentElement as Components.SidebarView | null) ?? undefined) : body
 
   return possibleBody?.matches('scroll-view,[is=sidebar-view]') ? possibleBody : undefined
 }
 
-export function getComputedView(body?: Components.ScrollView): NavView {
+export function getComputedView(body?: Components.ScrollView): NavigationItem {
   const page = resolveDoc(body), //body?.parentElement?.matches('dialog[is=sidebar-view]') ? (body?.parentElement as Components.SidebarView) : undefined,
-    host = (page?.parentElement as NavHost) ?? body?.parentElement ?? undefined
+    host = (page?.parentElement as NavigationHost) ?? body?.parentElement ?? undefined
 
   return {
     host,
     page,
     body,
-    toolBarConfig: [...(host?.querySelectorAll<NavToolbarConfiguration>(`:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group`) ?? [])],
+    toolBarConfig: [
+      ...(host?.querySelectorAll<NavigationToolbarConfiguration>(`:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group`) ?? []),
+    ],
   }
 }
 
@@ -285,7 +311,7 @@ export function getComputedView(body?: Components.ScrollView): NavView {
  * Gets closest host (current)
  */
 export function closestHost(any?: HTMLElement) {
-  return any?.closest<NavHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view')
+  return any?.closest<NavigationHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view')
 }
 
 /**
@@ -295,10 +321,11 @@ export function closestBody(any?: HTMLElement) {
   return closestHost(any)?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined
 }
 
-export function getRootController(body?: Components.ScrollView): NavController | undefined {
+export function getRootController(body?: Components.ScrollView): NavigationController | undefined {
   let root
 
-  for (let e: HTMLElement | undefined | null = body; e; e = e.parentElement) e.matches('navigation-stack,navigation-split-view') && (root = e as NavController)
+  for (let e: HTMLElement | undefined | null = body; e; e = e.parentElement)
+    e.matches('navigation-stack,navigation-split-view') && (root = e as NavigationController)
 
   return root
 }
@@ -306,15 +333,15 @@ export function getRootController(body?: Components.ScrollView): NavController |
 /**
  * Gets sub-host (of nested views) for current view, if exists (base for quering)
  */
-function hostSlot(body?: Components.ScrollView): NavHost | undefined {
-  let possibleNest = body?.nextElementSibling as NavHost | null
+function hostSlot(body?: Components.ScrollView): NavigationHost | undefined {
+  let possibleNest = body?.nextElementSibling as NavigationHost | null
 
   if (
     body?.matches(
       `navigation-split-view > scroll-view,navigation-split-view:has(>[is=sidebar-view]) > [is=sidebar-view] > scroll-view,navigation-split-view:has(>[is=sidebar-view]) > body-view > scroll-view`
     )
   )
-    possibleNest = resolveDoc(body)?.previousElementSibling as NavHost | null // look for prev sibling instead
+    possibleNest = resolveDoc(body)?.previousElementSibling as NavigationHost | null // look for prev sibling instead
 
   return possibleNest?.matches('body-view,[is=sheet-view],navigation-stack,navigation-split-view') ? possibleNest : undefined
 }
@@ -371,9 +398,8 @@ export function queryBody(body?: Components.ScrollView) {
   const possibleNest = hostSlot(body)
 
   return (
-    possibleNest?.querySelectorAll<Components.ScrollView>(
-      'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
-    ) ?? undefined
+    possibleNest?.querySelectorAll<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
+    undefined
   )
 }
 export function queryBodyAll(body?: Components.ScrollView) {
@@ -389,20 +415,19 @@ export function queryBodyAll(body?: Components.ScrollView) {
 /**
  * Looks for child views (excluding current view)
  */
-export function queryView(body?: Components.ScrollView): NavView {
+export function queryView(body?: Components.ScrollView): NavigationItem {
   const possibleNest = hostSlot(body)
 
   return {
     host:
-      possibleNest?.querySelector<NavHost>(
+      possibleNest?.querySelector<NavigationHost>(
         'body-view:not(navigation-stack[hidden] body-view,navigation-split-view[hidden] body-view),[is=sheet-view]:not(navigation-stack[hidden] [is=sheet-view],navigation-split-view[hidden] [is=sheet-view])'
       ) ?? undefined,
     body:
-      possibleNest?.querySelector<Components.ScrollView>(
-        'scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)'
-      ) ?? undefined,
+      possibleNest?.querySelector<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
+      undefined,
     toolBarConfig: [
-      ...(possibleNest?.querySelectorAll<NavToolbarConfiguration>(
+      ...(possibleNest?.querySelectorAll<NavigationToolbarConfiguration>(
         'tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item,tool-bar:not(navigation-stack[hidden] tool-bar,navigation-split-view[hidden] tool-bar) > tool-bar-item-group'
       ) ?? []), //'navigation-stack:not([hidden]) scroll-view'
     ],

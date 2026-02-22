@@ -1,0 +1,18 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  navigation-large-title {
+    :where(&) {
+      display: grid;
+    }
+
+    scroll-view[navigation-bar-title-display-mode='inline']:has(&) &[navigation-bar-auto-hide] {
+      :where(&) {
+        opacity: 0;
+
+        visibility: collapse;
+      }
+    }
+  }
+}

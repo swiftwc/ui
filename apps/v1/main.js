@@ -57,35 +57,35 @@ document.body.addEventListener('click', async (event) => {
           `
                   <body-view>
                     <scroll-view>
-                      <v-stack spacing="1" padding content="start" frame-width="infinity">
+                      <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                         <button type="button" class="bw">🔙</button>
                         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                     </scroll-view>
                     <body-view>
                       <scroll-view>
-                        <v-stack spacing="1" padding content="start" frame-width="infinity">
+                        <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                           <button type="button" class="bw">🔙</button>
                           <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                         </v-stack>
                       </scroll-view>
                       <body-view>
                         <scroll-view>
-                          <v-stack spacing="1" padding content="start" frame-width="infinity">
+                          <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                             <button type="button" class="bw">🔙</button>
                             <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                           </v-stack>
                         </scroll-view>
                         <body-view>
                           <scroll-view>
-                            <v-stack spacing="1" padding content="start" frame-width="infinity">
+                            <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                               <button type="button" class="bw">🔙</button>
                               <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                             </v-stack>
                           </scroll-view>
                           <body-view>
                             <scroll-view>
-                              <v-stack spacing="1" padding content="start" frame-width="infinity">
+                              <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                                 <button type="button" class="bw">🔙</button>
                                 <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                               </v-stack>
@@ -94,7 +94,7 @@ document.body.addEventListener('click', async (event) => {
                               event.target.closest('.dlg')
                                 ? `<dialog is="sheet-view">
                               <scroll-view>
-                                <v-stack spacing="1" padding content="start" frame-width="infinity">
+                                <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                                   <button type="button" class="bw">🔙</button>
                                     <button type="button" class="bww">🔚</button>
                                     <button type="button" class="bww2">🔚 of modal</button>
@@ -103,7 +103,7 @@ document.body.addEventListener('click', async (event) => {
                               </scroll-view>
                               <body-view>
                                 <scroll-view>
-                                  <v-stack spacing="1" padding content="start" frame-width="infinity">
+                                  <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                                     <button type="button" class="bw">🔙</button>
                                     <button type="button" class="bww">🔚</button>
                                     <button type="button" class="bww2">🔚 of modal</button>
@@ -112,7 +112,7 @@ document.body.addEventListener('click', async (event) => {
                                 </scroll-view>
                                 <body-view>
                                   <scroll-view>
-                                    <v-stack spacing="1" padding content="start" frame-width="infinity">
+                                    <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                                       <button type="button" class="bw">🔙</button>
                                       <button type="button" class="bww">🔚</button>
                                       <button type="button" class="bww2">🔚 of modal</button>
@@ -121,7 +121,7 @@ document.body.addEventListener('click', async (event) => {
                                   </scroll-view>
                                   <body-view>
                                     <scroll-view>
-                                      <v-stack spacing="1" padding content="start" frame-width="infinity">
+                                      <v-stack spacing="1" padding distribution="start" frame-width="infinity">
                                         <button type="button" class="bw">🔙</button>
                                         <button type="button" class="bww">🔚</button>
                                         <button type="button" class="bww2">🔚 of modal</button>
@@ -287,7 +287,8 @@ document.body.addEventListener('click', async (event) => {
           `
                   <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
-                      <v-stack spacing="1" padding content="start" frame-width="infinity">
+                      <v-stack spacing="1" padding distribution="start" frame-width="infinity">
+                        <navigation-large-title><label-view label="dds"/></navigation-large-title>
                         ${root.id}section${
                           root.querySelectorAll('scroll-view').length
                         }<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button><p>...</p><p>...</p><button type="button" class="bww">🔚</button><form method="dialog"><button>close</button></form><p>...</p><input type="text" /><p>...</p><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view><p>...</p>
@@ -305,8 +306,8 @@ document.body.addEventListener('click', async (event) => {
         
         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
-                      <label-view slot="navigation-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</label-view>
-                      <label-view slot="bottom-bar-principal">ghjh${root.querySelectorAll('scroll-view').length}</label-view>
+                      <label-view slot="navigation-bar-principal" label="ghjh${root.querySelectorAll('scroll-view').length}"></label-view>
+                      <label-view slot="bottom-bar-principal" label="ghjh${root.querySelectorAll('scroll-view').length}"></label-view>
                     </scroll-view>
                     <tool-bar>
                       <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
@@ -405,7 +406,7 @@ window.addEventListener('appinstalled', () => {
 
 export function modifyDOMbackwards(pr) {
   if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) {
-    pr.setAttribute('hidden', '') //pr.hidden = true
+    pr.hidden = true
   } else {
     pr.remove()
   }
@@ -419,7 +420,7 @@ export function modifyDOMforwards(trigger, view, htmlorTpl) {
   //   createHTML: (string) => string.replace(/</g, '&lt;'),
   // })
   if (trigger?.hasAttribute('tag')) {
-    document.querySelector(`#${trigger.getAttribute('tag')}`).removeAttribute('hidden') //document.querySelector(`#${trigger.getAttribute('tag')}`).hidden = false
+    document.querySelector(`#${trigger.getAttribute('tag')}`).hidden = false
   } else {
     // if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
     //   position = 'beforebegin'

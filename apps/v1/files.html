@@ -33,7 +33,8 @@
     <tab-view tab-view-style="tab-bar-only">
       <navigation-stack id="recents">
         <scroll-view navigation-inline-title="Recents">
-          <v-stack frame-alignment="leading" alignment="stretch">
+          <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+          <v-stack distribution="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -82,12 +83,12 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button">
-              <label-view label="Select" />
+              <label-view label="Select"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button">
-              <label-view system-image="squares-four" />
+              <label-view system-image="squares-four"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -96,7 +97,8 @@
       <navigation-split-view id="browse" preferred-compact-column="content" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="Browse">
-            <v-stack frame-alignment="leading" alignment="stretch">
+            <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+            <v-stack distribution="start" frame-width="infinity">
               <list-view>
                 <button type="button" navigation-destination="cloud_drive">Cloud Drive</button>
               </list-view>
@@ -108,13 +110,13 @@
               <menu-view>
                 <label-view slot="label" system-image="dots-three"></label-view>
                 <button type="button" tabindex="0">
-                  <label-view system-image="dots-three" label="Scan Documents" />
+                  <label-view system-image="dots-three" label="Scan Documents"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="dots-three" label="Connect to Server" />
+                  <label-view system-image="dots-three" label="Connect to Server"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view label="Edit Sidebar" />
+                  <label-view label="Edit Sidebar"></label-view>
                 </button>
               </menu-view>
             </tool-bar-item>
@@ -124,7 +126,7 @@
         <sidebar-toggle>
           <tool-bar-item>
             <button type="button">
-              <label-view system-image="sidebar" />
+              <label-view system-image="sidebar"></label-view>
             </button>
           </tool-bar-item>
         </sidebar-toggle>
@@ -133,7 +135,7 @@
       <sidebar-toggle>
         <tool-bar-item>
           <button type="button">
-            <label-view system-image="sidebar" />
+            <label-view system-image="sidebar"></label-view>
           </button>
         </tool-bar-item>
       </sidebar-toggle>
@@ -141,10 +143,10 @@
       <dialog is="tab-bar">
         <form is="form-view">
           <button is="tab-item" value="recents">
-            <label-view label="Recents" system-image="smiley" />
+            <label-view label="Recents" system-image="smiley"></label-view>
           </button>
           <button is="tab-item" value="browse">
-            <label-view label="Browse" system-image="smiley" />
+            <label-view label="Browse" system-image="smiley"></label-view>
           </button>
         </form>
       </dialog>
@@ -153,7 +155,8 @@
     <template id="cloud_drive">
       <body-view>
         <scroll-view navigation-inline-title="Cloud Drive">
-          <v-stack frame-alignment="leading" alignment="stretch">
+          <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+          <v-stack distribution="start" frame-width="infinity">
             browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
             <p>...</p>
             <p>...</p>
@@ -162,38 +165,38 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-trailing">
             <button type="button">
-              <label-view label="Select" />
+              <label-view label="Select"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item-group slot="navigation-bar-trailing">
             <tool-bar-item>
               <button type="button">
-                <label-view system-image="folder-plus" />
+                <label-view system-image="folder-plus"></label-view>
               </button>
             </tool-bar-item>
             <tool-bar-item>
               <menu-view>
                 <label-view slot="label" system-image="squares-four"></label-view>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Icons" />
+                  <label-view system-image="squares-four" label="Icons"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="List" />
+                  <label-view system-image="squares-four" label="List"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Name" />
+                  <label-view system-image="squares-four" label="Name"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Kind" />
+                  <label-view system-image="squares-four" label="Kind"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Date" />
+                  <label-view system-image="squares-four" label="Date"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Size" />
+                  <label-view system-image="squares-four" label="Size"></label-view>
                 </button>
                 <button type="button" tabindex="0">
-                  <label-view system-image="squares-four" label="Tags" />
+                  <label-view system-image="squares-four" label="Tags"></label-view>
                 </button>
               </menu-view>
             </tool-bar-item>

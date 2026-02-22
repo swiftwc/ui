@@ -4,68 +4,62 @@
   :where([frame-width='infinity']) {
     place-items: stretch; //justify-self: stretch;
   }
-  :where([frame-alignment='leading']) {
-    align-self: start;
-  }
-  :where([frame-alignment='center']) {
-    align-self: center;
-  }
-  :where([frame-alignment='trailing']) {
-    align-self: end;
+  // :where([frame-alignment='leading']) {
+  //   align-self: start;
+  // }
+  // :where([frame-alignment='center']) {
+  //   align-self: center;
+  // }
+  // :where([frame-alignment='trailing']) {
+  //   align-self: end;
+  // }
+  :where([alignment='start']) {
+    place-items: start;
   }
   :where([alignment='stretch']) {
     place-items: stretch;
   }
-  :where([content='start']) {
+  // :where([content='start']) {
+  //   place-content: start;
+  // }
+  // :where([justify-content='start']) {
+  //   justify-content: start;
+  // }
+  // :where([justify-content='start']) {
+  //   justify-content: start;
+  // }
+  // :where([spacer='top']) {
+  //   margin-top: auto;
+  // }
+  :where([distribution='start']) {
     place-content: start;
-  }
-  :where([justify-content='start']) {
-    justify-content: start;
-  }
-  :where([justify-content='start']) {
-    justify-content: start;
-  }
-  :where([spacer='top']) {
-    margin-top: auto;
   }
   :where([distribution='space-between']) {
     place-content: space-between;
   }
-  :where(spacer) {
-    margin: auto;
-  }
+  // :where(spacer) {
+  //   margin: auto;
+  // }
 
   :where([padding]) {
     margin-inline: 1rem;
   }
 
   @media (prefers-reduced-motion: no-preference) {
-    :where([slow-fade], [slow-show]) {
+    :where([slow]) {
+      visibility: visible;
+
       transition: opacity 250ms ease-out allow-discrete;
       will-change: opacity;
     }
-    // :where([slow-fade='false'], [slow-show='false']) {
-    //   transition-duration: 0ms;
-    // }
-  }
-
-  [slow-fade] {
-    :where(&) {
-      opacity: 1;
-    }
-    :where(&[slow-fade='true']) {
+    :where([slow='hide']) {
       opacity: 0;
 
       @starting-style {
         opacity: 1;
       }
     }
-  }
-  [slow-show] {
-    :where(&) {
-      opacity: 0;
-    }
-    :where(&[slow-show='true']) {
+    :where([slow='show']) {
       opacity: 1;
 
       @starting-style {

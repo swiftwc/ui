@@ -4,35 +4,7 @@
 @layer #{vars.$components-layer} {
   navigation-title {
     :where(&) {
-      display: grid;
+      display: contents;
     }
-
-    // scroll-view:has(&):not([navigation-bar-title-display-mode='inline']) {
-    //   [slot='navigation-bar-principal'] {
-    //     :where(&) {
-    //       visibility: collapse;
-    //       pointer-events: none;
-    //     }
-    //   }
-    // }
   }
-
-  // scroll-view:has(navigation-title.ggg) {
-  //   [slot='navigation-bar-principal'] {
-  //     :where(&) {
-  //       background-color: green;
-  //       transition: opacity 3250ms ease-out allow-discrete;
-  //       will-change: opacity;
-  //     }
-  //   }
-  // }
-
-  // scroll-view[navigation-bar-title-display-mode='large'] {
-  //   [slot='navigation-bar-principal'] {
-  //     :where(&) {
-  //       visibility: collapse;
-  //       pointer-events: none;
-  //     }
-  //   }
-  // }
 }

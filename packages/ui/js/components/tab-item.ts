@@ -1,7 +1,7 @@
 import { type TabView } from './tab-view'
 import { ButtonBase } from '../internal/privateNamespace'
 import { Snapshot } from '../snapshot'
-import { type TabRevealDetail } from '../events'
+import { type TabRevealSwapDetail } from '../events'
 
 export class TabItem extends ButtonBase {
   static #cleanups = new WeakMap()
@@ -53,11 +53,11 @@ export class TabItem extends ButtonBase {
       })
 
       if (tv?.selection?.map(({ id }) => id)?.includes(el.value))
-        void this.#handleTabRevealOrSwap(el, new CustomEvent<TabRevealDetail>('tabreveal', { detail: { tag: el.value } }))
+        void this.#handleTabRevealOrSwap(el, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: el.value } }))
     })
   }
 
-  static #handleTabRevealOrSwap = async (el: HTMLButtonElement, event: CustomEvent<TabRevealDetail>) => {
+  static #handleTabRevealOrSwap = async (el: HTMLButtonElement, event: CustomEvent<TabRevealSwapDetail>) => {
     console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
 
     if (event.detail?.tag !== el.value) return
@@ -91,8 +91,17 @@ export class TabItem extends ButtonBase {
     if (!newTab) throw new Error('Element not found')
 
     for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])'))
-      if (!ns.contains(newTab)) ns.hidden = true
+      if (!ns.contains(newTab)) {
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
-    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]')) if (ns.contains(newTab)) ns.hidden = false
+        ns.hidden = true
+      }
+
+    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]'))
+      if (ns.contains(newTab)) {
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+        ns.hidden = false
+      }
   }
 }

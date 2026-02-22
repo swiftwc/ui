@@ -83,6 +83,16 @@
       // @include mixins.make-toolbar-pseudos;
       @include mixins.create-v-scroll-view;
     }
+
+    &[navigation-bar-title-display-mode='large'] {
+      :where(&) {
+        > [slot='navigation-bar-principal'] {
+          opacity: 0;
+
+          visibility: collapse;
+        }
+      }
+    }
   }
 
   @include mixins.if-ipad-sheet-fits {

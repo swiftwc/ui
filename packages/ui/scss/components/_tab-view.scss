@@ -60,17 +60,13 @@
 
 @layer #{vars.$tab-components-layer} {
   tab-view {
-    // :where(navigation-stack[hidden], navigation-split-view[hidden]) {
-    //   tab-index: -1;
-    //   opacity: 0;
-    //   pointer-events: none;
-    // }
-
     :where(&) {
-      // contain: layout paint;
-
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed
+    }
+
+    :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
+      z-index: -1;
     }
 
     @media (pointer: coarse) {
@@ -81,10 +77,6 @@
         @starting-style {
           transform: scale(0.99);
         }
-      }
-
-      :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
-        z-index: -1;
       }
     }
 

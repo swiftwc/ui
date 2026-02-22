@@ -1,11 +1,8 @@
 import { type ScrollView } from './scroll-view'
 import { Snapshot } from '../snapshot'
-import { resolveDoc } from '../client'
-
-const observing = new WeakSet()
 
 export class NavigationTitle extends HTMLElement {
-  #observer?: IntersectionObserver
+  static observedAttributes = ['value', 'subtitle']
 
   #sibling?: ScrollView
 
@@ -17,61 +14,58 @@ export class NavigationTitle extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
-
-    this.#observer?.unobserve(this)
-    if (observing.has(this)) observing.delete(this)
   }
 
   connectedCallback() {
     console.debug(`${NavigationTitle.name} ⚡️ connect`)
 
-    if (!this.#sibling) return
+    // if (!this.#sibling) return
 
-    if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
+    // if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
+
+    // Snapshot.waitReady.then(() => {
+    //   // this.#render()
+    // })
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     Snapshot.waitReady.then(() => {
-      const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0',
-        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+      switch (name) {
+        case 'value':
+          if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)
+          else this.#sibling?.removeAttribute('navigation-inline-title')
 
-      this.#observer = new IntersectionObserver(this.#handleIntersect, {
-        root: this.#sibling,
-        rootMargin: `-${blockSize}px 0px 0px 0px`,
-        threshold: [0, 1],
-      })
+          this.#render(newValue, this.getAttribute('subtitle'))
 
-      // self.requestAnimationFrame(() => this.#observer?.observe(this))
+          break
+        case 'subtitle':
+          if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-subtitle', newValue)
+          else this.#sibling?.removeAttribute('navigation-inline-subtitle')
 
-      this.#sibling?.addEventListener('scroll', (event) => {
-        if (!observing.has(this)) {
-          this.#observer?.observe(this)
-          observing.add(this)
-        }
-      })
+          this.#render(this.getAttribute('value'), newValue)
 
-      this.#sibling?.addEventListener('scrollend', (event) => {
-        if (observing.has(this)) {
-          this.#observer?.unobserve(this)
-          observing.delete(this)
-        }
-      })
-
-      // this.addEventListener('transitionend', (event) => {
-      //   if (event.propertyName !== 'opacity') return
-
-      //   event.target.classList.remove('ggg')
-      //   console.log(4444, event)
-      // })
+          break
+      }
     })
   }
 
-  #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
-    console.debug(`${NavigationTitle.name} ⚡️ intersect (${entries?.[0]?.isIntersecting})`)
-    // console.log(999, entries[0], getComputedStyle(resolveDoc(this.#sibling)).transform)
-    // self.requestAnimationFrame(() => {
-    for (const entry of entries) this.#sibling?.setAttribute('navigation-bar-title-display-mode', entry.isIntersecting ? 'large' : 'inline')
-    //   this.classList.toggle('ggg', !entry.isIntersecting)
-    // } //
+  #render = (title: string | null, subtitle: string | null) => {
+    for (const el of this.querySelectorAll(':scope>*')) el.remove()
 
-    // })
+    const el = this.appendChild(
+        Object.assign(document.createElement('template'), {
+          innerHTML: `<navigation-large-title><v-stack alignment="start" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
+        }).content.firstElementChild!
+      ),
+      titleLabel = el.querySelector('label-view:first-child'),
+      subtitleLabel = el.querySelector('label-view:last-child')
+
+    if (null !== title) titleLabel?.setAttribute('label', title)
+    else titleLabel?.removeAttribute('label')
+
+    if (null !== subtitle) subtitleLabel?.setAttribute('label', subtitle)
+    else subtitleLabel?.removeAttribute('label')
   }
 }

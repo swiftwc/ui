@@ -5,8 +5,6 @@
     :where(&) {
       touch-action: none;
 
-      // contain: layout paint;
-
       block-size: var(--100lvh, 100lvh);
     }
   }

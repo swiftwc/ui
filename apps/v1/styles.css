@@ -124,6 +124,42 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     --disclosure-group-animation-duration: 500ms;
     --disclosure-group-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
+    --label-footnote-font-size: 1rem;
+    --label-footnote-line-height: 1rem;
+    --label-footnote-font-weight: 400;
+    --label-caption2-font-size: 0.75rem;
+    --label-caption2-line-height: 1.3333333333;
+    --label-caption2-font-weight: 400;
+    --label-caption-font-size: 0.875rem;
+    --label-caption-line-height: 1.4285714286;
+    --label-caption-font-weight: 400;
+    --label-callout-font-size: 0.875rem;
+    --label-callout-line-height: 0.875rem;
+    --label-callout-font-weight: 400;
+    --label-body-font-size: 1rem;
+    --label-body-line-height: 1.5;
+    --label-body-font-weight: 400;
+    --label-subheadline-font-size: 1.125rem;
+    --label-subheadline-line-height: 1.5555555556;
+    --label-subheadline-font-weight: 400;
+    --label-headline-font-size: 1.25rem;
+    --label-headline-line-height: 1.4;
+    --label-headline-font-weight: 500;
+    --label-title3-font-size: 1.5rem;
+    --label-title3-line-height: 1.3333333333;
+    --label-title3-font-weight: 600;
+    --label-title2-font-size: 1.875rem;
+    --label-title2-line-height: 1.2;
+    --label-title2-font-weight: 600;
+    --label-title-font-size: 2.25rem;
+    --label-title-line-height: 1.1111111111;
+    --label-title-font-weight: 600;
+    --label-large-title-font-size: 3rem;
+    --label-large-title-line-height: 1;
+    --label-large-title-font-weight: 700;
+    --label-extra-large-title-font-size: 3.75rem;
+    --label-extra-large-title-line-height: 1;
+    --label-extra-large-title-font-weight: 700;
   }
   html:has(color-scheme[dark]) {
     color-scheme: dark;
@@ -171,25 +207,25 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-components {
-  body-view,
+  :where(body-view,
   navigation-stack,
   navigation-split-view,
   dialog[is=full-screen],
-  dialog[is=sheet-view] {
+  dialog[is=sheet-view]) {
     position: relative;
     grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
   }
-  body-view > *:not([slot]),
+  :where(body-view > *:not([slot]),
   navigation-stack > *:not([slot]),
   navigation-split-view > *:not([slot]),
   dialog[is=full-screen] > *:not([slot]),
-  dialog[is=sheet-view] > *:not([slot]) {
+  dialog[is=sheet-view] > *:not([slot])) {
     grid-column: 1/-1;
     grid-row: 1/-1;
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > scroll-view,
+  :where(navigation-stack:has(> navigation-stack:not([hidden])) > scroll-view, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > scroll-view,
   navigation-stack:has(> body-view) > scroll-view,
   navigation-stack:has(> body-view) > [is=sidebar-view] > scroll-view,
   navigation-split-view:has(> body-view) > scroll-view,
@@ -197,10 +233,10 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   dialog:has(> body-view) > scroll-view,
   dialog:has(> body-view) > [is=sidebar-view] > scroll-view,
   body-view:has(> body-view) > scroll-view,
-  body-view:has(> body-view) > [is=sidebar-view] > scroll-view {
+  body-view:has(> body-view) > [is=sidebar-view] > scroll-view) {
     --scroll-view-translate: translateX(var(--view-transition-leading-x));
   }
-  navigation-stack:has(> navigation-stack:not([hidden])) > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > tool-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item-group,
+  :where(navigation-stack:has(> navigation-stack:not([hidden])) > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > tool-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > tool-bar > tool-bar-item,
   navigation-stack:has(> body-view) > tool-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item,
@@ -216,7 +252,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   body-view:has(> body-view) > tool-bar > tool-bar-item,
   body-view:has(> body-view) > tool-bar > tool-bar-item-group,
   body-view:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item,
-  body-view:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item-group {
+  body-view:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item-group) {
     --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
     --toolbar-cell-filter: blur(10px);
     --toolbar-cell-opacity: 0;
@@ -225,23 +261,26 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
 @layer sw-components {
   :where(navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
-  scroll-view,
-  body-view,
-  tab-view,
-  [is=sidebar-view],
-  [is=tab-bar],
-  [is=full-screen],
-  [is=sheet-view],
-  [is=form-view],
-  [is=disclosure-group],
-  list-view,
-  tool-bar-item,
-  tool-bar-item-group,
-  sidebar-toggle,
-  [is=form-view],
-  v-stack,
-  tool-bar,
-  label-view, menu-view),
+  scroll-view:not([hidden]),
+  body-view:not([hidden]),
+  tab-view:not([hidden]),
+  [is=sidebar-view]:not([hidden]),
+  [is=tab-bar]:not([hidden]),
+  [is=full-screen]:not([hidden]),
+  [is=sheet-view]:not([hidden]),
+  [is=form-view]:not([hidden]),
+  [is=disclosure-group]:not([hidden]),
+  list-view:not([hidden]),
+  tool-bar-item:not([hidden]),
+  tool-bar-item-group:not([hidden]),
+  sidebar-toggle:not([hidden]),
+  [is=form-view]:not([hidden]),
+  v-stack:not([hidden]),
+  tool-bar:not([hidden]),
+  label-view:not([hidden]),
+  menu-view:not([hidden])) {
+    display: grid;
+  }
   ::part(menu-dialog),
   ::part(menu-summary),
   ::part(menu-form),
@@ -447,6 +486,15 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   [is=full-screen] > scroll-view,
   [is=sheet-view] > scroll-view):has(> [slot^=navigation-bar]) {
     grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
+  }
+  :where(navigation-stack > scroll-view[navigation-bar-title-display-mode=large],
+  navigation-split-view > scroll-view[navigation-bar-title-display-mode=large],
+  [is=sidebar-view] > scroll-view[navigation-bar-title-display-mode=large],
+  body-view > scroll-view[navigation-bar-title-display-mode=large],
+  [is=full-screen] > scroll-view[navigation-bar-title-display-mode=large],
+  [is=sheet-view] > scroll-view[navigation-bar-title-display-mode=large]) > [slot=navigation-bar-principal] {
+    opacity: 0;
+    visibility: collapse;
   }
   @media (min-width: 37rem) and (min-height: 27.75rem) {
     :where([is=sheet-view] scroll-view) {
@@ -1077,6 +1125,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(label-view)::part(label-title-stack) {
     text-decoration: underline;
     font-size: var(--label--titlestack-font-size, );
+    line-height: var(--label--titlestack-line-height, );
+    font-weight: var(--label--titlestack-font-weight, );
   }
   :where(label-view:has([slot=image])) {
     --label--has-icon: yes;
@@ -1094,10 +1144,12 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
   @supports (x: if(else:red)) {
     :where(label-view) {
-      --label--titlestack-font-size: if(style(--label-font: callout): 0.5rem ;);
+      --label--titlestack-font-size: if(style(--label-font: footnote): var(--label-footnote-font-size) ; style(--label-font: caption2): var(--label-caption2-font-size) ; style(--label-font: caption): var(--label-caption-font-size) ; style(--label-font: callout): var(--label-callout-font-size) ; style(--label-font: body): var(--label-body-font-size) ; style(--label-font: subheadline): var(--label-subheadline-font-size) ; style(--label-font: headline): var(--label-headline-font-size) ; style(--label-font: title3): var(--label-title3-font-size) ; style(--label-font: title2): var(--label-title2-font-size) ; style(--label-font: title): var(--label-title-font-size) ; style(--label-font: large-title): var(--label-large-title-font-size) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-size) ;);
+      --label--titlestack-line-height: if(style(--label-font: footnote): var(--label-footnote-line-height) ; style(--label-font: caption2): var(--label-caption2-line-height) ; style(--label-font: caption): var(--label-caption-line-height) ; style(--label-font: callout): var(--label-callout-line-height) ; style(--label-font: body): var(--label-body-line-height) ; style(--label-font: subheadline): var(--label-subheadline-line-height) ; style(--label-font: headline): var(--label-headline-line-height) ; style(--label-font: title3): var(--label-title3-line-height) ; style(--label-font: title2): var(--label-title2-line-height) ; style(--label-font: title): var(--label-title-line-height) ; style(--label-font: large-title): var(--label-large-title-line-height) ; style(--label-font: extra-large-title): var(--label-extra-large-title-line-height) ;);
+      --label--titlestack-font-weight: if(style(--label-font: footnote): var(--label-footnote-font-weight) ; style(--label-font: caption2): var(--label-caption2-font-weight) ; style(--label-font: caption): var(--label-caption-font-weight) ; style(--label-font: callout): var(--label-callout-font-weight) ; style(--label-font: body): var(--label-body-font-weight) ; style(--label-font: subheadline): var(--label-subheadline-font-weight) ; style(--label-font: headline): var(--label-headline-font-weight) ; style(--label-font: title3): var(--label-title3-font-weight) ; style(--label-font: title2): var(--label-title2-font-weight) ; style(--label-font: title): var(--label-title-font-weight) ; style(--label-font: large-title): var(--label-large-title-font-weight) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-weight) ;);
       --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
       --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
-      --label--host-white-space: if(style(--label-line-limit: 1): nowrap ;style(--label-line-limit: 2): normal ;);
+      --label--host-white-space: if(style(--label-line-limit: 1): nowrap ; style(--label-line-limit: 2): normal ;);
       --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
       --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
       --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
@@ -1279,14 +1331,172 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
         --label--text-overflow: ellipsis;
       }
     }
+    @container style(--label-font: footnote) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-footnote-font-size);
+        --label--titlestack-line-height: var(--label-footnote-line-height);
+        --label--titlestack-font-weight: var(--label-footnote-font-weight);
+      }
+    }
+    @container not style(--label-font: footnote) {
+      :where(label-view[font=footnote]) {
+        --label--titlestack-font-size: var(--label-footnote-font-size);
+        --label--titlestack-line-height: var(--label-footnote-line-height);
+        --label--titlestack-font-weight: var(--label-footnote-font-weight);
+      }
+    }
+    @container style(--label-font: caption2) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-caption2-font-size);
+        --label--titlestack-line-height: var(--label-caption2-line-height);
+        --label--titlestack-font-weight: var(--label-caption2-font-weight);
+      }
+    }
+    @container not style(--label-font: caption2) {
+      :where(label-view[font=caption2]) {
+        --label--titlestack-font-size: var(--label-caption2-font-size);
+        --label--titlestack-line-height: var(--label-caption2-line-height);
+        --label--titlestack-font-weight: var(--label-caption2-font-weight);
+      }
+    }
+    @container style(--label-font: caption) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-caption-font-size);
+        --label--titlestack-line-height: var(--label-caption-line-height);
+        --label--titlestack-font-weight: var(--label-caption-font-weight);
+      }
+    }
+    @container not style(--label-font: caption) {
+      :where(label-view[font=caption]) {
+        --label--titlestack-font-size: var(--label-caption-font-size);
+        --label--titlestack-line-height: var(--label-caption-line-height);
+        --label--titlestack-font-weight: var(--label-caption-font-weight);
+      }
+    }
     @container style(--label-font: callout) {
       :where(label-view) {
-        --label--titlestack-font-size: 0.5rem;
+        --label--titlestack-font-size: var(--label-callout-font-size);
+        --label--titlestack-line-height: var(--label-callout-line-height);
+        --label--titlestack-font-weight: var(--label-callout-font-weight);
       }
     }
     @container not style(--label-font: callout) {
       :where(label-view[font=callout]) {
-        --label--titlestack-font-size: 0.5rem;
+        --label--titlestack-font-size: var(--label-callout-font-size);
+        --label--titlestack-line-height: var(--label-callout-line-height);
+        --label--titlestack-font-weight: var(--label-callout-font-weight);
+      }
+    }
+    @container style(--label-font: body) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-body-font-size);
+        --label--titlestack-line-height: var(--label-body-line-height);
+        --label--titlestack-font-weight: var(--label-body-font-weight);
+      }
+    }
+    @container not style(--label-font: body) {
+      :where(label-view[font=body]) {
+        --label--titlestack-font-size: var(--label-body-font-size);
+        --label--titlestack-line-height: var(--label-body-line-height);
+        --label--titlestack-font-weight: var(--label-body-font-weight);
+      }
+    }
+    @container style(--label-font: subheadline) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-subheadline-font-size);
+        --label--titlestack-line-height: var(--label-subheadline-line-height);
+        --label--titlestack-font-weight: var(--label-subheadline-font-weight);
+      }
+    }
+    @container not style(--label-font: subheadline) {
+      :where(label-view[font=subheadline]) {
+        --label--titlestack-font-size: var(--label-subheadline-font-size);
+        --label--titlestack-line-height: var(--label-subheadline-line-height);
+        --label--titlestack-font-weight: var(--label-subheadline-font-weight);
+      }
+    }
+    @container style(--label-font: headline) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-headline-font-size);
+        --label--titlestack-line-height: var(--label-headline-line-height);
+        --label--titlestack-font-weight: var(--label-headline-font-weight);
+      }
+    }
+    @container not style(--label-font: headline) {
+      :where(label-view[font=headline]) {
+        --label--titlestack-font-size: var(--label-headline-font-size);
+        --label--titlestack-line-height: var(--label-headline-line-height);
+        --label--titlestack-font-weight: var(--label-headline-font-weight);
+      }
+    }
+    @container style(--label-font: title3) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-title3-font-size);
+        --label--titlestack-line-height: var(--label-title3-line-height);
+        --label--titlestack-font-weight: var(--label-title3-font-weight);
+      }
+    }
+    @container not style(--label-font: title3) {
+      :where(label-view[font=title3]) {
+        --label--titlestack-font-size: var(--label-title3-font-size);
+        --label--titlestack-line-height: var(--label-title3-line-height);
+        --label--titlestack-font-weight: var(--label-title3-font-weight);
+      }
+    }
+    @container style(--label-font: title2) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-title2-font-size);
+        --label--titlestack-line-height: var(--label-title2-line-height);
+        --label--titlestack-font-weight: var(--label-title2-font-weight);
+      }
+    }
+    @container not style(--label-font: title2) {
+      :where(label-view[font=title2]) {
+        --label--titlestack-font-size: var(--label-title2-font-size);
+        --label--titlestack-line-height: var(--label-title2-line-height);
+        --label--titlestack-font-weight: var(--label-title2-font-weight);
+      }
+    }
+    @container style(--label-font: title) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-title-font-size);
+        --label--titlestack-line-height: var(--label-title-line-height);
+        --label--titlestack-font-weight: var(--label-title-font-weight);
+      }
+    }
+    @container not style(--label-font: title) {
+      :where(label-view[font=title]) {
+        --label--titlestack-font-size: var(--label-title-font-size);
+        --label--titlestack-line-height: var(--label-title-line-height);
+        --label--titlestack-font-weight: var(--label-title-font-weight);
+      }
+    }
+    @container style(--label-font: large-title) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-large-title-font-size);
+        --label--titlestack-line-height: var(--label-large-title-line-height);
+        --label--titlestack-font-weight: var(--label-large-title-font-weight);
+      }
+    }
+    @container not style(--label-font: large-title) {
+      :where(label-view[font=large-title]) {
+        --label--titlestack-font-size: var(--label-large-title-font-size);
+        --label--titlestack-line-height: var(--label-large-title-line-height);
+        --label--titlestack-font-weight: var(--label-large-title-font-weight);
+      }
+    }
+    @container style(--label-font: extra-large-title) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-extra-large-title-font-size);
+        --label--titlestack-line-height: var(--label-extra-large-title-line-height);
+        --label--titlestack-font-weight: var(--label-extra-large-title-font-weight);
+      }
+    }
+    @container not style(--label-font: extra-large-title) {
+      :where(label-view[font=extra-large-title]) {
+        --label--titlestack-font-size: var(--label-extra-large-title-font-size);
+        --label--titlestack-line-height: var(--label-extra-large-title-line-height);
+        --label--titlestack-font-weight: var(--label-extra-large-title-font-weight);
       }
     }
   }
@@ -1319,8 +1529,17 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-components {
-  :where(navigation-title) {
+  :where(navigation-large-title) {
     display: grid;
+  }
+  :where(scroll-view[navigation-bar-title-display-mode=inline]:has(navigation-large-title) navigation-large-title[navigation-bar-auto-hide]) {
+    opacity: 0;
+    visibility: collapse;
+  }
+}
+@layer sw-components {
+  :where(navigation-title) {
+    display: contents;
   }
 }
 @layer sw-components {
@@ -1745,6 +1964,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     grid-template-columns: subgrid;
     grid-template-rows: subgrid;
   }
+  :where(tab-view > navigation-stack[hidden], tab-view > navigation-split-view[hidden]) {
+    z-index: -1;
+  }
   @media (pointer: coarse) {
     :where(tab-view > navigation-stack, tab-view > navigation-split-view) {
       transform: scale(1);
@@ -1755,9 +1977,6 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       :where(tab-view > navigation-stack, tab-view > navigation-split-view) {
         transform: scale(0.99);
       }
-    }
-    :where(tab-view > navigation-stack[hidden], tab-view > navigation-split-view[hidden]) {
-      z-index: -1;
     }
   }
   :where(:where(tab-view > [is=sidebar-view])) {
@@ -2167,65 +2386,42 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where([frame-width=infinity]) {
     place-items: stretch;
   }
-  :where([frame-alignment=leading]) {
-    align-self: start;
-  }
-  :where([frame-alignment=center]) {
-    align-self: center;
-  }
-  :where([frame-alignment=trailing]) {
-    align-self: end;
+  :where([alignment=start]) {
+    place-items: start;
   }
   :where([alignment=stretch]) {
     place-items: stretch;
   }
-  :where([content=start]) {
+  :where([distribution=start]) {
     place-content: start;
-  }
-  :where([justify-content=start]) {
-    justify-content: start;
-  }
-  :where([justify-content=start]) {
-    justify-content: start;
-  }
-  :where([spacer=top]) {
-    margin-top: auto;
   }
   :where([distribution=space-between]) {
     place-content: space-between;
-  }
-  :where(spacer) {
-    margin: auto;
   }
   :where([padding]) {
     margin-inline: 1rem;
   }
   @media (prefers-reduced-motion: no-preference) {
-    :where([slow-fade], [slow-show]) {
+    :where([slow]) {
+      visibility: visible;
       transition: opacity 250ms ease-out allow-discrete;
       will-change: opacity;
     }
-  }
-  :where([slow-fade]) {
-    opacity: 1;
-  }
-  :where([slow-fade][slow-fade=true]) {
-    opacity: 0;
-  }
-  @starting-style {
-    :where([slow-fade][slow-fade=true]) {
+    :where([slow=hide]) {
+      opacity: 0;
+    }
+    @starting-style {
+      :where([slow=hide]) {
+        opacity: 1;
+      }
+    }
+    :where([slow=show]) {
       opacity: 1;
     }
-  }
-  :where([slow-show]) {
-    opacity: 0;
-  }
-  :where([slow-show][slow-show=true]) {
-    opacity: 1;
-  }
-  @starting-style {
-    :where([slow-show][slow-show=true]) {
-      opacity: 0;
+    @starting-style {
+      :where([slow=show]) {
+        opacity: 0;
+      }
     }
   }
 }

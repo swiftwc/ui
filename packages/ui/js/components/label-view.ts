@@ -35,7 +35,7 @@ export class LabelView extends HTMLElement {
       this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
       this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-      // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
+      this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
       // this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
       // this.#handleSlotchange(new CustomEvent('slotchange'))
@@ -44,6 +44,8 @@ export class LabelView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${LabelView.name} ⚡️ disconnect`)
+
+    this.#slot?.removeEventListener('slotchange', this.#handleSlotchange)
   }
 
   connectedCallback() {
@@ -90,17 +92,35 @@ export class LabelView extends HTMLElement {
     })
   }
 
-  // #handleSlotchange = (event: Event) => {
-  //   console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
+  #handleSlotchange = (event: Event) => {
+    console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
-  //   this.setAttribute(
-  //     'title-hint',
-  //     (this.#slot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
-  //       .length > 0
-  //       ? 'yes'
-  //       : 'no'
-  //   )
+    for (const node of this.#slot?.assignedNodes({ flatten: true }) ?? []) {
+      if (node.nodeType === Node.TEXT_NODE) {
+        console.error(
+          `${LabelView.name} must contain HTML nodes. Are you sure it is not written like <label-view>“${this.textContent.trim().substring(0, 10)}…”</label-view>?`
+        )
 
-  //   this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
-  // }
+        const text = node.textContent?.trim()
+
+        if (text)
+          if (!(node.parentElement instanceof HTMLSpanElement)) {
+            // avoid wrapping twice
+            const span = document.createElement('span')
+            span.textContent = text
+            node.replaceWith(span)
+          }
+      }
+    }
+
+    //   this.setAttribute(
+    //     'title-hint',
+    //     (this.#slot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
+    //       .length > 0
+    //       ? 'yes'
+    //       : 'no'
+    //   )
+
+    //   this.setAttribute('image-hint', (this.#imgSlot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
+  }
 }

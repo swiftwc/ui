@@ -44,17 +44,19 @@ export class TabView extends HTMLElement {
   }
 
   #addAnimations = (event: Event) => {
-    this.setAttribute('js-aftertabreveal', '')
+    self.requestAnimationFrame(() => {
+      this.setAttribute('js-aftertabreveal', '')
 
-    if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
+      if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
 
-    this.#afterTabRevealTimer = setTimeout(
-      () => {
-        this.removeAttribute('js-aftertabreveal')
-        this.#afterTabRevealTimer = undefined
-      },
-      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
-    )
+      this.#afterTabRevealTimer = setTimeout(
+        () => {
+          this.removeAttribute('js-aftertabreveal')
+          this.#afterTabRevealTimer = undefined
+        },
+        cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+      )
+    })
   }
 
   #triggerChangeEvent = (event: Event) => {

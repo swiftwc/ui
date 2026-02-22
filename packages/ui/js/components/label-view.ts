@@ -96,21 +96,21 @@ export class LabelView extends HTMLElement {
     console.debug(`${LabelView.name} ⚡️ ${event?.type}`)
 
     for (const node of this.#slot?.assignedNodes({ flatten: true }) ?? []) {
-      if (node.nodeType === Node.TEXT_NODE) {
-        console.error(
-          `${LabelView.name} must contain HTML nodes. Are you sure it is not written like <label-view>“${this.textContent.trim().substring(0, 10)}…”</label-view>?`
-        )
+      if (node.nodeType !== Node.TEXT_NODE) continue
 
-        const text = node.textContent?.trim()
+      console.error(
+        `${LabelView.name} must contain HTML nodes. Are you sure it is not written like <label-view>“${this.textContent.trim().substring(0, 10)}…”</label-view>?`
+      )
 
-        if (text)
-          if (!(node.parentElement instanceof HTMLSpanElement)) {
-            // avoid wrapping twice
-            const span = document.createElement('span')
-            span.textContent = text
-            node.replaceWith(span)
-          }
-      }
+      const text = node.textContent?.trim()
+
+      if (text)
+        if (!(node.parentElement instanceof HTMLSpanElement)) {
+          // avoid wrapping twice
+          const span = document.createElement('span')
+          span.textContent = text
+          ;(node as HTMLElement).replaceWith(span)
+        }
     }
 
     //   this.setAttribute(

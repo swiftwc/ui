@@ -30,16 +30,19 @@ export class NavigationLargeTitle extends HTMLElement {
     if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
     Snapshot.waitReady.then(() => {
-      const blockSizeProp = `${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0',
-        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+      // NOTE: Required or BREAKS transitions
+      self.requestAnimationFrame(() => {
+        const blockSizeProp = `${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0',
+          blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
 
-      this.#observer = new IntersectionObserver(this.#handleIntersect, {
-        root: this.#sibling,
-        rootMargin: `-${blockSize}px 0px 0px 0px`,
-        threshold: [0, 1],
+        this.#observer = new IntersectionObserver(this.#handleIntersect, {
+          root: this.#sibling,
+          rootMargin: `-${blockSize}px 0px 0px 0px`,
+          threshold: [0, 1],
+        })
+
+        this.#observer?.observe(this)
       })
-
-      this.#observer?.observe(this)
 
       // this.#sibling?.addEventListener('scroll', (event) => {
       //   if (!observing.has(this)) {

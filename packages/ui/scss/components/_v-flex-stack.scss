@@ -4,7 +4,7 @@
   v-flex-stack {
     :where(&) {
       display: flex;
-      flex-flow: column wrap;
+      flex-flow: column nowrap;
 
       place-items: center;
       place-content: center;
@@ -22,7 +22,7 @@
     //   }
     // }
 
-    > [alignment='fill'] {
+    > [frame-height='infinity'] {
       :where(&) {
         flex-grow: 1;
       }

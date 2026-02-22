@@ -33,7 +33,7 @@
     <navigation-stack>
       <scroll-view>
         <v-stack distribution="start" frame-width="infinity">
-          <label-view system-image="globe"></label-view>
+          <label-view padding system-image="globe"></label-view>
           <list-view>
             <button navigation-destination="lang">
               <label-view label="English"></label-view>
@@ -45,8 +45,9 @@
 
     <template id="lang">
       <body-view>
-        <scroll-view id="gg" navigation-inline-title="Select Your Country or Region">
+        <scroll-view id="gg">
           <v-stack distribution="start" frame-width="infinity">
+            <navigation-title value="Select Your Country or Region" padding></navigation-title>
             <list-view>
               <button navigation-destination="region">
                 <label-view label="USA"></label-view>
@@ -65,15 +66,18 @@
     </template>
     <template id="region">
       <body-view>
-        <scroll-view navigation-inline-title="Appearance">
-          <v-stack distribution="space-between" frame-width="infinity">
-            <picker-view picker-style="inline">
-              <label-view label="Auto"></label-view>
-              <label-view label="Light"></label-view>
-              <label-view label="Dark"></label-view>
-            </picker-view>
+        <scroll-view>
+          <v-stack distribution="space-between" frame-width="infinity" padding>
+            <v-stack frame-width="infinity">
+              <navigation-title value="Appearance"></navigation-title>
+              <picker-view picker-style="inline">
+                <label-view label="Auto"></label-view>
+                <label-view label="Light"></label-view>
+                <label-view label="Dark"></label-view>
+              </picker-view>
+            </v-stack>
 
-            <v-stack>
+            <v-stack alignment="fill">
               <button is="bordered-prominent" navigation-destination="data-privacy">
                 <label-view label="Continue"></label-view>
               </button>
@@ -91,11 +95,14 @@
     </template>
     <template id="data-privacy">
       <body-view>
-        <scroll-view navigation-inline-title="Data & Privacy">
-          <v-stack distribution="space-between" frame-width="infinity">
-            <text-view> lorem ipsum </text-view>
+        <scroll-view>
+          <v-stack distribution="space-between" frame-width="infinity" padding>
+            <v-stack frame-width="infinity">
+              <navigation-title value="Data & Privacy"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
 
-            <v-stack>
+            <v-stack alignment="fill">
               <button is="bordered-prominent" navigation-destination="age-range">
                 <label-view label="Continue"></label-view>
               </button>
@@ -115,7 +122,10 @@
       <body-view>
         <scroll-view navigation-inline-title="Age Range">
           <v-stack distribution="start" frame-width="infinity">
-            <text-view> Select the age range </text-view>
+            <v-stack frame-width="infinity" padding>
+              <navigation-title value="Data & Privacy"></navigation-title>
+              <text-view> Select the age range </text-view>
+            </v-stack>
 
             <list-view>
               <button navigation-destination="terms">
@@ -141,8 +151,9 @@
     </template>
     <template id="terms">
       <dialog is="sheet-view">
-        <scroll-view navigation-inline-title="Terms and Conditions">
-          <v-stack distribution="start" frame-width="infinity">
+        <scroll-view>
+          <v-stack distribution="start" frame-width="infinity" padding>
+            <navigation-title value="Terms and Conditions"></navigation-title>
             <text-view> lorem ipsum </text-view>
           </v-stack>
         </scroll-view>
@@ -162,11 +173,14 @@
     </template>
     <template id="location">
       <body-view>
-        <scroll-view navigation-inline-title="Location Services">
-          <v-stack distribution="space-between" frame-width="infinity">
-            <text-view> lorem ipsum </text-view>
+        <scroll-view>
+          <v-stack distribution="space-between" frame-width="infinity" padding>
+            <v-stack frame-width="infinity">
+              <navigation-title value="Location Services"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
 
-            <v-stack>
+            <v-stack alignment="fill">
               <button is="bordered-prominent" navigation-destination="analytics">
                 <label-view label="Continue"></label-view>
               </button>
@@ -184,11 +198,14 @@
     </template>
     <template id="analytics">
       <body-view>
-        <scroll-view navigation-inline-title="Analytics">
-          <v-stack distribution="space-between" frame-width="infinity">
-            <text-view> lorem ipsum </text-view>
+        <scroll-view>
+          <v-stack distribution="space-between" frame-width="infinity" padding>
+            <v-stack frame-width="infinity">
+              <navigation-title value="Analytics"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
 
-            <v-stack>
+            <v-stack alignment="fill">
               <button is="bordered-prominent" navigation-destination="welcome">
                 <label-view label="Continue"></label-view>
               </button>
@@ -207,13 +224,13 @@
     <template id="welcome">
       <body-view>
         <scroll-view>
-          <v-flex-stack>
-            <v-stack alignment="fill">
+          <v-flex-stack alignment="fill" padding>
+            <v-stack frame-height="infinity">
               <text-view> Welcome to Swift WC </text-view>
             </v-stack>
 
-            <v-stack>
-              <button class="st">
+            <v-stack alignment="fill">
+              <button is="bordered-prominent" navigation-destination="analytics" class="st">
                 <label-view label="Start Over"></label-view>
               </button>
             </v-stack>

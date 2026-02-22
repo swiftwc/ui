@@ -2,8 +2,11 @@
 
 @layer #{vars.$utils-layer} {
   :where([frame-width='infinity']) {
-    place-items: stretch; //justify-self: stretch;
+    width: 100%;
   }
+  // :where([frame-width='infinity']) {
+  //   place-items: stretch; //justify-self: stretch;
+  // }
   // :where([frame-alignment='leading']) {
   //   align-self: start;
   // }
@@ -13,12 +16,12 @@
   // :where([frame-alignment='trailing']) {
   //   align-self: end;
   // }
-  :where([alignment='start']) {
-    place-items: start;
-  }
-  :where([alignment='stretch']) {
-    place-items: stretch;
-  }
+  // :where([alignment='start']) {
+  //   place-items: start;
+  // }
+  // :where([alignment='fill']) {
+  //   place-items: stretch;
+  // }
   // :where([content='start']) {
   //   place-content: start;
   // }
@@ -31,19 +34,15 @@
   // :where([spacer='top']) {
   //   margin-top: auto;
   // }
-  :where([distribution='start']) {
-    place-content: start;
-  }
-  :where([distribution='space-between']) {
-    place-content: space-between;
-  }
+  // :where([distribution='start']) {
+  //   place-content: start;
+  // }
+  // :where([distribution='space-between']) {
+  //   place-content: space-between;
+  // }
   // :where(spacer) {
   //   margin: auto;
   // }
-
-  :where([padding]) {
-    margin-inline: 1rem;
-  }
 
   @media (prefers-reduced-motion: no-preference) {
     :where([slow]) {

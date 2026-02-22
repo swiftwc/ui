@@ -42,7 +42,8 @@
     list-view > button,
     menu-view > button,
     [is='disclosure-group'] > button,
-    [is='disclosure-group'] > summary
+    [is='disclosure-group'] > summary,
+    [is='bordered-prominent']
   ),
   :where(menu-view)::part(menu-summary) {
     // display: grid;

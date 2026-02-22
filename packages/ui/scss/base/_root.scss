@@ -1,5 +1,6 @@
 @use '../vars';
 @use '../mixins';
+@use 'sass:map';
 
 @layer #{vars.$components-layer} {
   :root {
@@ -171,9 +172,9 @@
     // label-view
 
     @each $label, $props in vars.$label-fonts {
-      --label-#{$label}-font-size: #{map-get($props, size)};
-      --label-#{$label}-line-height: #{map-get($props, line)};
-      --label-#{$label}-font-weight: #{map-get($props, weight)};
+      --label-#{$label}-font-size: #{map.get($props, size)};
+      --label-#{$label}-line-height: #{map.get($props, line)};
+      --label-#{$label}-font-weight: #{map.get($props, weight)};
     }
   }
 

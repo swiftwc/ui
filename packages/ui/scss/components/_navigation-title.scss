@@ -4,7 +4,7 @@
 @layer #{vars.$components-layer} {
   navigation-title {
     :where(&) {
-      display: contents;
+      display: grid; //contents;
     }
   }
 }

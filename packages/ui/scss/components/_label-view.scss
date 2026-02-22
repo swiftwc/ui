@@ -162,16 +162,16 @@
       }
     }
 
-    :where(&:has([slot='image'])) {
+    :where(&:has(> [slot='image'])) {
       --label--has-icon: yes;
       // background-color: green;
     }
-    :where(&:has(:not([slot]))) {
+    :where(&:has(> :not([slot]))) {
       --label--has-title: yes;
       // background-color: red;
     }
 
-    :where(& > *:not([slot])) {
+    :where(& > :not([slot])) {
       // grid-area: label-title-stack;
       overflow: var(--label--overflow,);
 
@@ -301,15 +301,15 @@
         }
         &:not([label-style]) {
           // :where(&[image-hint='yes'][title-hint='yes']) {
-          :where(&:has([slot='image']):has(:not([slot]))) {
+          :where(&:has(> [slot='image']):has(> :not([slot]))) {
             @include set-label-style('h-title-and-icon');
           }
           // :where(&[image-hint='yes']:not([title-hint='yes'])) {
-          :where(&:has([slot='image']):not(:has(:not([slot])))) {
+          :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
             @include set-label-style('h-icon-only');
           }
           // :where(&[title-hint='yes']:not([image-hint='yes'])) {
-          :where(&:has(:not([slot])):not(:has([slot='image']))) {
+          :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
             @include set-label-style('h-title-only');
           }
         }
@@ -337,13 +337,13 @@
           @include set-label-style('v-icon-only');
         }
         &:not([label-style]) {
-          :where(&:has([slot='image']):has(:not([slot]))) {
+          :where(&:has(> [slot='image']):has(> :not([slot]))) {
             @include set-label-style('v-title-and-icon');
           }
-          :where(&:has([slot='image']):not(:has(:not([slot])))) {
+          :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
             @include set-label-style('v-icon-only');
           }
-          :where(&:has(:not([slot])):not(:has([slot='image']))) {
+          :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
             @include set-label-style('v-title-only');
           }
         }

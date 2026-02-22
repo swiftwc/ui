@@ -1,0 +1,33 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  %bordered-prominent-btn {
+    --component-padding-inline: 20px;
+    --component-padding-block: 20px;
+    --component-border-radius: 20px;
+    --componentface: chocolate;
+  }
+
+  %bordered-prominent-btn {
+    &:not(:disabled):not([readonly]) {
+      :where(&) {
+        @include mixins.add-focus-visible-state {
+          --componentface: light-dark(orange, yellow);
+        }
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  %bordered-prominent-btn {
+    &:not(:disabled):not([readonly]) {
+      :where(&) {
+        @include mixins.add-active-state {
+          --componentface: light-dark(red, darkred);
+        }
+      }
+    }
+  }
+}

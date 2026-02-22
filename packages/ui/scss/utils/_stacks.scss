@@ -1,0 +1,45 @@
+@use '../vars';
+@use 'sass:math';
+
+@layer #{vars.$utils-layer} {
+  v-stack {
+    :where(&[frame-width='infinity']) {
+      place-items: stretch;
+    }
+    :where(&[alignment='start']) {
+      place-items: start;
+    }
+    :where(&[alignment='fill']) {
+      place-items: stretch;
+    }
+    :where(&[distribution='start']) {
+      place-content: start;
+    }
+    :where(&[distribution='space-between']) {
+      place-content: space-between;
+    }
+    :where(&[padding]) {
+      padding-inline: 1rem;
+      padding-block-end: 1rem;
+    }
+    :where(& > [padding]:not(v-stack, v-flex-stack)) {
+      margin-inline: 1rem;
+    }
+    // $spaces: 0, 1, 2, 3, 4;
+    // @each $s in $spaces {
+    @for $i from 0 through 100 {
+      :where(&[spacing='#{$i}']) {
+        gap: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
+      }
+    }
+  }
+  v-flex-stack {
+    :where(&[alignment='fill']) {
+      place-items: stretch;
+    }
+    :where(&[padding]) {
+      padding-inline: 1rem;
+      padding-block-end: 1rem;
+    }
+  }
+}

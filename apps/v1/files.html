@@ -33,7 +33,7 @@
     <tab-view tab-view-style="tab-bar-only">
       <navigation-stack id="recents">
         <scroll-view navigation-inline-title="Recents">
-          <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+          <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
           <v-stack distribution="start" frame-width="infinity">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -97,7 +97,7 @@
       <navigation-split-view id="browse" preferred-compact-column="content" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="Browse">
-            <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+            <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
             <v-stack distribution="start" frame-width="infinity">
               <list-view>
                 <button type="button" navigation-destination="cloud_drive">Cloud Drive</button>
@@ -155,7 +155,7 @@
     <template id="cloud_drive">
       <body-view>
         <scroll-view navigation-inline-title="Cloud Drive">
-          <!-- <v-stack frame-alignment="leading" alignment="stretch"> -->
+          <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
           <v-stack distribution="start" frame-width="infinity">
             browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
             <p>...</p>

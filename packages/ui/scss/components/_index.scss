@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   // all is a grid
@@ -19,6 +20,7 @@
   sidebar-toggle,
   [is='form-view'],
   v-stack,
+  h-stack,
   tool-bar,
   label-view,
   menu-view {
@@ -42,7 +44,113 @@
   ::part(scroll-view-navbar),
   ::part(scroll-view-toolbar),
   ::part(scroll-view-navbar-stack),
-  ::part(scroll-view-toolbar-stack) {
+  ::part(scroll-view-toolbar-stack),
+  ::part(section-main-stack) {
     display: grid;
+  }
+
+  // picker-view[picker-style='inline'] > button,
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is='tab-item'],
+    list-view > button,
+    [is='form-view'] > button,
+    section-view > button,
+    menu-view > button,
+    [is='disclosure-group'] > button,
+    [is='disclosure-group'] > summary,
+    [is='bordered-prominent']
+  ),
+  :where(menu-view)::part(menu-summary) {
+    // display: grid;
+    // place-items: center;
+    // place-content: center;
+    // container-type: inline-size;
+    // > * {
+    //   font-size: 100cqw;
+    // }
+
+    // all: unset;
+    display: grid;
+    text-align: unset;
+
+    appearance: none;
+    -webkit-appearance: none;
+    // place-items: center;
+    // place-content: center;
+
+    // box-shadow: none;
+    // outline: 0;
+    border: var(--component-border-width,);
+    background: var(--componentface,);
+    color: var(--componenttext, var(--canvastext));
+    padding-inline: var(--component-padding-inline,);
+    padding-block: var(--component-padding-block,);
+    border-radius: var(--component-border-radius,);
+    min-inline-size: 25px; // NOTE: For inputs overflowing-x
+
+    // &:not(:disabled):not([readonly]) {
+    //   &:focus-visible {
+    //     background-color: var(--toolbar-cell-focus-bg);
+    //   }
+    //   // order matters! BEFORE active
+    //   @media (pointer: fine) {
+    //     &:hover {
+    //       background-color: var(--toolbar-cell-focus-bg);
+    //     }
+    //   }
+    //   // order matters! AFTER hover/fvisible
+    //   &:active {
+    //     background-color: var(--toolbar-cell-active-bg);
+    //   }
+    // }
+  }
+}
+
+@layer #{vars.$colors-layer} {
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is='tab-item'],
+    list-view > button,
+    [is='form-view'] > button,
+    section-view > button,
+    menu-view > button,
+    [is='disclosure-group'] > button,
+    [is='disclosure-group'] > summary,
+    [is='bordered-prominent']
+  ),
+  :where(menu-view)::part(menu-summary) {
+    &:not(:disabled):not([readonly]) {
+      :where(&) {
+        @include mixins.add-focus-visible-state {
+          --componentface: var(--componenthighlightface,);
+        }
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is='tab-item'],
+    list-view > button,
+    [is='form-view'] > button,
+    section-view > button,
+    menu-view > button,
+    [is='disclosure-group'] > button,
+    [is='disclosure-group'] > summary,
+    [is='bordered-prominent']
+  ),
+  :where(menu-view)::part(menu-summary) {
+    @include mixins.add-active-state {
+      --componentface: var(--componentactiveface,);
+    }
   }
 }

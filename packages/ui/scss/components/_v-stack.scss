@@ -3,8 +3,6 @@
 @layer #{vars.$components-layer} {
   v-stack {
     :where(&) {
-      // display: flex;
-      // flex-flow: column wrap;
       grid-template-columns: minmax(0, 1fr);
 
       place-items: center;
@@ -13,11 +11,8 @@
       gap: 1rem;
     }
 
-    > * {
-      :where(&) {
-        max-width: 100%;
-        // align-self: start;
-      }
-    }
+    // :where(& > *) {
+    // max-width: 100%;
+    // }
   }
 }

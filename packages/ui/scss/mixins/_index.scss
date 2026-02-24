@@ -171,8 +171,12 @@
 }
 
 @mixin add-active-state($selector: '') {
-  &:active#{$selector} {
-    @content;
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &:active#{$selector} {
+        @content;
+      }
+    }
   }
 }
 

@@ -71,13 +71,13 @@
     --view-transition-duration: 500ms;
     --sidebar-transition-duration: 250ms;
     --pill-border-radius: 99999px;
-    --toolbar-col-gap: 0.6rem;
+    --toolbar-col-gap: 0.5rem;
     --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
     --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
-    --toolbar-cell-inline-padding-start: 0.3rem;
-    --toolbar-cell-inline-padding-end: 0.3rem;
-    --toolbar-cell-block-padding-start: 0.3rem;
-    --toolbar-cell-block-padding-end: 0.3rem;
+    --toolbar-cell-inline-padding-start: 0.25rem;
+    --toolbar-cell-inline-padding-end: 0.25rem;
+    --toolbar-cell-block-padding-start: 0.25rem;
+    --toolbar-cell-block-padding-end: 0.25rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
     --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
@@ -198,6 +198,79 @@
   }
 }
 @layer sw-components {
+  :where([is=form-view], list-view) {
+    grid-template-columns: var(--list--host-grid-template-columns, );
+  }
+  :where([is=form-view]:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view), list-view:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view)) {
+    padding-inline: var(--list--host-padding-inline, );
+    padding-block: var(--list--host-padding-block, );
+    background-color: var(--list--host-background-color, );
+  }
+  :where([is=form-view]:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view) [is=disclosure-group], list-view:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view) [is=disclosure-group]) {
+    border-radius: var(--component-border-radius);
+  }
+  :where([is=form-view]:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view) [is=disclosure-group][open], list-view:not([is=form-view] [is=form-view]):not(list-view [is=form-view]):not([is=form-view] list-view):not(list-view list-view) [is=disclosure-group][open]) {
+    background-color: red;
+  }
+  :where([is=form-view] > :not(button, [is=disclosure-group], section-view, summary), list-view > :not(button, [is=disclosure-group], section-view, summary),
+  [is=form-view] [is=disclosure-group] > :not(button, [is=disclosure-group], section-view, summary),
+  list-view [is=disclosure-group] > :not(button, [is=disclosure-group], section-view, summary)) {
+    padding-inline: var(--component-padding-inline, );
+    padding-block: var(--component-padding-block, );
+  }
+  :where([is=form-view] section-view > text-field:not([slot]), list-view section-view > text-field:not([slot])) {
+    padding-inline: var(--component-padding-inline, );
+    padding-block: var(--component-padding-block, );
+  }
+  :where([is=form-view] section-view section-view > [slot=header], list-view section-view section-view > [slot=header]) {
+    padding-inline: var(--component-padding-inline, );
+    padding-block: var(--component-padding-block, );
+  }
+  :where([is=form-view] > *, list-view > *, [is=disclosure-group] > :not(summary), [is=form-view] > section-view > *:not([slot]), list-view > section-view > *:not([slot]), section-view section-view > [slot=header]) {
+    position: relative;
+  }
+  :where([is=form-view]:not([columns]) > :has(~ *:not([slot])), list-view:not([columns]) > :has(~ *:not([slot])), [is=form-view]:not([columns]) > section-view > *:not([slot]):has(~ *:not([slot])), list-view:not([columns]) > section-view > *:not([slot]):has(~ *:not([slot])),
+  [is=disclosure-group] > :not(summary):has(~ *:not([slot])),
+  section-view section-view > [slot=header])::after, :where([columns="2"][is=form-view] > :not(:nth-last-child(-n+2)), list-view[columns="2"] > :not(:nth-last-child(-n+2)), [columns="2"][is=form-view] > section-view > *:not([slot]):not(:nth-last-child(-n+2)), list-view[columns="2"] > section-view > *:not([slot]):not(:nth-last-child(-n+2)))::after {
+    content: "";
+    display: inline-grid;
+    position: absolute;
+    block-size: 5px;
+    background-color: blue;
+    inset: auto var(--component-padding-inline) 0 calc(var(--component-padding-inline) + 1rem);
+  }
+  :where([columns="2"][is=form-view], list-view[columns="2"]) {
+    --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+  :where([is=form-view], list-view) {
+    --component-padding-inline: 0.5rem;
+    --component-padding-block: 1rem;
+  }
+}
+@layer sw-components {
+  :where([is=button-view] [button-style=bordered-prominent]), :where(button[is=bordered-prominent]) {
+    --component-padding-inline: 20px;
+    --component-padding-block: 20px;
+    --component-border-radius: 20px;
+    --componentface: chocolate;
+    --componenthighlightface: orange;
+    --componentactiveface: darkred;
+  }
+  :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):focus-visible {
+    --componentface: var(--componenthighlightface,);
+  }
+  @media (pointer: fine) {
+    :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):hover {
+      --componentface: var(--componenthighlightface,);
+    }
+  }
+}
+@layer sw-actions {
+  :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):active {
+    --componentface: var(--componentactiveface,);
+  }
+}
+@layer sw-components {
   :where(body-view,
   navigation-stack,
   navigation-split-view,
@@ -249,31 +322,6 @@
     --toolbar-cell-opacity: 0;
   }
 }
-scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > [is=disclosure-group], scroll-view list-view > [is=disclosure-group] {
-  grid-template-columns: minmax(0, 1fr);
-}
-
-@layer sw-components {
-  :where([is=button-view] [button-style=bordered-prominent]), :where(button[is=bordered-prominent]) {
-    --component-padding-inline: 20px;
-    --component-padding-block: 20px;
-    --component-border-radius: 20px;
-    --componentface: chocolate;
-  }
-  :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):focus-visible {
-    --componentface: light-dark(orange, yellow);
-  }
-  @media (pointer: fine) {
-    :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):hover {
-      --componentface: light-dark(orange, yellow);
-    }
-  }
-}
-@layer sw-actions {
-  :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):active {
-    --componentface: light-dark(red, darkred);
-  }
-}
 @layer sw-components {
   :where(navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
@@ -292,6 +340,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   sidebar-toggle:not([hidden]),
   [is=form-view]:not([hidden]),
   v-stack:not([hidden]),
+  h-stack:not([hidden]),
   tool-bar:not([hidden]),
   label-view:not([hidden]),
   menu-view:not([hidden])) {
@@ -311,8 +360,81 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   ::part(scroll-view-navbar),
   ::part(scroll-view-toolbar),
   ::part(scroll-view-navbar-stack),
-  ::part(scroll-view-toolbar-stack) {
+  ::part(scroll-view-toolbar-stack),
+  ::part(section-main-stack) {
     display: grid;
+  }
+  :where(sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is=tab-item],
+  list-view > button,
+  [is=form-view] > button,
+  section-view > button,
+  menu-view > button,
+  [is=disclosure-group] > button,
+  [is=disclosure-group] > summary,
+  [is=bordered-prominent]),
+  :where(menu-view)::part(menu-summary) {
+    display: grid;
+    text-align: unset;
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--component-border-width, );
+    background: var(--componentface, );
+    color: var(--componenttext, var(--canvastext));
+    padding-inline: var(--component-padding-inline, );
+    padding-block: var(--component-padding-block, );
+    border-radius: var(--component-border-radius, );
+    min-inline-size: 25px;
+  }
+}
+@layer sw-colors {
+  :where(:where(sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is=tab-item],
+  list-view > button,
+  [is=form-view] > button,
+  section-view > button,
+  menu-view > button,
+  [is=disclosure-group] > button,
+  [is=disclosure-group] > summary,
+  [is=bordered-prominent]):not(:disabled):not([readonly]),
+  :where(menu-view)::part(menu-summary):not(:disabled):not([readonly])):focus-visible {
+    --componentface: var(--componenthighlightface,);
+  }
+  @media (pointer: fine) {
+    :where(:where(sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is=tab-item],
+    list-view > button,
+    [is=form-view] > button,
+    section-view > button,
+    menu-view > button,
+    [is=disclosure-group] > button,
+    [is=disclosure-group] > summary,
+    [is=bordered-prominent]):not(:disabled):not([readonly]),
+    :where(menu-view)::part(menu-summary):not(:disabled):not([readonly])):hover {
+      --componentface: var(--componenthighlightface,);
+    }
+  }
+}
+@layer sw-actions {
+  :where(:where(sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is=tab-item],
+  list-view > button,
+  [is=form-view] > button,
+  section-view > button,
+  menu-view > button,
+  [is=disclosure-group] > button,
+  [is=disclosure-group] > summary,
+  [is=bordered-prominent]):not(:disabled):not([readonly]),
+  :where(menu-view)::part(menu-summary):not(:disabled):not([readonly])):active {
+    --componentface: var(--componentactiveface,);
   }
 }
 @layer sw-components {
@@ -522,14 +644,26 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
 }
 @layer sw-components {
+  :where(h-stack) {
+    grid-auto-flow: column;
+    grid-template-rows: minmax(0, 1fr);
+    place-items: center;
+    place-content: center;
+    gap: 1rem;
+  }
+  :where(h-stack > *) {
+    max-height: 100%;
+  }
+  :where(h-stack[columns="auto minmax(0,1fr) auto auto"]) {
+    grid-template-columns: auto minmax(0, 1fr) auto auto;
+  }
+}
+@layer sw-components {
   :where(v-stack) {
     grid-template-columns: minmax(0, 1fr);
     place-items: center;
     place-content: center;
     gap: 1rem;
-  }
-  :where(v-stack > *) {
-    max-width: 100%;
   }
 }
 @layer sw-components {
@@ -568,6 +702,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(scroll-view)::part(scroll-view-navbar-stack), :where(scroll-view)::part(scroll-view-toolbar-stack) {
     grid-template-columns: 1fr auto 1fr;
     pointer-events: all;
+    column-gap: var(--toolbar-col-gap);
   }
   :where(scroll-view)::part(scroll-view-navbar-stack)::before, :where(scroll-view)::part(scroll-view-navbar-stack)::after, :where(scroll-view)::part(scroll-view-toolbar-stack)::before, :where(scroll-view)::part(scroll-view-toolbar-stack)::after {
     content: "";
@@ -627,16 +762,16 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     }
   }
   :where(scroll-view)::part(scroll-view-navbar-stack)::before {
-    inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--navbar-safe-area-inset-left, 0px));
+    inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--navbar-safe-area-inset-left, 0px) + var(--toolbar-col-gap, 0px));
   }
   :where(scroll-view)::part(scroll-view-navbar-stack)::after {
-    inline-size: calc(var(--navbar-padding-inline-end, 0px) + var(--navbar-safe-area-inset-right, 0px));
+    inline-size: calc(var(--navbar-padding-inline-end, 0px) + var(--navbar-safe-area-inset-right, 0px) + var(--toolbar-col-gap, 0px));
   }
   :where(scroll-view)::part(scroll-view-toolbar-stack)::before {
-    inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px));
+    inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px) + var(--toolbar-col-gap, 0px));
   }
   :where(scroll-view)::part(scroll-view-toolbar-stack)::after {
-    inline-size: calc(var(--toolbar-padding-inline-end) + var(--toolbar-safe-area-inset-right, 0px));
+    inline-size: calc(var(--toolbar-padding-inline-end) + var(--toolbar-safe-area-inset-right, 0px) + var(--toolbar-col-gap, 0px));
   }
 }
 @layer sw-components {
@@ -649,87 +784,28 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where(tool-bar-item:has([disabled])) {
     pointer-events: none;
   }
-  :where(sidebar-toggle > button,
-  tool-bar-item > button,
-  tool-bar-item > input,
-  [is=tab-item],
-  list-view > button,
-  menu-view > button,
-  [is=disclosure-group] > button,
-  [is=disclosure-group] > summary,
-  [is=bordered-prominent]),
-  :where(menu-view)::part(menu-summary) {
-    all: unset;
-    display: grid;
-    appearance: none;
-    -webkit-appearance: none;
-    border: var(--component-border-width, );
-    background: var(--componentface, );
-    color: var(--componenttext, var(--canvastext));
-    padding-inline: var(--component-padding-inline, );
-    padding-block: var(--component-padding-block, );
-    border-radius: var(--component-border-radius, );
-    min-inline-size: 25px;
-  }
-  :where(tool-bar-item > button), :where(tool-bar-item > menu-view)::part(menu-summary) {
+  :where(tool-bar-item > button), :where(tool-bar-item > picker-view > menu-view)::part(menu-summary), :where(tool-bar-item > menu-view)::part(menu-summary) {
     place-items: center;
     place-content: center;
   }
 }
 @layer sw-colors {
-  :where(sidebar-toggle > button:not(:disabled):not([readonly]),
-  tool-bar-item > button:not(:disabled):not([readonly]),
-  tool-bar-item > input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly]),
-  list-view > button:not(:disabled):not([readonly]),
-  menu-view > button:not(:disabled):not([readonly]),
-  [is=disclosure-group] > button:not(:disabled):not([readonly]),
-  [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
-    --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-  }
-  @media (pointer: fine) {
-    :where(sidebar-toggle > button:not(:disabled):not([readonly]),
-    tool-bar-item > button:not(:disabled):not([readonly]),
-    tool-bar-item > input:not(:disabled):not([readonly]),
-    [is=tab-item]:not(:disabled):not([readonly]),
-    list-view > button:not(:disabled):not([readonly]),
-    menu-view > button:not(:disabled):not([readonly]),
-    [is=disclosure-group] > button:not(:disabled):not([readonly]),
-    [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
-      --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-    }
-  }
   :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
-    --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --componentface: var(--componenthighlightface,);
   }
   @media (pointer: fine) {
     :where(menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
-      --componentface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --componentface: var(--componenthighlightface,);
     }
   }
   :where(menu-view:not(:disabled):not([readonly]) > button) {
     --component-padding-inline: 0.3rem;
     --component-padding-block: 0.3rem;
   }
-  :where(list-view > button:not(:disabled):not([readonly]),
-  [is=form-view] > button:not(:disabled):not([readonly])) {
-    --component-padding-inline: 0.3rem;
-    --component-padding-block: 0.3rem;
-  }
 }
 @layer sw-actions {
-  :where(sidebar-toggle > button:not(:disabled):not([readonly]),
-  tool-bar-item > button:not(:disabled):not([readonly]),
-  tool-bar-item > input:not(:disabled):not([readonly]),
-  [is=tab-item]:not(:disabled):not([readonly]),
-  list-view > button:not(:disabled):not([readonly]),
-  menu-view > button:not(:disabled):not([readonly]),
-  [is=disclosure-group] > summary:not(:disabled):not([readonly]),
-  [is=disclosure-group] > button:not(:disabled):not([readonly])):active {
-    --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  }
   :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
-    --componentface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    --componentface: var(--componentactiveface,);
   }
   :where(tool-bar-item[slot]:has(menu-view[open])),
   :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
@@ -799,6 +875,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     grid-auto-flow: column;
     grid-template-columns: minmax(0, 1fr);
     column-gap: var(--toolbar-col-gap);
+    padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
   }
   @media (min-width: 37rem) and (min-height: 27.75rem) {
     :where([is=sheet-view] tool-bar)::part(navigation-bar), :where([is=sheet-view] tool-bar)::part(bottom-bar) {
@@ -871,8 +948,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       --label--host-align-items: if(style(--label-flow: vertical): normal ; else: center ;);
       --label--host-justify-items: if(style(--label-flow: vertical): center ; else: normal ;);
       --label--host-grid-template-columns: if(
-        style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-          minmax(0, 1fr) ;
+        style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
+          style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
           else: if(
             style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;)
               ; else: minmax(0, 1fr) ;
@@ -880,8 +957,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
           ;
       );
       --label--host-grid-template-rows: if(
-        style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-          minmax(0, 1fr) ;
+        style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
+          style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
           else: if(
             style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;)
               ; else: minmax(0, 1fr) ;
@@ -903,17 +980,17 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   }
   @supports not (x: if(else:red)) {
     @container style(--label-style: icon-only) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--host-grid-template-columns: auto minmax(0, 1fr);
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
@@ -923,22 +1000,22 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
         --label--titlestack-display: grid;
       }
     }
+    :where(label-view[label-style=title-and-icon]) {
+      --label--host-grid-template-columns: auto minmax(0, 1fr);
+      --label--host-grid-template-rows: minmax(0, 1fr);
+      --label--host-align-items: center;
+      --label--host-justify-items: normal;
+      --label--host-gap: 0.3rem;
+      --label--iconstack-display: grid;
+      --label--titlestack-display: grid;
+    }
+    :where(label-view[label-style=title-only]) {
+      --label--titlestack-display: grid;
+    }
+    :where(label-view[label-style=icon-only]) {
+      --label--iconstack-display: grid;
+    }
     @container not style(--label-style) {
-      :where(label-view[label-style=title-and-icon]) {
-        --label--host-grid-template-columns: auto minmax(0, 1fr);
-        --label--host-grid-template-rows: minmax(0, 1fr);
-        --label--host-align-items: center;
-        --label--host-justify-items: normal;
-        --label--host-gap: 0.3rem;
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
-      }
-      :where(label-view[label-style=title-only]) {
-        --label--titlestack-display: grid;
-      }
-      :where(label-view[label-style=icon-only]) {
-        --label--iconstack-display: grid;
-      }
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
         --label--host-grid-template-columns: auto minmax(0, 1fr);
         --label--host-grid-template-rows: minmax(0, 1fr);
@@ -956,17 +1033,17 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) and style(--label-flow: vertical) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
-      :where(label-view) {
+      :where(label-view:not([label-style])) {
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
@@ -976,7 +1053,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
         --label--titlestack-display: grid;
       }
     }
-    @container (not style(--label-style)) and style(--label-flow: vertical) {
+    @container style(--label-flow: vertical) {
       :where(label-view[label-style=title-and-icon]) {
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
@@ -992,6 +1069,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       :where(label-view[label-style=icon-only]) {
         --label--iconstack-display: grid;
       }
+    }
+    @container (not style(--label-style)) and style(--label-flow: vertical) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
@@ -1279,6 +1358,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       position: sticky;
       left: 0;
       backdrop-filter: blur(20px);
+      border-radius: inherit;
     }
     :where(tab-view[tab-view-style=tab-bar-only] > sidebar-toggle) {
       display: none;
@@ -1294,6 +1374,7 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
       position: sticky;
       left: 0;
       backdrop-filter: blur(20px);
+      border-radius: inherit;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle) {
       display: none;
@@ -1462,11 +1543,71 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
   }
 }
-@layer sw-components {}
+@layer sw-components {
+  @supports (x: if(else:red)) {
+    :where(list-view) {
+      --list--host-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+      --component-border-radius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+    }
+  }
+  @supports not (x: if(else:red)) {
+    @container style(--list-style: inline) {
+      :where(list-view:not([list-style])) {
+        --list--host-background-color: aliceblue;
+      }
+    }
+    @container style(--list-style: inset-grouped) {
+      :where(list-view:not([list-style])) {
+        --list--host-background-color: aliceblue;
+        --list--host-padding-inline: 0.5rem;
+        --component-border-radius: 1rem;
+      }
+    }
+    @container style(--list-style: sidebar) {
+      :where(list-view:not([list-style])) {
+        --list--host-padding-inline: 0.5rem;
+        --component-border-radius: 1rem;
+      }
+    }
+    :where(list-view[list-style=inline]) {
+      --list--host-background-color: aliceblue;
+    }
+    :where(list-view[list-style=inset-grouped]) {
+      --list--host-background-color: aliceblue;
+      --list--host-padding-inline: 0.5rem;
+      --component-border-radius: 1rem;
+    }
+    :where(list-view[list-style=sidebar]) {
+      --list--host-padding-inline: 0.5rem;
+      --component-border-radius: 1rem;
+    }
+  }
+  @supports (x: attr(x type(*))) {
+    :where(list-view) {
+      --list-style: attr(list-style type(<custom-ident>), inherit);
+    }
+  }
+}
 @layer sw-components {}
 @layer sw-components {
   :where(section-view > *) {
     display: grid;
+  }
+  :where(section-view:has(~ :not([slot]))) {
+    margin-bottom: 3rem;
+  }
+  :where(section-view:not(section-view section-view))::part(section-footer-stack), :where(section-view:not(section-view section-view))::part(section-header-stack) {
+    position: sticky;
+    outline: red solid 1px;
+    padding-inline: var(--list--host-padding-inline);
+    margin-inline: calc(var(--list--host-padding-inline) * -1);
+  }
+  :where(section-view:not(section-view section-view))::part(section-header-stack) {
+    top: 50px;
+  }
+  :where(section-view:not(section-view section-view))::part(section-main-stack) {
+    background-color: lightsteelblue;
+    border-radius: var(--component-border-radius);
   }
 }
 @layer sw-components {
@@ -1968,6 +2109,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
       place-items: center;
+      place-content: center;
+      border-radius: inherit;
     }
   }
   @media (pointer: fine) {
@@ -1990,7 +2133,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
       place-items: center;
+      place-content: center;
       max-inline-size: max(15vw, 200px);
+      border-radius: inherit;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
@@ -2030,6 +2175,8 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
       place-items: center;
+      place-content: center;
+      border-radius: inherit;
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
@@ -2052,7 +2199,9 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
       place-items: center;
+      place-content: center;
       max-inline-size: max(15vw, 200px);
+      border-radius: inherit;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1 - 150%));
@@ -2671,13 +2820,30 @@ scroll-view [is=form-view], scroll-view list-view, scroll-view [is=form-view] > 
   :where([is=tab-bar]) {
     --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, list-view) {
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
   }
   @media (pointer: fine) {
-    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, list-view) {
+    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     }
+  }
+  :where(list-view) {
+    --componenthighlightface: magenta;
+    --componentactiveface: brown;
+  }
+  :where(list-view [aria-selected=true]) {
+    --componentface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+    --componenthighlightface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+    --componentactiveface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+  }
+  sidebar-toggle,
+  tool-bar-item,
+  [is=tab-item],
+  menu-view,
+  [is=disclosure-group] {
+    --componenthighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --componentactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
 }
 @layer sw-final {

@@ -30,7 +30,8 @@
     --componenttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle, list-view) {
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+    //, list-view) {
     //, [is='form-view'] BREAKS sidebar
     --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     // --componenttext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
@@ -39,5 +40,29 @@
       --componentface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
       // --componenttext: light-dark(var(--primary-label), var(--primary-label-dark));
     }
+  }
+
+  list-view {
+    :where(&) {
+      // --componentface: ;
+      --componenthighlightface: magenta;
+      --componentactiveface: brown;
+    }
+
+    :where(& [aria-selected='true']) {
+      --componentface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      --componenthighlightface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      --componentactiveface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+    }
+  }
+
+  sidebar-toggle,
+  tool-bar-item,
+  [is='tab-item'],
+  // list-view > button,
+  menu-view,
+  [is='disclosure-group'] {
+    --componenthighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --componentactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
 }

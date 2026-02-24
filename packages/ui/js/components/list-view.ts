@@ -1,52 +1,108 @@
 export class ListView extends HTMLElement {
+  static formAssociated = true
+
+  #internals
+
+  #options
+
+  #focusedIndex = 0
+
+  #selected = new Set()
+
   constructor() {
     super()
+
+    // this.#internals = this.attachInternals()
+
+    // this.tabIndex = 0
   }
 
   disconnectedCallback() {
-    //
+    console.debug(`${ListView.name} ⚡️ disconnect`)
   }
 
-  // connectedCallback() {
-  //   if (this.matches(':empty'))
-  //     this.insertAdjacentHTML(
-  //       'beforeend',
-  //       `<button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <details is="disclosure-group">
-  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           </details>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <details is="disclosure-group">
-  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           </details>
-  //           <details is="disclosure-group">
-  //             <summary><label-view system-image="smiley" label="Item GRoup 1"></label-view></summary>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           </details>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>
-  //           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 1"></label-view></button>`
-  //     )
-  // }
+  connectedCallback() {
+    console.debug(`${ListView.name} ⚡️ connect`)
+
+    // this.setAttribute('role', 'listbox')
+    // this.setAttribute('aria-multiselectable', 'true')
+    // this.#options = Array.from(this.querySelectorAll('[option]'))
+
+    // this.addEventListener('click', this.#onClick)
+    // this.addEventListener('keydown', this.#onKeyDown)
+    // this.#updateOptionAttributes()
+  }
+
+  #onClick = (e: Event) => {
+    const option = e.target.closest('[option]')
+    if (!option) return
+    this.#toggleOption(option)
+  }
+
+  #onKeyDown = (e) => {
+    switch (e.key) {
+      case 'ArrowDown':
+        e.preventDefault()
+        this.#focusNext()
+        break
+      case 'ArrowUp':
+        e.preventDefault()
+        this.#focusPrev()
+        break
+      case ' ':
+      case 'Enter':
+        e.preventDefault()
+        this.#toggleOption(this.#options[this.#focusedIndex])
+        break
+      case 'Home':
+        e.preventDefault()
+        this.#focusedIndex = 0
+        this.#updateOptionAttributes()
+        break
+      case 'End':
+        e.preventDefault()
+        this.#focusedIndex = this.#options.length - 1
+        this.#updateOptionAttributes()
+        break
+    }
+  }
+
+  #toggleOption(option) {
+    const value = option.value
+    if (this.#selected.has(value)) {
+      this.#selected.delete(value)
+      option.removeAttribute('aria-selected')
+    } else {
+      this.#selected.add(value)
+      option.setAttribute('aria-selected', 'true')
+    }
+    this.#updateFormValue()
+  }
+
+  #updateFormValue() {
+    const name = this.getAttribute('name')
+    const formData = new FormData()
+    for (const val of this.#selected) {
+      formData.append(name, val)
+    }
+    this.#internals.setFormValue(formData)
+  }
+
+  #focusNext() {
+    this.#focusedIndex = (this.#focusedIndex + 1) % this.#options.length
+    this.#updateOptionAttributes()
+  }
+
+  #focusPrev() {
+    this.#focusedIndex = (this.#focusedIndex - 1 + this.#options.length) % this.#options.length
+    this.#updateOptionAttributes()
+  }
+
+  #updateOptionAttributes() {
+    this.#options.forEach((opt, i) => {
+      opt.tabIndex = i === this.#focusedIndex ? 0 : -1
+      opt.setAttribute('aria-selected', this.#selected.has(opt.value) ? 'true' : 'false')
+      if (i === this.#focusedIndex) opt.scrollIntoView({ block: 'nearest' })
+    })
+  }
 }

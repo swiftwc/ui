@@ -6,5 +6,28 @@
     :where(& > *) {
       display: grid;
     }
+
+    :where(&:has(~ :not([slot]))) {
+      margin-bottom: 3rem;
+    }
+
+    :where(&:not(& &))::part(section-footer-stack),
+    :where(&:not(& &))::part(section-header-stack) {
+      position: sticky;
+
+      outline: red solid 1px;
+
+      padding-inline: var(--list--host-padding-inline);
+      margin-inline: calc(var(--list--host-padding-inline) * -1);
+    }
+
+    :where(&:not(& &))::part(section-header-stack) {
+      top: 50px;
+    }
+
+    :where(&:not(& &))::part(section-main-stack) {
+      background-color: lightsteelblue;
+      border-radius: var(--component-border-radius);
+    }
   }
 }

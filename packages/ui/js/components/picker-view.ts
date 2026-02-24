@@ -45,32 +45,32 @@ export class PickerView extends HTMLElement {
             })
           )
 
-          break
-        case 'compact':
-          PickerView.#templates.set(
-            style,
-            Object.assign(document.createElement('template'), {
-              innerHTML: `
-            <label part="compact-picker">
-              <input type="text" part="compact-input">
-            </label>
-          `,
-            })
-          )
+          //   break
+          // case 'compact':
+          //   PickerView.#templates.set(
+          //     style,
+          //     Object.assign(document.createElement('template'), {
+          //       innerHTML: `
+          //     <label part="compact-picker">
+          //       <input type="text" part="compact-input">
+          //     </label>
+          //   `,
+          //     })
+          //   )
 
-          break
-        case 'fancy':
-          PickerView.#templates.set(
-            style,
-            Object.assign(document.createElement('template'), {
-              innerHTML: `
-            <div part="fancy-picker">
-              <span>Fancy Picker</span>
-              <input type="text" part="fancy-input">
-            </div>
-          `,
-            })
-          )
+          //   break
+          // case 'fancy':
+          //   PickerView.#templates.set(
+          //     style,
+          //     Object.assign(document.createElement('template'), {
+          //       innerHTML: `
+          //     <div part="fancy-picker">
+          //       <span>Fancy Picker</span>
+          //       <input type="text" part="fancy-input">
+          //     </div>
+          //   `,
+          //     })
+          //   )
 
           break
         case 'gg':
@@ -337,7 +337,7 @@ export class PickerView extends HTMLElement {
 
         if ('LIST-VIEW' !== possibleLv?.tagName) possibleLv = this.appendChild(document.createElement('list-view'))
 
-        const sv = document.createElement('list-view')
+        const sv = document.createElement('section-view')
         sv.setAttribute('header', 'dfdfdf')
 
         possibleLv.appendChild(sv)

@@ -86,6 +86,8 @@
       grid-template-columns: minmax(0, 1fr);
 
       column-gap: var(--toolbar-col-gap);
+
+      padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
     }
 
     @include mixins.if-ipad-sheet-fits {

@@ -104,13 +104,13 @@
 
     --pill-border-radius: 99999px;
 
-    --toolbar-col-gap: 0.6rem;
+    --toolbar-col-gap: 0.5rem;
     --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
     --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
-    --toolbar-cell-inline-padding-start: 0.3rem;
-    --toolbar-cell-inline-padding-end: 0.3rem;
-    --toolbar-cell-block-padding-start: 0.3rem;
-    --toolbar-cell-block-padding-end: 0.3rem;
+    --toolbar-cell-inline-padding-start: 0.25rem;
+    --toolbar-cell-inline-padding-end: 0.25rem;
+    --toolbar-cell-block-padding-start: 0.25rem;
+    --toolbar-cell-block-padding-end: 0.25rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
 

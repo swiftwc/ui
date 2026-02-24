@@ -25,6 +25,13 @@ document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ click`)
 
   if (event.target.closest('button')) {
+    if (event.target.closest('.make-list')) {
+      event.target.closest('list-view').removeAttribute('list-style')
+    } else if (event.target.closest('.make-list-inline')) {
+      event.target.closest('list-view').setAttribute('list-style', 'inline')
+    } else if (event.target.closest('.make-list-inset-grouped')) {
+      event.target.closest('list-view').setAttribute('list-style', 'inset-grouped')
+    }
     if (event.target.closest('.bww')) {
       const sv = closestBody(
           [...document.querySelectorAll('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)')][1]

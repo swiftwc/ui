@@ -64,6 +64,8 @@
       :where(& button) {
         min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
         place-items: center;
+        place-content: center;
+        border-radius: inherit;
       }
     }
   }
@@ -108,7 +110,9 @@
       :where(& button) {
         min-inline-size: calc(var(--ipad-tabbar-block-size) + 0.1rem);
         place-items: center;
+        place-content: center;
         max-inline-size: max(15vw, 200px);
+        border-radius: inherit;
       }
     }
   }

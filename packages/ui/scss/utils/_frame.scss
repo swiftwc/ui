@@ -51,6 +51,7 @@
       transition: opacity 250ms ease-out allow-discrete;
       will-change: opacity;
     }
+
     :where([slow='hide']) {
       opacity: 0;
 
@@ -58,6 +59,7 @@
         opacity: 1;
       }
     }
+
     :where([slow='show']) {
       opacity: 1;
 

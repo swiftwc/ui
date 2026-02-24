@@ -80,7 +80,7 @@ export class ToolBar extends HTMLElement {
 
     const parentMap = {
       'navigation-bar': 'navbar',
-      'bottom-bar': 'bottombar',
+      'bottom-bar': 'toolbar', //'bottombar',
     } as const
 
     const { contentRect, target } = entry

@@ -1,12 +1,57 @@
 @use '../vars';
 @use '../placeholders';
+@use 'sass:string';
+
+@mixin set-list-style($value) {
+  @if $value == inline {
+    //
+    --list--host-background-color: aliceblue;
+  } @else if $value == inset-grouped {
+    --list--host-background-color: aliceblue;
+
+    --list--host-padding-inline: 0.5rem;
+    --component-border-radius: 1rem;
+  } @else if $value == sidebar {
+    --list--host-padding-inline: 0.5rem;
+    --component-border-radius: 1rem;
+  }
+}
+
+$list-styles: inline, inset-grouped, sidebar;
 
 @layer #{vars.$components-layer} {
   list-view {
     @extend %list-view;
 
-    :where(& > *) {
-      // display: grid;
+    // vars
+    @supports (x: #{string.unquote('if(else:red)')}) {
+      :where(&) {
+        --list--host-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+
+        --component-border-radius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+      }
+    }
+
+    @supports not (x: #{string.unquote('if(else:red)')}) {
+      :where(&:not([list-style])) {
+        @each $v in $list-styles {
+          @container style(--list-style: #{$v}) {
+            @include set-list-style($v);
+          }
+        }
+      }
+      @each $v in $list-styles {
+        :where(&[list-style='#{$v}']) {
+          @include set-list-style($v);
+        }
+      }
+    }
+
+    // ifs finally
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --list-style: attr(list-style type(<custom-ident>), inherit);
+      }
     }
   }
 }

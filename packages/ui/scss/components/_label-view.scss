@@ -90,14 +90,14 @@
   @return $if-chain;
 }
 
-@mixin if-chain($label) {
-  @container style(--label-font: #{$label}) {
+@mixin if-chain($key, $prop, $label) {
+  @container style(#{$key}: #{$label}) {
     :where(&) {
       @content;
     }
   }
-  @container not style(--label-font: #{$label}) {
-    :where(&[font='#{$label}']) {
+  @container not style(#{$key}: #{$label}) {
+    :where(&[#{$prop}='#{$label}']) {
       @content;
     }
   }
@@ -212,8 +212,8 @@
 
         // ANCHOR: label-style
         --label--host-grid-template-columns: if(
-          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-            minmax(0, 1fr) ;
+          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
+            style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
             else: if(
               style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;)
                 ; else: minmax(0, 1fr) ;
@@ -221,8 +221,8 @@
             ;
         );
         --label--host-grid-template-rows: if(
-          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ; style(--label-style: title-and-icon): auto
-            minmax(0, 1fr) ;
+          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
+            style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
             else: if(
               style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;)
                 ; else: minmax(0, 1fr) ;
@@ -278,7 +278,7 @@
       //   }
       // }
       // @container style(--label--has-icon: yes) and style(--label--has-title: yes) and style(--label-style: automatic) {
-      :where(&) {
+      :where(&:not([label-style])) {
         @container style(--label-style: icon-only) {
           @include set-label-style('h-icon-only');
         }
@@ -289,16 +289,17 @@
           @include set-label-style('h-title-and-icon');
         }
       }
+      :where(&[label-style='title-and-icon']) {
+        @include set-label-style('h-title-and-icon');
+      }
+      :where(&[label-style='title-only']) {
+        @include set-label-style('h-title-only');
+      }
+      :where(&[label-style='icon-only']) {
+        @include set-label-style('h-icon-only');
+      }
       @container not style(--label-style) {
-        :where(&[label-style='title-and-icon']) {
-          @include set-label-style('h-title-and-icon');
-        }
-        :where(&[label-style='title-only']) {
-          @include set-label-style('h-title-only');
-        }
-        :where(&[label-style='icon-only']) {
-          @include set-label-style('h-icon-only');
-        }
+        // @container style(--label-style: automatic) {
         &:not([label-style]) {
           // :where(&[image-hint='yes'][title-hint='yes']) {
           :where(&:has(> [slot='image']):has(> :not([slot]))) {
@@ -315,7 +316,7 @@
         }
       }
       // AGAIN
-      :where(&) {
+      :where(&:not([label-style])) {
         @container style(--label-style: icon-only) and style(--label-flow: vertical) {
           @include set-label-style('v-icon-only');
         }
@@ -326,7 +327,7 @@
           @include set-label-style('v-title-and-icon');
         }
       }
-      @container (not style(--label-style)) and style(--label-flow: vertical) {
+      @container style(--label-flow: vertical) {
         :where(&[label-style='title-and-icon']) {
           @include set-label-style('v-title-and-icon');
         }
@@ -336,6 +337,9 @@
         :where(&[label-style='icon-only']) {
           @include set-label-style('v-icon-only');
         }
+      }
+      @container (not style(--label-style)) and style(--label-flow: vertical) {
+        // @container style(--label-style: automatic) and style(--label-flow: vertical) {
         &:not([label-style]) {
           :where(&:has(> [slot='image']):has(> :not([slot]))) {
             @include set-label-style('v-title-and-icon');
@@ -349,40 +353,18 @@
         }
       }
       //
-      @container style(--label-line-limit: 1) {
-        :where(&) {
-          @include set-label-line-limit(1);
-        }
-      }
-      @container not style(--label-line-limit: 1) {
-        :where(&[line-limit='1']) {
-          @include set-label-line-limit(1);
-        }
-      }
-      @container style(--label-line-limit: 2) {
-        :where(&) {
-          @include set-label-line-limit(2);
-        }
-      }
-      @container not style(--label-line-limit: 2) {
-        :where(&[line-limit='2']) {
-          @include set-label-line-limit(2);
+      @for $i from 1 through 2 {
+        @include if-chain(--label-line-limit, line-limit, $i) {
+          @include set-label-line-limit($i);
         }
       }
       //
-      @container style(--label-truncation-mode: tail) {
-        :where(&) {
-          @include set-label-truncation-mode(tail);
-        }
-      }
-      @container not style(--label-truncation-mode: tail) {
-        :where(&[truncation-mode='tail']) {
-          @include set-label-truncation-mode(tail);
-        }
+      @include if-chain(--label-truncation-mode, truncation-mode, tail) {
+        @include set-label-truncation-mode(tail);
       }
       //
       @each $label, $size in vars.$label-fonts {
-        @include if-chain($label) {
+        @include if-chain(--label-font, font, $label) {
           @include set-label-font($label);
         }
       }
@@ -421,11 +403,10 @@
     }
 
     @supports not (x: #{string.unquote('attr(x type(*))')}) {
-      :where(&[line-limit='1']) {
-        --label-line-limit: 1;
-      }
-      :where(&[line-limit='2']) {
-        --label-line-limit: 2;
+      @for $i from 1 through 2 {
+        :where(&[line-limit='#{$i}']) {
+          --label-line-limit: #{$i};
+        }
       }
       :where(&[truncation-mode='tail']) {
         --label-truncation-mode: tail;

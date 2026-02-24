@@ -1,0 +1,28 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  h-stack {
+    :where(&) {
+      // display: flex;
+      // flex-flow: column wrap;
+      grid-auto-flow: column;
+      grid-template-rows: minmax(0, 1fr);
+
+      place-items: center;
+      place-content: center;
+
+      gap: 1rem;
+    }
+
+    > * {
+      :where(&) {
+        max-height: 100%;
+        // align-self: start;
+      }
+    }
+
+    :where(&[columns='auto minmax(0,1fr) auto auto']) {
+      grid-template-columns: auto minmax(0, 1fr) auto auto;
+    }
+  }
+}

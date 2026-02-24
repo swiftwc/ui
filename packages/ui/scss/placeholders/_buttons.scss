@@ -7,13 +7,15 @@
     --component-padding-block: 20px;
     --component-border-radius: 20px;
     --componentface: chocolate;
+    --componenthighlightface: orange;
+    --componentactiveface: darkred;
   }
 
   %bordered-prominent-btn {
     &:not(:disabled):not([readonly]) {
       :where(&) {
         @include mixins.add-focus-visible-state {
-          --componentface: light-dark(orange, yellow);
+          --componentface: var(--componenthighlightface,);
         }
       }
     }
@@ -22,12 +24,8 @@
 
 @layer #{vars.$ui-layer} {
   %bordered-prominent-btn {
-    &:not(:disabled):not([readonly]) {
-      :where(&) {
-        @include mixins.add-active-state {
-          --componentface: light-dark(red, darkred);
-        }
-      }
+    @include mixins.add-active-state {
+      --componentface: var(--componentactiveface,);
     }
   }
 }

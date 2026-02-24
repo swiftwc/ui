@@ -46,6 +46,8 @@
         grid-template-columns: 1fr auto 1fr;
         pointer-events: all;
 
+        column-gap: var(--toolbar-col-gap);
+
         &::before,
         &::after {
           content: '';
@@ -87,21 +89,21 @@
         }
 
         &::before {
-          inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--navbar-safe-area-inset-left, 0px));
+          inline-size: calc(var(--navbar-padding-inline-start, 0px) + var(--navbar-safe-area-inset-left, 0px) + var(--toolbar-col-gap, 0px));
         }
 
         &::after {
-          inline-size: calc(var(--navbar-padding-inline-end, 0px) + var(--navbar-safe-area-inset-right, 0px));
+          inline-size: calc(var(--navbar-padding-inline-end, 0px) + var(--navbar-safe-area-inset-right, 0px) + var(--toolbar-col-gap, 0px));
         }
       }
 
       &::part(scroll-view-toolbar-stack) {
         &::before {
-          inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px));
+          inline-size: calc(var(--toolbar-padding-inline-start) + var(--toolbar-safe-area-inset-left, 0px) + var(--toolbar-col-gap, 0px));
         }
 
         &::after {
-          inline-size: calc(var(--toolbar-padding-inline-end) + var(--toolbar-safe-area-inset-right, 0px));
+          inline-size: calc(var(--toolbar-padding-inline-end) + var(--toolbar-safe-area-inset-right, 0px) + var(--toolbar-col-gap, 0px));
         }
       }
     }

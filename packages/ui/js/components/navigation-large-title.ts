@@ -2,12 +2,14 @@ import { type ScrollView } from './scroll-view'
 import { Snapshot } from '../snapshot'
 import { slowHideShow } from '../internal/utils'
 
-// const observing = new WeakSet()
+const observing = new WeakSet()
 
 export class NavigationLargeTitle extends HTMLElement {
   #observer?: IntersectionObserver
 
   #sibling?: ScrollView
+
+  #scrollSafetyTimer?: number
 
   constructor() {
     super()
@@ -18,8 +20,11 @@ export class NavigationLargeTitle extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${NavigationLargeTitle.name} ⚡️ disconnect`)
 
-    this.#observer?.unobserve(this)
-    // if (observing.has(this)) observing.delete(this)
+    this.#clearScrollState()
+
+    this.#sibling?.removeEventListener('scroll', this.#handleScroll)
+
+    this.#sibling?.removeEventListener('scrollend', this.#handleScrollend)
   }
 
   connectedCallback() {
@@ -41,31 +46,49 @@ export class NavigationLargeTitle extends HTMLElement {
           threshold: [0, 1],
         })
 
-        this.#observer?.observe(this)
-      })
+        // this.#observer?.observe(this)
 
-      // this.#sibling?.addEventListener('scroll', (event) => {
-      //   if (!observing.has(this)) {
-      //     this.#observer?.observe(this)
-      //     observing.add(this)
-      //   }
-      // })
-      // this.#sibling?.addEventListener('scrollend', (event) => {
-      //   if (observing.has(this)) {
-      //     this.#observer?.unobserve(this)
-      //     observing.delete(this)
-      //   }
-      // })
+        this.#sibling?.addEventListener('scroll', this.#handleScroll)
+
+        this.#sibling?.addEventListener('scrollend', this.#handleScrollend)
+      })
     })
+  }
+
+  #clearScrollState = () => {
+    if (!observing.has(this)) return
+
+    this.#observer?.unobserve(this)
+    observing.delete(this)
+
+    clearTimeout(this.#scrollSafetyTimer)
+    this.#scrollSafetyTimer = undefined
+  }
+
+  #handleScroll = (event: Event) => {
+    if (!observing.has(this)) {
+      this.#observer?.observe(this)
+      observing.add(this)
+    }
+
+    clearTimeout(this.#scrollSafetyTimer) // reset watchdog every scroll event
+
+    this.#scrollSafetyTimer = self.setTimeout(() => this.#clearScrollState, 2000)
+  }
+
+  #handleScrollend = (event: Event) => {
+    this.#clearScrollState()
   }
 
   #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
     console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.[0]?.isIntersecting})`)
 
-    for (const entry of entries) {
-      this.#sibling?.setAttribute('navigation-bar-title-display-mode', entry.isIntersecting ? 'large' : 'inline')
+    for (const { isIntersecting } of entries) {
+      const value = isIntersecting ? 'large' : 'inline'
 
-      if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(entry.isIntersecting ? 'show' : 'hide', this)
+      if (value !== this.#sibling?.getAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', value)
+
+      if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
     }
   }
 }

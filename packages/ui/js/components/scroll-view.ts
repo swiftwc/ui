@@ -186,17 +186,20 @@ export class ScrollView extends HTMLElement {
 
     const el = this.appendChild(
         Object.assign(document.createElement('template'), {
-          innerHTML: `<v-stack alignment="start" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
+          innerHTML: `<v-stack spacing="0" alignment="start" slot="navigation-bar-principal">
+          <label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>
+          <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
+          </v-stack>`,
         }).content.firstElementChild!
       ),
       titleLabel = el.querySelector('label-view:first-child'),
       subtitleLabel = el.querySelector('label-view:last-child')
 
-    if (null !== title) titleLabel?.setAttribute('label', title)
-    else titleLabel?.removeAttribute('label')
+    if (title) titleLabel?.setAttribute('label', title)
+    else titleLabel?.remove()
 
-    if (null !== subtitle) subtitleLabel?.setAttribute('label', subtitle)
-    else subtitleLabel?.removeAttribute('label')
+    if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
+    else subtitleLabel?.remove()
   }
 
   // #handleNavbarPrincipalSlotchange = (event: Event) => {

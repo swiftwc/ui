@@ -10,10 +10,8 @@
       place-content: center;
     }
 
-    > * {
-      :where(&) {
-        max-width: 100%;
-      }
+    :where(& > *) {
+      max-width: 100%;
     }
 
     // > spacer {

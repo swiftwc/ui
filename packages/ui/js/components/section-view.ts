@@ -40,11 +40,11 @@ export class SectionView extends HTMLElement {
       this.#footerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=footer]') ?? undefined
       this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-      this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
-      this.#headerSlot?.addEventListener('slotchange', this.#handleSlotchange)
-      this.#footerSlot?.addEventListener('slotchange', this.#handleSlotchange)
+      // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
+      // this.#headerSlot?.addEventListener('slotchange', this.#handleSlotchange)
+      // this.#footerSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
-      this.#handleSlotchange(new CustomEvent('slotchange'))
+      // this.#handleSlotchange(new CustomEvent('slotchange'))
     })
   }
 
@@ -67,6 +67,7 @@ export class SectionView extends HTMLElement {
           let el2 = assigned2[0] as HTMLElement | undefined
           if (!el2) {
             el2 = document.createElement('span')
+            el2.slot = 'header'
             this.append(el2)
           }
 
@@ -79,6 +80,7 @@ export class SectionView extends HTMLElement {
           let el3 = assigned3[0] as HTMLElement | undefined
           if (!el3) {
             el3 = document.createElement('span')
+            el3.slot = 'footer'
             this.append(el3)
           }
 

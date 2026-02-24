@@ -1,29 +1,100 @@
-%list-view {
-  scroll-view &,
-  scroll-view & > [is='disclosure-group'] {
-    @extend %list-item;
+@use '../vars';
+@use '../mixins';
 
-    // grid-auto-rows: minmax(0, 1fr);
-    grid-template-columns: minmax(0, 1fr);
-  }
-}
+@layer #{vars.$components-layer} {
+  %list-view {
+    // scroll-view &,
+    // scroll-view & > [is='disclosure-group'] {
+    //   @extend %list-item;
 
-%list-item {
-  :where(& > *) {
-    // display: grid;
-  }
+    //   :where(&) {
+    //     // grid-auto-rows: minmax(0, 1fr);
+    //     grid-template-columns: minmax(0, 1fr);
+    //   }
+    // }
 
-  :where(& > *:not([slot])) {
-    // backdrop-filter: var(--liquid-glass-backdrop-filter);
-    // box-shadow: var(--toolbar-cell-box-shadow);
+    // :where(&:not(:has(> section-view))) {
+    //   background-color: lightsteelblue;
+    //   border-radius: 22px;
+    // }
 
-    // min-block-size: 80px; //no!
+    :where(&) {
+      grid-template-columns: var(--list--host-grid-template-columns,);
+    }
 
-    // tfo
-    // transform: var(--toolbar-cell-scale,);§
-    // filter: var(--toolbar-cell-filter,);
-    // opacity: var(--toolbar-cell-opacity,);
+    // root list only gets to add paddings and bg
+    :where(&:not(& &)) {
+      padding-inline: var(--list--host-padding-inline,);
+      padding-block: var(--list--host-padding-block,);
 
-    // min-width: calc(var(--tool-bar-block-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+      background-color: var(--list--host-background-color,);
+      // --list--host-background-color: aliceblue;
+    }
+
+    // force dg(s) to inherit roundness
+    :where(&:not(& &) [is='disclosure-group']) {
+      border-radius: var(--component-border-radius);
+    }
+
+    :where(&:not(& &) [is='disclosure-group'][open]) {
+      background-color: red;
+    }
+
+    &,
+    [is='disclosure-group'] {
+      :where(& > :not(button, [is='disclosure-group'], section-view, summary)) {
+        padding-inline: var(--component-padding-inline,);
+        padding-block: var(--component-padding-block,);
+      }
+    }
+    section-view > text-field:not([slot]) {
+      :where(&) {
+        padding-inline: var(--component-padding-inline,);
+        padding-block: var(--component-padding-block,);
+      }
+    }
+
+    section-view section-view > [slot='header'] {
+      :where(&) {
+        padding-inline: var(--component-padding-inline,);
+        padding-block: var(--component-padding-block,);
+      }
+    }
+
+    :where(& > *, [is='disclosure-group'] > :not(summary), & > section-view > *:not([slot]), section-view section-view > [slot='header']) {
+      position: relative;
+    }
+
+    :where(
+      &:not([columns]) > :has(~ *:not([slot])),
+      &:not([columns]) > section-view > *:not([slot]):has(~ *:not([slot])),
+      [is='disclosure-group'] > :not(summary):has(~ *:not([slot])),
+      section-view section-view > [slot='header']
+    ),
+    :where(&[columns='2'] > :not(:nth-last-child(-n + 2)), &[columns='2'] > section-view > *:not([slot]):not(:nth-last-child(-n + 2))) {
+      &::after {
+        content: '';
+        display: inline-grid;
+        position: absolute;
+        block-size: 5px;
+        // inline-size: 100%;
+        background-color: blue;
+        inset: auto var(--component-padding-inline) 0 calc(var(--component-padding-inline) + 1rem);
+      }
+    }
+
+    :where(&[columns='2']) {
+      --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    :where(&) {
+      // --list--host-padding-inline: 10px;
+      // // --list--host-padding-block: 10px;
+
+      --component-padding-inline: 0.5rem;
+      --component-padding-block: 1rem;
+
+      // --component-border-radius: 1rem;
+    }
   }
 }

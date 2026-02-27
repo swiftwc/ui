@@ -22,10 +22,10 @@
 
       //
       // --componentface: var(--toolbar-cell-bg);
-      // --component-padding-inline: calc(var(--toolbar-cell-inline-padding) * 2);
-      // --component-padding-block: calc(var(--toolbar-cell-block-padding) * 2);
-      --component-border-radius: var(--toolbar-cell-border-radius);
-      --component-border-width: 0;
+      // --componentpadistart: calc(var(--toolbar-cell-inline-padding) * 2);
+      // --componentpadbstart: calc(var(--toolbar-cell-block-padding) * 2);
+      --componentradius: var(--toolbar-cell-border-radius);
+      --componentborder: 0;
     }
 
     :where(&:has([disabled])) {
@@ -88,8 +88,10 @@
 
       > button {
         :where(&) {
-          --component-padding-inline: 0.3rem;
-          --component-padding-block: 0.3rem;
+          --componentpadistart: 0.3rem;
+          --componentpadiend: 0.3rem;
+          --componentpadbstart: 0.3rem;
+          --componentpadbend: 0.3rem;
         }
       }
     }
@@ -99,8 +101,8 @@
   // [is='form-view'] > button {
   //   &:not(:disabled):not([readonly]) {
   //     :where(&) {
-  //       --component-padding-inline: 0.3rem;
-  //       --component-padding-block: 0.3rem;
+  //       --componentpadistart: 0.3rem;
+  //       --componentpadbstart: 0.3rem;
   //     }
   //   }
   // }

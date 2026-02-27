@@ -38,56 +38,25 @@
     <navigation-split-view>
       <dialog is="sidebar-view">
         <scroll-view navigation-inline-title="Mailboxes">
-          <v-stack>
-            <p>All Inboxes</p>
-            <detail is="disclosure-group">
-              <p>Inbox</p>
-              <p>Sent</p>
-              <p>Trash</p>
-              <p>Archive</p>
-            </detail>
+          <v-stack distribution="start" frame-width="infinity">
+            <list-view>
+              <section-view header="Favorites">
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view system-image="smiley" label="All Inboxes"></label-view>
+                  </summary>
+                  <button value="more"><label-view system-image="smiley" label="Account 1"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" label="Account 2"></label-view></button>
+                </details>
+              </section-view>
+              <section-view header="Account 1">
+                <button navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
+                <button value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
+                <button value="more"><label-view system-image="smiley" label="Trash"></label-view></button>
+                <button value="more"><label-view system-image="smiley" label="Archive"></label-view></button>
+              </section-view>
+            </list-view>
             ns1section0<button type="button" class="fw">→</button>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
           </v-stack>
         </scroll-view>
 
@@ -111,6 +80,90 @@
       </sidebar-toggle>
     </navigation-split-view>
 
-    <script type="module" src="/main.js"></script>
+    <template id="inbox">
+      <body-view>
+        <scroll-view navigation-inline-title="Inbox">
+          <v-stack distribution="start" frame-width="infinity">
+            <list-view list-style="inset-grouped">
+              <button navigation-destination="item1">
+                <label-view label="Item 1"></label-view>
+              </button>
+              <button navigation-destination="item2">
+                <label-view label="Item 2"></label-view>
+              </button>
+              <details is="disclosure-group">
+                <summary>
+                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                </summary>
+                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+              </details>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ click`)
+
+        const navDest = event.target.closest('[navigation-destination]')
+
+        // if (event.target.closest('.st')) {
+        //   const sv = closestBody(document.querySelector('#gg')),
+        //     pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+
+        //   await startViewTransition({ target: sv }, 'backwards', async () => {
+        //     modifyDOMbackwards(pr)
+        //   })
+        // }
+
+        if (event.target.closest('.back')) {
+          const sv = closestBody(event.target),
+            { page, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
+            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+
+          const parentScene = closestBody(host?.parentElement ?? undefined) //queryParent(frame)
+
+          if (navDest && parentScene) parentScene.parentElement.inert = true
+
+          await startViewTransition(event, 'backwards', async () => {
+            modifyDOMbackwards(pr)
+          })
+
+          if (navDest && parentScene) {
+            const sv2 = closestBody(parentScene),
+              view2 = getComputedView(sv2)
+
+            await startViewTransition({ target: view2.page }, 'forwards', async () => {
+              modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
+            })
+
+            parentScene.parentElement.inert = false
+          }
+        } else if (navDest) {
+          const sv = closestBody(event.target),
+            view = getComputedView(sv)
+
+          if (navDest)
+            await startViewTransition(event, 'forwards', async () => {
+              modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+            })
+        }
+      })
+    </script>
   </body>
 </html>

@@ -1,13 +1,13 @@
 export class ListView extends HTMLElement {
-  static formAssociated = true
+  // static formAssociated = true
 
-  #internals
+  // #internals
 
-  #options
+  // #options
 
-  #focusedIndex = 0
+  // #focusedIndex = 0
 
-  #selected = new Set()
+  // #selected = new Set()
 
   constructor() {
     super()
@@ -33,76 +33,76 @@ export class ListView extends HTMLElement {
     // this.#updateOptionAttributes()
   }
 
-  #onClick = (e: Event) => {
-    const option = e.target.closest('[option]')
-    if (!option) return
-    this.#toggleOption(option)
-  }
+  // #onClick = (e: Event) => {
+  //   const option = e.target.closest('[option]')
+  //   if (!option) return
+  //   this.#toggleOption(option)
+  // }
 
-  #onKeyDown = (e) => {
-    switch (e.key) {
-      case 'ArrowDown':
-        e.preventDefault()
-        this.#focusNext()
-        break
-      case 'ArrowUp':
-        e.preventDefault()
-        this.#focusPrev()
-        break
-      case ' ':
-      case 'Enter':
-        e.preventDefault()
-        this.#toggleOption(this.#options[this.#focusedIndex])
-        break
-      case 'Home':
-        e.preventDefault()
-        this.#focusedIndex = 0
-        this.#updateOptionAttributes()
-        break
-      case 'End':
-        e.preventDefault()
-        this.#focusedIndex = this.#options.length - 1
-        this.#updateOptionAttributes()
-        break
-    }
-  }
+  // #onKeyDown = (e) => {
+  //   switch (e.key) {
+  //     case 'ArrowDown':
+  //       e.preventDefault()
+  //       this.#focusNext()
+  //       break
+  //     case 'ArrowUp':
+  //       e.preventDefault()
+  //       this.#focusPrev()
+  //       break
+  //     case ' ':
+  //     case 'Enter':
+  //       e.preventDefault()
+  //       this.#toggleOption(this.#options[this.#focusedIndex])
+  //       break
+  //     case 'Home':
+  //       e.preventDefault()
+  //       this.#focusedIndex = 0
+  //       this.#updateOptionAttributes()
+  //       break
+  //     case 'End':
+  //       e.preventDefault()
+  //       this.#focusedIndex = this.#options.length - 1
+  //       this.#updateOptionAttributes()
+  //       break
+  //   }
+  // }
 
-  #toggleOption(option) {
-    const value = option.value
-    if (this.#selected.has(value)) {
-      this.#selected.delete(value)
-      option.removeAttribute('aria-selected')
-    } else {
-      this.#selected.add(value)
-      option.setAttribute('aria-selected', 'true')
-    }
-    this.#updateFormValue()
-  }
+  // #toggleOption(option) {
+  //   const value = option.value
+  //   if (this.#selected.has(value)) {
+  //     this.#selected.delete(value)
+  //     option.removeAttribute('aria-selected')
+  //   } else {
+  //     this.#selected.add(value)
+  //     option.setAttribute('aria-selected', 'true')
+  //   }
+  //   this.#updateFormValue()
+  // }
 
-  #updateFormValue() {
-    const name = this.getAttribute('name')
-    const formData = new FormData()
-    for (const val of this.#selected) {
-      formData.append(name, val)
-    }
-    this.#internals.setFormValue(formData)
-  }
+  // #updateFormValue() {
+  //   const name = this.getAttribute('name')
+  //   const formData = new FormData()
+  //   for (const val of this.#selected) {
+  //     formData.append(name, val)
+  //   }
+  //   this.#internals.setFormValue(formData)
+  // }
 
-  #focusNext() {
-    this.#focusedIndex = (this.#focusedIndex + 1) % this.#options.length
-    this.#updateOptionAttributes()
-  }
+  // #focusNext() {
+  //   this.#focusedIndex = (this.#focusedIndex + 1) % this.#options.length
+  //   this.#updateOptionAttributes()
+  // }
 
-  #focusPrev() {
-    this.#focusedIndex = (this.#focusedIndex - 1 + this.#options.length) % this.#options.length
-    this.#updateOptionAttributes()
-  }
+  // #focusPrev() {
+  //   this.#focusedIndex = (this.#focusedIndex - 1 + this.#options.length) % this.#options.length
+  //   this.#updateOptionAttributes()
+  // }
 
-  #updateOptionAttributes() {
-    this.#options.forEach((opt, i) => {
-      opt.tabIndex = i === this.#focusedIndex ? 0 : -1
-      opt.setAttribute('aria-selected', this.#selected.has(opt.value) ? 'true' : 'false')
-      if (i === this.#focusedIndex) opt.scrollIntoView({ block: 'nearest' })
-    })
-  }
+  // #updateOptionAttributes() {
+  //   this.#options.forEach((opt, i) => {
+  //     opt.tabIndex = i === this.#focusedIndex ? 0 : -1
+  //     opt.setAttribute('aria-selected', this.#selected.has(opt.value) ? 'true' : 'false')
+  //     if (i === this.#focusedIndex) opt.scrollIntoView({ block: 'nearest' })
+  //   })
+  // }
 }

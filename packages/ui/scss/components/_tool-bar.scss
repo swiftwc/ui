@@ -8,6 +8,8 @@
 
       touch-action: none;
 
+      color: var(--text,);
+
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr auto;
       grid-template-areas:

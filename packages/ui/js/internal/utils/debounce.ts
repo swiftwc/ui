@@ -1,8 +1,4 @@
-export default function <F extends (...args: any[]) => any>(
-  fn: F,
-  delay = 300,
-  immediate = false
-): (...args: Parameters<F>) => void {
+export default function <F extends (...args: any[]) => any>(fn: F, delay = 300, immediate = false): (...args: Parameters<F>) => void {
   let timeoutId: ReturnType<typeof setTimeout> | null = null
 
   return function (this: ThisParameterType<F>, ...args: Parameters<F>) {
@@ -12,7 +8,7 @@ export default function <F extends (...args: any[]) => any>(
 
     if (timeoutId) clearTimeout(timeoutId)
 
-    timeoutId = setTimeout(() => {
+    timeoutId = self.setTimeout(() => {
       timeoutId = null
       if (!immediate) fn.apply(context, args)
     }, delay)

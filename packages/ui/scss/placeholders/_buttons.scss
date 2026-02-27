@@ -3,9 +3,11 @@
 
 @layer #{vars.$components-layer} {
   %bordered-prominent-btn {
-    --component-padding-inline: 20px;
-    --component-padding-block: 20px;
-    --component-border-radius: 20px;
+    --componentpadistart: 20px;
+    --componentpadiend: 20px;
+    --componentpadbstart: 20px;
+    --componentpadbend: 20px;
+    --componentradius: 20px;
     --componentface: chocolate;
     --componenthighlightface: orange;
     --componentactiveface: darkred;

@@ -97,13 +97,13 @@
     }
 
     @include mixins.if-2col-split-view-fits {
-      :where(navigation-split-view:not(:has(> dialog[is='sidebar-view'])) > &) {
+      :where(navigation-split-view:not(:has(> [is='sidebar-view'])) > &) {
         display: none;
       }
 
       :where(
-        navigation-split-view:has(> dialog[is='sidebar-view']):not([preferred-compact-column='content']) > &,
-        navigation-split-view:has(> dialog[is='sidebar-view'])[column-visibility='double-column'] > &
+        navigation-split-view:has(> [is='sidebar-view']):not([preferred-compact-column='content']) > &,
+        navigation-split-view:has(> [is='sidebar-view'])[column-visibility='double-column'] > &
       ) {
         display: none;
       }

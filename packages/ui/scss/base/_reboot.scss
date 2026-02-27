@@ -44,9 +44,9 @@
     margin: 0;
     padding: 0;
 
-    background-color: light-dark(var(--primary-bg), var(--primary-bg-dark));
+    background-color: var(--canvas); //light-dark(oklch(var(--primary-bg)), var(--primary-bg-dark));
 
-    color: light-dark(var(--primary-label), var(--primary-label-dark));
+    color: var(--canvastext); //light-dark(var(--primary-label), var(--primary-label-dark));
 
     touch-action: none !important;
   }

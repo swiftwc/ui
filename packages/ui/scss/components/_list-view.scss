@@ -5,15 +5,25 @@
 @mixin set-list-style($value) {
   @if $value == inline {
     //
-    --list--host-background-color: aliceblue;
+    // --list--host-background-color: aliceblue;
+    // --list--separator-block-size: 5px;
   } @else if $value == inset-grouped {
-    --list--host-background-color: aliceblue;
+    // --list--host-background-color: aliceblue;
 
     --list--host-padding-inline: 0.5rem;
-    --component-border-radius: 1rem;
+    --componentradius: 1rem;
+
+    // --list--separator-block-size: 5px;
+    --list--separator-inset-inline-start: calc(var(--componentpadistart) + 0.1rem);
+    --list--separator-inset-inline-end: calc(var(--componentpadiend) + 0.1rem);
   } @else if $value == sidebar {
     --list--host-padding-inline: 0.5rem;
-    --component-border-radius: 1rem;
+    --componentradius: 1rem;
+
+    --list--separator-block-size: 0px;
+    --list--separator-visibility: collapse;
+
+    --list--host-background-color: transparent;
   }
 }
 
@@ -28,7 +38,12 @@ $list-styles: inline, inset-grouped, sidebar;
       :where(&) {
         --list--host-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
 
-        --component-border-radius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+        --componentradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+
+        --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
+        --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
+
+        --list--host-background-color: if(style(--list-style: sidebar): transparent ;);
       }
     }
 

@@ -1,4 +1,5 @@
 import { type ScrollView } from './scroll-view'
+import { $ } from '../internal/utils'
 
 /**
  * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
@@ -57,9 +58,9 @@ export class VKeyboard extends HTMLElement {
 
     const diff = Math.abs(self.outerHeight - (this.#shouldKeyboardBeOpenCallback() ? dvh : fullLvh))
 
-    document.documentElement.style.setProperty('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
-    document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
-    document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
+    $.prop('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`, document.documentElement) //document.documentElement.style.setProperty('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    $.prop('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    $.prop('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
 
     // @ts-expect-error
     if (import.meta?.env?.DEV) {
@@ -83,7 +84,7 @@ export class VKeyboard extends HTMLElement {
   #handleBodyFocusIn = () => {
     console.debug(`${VKeyboard.name} ⚡️ focusin`)
 
-    setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
+    self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
   }
 
   #ifKeyboardScrollIntoActiveElement = () => {

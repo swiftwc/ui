@@ -44,19 +44,19 @@ export class TabView extends HTMLElement {
   }
 
   #addAnimations = (event: Event) => {
-    self.requestAnimationFrame(() => {
-      this.setAttribute('js-aftertabreveal', '')
+    // self.requestAnimationFrame(() => { DO NOT add this it breaks tabbar ipad/iphone, must be instant
+    this.setAttribute('js-aftertabreveal', '')
 
-      if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
+    if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
 
-      this.#afterTabRevealTimer = setTimeout(
-        () => {
-          this.removeAttribute('js-aftertabreveal')
-          this.#afterTabRevealTimer = undefined
-        },
-        cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
-      )
-    })
+    this.#afterTabRevealTimer = self.setTimeout(
+      () => {
+        this.removeAttribute('js-aftertabreveal')
+        this.#afterTabRevealTimer = undefined
+      },
+      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+    )
+    // })
   }
 
   #triggerChangeEvent = (event: Event) => {

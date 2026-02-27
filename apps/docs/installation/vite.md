@@ -91,7 +91,7 @@ document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("fw")) {
       const sv = event.target.closest("scroll-view"),
         root = sv.closest("navigation-stack,navigation-split-view"),
-        lm = sv.parentElement?.matches("dialog[is=sidebar-view]") ? sv.parentElement : sv,
+        lm = sv.parentElement?.matches("[is=sidebar-view]") ? sv.parentElement : sv,
         frame = lm.parentElement;
       await startViewTransition(event, "forwards", async () => {
         let position = "afterend",

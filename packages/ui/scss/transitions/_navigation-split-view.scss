@@ -5,7 +5,7 @@
   @media (prefers-reduced-motion: no-preference) {
     navigation-split-view {
       @include mixins.if-2col-split-view-fits {
-        &:has(> dialog[is='sidebar-view']) {
+        &:has(> [is='sidebar-view']) {
           @include mixins.if-3col-split-view-fits {
             > [is='sidebar-view'] {
               :where(&) {

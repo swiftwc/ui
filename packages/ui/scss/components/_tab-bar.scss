@@ -224,6 +224,11 @@
 
   tab-view > [is='sidebar-view'] > scroll-view {
     @include make-pseudo-tracking-thumb(--tab-view-sidebar-selection); // NOTE: before is already taken!
+
+    :where(&)::after {
+      background-color: white;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    }
   }
 
   @media (prefers-reduced-motion: no-preference) {

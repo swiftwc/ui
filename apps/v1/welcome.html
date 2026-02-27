@@ -34,7 +34,7 @@
       <scroll-view>
         <v-stack distribution="start" frame-width="infinity">
           <label-view padding system-image="globe"></label-view>
-          <list-view>
+          <list-view list-style="inset-grouped">
             <button navigation-destination="lang">
               <label-view label="English"></label-view>
             </button>
@@ -48,7 +48,7 @@
         <scroll-view id="gg">
           <v-stack distribution="start" frame-width="infinity">
             <navigation-title value="Select Your Country or Region" padding></navigation-title>
-            <list-view>
+            <list-view list-style="inset-grouped">
               <button navigation-destination="region">
                 <label-view label="USA"></label-view>
               </button>
@@ -127,7 +127,7 @@
               <text-view> Select the age range </text-view>
             </v-stack>
 
-            <list-view>
+            <list-view list-style="inset-grouped">
               <button navigation-destination="terms">
                 <label-view label="Child"></label-view>
               </button>
@@ -239,7 +239,6 @@
       </body-view>
     </template>
 
-    <!-- <script type="module" src="/main.js"></script> -->
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
       import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'

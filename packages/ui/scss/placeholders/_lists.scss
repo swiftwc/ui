@@ -19,6 +19,8 @@
     // }
 
     :where(&) {
+      position: relative;
+
       grid-template-columns: var(--list--host-grid-template-columns,);
     }
 
@@ -27,46 +29,66 @@
       padding-inline: var(--list--host-padding-inline,);
       padding-block: var(--list--host-padding-block,);
 
-      background-color: var(--list--host-background-color,);
+      background-color: var(--list--host-background-color, var(--face));
       // --list--host-background-color: aliceblue;
     }
 
     // force dg(s) to inherit roundness
     :where(&:not(& &) [is='disclosure-group']) {
-      border-radius: var(--component-border-radius);
+      border-radius: var(--componentradius);
     }
 
+    // force open dg(s) to have diff bg
     :where(&:not(& &) [is='disclosure-group'][open]) {
       background-color: red;
     }
 
+    // pseudo bg for lists w/out section(s)
+    :where(&:not(:has(> section-view)))::before {
+      content: '';
+      position: absolute;
+
+      inset-inline: var(--list--host-padding-inline, 0px);
+      inset-block: var(--list--host-padding-block, 0px);
+
+      border-radius: var(--componentradius);
+
+      background-color: var(--groupedface,);
+
+      pointer-events: none;
+    }
+
+    // wire paddings to all direct children
     &,
     [is='disclosure-group'] {
-      :where(& > :not(button, [is='disclosure-group'], section-view, summary)) {
-        padding-inline: var(--component-padding-inline,);
-        padding-block: var(--component-padding-block,);
+      :where(& > :not(button, [is='disclosure-group'], section-view, summary, sidebar-toggle)) {
+        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
+        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
       }
     }
     section-view > text-field:not([slot]) {
       :where(&) {
-        padding-inline: var(--component-padding-inline,);
-        padding-block: var(--component-padding-block,);
+        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
+        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
       }
     }
 
+    // wire paddings to nested section-header(s)
     section-view section-view > [slot='header'] {
       :where(&) {
-        padding-inline: var(--component-padding-inline,);
-        padding-block: var(--component-padding-block,);
+        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
+        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
       }
     }
 
+    // list-items are relative positioned
     :where(& > *, [is='disclosure-group'] > :not(summary), & > section-view > *:not([slot]), section-view section-view > [slot='header']) {
       position: relative;
     }
 
+    // wire list-separator(s)
     :where(
-      &:not([columns]) > :has(~ *:not([slot])),
+      &:not([columns]) > :has(~ *:not([slot]):not(section-view)),
       &:not([columns]) > section-view > *:not([slot]):has(~ *:not([slot])),
       [is='disclosure-group'] > :not(summary):has(~ *:not([slot])),
       section-view section-view > [slot='header']
@@ -76,10 +98,11 @@
         content: '';
         display: inline-grid;
         position: absolute;
-        block-size: 5px;
+        block-size: var(--list--separator-block-size, 1px);
+        visibility: var(--list--separator-visibility,);
         // inline-size: 100%;
         background-color: blue;
-        inset: auto var(--component-padding-inline) 0 calc(var(--component-padding-inline) + 1rem);
+        inset: auto var(--list--separator-inset-inline-end, 0px) 0 var(--list--separator-inset-inline-start, 0px);
       }
     }
 
@@ -87,14 +110,22 @@
       --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
     }
 
-    :where(&) {
+    // vars
+    :where(&:not([is='tab-bar'] &)) {
       // --list--host-padding-inline: 10px;
       // // --list--host-padding-block: 10px;
 
-      --component-padding-inline: 0.5rem;
-      --component-padding-block: 1rem;
+      --componentpadistart: 1rem;
+      --componentpadiend: 1rem;
+      --componentpadbstart: 1rem;
+      --componentpadbend: 1rem;
 
-      // --component-border-radius: 1rem;
+      // --list--separator-visibility: visible;
+      // --list--separator-block-size: 1px;
+      --list--separator-inset-inline-start: var(--componentpadistart);
+      // --list--separator-inset-inline-end: 5px;
+
+      // --componentradius: 1rem;
     }
   }
 }

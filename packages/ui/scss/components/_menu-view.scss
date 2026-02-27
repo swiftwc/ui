@@ -24,7 +24,7 @@
       overflow: clip auto;
       border-radius: inherit;
 
-      background: light-dark(var(--menu-bg), var(--menu-bg-dark));
+      background-color: light-dark(oklch(var(--menu-bg)), oklch(var(--menu-bg-dark)));
       // border: transparent solid 1px; make sure bezel is not covered
 
       @include mixins.make-scrollable;
@@ -38,6 +38,8 @@
 
     :where(&)::part(menu-dialog) {
       @include mixins.reset-dialog;
+
+      color: var(--text,);
 
       touch-action: none;
 

@@ -40,7 +40,7 @@
       }
     }
 
-    &:has(> dialog[is='sidebar-view']) {
+    &:has(> [is='sidebar-view']) {
       @include mixins.ifnot-3col-split-view-fits {
         &:not([preferred-compact-column='content']) {
           :where(& > body-view > body-view ~ scroll-view) {
@@ -67,9 +67,13 @@
 
     @include mixins.ifnot-2col-split-view-fits {
       &:has(> [is='sidebar-view']) {
-        :where(& > [is='sidebar-view'] > scroll-view) {
-          // --scroll-view-box-shadow: none;
+        :where(& > [is='sidebar-view']) {
+          --list-style: unset;
+          --form-style: unset;
         }
+        // :where(& > [is='sidebar-view'] > scroll-view) {
+        // --scroll-view-box-shadow: none;
+        // }
       }
     }
 
@@ -110,7 +114,7 @@
 
       > scroll-view {
         :where(&) {
-          border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+          border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
           // --scroll-view-box-shadow: none;
         }
       }
@@ -130,7 +134,7 @@
       // ANCHOR 3_COL COMPACT-DEFAULTS
 
       // SIDEBAR | EXPANDED
-      &:has(> dialog[is='sidebar-view']) {
+      &:has(> [is='sidebar-view']) {
         > [is='sidebar-view'] {
           // :where(&) {
           @include mixins.make-floating-sidebar;
@@ -235,7 +239,7 @@
                 }
 
                 :where(& > scroll-view) {
-                  border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+                  border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
                   // --scroll-view-box-shadow: none;
                 }
 
@@ -310,7 +314,7 @@
               }
 
               :where(& > scroll-view) {
-                border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+                border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
                 // --scroll-view-box-shadow: none;
               }
 
@@ -357,7 +361,7 @@
       // ANCHOR 3_COL FOR COMPACT-DEFAULTS
 
       // SIDEBAR | EXPANDED
-      &:has(> dialog[is='sidebar-view']) {
+      &:has(> [is='sidebar-view']) {
         &:not([column-visibility='double-column']) {
           @include mixins.ifnot-3col-split-view-fits {
             &[preferred-compact-column='content'] {

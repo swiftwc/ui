@@ -69,22 +69,25 @@
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
 
-    --nav-split-view-separator-color: oklch(0 0 0);
-    --nav-split-view-separator-color-dark: oklch(1 0 0);
+    --nav-split-view-separator-color: 0 0 0;
+    --nav-split-view-separator-color-dark: 1 0 0;
 
-    --primary-label: oklch(0 0 0);
-    --primary-label-dark: oklch(1 0 0);
-    --secondary-text: oklch(0 0 0);
-    --secondary-text-dark: oklch(1 0 0);
+    --primary-label: 0 0 0;
+    --primary-label-dark: 1 0 0;
+    --secondary-text: 0 0 0;
+    --secondary-text-dark: 1 0 0;
 
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
 
-    --primary-bg: oklch(0.9566 0.0067 286.27);
-    --primary-bg-dark: oklch(0 0 0);
+    --primary-bg: 0.9566 0.0067 286.27;
+    --primary-bg-dark: 0 0 0;
 
-    --secondary-bg: burlywood;
-    --secondary-bg-dark: burlywood;
+    --primary-grouped-bg: 1 0 0; //0.8136 0.0428 255.03;
+    --primary-grouped-bg-dark: 0.8136 0.0428 255.03;
+
+    --secondary-bg: 0.8045 0.0779 73.42;
+    --secondary-bg-dark: 0.8045 0.0779 73.42;
 
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
@@ -94,7 +97,7 @@
     --view-transition-toolbar-cell-offscreen-scale: 0;
 
     --view-transition-dialog-onscreen-y: 0lvh;
-    --view-transition-dialog-onscreen-backdrop-bg: rgb(0 0 0 / 25%);
+    --view-transition-dialog-onscreen-backdrop-bg: oklch(0 0 0 / 25%);
     --view-transition-dialog-offscreen-y: 100lvh;
 
     --view-transition-duration: 500ms;
@@ -103,10 +106,11 @@
     --sidebar-transition-duration: 250ms;
 
     --pill-border-radius: 99999px;
+    --clear: transparent;
 
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark); //oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
@@ -114,15 +118,15 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
 
-    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg: 0 0 0 / 0%;
+    --toolbar-cell-focus-bg-dark: 0 0 0 / 0%;
+    --toolbar-cell-active-bg: 0 0 0 / 0%;
+    --toolbar-cell-active-bg-dark: 0 0 0 / 0%;
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 
-    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --menu-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha);
+    --menu-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark);
     --menu-max-inline-size: 200px;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -135,19 +139,19 @@
     // --touchglass-transition-duration: 15s;
 
     @media (pointer: fine) {
-      --primary-bg: oklch(0.9761 0 0);
-      --primary-bg-dark: oklch(0.2606 0.004 84.58);
+      --primary-bg: 0.9761 0 0;
+      --primary-bg-dark: 0.2606 0.004 84.58;
 
-      --toolbar-cell-bg: oklch(1 0 0);
-      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+      --toolbar-cell-bg: 1 0 0;
+      --toolbar-cell-bg-dark: 0.2871 0.0029 17.33;
 
-      --menu-bg: oklch(1 0 0);
-      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
+      --menu-bg: 1 0 0;
+      --menu-bg-dark: 0.2871 0.0029 17.33;
 
-      --toolbar-cell-focus-bg: lightpink;
-      --toolbar-cell-focus-bg-dark: darkgray;
-      --toolbar-cell-active-bg: gray;
-      --toolbar-cell-active-bg-dark: gray;
+      --toolbar-cell-focus-bg: 0.8474 0.0858 9.09;
+      --toolbar-cell-focus-bg-dark: 0.7348 0 0;
+      --toolbar-cell-active-bg: 0.5999 0 0;
+      --toolbar-cell-active-bg-dark: 0.5999 0 0;
 
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
@@ -176,6 +180,8 @@
       --label-#{$label}-line-height: #{map.get($props, line)};
       --label-#{$label}-font-weight: #{map.get($props, weight)};
     }
+
+    // lists
   }
 
   html:has(color-scheme[dark]) {

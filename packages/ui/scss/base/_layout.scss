@@ -6,8 +6,8 @@
   body-view,
   navigation-stack,
   navigation-split-view,
-  dialog[is='full-screen'],
-  dialog[is='sheet-view'] {
+  [is='full-screen'],
+  [is='sheet-view'] {
     :where(&) {
       position: relative;
 

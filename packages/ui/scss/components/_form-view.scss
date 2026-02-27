@@ -1,12 +1,74 @@
 @use '../vars';
 @use '../placeholders';
+@use 'sass:string';
+
+@mixin set-form-style($value) {
+  @if $value == inline {
+    //
+    // --list--host-background-color: aliceblue;
+    // --list--separator-block-size: 5px;
+    --list--separator-inset-inline-start: 25px;
+    --list--separator-inset-inline-end: 0px;
+  } @else if $value == inset-grouped {
+    // --list--host-background-color: aliceblue;
+
+    --list--host-padding-inline: 0.5rem;
+    --componentradius: 1rem;
+
+    // --list--separator-block-size: 5px;
+    --list--separator-inset-inline-start: 25px;
+    --list--separator-inset-inline-end: 0px;
+  } @else if $value == sidebar {
+    --list--host-padding-inline: 0.5rem;
+    --componentradius: 1rem;
+
+    --list--separator-block-size: 0px;
+    --list--separator-visibility: collapse;
+
+    --list--host-background-color: transparent;
+  }
+}
+
+$form-styles: inline, inset-grouped, sidebar;
 
 @layer #{vars.$components-layer} {
   [is='form-view'] {
     @extend %list-view;
 
-    :where(& > *) {
-      // display: grid;
+    // vars
+    @supports (x: #{string.unquote('if(else:red)')}) {
+      :where(&) {
+        --list--host-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
+
+        --componentradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
+
+        --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
+        --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
+
+        --list--host-background-color: if(style(--form-style: sidebar): transparent ;);
+      }
+    }
+
+    @supports not (x: #{string.unquote('if(else:red)')}) {
+      :where(&:not([form-style])) {
+        @each $v in $form-styles {
+          @container style(--form-style: #{$v}) {
+            @include set-form-style($v);
+          }
+        }
+      }
+      @each $v in $form-styles {
+        :where(&[form-style='#{$v}']) {
+          @include set-form-style($v);
+        }
+      }
+    }
+
+    // ifs finally
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --form-style: attr(form-style type(<custom-ident>), inherit);
+      }
     }
   }
 }

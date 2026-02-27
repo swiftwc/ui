@@ -17,8 +17,8 @@
       border-width: 0;
 
       // tab-item {
-      // --component-padding-inline: var(--toolbar-cell-inline-padding);
-      // --component-padding-block: var(--toolbar-cell-block-padding);
+      // --componentpadistart: var(--toolbar-cell-inline-padding);
+      // --componentpadbstart: var(--toolbar-cell-block-padding);
       // }
     }
 
@@ -28,21 +28,21 @@
 
     //
     // --componentface: white;
-    // --component-padding-inline: 5px;
-    // --component-padding-block: 5px;
-    // --component-border-radius: 99999px;
-    // --component-border-width: 0;
+    // --componentpadistart: 5px;
+    // --componentpadbstart: 5px;
+    // --componentradius: 99999px;
+    // --componentborder: 0;
 
     // button {
     //   // appearance: none;
     //   // -webkit-appearance: none;
     //   // box-shadow: none;
     //   // outline: 0;
-    //   border: var(--component-border-width);
+    //   border: var(--componentborder);
     //   background-color: var(--componentface);
-    //   padding-inline: var(--component-padding-inline);
-    //   padding-block: var(--component-padding-block);
-    //   border-radius: var(--component-border-radius);
+    //   padding-inline: var(--componentpadistart);
+    //   padding-block: var(--componentpadbstart);
+    //   border-radius: var(--componentradius);
     // }
   }
 }

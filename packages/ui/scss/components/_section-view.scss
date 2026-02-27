@@ -3,12 +3,20 @@
 
 @layer #{vars.$components-layer} {
   section-view {
-    :where(& > *) {
-      display: grid;
-    }
+    // :where(& > *) {
+    //   display: grid;
+    // }
 
     :where(&:has(~ :not([slot]))) {
       margin-bottom: 3rem;
+    }
+
+    :where(&:not(& &))::part(section-header-stack) {
+      display: var(--section--headerstack-display, none);
+    }
+
+    :where(&:not(& &))::part(section-footer-stack) {
+      display: var(--section--footerstack-display, none);
     }
 
     :where(&:not(& &))::part(section-footer-stack),
@@ -17,7 +25,8 @@
 
       outline: red solid 1px;
 
-      padding-inline: var(--list--host-padding-inline);
+      padding-inline: calc(var(--list--host-padding-inline, 0px) + var(--componentpadistart, 0px))
+        calc(var(--list--host-padding-inline, 0px) + var(--componentpadiend, 0px));
       margin-inline: calc(var(--list--host-padding-inline) * -1);
     }
 
@@ -26,8 +35,16 @@
     }
 
     :where(&:not(& &))::part(section-main-stack) {
-      background-color: lightsteelblue;
-      border-radius: var(--component-border-radius);
+      background-color: var(--groupedface,);
+      border-radius: var(--componentradius,);
+    }
+
+    :where(&:has(> [slot='header'])) {
+      --section--headerstack-display: grid;
+    }
+
+    :where(&:has(> [slot='footer'])) {
+      --section--footerstack-display: grid;
     }
   }
 }

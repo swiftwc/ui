@@ -56,9 +56,12 @@
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
     "format:check": "prettier . --check",
-    "format:write": "prettier . --write"
+    "format:write": "prettier . --write",
+    "test": "vitest --dom"
   },
   "devDependencies": {
-    "sass": "^1.97.2"
+    "happy-dom": "^20.7.0",
+    "sass": "^1.97.2",
+    "vitest": "^4.0.18"
   }
 }

@@ -288,7 +288,7 @@ type NavigationItem = {
 }
 
 export function resolveDoc(body?: Components.ScrollView): NavigationBody | undefined {
-  const possibleBody = body?.parentElement?.matches('dialog[is=sidebar-view]') ? ((body?.parentElement as Components.SidebarView | null) ?? undefined) : body
+  const possibleBody = body?.parentElement?.matches('[is=sidebar-view]') ? ((body?.parentElement as Components.SidebarView | null) ?? undefined) : body
 
   return possibleBody?.matches('scroll-view,[is=sidebar-view]') ? possibleBody : undefined
 }

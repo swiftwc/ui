@@ -39,9 +39,9 @@
     }
 
     navigation-split-view {
-      &:has(> dialog[is='sidebar-view']) {
+      &:has(> [is='sidebar-view']) {
         @include mixins.if-2col-split-view-fits {
-          :where(& > dialog[is='sidebar-view'][touch-glass]) {
+          :where(& > [is='sidebar-view'][touch-glass]) {
             --sidebar-view-scale: scale(1.02);
             transition-duration: 100ms;
           }

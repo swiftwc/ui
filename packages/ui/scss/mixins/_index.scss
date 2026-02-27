@@ -154,7 +154,7 @@
   }
 
   &:after {
-    background-image: linear-gradient(to #{$dir}, var(--canvas) 0, oklch(0 0 0 / 0%) 100%);
+    background-image: linear-gradient(to #{$dir}, var(--face) 0, oklch(0 0 0 / 0%) 100%);
   }
 }
 

@@ -1,6 +1,6 @@
 import { type TabBar } from './tab-bar'
 import { type SidebarView } from './sidebar-view'
-import { debounce } from '../internal/utils'
+import { debounce, $ } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 
@@ -51,7 +51,7 @@ export class SidebarToggle extends HTMLElement {
 
   private static query(target?: HTMLElement) {
     const container = target?.closest('navigation-split-view,tab-view'),
-      sideBar = container?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
+      sideBar = container?.querySelector<HTMLDialogElement>(':scope > [is=sidebar-view]')
 
     return { container, sideBar }
   }
@@ -71,8 +71,9 @@ export class SidebarToggle extends HTMLElement {
     // const gapProp =
     //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
     //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
-    if (0 < width) tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
-    else tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
+    if (0 < width)
+      $.prop(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`, tv) //tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
+    else $.prop(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], null, tv) //tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
     // }
 
     // auto close IF open
@@ -103,7 +104,7 @@ export class SidebarToggle extends HTMLElement {
         if (
           [
             ...container.querySelectorAll<HTMLElement>(
-              ":scope > sidebar-toggle,:scope > dialog[is=tab-bar] > sidebar-toggle,:scope > [is='sidebar-view'] > tool-bar > sidebar-toggle"
+              ":scope > sidebar-toggle,:scope > [is=tab-bar] > sidebar-toggle,:scope > [is='sidebar-view'] > tool-bar > sidebar-toggle"
             ),
           ].some(({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight)
         )

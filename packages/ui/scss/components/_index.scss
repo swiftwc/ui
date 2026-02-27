@@ -49,7 +49,21 @@
     display: grid;
   }
 
-  // picker-view[picker-style='inline'] > button,
+  // takeovers
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    list-view > button,
+    [is='form-view'] > button,
+    section-view > button,
+    menu-view > button,
+    [is='disclosure-group'] > button,
+    [is='disclosure-group'] > summary
+  ) {
+    display: grid;
+  }
+
   :where(
     sidebar-toggle > button,
     tool-bar-item > button,
@@ -73,7 +87,7 @@
     // }
 
     // all: unset;
-    display: grid;
+
     text-align: unset;
 
     appearance: none;
@@ -83,12 +97,12 @@
 
     // box-shadow: none;
     // outline: 0;
-    border: var(--component-border-width,);
+    border: var(--componentborder,);
     background: var(--componentface,);
-    color: var(--componenttext, var(--canvastext));
-    padding-inline: var(--component-padding-inline,);
-    padding-block: var(--component-padding-block,);
-    border-radius: var(--component-border-radius,);
+    color: var(--componenttext,);
+    padding-inline: var(--componentpadistart,) var(--componentpadiend,);
+    padding-block: var(--componentpadbstart,) var(--componentpadbend,);
+    border-radius: var(--componentradius,);
     min-inline-size: 25px; // NOTE: For inputs overflowing-x
 
     // &:not(:disabled):not([readonly]) {
@@ -128,6 +142,7 @@
       :where(&) {
         @include mixins.add-focus-visible-state {
           --componentface: var(--componenthighlightface,);
+          --componenttext: var(--componenthighlighttext,); // var(--canvastext));
         }
       }
     }
@@ -151,6 +166,7 @@
   :where(menu-view)::part(menu-summary) {
     @include mixins.add-active-state {
       --componentface: var(--componentactiveface,);
+      --componenttext: var(--componentactivetext,); // var(--canvastext));
     }
   }
 }

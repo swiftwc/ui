@@ -1,5 +1,5 @@
 import { Snapshot } from '../snapshot'
-import { touchGlass } from '../internal/utils'
+import { touchGlass, $ } from '../internal/utils'
 
 export class MenuView extends HTMLElement {
   static observedAttributes = ['open', 'closing', 'label']
@@ -55,8 +55,8 @@ export class MenuView extends HTMLElement {
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
 
-    summaryPart?.style.removeProperty('anchor-name')
-    dialogPart?.style.removeProperty('position-anchor')
+    $.prop('anchor-name', null, summaryPart) //summaryPart?.style.removeProperty('anchor-name')
+    $.prop('position-anchor', null, dialogPart) //dialogPart?.style.removeProperty('position-anchor')
 
     this.#cleanup?.()
   }
@@ -93,8 +93,8 @@ export class MenuView extends HTMLElement {
       const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
         dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
 
-      summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all
-      dialogPart?.style.setProperty('position-anchor', newAnchorName)
+      $.prop('anchor-name', newAnchorName, summaryPart, 'important') //summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all
+      $.prop('position-anchor', newAnchorName, dialogPart) //dialogPart?.style.setProperty('position-anchor', newAnchorName)
     })
   }
 

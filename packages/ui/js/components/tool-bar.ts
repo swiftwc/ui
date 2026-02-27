@@ -1,5 +1,6 @@
 import { Snapshot } from '../snapshot'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { $ } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
@@ -97,6 +98,6 @@ export class ToolBar extends HTMLElement {
 
     const prop = `--${parentMap[parentPart]}-padding-${side}`
 
-    ;(this.#scrollView as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
+    $.prop(prop, `${Math.round(contentRect.width)}px`, this.#scrollView as HTMLElement) //;(this.#scrollView as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
   }
 }

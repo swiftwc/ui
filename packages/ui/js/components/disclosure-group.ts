@@ -1,7 +1,7 @@
 import { DetailsBase } from '../internal/privateNamespace'
 // import { cssTime } from '../internal/utils'
-// import { Snapshot } from '../snapshot'
-import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { Snapshot } from '../snapshot'
+// import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 
 // const observers = new ResizeObserverSingleton()
 
@@ -40,9 +40,9 @@ export class DisclosureGroup extends DetailsBase {
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
     console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
-    if (CSS.supports('interpolate-size', 'allow-keywords')) return
+    el.removeEventListener('click', DisclosureGroup.#handleClick)
 
-    // el.removeEventListener('click', DisclosureGroup.#handleClick)
+    if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
     // observers.unobserve(el)
   }
@@ -50,37 +50,58 @@ export class DisclosureGroup extends DetailsBase {
   static polyfillConnectedCallback(el: DisclosureGroup) {
     console.debug(`${DisclosureGroup.name} ⚡️ connect`)
 
-    if (CSS.supports('interpolate-size', 'allow-keywords')) return
+    Snapshot.waitReady.then(() => el.addEventListener('click', DisclosureGroup.#handleClick))
 
-    // Snapshot.waitReady.then(() => el.addEventListener('click', DisclosureGroup.#handleClick))
+    if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
-  // static #handleClick = async (event: Event) => {
-  //   console.debug(`${DisclosureGroup.name} ⚡️ ${event?.type}`)
+  static #handleClick = async (event: Event) => {
+    console.debug(`${DisclosureGroup.name} ⚡️ ${event?.type}`)
 
-  //   if (!(event.target as HTMLElement).closest('summary')) return
+    const summary = (event.target as HTMLElement).closest('summary')
+    if (!summary) return
 
-  //   const el = (event.target as HTMLElement).closest<HTMLDetailsElement>('details')
-  //   if (!el) return
+    if (!summary.querySelector('button')) return // skip logic if no button inside summary
 
-  //   const wasOpen = el.open // will close after this event
+    const details = (event.target as HTMLElement).closest<HTMLDetailsElement>('details')
+    if (!details) return
 
-  //   el.inert = true
+    const btn = (event.target as HTMLElement).closest('button')
 
-  //   if (wasOpen) {
-  //     el.classList.add(Snapshot.config!['disclosure-group-animation-close-class'])
+    if (btn) details.toggleAttribute('open')
 
-  //     event.preventDefault()
-  //     event.stopPropagation()
-  //     event.stopImmediatePropagation()
-  //   }
+    event.preventDefault()
 
-  //   await new Promise((r) => setTimeout(r, cssTime(`${el.computedStyleMap().get(Snapshot.config!['disclosure-group-animation-duration-css-prop'])}`)))
+    //     if (summary) {
+    //       event.preventDefault()
 
-  //   el.inert = false
+    //       if (btn) {
+    //         summary.closest('details').toggleAttribute('open')
+    //       } else {
+    //         summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+    //       }
+    //     } else if (btn) {
+    //       btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
+    //     }
 
-  //   if (wasOpen) el.open = false
-  // }
+    //   const wasOpen = el.open // will close after this event
+
+    //   el.inert = true
+
+    //   if (wasOpen) {
+    //     el.classList.add(Snapshot.config!['disclosure-group-animation-close-class'])
+
+    //     event.preventDefault()
+    //     event.stopPropagation()
+    //     event.stopImmediatePropagation()
+    //   }
+
+    //   await new Promise((r) => setTimeout(r, cssTime(`${el.computedStyleMap().get(Snapshot.config!['disclosure-group-animation-duration-css-prop'])}`)))
+
+    //   el.inert = false
+
+    //   if (wasOpen) el.open = false
+  }
 
   static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
     console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)

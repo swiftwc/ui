@@ -16,8 +16,8 @@
         <button class="make-list" list="">
           <label-view label="Reset"></label-view>
         </button>
-        <button class="make-list" list="inline">
-          <label-view label="Inline"></label-view>
+        <button class="make-list" list="inset">
+          <label-view label="Inset"></label-view>
         </button>
         <button class="make-list" list="inset-grouped">
           <label-view label="Inset Grouped"></label-view>
@@ -29,7 +29,14 @@
       <p>w/ details</p>
       <list-view>
         <details is="disclosure-group">
-          <summary><label-view system-image="smiley" label="Item Group 1"></label-view></summary>
+          <summary>
+            <h-stack>
+              <label-view system-image="smiley" label="Item Group 1"></label-view>
+              <button type="button" tabindex="0">
+                <label-view system-image="smiley" label="Item Group 1"></label-view>
+              </button>
+            </h-stack>
+          </summary>
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 2"></label-view></button>
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 3"></label-view></button>
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4"></label-view></button>
@@ -58,6 +65,37 @@
             </list-view>
           </whatever-name>
         </details>
+      </list-view>
+      <p>mixed</p>
+      <list-view>
+        <button>
+          <label-view system-image="smiley" label="Item 1"></label-view>
+        </button>
+        <button>
+          <label-view system-image="smiley" label="Item 2"></label-view>
+        </button>
+        <button>
+          <label-view system-image="smiley" label="Item 3"></label-view>
+        </button>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+        </details>
+        <section-view header="Personal Info">
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+        </section-view>
       </list-view>
       <p>w/ controls</p>
       <list-view>
@@ -381,7 +419,7 @@
 
     <navigation-stack>
       <scroll-view>
-        <h-stack columns="repeat(4,minmax(0,1fr))">
+        <h-stack columns="repeat(4,minmax(0,1fr))" style="place-items: start">
           <v-stack distribution="start" frame-width="infinity" style="background-color: white">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
@@ -392,7 +430,7 @@
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>
           </v-stack>
-          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+          <v-stack distribution="start" frame-width="infinity">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>
@@ -427,6 +465,18 @@
 
       for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
         el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
+
+      document.addEventListener('click', (event) => {
+        const btn = event.target.closest('button'),
+          summary = event.target.closest('summary')
+
+        if (summary) {
+          // event.preventDefault()
+          if (!btn) summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+        } else if (btn) {
+          btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
+        }
+      })
     </script>
   </body>
 </html>

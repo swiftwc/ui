@@ -3,7 +3,11 @@
 @use 'sass:string';
 
 @mixin set-form-style($value) {
-  @if $value == inline {
+  @if $value == inset {
+    --list--item-border-radius: var(--insetform-item-border-radius);
+
+    --list--host-padding-inline: var(--insetform-padding-inline);
+    --list--host-padding-block: var(--insetform-padding-block);
     //
     // // --list--root-background-color: aliceblue;
     // // --list--separator-block-size: 5px;
@@ -12,6 +16,10 @@
   } @else if $value == inset-grouped {
     --list--item-border-radius: var(--insetform-item-border-radius);
 
+    --list--host-background-color: darkgray; //var(--groupedface);
+
+    --list--host-padding-inline: var(--insetgroupedform-padding-inline);
+    --list--host-padding-block: var(--insetgroupedform-padding-block);
     // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
     //
     // // --list--root-background-color: aliceblue;
@@ -27,10 +35,15 @@
 
     --list--details-gap: var(--form-gap);
 
-    --list--rootsummary-pading-inline-start: 0px;
-    --list--rootsummary-pading-inline-end: 0px;
-    --list--rootsummary-pading-block-start: 0px;
-    --list--rootsummary-pading-block-start: 0px;
+    --list--rootsummary-padding-inline-start: 5px;
+    --list--rootsummary-padding-inline-end: 5px;
+    --list--rootsummary-padding-block-start: 2px;
+    --list--rootsummary-padding-block-start: 2px;
+
+    --list--item-padding-inline-start: 5px;
+    --list--item-padding-inline-end: 5px;
+    --list--item-padding-block-start: 5px;
+    --list--item-padding-block-start: 5px;
 
     --list--item-background-color: transparent;
     --list--rootsummary-background-color: transparent;
@@ -59,10 +72,10 @@
       :where(&) {
         --list--section-gap: var(--form-gap);
 
-        --list--item-pading-inline-start: var(--form-item-pading-inline-start);
-        --list--item-pading-inline-end: var(--form-item-pading-inline-end);
-        --list--item-pading-block-start: var(--form-item-pading-block-start);
-        --list--item-pading-block-end: var(--form-item-pading-block-end);
+        --list--item-padding-inline-start: var(--form-item-padding-inline-start);
+        --list--item-padding-inline-end: var(--form-item-padding-inline-end);
+        --list--item-padding-block-start: var(--form-item-padding-block-start);
+        --list--item-padding-block-end: var(--form-item-padding-block-end);
 
         --list--item-background-color: var(--list-item-background-color,);
       }

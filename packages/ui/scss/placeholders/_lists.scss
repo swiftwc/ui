@@ -4,9 +4,17 @@
 @layer #{vars.$components-layer} {
   %list {
     > * {
-      // box-shadow: inset 0 0 3px red;
-      // outline: 3px red dotted;
+      // box-shadow: inset 0 0 0.5px red;
+      // outline: 0.5px red dotted;
     }
+
+    :where(&) {
+      background-color: var(--list--host-background-color,);
+
+      padding-inline: var(--list--host-padding-inline,);
+      padding-block: var(--list--host-padding-block,);
+    }
+
     // itemize
     > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
@@ -24,51 +32,51 @@
     // SECTION: wire gaps
     :not([slot], section-view) ~ section-view {
       :where(&) {
-        padding-top: var(--list--section-gap,);
+        padding-block-start: var(--list--section-gap,);
       }
     }
     section-view:not([slot]) ~ section-view {
       :where(&) {
-        padding-top: calc(var(--list--section-gap, 0px) / 2);
+        padding-block-start: var(--list--section-gap,);
       }
     }
     section-view:has(~ :not([slot], section-view)) {
       :where(&) {
-        padding-bottom: var(--list--section-gap,);
+        padding-block-end: var(--list--section-gap,);
       }
     }
-    section-view:has(~ section-view:not([slot])) {
-      :where(&) {
-        padding-bottom: calc(var(--list--section-gap, 0px) / 2);
-      }
-    }
+    // section-view:has(~ section-view:not([slot])) {
+    //   :where(&) {
+    // padding-bottom: calc(var(--list--section-gap, 0px) / 2);
+    //   }
+    // }
     :not([slot], [is='disclosure-group']) ~ [is='disclosure-group'] {
       :where(&) {
-        margin-top: var(--list--details-gap,);
+        margin-block-start: var(--list--details-gap,);
       }
     }
     [is='disclosure-group']:not([slot]) ~ [is='disclosure-group'] {
       :where(&) {
-        margin-top: calc(var(--list--details-gap, 0px) / 2);
+        margin-block-start: calc(var(--list--details-gap, 0px) / 2);
       }
     }
     [is='disclosure-group']:has(~ :not([slot], [is='disclosure-group'])) {
       :where(&) {
-        margin-bottom: var(--list--details-gap,);
+        margin-block-end: var(--list--details-gap,);
       }
     }
     [is='disclosure-group']:has(~ [is='disclosure-group']:not([slot])) {
       :where(&) {
-        margin-bottom: calc(var(--list--details-gap, 0px) / 2);
+        margin-block-end: calc(var(--list--details-gap, 0px) / 2);
       }
     }
 
     // SECTION: wire paddings
     :where(&) {
-      --itempadistart: var(--list--item-pading-inline-start,);
-      --itempadiend: var(--list--item-pading-inline-end,);
-      --itempadbstart: var(--list--item-pading-block-start,);
-      --itempadbend: var(--list--item-pading-block-end,);
+      --itempadistart: var(--list--item-padding-inline-start,);
+      --itempadiend: var(--list--item-padding-inline-end,);
+      --itempadbstart: var(--list--item-padding-block-start,);
+      --itempadbend: var(--list--item-padding-block-end,);
 
       --itemradius: var(--list--item-border-radius,);
 
@@ -79,10 +87,10 @@
 
     [is='disclosure-group'] > summary {
       :where(&) {
-        --itempadistart: var(--list--rootsummary-pading-inline-start, var(--list--item-pading-inline-start,));
-        --itempadiend: var(--list--rootsummary-pading-inline-end, var(--list--item-pading-inline-end,));
-        --itempadbstart: var(--list--rootsummary-pading-block-start, var(--list--item-pading-block-start,));
-        --itempadbend: var(--list--rootsummary-pading-block-end, var(--list--item-pading-block-end,));
+        --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
+        --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
+        --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
+        --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
 
         --itemradius: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
 
@@ -92,10 +100,10 @@
       }
     }
 
-    // SECTION: overwrite borders
-    > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name),
-    section-view > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name) {
+    // SECTION: add borders
+    > :not([slot]) ~ :not([slot]),
+    section-view > :not([slot]) ~ :not([slot]),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
       :where(&) {
         position: relative;
 
@@ -103,8 +111,9 @@
           content: '';
           position: absolute;
           inset: 0 1rem auto 1rem;
-          height: 2px;
+          height: 1px;
           background: var(--list--separator-background-color, var(--separator));
+          pointer-events: none;
         }
       }
     }
@@ -372,6 +381,11 @@
       @include mixins.add-active-state {
         --itemface: var(--itemactiveface,);
         --itemtext: var(--itemactivetext,);
+      }
+
+      &[aria-selected='true'] {
+        --itemface: blue;
+        --itemtext: white;
       }
     }
   }

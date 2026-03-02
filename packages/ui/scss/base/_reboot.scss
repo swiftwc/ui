@@ -33,6 +33,40 @@
     user-select: none;
   }
 
+  button,
+  select {
+    text-transform: none;
+  }
+
+  button,
+  input,
+  optgroup,
+  select,
+  textarea {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    // color: inherit;
+  }
+
+  [role='button'],
+  button {
+    text-align: unset;
+
+    appearance: none;
+    -webkit-appearance: none;
+  }
+
+  [role='button'],
+  summary,
+  button {
+    cursor: pointer;
+  }
+
   body {
     display: grid;
     grid-template-rows: 1fr;

@@ -23,7 +23,8 @@
   h-stack,
   tool-bar,
   label-view,
-  menu-view {
+  menu-view,
+  section-view {
     :where(&:not([hidden])) {
       display: grid;
     }
@@ -45,7 +46,9 @@
   ::part(scroll-view-toolbar),
   ::part(scroll-view-navbar-stack),
   ::part(scroll-view-toolbar-stack),
-  ::part(section-main-stack) {
+  ::part(section-header-stack),
+  ::part(section-main-stack),
+  ::part(section-footer-stack) {
     display: grid;
   }
 
@@ -64,17 +67,15 @@
     display: grid;
   }
 
+  // componetize
   :where(
     sidebar-toggle > button,
     tool-bar-item > button,
     tool-bar-item > input,
     [is='tab-item'],
-    list-view > button,
-    [is='form-view'] > button,
-    section-view > button,
     menu-view > button,
-    [is='disclosure-group'] > button,
-    [is='disclosure-group'] > summary,
+    tool-bar-item [is='disclosure-group'] > button,
+    tool-bar-item [is='disclosure-group'] > summary,
     [is='bordered-prominent']
   ),
   :where(menu-view)::part(menu-summary) {
@@ -87,86 +88,110 @@
     // }
 
     // all: unset;
+    //.....
 
-    text-align: unset;
+    // text-align: unset;
 
-    appearance: none;
-    -webkit-appearance: none;
+    // appearance: none;
+    // -webkit-appearance: none;
+
+    //.....
     // place-items: center;
     // place-content: center;
 
     // box-shadow: none;
     // outline: 0;
-    border: var(--componentborder,);
-    background: var(--componentface,);
-    color: var(--componenttext,);
-    padding-inline: var(--componentpadistart,) var(--componentpadiend,);
-    padding-block: var(--componentpadbstart,) var(--componentpadbend,);
-    border-radius: var(--componentradius,);
+    border: var(--toolbaritemborder,);
+    background: var(--toolbaritemface,);
+    color: var(--toolbaritemtext,);
+    padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+    padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
+    border-radius: var(--toolbaritemradius,);
     min-inline-size: 25px; // NOTE: For inputs overflowing-x
-
-    // &:not(:disabled):not([readonly]) {
-    //   &:focus-visible {
-    //     background-color: var(--toolbar-cell-focus-bg);
-    //   }
-    //   // order matters! BEFORE active
-    //   @media (pointer: fine) {
-    //     &:hover {
-    //       background-color: var(--toolbar-cell-focus-bg);
-    //     }
-    //   }
-    //   // order matters! AFTER hover/fvisible
-    //   &:active {
-    //     background-color: var(--toolbar-cell-active-bg);
-    //   }
-    // }
   }
+
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     :where(&) {
+  //       border: var(--itemborder,);
+  //       background: var(--itemface,);
+  //       color: var(--itemtext,);
+  //       padding-inline: var(--itempadistart,) var(--itempadiend,);
+  //       padding-block: var(--itempadbstart,) var(--itempadbend,);
+  //       border-radius: var(--itemradius,);
+  //     }
+  //   }
+  // }
 }
 
 @layer #{vars.$colors-layer} {
-  :where(
-    sidebar-toggle > button,
-    tool-bar-item > button,
-    tool-bar-item > input,
-    [is='tab-item'],
-    list-view > button,
-    [is='form-view'] > button,
-    section-view > button,
-    menu-view > button,
-    [is='disclosure-group'] > button,
-    [is='disclosure-group'] > summary,
-    [is='bordered-prominent']
-  ),
-  :where(menu-view)::part(menu-summary) {
-    &:not(:disabled):not([readonly]) {
-      :where(&) {
-        @include mixins.add-focus-visible-state {
-          --componentface: var(--componenthighlightface,);
-          --componenttext: var(--componenthighlighttext,); // var(--canvastext));
-        }
-      }
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is='tab-item'],
+  menu-view > button,
+  tool-bar-item [is='disclosure-group'] > button,
+  tool-bar-item [is='disclosure-group'] > summary,
+  [is='bordered-prominent'] {
+    @include mixins.add-highlight-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
   }
+  menu-view {
+    @include mixins.add-highlight-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+  }
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     @include mixins.add-highlight-state {
+  //       --itemface: var(--itemhighlightface,);
+  //       --itemtext: var(--itemhighlighttext,);
+  //     }
+  //   }
+  // }
 }
 
 @layer #{vars.$ui-layer} {
-  :where(
-    sidebar-toggle > button,
-    tool-bar-item > button,
-    tool-bar-item > input,
-    [is='tab-item'],
-    list-view > button,
-    [is='form-view'] > button,
-    section-view > button,
-    menu-view > button,
-    [is='disclosure-group'] > button,
-    [is='disclosure-group'] > summary,
-    [is='bordered-prominent']
-  ),
-  :where(menu-view)::part(menu-summary) {
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is='tab-item'],
+  menu-view > button,
+  tool-bar-item [is='disclosure-group'] > button,
+  tool-bar-item [is='disclosure-group'] > summary,
+  [is='bordered-prominent'] {
     @include mixins.add-active-state {
-      --componentface: var(--componentactiveface,);
-      --componenttext: var(--componentactivetext,); // var(--canvastext));
+      --toolbaritemface: var(--toolbaritemactiveface,);
+      --toolbaritemtext: var(--toolbaritemactivetext,);
     }
   }
+  menu-view {
+    @include mixins.add-active-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemactiveface,);
+      --toolbaritemtext: var(--toolbaritemactivetext,);
+    }
+  }
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     @include mixins.add-active-state {
+  //       --itemface: var(--itemactiveface,);
+  //       --itemtext: var(--itemactivetext,);
+  //     }
+  //   }
+  // }
 }

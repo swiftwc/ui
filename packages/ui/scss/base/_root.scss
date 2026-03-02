@@ -77,8 +77,14 @@
     --secondary-text: 0 0 0;
     --secondary-text-dark: 1 0 0;
 
+    --tint: oklch(0.5325 0.1899 257.12);
+    --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
+    --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
+
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
+
+    --separator: oklch(0.9249 0 0);
 
     --primary-bg: 0.9566 0.0067 286.27;
     --primary-bg-dark: 0 0 0;
@@ -182,6 +188,30 @@
     }
 
     // lists
+    --list-gap: 3rem;
+
+    --form-gap: 3rem;
+
+    --list-item-pading-inline-start: 1rem;
+    --list-item-pading-inline-end: 1rem;
+    --list-item-pading-block-start: 1rem;
+    --list-item-pading-block-start: 1rem;
+
+    --form-item-pading-inline-start: 1rem;
+    --form-item-pading-inline-end: 1rem;
+    --form-item-pading-block-start: 1rem;
+    --form-item-pading-block-start: 1rem;
+
+    --list-item-background-color: white;
+    --insetlist-item-border-radius: 1rem;
+
+    --form-item-background-color: white;
+    --insetform-item-border-radius: 1rem;
+
+    // --list-item-border-radius: 1rem;
+    // @media (pointer: fine) {
+    //   --list-item-border-radius: 0.5rem;
+    // }
   }
 
   html:has(color-scheme[dark]) {

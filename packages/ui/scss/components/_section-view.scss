@@ -3,12 +3,42 @@
 
 @layer #{vars.$components-layer} {
   section-view {
+    :where(&) {
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: 0.1px auto minmax(max-content, 1fr) auto;
+      grid-template-areas:
+        'sentinel'
+        'header'
+        'main'
+        'footer';
+    }
+
+    :where(&)::part(section-header-stack),
+    :where(&)::part(section-footer-stack) {
+      // padding-block: 5px;
+    }
+
+    :where(&)::part(section-header-stack) {
+      grid-area: header;
+    }
+
+    :where(&)::part(section-main-stack) {
+      grid-area: main;
+    }
+
+    :where(&)::part(section-footer-stack) {
+      grid-area: footer;
+    }
     // :where(& > *) {
     //   display: grid;
     // }
 
-    :where(&:has(~ :not([slot]))) {
-      margin-bottom: 3rem;
+    // :where(&:has(~ :not([slot]))) {
+    //   margin-bottom: 3rem;
+    // }
+
+    :where(&)::part(section-header-stack) {
+      order: -1;
     }
 
     :where(&:not(& &))::part(section-header-stack) {
@@ -21,23 +51,35 @@
 
     :where(&:not(& &))::part(section-footer-stack),
     :where(&:not(& &))::part(section-header-stack) {
+      pointer-events: none;
+
       position: sticky;
 
-      outline: red solid 1px;
+      // outline: red solid 1px;
 
-      padding-inline: calc(var(--list--host-padding-inline, 0px) + var(--componentpadistart, 0px))
-        calc(var(--list--host-padding-inline, 0px) + var(--componentpadiend, 0px));
-      margin-inline: calc(var(--list--host-padding-inline) * -1);
+      padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--toolbaritempadistart, 0px))
+        calc(var(--list--root-padding-inline, 0px) + var(--toolbaritempadiend, 0px));
+
+      margin-inline: calc(var(--list--root-padding-inline) * -1);
     }
+
+    // :where(&:not(& &) [slot='header'] span) {
+    //   backdrop-filter: blur(10px);
+    // }
 
     :where(&:not(& &))::part(section-header-stack) {
-      top: 50px;
+      top: var(--navigation-bar-block-size);
+
+      // background: rgba(255, 255, 255, 0.5);
+
+      text-shadow: 0 0 5px var(--face);
     }
 
-    :where(&:not(& &))::part(section-main-stack) {
-      background-color: var(--groupedface,);
-      border-radius: var(--componentradius,);
-    }
+    // :where(&:not(& &))::part(section-main-stack) {
+    //   background-color: var(--groupedface,);
+
+    //   border-radius: var(--toolbaritemradius,);
+    // }
 
     :where(&:has(> [slot='header'])) {
       --section--headerstack-display: grid;

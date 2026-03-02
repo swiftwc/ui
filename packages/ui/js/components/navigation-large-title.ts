@@ -86,7 +86,9 @@ export class NavigationLargeTitle extends HTMLElement {
     for (const { isIntersecting } of entries) {
       const value = isIntersecting ? 'large' : 'inline'
 
-      if (value !== this.#sibling?.getAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', value)
+      if (value === this.#sibling?.getAttribute('navigation-bar-title-display-mode')) break
+
+      this.#sibling?.setAttribute('navigation-bar-title-display-mode', value)
 
       if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
     }

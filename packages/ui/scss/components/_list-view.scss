@@ -5,67 +5,98 @@
 @mixin set-list-style($value) {
   @if $value == inline {
     //
-    // --list--host-background-color: aliceblue;
+    // --list--root-background-color: aliceblue;
     // --list--separator-block-size: 5px;
   } @else if $value == inset-grouped {
-    // --list--host-background-color: aliceblue;
+    --list--item-border-radius: var(--insetlist-item-border-radius);
 
-    --list--host-padding-inline: 0.5rem;
-    --componentradius: 1rem;
+    // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
 
-    // --list--separator-block-size: 5px;
-    --list--separator-inset-inline-start: calc(var(--componentpadistart) + 0.1rem);
-    --list--separator-inset-inline-end: calc(var(--componentpadiend) + 0.1rem);
+    //
+    // // --list--root-background-color: aliceblue;
+
+    // --list--root-padding-inline: 0.5rem;
+    // // --toolbaritemradius: var(--list-item-border-radius);
+
+    // // --list--separator-block-size: 5px;
+    // --list--separator-inset-inline-start: calc(var(--toolbaritempadistart) + 0.1rem);
+    // --list--separator-inset-inline-end: calc(var(--toolbaritempadiend) + 0.1rem);
   } @else if $value == sidebar {
-    --list--host-padding-inline: 0.5rem;
-    --componentradius: 1rem;
+    --list--item-border-radius: var(--insetlist-item-border-radius);
 
-    --list--separator-block-size: 0px;
-    --list--separator-visibility: collapse;
+    --list--details-gap: var(--list-gap);
 
-    --list--host-background-color: transparent;
+    --list--rootsummary-pading-inline-start: 0px;
+    --list--rootsummary-pading-inline-end: 0px;
+    --list--rootsummary-pading-block-start: 0px;
+    --list--rootsummary-pading-block-start: 0px;
+
+    --list--item-background-color: transparent;
+    --list--rootsummary-background-color: transparent;
+    --list--rootsummary-border-radius: 0px;
+
+    --list--separator-background-color: transparent;
+    //
+    // --list--root-padding-inline: 0.5rem;
+    // // --toolbaritemradius: var(--list-item-border-radius);
+    // --list--separator-block-size: 0px;
+    // --list--separator-visibility: collapse;
+    // // --list--root-background-color: transparent;
+    // --face: transparent; // --groupedface: transparent;
   }
 }
 
-$list-styles: inline, inset-grouped, sidebar;
-
 @layer #{vars.$components-layer} {
   list-view {
-    @extend %list-view;
+    &:not(& &, [is='form-view'] &) {
+      @extend %list;
 
-    // vars
-    @supports (x: #{string.unquote('if(else:red)')}) {
+      // wire
       :where(&) {
-        --list--host-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+        --list--section-gap: var(--list-gap);
 
-        --componentradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+        --list--item-pading-inline-start: var(--list-item-pading-inline-start);
+        --list--item-pading-inline-end: var(--list-item-pading-inline-end);
+        --list--item-pading-block-start: var(--list-item-pading-block-start);
+        --list--item-pading-block-end: var(--list-item-pading-block-end);
 
-        --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
-        --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
-
-        --list--host-background-color: if(style(--list-style: sidebar): transparent ;);
+        --list--item-background-color: var(--list-item-background-color,);
       }
-    }
 
-    @supports not (x: #{string.unquote('if(else:red)')}) {
-      :where(&:not([list-style])) {
-        @each $v in $list-styles {
-          @container style(--list-style: #{$v}) {
+      // vars
+      @supports (x: #{string.unquote('if(else:red)')}) {
+        :where(&) {
+          --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+
+          --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+
+          --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
+          --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
+
+          --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
+        }
+      }
+
+      @supports not (x: #{string.unquote('if(else:red)')}) {
+        :where(&:not([list-style])) {
+          @each $v in vars.$list-styles {
+            @container style(--list-style: #{$v}) {
+              @include set-list-style($v);
+            }
+          }
+        }
+        @each $v in vars.$list-styles {
+          :where(&[list-style='#{$v}']) {
             @include set-list-style($v);
           }
         }
       }
-      @each $v in $list-styles {
-        :where(&[list-style='#{$v}']) {
-          @include set-list-style($v);
-        }
-      }
-    }
 
-    // ifs finally
-    @supports (x: #{string.unquote('attr(x type(*))')}) {
-      :where(&) {
-        --list-style: attr(list-style type(<custom-ident>), inherit);
+      // ifs finally
+      @supports (x: #{string.unquote('attr(x type(*))')}) {
+        :where(&) {
+          --list-style: attr(list-style type(<custom-ident>), inherit);
+        }
       }
     }
   }

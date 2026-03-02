@@ -8,6 +8,9 @@
 
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
+
+      // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+      // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
     }
 
     :where(&)::part(text-field-stack) {

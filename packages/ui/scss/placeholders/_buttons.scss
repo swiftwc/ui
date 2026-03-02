@@ -3,23 +3,19 @@
 
 @layer #{vars.$components-layer} {
   %bordered-prominent-btn {
-    --componentpadistart: 20px;
-    --componentpadiend: 20px;
-    --componentpadbstart: 20px;
-    --componentpadbend: 20px;
-    --componentradius: 20px;
-    --componentface: chocolate;
-    --componenthighlightface: orange;
-    --componentactiveface: darkred;
+    --toolbaritempadistart: 20px;
+    --toolbaritempadiend: 20px;
+    --toolbaritempadbstart: 20px;
+    --toolbaritempadbend: 20px;
+    --toolbaritemradius: 20px;
+    --toolbaritemface: chocolate;
+    --toolbaritemhighlightface: orange;
+    --toolbaritemactiveface: darkred;
   }
 
   %bordered-prominent-btn {
-    &:not(:disabled):not([readonly]) {
-      :where(&) {
-        @include mixins.add-focus-visible-state {
-          --componentface: var(--componenthighlightface,);
-        }
-      }
+    @include mixins.add-highlight-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
     }
   }
 }
@@ -27,7 +23,7 @@
 @layer #{vars.$ui-layer} {
   %bordered-prominent-btn {
     @include mixins.add-active-state {
-      --componentface: var(--componentactiveface,);
+      --toolbaritemface: var(--toolbaritemactiveface,);
     }
   }
 }

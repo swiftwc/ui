@@ -77,7 +77,8 @@ export class PickerView extends HTMLElement {
           PickerView.#templates.set(
             style,
             Object.assign(document.createElement('template'), {
-              innerHTML: `<label part="root text-field-stack">
+              innerHTML: `
+      <label part="root text-field-stack">
       <div part="root text-field-label-stack">
         <slot name="label"></slot>
       </div>
@@ -98,7 +99,8 @@ export class PickerView extends HTMLElement {
           PickerView.#templates.set(
             style,
             Object.assign(document.createElement('template'), {
-              innerHTML: `<label part="root text-field-stack">
+              innerHTML: `
+          <label part="root text-field-stack">
           <div part="root text-field-label-stack">
             <slot name="label"></slot>
           </div>

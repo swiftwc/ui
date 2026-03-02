@@ -5,69 +5,102 @@
 @mixin set-form-style($value) {
   @if $value == inline {
     //
-    // --list--host-background-color: aliceblue;
-    // --list--separator-block-size: 5px;
-    --list--separator-inset-inline-start: 25px;
-    --list--separator-inset-inline-end: 0px;
+    // // --list--root-background-color: aliceblue;
+    // // --list--separator-block-size: 5px;
+    // --list--separator-inset-inline-start: 25px;
+    // --list--separator-inset-inline-end: 0px;
   } @else if $value == inset-grouped {
-    // --list--host-background-color: aliceblue;
+    --list--item-border-radius: var(--insetform-item-border-radius);
 
-    --list--host-padding-inline: 0.5rem;
-    --componentradius: 1rem;
+    // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
+    //
+    // // --list--root-background-color: aliceblue;
 
-    // --list--separator-block-size: 5px;
-    --list--separator-inset-inline-start: 25px;
-    --list--separator-inset-inline-end: 0px;
+    // --list--root-padding-inline: 0.5rem;
+    // // --toolbaritemradius: var(--list-item-border-radius);
+
+    // // --list--separator-block-size: 5px;
+    // --list--separator-inset-inline-start: 25px;
+    // --list--separator-inset-inline-end: 0px;
   } @else if $value == sidebar {
-    --list--host-padding-inline: 0.5rem;
-    --componentradius: 1rem;
+    --list--item-border-radius: var(--insetform-item-border-radius);
 
-    --list--separator-block-size: 0px;
-    --list--separator-visibility: collapse;
+    --list--details-gap: var(--form-gap);
 
-    --list--host-background-color: transparent;
+    --list--rootsummary-pading-inline-start: 0px;
+    --list--rootsummary-pading-inline-end: 0px;
+    --list--rootsummary-pading-block-start: 0px;
+    --list--rootsummary-pading-block-start: 0px;
+
+    --list--item-background-color: transparent;
+    --list--rootsummary-background-color: transparent;
+    --list--rootsummary-border-radius: 0px;
+
+    --list--separator-background-color: transparent;
+    //
+    // --list--root-padding-inline: 0.5rem;
+    // // --toolbaritemradius: var(--list-item-border-radius);
+
+    // --list--separator-block-size: 0px;
+    // --list--separator-visibility: collapse;
+
+    // // --list--root-background-color: transparent;
+    // --face: transparent;
+    // --groupedface: transparent;
   }
 }
 
-$form-styles: inline, inset-grouped, sidebar;
-
 @layer #{vars.$components-layer} {
   [is='form-view'] {
-    @extend %list-view;
+    &:not(& &, list-view &, [is='tab-bar'] > &) {
+      @extend %list;
 
-    // vars
-    @supports (x: #{string.unquote('if(else:red)')}) {
+      // wire
       :where(&) {
-        --list--host-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
+        --list--section-gap: var(--form-gap);
 
-        --componentradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
+        --list--item-pading-inline-start: var(--form-item-pading-inline-start);
+        --list--item-pading-inline-end: var(--form-item-pading-inline-end);
+        --list--item-pading-block-start: var(--form-item-pading-block-start);
+        --list--item-pading-block-end: var(--form-item-pading-block-end);
 
-        --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
-        --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
-
-        --list--host-background-color: if(style(--form-style: sidebar): transparent ;);
+        --list--item-background-color: var(--list-item-background-color,);
       }
-    }
 
-    @supports not (x: #{string.unquote('if(else:red)')}) {
-      :where(&:not([form-style])) {
-        @each $v in $form-styles {
-          @container style(--form-style: #{$v}) {
+      // vars
+      @supports (x: #{string.unquote('if(else:red)')}) {
+        :where(&) {
+          --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
+
+          --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
+
+          --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
+          --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
+
+          --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
+        }
+      }
+
+      @supports not (x: #{string.unquote('if(else:red)')}) {
+        :where(&:not([form-style])) {
+          @each $v in vars.$form-styles {
+            @container style(--form-style: #{$v}) {
+              @include set-form-style($v);
+            }
+          }
+        }
+        @each $v in vars.$form-styles {
+          :where(&[form-style='#{$v}']) {
             @include set-form-style($v);
           }
         }
       }
-      @each $v in $form-styles {
-        :where(&[form-style='#{$v}']) {
-          @include set-form-style($v);
-        }
-      }
-    }
 
-    // ifs finally
-    @supports (x: #{string.unquote('attr(x type(*))')}) {
-      :where(&) {
-        --form-style: attr(form-style type(<custom-ident>), inherit);
+      // ifs finally
+      @supports (x: #{string.unquote('attr(x type(*))')}) {
+        :where(&) {
+          --form-style: attr(form-style type(<custom-ident>), inherit);
+        }
       }
     }
   }

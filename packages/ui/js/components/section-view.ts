@@ -8,11 +8,13 @@ export class SectionView extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<div part="root section-header-stack">
-    <slot name="header"></slot>
-  </div>
+        innerHTML: `
   <div part="root section-main-stack">
     <slot></slot>
+  </div>
+  <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
+  <div part="root section-header-stack">
+    <slot name="header"></slot>
   </div>
   <div part="root section-footer-stack">
     <slot name="footer"></slot>
@@ -24,9 +26,17 @@ export class SectionView extends HTMLElement {
 
   #shadowRoot
 
-  #headerSlot?: HTMLSlotElement
-  #footerSlot?: HTMLSlotElement
-  #slot?: HTMLSlotElement
+  // #headerSlot?: HTMLSlotElement
+  // #footerSlot?: HTMLSlotElement
+  // #slot?: HTMLSlotElement
+
+  #observer?: IntersectionObserver
+
+  #sibling?: HTMLElement
+  #sentinel?: HTMLElement
+
+  #sentinelIsIntersecting: boolean = false
+  #isIntersecting: boolean = false
 
   constructor() {
     super()
@@ -36,9 +46,11 @@ export class SectionView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
 
-      this.#headerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=header]') ?? undefined
-      this.#footerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=footer]') ?? undefined
-      this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
+      // this.#headerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=header]') ?? undefined
+      // this.#footerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=footer]') ?? undefined
+      // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
+
+      this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
 
       // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
       // this.#headerSlot?.addEventListener('slotchange', this.#handleSlotchange)
@@ -50,10 +62,34 @@ export class SectionView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${SectionView.name} ⚡️ disconnect`)
+
+    if (this.#sentinel) this.#observer?.unobserve(this.#sentinel)
+
+    this.#observer?.unobserve(this)
   }
 
   connectedCallback() {
     console.debug(`${SectionView.name} ⚡️ connect`)
+
+    this.#sibling = this.closest('scroll-view') ?? undefined
+
+    Snapshot.waitReady.then(() => {
+      // NOTE: Required or BREAKS transitions
+      self.requestAnimationFrame(() => {
+        const blockSizeProp = `${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0',
+          blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+
+        this.#observer = new IntersectionObserver(this.#handleIntersect, {
+          root: this.#sibling,
+          rootMargin: `-${blockSize}px 0px 0px 0px`,
+          threshold: [0, 1],
+        })
+
+        if (this.#sentinel) this.#observer.observe(this.#sentinel)
+
+        this.#observer.observe(this)
+      })
+    })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -62,52 +98,86 @@ export class SectionView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'header':
-          const assigned2 = this.#headerSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+          for (const el of this.querySelectorAll(':scope>[slot=header]')) el.remove()
 
-          let el2 = assigned2[0] as HTMLElement | undefined
-          if (!el2) {
-            el2 = document.createElement('span')
-            el2.slot = 'header'
-            this.append(el2)
-          }
+          const header = this.appendChild(
+              Object.assign(document.createElement('template'), {
+                innerHTML: `<header slot="header">
+                <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
+                </header>`,
+              }).content.firstElementChild!
+            ),
+            headerLabel = header.querySelector('label-view')
 
-          el2.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          if (newValue) headerLabel?.setAttribute('label', newValue)
+          else header?.remove()
 
           break
         case 'footer':
-          const assigned3 = this.#footerSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+          for (const el of this.querySelectorAll(':scope>[slot=footer]')) el.remove()
 
-          let el3 = assigned3[0] as HTMLElement | undefined
-          if (!el3) {
-            el3 = document.createElement('span')
-            el3.slot = 'footer'
-            this.append(el3)
-          }
+          const footer = this.appendChild(
+              Object.assign(document.createElement('template'), {
+                innerHTML: `<footer slot="footer">
+                  <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
+                  </footer>`,
+              }).content.firstElementChild!
+            ),
+            footerLabel = footer.querySelector('label-view')
 
-          el3.textContent = newValue //el3.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+          if (newValue) footerLabel?.setAttribute('label', newValue)
+          else footer?.remove()
+          // const assigned3 = this.#footerSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+
+          // let el3 = assigned3[0] as HTMLElement | undefined
+          // if (!el3) {
+          //   el3 = document.createElement('span')
+          //   el3.slot = 'footer'
+          //   this.append(el3)
+          // }
+
+          // el3.textContent = newValue //el3.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
           break
       }
     })
   }
 
-  #handleSlotchange = (event: Event) => {
-    console.debug(`${SectionView.name} ⚡️ ${event?.type}`)
+  #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
+    console.debug(`${SectionView.name} ⚡️ intersect (${entries?.length})`)
 
-    this.setAttribute(
-      'header-hint',
-      (this.#headerSlot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
-        .length > 0
-        ? 'yes'
-        : 'no'
-    )
-    this.setAttribute(
-      'footer-hint',
-      (this.#footerSlot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
-        .length > 0
-        ? 'yes'
-        : 'no'
-    )
-    this.setAttribute('main-hint', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
+    for (const {
+      target: { tagName },
+      isIntersecting,
+    } of entries) {
+      if (tagName === 'SECTION-VIEW') this.#isIntersecting = isIntersecting
+      if (tagName !== 'SECTION-VIEW') this.#sentinelIsIntersecting = isIntersecting
+    }
+
+    this.toggleAttribute('js-stuck', this.#isIntersecting && !this.#sentinelIsIntersecting)
   }
+
+  // #handleSlotchange = (event: Event) => {
+  //   console.debug(`${SectionView.name} ⚡️ ${event?.type}`)
+
+  //   // const assigned = this.#headerSlot?.assignedElements({ flatten: true })?.[0] ?? undefined
+
+  //   // if (assigned) this.#observer.observe(this.#shadowRoot.querySelector('.sticky-sentinel'))
+
+  //   // this.setAttribute(
+  //   //   'header-hint',
+  //   //   (this.#headerSlot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
+  //   //     .length > 0
+  //   //     ? 'yes'
+  //   //     : 'no'
+  //   // )
+  //   // this.setAttribute(
+  //   //   'footer-hint',
+  //   //   (this.#footerSlot?.assignedNodes({ flatten: true }) ?? []).filter((node) => (node.nodeType === Node.TEXT_NODE ? node.textContent?.trim() !== '' : true))
+  //   //     .length > 0
+  //   //     ? 'yes'
+  //   //     : 'no'
+  //   // )
+  //   // this.setAttribute('main-hint', (this.#slot?.assignedNodes({ flatten: true }) ?? []).length > 0 ? 'yes' : 'no')
+  // }
 }

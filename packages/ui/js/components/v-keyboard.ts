@@ -62,16 +62,6 @@ export class VKeyboard extends HTMLElement {
     $.prop('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
     $.prop('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
 
-    // @ts-expect-error
-    if (import.meta?.env?.DEV) {
-      // @ts-expect-error
-      document.querySelector('#console0').innerHTML = `${this.#shouldKeyboardBeOpenCallback()} (${diff}) (${self.innerHeight}) (${fullLvh}) (${dvh})`
-      // @ts-expect-error
-      document.querySelector('#console').hidePopover()
-      // @ts-expect-error
-      document.querySelector('#console').showPopover()
-    }
-
     self.scrollTo(0, 0)
   }
 

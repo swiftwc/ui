@@ -12,7 +12,7 @@ export class ScrollView extends HTMLElement {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
         innerHTML: `
-        <slot></slot>
+  <slot></slot>
   <div part="root scroll-view-navbar">
     <div part="root scroll-view-navbar-stack">
       <slot name="navigation-bar-principal"></slot>

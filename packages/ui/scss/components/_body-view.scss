@@ -7,11 +7,11 @@
   //   }
   // }
 
-  detail[is='tooltip'] {
-    :where(&, & > summary) {
-      display: grid;
-      grid-template-columns: subgrid; // inherits columns from container
-      grid-template-rows: subgrid; // inherits rows if needed
-    }
-  }
+  // detail[is='tooltip'] {
+  //   :where(&, & > summary) {
+  //     display: grid;
+  //     grid-template-columns: subgrid; // inherits columns from container
+  //     grid-template-rows: subgrid; // inherits rows if needed
+  //   }
+  // }
 }

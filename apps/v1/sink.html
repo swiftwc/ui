@@ -129,6 +129,21 @@
             </button>
           </h-stack>
         </details>
+        <h-stack columns="auto minmax(0,1fr) auto auto">
+          <button class="make-list-inset-grouped">
+            <label-view label="Item 3"></label-view>
+          </button>
+          <v-stack spacing="0">
+            <label-view label="Item 3"></label-view>
+            <label-view label="Item 3"></label-view>
+          </v-stack>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+        </h-stack>
       </list-view>
       <p>2-grid</p>
       <list-view columns="2">
@@ -147,6 +162,17 @@
           <button type="button" tabindex="0" option="5"><label-view system-image="smiley" label="Item 4b"></label-view></button>
           <button type="button" tabindex="0" option="6"><label-view system-image="smiley" label="Item 4c"></label-view></button>
         </details>
+        <button class="make-list-inset-grouped" option="3">
+          <label-view label="Item 3"></label-view>
+        </button>
+        <details is="disclosure-group">
+          <summary aria-selected="true">
+            <label-view system-image="smiley" label="Item Group 4"></label-view>
+          </summary>
+          <button type="button" tabindex="0" option="4"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+          <button type="button" tabindex="0" option="5" aria-selected="true"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+          <button type="button" tabindex="0" option="6"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+        </details>
       </list-view>
       <p>bare picker outside form</p>
       <picker-view placeholder="here" label="inline1" picker-style="inline">
@@ -158,16 +184,16 @@
           <option value="50" label="Very Generous"></option>
         </datalist>
       </picker-view>
-      <p>...</p>
+      <p>list w/ buttons</p>
       <list-view>
         <button>
-          <label-view label="Item 1"></label-view>
+          <label-view system-image="smiley" label="Item 1"></label-view>
         </button>
         <button>
-          <label-view label="Item 2"></label-view>
+          <label-view system-image="smiley" label="Item 2"></label-view>
         </button>
         <button>
-          <label-view label="Item 3"></label-view>
+          <label-view system-image="smiley" label="Item 3"></label-view>
         </button>
         <details is="disclosure-group">
           <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
@@ -176,10 +202,9 @@
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
         </details>
       </list-view>
-      <p>...</p>
+      <p>list w/ sections</p>
       <list-view>
-        <section-view>
-          <header slot="header">Section 1</header>
+        <section-view header="Section 1" footer="All is required">
           <button>
             <label-view label="Item 1"></label-view>
           </button>
@@ -195,10 +220,8 @@
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
           </details>
-          <footer slot="footer">All is required</footer>
         </section-view>
-        <section-view>
-          <header slot="header">Section 2</header>
+        <section-view header="Section 2" footer="All is required">
           <button>
             <label-view label="Item 1"></label-view>
           </button>
@@ -214,19 +237,17 @@
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
             <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
           </details>
-          <footer slot="footer">All is required</footer>
         </section-view>
       </list-view>
-      <p>Textfields</p>
+      <p>form w/ Textfields</p>
       <form is="form-view">
         <text-field placeholder="here" label="Name"></text-field>
         <text-field placeholder="here" label="Name"></text-field>
         <text-field placeholder="here" label="Name"></text-field>
       </form>
-      <p>Sectioned Textfields</p>
+      <p>form w/ 2 sectioned Textfields</p>
       <form is="form-view">
-        <section-view>
-          <header slot="header">Personal Info</header>
+        <section-view header="Personal Info">
           <text-field placeholder="here" label="Name"></text-field>
           <text-field placeholder="here" label="Name"></text-field>
           <text-field placeholder="here" label="Name"></text-field>
@@ -239,24 +260,35 @@
             <text-field placeholder="here" label="Name"></text-field>
           </details>
         </section-view>
-      </form>
-      <form is="form-view">
         <section-view>
-          <header slot="header">Personal Info</header>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <footer slot="footer">All is required</footer>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 5"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 6"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
         </section-view>
       </form>
+      <p>form w/ 1 sectioned Textfields</p>
       <form is="form-view">
-        <section-view>
-          <header slot="header">Personal Info</header>
+        <section-view header="Personal Info" footer="All is required">
           <text-field placeholder="here" label="Name"></text-field>
-          <footer slot="footer">All is required</footer>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
         </section-view>
-        <section-view>
-          <header slot="header">Personal Info1</header>
+      </form>
+      <p>form w/ sectioned Textfields+Pickers</p>
+      <form is="form-view">
+        <section-view header="Personal Info" footer="All is required">
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
           <picker-view placeholder="here" label="inline1" picker-style="inline">
             <datalist slot="list">
               <option value="0" label="0%"></option>
@@ -309,17 +341,12 @@
           <text-field placeholder="here" label="Name"></text-field>
           <text-field placeholder="here" label="Name"></text-field>
           <text-field placeholder="here" label="Name"></text-field>
-          <footer slot="footer">All is required</footer>
         </section-view>
-        <section-view>
-          <header slot="header">Personal Info</header>
+        <section-view header="Personal Info" footer="All is required">
           <select is="picker"></select>
-          <footer slot="footer">All is required</footer>
         </section-view>
-        <section-view>
-          <header slot="header">Personal Info</header>
+        <section-view header="Personal Info" footer="All is required">
           <button is="picker">bgbgbg</button>
-          <footer slot="footer">All is required</footer>
         </section-view>
       </form>
     </template>
@@ -335,11 +362,6 @@
     <div id="dv" inert></div>
     <div id="sv" inert></div>
     <div id="lv" inert></div> -->
-
-    <div id="console" popover="manual" inert>
-      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
-      <span id="console4"></span>
-    </div>
 
     <tab-view>
       <!-- Prefer compact col = make sidebar retractable on compact layouts ONLY on 3col layouts (no double-cols) -->

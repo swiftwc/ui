@@ -34,6 +34,9 @@ $ipad-portrait-bp: 43rem !default;
 $ipad-landscape-bp: 68rem !default;
 
 // SECTION: Defaults
+$list-styles: inline, inset-grouped, sidebar;
+$form-styles: inline, inset-grouped, sidebar;
+
 $label-fonts: (
   footnote: (
     size: 1rem,

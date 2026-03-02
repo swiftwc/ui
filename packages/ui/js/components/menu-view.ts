@@ -9,7 +9,8 @@ export class MenuView extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<button part="root menu-summary">
+        innerHTML: `
+  <button part="root menu-summary">
     <slot name="label"></slot>
   </button>
   <dialog part="root menu-dialog" autofocus inert>

@@ -93,6 +93,12 @@
         }
       }
     }
+
+    &:has(list-view section-view[js-stuck], [is='form-view'] section-view[js-stuck]) {
+      :where(&) {
+        --navbar-backdrop-inset-block-end: -25px;
+      }
+    }
   }
 
   @include mixins.if-ipad-sheet-fits {

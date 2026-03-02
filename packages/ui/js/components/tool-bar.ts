@@ -11,7 +11,8 @@ export class ToolBar extends HTMLElement {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
         // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
-        innerHTML: `<div part="root navigation-bar">
+        innerHTML: `
+    <div part="root navigation-bar">
     <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
       <slot name="navigation-bar-leading"></slot>
     </div>

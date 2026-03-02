@@ -141,7 +141,7 @@
     backface-visibility: hidden;
 
     content: '';
-    inset: 0;
+    inset: 0 0 var(--navbar-backdrop-inset-block-end, 0) 0;
     position: absolute;
     pointer-events: none;
 
@@ -158,14 +158,18 @@
   }
 }
 
-@mixin add-focus-visible-state($selector: '') {
-  &:focus-visible#{$selector} {
-    @content;
-  }
+@mixin add-highlight-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &:focus-visible#{$selector} {
+        @content;
+      }
 
-  @media (pointer: fine) {
-    &:hover#{$selector} {
-      @content;
+      @media (pointer: fine) {
+        &:hover#{$selector} {
+          @content;
+        }
+      }
     }
   }
 }

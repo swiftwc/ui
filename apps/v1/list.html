@@ -1,0 +1,432 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>list</title>
+    <template id="template">
+      <h-stack>
+        <button class="make-list" list="">
+          <label-view label="Reset"></label-view>
+        </button>
+        <button class="make-list" list="inline">
+          <label-view label="Inline"></label-view>
+        </button>
+        <button class="make-list" list="inset-grouped">
+          <label-view label="Inset Grouped"></label-view>
+        </button>
+        <button class="make-list" list="sidebar">
+          <label-view label="Sidebar"></label-view>
+        </button>
+      </h-stack>
+      <p>w/ details</p>
+      <list-view>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 1"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 2"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 3"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4"></label-view></button>
+          <whatever-name>
+            <list-view>
+              <section-view>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 5"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 6"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 7"></label-view></button>
+              </section-view>
+            </list-view>
+          </whatever-name>
+        </details>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 2"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 2"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 3"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4"></label-view></button>
+          <whatever-name>
+            <list-view>
+              <section-view>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 5"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 6"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 7"></label-view></button>
+              </section-view>
+            </list-view>
+          </whatever-name>
+        </details>
+      </list-view>
+      <p>w/ controls</p>
+      <list-view>
+        <h-stack columns="auto minmax(0,1fr) auto auto">
+          <button>
+            <label-view label="Item 1"></label-view>
+          </button>
+          <v-stack spacing="0">
+            <label-view label="Item 1"></label-view>
+            <label-view label="Item 1"></label-view>
+          </v-stack>
+          <button>
+            <label-view label="Item 1"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 1"></label-view>
+          </button>
+        </h-stack>
+        <h-stack columns="auto minmax(0,1fr) auto auto">
+          <button>
+            <label-view label="Item 2"></label-view>
+          </button>
+          <v-stack spacing="0">
+            <label-view label="Item 2"></label-view>
+            <label-view label="Item 2"></label-view>
+          </v-stack>
+          <button>
+            <label-view label="Item 2"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 2"></label-view>
+          </button>
+        </h-stack>
+        <h-stack columns="auto minmax(0,1fr) auto auto">
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <v-stack spacing="0">
+            <label-view label="Item 3"></label-view>
+            <label-view label="Item 3"></label-view>
+          </v-stack>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+        </h-stack>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+          <h-stack columns="auto minmax(0,1fr) auto auto">
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <v-stack spacing="0">
+              <label-view label="Item 1"></label-view>
+              <label-view label="Item 1"></label-view>
+            </v-stack>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+          </h-stack>
+          <h-stack columns="auto minmax(0,1fr) auto auto">
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <v-stack spacing="0">
+              <label-view label="Item 1"></label-view>
+              <label-view label="Item 1"></label-view>
+            </v-stack>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+          </h-stack>
+          <h-stack columns="auto minmax(0,1fr) auto auto">
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <v-stack spacing="0">
+              <label-view label="Item 1"></label-view>
+              <label-view label="Item 1"></label-view>
+            </v-stack>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+            <button>
+              <label-view label="Item 1"></label-view>
+            </button>
+          </h-stack>
+        </details>
+        <h-stack columns="auto minmax(0,1fr) auto auto">
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <v-stack spacing="0">
+            <label-view label="Item 3"></label-view>
+            <label-view label="Item 3"></label-view>
+          </v-stack>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+        </h-stack>
+      </list-view>
+      <p>2-grid</p>
+      <list-view columns="2">
+        <button aria-selected="true">
+          <label-view label="Item 1"></label-view>
+        </button>
+        <button>
+          <label-view label="Item 2"></label-view>
+        </button>
+        <button>
+          <label-view label="Item 3"></label-view>
+        </button>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+        </details>
+        <button>
+          <label-view label="Item 3"></label-view>
+        </button>
+        <details is="disclosure-group">
+          <summary aria-selected="true">
+            <label-view system-image="smiley" label="Item Group 4"></label-view>
+          </summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+          <button type="button" tabindex="0" aria-selected="true"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+        </details>
+      </list-view>
+      <p>bare picker outside form</p>
+      <picker-view placeholder="here" label="inline1" picker-style="inline">
+        <datalist slot="list">
+          <option value="0" label="0%"></option>
+          <option value="10" label="Minimum Tip"></option>
+          <option value="20" label="Standard"></option>
+          <option value="30" label="Generous"></option>
+          <option value="50" label="Very Generous"></option>
+        </datalist>
+      </picker-view>
+      <p>list w/ buttons</p>
+      <list-view>
+        <button>
+          <label-view system-image="smiley" label="Item 1"></label-view>
+        </button>
+        <button>
+          <label-view system-image="smiley" label="Item 2"></label-view>
+        </button>
+        <button>
+          <label-view system-image="smiley" label="Item 3"></label-view>
+        </button>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+        </details>
+      </list-view>
+      <p>list w/ sections</p>
+      <list-view>
+        <section-view header="Section 1" footer="All is required">
+          <button>
+            <label-view label="Item 1"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 2"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+          </details>
+        </section-view>
+        <section-view header="Section 2" footer="All is required">
+          <button>
+            <label-view label="Item 1"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 2"></label-view>
+          </button>
+          <button>
+            <label-view label="Item 3"></label-view>
+          </button>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4a"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
+          </details>
+        </section-view>
+      </list-view>
+      <p>form w/ Textfields</p>
+      <form is="form-view">
+        <text-field placeholder="here" label="Name"></text-field>
+        <text-field placeholder="here" label="Name"></text-field>
+        <text-field placeholder="here" label="Name"></text-field>
+      </form>
+      <p>form w/ 2 sectioned Textfields</p>
+      <form is="form-view">
+        <section-view header="Personal Info">
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+        </section-view>
+        <section-view>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 5"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" label="Item Group 6"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+        </section-view>
+      </form>
+      <p>form w/ 1 sectioned Textfields</p>
+      <form is="form-view">
+        <section-view header="Personal Info" footer="All is required">
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+      </form>
+      <p>form w/ sectioned Textfields+Pickers</p>
+      <form is="form-view">
+        <section-view header="Personal Info" footer="All is required">
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <picker-view placeholder="here" label="inline1" picker-style="inline">
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view placeholder="here" picker-style="inline" id="gg">
+            <label-view slot="label" label="inline2"></label-view>
+            <label-view slot="tag" label="0%"></label-view>
+            <label-view slot="tag" label="Minimum Tip"></label-view>
+            <label-view slot="tag" label="Standard"></label-view>
+            <label-view slot="tag" label="Generous"></label-view>
+            <label-view slot="tag" label="Very Generous"></label-view>
+          </picker-view>
+          <picker-view placeholder="here" label="menu/list" picker-style="menu">
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view placeholder="here" label="pickk">
+            <datalist slot="list" id="gg2">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view>
+            <button type="button">ddd</button>
+            <button type="button">ddd</button>
+            <button type="button">ddd</button>
+            <button type="button">ddd</button>
+            <button type="button">ddd</button>
+            <datalist slot="list" id="gg3">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <select is="picker"></select>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <button is="picker">bgbgbg</button>
+        </section-view>
+      </form>
+    </template>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <h-stack columns="repeat(4,minmax(0,1fr))">
+          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack distribution="start" frame-width="infinity">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+        </h-stack>
+        <label-view slot="navigation-bar-principal"><span>ghjh000</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="navigation-bar-leading">
+          <button type="button"><label-view label="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="navigation-bar-trailing">
+          <button type="button"><label-view label="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view label="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view label="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
+    <script type="module">
+      import '/main.js'
+
+      for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
+        el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
+    </script>
+  </body>
+</html>

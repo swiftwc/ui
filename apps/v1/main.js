@@ -27,10 +27,10 @@ document.body.addEventListener('click', async (event) => {
   if (event.target.closest('button')) {
     if (event.target.closest('.make-list')) {
       const btn = event.target.closest('.make-list')
-      for (const el of btn.closest('scroll-view').querySelectorAll('list-view'))
+      for (const el of btn.closest('v-stack').querySelectorAll('list-view'))
         if (btn.getAttribute('list')) el.setAttribute('list-style', btn.getAttribute('list'))
         else el.removeAttribute('list-style')
-      for (const el of btn.closest('scroll-view').querySelectorAll('[is=form-view]'))
+      for (const el of btn.closest('v-stack').querySelectorAll('[is=form-view]'))
         if (btn.getAttribute('list')) el.setAttribute('form-style', btn.getAttribute('list'))
         else el.removeAttribute('form-style')
     }

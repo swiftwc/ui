@@ -30,11 +30,6 @@
   <body>
     <v-keyboard></v-keyboard>
 
-    <div id="console" popover="manual" inert>
-      <span id="console0"></span>, <span id="console1"></span>, <span id="console2"></span>, <span id="console3"></span>,
-      <span id="console4"></span>
-    </div>
-
     <navigation-split-view>
       <dialog is="sidebar-view">
         <scroll-view navigation-inline-title="Mailboxes">
@@ -51,7 +46,7 @@
               </section-view>
               <section-view header="Account 1">
                 <button navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
-                <button value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
+                <button navigation-destination="sent" value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
                 <button value="more"><label-view system-image="smiley" label="Trash"></label-view></button>
                 <button value="more"><label-view system-image="smiley" label="Archive"></label-view></button>
               </section-view>
@@ -82,7 +77,7 @@
 
     <template id="inbox">
       <body-view>
-        <scroll-view navigation-inline-title="Inbox">
+        <scroll-view navigation-inline-title="Inbox" style="--face: white">
           <v-stack distribution="start" frame-width="infinity">
             <list-view list-style="inset-grouped">
               <button navigation-destination="item1">
@@ -100,6 +95,62 @@
                 <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
                 <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
               </details>
+              <button navigation-destination="item1">
+                <label-view label="Item 1"></label-view>
+              </button>
+              <button navigation-destination="item2">
+                <label-view label="Item 2"></label-view>
+              </button>
+              <details is="disclosure-group">
+                <summary>
+                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                </summary>
+                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+              </details>
+              <details is="disclosure-group">
+                <summary>
+                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                </summary>
+                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+              </details>
+              <button navigation-destination="item2">
+                <label-view label="Item 2"></label-view>
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="sent">
+      <body-view>
+        <scroll-view navigation-inline-title="Sent" style="--face: white">
+          <v-stack distribution="start" frame-width="infinity">
+            <list-view list-style="inset-grouped">
+              <button navigation-destination="item1">
+                <label-view label="Item 1"></label-view>
+              </button>
+              <button navigation-destination="item2">
+                <label-view label="Item 2"></label-view>
+              </button>
+              <button navigation-destination="item1">
+                <label-view label="Item 3"></label-view>
+              </button>
+              <button navigation-destination="item2">
+                <label-view label="Item 4"></label-view>
+              </button>
             </list-view>
           </v-stack>
         </scroll-view>

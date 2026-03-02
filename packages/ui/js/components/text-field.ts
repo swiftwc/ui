@@ -10,7 +10,8 @@ export class TextField extends HTMLElement {
   static get template() {
     if (!this.#template)
       this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `<label part="root text-field-stack">
+        innerHTML: `
+    <label part="root text-field-stack">
     <div part="root text-field-label-stack">
       <slot name="label"></slot>
     </div>

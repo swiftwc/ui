@@ -2,107 +2,324 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  %list-view {
-    // scroll-view &,
-    // scroll-view & > [is='disclosure-group'] {
-    //   @extend %list-item;
+  %list {
+    > * {
+      // box-shadow: inset 0 0 3px red;
+      // outline: 3px red dotted;
+    }
+    // itemize
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+      :where(&) {
+        border: var(--itemborder,);
+        background: var(--itemface,);
+        color: var(--itemtext,);
+        padding-inline: var(--itempadistart,) var(--itempadiend,);
+        padding-block: var(--itempadbstart,) var(--itempadbend,);
+        border-radius: var(--itemradius,);
+      }
+    }
 
+    // SECTION: wire gaps
+    :not([slot], section-view) ~ section-view {
+      :where(&) {
+        padding-top: var(--list--section-gap,);
+      }
+    }
+    section-view:not([slot]) ~ section-view {
+      :where(&) {
+        padding-top: calc(var(--list--section-gap, 0px) / 2);
+      }
+    }
+    section-view:has(~ :not([slot], section-view)) {
+      :where(&) {
+        padding-bottom: var(--list--section-gap,);
+      }
+    }
+    section-view:has(~ section-view:not([slot])) {
+      :where(&) {
+        padding-bottom: calc(var(--list--section-gap, 0px) / 2);
+      }
+    }
+    :not([slot], [is='disclosure-group']) ~ [is='disclosure-group'] {
+      :where(&) {
+        margin-top: var(--list--details-gap,);
+      }
+    }
+    [is='disclosure-group']:not([slot]) ~ [is='disclosure-group'] {
+      :where(&) {
+        margin-top: calc(var(--list--details-gap, 0px) / 2);
+      }
+    }
+    [is='disclosure-group']:has(~ :not([slot], [is='disclosure-group'])) {
+      :where(&) {
+        margin-bottom: var(--list--details-gap,);
+      }
+    }
+    [is='disclosure-group']:has(~ [is='disclosure-group']:not([slot])) {
+      :where(&) {
+        margin-bottom: calc(var(--list--details-gap, 0px) / 2);
+      }
+    }
+
+    // SECTION: wire paddings
+    :where(&) {
+      --itempadistart: var(--list--item-pading-inline-start,);
+      --itempadiend: var(--list--item-pading-inline-end,);
+      --itempadbstart: var(--list--item-pading-block-start,);
+      --itempadbend: var(--list--item-pading-block-end,);
+
+      --itemradius: var(--list--item-border-radius,);
+
+      --itemface: var(--list--item-background-color,);
+      --itemhighlightface: var(--list--item-background-color,);
+      --itemactiveface: var(--list--item-background-color,);
+    }
+
+    [is='disclosure-group'] > summary {
+      :where(&) {
+        --itempadistart: var(--list--rootsummary-pading-inline-start, var(--list--item-pading-inline-start,));
+        --itempadiend: var(--list--rootsummary-pading-inline-end, var(--list--item-pading-inline-end,));
+        --itempadbstart: var(--list--rootsummary-pading-block-start, var(--list--item-pading-block-start,));
+        --itempadbend: var(--list--rootsummary-pading-block-end, var(--list--item-pading-block-end,));
+
+        --itemradius: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+
+        --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+        --itemhighlightface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+        --itemactiveface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+      }
+    }
+
+    // SECTION: overwrite borders
+    > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name),
+    section-view > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, picker-view, whatever-name) ~ :not([slot], section-view, picker-view, whatever-name) {
+      :where(&) {
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0 1rem auto 1rem;
+          height: 2px;
+          background: var(--list--separator-background-color, var(--separator));
+        }
+      }
+    }
+    // > :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
     //   :where(&) {
-    //     // grid-auto-rows: minmax(0, 1fr);
-    //     grid-template-columns: minmax(0, 1fr);
+    //     position: relative;
+
+    //     &::after {
+    //       content: '';
+    //       position: absolute;
+    //       bottom: 0;
+    //       left: 0;
+    //       right: 0;
+    //       height: 2px;
+    //       background: black;
+    //     }
+    //   }
+    // }
+    // > :not([slot], section-view, picker-view, whatever-name)
+    //   ~ :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
+    //   :where(&) {
+    //     position: relative;
+
+    //     &::before {
+    //       content: '';
+    //       position: absolute;
+    //       top: 0;
+    //       left: 0;
+    //       right: 0;
+    //       height: 2px;
+    //       background: black;
+    //     }
+
+    //     &::after {
+    //       content: '';
+    //       position: absolute;
+    //       bottom: 0;
+    //       left: 0;
+    //       right: 0;
+    //       height: 2px;
+    //       background: black;
+    //     }
     //   }
     // }
 
-    // :where(&:not(:has(> section-view))) {
-    //   background-color: lightsteelblue;
-    //   border-radius: 22px;
+    // // wire colors
+    // & > button:not([slot]),
+    // section-view > button:not([slot]),
+    // [is='disclosure-group'] > summary:not([slot]),
+    // [is='disclosure-group'] > button:not([slot]) {
+    //   :where(&) {
+    //     // --itemface: darkblue;
+    //     --itemactiveface: darkblue;
+    //   }
     // }
+  }
 
+  /* %list {
     :where(&) {
       position: relative;
 
       grid-template-columns: var(--list--host-grid-template-columns,);
     }
 
-    // root list only gets to add paddings and bg
-    :where(&:not(& &)) {
-      padding-inline: var(--list--host-padding-inline,);
-      padding-block: var(--list--host-padding-block,);
-
-      background-color: var(--list--host-background-color, var(--face));
-      // --list--host-background-color: aliceblue;
+    // add gaps to sections
+    > section-view:has(~ :not([slot])) {
+      :where(&) {
+        margin-bottom: var(--list-section-gap);
+      }
     }
 
-    // force dg(s) to inherit roundness
-    :where(&:not(& &) [is='disclosure-group']) {
-      border-radius: var(--componentradius);
+    // props that apply only to root list
+    &:not(& &) {
+      :where(&) {
+        padding-inline: var(--list--root-padding-inline,);
+        padding-block: var(--list--root-padding-block,);
+
+        background-color: var(--list--root-background-color, var(--face));
+        // --list--root-background-color: aliceblue;
+      }
+
+      // pseudo bg for lists w/out section(s)
+      &:not(:has(> section-view)) {
+        :where(&)::before {
+          content: '';
+          position: absolute;
+          pointer-events: none;
+
+          inset-inline: var(--list--root-padding-inline, 0px);
+          inset-block: var(--list--root-padding-block, 0px);
+
+          border-radius: var(--toolbaritemradius,);
+
+          background-color: var(--groupedface,);
+        }
+      }
     }
 
-    // force open dg(s) to have diff bg
-    :where(&:not(& &) [is='disclosure-group'][open]) {
-      background-color: red;
+    > [is='disclosure-group'] {
+      :where(&) {
+        background-color: var(--list--disclosure-contents-background-color,);
+
+        // force dg(s) to inherit roundness
+        border-radius: var(--toolbaritemradius);
+      }
+
+      // force open dg(s) to have diff bg
+      &[open] {
+        :where(&) {
+          --list--disclosure-contents-background-color: var(--tint3);
+
+          --list--separator-background-color: oklch(0.8884 0.0134 251.57);
+        }
+
+        > summary {
+          :where(&) {
+            --toolbaritemface: var(--tint2);
+          }
+        }
+
+        > * {
+          :where(&) {
+            --toolbaritemradius: 0;
+          }
+        }
+      }
     }
 
-    // pseudo bg for lists w/out section(s)
-    :where(&:not(:has(> section-view)))::before {
-      content: '';
-      position: absolute;
-
-      inset-inline: var(--list--host-padding-inline, 0px);
-      inset-block: var(--list--host-padding-block, 0px);
-
-      border-radius: var(--componentradius);
-
-      background-color: var(--groupedface,);
-
-      pointer-events: none;
-    }
-
-    // wire paddings to all direct children
+    // add paddings to all non-component children
     &,
     [is='disclosure-group'] {
-      :where(& > :not(button, [is='disclosure-group'], section-view, summary, sidebar-toggle)) {
-        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
-        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
+      > :not(button, [is='disclosure-group'], section-view) {
+        :where(&) {
+          padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+          padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
+        }
       }
     }
-    section-view > text-field:not([slot]) {
+    // turn nested headers/footers to inline items
+    > section-view section-view > [slot] {
+      // > text-field:not([slot]) {
       :where(&) {
-        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
-        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
+        padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+        padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
       }
     }
 
-    // wire paddings to nested section-header(s)
-    section-view section-view > [slot='header'] {
-      :where(&) {
-        padding-inline: var(--componentpadistart,) var(--componentpadiend,);
-        padding-block: var(--componentpadbstart,) var(--componentpadbend,);
-      }
-    }
+    // wire paddings to nested section-header(s) ????
+    // section-view section-view > [slot='header'] {
+    //   :where(&) {
+    // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+    // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
+    // }
+    // }
 
     // list-items are relative positioned
-    :where(& > *, [is='disclosure-group'] > :not(summary), & > section-view > *:not([slot]), section-view section-view > [slot='header']) {
-      position: relative;
+    &,
+    [is='disclosure-group'],
+    > section-view {
+      > * {
+        :where(&) {
+          position: relative;
+        }
+      }
     }
 
+    // & > *,
+    // [is='disclosure-group'] > :not(summary),
+    // & > section-view > *:not([slot]),
+    // section-view section-view > [slot='header'] {
+    //   :where(&) {
+    //     position: relative;
+    //   }
+    // }
+
     // wire list-separator(s)
-    :where(
-      &:not([columns]) > :has(~ *:not([slot]):not(section-view)),
-      &:not([columns]) > section-view > *:not([slot]):has(~ *:not([slot])),
-      [is='disclosure-group'] > :not(summary):has(~ *:not([slot])),
-      section-view section-view > [slot='header']
-    ),
-    :where(&[columns='2'] > :not(:nth-last-child(-n + 2)), &[columns='2'] > section-view > *:not([slot]):not(:nth-last-child(-n + 2))) {
-      &::after {
+    &:not([columns]) > :not([is='disclosure-group']):has(~ :not(section-view)),
+    &:not([columns]) > [is='disclosure-group']:has(~ :not(section-view)), // > summary,
+    &:not([columns]) > section-view > :not([is='disclosure-group']):has(~ :not(section-view, [slot])),
+    &:not([columns]) > section-view > [is='disclosure-group']:has(~ :not(section-view, [slot])),// > summary,
+    &:not([columns]) > [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
+    &:not([columns]) > section-view > [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
+    &:not([columns]) > section-view section-view > [slot],
+    [is='disclosure-group'][open] > summary {
+      // &:not([columns]) > section-view > :not([slot]):has(~ :not([slot])),
+      // [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
+      // section-view section-view > [slot='header'],
+      // &[columns='2'] > :not(:nth-last-child(-n + 2)),
+      // &[columns='2'] > section-view > *:not([slot]):not(:nth-last-child(-n + 2)) {
+      :where(&)::after {
         content: '';
         display: inline-grid;
         position: absolute;
         block-size: var(--list--separator-block-size, 1px);
         visibility: var(--list--separator-visibility,);
         // inline-size: 100%;
-        background-color: blue;
+        background-color: var(--list--separator-background-color);
         inset: auto var(--list--separator-inset-inline-end, 0px) 0 var(--list--separator-inset-inline-start, 0px);
+      }
+    }
+
+    [is='disclosure-group'][open] > summary {
+      // --list--separator-visibility: collapse;
+    }
+
+    & > button,
+    // [is='disclosure-group'] > summary,
+    // & > [is='disclosure-group']:not([open]),
+    section-view > button,
+    // section-view > [is='disclosure-group']:not([open]),
+    [is='disclosure-group'] > button {
+      // :where(&):hover,
+      :where(&):active,
+      :where(&[aria-selected='true']) {
+        --list--separator-visibility: collapse;
       }
     }
 
@@ -111,21 +328,51 @@
     }
 
     // vars
-    :where(&:not([is='tab-bar'] &)) {
-      // --list--host-padding-inline: 10px;
-      // // --list--host-padding-block: 10px;
+    :where(&) {
+      //}:not([is='tab-bar'] &)) {
+      // --list--root-padding-inline: 10px;
+      // // --list--root-padding-block: 10px;
 
-      --componentpadistart: 1rem;
-      --componentpadiend: 1rem;
-      --componentpadbstart: 1rem;
-      --componentpadbend: 1rem;
+      --toolbaritempadistart: 1rem;
+      --toolbaritempadiend: 1rem;
+      --toolbaritempadbstart: 1rem;
+      --toolbaritempadbend: 1rem;
 
       // --list--separator-visibility: visible;
       // --list--separator-block-size: 1px;
-      --list--separator-inset-inline-start: var(--componentpadistart);
+      --list--separator-inset-inline-start: var(--toolbaritempadistart);
+      --list--separator-background-color: var(--separator);
       // --list--separator-inset-inline-end: 5px;
 
-      // --componentradius: 1rem;
+      // --toolbaritemradius: 1rem;
+    }
+  } */
+}
+
+@layer #{vars.$colors-layer} {
+  // itemize
+  %list {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+      @include mixins.add-highlight-state {
+        --itemface: var(--itemhighlightface,);
+        --itemtext: var(--itemhighlighttext,);
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  // itemize
+  %list {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+      @include mixins.add-active-state {
+        --itemface: var(--itemactiveface,);
+        --itemtext: var(--itemactivetext,);
+      }
     }
   }
 }

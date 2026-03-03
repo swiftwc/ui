@@ -15,11 +15,13 @@
       padding-block: var(--list--host-padding-block,);
     }
 
-    // itemize
+    // itemize buttons
     > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
       :where(&) {
+        appearance: none;
+        -webkit-appearance: none;
         border: var(--itemborder,);
         background: var(--itemface,);
         color: var(--itemtext,);

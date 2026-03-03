@@ -33,7 +33,7 @@
     <navigation-split-view>
       <dialog is="sidebar-view">
         <scroll-view navigation-inline-title="Mailboxes">
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <list-view>
               <section-view header="Favorites">
                 <details is="disclosure-group" open>
@@ -78,7 +78,7 @@
     <template id="inbox">
       <body-view>
         <scroll-view navigation-inline-title="Inbox" style="--face: white">
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <list-view list-style="inset-grouped">
               <button navigation-destination="item1">
                 <label-view label="Item 1"></label-view>
@@ -137,7 +137,7 @@
     <template id="sent">
       <body-view>
         <scroll-view navigation-inline-title="Sent" style="--face: white">
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <list-view list-style="inset-grouped">
               <button navigation-destination="item1">
                 <label-view label="Item 1"></label-view>

@@ -32,10 +32,10 @@
 
     <navigation-stack>
       <scroll-view>
-        <v-stack distribution="start" frame-width="infinity">
+        <v-stack placement="leading fill">
           <label-view padding system-image="globe"></label-view>
           <list-view list-style="inset-grouped">
-            <button navigation-destination="lang">
+            <button navigation-destination="region">
               <label-view label="English"></label-view>
             </button>
           </list-view>
@@ -43,13 +43,13 @@
       </scroll-view>
     </navigation-stack>
 
-    <template id="lang">
+    <template id="region">
       <body-view>
         <scroll-view id="gg">
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <navigation-title value="Select Your Country or Region" padding></navigation-title>
             <list-view list-style="inset-grouped">
-              <button navigation-destination="region">
+              <button navigation-destination="appearance">
                 <label-view label="USA"></label-view>
               </button>
             </list-view>
@@ -64,11 +64,11 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="region">
+    <template id="appearance">
       <body-view>
         <scroll-view>
-          <v-stack distribution="space-between" frame-width="infinity" padding>
-            <v-stack frame-width="infinity">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
               <picker-view picker-style="inline">
                 <label-view label="Auto"></label-view>
@@ -96,8 +96,8 @@
     <template id="data-privacy">
       <body-view>
         <scroll-view>
-          <v-stack distribution="space-between" frame-width="infinity" padding>
-            <v-stack frame-width="infinity">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
               <text-view> lorem ipsum </text-view>
             </v-stack>
@@ -121,8 +121,8 @@
     <template id="age-range">
       <body-view>
         <scroll-view navigation-inline-title="Age Range">
-          <v-stack distribution="start" frame-width="infinity">
-            <v-stack frame-width="infinity" padding>
+          <v-stack placement="leading fill">
+            <v-stack padding>
               <navigation-title value="Data & Privacy"></navigation-title>
               <text-view> Select the age range </text-view>
             </v-stack>
@@ -152,7 +152,7 @@
     <template id="terms">
       <dialog is="sheet-view">
         <scroll-view>
-          <v-stack distribution="start" frame-width="infinity" padding>
+          <v-stack placement="leading fill" padding>
             <navigation-title value="Terms and Conditions"></navigation-title>
             <text-view> lorem ipsum </text-view>
           </v-stack>
@@ -174,8 +174,8 @@
     <template id="location">
       <body-view>
         <scroll-view>
-          <v-stack distribution="space-between" frame-width="infinity" padding>
-            <v-stack frame-width="infinity">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
               <text-view> lorem ipsum </text-view>
             </v-stack>
@@ -199,8 +199,8 @@
     <template id="analytics">
       <body-view>
         <scroll-view>
-          <v-stack distribution="space-between" frame-width="infinity" padding>
-            <v-stack frame-width="infinity">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
               <text-view> lorem ipsum </text-view>
             </v-stack>

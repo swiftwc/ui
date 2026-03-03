@@ -30,7 +30,7 @@
       <list-view>
         <details is="disclosure-group">
           <summary>
-            <h-stack>
+            <h-stack distribution="fill">
               <label-view system-image="smiley" label="Item Group 1"></label-view>
               <button type="button" tabindex="0">
                 <label-view system-image="smiley" label="Item Group 1"></label-view>
@@ -419,23 +419,23 @@
 
     <navigation-stack>
       <scroll-view>
-        <h-stack columns="repeat(4,minmax(0,1fr))" style="place-items: start">
-          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+        <h-stack columns="repeat(4,minmax(0,1fr))" placement="fill leading">
+          <v-stack placement="leading fill" style="background-color: white">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>
           </v-stack>
-          <v-stack distribution="start" frame-width="infinity" style="background-color: white">
+          <v-stack placement="leading fill" style="background-color: white">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>
           </v-stack>
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>
           </v-stack>
-          <v-stack distribution="start" frame-width="infinity">
+          <v-stack placement="leading fill">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
             </script>

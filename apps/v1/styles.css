@@ -229,8 +229,6 @@
   [role=button],
   button {
     text-align: unset;
-    appearance: none;
-    -webkit-appearance: none;
   }
   [role=button],
   summary,
@@ -265,6 +263,8 @@
   list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name)) {
+    appearance: none;
+    -webkit-appearance: none;
     border: var(--itemborder, );
     background: var(--itemface, );
     color: var(--itemtext, );
@@ -698,6 +698,8 @@
   tool-bar-item [is=disclosure-group] > summary,
   [is=bordered-prominent]),
   :where(menu-view)::part(menu-summary) {
+    appearance: none;
+    -webkit-appearance: none;
     border: var(--toolbaritemborder, );
     background: var(--toolbaritemface, );
     color: var(--toolbaritemtext, );
@@ -981,9 +983,6 @@
     place-items: center;
     place-content: center;
     gap: 1rem;
-  }
-  :where(h-stack > *) {
-    max-height: 100%;
   }
   :where(h-stack[columns="auto minmax(0,1fr) auto auto"]) {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
@@ -2765,20 +2764,143 @@
   }
 }
 @layer sw-utils {
-  :where(v-stack[frame-width=infinity]) {
-    place-items: stretch;
+  h-stack[distribution=leading],
+  v-flex-stack[distribution=leading] {
+    justify-items: start;
+    justify-content: start;
   }
-  :where(v-stack[alignment=start]) {
-    place-items: start;
+  h-stack[distribution="leading fill"],
+  v-flex-stack[distribution="leading fill"] {
+    justify-items: start;
+    justify-content: stretch;
   }
-  :where(v-stack[alignment=fill]) {
-    place-items: stretch;
+  h-stack[distribution=center],
+  v-flex-stack[distribution=center] {
+    justify-items: center;
+    justify-content: center;
   }
-  :where(v-stack[distribution=start]) {
-    place-content: start;
+  h-stack[distribution=trailing],
+  v-flex-stack[distribution=trailing] {
+    justify-items: end;
+    justify-content: end;
   }
-  :where(v-stack[distribution=space-between]) {
-    place-content: space-between;
+  h-stack[distribution=fill],
+  v-flex-stack[distribution=fill] {
+    justify-items: stretch;
+    justify-content: stretch;
+  }
+  h-stack[distribution=space-between],
+  v-flex-stack[distribution=space-between] {
+    justify-content: space-between;
+  }
+  h-stack[alignment=leading],
+  v-flex-stack[alignment=leading] {
+    align-items: start;
+    align-content: start;
+  }
+  h-stack[alignment="leading fill"],
+  v-flex-stack[alignment="leading fill"] {
+    align-items: start;
+    align-content: stretch;
+  }
+  h-stack[alignment=center],
+  v-flex-stack[alignment=center] {
+    align-items: center;
+    align-content: center;
+  }
+  h-stack[alignment=trailing],
+  v-flex-stack[alignment=trailing] {
+    align-items: end;
+    align-content: end;
+  }
+  h-stack[alignment=fill],
+  v-flex-stack[alignment=fill] {
+    align-items: stretch;
+    align-content: stretch;
+  }
+  h-stack[alignment=space-between],
+  v-flex-stack[alignment=space-between] {
+    align-content: space-between;
+  }
+  h-stack[placement="fill leading"],
+  v-flex-stack[placement="fill leading"] {
+    place-items: start stretch  ;
+    place-content: start stretch  ;
+  }
+  h-stack[placement="fill space-between"],
+  v-flex-stack[placement="fill space-between"] {
+    align-content: space-between  ;
+    justify-items: stretch  ;
+    justify-content: stretch  ;
+  }
+  v-stack[distribution=leading],
+  h-flex-stack[distribution=leading] {
+    align-items: start;
+    align-content: start;
+  }
+  v-stack[distribution="leading fill"],
+  h-flex-stack[distribution="leading fill"] {
+    align-items: start;
+    align-content: stretch;
+  }
+  v-stack[distribution=center],
+  h-flex-stack[distribution=center] {
+    align-items: center;
+    align-content: center;
+  }
+  v-stack[distribution=trailing],
+  h-flex-stack[distribution=trailing] {
+    align-items: end;
+    align-content: end;
+  }
+  v-stack[distribution=fill],
+  h-flex-stack[distribution=fill] {
+    align-items: stretch;
+    align-content: stretch;
+  }
+  v-stack[distribution=space-between],
+  h-flex-stack[distribution=space-between] {
+    align-content: space-between;
+  }
+  v-stack[alignment=leading],
+  h-flex-stack[alignment=leading] {
+    justify-items: start;
+    justify-content: start;
+  }
+  v-stack[alignment="leading fill"],
+  h-flex-stack[alignment="leading fill"] {
+    justify-items: start;
+    justify-content: stretch;
+  }
+  v-stack[alignment=center],
+  h-flex-stack[alignment=center] {
+    justify-items: center;
+    justify-content: center;
+  }
+  v-stack[alignment=trailing],
+  h-flex-stack[alignment=trailing] {
+    justify-items: end;
+    justify-content: end;
+  }
+  v-stack[alignment=fill],
+  h-flex-stack[alignment=fill] {
+    justify-items: stretch;
+    justify-content: stretch;
+  }
+  v-stack[alignment=space-between],
+  h-flex-stack[alignment=space-between] {
+    justify-content: space-between;
+  }
+  v-stack[placement="leading fill"],
+  h-flex-stack[placement="leading fill"] {
+    place-items: start stretch  ;
+    place-content: start stretch  ;
+  }
+  v-stack[placement="space-between fill"],
+  h-flex-stack[placement="space-between fill"] {
+    align-content: space-between  ;
+    justify-items: stretch  ;
+    justify-content: stretch  ;
   }
   :where(v-stack[padding]) {
     padding-inline: 1rem;
@@ -3089,9 +3211,6 @@
   }
   :where(v-stack[spacing="100"]) {
     gap: 10rem;
-  }
-  :where(v-flex-stack[alignment=fill]) {
-    place-items: stretch;
   }
   :where(v-flex-stack[padding]) {
     padding-inline: 1rem;

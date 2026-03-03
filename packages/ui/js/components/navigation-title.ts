@@ -57,7 +57,7 @@ export class NavigationTitle extends HTMLElement {
     const el = this.appendChild(
         Object.assign(document.createElement('template'), {
           innerHTML: `<navigation-large-title>
-          <v-stack spacing="0" alignment="start" slot="navigation-bar-principal">
+          <v-stack spacing="0" alignment="fill" slot="navigation-bar-principal">
           <label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>
           <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
           </v-stack>

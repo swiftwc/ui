@@ -3,11 +3,6 @@
 
 @layer #{vars.$components-layer} {
   %list {
-    > * {
-      // box-shadow: inset 0 0 0.5px red;
-      // outline: 0.5px red dotted;
-    }
-
     :where(&) {
       background-color: var(--list--host-background-color,);
 
@@ -27,7 +22,7 @@
         color: var(--itemtext,);
         padding-inline: var(--itempadistart,) var(--itempadiend,);
         padding-block: var(--itempadbstart,) var(--itempadbend,);
-        border-radius: var(--itemradius,);
+        border-radius: var(--itemradiust,) var(--itemradiusb,);
       }
     }
 
@@ -80,7 +75,8 @@
       --itempadbstart: var(--list--item-padding-block-start,);
       --itempadbend: var(--list--item-padding-block-end,);
 
-      --itemradius: var(--list--item-border-radius,);
+      --itemradiust: var(--list--item-border-radius,) var(--list--item-border-radius,);
+      --itemradiusb: var(--list--item-border-radius,) var(--list--item-border-radius,);
 
       --itemface: var(--list--item-background-color,);
       --itemhighlightface: var(--list--item-background-color,);
@@ -94,7 +90,10 @@
         --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
         --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
 
-        --itemradius: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+        --itemradiust: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
+          var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+        --itemradiusb: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
+          var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
 
         --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
         --itemhighlightface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
@@ -103,9 +102,9 @@
     }
 
     // SECTION: add borders
-    > :not([slot]) ~ :not([slot]),
-    section-view > :not([slot]) ~ :not([slot]),
-    [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+    > :not([slot]) ~ :not([slot], section-view),
+    section-view > :not([slot]) ~ :not([slot], section-view),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot], section-view) {
       :where(&) {
         position: relative;
 
@@ -119,60 +118,99 @@
         }
       }
     }
-    // > :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
-    //   :where(&) {
-    //     position: relative;
 
-    //     &::after {
-    //       content: '';
-    //       position: absolute;
-    //       bottom: 0;
-    //       left: 0;
-    //       right: 0;
-    //       height: 2px;
-    //       background: black;
-    //     }
+    // SECTION: sharpen corners
+    > :not([slot]) ~ :not([slot]),
+    section-view > :not([slot]) ~ :not([slot]),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+      :where(&) {
+        --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
+      }
+      :where(&:is([is='disclosure-group']) > summary) {
+        --itemradiust: var(
+          --list--adjacentitem-border-radius,
+          var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
+        ); //0 0;
+      }
+    }
+    > :not([slot]):has(~ :not([slot], section-view)),
+    section-view > :not([slot]):has(~ :not([slot], section-view)),
+    [is='disclosure-group'] > :not([slot], summary):has(~ :not([slot])),
+    [is='disclosure-group']:not([data-state='closed']) > summary {
+      :where(&) {
+        --itemradiusb: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
+      }
+      :where(&:is([is='disclosure-group']) > summary) {
+        --itemradiusb: var(
+          --list--adjacentitem-border-radius,
+          var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
+        ); //0 0;
+      }
+    }
+    // > :not([slot]) ~ :not([slot]):has(~ :not([slot], section-view)),
+    // section-view > :not([slot]) ~ :not([slot]):has(~ :not([slot], section-view)),
+    // [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+    //   :where(&) {
+    //     --itemradius: 0;
     //   }
-    // }
-    // > :not([slot], section-view, picker-view, whatever-name)
-    //   ~ :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
-    //   :where(&) {
-    //     position: relative;
-
-    //     &::before {
-    //       content: '';
-    //       position: absolute;
-    //       top: 0;
-    //       left: 0;
-    //       right: 0;
-    //       height: 2px;
-    //       background: black;
-    //     }
-
-    //     &::after {
-    //       content: '';
-    //       position: absolute;
-    //       bottom: 0;
-    //       left: 0;
-    //       right: 0;
-    //       height: 2px;
-    //       background: black;
-    //     }
-    //   }
-    // }
-
-    // // wire colors
-    // & > button:not([slot]),
-    // section-view > button:not([slot]),
-    // [is='disclosure-group'] > summary:not([slot]),
-    // [is='disclosure-group'] > button:not([slot]) {
-    //   :where(&) {
-    //     // --itemface: darkblue;
-    //     --itemactiveface: darkblue;
+    //   :where(&:is([is='disclosure-group']) > summary) {
+    //     --itemradius: 0;
     //   }
     // }
   }
 
+  // > :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
+  //   :where(&) {
+  //     position: relative;
+
+  //     &::after {
+  //       content: '';
+  //       position: absolute;
+  //       bottom: 0;
+  //       left: 0;
+  //       right: 0;
+  //       height: 2px;
+  //       background: black;
+  //     }
+  //   }
+  // }
+  // > :not([slot], section-view, picker-view, whatever-name)
+  //   ~ :not([slot], section-view, picker-view, whatever-name):has(~ :not([slot], section-view, picker-view, whatever-name)) {
+  //   :where(&) {
+  //     position: relative;
+
+  //     &::before {
+  //       content: '';
+  //       position: absolute;
+  //       top: 0;
+  //       left: 0;
+  //       right: 0;
+  //       height: 2px;
+  //       background: black;
+  //     }
+
+  //     &::after {
+  //       content: '';
+  //       position: absolute;
+  //       bottom: 0;
+  //       left: 0;
+  //       right: 0;
+  //       height: 2px;
+  //       background: black;
+  //     }
+  //   }
+  // }
+
+  // // wire colors
+  // & > button:not([slot]),
+  // section-view > button:not([slot]),
+  // [is='disclosure-group'] > summary:not([slot]),
+  // [is='disclosure-group'] > button:not([slot]) {
+  //   :where(&) {
+  //     // --itemface: darkblue;
+  //     --itemactiveface: darkblue;
+  //   }
+  // }
   /* %list {
     :where(&) {
       position: relative;

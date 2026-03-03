@@ -471,8 +471,10 @@
           summary = event.target.closest('summary')
 
         if (summary) {
-          // event.preventDefault()
-          if (!btn) summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+          event.preventDefault()
+
+          if (summary.querySelector('button') && !btn) summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+          else summary.closest('details').toggleAttribute('open')
         } else if (btn) {
           btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
         }

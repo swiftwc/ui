@@ -4,6 +4,7 @@
 
 @mixin set-form-style($value) {
   @if $value == inset {
+    // --list--host-border-radius: var(--insetform-item-border-radius);
     --list--item-border-radius: var(--insetform-item-border-radius);
 
     --list--host-padding-inline: var(--insetform-padding-inline);
@@ -14,6 +15,8 @@
     // --list--separator-inset-inline-start: 25px;
     // --list--separator-inset-inline-end: 0px;
   } @else if $value == inset-grouped {
+    // --list--host-border-radius: var(--insetform-item-border-radius);
+    --list--adjacentitem-border-radius: 0 0;
     --list--item-border-radius: var(--insetform-item-border-radius);
 
     --list--host-background-color: darkgray; //var(--groupedface);
@@ -31,6 +34,7 @@
     // --list--separator-inset-inline-start: 25px;
     // --list--separator-inset-inline-end: 0px;
   } @else if $value == sidebar {
+    // --list--host-border-radius: var(--insetform-item-border-radius);
     --list--item-border-radius: var(--insetform-item-border-radius);
 
     --list--details-gap: var(--form-gap);
@@ -50,6 +54,8 @@
     --list--rootsummary-border-radius: 0px;
 
     --list--separator-background-color: transparent;
+
+    --list--host-padding-inline: var(--insetgroupedform-padding-inline);
     //
     // --list--root-padding-inline: 0.5rem;
     // // --toolbaritemradius: var(--list-item-border-radius);

@@ -4,6 +4,7 @@
 
 @mixin set-list-style($value) {
   @if $value == inset {
+    // --list--host-border-radius: var(--insetlist-item-border-radius);
     --list--item-border-radius: var(--insetlist-item-border-radius);
 
     --list--host-padding-inline: var(--insetlist-padding-inline);
@@ -12,6 +13,8 @@
     // --list--root-background-color: aliceblue;
     // --list--separator-block-size: 5px;
   } @else if $value == inset-grouped {
+    // --list--host-border-radius: var(--insetlist-item-border-radius);
+    --list--adjacentitem-border-radius: 0 0;
     --list--item-border-radius: var(--insetlist-item-border-radius);
 
     --list--host-background-color: darkgray; //var(--groupedface);
@@ -31,6 +34,7 @@
     // --list--separator-inset-inline-start: calc(var(--toolbaritempadistart) + 0.1rem);
     // --list--separator-inset-inline-end: calc(var(--toolbaritempadiend) + 0.1rem);
   } @else if $value == sidebar {
+    // --list--host-border-radius: var(--insetlist-item-border-radius);
     --list--item-border-radius: var(--insetlist-item-border-radius);
 
     --list--details-gap: var(--list-gap);
@@ -50,6 +54,8 @@
     --list--rootsummary-border-radius: 0px;
 
     --list--separator-background-color: transparent;
+
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
     //
     // --list--root-padding-inline: 0.5rem;
     // // --toolbaritemradius: var(--list-item-border-radius);

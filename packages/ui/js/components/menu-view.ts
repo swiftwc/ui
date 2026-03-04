@@ -136,12 +136,11 @@ export class MenuView extends HTMLElement {
 
         break
       case 'label':
-        for (const el of this.querySelectorAll(':scope>[slot=label]')) el.remove()
-
-        const el = document.createElement('label-view')
-        el.slot = 'label'
-        el.setAttribute('label', newValue ?? '')
-        this.append(el)
+        let label = this.querySelector(':scope>[slot=label]')
+        if (newValue) {
+          label ??= this.appendChild($(`<label-view slot="label"></label-view>`))
+          label.setAttribute('label', newValue)
+        } else label?.remove()
 
         break
     }

@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
 import { type TabView } from './tab-view'
-import { slowHideShow } from '../internal/utils'
+import { $, slowHideShow } from '../internal/utils'
 
 export class ScrollView extends HTMLElement {
   static observedAttributes = ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
@@ -182,24 +182,44 @@ export class ScrollView extends HTMLElement {
   }
 
   #renderNavTitle = (title: string | null, subtitle: string | null) => {
-    for (const el of this.querySelectorAll(':scope>[slot=navigation-bar-principal]')) el.remove()
+    const vStack =
+      this.querySelector(':scope>[slot=navigation-bar-principal]') ??
+      this.appendChild(
+        $(
+          `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+        )
+      )
 
-    const el = this.appendChild(
-        Object.assign(document.createElement('template'), {
-          innerHTML: `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal">
-          <label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>
-          <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
-          </v-stack>`,
-        }).content.firstElementChild!
-      ),
-      titleLabel = el.querySelector('label-view:first-child'),
-      subtitleLabel = el.querySelector('label-view:last-child')
+    let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
+    if (title) {
+      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`))
+      titleLabel.setAttribute('label', title)
+    } else titleLabel?.remove()
 
-    if (title) titleLabel?.setAttribute('label', title)
-    else titleLabel?.remove()
+    let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
+    if (subtitle) {
+      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`))
+      subtitleLabel.setAttribute('label', subtitle)
+    } else subtitleLabel?.remove()
 
-    if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
-    else subtitleLabel?.remove()
+    // for (const el of this.querySelectorAll(':scope>[slot=navigation-bar-principal]')) el.remove()
+
+    // const el = this.appendChild(
+    //     Object.assign(document.createElement('template'), {
+    //       innerHTML: `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal">
+    //       <label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>
+    //       <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
+    //       </v-stack>`,
+    //     }).content.firstElementChild!
+    //   ),
+    //   titleLabel = el.querySelector('label-view:first-child'),
+    //   subtitleLabel = el.querySelector('label-view:last-child')
+
+    // if (title) titleLabel?.setAttribute('label', title)
+    // else titleLabel?.remove()
+
+    // if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
+    // else subtitleLabel?.remove()
   }
 
   // #handleNavbarPrincipalSlotchange = (event: Event) => {

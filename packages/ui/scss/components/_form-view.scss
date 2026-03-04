@@ -1,73 +1,119 @@
 @use '../vars';
+@use '../mixins';
 @use '../placeholders';
 @use 'sass:string';
+@use 'sass:map';
 
-@mixin set-form-style($value) {
-  @if $value == inset {
-    // --list--host-border-radius: var(--insetform-item-border-radius);
-    --list--item-border-radius: var(--insetform-item-border-radius);
+$form-ifs: (
+  inset: (
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--host-padding-inline: var(--insetform-padding-inline),
+    --list--host-padding-block: var(--insetform-padding-block),
+  ),
+  inset-grouped: (
+    --list--adjacentitem-border-radius: 0 0,
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--host-background-color: darkgray,
 
-    --list--host-padding-inline: var(--insetform-padding-inline);
-    --list--host-padding-block: var(--insetform-padding-block);
-    //
-    // // --list--root-background-color: aliceblue;
-    // // --list--separator-block-size: 5px;
-    // --list--separator-inset-inline-start: 25px;
-    // --list--separator-inset-inline-end: 0px;
-  } @else if $value == inset-grouped {
-    // --list--host-border-radius: var(--insetform-item-border-radius);
-    --list--adjacentitem-border-radius: 0 0;
-    --list--item-border-radius: var(--insetform-item-border-radius);
+    --list--host-padding-inline: var(--insetgroupedform-padding-inline),
+    --list--host-padding-block: var(--insetgroupedform-padding-block),
+  ),
+  sidebar: (
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--details-gap: var(--form-gap),
+    --list--rootsummary-padding-inline-start: 5px,
+    --list--rootsummary-padding-inline-end: 5px,
+    --list--rootsummary-padding-block-start: 2px,
+    --list--rootsummary-padding-block-end: 2px,
 
-    --list--host-background-color: darkgray; //var(--groupedface);
+    --list--item-padding-inline-start: 5px,
+    --list--item-padding-inline-end: 5px,
+    --list--item-padding-block-start: 5px,
+    --list--item-padding-block-end: 5px,
 
-    --list--host-padding-inline: var(--insetgroupedform-padding-inline);
-    --list--host-padding-block: var(--insetgroupedform-padding-block);
-    // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
-    //
-    // // --list--root-background-color: aliceblue;
+    --list--item-background-color: transparent,
+    --list--rootsummary-background-color: transparent,
+    --list--rootsummary-border-radius: 0px,
 
-    // --list--root-padding-inline: 0.5rem;
-    // // --toolbaritemradius: var(--list-item-border-radius);
+    --list--separator-background-color: transparent,
 
-    // // --list--separator-block-size: 5px;
-    // --list--separator-inset-inline-start: 25px;
-    // --list--separator-inset-inline-end: 0px;
-  } @else if $value == sidebar {
-    // --list--host-border-radius: var(--insetform-item-border-radius);
-    --list--item-border-radius: var(--insetform-item-border-radius);
+    --list--host-padding-inline: var(--insetgroupedform-padding-inline),
+  ),
+);
+$form-elses: (
+  --list--item-padding-inline-start: var(--form-item-padding-inline-start),
+  --list--item-padding-inline-end: var(--form-item-padding-inline-end),
+  --list--item-padding-block-start: var(--form-item-padding-block-start),
+  --list--item-padding-block-end: var(--form-item-padding-block-end),
+  --list--item-background-color: var(--list-item-background-color,),
+);
 
-    --list--details-gap: var(--form-gap);
+// @mixin set-form-style($value) {
+//   @if $value == inset {
+//     // --list--host-border-radius: var(--insetform-item-border-radius);
+//     --list--item-border-radius: var(--insetform-item-border-radius);
 
-    --list--rootsummary-padding-inline-start: 5px;
-    --list--rootsummary-padding-inline-end: 5px;
-    --list--rootsummary-padding-block-start: 2px;
-    --list--rootsummary-padding-block-start: 2px;
+//     --list--host-padding-inline: var(--insetform-padding-inline);
+//     --list--host-padding-block: var(--insetform-padding-block);
+//     //
+//     // // --list--root-background-color: aliceblue;
+//     // // --list--separator-block-size: 5px;
+//     // --list--separator-inset-inline-start: 25px;
+//     // --list--separator-inset-inline-end: 0px;
+//   } @else if $value == inset-grouped {
+//     // --list--host-border-radius: var(--insetform-item-border-radius);
+//     --list--adjacentitem-border-radius: 0 0;
+//     --list--item-border-radius: var(--insetform-item-border-radius);
 
-    --list--item-padding-inline-start: 5px;
-    --list--item-padding-inline-end: 5px;
-    --list--item-padding-block-start: 5px;
-    --list--item-padding-block-start: 5px;
+//     --list--host-background-color: darkgray; //var(--groupedface);
 
-    --list--item-background-color: transparent;
-    --list--rootsummary-background-color: transparent;
-    --list--rootsummary-border-radius: 0px;
+//     --list--host-padding-inline: var(--insetgroupedform-padding-inline);
+//     --list--host-padding-block: var(--insetgroupedform-padding-block);
+//     // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
+//     //
+//     // // --list--root-background-color: aliceblue;
 
-    --list--separator-background-color: transparent;
+//     // --list--root-padding-inline: 0.5rem;
+//     // // --toolbaritemradius: var(--list-item-border-radius);
 
-    --list--host-padding-inline: var(--insetgroupedform-padding-inline);
-    //
-    // --list--root-padding-inline: 0.5rem;
-    // // --toolbaritemradius: var(--list-item-border-radius);
+//     // // --list--separator-block-size: 5px;
+//     // --list--separator-inset-inline-start: 25px;
+//     // --list--separator-inset-inline-end: 0px;
+//   } @else if $value == sidebar {
+//     // --list--host-border-radius: var(--insetform-item-border-radius);
+//     --list--item-border-radius: var(--insetform-item-border-radius);
 
-    // --list--separator-block-size: 0px;
-    // --list--separator-visibility: collapse;
+//     --list--details-gap: var(--form-gap);
 
-    // // --list--root-background-color: transparent;
-    // --face: transparent;
-    // --groupedface: transparent;
-  }
-}
+//     --list--rootsummary-padding-inline-start: 5px;
+//     --list--rootsummary-padding-inline-end: 5px;
+//     --list--rootsummary-padding-block-start: 2px;
+//     --list--rootsummary-padding-block-start: 2px;
+
+//     --list--item-padding-inline-start: 5px;
+//     --list--item-padding-inline-end: 5px;
+//     --list--item-padding-block-start: 5px;
+//     --list--item-padding-block-start: 5px;
+
+//     --list--item-background-color: transparent;
+//     --list--rootsummary-background-color: transparent;
+//     --list--rootsummary-border-radius: 0px;
+
+//     --list--separator-background-color: transparent;
+
+//     --list--host-padding-inline: var(--insetgroupedform-padding-inline);
+//     //
+//     // --list--root-padding-inline: 0.5rem;
+//     // // --toolbaritemradius: var(--list-item-border-radius);
+
+//     // --list--separator-block-size: 0px;
+//     // --list--separator-visibility: collapse;
+
+//     // // --list--root-background-color: transparent;
+//     // --face: transparent;
+//     // --groupedface: transparent;
+//   }
+// }
 
 @layer #{vars.$components-layer} {
   [is='form-view'] {
@@ -78,44 +124,48 @@
       :where(&) {
         --list--section-gap: var(--form-gap);
 
-        --list--item-padding-inline-start: var(--form-item-padding-inline-start);
-        --list--item-padding-inline-end: var(--form-item-padding-inline-end);
-        --list--item-padding-block-start: var(--form-item-padding-block-start);
-        --list--item-padding-block-end: var(--form-item-padding-block-end);
+        @include mixins.write-props($form-elses);
 
-        --list--item-background-color: var(--list-item-background-color,);
+        // --list--item-padding-inline-start: var(--form-item-padding-inline-start);
+        // --list--item-padding-inline-end: var(--form-item-padding-inline-end);
+        // --list--item-padding-block-start: var(--form-item-padding-block-start);
+        // --list--item-padding-block-end: var(--form-item-padding-block-end);
+
+        // --list--item-background-color: var(--list-item-background-color,);
       }
 
-      // vars
+      // SECTION: ifs
       @supports (x: #{string.unquote('if(else:red)')}) {
         :where(&) {
-          --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
+          @include mixins.write-ifs(--form-style, $form-ifs, $form-elses);
+          // --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
 
-          --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
+          // --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
 
-          --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
-          --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
+          // --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
+          // --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
 
-          --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
+          // --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
         }
       }
 
+      // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([form-style])) {
           @each $v in vars.$form-styles {
             @container style(--form-style: #{$v}) {
-              @include set-form-style($v);
+              @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
             }
           }
         }
         @each $v in vars.$form-styles {
           :where(&[form-style='#{$v}']) {
-            @include set-form-style($v);
+            @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
           }
         }
       }
 
-      // ifs finally
+      // SECTION: attrs finally
       @supports (x: #{string.unquote('attr(x type(*))')}) {
         :where(&) {
           --form-style: attr(form-style type(<custom-ident>), inherit);

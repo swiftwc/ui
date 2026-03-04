@@ -1,4 +1,5 @@
 import { Snapshot } from '../snapshot'
+import { $ } from '../internal/utils'
 
 export class SectionView extends HTMLElement {
   static observedAttributes = ['header', 'footer']
@@ -98,35 +99,20 @@ export class SectionView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       switch (name) {
         case 'header':
-          for (const el of this.querySelectorAll(':scope>[slot=header]')) el.remove()
-
-          const header = this.appendChild(
-              Object.assign(document.createElement('template'), {
-                innerHTML: `<header slot="header">
-                <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
-                </header>`,
-              }).content.firstElementChild!
-            ),
-            headerLabel = header.querySelector('label-view')
-
-          if (newValue) headerLabel?.setAttribute('label', newValue)
-          else header?.remove()
+          let header = this.querySelector(':scope>[slot=header]')
+          if (newValue) {
+            header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`))
+            header.querySelector('label-view')?.setAttribute('label', newValue)
+          } else header?.remove()
 
           break
         case 'footer':
-          for (const el of this.querySelectorAll(':scope>[slot=footer]')) el.remove()
+          let footer = this.querySelector(':scope>[slot=footer]')
+          if (newValue) {
+            footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`))
+            footer.querySelector('label-view')?.setAttribute('label', newValue)
+          } else footer?.remove()
 
-          const footer = this.appendChild(
-              Object.assign(document.createElement('template'), {
-                innerHTML: `<footer slot="footer">
-                  <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
-                  </footer>`,
-              }).content.firstElementChild!
-            ),
-            footerLabel = footer.querySelector('label-view')
-
-          if (newValue) footerLabel?.setAttribute('label', newValue)
-          else footer?.remove()
           // const assigned3 = this.#footerSlot!.assignedElements({ flatten: true }) as HTMLElement[]
 
           // let el3 = assigned3[0] as HTMLElement | undefined

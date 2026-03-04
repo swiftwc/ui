@@ -1,5 +1,6 @@
 import { type ScrollView } from './scroll-view'
 import { Snapshot } from '../snapshot'
+import { $ } from '../internal/utils'
 
 export class NavigationTitle extends HTMLElement {
   static observedAttributes = ['value', 'subtitle']
@@ -52,25 +53,47 @@ export class NavigationTitle extends HTMLElement {
   }
 
   #render = (title: string | null, subtitle: string | null) => {
-    for (const el of this.querySelectorAll(':scope>*')) el.remove()
+    const el =
+        this.querySelector(':scope>:not([slot])') ??
+        this.appendChild(
+          $(
+            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`
+          )
+        ),
+      vStack =
+        el.querySelector(':scope>v-stack') ??
+        el.appendChild(
+          $(
+            `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+          )
+        )
 
-    const el = this.appendChild(
-        Object.assign(document.createElement('template'), {
-          innerHTML: `<navigation-large-title>
-          <v-stack spacing="0" alignment="fill" slot="navigation-bar-principal">
-          <label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>
-          <label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>
-          </v-stack>
-          </navigation-large-title>`,
-        }).content.firstElementChild!
-      ),
-      titleLabel = el.querySelector('label-view:first-child'),
-      subtitleLabel = el.querySelector('label-view:last-child')
+    let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
+    if (title) {
+      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`))
+      titleLabel.setAttribute('label', title)
+    } else titleLabel?.remove()
 
-    if (title) titleLabel?.setAttribute('label', title)
-    else titleLabel?.remove()
+    let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
+    if (subtitle) {
+      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`))
+      subtitleLabel.setAttribute('label', subtitle)
+    } else subtitleLabel?.remove()
 
-    if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
-    else subtitleLabel?.remove()
+    // for (const el of this.querySelectorAll(':scope>*')) el.remove()
+
+    // const el = this.appendChild(
+    //     Object.assign(document.createElement('template'), {
+    //       innerHTML: `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
+    //     }).content.firstElementChild!
+    //   ),
+    //   titleLabel = el.querySelector('label-view:nth-child(1)'),
+    //   subtitleLabel = el.querySelector('label-view:nth-child(2)')
+
+    // if (title) titleLabel?.setAttribute('label', title)
+    // else titleLabel?.remove()
+
+    // if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
+    // else subtitleLabel?.remove()
   }
 }

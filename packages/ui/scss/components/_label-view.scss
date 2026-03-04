@@ -1,6 +1,7 @@
 @use '../vars';
 @use '../mixins';
 @use 'sass:string';
+@use 'sass:map';
 
 // @property --label-style {
 //   syntax: 'title-and-icon | icon-only | title-only | automatic';
@@ -19,8 +20,28 @@
 //   initial-value: no;
 // }
 
+$label-truncation-ifs: (
+  tail: (
+    --label--overflow: hidden,
+
+    --label--text-overflow: ellipsis,
+  ),
+);
+
+$label-line-ifs: (
+  1: (
+    --label--host-white-space: nowrap,
+  ),
+  2: (
+    --label--host-white-space: normal,
+    --label--display: -webkit-box,
+    --label--box-orient: vertical,
+    --label--line-clamp: 2,
+  ),
+);
+
 @mixin set-label-style($value) {
-  @if $value == 'h-title-and-icon' {
+  @if $value == h-title-and-icon {
     --label--host-grid-template-columns: auto minmax(0, 1fr);
     --label--host-grid-template-rows: minmax(0, 1fr);
     --label--host-align-items: center;
@@ -30,11 +51,11 @@
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
-  } @else if $value == 'h-icon-only' {
+  } @else if $value == h-icon-only {
     --label--iconstack-display: grid;
-  } @else if $value == 'h-title-only' {
+  } @else if $value == h-title-only {
     --label--titlestack-display: grid;
-  } @else if $value == 'v-title-and-icon' {
+  } @else if $value == v-title-and-icon {
     --label--host-grid-template-columns: minmax(0, 1fr);
     --label--host-grid-template-rows: auto minmax(0, 1fr);
     --label--host-align-items: normal;
@@ -44,31 +65,31 @@
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
-  } @else if $value == 'v-icon-only' {
+  } @else if $value == v-icon-only {
     --label--iconstack-display: grid;
-  } @else if $value == 'v-title-only' {
+  } @else if $value == v-title-only {
     --label--titlestack-display: grid;
   }
 }
 
-@mixin set-label-truncation-mode($value) {
-  @if $value == 'tail' {
-    --label--overflow: hidden;
+// @mixin set-label-truncation-mode($value) {
+//   @if $value == 'tail' {
+//     --label--overflow: hidden;
 
-    --label--text-overflow: ellipsis;
-  }
-}
+//     --label--text-overflow: ellipsis;
+//   }
+// }
 
-@mixin set-label-line-limit($value) {
-  @if $value == 1 {
-    --label--host-white-space: nowrap;
-  } @else {
-    --label--host-white-space: normal;
-    --label--display: -webkit-box;
-    --label--box-orient: vertical;
-    --label--line-clamp: #{$value};
-  }
-}
+// @mixin set-label-line-limit($value) {
+//   @if $value == 1 {
+//     --label--host-white-space: nowrap;
+//   } @else {
+//     --label--host-white-space: normal;
+//     --label--display: -webkit-box;
+//     --label--box-orient: vertical;
+//     --label--line-clamp: #{$value};
+//   }
+// }
 
 @mixin set-label-font($value) {
   --label--titlestack-font-size: var(--label-#{$value}-font-size);
@@ -195,16 +216,16 @@
         //   style(--label-font: callout): 0.5rem ; style(--label-font: large-title): 3rem ; style(--label-font: large-title): 3rem ;
         // );
         // ANCHOR: truncation-mode
-        --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
-
-        --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
-
-        --label--host-white-space: if(style(--label-line-limit: 1): nowrap ; style(--label-line-limit: 2): normal ;);
+        @include mixins.write-ifs(--label-truncation-mode, $label-truncation-ifs);
+        // --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
+        // --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
 
         // ANCHOR: line-limit
-        --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
-        --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
-        --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
+        @include mixins.write-ifs(--label-line-limit, $label-line-ifs);
+        // --label--host-white-space: if(style(--label-line-limit: 1): nowrap ; style(--label-line-limit: 2): normal ;);
+        // --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
+        // --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
+        // --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
 
         // ANCHOR: label-flow
         --label--host-align-items: if(style(--label-flow: vertical): normal ; else: center ;);
@@ -279,88 +300,108 @@
       // }
       // @container style(--label--has-icon: yes) and style(--label--has-title: yes) and style(--label-style: automatic) {
       :where(&:not([label-style])) {
-        @container style(--label-style: icon-only) {
-          @include set-label-style('h-icon-only');
+        @each $v in vars.$label-styles {
+          @container style(--label-style: #{$v}) {
+            @include set-label-style(h-#{$v});
+          }
         }
-        @container style(--label-style: title-only) {
-          @include set-label-style('h-title-only');
+        // @container style(--label-style: icon-only) {
+        //   @include set-label-style(h-icon-only);
+        // }
+        // @container style(--label-style: title-only) {
+        //   @include set-label-style(h-title-only);
+        // }
+        // @container style(--label-style: title-and-icon) {
+        //   @include set-label-style(h-title-and-icon);
+        // }
+      }
+      @each $v in vars.$label-styles {
+        :where(&[label-style='#{$v}']) {
+          @include set-label-style(h-#{$v});
         }
-        @container style(--label-style: title-and-icon) {
-          @include set-label-style('h-title-and-icon');
-        }
       }
-      :where(&[label-style='title-and-icon']) {
-        @include set-label-style('h-title-and-icon');
-      }
-      :where(&[label-style='title-only']) {
-        @include set-label-style('h-title-only');
-      }
-      :where(&[label-style='icon-only']) {
-        @include set-label-style('h-icon-only');
-      }
+      // :where(&[label-style='title-and-icon']) {
+      //   @include set-label-style(h-title-and-icon);
+      // }
+      // :where(&[label-style='title-only']) {
+      //   @include set-label-style(h-title-only);
+      // }
+      // :where(&[label-style='icon-only']) {
+      //   @include set-label-style(h-icon-only);
+      // }
       @container not style(--label-style) {
         // @container style(--label-style: automatic) {
         &:not([label-style]) {
           // :where(&[image-hint='yes'][title-hint='yes']) {
           :where(&:has(> [slot='image']):has(> :not([slot]))) {
-            @include set-label-style('h-title-and-icon');
+            @include set-label-style(h-title-and-icon);
           }
           // :where(&[image-hint='yes']:not([title-hint='yes'])) {
           :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
-            @include set-label-style('h-icon-only');
+            @include set-label-style(h-icon-only);
           }
           // :where(&[title-hint='yes']:not([image-hint='yes'])) {
           :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
-            @include set-label-style('h-title-only');
+            @include set-label-style(h-title-only);
           }
         }
       }
       // AGAIN
       :where(&:not([label-style])) {
-        @container style(--label-style: icon-only) and style(--label-flow: vertical) {
-          @include set-label-style('v-icon-only');
+        @each $v in vars.$label-styles {
+          @container style(--label-style: #{$v}) and style(--label-flow: vertical) {
+            @include set-label-style(v-#{$v});
+          }
         }
-        @container style(--label-style: title-only) and style(--label-flow: vertical) {
-          @include set-label-style('v-title-only');
-        }
-        @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
-          @include set-label-style('v-title-and-icon');
-        }
+        // @container style(--label-style: icon-only) and style(--label-flow: vertical) {
+        //   @include set-label-style(v-icon-only);
+        // }
+        // @container style(--label-style: title-only) and style(--label-flow: vertical) {
+        //   @include set-label-style(v-title-only);
+        // }
+        // @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
+        //   @include set-label-style(v-title-and-icon);
+        // }
       }
       @container style(--label-flow: vertical) {
-        :where(&[label-style='title-and-icon']) {
-          @include set-label-style('v-title-and-icon');
+        @each $v in vars.$label-styles {
+          :where(&[label-style='#{$v}']) {
+            @include set-label-style(v-#{$v});
+          }
         }
-        :where(&[label-style='title-only']) {
-          @include set-label-style('v-title-only');
-        }
-        :where(&[label-style='icon-only']) {
-          @include set-label-style('v-icon-only');
-        }
+        // :where(&[label-style='title-and-icon']) {
+        //   @include set-label-style(v-title-and-icon);
+        // }
+        // :where(&[label-style='title-only']) {
+        //   @include set-label-style(v-title-only);
+        // }
+        // :where(&[label-style='icon-only']) {
+        //   @include set-label-style(v-icon-only);
+        // }
       }
       @container (not style(--label-style)) and style(--label-flow: vertical) {
         // @container style(--label-style: automatic) and style(--label-flow: vertical) {
         &:not([label-style]) {
           :where(&:has(> [slot='image']):has(> :not([slot]))) {
-            @include set-label-style('v-title-and-icon');
+            @include set-label-style(v-title-and-icon);
           }
           :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
-            @include set-label-style('v-icon-only');
+            @include set-label-style(v-icon-only);
           }
           :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
-            @include set-label-style('v-title-only');
+            @include set-label-style(v-title-only);
           }
         }
       }
       //
       @for $i from 1 through 2 {
         @include if-chain(--label-line-limit, line-limit, $i) {
-          @include set-label-line-limit($i);
+          @include mixins.write-props(map.get($label-line-ifs, $i)); //@include set-label-line-limit($i);
         }
       }
       //
       @include if-chain(--label-truncation-mode, truncation-mode, tail) {
-        @include set-label-truncation-mode(tail);
+        @include mixins.write-props(map.get($label-truncation-ifs, tail)); //@include set-label-truncation-mode(tail);
       }
       //
       @each $label, $size in vars.$label-fonts {

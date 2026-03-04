@@ -120,8 +120,8 @@
     }
 
     // SECTION: sharpen corners
-    > :not([slot]) ~ :not([slot]),
-    section-view > :not([slot]) ~ :not([slot]),
+    > :not([slot]) ~ :not([slot], section-view),
+    section-view > :not([slot]) ~ :not([slot], section-view),
     [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
       :where(&) {
         --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;

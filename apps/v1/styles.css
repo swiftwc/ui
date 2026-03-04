@@ -336,16 +336,16 @@
     background: var(--list--separator-background-color, var(--separator));
     pointer-events: none;
   }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot]), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot]),
-  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot]),
+  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view),
+  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot])) {
     --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,));
   }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary,
+  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary,
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary) {
     --itemradiust: var(
@@ -697,7 +697,9 @@
   tool-bar:not([hidden]),
   label-view:not([hidden]),
   menu-view:not([hidden]),
-  section-view:not([hidden])) {
+  section-view:not([hidden]),
+  text-field:not([hidden]),
+  picker-view:not([hidden])) {
     display: grid;
   }
   ::part(menu-dialog),
@@ -1317,12 +1319,12 @@
       --label--titlestack-font-size: if(style(--label-font: footnote): var(--label-footnote-font-size) ; style(--label-font: caption2): var(--label-caption2-font-size) ; style(--label-font: caption): var(--label-caption-font-size) ; style(--label-font: callout): var(--label-callout-font-size) ; style(--label-font: body): var(--label-body-font-size) ; style(--label-font: subheadline): var(--label-subheadline-font-size) ; style(--label-font: headline): var(--label-headline-font-size) ; style(--label-font: title3): var(--label-title3-font-size) ; style(--label-font: title2): var(--label-title2-font-size) ; style(--label-font: title): var(--label-title-font-size) ; style(--label-font: large-title): var(--label-large-title-font-size) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-size) ;);
       --label--titlestack-line-height: if(style(--label-font: footnote): var(--label-footnote-line-height) ; style(--label-font: caption2): var(--label-caption2-line-height) ; style(--label-font: caption): var(--label-caption-line-height) ; style(--label-font: callout): var(--label-callout-line-height) ; style(--label-font: body): var(--label-body-line-height) ; style(--label-font: subheadline): var(--label-subheadline-line-height) ; style(--label-font: headline): var(--label-headline-line-height) ; style(--label-font: title3): var(--label-title3-line-height) ; style(--label-font: title2): var(--label-title2-line-height) ; style(--label-font: title): var(--label-title-line-height) ; style(--label-font: large-title): var(--label-large-title-line-height) ; style(--label-font: extra-large-title): var(--label-extra-large-title-line-height) ;);
       --label--titlestack-font-weight: if(style(--label-font: footnote): var(--label-footnote-font-weight) ; style(--label-font: caption2): var(--label-caption2-font-weight) ; style(--label-font: caption): var(--label-caption-font-weight) ; style(--label-font: callout): var(--label-callout-font-weight) ; style(--label-font: body): var(--label-body-font-weight) ; style(--label-font: subheadline): var(--label-subheadline-font-weight) ; style(--label-font: headline): var(--label-headline-font-weight) ; style(--label-font: title3): var(--label-title3-font-weight) ; style(--label-font: title2): var(--label-title2-font-weight) ; style(--label-font: title): var(--label-title-font-weight) ; style(--label-font: large-title): var(--label-large-title-font-weight) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-weight) ;);
-      --label--overflow: if(style(--label-truncation-mode: tail): hidden ;);
-      --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis ;);
-      --label--host-white-space: if(style(--label-line-limit: 1): nowrap ; style(--label-line-limit: 2): normal ;);
-      --label--display: if(style(--label-line-limit: 2): -webkit-box ;);
-      --label--box-orient: if(style(--label-line-limit: 2): vertical ;);
-      --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
+      --label--overflow: if(style(--label-truncation-mode: tail): hidden; );
+      --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis; );
+      --label--host-white-space: if(style(--label-line-limit: 1): nowrap; style(--label-line-limit: 2): normal; );
+      --label--display: if(style(--label-line-limit: 2): -webkit-box; );
+      --label--box-orient: if(style(--label-line-limit: 2): vertical; );
+      --label--line-clamp: if(style(--label-line-limit: 2): 2; );
       --label--host-align-items: if(style(--label-flow: vertical): normal ; else: center ;);
       --label--host-justify-items: if(style(--label-flow: vertical): center ; else: normal ;);
       --label--host-grid-template-columns: if(
@@ -1378,6 +1380,12 @@
         --label--titlestack-display: grid;
       }
     }
+    :where(label-view[label-style=icon-only]) {
+      --label--iconstack-display: grid;
+    }
+    :where(label-view[label-style=title-only]) {
+      --label--titlestack-display: grid;
+    }
     :where(label-view[label-style=title-and-icon]) {
       --label--host-grid-template-columns: auto minmax(0, 1fr);
       --label--host-grid-template-rows: minmax(0, 1fr);
@@ -1386,12 +1394,6 @@
       --label--host-gap: 0.3rem;
       --label--iconstack-display: grid;
       --label--titlestack-display: grid;
-    }
-    :where(label-view[label-style=title-only]) {
-      --label--titlestack-display: grid;
-    }
-    :where(label-view[label-style=icon-only]) {
-      --label--iconstack-display: grid;
     }
     @container not style(--label-style) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
@@ -1432,6 +1434,12 @@
       }
     }
     @container style(--label-flow: vertical) {
+      :where(label-view[label-style=icon-only]) {
+        --label--iconstack-display: grid;
+      }
+      :where(label-view[label-style=title-only]) {
+        --label--titlestack-display: grid;
+      }
       :where(label-view[label-style=title-and-icon]) {
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
@@ -1440,12 +1448,6 @@
         --label--host-gap: 0.3rem;
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
-      }
-      :where(label-view[label-style=title-only]) {
-        --label--titlestack-display: grid;
-      }
-      :where(label-view[label-style=icon-only]) {
-        --label--iconstack-display: grid;
       }
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
@@ -1921,19 +1923,32 @@
 @layer sw-components {
   :where(list-view:not(list-view list-view, [is=form-view] list-view)) {
     --list--section-gap: var(--list-gap);
+    --list--item-background-color: var(--list-item-background-color, );
     --list--item-padding-inline-start: var(--list-item-padding-inline-start);
     --list--item-padding-inline-end: var(--list-item-padding-inline-end);
     --list--item-padding-block-start: var(--list-item-padding-block-start);
     --list--item-padding-block-end: var(--list-item-padding-block-end);
-    --list--item-background-color: var(--list-item-background-color,);
   }
   @supports (x: if(else:red)) {
     :where(list-view:not(list-view list-view, [is=form-view] list-view)) {
-      --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
-      --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
-      --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
-      --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
-      --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
+      --list--item-border-radius: if(style(--list-style: inset): var(--insetlist-item-border-radius); style(--list-style: inset-grouped): var(--insetlist-item-border-radius); style(--list-style: sidebar): var(--insetlist-item-border-radius); );
+      --list--host-padding-inline: if(style(--list-style: inset): var(--insetlist-padding-inline); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-inline); style(--list-style: sidebar): var(--insetgroupedlist-padding-inline); );
+      --list--host-padding-block: if(style(--list-style: inset): var(--insetlist-padding-block); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-block); );
+      --list--adjacentitem-border-radius: if(style(--list-style: inset-grouped): 0 0; );
+      --list--host-background-color: if(style(--list-style: inset-grouped): darkgray; );
+      --list--details-gap: if(style(--list-style: sidebar): var(--list-gap); );
+      --list--rootsummary-padding-inline-start: if(style(--list-style: sidebar): 5px; );
+      --list--rootsummary-padding-inline-end: if(style(--list-style: sidebar): 5px; );
+      --list--rootsummary-padding-block-start: if(style(--list-style: sidebar): 2px; );
+      --list--rootsummary-padding-block-end: if(style(--list-style: sidebar): 2px; );
+      --list--item-padding-inline-start: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-inline-start) ;);
+      --list--item-padding-inline-end: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-inline-end) ;);
+      --list--item-padding-block-start: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-block-start) ;);
+      --list--item-padding-block-end: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-block-end) ;);
+      --list--item-background-color: if(style(--list-style: sidebar): transparent; else: var(--list-item-background-color, ) ;);
+      --list--rootsummary-background-color: if(style(--list-style: sidebar): transparent; );
+      --list--rootsummary-border-radius: if(style(--list-style: sidebar): 0px; );
+      --list--separator-background-color: if(style(--list-style: sidebar): transparent; );
     }
   }
   @supports not (x: if(else:red)) {
@@ -1960,11 +1975,11 @@
         --list--rootsummary-padding-inline-start: 5px;
         --list--rootsummary-padding-inline-end: 5px;
         --list--rootsummary-padding-block-start: 2px;
-        --list--rootsummary-padding-block-start: 2px;
+        --list--rootsummary-padding-block-end: 2px;
         --list--item-padding-inline-start: 5px;
         --list--item-padding-inline-end: 5px;
         --list--item-padding-block-start: 5px;
-        --list--item-padding-block-start: 5px;
+        --list--item-padding-block-end: 5px;
         --list--item-background-color: transparent;
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-border-radius: 0px;
@@ -1990,11 +2005,11 @@
       --list--rootsummary-padding-inline-start: 5px;
       --list--rootsummary-padding-inline-end: 5px;
       --list--rootsummary-padding-block-start: 2px;
-      --list--rootsummary-padding-block-start: 2px;
+      --list--rootsummary-padding-block-end: 2px;
       --list--item-padding-inline-start: 5px;
       --list--item-padding-inline-end: 5px;
       --list--item-padding-block-start: 5px;
-      --list--item-padding-block-start: 5px;
+      --list--item-padding-block-end: 5px;
       --list--item-background-color: transparent;
       --list--rootsummary-background-color: transparent;
       --list--rootsummary-border-radius: 0px;
@@ -2015,15 +2030,28 @@
     --list--item-padding-inline-end: var(--form-item-padding-inline-end);
     --list--item-padding-block-start: var(--form-item-padding-block-start);
     --list--item-padding-block-end: var(--form-item-padding-block-end);
-    --list--item-background-color: var(--list-item-background-color,);
+    --list--item-background-color: var(--list-item-background-color, );
   }
   @supports (x: if(else:red)) {
     :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view])) {
-      --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
-      --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
-      --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
-      --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
-      --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
+      --list--item-border-radius: if(style(--form-style: inset): var(--insetform-item-border-radius); style(--form-style: inset-grouped): var(--insetform-item-border-radius); style(--form-style: sidebar): var(--insetform-item-border-radius); );
+      --list--host-padding-inline: if(style(--form-style: inset): var(--insetform-padding-inline); style(--form-style: inset-grouped): var(--insetgroupedform-padding-inline); style(--form-style: sidebar): var(--insetgroupedform-padding-inline); );
+      --list--host-padding-block: if(style(--form-style: inset): var(--insetform-padding-block); style(--form-style: inset-grouped): var(--insetgroupedform-padding-block); );
+      --list--adjacentitem-border-radius: if(style(--form-style: inset-grouped): 0 0; );
+      --list--host-background-color: if(style(--form-style: inset-grouped): darkgray; );
+      --list--details-gap: if(style(--form-style: sidebar): var(--form-gap); );
+      --list--rootsummary-padding-inline-start: if(style(--form-style: sidebar): 5px; );
+      --list--rootsummary-padding-inline-end: if(style(--form-style: sidebar): 5px; );
+      --list--rootsummary-padding-block-start: if(style(--form-style: sidebar): 2px; );
+      --list--rootsummary-padding-block-end: if(style(--form-style: sidebar): 2px; );
+      --list--item-padding-inline-start: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-inline-start) ;);
+      --list--item-padding-inline-end: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-inline-end) ;);
+      --list--item-padding-block-start: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-block-start) ;);
+      --list--item-padding-block-end: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-block-end) ;);
+      --list--item-background-color: if(style(--form-style: sidebar): transparent; else: var(--list-item-background-color, ) ;);
+      --list--rootsummary-background-color: if(style(--form-style: sidebar): transparent; );
+      --list--rootsummary-border-radius: if(style(--form-style: sidebar): 0px; );
+      --list--separator-background-color: if(style(--form-style: sidebar): transparent; );
     }
   }
   @supports not (x: if(else:red)) {
@@ -2050,11 +2078,11 @@
         --list--rootsummary-padding-inline-start: 5px;
         --list--rootsummary-padding-inline-end: 5px;
         --list--rootsummary-padding-block-start: 2px;
-        --list--rootsummary-padding-block-start: 2px;
+        --list--rootsummary-padding-block-end: 2px;
         --list--item-padding-inline-start: 5px;
         --list--item-padding-inline-end: 5px;
         --list--item-padding-block-start: 5px;
-        --list--item-padding-block-start: 5px;
+        --list--item-padding-block-end: 5px;
         --list--item-background-color: transparent;
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-border-radius: 0px;
@@ -2080,11 +2108,11 @@
       --list--rootsummary-padding-inline-start: 5px;
       --list--rootsummary-padding-inline-end: 5px;
       --list--rootsummary-padding-block-start: 2px;
-      --list--rootsummary-padding-block-start: 2px;
+      --list--rootsummary-padding-block-end: 2px;
       --list--item-padding-inline-start: 5px;
       --list--item-padding-inline-end: 5px;
       --list--item-padding-block-start: 5px;
-      --list--item-padding-block-start: 5px;
+      --list--item-padding-block-end: 5px;
       --list--item-background-color: transparent;
       --list--rootsummary-background-color: transparent;
       --list--rootsummary-border-radius: 0px;
@@ -2141,7 +2169,6 @@
 }
 @layer sw-components {
   :where(text-field) {
-    display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
   }
@@ -2165,22 +2192,41 @@
 }
 @layer sw-components {
   :where(picker-view) {
-    display: grid;
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
   }
   :where(picker-view)::part(picker-stack) {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: var(--picker--stack-grid-template-columns, );
     grid-template-rows: minmax(0, 1fr);
   }
   :where(picker-view)::part(picker-label-stack) {
-    display: none;
+    display: var(--picker--labelstack-display, none);
   }
-  :where(form picker-view)::part(picker-label-stack) {
-    display: grid;
+  :where(picker-view) {
+    --picker--stack-grid-template-columns: minmax(0, 1fr);
   }
-  :where(tool-bar-item picker-view)::part(picker-stack) {
-    grid-template-columns: minmax(0, 1fr);
+  @supports (x: if(else:red)) {
+    :where(picker-view) {
+      --picker--labelstack-display: if(style(--picker-style: menu): grid; );
+      --picker--stack-grid-template-columns: if(style(--picker-style: menu): auto minmax(0, 1fr); else: minmax(0, 1fr) ;);
+    }
+  }
+  @supports not (x: if(else:red)) {
+    @container style(--picker-style: menu) {
+      :where(picker-view:not([picker-style])) {
+        --picker--labelstack-display: grid;
+        --picker--stack-grid-template-columns: auto minmax(0, 1fr);
+      }
+    }
+    :where(picker-view[picker-style=menu]) {
+      --picker--labelstack-display: grid;
+      --picker--stack-grid-template-columns: auto minmax(0, 1fr);
+    }
+  }
+  @supports (x: attr(x type(*))) {
+    :where(picker-view) {
+      --picker-style: attr(picker-style type(<custom-ident>), inherit);
+    }
   }
 }
 @layer sw-nav-components {

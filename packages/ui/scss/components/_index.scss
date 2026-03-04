@@ -24,7 +24,9 @@
   tool-bar,
   label-view,
   menu-view,
-  section-view {
+  section-view,
+  text-field,
+  picker-view {
     :where(&:not([hidden])) {
       display: grid;
     }

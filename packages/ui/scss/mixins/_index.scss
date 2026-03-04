@@ -1,4 +1,7 @@
 @use '../vars';
+@use 'sass:string';
+@use 'sass:map';
+@use 'sass:list';
 
 @mixin span-all {
   grid-column: 1 / -1; // span all columns
@@ -247,5 +250,59 @@
 @mixin ifnot-3col-split-view-fits {
   @media (max-width: #{vars.$nav-split-view-3col-bp-max}) {
     @content;
+  }
+}
+
+// Mixin for plain CSS (linear)
+@mixin write-props($props) {
+  @each $prop, $val in $props {
+    #{$prop}: #{$val};
+  }
+}
+
+// Mixin for generating nested if() for multiple variants
+@mixin write-ifs($comp, $all-variants, $elses: ()) {
+  // Collect all properties across all variants
+  $all-props: ();
+  @each $variant, $props in $all-variants {
+    @each $prop, $val in $props {
+      $existing: map.get($all-props, $prop);
+      @if $existing {
+        $all-props: map.merge(
+          $all-props,
+          (
+            $prop: list.append($existing, ($variant $val), comma),
+          )
+        );
+      } @else {
+        $all-props: map.merge(
+          $all-props,
+          (
+            $prop: (
+                ($variant $val),
+              ),
+          )
+        );
+      }
+    }
+  }
+
+  // Output each property with nested if() chain
+  @each $prop, $cases in $all-props {
+    $code: '';
+    $i: list.length($cases);
+    @while $i > 0 {
+      $case: list.nth($cases, $i);
+      $variant: list.nth($case, 1);
+      $val: list.nth($case, 2);
+      $code: 'style(#{$comp}: #{$variant}): #{$val}; #{$code}';
+      $i: $i - 1;
+    }
+    $else: map.get($elses, $prop);
+    @if ($else) {
+      #{$prop}: string.unquote('if(#{$code}else: #{$else} ;)');
+    } @else {
+      #{$prop}: string.unquote('if(#{$code})');
+    }
   }
 }

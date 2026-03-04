@@ -4,5 +4,11 @@ export { default as debounce } from './debounce'
 export { default as touchGlass } from './touch-glass'
 export { default as slowHideShow } from './slow-hide-show'
 
-import * as cash from './cash'
-export const $ = cash
+// import * as cash from './cash' // import * as cash from './cash'
+// export const $ = cash
+// import cash, { prop as cashProp } from './cash'
+import cash from './cash'
+
+export const $: typeof cash = cash
+
+// export { cashProp as prop }

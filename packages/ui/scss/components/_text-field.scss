@@ -1,11 +1,8 @@
 @use '../vars';
-@use '../mixins';
 
 @layer #{vars.$components-layer} {
   text-field {
     :where(&) {
-      display: grid;
-
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
 

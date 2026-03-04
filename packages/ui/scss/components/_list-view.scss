@@ -1,70 +1,115 @@
 @use '../vars';
+@use '../mixins';
 @use '../placeholders';
 @use 'sass:string';
+@use 'sass:map';
 
-@mixin set-list-style($value) {
-  @if $value == inset {
-    // --list--host-border-radius: var(--insetlist-item-border-radius);
-    --list--item-border-radius: var(--insetlist-item-border-radius);
+$list-ifs: (
+  inset: (
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--host-padding-inline: var(--insetlist-padding-inline),
+    --list--host-padding-block: var(--insetlist-padding-block),
+  ),
+  inset-grouped: (
+    --list--adjacentitem-border-radius: 0 0,
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--host-background-color: darkgray,
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    --list--host-padding-block: var(--insetgroupedlist-padding-block),
+  ),
+  sidebar: (
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--details-gap: var(--list-gap),
+    --list--rootsummary-padding-inline-start: 5px,
+    --list--rootsummary-padding-inline-end: 5px,
+    --list--rootsummary-padding-block-start: 2px,
+    --list--rootsummary-padding-block-end: 2px,
 
-    --list--host-padding-inline: var(--insetlist-padding-inline);
-    --list--host-padding-block: var(--insetlist-padding-block);
-    //
-    // --list--root-background-color: aliceblue;
-    // --list--separator-block-size: 5px;
-  } @else if $value == inset-grouped {
-    // --list--host-border-radius: var(--insetlist-item-border-radius);
-    --list--adjacentitem-border-radius: 0 0;
-    --list--item-border-radius: var(--insetlist-item-border-radius);
+    --list--item-padding-inline-start: 5px,
+    --list--item-padding-inline-end: 5px,
+    --list--item-padding-block-start: 5px,
+    --list--item-padding-block-end: 5px,
 
-    --list--host-background-color: darkgray; //var(--groupedface);
+    --list--item-background-color: transparent,
+    --list--rootsummary-background-color: transparent,
+    --list--rootsummary-border-radius: 0px,
 
-    --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
-    --list--host-padding-block: var(--insetgroupedlist-padding-block);
+    --list--separator-background-color: transparent,
 
-    // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+  ),
+);
+$list-elses: (
+  --list--item-background-color: var(--list-item-background-color,),
+  --list--item-padding-inline-start: var(--list-item-padding-inline-start),
+  --list--item-padding-inline-end: var(--list-item-padding-inline-end),
+  --list--item-padding-block-start: var(--list-item-padding-block-start),
+  --list--item-padding-block-end: var(--list-item-padding-block-end),
+);
 
-    //
-    // // --list--root-background-color: aliceblue;
+// @mixin set-list-style($value) {
+//   @if $value == inset {
+//     // --list--host-border-radius: var(--insetlist-item-border-radius);
+//     --list--item-border-radius: var(--insetlist-item-border-radius);
 
-    // --list--root-padding-inline: 0.5rem;
-    // // --toolbaritemradius: var(--list-item-border-radius);
+//     --list--host-padding-inline: var(--insetlist-padding-inline);
+//     --list--host-padding-block: var(--insetlist-padding-block);
+//     //
+//     // --list--root-background-color: aliceblue;
+//     // --list--separator-block-size: 5px;
+//   } @else if $value == inset-grouped {
+//     // --list--host-border-radius: var(--insetlist-item-border-radius);
+//     --list--adjacentitem-border-radius: 0 0;
+//     --list--item-border-radius: var(--insetlist-item-border-radius);
 
-    // // --list--separator-block-size: 5px;
-    // --list--separator-inset-inline-start: calc(var(--toolbaritempadistart) + 0.1rem);
-    // --list--separator-inset-inline-end: calc(var(--toolbaritempadiend) + 0.1rem);
-  } @else if $value == sidebar {
-    // --list--host-border-radius: var(--insetlist-item-border-radius);
-    --list--item-border-radius: var(--insetlist-item-border-radius);
+//     --list--host-background-color: darkgray; //var(--groupedface);
 
-    --list--details-gap: var(--list-gap);
+//     --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
+//     --list--host-padding-block: var(--insetgroupedlist-padding-block);
 
-    --list--rootsummary-padding-inline-start: 5px;
-    --list--rootsummary-padding-inline-end: 5px;
-    --list--rootsummary-padding-block-start: 2px;
-    --list--rootsummary-padding-block-start: 2px;
+//     // --list--adjacentitem-border-radius: 0px 0px var(--list--item-border-radius,) var(--list--item-border-radius,);
 
-    --list--item-padding-inline-start: 5px;
-    --list--item-padding-inline-end: 5px;
-    --list--item-padding-block-start: 5px;
-    --list--item-padding-block-start: 5px;
+//     //
+//     // // --list--root-background-color: aliceblue;
 
-    --list--item-background-color: transparent;
-    --list--rootsummary-background-color: transparent;
-    --list--rootsummary-border-radius: 0px;
+//     // --list--root-padding-inline: 0.5rem;
+//     // // --toolbaritemradius: var(--list-item-border-radius);
 
-    --list--separator-background-color: transparent;
+//     // // --list--separator-block-size: 5px;
+//     // --list--separator-inset-inline-start: calc(var(--toolbaritempadistart) + 0.1rem);
+//     // --list--separator-inset-inline-end: calc(var(--toolbaritempadiend) + 0.1rem);
+//   } @else if $value == sidebar {
+//     // --list--host-border-radius: var(--insetlist-item-border-radius);
+//     --list--item-border-radius: var(--insetlist-item-border-radius);
 
-    --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
-    //
-    // --list--root-padding-inline: 0.5rem;
-    // // --toolbaritemradius: var(--list-item-border-radius);
-    // --list--separator-block-size: 0px;
-    // --list--separator-visibility: collapse;
-    // // --list--root-background-color: transparent;
-    // --face: transparent; // --groupedface: transparent;
-  }
-}
+//     --list--details-gap: var(--list-gap);
+
+//     --list--rootsummary-padding-inline-start: 5px;
+//     --list--rootsummary-padding-inline-end: 5px;
+//     --list--rootsummary-padding-block-start: 2px;
+//     --list--rootsummary-padding-block-start: 2px;
+
+//     --list--item-padding-inline-start: 5px;
+//     --list--item-padding-inline-end: 5px;
+//     --list--item-padding-block-start: 5px;
+//     --list--item-padding-block-start: 5px;
+
+//     --list--item-background-color: transparent;
+//     --list--rootsummary-background-color: transparent;
+//     --list--rootsummary-border-radius: 0px;
+
+//     --list--separator-background-color: transparent;
+
+//     --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
+//     //
+//     // --list--root-padding-inline: 0.5rem;
+//     // // --toolbaritemradius: var(--list-item-border-radius);
+//     // --list--separator-block-size: 0px;
+//     // --list--separator-visibility: collapse;
+//     // // --list--root-background-color: transparent;
+//     // --face: transparent; // --groupedface: transparent;
+//   }
+// }
 
 @layer #{vars.$components-layer} {
   list-view {
@@ -75,44 +120,47 @@
       :where(&) {
         --list--section-gap: var(--list-gap);
 
-        --list--item-padding-inline-start: var(--list-item-padding-inline-start);
-        --list--item-padding-inline-end: var(--list-item-padding-inline-end);
-        --list--item-padding-block-start: var(--list-item-padding-block-start);
-        --list--item-padding-block-end: var(--list-item-padding-block-end);
+        @include mixins.write-props($list-elses);
+        // --list--item-padding-inline-start: var(--list-item-padding-inline-start);
+        // --list--item-padding-inline-end: var(--list-item-padding-inline-end);
+        // --list--item-padding-block-start: var(--list-item-padding-block-start);
+        // --list--item-padding-block-end: var(--list-item-padding-block-end);
 
-        --list--item-background-color: var(--list-item-background-color,);
+        // --list--item-background-color: var(--list-item-background-color,);
       }
 
-      // vars
+      // SECTION: ifs
       @supports (x: #{string.unquote('if(else:red)')}) {
         :where(&) {
-          --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+          @include mixins.write-ifs(--list-style, $list-ifs, $list-elses);
+          // --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
 
-          --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+          // --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
 
-          --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
-          --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
+          // --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
+          // --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
 
-          --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
+          // --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
         }
       }
 
+      // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([list-style])) {
           @each $v in vars.$list-styles {
             @container style(--list-style: #{$v}) {
-              @include set-list-style($v);
+              @include mixins.write-props(map.get($list-ifs, $v));
             }
           }
         }
         @each $v in vars.$list-styles {
           :where(&[list-style='#{$v}']) {
-            @include set-list-style($v);
+            @include mixins.write-props(map.get($list-ifs, $v));
           }
         }
       }
 
-      // ifs finally
+      // SECTION: attrs finally
       @supports (x: #{string.unquote('attr(x type(*))')}) {
         :where(&) {
           --list-style: attr(list-style type(<custom-ident>), inherit);

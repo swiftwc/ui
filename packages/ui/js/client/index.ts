@@ -1,6 +1,7 @@
 import * as Components from '../components'
 import { kebabCase } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { NavigationPath } from '../navigation-path'
 import { type WebComponentCtor } from '../namespace'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -455,4 +456,4 @@ export function queryView(body?: Components.ScrollView): NavigationItem {
 //   }
 // }
 
-export { Snapshot }
+export { Snapshot, NavigationPath }

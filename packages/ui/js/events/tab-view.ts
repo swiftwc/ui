@@ -1,9 +1,16 @@
+import { type NavigationStack } from '../components/navigation-stack'
+import { type NavigationSplitView } from '../components/navigation-split-view'
+
+export type PageRevealSwapDetail = {
+  page: string
+}
+
 export type TabRevealSwapDetail = {
   tag: string
 }
 
 export type TabViewChangeDetail = {
-  selection: HTMLElement[]
+  selection: NavigationStack | NavigationSplitView | null
 }
 
 declare global {
@@ -13,5 +20,7 @@ declare global {
     beforetabreveal: CustomEvent<TabRevealSwapDetail>
     beforetabswap: CustomEvent<TabRevealSwapDetail>
     'tab-view:change': CustomEvent<TabViewChangeDetail>
+    pagereveal: CustomEvent<PageRevealSwapDetail>
+    pageswap: CustomEvent<PageRevealSwapDetail>
   }
 }

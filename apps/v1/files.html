@@ -33,7 +33,6 @@
     <tab-view tab-view-style="tab-bar-only">
       <navigation-stack id="recents">
         <scroll-view navigation-inline-title="Recents">
-          <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
           <v-stack placement="leading fill">
             ns2section0<button type="button" class="fw">→</button>
             <p>...</p>
@@ -97,10 +96,11 @@
       <navigation-split-view id="browse" preferred-compact-column="content" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="Browse">
-            <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
             <v-stack placement="leading fill">
               <list-view>
-                <button type="button" navigation-destination="cloud_drive">Cloud Drive</button>
+                <button type="button" navigation-destination="cloud_drive">
+                  <label-view system-image="smiley" label="Cloud Drive"></label-view>
+                </button>
               </list-view>
             </v-stack>
           </scroll-view>
@@ -154,8 +154,7 @@
 
     <template id="cloud_drive">
       <body-view>
-        <scroll-view navigation-inline-title="Cloud Drive">
-          <!-- <v-stack frame-alignment="leading" alignment="fill"> -->
+        <scroll-view navigation-inline-title="Cloud Drive" id="scloud_drive">
           <v-stack placement="leading fill">
             browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
             <p>...</p>
@@ -207,7 +206,21 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
-      import { startViewTransition, closestBody, getRootController, getComputedView } from '../../packages/ui/js/client'
+      import { startViewTransition, closestBody, getRootController, getComputedView, NavigationPath } from '../../packages/ui/js/client'
+
+      document.addEventListener('navigation-path:change', async (event) => {
+        console.debug(`⚡️ navigation-path:change`)
+
+        document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = `${NavigationPath.has(document.querySelector('#scloud_drive'))}`
+      })
+
+      // document.addEventListener('pageswap', async (event) => {
+      //   console.debug(`⚡️ pageswap`)
+
+      //   if (event.detail.page.id === 'scloud_drive') alert(8)
+
+      //   document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = 'false'
+      // })
 
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ click`)
@@ -224,6 +237,7 @@
           await startViewTransition(event, 'forwards', async () => {
             modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
           })
+
           // document.startViewTransition({
           //   async update() {
           //     startViewTransition(event, false)

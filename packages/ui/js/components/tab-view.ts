@@ -3,6 +3,7 @@ import { debounce } from '../internal/utils'
 import { type TabViewChangeDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
+import { type TabRevealSwapDetail } from '../events'
 
 export class TabView extends HTMLElement {
   #debouncedHandler
@@ -35,16 +36,32 @@ export class TabView extends HTMLElement {
     this.addEventListener('tabswap', this.#addAnimations)
   }
 
-  get selection() {
-    return [...this.querySelectorAll<NavigationStack | NavigationSplitView>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')]
+  get selectedTab() {
+    return this.querySelector<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')
+    // return [...this.querySelectorAll<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')]
   }
 
-  #handleSelectionChange = (event: Event) => {
-    this.#triggerChangeEvent(event)
+  set selectedTab(newTab) {
+    if (!newTab) throw new Error('Element not found')
+
+    for (const ns of this.querySelectorAll<HTMLElement>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'))
+      if (!ns.contains(newTab)) {
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+        ns.hidden = true // triggers
+      }
+
+    for (const ns of this.querySelectorAll<HTMLElement>(':scope>navigation-stack[hidden],:scope>navigation-split-view[hidden]'))
+      if (ns.contains(newTab)) {
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+        ns.hidden = false // triggers
+      }
   }
 
   #addAnimations = (event: Event) => {
-    // self.requestAnimationFrame(() => { DO NOT add this it breaks tabbar ipad/iphone, must be instant
+    //DO NOT add this it breaks tabbar ipad/iphone, must be instant
+    // self.requestAnimationFrame(() => {
     this.setAttribute('js-aftertabreveal', '')
 
     if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
@@ -59,11 +76,15 @@ export class TabView extends HTMLElement {
     // })
   }
 
+  #handleSelectionChange = (event: Event) => {
+    this.#triggerChangeEvent(event)
+  }
+
   #triggerChangeEvent = (event: Event) => {
     const eventType = 'tab-view:change'
 
     console.debug(`${TabView.name} 💡 ${eventType}`)
 
-    this.dispatchEvent(new CustomEvent<TabViewChangeDetail>(eventType, { detail: { selection: this.selection }, bubbles: true, composed: true }))
+    this.dispatchEvent(new CustomEvent<TabViewChangeDetail>(eventType, { detail: { selection: this.selectedTab }, bubbles: true, composed: true }))
   }
 }

@@ -2,6 +2,8 @@ import { type TabView } from './tab-view'
 import { ButtonBase } from '../internal/privateNamespace'
 import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
+import { type NavigationStack } from './navigation-stack'
+import { type NavigationSplitView } from './navigation-split-view'
 
 export class TabItem extends ButtonBase {
   static #cleanups = new WeakMap()
@@ -52,7 +54,8 @@ export class TabItem extends ButtonBase {
         tv?.removeEventListener('tabswap', handler)
       })
 
-      if (tv?.selection?.map(({ id }) => id)?.includes(el.value))
+      // if (tv?.selectedTab?.map(({ id }) => id)?.includes(el.value))
+      if (tv?.selectedTab?.id === el.value)
         void this.#handleTabRevealOrSwap(el, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: el.value } }))
     })
   }
@@ -87,21 +90,8 @@ export class TabItem extends ButtonBase {
     const tv = tabItem.closest<TabView>('tab-view')
     if (!tv) throw new Error('Element not found')
 
-    const newTab = tv?.querySelector<HTMLElement>(`#${tag}`)
-    if (!newTab) throw new Error('Element not found')
+    const newTab = tv?.querySelector<NavigationStack | NavigationSplitView>(`:scope>#${tag}`)
 
-    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])'))
-      if (!ns.contains(newTab)) {
-        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
-
-        ns.hidden = true
-      }
-
-    for (const ns of tv.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]'))
-      if (ns.contains(newTab)) {
-        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
-
-        ns.hidden = false
-      }
+    tv.selectedTab = newTab
   }
 }

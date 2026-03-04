@@ -2,6 +2,8 @@ import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
 import { type TabView } from './tab-view'
 import { $, slowHideShow } from '../internal/utils'
+import { type PageRevealSwapDetail } from '../events'
+import { NavigationPath } from '../navigation-path'
 
 export class ScrollView extends HTMLElement {
   static observedAttributes = ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
@@ -122,7 +124,9 @@ export class ScrollView extends HTMLElement {
 
     this.removeEventListener('tabreveal', this.#handleTabReveal)
 
-    this.removeEventListener('beforetabswap', this.#handleTabReveal)
+    this.removeEventListener('beforetabswap', this.#handleTabBeforeswap)
+
+    NavigationPath.remove(this)
   }
 
   connectedCallback() {
@@ -135,6 +139,8 @@ export class ScrollView extends HTMLElement {
     this.closest<TabView>('tab-view')?.addEventListener('tabreveal', this.#handleTabReveal)
 
     this.closest<TabView>('tab-view')?.addEventListener('beforetabswap', this.#handleTabBeforeswap)
+
+    NavigationPath.append(this)
   }
 
   #beforeTabSwapLastScrolltop?: number

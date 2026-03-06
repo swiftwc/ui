@@ -1,9 +1,8 @@
 import { DialogBase } from '../internal/privateNamespace'
-import { touchGlass } from '../internal/utils'
+import { touchGlass, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class SidebarView extends DialogBase {
-  static #cleanups = new WeakMap()
-
   constructor() {
     super()
   }
@@ -21,27 +20,29 @@ export class SidebarView extends DialogBase {
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
     el.removeEventListener('click', SidebarView.#handleClick)
 
-    for (const fn of this.#cleanups.get(el)) fn?.()
-
-    this.#cleanups.delete(el)
+    CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
-    el.addEventListener('click', SidebarView.#handleClick)
+    const { on: on1 } = onoff('click', SidebarView.#handleClick, el)
 
-    const { on } = touchGlass(
-      el,
-      (t) => t,
-      (event: PointerEvent) => {
-        if ((event.target as HTMLElement).matches('[is=sidebar-view]')) return false
-        if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+    CleanupRegistry.register(el, on1())
 
-        return true
-      }
+    const { on } = onoff(
+      touchGlass(
+        el,
+        (t) => t,
+        (event: PointerEvent) => {
+          if ((event.target as HTMLElement).matches('[is=sidebar-view]')) return false
+          if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+
+          return true
+        }
+      ),
+      el
     )
 
-    if (!this.#cleanups.has(el)) this.#cleanups.set(el, [])
-    this.#cleanups.get(el).push(on())
+    CleanupRegistry.register(el, on())
 
     el.autofocus = true
   }

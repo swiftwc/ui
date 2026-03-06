@@ -1,3 +1,5 @@
+import frame from './frame'
+
 export default function (to: 'show' | 'hide', el?: HTMLElement) {
   const transcleanup = (event: TransitionEvent) => {
     if ('opacity' !== event.propertyName) return
@@ -12,5 +14,5 @@ export default function (to: 'show' | 'hide', el?: HTMLElement) {
 
   el?.setAttribute('slow', '')
 
-  requestAnimationFrame(() => el?.setAttribute('slow', to))
+  frame().then(() => el?.setAttribute('slow', to)) //self.requestAnimationFrame(() => el?.setAttribute('slow', to))
 }

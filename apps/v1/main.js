@@ -22,7 +22,7 @@ document.body.addEventListener('selection', async (event) => {
 })
 
 document.body.addEventListener('click', async (event) => {
-  console.debug(`⚡️ click`)
+  console.debug(`⚡️ ${event?.type}`)
 
   if (event.target.closest('button')) {
     if (event.target.closest('.make-list')) {
@@ -430,7 +430,7 @@ export function modifyDOMbackwards(pr) {
   }
 }
 
-export function modifyDOMforwards(trigger, view, htmlorTpl) {
+export function modifyDOMforwards(trigger, view, htmlorTpl, overwrite = true) {
   // const root = getRootController(body), //sv.closest('navigation-stack,navigation-split-view'),
   // const view = getComputedView(body) //{ scene, frame } = queryFrameToolbars(sv),
   const { page, host } = view
@@ -454,6 +454,8 @@ export function modifyDOMforwards(trigger, view, htmlorTpl) {
     const position = queryInsertPosition(host) //'afterend'
     const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
+    if (overwrite) if (['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) page[lookFor].remove()
+
     if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
       let node
 
@@ -472,4 +474,11 @@ export function modifyDOMforwards(trigger, view, htmlorTpl) {
       // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
     }
   }
+}
+
+export const navHandler = async (event) => {
+  console.debug(`⚡️ ${event?.type}`)
+
+  for (const el of document.querySelectorAll('[navigation-destination]'))
+    el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
 }

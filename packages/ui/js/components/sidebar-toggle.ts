@@ -3,6 +3,8 @@ import { type SidebarView } from './sidebar-view'
 import { debounce, $ } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 const observers = new ResizeObserverSingleton()
 
@@ -25,7 +27,9 @@ export class SidebarToggle extends HTMLElement {
   connectedCallback() {
     console.debug(`${SidebarToggle.name} ⚡️ connect`)
 
-    this.addEventListener('click', this.#handleClick)
+    const { on } = onoff('click', this.#handleClick, this)
+
+    CleanupRegistry.register(this, on())
 
     const entry = {
       target: this,
@@ -46,7 +50,7 @@ export class SidebarToggle extends HTMLElement {
     observers.unobserve(this) //this.#ro?.disconnect()
     // this.#io.disconnect()
 
-    this.removeEventListener('click', this.#handleClick)
+    CleanupRegistry.unregister(this)
   }
 
   private static query(target?: HTMLElement) {

@@ -35,7 +35,7 @@
         <v-stack placement="leading fill">
           <label-view padding system-image="globe"></label-view>
           <list-view list-style="inset-grouped">
-            <button navigation-destination="region">
+            <button type="button" navigation-destination="region">
               <label-view label="English"></label-view>
             </button>
           </list-view>
@@ -49,7 +49,7 @@
           <v-stack placement="leading fill">
             <navigation-title value="Select Your Country or Region" padding></navigation-title>
             <list-view list-style="inset-grouped">
-              <button navigation-destination="appearance">
+              <button type="button" navigation-destination="appearance">
                 <label-view label="USA"></label-view>
               </button>
             </list-view>
@@ -128,13 +128,13 @@
             </v-stack>
 
             <list-view list-style="inset-grouped">
-              <button navigation-destination="terms">
+              <button type="button" navigation-destination="terms">
                 <label-view label="Child"></label-view>
               </button>
-              <button navigation-destination="terms">
+              <button type="button" navigation-destination="terms">
                 <label-view label="Teen"></label-view>
               </button>
-              <button navigation-destination="terms">
+              <button type="button" navigation-destination="terms">
                 <label-view label="Adult"></label-view>
               </button>
             </list-view>
@@ -244,13 +244,13 @@
       import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'
 
       document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ click`)
+        console.debug(`⚡️ ${event?.type}`)
 
         const navDest = event.target.closest('[navigation-destination]')
 
         if (event.target.closest('.st')) {
           const sv = closestBody(document.querySelector('#gg')),
-            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+            pr = closestHost(sv)
 
           await startViewTransition({ target: sv }, 'backwards', async () => {
             modifyDOMbackwards(pr)
@@ -259,10 +259,10 @@
 
         if (event.target.closest('.back')) {
           const sv = closestBody(event.target),
-            { page, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
-            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+            { page, host } = getComputedView(sv),
+            pr = closestHost(sv)
 
-          const parentScene = closestBody(host?.parentElement ?? undefined) //queryParent(frame)
+          const parentScene = closestBody(host?.parentElement ?? undefined)
 
           if (navDest && parentScene) parentScene.parentElement.inert = true
 

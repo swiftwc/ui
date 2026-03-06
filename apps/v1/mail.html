@@ -35,23 +35,32 @@
         <scroll-view navigation-inline-title="Mailboxes">
           <v-stack placement="leading fill">
             <list-view>
-              <section-view header="Favorites">
+              <section-view>
                 <details is="disclosure-group" open>
                   <summary>
-                    <label-view system-image="smiley" label="All Inboxes"></label-view>
+                    <label-view label="Favorites"></label-view>
                   </summary>
-                  <button value="more"><label-view system-image="smiley" label="Account 1"></label-view></button>
-                  <button value="more"><label-view system-image="smiley" label="Account 2"></label-view></button>
+                  <details is="disclosure-group" open>
+                    <summary>
+                      <label-view system-image="smiley" label="All Inboxes"></label-view>
+                    </summary>
+                    <button value="more"><label-view system-image="smiley" label="Account 1"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" label="Account 2"></label-view></button>
+                  </details>
                 </details>
               </section-view>
-              <section-view header="Account 1">
-                <button navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
-                <button navigation-destination="sent" value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
-                <button value="more"><label-view system-image="smiley" label="Trash"></label-view></button>
-                <button value="more"><label-view system-image="smiley" label="Archive"></label-view></button>
+              <section-view>
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view label="Account 1"></label-view>
+                  </summary>
+                  <button type="button" navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
+                  <button type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" label="Trash"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" label="Archive"></label-view></button>
+                </details>
               </section-view>
             </list-view>
-            ns1section0<button type="button" class="fw">→</button>
           </v-stack>
         </scroll-view>
 
@@ -77,49 +86,46 @@
 
     <template id="inbox">
       <body-view>
-        <scroll-view navigation-inline-title="Inbox" style="--face: white">
+        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: white">
           <v-stack placement="leading fill">
-            <list-view list-style="inset-grouped">
-              <button navigation-destination="item1">
+            <list-view list-style="inset">
+              <button type="button" navigation-destination="item1">
                 <label-view label="Item 1"></label-view>
               </button>
-              <button navigation-destination="item2">
+              <button type="button" navigation-destination="item2">
                 <label-view label="Item 2"></label-view>
               </button>
               <details is="disclosure-group">
                 <summary>
                   <label-view system-image="smiley" label="Grouped Item 3"></label-view>
                 </summary>
-                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
               </details>
-              <button navigation-destination="item1">
-                <label-view label="Item 1"></label-view>
-              </button>
-              <button navigation-destination="item2">
+              <button type="button" navigation-destination="item2">
                 <label-view label="Item 2"></label-view>
               </button>
               <details is="disclosure-group">
                 <summary>
                   <label-view system-image="smiley" label="Grouped Item 3"></label-view>
                 </summary>
-                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
               </details>
               <details is="disclosure-group">
                 <summary>
                   <label-view system-image="smiley" label="Grouped Item 3"></label-view>
                 </summary>
-                <button navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
               </details>
-              <button navigation-destination="item2">
+              <button type="button" navigation-destination="item2">
                 <label-view label="Item 2"></label-view>
               </button>
             </list-view>
@@ -136,19 +142,19 @@
     </template>
     <template id="sent">
       <body-view>
-        <scroll-view navigation-inline-title="Sent" style="--face: white">
+        <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: white">
           <v-stack placement="leading fill">
-            <list-view list-style="inset-grouped">
-              <button navigation-destination="item1">
+            <list-view list-style="inset">
+              <button type="button" navigation-destination="item1">
                 <label-view label="Item 1"></label-view>
               </button>
-              <button navigation-destination="item2">
+              <button type="button" navigation-destination="item2">
                 <label-view label="Item 2"></label-view>
               </button>
-              <button navigation-destination="item1">
+              <button type="button" navigation-destination="item1">
                 <label-view label="Item 3"></label-view>
               </button>
-              <button navigation-destination="item2">
+              <button type="button" navigation-destination="item2">
                 <label-view label="Item 4"></label-view>
               </button>
             </list-view>
@@ -163,13 +169,44 @@
         </tool-bar>
       </body-view>
     </template>
+    <template id="item1">
+      <body-view>
+        <scroll-view navigation-inline-title="Item 1" navigation-path="item1">
+          <v-stack placement="leading fill" padding> Item 1 </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="item3a">
+      <body-view>
+        <scroll-view navigation-inline-title="Item 3a" navigation-path="item3a">
+          <v-stack placement="leading fill" padding> Item 3a </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
 
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
+      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath } from '../../packages/ui/js/client'
+
+      NavigationPath.addEventListener('pagereveal', navHandler)
+      NavigationPath.addEventListener('pageswap', navHandler)
 
       document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ click`)
+        console.debug(`⚡️ ${event?.type}`)
 
         const navDest = event.target.closest('[navigation-destination]')
 
@@ -184,10 +221,10 @@
 
         if (event.target.closest('.back')) {
           const sv = closestBody(event.target),
-            { page, host } = getComputedView(sv), //{ scene, frame } = queryFrameToolbars(sv),
-            pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+            { page, host } = getComputedView(sv),
+            pr = closestHost(sv)
 
-          const parentScene = closestBody(host?.parentElement ?? undefined) //queryParent(frame)
+          const parentScene = closestBody(host?.parentElement ?? undefined)
 
           if (navDest && parentScene) parentScene.parentElement.inert = true
 

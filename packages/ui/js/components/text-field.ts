@@ -1,4 +1,6 @@
 import { Snapshot } from '../snapshot'
+import { onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class TextField extends HTMLElement {
   static observedAttributes = ['placeholder', 'label']
@@ -44,9 +46,15 @@ export class TextField extends HTMLElement {
 
       const input = this.#shadowRoot.querySelector('input')
 
-      input!.addEventListener('input', () => {
-        this.#internals.setFormValue(input!.value)
-      })
+      const { on } = onoff(
+        'input',
+        () => {
+          this.#internals.setFormValue(input!.value)
+        },
+        input!
+      )
+
+      CleanupRegistry.register(this, on())
     })
   }
 
@@ -56,6 +64,8 @@ export class TextField extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${TextField.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {

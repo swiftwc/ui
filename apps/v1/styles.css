@@ -119,7 +119,7 @@
     }
   }
   :root {
-    --disclosure-group-animation-duration: 500ms;
+    --disclosure-group-animation-duration: 300ms;
     --disclosure-group-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
     --label-footnote-font-size: 1rem;
@@ -229,6 +229,7 @@
   [role=button],
   button {
     text-align: unset;
+    touch-action: manipulation;
   }
   [role=button],
   summary,
@@ -304,7 +305,7 @@
     --itemhighlightface: var(--list--item-background-color,);
     --itemactiveface: var(--list--item-background-color,);
   }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > summary, list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > summary) {
+  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group] > summary, list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group] > summary) {
     --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
     --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
     --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
@@ -343,11 +344,11 @@
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot])) {
     --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,));
   }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group]) > summary) {
+  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group]) > summary) {
     --itemradiust: var(
       --list--adjacentitem-border-radius,
       var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))

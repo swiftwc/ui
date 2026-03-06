@@ -1,4 +1,6 @@
 import { DialogBase } from '../internal/privateNamespace'
+import { onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class SheetView extends DialogBase {
   constructor() {
@@ -16,13 +18,15 @@ export class SheetView extends DialogBase {
   static polyfillDisconnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ disconnect`)
 
-    el.removeEventListener('cancel', SheetView.#handleCancel)
+    CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ connect`)
 
-    el.addEventListener('cancel', SheetView.#handleCancel)
+    const { on } = onoff('cancel', SheetView.#handleCancel, el)
+
+    CleanupRegistry.register(el, on())
 
     el.autofocus = true
   }

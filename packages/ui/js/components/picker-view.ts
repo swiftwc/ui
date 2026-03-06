@@ -1,6 +1,7 @@
 import { Snapshot } from '../snapshot'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { $ } from '../internal/utils'
+import { $, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 const observers = new MutationObserverSingleton()
 
@@ -146,7 +147,9 @@ export class PickerView extends HTMLElement {
 
     this.#internals = this.attachInternals()
 
-    this.addEventListener('click', this.#handleClick)
+    const { on } = onoff('click', this.#handleClick, this)
+
+    CleanupRegistry.register(this, on())
 
     Snapshot.waitReady.then(this.#render.bind(this))
   }
@@ -164,7 +167,7 @@ export class PickerView extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${PickerView.name} ⚡️ disconnect`)
 
-    this.removeEventListener('click', this.#handleClick)
+    CleanupRegistry.unregister(this)
 
     this.#trackedElements.clear()
   }
@@ -205,11 +208,15 @@ export class PickerView extends HTMLElement {
     this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
     this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
-    this.#datalistSlot?.removeEventListener('slotchange', this.#handleSlotchange)
-    this.#datalistSlot?.addEventListener('slotchange', this.#handleSlotchange)
+    const { on: on1 } = onoff('slotchange', this.#handleSlotchange, this.#datalistSlot)
 
-    this.#tagSlot?.removeEventListener('slotchange', this.#handleSlotchange)
-    this.#tagSlot?.addEventListener('slotchange', this.#handleSlotchange)
+    CleanupRegistry.unregister(this, 'datalist') //off1()
+    CleanupRegistry.register(this, on1(), 'datalist')
+
+    const { on: on2 } = onoff('slotchange', this.#handleSlotchange, this.#tagSlot)
+
+    CleanupRegistry.unregister(this, 'tags') //off2()
+    CleanupRegistry.register(this, on2(), 'tags')
 
     // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
     // if (0 < (this.#tagSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()

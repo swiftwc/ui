@@ -1,14 +1,15 @@
 import { cssTime } from '../internal/utils'
-import { debounce } from '../internal/utils'
+import { debounce, timeout, onoff } from '../internal/utils'
 import { type TabViewChangeDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
 import { type TabRevealSwapDetail } from '../events'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class TabView extends HTMLElement {
   #debouncedHandler
 
-  #afterTabRevealTimer?: number
+  #afterTabRevealDelay?: ReturnType<typeof timeout> ////number
 
   constructor() {
     super()
@@ -19,21 +20,21 @@ export class TabView extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${TabView.name} ⚡️ disconnect`)
 
-    this.removeEventListener('tabreveal', this.#debouncedHandler)
-    this.removeEventListener('tabswap', this.#debouncedHandler)
-
-    this.removeEventListener('tabreveal', this.#addAnimations)
-    this.removeEventListener('tabswap', this.#addAnimations)
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
-    this.addEventListener('tabreveal', this.#debouncedHandler)
-    this.addEventListener('tabswap', this.#debouncedHandler)
+    const { on } = onoff(
+      [
+        { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
+        { types: 'tabreveal tabswap', listener: this.#addAnimations },
+      ],
+      this
+    )
 
-    this.addEventListener('tabreveal', this.#addAnimations)
-    this.addEventListener('tabswap', this.#addAnimations)
+    CleanupRegistry.register(this, on())
   }
 
   get selectedTab() {
@@ -59,20 +60,26 @@ export class TabView extends HTMLElement {
       }
   }
 
-  #addAnimations = (event: Event) => {
+  #addAnimations = async (event: Event) => {
     //DO NOT add this it breaks tabbar ipad/iphone, must be instant
     // self.requestAnimationFrame(() => {
     this.setAttribute('js-aftertabreveal', '')
 
-    if (this.#afterTabRevealTimer) clearTimeout(this.#afterTabRevealTimer)
+    this.#afterTabRevealDelay?.cancel() //if (this.#afterTabRevealDelay) clearTimeout(this.#afterTabRevealDelay)
 
-    this.#afterTabRevealTimer = self.setTimeout(
-      () => {
-        this.removeAttribute('js-aftertabreveal')
-        this.#afterTabRevealTimer = undefined
-      },
-      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
-    )
+    this.#afterTabRevealDelay = timeout(cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`))
+    //self.setTimeout(
+    // () => {
+    //   this.removeAttribute('js-aftertabreveal')
+    //   this.#afterTabRevealDelay = undefined
+    // },
+    // cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+
+    await this.#afterTabRevealDelay.promise
+
+    this.removeAttribute('js-aftertabreveal')
+
+    this.#afterTabRevealDelay = undefined
     // })
   }
 

@@ -4,10 +4,10 @@ import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff } from '../internal/utils'
 
 export class TabItem extends ButtonBase {
-  static #cleanups = new WeakMap()
-
   constructor() {
     super()
   }
@@ -23,11 +23,7 @@ export class TabItem extends ButtonBase {
   static polyfillDisconnectedCallback(el: HTMLButtonElement) {
     console.debug(`${TabItem.name} ⚡️ disconnect`)
 
-    el.removeEventListener('click', TabItem.#handleClick)
-
-    for (const fn of this.#cleanups.get(el)) fn?.()
-
-    this.#cleanups.delete(el)
+    CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: TabItem) {
@@ -40,19 +36,16 @@ export class TabItem extends ButtonBase {
     })
 
     Snapshot.waitReady.then(() => {
-      el.addEventListener('click', TabItem.#handleClick)
+      const { on: on1 } = onoff('click', TabItem.#handleClick, el)
+
+      CleanupRegistry.register(el, on1())
 
       const handler = TabItem.#handleTabRevealOrSwap.bind(null, el),
-        tv = el.closest<TabView>('tab-view')
+        tv = el.closest<TabView>('tab-view') ?? undefined
 
-      tv?.addEventListener('tabreveal', handler)
-      tv?.addEventListener('tabswap', handler)
+      const { on } = onoff('tabreveal tabswap', handler as unknown as EventListener, tv)
 
-      if (!this.#cleanups.has(el)) this.#cleanups.set(el, [])
-      this.#cleanups.get(el).push(() => {
-        tv?.removeEventListener('tabreveal', handler)
-        tv?.removeEventListener('tabswap', handler)
-      })
+      CleanupRegistry.register(el, on())
 
       // if (tv?.selectedTab?.map(({ id }) => id)?.includes(el.value))
       if (tv?.selectedTab?.id === el.value)

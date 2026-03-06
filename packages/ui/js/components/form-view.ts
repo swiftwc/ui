@@ -1,8 +1,7 @@
 import { FormBase } from '../internal/privateNamespace'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class FormView extends FormBase {
-  static #cleanups = new WeakMap()
-
   constructor() {
     super()
   }
@@ -20,9 +19,7 @@ export class FormView extends FormBase {
 
     // finally
 
-    for (const fn of this.#cleanups.get(el)) fn?.()
-
-    this.#cleanups.delete(el)
+    CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: HTMLFormElement) {

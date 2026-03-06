@@ -1,28 +1,19 @@
 import { Snapshot } from '../../snapshot'
 import { type TabRevealSwapDetail, type PageRevealSwapDetail } from '../../events'
-import { debounce } from '../../internal/utils'
 
 export class NavigationView extends HTMLElement {
   static observedAttributes = ['hidden']
 
-  #debouncedHandler
-
   constructor() {
     super()
-
-    this.#debouncedHandler = debounce(this.#handleSelectionChange, 1, true)
   }
 
   disconnectedCallback() {
     // this.removeEventListener('tabreveal', this.#handleTabReveal)
-    this.removeEventListener('pagereveal', this.#debouncedHandler)
-    this.removeEventListener('pageswap', this.#debouncedHandler)
   }
 
   connectedCallback() {
     // this.addEventListener('tabreveal', this.#handleTabReveal)
-    this.addEventListener('pagereveal', this.#debouncedHandler)
-    this.addEventListener('pageswap', this.#debouncedHandler)
 
     Snapshot.waitReady.then(() => {
       if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
@@ -49,18 +40,6 @@ export class NavigationView extends HTMLElement {
           break
       }
     })
-  }
-
-  #handleSelectionChange = (event: CustomEvent<PageRevealSwapDetail>) => {
-    this.#triggerChangeEvent(event)
-  }
-
-  #triggerChangeEvent = (event: Event) => {
-    const eventType = 'navigation-path:change'
-
-    console.debug(`${NavigationView.name} 💡 ${eventType}`)
-
-    this.dispatchEvent(new CustomEvent<TabViewChangeDetail>(eventType, { detail: { selection: this.selectedTab }, bubbles: true, composed: true }))
   }
 
   // #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {

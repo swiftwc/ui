@@ -83,8 +83,10 @@
       --itemactiveface: var(--list--item-background-color,);
     }
 
-    [is='disclosure-group'] > summary {
+    > [is='disclosure-group'] > summary {
       :where(&) {
+        // outline: red solid 4px;
+
         --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
         --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
         --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
@@ -117,30 +119,38 @@
           pointer-events: none;
         }
       }
+      // :where(&:is([aria-selected='true'], [is='disclosure-group']):has(> [aria-selected='true'])) {
+      //   --list--separator-background-color: yellow;
+      // }
     }
 
-    // SECTION: sharpen corners
+    // SECTION: sharpen top corners
     > :not([slot]) ~ :not([slot], section-view),
     section-view > :not([slot]) ~ :not([slot], section-view),
     [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
       :where(&) {
         --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
       }
-      :where(&:is([is='disclosure-group']) > summary) {
+      :where(&:is(%list > [is='disclosure-group']) > summary) {
+        // outline: yellow solid 5px;
         --itemradiust: var(
           --list--adjacentitem-border-radius,
           var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
         ); //0 0;
       }
     }
+
+    // SECTION: sharpen bottom corners
     > :not([slot]):has(~ :not([slot], section-view)),
     section-view > :not([slot]):has(~ :not([slot], section-view)),
     [is='disclosure-group'] > :not([slot], summary):has(~ :not([slot])),
     [is='disclosure-group']:not([data-state='closed']) > summary {
       :where(&) {
+        // outline: green solid 5px;
         --itemradiusb: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
       }
       :where(&:is([is='disclosure-group']) > summary) {
+        // outline: green solid 5px;
         --itemradiusb: var(
           --list--adjacentitem-border-radius,
           var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))

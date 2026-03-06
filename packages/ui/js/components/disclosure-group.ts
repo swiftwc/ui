@@ -1,14 +1,14 @@
 import { DetailsBase } from '../internal/privateNamespace'
 import { cssTime } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 // import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 
 const toggleTimeouts = new WeakMap()
 // const observers = new ResizeObserverSingleton()
 
 export class DisclosureGroup extends DetailsBase {
-  static #cleanups = new WeakMap()
-
   static observedAttributes = ['open']
 
   constructor() {
@@ -44,7 +44,7 @@ export class DisclosureGroup extends DetailsBase {
     console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
     // el.removeEventListener('click', DisclosureGroup.#handleClick)
-    el.removeEventListener('toggle', DisclosureGroup.#handleToggle)
+    CleanupRegistry.unregister(el)
 
     // finally
 
@@ -68,7 +68,9 @@ export class DisclosureGroup extends DetailsBase {
 
     Snapshot.waitReady.then(() => {
       // el.addEventListener('click', DisclosureGroup.#handleClick)
-      el.addEventListener('toggle', DisclosureGroup.#handleToggle)
+      const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
+
+      CleanupRegistry.register(el, on())
     })
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return

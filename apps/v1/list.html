@@ -28,6 +28,38 @@
       </h-stack>
       <p>w/ details</p>
       <list-view>
+        <details is="disclosure-group" open>
+          <summary>
+            <h-stack distribution="fill">
+              <label-view system-image="smiley" label="Item Group 1"></label-view>
+              <button type="button" tabindex="0">
+                <label-view system-image="smiley" label="Item Group 1"></label-view>
+              </button>
+            </h-stack>
+          </summary>
+          <details is="disclosure-group">
+            <summary>
+              <h-stack distribution="fill">
+                <label-view system-image="smiley" label="Item Group 1"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="smiley" label="Item Group 1"></label-view>
+                </button>
+              </h-stack>
+            </summary>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 2"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 3"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4"></label-view></button>
+            <whatever-name>
+              <list-view>
+                <section-view>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 5"></label-view></button>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 6"></label-view></button>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 7"></label-view></button>
+                </section-view>
+              </list-view>
+            </whatever-name>
+          </details>
+        </details>
         <details is="disclosure-group">
           <summary>
             <h-stack distribution="fill">
@@ -68,13 +100,13 @@
       </list-view>
       <p>mixed</p>
       <list-view>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 1"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 2"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 3"></label-view>
         </button>
         <details is="disclosure-group">
@@ -100,110 +132,110 @@
       <p>w/ controls</p>
       <list-view>
         <h-stack columns="auto minmax(0,1fr) auto auto">
-          <button>
+          <button type="button">
             <label-view label="Item 1"></label-view>
           </button>
           <v-stack spacing="0">
             <label-view label="Item 1"></label-view>
             <label-view label="Item 1"></label-view>
           </v-stack>
-          <button>
+          <button type="button">
             <label-view label="Item 1"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 1"></label-view>
           </button>
         </h-stack>
         <h-stack columns="auto minmax(0,1fr) auto auto">
-          <button>
+          <button type="button">
             <label-view label="Item 2"></label-view>
           </button>
           <v-stack spacing="0">
             <label-view label="Item 2"></label-view>
             <label-view label="Item 2"></label-view>
           </v-stack>
-          <button>
+          <button type="button">
             <label-view label="Item 2"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 2"></label-view>
           </button>
         </h-stack>
         <h-stack columns="auto minmax(0,1fr) auto auto">
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
           <v-stack spacing="0">
             <label-view label="Item 3"></label-view>
             <label-view label="Item 3"></label-view>
           </v-stack>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
         </h-stack>
         <details is="disclosure-group">
           <summary><label-view system-image="smiley" label="Item Group 4"></label-view></summary>
           <h-stack columns="auto minmax(0,1fr) auto auto">
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
             <v-stack spacing="0">
               <label-view label="Item 1"></label-view>
               <label-view label="Item 1"></label-view>
             </v-stack>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
           </h-stack>
           <h-stack columns="auto minmax(0,1fr) auto auto">
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
             <v-stack spacing="0">
               <label-view label="Item 1"></label-view>
               <label-view label="Item 1"></label-view>
             </v-stack>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
           </h-stack>
           <h-stack columns="auto minmax(0,1fr) auto auto">
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
             <v-stack spacing="0">
               <label-view label="Item 1"></label-view>
               <label-view label="Item 1"></label-view>
             </v-stack>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
-            <button>
+            <button type="button">
               <label-view label="Item 1"></label-view>
             </button>
           </h-stack>
         </details>
         <h-stack columns="auto minmax(0,1fr) auto auto">
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
           <v-stack spacing="0">
             <label-view label="Item 3"></label-view>
             <label-view label="Item 3"></label-view>
           </v-stack>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
         </h-stack>
@@ -213,10 +245,10 @@
         <button aria-selected="true">
           <label-view label="Item 1"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view label="Item 2"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view label="Item 3"></label-view>
         </button>
         <details is="disclosure-group">
@@ -225,7 +257,7 @@
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4b"></label-view></button>
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
         </details>
-        <button>
+        <button type="button">
           <label-view label="Item 3"></label-view>
         </button>
         <details is="disclosure-group">
@@ -259,13 +291,13 @@
       </picker-view>
       <p>list w/ buttons</p>
       <list-view>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 1"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 2"></label-view>
         </button>
-        <button>
+        <button type="button">
           <label-view system-image="smiley" label="Item 3"></label-view>
         </button>
         <details is="disclosure-group">
@@ -278,13 +310,13 @@
       <p>list w/ sections</p>
       <list-view>
         <section-view header="Section 1" footer="All is required">
-          <button>
+          <button type="button">
             <label-view label="Item 1"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 2"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
           <details is="disclosure-group">
@@ -295,13 +327,13 @@
           </details>
         </section-view>
         <section-view header="Section 2" footer="All is required">
-          <button>
+          <button type="button">
             <label-view label="Item 1"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 2"></label-view>
           </button>
-          <button>
+          <button type="button">
             <label-view label="Item 3"></label-view>
           </button>
           <details is="disclosure-group">
@@ -476,7 +508,9 @@
       for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
         el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
 
-      document.addEventListener('click', (event) => {
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
         const btn = event.target.closest('button'),
           summary = event.target.closest('summary')
 

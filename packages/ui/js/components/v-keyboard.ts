@@ -1,5 +1,6 @@
 import { type ScrollView } from './scroll-view'
-import { $ } from '../internal/utils'
+import { $, sleep, frame, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 /**
  * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
@@ -21,13 +22,7 @@ export class VKeyboard extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${VKeyboard.name} ⚡️ disconnect`)
 
-    self.removeEventListener('resize', this.#handleWindowScroll)
-
-    self.visualViewport?.removeEventListener('resize', this.#handleVisualViewportResize)
-
-    self.removeEventListener('orientationchange', this.#handleWindowOrientationChange)
-
-    document.body.removeEventListener('focusin', this.#handleBodyFocusIn)
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
@@ -35,17 +30,27 @@ export class VKeyboard extends HTMLElement {
 
     this.inert = true
 
-    self.addEventListener('scroll', this.#handleWindowScroll)
+    const { on: on1 } = onoff(
+      [
+        { types: 'scroll', listener: this.#handleWindowScroll },
+        { types: 'orientationchange', listener: this.#handleWindowOrientationchange },
+      ],
+      self
+    )
 
-    self.visualViewport?.addEventListener('resize', this.#handleVisualViewportResize)
+    CleanupRegistry.register(this, on1())
+
+    const { on: on2 } = onoff('resize', this.#handleVisualViewportResize, self.visualViewport ?? undefined, { passive: true })
+
+    CleanupRegistry.register(this, on2())
 
     this.#handleVisualViewportResize()
 
     //
 
-    self.addEventListener('orientationchange', this.#handleWindowOrientationChange)
+    const { on: on3 } = onoff('focusin', this.#handleBodyFocusin, document.body)
 
-    document.body.addEventListener('focusin', this.#handleBodyFocusIn)
+    CleanupRegistry.register(this, on3())
   }
 
   #handleWindowScroll = () => {
@@ -65,16 +70,20 @@ export class VKeyboard extends HTMLElement {
     self.scrollTo(0, 0)
   }
 
-  #handleWindowOrientationChange = () => {
+  #handleWindowOrientationchange = async () => {
     console.debug(`${VKeyboard.name} ⚡️ orientationchange`)
 
-    self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
+    await frame() //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
+
+    this.#ifKeyboardScrollIntoActiveElement()
   }
 
-  #handleBodyFocusIn = () => {
+  #handleBodyFocusin = async () => {
     console.debug(`${VKeyboard.name} ⚡️ focusin`)
 
-    self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
+    await sleep(100) // self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
+
+    this.#ifKeyboardScrollIntoActiveElement()
   }
 
   #ifKeyboardScrollIntoActiveElement = () => {
@@ -86,7 +95,7 @@ export class VKeyboard extends HTMLElement {
   }
 
   set shouldKeyboardBeOpen(fn: () => boolean) {
-    if (typeof fn !== 'function') throw new TypeError(`fn must be a function`)
+    if ('function' !== typeof fn) throw new TypeError(`fn must be typeof function`)
 
     this.#shouldKeyboardBeOpenCallback = fn
   }

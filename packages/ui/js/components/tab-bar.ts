@@ -1,10 +1,9 @@
 import { DialogBase } from '../internal/privateNamespace'
-import { touchGlass } from '../internal/utils'
+import { touchGlass, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class TabBar extends DialogBase {
-  static #cleanups = new WeakMap()
-
   constructor() {
     super()
   }
@@ -22,9 +21,7 @@ export class TabBar extends DialogBase {
 
     el.removeEventListener('click', TabBar.#handleClick)
 
-    for (const fn of this.#cleanups.get(el)) fn?.()
-
-    this.#cleanups.delete(el)
+    CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
@@ -33,21 +30,25 @@ export class TabBar extends DialogBase {
     el.autofocus = true
 
     Snapshot.waitReady.then(() => {
-      el.addEventListener('click', TabBar.#handleClick)
+      const { on: on1 } = onoff('click', TabBar.#handleClick, el)
 
-      const { on } = touchGlass(
-        el,
-        (t) => t,
-        (event: PointerEvent) => {
-          if ((event.target as HTMLElement).matches('[is=tab-bar]')) return false
-          if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+      CleanupRegistry.register(el, on1())
 
-          return true
-        }
+      const { on } = onoff(
+        touchGlass(
+          el,
+          (t) => t,
+          (event: PointerEvent) => {
+            if ((event.target as HTMLElement).matches('[is=tab-bar]')) return false
+            if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+
+            return true
+          }
+        ),
+        el
       )
 
-      if (!this.#cleanups.has(el)) this.#cleanups.set(el, [])
-      this.#cleanups.get(el).push(on())
+      CleanupRegistry.register(el, on())
     })
   }
 

@@ -105,6 +105,10 @@ if (0 < polyfills.size) {
   })
 }
 
+// SECTION: Safari polyfill
+document.addEventListener('touchstart', () => {}, { passive: true })
+
+// SECTION: Transitions
 const cleanup = (lm?: Element, dir?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 

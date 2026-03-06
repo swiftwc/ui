@@ -1,6 +1,7 @@
 import { type ScrollView } from './scroll-view'
 import { Snapshot } from '../snapshot'
-import { slowHideShow } from '../internal/utils'
+import { slowHideShow, frame, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 const observing = new WeakSet()
 
@@ -22,9 +23,7 @@ export class NavigationLargeTitle extends HTMLElement {
 
     this.#clearScrollState()
 
-    this.#sibling?.removeEventListener('scroll', this.#handleScroll)
-
-    this.#sibling?.removeEventListener('scrollend', this.#handleScrollend)
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
@@ -34,24 +33,30 @@ export class NavigationLargeTitle extends HTMLElement {
 
     if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
-    Snapshot.waitReady.then(() => {
-      // NOTE: Required or BREAKS transitions
-      self.requestAnimationFrame(() => {
-        const blockSizeProp = `${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0',
-          blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+    Snapshot.waitReady.then(async () => {
+      await frame() // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
-        this.#observer = new IntersectionObserver(this.#handleIntersect, {
-          root: this.#sibling,
-          rootMargin: `-${blockSize}px 0px 0px 0px`,
-          threshold: [0, 1],
-        })
+      const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
+        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
 
-        // this.#observer?.observe(this)
-
-        this.#sibling?.addEventListener('scroll', this.#handleScroll)
-
-        this.#sibling?.addEventListener('scrollend', this.#handleScrollend)
+      this.#observer = new IntersectionObserver(this.#handleIntersect, {
+        root: this.#sibling,
+        rootMargin: `-${blockSize}px 0px 0px 0px`,
+        threshold: [0, 1],
       })
+
+      // this.#observer?.observe(this)
+
+      const { on } = onoff(
+        [
+          { types: 'scroll', listener: this.#handleScroll, addOptions: { passive: true } },
+          { types: 'scrollend', listener: this.#handleScrollend, addOptions: { passive: true } },
+        ],
+        this.#sibling
+      )
+
+      CleanupRegistry.register(this, on())
+      // })
     })
   }
 
@@ -65,7 +70,7 @@ export class NavigationLargeTitle extends HTMLElement {
     this.#scrollSafetyTimer = undefined
   }
 
-  #handleScroll = (event: Event) => {
+  #handleScroll: EventListener = (event: Event) => {
     if (!observing.has(this)) {
       this.#observer?.observe(this)
       observing.add(this)
@@ -76,7 +81,7 @@ export class NavigationLargeTitle extends HTMLElement {
     this.#scrollSafetyTimer = self.setTimeout(() => this.#clearScrollState, 2000)
   }
 
-  #handleScrollend = (event: Event) => {
+  #handleScrollend: EventListener = (event: Event) => {
     this.#clearScrollState()
   }
 

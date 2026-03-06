@@ -1,25 +1,29 @@
-import { type PageRevealSwapDetail } from '../events'
+// import { type PageRevealSwapDetail } from '../events'
 
-export class NavigationPath {
-  static #pages = new WeakMap() //#pages = new WeakSet()
+export const NavigationPath = new EventTarget()
 
-  static has(page: HTMLElement) {
-    return this.#pages.has(page)
-  }
+// export class NavigationPath {
+// export const NavigationPath = new EventTarget()
 
-  static append = (page: HTMLElement) => {
-    const owner = page.closest('navigation-split-view,navigation-stack')
+// static #pages = new WeakMap() //#pages = new WeakSet()
 
-    this.#pages.set(page, owner)
+// static has(page: HTMLElement) {
+//   return this.#pages.has(page)
+// }
 
-    owner.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: page }, bubbles: true, composed: true }))
-  }
+// static append = (page: HTMLElement) => {
+//   const owner = page.closest('navigation-split-view,navigation-stack')
 
-  static remove = (page: HTMLElement) => {
-    const owner = this.#pages.get(page)
+//   this.#pages.set(page, owner)
 
-    owner.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: page }, bubbles: true, composed: true }))
+//   owner.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: page }, bubbles: true, composed: true }))
+// }
 
-    this.#pages.delete(page)
-  }
-}
+// static remove = (page: HTMLElement) => {
+//   const owner = this.#pages.get(page)
+
+//   owner.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: page }, bubbles: true, composed: true }))
+
+//   this.#pages.delete(page)
+// }
+// }

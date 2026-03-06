@@ -154,7 +154,7 @@
 
     <template id="cloud_drive">
       <body-view>
-        <scroll-view navigation-inline-title="Cloud Drive" id="scloud_drive">
+        <scroll-view navigation-inline-title="Cloud Drive" navigation-path="cloud_drive">
           <v-stack placement="leading fill">
             browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
             <p>...</p>
@@ -205,14 +205,11 @@
     </template>
 
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
       import { startViewTransition, closestBody, getRootController, getComputedView, NavigationPath } from '../../packages/ui/js/client'
 
-      document.addEventListener('navigation-path:change', async (event) => {
-        console.debug(`⚡️ navigation-path:change`)
-
-        document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = `${NavigationPath.has(document.querySelector('#scloud_drive'))}`
-      })
+      NavigationPath.addEventListener('pagereveal', navHandler)
+      NavigationPath.addEventListener('pageswap', navHandler)
 
       // document.addEventListener('pageswap', async (event) => {
       //   console.debug(`⚡️ pageswap`)
@@ -223,7 +220,7 @@
       // })
 
       document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ click`)
+        console.debug(`⚡️ ${event?.type}`)
 
         const navDest = event.target.closest('[navigation-destination]')
 

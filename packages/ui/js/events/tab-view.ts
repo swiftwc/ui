@@ -2,7 +2,7 @@ import { type NavigationStack } from '../components/navigation-stack'
 import { type NavigationSplitView } from '../components/navigation-split-view'
 
 export type PageRevealSwapDetail = {
-  page: string
+  page: HTMLElement
 }
 
 export type TabRevealSwapDetail = {

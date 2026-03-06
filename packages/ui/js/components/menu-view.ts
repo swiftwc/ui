@@ -1,5 +1,6 @@
 import { Snapshot } from '../snapshot'
-import { touchGlass, $ } from '../internal/utils'
+import { touchGlass, $, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class MenuView extends HTMLElement {
   static observedAttributes = ['open', 'closing', 'label']
@@ -29,8 +30,6 @@ export class MenuView extends HTMLElement {
 
   #dialog?: HTMLDialogElement
 
-  #cleanup?: () => void
-
   constructor() {
     super()
 
@@ -59,7 +58,7 @@ export class MenuView extends HTMLElement {
     $.prop('anchor-name', null, summaryPart) //summaryPart?.style.removeProperty('anchor-name')
     $.prop('position-anchor', null, dialogPart) //dialogPart?.style.removeProperty('position-anchor')
 
-    this.#cleanup?.()
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
@@ -68,26 +67,38 @@ export class MenuView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
 
-      const trigger = this.#shadowRoot.querySelector('button')
+      const trigger = this.#shadowRoot.querySelector('button') ?? undefined
 
-      trigger?.addEventListener('click', this.#handleTriggerClick)
+      const { on: on1 } = onoff('click', this.#handleTriggerClick, trigger)
 
-      this.#dialog?.addEventListener('click', this.#handleDialogClick)
-      this.#dialog?.addEventListener('close', this.#handleDialogClose)
-      this.#dialog?.addEventListener('cancel', this.#handleDialogCancel)
+      CleanupRegistry.register(this, on1())
 
-      const { on } = touchGlass(
-        this,
-        (t) => t,
-        (event: PointerEvent) => {
-          if ((event.target as HTMLElement).matches('menu-view')) return false
-          if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
-
-          return true
-        }
+      const { on: on2 } = onoff(
+        [
+          { types: 'click', listener: this.#handleDialogClick },
+          { types: 'close', listener: this.#handleDialogClose },
+          { types: 'cancel', listener: this.#handleDialogCancel },
+        ],
+        this.#dialog
       )
 
-      this.#cleanup = on()
+      CleanupRegistry.register(this, on2())
+
+      const { on } = onoff(
+        touchGlass(
+          this,
+          (t) => t,
+          (event: PointerEvent) => {
+            if ((event.target as HTMLElement).matches('menu-view')) return false
+            if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
+
+            return true
+          }
+        ),
+        this
+      )
+
+      CleanupRegistry.register(this, on())
 
       const newAnchorName = `--menu-view-${self.crypto.randomUUID()}`
 
@@ -146,7 +157,7 @@ export class MenuView extends HTMLElement {
     }
   }
 
-  #handleDialogClick = (event: Event) => {
+  #handleDialogClick: EventListener = (event: Event) => {
     console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
 
     if ((event.target as HTMLElement).matches('dialog')) return this.toggleAttribute('open', false) // click outside
@@ -173,7 +184,7 @@ export class MenuView extends HTMLElement {
     this.toggleAttribute('open', true)
   }
 
-  #handleDialogCancel = (event: Event) => {
+  #handleDialogCancel: EventListener = (event: Event) => {
     console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
 
     if (!event.cancelable) return
@@ -183,7 +194,7 @@ export class MenuView extends HTMLElement {
     this.toggleAttribute('open', false)
   }
 
-  #handleDialogClose = (event: Event) => {
+  #handleDialogClose: EventListener = (event: Event) => {
     console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
 
     this.toggleAttribute('open', this.#shadowRoot.querySelector('dialog')?.open ?? false)

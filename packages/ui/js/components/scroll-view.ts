@@ -1,9 +1,10 @@
 import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
 import { type TabView } from './tab-view'
-import { $, slowHideShow } from '../internal/utils'
+import { $, slowHideShow, onoff } from '../internal/utils'
 import { type PageRevealSwapDetail } from '../events'
 import { NavigationPath } from '../navigation-path'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class ScrollView extends HTMLElement {
   static observedAttributes = ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
@@ -122,11 +123,9 @@ export class ScrollView extends HTMLElement {
 
     // this.#navbarPrincipalSlot?.removeEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
 
-    this.removeEventListener('tabreveal', this.#handleTabReveal)
+    CleanupRegistry.unregister(this)
 
-    this.removeEventListener('beforetabswap', this.#handleTabBeforeswap)
-
-    NavigationPath.remove(this)
+    NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
   }
 
   connectedCallback() {
@@ -136,11 +135,17 @@ export class ScrollView extends HTMLElement {
     // this.scrollTop = 500
     // })
 
-    this.closest<TabView>('tab-view')?.addEventListener('tabreveal', this.#handleTabReveal)
+    const { on } = onoff(
+      [
+        { types: 'tabreveal', listener: this.#handleTabReveal as EventListener },
+        { types: 'beforetabswap', listener: this.#handleTabBeforeswap as EventListener },
+      ],
+      this.closest<TabView>('tab-view') ?? undefined
+    )
 
-    this.closest<TabView>('tab-view')?.addEventListener('beforetabswap', this.#handleTabBeforeswap)
+    CleanupRegistry.register(this, on())
 
-    NavigationPath.append(this)
+    NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
   }
 
   #beforeTabSwapLastScrolltop?: number

@@ -1,24 +1,29 @@
 export class CleanupRegistry {
   static #cleanups = new WeakMap<Element, Map<string | symbol, Set<() => void>>>()
 
-  static register(target: Element, heldValue: () => void, unregisterToken: string | symbol = '__default__') {
-    if (!this.#cleanups.has(target)) this.#cleanups.set(target, new Map())
+  static #DEFAULT = Symbol('__default__')
 
-    const keys = this.#cleanups.get(target)!
-    if (!keys.has(unregisterToken)) keys.set(unregisterToken, new Set())
+  static register(target: Element, heldValue: () => void, unregisterToken: string | symbol = this.#DEFAULT) {
+    let tokens = this.#cleanups.get(target)
 
-    keys.get(unregisterToken)!.add(heldValue)
+    if (!tokens) this.#cleanups.set(target, (tokens = new Map()))
+
+    let fns = tokens.get(unregisterToken)
+
+    if (!fns) tokens.set(unregisterToken, (fns = new Set()))
+
+    fns.add(heldValue)
   }
 
   static unregister(target: Element, token?: string | symbol) {
-    const keys = this.#cleanups.get(target)
-    if (!keys) return
+    const tokens = this.#cleanups.get(target)
+    if (!tokens) return
 
-    if (token) {
-      for (const fn of keys.get(token) ?? []) fn()
-      keys.delete(token)
+    if (undefined !== token) {
+      for (const fn of tokens.get(token) ?? []) fn()
+      tokens.delete(token)
     } else {
-      for (const fns of keys.values()) for (const fn of fns) fn()
+      for (const fns of tokens.values()) for (const fn of fns) fn()
       this.#cleanups.delete(target)
     }
   }

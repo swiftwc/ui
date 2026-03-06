@@ -1,5 +1,5 @@
 import { cssTime } from '../internal/utils'
-import { debounce, timeout, onoff } from '../internal/utils'
+import { debounce, onoff } from '../internal/utils'
 import { type TabViewChangeDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
@@ -9,7 +9,7 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 export class TabView extends HTMLElement {
   #debouncedHandler
 
-  #afterTabRevealDelay?: ReturnType<typeof timeout> ////number
+  #afterTabRevealDelay?: number
 
   constructor() {
     super()
@@ -19,6 +19,11 @@ export class TabView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${TabView.name} ⚡️ disconnect`)
+
+    if (this.#afterTabRevealDelay) {
+      clearTimeout(this.#afterTabRevealDelay)
+      this.#afterTabRevealDelay = undefined
+    }
 
     CleanupRegistry.unregister(this)
   }
@@ -60,26 +65,24 @@ export class TabView extends HTMLElement {
       }
   }
 
-  #addAnimations = async (event: Event) => {
+  #addAnimations = (event: Event) => {
     //DO NOT add this it breaks tabbar ipad/iphone, must be instant
     // self.requestAnimationFrame(() => {
     this.setAttribute('js-aftertabreveal', '')
 
-    this.#afterTabRevealDelay?.cancel() //if (this.#afterTabRevealDelay) clearTimeout(this.#afterTabRevealDelay)
+    if (this.#afterTabRevealDelay) clearTimeout(this.#afterTabRevealDelay)
 
-    this.#afterTabRevealDelay = timeout(cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`))
-    //self.setTimeout(
-    // () => {
-    //   this.removeAttribute('js-aftertabreveal')
-    //   this.#afterTabRevealDelay = undefined
-    // },
-    // cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+    this.#afterTabRevealDelay = self.setTimeout(
+      () => {
+        this.removeAttribute('js-aftertabreveal')
+        this.#afterTabRevealDelay = undefined
+      },
+      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+    )
 
-    await this.#afterTabRevealDelay.promise
+    // this.removeAttribute('js-aftertabreveal')
 
-    this.removeAttribute('js-aftertabreveal')
-
-    this.#afterTabRevealDelay = undefined
+    // this.#afterTabRevealDelay = undefined
     // })
   }
 

@@ -9,7 +9,6 @@ export { default as microtask } from './microtask'
 export { default as sleep } from './sleep'
 export { default as setTimeoutSafe } from './set-timeout-safe'
 export { default as timeout } from './timeout'
-export { default as delay } from './delay'
 export { default as onoff } from './onoff'
 
 // import * as cash from './cash' // import * as cash from './cash'

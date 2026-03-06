@@ -61,10 +61,12 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   #clearScrollState = () => {
-    if (!observing.has(this)) return
+    if (observing.has(this)) {
+      this.#observer?.unobserve(this)
+      observing.delete(this)
+    }
 
-    this.#observer?.unobserve(this)
-    observing.delete(this)
+    // void delay(this, 0) // cancels any pending delay for this owner
 
     clearTimeout(this.#scrollSafetyTimer)
     this.#scrollSafetyTimer = undefined
@@ -76,16 +78,22 @@ export class NavigationLargeTitle extends HTMLElement {
       observing.add(this)
     }
 
+    // await delay(this, 2000).promise
+
+    // if (!this.isConnected) return
+
+    // this.#clearScrollState()
+
     clearTimeout(this.#scrollSafetyTimer) // reset watchdog every scroll event
 
-    this.#scrollSafetyTimer = self.setTimeout(() => this.#clearScrollState, 2000)
+    this.#scrollSafetyTimer = self.setTimeout(() => this.#clearScrollState(), 2000)
   }
 
   #handleScrollend: EventListener = (event: Event) => {
     this.#clearScrollState()
   }
 
-  #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
+  #handleIntersect = (entries: IntersectionObserverEntry[]) => {
     console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.[0]?.isIntersecting})`)
 
     for (const { isIntersecting } of entries) {

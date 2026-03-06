@@ -75,6 +75,8 @@ export class VKeyboard extends HTMLElement {
 
     await frame() //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
 
+    if (!this.isConnected) return
+
     this.#ifKeyboardScrollIntoActiveElement()
   }
 
@@ -82,6 +84,8 @@ export class VKeyboard extends HTMLElement {
     console.debug(`${VKeyboard.name} ⚡️ focusin`)
 
     await sleep(100) // self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
+
+    if (!this.isConnected) return
 
     this.#ifKeyboardScrollIntoActiveElement()
   }

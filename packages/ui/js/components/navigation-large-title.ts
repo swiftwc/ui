@@ -36,6 +36,8 @@ export class NavigationLargeTitle extends HTMLElement {
     Snapshot.waitReady.then(async () => {
       await frame() // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
+      if (!this.isConnected) return
+
       const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
         blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
 

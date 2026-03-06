@@ -273,6 +273,23 @@
     padding-block: var(--itempadbstart, ) var(--itempadbend, );
     border-radius: var(--itemradiust, ) var(--itemradiusb, );
   }
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name)) {
+      transition: background-color 300ms ease-out allow-discrete;
+      will-change: background-color;
+    }
+    :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name)):active {
+      transition-duration: 0ms;
+    }
+  }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], section-view) ~ section-view, list-view:not(list-view list-view, [is=form-view] list-view) :not([slot], section-view) ~ section-view) {
     padding-block-start: var(--list--section-gap, );
   }
@@ -303,7 +320,7 @@
     --itemradiusb: var(--list--item-border-radius,) var(--list--item-border-radius,);
     --itemface: var(--list--item-background-color,);
     --itemhighlightface: var(--list--item-background-color,);
-    --itemactiveface: var(--list--item-background-color,);
+    --itemactiveface: blue;
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group] > summary, list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group] > summary) {
     --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));

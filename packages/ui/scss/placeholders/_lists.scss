@@ -24,6 +24,18 @@
         padding-block: var(--itempadbstart,) var(--itempadbend,);
         border-radius: var(--itemradiust,) var(--itemradiusb,);
       }
+      @media (prefers-reduced-motion: no-preference) {
+        :where(&) {
+          // outline: yellow solid 4px;
+
+          transition: background-color 300ms ease-out allow-discrete;
+          will-change: background-color;
+
+          &:active {
+            transition-duration: 0ms;
+          }
+        }
+      }
     }
 
     // SECTION: wire gaps
@@ -80,7 +92,7 @@
 
       --itemface: var(--list--item-background-color,);
       --itemhighlightface: var(--list--item-background-color,);
-      --itemactiveface: var(--list--item-background-color,);
+      --itemactiveface: blue; //var(--list--item-background-color,);
     }
 
     > [is='disclosure-group'] > summary {

@@ -18,7 +18,7 @@ export class TextField extends HTMLElement {
       <slot name="label"></slot>
     </div>
     <div part="root text-field-input-stack">
-      <input type="text" part="root text-field-form-input">
+      <input type="text" part="root input text-field-form-input">
     </div>
   </label>`,
       })

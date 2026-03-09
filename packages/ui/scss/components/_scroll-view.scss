@@ -78,6 +78,9 @@
 
       &::before {
         block-size: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
+
+        // outline: #c4e412 solid 10px;
+        // box-shadow: inset 0 0 0 6px #c4e412;
       }
 
       // @include mixins.make-toolbar-pseudos;
@@ -94,11 +97,11 @@
       }
     }
 
-    &:has(list-view section-view[js-stuck], [is='form-view'] section-view[js-stuck]) {
-      :where(&) {
-        --navbar-backdrop-inset-block-end: -25px;
-      }
-    }
+    // &:has(list-view section-view[js-stuck], [is='form-view'] section-view[js-stuck]) {
+    //   :where(&) {
+    //     --navbar-backdrop-inset-block-end: -25px;
+    //   }
+    // }
   }
 
   @include mixins.if-ipad-sheet-fits {

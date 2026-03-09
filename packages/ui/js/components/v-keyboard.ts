@@ -73,9 +73,7 @@ export class VKeyboard extends HTMLElement {
   #handleWindowOrientationchange = async () => {
     console.debug(`${VKeyboard.name} ⚡️ orientationchange`)
 
-    await frame() //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
-
-    if (!this.isConnected) return
+    if (!(await frame(this))) return //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
 
     this.#ifKeyboardScrollIntoActiveElement()
   }

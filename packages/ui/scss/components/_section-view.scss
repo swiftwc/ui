@@ -55,6 +55,8 @@
 
       position: sticky;
 
+      backdrop-filter: blur(20px);
+
       // outline: red solid 1px;
 
       padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--toolbaritempadistart, 0px))

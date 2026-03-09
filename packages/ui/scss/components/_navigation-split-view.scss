@@ -65,17 +65,17 @@
       }
     }
 
-    @include mixins.ifnot-2col-split-view-fits {
-      &:has(> [is='sidebar-view']) {
-        :where(& > [is='sidebar-view']) {
-          --list-style: unset;
-          --form-style: unset;
-        }
-        // :where(& > [is='sidebar-view'] > scroll-view) {
-        // --scroll-view-box-shadow: none;
-        // }
-      }
-    }
+    // @include mixins.ifnot-2col-split-view-fits {
+    //   &:has(> [is='sidebar-view']) {
+    //     :where(& > [is='sidebar-view']) {
+    //       --list-style: unset;
+    //       --form-style: unset;
+    //     }
+    //     // :where(& > [is='sidebar-view'] > scroll-view) {
+    //     // --scroll-view-box-shadow: none;
+    //     // }
+    //   }
+    // }
 
     // ANCHOR 2_COL COMPACT-DEFAULTS
 

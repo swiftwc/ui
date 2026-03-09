@@ -1,4 +1,5 @@
 import { FormBase } from '../internal/privateNamespace'
+import { listActive, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class FormView extends FormBase {
@@ -30,6 +31,10 @@ export class FormView extends FormBase {
 
       el.noValidate = true
     }
+
+    const { on } = onoff(listActive(el), el)
+
+    CleanupRegistry.register(el, on())
 
     if (el.matches(':empty'))
       el.insertAdjacentHTML(

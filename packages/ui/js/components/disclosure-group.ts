@@ -1,11 +1,11 @@
 import { DetailsBase } from '../internal/privateNamespace'
-import { cssTime } from '../internal/utils'
+import { cssTime, timeout } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 // import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 
-const toggleTimeouts = new WeakMap()
+const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>() //const toggleTimeouts = new WeakMap()
 // const observers = new ResizeObserverSingleton()
 
 export class DisclosureGroup extends DetailsBase {
@@ -48,11 +48,13 @@ export class DisclosureGroup extends DetailsBase {
 
     // finally
 
-    if (toggleTimeouts.has(el)) {
-      if (toggleTimeouts.get(el)) clearTimeout(toggleTimeouts.get(el))
+    // toggleTimers.get(el)?.cancel()
+    // toggleTimers.delete(el)
+    // if (toggleTimeouts.has(el)) {
+    //   if (toggleTimeouts.get(el)) self.clearTimeout(toggleTimeouts.get(el))
 
-      toggleTimeouts.delete(el)
-    }
+    //   toggleTimeouts.delete(el)
+    // }
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
 
@@ -71,6 +73,11 @@ export class DisclosureGroup extends DetailsBase {
       const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
 
       CleanupRegistry.register(el, on())
+
+      CleanupRegistry.register(el, () => {
+        toggleTimers.get(el)?.cancel()
+        toggleTimers.delete(el)
+      })
     })
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
@@ -84,23 +91,30 @@ export class DisclosureGroup extends DetailsBase {
 
     if (newValue !== details.dataset.state) details.dataset.state = newValue
 
-    if (!toggleTimeouts.has(details)) toggleTimeouts.set(details, null)
+    if (!toggleTimers.has(details)) toggleTimers.set(details, timeout()) //if (!toggleTimeouts.has(details)) toggleTimeouts.set(details, null)
 
     // Cancel previous timeout for this instance
-    if (toggleTimeouts.has(details) && toggleTimeouts.get(details)) clearTimeout(toggleTimeouts.get(details))
+    //if (toggleTimeouts.has(details) && toggleTimeouts.get(details)) self.clearTimeout(toggleTimeouts.get(details))
 
     // Schedule a new hook
-    toggleTimeouts.set(
-      details,
-      setTimeout(
-        () => {
-          details.dataset.state = details.open ? 'open' : 'closed'
-
-          if (toggleTimeouts.has(details)) toggleTimeouts.set(details, null) // clean up
-        },
-        cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
-      )
+    toggleTimers.get(details)!.next(
+      () => {
+        details.dataset.state = details.open ? 'open' : 'closed'
+      },
+      cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
     )
+
+    // toggleTimers.get(details)!.next(
+    //   details,
+    //   self.setTimeout(
+    //     () => {
+    //       details.dataset.state = details.open ? 'open' : 'closed'
+
+    //       if (toggleTimeouts.has(details)) toggleTimeouts.set(details, null) // clean up
+    //     },
+    //     cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
+    //   )
+    // )
   }
 
   // static #handleClick = async (event: Event) => {

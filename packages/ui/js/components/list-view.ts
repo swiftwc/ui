@@ -1,3 +1,6 @@
+import { listActive, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+
 export class ListView extends HTMLElement {
   // static formAssociated = true
 
@@ -19,15 +22,21 @@ export class ListView extends HTMLElement {
 
   disconnectedCallback() {
     console.debug(`${ListView.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
     console.debug(`${ListView.name} ⚡️ connect`)
 
+    const { on } = onoff(listActive(this), this)
+
+    CleanupRegistry.register(this, on())
     // this.setAttribute('role', 'listbox')
     // this.setAttribute('aria-multiselectable', 'true')
     // this.#options = Array.from(this.querySelectorAll('[option]'))
 
+    // this.addEventListener('pointerleave', this.#onCancel)
     // this.addEventListener('click', this.#onClick)
     // this.addEventListener('keydown', this.#onKeyDown)
     // this.#updateOptionAttributes()

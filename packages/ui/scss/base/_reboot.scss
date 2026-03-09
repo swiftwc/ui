@@ -69,6 +69,11 @@
     cursor: pointer;
   }
 
+  input,
+  *::part(input) {
+    min-inline-size: 25px; // NOTE: For inputs overflowing-x
+  }
+
   body {
     display: grid;
     grid-template-rows: 1fr;

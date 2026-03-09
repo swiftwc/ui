@@ -2,9 +2,9 @@ const timeouts = new WeakMap<object, number>()
 
 export default function (owner: object, fn: () => void, ms: number) {
   const prev = timeouts.get(owner)
-  if (prev) clearTimeout(prev)
+  if (prev) self.clearTimeout(prev)
 
-  const id = window.setTimeout(() => {
+  const id = self.setTimeout(() => {
     timeouts.delete(owner)
     fn()
   }, ms)

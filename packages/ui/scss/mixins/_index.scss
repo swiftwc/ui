@@ -187,6 +187,27 @@
   }
 }
 
+@mixin add-jsactive-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &.active#{$selector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin componentize($prefix) {
+  appearance: none;
+  -webkit-appearance: none;
+  border: var(--#{$prefix}border#{','}); //var(--itemborder,);
+  background: var(--#{$prefix}face#{','}); //var(--itemface,);
+  color: var(--#{$prefix}text#{','}); //var(--itemtext,);
+  padding-inline: var(--#{$prefix}padistart#{','}) var(--#{$prefix}padiend#{','});
+  padding-block: var(--#{$prefix}padbstart#{','}) var(--#{$prefix}padbend#{','});
+  border-radius: var(--#{$prefix}radiust#{','}) var(--#{$prefix}radiusb#{','});
+}
+
 @mixin vt-toolbar-cell-offscreen-keyframe() {
   --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
   --toolbar-cell-filter: blur(10px);

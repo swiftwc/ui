@@ -17,6 +17,13 @@
 
       --list-style: sidebar;
       --form-style: sidebar;
+
+      @include mixins.ifnot-2col-split-view-fits {
+        :where(navigation-split-view &) {
+          --list-style: unset;
+          --form-style: unset;
+        }
+      }
     }
 
     :where(& > *) {

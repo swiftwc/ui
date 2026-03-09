@@ -24,7 +24,8 @@
       // --toolbaritemface: var(--toolbar-cell-bg);
       // --toolbaritempadistart: calc(var(--toolbar-cell-inline-padding) * 2);
       // --toolbaritempadbstart: calc(var(--toolbar-cell-block-padding) * 2);
-      --toolbaritemradius: var(--toolbar-cell-border-radius);
+      --toolbaritemradiust: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
+      --toolbaritemradiusb: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
       --toolbaritemborder: 0;
     }
 

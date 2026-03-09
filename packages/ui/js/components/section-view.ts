@@ -1,5 +1,5 @@
 import { Snapshot } from '../snapshot'
-import { $, frame } from '../internal/utils'
+import { $ } from '../internal/utils'
 
 export class SectionView extends HTMLElement {
   static observedAttributes = ['header', 'footer']
@@ -27,17 +27,13 @@ export class SectionView extends HTMLElement {
 
   #shadowRoot
 
-  // #headerSlot?: HTMLSlotElement
-  // #footerSlot?: HTMLSlotElement
-  // #slot?: HTMLSlotElement
+  // #observer?: IntersectionObserver
 
-  #observer?: IntersectionObserver
+  // #sibling?: HTMLElement
+  // #sentinel?: HTMLElement
 
-  #sibling?: HTMLElement
-  #sentinel?: HTMLElement
-
-  #sentinelIsIntersecting: boolean = false
-  #isIntersecting: boolean = false
+  // #sentinelIsIntersecting: boolean = false
+  // #isIntersecting: boolean = false
 
   constructor() {
     super()
@@ -47,50 +43,35 @@ export class SectionView extends HTMLElement {
     Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
 
-      // this.#headerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=header]') ?? undefined
-      // this.#footerSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=footer]') ?? undefined
-      // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
-
-      this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
-
-      // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
-      // this.#headerSlot?.addEventListener('slotchange', this.#handleSlotchange)
-      // this.#footerSlot?.addEventListener('slotchange', this.#handleSlotchange)
-
-      // this.#handleSlotchange(new CustomEvent('slotchange'))
+      // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
     })
   }
 
   disconnectedCallback() {
     console.debug(`${SectionView.name} ⚡️ disconnect`)
 
-    if (this.#sentinel) this.#observer?.unobserve(this.#sentinel)
+    // if (this.#sentinel) this.#observer?.unobserve(this.#sentinel)
 
-    this.#observer?.unobserve(this)
+    // this.#observer?.unobserve(this)
   }
 
   connectedCallback() {
     console.debug(`${SectionView.name} ⚡️ connect`)
 
-    this.#sibling = this.closest('scroll-view') ?? undefined
+    // this.#sibling = this.closest('scroll-view') ?? undefined
 
     Snapshot.waitReady.then(async () => {
-      await frame() // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
-
-      if (!this.isConnected) return
-
-      const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
-        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
-
-      this.#observer = new IntersectionObserver(this.#handleIntersect, {
-        root: this.#sibling,
-        rootMargin: `-${blockSize}px 0px 0px 0px`,
-        threshold: [0, 1],
-      })
-
-      if (this.#sentinel) this.#observer.observe(this.#sentinel)
-
-      this.#observer.observe(this)
+      // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
+      // if (!this.isConnected) return
+      // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
+      //   blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+      // this.#observer = new IntersectionObserver(this.#handleIntersect, {
+      //   root: this.#sibling,
+      //   rootMargin: `-${blockSize}px 0px 0px 0px`,
+      //   threshold: [0, 1],
+      // })
+      // if (this.#sentinel) this.#observer.observe(this.#sentinel)
+      // this.#observer.observe(this)
     })
   }
 
@@ -114,35 +95,24 @@ export class SectionView extends HTMLElement {
             footer.querySelector('label-view')?.setAttribute('label', newValue)
           } else footer?.remove()
 
-          // const assigned3 = this.#footerSlot!.assignedElements({ flatten: true }) as HTMLElement[]
-
-          // let el3 = assigned3[0] as HTMLElement | undefined
-          // if (!el3) {
-          //   el3 = document.createElement('span')
-          //   el3.slot = 'footer'
-          //   this.append(el3)
-          // }
-
-          // el3.textContent = newValue //el3.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-
           break
       }
     })
   }
 
-  #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
-    console.debug(`${SectionView.name} ⚡️ intersect (${entries?.length})`)
+  // #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
+  //   console.debug(`${SectionView.name} ⚡️ intersect (${entries?.length})`)
 
-    for (const {
-      target: { tagName },
-      isIntersecting,
-    } of entries) {
-      if (tagName === 'SECTION-VIEW') this.#isIntersecting = isIntersecting
-      if (tagName !== 'SECTION-VIEW') this.#sentinelIsIntersecting = isIntersecting
-    }
+  //   for (const {
+  //     target: { tagName },
+  //     isIntersecting,
+  //   } of entries) {
+  //     if (tagName === 'SECTION-VIEW') this.#isIntersecting = isIntersecting
+  //     if (tagName !== 'SECTION-VIEW') this.#sentinelIsIntersecting = isIntersecting
+  //   }
 
-    this.toggleAttribute('js-stuck', this.#isIntersecting && !this.#sentinelIsIntersecting)
-  }
+  //   this.toggleAttribute('js-stuck', this.#isIntersecting && !this.#sentinelIsIntersecting)
+  // }
 
   // #handleSlotchange = (event: Event) => {
   //   console.debug(`${SectionView.name} ⚡️ ${event?.type}`)

@@ -13,7 +13,7 @@
     <title>settings</title>
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/dev.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
     <style>
       :root {
         font-family: Inter, sans-serif;
@@ -35,7 +35,7 @@
       <dialog is="sidebar-view">
         <scroll-view>
           <v-stack placement="leading fill">
-            <list-view>
+            <list-view list-style="inset-grouped">
               <section-view>
                 <button type="button">
                   <label-view system-image="smiley" label="Storage Full"></label-view>
@@ -251,6 +251,15 @@
 
       NavigationPath.addEventListener('pagereveal', navHandler)
       NavigationPath.addEventListener('pageswap', navHandler)
+
+      // setTimeout(() => {
+      //   const el = document.querySelector('[is=sidebar-view] scroll-view')
+
+      //   const beforeStyles = getComputedStyle(el, '::before')
+      //   const beforeHeight = beforeStyles.height
+
+      //   alert(`${el.clientHeight}:${beforeHeight}`)
+      // }, 1400)
 
       // const cl = new WeakSet()
       // document.addEventListener('pointerdown', async (event) => {

@@ -1,6 +1,6 @@
 import { type ScrollView } from './scroll-view'
 import { Snapshot } from '../snapshot'
-import { slowHideShow, frame, onoff } from '../internal/utils'
+import { slowHideShow, frame, onoff, timeout } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 const observing = new WeakSet()
@@ -10,7 +10,7 @@ export class NavigationLargeTitle extends HTMLElement {
 
   #sibling?: ScrollView
 
-  #scrollSafetyTimer?: number
+  #scrollSafetyTimer = timeout()
 
   constructor() {
     super()
@@ -34,9 +34,7 @@ export class NavigationLargeTitle extends HTMLElement {
     if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
     Snapshot.waitReady.then(async () => {
-      await frame() // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
-
-      if (!this.isConnected) return
+      if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
       const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
         blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
@@ -68,10 +66,7 @@ export class NavigationLargeTitle extends HTMLElement {
       observing.delete(this)
     }
 
-    // void delay(this, 0) // cancels any pending delay for this owner
-
-    clearTimeout(this.#scrollSafetyTimer)
-    this.#scrollSafetyTimer = undefined
+    this.#scrollSafetyTimer.cancel()
   }
 
   #handleScroll: EventListener = (event: Event) => {
@@ -80,15 +75,7 @@ export class NavigationLargeTitle extends HTMLElement {
       observing.add(this)
     }
 
-    // await delay(this, 2000).promise
-
-    // if (!this.isConnected) return
-
-    // this.#clearScrollState()
-
-    clearTimeout(this.#scrollSafetyTimer) // reset watchdog every scroll event
-
-    this.#scrollSafetyTimer = self.setTimeout(() => this.#clearScrollState(), 2000)
+    this.#scrollSafetyTimer.next(() => this.#clearScrollState(), 2000) // reset watchdog every scroll event
   }
 
   #handleScrollend: EventListener = (event: Event) => {

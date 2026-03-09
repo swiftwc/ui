@@ -81,6 +81,8 @@
     --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
     --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
 
+    --tintcontrast: white; //--tintcontrast: contrast-color(var(--tint));
+
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
 
@@ -203,10 +205,51 @@
     --form-item-padding-block-start: 1rem;
 
     --list-item-background-color: white;
+    --insetlist-item-background-color: white;
+    --insetgroupedlist-item-background-color: white;
+    --sidebarlist-item-background-color: transparent;
+
+    --list-selecteditem-background-color: darkgray;
+    --insetlist-selecteditem-background-color: var(--tint);
+    --insetgroupedlist-selecteditem-background-color: var(--tint);
+    --sidebarlist-selecteditem-background-color: var(--tint);
+
+    --list-item-color: var(--text);
+    --insetlist-item-color: var(--text);
+    --insetgroupedlist-item-color: var(--text);
+    --sidebarlist-item-color: var(--text);
+
+    --list-selecteditem-color: var(--text);
+    --insetlist-selecteditem-color: var(--tintcontrast);
+    --insetgroupedlist-selecteditem-color: var(--tintcontrast);
+    --sidebarlist-selecteditem-color: var(--tintcontrast);
+
     --insetlist-item-border-radius: 1rem;
 
     --form-item-background-color: white;
+    --insetform-item-background-color: white;
+    --insetgroupedform-item-background-color: white;
+    --sidebarform-item-background-color: transparent;
+
+    --form-selecteditem-background-color: darkgray;
+    --insetform-selecteditem-background-color: var(--tint);
+    --insetgroupedform-selecteditem-background-color: var(--tint);
+    --sidebarform-selecteditem-background-color: var(--tint);
+
+    --form-item-color: var(--text);
+    --insetform-item-color: var(--text);
+    --insetgroupedform-item-color: var(--text);
+    --sidebarform-item-color: var(--text);
+
+    --form-selecteditem-color: var(--text);
+    --insetform-selecteditem-color: var(--tintcontrast);
+    --insetgroupedform-selecteditem-color: var(--tintcontrast);
+    --sidebarform-selecteditem-color: var(--tintcontrast);
+
     --insetform-item-border-radius: 1rem;
+
+    --insetgroupedlist-background-color: darkgray;
+    --insetgroupedform-background-color: darkgray;
 
     --insetlist-padding-inline: 1rem;
     --insetlist-padding-block: 0rem;

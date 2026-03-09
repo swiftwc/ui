@@ -4,11 +4,11 @@ export { default as debounce } from './debounce'
 export { default as touchGlass } from './touch-glass'
 export { default as slowHideShow } from './slow-hide-show'
 export { default as frame } from './frame'
-export { default as frames } from './frames'
 export { default as microtask } from './microtask'
 export { default as sleep } from './sleep'
-export { default as setTimeoutSafe } from './set-timeout-safe'
 export { default as onoff } from './onoff'
+export { default as timeout } from './timeout'
+export { default as listActive } from './list-active'
 
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash

@@ -93,7 +93,7 @@ export class PickerView extends HTMLElement {
         <slot name="label"></slot>
       </div>
       <div part="root text-field-input-stack">
-        <input type="text" part="root text-field-form-input" list="tickmarks">
+        <input type="text" part="root input text-field-form-input" list="tickmarks">
         <datalist id="tickmarks">
           <option value="0" label="0%"></option>
         </datalist>

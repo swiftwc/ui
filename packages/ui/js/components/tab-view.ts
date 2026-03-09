@@ -1,5 +1,5 @@
 import { cssTime } from '../internal/utils'
-import { debounce, onoff } from '../internal/utils'
+import { debounce, onoff, timeout } from '../internal/utils'
 import { type TabViewChangeDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
@@ -9,7 +9,7 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 export class TabView extends HTMLElement {
   #debouncedHandler
 
-  #afterTabRevealDelay?: number
+  #afterTabRevealDelay = timeout()
 
   constructor() {
     super()
@@ -20,10 +20,7 @@ export class TabView extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${TabView.name} ⚡️ disconnect`)
 
-    if (this.#afterTabRevealDelay) {
-      clearTimeout(this.#afterTabRevealDelay)
-      this.#afterTabRevealDelay = undefined
-    }
+    this.#afterTabRevealDelay.cancel()
 
     CleanupRegistry.unregister(this)
   }
@@ -70,12 +67,9 @@ export class TabView extends HTMLElement {
     // self.requestAnimationFrame(() => {
     this.setAttribute('js-aftertabreveal', '')
 
-    if (this.#afterTabRevealDelay) clearTimeout(this.#afterTabRevealDelay)
-
-    this.#afterTabRevealDelay = self.setTimeout(
+    this.#afterTabRevealDelay.next(
       () => {
         this.removeAttribute('js-aftertabreveal')
-        this.#afterTabRevealDelay = undefined
       },
       cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
     )

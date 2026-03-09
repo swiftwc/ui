@@ -44,15 +44,15 @@
                     <summary>
                       <label-view system-image="smiley" label="All Inboxes"></label-view>
                     </summary>
-                    <button value="more"><label-view system-image="smiley" label="Account 1"></label-view></button>
-                    <button value="more"><label-view system-image="smiley" label="Account 2"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" label="Personal"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" label="Work"></label-view></button>
                   </details>
                 </details>
               </section-view>
               <section-view>
                 <details is="disclosure-group" open>
                   <summary>
-                    <label-view label="Account 1"></label-view>
+                    <label-view label="Personal"></label-view>
                   </summary>
                   <button type="button" navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
                   <button type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
@@ -88,7 +88,7 @@
       <body-view>
         <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: white">
           <v-stack placement="leading fill">
-            <list-view list-style="inset">
+            <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">
                 <label-view label="Item 1"></label-view>
               </button>
@@ -96,13 +96,39 @@
                 <label-view label="Item 2"></label-view>
               </button>
               <details is="disclosure-group">
-                <summary>
-                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                <summary navigation-destination="item3">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" columns="minmax(0,1fr) auto">
+                      <label-view label="Andrew & Priyanka"></label-view>
+                      <label-view label="5/22/26"></label-view>
+                    </h-stack>
+                    <h-stack distribution="fill" columns="minmax(0,1fr) auto">
+                      <label-view label="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
+                      <button type="button" tabindex="0">
+                        <label-view system-image="smiley" label="2"></label-view>
+                      </button>
+                    </h-stack>
+                    <div>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
+                  </v-stack>
                 </summary>
-                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3b">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" columns="minmax(0,1fr) auto">
+                      <label-view label="Andrew"></label-view>
+                      <label-view label="5/22/26"></label-view>
+                    </h-stack>
+                    <label-view label="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
+                  </v-stack>
+                </button>
+                <button type="button" navigation-destination="item3c">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" columns="minmax(0,1fr) auto">
+                      <label-view label="Priyanka"></label-view>
+                      <label-view label="5/21/26"></label-view>
+                    </h-stack>
+                    <label-view label="Can we just go this time?"></label-view>
+                  </v-stack>
+                </button>
               </details>
               <button type="button" navigation-destination="item2">
                 <label-view label="Item 2"></label-view>
@@ -144,7 +170,7 @@
       <body-view>
         <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: white">
           <v-stack placement="leading fill">
-            <list-view list-style="inset">
+            <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">
                 <label-view label="Item 1"></label-view>
               </button>
@@ -183,10 +209,38 @@
         </tool-bar>
       </body-view>
     </template>
+    <template id="item3">
+      <body-view>
+        <scroll-view navigation-inline-title="Trip Idea - AutoCamp Sequoia" navigation-path="item3">
+          <v-stack placement="leading fill" padding> Trip Idea - AutoCamp Sequoia </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
     <template id="item3a">
       <body-view>
         <scroll-view navigation-inline-title="Item 3a" navigation-path="item3a">
           <v-stack placement="leading fill" padding> Item 3a </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="navigation-bar-leading">
+            <button type="button" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template id="item3b">
+      <body-view>
+        <scroll-view navigation-inline-title="Item b" navigation-path="item3b">
+          <v-stack placement="leading fill" padding> Item 3b </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
@@ -246,10 +300,17 @@
           const sv = closestBody(event.target),
             view = getComputedView(sv)
 
-          if (navDest)
-            await startViewTransition(event, 'forwards', async () => {
-              modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
-            })
+          const summary = event.target.closest('summary')
+
+          if (summary && summary.querySelector('button')) {
+            event.preventDefault()
+
+            if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+          }
+
+          await startViewTransition(event, 'forwards', async () => {
+            modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+          })
         }
       })
     </script>

@@ -514,11 +514,12 @@
         const btn = event.target.closest('button'),
           summary = event.target.closest('summary')
 
-        if (summary) {
+        if (summary && summary.querySelector('button')) {
           event.preventDefault()
 
-          if (summary.querySelector('button') && !btn) summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
-          else summary.closest('details').toggleAttribute('open')
+          if (btn) return summary.closest('details').toggleAttribute('open')
+
+          summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
         } else if (btn) {
           btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
         }

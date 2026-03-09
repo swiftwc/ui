@@ -103,15 +103,16 @@
 
     // box-shadow: none;
     // outline: 0;
-    appearance: none;
-    -webkit-appearance: none;
-    border: var(--toolbaritemborder,);
-    background: var(--toolbaritemface,);
-    color: var(--toolbaritemtext,);
-    padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
-    padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-    border-radius: var(--toolbaritemradius,);
-    min-inline-size: 25px; // NOTE: For inputs overflowing-x
+    @include mixins.componentize(toolbaritem);
+    // appearance: none;
+    // -webkit-appearance: none;
+    // border: var(--toolbaritemborder,);
+    // background: var(--toolbaritemface,);
+    // color: var(--toolbaritemtext,);
+    // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+    // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
+    // border-radius: var(--toolbaritemradius,);
+    // min-inline-size: 25px; // NOTE: For inputs overflowing-x
   }
 
   // itemize

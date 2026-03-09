@@ -15,23 +15,19 @@
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
       :where(&) {
-        appearance: none;
-        -webkit-appearance: none;
-        border: var(--itemborder,);
-        background: var(--itemface,);
-        color: var(--itemtext,);
-        padding-inline: var(--itempadistart,) var(--itempadiend,);
-        padding-block: var(--itempadbstart,) var(--itempadbend,);
-        border-radius: var(--itemradiust,) var(--itemradiusb,);
+        @include mixins.componentize(item);
       }
       @media (prefers-reduced-motion: no-preference) {
         :where(&) {
           // outline: yellow solid 4px;
 
-          transition: background-color 300ms ease-out allow-discrete;
-          will-change: background-color;
+          transition:
+            background-color 300ms ease-out allow-discrete,
+            color 300ms ease-out allow-discrete;
+          will-change: background-color, color;
 
-          &:active {
+          // &:active,
+          &.active {
             transition-duration: 0ms;
           }
         }
@@ -92,12 +88,18 @@
 
       --itemface: var(--list--item-background-color,);
       --itemhighlightface: var(--list--item-background-color,);
-      --itemactiveface: blue; //var(--list--item-background-color,);
+      --itemactiveface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
+
+      --itemtext: var(--list--item-color,);
+      --itemhighlighttext: var(--list--item-color,);
+      --itemactivetext: var(--list--selecteditem-color, var(--list--item-color,));
     }
 
-    > [is='disclosure-group'] > summary {
+    > [is='disclosure-group'] > summary,
+    > section-view > [is='disclosure-group'] > summary {
       :where(&) {
         // outline: red solid 4px;
+        // box-shadow: inset 0 0 3px yellow;
 
         --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
         --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
@@ -111,7 +113,30 @@
 
         --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
         --itemhighlightface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
-        --itemactiveface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+        --itemactiveface: var(--list--selectedrootsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
+
+        --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
+        --itemhighlighttext: var(--list--rootsummary-color, var(--list--item-color,));
+        --itemactivetext: var(--list--selectedrootsummary-color, var(--list--selecteditem-color, var(--list--item-color,)));
+      }
+    }
+
+    // SECTION: add details open bg
+    [is='disclosure-group'][open],
+    [is='disclosure-group'][open]:not(& > [is='disclosure-group']) > summary {
+      :where(&) {
+        opacity: 0.5;
+        // :where(&:is([is='disclosure-group']):not([is='disclosure-group']) > summary) {
+        // background-color: yellow;
+        --itemface: blue;
+        --itemhighlightface: blue;
+        --itemactiveface: blue;
+
+        --itemtext: yellow;
+        --itemhighlighttext: yellow;
+        --itemactivetext: yellow;
+        // --list--item-background-color: red;
+        // --list--rootsummary-background-color: red;
       }
     }
 
@@ -132,7 +157,13 @@
         }
       }
       // :where(&:is([aria-selected='true'], [is='disclosure-group']):has(> [aria-selected='true'])) {
-      //   --list--separator-background-color: yellow;
+      //   outline: red solid 4px;
+      // }
+      // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
+      // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
+      // :where(&:is([aria-selected='true'])) {
+      // outline: red solid 4px;
+      // --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
       // }
     }
 
@@ -440,14 +471,14 @@
     > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
     [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
-      @include mixins.add-active-state {
+      @include mixins.add-jsactive-state {
         --itemface: var(--itemactiveface,);
         --itemtext: var(--itemactivetext,);
       }
 
       &[aria-selected='true'] {
-        --itemface: blue;
-        --itemtext: white;
+        --itemface: var(--itemactiveface);
+        --itemtext: var(--itemactivetext,);
       }
     }
   }

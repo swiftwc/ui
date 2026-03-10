@@ -239,9 +239,13 @@
       // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
       // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
       // :where(&:is([aria-selected='true'])) {
-      // outline: red solid 4px;
-      // --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
-      // }
+      :where(&:is([is='disclosure-group']:has(> summary[aria-selected='true']))),
+      :where(&:is([is='disclosure-group']:has(> summary.active))) {
+        // outline: red solid 4px;
+        &::before {
+          --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
+        }
+      }
     }
 
     // SECTION: sharpen top corners
@@ -592,11 +596,15 @@
       @include mixins.add-jsactive-state {
         --itemface: var(--itemactiveface,);
         --itemtext: var(--itemactivetext,);
+
+        --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
       }
 
       &[aria-selected='true'] {
         --itemface: var(--itemactiveface);
         --itemtext: var(--itemactivetext,);
+
+        --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
       }
     }
   }

@@ -27,18 +27,19 @@ $list-ifs: (
   inset-grouped: (
     --list--item-color: var(--insetgroupedlist-item-color,),
     --list--item-background-color: var(--insetgroupedlist-item-background-color,),
+    --list--item-border-radius: var(--insetlist-item-border-radius),
     --list--selecteditem-color: var(--insetgroupedlist-selecteditem-color,),
     --list--selecteditem-background-color: var(--insetgroupedlist-selecteditem-background-color,),
-    --list--item-border-radius: var(--insetlist-item-border-radius),
-    --list--adjacentitem-border-radius: 0 0,
     --list--host-background-color: var(--insetgroupedlist-background-color,),
     --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
     --list--host-padding-block: var(--insetgroupedlist-padding-block),
     //
+    --list--adjacentitem-border-radius: 0 0,
+    //
     --list--details-background-color: var(--insetgroupedlist-openitem-background-color,),
     --list--details-color: var(--insetgroupedlist-openitem-color,),
-    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
-    --list--opendetails-color: var(--insetlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetgroupedlist-openitem-color,),
     --list--opensummary-background-color: var(--insetgroupedlist-opensummary-background-color,),
     --list--opensummary-color: var(--insetgroupedlist-opensummary-color,),
   ),

@@ -13,7 +13,6 @@ export class SectionView extends HTMLElement {
   <div part="root section-main-stack">
     <slot></slot>
   </div>
-  <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   <div part="root section-header-stack">
     <slot name="header"></slot>
   </div>
@@ -21,6 +20,7 @@ export class SectionView extends HTMLElement {
     <slot name="footer"></slot>
   </div>`,
       })
+    // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
 
     return this.#template
   }

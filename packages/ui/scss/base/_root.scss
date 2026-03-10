@@ -190,61 +190,60 @@
     }
 
     // lists
-    --list-gap: 3rem;
-
-    --form-gap: 3rem;
-
-    --list-item-padding-inline-start: 1rem;
-    --list-item-padding-inline-end: 1rem;
-    --list-item-padding-block-start: 1rem;
-    --list-item-padding-block-start: 1rem;
-
-    --form-item-padding-inline-start: 1rem;
-    --form-item-padding-inline-end: 1rem;
-    --form-item-padding-block-start: 1rem;
-    --form-item-padding-block-start: 1rem;
-
-    --list-item-background-color: white;
-    --insetlist-item-background-color: white;
-    --insetgroupedlist-item-background-color: white;
-    --sidebarlist-item-background-color: transparent;
-
-    --list-selecteditem-background-color: darkgray;
-    --insetlist-selecteditem-background-color: var(--tint);
-    --insetgroupedlist-selecteditem-background-color: var(--tint);
-    --sidebarlist-selecteditem-background-color: var(--tint);
-
-    --list-item-color: var(--text);
-    --insetlist-item-color: var(--text);
-    --insetgroupedlist-item-color: var(--text);
-    --sidebarlist-item-color: var(--text);
-
-    --list-selecteditem-color: var(--text);
-    --insetlist-selecteditem-color: var(--tintcontrast);
-    --insetgroupedlist-selecteditem-color: var(--tintcontrast);
-    --sidebarlist-selecteditem-color: var(--tintcontrast);
 
     --insetlist-item-border-radius: 1rem;
 
-    --form-item-background-color: white;
-    --insetform-item-background-color: white;
-    --insetgroupedform-item-background-color: white;
-    --sidebarform-item-background-color: transparent;
+    //
+    @each $v in list, form {
+      --#{$v}-gap: 3rem;
 
-    --form-selecteditem-background-color: darkgray;
-    --insetform-selecteditem-background-color: var(--tint);
-    --insetgroupedform-selecteditem-background-color: var(--tint);
-    --sidebarform-selecteditem-background-color: var(--tint);
+      --#{$v}-item-padding-inline-start: 1rem;
+      --#{$v}-item-padding-inline-end: 1rem;
+      --#{$v}-item-padding-block-start: 1rem;
+      --#{$v}-item-padding-block-start: 1rem;
 
-    --form-item-color: var(--text);
-    --insetform-item-color: var(--text);
-    --insetgroupedform-item-color: var(--text);
-    --sidebarform-item-color: var(--text);
+      --#{$v}-item-background-color: white;
+      --#{$v}-item-color: var(--text);
+      --#{$v}-selecteditem-background-color: darkgray;
+      --#{$v}-selecteditem-color: var(--text);
 
-    --form-selecteditem-color: var(--text);
-    --insetform-selecteditem-color: var(--tintcontrast);
-    --insetgroupedform-selecteditem-color: var(--tintcontrast);
-    --sidebarform-selecteditem-color: var(--tintcontrast);
+      --inset#{$v}-item-background-color: white;
+      --inset#{$v}-item-color: var(--text);
+      --inset#{$v}-selecteditem-background-color: var(--tint);
+      --inset#{$v}-selecteditem-color: var(--tintcontrast);
+
+      --insetgrouped#{$v}-item-background-color: white;
+      --insetgrouped#{$v}-item-color: var(--text);
+      --insetgrouped#{$v}-selecteditem-background-color: var(--tint);
+      --insetgrouped#{$v}-selecteditem-color: var(--tintcontrast);
+
+      --sidebar#{$v}-item-background-color: transparent;
+      --sidebar#{$v}-item-color: var(--text);
+      --sidebar#{$v}-selecteditem-background-color: var(--tint);
+      --sidebar#{$v}-selecteditem-color: var(--tintcontrast);
+
+      --#{$v}-openitem-background-color: lightgray;
+      --#{$v}-openitem-color: var(--text);
+      --#{$v}-opensummary-background-color: gray;
+      --#{$v}-opensummary-color: var(--text);
+
+      --insetgrouped#{$v}-openitem-background-color: var(--tint3);
+      --insetgrouped#{$v}-openitem-color: var(--text);
+      --insetgrouped#{$v}-opensummary-background-color: var(--tint2);
+      --insetgrouped#{$v}-opensummary-color: var(--text);
+
+      --inset#{$v}-openitem-background-color: var(--tint3);
+      --inset#{$v}-openitem-color: var(--text);
+      --inset#{$v}-opensummary-background-color: var(--tint2);
+      --inset#{$v}-opensummary-color: var(--text);
+
+      --sidebar#{$v}-openitem-background-color: transparent;
+      --sidebar#{$v}-openitem-color: var(--text);
+      --sidebar#{$v}-opensummary-background-color: transparent;
+      --sidebar#{$v}-opensummary-color: var(--text);
+    }
+
+    //
 
     --insetform-item-border-radius: 1rem;
 

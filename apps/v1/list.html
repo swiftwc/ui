@@ -98,7 +98,7 @@
           </whatever-name>
         </details>
       </list-view>
-      <p>mixed</p>
+      <p>sections next to buttons</p>
       <list-view>
         <button type="button">
           <label-view system-image="smiley" label="Item 1"></label-view>
@@ -269,7 +269,7 @@
           <button type="button" tabindex="0"><label-view system-image="smiley" label="Item 4c"></label-view></button>
         </details>
       </list-view>
-      <p>bare picker outside form</p>
+      <p>bare inline picker outside form</p>
       <picker-view placeholder="here" label="inline1" picker-style="inline">
         <datalist slot="list">
           <option value="0" label="0%"></option>
@@ -279,7 +279,7 @@
           <option value="50" label="Very Generous"></option>
         </datalist>
       </picker-view>
-      <p>bare picker outside form</p>
+      <p>bare menu picker outside form</p>
       <picker-view placeholder="here" label="inline1" picker-style="menu">
         <datalist slot="list">
           <option value="0" label="0%"></option>
@@ -289,6 +289,18 @@
           <option value="50" label="Very Generous"></option>
         </datalist>
       </picker-view>
+      <p>w/ inline picker inline</p>
+      <list-view>
+        <picker-view placeholder="here" label="inline1" picker-style="inline">
+          <datalist slot="list">
+            <option value="0" label="0%"></option>
+            <option value="10" label="Minimum Tip"></option>
+            <option value="20" label="Standard"></option>
+            <option value="30" label="Generous"></option>
+            <option value="50" label="Very Generous"></option>
+          </datalist>
+        </picker-view>
+      </list-view>
       <p>list w/ buttons</p>
       <list-view>
         <button type="button">

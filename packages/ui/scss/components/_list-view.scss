@@ -7,24 +7,40 @@
 $list-ifs: (
   inset: (
     --list--item-color: var(--insetlist-item-color,),
+    --list--item-background-color: var(--insetlist-item-background-color,),
     --list--selecteditem-color: var(--insetlist-selecteditem-color,),
     --list--selecteditem-background-color: var(--insetlist-selecteditem-background-color,),
-    --list--item-background-color: var(--insetlist-item-background-color,),
     --list--item-border-radius: var(--insetlist-item-border-radius),
     --list--host-background-color: var(--insetlist-background-color,),
     --list--host-padding-inline: var(--insetlist-padding-inline),
     --list--host-padding-block: var(--insetlist-padding-block),
+    //
+    --list--adjacentdetailsitem-border-radius: 0 0,
+    //
+    --list--details-background-color: var(--insetlist-openitem-background-color,),
+    --list--details-color: var(--insetlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetlist-opensummary-color,),
   ),
   inset-grouped: (
     --list--item-color: var(--insetgroupedlist-item-color,),
+    --list--item-background-color: var(--insetgroupedlist-item-background-color,),
     --list--selecteditem-color: var(--insetgroupedlist-selecteditem-color,),
     --list--selecteditem-background-color: var(--insetgroupedlist-selecteditem-background-color,),
-    --list--item-background-color: var(--insetgroupedlist-item-background-color,),
-    --list--adjacentitem-border-radius: 0 0,
     --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--adjacentitem-border-radius: 0 0,
     --list--host-background-color: var(--insetgroupedlist-background-color,),
     --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
     --list--host-padding-block: var(--insetgroupedlist-padding-block),
+    //
+    --list--details-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--details-color: var(--insetgroupedlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetgroupedlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetgroupedlist-opensummary-color,),
   ),
   sidebar: (
     --list--item-border-radius: var(--insetlist-item-border-radius),
@@ -40,22 +56,29 @@ $list-ifs: (
     --list--item-padding-block-end: 5px,
 
     --list--adjacentitem-border-radius: unset,
-
-    --list--item-color: var(--sidebarlist-item-color,),
-    --list--selecteditem-color: var(--sidebarlist-selecteditem-color,),
+    //
     --list--host-background-color: var(--sidebarlist-background-color,),
-    --list--selecteditem-background-color: var(--sidebarlist-selecteditem-background-color,),
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    //
     --list--item-background-color: var(--sidebarlist-item-background-color,),
+    --list--item-color: var(--sidebarlist-item-color,),
+    --list--selecteditem-background-color: var(--sidebarlist-selecteditem-background-color,),
+    --list--selecteditem-color: var(--sidebarlist-selecteditem-color,),
+    //
     --list--rootsummary-background-color: transparent,
-    --list--selectedrootsummary-background-color: transparent,
     --list--rootsummary-color: var(--text,),
-    --list--selectedrootsummary-color: var(--text,),
     --list--rootsummary-border-radius: 0px,
-
+    --list--selectedrootsummary-background-color: transparent,
+    --list--selectedrootsummary-color: var(--text,),
+    //
     --list--separator-background-color: transparent,
     --list--activeseparator-background-color: transparent,
 
-    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    //
+    --list--details-background-color: var(--sidebarlist-openitem-background-color,),
+    --list--details-color: var(--sidebarlist-openitem-color,),
+    --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color,),
+    --list--opensummary-color: var(--sidebarlist-opensummary-color,),
   ),
 );
 $list-elses: (
@@ -68,6 +91,11 @@ $list-elses: (
   --list--item-padding-block-end: var(--list-item-padding-block-end),
   --list--item-color: var(--list-item-color,),
   --list--selecteditem-color: var(--list-selecteditem-color,),
+  //
+  --list--details-background-color: var(--list-openitem-background-color,),
+  --list--details-color: var(--list-openitem-color,),
+  --list--opensummary-background-color: var(--list-opensummary-background-color,),
+  --list--opensummary-color: var(--list-opensummary-color,),
 );
 
 // @mixin set-list-style($value) {

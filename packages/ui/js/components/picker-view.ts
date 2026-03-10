@@ -361,9 +361,14 @@ export class PickerView extends HTMLElement {
 
         const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
 
-        if (label) section.setAttribute('header', label)
+        // if (label) section.setAttribute('header', label)
+        if (label) {
+          const el = $(`<label-view></label-view>`)
 
-        section.innerHTML = ''
+          el.setAttribute('label', label)
+
+          section.insertAdjacentElement('beforeend', el)
+        } else section.innerHTML = ''
 
         for (const el of PickerView.sourceNodes(sourceSlot) ?? []) section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 

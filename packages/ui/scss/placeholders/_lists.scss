@@ -8,6 +8,8 @@
 
       padding-inline: var(--list--host-padding-inline,);
       padding-block: var(--list--host-padding-block,);
+
+      grid-template-columns: var(--list--host-grid-template-columns,);
     }
 
     // itemize buttons
@@ -106,8 +108,10 @@
       --itempadbstart: var(--list--item-padding-block-start,);
       --itempadbend: var(--list--item-padding-block-end,);
 
-      --itemradiust: var(--list--item-border-radius,) var(--list--item-border-radius,);
-      --itemradiusb: var(--list--item-border-radius,) var(--list--item-border-radius,);
+      --itemradiustr: var(--list--item-border-radius,);
+      --itemradiustl: var(--list--item-border-radius,);
+      --itemradiusbr: var(--list--item-border-radius,);
+      --itemradiusbl: var(--list--item-border-radius,);
 
       --itemface: var(--list--item-background-color,);
       --itemhighlightface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
@@ -204,10 +208,10 @@
           --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
           --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
 
-          --itemradiust: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-            var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
-          --itemradiusb: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-            var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiustl: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiustr: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiusbl: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiusbr: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
         }
       }
       &[open] > summary {
@@ -278,21 +282,18 @@
     [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
       :where(&) {
         // outline: yellow solid 5px;
-        --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
+        --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+        --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
       }
-      :where(&:is(%list > [is='disclosure-group'], %list > section-view > [is='disclosure-group']) > summary) {
-        // outline: yellow solid 5px;
-        --itemradiust: var(
-          --list--adjacentitem-border-radius,
-          var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-        ); //0 0;
-      }
+      // :where(&:is(%list > [is='disclosure-group'], %list > section-view > [is='disclosure-group']) > summary) {
+      //   // outline: yellow solid 5px;
+      //   --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      //   --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      // }
       :where(&:is([is='disclosure-group'] :not([slot]))) {
         // outline: green solid 5px;
-        --itemradiust: var(
-          --list--adjacentdetailsitem-border-radius,
-          var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,))
-        ); //0 0;
+        --itemradiustl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+        --itemradiustr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
       }
     }
 
@@ -303,22 +304,19 @@
     [is='disclosure-group']:not([data-state='closed']) > summary {
       :where(&) {
         // outline: green solid 5px;
-        --itemradiusb: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,)); //0 0;
+        --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+        --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
       }
       //:where(&:is([is='disclosure-group']) > summary, &:is([is='disclosure-group']) > section-view > summary) {
-      :where(&:is([is='disclosure-group']) > summary) {
-        // outline: green solid 5px;
-        --itemradiusb: var(
-          --list--adjacentitem-border-radius,
-          var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-        ); //0 0;
-      }
+      // :where(&:is([is='disclosure-group']) > summary) {
+      //   // outline: green solid 5px;
+      //   --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      //   --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      // }
       :where(&:is([is='disclosure-group'] :not([slot]))) {
         // outline: green solid 5px;
-        --itemradiusb: var(
-          --list--adjacentdetailsitem-border-radius,
-          var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,))
-        ); //0 0;
+        --itemradiusbl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+        --itemradiusbr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
       }
     }
 
@@ -354,6 +352,81 @@
         // backdrop-filter: blur(20px);
 
         // text-shadow: 0 0 5px var(--face);
+      }
+    }
+
+    // SECTION: Enable 2-col layout
+    &[columns='2'] {
+      :where(&) {
+        --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        // SECTION: add borders
+        position: relative;
+
+        &::after {
+          content: '';
+          position: absolute;
+          inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
+          width: 1px;
+          background: var(--list--separator-background-color, var(--separator));
+          pointer-events: none;
+        }
+      }
+
+      // SECTION: overwrite already sharpened corners
+      > :first-child:not([slot]),
+      section-view:first-child > :not([slot]),
+      [is='disclosure-group']:first-child > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+          --itemradiusbr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+          --itemradiusbr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+        }
+      }
+      > :nth-child(2):not([slot]),
+      section-view:nth-child(2) > :not([slot]),
+      [is='disclosure-group']:nth-child(2) > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--item-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--item-border-radius,);
+        }
+      }
+      > :nth-last-child(2):not([slot]),
+      section-view:nth-last-child(2) > :not([slot]),
+      [is='disclosure-group']:nth-last-child(2) > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,);
+          --itemradiusbl: var(--list--item-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,);
+          --itemradiusbl: var(--list--item-border-radius,);
+        }
+      }
+      > :last-child:not([slot]),
+      section-view:last-child > :not([slot]),
+      [is='disclosure-group']:last-child > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiusbr: var(--list--item-border-radius,);
+          --itemradiusbl: var(--list--adjacentitem-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiusbr: var(--list--item-border-radius,);
+          --itemradiusbl: var(--list--adjacentitem-border-radius,);
+        }
       }
     }
   }
@@ -571,9 +644,7 @@
       }
     }
 
-    :where(&[columns='2']) {
-      --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+    
 
     // vars
     :where(&) {

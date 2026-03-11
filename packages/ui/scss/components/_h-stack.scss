@@ -19,15 +19,15 @@
     //   }
     // }
 
-    :where(&[columns='minmax(0,1fr) auto']) {
+    :where(&[template='minmax(0,1fr) auto']) {
       grid-template-columns: minmax(0, 1fr) auto;
     }
 
-    :where(&[columns='auto minmax(0,1fr) auto auto']) {
+    :where(&[template='auto minmax(0,1fr) auto auto']) {
       grid-template-columns: auto minmax(0, 1fr) auto auto;
     }
 
-    :where(&[columns='repeat(4,minmax(0,1fr))']) {
+    :where(&[template='repeat(4,minmax(0,1fr))']) {
       grid-template-columns: repeat(4, minmax(0, 1fr));
     }
   }

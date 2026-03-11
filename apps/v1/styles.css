@@ -60,7 +60,7 @@
     --tintcontrast: white;
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
-    --separator: red;
+    --separator: oklch(0.9249 0 0);
     --primary-bg: 0.9566 0.0067 286.27;
     --primary-bg-dark: 0 0 0;
     --primary-grouped-bg: 1 0 0;
@@ -327,6 +327,7 @@
     background-color: var(--list--host-background-color, );
     padding-inline: var(--list--host-padding-inline, );
     padding-block: var(--list--host-padding-block, );
+    grid-template-columns: var(--list--host-grid-template-columns, );
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
@@ -340,7 +341,7 @@
     color: var(--itemtext,);
     padding-inline: var(--itempadistart,) var(--itempadiend,);
     padding-block: var(--itempadbstart,) var(--itempadbend,);
-    border-radius: var(--itemradiust,) var(--itemradiusb,);
+    border-radius: var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,);
   }
   @media (prefers-reduced-motion: no-preference) {
     :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name),
@@ -385,8 +386,10 @@
     --itempadiend: var(--list--item-padding-inline-end,);
     --itempadbstart: var(--list--item-padding-block-start,);
     --itempadbend: var(--list--item-padding-block-end,);
-    --itemradiust: var(--list--item-border-radius,) var(--list--item-border-radius,);
-    --itemradiusb: var(--list--item-border-radius,) var(--list--item-border-radius,);
+    --itemradiustr: var(--list--item-border-radius,);
+    --itemradiustl: var(--list--item-border-radius,);
+    --itemradiusbr: var(--list--item-border-radius,);
+    --itemradiusbl: var(--list--item-border-radius,);
     --itemface: var(--list--item-background-color,);
     --itemhighlightface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
     --itemactiveface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
@@ -458,10 +461,6 @@
     --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
     --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
     --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
-    --itemradiust: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-      var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
-    --itemradiusb: var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-      var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group][open] > summary, list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group][open] > summary,
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group][open] > summary,
@@ -526,27 +525,16 @@
   list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot])) {
-    --itemradiust: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,));
-  }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group]) > summary) {
-    --itemradiust: var(
-      --list--adjacentitem-border-radius,
-      var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-    );
+    --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
+    --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
   list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group] :not([slot])),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group] :not([slot]))) {
-    --itemradiust: var(
-      --list--adjacentdetailsitem-border-radius,
-      var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,))
-    );
+    --itemradiustl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
+    --itemradiustr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view)), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]):has(~ :not([slot], section-view)),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view)),
@@ -555,19 +543,8 @@
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed]) > summary,
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:not([data-state=closed]) > summary) {
-    --itemradiusb: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,));
-  }
-  :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group]) > summary, list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group]) > summary) {
-    --itemradiusb: var(
-      --list--adjacentitem-border-radius,
-      var(--list--rootsummary-border-radius, var(--list--item-border-radius,)) var(--list--rootsummary-border-radius, var(--list--item-border-radius,))
-    );
+    --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
+    --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
@@ -576,10 +553,8 @@
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group] :not([slot])),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group] :not([slot]))) {
-    --itemradiusb: var(
-      --list--adjacentdetailsitem-border-radius,
-      var(--list--adjacentitem-border-radius, var(--list--item-border-radius,) var(--list--item-border-radius,))
-    );
+    --itemradiusbl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
+    --itemradiusbr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view) section-view:not(section-view section-view))::part(section-footer-stack), :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view) section-view:not(section-view section-view))::part(section-header-stack) {
     padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px)) calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
@@ -589,6 +564,80 @@
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view) section-view:not(section-view section-view))::part(section-header-stack) {
     top: var(--navigation-bar-block-size);
     position: sticky;
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view)) {
+    --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
+    position: relative;
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view))::after {
+    content: "";
+    position: absolute;
+    inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
+    width: 1px;
+    background: var(--list--separator-background-color, var(--separator));
+    pointer-events: none;
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :first-child:not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:first-child > :not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:first-child > :not([slot])) {
+    --itemradiustr: var(--list--adjacentitem-border-radius,);
+    --itemradiusbr: var(--list--adjacentitem-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+    --itemradiustr: var(--list--adjacentitem-border-radius,);
+    --itemradiusbr: var(--list--adjacentitem-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :nth-child(2):not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:nth-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:nth-child(2) > :not([slot])) {
+    --itemradiustr: var(--list--item-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+    --itemradiustr: var(--list--item-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :nth-last-child(2):not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:nth-last-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot])) {
+    --itemradiustr: var(--list--adjacentitem-border-radius,);
+    --itemradiusbl: var(--list--item-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+    --itemradiustr: var(--list--adjacentitem-border-radius,);
+    --itemradiusbl: var(--list--item-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :last-child:not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:last-child > :not([slot]),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:last-child > :not([slot])) {
+    --itemradiusbr: var(--list--item-border-radius,);
+    --itemradiusbl: var(--list--adjacentitem-border-radius,);
+  }
+  :where([columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+    --itemradiusbr: var(--list--item-border-radius,);
+    --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
   /* %list {
     :where(&) {
@@ -751,9 +800,7 @@
       }
     }
 
-    :where(&[columns='2']) {
-      --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
-    }
+
 
     // vars
     :where(&) {
@@ -813,8 +860,10 @@
     --toolbaritempadiend: 20px;
     --toolbaritempadbstart: 20px;
     --toolbaritempadbend: 20px;
-    --toolbaritemradiust: 20px 20px;
-    --toolbaritemradiusb: 20px 20px;
+    --toolbaritemradiustr: 20px;
+    --toolbaritemradiustl: 20px;
+    --toolbaritemradiusbr: 20px;
+    --toolbaritemradiusbl: 20px;
     --toolbaritemface: chocolate;
     --toolbaritemhighlightface: orange;
     --toolbaritemactiveface: darkred;
@@ -960,7 +1009,7 @@
     color: var(--toolbaritemtext,);
     padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
     padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-    border-radius: var(--toolbaritemradiust,) var(--toolbaritemradiusb,);
+    border-radius: var(--toolbaritemradiustl,) var(--toolbaritemradiustr,) var(--toolbaritemradiusbr,) var(--toolbaritemradiusbl,);
   }
 }
 @layer sw-colors {
@@ -1232,13 +1281,13 @@
     place-content: center;
     gap: 1rem;
   }
-  :where(h-stack[columns="minmax(0,1fr) auto"]) {
+  :where(h-stack[template="minmax(0,1fr) auto"]) {
     grid-template-columns: minmax(0, 1fr) auto;
   }
-  :where(h-stack[columns="auto minmax(0,1fr) auto auto"]) {
+  :where(h-stack[template="auto minmax(0,1fr) auto auto"]) {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
   }
-  :where(h-stack[columns="repeat(4,minmax(0,1fr))"]) {
+  :where(h-stack[template="repeat(4,minmax(0,1fr))"]) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
 }
@@ -1362,8 +1411,10 @@
   :where(tool-bar-item) {
     pointer-events: all;
     border-radius: var(--pill-border-radius);
-    --toolbaritemradiust: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
-    --toolbaritemradiusb: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
+    --toolbaritemradiustl: var(--toolbar-cell-border-radius);
+    --toolbaritemradiustr: var(--toolbar-cell-border-radius);
+    --toolbaritemradiusbl: var(--toolbar-cell-border-radius);
+    --toolbaritemradiusbr: var(--toolbar-cell-border-radius);
     --toolbaritemborder: 0;
   }
   :where(tool-bar-item:has([disabled])) {
@@ -2162,14 +2213,14 @@
       --list--host-background-color: if(style(--list-style: inset): var(--insetlist-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-background-color, ); style(--list-style: sidebar): var(--sidebarlist-background-color, ); else: var(--list-background-color, ) ;);
       --list--host-padding-inline: if(style(--list-style: inset): var(--insetlist-padding-inline); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-inline); style(--list-style: sidebar): var(--insetgroupedlist-padding-inline); );
       --list--host-padding-block: if(style(--list-style: inset): var(--insetlist-padding-block); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-block); );
-      --list--adjacentdetailsitem-border-radius: if(style(--list-style: inset): 0 0; );
+      --list--adjacentdetailsitem-border-radius: if(style(--list-style: inset): 0; );
       --list--details-background-color: if(style(--list-style: inset): var(--insetlist-openitem-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-openitem-background-color, ); style(--list-style: sidebar): var(--sidebarlist-openitem-background-color, ); else: var(--list-openitem-background-color, ) ;);
       --list--details-color: if(style(--list-style: inset): var(--insetlist-openitem-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-openitem-color, ); style(--list-style: sidebar): var(--sidebarlist-openitem-color, ); else: var(--list-openitem-color, ) ;);
       --list--opendetails-background-color: if(style(--list-style: inset): var(--insetlist-openitem-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-openitem-background-color, ); );
       --list--opendetails-color: if(style(--list-style: inset): var(--insetlist-openitem-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-openitem-color, ); );
       --list--opensummary-background-color: if(style(--list-style: inset): var(--insetlist-opensummary-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-opensummary-background-color, ); style(--list-style: sidebar): var(--sidebarlist-opensummary-background-color, ); else: var(--list-opensummary-background-color, ) ;);
       --list--opensummary-color: if(style(--list-style: inset): var(--insetlist-opensummary-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-opensummary-color, ); style(--list-style: sidebar): var(--sidebarlist-opensummary-color, ); else: var(--list-opensummary-color, ) ;);
-      --list--adjacentitem-border-radius: if(style(--list-style: inset-grouped): 0 0; style(--list-style: sidebar): unset; );
+      --list--adjacentitem-border-radius: if(style(--list-style: inset-grouped): 0; style(--list-style: sidebar): unset; );
       --list--details-gap: if(style(--list-style: sidebar): var(--list-gap); );
       --list--rootsummary-padding-inline-start: if(style(--list-style: sidebar): 5px; );
       --list--rootsummary-padding-inline-end: if(style(--list-style: sidebar): 5px; );
@@ -2181,7 +2232,6 @@
       --list--item-padding-block-end: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-block-end) ;);
       --list--rootsummary-background-color: if(style(--list-style: sidebar): transparent; );
       --list--rootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
-      --list--rootsummary-border-radius: if(style(--list-style: sidebar): 0px; );
       --list--selectedrootsummary-background-color: if(style(--list-style: sidebar): transparent; );
       --list--selectedrootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--list-style: sidebar): transparent; );
@@ -2199,7 +2249,7 @@
         --list--host-background-color: var(--insetlist-background-color, );
         --list--host-padding-inline: var(--insetlist-padding-inline);
         --list--host-padding-block: var(--insetlist-padding-block);
-        --list--adjacentdetailsitem-border-radius: 0 0;
+        --list--adjacentdetailsitem-border-radius: 0;
         --list--details-background-color: var(--insetlist-openitem-background-color, );
         --list--details-color: var(--insetlist-openitem-color, );
         --list--opendetails-background-color: var(--insetlist-openitem-background-color, );
@@ -2218,7 +2268,7 @@
         --list--host-background-color: var(--insetgroupedlist-background-color, );
         --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
         --list--host-padding-block: var(--insetgroupedlist-padding-block);
-        --list--adjacentitem-border-radius: 0 0;
+        --list--adjacentitem-border-radius: 0;
         --list--details-background-color: var(--insetgroupedlist-openitem-background-color, );
         --list--details-color: var(--insetgroupedlist-openitem-color, );
         --list--opendetails-background-color: var(--insetgroupedlist-openitem-background-color, );
@@ -2248,7 +2298,6 @@
         --list--selecteditem-color: var(--sidebarlist-selecteditem-color, );
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-color: var(--text, );
-        --list--rootsummary-border-radius: 0px;
         --list--selectedrootsummary-background-color: transparent;
         --list--selectedrootsummary-color: var(--text, );
         --list--separator-background-color: transparent;
@@ -2268,7 +2317,7 @@
       --list--host-background-color: var(--insetlist-background-color, );
       --list--host-padding-inline: var(--insetlist-padding-inline);
       --list--host-padding-block: var(--insetlist-padding-block);
-      --list--adjacentdetailsitem-border-radius: 0 0;
+      --list--adjacentdetailsitem-border-radius: 0;
       --list--details-background-color: var(--insetlist-openitem-background-color, );
       --list--details-color: var(--insetlist-openitem-color, );
       --list--opendetails-background-color: var(--insetlist-openitem-background-color, );
@@ -2285,7 +2334,7 @@
       --list--host-background-color: var(--insetgroupedlist-background-color, );
       --list--host-padding-inline: var(--insetgroupedlist-padding-inline);
       --list--host-padding-block: var(--insetgroupedlist-padding-block);
-      --list--adjacentitem-border-radius: 0 0;
+      --list--adjacentitem-border-radius: 0;
       --list--details-background-color: var(--insetgroupedlist-openitem-background-color, );
       --list--details-color: var(--insetgroupedlist-openitem-color, );
       --list--opendetails-background-color: var(--insetgroupedlist-openitem-background-color, );
@@ -2313,7 +2362,6 @@
       --list--selecteditem-color: var(--sidebarlist-selecteditem-color, );
       --list--rootsummary-background-color: transparent;
       --list--rootsummary-color: var(--text, );
-      --list--rootsummary-border-radius: 0px;
       --list--selectedrootsummary-background-color: transparent;
       --list--selectedrootsummary-color: var(--text, );
       --list--separator-background-color: transparent;
@@ -2344,7 +2392,6 @@
         --list--selecteditem-color: var(--sidebarlist-selecteditem-color, );
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-color: var(--text, );
-        --list--rootsummary-border-radius: 0px;
         --list--selectedrootsummary-background-color: transparent;
         --list--selectedrootsummary-color: var(--text, );
         --list--separator-background-color: transparent;
@@ -2363,7 +2410,7 @@
         --list--host-background-color: var(--insetlist-background-color, );
         --list--host-padding-inline: var(--insetlist-padding-inline);
         --list--host-padding-block: var(--insetlist-padding-block);
-        --list--adjacentdetailsitem-border-radius: 0 0;
+        --list--adjacentdetailsitem-border-radius: 0;
         --list--details-background-color: var(--insetlist-openitem-background-color, );
         --list--details-color: var(--insetlist-openitem-color, );
         --list--opendetails-background-color: var(--insetlist-openitem-background-color, );
@@ -2410,14 +2457,14 @@
       --list--host-background-color: if(style(--form-style: inset): var(--insetform-background-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-background-color, ); style(--form-style: sidebar): var(--sidebarform-background-color, ); else: var(--form-background-color, ) ;);
       --list--host-padding-inline: if(style(--form-style: inset): var(--insetform-padding-inline); style(--form-style: inset-grouped): var(--insetgroupedform-padding-inline); style(--form-style: sidebar): var(--insetgroupedform-padding-inline); );
       --list--host-padding-block: if(style(--form-style: inset): var(--insetform-padding-block); style(--form-style: inset-grouped): var(--insetgroupedform-padding-block); );
-      --list--adjacentdetailsitem-border-radius: if(style(--form-style: inset): 0 0; );
+      --list--adjacentdetailsitem-border-radius: if(style(--form-style: inset): 0; );
       --list--details-background-color: if(style(--form-style: inset): var(--insetform-openitem-background-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-openitem-background-color, ); style(--form-style: sidebar): var(--sidebarform-openitem-background-color, ); );
       --list--details-color: if(style(--form-style: inset): var(--insetform-openitem-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-openitem-color, ); style(--form-style: sidebar): var(--sidebarform-openitem-color, ); );
       --list--opendetails-background-color: if(style(--form-style: inset): var(--insetform-openitem-background-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-openitem-background-color, ); );
       --list--opendetails-color: if(style(--form-style: inset): var(--insetform-openitem-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-openitem-color, ); );
       --list--opensummary-background-color: if(style(--form-style: inset): var(--insetform-opensummary-background-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-opensummary-background-color, ); style(--form-style: sidebar): var(--sidebarform-opensummary-background-color, ); );
       --list--opensummary-color: if(style(--form-style: inset): var(--insetform-opensummary-color, ); style(--form-style: inset-grouped): var(--insetgroupedform-opensummary-color, ); style(--form-style: sidebar): var(--sidebarform-opensummary-color, ); );
-      --list--adjacentitem-border-radius: if(style(--form-style: inset-grouped): 0 0; style(--form-style: sidebar): unset; );
+      --list--adjacentitem-border-radius: if(style(--form-style: inset-grouped): 0; style(--form-style: sidebar): unset; );
       --list--details-gap: if(style(--form-style: sidebar): var(--form-gap); );
       --list--rootsummary-padding-inline-start: if(style(--form-style: sidebar): 5px; );
       --list--rootsummary-padding-inline-end: if(style(--form-style: sidebar): 5px; );
@@ -2429,7 +2476,6 @@
       --list--item-padding-block-end: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-block-end) ;);
       --list--rootsummary-background-color: if(style(--form-style: sidebar): transparent; );
       --list--rootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
-      --list--rootsummary-border-radius: if(style(--form-style: sidebar): 0px; );
       --list--selectedrootsummary-background-color: if(style(--form-style: sidebar): transparent; );
       --list--selectedrootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--form-style: sidebar): transparent; );
@@ -2447,7 +2493,7 @@
         --list--host-background-color: var(--insetform-background-color, );
         --list--host-padding-inline: var(--insetform-padding-inline);
         --list--host-padding-block: var(--insetform-padding-block);
-        --list--adjacentdetailsitem-border-radius: 0 0;
+        --list--adjacentdetailsitem-border-radius: 0;
         --list--details-background-color: var(--insetform-openitem-background-color, );
         --list--details-color: var(--insetform-openitem-color, );
         --list--opendetails-background-color: var(--insetform-openitem-background-color, );
@@ -2466,7 +2512,7 @@
         --list--host-background-color: var(--insetgroupedform-background-color, );
         --list--host-padding-inline: var(--insetgroupedform-padding-inline);
         --list--host-padding-block: var(--insetgroupedform-padding-block);
-        --list--adjacentitem-border-radius: 0 0;
+        --list--adjacentitem-border-radius: 0;
         --list--details-background-color: var(--insetgroupedform-openitem-background-color, );
         --list--details-color: var(--insetgroupedform-openitem-color, );
         --list--opendetails-background-color: var(--insetgroupedform-openitem-background-color, );
@@ -2496,7 +2542,6 @@
         --list--selecteditem-color: var(--sidebarform-selecteditem-color, );
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-color: var(--text, );
-        --list--rootsummary-border-radius: 0px;
         --list--selectedrootsummary-background-color: transparent;
         --list--selectedrootsummary-color: var(--text, );
         --list--separator-background-color: transparent;
@@ -2516,7 +2561,7 @@
       --list--host-background-color: var(--insetform-background-color, );
       --list--host-padding-inline: var(--insetform-padding-inline);
       --list--host-padding-block: var(--insetform-padding-block);
-      --list--adjacentdetailsitem-border-radius: 0 0;
+      --list--adjacentdetailsitem-border-radius: 0;
       --list--details-background-color: var(--insetform-openitem-background-color, );
       --list--details-color: var(--insetform-openitem-color, );
       --list--opendetails-background-color: var(--insetform-openitem-background-color, );
@@ -2533,7 +2578,7 @@
       --list--host-background-color: var(--insetgroupedform-background-color, );
       --list--host-padding-inline: var(--insetgroupedform-padding-inline);
       --list--host-padding-block: var(--insetgroupedform-padding-block);
-      --list--adjacentitem-border-radius: 0 0;
+      --list--adjacentitem-border-radius: 0;
       --list--details-background-color: var(--insetgroupedform-openitem-background-color, );
       --list--details-color: var(--insetgroupedform-openitem-color, );
       --list--opendetails-background-color: var(--insetgroupedform-openitem-background-color, );
@@ -2561,7 +2606,6 @@
       --list--selecteditem-color: var(--sidebarform-selecteditem-color, );
       --list--rootsummary-background-color: transparent;
       --list--rootsummary-color: var(--text, );
-      --list--rootsummary-border-radius: 0px;
       --list--selectedrootsummary-background-color: transparent;
       --list--selectedrootsummary-color: var(--text, );
       --list--separator-background-color: transparent;
@@ -2592,7 +2636,6 @@
         --list--selecteditem-color: var(--sidebarform-selecteditem-color, );
         --list--rootsummary-background-color: transparent;
         --list--rootsummary-color: var(--text, );
-        --list--rootsummary-border-radius: 0px;
         --list--selectedrootsummary-background-color: transparent;
         --list--selectedrootsummary-color: var(--text, );
         --list--separator-background-color: transparent;
@@ -2611,7 +2654,7 @@
         --list--host-background-color: var(--insetform-background-color, );
         --list--host-padding-inline: var(--insetform-padding-inline);
         --list--host-padding-block: var(--insetform-padding-block);
-        --list--adjacentdetailsitem-border-radius: 0 0;
+        --list--adjacentdetailsitem-border-radius: 0;
         --list--details-background-color: var(--insetform-openitem-background-color, );
         --list--details-color: var(--insetform-openitem-color, );
         --list--opendetails-background-color: var(--insetform-openitem-background-color, );

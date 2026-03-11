@@ -15,7 +15,7 @@ $list-ifs: (
     --list--host-padding-inline: var(--insetlist-padding-inline),
     --list--host-padding-block: var(--insetlist-padding-block),
     //
-    --list--adjacentdetailsitem-border-radius: 0 0,
+    --list--adjacentdetailsitem-border-radius: 0,
     //
     --list--details-background-color: var(--insetlist-openitem-background-color,),
     --list--details-color: var(--insetlist-openitem-color,),
@@ -34,7 +34,7 @@ $list-ifs: (
     --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
     --list--host-padding-block: var(--insetgroupedlist-padding-block),
     //
-    --list--adjacentitem-border-radius: 0 0,
+    --list--adjacentitem-border-radius: 0,
     //
     --list--details-background-color: var(--insetgroupedlist-openitem-background-color,),
     --list--details-color: var(--insetgroupedlist-openitem-color,),
@@ -68,7 +68,7 @@ $list-ifs: (
     //
     --list--rootsummary-background-color: transparent,
     --list--rootsummary-color: var(--text,),
-    --list--rootsummary-border-radius: 0px,
+    // --list--rootsummary-border-radius: 0px,
     --list--selectedrootsummary-background-color: transparent,
     --list--selectedrootsummary-color: var(--text,),
     //

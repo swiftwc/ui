@@ -24,8 +24,10 @@
       // --toolbaritemface: var(--toolbar-cell-bg);
       // --toolbaritempadistart: calc(var(--toolbar-cell-inline-padding) * 2);
       // --toolbaritempadbstart: calc(var(--toolbar-cell-block-padding) * 2);
-      --toolbaritemradiust: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
-      --toolbaritemradiusb: var(--toolbar-cell-border-radius) var(--toolbar-cell-border-radius);
+      --toolbaritemradiustl: var(--toolbar-cell-border-radius);
+      --toolbaritemradiustr: var(--toolbar-cell-border-radius);
+      --toolbaritemradiusbl: var(--toolbar-cell-border-radius);
+      --toolbaritemradiusbr: var(--toolbar-cell-border-radius);
       --toolbaritemborder: 0;
     }
 

@@ -219,7 +219,7 @@
   color: var(--#{$prefix}text#{','}); //var(--itemtext,);
   padding-inline: var(--#{$prefix}padistart#{','}) var(--#{$prefix}padiend#{','});
   padding-block: var(--#{$prefix}padbstart#{','}) var(--#{$prefix}padbend#{','});
-  border-radius: var(--#{$prefix}radiust#{','}) var(--#{$prefix}radiusb#{','});
+  border-radius: var(--#{$prefix}radiustl#{','}) var(--#{$prefix}radiustr#{','}) var(--#{$prefix}radiusbr#{','}) var(--#{$prefix}radiusbl#{','});
 }
 
 @mixin vt-toolbar-cell-offscreen-keyframe() {

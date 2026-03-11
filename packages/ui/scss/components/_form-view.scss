@@ -15,7 +15,7 @@ $form-ifs: (
     --list--host-padding-inline: var(--insetform-padding-inline),
     --list--host-padding-block: var(--insetform-padding-block),
     //
-    --list--adjacentdetailsitem-border-radius: 0 0,
+    --list--adjacentdetailsitem-border-radius: 0,
     //
     --list--details-background-color: var(--insetform-openitem-background-color,),
     --list--details-color: var(--insetform-openitem-color,),
@@ -34,7 +34,7 @@ $form-ifs: (
     --list--host-padding-inline: var(--insetgroupedform-padding-inline),
     --list--host-padding-block: var(--insetgroupedform-padding-block),
     //
-    --list--adjacentitem-border-radius: 0 0,
+    --list--adjacentitem-border-radius: 0,
     //
     --list--details-background-color: var(--insetgroupedform-openitem-background-color,),
     --list--details-color: var(--insetgroupedform-openitem-color,),
@@ -68,7 +68,7 @@ $form-ifs: (
     //
     --list--rootsummary-background-color: transparent,
     --list--rootsummary-color: var(--text,),
-    --list--rootsummary-border-radius: 0px,
+    // --list--rootsummary-border-radius: 0px,
     --list--selectedrootsummary-background-color: transparent,
     --list--selectedrootsummary-color: var(--text,),
     //

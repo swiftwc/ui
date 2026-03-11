@@ -131,7 +131,7 @@
       </list-view>
       <p>w/ controls</p>
       <list-view>
-        <h-stack columns="auto minmax(0,1fr) auto auto">
+        <h-stack template="auto minmax(0,1fr) auto auto">
           <button type="button">
             <label-view title="Item 1"></label-view>
           </button>
@@ -146,7 +146,7 @@
             <label-view title="Item 1"></label-view>
           </button>
         </h-stack>
-        <h-stack columns="auto minmax(0,1fr) auto auto">
+        <h-stack template="auto minmax(0,1fr) auto auto">
           <button type="button">
             <label-view title="Item 2"></label-view>
           </button>
@@ -161,7 +161,7 @@
             <label-view title="Item 2"></label-view>
           </button>
         </h-stack>
-        <h-stack columns="auto minmax(0,1fr) auto auto">
+        <h-stack template="auto minmax(0,1fr) auto auto">
           <button type="button">
             <label-view title="Item 3"></label-view>
           </button>
@@ -178,7 +178,7 @@
         </h-stack>
         <details is="disclosure-group">
           <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-          <h-stack columns="auto minmax(0,1fr) auto auto">
+          <h-stack template="auto minmax(0,1fr) auto auto">
             <button type="button">
               <label-view title="Item 1"></label-view>
             </button>
@@ -193,7 +193,7 @@
               <label-view title="Item 1"></label-view>
             </button>
           </h-stack>
-          <h-stack columns="auto minmax(0,1fr) auto auto">
+          <h-stack template="auto minmax(0,1fr) auto auto">
             <button type="button">
               <label-view title="Item 1"></label-view>
             </button>
@@ -208,7 +208,7 @@
               <label-view title="Item 1"></label-view>
             </button>
           </h-stack>
-          <h-stack columns="auto minmax(0,1fr) auto auto">
+          <h-stack template="auto minmax(0,1fr) auto auto">
             <button type="button">
               <label-view title="Item 1"></label-view>
             </button>
@@ -224,7 +224,7 @@
             </button>
           </h-stack>
         </details>
-        <h-stack columns="auto minmax(0,1fr) auto auto">
+        <h-stack template="auto minmax(0,1fr) auto auto">
           <button type="button">
             <label-view title="Item 3"></label-view>
           </button>
@@ -473,7 +473,7 @@
 
     <navigation-stack>
       <scroll-view>
-        <h-stack columns="repeat(4,minmax(0,1fr))" placement="fill leading">
+        <h-stack template="repeat(4,minmax(0,1fr))" placement="fill leading">
           <v-stack placement="leading fill" style="background-color: white">
             <script>
               document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))

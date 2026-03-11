@@ -1,5 +1,5 @@
 import * as Components from '../components'
-import { kebabCase } from '../internal/utils'
+import { kebabCase, ancestors } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { NavigationPath } from '../navigation-path'
 import { type WebComponentCtor } from '../namespace'
@@ -327,12 +327,11 @@ export function closestBody(any?: HTMLElement) {
 }
 
 export function getRootController(body?: Components.ScrollView): NavigationController | undefined {
-  let root
-
-  for (let e: HTMLElement | undefined | null = body; e; e = e.parentElement)
-    e.matches('navigation-stack,navigation-split-view') && (root = e as NavigationController)
-
-  return root
+  return ancestors<NavigationController>('navigation-stack,navigation-split-view', body)?.[0]
+  // let root
+  // for (let e: HTMLElement | undefined | null = body; e; e = e.parentElement)
+  //   e.matches('navigation-stack,navigation-split-view') && (root = e as NavigationController)
+  // return root
 }
 
 /**
@@ -403,7 +402,7 @@ export function queryBody(body?: Components.ScrollView) {
   const possibleNest = hostSlot(body)
 
   return (
-    possibleNest?.querySelectorAll<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
+    possibleNest?.querySelector<Components.ScrollView>('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)') ??
     undefined
   )
 }

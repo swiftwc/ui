@@ -69,20 +69,19 @@ export class MenuView extends HTMLElement {
 
       const trigger = this.#shadowRoot.querySelector('button') ?? undefined
 
-      const { on: on1 } = onoff('click', this.#handleTriggerClick, trigger)
+      CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, trigger).on())
 
-      CleanupRegistry.register(this, on1())
-
-      const { on: on2 } = onoff(
-        [
-          { types: 'click', listener: this.#handleDialogClick },
-          { types: 'close', listener: this.#handleDialogClose },
-          { types: 'cancel', listener: this.#handleDialogCancel },
-        ],
-        this.#dialog
+      CleanupRegistry.register(
+        this,
+        onoff(
+          [
+            { types: 'click', listener: this.#handleDialogClick },
+            { types: 'close', listener: this.#handleDialogClose },
+            { types: 'cancel', listener: this.#handleDialogCancel },
+          ],
+          this.#dialog
+        ).on()
       )
-
-      CleanupRegistry.register(this, on2())
 
       const { on } = onoff(
         touchGlass(
@@ -150,7 +149,7 @@ export class MenuView extends HTMLElement {
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
           label ??= this.appendChild($(`<label-view slot="label"></label-view>`))
-          label.setAttribute('label', newValue)
+          label.setAttribute('title', newValue)
         } else label?.remove()
 
         break

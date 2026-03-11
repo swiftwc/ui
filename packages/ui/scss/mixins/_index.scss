@@ -161,13 +161,27 @@
   }
 }
 
-@mixin add-highlight-state($selector: '') {
+@mixin add-focus-visible-state($selector: '') {
   &:not(:disabled):not([readonly]) {
     :where(&) {
       &:focus-visible#{$selector} {
+        outline: none;
+
         @content;
       }
 
+      // @media (pointer: fine) {
+      //   &:hover#{$selector} {
+      //     @content;
+      //   }
+      // }
+    }
+  }
+}
+
+@mixin add-hover-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
       @media (pointer: fine) {
         &:hover#{$selector} {
           @content;

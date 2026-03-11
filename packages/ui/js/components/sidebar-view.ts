@@ -24,25 +24,24 @@ export class SidebarView extends DialogBase {
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
-    const { on: on1 } = onoff('click', SidebarView.#handleClick, el)
+    CleanupRegistry.register(el, onoff('click', SidebarView.#handleClick, el).on())
 
-    CleanupRegistry.register(el, on1())
+    CleanupRegistry.register(
+      el,
+      onoff(
+        touchGlass(
+          el,
+          (t) => t,
+          (event: PointerEvent) => {
+            if ((event.target as HTMLElement).matches('[is=sidebar-view]')) return false
+            if ((event.target as HTMLElement).closest('tool-bar-item')) return false
 
-    const { on } = onoff(
-      touchGlass(
-        el,
-        (t) => t,
-        (event: PointerEvent) => {
-          if ((event.target as HTMLElement).matches('[is=sidebar-view]')) return false
-          if ((event.target as HTMLElement).closest('tool-bar-item')) return false
-
-          return true
-        }
-      ),
-      el
+            return true
+          }
+        ),
+        el
+      ).on()
     )
-
-    CleanupRegistry.register(el, on())
 
     el.autofocus = true
   }

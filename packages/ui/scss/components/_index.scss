@@ -142,13 +142,21 @@
   tool-bar-item [is='disclosure-group'] > button,
   tool-bar-item [is='disclosure-group'] > summary,
   [is='bordered-prominent'] {
-    @include mixins.add-highlight-state {
+    @include mixins.add-focus-visible-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+    @include mixins.add-hover-state {
       --toolbaritemface: var(--toolbaritemhighlightface,);
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
   }
   menu-view {
-    @include mixins.add-highlight-state('::part(menu-summary)') {
+    @include mixins.add-focus-visible-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+    @include mixins.add-hover-state('::part(menu-summary)') {
       --toolbaritemface: var(--toolbaritemhighlightface,);
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
@@ -159,7 +167,7 @@
   //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
   //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
   //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
-  //     @include mixins.add-highlight-state {
+  //     @include mixins.add-focus-visible-state {
   //       --itemface: var(--itemhighlightface,);
   //       --itemtext: var(--itemhighlighttext,);
   //     }

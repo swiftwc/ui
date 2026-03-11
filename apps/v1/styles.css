@@ -388,37 +388,46 @@
     --itemradiust: var(--list--item-border-radius,) var(--list--item-border-radius,);
     --itemradiusb: var(--list--item-border-radius,) var(--list--item-border-radius,);
     --itemface: var(--list--item-background-color,);
-    --itemhighlightface: var(--list--item-background-color,);
+    --itemhighlightface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
     --itemactiveface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
     --itemtext: var(--list--item-color,);
-    --itemhighlighttext: var(--list--item-color,);
+    --itemhighlighttext: var(--list--selecteditem-color, var(--list--item-color,));
     --itemactivetext: var(--list--selecteditem-color, var(--list--item-color,));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not(summary), list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not(summary)) {
     --itemface: var(--list--details-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(--list--details-background-color, var(--list--item-background-color,));
+    --itemhighlightface: var(--list--selecteddetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
     --itemactiveface: var(--list--selecteddetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
     --itemtext: var(--list--details-color, var(--list--item-color,));
-    --itemhighlighttext: var(--list--details-color, var(--list--item-color,));
+    --itemhighlighttext: var(--list--selecteddetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
     --itemactivetext: var(--list--selecteddetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
   }
   :where([is=disclosure-group][open] [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > summary, [is=disclosure-group][open] list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > summary) {
     --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(--list--opendetails-background-color, var(--list--item-background-color,));
+    --itemhighlightface: var(
+      --list--selectedopendetails-background-color,
+      var(--list--selecteditem-background-color, var(--list--item-background-color,))
+    );
     --itemactiveface: var(--list--selectedopendetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
     --itemtext: var(--list--opendetails-color, var(--list--item-color,));
-    --itemhighlighttext: var(--list--opendetails-color, var(--list--item-color,));
+    --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
     --itemactivetext: var(--list--selectedopendetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group][open] > summary, list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group][open] > summary) {
     --itemface: var(--list--opensummary-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(--list--opensummary-background-color, var(--list--item-background-color,));
+    --itemhighlightface: var(
+      --list--selectedopensummary-background-color,
+      var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+    );
     --itemactiveface: var(
       --list--selectedopensummary-background-color,
       var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
     );
     --itemtext: var(--list--opensummary-color, var(--list--item-color,));
-    --itemhighlighttext: var(--list--opensummary-color, var(--list--item-color,));
+    --itemhighlighttext: var(
+      --list--selectedopensummary-color,
+      var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+    );
     --itemactivetext: var(
       --list--selectedopensummary-color,
       var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
@@ -428,13 +437,19 @@
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group] > summary,
   list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group] > summary) {
     --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+    --itemhighlightface: var(
+      --list--selectedrootsummary-background-color,
+      var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+    );
     --itemactiveface: var(
       --list--selectedrootsummary-background-color,
       var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
     );
     --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
-    --itemhighlighttext: var(--list--rootsummary-color, var(--list--item-color,));
+    --itemhighlighttext: var(
+      --list--selectedrootsummary-color,
+      var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+    );
     --itemactivetext: var(
       --list--selectedrootsummary-color,
       var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
@@ -452,7 +467,13 @@
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group][open] > summary,
   list-view:not(list-view list-view, [is=form-view] list-view) > section-view > [is=disclosure-group][open] > summary) {
     --itemface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
-    --itemhighlightface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
+    --itemhighlightface: var(
+      --list--selectedrootsummary-background-color,
+      var(
+        --list--selectedopensummary-background-color,
+        var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+      )
+    );
     --itemactiveface: var(
       --list--selectedrootsummary-background-color,
       var(
@@ -461,7 +482,10 @@
       )
     );
     --itemtext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
-    --itemhighlighttext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
+    --itemhighlighttext: var(
+      --list--selectedrootsummary-color,
+      var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,))))
+    );
     --itemactivetext: var(
       --list--selectedrootsummary-color,
       var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,))))
@@ -758,18 +782,9 @@
   list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
   list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly])):focus-visible {
+    outline: none;
     --itemface: var(--itemhighlightface,);
     --itemtext: var(--itemhighlighttext,);
-  }
-  @media (pointer: fine) {
-    :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
-    list-view:not(list-view list-view, [is=form-view] list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly]),
-    list-view:not(list-view list-view, [is=form-view] list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, whatever-name):not(:disabled):not([readonly])):hover {
-      --itemface: var(--itemhighlightface,);
-      --itemtext: var(--itemhighlighttext,);
-    }
   }
 }
 @layer sw-actions {
@@ -805,6 +820,7 @@
     --toolbaritemactiveface: darkred;
   }
   :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):focus-visible {
+    outline: none;
     --toolbaritemface: var(--toolbaritemhighlightface,);
   }
   @media (pointer: fine) {
@@ -956,6 +972,7 @@
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
   [is=bordered-prominent]:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
     --toolbaritemface: var(--toolbaritemhighlightface,);
     --toolbaritemtext: var(--toolbaritemhighlighttext,);
   }
@@ -973,6 +990,7 @@
     }
   }
   :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+    outline: none;
     --toolbaritemface: var(--toolbaritemhighlightface,);
     --toolbaritemtext: var(--toolbaritemhighlighttext,);
   }
@@ -1358,6 +1376,7 @@
 }
 @layer sw-colors {
   :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+    outline: none;
     --toolbaritemface: var(--toolbaritemhighlightface,);
   }
   @media (pointer: fine) {
@@ -3342,8 +3361,314 @@
 }
 @layer sw-utils {}
 @layer sw-utils {
-  :where([frame-width=infinity]) {
+  :where([frame\:width=infinity]) {
     width: 100%;
+  }
+  :where([frame\:max-width=infinity]) {
+    max-width: 100%;
+  }
+  :where([frame\:max-width="0"]) {
+    max-width: 0rem;
+  }
+  :where([frame\:max-width="1"]) {
+    max-width: 1rem;
+  }
+  :where([frame\:max-width="2"]) {
+    max-width: 2rem;
+  }
+  :where([frame\:max-width="3"]) {
+    max-width: 3rem;
+  }
+  :where([frame\:max-width="4"]) {
+    max-width: 4rem;
+  }
+  :where([frame\:max-width="5"]) {
+    max-width: 5rem;
+  }
+  :where([frame\:max-width="6"]) {
+    max-width: 6rem;
+  }
+  :where([frame\:max-width="7"]) {
+    max-width: 7rem;
+  }
+  :where([frame\:max-width="8"]) {
+    max-width: 8rem;
+  }
+  :where([frame\:max-width="9"]) {
+    max-width: 9rem;
+  }
+  :where([frame\:max-width="10"]) {
+    max-width: 10rem;
+  }
+  :where([frame\:max-width="11"]) {
+    max-width: 11rem;
+  }
+  :where([frame\:max-width="12"]) {
+    max-width: 12rem;
+  }
+  :where([frame\:max-width="13"]) {
+    max-width: 13rem;
+  }
+  :where([frame\:max-width="14"]) {
+    max-width: 14rem;
+  }
+  :where([frame\:max-width="15"]) {
+    max-width: 15rem;
+  }
+  :where([frame\:max-width="16"]) {
+    max-width: 16rem;
+  }
+  :where([frame\:max-width="17"]) {
+    max-width: 17rem;
+  }
+  :where([frame\:max-width="18"]) {
+    max-width: 18rem;
+  }
+  :where([frame\:max-width="19"]) {
+    max-width: 19rem;
+  }
+  :where([frame\:max-width="20"]) {
+    max-width: 20rem;
+  }
+  :where([frame\:max-width="21"]) {
+    max-width: 21rem;
+  }
+  :where([frame\:max-width="22"]) {
+    max-width: 22rem;
+  }
+  :where([frame\:max-width="23"]) {
+    max-width: 23rem;
+  }
+  :where([frame\:max-width="24"]) {
+    max-width: 24rem;
+  }
+  :where([frame\:max-width="25"]) {
+    max-width: 25rem;
+  }
+  :where([frame\:max-width="26"]) {
+    max-width: 26rem;
+  }
+  :where([frame\:max-width="27"]) {
+    max-width: 27rem;
+  }
+  :where([frame\:max-width="28"]) {
+    max-width: 28rem;
+  }
+  :where([frame\:max-width="29"]) {
+    max-width: 29rem;
+  }
+  :where([frame\:max-width="30"]) {
+    max-width: 30rem;
+  }
+  :where([frame\:max-width="31"]) {
+    max-width: 31rem;
+  }
+  :where([frame\:max-width="32"]) {
+    max-width: 32rem;
+  }
+  :where([frame\:max-width="33"]) {
+    max-width: 33rem;
+  }
+  :where([frame\:max-width="34"]) {
+    max-width: 34rem;
+  }
+  :where([frame\:max-width="35"]) {
+    max-width: 35rem;
+  }
+  :where([frame\:max-width="36"]) {
+    max-width: 36rem;
+  }
+  :where([frame\:max-width="37"]) {
+    max-width: 37rem;
+  }
+  :where([frame\:max-width="38"]) {
+    max-width: 38rem;
+  }
+  :where([frame\:max-width="39"]) {
+    max-width: 39rem;
+  }
+  :where([frame\:max-width="40"]) {
+    max-width: 40rem;
+  }
+  :where([frame\:max-width="41"]) {
+    max-width: 41rem;
+  }
+  :where([frame\:max-width="42"]) {
+    max-width: 42rem;
+  }
+  :where([frame\:max-width="43"]) {
+    max-width: 43rem;
+  }
+  :where([frame\:max-width="44"]) {
+    max-width: 44rem;
+  }
+  :where([frame\:max-width="45"]) {
+    max-width: 45rem;
+  }
+  :where([frame\:max-width="46"]) {
+    max-width: 46rem;
+  }
+  :where([frame\:max-width="47"]) {
+    max-width: 47rem;
+  }
+  :where([frame\:max-width="48"]) {
+    max-width: 48rem;
+  }
+  :where([frame\:max-width="49"]) {
+    max-width: 49rem;
+  }
+  :where([frame\:max-width="50"]) {
+    max-width: 50rem;
+  }
+  :where([frame\:max-width="51"]) {
+    max-width: 51rem;
+  }
+  :where([frame\:max-width="52"]) {
+    max-width: 52rem;
+  }
+  :where([frame\:max-width="53"]) {
+    max-width: 53rem;
+  }
+  :where([frame\:max-width="54"]) {
+    max-width: 54rem;
+  }
+  :where([frame\:max-width="55"]) {
+    max-width: 55rem;
+  }
+  :where([frame\:max-width="56"]) {
+    max-width: 56rem;
+  }
+  :where([frame\:max-width="57"]) {
+    max-width: 57rem;
+  }
+  :where([frame\:max-width="58"]) {
+    max-width: 58rem;
+  }
+  :where([frame\:max-width="59"]) {
+    max-width: 59rem;
+  }
+  :where([frame\:max-width="60"]) {
+    max-width: 60rem;
+  }
+  :where([frame\:max-width="61"]) {
+    max-width: 61rem;
+  }
+  :where([frame\:max-width="62"]) {
+    max-width: 62rem;
+  }
+  :where([frame\:max-width="63"]) {
+    max-width: 63rem;
+  }
+  :where([frame\:max-width="64"]) {
+    max-width: 64rem;
+  }
+  :where([frame\:max-width="65"]) {
+    max-width: 65rem;
+  }
+  :where([frame\:max-width="66"]) {
+    max-width: 66rem;
+  }
+  :where([frame\:max-width="67"]) {
+    max-width: 67rem;
+  }
+  :where([frame\:max-width="68"]) {
+    max-width: 68rem;
+  }
+  :where([frame\:max-width="69"]) {
+    max-width: 69rem;
+  }
+  :where([frame\:max-width="70"]) {
+    max-width: 70rem;
+  }
+  :where([frame\:max-width="71"]) {
+    max-width: 71rem;
+  }
+  :where([frame\:max-width="72"]) {
+    max-width: 72rem;
+  }
+  :where([frame\:max-width="73"]) {
+    max-width: 73rem;
+  }
+  :where([frame\:max-width="74"]) {
+    max-width: 74rem;
+  }
+  :where([frame\:max-width="75"]) {
+    max-width: 75rem;
+  }
+  :where([frame\:max-width="76"]) {
+    max-width: 76rem;
+  }
+  :where([frame\:max-width="77"]) {
+    max-width: 77rem;
+  }
+  :where([frame\:max-width="78"]) {
+    max-width: 78rem;
+  }
+  :where([frame\:max-width="79"]) {
+    max-width: 79rem;
+  }
+  :where([frame\:max-width="80"]) {
+    max-width: 80rem;
+  }
+  :where([frame\:max-width="81"]) {
+    max-width: 81rem;
+  }
+  :where([frame\:max-width="82"]) {
+    max-width: 82rem;
+  }
+  :where([frame\:max-width="83"]) {
+    max-width: 83rem;
+  }
+  :where([frame\:max-width="84"]) {
+    max-width: 84rem;
+  }
+  :where([frame\:max-width="85"]) {
+    max-width: 85rem;
+  }
+  :where([frame\:max-width="86"]) {
+    max-width: 86rem;
+  }
+  :where([frame\:max-width="87"]) {
+    max-width: 87rem;
+  }
+  :where([frame\:max-width="88"]) {
+    max-width: 88rem;
+  }
+  :where([frame\:max-width="89"]) {
+    max-width: 89rem;
+  }
+  :where([frame\:max-width="90"]) {
+    max-width: 90rem;
+  }
+  :where([frame\:max-width="91"]) {
+    max-width: 91rem;
+  }
+  :where([frame\:max-width="92"]) {
+    max-width: 92rem;
+  }
+  :where([frame\:max-width="93"]) {
+    max-width: 93rem;
+  }
+  :where([frame\:max-width="94"]) {
+    max-width: 94rem;
+  }
+  :where([frame\:max-width="95"]) {
+    max-width: 95rem;
+  }
+  :where([frame\:max-width="96"]) {
+    max-width: 96rem;
+  }
+  :where([frame\:max-width="97"]) {
+    max-width: 97rem;
+  }
+  :where([frame\:max-width="98"]) {
+    max-width: 98rem;
+  }
+  :where([frame\:max-width="99"]) {
+    max-width: 99rem;
+  }
+  :where([frame\:max-width="100"]) {
+    max-width: 100rem;
   }
   @media (prefers-reduced-motion: no-preference) {
     :where([slow]) {
@@ -3817,6 +4142,9 @@
   }
   :where(v-stack[spacing="100"]) {
     gap: 10rem;
+  }
+  :where(v-stack[frame\:alignment=center]) {
+    justify-self: center;
   }
   :where(v-flex-stack[padding]) {
     padding-inline: 1rem;

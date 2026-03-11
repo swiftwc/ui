@@ -38,35 +38,35 @@
             <list-view list-style="inset-grouped">
               <section-view>
                 <button type="button">
-                  <label-view system-image="smiley" label="Storage Full"></label-view>
+                  <label-view system-image="smiley" title="Storage Full"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button">
-                  <label-view system-image="smiley" label="WiFi"></label-view>
+                  <label-view system-image="smiley" title="WiFi"></label-view>
                 </button>
                 <button type="button">
-                  <label-view system-image="smiley" label="Bluetooth"></label-view>
+                  <label-view system-image="smiley" title="Bluetooth"></label-view>
                 </button>
                 <button type="button">
-                  <label-view system-image="smiley" label="Network"></label-view>
+                  <label-view system-image="smiley" title="Network"></label-view>
                 </button>
                 <button type="button">
-                  <label-view system-image="smiley" label="Energy"></label-view>
+                  <label-view system-image="smiley" title="Energy"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="General">
-                  <label-view system-image="smiley" label="General"></label-view>
+                  <label-view system-image="smiley" title="General"></label-view>
                 </button>
                 <button type="button" navigation-destination="Accessibility">
-                  <label-view system-image="smiley" label="Accessibility"></label-view>
+                  <label-view system-image="smiley" title="Accessibility"></label-view>
                 </button>
                 <button type="button" navigation-destination="Appearance">
-                  <label-view system-image="smiley" label="Appearance"></label-view>
+                  <label-view system-image="smiley" title="Appearance"></label-view>
                 </button>
                 <button type="button">
-                  <label-view system-image="smiley" label="AI Intelligense"></label-view>
+                  <label-view system-image="smiley" title="AI Intelligense"></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -76,7 +76,7 @@
       </dialog>
       <sidebar-toggle>
         <tool-bar-item>
-          <button type="button"><label-view label="sss333344"></label-view></button>
+          <button type="button"><label-view title="sss333344"></label-view></button>
         </tool-bar-item>
       </sidebar-toggle>
     </navigation-split-view>
@@ -84,66 +84,66 @@
     <template id="General">
       <body-view>
         <scroll-view navigation-inline-title="General" navigation-path="General" style="--face: darkgray">
-          <v-stack placement="leading fill">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-large-title padding>
               <v-stack alignment="fill">
-                <label-view label="General" font="large-title"></label-view>
-                <label-view label="Manage yor overall setup and preferences." font="callout"></label-view>
+                <label-view title="General" font="large-title"></label-view>
+                <label-view title="Manage yor overall setup and preferences." font="callout"></label-view>
               </v-stack>
             </navigation-large-title>
             <form is="form-view" form-style="inset-grouped">
               <section-view>
                 <button type="button" navigation-destination="About">
-                  <label-view label="About"></label-view>
+                  <label-view title="About"></label-view>
                 </button>
                 <button type="button" navigation-destination="Software Update">
-                  <label-view label="Software Update"></label-view>
+                  <label-view title="Software Update"></label-view>
                 </button>
                 <button type="button" navigation-destination="Storage">
-                  <label-view label="Storage"></label-view>
+                  <label-view title="Storage"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Warranty"></label-view>
+                  <label-view title="Warranty"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Continuity"></label-view>
+                  <label-view title="Continuity"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Autofill & Passwords"></label-view>
+                  <label-view title="Autofill & Passwords"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Date & Time"></label-view>
+                  <label-view title="Date & Time"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Language & Region"></label-view>
+                  <label-view title="Language & Region"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Login Items & Extensions"></label-view>
+                  <label-view title="Login Items & Extensions"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Sharing"></label-view>
+                  <label-view title="Sharing"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Startup Disk"></label-view>
+                  <label-view title="Startup Disk"></label-view>
                 </button>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Time Machine"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button type="button" navigation-destination="About">
-                  <label-view label="Device Management"></label-view>
+                  <label-view title="Time Machine"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="About">
-                  <label-view label="Transfer or Reset"></label-view>
+                  <label-view title="Device Management"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Transfer or Reset"></label-view>
                 </button>
               </section-view>
             </form>
@@ -166,13 +166,13 @@
             <list-view list-style="inset-grouped">
               <section-view>
                 <button type="button">
-                  <label-view label="About"></label-view>
+                  <label-view title="About"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Software Update"></label-view>
+                  <label-view title="Software Update"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Storage"></label-view>
+                  <label-view title="Storage"></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -195,13 +195,13 @@
             <list-view list-style="inset-grouped">
               <section-view header="Vision">
                 <button type="button">
-                  <label-view label="VoiceOver"></label-view>
+                  <label-view title="VoiceOver"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Zoom"></label-view>
+                  <label-view title="Zoom"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Hover Text"></label-view>
+                  <label-view title="Hover Text"></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -223,13 +223,13 @@
             <list-view list-style="inset-grouped">
               <section-view header="Vision">
                 <button type="button">
-                  <label-view label="VoiceOver"></label-view>
+                  <label-view title="VoiceOver"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Zoom"></label-view>
+                  <label-view title="Zoom"></label-view>
                 </button>
                 <button type="button">
-                  <label-view label="Hover Text"></label-view>
+                  <label-view title="Hover Text"></label-view>
                 </button>
               </section-view>
             </list-view>

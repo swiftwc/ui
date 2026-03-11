@@ -15,7 +15,10 @@
   }
 
   %bordered-prominent-btn {
-    @include mixins.add-highlight-state {
+    @include mixins.add-focus-visible-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+    }
+    @include mixins.add-hover-state {
       --toolbaritemface: var(--toolbaritemhighlightface,);
     }
   }

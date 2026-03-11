@@ -36,9 +36,7 @@ export class TabItem extends ButtonBase {
     })
 
     Snapshot.waitReady.then(() => {
-      const { on: on1 } = onoff('click', TabItem.#handleClick, el)
-
-      CleanupRegistry.register(el, on1())
+      CleanupRegistry.register(el, onoff('click', TabItem.#handleClick, el).on())
 
       const handler = TabItem.#handleTabRevealOrSwap.bind(null, el),
         tv = el.closest<TabView>('tab-view') ?? undefined

@@ -30,9 +30,7 @@ export class TabBar extends DialogBase {
     el.autofocus = true
 
     Snapshot.waitReady.then(() => {
-      const { on: on1 } = onoff('click', TabBar.#handleClick, el)
-
-      CleanupRegistry.register(el, on1())
+      CleanupRegistry.register(el, onoff('click', TabBar.#handleClick, el).on())
 
       const { on } = onoff(
         touchGlass(

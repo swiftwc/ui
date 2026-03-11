@@ -2,7 +2,7 @@ import { Snapshot } from '../snapshot'
 import { $ } from '../internal/utils'
 
 export class LabelView extends HTMLElement {
-  static observedAttributes = ['system-image', 'label', 'line-limit', 'truncation-mode']
+  static observedAttributes = ['system-image', 'title', 'line-limit', 'truncation-mode']
 
   static #template: HTMLTemplateElement
 
@@ -80,7 +80,7 @@ export class LabelView extends HTMLElement {
           // el.setAttribute('class', `ph ph-${newValue}`)
 
           break
-        case 'label':
+        case 'title':
           let title = this.querySelector(':scope>:not([slot])')
           if (newValue) {
             title ??= this.appendChild($(`<span></span>`))

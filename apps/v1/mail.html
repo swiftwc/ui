@@ -38,26 +38,26 @@
               <section-view>
                 <details is="disclosure-group" open>
                   <summary>
-                    <label-view label="Favorites"></label-view>
+                    <label-view title="Favorites"></label-view>
                   </summary>
                   <details is="disclosure-group" open>
                     <summary>
-                      <label-view system-image="smiley" label="All Inboxes"></label-view>
+                      <label-view system-image="smiley" title="All Inboxes"></label-view>
                     </summary>
-                    <button value="more"><label-view system-image="smiley" label="Personal"></label-view></button>
-                    <button value="more"><label-view system-image="smiley" label="Work"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" title="Personal"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" title="Work"></label-view></button>
                   </details>
                 </details>
               </section-view>
               <section-view>
                 <details is="disclosure-group" open>
                   <summary>
-                    <label-view label="Personal"></label-view>
+                    <label-view title="Personal"></label-view>
                   </summary>
-                  <button type="button" navigation-destination="inbox"><label-view system-image="smiley" label="Inbox"></label-view></button>
-                  <button type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" label="Sent"></label-view></button>
-                  <button value="more"><label-view system-image="smiley" label="Trash"></label-view></button>
-                  <button value="more"><label-view system-image="smiley" label="Archive"></label-view></button>
+                  <button type="button" navigation-destination="inbox"><label-view system-image="smiley" title="Inbox"></label-view></button>
+                  <button type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" title="Sent"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" title="Trash"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" title="Archive"></label-view></button>
                 </details>
               </section-view>
             </list-view>
@@ -67,7 +67,7 @@
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
             <button type="button">
-              <label-view label="Edit"></label-view>
+              <label-view title="Edit"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="bottom-bar-trailing">
@@ -79,7 +79,7 @@
       </dialog>
       <sidebar-toggle>
         <tool-bar-item>
-          <button type="button"><label-view label="sss333344"></label-view></button>
+          <button type="button"><label-view title="sss333344"></label-view></button>
         </tool-bar-item>
       </sidebar-toggle>
     </navigation-split-view>
@@ -90,22 +90,22 @@
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">
-                <label-view label="Item 1"></label-view>
+                <label-view title="Item 1"></label-view>
               </button>
               <button type="button" navigation-destination="item2">
-                <label-view label="Item 2"></label-view>
+                <label-view title="Item 2"></label-view>
               </button>
               <details is="disclosure-group">
                 <summary navigation-destination="item3">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" columns="minmax(0,1fr) auto">
-                      <label-view label="Andrew & Priyanka"></label-view>
-                      <label-view label="5/22/26"></label-view>
+                      <label-view title="Andrew & Priyanka"></label-view>
+                      <label-view title="5/22/26"></label-view>
                     </h-stack>
                     <h-stack distribution="fill" columns="minmax(0,1fr) auto">
-                      <label-view label="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
+                      <label-view title="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
                       <button type="button" tabindex="0">
-                        <label-view system-image="smiley" label="2"></label-view>
+                        <label-view system-image="smiley" title="2"></label-view>
                       </button>
                     </h-stack>
                     <div>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
@@ -114,45 +114,45 @@
                 <button type="button" navigation-destination="item3b">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" columns="minmax(0,1fr) auto">
-                      <label-view label="Andrew"></label-view>
-                      <label-view label="5/22/26"></label-view>
+                      <label-view title="Andrew"></label-view>
+                      <label-view title="5/22/26"></label-view>
                     </h-stack>
-                    <label-view label="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
+                    <label-view title="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
                   </v-stack>
                 </button>
                 <button type="button" navigation-destination="item3c">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" columns="minmax(0,1fr) auto">
-                      <label-view label="Priyanka"></label-view>
-                      <label-view label="5/21/26"></label-view>
+                      <label-view title="Priyanka"></label-view>
+                      <label-view title="5/21/26"></label-view>
                     </h-stack>
-                    <label-view label="Can we just go this time?"></label-view>
+                    <label-view title="Can we just go this time?"></label-view>
                   </v-stack>
                 </button>
               </details>
               <button type="button" navigation-destination="item2">
-                <label-view label="Item 2"></label-view>
+                <label-view title="Item 2"></label-view>
               </button>
               <details is="disclosure-group">
                 <summary>
-                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                  <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
-                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
               </details>
               <details is="disclosure-group">
                 <summary>
-                  <label-view system-image="smiley" label="Grouped Item 3"></label-view>
+                  <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
-                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" label="Item 3a"></label-view></button>
-                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" label="Item 3b"></label-view></button>
-                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" label="Item 3c"></label-view></button>
-                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" label="Item 3d"></label-view></button>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
               </details>
               <button type="button" navigation-destination="item2">
-                <label-view label="Item 2"></label-view>
+                <label-view title="Item 2"></label-view>
               </button>
             </list-view>
           </v-stack>
@@ -172,16 +172,16 @@
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">
-                <label-view label="Item 1"></label-view>
+                <label-view title="Item 1"></label-view>
               </button>
               <button type="button" navigation-destination="item2">
-                <label-view label="Item 2"></label-view>
+                <label-view title="Item 2"></label-view>
               </button>
               <button type="button" navigation-destination="item1">
-                <label-view label="Item 3"></label-view>
+                <label-view title="Item 3"></label-view>
               </button>
               <button type="button" navigation-destination="item2">
-                <label-view label="Item 4"></label-view>
+                <label-view title="Item 4"></label-view>
               </button>
             </list-view>
           </v-stack>
@@ -268,10 +268,35 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath } from '../../packages/ui/js/client'
+      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath, queryBody } from '../../packages/ui/js/client'
 
       NavigationPath.addEventListener('pagereveal', navHandler)
       NavigationPath.addEventListener('pageswap', navHandler)
+
+      const toggleHandler = async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        if ('closed' !== event.newState) return
+
+        if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
+
+        const sv = closestBody(event.target),
+          csv = queryBody(sv),
+          pr = closestHost(csv)
+
+        if (!csv) return
+
+        await startViewTransition({ target: csv }, 'backwards', async () => {
+          modifyDOMbackwards(pr)
+        })
+      }
+
+      const addBindings = () => {
+        for (const el of document.querySelectorAll('details')) {
+          el.removeEventListener('toggle', toggleHandler)
+          el.addEventListener('toggle', toggleHandler)
+        }
+      }
 
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ ${event?.type}`)
@@ -308,6 +333,8 @@
               modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
             })
 
+            addBindings()
+
             parentScene.parentElement.inert = false
           }
         } else if (navDest) {
@@ -325,6 +352,8 @@
           await startViewTransition(event, 'forwards', async () => {
             modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
           })
+
+          addBindings()
         }
       })
     </script>

@@ -223,6 +223,9 @@ $v-placement-map: (
         gap: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
       }
     }
+    :where(&[frame\:alignment='center']) {
+      justify-self: center;
+    }
   }
   v-flex-stack {
     // :where(&[alignment='fill']) {

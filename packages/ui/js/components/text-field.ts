@@ -78,7 +78,6 @@ export class TextField extends HTMLElement {
           else this.#shadowRoot.querySelector('input')?.removeAttribute(name)
 
           break
-
         case 'label':
           const assigned2 = this.#labelSlot!.assignedElements({ flatten: true }) as HTMLElement[]
 

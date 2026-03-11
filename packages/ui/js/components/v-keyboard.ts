@@ -30,27 +30,24 @@ export class VKeyboard extends HTMLElement {
 
     this.inert = true
 
-    const { on: on1 } = onoff(
-      [
-        { types: 'scroll', listener: this.#handleWindowScroll },
-        { types: 'orientationchange', listener: this.#handleWindowOrientationchange },
-      ],
-      self
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'scroll', listener: this.#handleWindowScroll },
+          { types: 'orientationchange', listener: this.#handleWindowOrientationchange },
+        ],
+        self
+      ).on()
     )
 
-    CleanupRegistry.register(this, on1())
-
-    const { on: on2 } = onoff('resize', this.#handleVisualViewportResize, self.visualViewport ?? undefined, { passive: true })
-
-    CleanupRegistry.register(this, on2())
+    CleanupRegistry.register(this, onoff('resize', this.#handleVisualViewportResize, self.visualViewport ?? undefined, { passive: true }).on())
 
     this.#handleVisualViewportResize()
 
     //
 
-    const { on: on3 } = onoff('focusin', this.#handleBodyFocusin, document.body)
-
-    CleanupRegistry.register(this, on3())
+    CleanupRegistry.register(this, onoff('focusin', this.#handleBodyFocusin, document.body).on())
   }
 
   #handleWindowScroll = () => {

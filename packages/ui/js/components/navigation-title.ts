@@ -71,13 +71,13 @@ export class NavigationTitle extends HTMLElement {
     let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
     if (title) {
       titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`))
-      titleLabel.setAttribute('label', title)
+      titleLabel.setAttribute('title', title)
     } else titleLabel?.remove()
 
     let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
     if (subtitle) {
       subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`))
-      subtitleLabel.setAttribute('label', subtitle)
+      subtitleLabel.setAttribute('title', subtitle)
     } else subtitleLabel?.remove()
 
     // for (const el of this.querySelectorAll(':scope>*')) el.remove()

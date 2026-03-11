@@ -208,15 +208,11 @@ export class PickerView extends HTMLElement {
     this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
     this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
-    const { on: on1 } = onoff('slotchange', this.#handleSlotchange, this.#datalistSlot)
-
     CleanupRegistry.unregister(this, 'datalist') //off1()
-    CleanupRegistry.register(this, on1(), 'datalist')
-
-    const { on: on2 } = onoff('slotchange', this.#handleSlotchange, this.#tagSlot)
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
 
     CleanupRegistry.unregister(this, 'tags') //off2()
-    CleanupRegistry.register(this, on2(), 'tags')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#tagSlot).on(), 'tags')
 
     // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
     // if (0 < (this.#tagSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
@@ -323,7 +319,7 @@ export class PickerView extends HTMLElement {
 
         const label = document.createElement('label-view')
 
-        if (node.hasAttribute('label')) label.setAttribute('label', node.getAttribute('label') ?? '')
+        if (node.hasAttribute('label')) label.setAttribute('title', node.getAttribute('label') ?? '')
 
         btn.appendChild(label)
 
@@ -342,14 +338,14 @@ export class PickerView extends HTMLElement {
       case 'menu':
         const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view></menu-view>`))
 
-        menu.innerHTML = `<label-view slot="label" system-image="dots-three" label="rtyty"></label-view>`
+        menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
         for (const el of PickerView.sourceNodes(sourceSlot) ?? []) menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
         // let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
 
         // if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
 
-        // possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" label="rtyty"></label-view>`
+        // possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
         // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) possibleMv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 
@@ -365,7 +361,7 @@ export class PickerView extends HTMLElement {
         if (label) {
           const el = $(`<label-view></label-view>`)
 
-          el.setAttribute('label', label)
+          el.setAttribute('title', label)
 
           section.insertAdjacentElement('beforeend', el)
         } else section.innerHTML = ''

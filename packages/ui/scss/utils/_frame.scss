@@ -1,9 +1,19 @@
 @use '../vars';
+@use 'sass:math';
 
 @layer #{vars.$utils-layer} {
-  :where([frame-width='infinity']) {
+  :where([frame\:width='infinity']) {
     width: 100%;
   }
+  :where([frame\:max-width='infinity']) {
+    max-width: 100%;
+  }
+  @for $i from 0 through 100 {
+    :where([frame\:max-width='#{$i}']) {
+      max-width: #{$i}rem;
+    }
+  }
+
   // :where([frame-width='infinity']) {
   //   place-items: stretch; //justify-self: stretch;
   // }

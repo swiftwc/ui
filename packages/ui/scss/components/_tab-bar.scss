@@ -40,7 +40,7 @@
 
     > [is='form-view'] {
       :where(&) {
-        margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-spacing));
+        margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
 
         max-inline-size: var(--iphone-tabbar-max-inline-size);
         block-size: var(--iphone-tabbar-block-size);
@@ -83,7 +83,7 @@
       :where(&) {
         grid-auto-columns: minmax(max-content, 1fr);
 
-        margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-spacing));
+        margin-block-start: max(var(--safe-area-inset-top), var(--sidebar-block-spacing));
 
         max-inline-size: var(--ipad-tabbar-max-inline-size);
         block-size: var(--ipad-tabbar-block-size);
@@ -119,7 +119,7 @@
 
   #{$selector} [is='sidebar-view'][open] ~ & > [is='form-view'] {
     :where(&) {
-      transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-spacing)) * -1) - 150%));
+      transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) * -1) - 150%));
     }
   }
 }
@@ -244,7 +244,7 @@
   @include mixins.if-ipad-landscape {
     tab-view:not([tab-view-style='tab-bar-only']) > [is='sidebar-view'] {
       :where(&) {
-        margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+        margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
       }
     }
   }

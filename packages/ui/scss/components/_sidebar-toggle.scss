@@ -26,9 +26,9 @@
       :where(&) {
         position: fixed;
 
-        inset: max(env(safe-area-inset-top), var(--sidebar-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
+        inset: max(env(safe-area-inset-top), var(--sidebar-block-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
 
-        padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+        padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
 
         block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
 
@@ -46,7 +46,7 @@
 
     @include mixins.if-ipad-portrait {
       tab-view navigation-split-view > & {
-        inset-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-block-size));
+        inset-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
       }
     }
 

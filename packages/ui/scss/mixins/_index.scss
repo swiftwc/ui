@@ -12,13 +12,13 @@
   @if $floating {
     :where(&) {
       --navbar-safe-area-inset-left: calc(
-        var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing))
+        var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing))
       );
     }
 
     :where(& ~ tool-bar) {
       &::part(navigation-bar) {
-        --safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-spacing)));
+        --safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
       }
     }
   } @else {
@@ -28,7 +28,7 @@
 
     :where(& ~ tool-bar) {
       &::part(bottom-bar) {
-        --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+        --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
       }
 
       &::part(navigation-bar) {

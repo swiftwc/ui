@@ -9,7 +9,7 @@
       &,
       & ~ tool-bar {
         :where(&) {
-          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
         }
       }
     }
@@ -19,7 +19,7 @@
       &,
       & ~ tool-bar {
         :where(&) {
-          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
         }
       }
     }
@@ -29,12 +29,12 @@
     :where(#{$selector} navigation-stack > &),
     :where(#{$selector} navigation-split-view > &),
     :where(#{$selector} body-view > &) {
-      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-block-spacing)) + var(--iphone-tabbar-block-size));
     }
 
     :where(#{$selector} navigation-split-view > [is='sidebar-view'] > &) {
       @include mixins.ifnot-2col-split-view-fits {
-        --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-spacing)) + var(--iphone-tabbar-block-size));
+        --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-block-spacing)) + var(--iphone-tabbar-block-size));
       }
     }
   }
@@ -48,13 +48,13 @@
       &,
       & ~ tool-bar {
         :where(&) {
-          --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-block-size));
+          --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
         }
       }
     }
   }
   :where(#{$selector} navigation-split-view > [is='sidebar-view']) {
-    padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-spacing)) + var(--ipad-tabbar-block-size));
+    padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
   }
 }
 
@@ -105,9 +105,9 @@
         &,
         & ~ tool-bar {
           :where(&) {
-            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
+            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-block-spacing));
 
-            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
           }
         }
       }
@@ -117,9 +117,9 @@
         &,
         & ~ tool-bar {
           :where(&) {
-            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-spacing));
+            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-block-spacing));
 
-            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-spacing));
+            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
           }
         }
       }
@@ -208,6 +208,15 @@
   }
 
   @include mixins.if-ipad-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view {
+      &:not(:has(> [is='sidebar-view'])) {
+        --nav-split-view-content-inline-size: calc(25rem + var(--sidebar-inline-size, 0px));
+        > body-view {
+          --sidebar-inline-size: 0px;
+          --sidebar-inline-spacing: 0px;
+        }
+      }
+    }
     scroll-view:not(dialog scroll-view) {
       tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &,
       tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &,
@@ -215,7 +224,7 @@
         &,
         & ~ tool-bar {
           :where(&) {
-            --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(--sidebar-inline-size));
+            --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-inline-spacing)) + var(--sidebar-inline-size));
           }
         }
       }

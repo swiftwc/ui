@@ -47,7 +47,7 @@
 @layer #{vars.$final-layer} {
   [is='sidebar-view'] {
     :where(&[open]) {
-      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-spacing));
+      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
     }
   }
 }

@@ -305,6 +305,43 @@
               <button type="button" navigation-destination="setting">setinggg</button>
               <button type="button" class="fw">→</button>
               <button type="button" class="bw">🔙</button>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
             </v-stack>
             <input type="search" slot="navigation-bar-principal" placeholder="Search" />
           </scroll-view>
@@ -488,14 +525,14 @@
         const navDest = event.target.closest('[navigation-destination]')
 
         if (event.target.closest('.back')) {
-          const sv = closestBody(event.target),
-            { page, host } = getComputedView(sv),
-            pr = closestHost(sv)
+          // const sv = closestBody(event.target),
+          const { page, host } = getComputedView(closestBody(event.target))
+          // pr = closestHost(sv)
 
           const parentScene = closestBody(host?.parentElement ?? undefined)
 
           await startViewTransition(event, 'backwards', async () => {
-            modifyDOMbackwards(pr)
+            modifyDOMbackwards(host)
           })
         } else if (navDest) {
           const sv = closestBody(event.target),

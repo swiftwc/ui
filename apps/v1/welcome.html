@@ -249,40 +249,41 @@
         const navDest = event.target.closest('[navigation-destination]')
 
         if (event.target.closest('.st')) {
-          const sv = closestBody(document.querySelector('#gg')),
-            pr = closestHost(sv)
+          // const sv = closestBody(document.querySelector('#gg')),
+          //   pr = closestHost(sv)
+          const { host, body } = getComputedView(closestBody(document.querySelector('#gg')))
 
-          await startViewTransition({ target: sv }, 'backwards', async () => {
-            modifyDOMbackwards(pr)
+          await startViewTransition({ target: body }, 'backwards', async () => {
+            modifyDOMbackwards(host)
           })
         }
 
         if (event.target.closest('.back')) {
-          const sv = closestBody(event.target),
-            { page, host } = getComputedView(sv),
-            pr = closestHost(sv)
+          // const sv = closestBody(event.target),
+          const { page, host } = getComputedView(closestBody(event.target))
+          // pr = closestHost(sv)
 
           const parentScene = closestBody(host?.parentElement ?? undefined)
 
           if (navDest && parentScene) parentScene.parentElement.inert = true
 
           await startViewTransition(event, 'backwards', async () => {
-            modifyDOMbackwards(pr)
+            modifyDOMbackwards(host)
           })
 
           if (navDest && parentScene) {
-            const sv2 = closestBody(parentScene),
-              view2 = getComputedView(sv2)
+            // const sv2 = closestBody(parentScene),
+            const view2 = getComputedView(closestBody(parentScene))
 
-            await startViewTransition({ target: view2.page }, 'forwards', async () => {
+            await startViewTransition({ target: view2.body }, 'forwards', async () => {
               modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
             })
 
             parentScene.parentElement.inert = false
           }
         } else if (navDest) {
-          const sv = closestBody(event.target),
-            view = getComputedView(sv)
+          // const sv = closestBody(event.target),
+          const view = getComputedView(closestBody(event.target))
 
           if (navDest)
             await startViewTransition(event, 'forwards', async () => {

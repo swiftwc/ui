@@ -31,11 +31,11 @@ export class NavigationView extends HTMLElement {
 
           if (!this.parentElement?.matches('tab-view')) break
 
-          const event = this.hasAttribute(name) ? 'tabswap' : 'tabreveal'
+          const eventType = this.hasAttribute(name) ? 'tabswap' : 'tabreveal'
 
-          console.debug(`${NavigationView.name} 💡 ${event}`)
+          console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
-          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(event, { detail: { tag: this.id }, bubbles: true, composed: true }))
+          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
 
           break
       }

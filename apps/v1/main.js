@@ -38,17 +38,17 @@ document.body.addEventListener('click', async (event) => {
       const sv = closestBody(
           [...document.querySelectorAll('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)')][1]
         ),
-        pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+        host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
       await startViewTransition({ target: sv }, 'backwards', async () => {
-        modifyDOMbackwards(pr)
+        modifyDOMbackwards(host)
       })
     } else if (event.target.closest('.bww2')) {
       const sv = [...event.target.closest('dialog').querySelectorAll('scroll-view')][1],
-        pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+        host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
       await startViewTransition({ target: sv }, 'backwards', async () => {
-        modifyDOMbackwards(pr)
+        modifyDOMbackwards(host)
       })
     }
 
@@ -272,11 +272,13 @@ document.body.addEventListener('click', async (event) => {
     }
 
     if (event.target.closest('.bw')) {
-      const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
-        pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement //sv.parentElement
+      // const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
+      //   pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement //sv.parentElement
+
+      const { host } = getComputedView(closestBody(event.target))
 
       await startViewTransition(event, 'backwards', async () => {
-        modifyDOMbackwards(pr)
+        modifyDOMbackwards(host)
       })
     }
 

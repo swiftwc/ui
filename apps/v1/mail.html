@@ -268,7 +268,7 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath, queryBody } from '../../packages/ui/js/client'
+      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath, queryBody, queryHost } from '../../packages/ui/js/client'
 
       NavigationPath.addEventListener('pagereveal', navHandler)
       NavigationPath.addEventListener('pageswap', navHandler)
@@ -280,14 +280,14 @@
 
         if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
 
-        const sv = closestBody(event.target),
-          csv = queryBody(sv),
-          pr = closestHost(csv)
+        const view = getComputedView(closestBody(event.target)),
+          from = queryBody(view.slot) //queryBody(queryHost(view))
+        if (!from) return
 
-        if (!csv) return
+        const fromHost = closestHost(from)
 
-        await startViewTransition({ target: csv }, 'backwards', async () => {
-          modifyDOMbackwards(pr)
+        await startViewTransition({ target: from }, 'backwards', async () => {
+          modifyDOMbackwards(fromHost)
         })
       }
 

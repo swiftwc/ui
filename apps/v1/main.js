@@ -280,7 +280,9 @@ document.body.addEventListener('click', async (event) => {
       })
     }
 
-    if (event.target.classList.contains('fw')) {
+    const fwBtn = event.target.closest('.fw')
+
+    if (fwBtn) {
       const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
         root = getRootController(sv), //sv.closest('navigation-stack,navigation-split-view'),
         view = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
@@ -291,7 +293,7 @@ document.body.addEventListener('click', async (event) => {
       // console.log(99, lm, frame, queryFrameToolbars(sv).scene)
       await startViewTransition(event, 'forwards', async () => {
         modifyDOMforwards(
-          event.target,
+          fwBtn,
           view,
           `
                   <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
@@ -422,11 +424,11 @@ window.addEventListener('appinstalled', () => {
   console.debug('⚡️ installed')
 })
 
-export function modifyDOMbackwards(pr) {
-  if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(pr.tagName)) {
-    pr.hidden = true
+export function modifyDOMbackwards(host) {
+  if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.tagName)) {
+    host.hidden = true
   } else {
-    pr.remove()
+    host.remove()
   }
 }
 

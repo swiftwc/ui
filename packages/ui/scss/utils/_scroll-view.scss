@@ -1,0 +1,14 @@
+@use '../vars';
+@use 'sass:math';
+@use 'sass:string';
+
+@layer #{vars.$utils-layer} {
+  scroll-view {
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      // :where(&[background='infinity']) {
+      // :where(&) {
+      //   --face: attr(background type(<color>), inherit);
+      // }
+    }
+  }
+}

@@ -47,6 +47,8 @@ export class TabView extends HTMLElement {
   set selectedTab(newTab) {
     if (!newTab) throw new Error('Element not found')
 
+    const prevTab = this.selectedTab
+
     for (const ns of this.querySelectorAll<HTMLElement>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'))
       if (!ns.contains(newTab)) {
         ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
@@ -60,6 +62,8 @@ export class TabView extends HTMLElement {
 
         ns.hidden = false // triggers
       }
+
+    if (prevTab === newTab) newTab.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabroot', { detail: { tag: newTab.id }, bubbles: true, composed: true }))
   }
 
   #addAnimations = (event: Event) => {

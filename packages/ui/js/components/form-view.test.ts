@@ -2,6 +2,7 @@ import { expect, describe, test, beforeEach } from 'vitest'
 import { FormView } from './form-view'
 import { SidebarView } from './sidebar-view'
 import { TabBar } from './tab-bar'
+import { $ } from '../internal/utils'
 
 describe('prop', () => {
   let div: HTMLElement
@@ -17,11 +18,9 @@ describe('prop', () => {
 
   test('[method]', () => {
     const el = div.appendChild(
-        Object.assign(document.createElement('template'), {
-          innerHTML: `<dialog is="sidebar-view">
+        $(`<dialog is="sidebar-view">
         <form-view></form-view>
-        </dialog>`,
-        }).content.firstElementChild!
+        </dialog>`)
       ),
       headerLabel = el.querySelector<FormView>('form-view')!
 

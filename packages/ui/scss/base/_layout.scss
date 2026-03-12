@@ -23,7 +23,7 @@
     }
   }
 
-  navigation-stack:has(> navigation-stack:not([hidden])),
+  navigation-stack:has(> navigation-stack:not([hidden]),> navigation-split-view:not([hidden])),
   navigation-stack:has(> body-view),
   navigation-split-view:has(> body-view),
   dialog:has(> body-view),

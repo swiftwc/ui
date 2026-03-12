@@ -18,6 +18,8 @@
       touch-action: none;
 
       block-size: var(--100lvh, 100lvh);
+
+      --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
     }
 
     // ANCHOR Z_INDEX STYLES
@@ -25,6 +27,11 @@
     // z-index rules get discarded in larger viewports
 
     @include mixins.ifnot-2col-split-view-fits {
+      // special case for sv inside a tabview>more
+      :where(scroll-view:has(~ &:not([hidden]))) {
+        z-index: -1;
+      }
+
       :where(& > body-view ~ scroll-view, & > body-view ~ [is='sidebar-view']) {
         z-index: -1;
       }
@@ -94,7 +101,7 @@
         &,
         & ~ tool-bar {
           :where(&) {
-            inline-size: var(--nav-split-view-content-inline-size);
+            inline-size: var(--nav-split-view--content-inline-size);
           }
         }
       }
@@ -125,7 +132,7 @@
           & ~ tool-bar {
             :where(&) {
               // add margin to make vts precise
-              margin-inline-start: var(--nav-split-view-content-inline-size);
+              margin-inline-start: var(--nav-split-view--content-inline-size);
             }
           }
         }
@@ -231,7 +238,7 @@
                   &,
                   & ~ tool-bar {
                     :where(&) {
-                      margin-inline-start: var(--nav-split-view-content-inline-size);
+                      margin-inline-start: var(--nav-split-view--content-inline-size);
 
                       --safe-area-inset-left: 0px;
                     }
@@ -258,7 +265,7 @@
                   &,
                   & ~ tool-bar {
                     :where(&) {
-                      inline-size: var(--nav-split-view-content-inline-size);
+                      inline-size: var(--nav-split-view--content-inline-size);
 
                       margin-inline-start: 0px;
 
@@ -306,7 +313,7 @@
                 &,
                 & ~ tool-bar {
                   :where(&) {
-                    inline-size: calc(var(--nav-split-view-content-inline-size) + var(--nav-split-view-sidebar-inline-size)); // shrink to be now a col
+                    inline-size: calc(var(--nav-split-view--content-inline-size) + var(--nav-split-view-sidebar-inline-size)); // shrink to be now a col
 
                     --safe-area-inset-right: 0px;
                   }
@@ -327,7 +334,7 @@
                       // margin-inline-start: 0px;
                       --safe-area-inset-left: 0px; // override
 
-                      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view-content-inline-size)); // override
+                      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view--content-inline-size)); // override
                     }
                   }
                 }

@@ -10,6 +10,11 @@ export { default as onoff } from './onoff'
 export { default as timeout } from './timeout'
 export { default as listActive } from './list-active'
 export { default as ancestors } from './ancestors'
+export { default as nextAll } from './next-all'
+export { default as prevAll } from './prev-all'
+export { default as next } from './next'
+export { default as prev } from './prev'
+export { default as siblings } from './siblings'
 
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash

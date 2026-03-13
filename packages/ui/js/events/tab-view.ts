@@ -10,7 +10,7 @@ export type TabRevealSwapDetail = {
 }
 
 export type TabViewChangeDetail = {
-  selection: NavigationStack | NavigationSplitView | null
+  selection: (NavigationStack | NavigationSplitView)[] //| null
 }
 
 declare global {

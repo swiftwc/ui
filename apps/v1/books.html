@@ -392,6 +392,9 @@
                   <label-view system-image="smiley" title="Feedback"></label-view>
                 </button>
               </details>
+              <button is="tab-item" value="ns3">
+                <label-view system-image="smiley" title="ns3"></label-view>
+              </button>
               <button is="tab-item" value="settings">
                 <label-view system-image="smiley" title="settings"></label-view>
               </button>
@@ -491,7 +494,7 @@
       NavigationPath.addEventListener('pagereveal', navHandler)
       NavigationPath.addEventListener('pageswap', navHandler)
 
-      document.addEventListener('tabreveal', async (event) => {
+      document.addEventListener('tabreveal', (event) => {
         console.debug(`⚡️ ${event?.type}`)
 
         const tab = document.querySelector(`#${event.detail.tag}`),

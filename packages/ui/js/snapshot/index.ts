@@ -13,6 +13,14 @@ export class Snapshot {
     })(), // Lazy config read promise, triggered on first access
   ])
 
+  static async waitReadyFor<T extends HTMLElement>(element: T): Promise<T | null> {
+    if (!element.isConnected) return null
+
+    await this.waitReady
+
+    return element.isConnected ? element : null
+  }
+
   static get config() {
     return this.#config
   }

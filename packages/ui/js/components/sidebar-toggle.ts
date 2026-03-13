@@ -35,7 +35,9 @@ export class SidebarToggle extends HTMLElement {
       target: this,
     }
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
       // this.#io.observe(this)
 

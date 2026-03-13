@@ -33,7 +33,9 @@ export class NavigationLargeTitle extends HTMLElement {
 
     if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
-    Snapshot.waitReady.then(async () => {
+    Snapshot.waitReadyFor(this).then(async (r) => {
+      if (!r) return
+
       if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
       const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //

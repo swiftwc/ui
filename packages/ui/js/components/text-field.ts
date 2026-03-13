@@ -37,7 +37,9 @@ export class TextField extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
 
       this.#labelSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=label]') ?? undefined
@@ -71,7 +73,9 @@ export class TextField extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       switch (name) {
         case 'placeholder':
           if (newValue) this.#shadowRoot.querySelector('input')?.setAttribute(name, newValue)

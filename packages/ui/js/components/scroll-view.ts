@@ -1,7 +1,7 @@
 import { Snapshot } from '../snapshot'
 import { type TabRevealSwapDetail } from '../events'
 import { type TabView } from './tab-view'
-import { $, slowHideShow, onoff } from '../internal/utils'
+import { $, slowHideShow, onoff, frame } from '../internal/utils'
 import { type PageRevealSwapDetail } from '../events'
 import { NavigationPath } from '../navigation-path'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
@@ -40,7 +40,9 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
 
       this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
@@ -65,7 +67,9 @@ export class ScrollView extends HTMLElement {
     //   createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
     // })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       switch (name) {
         case 'navigation-inline-title':
           this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
@@ -125,7 +129,9 @@ export class ScrollView extends HTMLElement {
 
     CleanupRegistry.unregister(this)
 
-    NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
+    frame().then(() =>
+      NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
+    )
   }
 
   connectedCallback() {
@@ -145,7 +151,9 @@ export class ScrollView extends HTMLElement {
 
     CleanupRegistry.register(this, on())
 
-    NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
+    frame().then(() =>
+      NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
+    )
   }
 
   #beforeTabSwapLastScrolltop?: number

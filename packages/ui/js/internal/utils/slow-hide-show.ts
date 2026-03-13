@@ -14,5 +14,7 @@ export default function (to: 'show' | 'hide', el?: HTMLElement) {
 
   el?.setAttribute('slow', '')
 
-  frame().then(() => el?.setAttribute('slow', to)) //self.requestAnimationFrame(() => el?.setAttribute('slow', to))
+  frame(el).then((f) => {
+    if (f) el?.setAttribute('slow', to)
+  }) //self.requestAnimationFrame(() => el?.setAttribute('slow', to))
 }

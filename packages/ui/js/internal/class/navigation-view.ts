@@ -1,3 +1,4 @@
+import { frame } from '../utils'
 import { Snapshot } from '../../snapshot'
 import { type TabRevealSwapDetail, type PageRevealSwapDetail } from '../../events'
 
@@ -15,27 +16,37 @@ export class NavigationView extends HTMLElement {
   connectedCallback() {
     // this.addEventListener('tabreveal', this.#handleTabReveal)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then(async (r) => {
+      if (!r) return
+
       if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
-      if (this.parentElement?.matches('tab-view'))
-        this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      if (this.closest('tab-view'))
+        if (await frame(this))
+          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+
+      // self.requestAnimationFrame(() =>
+
+      // ) // NOTE: ⚠️ repaint guard
     })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReady.then(async () => {
+      if (!this.isConnected) return
+
       switch (name) {
         case 'hidden':
           if (oldValue === newValue) break
 
-          if (!this.parentElement?.matches('tab-view')) break
+          if (!this.closest('tab-view')) break
 
           const eventType = this.hasAttribute(name) ? 'tabswap' : 'tabreveal'
 
           console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
-          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
+          if (await frame(this))
+            this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
 
           break
       }

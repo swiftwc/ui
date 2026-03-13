@@ -25,6 +25,7 @@ export class NavigationTitle extends HTMLElement {
     // if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
     // Snapshot.waitReady.then(() => {
+    //if (!this.isConnected) return
     //   // this.#render()
     // })
   }
@@ -32,7 +33,9 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       switch (name) {
         case 'value':
           if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)

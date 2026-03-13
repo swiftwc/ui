@@ -31,7 +31,9 @@ export class LabelView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
 
       // this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
@@ -57,7 +59,9 @@ export class LabelView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       switch (name) {
         case 'system-image':
           let image = this.querySelector(':scope>[slot=image]')

@@ -20,50 +20,52 @@ export class TabItem extends ButtonBase {
     TabItem.polyfillConnectedCallback(this)
   }
 
-  static polyfillDisconnectedCallback(el: HTMLButtonElement) {
+  static polyfillDisconnectedCallback(btn: HTMLButtonElement) {
     console.debug(`${TabItem.name} ⚡️ disconnect`)
 
-    CleanupRegistry.unregister(el)
+    CleanupRegistry.unregister(btn)
   }
 
-  static polyfillConnectedCallback(el: TabItem) {
+  static polyfillConnectedCallback(btn: TabItem) {
     console.debug(`${TabItem.name} ⚡️ connect`)
 
-    Object.assign(el, {
+    Object.assign(btn, {
       tabIndex: 0,
 
       ariaSelected: 'false',
     })
 
-    Snapshot.waitReady.then(() => {
-      CleanupRegistry.register(el, onoff('click', TabItem.#handleClick, el).on())
+    Snapshot.waitReadyFor(btn).then((r) => {
+      if (!r) return
 
-      const handler = TabItem.#handleTabRevealOrSwap.bind(null, el),
-        tv = el.closest<TabView>('tab-view') ?? undefined
+      CleanupRegistry.register(btn, onoff('click', TabItem.#handleClick, btn).on())
+
+      const handler = TabItem.#handleTabRevealOrSwap.bind(null, btn),
+        tv = btn.closest<TabView>('tab-view') ?? undefined
 
       const { on } = onoff('tabreveal tabswap', handler as unknown as EventListener, tv)
 
-      CleanupRegistry.register(el, on())
+      CleanupRegistry.register(btn, on())
 
-      // if (tv?.selectedTab?.map(({ id }) => id)?.includes(el.value))
-      if (tv?.selectedTab?.id === el.value)
-        void this.#handleTabRevealOrSwap(el, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: el.value } }))
+      // if (tv?.selectedTab?.id === el.value)
+      if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
+        void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: btn.value } }))
     })
   }
 
-  static #handleTabRevealOrSwap = async (el: HTMLButtonElement, event: CustomEvent<TabRevealSwapDetail>) => {
+  static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, event: CustomEvent<TabRevealSwapDetail>) => {
     console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
 
-    if (event.detail?.tag !== el.value) return
+    if (event.detail?.tag !== btn.value) return
 
-    await Snapshot.waitReady
+    // await Snapshot.waitReady
 
     const isSelected = 'tabreveal' === event?.type
 
-    el.ariaSelected = `${isSelected}`
+    btn.ariaSelected = `${isSelected}`
 
     if (isSelected)
-      el.scrollIntoView({
+      btn.scrollIntoView({
         behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
         block: 'nearest',
         inline: 'nearest',
@@ -73,16 +75,25 @@ export class TabItem extends ButtonBase {
   static #handleClick = async (event: Event) => {
     console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
 
-    const tabItem = event.currentTarget as HTMLElement
+    const btn = event.currentTarget as HTMLElement
 
-    const tag = tabItem.getAttribute('value')
+    const tag = btn.getAttribute('value')
     if (!tag) return // sidebartoggle > tab-item //throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')
 
-    const tv = tabItem.closest<TabView>('tab-view')
+    const tv = btn.closest<TabView>('tab-view')
     if (!tv) throw new Error('Element not found')
 
-    const newTab = tv?.querySelector<NavigationStack | NavigationSplitView>(`:scope>#${tag}`)
+    const newTab = tv?.querySelector<NavigationStack | NavigationSplitView>(`#${tag}`),
+      possibleParentNs = newTab?.parentElement?.closest<NavigationStack | NavigationSplitView>('navigation-stack,navigation-split-view')
 
-    tv.selectedTab = newTab
+    if (!newTab) return
+
+    if (possibleParentNs) {
+      tv.selectedTab = [newTab, possibleParentNs]
+
+      return
+    }
+
+    tv.selectedTab = [newTab]
   }
 }

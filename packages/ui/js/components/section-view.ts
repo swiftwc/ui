@@ -40,7 +40,9 @@ export class SectionView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
 
       // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
@@ -60,7 +62,9 @@ export class SectionView extends HTMLElement {
 
     // this.#sibling = this.closest('scroll-view') ?? undefined
 
-    Snapshot.waitReady.then(async () => {
+    Snapshot.waitReadyFor(this).then(async (r) => {
+      if (!r) return
+
       // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
       // if (!this.isConnected) return
       // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
@@ -78,7 +82,9 @@ export class SectionView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       switch (name) {
         case 'header':
           let header = this.querySelector(':scope>[slot=header]')

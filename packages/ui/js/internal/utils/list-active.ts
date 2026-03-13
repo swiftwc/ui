@@ -13,6 +13,7 @@ function onCancel(event: PointerEvent) {
 
   self.requestAnimationFrame(() => {
     el.removeEventListener('pointerleave', onCancel)
+
     el.classList.remove('active')
   })
 }

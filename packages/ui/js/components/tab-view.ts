@@ -40,35 +40,49 @@ export class TabView extends HTMLElement {
   }
 
   get selectedTab() {
-    return this.querySelector<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')
-    // return [...this.querySelectorAll<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')]
+    // return this.querySelector<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')
+    return [...this.querySelectorAll<NavigationStack | NavigationSplitView>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')]
   }
 
-  set selectedTab(newTab) {
-    if (!newTab) throw new Error('Element not found')
+  set selectedTab(tabs) {
+    if (0 === tabs.length) throw new Error('Element not found')
 
-    const prevTab = this.selectedTab
+    // const prevTab = this.selectedTab
 
-    for (const ns of this.querySelectorAll<HTMLElement>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'))
-      if (!ns.contains(newTab)) {
-        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+    for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')) {
+      for (const tab of tabs)
+        if (!ns.contains(tab)) {
+          ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
-        ns.hidden = true // triggers
-      }
+          ns.hidden = true // triggers
 
-    for (const ns of this.querySelectorAll<HTMLElement>(':scope>navigation-stack[hidden],:scope>navigation-split-view[hidden]'))
-      if (ns.contains(newTab)) {
-        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+          // if (!ns.matches('navigation-stack>:scope,navigation-split-view>:scope')) continue
 
-        ns.hidden = false // triggers
-      }
+          // this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
-    if (prevTab === newTab) newTab.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabroot', { detail: { tag: newTab.id }, bubbles: true, composed: true }))
+          // console.log(999)
+        }
+    }
+
+    for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]')) {
+      for (const tab of tabs)
+        if (ns.contains(tab)) {
+          ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+          ns.hidden = false // triggers
+
+          // if (!ns.matches('navigation-stack>:scope,navigation-split-view>:scope')) continue
+
+          // this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+          // console.log(888, ns.matches('navigation-stack>:scope,navigation-split-view>:scope'))
+        }
+    }
+
+    // if (prevTab === tabs) tabs.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabroot', { detail: { tag: tabs.id }, bubbles: true, composed: true }))
   }
 
   #addAnimations = (event: Event) => {
-    //DO NOT add this it breaks tabbar ipad/iphone, must be instant
-    // self.requestAnimationFrame(() => {
     this.setAttribute('js-aftertabreveal', '')
 
     this.#afterTabRevealDelay.next(
@@ -81,7 +95,6 @@ export class TabView extends HTMLElement {
     // this.removeAttribute('js-aftertabreveal')
 
     // this.#afterTabRevealDelay = undefined
-    // })
   }
 
   #handleSelectionChange = (event: Event) => {

@@ -35,7 +35,9 @@ export class MenuView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template.content, true))
     })
   }
@@ -64,7 +66,9 @@ export class MenuView extends HTMLElement {
   connectedCallback() {
     console.debug(`${MenuView.name} ⚡️ connect`)
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
+
       this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
 
       const trigger = this.#shadowRoot.querySelector('button') ?? undefined

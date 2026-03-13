@@ -27,6 +27,7 @@ export class DisclosureGroup extends DetailsBase {
     // }
 
     // Snapshot.waitReady.then(() => {
+    //if (!this.isConnected) return
     //   // @ts-expect-error
     //   DisclosureGroup.polyfillAttributeChangedCallback([entry])
     // })
@@ -68,7 +69,9 @@ export class DisclosureGroup extends DetailsBase {
 
     if (newValue !== el.dataset.state) el.dataset.state = newValue
 
-    Snapshot.waitReady.then(() => {
+    Snapshot.waitReadyFor(el).then((r) => {
+      if (!r) return
+
       // el.addEventListener('click', DisclosureGroup.#handleClick)
       const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
 

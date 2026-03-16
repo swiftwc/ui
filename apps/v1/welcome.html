@@ -241,7 +241,7 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ ${event?.type}`)
@@ -249,46 +249,45 @@
         const navDest = event.target.closest('[navigation-destination]')
 
         if (event.target.closest('.st')) {
-          // const sv = closestBody(document.querySelector('#gg')),
-          //   pr = closestHost(sv)
-          const { host, body } = getComputedView(closestBody(document.querySelector('#gg')))
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          await startViewTransition({ target: body }, 'backwards', async () => {
-            modifyDOMbackwards(host)
+          const parent = [...path.parents()].at(-2)
+
+          await startViewTransition(parent.body, 'backwards', async () => {
+            modifyDOMbackwards(parent)
           })
+
+          return
         }
 
         if (event.target.closest('.back')) {
-          // const sv = closestBody(event.target),
-          const { page, host } = getComputedView(closestBody(event.target))
-          // pr = closestHost(sv)
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          const parentScene = closestBody(host?.parentElement ?? undefined)
+          const parent = [...path.parents()].at(0)
+          parent.hydrate()
 
-          if (navDest && parentScene) parentScene.parentElement.inert = true
+          if (navDest && parent.body) parent.component.inert = true
 
-          await startViewTransition(event, 'backwards', async () => {
-            modifyDOMbackwards(host)
+          await startViewTransition(event.target, 'backwards', async () => {
+            modifyDOMbackwards(path)
           })
 
-          if (navDest && parentScene) {
-            // const sv2 = closestBody(parentScene),
-            const view2 = getComputedView(closestBody(parentScene))
-
-            await startViewTransition({ target: view2.body }, 'forwards', async () => {
-              modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
+          if (navDest && parent.body) {
+            await startViewTransition(parent.body, 'forwards', async () => {
+              modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
             })
 
-            parentScene.parentElement.inert = false
+            parent.component.inert = false
           }
         } else if (navDest) {
-          // const sv = closestBody(event.target),
-          const view = getComputedView(closestBody(event.target))
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          if (navDest)
-            await startViewTransition(event, 'forwards', async () => {
-              modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
-            })
+          await startViewTransition(event.target, 'forwards', async () => {
+            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+          })
         }
       })
     </script>

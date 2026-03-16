@@ -319,7 +319,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&vt-fwd-class-name=fwd";
+    content: "ipad-portrait-bp-max=42.9999rem&toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -983,15 +983,15 @@
   ::part(section-footer-stack) {
     display: grid;
   }
-  :where(sidebar-toggle > button,
-  tool-bar-item > button,
-  tool-bar-item > input,
-  list-view > button,
-  [is=form-view] > button,
-  section-view > button,
-  menu-view > button,
-  [is=disclosure-group] > button,
-  [is=disclosure-group] > summary) {
+  :where(sidebar-toggle > button:not([hidden]),
+  tool-bar-item > button:not([hidden]),
+  tool-bar-item > input:not([hidden]),
+  list-view > button:not([hidden]),
+  [is=form-view] > button:not([hidden]),
+  section-view > button:not([hidden]),
+  menu-view > button:not([hidden]),
+  [is=disclosure-group] > button:not([hidden]),
+  [is=disclosure-group] > summary:not([hidden])) {
     display: grid;
   }
   :where(sidebar-toggle > button,
@@ -2819,6 +2819,12 @@
     touch-action: none;
     block-size: var(--100lvh, 100lvh);
     --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
+  }
+  @media (min-width: 43rem) {
+    :where(scroll-view:has(~ navigation-split-view:not([hidden])), scroll-view:has(~ navigation-split-view:not([hidden])) ~ tool-bar) {
+      opacity: 0;
+      pointer-events: none;
+    }
   }
   @media (max-width: 42.9999rem) {
     :where(scroll-view:has(~ navigation-split-view:not([hidden]))) {

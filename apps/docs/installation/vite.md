@@ -83,7 +83,7 @@ document.body.addEventListener("click", async (event) => {
     if (event.target.classList.contains("bw")) {
       const sv = event.target.closest("scroll-view"),
         pr = sv.parentElement;
-      await startViewTransition(event, "backwards", async () => {
+      await startViewTransition(event.target, "backwards", async () => {
         pr.remove();
       });
     }
@@ -93,7 +93,7 @@ document.body.addEventListener("click", async (event) => {
         root = sv.closest("navigation-stack,navigation-split-view"),
         lm = sv.parentElement?.matches("[is=sidebar-view]") ? sv.parentElement : sv,
         frame = lm.parentElement;
-      await startViewTransition(event, "forwards", async () => {
+      await startViewTransition(event.target, "forwards", async () => {
         let position = "afterend",
           lookFor = "nextElementSibling";
 

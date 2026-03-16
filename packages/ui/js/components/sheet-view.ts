@@ -1,4 +1,4 @@
-import { DialogBase } from '../internal/privateNamespace'
+import { DialogBase } from '../namespace-browser/base'
 import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 

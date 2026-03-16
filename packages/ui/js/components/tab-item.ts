@@ -1,7 +1,7 @@
 import { type TabView } from './tab-view'
-import { ButtonBase } from '../internal/privateNamespace'
+import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
-import { type TabRevealSwapDetail } from '../events'
+import { type TabRevealSwapDetail, type TabMoreStackAllowanceDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
@@ -40,17 +40,34 @@ export class TabItem extends ButtonBase {
 
       CleanupRegistry.register(btn, onoff('click', TabItem.#handleClick, btn).on())
 
-      const handler = TabItem.#handleTabRevealOrSwap.bind(null, btn),
+      const handler1 = TabItem.#handleTabRevealOrSwap.bind(null, btn),
+        handler2 = TabItem.#handleTabMoreStackAllowance.bind(null, btn),
         tv = btn.closest<TabView>('tab-view') ?? undefined
 
-      const { on } = onoff('tabreveal tabswap', handler as unknown as EventListener, tv)
+      CleanupRegistry.register(btn, onoff('tabreveal tabswap', handler1 as unknown as EventListener, tv).on())
 
-      CleanupRegistry.register(btn, on())
+      CleanupRegistry.register(btn, onoff('tab-view:more-tab-allowed tab-view:more-tab-disallowed', handler2 as unknown as EventListener, tv).on())
 
       // if (tv?.selectedTab?.id === el.value)
       if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
         void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: btn.value } }))
+
+      if (tv?.moreTab)
+        this.#handleTabMoreStackAllowance(
+          btn,
+          new CustomEvent<TabMoreStackAllowanceDetail>(`tab-view:more-tab-${tv?.moreTabAllowed ? 'allowed' : 'disallowed'}`, {
+            detail: { moreTab: tv?.moreTab },
+          })
+        )
     })
+  }
+
+  static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, event: CustomEvent<TabMoreStackAllowanceDetail>) => {
+    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
+
+    if (event.detail?.moreTab?.id !== btn.value) return
+
+    btn.hidden = event.type === 'tab-view:more-tab-disallowed'
   }
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, event: CustomEvent<TabRevealSwapDetail>) => {
@@ -88,12 +105,17 @@ export class TabItem extends ButtonBase {
 
     if (!newTab) return
 
-    if (possibleParentNs) {
-      tv.selectedTab = [newTab, possibleParentNs]
+    const tabs = [newTab]
 
-      return
-    }
+    if (possibleParentNs) tabs.unshift(possibleParentNs)
 
-    tv.selectedTab = [newTab]
+    tv.selectedTab = tabs
+    // if (possibleParentNs) {
+    //   tv.selectedTab = [possibleParentNs, newTab]
+
+    //   return
+    // }
+
+    // tv.selectedTab = [newTab]
   }
 }

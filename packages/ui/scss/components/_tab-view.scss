@@ -60,6 +60,16 @@
 
 @layer #{vars.$tab-components-layer} {
   tab-view {
+    // // more navstack is only for portrait mobile!
+    // & > navigation-stack > scroll-view:has(~ navigation-split-view) {
+    //   &,
+    //   & ~ tool-bar {
+    //     :where(&) {
+    //       display: none;
+    //     }
+    //   }
+    // }
+
     :where(&) {
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed

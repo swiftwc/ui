@@ -3,7 +3,7 @@ import { type TabRevealSwapDetail } from '../events'
 import { type TabView } from './tab-view'
 import { $, slowHideShow, onoff, frame } from '../internal/utils'
 import { type PageRevealSwapDetail } from '../events'
-import { NavigationPath } from '../navigation-path'
+import { NavigationProvider } from '../navigation-provider'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class ScrollView extends HTMLElement {
@@ -130,7 +130,7 @@ export class ScrollView extends HTMLElement {
     CleanupRegistry.unregister(this)
 
     frame().then(() =>
-      NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
+      NavigationProvider.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
     )
   }
 
@@ -152,7 +152,7 @@ export class ScrollView extends HTMLElement {
     CleanupRegistry.register(this, on())
 
     frame().then(() =>
-      NavigationPath.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
+      NavigationProvider.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
     )
   }
 

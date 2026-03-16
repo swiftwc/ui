@@ -55,18 +55,19 @@
   }
 
   // takeovers
-  :where(
-    sidebar-toggle > button,
-    tool-bar-item > button,
-    tool-bar-item > input,
-    list-view > button,
-    [is='form-view'] > button,
-    section-view > button,
-    menu-view > button,
-    [is='disclosure-group'] > button,
-    [is='disclosure-group'] > summary
-  ) {
-    display: grid;
+
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  list-view > button,
+  [is='form-view'] > button,
+  section-view > button,
+  menu-view > button,
+  [is='disclosure-group'] > button,
+  [is='disclosure-group'] > summary {
+    :where(&:not([hidden])) {
+      display: grid;
+    }
   }
 
   // componetize

@@ -81,7 +81,7 @@ import { pageTitle } from 'ember-page-title';
 import { startViewTransition } '@swiftwc/ui/client';
 
 const handleClick = async (event) => {
-  await startViewTransition(event, 'forwards', async () => {
+  await startViewTransition(event.target, 'forwards', async () => {
     this.router.transitionTo('about');
   });
 }
@@ -103,7 +103,7 @@ import { pageTitle } from 'ember-page-title';
 import { startViewTransition } '@swiftwc/ui/client'; // [!code focus]
 
 const handleClick = async (event) => {
-  await startViewTransition(event, 'backwards', async () => {
+  await startViewTransition(event.target, 'backwards', async () => {
     this.router.transitionTo('index');
   });
 }

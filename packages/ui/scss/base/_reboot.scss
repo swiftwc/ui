@@ -126,7 +126,10 @@
     //
     toolbar-leading-stack-part-name: vars.$toolbar-leading-stack-part-name,
     toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
-    toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name, //
+    toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
+
+    //
+    ipad-portrait-bp-max: vars.$ipad-portrait-bp-max,
   );
 
   @debug functions.map-to-query($CONFIG);

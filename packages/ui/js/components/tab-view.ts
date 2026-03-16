@@ -3,8 +3,10 @@ import { debounce, onoff, timeout } from '../internal/utils'
 import { type TabViewChangeDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
-import { type TabRevealSwapDetail } from '../events'
+import { type TabRevealSwapDetail, type TabMoreStackAllowanceDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { Snapshot } from '../snapshot'
+import { NavigationPath } from '../internal/class/navigation-path'
 
 export class TabView extends HTMLElement {
   #debouncedHandler
@@ -14,7 +16,7 @@ export class TabView extends HTMLElement {
   constructor() {
     super()
 
-    this.#debouncedHandler = debounce(this.#handleSelectionChange, 1, true)
+    this.#debouncedHandler = debounce(this.#handleSelectionChange, 1)
   }
 
   disconnectedCallback() {
@@ -25,18 +27,70 @@ export class TabView extends HTMLElement {
     CleanupRegistry.unregister(this)
   }
 
+  #moreStackAllowed = false
+
+  get moreTabAllowed() {
+    return this.#moreStackAllowed
+  }
+
+  get moreTab() {
+    return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack,> navigation-split-view)')
+  }
+
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
-    const { on } = onoff(
-      [
-        { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
-        { types: 'tabreveal tabswap', listener: this.#addAnimations },
-      ],
-      this
-    )
+    Snapshot.waitReadyFor(this).then((r) => {
+      if (!r) return
 
-    CleanupRegistry.register(this, on())
+      const query = `(orientation:portrait) and (max-width: ${Snapshot.config!['ipad-portrait-bp-max']})`, // iphone portrait only
+        mediaQueryList = self.matchMedia(query)
+
+      this.#handleMediaChange(
+        new MediaQueryListEvent(`tab-view:more-tab-${mediaQueryList.matches ? 'allowed' : 'disallowed'}`, {
+          matches: mediaQueryList.matches,
+        })
+      ) // Initial check
+
+      mediaQueryList.addEventListener('change', this.#handleMediaChange) //.bind(this, mediaType, value))
+
+      const { on } = onoff(
+        [
+          { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
+          { types: 'tabreveal tabswap', listener: this.#addAnimations },
+        ],
+        this
+      )
+
+      CleanupRegistry.register(this, on())
+    })
+  }
+
+  #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
+    if (evt.matches !== this.#moreStackAllowed) {
+      this.#moreStackAllowed = evt.matches
+
+      const eventType = evt.matches ? 'tab-view:more-tab-allowed' : 'tab-view:more-tab-disallowed'
+
+      this.dispatchEvent(new CustomEvent<TabMoreStackAllowanceDetail>(eventType, { detail: { moreTab: this.moreTab }, bubbles: true, composed: true }))
+    }
+
+    if (evt.matches) return // no button triggers already on iphone portrait
+
+    const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
+    if (innerSelection) {
+      const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"][value="${CSS.escape(innerSelection)}"]`)
+
+      if (btn) return btn.click()
+    }
+
+    const outerSelection = this?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
+
+    if (outerSelection && outerSelection === this.moreTab?.id) {
+      const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"]:not([value="${CSS.escape(outerSelection)}"])`)
+
+      if (btn) return btn.click()
+    }
   }
 
   get selectedTab() {
@@ -45,9 +99,34 @@ export class TabView extends HTMLElement {
   }
 
   set selectedTab(tabs) {
+    const valid = [...tabs].every((el, i, arr) => !i || arr[i - 1].contains(el))
+
     if (0 === tabs.length) throw new Error('Element not found')
 
-    // const prevTab = this.selectedTab
+    if (!valid) throw new Error('selectedTab[] must be in order of parent>child. You provided an element that contains the previous sibling.')
+
+    // const isAncestorChain = function (nodes: NodeListOf<HTMLElement>): boolean {
+    //   for (let i = 1; i < nodes.length; i++) {
+    //     if (!nodes[i - 1].contains(nodes[i])) return false
+    //   }
+    //   return true
+    // }
+
+    // console.log(999, valid)
+
+    // for (const tab of tabs)
+
+    // const prevStack = this.selectedTab?.[0] //.map((item) => item.id).join('~')
+
+    for (const tab of tabs)
+      if (this.selectedTab.includes(tab)) {
+        const eventType = 'tabroot'
+        console.debug(`${TabView.name} 💡 ${eventType}`)
+
+        tabs.at(-1)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
+
+        return
+      }
 
     for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')) {
       for (const tab of tabs)
@@ -55,12 +134,6 @@ export class TabView extends HTMLElement {
           ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
           ns.hidden = true // triggers
-
-          // if (!ns.matches('navigation-stack>:scope,navigation-split-view>:scope')) continue
-
-          // this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
-
-          // console.log(999)
         }
     }
 
@@ -70,16 +143,19 @@ export class TabView extends HTMLElement {
           ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
           ns.hidden = false // triggers
-
-          // if (!ns.matches('navigation-stack>:scope,navigation-split-view>:scope')) continue
-
-          // this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
-
-          // console.log(888, ns.matches('navigation-stack>:scope,navigation-split-view>:scope'))
         }
     }
+    // console.log(99, prevStack, tabs.map((item) => item.id).join('~'))
 
-    // if (prevTab === tabs) tabs.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabroot', { detail: { tag: tabs.id }, bubbles: true, composed: true }))
+    // console.log(55, tabs.at(-1), tabs.length)
+    // return
+    // if (prevStack === tabs.at(0)) {
+    //   //prevStack === tabs.map((item) => item.id).join('~')) {
+    //   const eventType = 'tabroot'
+    //   console.debug(`${TabView.name} 💡 ${eventType}`)
+
+    //   tabs.at(-1)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
+    // }
   }
 
   #addAnimations = (event: Event) => {
@@ -104,8 +180,32 @@ export class TabView extends HTMLElement {
   #triggerChangeEvent = (event: Event) => {
     const eventType = 'tab-view:change'
 
+    this.#syncBodyFace()
+
     console.debug(`${TabView.name} 💡 ${eventType}`)
 
     this.dispatchEvent(new CustomEvent<TabViewChangeDetail>(eventType, { detail: { selection: this.selectedTab }, bubbles: true, composed: true }))
+  }
+
+  #syncBodyFace = () => {
+    const tab = this.selectedTab.at(-1), //event.detail.selection.at(-1), //document.querySelector(`#${}`),
+      path = new NavigationPath(tab),
+      sv = [path, ...path.children()]
+        .map((item) => item.body)
+        .filter(Boolean)
+        .at(-1) //queryBodyAll(tab).at(-1)
+
+    if (!sv) return
+
+    const style = self.getComputedStyle(sv)
+
+    if (style.getPropertyValue('--face') === self.getComputedStyle(document.body).getPropertyValue('--face'))
+      return document.body.style.removeProperty('--face')
+
+    document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+
+    // if (tab?.matches('tab-view>navigation-stack>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+
+    // if (tab?.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
   }
 }

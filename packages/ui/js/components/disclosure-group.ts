@@ -1,4 +1,4 @@
-import { DetailsBase } from '../internal/privateNamespace'
+import { DetailsBase } from '../namespace-browser/base'
 import { cssTime, timeout } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { onoff } from '../internal/utils'

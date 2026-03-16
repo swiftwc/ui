@@ -1,4 +1,4 @@
-import { ButtonBase } from '../internal/privateNamespace'
+import { ButtonBase } from '../namespace-browser/base'
 import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 

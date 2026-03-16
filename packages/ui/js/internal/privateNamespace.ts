@@ -1,27 +1,40 @@
-export abstract class DialogBase extends HTMLDialogElement {
-  static polyfillExtends = 'dialog' as const
-  static polyfillConnectedCallback(el: HTMLDialogElement) {}
-  static polyfillDisonnectedCallback(el: HTMLDialogElement) {}
-  static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
-}
+import type * as Components from '../components'
 
-export abstract class ButtonBase extends HTMLButtonElement {
-  static polyfillExtends = 'button' as const
-  static polyfillConnectedCallback(el: HTMLButtonElement) {}
-  static polyfillDisonnectedCallback(el: HTMLButtonElement) {}
-  static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
-}
+/**
+Node
+ ├─ Host          (required) → the container of the node
+ ├─ Body          (required) → main content of the node
+ ├─ Navbar?       (optional) → navigation area
+ └─ Slot?         (optional) → placeholder for another branch/subtree
+      └─ Child Node(s)
+======================================================================
+Root Node
+ ├─ Host
+ │   ├─ Navbar?
+ │   ├─ Body
+ │   └─ Slot
+ │       ├─ Child Node 1
+ │       │   ├─ Host
+ │       │   ├─ Body
+ │       │   └─ Slot
+ │       │       └─ Grandchild Node
+ │       └─ Child Node 2
+ │           ├─ Host
+ │           ├─ Body
+ │           └─ Slot (empty)
+ */
+export type NavigationViewController = Components.NavigationStack | Components.NavigationSplitView
 
-export abstract class DetailsBase extends HTMLDetailsElement {
-  static polyfillExtends = 'details' as const
-  static polyfillConnectedCallback(el: HTMLDetailsElement) {}
-  static polyfillDisonnectedCallback(el: HTMLDetailsElement) {}
-  static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
-}
+export type NavigationHost = Components.BodyView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
 
-export abstract class FormBase extends HTMLFormElement {
-  static polyfillExtends = 'form' as const
-  static polyfillConnectedCallback(el: HTMLFormElement) {}
-  static polyfillDisonnectedCallback(el: HTMLFormElement) {}
-  static polyfillAttributeChangedCallback(entries: MutationRecord[]) {}
+export type NavigationToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGroup
+
+export type NavigationPage = Components.SidebarView | Components.ScrollView // this is a body wrapper!
+
+export type NavigationItem = {
+  host?: NavigationHost
+  page?: NavigationPage // slot of body or sidebar
+  body?: Components.ScrollView // this is what actually gets animated
+  toolBarConfig?: Array<NavigationToolbarConfiguration>
+  slot?: NavigationHost
 }

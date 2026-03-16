@@ -36,6 +36,7 @@
           <v-stack>
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
+            <button type="button" class="bw">🔙</button>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -398,9 +399,9 @@
               <button is="tab-item" value="settings">
                 <label-view system-image="smiley" title="settings"></label-view>
               </button>
-              <button is="tab-item" value="more">
+              <!-- <button is="tab-item" value="more">
                 <label-view system-image="smiley" title="moree"></label-view>
-              </button>
+              </button> -->
             </form>
           </v-stack>
         </scroll-view>
@@ -489,36 +490,43 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath, queryBody, queryBodyAll } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationProvider, NavigationPath } from '../../packages/ui/js/client'
 
-      NavigationPath.addEventListener('pagereveal', navHandler)
-      NavigationPath.addEventListener('pageswap', navHandler)
+      NavigationProvider.addEventListener('pagereveal', navHandler)
+      NavigationProvider.addEventListener('pageswap', navHandler)
 
-      document.addEventListener('tabreveal', (event) => {
-        console.debug(`⚡️ ${event?.type}`)
+      // document.addEventListener('tab-view:change', (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
 
-        const tab = document.querySelector(`#${event.detail.tag}`),
-          sv = queryBodyAll(tab).at(-1),
-          style = getComputedStyle(sv)
+      //   const tab = event.detail.selection.at(-1), //document.querySelector(`#${}`),
+      //     sv = queryBodyAll(tab).at(-1),
+      //     style = getComputedStyle(sv)
 
-        if (style.getPropertyValue('--face') === getComputedStyle(document.body).getPropertyValue('--face')) return document.body.style.removeProperty('--face')
+      //   console.log(99, sv)
+      //   if (style.getPropertyValue('--face') === getComputedStyle(document.body).getPropertyValue('--face')) return document.body.style.removeProperty('--face')
 
-        if (tab.matches('tab-view>navigation-stack>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+      //   if (tab.matches('tab-view>navigation-stack>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
 
-        if (tab.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
-      })
+      //   if (tab.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+      // })
 
       document.addEventListener('tabroot', async (event) => {
         console.debug(`⚡️ ${event?.type}`)
 
-        const view = getComputedView(closestBody(event.target)),
-          from = queryBody(view.slot) //queryHost(sv))
-        if (!from) return
+        // console.log(888, event.target, queryBodyAll(event.target))
 
-        const fromHost = closestHost(from)
+        const path = new NavigationPath(event.target),
+          from1 = [...path.children()].at(0)
 
-        await startViewTransition({ target: from }, 'backwards', async () => {
-          modifyDOMbackwards(fromHost)
+        // const view = getComputedView(closestBody(event.target)),
+        //   from = queryBody(view.slot) //queryHost(sv))
+        // if (!from) return
+
+        console.log(88, from1.body, from)
+        console.log(99, path.component, view.slot)
+
+        await startViewTransition(from, 'backwards', async () => {
+          modifyDOMbackwards(view.slot)
         })
       })
 
@@ -528,21 +536,21 @@
         const navDest = event.target.closest('[navigation-destination]')
 
         if (event.target.closest('.back')) {
-          // const sv = closestBody(event.target),
-          const { page, host } = getComputedView(closestBody(event.target))
-          // pr = closestHost(sv)
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          const parentScene = closestBody(host?.parentElement ?? undefined)
+          const parent = [...path.parents()].at(0)
+          parent.hydrate()
 
-          await startViewTransition(event, 'backwards', async () => {
-            modifyDOMbackwards(host)
+          await startViewTransition(event.target, 'backwards', async () => {
+            modifyDOMbackwards(path)
           })
         } else if (navDest) {
-          const sv = closestBody(event.target),
-            view = getComputedView(sv)
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          await startViewTransition(event, 'forwards', async () => {
-            modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+          await startViewTransition(event.target, 'forwards', async () => {
+            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
           })
         }
       })

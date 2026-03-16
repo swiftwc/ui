@@ -26,6 +26,19 @@
     // Use ifnot to apply negative z-indexes to old views
     // z-index rules get discarded in larger viewports
 
+    @include mixins.if-2col-split-view-fits {
+      // special case for sv inside a tabview>more
+      scroll-view:has(~ &:not([hidden])) {
+        &,
+        & ~ tool-bar {
+          :where(&) {
+            opacity: 0;
+            pointer-events: none;
+          }
+        }
+      }
+    }
+
     @include mixins.ifnot-2col-split-view-fits {
       // special case for sv inside a tabview>more
       :where(scroll-view:has(~ &:not([hidden]))) {

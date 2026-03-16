@@ -268,10 +268,10 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, closestBody, getComputedView, closestHost, NavigationPath, queryBody, queryHost } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationProvider, NavigationPath } from '../../packages/ui/js/client'
 
-      NavigationPath.addEventListener('pagereveal', navHandler)
-      NavigationPath.addEventListener('pageswap', navHandler)
+      NavigationProvider.addEventListener('pagereveal', navHandler)
+      NavigationProvider.addEventListener('pageswap', navHandler)
 
       const toggleHandler = async (event) => {
         console.debug(`⚡️ ${event?.type}`)
@@ -280,14 +280,13 @@
 
         if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
 
-        const view = getComputedView(closestBody(event.target)),
-          from = queryBody(view.slot) //queryBody(queryHost(view))
-        if (!from) return
+        const path = new NavigationPath(event.target)
+        path.hydrate()
 
-        const fromHost = closestHost(from)
+        const from1 = [...path.children()].at(0)
 
-        await startViewTransition({ target: from }, 'backwards', async () => {
-          modifyDOMbackwards(fromHost)
+        await startViewTransition(from1.body, 'backwards', async () => {
+          modifyDOMbackwards(from1)
         })
       }
 
@@ -313,33 +312,30 @@
         // }
 
         if (event.target.closest('.back')) {
-          // const sv = closestBody(event.target),
-          const { page, host } = getComputedView(closestBody(event.target))
-          // pr = closestHost(sv)
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
-          const parentScene = closestBody(host?.parentElement ?? undefined)
+          const parent = [...path.parents()].at(0)
+          parent.hydrate()
 
-          if (navDest && parentScene) parentScene.parentElement.inert = true
+          if (navDest && parent.body) parent.component.inert = true
 
-          await startViewTransition(event, 'backwards', async () => {
-            modifyDOMbackwards(host)
+          await startViewTransition(event.target, 'backwards', async () => {
+            modifyDOMbackwards(path)
           })
 
-          if (navDest && parentScene) {
-            // const sv2 = closestBody(parentScene),
-            const view2 = getComputedView(closestBody(parentScene))
-
-            await startViewTransition({ target: view2.body }, 'forwards', async () => {
-              modifyDOMforwards(undefined, view2, document.getElementById(navDest.getAttribute('navigation-destination')))
+          if (navDest && parent.body) {
+            await startViewTransition(parent.body, 'forwards', async () => {
+              modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
             })
 
             addBindings()
 
-            parentScene.parentElement.inert = false
+            parent.component.inert = false
           }
         } else if (navDest) {
-          // const sv = closestBody(event.target),
-          const view = getComputedView(closestBody(event.target))
+          const path = new NavigationPath(event.target)
+          path.hydrate()
 
           const summary = event.target.closest('summary')
 
@@ -349,8 +345,8 @@
             if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
           }
 
-          await startViewTransition(event, 'forwards', async () => {
-            modifyDOMforwards(undefined, view, document.getElementById(navDest.getAttribute('navigation-destination')))
+          await startViewTransition(event.target, 'forwards', async () => {
+            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
           })
 
           addBindings()

@@ -15,6 +15,7 @@ export { default as prevAll } from './prev-all'
 export { default as next } from './next'
 export { default as prev } from './prev'
 export { default as siblings } from './siblings'
+export { default as getRank } from './get-rank'
 
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash

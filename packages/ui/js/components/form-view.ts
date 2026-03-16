@@ -1,4 +1,4 @@
-import { FormBase } from '../internal/privateNamespace'
+import { FormBase } from '../namespace-browser/base'
 import { listActive, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 

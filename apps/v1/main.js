@@ -1,7 +1,7 @@
 // import { UILabel } from './js/components'
 // console.log(444, UILabel)
 // import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
-import { getRootController, closestBody, startViewTransition, closestHost, getComputedView } from '../../packages/ui/js/client'
+import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -35,34 +35,54 @@ document.body.addEventListener('click', async (event) => {
         else el.removeAttribute('form-style')
     }
     if (event.target.closest('.bww')) {
-      const sv = closestBody(
-          [...document.querySelectorAll('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)')][1]
-        ),
-        host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+      const path = new NavigationPath(event.target)
+      path.hydrate()
 
-      await startViewTransition({ target: sv }, 'backwards', async () => {
-        modifyDOMbackwards(host)
+      const parent = [...path.parents()].at(-2)
+
+      // const sv = queryBodyAll(getRootViewController(event.target)).at(1),
+      //   // closestBody(
+      //   //     queryBodyAll(document).at(1) //[...document.querySelectorAll('scroll-view:not(navigation-stack[hidden] scroll-view,navigation-split-view[hidden] scroll-view)')][1]
+      //   //   ),
+      //   host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+
+      await startViewTransition(parent.body, 'backwards', async () => {
+        modifyDOMbackwards(parent)
       })
     } else if (event.target.closest('.bww2')) {
-      const sv = [...event.target.closest('dialog').querySelectorAll('scroll-view')][1],
-        host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+      // const sv = queryBodyAll(event.target.closest('dialog')).at(1), //[...event.target.closest('dialog').querySelectorAll('scroll-view')][1],
+      //   host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
-      await startViewTransition({ target: sv }, 'backwards', async () => {
-        modifyDOMbackwards(host)
+      const path = new NavigationPath(event.target)
+      path.hydrate()
+
+      const parent = [...path.parents()].filter((item) => item.component.matches('dialog>:scope')).at(0)
+      parent.hydrate()
+
+      await startViewTransition(parent.body, 'backwards', async () => {
+        modifyDOMbackwards(parent)
       })
     }
 
     if (event.target.closest('.fww')) {
-      const sv = closestBody(event.target),
-        root = getRootController(sv),
-        view = getComputedView(sv)
+      const path = new NavigationPath(event.target)
+      path.hydrate()
+
+      const root = [path, ...path.parents()]
+        .map((item) => item.component)
+        .filter(Boolean)
+        .at(-1)
+
+      // const sv = closestBody(event.target),
+      //   root = getRootViewController(sv),
+      //   view = getComputedView(sv)
       // { page, host } = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
       // position = queryInsertPosition(host)
 
-      await startViewTransition({ target: sv }, 'forwards', async () => {
+      await startViewTransition(path.body, 'forwards', async () => {
         modifyDOMforwards(
           event.target,
-          view,
+          path,
           `
                   <body-view>
                     <scroll-view>
@@ -275,28 +295,38 @@ document.body.addEventListener('click', async (event) => {
       // const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
       //   pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement //sv.parentElement
 
-      const { host } = getComputedView(closestBody(event.target))
+      // const { host } = getComputedView(closestBody(event.target))
+      const path = new NavigationPath(event.target)
+      path.hydrate()
 
-      await startViewTransition(event, 'backwards', async () => {
-        modifyDOMbackwards(host)
+      await startViewTransition(event.target, 'backwards', async () => {
+        modifyDOMbackwards(path)
       })
     }
 
     const fwBtn = event.target.closest('.fw')
 
     if (fwBtn) {
-      const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
-        root = getRootController(sv), //sv.closest('navigation-stack,navigation-split-view'),
-        view = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
+      const path = new NavigationPath(event.target)
+      path.hydrate()
+
+      const root = [path, ...path.parents()]
+        .map((item) => item.component)
+        .filter(Boolean)
+        .at(-1)
+
+      // const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
+      //   root = getRootViewController(sv), //sv.closest('navigation-stack,navigation-split-view'),
+      //   view = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
       // position = queryInsertPosition(host) //'afterend'
 
       // scene = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
       // frame = scene.parentElement
       // console.log(99, lm, frame, queryFrameToolbars(sv).scene)
-      await startViewTransition(event, 'forwards', async () => {
+      await startViewTransition(event.target, 'forwards', async () => {
         modifyDOMforwards(
           fwBtn,
-          view,
+          path,
           `
                   <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
@@ -427,17 +457,21 @@ window.addEventListener('appinstalled', () => {
 })
 
 export function modifyDOMbackwards(host) {
+  const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
+
   if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.tagName)) {
-    host.hidden = true
+    host.component.hidden = true
+
+    child.component?.remove()
   } else {
-    host.remove()
+    host.component.remove()
   }
 }
 
 export function modifyDOMforwards(trigger, view, htmlorTpl, overwrite = true) {
-  // const root = getRootController(body), //sv.closest('navigation-stack,navigation-split-view'),
+  // const root = getRootViewController(body), //sv.closest('navigation-stack,navigation-split-view'),
   // const view = getComputedView(body) //{ scene, frame } = queryFrameToolbars(sv),
-  const { page, host } = view
+  const { page, component: host } = view
   // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
   //   createHTML: (string) => string.replace(/</g, '&lt;'),
   // })

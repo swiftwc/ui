@@ -7,9 +7,8 @@ export class SectionView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    if (!this.#template)
-      this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `
+    return (this.#template ??= Object.assign(document.createElement('template'), {
+      innerHTML: `
   <div part="root section-main-stack">
     <slot></slot>
   </div>
@@ -19,10 +18,8 @@ export class SectionView extends HTMLElement {
   <div part="root section-footer-stack">
     <slot name="footer"></slot>
   </div>`,
-      })
+    }))
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
-
-    return this.#template
   }
 
   #shadowRoot
@@ -40,9 +37,7 @@ export class SectionView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
 
       // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
@@ -62,9 +57,7 @@ export class SectionView extends HTMLElement {
 
     // this.#sibling = this.closest('scroll-view') ?? undefined
 
-    Snapshot.waitReadyFor(this).then(async (r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
       // if (!this.isConnected) return
       // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
@@ -82,9 +75,7 @@ export class SectionView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       switch (name) {
         case 'header':
           let header = this.querySelector(':scope>[slot=header]')

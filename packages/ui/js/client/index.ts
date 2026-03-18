@@ -1,5 +1,5 @@
 import * as Components from '../components'
-import { kebabCase, getRank } from '../internal/utils'
+import { kebabCase, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { NavigationProvider } from '../navigation-provider'
 import { type WebComponentCtor } from '../namespace-browser'
@@ -121,6 +121,8 @@ const cleanup = (lm?: Element, dir?: TransitionType) => {
 }
 
 export const startViewTransition = async (target: HTMLElement, type: TransitionType = 'forwards', updateCallback = async () => {}) => {
+  console.debug(`startViewTransition (${type})`, target)
+
   await Snapshot.waitReady
 
   const from = new NavigationPath(target) //const from = closestBody(target) //event.target as HTMLElement)
@@ -144,7 +146,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     // const oldToolbars = Snapshot.toolbarItems
     // const { toolBarConfig: oldToolbars, host: oldHost } = getComputedView(from)
 
-    const tos = [...from.children()], //queryBodyAll(oldSLot), //[...oldPath.children()].map((item) => item.body).filter(Boolean),//
+    const tos = [...from.children()].map((item) => item?.hydrate()), //queryBodyAll(oldSLot), //[...oldPath.children()].map((item) => item.body).filter(Boolean),//
       to = tos.at(-1),
       // to = newPath?.body, //tos.slice(-1)?.pop?.(), //Snapshot.leaf, //
       // newHost = newPath?.component, //{ host: newHost } = getComputedView(to),
@@ -223,7 +225,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
 
     //const { toolBarConfig: oldToolbars, host: oldHost, page: oldPage, slot: oldSlot } = getComputedView(from)
 
-    const froms = [...from.children()]
+    const froms = [...from.children()].map((item) => item?.hydrate())
 
     const oldToolbars = froms.flatMap((item) => item.toolBarConfig ?? []).filter((item): item is NavigationToolbarConfiguration => !!item),
       oldBodies = froms.map((item) => item.body).filter((item) => !!item)
@@ -240,10 +242,10 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
       return // just close modal
     }
 
-    const to = [...from.parents()].at(0) //closestBody(oldPath.component?.parentElement ?? undefined)
-    // console.log(99, to, [...oldPath.parents()].at(0)?.body)
+    const to = [...from.parents()].at(0)?.hydrate() //closestBody(oldPath.component?.parentElement ?? undefined)
+    // console.log(99, to)
 
-    if (!to) return // nothing to go back to
+    if (!to) return console.debug('Can not go backwards.') // nothing to go back to
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
     if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope')) if (!tv.moreTabAllowed) return
@@ -292,6 +294,19 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
 }
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
+
+// SECTION: Utils
+// onoff(
+//   'transitionend transitionstart transitioncancel',
+//   (evt: TransitionEvent) => {
+//     if ('--state' !== evt.propertyName || '::before' !== evt.pseudoElement) return
+
+//     const state = getComputedStyle(evt.target, 'before').getPropertyValue('--state')
+
+//     evt?.target.closest('[navsticky]').toggleAttribute('stuck', '1' === state)
+//   },
+//   document
+// ).on()
 
 // export function getComputedView(body?: Components.ScrollView): NavigationItem {
 //   const sv = body?.matches('scroll-view') ? body : undefined

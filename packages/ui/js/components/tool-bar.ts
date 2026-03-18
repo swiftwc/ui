@@ -8,10 +8,9 @@ export class ToolBar extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    if (!this.#template)
-      this.#template = Object.assign(document.createElement('template'), {
-        // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
-        innerHTML: `
+    return (this.#template ??= Object.assign(document.createElement('template'), {
+      // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
+      innerHTML: `
     <div part="root navigation-bar">
     <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
       <slot name="navigation-bar-leading"></slot>
@@ -34,9 +33,7 @@ export class ToolBar extends HTMLElement {
       <slot name="bottom-bar-trailing"></slot>
     </div>
   </div>`,
-      })
-
-    return this.#template
+    }))
   }
 
   #shadowRoot
@@ -50,9 +47,7 @@ export class ToolBar extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
     })
   }
@@ -60,9 +55,7 @@ export class ToolBar extends HTMLElement {
   connectedCallback() {
     console.debug(`${ToolBar.name} ⚡️ connect`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       for (const el of this.#shadowRoot.querySelectorAll(
         `[part*="${Snapshot.config!['toolbar-leading-stack-part-name']}"],[part*="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
       ))

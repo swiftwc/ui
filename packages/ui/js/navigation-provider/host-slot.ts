@@ -1,4 +1,3 @@
-import queryHostAll from './query-host-all'
 import { type NavigationPage, type NavigationHost } from '../internal/privateNamespace'
 import { kebabCase, ancestors, nextAll, prevAll, getRank } from '../internal/utils'
 import type * as Components from '../components'

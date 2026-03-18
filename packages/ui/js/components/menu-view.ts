@@ -8,9 +8,8 @@ export class MenuView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    if (!this.#template)
-      this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `
+    return (this.#template ??= Object.assign(document.createElement('template'), {
+      innerHTML: `
   <button part="root menu-summary">
     <slot name="label"></slot>
   </button>
@@ -21,9 +20,7 @@ export class MenuView extends HTMLElement {
       </div>
     </form>
   </dialog>`,
-      })
-
-    return this.#template
+    }))
   }
 
   #shadowRoot
@@ -35,9 +32,7 @@ export class MenuView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template.content, true))
     })
   }
@@ -66,9 +61,7 @@ export class MenuView extends HTMLElement {
   connectedCallback() {
     console.debug(`${MenuView.name} ⚡️ connect`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
 
       const trigger = this.#shadowRoot.querySelector('button') ?? undefined

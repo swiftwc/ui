@@ -40,9 +40,7 @@ export class TabView extends HTMLElement {
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       const query = `(orientation:portrait) and (max-width: ${Snapshot.config!['ipad-portrait-bp-max']})`, // iphone portrait only
         mediaQueryList = self.matchMedia(query)
 
@@ -105,28 +103,58 @@ export class TabView extends HTMLElement {
 
     if (!valid) throw new Error('selectedTab[] must be in order of parent>child. You provided an element that contains the previous sibling.')
 
-    // const isAncestorChain = function (nodes: NodeListOf<HTMLElement>): boolean {
-    //   for (let i = 1; i < nodes.length; i++) {
-    //     if (!nodes[i - 1].contains(nodes[i])) return false
-    //   }
-    //   return true
-    // }
+    // iphone cases:
+    // current -> new
+    // ns1 -> ns1 tabroot💡ns1       1 1 ===                            ===
+    // more -> more tabroot💡more    1 1 ===                            ===
+    // ns1 -> more tabroot💡more     1 1 !==                            ->
+    // more,settings -> more tabroot💡more  2 1 !==                     ↖
 
-    // console.log(999, valid)
+    // more,settings -> ns1          2 1 !==                            <-
+    // ns1 -> more tabroot💡more     1 1 !==                            ->
 
-    // for (const tab of tabs)
+    // ipad cases:
+    // ns1 -> ns1 tabroot💡ns1                            1 1 ===       ===
+    // more,settings -> more,settings tabroot💡settings   2 2 ===       ===
 
-    // const prevStack = this.selectedTab?.[0] //.map((item) => item.id).join('~')
+    // more,settings -> more,ns3  2 2 !==                               <->
+    // more,ns3 -> more,settings  2 2 !==                               <->
+    // ns1 -> more,settings       1 2 !==                               ↘
 
-    for (const tab of tabs)
-      if (this.selectedTab.includes(tab)) {
-        const eventType = 'tabroot'
-        console.debug(`${TabView.name} 💡 ${eventType}`)
+    const seed1 = this.selectedTab.map((item) => item.id).join(','),
+      seed2 = tabs.map((item) => item.id).join(',')
 
-        tabs.at(-1)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
+    const dir =
+      this.selectedTab.length < tabs.length
+        ? '↘'
+        : this.selectedTab.length > tabs.length
+          ? this.selectedTab.at(0) === tabs.at(0)
+            ? '↖'
+            : '<-'
+          : seed1 === seed2
+            ? '==='
+            : this.moreTab === tabs.at(-1)
+              ? '->'
+              : '<->'
 
-        return
-      }
+    if (['===', '↖'].includes(dir)) {
+      for (const tab of tabs.reverse())
+        if (this.selectedTab.includes(tab)) {
+          const eventType = 'tabroot'
+          console.debug(`${TabView.name} 💡 ${eventType}`)
+
+          tab?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
+
+          return
+        }
+    } else if ('->' === dir) {
+      const eventType = 'tabroot'
+      console.debug(`${TabView.name} 💡 ${eventType}`)
+
+      tabs.at(0)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
+    }
+
+    //
 
     for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')) {
       for (const tab of tabs)
@@ -145,17 +173,6 @@ export class TabView extends HTMLElement {
           ns.hidden = false // triggers
         }
     }
-    // console.log(99, prevStack, tabs.map((item) => item.id).join('~'))
-
-    // console.log(55, tabs.at(-1), tabs.length)
-    // return
-    // if (prevStack === tabs.at(0)) {
-    //   //prevStack === tabs.map((item) => item.id).join('~')) {
-    //   const eventType = 'tabroot'
-    //   console.debug(`${TabView.name} 💡 ${eventType}`)
-
-    //   tabs.at(-1)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
-    // }
   }
 
   #addAnimations = (event: Event) => {

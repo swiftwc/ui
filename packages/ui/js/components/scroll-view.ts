@@ -12,9 +12,8 @@ export class ScrollView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    if (!this.#template)
-      this.#template = Object.assign(document.createElement('template'), {
-        innerHTML: `
+    return (this.#template ??= Object.assign(document.createElement('template'), {
+      innerHTML: `
   <slot></slot>
   <div part="root scroll-view-navbar">
     <div part="root scroll-view-navbar-stack">
@@ -26,9 +25,7 @@ export class ScrollView extends HTMLElement {
       <slot name="bottom-bar-principal"></slot>
     </div>
   </div>`,
-      })
-
-    return this.#template
+    }))
   }
 
   #shadowRoot
@@ -40,9 +37,7 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
 
       this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
@@ -67,9 +62,7 @@ export class ScrollView extends HTMLElement {
     //   createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
     // })
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       switch (name) {
         case 'navigation-inline-title':
           this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))

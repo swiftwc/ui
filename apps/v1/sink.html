@@ -19,336 +19,50 @@
       }
     </style> -->
 
-    <template id="lists_sink">
-      <h-stack>
-        <button class="make-list" list="">
-          <label-view title="Reset"></label-view>
-        </button>
-        <button class="make-list" list="inline">
-          <label-view title="Inline"></label-view>
-        </button>
-        <button class="make-list" list="inset-grouped">
-          <label-view title="Inset Grouped"></label-view>
-        </button>
-        <button class="make-list" list="sidebar">
-          <label-view title="Sidebar"></label-view>
-        </button>
-      </h-stack>
-      <p>w/ controls</p>
-      <list-view>
-        <h-stack template="auto minmax(0,1fr) auto auto">
-          <button>
-            <label-view title="Item 1"></label-view>
-          </button>
-          <v-stack spacing="0">
-            <label-view title="Item 1"></label-view>
-            <label-view title="Item 1"></label-view>
-          </v-stack>
-          <button>
-            <label-view title="Item 1"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 1"></label-view>
-          </button>
-        </h-stack>
-        <h-stack template="auto minmax(0,1fr) auto auto">
-          <button class="make-list-inline">
-            <label-view title="Item 2"></label-view>
-          </button>
-          <v-stack spacing="0">
-            <label-view title="Item 2"></label-view>
-            <label-view title="Item 2"></label-view>
-          </v-stack>
-          <button>
-            <label-view title="Item 2"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 2"></label-view>
-          </button>
-        </h-stack>
-        <h-stack template="auto minmax(0,1fr) auto auto">
-          <button class="make-list-inset-grouped">
-            <label-view title="Item 3"></label-view>
-          </button>
-          <v-stack spacing="0">
-            <label-view title="Item 3"></label-view>
-            <label-view title="Item 3"></label-view>
-          </v-stack>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-        </h-stack>
-        <details is="disclosure-group">
-          <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-          <h-stack template="auto minmax(0,1fr) auto auto">
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <v-stack spacing="0">
-              <label-view title="Item 1"></label-view>
-              <label-view title="Item 1"></label-view>
-            </v-stack>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-          </h-stack>
-          <h-stack template="auto minmax(0,1fr) auto auto">
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <v-stack spacing="0">
-              <label-view title="Item 1"></label-view>
-              <label-view title="Item 1"></label-view>
-            </v-stack>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-          </h-stack>
-          <h-stack template="auto minmax(0,1fr) auto auto">
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <v-stack spacing="0">
-              <label-view title="Item 1"></label-view>
-              <label-view title="Item 1"></label-view>
-            </v-stack>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-            <button>
-              <label-view title="Item 1"></label-view>
-            </button>
-          </h-stack>
-        </details>
-        <h-stack template="auto minmax(0,1fr) auto auto">
-          <button class="make-list-inset-grouped">
-            <label-view title="Item 3"></label-view>
-          </button>
-          <v-stack spacing="0">
-            <label-view title="Item 3"></label-view>
-            <label-view title="Item 3"></label-view>
-          </v-stack>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-        </h-stack>
-      </list-view>
-      <p>2-grid</p>
-      <list-view columns="2">
-        <button class="make-list" aria-selected="true">
-          <label-view title="Item 1"></label-view>
-        </button>
-        <button class="make-list-inline" option="2">
-          <label-view title="Item 2"></label-view>
-        </button>
-        <button class="make-list-inset-grouped" option="3">
-          <label-view title="Item 3"></label-view>
-        </button>
-        <details is="disclosure-group">
-          <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-          <button type="button" tabindex="0" option="4"><label-view system-image="smiley" title="Item 4a"></label-view></button>
-          <button type="button" tabindex="0" option="5"><label-view system-image="smiley" title="Item 4b"></label-view></button>
-          <button type="button" tabindex="0" option="6"><label-view system-image="smiley" title="Item 4c"></label-view></button>
-        </details>
-        <button class="make-list-inset-grouped" option="3">
-          <label-view title="Item 3"></label-view>
-        </button>
-        <details is="disclosure-group">
-          <summary aria-selected="true">
-            <label-view system-image="smiley" title="Item Group 4"></label-view>
-          </summary>
-          <button type="button" tabindex="0" option="4"><label-view system-image="smiley" title="Item 4a"></label-view></button>
-          <button type="button" tabindex="0" option="5" aria-selected="true"><label-view system-image="smiley" title="Item 4b"></label-view></button>
-          <button type="button" tabindex="0" option="6"><label-view system-image="smiley" title="Item 4c"></label-view></button>
-        </details>
-      </list-view>
-      <p>bare picker outside form</p>
-      <picker-view placeholder="here" label="inline1" picker-style="inline">
-        <datalist slot="list">
-          <option value="0" label="0%"></option>
-          <option value="10" label="Minimum Tip"></option>
-          <option value="20" label="Standard"></option>
-          <option value="30" label="Generous"></option>
-          <option value="50" label="Very Generous"></option>
-        </datalist>
-      </picker-view>
-      <p>list w/ buttons</p>
-      <list-view>
-        <button>
-          <label-view system-image="smiley" title="Item 1"></label-view>
-        </button>
-        <button>
-          <label-view system-image="smiley" title="Item 2"></label-view>
-        </button>
-        <button>
-          <label-view system-image="smiley" title="Item 3"></label-view>
-        </button>
-        <details is="disclosure-group">
-          <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4a"></label-view></button>
-          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4b"></label-view></button>
-          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4c"></label-view></button>
-        </details>
-      </list-view>
-      <p>list w/ sections</p>
-      <list-view>
-        <section-view header="Section 1" footer="All is required">
-          <button>
-            <label-view title="Item 1"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 2"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-          <details is="disclosure-group">
-            <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4a"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4b"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4c"></label-view></button>
-          </details>
-        </section-view>
-        <section-view header="Section 2" footer="All is required">
-          <button>
-            <label-view title="Item 1"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 2"></label-view>
-          </button>
-          <button>
-            <label-view title="Item 3"></label-view>
-          </button>
-          <details is="disclosure-group">
-            <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4a"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4b"></label-view></button>
-            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4c"></label-view></button>
-          </details>
-        </section-view>
-      </list-view>
-      <p>form w/ Textfields</p>
-      <form is="form-view">
-        <text-field placeholder="here" label="Name"></text-field>
-        <text-field placeholder="here" label="Name"></text-field>
-        <text-field placeholder="here" label="Name"></text-field>
-      </form>
-      <p>form w/ 2 sectioned Textfields</p>
-      <form is="form-view">
-        <section-view header="Personal Info">
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-        </section-view>
-        <section-view>
-          <details is="disclosure-group">
-            <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-          </details>
-        </section-view>
-        <section-view>
-          <details is="disclosure-group">
-            <summary><label-view system-image="smiley" title="Item Group 5"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-          </details>
-          <details is="disclosure-group">
-            <summary><label-view system-image="smiley" title="Item Group 6"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-          </details>
-        </section-view>
-      </form>
-      <p>form w/ 1 sectioned Textfields</p>
-      <form is="form-view">
-        <section-view header="Personal Info" footer="All is required">
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-        </section-view>
-      </form>
-      <p>form w/ sectioned Textfields+Pickers</p>
-      <form is="form-view">
-        <section-view header="Personal Info" footer="All is required">
-          <text-field placeholder="here" label="Name"></text-field>
-        </section-view>
-        <section-view header="Personal Info" footer="All is required">
-          <picker-view placeholder="here" label="inline1" picker-style="inline">
-            <datalist slot="list">
-              <option value="0" label="0%"></option>
-              <option value="10" label="Minimum Tip"></option>
-              <option value="20" label="Standard"></option>
-              <option value="30" label="Generous"></option>
-              <option value="50" label="Very Generous"></option>
-            </datalist>
-          </picker-view>
-          <picker-view placeholder="here" picker-style="inline" id="gg">
-            <label-view slot="label" title="inline2"></label-view>
-            <label-view slot="tag" title="0%"></label-view>
-            <label-view slot="tag" title="Minimum Tip"></label-view>
-            <label-view slot="tag" title="Standard"></label-view>
-            <label-view slot="tag" title="Generous"></label-view>
-            <label-view slot="tag" title="Very Generous"></label-view>
-          </picker-view>
-          <picker-view placeholder="here" label="menu/list" picker-style="menu">
-            <datalist slot="list">
-              <option value="0" label="0%"></option>
-              <option value="10" label="Minimum Tip"></option>
-              <option value="20" label="Standard"></option>
-              <option value="30" label="Generous"></option>
-              <option value="50" label="Very Generous"></option>
-            </datalist>
-          </picker-view>
-          <picker-view placeholder="here" label="pickk">
-            <datalist slot="list" id="gg2">
-              <option value="0" label="0%"></option>
-              <option value="10" label="Minimum Tip"></option>
-              <option value="20" label="Standard"></option>
-              <option value="30" label="Generous"></option>
-              <option value="50" label="Very Generous"></option>
-            </datalist>
-          </picker-view>
-          <picker-view>
-            <button type="button">ddd</button>
-            <button type="button">ddd</button>
-            <button type="button">ddd</button>
-            <button type="button">ddd</button>
-            <button type="button">ddd</button>
-            <datalist slot="list" id="gg3">
-              <option value="0" label="0%"></option>
-              <option value="10" label="Minimum Tip"></option>
-              <option value="20" label="Standard"></option>
-              <option value="30" label="Generous"></option>
-              <option value="50" label="Very Generous"></option>
-            </datalist>
-          </picker-view>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-        </section-view>
-        <section-view header="Personal Info" footer="All is required">
-          <select is="picker"></select>
-        </section-view>
-        <section-view header="Personal Info" footer="All is required">
-          <button is="picker">bgbgbg</button>
-        </section-view>
-      </form>
+    <template id="sink_template">
+      <p>...</p>
+      ns1section0<button type="button" class="fw">→</button>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <input type="text" />
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <hr style="width: 100%" />
+      <hr style="width: 100cqi" />
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <p>...</p>
+      <input type="text" />
+      <p>...</p>
     </template>
   </head>
   <body>
@@ -369,9 +83,9 @@
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol" navigation-inline-subtitle="subtitleeeee">
             <v-stack placement="leading fill">
-              <label-view id="gg3" padding><span>fff</span></label-view>
+              <label-view padding><span>fff</span></label-view>
               <label-view title="rett"></label-view>
-              <label-view id="gg3" padding
+              <label-view padding
                 >error
                 <div>dd</div>
                 error2</label-view
@@ -379,19 +93,17 @@
               <p>...</p>
               <navigation-large-title padding navigation-bar-auto-hide>
                 <v-stack alignment="fill"
-                  ><label-view title="a custom titleeeeeeeeeee" font="large-title"></label-view><label-view title="34343434343434" font="callout"></label-view
+                  ><label-view title="a long & autohiding titleeeeeeeeeee" font="large-title"></label-view
+                  ><label-view title="calloutttttttttttttttttttttttttt" font="callout"></label-view
                 ></v-stack>
               </navigation-large-title>
-              ns1section0<button type="button" class="fw">→</button>
-              <script>
+              <button type="button" class="fw">→</button>
+              <!-- <script>
                 document.currentScript.replaceWith(document.querySelector('#lists_sink').content.cloneNode(true))
-              </script>
+              </script> -->
               <input type="text" />
+              <p>empty list</p>
               <list-view></list-view>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
             </v-stack>
           </scroll-view>
 
@@ -416,9 +128,9 @@
           <v-stack placement="leading fill">
             <p>...</p>
             ns1section0<button type="button" class="fw">→</button>
-            <script>
+            <!-- <script>
               document.currentScript.replaceWith(document.querySelector('#lists_sink').content.cloneNode(true))
-            </script>
+            </script> -->
             <input type="text" />
             <list-view></list-view>
             <input type="text" />
@@ -455,47 +167,9 @@
             <v-stack placement="leading fill" padding>
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
+              <script>
+                document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+              </script>
             </v-stack>
           </scroll-view>
 
@@ -521,47 +195,9 @@
             <v-stack placement="leading fill" padding>
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
+              <script>
+                document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+              </script>
             </v-stack>
           </scroll-view>
 
@@ -590,47 +226,9 @@
             <v-stack placement="leading fill" padding>
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
+              <script>
+                document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+              </script>
             </v-stack>
           </scroll-view>
 
@@ -656,47 +254,9 @@
             <v-stack placement="leading fill" padding>
               <p>...</p>
               ns1section0<button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
+              <script>
+                document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+              </script>
             </v-stack>
           </scroll-view>
 
@@ -720,47 +280,9 @@
         <scroll-view>
           <v-stack placement="leading fill" padding>
             ns2section0<button type="button" class="fw">→</button>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+            </script>
           </v-stack>
         </scroll-view>
 
@@ -784,47 +306,9 @@
         <scroll-view navigation-inline-title="More">
           <v-stack placement="leading fill" padding>
             MOREsection0<button type="button" class="fw" tag="ns3">→</button>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <p>...</p>
-            <input type="text" />
-            <p>...</p>
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+            </script>
           </v-stack>
         </scroll-view>
 
@@ -833,47 +317,9 @@
             <v-stack placement="leading fill" padding>
               <p>...</p>
               ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <hr style="width: 100%" />
-              <hr style="width: 100cqi" />
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <p>...</p>
-              <input type="text" />
-              <p>...</p>
+              <script>
+                document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
+              </script>
             </v-stack>
           </scroll-view>
 

@@ -95,7 +95,7 @@
               <button type="button" navigation-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
-              <details is="disclosure-group">
+              <details is="disclosure-group" class="rootonclose">
                 <summary navigation-destination="item3">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" template="minmax(0,1fr) auto">
@@ -133,7 +133,7 @@
               <button type="button" navigation-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
-              <details is="disclosure-group">
+              <details is="disclosure-group" class="rootonclose">
                 <summary>
                   <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
@@ -142,7 +142,7 @@
                 <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
                 <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
               </details>
-              <details is="disclosure-group">
+              <details is="disclosure-group" class="rootonclose">
                 <summary>
                   <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
@@ -273,85 +273,72 @@
       NavigationProvider.addEventListener('pagereveal', navHandler)
       NavigationProvider.addEventListener('pageswap', navHandler)
 
-      const toggleHandler = async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
+      // const toggleHandler = async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
 
-        if ('closed' !== event.newState) return
+      //   if ('closed' !== event.newState) return
 
-        if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
+      //   if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
 
-        const path = new NavigationPath(event.target)
-        path.hydrate()
+      //   const path = new NavigationPath(event.target)?.hydrate()
 
-        const from1 = [...path.children()].at(0)
+      //   const from1 = [...path.children()].at(0)
 
-        await startViewTransition(from1.body, 'backwards', async () => {
-          modifyDOMbackwards(from1)
-        })
-      }
+      //   await startViewTransition(from1.body, 'backwards', async () => {
+      //     modifyDOMbackwards(from1)
+      //   })
+      // }
 
-      const addBindings = () => {
-        for (const el of document.querySelectorAll('details')) {
-          el.removeEventListener('toggle', toggleHandler)
-          el.addEventListener('toggle', toggleHandler)
-        }
-      }
+      // const addBindings = () => {
+      //   for (const el of document.querySelectorAll('details')) {
+      //     el.removeEventListener('toggle', toggleHandler)
+      //     el.addEventListener('toggle', toggleHandler)
+      //   }
+      // }
 
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
 
-        const navDest = event.target.closest('[navigation-destination]')
+      //   const navDest = event.target.closest('[navigation-destination]')
 
-        // if (event.target.closest('.st')) {
-        //   const sv = closestBody(document.querySelector('#gg')),
-        //     pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
+      //   if (event.target.closest('.back')) {
+      //     const path = new NavigationPath(event.target)?.hydrate()
 
-        //   await startViewTransition({ target: sv }, 'backwards', async () => {
-        //     modifyDOMbackwards(pr)
-        //   })
-        // }
+      //     const parent = [...path.parents()].at(0)?.hydrate()
 
-        if (event.target.closest('.back')) {
-          const path = new NavigationPath(event.target)
-          path.hydrate()
+      //     if (navDest && parent.body) parent.component.inert = true
 
-          const parent = [...path.parents()].at(0)
-          parent.hydrate()
+      //     await startViewTransition(event.target, 'backwards', async () => {
+      //       modifyDOMbackwards(path)
+      //     })
 
-          if (navDest && parent.body) parent.component.inert = true
+      //     if (navDest && parent.body) {
+      //       await startViewTransition(parent.body, 'forwards', async () => {
+      //         modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //       })
 
-          await startViewTransition(event.target, 'backwards', async () => {
-            modifyDOMbackwards(path)
-          })
+      //       addBindings()
 
-          if (navDest && parent.body) {
-            await startViewTransition(parent.body, 'forwards', async () => {
-              modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
-            })
+      //       parent.component.inert = false
+      //     }
+      //   } else if (navDest) {
+      //     const path = new NavigationPath(event.target)?.hydrate()
 
-            addBindings()
+      //     const summary = event.target.closest('summary:has(button)')
 
-            parent.component.inert = false
-          }
-        } else if (navDest) {
-          const path = new NavigationPath(event.target)
-          path.hydrate()
+      //     if (summary) {
+      //       event.preventDefault()
 
-          const summary = event.target.closest('summary')
+      //       if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+      //     }
 
-          if (summary && summary.querySelector('button')) {
-            event.preventDefault()
+      //     await startViewTransition(event.target, 'forwards', async () => {
+      //       modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //     })
 
-            if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
-          }
-
-          await startViewTransition(event.target, 'forwards', async () => {
-            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-          })
-
-          addBindings()
-        }
-      })
+      //     addBindings()
+      //   }
+      // })
     </script>
   </body>
 </html>

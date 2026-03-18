@@ -1,6 +1,3 @@
-// import { UILabel } from './js/components'
-// console.log(444, UILabel)
-// import { Snapshot, polyfills, startViewTransition } from '../../packages/ui/generated/client' //'./js/client'
 import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
@@ -21,10 +18,91 @@ document.body.addEventListener('selection', async (event) => {
   alert(event.detail.tag)
 })
 
+const toggleHandler = async (event) => {
+  console.debug(`⚡️ ${event?.type}`)
+
+  if ('closed' !== event.newState) return
+
+  if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
+
+  const path = new NavigationPath(event.target)?.hydrate()
+
+  const from1 = [...path.children()].at(0)
+
+  await startViewTransition(from1.body, 'backwards', async () => {
+    modifyDOMbackwards(from1)
+  })
+}
+
+const addBindings = () => {
+  for (const el of document.querySelectorAll('details.rootonclose')) {
+    el.removeEventListener('toggle', toggleHandler)
+    el.addEventListener('toggle', toggleHandler)
+  }
+}
+
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ ${event?.type}`)
 
+  const navDest = event.target.closest('[navigation-destination]'),
+    backBtn = event.target.closest('.back')
+
+  if (backBtn) {
+    const path = new NavigationPath(event.target)?.hydrate()
+
+    const parent = [...path.parents()].at(0)?.hydrate()
+
+    if (navDest && parent.body) parent.component.inert = true
+
+    await startViewTransition(event.target, 'backwards', async () => {
+      modifyDOMbackwards(path)
+    })
+
+    if (navDest && parent.body) {
+      await startViewTransition(parent.body, 'forwards', async () => {
+        modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      })
+
+      addBindings()
+
+      parent.component.inert = false
+    }
+  } else if (navDest) {
+    const template =
+      Array.from(document.querySelectorAll('template')).find((t) =>
+        t.innerHTML.includes(`navigation-path="${navDest.getAttribute('navigation-destination')}"`)
+      ) ?? document.getElementById(navDest.getAttribute('navigation-destination'))
+
+    const path = new NavigationPath(event.target)?.hydrate()
+
+    const summary = event.target.closest('summary:has(button)')
+
+    if (summary) {
+      event.preventDefault()
+
+      if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+    }
+
+    await startViewTransition(event.target, 'forwards', async () => {
+      modifyDOMforwards(undefined, path, template)
+    })
+
+    addBindings()
+  }
+
   if (event.target.closest('button')) {
+    if (event.target.closest('.backtocontroller')) {
+      const path = new NavigationPath(event.target)?.hydrate()
+
+      const parent = [...path.parents()].at(-2)?.hydrate()
+
+      await startViewTransition(parent.body, 'backwards', async () => {
+        modifyDOMbackwards(parent)
+      })
+
+      return
+    }
+
     if (event.target.closest('.make-list')) {
       const btn = event.target.closest('.make-list')
       for (const el of btn.closest('v-stack').querySelectorAll('list-view'))
@@ -34,9 +112,9 @@ document.body.addEventListener('click', async (event) => {
         if (btn.getAttribute('list')) el.setAttribute('form-style', btn.getAttribute('list'))
         else el.removeAttribute('form-style')
     }
+
     if (event.target.closest('.bww')) {
-      const path = new NavigationPath(event.target)
-      path.hydrate()
+      const path = new NavigationPath(event.target)?.hydrate()
 
       const parent = [...path.parents()].at(-2)
 
@@ -53,11 +131,12 @@ document.body.addEventListener('click', async (event) => {
       // const sv = queryBodyAll(event.target.closest('dialog')).at(1), //[...event.target.closest('dialog').querySelectorAll('scroll-view')][1],
       //   host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
-      const path = new NavigationPath(event.target)
-      path.hydrate()
+      const path = new NavigationPath(event.target)?.hydrate()
 
-      const parent = [...path.parents()].filter((item) => item.component.matches('dialog>:scope')).at(0)
-      parent.hydrate()
+      const parent = [...path.parents()]
+        .filter((item) => item.component.matches('dialog>:scope'))
+        .at(0)
+        ?.hydrate()
 
       await startViewTransition(parent.body, 'backwards', async () => {
         modifyDOMbackwards(parent)
@@ -65,8 +144,7 @@ document.body.addEventListener('click', async (event) => {
     }
 
     if (event.target.closest('.fww')) {
-      const path = new NavigationPath(event.target)
-      path.hydrate()
+      const path = new NavigationPath(event.target)?.hydrate()
 
       const root = [path, ...path.parents()]
         .map((item) => item.component)
@@ -81,7 +159,7 @@ document.body.addEventListener('click', async (event) => {
 
       await startViewTransition(path.body, 'forwards', async () => {
         modifyDOMforwards(
-          event.target,
+          event.target.closest('button'),
           path,
           `
                   <body-view>
@@ -296,8 +374,7 @@ document.body.addEventListener('click', async (event) => {
       //   pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement //sv.parentElement
 
       // const { host } = getComputedView(closestBody(event.target))
-      const path = new NavigationPath(event.target)
-      path.hydrate()
+      const path = new NavigationPath(event.target)?.hydrate()
 
       await startViewTransition(event.target, 'backwards', async () => {
         modifyDOMbackwards(path)
@@ -307,13 +384,12 @@ document.body.addEventListener('click', async (event) => {
     const fwBtn = event.target.closest('.fw')
 
     if (fwBtn) {
-      const path = new NavigationPath(event.target)
-      path.hydrate()
+      const path = new NavigationPath(event.target)?.hydrate()
 
-      const root = [path, ...path.parents()]
+      const controller = [path, ...path.parents()]
         .map((item) => item.component)
-        .filter(Boolean)
-        .at(-1)
+        .filter((item) => item?.matches('navigation-stack,navigation-split-view'))
+        .at(0)
 
       // const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
       //   root = getRootViewController(sv), //sv.closest('navigation-stack,navigation-split-view'),
@@ -328,33 +404,35 @@ document.body.addEventListener('click', async (event) => {
           fwBtn,
           path,
           `
-                  <${6 === root.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
+                  <${6 === controller.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
                     <scroll-view>
                       <v-stack padding placement="leading fill">
                         <navigation-title value="dds"></navigation-title>
-                        ${root.id}section${
-                          root.querySelectorAll('scroll-view').length
+                        ${controller.id}section${
+                          controller.querySelectorAll('scroll-view').length
                         }<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button><p>...</p><p>...</p><button type="button" class="bww">🔚</button><form method="dialog"><button>close</button></form><p>...</p><input type="text" /><p>...</p><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view><p>...</p>
                         
                         <picker-view picker-style="menu">
                         <label-view slot="label" system-image="dots-three" title="rtyty"></label-view>
-                        <label-view slot="tag" title="0%"></label-view>
-                        <label-view slot="tag" title="Minimum Tip"></label-view>
-                        <label-view slot="tag" title="Standard"></label-view>
-                        <label-view slot="tag" title="Generous"></label-view>
-                        <label-view slot="tag" title="Very Generous"></label-view>
+                        <label-view slot="tag" title="rty0%"></label-view>
+                        <label-view slot="tag" title="rtyMinimum Tip"></label-view>
+                        <label-view slot="tag" title="rtyStandard"></label-view>
+                        <label-view slot="tag" title="rtyGenerous"></label-view>
+                        <label-view slot="tag" title="rtyVery Generous"></label-view>
                         </picker-view>
         
         <picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view>
         
         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
-                      <label-view slot="navigation-bar-principal" title="ghjh${root.querySelectorAll('scroll-view').length}"></label-view>
-                      <label-view slot="bottom-bar-principal" title="ghjh${root.querySelectorAll('scroll-view').length}"></label-view>
+                      <label-view slot="navigation-bar-principal" title="ghjh${controller.querySelectorAll('scroll-view').length}"></label-view>
+                      <label-view slot="bottom-bar-principal" title="ghjh${controller.querySelectorAll('scroll-view').length}"></label-view>
                     </scroll-view>
                     <tool-bar>
                       <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
-                      <tool-bar-item slot="navigation-bar-leading"><picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view></tool-bar-item>
+
+                      <tool-bar-item slot="navigation-bar-leading"><picker-view picker-style="menu"><datalist slot="list"><option value="0" label="00%"></option><option value="10" label="0Minimum Tip"></option><option value="20" label="0Standard"></option><option value="30" label="0Generous"></option><option value="50" label="0Very Generous"></option></datalist></picker-view></tool-bar-item>
+
                       <tool-bar-item slot="navigation-bar-leading">
                       <menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button>
                       <details is="disclosure-group">
@@ -373,8 +451,8 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0" disabled><label-view system-image="smiley"></label-view></button></tool-bar-item>
 
                       <tool-bar-item-group slot="navigation-bar-leading"><tool-bar-item><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="navigation-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0"><label-view title="a${root.querySelectorAll('scroll-view').length}"></label-view></button></tool-bar-item>
+                      <tool-bar-item slot="navigation-bar-trailing"><input type="search" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0"><label-view title="a${controller.querySelectorAll('scroll-view').length}"></label-view></button></tool-bar-item>
                       <tool-bar-item slot="bottom-bar-leading">
                       <menu-view>
                       <label-view system-image="smiley" slot="label"></label-view>
@@ -385,11 +463,11 @@ document.body.addEventListener('click', async (event) => {
                       <button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button>
                       </menu-view>
                       </tool-bar-item>
-                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
-                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </tool-bar>
-                  </${6 === root.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
+                  </${6 === controller.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
                   `
         )
       })
@@ -459,7 +537,7 @@ window.addEventListener('appinstalled', () => {
 export function modifyDOMbackwards(host) {
   const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
 
-  if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.tagName)) {
+  if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.component.tagName)) {
     host.component.hidden = true
 
     child.component?.remove()
@@ -517,6 +595,13 @@ export function modifyDOMforwards(trigger, view, htmlorTpl, overwrite = true) {
 export const navHandler = async (event) => {
   console.debug(`⚡️ ${event?.type}`)
 
-  for (const el of document.querySelectorAll('[navigation-destination]'))
-    el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
+  for (const el of document.querySelectorAll('[navigation-destination]')) {
+    if (el.hasAttribute('selected-when'))
+      el.ariaSelected = el
+        .getAttribute('selected-when')
+        .split(' ')
+        .map((item) => Boolean(document.querySelector(`[navigation-path="${CSS.escape(item)}"]`)))
+        .some(Boolean)
+    else el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
+  }
 }

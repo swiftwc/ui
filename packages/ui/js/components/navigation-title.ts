@@ -33,9 +33,7 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       switch (name) {
         case 'value':
           if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)

@@ -70,6 +70,8 @@ export class NavigationPath {
     this.#refreshToolBarConfig()
 
     this.#refreshSlot()
+
+    return this
   }
 
   *children(): Generator<NavigationPath> {

@@ -16,9 +16,7 @@ export class NavigationView extends HTMLElement {
   connectedCallback() {
     // this.addEventListener('tabreveal', this.#handleTabReveal)
 
-    Snapshot.waitReadyFor(this).then(async (r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(async () => {
       if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
       if (this.closest('tab-view'))

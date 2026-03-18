@@ -157,9 +157,7 @@ export class PickerView extends HTMLElement {
   connectedCallback() {
     console.debug(`${PickerView.name} ⚡️ connect`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) return // will be picked up by attr-change!
 
       this.#render()
@@ -177,9 +175,7 @@ export class PickerView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
-
+    Snapshot.waitReady.then(() => {
       switch (name) {
         case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
           this.#reflectPlaceholder(newValue)

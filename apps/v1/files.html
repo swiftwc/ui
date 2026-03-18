@@ -227,8 +227,8 @@
         if (navDest) {
           // const sv = closestBody(event.target),
           // root = getRootViewController(sv),
-          const path = new NavigationPath(event.target)
-          path.hydrate()
+          const path = new NavigationPath(event.target)?.hydrate()
+
           // position = queryInsertPosition(host),
           // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 

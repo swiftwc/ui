@@ -345,7 +345,7 @@
       }
 
       :where(&)::part(section-header-stack) {
-        top: var(--navigation-bar-block-size);
+        top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
 
         position: sticky;
 

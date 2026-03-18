@@ -55,7 +55,7 @@
       padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
       padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
 
-      container: scroll-view / inline-size;
+      container: scroll-view / size; //inline-size;
 
       background-color: var(--face,);
       color: var(--text,);
@@ -102,6 +102,28 @@
     //     --navbar-backdrop-inset-block-end: -25px;
     //   }
     // }
+
+    sticky-container {
+      :where(&) {
+        @include mixins.make-toolbar-pseudos(bottom);
+      }
+    }
+
+    @supports (container-type: scroll-state) {
+      &:has(sticky-container[stuck]) {
+        :where(&)::part(scroll-view-navbar):before {
+          mask-image: none !important;
+        }
+      }
+    }
+
+    @supports not (container-type: scroll-state) {
+      &:has(sticky-container) {
+        :where(&)::part(scroll-view-navbar):before {
+          mask-image: none !important;
+        }
+      }
+    }
   }
 
   @include mixins.if-ipad-sheet-fits {

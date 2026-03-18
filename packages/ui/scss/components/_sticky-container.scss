@@ -1,0 +1,43 @@
+@use '../vars';
+
+@property --stuck {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer #{vars.$components-layer} {
+  sticky-container {
+    :where(&) {
+      container-type: scroll-state;
+      position: sticky;
+
+      &::before {
+        content: ''; // needs dimensions
+        --stuck: 0;
+        transition: --stuck 10ms;
+
+        @container scroll-state(stuck: top) {
+          // background: Highlight;
+          // color: HighlightText;
+
+          --stuck: 1;
+        }
+      }
+    }
+
+    &[edge='navbar'] {
+      :where(&) {
+        top: var(--navigation-bar-block-size);
+      }
+    }
+
+    @container (max-block-size: 400px) {
+      :where(&) {
+        position: relative;
+        top: unset;
+      }
+    }
+  }
+
+}

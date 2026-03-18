@@ -322,40 +322,37 @@
       //   // })
       // }
 
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
 
-        const navDest = event.target.closest('[navigation-destination]')
+      // const navDest = event.target.closest('[navigation-destination]')
 
-        if (event.target.closest('.back')) {
-          const path = new NavigationPath(event.target)
-          path.hydrate()
+      // if (event.target.closest('.back')) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
 
-          const parent = [...path.parents()].at(0)
-          parent.hydrate()
+      //   const parent = [...path.parents()].at(0)?.hydrate()
 
-          if (navDest && parent.body) parent.component.inert = true
+      //   if (navDest && parent.body) parent.component.inert = true
 
-          await startViewTransition(event.target, 'backwards', async () => {
-            modifyDOMbackwards(path)
-          })
+      //   await startViewTransition(event.target, 'backwards', async () => {
+      //     modifyDOMbackwards(path)
+      //   })
 
-          if (navDest && parent.body) {
-            await startViewTransition(parent.body, 'forwards', async () => {
-              modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
-            })
+      //   if (navDest && parent.body) {
+      //     await startViewTransition(parent.body, 'forwards', async () => {
+      //       modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //     })
 
-            parent.component.inert = false
-          }
-        } else if (navDest) {
-          const path = new NavigationPath(event.target)
-          path.hydrate()
+      //     parent.component.inert = false
+      //   }
+      // } else if (navDest) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
 
-          await startViewTransition(event.target, 'forwards', async () => {
-            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-          })
-        }
-      })
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
+      // }
+      // })
     </script>
   </body>
 </html>

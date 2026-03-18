@@ -29,8 +29,7 @@ export class NavigationStack extends NavigationView {
 
     super.attributeChangedCallback(name, oldValue, newValue)
 
-    Snapshot.waitReadyFor(this).then((r) => {
-      if (!r) return
+    Snapshot.waitReady.then(() => {
 
       switch (name) {
         case 'hidden':

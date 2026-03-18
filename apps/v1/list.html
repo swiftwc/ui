@@ -524,9 +524,9 @@
         console.debug(`⚡️ ${event?.type}`)
 
         const btn = event.target.closest('button'),
-          summary = event.target.closest('summary')
+          summary = event.target.closest('summary:has(button)')
 
-        if (summary && summary.querySelector('button')) {
+        if (summary) {
           event.preventDefault()
 
           if (btn) return summary.closest('details').toggleAttribute('open')

@@ -28,17 +28,17 @@ export class LabelView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
+    // Snapshot.waitReady.then(() => {
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
 
-      // this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
-      // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
+    // // this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
+    // // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
+    //
+    // // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
+    // // // this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
 
-      // this.#slot?.addEventListener('slotchange', this.#handleSlotchange)
-      // // this.#imgSlot?.addEventListener('slotchange', this.#handleSlotchange)
-
-      // // this.#handleSlotchange(new CustomEvent('slotchange'))
-    })
+    // // // this.#handleSlotchange(new CustomEvent('slotchange'))
+    // })
   }
 
   disconnectedCallback() {
@@ -54,51 +54,51 @@ export class LabelView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case 'system-image':
-          let image = this.querySelector(':scope>[slot=image]')
-          if (newValue) {
-            image ??= this.appendChild($(`<i slot="image"></i>`))
-            image.setAttribute('class', `ph ph-${newValue}`)
-          } else image?.remove()
-          // // const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
-          // // if (!imgSlot) break
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'system-image':
+        let image = this.querySelector(':scope>[slot=image]')
+        if (newValue) {
+          image ??= this.appendChild($(`<i slot="image"></i>`))
+          image.setAttribute('class', `ph ph-${newValue}`)
+        } else image?.remove()
+        // // const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
+        // // if (!imgSlot) break
 
-          // const assigned = this.#imgSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+        // const assigned = this.#imgSlot!.assignedElements({ flatten: true }) as HTMLElement[]
 
-          // let el = assigned[0] as HTMLElement | undefined
-          // if (!el) {
-          //   el = document.createElement('i')
-          //   el.slot = 'image'
-          //   this.append(el)
-          // }
+        // let el = assigned[0] as HTMLElement | undefined
+        // if (!el) {
+        //   el = document.createElement('i')
+        //   el.slot = 'image'
+        //   this.append(el)
+        // }
 
-          // el.setAttribute('class', `ph ph-${newValue}`)
+        // el.setAttribute('class', `ph ph-${newValue}`)
 
-          break
-        case 'title':
-          let title = this.querySelector(':scope>:not([slot])')
-          if (newValue) {
-            title ??= this.appendChild($(`<span></span>`))
-            title.textContent = newValue
-          } else title?.remove()
-          // // const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
-          // // if (!titleSlot) break
+        break
+      case 'title':
+        let title = this.querySelector(':scope>:not([slot])')
+        if (newValue) {
+          title ??= this.appendChild($(`<span></span>`))
+          title.textContent = newValue
+        } else title?.remove()
+        // // const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')
+        // // if (!titleSlot) break
 
-          // const title = this.#slot!.assignedElements({ flatten: true }) as HTMLElement[]
+        // const title = this.#slot!.assignedElements({ flatten: true }) as HTMLElement[]
 
-          // let el2 = title[0] as HTMLElement | undefined
-          // if (!el2) {
-          //   el2 = document.createElement('span')
-          //   this.append(el2)
-          // }
+        // let el2 = title[0] as HTMLElement | undefined
+        // if (!el2) {
+        //   el2 = document.createElement('span')
+        //   this.append(el2)
+        // }
 
-          // el2.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+        // el2.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   // #handleSlotchange = (event: Event) => {

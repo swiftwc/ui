@@ -37,13 +37,13 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
+    // Snapshot.waitReady.then(() => {
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
 
-      this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
+    this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
 
-      // this.#navbarPrincipalSlot?.addEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
-    })
+    // this.#navbarPrincipalSlot?.addEventListener('slotchange', this.#handleNavbarPrincipalSlotchange)
+    // })
 
     // this.addEventListener(
     //   'scrollend',
@@ -62,57 +62,57 @@ export class ScrollView extends HTMLElement {
     //   createHTML: (string: string) => string.replace(/&/g, '&amp;').replace(/</g, '&lt;').replace(/>/g, '&gt;').replace(/"/g, '&quot;').replace(/'/g, '&#39;'),
     // })
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case 'navigation-inline-title':
-          this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'navigation-inline-title':
+        this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
 
-          break
-        case 'navigation-inline-subtitle':
-          this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
+        break
+      case 'navigation-inline-subtitle':
+        this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
 
-          // const el =
-          //   assigned?.[0] ??
-          //   (() => {
-          //     // el = document.createElement('label-view')
-          //     // el.slot = 'navigation-bar-principal'
-          //     return this.insertAdjacentElement('beforeend', (document.createElement('label-view').slot = 'navigation-bar-principal'))
-          //   })()
-          // if (!el) {
-          //   el = document.createElement('label-view')
-          //   el.slot = 'navigation-bar-principal'
-          //   this.insertAdjacentElement('beforeend', el)
-          // }
+        // const el =
+        //   assigned?.[0] ??
+        //   (() => {
+        //     // el = document.createElement('label-view')
+        //     // el.slot = 'navigation-bar-principal'
+        //     return this.insertAdjacentElement('beforeend', (document.createElement('label-view').slot = 'navigation-bar-principal'))
+        //   })()
+        // if (!el) {
+        //   el = document.createElement('label-view')
+        //   el.slot = 'navigation-bar-principal'
+        //   this.insertAdjacentElement('beforeend', el)
+        // }
 
-          // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-          // if (
-          //   0 ===
-          //   this.#shadowRoot
-          //     .querySelector<HTMLSlotElement>(
-          //       'slot[name=navigation-bar-principal]'
-          //     )!
-          //     .assignedNodes({ flatten: true }).length
-          // )
-          //   this.insertAdjacentHTML(
-          //     'beforeend',
-          //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
-          //   )
-          break
+        // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+        // if (
+        //   0 ===
+        //   this.#shadowRoot
+        //     .querySelector<HTMLSlotElement>(
+        //       'slot[name=navigation-bar-principal]'
+        //     )!
+        //     .assignedNodes({ flatten: true }).length
+        // )
+        //   this.insertAdjacentHTML(
+        //     'beforeend',
+        //     `<span slot="navigation-bar-principal">${escapeHTMLPolicy.createHTML(newValue)}</span>`
+        //   )
+        break
 
-        case 'navigation-title':
-          //
+      case 'navigation-title':
+        //
 
-          break
-        case 'navigation-bar-title-display-mode':
-          const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
+        break
+      case 'navigation-bar-title-display-mode':
+        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
 
-          if (oldValue === newValue) break
+        if (oldValue === newValue) break
 
-          slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
+        slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   disconnectedCallback() {

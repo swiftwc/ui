@@ -29,12 +29,12 @@ export class NavigationStack extends NavigationView {
 
     super.attributeChangedCallback(name, oldValue, newValue)
 
-    Snapshot.waitReady.then(() => {
+    // Snapshot.waitReady.then(() => {
 
-      switch (name) {
-        case 'hidden':
-          break
-      }
-    })
+    switch (name) {
+      case 'hidden':
+        break
+    }
+    // })
   }
 }

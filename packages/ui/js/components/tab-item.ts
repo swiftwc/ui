@@ -35,31 +35,31 @@ export class TabItem extends ButtonBase {
       ariaSelected: 'false',
     })
 
-    Snapshot.waitReadyFor(btn).then((r) => {
-      if (!r) return
+    // Snapshot.waitReadyFor(btn).then((r) => {
+    //   if (!r) return
 
-      CleanupRegistry.register(btn, onoff('click', TabItem.#handleClick, btn).on())
+    CleanupRegistry.register(btn, onoff('click', TabItem.#handleClick, btn).on())
 
-      const handler1 = TabItem.#handleTabRevealOrSwap.bind(null, btn),
-        handler2 = TabItem.#handleTabMoreStackAllowance.bind(null, btn),
-        tv = btn.closest<TabView>('tab-view') ?? undefined
+    const handler1 = TabItem.#handleTabRevealOrSwap.bind(null, btn),
+      handler2 = TabItem.#handleTabMoreStackAllowance.bind(null, btn),
+      tv = btn.closest<TabView>('tab-view') ?? undefined
 
-      CleanupRegistry.register(btn, onoff('tabreveal tabswap', handler1 as unknown as EventListener, tv).on())
+    CleanupRegistry.register(btn, onoff('tabreveal tabswap', handler1 as unknown as EventListener, tv).on())
 
-      CleanupRegistry.register(btn, onoff('tab-view:more-tab-allowed tab-view:more-tab-disallowed', handler2 as unknown as EventListener, tv).on())
+    CleanupRegistry.register(btn, onoff('tab-view:more-tab-allowed tab-view:more-tab-disallowed', handler2 as unknown as EventListener, tv).on())
 
-      // if (tv?.selectedTab?.id === el.value)
-      if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
-        void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: btn.value } }))
+    // if (tv?.selectedTab?.id === el.value)
+    if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
+      void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: btn.value } }))
 
-      if (tv?.moreTab)
-        this.#handleTabMoreStackAllowance(
-          btn,
-          new CustomEvent<TabMoreStackAllowanceDetail>(`tab-view:more-tab-${tv?.moreTabAllowed ? 'allowed' : 'disallowed'}`, {
-            detail: { moreTab: tv?.moreTab },
-          })
-        )
-    })
+    if (tv?.moreTab)
+      this.#handleTabMoreStackAllowance(
+        btn,
+        new CustomEvent<TabMoreStackAllowanceDetail>(`tab-view:more-tab-${tv?.moreTabAllowed ? 'allowed' : 'disallowed'}`, {
+          detail: { moreTab: tv?.moreTab },
+        })
+      )
+    // })
   }
 
   static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, event: CustomEvent<TabMoreStackAllowanceDetail>) => {

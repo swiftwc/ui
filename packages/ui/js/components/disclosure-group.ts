@@ -69,19 +69,19 @@ export class DisclosureGroup extends DetailsBase {
 
     if (newValue !== el.dataset.state) el.dataset.state = newValue
 
-    Snapshot.waitReadyFor(el).then((r) => {
-      if (!r) return
+    // Snapshot.waitReadyFor(el).then((r) => {
+    //   if (!r) return
 
-      // el.addEventListener('click', DisclosureGroup.#handleClick)
-      const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
+    // el.addEventListener('click', DisclosureGroup.#handleClick)
+    const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
 
-      CleanupRegistry.register(el, on())
+    CleanupRegistry.register(el, on())
 
-      CleanupRegistry.register(el, () => {
-        toggleTimers.get(el)?.cancel()
-        toggleTimers.delete(el)
-      })
+    CleanupRegistry.register(el, () => {
+      toggleTimers.get(el)?.cancel()
+      toggleTimers.delete(el)
     })
+    // })
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }

@@ -29,27 +29,27 @@ export class TabBar extends DialogBase {
 
     el.autofocus = true
 
-    Snapshot.waitReadyFor(el).then((r) => {
-      if (!r) return
+    // Snapshot.waitReadyFor(el).then((r) => {
+    //   if (!r) return
 
-      CleanupRegistry.register(el, onoff('click', TabBar.#handleClick, el).on())
+    CleanupRegistry.register(el, onoff('click', TabBar.#handleClick, el).on())
 
-      const { on } = onoff(
-        touchGlass(
-          el,
-          (t) => t,
-          (event: PointerEvent) => {
-            if ((event.target as HTMLElement).matches('[is=tab-bar]')) return false
-            if ((event.target as HTMLElement).closest('tool-bar-item')) return false
+    const { on } = onoff(
+      touchGlass(
+        el,
+        (t) => t,
+        (event: PointerEvent) => {
+          if ((event.target as HTMLElement).matches('[is=tab-bar]')) return false
+          if ((event.target as HTMLElement).closest('tool-bar-item')) return false
 
-            return true
-          }
-        ),
-        el
-      )
+          return true
+        }
+      ),
+      el
+    )
 
-      CleanupRegistry.register(el, on())
-    })
+    CleanupRegistry.register(el, on())
+    // })
   }
 
   static #handleClick = async (event: Event) => {

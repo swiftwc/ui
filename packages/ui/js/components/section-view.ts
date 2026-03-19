@@ -37,11 +37,11 @@ export class SectionView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
+    // Snapshot.waitReady.then(() => {
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
 
-      // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
-    })
+    // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
+    // })
   }
 
   disconnectedCallback() {
@@ -57,44 +57,44 @@ export class SectionView extends HTMLElement {
 
     // this.#sibling = this.closest('scroll-view') ?? undefined
 
-    Snapshot.waitReady.then(() => {
-      // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
-      // if (!this.isConnected) return
-      // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
-      //   blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
-      // this.#observer = new IntersectionObserver(this.#handleIntersect, {
-      //   root: this.#sibling,
-      //   rootMargin: `-${blockSize}px 0px 0px 0px`,
-      //   threshold: [0, 1],
-      // })
-      // if (this.#sentinel) this.#observer.observe(this.#sentinel)
-      // this.#observer.observe(this)
-    })
+    // Snapshot.waitReady.then(() => {
+    // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
+    // if (!this.isConnected) return
+    // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
+    //   blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+    // this.#observer = new IntersectionObserver(this.#handleIntersect, {
+    //   root: this.#sibling,
+    //   rootMargin: `-${blockSize}px 0px 0px 0px`,
+    //   threshold: [0, 1],
+    // })
+    // if (this.#sentinel) this.#observer.observe(this.#sentinel)
+    // this.#observer.observe(this)
+    // })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case 'header':
-          let header = this.querySelector(':scope>[slot=header]')
-          if (newValue) {
-            header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`))
-            header.querySelector('label-view')?.setAttribute('title', newValue)
-          } else header?.remove()
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'header':
+        let header = this.querySelector(':scope>[slot=header]')
+        if (newValue) {
+          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`))
+          header.querySelector('label-view')?.setAttribute('title', newValue)
+        } else header?.remove()
 
-          break
-        case 'footer':
-          let footer = this.querySelector(':scope>[slot=footer]')
-          if (newValue) {
-            footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`))
-            footer.querySelector('label-view')?.setAttribute('title', newValue)
-          } else footer?.remove()
+        break
+      case 'footer':
+        let footer = this.querySelector(':scope>[slot=footer]')
+        if (newValue) {
+          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`))
+          footer.querySelector('label-view')?.setAttribute('title', newValue)
+        } else footer?.remove()
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   // #handleIntersect = async (entries: IntersectionObserverEntry[]) => {

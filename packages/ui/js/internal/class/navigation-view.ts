@@ -16,39 +16,45 @@ export class NavigationView extends HTMLElement {
   connectedCallback() {
     // this.addEventListener('tabreveal', this.#handleTabReveal)
 
-    Snapshot.waitReady.then(async () => {
-      if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
+    // Snapshot.waitReady.then(async () => {
+    if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
-      if (this.closest('tab-view'))
-        if (await frame(this))
-          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+    if (this.closest('tab-view'))
+      frame(this).then((r) => {
+        if (!r) return
 
-      // self.requestAnimationFrame(() =>
+        this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      })
 
-      // ) // NOTE: ⚠️ repaint guard
-    })
+    // self.requestAnimationFrame(() =>
+
+    // ) // NOTE: ⚠️ repaint guard
+    // })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    Snapshot.waitReady.then(async () => {
-      if (!this.isConnected) return
+    // Snapshot.waitReady.then(async () => {
+    //   if (!this.isConnected) return
 
-      switch (name) {
-        case 'hidden':
-          if (oldValue === newValue) break
+    switch (name) {
+      case 'hidden':
+        if (oldValue === newValue) break
 
-          if (!this.closest('tab-view')) break
+        if (!this.closest('tab-view')) break
 
-          const eventType = this.hasAttribute(name) ? 'tabswap' : 'tabreveal'
+        const eventType = this.hasAttribute(name) ? 'tabswap' : 'tabreveal'
 
-          console.debug(`${NavigationView.name} 💡 ${eventType}`)
+        console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
-          if (await frame(this))
-            this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
+        frame(this).then((r) => {
+          if (!r) return
 
-          break
-      }
-    })
+          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
+        })
+
+        break
+    }
+    // })
   }
 
   // #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {

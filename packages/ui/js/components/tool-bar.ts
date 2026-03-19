@@ -48,19 +48,19 @@ export class ToolBar extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
     // NOTE: wait for config
-    Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
-    })
+    // Snapshot.waitReady.then(() => {
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
+    // })
   }
 
   connectedCallback() {
     console.debug(`${ToolBar.name} ⚡️ connect`)
 
     // NOTE: wait for config
-    Snapshot.waitReady.then(() => {
-      for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`))
-        observers.observe(el, this.#measureStacks.bind(this))
-    })
+    // Snapshot.waitReady.then(() => {
+    for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`))
+      observers.observe(el, this.#measureStacks.bind(this))
+    // })
   }
 
   disconnectedCallback() {

@@ -33,8 +33,9 @@ export class NavigationLargeTitle extends HTMLElement {
 
     if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
 
-    Snapshot.waitReady.then(async () => {
-      if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
+    // Snapshot.waitReady.then(async () => {
+    frame(this).then((r) => {
+      if (!r) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
       const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
         blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
@@ -56,6 +57,7 @@ export class NavigationLargeTitle extends HTMLElement {
       )
 
       CleanupRegistry.register(this, on())
+      // })
       // })
     })
   }

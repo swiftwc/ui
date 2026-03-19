@@ -151,17 +151,17 @@ export class PickerView extends HTMLElement {
 
     CleanupRegistry.register(this, on())
 
-    Snapshot.waitReady.then(this.#render.bind(this))
+    this.#render() // Snapshot.waitReady.then(this.#render.bind(this))
   }
 
   connectedCallback() {
     console.debug(`${PickerView.name} ⚡️ connect`)
 
-    Snapshot.waitReady.then(() => {
-      if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) return // will be picked up by attr-change!
+    // Snapshot.waitReady.then(() => {
+    if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) return // will be picked up by attr-change!
 
-      this.#render()
-    })
+    this.#render()
+    // })
   }
 
   disconnectedCallback() {
@@ -175,22 +175,22 @@ export class PickerView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
-          this.#reflectPlaceholder(newValue)
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
+        this.#reflectPlaceholder(newValue)
 
-          break
-        case (this.constructor as typeof PickerView).ATTR.LABEL:
-          this.#reflectLabel(newValue)
+        break
+      case (this.constructor as typeof PickerView).ATTR.LABEL:
+        this.#reflectLabel(newValue)
 
-          break
-        case (this.constructor as typeof PickerView).ATTR.PICKER_STYLE:
-          if (oldValue !== newValue) this.#render()
+        break
+      case (this.constructor as typeof PickerView).ATTR.PICKER_STYLE:
+        if (oldValue !== newValue) this.#render()
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   #render() {

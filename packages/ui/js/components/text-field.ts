@@ -34,25 +34,25 @@ export class TextField extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
-    Snapshot.waitReady.then(() => {
-      this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
+    // Snapshot.waitReady.then(() => {
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
 
-      this.#labelSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=label]') ?? undefined
+    this.#labelSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=label]') ?? undefined
 
-      this.#internals = this.attachInternals()
+    this.#internals = this.attachInternals()
 
-      const input = this.#shadowRoot.querySelector('input')
+    const input = this.#shadowRoot.querySelector('input')
 
-      const { on } = onoff(
-        'input',
-        () => {
-          this.#internals.setFormValue(input!.value)
-        },
-        input!
-      )
+    const { on } = onoff(
+      'input',
+      () => {
+        this.#internals.setFormValue(input!.value)
+      },
+      input!
+    )
 
-      CleanupRegistry.register(this, on())
-    })
+    CleanupRegistry.register(this, on())
+    // })
   }
 
   connectedCallback() {
@@ -68,28 +68,28 @@ export class TextField extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case 'placeholder':
-          if (newValue) this.#shadowRoot.querySelector('input')?.setAttribute(name, newValue)
-          else this.#shadowRoot.querySelector('input')?.removeAttribute(name)
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'placeholder':
+        if (newValue) this.#shadowRoot.querySelector('input')?.setAttribute(name, newValue)
+        else this.#shadowRoot.querySelector('input')?.removeAttribute(name)
 
-          break
-        case 'label':
-          const assigned2 = this.#labelSlot!.assignedElements({ flatten: true }) as HTMLElement[]
+        break
+      case 'label':
+        const assigned2 = this.#labelSlot!.assignedElements({ flatten: true }) as HTMLElement[]
 
-          let el2 = assigned2[0] as HTMLElement | undefined
-          if (!el2) {
-            el2 = document.createElement('span')
-            el2.slot = 'label'
-            this.append(el2)
-          }
+        let el2 = assigned2[0] as HTMLElement | undefined
+        if (!el2) {
+          el2 = document.createElement('span')
+          el2.slot = 'label'
+          this.append(el2)
+        }
 
-          el2.textContent = newValue //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
+        el2.textContent = newValue //el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   // Optional: form participation properties

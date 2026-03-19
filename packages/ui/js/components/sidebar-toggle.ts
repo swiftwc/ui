@@ -36,13 +36,13 @@ export class SidebarToggle extends HTMLElement {
     }
 
     // NOTE: wait for config
-    Snapshot.waitReady.then(() => {
-      observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
-      // this.#io.observe(this)
+    // Snapshot.waitReady.then(() => {
+    observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
+    // this.#io.observe(this)
 
-      // @ts-expect-error
-      SidebarToggle.#handleMeasure([entry])
-    })
+    // @ts-expect-error
+    SidebarToggle.#handleMeasure([entry])
+    // })
   }
 
   disconnectedCallback() {

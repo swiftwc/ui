@@ -32,24 +32,24 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    Snapshot.waitReady.then(() => {
-      switch (name) {
-        case 'value':
-          if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)
-          else this.#sibling?.removeAttribute('navigation-inline-title')
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'value':
+        if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)
+        else this.#sibling?.removeAttribute('navigation-inline-title')
 
-          this.#render(newValue, this.getAttribute('subtitle'))
+        this.#render(newValue, this.getAttribute('subtitle'))
 
-          break
-        case 'subtitle':
-          if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-subtitle', newValue)
-          else this.#sibling?.removeAttribute('navigation-inline-subtitle')
+        break
+      case 'subtitle':
+        if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-subtitle', newValue)
+        else this.#sibling?.removeAttribute('navigation-inline-subtitle')
 
-          this.#render(this.getAttribute('value'), newValue)
+        this.#render(this.getAttribute('value'), newValue)
 
-          break
-      }
-    })
+        break
+    }
+    // })
   }
 
   #render = (title: string | null, subtitle: string | null) => {

@@ -1,4 +1,4 @@
-import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+import { startViewTransition, NavigationPath, NavigationProvider } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -60,7 +60,7 @@ document.body.addEventListener('click', async (event) => {
 
     if (navDest && parent.body) {
       await startViewTransition(parent.body, 'forwards', async () => {
-        modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+        modifyDOMforwards(undefined, parent, queryTemplate(navDest.getAttribute('navigation-destination')))
       })
 
       addBindings()
@@ -68,10 +68,7 @@ document.body.addEventListener('click', async (event) => {
       parent.component.inert = false
     }
   } else if (navDest) {
-    const template =
-      Array.from(document.querySelectorAll('template')).find((t) =>
-        t.innerHTML.includes(`navigation-path="${navDest.getAttribute('navigation-destination')}"`)
-      ) ?? document.getElementById(navDest.getAttribute('navigation-destination'))
+    const template = queryTemplate(navDest.getAttribute('navigation-destination')) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
     const path = new NavigationPath(event.target)?.hydrate()
 
@@ -236,6 +233,54 @@ document.body.addEventListener('click', async (event) => {
                                         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                                       </v-stack>
                                     </scroll-view>
+                                    <dialog is="sheet-view">
+                                      <scroll-view>
+                                        <v-stack padding placement="leading fill">
+                                          <button type="button" class="bw">🔙</button>
+                                          <button type="button" class="bww">🔚</button>
+                                          <button type="button" class="bww2">🔚 of modal</button>
+                                          <button type="button" class="fww">deep</button>
+                                          <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+                                        </v-stack>
+                                      </scroll-view>
+                                      <dialog is="sheet-view">
+                                        <scroll-view>
+                                          <v-stack padding placement="leading fill">
+                                            <button type="button" class="bw">🔙</button>
+                                            <button type="button" class="bww">🔚</button>
+                                            <button type="button" class="bww2">🔚 of modal</button>
+                                            <button type="button" class="fww">deep</button>
+                                            <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+                                          </v-stack>
+                                        </scroll-view>
+                                        <tool-bar>
+                                          <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
+
+                                          <tool-bar-item slot="navigation-bar-leading"><picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view></tool-bar-item>
+
+                                          <tool-bar-item-group slot="navigation-bar-leading"><tool-bar-item><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item></tool-bar-item-group>
+                                          
+                                          <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                          
+                                          <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                          
+                                          <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                        </tool-bar>
+                                      </dialog>
+                                      <tool-bar>
+                                        <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
+
+                                        <tool-bar-item slot="navigation-bar-leading"><picker-view picker-style="menu"><datalist slot="list"><option value="0" label="0%"></option><option value="10" label="Minimum Tip"></option><option value="20" label="Standard"></option><option value="30" label="Generous"></option><option value="50" label="Very Generous"></option></datalist></picker-view></tool-bar-item>
+
+                                        <tool-bar-item-group slot="navigation-bar-leading"><tool-bar-item><menu-view><label-view system-image="smiley" slot="label"></label-view><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button><button tabindex="0">ddd</button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item></tool-bar-item-group>
+                                        
+                                        <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                        
+                                        <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                        
+                                        <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                      </tool-bar>
+                                    </dialog>
                                     <tool-bar>
                                       <tool-bar-item slot="navigation-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
 
@@ -400,11 +445,14 @@ document.body.addEventListener('click', async (event) => {
       // frame = scene.parentElement
       // console.log(99, lm, frame, queryFrameToolbars(sv).scene)
       await startViewTransition(event.target, 'forwards', async () => {
+        const tag =
+          6 === controller.querySelectorAll('scroll-view').length ? 'dialog' : 10 <= controller.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'
+
         modifyDOMforwards(
           fwBtn,
           path,
           `
-                  <${6 === controller.querySelectorAll('scroll-view').length ? 'dialog is="sheet-view"' : 'body-view'}>
+                  <${'dialog' === tag ? `${tag} is="sheet-view"` : tag}>
                     <scroll-view>
                       <v-stack padding placement="leading fill">
                         <navigation-title value="dds"></navigation-title>
@@ -467,7 +515,7 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                       <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </tool-bar>
-                  </${6 === controller.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'}>
+                  </${tag}>
                   `
         )
       })
@@ -534,6 +582,13 @@ window.addEventListener('appinstalled', () => {
   console.debug('⚡️ installed')
 })
 
+export function queryTemplate(navPath) {
+  return (
+    Array.from(document.querySelectorAll('template')).find((t) => t.innerHTML.includes(`navigation-path="${CSS.escape(navPath)}"`)) ??
+    document.getElementById(navPath)
+  )
+}
+
 export function modifyDOMbackwards(host) {
   const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
 
@@ -546,10 +601,11 @@ export function modifyDOMbackwards(host) {
   }
 }
 
-export function modifyDOMforwards(trigger, view, htmlorTpl, overwrite = true) {
+export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
+  if (!(path instanceof NavigationPath)) throw new Error('invalid view')
   // const root = getRootViewController(body), //sv.closest('navigation-stack,navigation-split-view'),
   // const view = getComputedView(body) //{ scene, frame } = queryFrameToolbars(sv),
-  const { page, component: host } = view
+  // const { page, component } = path
   // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
   //   createHTML: (string) => string.replace(/</g, '&lt;'),
   // })
@@ -567,28 +623,28 @@ export function modifyDOMforwards(trigger, view, htmlorTpl, overwrite = true) {
     //   position = 'beforebegin'
     //   lookFor = 'previousElementSibling'
     // }
-    const position = queryInsertPosition(host) //'afterend'
+    const position = queryInsertPosition(path.component) //'afterend'
     const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
-    if (overwrite) if (['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) page[lookFor].remove()
+    if (overwrite) if (['BODY-VIEW', 'DIALOG'].includes(path.page[lookFor]?.tagName)) path.page[lookFor].remove()
 
-    if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
-      let node
+    // if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
+    let node
 
-      if (htmlorTpl instanceof HTMLTemplateElement) {
-        node = htmlorTpl.content.cloneNode(true).firstElementChild
-      } else {
-        const tpl = document.createElement('template')
-        tpl.innerHTML = htmlorTpl
-        node = tpl.content.firstElementChild
-      }
-
-      page.insertAdjacentElement(position, node)
-      // if ('DIALOG' === scene[lookFor]?.tagName) scene[lookFor].showModal()
-      // console.log(99, node.tagName, scene[lookFor]?.tagName)
-      // lm.insertAdjacentHTML(position, ``)
-      // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
+    if (htmlorTpl instanceof HTMLTemplateElement) {
+      node = htmlorTpl.content.cloneNode(true).firstElementChild
+    } else {
+      const tpl = document.createElement('template')
+      tpl.innerHTML = htmlorTpl
+      node = tpl.content.firstElementChild
     }
+
+    path.page.insertAdjacentElement(position, node)
+    // if ('DIALOG' === scene[lookFor]?.tagName) scene[lookFor].showModal()
+    // console.log(99, node.tagName, scene[lookFor]?.tagName)
+    // lm.insertAdjacentHTML(position, ``)
+    // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
+    // }
   }
 }
 
@@ -605,3 +661,6 @@ export const navHandler = async (event) => {
     else el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
   }
 }
+
+NavigationProvider.addEventListener('pagereveal', navHandler)
+NavigationProvider.addEventListener('pageswap', navHandler)

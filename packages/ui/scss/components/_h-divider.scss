@@ -1,0 +1,13 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  h-divider {
+    :where(&) {
+      inline-size: 100%;
+
+      block-size: 1px;
+
+      background-color: var(--separator);
+    }
+  }
+}

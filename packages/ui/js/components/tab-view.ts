@@ -13,6 +13,14 @@ export class TabView extends HTMLElement {
 
   #afterTabRevealDelay = timeout()
 
+  #moreStackAllowed = false
+
+  static gatherTab(newTab: NavigationStack | NavigationSplitView) {
+    const possibleParentNs = newTab?.parentElement?.closest<NavigationStack | NavigationSplitView>('navigation-stack,navigation-split-view')
+
+    return [possibleParentNs, newTab].filter(Boolean) as (NavigationStack | NavigationSplitView)[]
+  }
+
   constructor() {
     super()
 
@@ -26,8 +34,6 @@ export class TabView extends HTMLElement {
 
     CleanupRegistry.unregister(this)
   }
-
-  #moreStackAllowed = false
 
   get moreTabAllowed() {
     return this.#moreStackAllowed
@@ -65,6 +71,7 @@ export class TabView extends HTMLElement {
   }
 
   #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
+    // trigger more-stack (dis)allowed event
     if (evt.matches !== this.#moreStackAllowed) {
       this.#moreStackAllowed = evt.matches
 
@@ -73,13 +80,21 @@ export class TabView extends HTMLElement {
       this.dispatchEvent(new CustomEvent<TabMoreStackAllowanceDetail>(eventType, { detail: { moreTab: this.moreTab }, bubbles: true, composed: true }))
     }
 
-    if (evt.matches) return // no button triggers already on iphone portrait
+    if (evt.matches) return // no button triggers should happen, already on iphone portrait
 
     const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
     if (innerSelection) {
       const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"][value="${CSS.escape(innerSelection)}"]`)
 
-      if (btn) return btn.click()
+      // NOTE: simulate btn click BU WITHOUT tabroot functionality!
+      if (btn) {
+        const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
+        if (newTab) {
+          this.selectedTab = TabView.gatherTab(newTab)
+
+          return
+        }
+      }
     }
 
     const outerSelection = this?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
@@ -87,7 +102,15 @@ export class TabView extends HTMLElement {
     if (outerSelection && outerSelection === this.moreTab?.id) {
       const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"]:not([value="${CSS.escape(outerSelection)}"])`)
 
-      if (btn) return btn.click()
+      // NOTE: simulate btn click BU WITHOUT tabroot functionality!
+      if (btn) {
+        const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
+        if (newTab) {
+          this.selectedTab = TabView.gatherTab(newTab)
+
+          return
+        }
+      }
     }
   }
 
@@ -102,57 +125,6 @@ export class TabView extends HTMLElement {
     if (0 === tabs.length) throw new Error('Element not found')
 
     if (!valid) throw new Error('selectedTab[] must be in order of parent>child. You provided an element that contains the previous sibling.')
-
-    // iphone cases:
-    // current -> new
-    // ns1 -> ns1 tabroot💡ns1       1 1 ===                            ===
-    // more -> more tabroot💡more    1 1 ===                            ===
-    // ns1 -> more tabroot💡more     1 1 !==                            ->
-    // more,settings -> more tabroot💡more  2 1 !==                     ↖
-
-    // more,settings -> ns1          2 1 !==                            <-
-    // ns1 -> more tabroot💡more     1 1 !==                            ->
-
-    // ipad cases:
-    // ns1 -> ns1 tabroot💡ns1                            1 1 ===       ===
-    // more,settings -> more,settings tabroot💡settings   2 2 ===       ===
-
-    // more,settings -> more,ns3  2 2 !==                               <->
-    // more,ns3 -> more,settings  2 2 !==                               <->
-    // ns1 -> more,settings       1 2 !==                               ↘
-
-    const seed1 = this.selectedTab.map((item) => item.id).join(','),
-      seed2 = tabs.map((item) => item.id).join(',')
-
-    const dir =
-      this.selectedTab.length < tabs.length
-        ? '↘'
-        : this.selectedTab.length > tabs.length
-          ? this.selectedTab.at(0) === tabs.at(0)
-            ? '↖'
-            : '<-'
-          : seed1 === seed2
-            ? '==='
-            : this.moreTab === tabs.at(-1)
-              ? '->'
-              : '<->'
-
-    if (['===', '↖'].includes(dir)) {
-      for (const tab of tabs.reverse())
-        if (this.selectedTab.includes(tab)) {
-          const eventType = 'tabroot'
-          console.debug(`${TabView.name} 💡 ${eventType}`)
-
-          tab?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
-
-          return
-        }
-    } else if ('->' === dir) {
-      const eventType = 'tabroot'
-      console.debug(`${TabView.name} 💡 ${eventType}`)
-
-      tabs.at(0)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
-    }
 
     //
 

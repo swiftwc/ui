@@ -2,8 +2,8 @@
 
 export const NavigationProvider = new EventTarget()
 
-export { default as closestHost } from './closest-host'
-export { default as closestBody } from './closest-body'
+// export { default as closestHost } from './closest-host'
+// export { default as closestBody } from './closest-body'
 
 // export class NavigationProvider {
 // export const NavigationProvider = new EventTarget()

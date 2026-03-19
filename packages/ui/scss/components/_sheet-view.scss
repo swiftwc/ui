@@ -17,24 +17,50 @@
     }
 
     @include mixins.if-ipad-sheet-fits {
-      max-width: #{vars.$ipad-sheet-view-inline-size};
+      :where(&) {
+        max-width: #{vars.$ipad-sheet-view-inline-size};
 
-      aspect-ratio: #{vars.$ipad-sheet-view-aspect-ratio};
+        aspect-ratio: #{vars.$ipad-sheet-view-aspect-ratio};
 
-      border-radius: 26px;
+        border-radius: 26px;
 
-      margin: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
+        margin: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
 
-      height: auto;
+        height: auto;
 
-      inset-inline-start: calc(
-        50lvw - calc(#{vars.$ipad-sheet-view-inline-size} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2)
-      );
+        inset-inline-start: calc(
+          var(--inset-inline-start-resettor, 1) *
+            calc(50lvw - calc(#{vars.$ipad-sheet-view-inline-size} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2))
+        );
 
-      inset-block-start: calc(50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2));
+        inset-block-start: calc(50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2));
+      }
 
       :where(& scroll-view) {
         border-radius: 26px;
+      }
+
+      // NOTE: Safari-only mod for closing
+      @supports not selector(:open) {
+        &:has(&:not([open])) {
+          :where(&) {
+            overflow: visible;
+          }
+          scroll-view:has(~ body-view) {
+            &,
+            & ~ tool-bar {
+              :where(&) {
+                opacity: 0;
+              }
+            }
+          }
+        }
+
+        :where(& &:not([open])) {
+          inset-inline-start: 0;
+
+          inset-block-start: 0;
+        }
       }
 
       @include mixins.if-2col-split-view-fits {

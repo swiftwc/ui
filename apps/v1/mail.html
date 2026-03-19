@@ -84,7 +84,7 @@
       </sidebar-toggle>
     </navigation-split-view>
 
-    <template id="inbox">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: white">
           <v-stack placement="leading fill">
@@ -166,7 +166,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="sent">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: white">
           <v-stack placement="leading fill">
@@ -195,7 +195,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="item1">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Item 1" navigation-path="item1">
           <v-stack placement="leading fill" padding> Item 1 </v-stack>
@@ -209,7 +209,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="item2">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Item 2" navigation-path="item2">
           <v-stack placement="leading fill" padding> Item 2 </v-stack>
@@ -223,7 +223,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="item3">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Trip Idea - AutoCamp Sequoia" navigation-path="item3">
           <v-stack placement="leading fill" padding> Trip Idea - AutoCamp Sequoia </v-stack>
@@ -237,7 +237,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="item3a">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Item 3a" navigation-path="item3a">
           <v-stack placement="leading fill" padding> Item 3a </v-stack>
@@ -251,7 +251,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="item3b">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Item b" navigation-path="item3b">
           <v-stack placement="leading fill" padding> Item 3b </v-stack>
@@ -267,11 +267,11 @@
     </template>
 
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, NavigationProvider, NavigationPath } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      NavigationProvider.addEventListener('pagereveal', navHandler)
-      NavigationProvider.addEventListener('pageswap', navHandler)
+      // NavigationProvider.addEventListener('pagereveal', navHandler)
+      // NavigationProvider.addEventListener('pageswap', navHandler)
 
       // const toggleHandler = async (event) => {
       //   console.debug(`⚡️ ${event?.type}`)

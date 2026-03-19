@@ -81,7 +81,7 @@
       </sidebar-toggle>
     </navigation-split-view>
 
-    <template id="General">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="General" navigation-path="General" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
@@ -158,7 +158,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="About">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="About" navigation-path="About" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
@@ -187,7 +187,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="Accessibility">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
@@ -216,7 +216,7 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="Appearance">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
@@ -246,11 +246,11 @@
     </template>
 
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, NavigationProvider, NavigationPath } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      NavigationProvider.addEventListener('pagereveal', navHandler)
-      NavigationProvider.addEventListener('pageswap', navHandler)
+      // NavigationProvider.addEventListener('pagereveal', navHandler)
+      // NavigationProvider.addEventListener('pageswap', navHandler)
 
       // setTimeout(() => {
       //   const el = document.querySelector('[is=sidebar-view] scroll-view')

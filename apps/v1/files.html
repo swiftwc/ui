@@ -43,8 +43,8 @@
             <p>...</p>
             <p>...</p>
             <p>...</p>
-            <hr style="width: 100%" />
-            <hr style="width: 100cqi" />
+            <h-divider></h-divider>
+            <h-divider frame:max-width="100cqi"></h-divider>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -152,7 +152,7 @@
       </dialog>
     </tab-view>
 
-    <template id="cloud_drive">
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Cloud Drive" navigation-path="cloud_drive">
           <v-stack placement="leading fill">
@@ -205,11 +205,11 @@
     </template>
 
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, navHandler } from '/main.js'
-      import { startViewTransition, NavigationProvider, NavigationPath } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      NavigationProvider.addEventListener('pagereveal', navHandler)
-      NavigationProvider.addEventListener('pageswap', navHandler)
+      // NavigationProvider.addEventListener('pagereveal', navHandler)
+      // NavigationProvider.addEventListener('pageswap', navHandler)
 
       // document.addEventListener('pageswap', async (event) => {
       //   console.debug(`⚡️ pageswap`)
@@ -219,31 +219,31 @@
       //   document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = 'false'
       // })
 
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
 
-        const navDest = event.target.closest('[navigation-destination]')
+      // const navDest = event.target.closest('[navigation-destination]')
 
-        if (navDest) {
-          // const sv = closestBody(event.target),
-          // root = getRootViewController(sv),
-          const path = new NavigationPath(event.target)?.hydrate()
+      // if (navDest) {
+      //   // const sv = closestBody(event.target),
+      //   // root = getRootViewController(sv),
+      //   const path = new NavigationPath(event.target)?.hydrate()
 
-          // position = queryInsertPosition(host),
-          // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+      //   // position = queryInsertPosition(host),
+      //   // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
-          await startViewTransition(event.target, 'forwards', async () => {
-            modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-          })
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
 
-          // document.startViewTransition({
-          //   async update() {
-          //     startViewTransition(event, false)
-          //   },
-          //   types: ['forwards'],
-          // })
-        }
-      })
+      //   // document.startViewTransition({
+      //   //   async update() {
+      //   //     startViewTransition(event, false)
+      //   //   },
+      //   //   types: ['forwards'],
+      //   // })
+      // }
+      // })
     </script>
   </body>
 </html>

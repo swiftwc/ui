@@ -14,6 +14,8 @@ for (const [k, v] of Object.entries(Components)) {
   const is = kebabCase(k)
 
   if ('polyfillExtends' in v && 'string' === typeof (v as any).polyfillExtends) {
+    if (customElements.get(is)) continue
+
     customElements.define(is, v, { extends: v.polyfillExtends })
 
     if (!(document.createElement(v.polyfillExtends, { is }) instanceof v)) polyfills.set(is, v)
@@ -21,7 +23,7 @@ for (const [k, v] of Object.entries(Components)) {
     continue
   }
 
-  customElements.define(is, v)
+  if (!customElements.get(is)) customElements.define(is, v)
 }
 
 console.debug(polyfills)
@@ -111,17 +113,40 @@ if (0 < polyfills.size) {
 document.addEventListener('touchstart', () => {}, { passive: true })
 
 // SECTION: Transitions
-const cleanup = (lm?: Element, dir?: TransitionType) => {
+const cleanup = (lm?: Element, type?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 
-  if (['backwards', 'forwards'].includes(dir ?? ''))
-    for (let i = arr.length - 1; i >= 0; i--) if (arr[i].startsWith('backwards' === dir ? 'fw' : 'bw')) arr.splice(i, 1)
+  if (['backwards', 'forwards'].includes(type ?? ''))
+    for (let i = arr.length - 1; i >= 0; i--) if (arr[i].startsWith('backwards' === type ? 'fw' : 'bw')) arr.splice(i, 1)
 
   for (const el of [...(lm?.querySelectorAll(arr.map((v) => `.${v}`).join(',')) ?? [])]) el.classList.remove(...arr)
 }
 
-export const startViewTransition = async (target: HTMLElement, type: TransitionType = 'forwards', updateCallback = async () => {}) => {
+type UpdateCallback = () => void | Promise<void>
+
+type NavigateOptions = {
+  updateCallback?: UpdateCallback
+  tos?: () => NavigationPath[]
+}
+
+export const startViewTransition = async (
+  target: HTMLElement,
+  type: TransitionType = 'forwards',
+  updateCallbackOrOptions: UpdateCallback | NavigateOptions = async () => {}
+) => {
   console.debug(`startViewTransition (${type})`, target)
+
+  if (!(target instanceof HTMLElement)) throw new TypeError("Argument 1 ('target') to client.startViewTransition must be an instance of HTMLElement")
+
+  if (!['forwards', 'backwards', 'reload'].includes(type)) throw new TypeError("Argument 2 ('type') to client.startViewTransition must be of TransitionType")
+
+  const options: NavigateOptions =
+      typeof updateCallbackOrOptions === 'function'
+        ? {
+            updateCallback: updateCallbackOrOptions,
+          }
+        : (updateCallbackOrOptions ?? {}),
+    updateCallback: UpdateCallback = options.updateCallback ?? (async () => {})
 
   await Snapshot.waitReady
 
@@ -146,7 +171,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     // const oldToolbars = Snapshot.toolbarItems
     // const { toolBarConfig: oldToolbars, host: oldHost } = getComputedView(from)
 
-    const tos = [...from.children()].map((item) => item?.hydrate()), //queryBodyAll(oldSLot), //[...oldPath.children()].map((item) => item.body).filter(Boolean),//
+    const tos = options.tos?.() ?? [...from.children()].map((item) => item?.hydrate()), //queryBodyAll(oldSLot), //[...oldPath.children()].map((item) => item.body).filter(Boolean),//
       to = tos.at(-1),
       // to = newPath?.body, //tos.slice(-1)?.pop?.(), //Snapshot.leaf, //
       // newHost = newPath?.component, //{ host: newHost } = getComputedView(to),

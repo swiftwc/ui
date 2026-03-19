@@ -367,7 +367,7 @@
           content: '';
           position: absolute;
           inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
-          width: 1px;
+          inline-size: 1px;
           background: var(--list--separator-background-color, var(--separator));
           pointer-events: none;
         }

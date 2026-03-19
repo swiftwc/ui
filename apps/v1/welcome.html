@@ -43,9 +43,9 @@
       </scroll-view>
     </navigation-stack>
 
-    <template id="region">
+    <template>
       <body-view>
-        <scroll-view id="gg">
+        <scroll-view navigation-path="region" id="gg">
           <v-stack placement="leading fill">
             <navigation-title value="Select Your Country or Region" padding></navigation-title>
             <list-view list-style="inset-grouped">
@@ -64,9 +64,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="appearance">
+    <template>
       <body-view>
-        <scroll-view>
+        <scroll-view navigation-path="appearance">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
@@ -93,9 +93,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="data-privacy">
+    <template>
       <body-view>
-        <scroll-view>
+        <scroll-view navigation-path="data-privacy">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
@@ -118,9 +118,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="age-range">
+    <template>
       <body-view>
-        <scroll-view navigation-inline-title="Age Range">
+        <scroll-view navigation-path="age-range" navigation-inline-title="Age Range">
           <v-stack placement="leading fill">
             <v-stack padding>
               <navigation-title value="Data & Privacy"></navigation-title>
@@ -149,9 +149,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="terms">
+    <template>
       <dialog is="sheet-view">
-        <scroll-view>
+        <scroll-view navigation-path="terms">
           <v-stack placement="leading fill" padding>
             <navigation-title value="Terms and Conditions"></navigation-title>
             <text-view> lorem ipsum </text-view>
@@ -171,9 +171,9 @@
         </tool-bar>
       </dialog>
     </template>
-    <template id="location">
+    <template>
       <body-view>
-        <scroll-view>
+        <scroll-view navigation-path="location">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
@@ -196,9 +196,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="analytics">
+    <template>
       <body-view>
-        <scroll-view>
+        <scroll-view navigation-path="analytics">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
@@ -221,9 +221,9 @@
         </tool-bar>
       </body-view>
     </template>
-    <template id="welcome">
+    <template>
       <body-view>
-        <scroll-view>
+        <scroll-view navigation-path="welcome">
           <v-flex-stack alignment="fill" padding>
             <v-stack frame-height="infinity">
               <text-view> Welcome to Swift WC </text-view>

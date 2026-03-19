@@ -1,6 +1,19 @@
 import { type NavigationHost, type NavigationPage, type NavigationToolbarConfiguration } from '../privateNamespace'
-import { closestHost, closestBody } from '../../navigation-provider'
 import type * as Components from '../../components'
+
+/**
+ * Gets current host (closest)
+ */
+function closestHost(any?: HTMLElement) {
+  return any?.closest<NavigationHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view') ?? undefined
+}
+
+/**
+ * Gets current body (closest)
+ */
+function closestBody(any?: HTMLElement) {
+  return closestHost(any)?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined
+}
 
 export class NavigationPath {
   #component?: NavigationHost

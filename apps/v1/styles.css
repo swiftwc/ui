@@ -2815,6 +2815,9 @@
   :where(section-view:not(:has(> [slot=footer])))::part(section-footer-stack) {
     display: none;
   }
+  :where(section-view)::part(section-header-stack), :where(section-view)::part(section-footer-stack) {
+    pointer-events: none;
+  }
   :where(section-view)::part(section-header-stack) {
     grid-area: header;
   }

@@ -156,6 +156,8 @@ export class ScrollView extends HTMLElement {
 
     if (!(event.target as HTMLElement)?.contains(this)) return
 
+    if (this.closest('[hidden]')) return
+
     if (undefined === this.#beforeTabSwapLastScrolltop) return
     if (this.#beforeTabSwapLastScrolltop === this.scrollTop) return
 
@@ -168,6 +170,8 @@ export class ScrollView extends HTMLElement {
     console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
 
     if (!(event.target as HTMLElement)?.contains(this)) return
+
+    if (this.closest('[hidden]')) return
 
     this.#beforeTabSwapLastScrolltop = this.scrollTop
   }

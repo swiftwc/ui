@@ -128,24 +128,35 @@ export class TabView extends HTMLElement {
     if (!valid) throw new Error('selectedTab[] must be in order of parent>child. You provided an element that contains the previous sibling.')
 
     //
+    const selectors = [':not(:is(:scope>{{tag}}))', ':is(:scope>{{tag}})'] // first nested ones, then root ones
 
-    for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')) {
-      for (const tab of tabs)
-        if (!ns.contains(tab)) {
-          ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+    for (const selector of selectors)
+      for (const ns of this.querySelectorAll<HTMLElement>(
+        `navigation-stack:not([hidden])${selector.replace('{{tag}}', 'navigation-stack')},navigation-split-view:not([hidden])${selector.replace('{{tag}}', 'navigation-split-view')}`
+      )) {
+        if (!tabs.some((tab) => !ns.contains(tab))) continue // shouldRun
+        // for (const tab of tabs)
+        //   if (!ns.contains(tab)) {
 
-          ns.hidden = true // triggers
-        }
-    }
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
-    for (const ns of this.querySelectorAll<HTMLElement>('navigation-stack[hidden],navigation-split-view[hidden]')) {
-      for (const tab of tabs)
-        if (ns.contains(tab)) {
-          ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+        ns.hidden = true // triggers
+        // }
+      }
 
-          ns.hidden = false // triggers
-        }
-    }
+    for (const selector of selectors.reverse())
+      for (const ns of this.querySelectorAll<HTMLElement>(
+        `navigation-stack[hidden]${selector.replace('{{tag}}', 'navigation-stack')},navigation-split-view[hidden]${selector.replace('{{tag}}', 'navigation-split-view')}`
+      )) {
+        if (!tabs.some((tab) => ns.contains(tab))) continue // shouldRun
+        // for (const tab of tabs)
+        //   if (ns.contains(tab)) {
+
+        ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+
+        ns.hidden = false // triggers
+        // }
+      }
   }
 
   #addAnimations = (event: Event) => {

@@ -42,11 +42,12 @@
       display: none;
     }
 
-    // :where(&)::part(section-header-stack),
-    // :where(&)::part(section-footer-stack) {
-    //   outline: solid magenta 4px;
-    //   padding-block: 10px;
-    // }
+    :where(&)::part(section-header-stack),
+    :where(&)::part(section-footer-stack) {
+      pointer-events: none;
+      //   outline: solid magenta 4px;
+      //   padding-block: 10px;
+    }
 
     :where(&)::part(section-header-stack) {
       grid-area: header;

@@ -9,8 +9,6 @@ export class NavigationTitle extends HTMLElement {
 
   constructor() {
     super()
-
-    this.#sibling = this.closest<ScrollView>('scroll-view') ?? undefined
   }
 
   disconnectedCallback() {
@@ -20,6 +18,7 @@ export class NavigationTitle extends HTMLElement {
   connectedCallback() {
     console.debug(`${NavigationTitle.name} ⚡️ connect`)
 
+    this.#sibling = this.closest<ScrollView>('scroll-view') ?? undefined
     // if (!this.#sibling) return
 
     // if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')

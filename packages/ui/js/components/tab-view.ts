@@ -46,6 +46,7 @@ export class TabView extends HTMLElement {
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
+    // NOTE: wait for config
     Snapshot.waitReady.then(() => {
       const query = `(orientation:portrait) and (max-width: ${Snapshot.config!['ipad-portrait-bp-max']})`, // iphone portrait only
         mediaQueryList = self.matchMedia(query)

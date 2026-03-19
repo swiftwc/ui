@@ -11,19 +11,17 @@
 @mixin create-sidebar-measure($floating: false) {
   @if $floating {
     :where(&) {
-      --navbar-safe-area-inset-left: calc(
-        var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing))
-      );
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
     }
 
     :where(& ~ tool-bar) {
       &::part(navigation-bar) {
-        --safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
+        --safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
       }
     }
   } @else {
     :where(&) {
-      --navbar-safe-area-inset-left: calc(var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px) - env(safe-area-inset-left));
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - env(safe-area-inset-left));
     }
 
     :where(& ~ tool-bar) {
@@ -32,7 +30,7 @@
       }
 
       &::part(navigation-bar) {
-        --safe-area-inset-left: var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px);
+        --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px);
       }
     }
   }

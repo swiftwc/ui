@@ -319,7 +319,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "ipad-portrait-bp-max=42.9999rem&toolbar-trailing-stack-part-name=toolbar-trailing-stack&toolbar-principal-stack-part-name=toolbar-principal-stack&toolbar-leading-stack-part-name=toolbar-leading-stack&sidebar-toggle-padding-inline-start-css-prop=--sidebar-toggle-padding-inline-start&vt-fwd-class-name=fwd";
+    content: "ipad-portrait-bp-max=42.9999rem&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -2931,6 +2931,18 @@
     block-size: var(--100lvh, 100lvh);
     --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
   }
+  :where(navigation-split-view > [slot=detail_placeholder]) {
+    position: absolute;
+    block-size: 100px;
+    inline-size: 100px;
+    order: -1;
+    background-color: red;
+  }
+  @media (max-width: 42.9999rem) {
+    :where(navigation-split-view > [slot=detail_placeholder]) {
+      display: none;
+    }
+  }
   @media (min-width: 43rem) {
     :where(scroll-view:has(~ navigation-split-view:not([hidden])), scroll-view:has(~ navigation-split-view:not([hidden])) ~ tool-bar) {
       opacity: 0;
@@ -3212,9 +3224,7 @@
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) and (min-width: 43rem) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view]:not([open]) > scroll-view) {
-      --navbar-safe-area-inset-left: calc(
-        var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing))
-      );
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > [is=sidebar-view]:not([open]) > scroll-view ~ tool-bar)::part(navigation-bar) {
       --safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));

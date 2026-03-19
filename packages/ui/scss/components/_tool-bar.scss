@@ -79,9 +79,9 @@
       padding-block-end: var(--safe-area-inset-bottom);
     }
 
-    :where(&)::part(#{vars.$toolbar-leading-stack-part-name}),
-    :where(&)::part(#{vars.$toolbar-principal-stack-part-name}),
-    :where(&)::part(#{vars.$toolbar-trailing-stack-part-name}) {
+    :where(&)::part(toolbar-leading-stack),
+    :where(&)::part(toolbar-principal-stack),
+    :where(&)::part(toolbar-trailing-stack) {
       display: grid;
 
       grid-auto-flow: column;

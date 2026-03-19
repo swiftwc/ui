@@ -22,6 +22,27 @@
       --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
     }
 
+    // ANCHOR placeholder styles
+
+    > [slot='detail_placeholder'] {
+      :where(&) {
+        position: absolute;
+        block-size: 100px;
+        inline-size: 100px;
+        order: -1;
+
+        background-color: red;
+      }
+    }
+
+    @include mixins.ifnot-2col-split-view-fits {
+      > [slot='detail_placeholder'] {
+        :where(&) {
+          display: none;
+        }
+      }
+    }
+
     // ANCHOR Z_INDEX STYLES
     // Use ifnot to apply negative z-indexes to old views
     // z-index rules get discarded in larger viewports

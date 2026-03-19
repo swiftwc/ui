@@ -12,24 +12,24 @@ export class ToolBar extends HTMLElement {
       // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
       innerHTML: `
     <div part="root navigation-bar">
-    <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
+    <div part="root toolbar-leading-stack">
       <slot name="navigation-bar-leading"></slot>
     </div>
-    <div part="root ${Snapshot.config!['toolbar-principal-stack-part-name']}">
+    <div part="root toolbar-principal-stack">
       <slot name="navigation-bar-principal"></slot>
     </div>
-    <div part="root ${Snapshot.config!['toolbar-trailing-stack-part-name']}">
+    <div part="root toolbar-trailing-stack">
       <slot name="navigation-bar-trailing"></slot>
     </div>
   </div>
   <div part="root bottom-bar">
-    <div part="root ${Snapshot.config!['toolbar-leading-stack-part-name']}">
+    <div part="root toolbar-leading-stack">
       <slot name="bottom-bar-leading"></slot>
     </div>
-    <div part="root ${Snapshot.config!['toolbar-principal-stack-part-name']}">
+    <div part="root toolbar-principal-stack">
       <slot name="bottom-bar-principal"></slot>
     </div>
-    <div part="root ${Snapshot.config!['toolbar-trailing-stack-part-name']}">
+    <div part="root toolbar-trailing-stack">
       <slot name="bottom-bar-trailing"></slot>
     </div>
   </div>`,
@@ -47,6 +47,7 @@ export class ToolBar extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'open' })
 
+    // NOTE: wait for config
     Snapshot.waitReady.then(() => {
       this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
     })
@@ -55,10 +56,9 @@ export class ToolBar extends HTMLElement {
   connectedCallback() {
     console.debug(`${ToolBar.name} ⚡️ connect`)
 
+    // NOTE: wait for config
     Snapshot.waitReady.then(() => {
-      for (const el of this.#shadowRoot.querySelectorAll(
-        `[part*="${Snapshot.config!['toolbar-leading-stack-part-name']}"],[part*="${Snapshot.config!['toolbar-trailing-stack-part-name']}"]`
-      ))
+      for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`))
         observers.observe(el, this.#measureStacks.bind(this))
     })
   }
@@ -74,8 +74,8 @@ export class ToolBar extends HTMLElement {
 
     if (this.closest('[hidden]')) return
 
-    const leading = Snapshot.config!['toolbar-leading-stack-part-name'],
-      trailing = Snapshot.config!['toolbar-trailing-stack-part-name']
+    const leading = 'toolbar-leading-stack', //Snapshot.config!['toolbar-leading-stack-part-name'],
+      trailing = 'toolbar-trailing-stack' //Snapshot.config!['toolbar-trailing-stack-part-name']
 
     const parentMap = {
       'navigation-bar': 'navbar',

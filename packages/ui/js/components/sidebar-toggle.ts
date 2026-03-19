@@ -35,6 +35,7 @@ export class SidebarToggle extends HTMLElement {
       target: this,
     }
 
+    // NOTE: wait for config
     Snapshot.waitReady.then(() => {
       observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
       // this.#io.observe(this)
@@ -76,8 +77,8 @@ export class SidebarToggle extends HTMLElement {
     //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
     //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
     if (0 < width)
-      $.prop(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`, tv) //tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
-    else $.prop(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], null, tv) //tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
+      $.prop('--sidebar-toggle-padding-inline-start', `${width}px`, tv) //tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
+    else $.prop('--sidebar-toggle-padding-inline-start', null, tv) //tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
     // }
 
     // auto close IF open

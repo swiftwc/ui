@@ -20,27 +20,10 @@
       block-size: var(--100lvh, 100lvh);
 
       --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
-    }
 
-    // ANCHOR placeholder styles
-
-    > [slot='detail_placeholder'] {
-      :where(&) {
-        position: absolute;
-        block-size: 100px;
-        inline-size: 100px;
-        order: -1;
-
-        background-color: red;
-      }
-    }
-
-    @include mixins.ifnot-2col-split-view-fits {
-      > [slot='detail_placeholder'] {
-        :where(&) {
-          display: none;
-        }
-      }
+      --nav-split-view--detail-placeholder-inset: 0 0 0 var(--nav-split-view--content-inline-size);
+      --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view--content-inline-size));
+      --nav-split-view--detail-placeholder-visibility: visible;
     }
 
     // ANCHOR Z_INDEX STYLES

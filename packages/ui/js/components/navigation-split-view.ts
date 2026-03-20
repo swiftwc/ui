@@ -1,12 +1,6 @@
 import { NavigationView } from '../internal/class/navigation-view'
 
 export class NavigationSplitView extends NavigationView {
-  // #path = new NavigationPath()
-
-  // get path() {
-  //   return this.#path
-  // }
-
   constructor() {
     super()
   }

@@ -191,7 +191,13 @@
         </scroll-view>
 
         <navigation-split-view id="customers" hidden>
-          <div slot="detail_placeholder" style="inset: 0 0 0 400px"><button type="button" onclick="alert(1)">dd</button></div>
+          <detail-placeholder>
+            <scroll-view>
+              <v-stack>
+                <label-view title="Nothing Selected"></label-view>
+              </v-stack>
+            </scroll-view>
+          </detail-placeholder>
           <scroll-view navigation-path="customers" style="--face: white">
             <v-stack placement="leading fill">
               <navigation-title value="Customers" padding style="order: -2"></navigation-title>

@@ -18,7 +18,12 @@
         'bottom-bar';
     }
 
-    :where(& > *:not(sidebar-toggle), & > sidebar-toggle > tool-bar-item, tab-view > sidebar-toggle > tool-bar-item) {
+    :where(
+      & > *:not(sidebar-toggle),
+      & > sidebar-toggle > tool-bar-item,
+      tab-view > sidebar-toggle > tool-bar-item,
+      navigation-split-view > sidebar-toggle > tool-bar-item
+    ) {
       backdrop-filter: var(--liquid-glass-backdrop-filter);
       box-shadow: var(--toolbar-cell-box-shadow);
 

@@ -2,12 +2,6 @@ import { Snapshot } from '../snapshot'
 import { NavigationView } from '../internal/class/navigation-view'
 
 export class NavigationStack extends NavigationView {
-  // #path = new NavigationPath()
-
-  // get path() {
-  //   return this.#path
-  // }
-
   constructor() {
     super()
   }

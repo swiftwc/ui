@@ -108,10 +108,11 @@
 }
 
 @mixin make-scrollable($pseudo: false) {
+  scrollbar-width: thin;
+
   @if $pseudo {
     block-size: calc(100% + 1px);
   } @else {
-    scrollbar-width: thin;
     // & > *:not([slot]) {
     //   @include span-all;
     //   // grid-column: 1 / -1; // span all columns

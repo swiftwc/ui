@@ -960,6 +960,7 @@
   menu-view:not([hidden]),
   section-view:not([hidden]),
   text-field:not([hidden]),
+  detail-placeholder:not([hidden]),
   picker-view:not([hidden])) {
     display: grid;
   }
@@ -1146,6 +1147,98 @@
     overflow: clip;
     inline-size: 100lvw;
     block-size: var(--100lvh, 100lvh);
+  }
+}
+@layer sw-components {
+  :where(detail-placeholder) {
+    pointer-events: none;
+    touch-action: none;
+    position: absolute;
+    block-size: 100%;
+    inline-size: var(--nav-split-view--detail-placeholder-inline-size, );
+    inset: var(--nav-split-view--detail-placeholder-inset, );
+    visibility: var(--nav-split-view--detail-placeholder-visibility, );
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  :where(detail-placeholder > scroll-view) {
+    overflow: clip auto;
+    pointer-events: all;
+    overscroll-behavior: contain;
+    -webkit-overflow-scrolling: touch;
+    container: scroll-view/size;
+    padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
+    padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+    scrollbar-width: thin;
+  }
+  :where(detail-placeholder > scroll-view)::before {
+    grid-column: 1/-1;
+    grid-row: 1/-1;
+    content: "";
+    display: block;
+    block-size: calc(100% + 1px);
+    z-index: -1;
+    pointer-events: none;
+  }
+  :where(detail-placeholder > scroll-view) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: 0 minmax(max-content, 1fr);
+    grid-template-areas: "toolbar" "main";
+  }
+  :where(detail-placeholder > scroll-view) > *:not([slot]) {
+    grid-area: main;
+  }
+  :where(detail-placeholder > scroll-view):has(~ tool-bar > [slot^=navigation-bar]), :where(detail-placeholder > scroll-view):has(> [slot^=navigation-bar]) {
+    grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
+  }
+  :where(detail-placeholder > scroll-view)::before {
+    block-size: calc(100% + var(--safe-area-inset-bottom) + 1px);
+  }
+  detail-placeholder v-stack {
+    outline: magenta solid 4px;
+  }
+  @media (max-width: 42.9999rem) {
+    :where(navigation-split-view detail-placeholder) {
+      --nav-split-view--detail-placeholder-visibility: collapse;
+    }
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view]) detail-placeholder) {
+      --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view--content-inline-size));
+      --nav-split-view--detail-placeholder-inline-size: calc(
+        100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size)
+      );
+    }
+  }
+  @media (min-width: 43rem) and (max-width: 63.9999rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] detail-placeholder) {
+      --nav-split-view--detail-placeholder-inset: 0 0 0 var(--nav-split-view--content-inline-size);
+      --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view--content-inline-size));
+    }
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view])[column-visibility=double-column] detail-placeholder) {
+      --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--sidebar-inline-spacing));
+      --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view-sidebar-inline-size) - var(--sidebar-inline-spacing));
+    }
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view:not(:has(> [is=sidebar-view])):has(> body-view) detail-placeholder) {
+      --nav-split-view--detail-placeholder-visibility: collapse;
+    }
+    :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content]:not(:has(> body-view)) detail-placeholder) {
+      --nav-split-view--detail-placeholder-visibility: collapse;
+    }
+  }
+  @media (min-width: 43rem) and (min-width: 64rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]):has(> body-view > body-view) detail-placeholder) {
+      --nav-split-view--detail-placeholder-visibility: collapse;
+    }
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view:has(> [is=sidebar-view])[column-visibility=double-column]:has(> body-view) detail-placeholder) {
+      --nav-split-view--detail-placeholder-visibility: collapse;
+    }
   }
 }
 @property --stuck {
@@ -1595,7 +1688,9 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "navigation-bar" "spacer" "bottom-bar";
   }
-  :where(tool-bar > *:not(sidebar-toggle), tool-bar > sidebar-toggle > tool-bar-item, tab-view > sidebar-toggle > tool-bar-item) {
+  :where(tool-bar > *:not(sidebar-toggle), tool-bar > sidebar-toggle > tool-bar-item,
+  tab-view > sidebar-toggle > tool-bar-item,
+  navigation-split-view > sidebar-toggle > tool-bar-item) {
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     min-inline-size: var(--toolbar-cell-min-size);
@@ -2161,6 +2256,7 @@
     filter: var(--menu--summary-filter, );
   }
   :where(menu-view)::part(menu-scrollable) {
+    scrollbar-width: thin;
     block-size: calc(100% + 1px);
   }
   :where(menu-view)::part(menu-form) {
@@ -2933,18 +3029,9 @@
     touch-action: none;
     block-size: var(--100lvh, 100lvh);
     --nav-split-view--content-inline-size: var(--nav-split-view-content-inline-size,);
-  }
-  :where(navigation-split-view > [slot=detail_placeholder]) {
-    position: absolute;
-    block-size: 100px;
-    inline-size: 100px;
-    order: -1;
-    background-color: red;
-  }
-  @media (max-width: 42.9999rem) {
-    :where(navigation-split-view > [slot=detail_placeholder]) {
-      display: none;
-    }
+    --nav-split-view--detail-placeholder-inset: 0 0 0 var(--nav-split-view--content-inline-size);
+    --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view--content-inline-size));
+    --nav-split-view--detail-placeholder-visibility: visible;
   }
   @media (min-width: 43rem) {
     :where(scroll-view:has(~ navigation-split-view:not([hidden])), scroll-view:has(~ navigation-split-view:not([hidden])) ~ tool-bar) {

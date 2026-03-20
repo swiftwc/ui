@@ -108,6 +108,8 @@ export class ScrollView extends HTMLElement {
 
         if (oldValue === newValue) break
 
+        if (0 === this.offsetHeight + this.offsetWidth) break
+
         slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 
         break

@@ -13,6 +13,7 @@ export default function (to: 'show' | 'hide', el?: HTMLElement) {
     })
 
   el?.setAttribute('slow', '')
+  console.log(99)
 
   frame(el).then((f) => {
     if (f) el?.setAttribute('slow', to)

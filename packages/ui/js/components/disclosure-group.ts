@@ -73,9 +73,8 @@ export class DisclosureGroup extends DetailsBase {
     //   if (!r) return
 
     // el.addEventListener('click', DisclosureGroup.#handleClick)
-    const { on } = onoff('toggle', DisclosureGroup.#handleToggle, el)
 
-    CleanupRegistry.register(el, on())
+    CleanupRegistry.register(el, onoff('toggle', DisclosureGroup.#handleToggle, el).on())
 
     CleanupRegistry.register(el, () => {
       toggleTimers.get(el)?.cancel()

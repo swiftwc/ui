@@ -43,11 +43,15 @@
       --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
     }
 
-    :where(& [is='tab-item'][aria-selected='true']) {
-      --toolbaritemtext: blue;
-      --toolbaritemhighlighttext: blue;
-      --toolbaritemactivetext: blue;
+    :where(& [is='form-view']) {
+      --list--highlighteditem-background-color: transparent;
+      --list--highlighteditem-color: blue;
     }
+    // :where(& [is='tab-item'][aria-selected='true']) {
+    //   --itemtext: blue;
+    //   --itemhighlighttext: blue;
+    //   --itemactivetext: blue;
+    // }
   }
 
   :where([is='tab-bar']) {

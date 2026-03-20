@@ -45,6 +45,17 @@ if (0 < polyfills.size) {
           attributeOldValue: true,
         })
       )
+
+      for (const attributeName of polyfill.observedAttributes)
+        if (el.hasAttribute(attributeName)) {
+          const entry = {
+            attributeName,
+            oldValue: null,
+            target: el,
+          }
+
+          void polyfill.polyfillAttributeChangedCallback([entry])
+        }
     },
     // @ts-expect-error
     unobserve = (el) => {

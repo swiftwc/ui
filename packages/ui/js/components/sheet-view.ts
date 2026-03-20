@@ -1,8 +1,11 @@
 import { DialogBase } from '../namespace-browser/base'
 import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { Snapshot } from '../snapshot'
 
 export class SheetView extends DialogBase {
+  static observedAttributes = ['fine-presentation-large-adaptation']
+
   constructor() {
     super()
   }
@@ -15,6 +18,16 @@ export class SheetView extends DialogBase {
     SheetView.polyfillConnectedCallback(this)
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    const entry = {
+      attributeName: name,
+      oldValue,
+      target: this,
+    }
+
+    SheetView.polyfillAttributeChangedCallback([entry as unknown as MutationRecord])
+  }
+
   static polyfillDisconnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ disconnect`)
 
@@ -24,11 +37,40 @@ export class SheetView extends DialogBase {
   static polyfillConnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ connect`)
 
-    const { on } = onoff('cancel', SheetView.#handleCancel, el)
-
-    CleanupRegistry.register(el, on())
+    CleanupRegistry.register(el, onoff('cancel', SheetView.#handleCancel, el).on())
 
     el.autofocus = true
+  }
+
+  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
+    console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+
+    await Snapshot.waitReady // NOTE: wait for config
+
+    switch (attributeName) {
+      case 'fine-presentation-large-adaptation':
+        const node = target as HTMLDialogElement
+
+        CleanupRegistry.unregister(node, 'mediaquery')
+
+        if ('bottom-bar' !== (target as HTMLElement).getAttribute(attributeName ?? '')) break
+
+        const query = `(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`,
+          mediaQueryList = self.matchMedia(query)
+
+        SheetView.#handleMediaChange(
+          node,
+          new MediaQueryListEvent(`media-change`, {
+            matches: mediaQueryList.matches,
+          })
+        ) // Initial check
+
+        const handler1 = SheetView.#handleMediaChange.bind(null, node)
+
+        CleanupRegistry.register(node, onoff('change', handler1 as unknown as EventListener, mediaQueryList).on(), 'mediaquery')
+
+        break
+    }
   }
 
   static #handleCancel = (event: Event) => {
@@ -37,5 +79,22 @@ export class SheetView extends DialogBase {
     if (!event.cancelable) return
 
     event.preventDefault()
+  }
+
+  static #handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, evt) => {
+    console.debug(`${SheetView.name} ⚡️ ${evt?.type}`)
+
+    if (evt.matches)
+      for (const item of el.querySelectorAll<HTMLElement>(':scope>tool-bar>[slot^="navigation-bar-"]')) {
+        item.dataset.previousSlot = item.getAttribute('slot') ?? ''
+
+        item.slot = 'bottom-bar-trailing'
+      }
+    else
+      for (const item of el.querySelectorAll<HTMLElement>(':scope>tool-bar>[data-previous-slot]')) {
+        item.slot = item.dataset.previousSlot ?? ''
+
+        delete item.dataset.previousSlot
+      }
   }
 }

@@ -114,12 +114,12 @@
       --itemradiusbl: var(--list--item-border-radius,);
 
       --itemface: var(--list--item-background-color,);
-      --itemhighlightface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
-      --itemactiveface: var(--list--selecteditem-background-color, var(--list--item-background-color,));
+      --itemhighlightface: var(--list--highlighteditem-background-color, var(--list--item-background-color,));
+      --itemactiveface: var(--list--highlighteditem-background-color, var(--list--item-background-color,));
 
       --itemtext: var(--list--item-color,);
-      --itemhighlighttext: var(--list--selecteditem-color, var(--list--item-color,));
-      --itemactivetext: var(--list--selecteditem-color, var(--list--item-color,));
+      --itemhighlighttext: var(--list--highlighteditem-color, var(--list--item-color,));
+      --itemactivetext: var(--list--highlighteditem-color, var(--list--item-color,));
     }
 
     // SECTION: overwrites for details
@@ -127,12 +127,15 @@
       > :not(summary) {
         :where(&) {
           --itemface: var(--list--details-background-color, var(--list--item-background-color,));
-          --itemhighlightface: var(--list--selecteddetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
-          --itemactiveface: var(--list--selecteddetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
+          --itemhighlightface: var(
+            --list--selecteddetails-background-color,
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
+          );
+          --itemactiveface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
 
           --itemtext: var(--list--details-color, var(--list--item-color,));
-          --itemhighlighttext: var(--list--selecteddetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
-          --itemactivetext: var(--list--selecteddetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
+          --itemhighlighttext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+          --itemactivetext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
         }
       }
       > summary {
@@ -140,13 +143,16 @@
           --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
           --itemhighlightface: var(
             --list--selectedopendetails-background-color,
-            var(--list--selecteditem-background-color, var(--list--item-background-color,))
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
           );
-          --itemactiveface: var(--list--selectedopendetails-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)));
+          --itemactiveface: var(
+            --list--selectedopendetails-background-color,
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
+          );
 
           --itemtext: var(--list--opendetails-color, var(--list--item-color,));
-          --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
-          --itemactivetext: var(--list--selectedopendetails-color, var(--list--selecteditem-color, var(--list--item-color,)));
+          --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+          --itemactivetext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
         }
       }
       &[open] {
@@ -155,21 +161,21 @@
             --itemface: var(--list--opensummary-background-color, var(--list--item-background-color,));
             --itemhighlightface: var(
               --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
             );
             --itemactiveface: var(
               --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
             );
 
             --itemtext: var(--list--opensummary-color, var(--list--item-color,));
             --itemhighlighttext: var(
               --list--selectedopensummary-color,
-              var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
             );
             --itemactivetext: var(
               --list--selectedopensummary-color,
-              var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
             );
           }
         }
@@ -182,21 +188,21 @@
           --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
           --itemhighlightface: var(
             --list--selectedrootsummary-background-color,
-            var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+            var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
           );
           --itemactiveface: var(
             --list--selectedrootsummary-background-color,
-            var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+            var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
           );
 
           --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
           --itemhighlighttext: var(
             --list--selectedrootsummary-color,
-            var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
           );
           --itemactivetext: var(
             --list--selectedrootsummary-color,
-            var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,)))
+            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
           );
 
           // overwrite extra stuff for rootsummary
@@ -221,25 +227,25 @@
             --list--selectedrootsummary-background-color,
             var(
               --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
             )
           );
           --itemactiveface: var(
             --list--selectedrootsummary-background-color,
             var(
               --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--selecteditem-background-color, var(--list--item-background-color,)))
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
             )
           );
 
           --itemtext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
           --itemhighlighttext: var(
             --list--selectedrootsummary-color,
-            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,))))
+            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))))
           );
           --itemactivetext: var(
             --list--selectedrootsummary-color,
-            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--selecteditem-color, var(--list--item-color,))))
+            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))))
           );
         }
       }
@@ -271,7 +277,7 @@
       :where(&:is([is='disclosure-group']:has(> summary.active))) {
         // outline: red solid 4px;
         &::before {
-          --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
+          --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
         }
       }
     }
@@ -394,10 +400,18 @@
         :where(&) {
           // outline: yellow solid 5px;
           --itemradiustr: var(--list--item-border-radius,);
+
+          &::before {
+            content: none;
+          }
         }
         :where(&:is([is='disclosure-group'] :not([slot]))) {
           // outline: green solid 5px;
           --itemradiustr: var(--list--item-border-radius,);
+
+          &::before {
+            content: none;
+          }
         }
       }
       > :nth-last-child(2):not([slot]),
@@ -692,14 +706,14 @@
         --itemface: var(--itemactiveface,);
         --itemtext: var(--itemactivetext,);
 
-        --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
+        --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
       }
 
       &[aria-selected='true'] {
         --itemface: var(--itemactiveface);
         --itemtext: var(--itemactivetext,);
 
-        --list--separator-background-color: var(--list--selecteditem-separator-background-color,);
+        --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
       }
     }
   }

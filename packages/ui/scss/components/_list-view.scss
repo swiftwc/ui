@@ -8,8 +8,8 @@ $list-ifs: (
   inset: (
     --list--item-color: var(--insetlist-item-color,),
     --list--item-background-color: var(--insetlist-item-background-color,),
-    --list--selecteditem-color: var(--insetlist-selecteditem-color,),
-    --list--selecteditem-background-color: var(--insetlist-selecteditem-background-color,),
+    --list--highlighteditem-color: var(--insetlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetlist-highlighteditem-background-color,),
     --list--item-border-radius: var(--insetlist-item-border-radius),
     --list--host-background-color: var(--insetlist-background-color,),
     --list--host-padding-inline: var(--insetlist-padding-inline),
@@ -28,8 +28,8 @@ $list-ifs: (
     --list--item-color: var(--insetgroupedlist-item-color,),
     --list--item-background-color: var(--insetgroupedlist-item-background-color,),
     --list--item-border-radius: var(--insetlist-item-border-radius),
-    --list--selecteditem-color: var(--insetgroupedlist-selecteditem-color,),
-    --list--selecteditem-background-color: var(--insetgroupedlist-selecteditem-background-color,),
+    --list--highlighteditem-color: var(--insetgroupedlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetgroupedlist-highlighteditem-background-color,),
     --list--host-background-color: var(--insetgroupedlist-background-color,),
     --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
     --list--host-padding-block: var(--insetgroupedlist-padding-block),
@@ -59,12 +59,13 @@ $list-ifs: (
     --list--adjacentitem-border-radius: unset,
     //
     --list--host-background-color: var(--sidebarlist-background-color,),
-    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    --list--host-padding-inline: var(---padding-inline),
+    --list--host-padding-block: var(--sidebarlist-padding-block),
     //
     --list--item-background-color: var(--sidebarlist-item-background-color,),
     --list--item-color: var(--sidebarlist-item-color,),
-    --list--selecteditem-background-color: var(--sidebarlist-selecteditem-background-color,),
-    --list--selecteditem-color: var(--sidebarlist-selecteditem-color,),
+    --list--highlighteditem-background-color: var(--sidebarlist-highlighteditem-background-color,),
+    --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color,),
     //
     --list--rootsummary-background-color: transparent,
     --list--rootsummary-color: var(--text,),
@@ -84,14 +85,14 @@ $list-ifs: (
 );
 $list-elses: (
   --list--host-background-color: var(--list-background-color,),
-  --list--selecteditem-background-color: var(--list-selecteditem-background-color,),
+  --list--highlighteditem-background-color: var(--list-highlighteditem-background-color,),
   --list--item-background-color: var(--list-item-background-color,),
   --list--item-padding-inline-start: var(--list-item-padding-inline-start),
   --list--item-padding-inline-end: var(--list-item-padding-inline-end),
   --list--item-padding-block-start: var(--list-item-padding-block-start),
   --list--item-padding-block-end: var(--list-item-padding-block-end),
   --list--item-color: var(--list-item-color,),
-  --list--selecteditem-color: var(--list-selecteditem-color,),
+  --list--highlighteditem-color: var(--list-highlighteditem-color,),
   //
   --list--details-background-color: var(--list-openitem-background-color,),
   --list--details-color: var(--list-openitem-color,),
@@ -229,7 +230,7 @@ $list-elses: (
           :where(navigation-split-view &[list-style]) {
             --list-style: sidebar;
           }
-          :where(navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
             --list-style: inset;
           }
         }

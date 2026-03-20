@@ -52,12 +52,13 @@ export class TabView extends HTMLElement {
         mediaQueryList = self.matchMedia(query)
 
       this.#handleMediaChange(
-        new MediaQueryListEvent(`tab-view:more-tab-${mediaQueryList.matches ? 'allowed' : 'disallowed'}`, {
+        // new MediaQueryListEvent(`tab-view:more-tab-${mediaQueryList.matches ? 'allowed' : 'disallowed'}`, {
+        new MediaQueryListEvent('media-change', {
           matches: mediaQueryList.matches,
         })
       ) // Initial check
 
-      mediaQueryList.addEventListener('change', this.#handleMediaChange) //.bind(this, mediaType, value))
+      mediaQueryList.addEventListener('change', this.#handleMediaChange)
 
       const { on } = onoff(
         [
@@ -72,6 +73,8 @@ export class TabView extends HTMLElement {
   }
 
   #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
+    console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
+
     // trigger more-stack (dis)allowed event
     if (evt.matches !== this.#moreStackAllowed) {
       this.#moreStackAllowed = evt.matches

@@ -6,14 +6,15 @@
 
 $form-ifs: (
   inset: (
-    --list--item-color: var(--insetform-item-color,),
-    --list--item-background-color: var(--insetform-item-background-color,),
-    --list--selecteditem-color: var(--insetform-selecteditem-color,),
-    --list--selecteditem-background-color: var(--insetform-selecteditem-background-color,),
-    --list--item-border-radius: var(--insetform-item-border-radius),
     --list--host-background-color: var(--insetform-background-color,),
     --list--host-padding-inline: var(--insetform-padding-inline),
     --list--host-padding-block: var(--insetform-padding-block),
+    //
+    --list--item-color: var(--insetform-item-color,),
+    --list--item-background-color: var(--insetform-item-background-color,),
+    --list--highlighteditem-color: var(--insetform-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetform-highlighteditem-background-color,),
+    --list--item-border-radius: var(--insetform-item-border-radius),
     //
     --list--adjacentdetailsitem-border-radius: 0,
     //
@@ -25,14 +26,15 @@ $form-ifs: (
     --list--opensummary-color: var(--insetform-opensummary-color,),
   ),
   inset-grouped: (
-    --list--item-color: var(--insetgroupedform-item-color,),
-    --list--item-background-color: var(--insetgroupedform-item-background-color,),
-    --list--item-border-radius: var(--insetform-item-border-radius),
-    --list--selecteditem-color: var(--insetgroupedform-selecteditem-color,),
-    --list--selecteditem-background-color: var(--insetgroupedform-selecteditem-background-color,),
     --list--host-background-color: var(--insetgroupedform-background-color,),
     --list--host-padding-inline: var(--insetgroupedform-padding-inline),
     --list--host-padding-block: var(--insetgroupedform-padding-block),
+    //
+    --list--item-color: var(--insetgroupedform-item-color,),
+    --list--item-background-color: var(--insetgroupedform-item-background-color,),
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--highlighteditem-color: var(--insetgroupedform-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetgroupedform-highlighteditem-background-color,),
     //
     --list--adjacentitem-border-radius: 0,
     //
@@ -59,12 +61,13 @@ $form-ifs: (
     --list--adjacentitem-border-radius: unset,
     //
     --list--host-background-color: var(--sidebarform-background-color,),
-    --list--host-padding-inline: var(--insetgroupedform-padding-inline),
+    --list--host-padding-inline: var(--sidebarform-padding-inline),
+    --list--host-padding-block: var(--sidebarform-padding-block),
     //
     --list--item-background-color: var(--sidebarform-item-background-color,),
     --list--item-color: var(--sidebarform-item-color,),
-    --list--selecteditem-background-color: var(--sidebarform-selecteditem-background-color,),
-    --list--selecteditem-color: var(--sidebarform-selecteditem-color,),
+    --list--highlighteditem-background-color: var(--sidebarform-highlighteditem-background-color,),
+    --list--highlighteditem-color: var(--sidebarform-highlighteditem-color,),
     //
     --list--rootsummary-background-color: transparent,
     --list--rootsummary-color: var(--text,),
@@ -89,9 +92,9 @@ $form-elses: (
   --list--item-padding-block-start: var(--form-item-padding-block-start),
   --list--item-padding-block-end: var(--form-item-padding-block-end),
   --list--item-background-color: var(--form-item-background-color,),
-  --list--selecteditem-background-color: var(--form-selecteditem-background-color,),
+  --list--highlighteditem-background-color: var(--form-highlighteditem-background-color,),
   --list--item-color: var(--form-item-color,),
-  --list--selecteditem-color: var(--form-selecteditem-color,),
+  --list--highlighteditem-color: var(--form-highlighteditem-color,),
 );
 
 // @mixin set-form-style($value) {
@@ -180,6 +183,10 @@ $form-elses: (
         // --list--item-background-color: var(--list-item-background-color,);
       }
 
+      :where(section-view:has(> [slot='header']), section-view:has(> [slot='footer']) + section-view) {
+        --list--section-gap: var(--form-extra-gap);
+      }
+
       // SECTION: ifs
       @supports (x: #{string.unquote('if(else:red)')}) {
         :where(&) {
@@ -228,7 +235,7 @@ $form-elses: (
           :where(navigation-split-view &[list-style]) {
             --form-style: sidebar;
           }
-          :where(navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
             --form-style: inset;
           }
         }

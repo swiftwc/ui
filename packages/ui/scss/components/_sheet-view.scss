@@ -14,6 +14,10 @@
       transform: var(--sheet-view-translate,);
 
       --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
+
+      :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='navigation-bar-']) {
+        --label-style: icon-only;
+      }
     }
 
     @include mixins.if-ipad-sheet-fits {
@@ -40,7 +44,7 @@
         border-radius: 26px;
       }
 
-      // NOTE: Safari-only mod for closing
+      // NOTE: Safari-only mod for closing animation
       @supports not selector(:open) {
         &:has(&:not([open])) {
           :where(&) {

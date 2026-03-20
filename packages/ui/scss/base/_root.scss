@@ -196,9 +196,11 @@
     --insetlist-item-border-radius: 1rem;
 
     //
-    @each $v in list, form {
-      --#{$v}-gap: 3rem;
+    --list-gap: 3rem;
+    --form-gap: 1rem;
+    --form-extra-gap: 3rem;
 
+    @each $v in list, form {
       --#{$v}-item-padding-inline-start: 1rem;
       --#{$v}-item-padding-inline-end: 1rem;
       --#{$v}-item-padding-block-start: 1rem;
@@ -206,23 +208,23 @@
 
       --#{$v}-item-background-color: white;
       --#{$v}-item-color: var(--text);
-      --#{$v}-selecteditem-background-color: darkgray;
-      --#{$v}-selecteditem-color: var(--text);
+      --#{$v}-highlighteditem-background-color: darkgray;
+      --#{$v}-highlighteditem-color: var(--text);
 
       --inset#{$v}-item-background-color: white;
       --inset#{$v}-item-color: var(--text);
-      --inset#{$v}-selecteditem-background-color: var(--tint);
-      --inset#{$v}-selecteditem-color: var(--tintcontrast);
+      --inset#{$v}-highlighteditem-background-color: var(--tint);
+      --inset#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --insetgrouped#{$v}-item-background-color: white;
       --insetgrouped#{$v}-item-color: var(--text);
-      --insetgrouped#{$v}-selecteditem-background-color: var(--tint);
-      --insetgrouped#{$v}-selecteditem-color: var(--tintcontrast);
+      --insetgrouped#{$v}-highlighteditem-background-color: var(--tint);
+      --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --sidebar#{$v}-item-background-color: transparent;
       --sidebar#{$v}-item-color: var(--text);
-      --sidebar#{$v}-selecteditem-background-color: var(--tint);
-      --sidebar#{$v}-selecteditem-color: var(--tintcontrast);
+      --sidebar#{$v}-highlighteditem-background-color: var(--tint);
+      --sidebar#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --#{$v}-openitem-background-color: lightgray;
       --#{$v}-openitem-color: var(--text);
@@ -256,10 +258,16 @@
     --insetlist-padding-block: 0rem;
     --insetform-padding-inline: 1rem;
     --insetform-padding-block: 0rem;
+
     --insetgroupedlist-padding-inline: 1rem;
-    --insetgroupedlist-padding-block: 1rem;
     --insetgroupedform-padding-inline: 1rem;
+    --insetgroupedlist-padding-block: 1rem;
     --insetgroupedform-padding-block: 1rem;
+
+    --sidebarlist-padding-inline: 1rem;
+    --sidebarform-padding-inline: 1rem;
+    --sidebarlist-padding-block: 1rem;
+    --sidebarform-padding-block: 1rem;
 
     // --list-item-border-radius: 1rem;
     // @media (pointer: fine) {

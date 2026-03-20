@@ -5,8 +5,6 @@ import { $ } from '../internal/utils'
 export class NavigationTitle extends HTMLElement {
   static observedAttributes = ['value', 'subtitle']
 
-  #sibling?: ScrollView
-
   constructor() {
     super()
   }
@@ -18,7 +16,6 @@ export class NavigationTitle extends HTMLElement {
   connectedCallback() {
     console.debug(`${NavigationTitle.name} ⚡️ connect`)
 
-    this.#sibling = this.closest<ScrollView>('scroll-view') ?? undefined
     // if (!this.#sibling) return
 
     // if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
@@ -32,18 +29,20 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
+    const sibling = this.closest<ScrollView>('scroll-view') ?? undefined
+
     // Snapshot.waitReady.then(() => {
     switch (name) {
       case 'value':
-        if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-title', newValue)
-        else this.#sibling?.removeAttribute('navigation-inline-title')
+        if (null !== newValue) sibling?.setAttribute('navigation-inline-title', newValue)
+        else sibling?.removeAttribute('navigation-inline-title')
 
         this.#render(newValue, this.getAttribute('subtitle'))
 
         break
       case 'subtitle':
-        if (null !== newValue) this.#sibling?.setAttribute('navigation-inline-subtitle', newValue)
-        else this.#sibling?.removeAttribute('navigation-inline-subtitle')
+        if (null !== newValue) sibling?.setAttribute('navigation-inline-subtitle', newValue)
+        else sibling?.removeAttribute('navigation-inline-subtitle')
 
         this.#render(this.getAttribute('value'), newValue)
 

@@ -8,14 +8,10 @@ const observing = new WeakSet()
 export class NavigationLargeTitle extends HTMLElement {
   #observer?: IntersectionObserver
 
-  #sibling?: ScrollView
-
   #scrollSafetyTimer = timeout()
 
   constructor() {
     super()
-
-    this.#sibling = this.closest<ScrollView>('scroll-view') ?? undefined
   }
 
   disconnectedCallback() {
@@ -29,9 +25,11 @@ export class NavigationLargeTitle extends HTMLElement {
   connectedCallback() {
     console.debug(`${NavigationLargeTitle.name} ⚡️ connect`)
 
-    if (!this.#sibling) return
+    const root = this.closest<ScrollView>('scroll-view') ?? undefined
 
-    if (!this.#sibling?.hasAttribute('navigation-bar-title-display-mode')) this.#sibling?.setAttribute('navigation-bar-title-display-mode', 'large')
+    if (!root) return
+
+    if (!root?.hasAttribute('navigation-bar-title-display-mode')) root?.setAttribute('navigation-bar-title-display-mode', 'large')
 
     // Snapshot.waitReady.then(async () => {
     frame(this).then((r) => {
@@ -41,7 +39,7 @@ export class NavigationLargeTitle extends HTMLElement {
         blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
 
       this.#observer = new IntersectionObserver(this.#handleIntersect, {
-        root: this.#sibling,
+        root,
         rootMargin: `-${blockSize}px 0px 0px 0px`,
         threshold: [0, 1],
       })
@@ -53,7 +51,7 @@ export class NavigationLargeTitle extends HTMLElement {
           { types: 'scroll', listener: this.#handleScroll, addOptions: { passive: true } },
           { types: 'scrollend', listener: this.#handleScrollend, addOptions: { passive: true } },
         ],
-        this.#sibling
+        root
       )
 
       CleanupRegistry.register(this, on())
@@ -84,17 +82,19 @@ export class NavigationLargeTitle extends HTMLElement {
     this.#clearScrollState()
   }
 
-  #handleIntersect = (entries: IntersectionObserverEntry[]) => {
+  #handleIntersect = (entries: IntersectionObserverEntry[], { root }: IntersectionObserver) => {
     console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.[0]?.isIntersecting})`)
 
-    for (const { isIntersecting } of entries) {
-      const value = isIntersecting ? 'large' : 'inline'
+    if (!(root instanceof HTMLElement)) return
 
-      if (value === this.#sibling?.getAttribute('navigation-bar-title-display-mode')) break
+    for (const entry of entries) {
+      const value = entry.isIntersecting ? 'large' : 'inline'
 
-      this.#sibling?.setAttribute('navigation-bar-title-display-mode', value)
+      if (value === root?.getAttribute('navigation-bar-title-display-mode')) break
 
-      if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
+      root?.setAttribute('navigation-bar-title-display-mode', value)
+
+      if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(entry.isIntersecting ? 'show' : 'hide', this)
     }
   }
 }

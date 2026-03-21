@@ -32,10 +32,11 @@ if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
 
   const handlers = new WeakMap()
-  // @ts-expect-error
-  const observe = (el, polyfill) => {
+
+  const observe = (el: HTMLElement, polyfill: WebComponentCtor) => {
       if (!Array.isArray(polyfill.observedAttributes)) return
       if (0 === polyfill?.observedAttributes.length) return
+      if (!polyfill.polyfillAttributeChangedCallback) return
 
       handlers.set(
         el,
@@ -57,8 +58,7 @@ if (0 < polyfills.size) {
           void polyfill.polyfillAttributeChangedCallback([entry])
         }
     },
-    // @ts-expect-error
-    unobserve = (el) => {
+    unobserve = (el: HTMLElement) => {
       handlers.delete(el)
     },
     polyfillTagNamesCacheSelector = [...polyfillTagNamesCache.values()].map((v) => `${v}`.toLowerCase()).join(','),
@@ -85,12 +85,11 @@ if (0 < polyfills.size) {
           if (!polyfillTagNamesCache.has(node.tagName)) continue
 
           const is = node?.getAttribute('is') ?? ''
-
           if (!polyfills.has(is)) continue
 
           polyfills.get(is)?.polyfillConnectedCallback(node)
 
-          observe(node, polyfills.get(is))
+          observe(node, polyfills.get(is)!)
         }
       }
 
@@ -103,7 +102,6 @@ if (0 < polyfills.size) {
           if (!polyfillTagNamesCache.has(node.tagName)) continue
 
           const is = node?.getAttribute('is') ?? ''
-
           if (!polyfills.has(is)) continue
 
           polyfills.get(is)?.polyfillDisconnectedCallback(node)

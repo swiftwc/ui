@@ -25,7 +25,7 @@ export class SheetView extends DialogBase {
       target: this,
     }
 
-    SheetView.polyfillAttributeChangedCallback([entry as unknown as MutationRecord])
+    SheetView.polyfillAttributeChangedCallback([entry])
   }
 
   static polyfillDisconnectedCallback(el: SheetView) {
@@ -42,7 +42,7 @@ export class SheetView extends DialogBase {
     el.autofocus = true
   }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: MutationRecord[]) {
+  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     await Snapshot.waitReady // NOTE: wait for config

@@ -1,4 +1,4 @@
-export default function (str: String) {
+export default function (str: string) {
   return (
     str
       // Replace uppercase letters with - + lowercase

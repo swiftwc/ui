@@ -10,23 +10,23 @@ export class SheetView extends DialogBase {
     super()
   }
 
-  disconnectedCallback() {
-    SheetView.polyfillDisconnectedCallback(this)
-  }
+  // disconnectedCallback() {
+  //   SheetView.polyfillDisconnectedCallback(this)
+  // }
 
-  connectedCallback() {
-    SheetView.polyfillConnectedCallback(this)
-  }
+  // connectedCallback() {
+  //   SheetView.polyfillConnectedCallback(this)
+  // }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    const entry = {
-      attributeName: name,
-      oldValue,
-      target: this,
-    }
+  // attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  //   const entry = {
+  //     attributeName: name,
+  //     oldValue,
+  //     target: this,
+  //   }
 
-    SheetView.polyfillAttributeChangedCallback([entry])
-  }
+  //   SheetView.polyfillAttributeChangedCallback([entry])
+  // }
 
   static polyfillDisconnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ disconnect`)

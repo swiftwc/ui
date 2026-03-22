@@ -29,9 +29,7 @@ export class ListView extends HTMLElement {
   connectedCallback() {
     console.debug(`${ListView.name} ⚡️ connect`)
 
-    const { on } = onoff(listActive(this), this)
-
-    CleanupRegistry.register(this, on())
+    CleanupRegistry.register(this, onoff(listActive(this), this).on())
     // this.setAttribute('role', 'listbox')
     // this.setAttribute('aria-multiselectable', 'true')
     // this.#options = Array.from(this.querySelectorAll('[option]'))

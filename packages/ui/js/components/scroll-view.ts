@@ -35,7 +35,7 @@ export class ScrollView extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'open' })
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // Snapshot.waitReady.then(() => {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template.content, true))
@@ -108,7 +108,7 @@ export class ScrollView extends HTMLElement {
 
         if (oldValue === newValue) break
 
-        if (0 === this.offsetHeight + this.offsetWidth) break
+        if (this.closest('[hidden]')) return // iREPAINT ALERT! if (0 === this.offsetHeight + this.offsetWidth) break
 
         slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 
@@ -136,15 +136,16 @@ export class ScrollView extends HTMLElement {
     // this.scrollTop = 500
     // })
 
-    const { on } = onoff(
-      [
-        { types: 'tabreveal', listener: this.#handleTabReveal as EventListener },
-        { types: 'beforetabswap', listener: this.#handleTabBeforeswap as EventListener },
-      ],
-      this.closest<TabView>('tab-view') ?? undefined
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'tabreveal', listener: this.#handleTabReveal as EventListener },
+          { types: 'beforetabswap', listener: this.#handleTabBeforeswap as EventListener },
+        ],
+        this.closest<TabView>('tab-view') ?? undefined
+      ).on()
     )
-
-    CleanupRegistry.register(this, on())
 
     frame().then(() =>
       NavigationProvider.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))

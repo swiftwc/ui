@@ -7,13 +7,13 @@ export class BorderlessButton extends ButtonBase {
     super()
   }
 
-  disconnectedCallback() {
-    BorderlessButton.polyfillDisconnectedCallback(this)
-  }
+  // disconnectedCallback() {
+  //   BorderlessButton.polyfillDisconnectedCallback(this)
+  // }
 
-  connectedCallback() {
-    BorderlessButton.polyfillConnectedCallback(this)
-  }
+  // connectedCallback() {
+  //   BorderlessButton.polyfillConnectedCallback(this)
+  // }
 
   static polyfillDisconnectedCallback(el: BorderlessButton) {
     console.debug(`${BorderlessButton.name} ⚡️ disconnect`)
@@ -24,9 +24,7 @@ export class BorderlessButton extends ButtonBase {
   static polyfillConnectedCallback(el: BorderlessButton) {
     console.debug(`${BorderlessButton.name} ⚡️ connect`)
 
-    const { on } = onoff('click', BorderlessButton.#handleClick, el)
-
-    CleanupRegistry.register(el, on())
+    CleanupRegistry.register(el, onoff('click', BorderlessButton.#handleClick, el).on())
   }
 
   static #handleClick = async (event: Event) => {

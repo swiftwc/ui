@@ -60,15 +60,16 @@ export class TabView extends HTMLElement {
 
       mediaQueryList.addEventListener('change', this.#handleMediaChange)
 
-      const { on } = onoff(
-        [
-          { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
-          { types: 'tabreveal tabswap', listener: this.#addAnimations },
-        ],
-        this
+      CleanupRegistry.register(
+        this,
+        onoff(
+          [
+            { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
+            { types: 'tabreveal tabswap', listener: this.#addAnimations },
+          ],
+          this
+        ).on()
       )
-
-      CleanupRegistry.register(this, on())
     })
   }
 

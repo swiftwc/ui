@@ -12,13 +12,13 @@ export class TabItem extends ButtonBase {
     super()
   }
 
-  disconnectedCallback() {
-    TabItem.polyfillDisconnectedCallback(this)
-  }
+  // disconnectedCallback() {
+  //   TabItem.polyfillDisconnectedCallback(this)
+  // }
 
-  connectedCallback() {
-    TabItem.polyfillConnectedCallback(this)
-  }
+  // connectedCallback() {
+  //   TabItem.polyfillConnectedCallback(this)
+  // }
 
   static polyfillDisconnectedCallback(btn: HTMLButtonElement) {
     console.debug(`${TabItem.name} ⚡️ disconnect`)

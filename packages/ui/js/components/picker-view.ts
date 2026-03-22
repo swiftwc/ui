@@ -143,7 +143,7 @@ export class PickerView extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'open' })
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#internals = this.attachInternals()
 

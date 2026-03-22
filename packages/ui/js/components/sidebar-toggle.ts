@@ -27,9 +27,7 @@ export class SidebarToggle extends HTMLElement {
   connectedCallback() {
     console.debug(`${SidebarToggle.name} ⚡️ connect`)
 
-    const { on } = onoff('click', this.#handleClick, this)
-
-    CleanupRegistry.register(this, on())
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
     const entry = {
       target: this,

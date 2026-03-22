@@ -94,7 +94,7 @@ export class NavigationLargeTitle extends HTMLElement {
 
       root?.setAttribute('navigation-bar-title-display-mode', value)
 
-      if (0 === this.offsetHeight + this.offsetWidth) continue
+      if (this.closest('[hidden]')) return // if (0 === this.offsetHeight + this.offsetWidth) continue
 
       if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
     }

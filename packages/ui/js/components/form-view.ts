@@ -7,13 +7,13 @@ export class FormView extends FormBase {
     super()
   }
 
-  disconnectedCallback() {
-    FormView.polyfillDisconnectedCallback(this)
-  }
+  // disconnectedCallback() {
+  //   FormView.polyfillDisconnectedCallback(this)
+  // }
 
-  connectedCallback() {
-    FormView.polyfillConnectedCallback(this)
-  }
+  // connectedCallback() {
+  //   FormView.polyfillConnectedCallback(this)
+  // }
 
   static polyfillDisconnectedCallback(el: HTMLFormElement) {
     console.debug(`${FormView.name} ⚡️ disconnect`)
@@ -32,9 +32,7 @@ export class FormView extends FormBase {
       el.noValidate = true
     }
 
-    const { on } = onoff(listActive(el), el)
-
-    CleanupRegistry.register(el, on())
+    CleanupRegistry.register(el, onoff(listActive(el), el).on())
 
     if (el.matches(':empty'))
       el.insertAdjacentHTML(

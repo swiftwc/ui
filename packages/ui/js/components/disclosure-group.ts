@@ -33,13 +33,13 @@ export class DisclosureGroup extends DetailsBase {
     // })
   }
 
-  disconnectedCallback() {
-    DisclosureGroup.polyfillDisconnectedCallback(this)
-  }
+  // disconnectedCallback() {
+  //   DisclosureGroup.polyfillDisconnectedCallback(this)
+  // }
 
-  connectedCallback() {
-    DisclosureGroup.polyfillConnectedCallback(this)
-  }
+  // connectedCallback() {
+  //   DisclosureGroup.polyfillConnectedCallback(this)
+  // }
 
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
     console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)

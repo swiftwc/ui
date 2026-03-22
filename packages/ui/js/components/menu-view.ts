@@ -30,7 +30,7 @@ export class MenuView extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'open' })
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // Snapshot.waitReady.then(() => {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template.content, true))

@@ -31,21 +31,24 @@ console.debug(polyfills)
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
 
-  const handlers = new WeakMap()
+  const instances = new WeakMap<HTMLElement, any>()
+
+  const handlers = new WeakMap<HTMLElement, MutationObserver>()
 
   const observe = (el: HTMLElement, polyfill: WebComponentCtor) => {
       if (!Array.isArray(polyfill.observedAttributes)) return
       if (0 === polyfill?.observedAttributes.length) return
       if (!polyfill.polyfillAttributeChangedCallback) return
 
-      handlers.set(
-        el,
-        new MutationObserver(polyfill.polyfillAttributeChangedCallback).observe(el, {
-          attributes: true,
-          attributeFilter: polyfill.observedAttributes,
-          attributeOldValue: true,
-        })
-      )
+      const observer = new MutationObserver(polyfill.polyfillAttributeChangedCallback)
+
+      observer.observe(el, {
+        attributes: true,
+        attributeFilter: polyfill.observedAttributes,
+        attributeOldValue: true,
+      })
+
+      handlers.set(el, observer)
 
       for (const attributeName of polyfill.observedAttributes)
         if (el.hasAttribute(attributeName)) {
@@ -88,6 +91,18 @@ if (0 < polyfills.size) {
           if (!polyfills.has(is)) continue
 
           polyfills.get(is)?.polyfillConnectedCallback(node)
+
+          // const instance =
+          //   instances.get(el) ??
+          //   ((ctor: WebComponentCtor, el: HTMLElement) => {
+          //     const instance = new ctor()
+
+          //     ;(instance as any).host = el // inject DOM reference
+
+          //     instances.set(el, instance)
+
+          //     return instance
+          //   })(polyfill, el)
 
           observe(node, polyfills.get(is)!)
         }

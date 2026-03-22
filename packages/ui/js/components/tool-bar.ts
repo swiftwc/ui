@@ -45,7 +45,7 @@ export class ToolBar extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'open' })
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // NOTE: wait for config
     // Snapshot.waitReady.then(() => {

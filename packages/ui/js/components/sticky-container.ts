@@ -9,9 +9,7 @@ export class StickyContainer extends HTMLElement {
   connectedCallback() {
     console.debug(`${StickyContainer.name} ⚡️ connect`)
 
-    const { on } = onoff('transitionend transitionstart transitioncancel', this.#handleTransitionchange as unknown as EventListener, this)
-
-    CleanupRegistry.register(this, on())
+    CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionchange as unknown as EventListener, this).on())
   }
 
   disconnectedCallback() {

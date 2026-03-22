@@ -3,35 +3,33 @@ import { kebabCase, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { NavigationProvider } from '../navigation-provider'
 import { type WebComponentCtor } from '../namespace-browser'
-import { type NavigationViewController, NavigationHost, NavigationToolbarConfiguration, NavigationPage, NavigationItem } from '../internal/privateNamespace'
+import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
 import { NavigationPath } from '../internal/class/navigation-path'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
 
 type TransitionType = 'forwards' | 'backwards' | 'reload'
 
-for (const [k, v] of Object.entries(Components)) {
+for (const [k, Ctor] of Object.entries(Components)) {
   const is = kebabCase(k)
 
-  if ('polyfillExtends' in v && 'string' === typeof (v as any).polyfillExtends) {
+  if ('polyfillExtends' in Ctor && 'string' === typeof (Ctor as any).polyfillExtends) {
     if (customElements.get(is)) continue
 
-    customElements.define(is, v, { extends: v.polyfillExtends })
+    customElements.define(is, Ctor, { extends: Ctor.polyfillExtends })
 
-    if (!(document.createElement(v.polyfillExtends, { is }) instanceof v)) polyfills.set(is, v)
+    if (!(document.createElement(Ctor.polyfillExtends, { is }) instanceof Ctor)) polyfills.set(is, Ctor)
 
     continue
   }
 
-  if (!customElements.get(is)) customElements.define(is, v)
+  if (!customElements.get(is)) customElements.define(is, Ctor)
 }
 
 console.debug(polyfills)
 
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
-
-  const instances = new WeakMap<HTMLElement, any>()
 
   const handlers = new WeakMap<HTMLElement, MutationObserver>()
 
@@ -70,7 +68,7 @@ if (0 < polyfills.size) {
   console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
 
   for (const [is, polyfill] of polyfills)
-    for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${is}"]`)) {
+    for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${CSS.escape(is)}"]`)) {
       polyfill.polyfillConnectedCallback(el)
 
       observe(el, polyfill)
@@ -91,18 +89,6 @@ if (0 < polyfills.size) {
           if (!polyfills.has(is)) continue
 
           polyfills.get(is)?.polyfillConnectedCallback(node)
-
-          // const instance =
-          //   instances.get(el) ??
-          //   ((ctor: WebComponentCtor, el: HTMLElement) => {
-          //     const instance = new ctor()
-
-          //     ;(instance as any).host = el // inject DOM reference
-
-          //     instances.set(el, instance)
-
-          //     return instance
-          //   })(polyfill, el)
 
           observe(node, polyfills.get(is)!)
         }

@@ -85,10 +85,10 @@ export class DisclosureGroup extends DetailsBase {
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
-  static #handleToggle = async (event: Event) => {
-    console.debug(`${DisclosureGroup.name} ⚡️ ${event?.type}`)
+  static #handleToggle = async (evt: Event) => {
+    console.debug(`${DisclosureGroup.name} ⚡️ ${evt?.type}`)
 
-    const details = event.currentTarget as HTMLDetailsElement,
+    const details = evt.currentTarget as HTMLDetailsElement,
       newValue = details.open ? 'opening' : 'closing'
 
     if (newValue !== details.dataset.state) details.dataset.state = newValue

@@ -153,12 +153,12 @@ export class MenuView extends HTMLElement {
     }
   }
 
-  #handleDialogClick: EventListener = (event: Event) => {
-    console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
+  #handleDialogClick: EventListener = (evt: Event) => {
+    console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
-    if ((event.target as HTMLElement).matches('dialog')) return this.toggleAttribute('open', false) // click outside
+    if ((evt.target as HTMLElement).matches('dialog')) return this.toggleAttribute('open', false) // click outside
 
-    const target = event.target as HTMLElement
+    const target = evt.target as HTMLElement
 
     target.scrollIntoView({
       behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
@@ -166,7 +166,7 @@ export class MenuView extends HTMLElement {
       inline: 'nearest',
     })
 
-    if (!(event.target as HTMLElement).closest('button')) return
+    if (!(evt.target as HTMLElement).closest('button')) return
     // TODO: Handle btns this.toggleAttribute('open', false)
 
     this.toggleAttribute('open', false)
@@ -174,24 +174,24 @@ export class MenuView extends HTMLElement {
     // event.stopPropagation() //NOTE: add this only if not nested, disposes all nicely if ommited
   }
 
-  #handleTriggerClick = (event: Event) => {
-    console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
+  #handleTriggerClick = (evt: Event) => {
+    console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
     this.toggleAttribute('open', true)
   }
 
-  #handleDialogCancel: EventListener = (event: Event) => {
-    console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
+  #handleDialogCancel: EventListener = (evt: Event) => {
+    console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
-    if (!event.cancelable) return
+    if (!evt.cancelable) return
 
-    event.preventDefault()
+    evt.preventDefault()
 
     this.toggleAttribute('open', false)
   }
 
-  #handleDialogClose: EventListener = (event: Event) => {
-    console.debug(`${MenuView.name} ⚡️ ${event?.type}`)
+  #handleDialogClose: EventListener = (evt: Event) => {
+    console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
     this.toggleAttribute('open', this.#shadowRoot.querySelector('dialog')?.open ?? false)
   }

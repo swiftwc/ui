@@ -250,10 +250,10 @@ export class PickerView extends HTMLElement {
     }
   }
 
-  #handleClick(event: Event) {
-    console.debug(`${PickerView.name} ⚡️ ${event?.type}`)
+  #handleClick(evt: Event) {
+    console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
-    const target = event.target as HTMLElement,
+    const target = evt.target as HTMLElement,
       btn = target?.closest('button')
 
     if (!btn) return
@@ -264,10 +264,10 @@ export class PickerView extends HTMLElement {
     return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.textContent }, bubbles: true, composed: true }))
   }
 
-  #handleSlotchange = (event: Event) => {
-    console.debug(`${PickerView.name} ⚡️ ${event?.type}`)
+  #handleSlotchange = (evt: Event) => {
+    console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
-    const slot = event.target as HTMLSlotElement,
+    const slot = evt.target as HTMLSlotElement,
       assigned = slot.assignedElements({ flatten: true })
 
     for (const el of this.#trackedElements)
@@ -314,7 +314,6 @@ export class PickerView extends HTMLElement {
         btn.appendChild(node.cloneNode(true))
 
         break
-
       case 'list':
       default:
         if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')

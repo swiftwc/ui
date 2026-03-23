@@ -69,7 +69,7 @@ export class NavigationLargeTitle extends HTMLElement {
     this.#scrollSafetyTimer.cancel()
   }
 
-  #handleScroll: EventListener = (event: Event) => {
+  #handleScroll: EventListener = (evt: Event) => {
     if (!observing.has(this)) {
       this.#observer?.observe(this)
       observing.add(this)
@@ -78,7 +78,7 @@ export class NavigationLargeTitle extends HTMLElement {
     this.#scrollSafetyTimer.next(() => this.#clearScrollState(), 2000) // reset watchdog every scroll event
   }
 
-  #handleScrollend: EventListener = (event: Event) => {
+  #handleScrollend: EventListener = (evt: Event) => {
     this.#clearScrollState()
   }
 

@@ -39,6 +39,8 @@ export class SheetView extends DialogBase {
 
     CleanupRegistry.register(el, onoff('cancel', SheetView.#handleCancel, el).on())
 
+    CleanupRegistry.register(el, onoff('keydown', SheetView.#handleKeydown as EventListener, el).on())
+
     el.autofocus = true
   }
 
@@ -73,12 +75,22 @@ export class SheetView extends DialogBase {
     }
   }
 
-  static #handleCancel = (event: Event) => {
-    console.debug(`${SheetView.name} ⚡️ ${event?.type} (${event.cancelable})`)
+  static #handleKeydown = (evt: KeyboardEvent) => {
+    console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.key})`)
 
-    if (!event.cancelable) return
+    if ('Escape' !== evt.key) return
 
-    event.preventDefault()
+    evt.preventDefault()
+    evt.stopImmediatePropagation()
+    evt.stopPropagation()
+  }
+
+  static #handleCancel = (evt: Event) => {
+    console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.cancelable})`)
+
+    if (!evt.cancelable) return
+
+    evt.preventDefault()
   }
 
   static #handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, evt) => {

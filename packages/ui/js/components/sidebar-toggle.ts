@@ -128,10 +128,10 @@ export class SidebarToggle extends HTMLElement {
   //   })
   // }
 
-  #handleClick(event: Event) {
-    console.debug(`${SidebarToggle.name} ⚡️ ${event?.type}`)
+  #handleClick(evt: Event) {
+    console.debug(`${SidebarToggle.name} ⚡️ ${evt?.type}`)
 
-    const target = event.target as HTMLElement
+    const target = evt.target as HTMLElement
 
     if (!target?.closest('button')) return
 

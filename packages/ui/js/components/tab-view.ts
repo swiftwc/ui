@@ -163,7 +163,7 @@ export class TabView extends HTMLElement {
       }
   }
 
-  #addAnimations = (event: Event) => {
+  #addAnimations = (evt: Event) => {
     this.setAttribute('js-aftertabreveal', '')
 
     this.#afterTabRevealDelay.next(

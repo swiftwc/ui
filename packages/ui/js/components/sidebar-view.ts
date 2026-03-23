@@ -47,10 +47,10 @@ export class SidebarView extends DialogBase {
   }
 
   /** Autoclose on click outside. */
-  static #handleClick = async (event: Event) => {
-    console.debug(`${SidebarView.name} ⚡️ ${event?.type}`)
+  static #handleClick = async (evt: Event) => {
+    console.debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
 
-    if ('DIALOG' === (event.target as HTMLElement).tagName && 'sidebar-view' === (event.target as HTMLElement).getAttribute('is'))
-      (event?.target as HTMLDialogElement)?.close?.()
+    if ('DIALOG' === (evt.target as HTMLElement).tagName && 'sidebar-view' === (evt.target as HTMLElement).getAttribute('is'))
+      (evt?.target as HTMLDialogElement)?.close?.()
   }
 }

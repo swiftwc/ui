@@ -89,10 +89,10 @@ export class TabItem extends ButtonBase {
       })
   }
 
-  static #handleClick = async (event: Event) => {
-    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
+  static #handleClick = async (evt: Event) => {
+    console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
-    const btn = event.currentTarget as HTMLElement
+    const btn = evt.currentTarget as HTMLElement
 
     // const tag = btn.getAttribute('value')
     // if (!tag) return // sidebartoggle > tab-item //throw new DOMException(`Attribute "tag" is set but invalid`, 'InvalidStateError')

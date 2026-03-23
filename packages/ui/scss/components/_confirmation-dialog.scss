@@ -1,0 +1,67 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='confirmation-dialog'] {
+    :where(&) {
+      @include mixins.reset-dialog;
+
+      color: var(--text,);
+
+      touch-action: none;
+
+      position: fixed;
+
+      inline-size: fit-content;
+      block-size: fit-content;
+      height: auto; // safari
+      max-inline-size: var(--confirmation--dialog-max-inline-size,);
+      max-block-size: var(--confirmation--dialog-max-block-size,);
+
+      margin-block: var(--confirmation--dialog-margin-block,);
+      margin-inline: var(--confirmation--dialog-margin-inline,);
+
+      transform: var(--confirmation--dialog-scale,);
+
+      position-anchor: --confirmation-dialog; // overriden
+      position-area: center;
+
+      overflow: clip;
+      border-radius: 0.9rem;
+
+      backdrop-filter: var(--liquid-glass-backdrop-filter,);
+      box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
+
+      padding-block: 2rem;
+      padding-inline: 2em;
+
+      // finally
+      --confirmation--dialog-scale: scale(0);
+    }
+
+    &[open] {
+      :where(&) {
+        --confirmation--dialog-max-inline-size: 100vw;
+        --confirmation--dialog-max-block-size: 100vh;
+
+        --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+        --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+
+        --confirmation--dialog-scale: scale(1);
+
+        @starting-style {
+          --confirmation--dialog-scale: scale(0);
+        }
+      }
+    }
+
+    &[closing] {
+      :where(&) {
+        --confirmation--dialog-max-inline-size: anchor-size();
+        --confirmation--dialog-max-block-size: anchor-size();
+
+        --confirmation--dialog-scale: scale(0);
+      }
+    }
+  }
+}

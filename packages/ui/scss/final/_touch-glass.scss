@@ -10,6 +10,13 @@
       }
     }
 
+    [is='confirmation-dialog'] {
+      :where(&[touch-glass]) {
+        --confirmation--dialog-scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
     tool-bar {
       :where(& > *[touch-glass]) {
         --toolbar-cell-scale: scale(1.07);

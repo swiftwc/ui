@@ -37,9 +37,16 @@ export class SheetView extends DialogBase {
   static polyfillConnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ connect`)
 
-    CleanupRegistry.register(el, onoff('cancel', SheetView.#handleCancel, el).on())
-
-    CleanupRegistry.register(el, onoff('keydown', SheetView.#handleKeydown as EventListener, el).on())
+    CleanupRegistry.register(
+      el,
+      onoff(
+        [
+          { types: 'cancel', listener: this.#handleCancel },
+          { types: 'keydown', listener: SheetView.#handleKeydown as EventListener },
+        ],
+        el
+      ).on()
+    )
 
     el.autofocus = true
   }
@@ -57,8 +64,9 @@ export class SheetView extends DialogBase {
 
         if ('bottom-bar' !== (target as HTMLElement).getAttribute(attributeName ?? '')) break
 
-        const query = `(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`,
-          mediaQueryList = self.matchMedia(query)
+        const mediaQueryList = self.matchMedia(
+          `(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`
+        )
 
         SheetView.#handleMediaChange(
           node,

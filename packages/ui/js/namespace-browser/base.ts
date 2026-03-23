@@ -1,13 +1,13 @@
 export abstract class DialogBase extends HTMLDialogElement {
   static polyfillExtends = 'dialog' as const
   static polyfillConnectedCallback(el: HTMLDialogElement) {}
-  static polyfillDisonnectedCallback(el: HTMLDialogElement) {}
+  static polyfillDisconnectedCallback(el: HTMLDialogElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
   disconnectedCallback() {
     const ctor = this.constructor as typeof DialogBase
 
-    ctor.polyfillDisonnectedCallback(this)
+    ctor.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
@@ -32,13 +32,13 @@ export abstract class DialogBase extends HTMLDialogElement {
 export abstract class ButtonBase extends HTMLButtonElement {
   static polyfillExtends = 'button' as const
   static polyfillConnectedCallback(el: HTMLButtonElement) {}
-  static polyfillDisonnectedCallback(el: HTMLButtonElement) {}
+  static polyfillDisconnectedCallback(el: HTMLButtonElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
   disconnectedCallback() {
     const ctor = this.constructor as typeof ButtonBase
 
-    ctor.polyfillDisonnectedCallback(this)
+    ctor.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
@@ -63,13 +63,13 @@ export abstract class ButtonBase extends HTMLButtonElement {
 export abstract class DetailsBase extends HTMLDetailsElement {
   static polyfillExtends = 'details' as const
   static polyfillConnectedCallback(el: HTMLDetailsElement) {}
-  static polyfillDisonnectedCallback(el: HTMLDetailsElement) {}
+  static polyfillDisconnectedCallback(el: HTMLDetailsElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
   disconnectedCallback() {
     const ctor = this.constructor as typeof DetailsBase
 
-    ctor.polyfillDisonnectedCallback(this)
+    ctor.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {
@@ -94,13 +94,13 @@ export abstract class DetailsBase extends HTMLDetailsElement {
 export abstract class FormBase extends HTMLFormElement {
   static polyfillExtends = 'form' as const
   static polyfillConnectedCallback(el: HTMLFormElement) {}
-  static polyfillDisonnectedCallback(el: HTMLFormElement) {}
+  static polyfillDisconnectedCallback(el: HTMLFormElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
   disconnectedCallback() {
     const ctor = this.constructor as typeof FormBase
 
-    ctor.polyfillDisonnectedCallback(this)
+    ctor.polyfillDisconnectedCallback(this)
   }
 
   connectedCallback() {

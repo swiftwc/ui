@@ -14,8 +14,8 @@
     }
 
     :where(&)::part(menu-form) {
-      min-inline-size: 200px; // FIXME: del this
-      inline-size: min-content; //var(--menu-inline-size);
+      // min-inline-size: 200px; // FIXME: del this
+      inline-size: max-content; //var(--menu-inline-size);
       block-size: min-content;
 
       max-inline-size: var(--menu-max-inline-size,);

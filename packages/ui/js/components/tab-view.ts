@@ -48,8 +48,7 @@ export class TabView extends HTMLElement {
 
     // NOTE: wait for config
     Snapshot.waitReady.then(() => {
-      const query = `(orientation:portrait) and (max-width: ${Snapshot.config!['ipad-portrait-bp-max']})`, // iphone portrait only
-        mediaQueryList = self.matchMedia(query)
+      const mediaQueryList = self.matchMedia(`(orientation:portrait) and (max-width: ${Snapshot.config!['ipad-portrait-bp-max']})`) // iphone portrait only
 
       this.#handleMediaChange(
         // new MediaQueryListEvent(`tab-view:more-tab-${mediaQueryList.matches ? 'allowed' : 'disallowed'}`, {
@@ -58,7 +57,7 @@ export class TabView extends HTMLElement {
         })
       ) // Initial check
 
-      mediaQueryList.addEventListener('change', this.#handleMediaChange)
+      CleanupRegistry.register(this, onoff('change', this.#handleMediaChange as EventListener, mediaQueryList).on()) // mediaQueryList.addEventListener('change', this.#handleMediaChange)
 
       CleanupRegistry.register(
         this,
@@ -139,13 +138,10 @@ export class TabView extends HTMLElement {
         `navigation-stack:not([hidden])${selector.replace('{{tag}}', 'navigation-stack')},navigation-split-view:not([hidden])${selector.replace('{{tag}}', 'navigation-split-view')}`
       )) {
         if (!tabs.some((tab) => !ns.contains(tab))) continue // shouldRun
-        // for (const tab of tabs)
-        //   if (!ns.contains(tab)) {
 
         ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
         ns.hidden = true // triggers
-        // }
       }
 
     for (const selector of selectors.reverse())
@@ -153,13 +149,10 @@ export class TabView extends HTMLElement {
         `navigation-stack[hidden]${selector.replace('{{tag}}', 'navigation-stack')},navigation-split-view[hidden]${selector.replace('{{tag}}', 'navigation-split-view')}`
       )) {
         if (!tabs.some((tab) => ns.contains(tab))) continue // shouldRun
-        // for (const tab of tabs)
-        //   if (ns.contains(tab)) {
 
         ns.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
 
         ns.hidden = false // triggers
-        // }
       }
   }
 

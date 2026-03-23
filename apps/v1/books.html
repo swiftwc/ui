@@ -721,14 +721,34 @@
                 </labeled-content>
               </section-view>
               <section-view>
-                <button type="button" tabindex="0">
+                <button type="button" tabindex="0" id="gg" confirmation-dialog="makesure">
                   <label-view title="Delete"></label-view>
                 </button>
+
+                <!-- <menu-view>
+                  <label-view slot="label" title="Delete"></label-view>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="dots-three" title="Scan Documents"></label-view>
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="dots-three" title="Connect to Server"></label-view>
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view title="Edit Sidebar"></label-view>
+                  </button>
+                </menu-view> -->
               </section-view>
               <section-view>
                 <button type="button" navigation-destination="createcustomer">ffdf</button>
               </section-view>
             </form>
+            <datalist id="makesure">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
           </v-stack>
         </scroll-view>
         <tool-bar>
@@ -834,7 +854,7 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.js'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationPath, confirmationDialog } from '../../packages/ui/js/client'
 
       // NavigationProvider.addEventListener('pagereveal', navHandler)
       // NavigationProvider.addEventListener('pageswap', navHandler)
@@ -879,6 +899,31 @@
         console.debug(`⚡️ ${event?.type}`)
 
         const from = new NavigationPath(document.querySelector('[navigation-path="customers"]'))
+
+        if (event.target.closest('#gg')) {
+          try {
+            const value = await confirmationDialog(event.target, 'Are you sure?', [
+              [
+                'Delete',
+                {
+                  role: 'destructive',
+                  // action() {
+                  //   alert(99)
+                  // },
+                },
+              ],
+            ])
+
+            switch (value) {
+              case '0':
+                alert(9)
+
+                break
+            }
+          } catch {
+            //
+          }
+        }
 
         if (event.target.closest('#newcustomer')) {
           await startViewTransition(event.target, 'forwards', {

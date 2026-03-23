@@ -1,10 +1,11 @@
 import * as Components from '../components'
-import { kebabCase, onoff } from '../internal/utils'
+import { kebabCase, $, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { NavigationProvider } from '../navigation-provider'
 import { type WebComponentCtor } from '../namespace-browser'
 import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
 import { NavigationPath } from '../internal/class/navigation-path'
+import { ConfirmationDialog } from '../confirmation-dialog'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
 
@@ -328,6 +329,53 @@ export const startViewTransition = async (
   }
 }
 
+export const confirmationDialog = async (trigger: HTMLElement, title: string, entries: Array<[string, any]>, controller = new AbortController()) => {
+  const newAnchorName = `--confirmation-dialog-${self.crypto.randomUUID()}`
+
+  const dialog = $(
+    `<dialog is="confirmation-dialog">
+                  ${entries.map(
+                    (item, index) => `<button type="button" tabindex="0" value="${index}">
+                    <label-view title="${item[0]}"></label-view>
+                  </button>`
+                  )}
+                </dialog>`
+  )
+
+  $.prop('anchor-name', newAnchorName, trigger, 'important')
+  $.prop('position-anchor', newAnchorName, dialog as HTMLElement)
+  //
+
+  if (title) {
+    const label = $(`<label-view></label-view>`)
+    label.setAttribute('title', title)
+    dialog.insertAdjacentElement('afterbegin', label)
+  }
+
+  trigger.closest('body-view')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
+
+  return await new Promise((resolve, reject) => {
+    const onClose = (evt: any) => {
+        off()
+        resolve(evt.detail.returnValue)
+      },
+      off = onoff('close', onClose, ConfirmationDialog, { once: true }).on()
+
+    // const onAbort = () => {
+    //   cleanup()
+    //   reject(new DOMException('aborted', 'AbortError'))
+    // }
+
+    // const cleanup = () => {
+    //   ConfirmationDialog.removeEventListener('close', onClose)
+    //   // controller.signal.removeEventListener('abort', onAbort)
+    // }
+
+    // ConfirmationDialog.addEventListener('close', onClose, { once: true })
+    // controller.signal.addEventListener('abort', onAbort, { once: true })
+  })
+}
+
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
 // SECTION: Utils
@@ -482,4 +530,4 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 //   }
 // }
 
-export { Snapshot, NavigationProvider, NavigationPath }
+export { Snapshot, NavigationProvider, NavigationPath, ConfirmationDialog }

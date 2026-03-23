@@ -10,7 +10,7 @@ export class MenuView extends HTMLElement {
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
       innerHTML: `
-  <button part="root menu-summary">
+  <button part="root button menu-summary">
     <slot name="label"></slot>
   </button>
   <dialog part="root menu-dialog" autofocus inert>
@@ -40,14 +40,14 @@ export class MenuView extends HTMLElement {
   disconnectedCallback() {
     console.debug(`${MenuView.name} ⚡️ disconnect`)
 
-    const dialog = this.#shadowRoot.querySelector('dialog'),
-      trigger = this.#shadowRoot.querySelector('button')
+    // const dialog = this.#shadowRoot.querySelector('dialog'),
+    //   trigger = this.#shadowRoot.querySelector('button')
 
-    trigger?.removeEventListener('click', this.#handleTriggerClick)
+    // trigger?.removeEventListener('click', this.#handleTriggerClick)
 
-    dialog?.removeEventListener('click', this.#handleDialogClick)
-    dialog?.removeEventListener('close', this.#handleDialogClose)
-    dialog?.removeEventListener('cancel', this.#handleDialogCancel)
+    // dialog?.removeEventListener('click', this.#handleDialogClick)
+    // dialog?.removeEventListener('close', this.#handleDialogClose)
+    // dialog?.removeEventListener('cancel', this.#handleDialogCancel)
 
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
@@ -134,7 +134,7 @@ export class MenuView extends HTMLElement {
 
           this.removeAttribute('closing')
 
-          const form = this.#shadowRoot.querySelector<HTMLElement>('form')!
+          const form = this.#shadowRoot.querySelector<HTMLFormElement>('form')!
 
           form.scrollTop = 0
 
@@ -180,6 +180,7 @@ export class MenuView extends HTMLElement {
     this.toggleAttribute('open', true)
   }
 
+  // intercept to modify open attr
   #handleDialogCancel: EventListener = (evt: Event) => {
     console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 

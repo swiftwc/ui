@@ -19,7 +19,7 @@
   //   --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   // }
 
-  :where([is='sheet-view'], [is='full-screen']) {
+  :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog']) {
     // ANCHOR: level 1
     --face: light-dark(oklch(var(--secondary-bg)), oklch(var(--secondary-bg-dark)));
 

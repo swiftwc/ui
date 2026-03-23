@@ -20,15 +20,18 @@
     box-sizing: border-box;
   }
 
-  * {
+  *,
+  *::part(root) {
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
   }
 
-  * {
+  *,
+  *::part(root) {
     -webkit-touch-callout: none; // disables long-press menu
   }
 
-  *:not(input, textarea) {
+  *:not(input, textarea),
+  *::part(root) {
     -webkit-user-select: none;
     user-select: none;
   }
@@ -39,10 +42,14 @@
   }
 
   button,
+  *::part(button),
   input,
+  *::part(input),
   optgroup,
+  *::part(optgroup),
   select,
-  textarea {
+  *::part(select),
+  textarea *::part(textarea) {
     font-family: inherit;
     font-feature-settings: inherit;
     font-variation-settings: inherit;
@@ -54,7 +61,8 @@
   }
 
   [role='button'],
-  button {
+  button,
+  *::part(button) {
     text-align: unset;
 
     // appearance: none;
@@ -65,7 +73,8 @@
 
   [role='button'],
   summary,
-  button {
+  button,
+  *::part(button) {
     cursor: pointer;
   }
 

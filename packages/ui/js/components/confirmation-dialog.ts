@@ -2,6 +2,7 @@ import { DialogBase } from '../namespace-browser/base'
 import { touchGlass, $, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
+import { type ReturnDetail } from '../events'
 
 export class ConfirmationDialog extends DialogBase {
   static observedAttributes = ['anchor']
@@ -13,14 +14,16 @@ export class ConfirmationDialog extends DialogBase {
   static polyfillDisconnectedCallback(el: ConfirmationDialog) {
     console.debug(`${ConfirmationDialog.name} ⚡️ disconnect`)
 
-    $.prop('anchor-name', null, document.querySelector(`[style*="${el.style.positionAnchor}"]`))
+    const positionAnchor = el.style.getPropertyValue('position-anchor')
+
+    $.prop('anchor-name', null, document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`))
     $.prop('position-anchor', null, el)
 
     CleanupRegistry.unregister(el)
 
     EvtBus.dispatchEvent(
-      new CustomEvent<PageRevealSwapDetail>('close', {
-        detail: { returnValue: el.returnValue, value: el.style.positionAnchor ?? `--confirmation-dialog` },
+      new CustomEvent<ReturnDetail>('return', {
+        detail: { returnValue: el.returnValue, positionAnchor },
         bubbles: true,
         composed: true,
       })
@@ -30,19 +33,11 @@ export class ConfirmationDialog extends DialogBase {
   static polyfillConnectedCallback(el: ConfirmationDialog) {
     console.debug(`${ConfirmationDialog.name} ⚡️ connect`)
 
-    // console.log(99, el.style.positionAnchor)
-
-    // this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
-
-    // const trigger = this.#shadowRoot.querySelector('button') ?? undefined
-
-    // CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, trigger).on())
-
     CleanupRegistry.register(
       el,
       onoff(
         [
-          { types: 'click', listener: this.#handleDialogClick },
+          { types: 'click', listener: this.#handleDialogClick as EventListener },
           { types: 'close', listener: this.#handleDialogClose },
           { types: 'cancel', listener: this.#handleDialogCancel },
         ],
@@ -54,8 +49,8 @@ export class ConfirmationDialog extends DialogBase {
       touchGlass(
         el,
         (t) => t,
-        (event: PointerEvent) => {
-          if ((event.target as HTMLElement).matches('[is=confirmation-dialog]')) return false
+        (evt: PointerEvent) => {
+          if ((evt.target as HTMLElement).matches('[is=confirmation-dialog]')) return false
           // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
 
           return true
@@ -66,14 +61,6 @@ export class ConfirmationDialog extends DialogBase {
 
     CleanupRegistry.register(el, on())
 
-    // const newAnchorName = `--menu-view-${self.crypto.randomUUID()}`
-
-    // const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
-    //   dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
-
-    // $.prop('anchor-name', newAnchorName, summaryPart, 'important')
-    // $.prop('position-anchor', newAnchorName, dialogPart)
-
     console.debug(`${ConfirmationDialog.name} ⚡️ will-open`)
 
     el.removeAttribute('closing')
@@ -83,14 +70,6 @@ export class ConfirmationDialog extends DialogBase {
     el.returnValue = ''
 
     el.showModal()
-
-    // EvtBus.dispatchEvent(
-    //   new CustomEvent<PageRevealSwapDetail>('confirmation-dialog:open', {
-    //     detail: { dialog: el, value: el.style.positionAnchor ?? `--confirmation-dialog` },
-    //     bubbles: true,
-    //     composed: true,
-    //   })
-    // )
   }
 
   static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
@@ -112,7 +91,7 @@ export class ConfirmationDialog extends DialogBase {
     }
   }
 
-  static #handleDialogClick: EventListener = (evt: Event) => {
+  static #handleDialogClick = (evt: PointerEvent) => {
     console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
     const dialog = evt.currentTarget as HTMLDialogElement | null
@@ -120,7 +99,11 @@ export class ConfirmationDialog extends DialogBase {
 
     const target = evt.target as HTMLElement | null
 
-    if (target?.matches('dialog')) return dialog?.requestClose() // click outside
+    const rect = dialog.getBoundingClientRect()
+
+    const isInside = evt.clientX >= rect.left && evt.clientX <= rect.right && evt.clientY >= rect.top && evt.clientY <= rect.bottom
+
+    if (target?.matches('dialog') && !isInside) return dialog?.requestClose() // click outside
 
     const button = target?.closest<HTMLButtonElement>('button')
     if (!button) return

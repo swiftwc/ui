@@ -72,7 +72,7 @@
     }
   }
 
-  // componetize
+  // componentize
   :where(
     sidebar-toggle > button,
     tool-bar-item > button,
@@ -136,6 +136,7 @@
   // }
 }
 
+// componentize
 @layer #{vars.$colors-layer} {
   sidebar-toggle > button,
   tool-bar-item > button,
@@ -178,6 +179,7 @@
   // }
 }
 
+// componentize
 @layer #{vars.$ui-layer} {
   sidebar-toggle > button,
   tool-bar-item > button,

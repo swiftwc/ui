@@ -45,6 +45,8 @@
         &::before {
           block-size: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
         }
+
+        --face: transparent;
       }
     }
 

@@ -370,7 +370,7 @@ export const confirmationDialog = async (trigger: HTMLElement, title: string, en
         off()
         resolve(evt.detail.returnValue)
       },
-      off = onoff('close', onClose, ConfirmationDialog, { once: true }).on()
+      off = onoff('return', onClose, ConfirmationDialog, { once: true }).on()
 
     // const onAbort = () => {
     //   cleanup()

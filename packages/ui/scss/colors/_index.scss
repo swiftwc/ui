@@ -93,6 +93,20 @@
     }
   }
 
+  :where([is='confirmation-dialog']) {
+    --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
+    --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
+    --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+
+    @media (pointer: fine) {
+      --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
+      --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
+      --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+    }
+  }
+
   /* list-view {
     :where(&) {
       // --toolbaritemface: ;

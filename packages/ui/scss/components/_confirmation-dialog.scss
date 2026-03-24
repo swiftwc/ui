@@ -32,8 +32,9 @@
       backdrop-filter: var(--liquid-glass-backdrop-filter,);
       box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
 
-      padding-block: 2rem;
-      padding-inline: 2em;
+      padding-block: 1rem;
+      padding-inline: 1em;
+      gap: 0.5rem;
 
       // finally
       --confirmation--dialog-scale: scale(0);
@@ -61,6 +62,45 @@
         --confirmation--dialog-max-block-size: anchor-size();
 
         --confirmation--dialog-scale: scale(0);
+      }
+    }
+
+    // componentize
+    > button {
+      :where(&) {
+        @include mixins.componentize(dialogbtn);
+      }
+    }
+    --dialogbtnpadistart: 0.6rem;
+    --dialogbtnpadiend: 0.6rem;
+    --dialogbtnpadbstart: 0.6rem;
+    --dialogbtnpadbend: 0.6rem;
+    --dialogbtnradiustl: 1rem;
+    --dialogbtnradiustr: 1rem;
+    --dialogbtnradiusbl: 1rem;
+    --dialogbtnradiusbr: 1rem;
+  }
+}
+
+@layer #{vars.$colors-layer} {
+  // componentize
+  [is='confirmation-dialog'] {
+    > button {
+      @include mixins.add-focus-visible-state {
+        --dialogbtnface: var(--dialogbtnhighlightface,);
+        --dialogbtntext: var(--dialogbtnhighlighttext,);
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  // componentize
+  [is='confirmation-dialog'] {
+    > button {
+      @include mixins.add-active-state {
+        --dialogbtnface: var(--dialogbtnactiveface,);
+        --dialogbtntext: var(--dialogbtnactivetext,);
       }
     }
   }

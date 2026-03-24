@@ -18,10 +18,16 @@
       :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='navigation-bar-']) {
         --label-style: icon-only;
       }
+
+      @media (pointer: coarse) and (orientation: portrait) {
+        clip-path: inset(var(--safe-area-inset-top) 0 0 0 round 2rem 2rem 0 0);
+      }
     }
 
     @include mixins.if-ipad-sheet-fits {
       :where(&) {
+        clip-path: none;
+
         max-width: #{vars.$ipad-sheet-view-inline-size};
 
         aspect-ratio: #{vars.$ipad-sheet-view-aspect-ratio};

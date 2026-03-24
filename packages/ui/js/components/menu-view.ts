@@ -84,9 +84,9 @@ export class MenuView extends HTMLElement {
       touchGlass(
         this,
         (t) => t,
-        (event: PointerEvent) => {
-          if ((event.target as HTMLElement).matches('menu-view')) return false
-          if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
+        (evt: PointerEvent) => {
+          if ((evt.target as HTMLElement).matches('menu-view')) return false
+          if (!(evt.target as HTMLElement).closest('menu-view[open]')) return false
 
           return true
         }

@@ -16,7 +16,9 @@ export class PickerView extends HTMLElement {
     return Object.values(this.ATTR)
   }
 
-  static formAssociated = true
+  static get formAssociated() {
+    return true
+  }
 
   static #templates: Map<string, HTMLTemplateElement> = new Map()
 

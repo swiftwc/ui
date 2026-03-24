@@ -1,4 +1,6 @@
 @use '../vars';
+@use 'sass:string';
+@use 'sass:list';
 
 @layer #{vars.$components-layer} {
   h-stack {
@@ -19,16 +21,17 @@
     //   }
     // }
 
-    :where(&[template='minmax(0,1fr) auto']) {
-      grid-template-columns: minmax(0, 1fr) auto;
-    }
-
-    :where(&[template='auto minmax(0,1fr) auto auto']) {
-      grid-template-columns: auto minmax(0, 1fr) auto auto;
-    }
-
-    :where(&[template='repeat(4,minmax(0,1fr))']) {
-      grid-template-columns: repeat(4, minmax(0, 1fr));
+    @each $template in ((minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (repeat(4, minmax(0, 1fr)))) {
+      $parts: string.split('#{$template}', ', ');
+      $result: '';
+      @each $part in $parts {
+        $result: $result + '#{$part},';
+      }
+      $result: string.slice($result, 1, string.length($result) - 1);
+      @debug $result, $template;
+      :where(&[template='#{$result}']) {
+        grid-template-columns: $template;
+      }
     }
   }
 }

@@ -4,7 +4,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { Snapshot } from '../snapshot'
 
 export class SheetView extends DialogBase {
-  static observedAttributes = ['fine-presentation-large-adaptation']
+  static get observedAttributes() {
+    return ['fine-presentation-large-adaptation']
+  }
 
   constructor() {
     super()

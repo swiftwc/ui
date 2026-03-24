@@ -2,7 +2,9 @@ import { Snapshot } from '../snapshot'
 import { $ } from '../internal/utils'
 
 export class SectionView extends HTMLElement {
-  static observedAttributes = ['header', 'footer']
+  static get observedAttributes() {
+    return ['header', 'footer']
+  }
 
   static #template: HTMLTemplateElement
 

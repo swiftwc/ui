@@ -3,9 +3,13 @@ import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class TextField extends HTMLElement {
-  static observedAttributes = ['placeholder', 'label']
+  static get observedAttributes() {
+    return ['placeholder', 'label', 'text']
+  }
 
-  static formAssociated = true
+  static get formAssociated() {
+    return true
+  }
 
   static #template: HTMLTemplateElement
 
@@ -27,7 +31,7 @@ export class TextField extends HTMLElement {
 
   #labelSlot?: HTMLSlotElement
 
-  #internals?: ElementInternals
+  #internals: ElementInternals
 
   constructor() {
     super()
@@ -52,7 +56,6 @@ export class TextField extends HTMLElement {
     )
 
     CleanupRegistry.register(this, on())
-    // })
   }
 
   connectedCallback() {
@@ -68,7 +71,6 @@ export class TextField extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // Snapshot.waitReady.then(() => {
     switch (name) {
       case 'placeholder':
         if (newValue) this.#shadowRoot.querySelector('input')?.setAttribute(name, newValue)
@@ -89,7 +91,15 @@ export class TextField extends HTMLElement {
 
         break
     }
-    // })
+  }
+
+  get text() {
+    return this.#shadowRoot.querySelector('input')!.value
+  }
+
+  set text(v) {
+    // this.#value = v
+    this.#shadowRoot.querySelector('input')!.value = v
   }
 
   // Optional: form participation properties
@@ -97,9 +107,25 @@ export class TextField extends HTMLElement {
     return this.#internals.form
   }
   get name() {
-    return this.getAttribute('name')
+    return this.getAttribute('label')
   }
   get type() {
-    return 'text'
+    return this.localName
+  }
+  get validity() {
+    return this.#internals.validity
+  }
+  get validationMessage() {
+    return this.#internals.validationMessage
+  }
+  get willValidate() {
+    return this.#internals.willValidate
+  }
+
+  checkValidity() {
+    return this.#internals.checkValidity()
+  }
+  reportValidity() {
+    return this.#internals.reportValidity()
   }
 }

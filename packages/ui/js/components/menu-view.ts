@@ -3,7 +3,9 @@ import { touchGlass, $, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class MenuView extends HTMLElement {
-  static observedAttributes = ['open', 'closing', 'label']
+  static get observedAttributes() {
+    return ['open', 'closing', 'label']
+  }
 
   static #template: HTMLTemplateElement
 

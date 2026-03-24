@@ -7,7 +7,9 @@ import { LifecycleObserver } from '../lifecycle-observer'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class ScrollView extends HTMLElement {
-  static observedAttributes = ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
+  static get observedAttributes() {
+    return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
+  }
 
   static #template: HTMLTemplateElement
 

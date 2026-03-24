@@ -5,7 +5,9 @@ import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
 import { type ReturnDetail } from '../events'
 
 export class ConfirmationDialog extends DialogBase {
-  static observedAttributes = ['anchor']
+  static get observedAttributes() {
+    return ['anchor']
+  }
 
   constructor() {
     super()

@@ -9,7 +9,9 @@ const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>
 // const observers = new ResizeObserverSingleton()
 
 export class DisclosureGroup extends DetailsBase {
-  static observedAttributes = ['open']
+  static get observedAttributes() {
+    return ['open']
+  }
 
   constructor() {
     super()

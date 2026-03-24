@@ -4,7 +4,9 @@ import { type TabDetail } from '../../events'
 import { LifecycleObserver } from '../../lifecycle-observer'
 
 export class NavigationView extends HTMLElement {
-  static observedAttributes = ['hidden']
+  static get observedAttributes() {
+    return ['hidden']
+  }
 
   constructor() {
     super()

@@ -702,10 +702,10 @@
         <scroll-view navigation-inline-title="customer 1" navigation-path="editcustomer1" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
+              <button type="submit">goM</button>
               <section-view>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <text-field placeholder="here" label="Name" text="Customer 1"></text-field>
                 </labeled-content>
                 <labeled-content>
                   <label-view title="Name" slot="label"></label-view>
@@ -882,6 +882,18 @@
 
       //   if (tab.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
       // })
+      document.addEventListener('submit', (evt) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        evt.preventDefault()
+
+        const form = evt.target
+        const data = new FormData(form)
+
+        // console.log(data.get('email')) // single field
+
+        console.log(99, evt, data) //.target.checkFormValidity())
+      })
 
       document.addEventListener('tabroot', async (evt) => {
         console.debug(`⚡️ ${evt?.type}`)

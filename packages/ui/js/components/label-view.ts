@@ -2,7 +2,9 @@ import { Snapshot } from '../snapshot'
 import { $ } from '../internal/utils'
 
 export class LabelView extends HTMLElement {
-  static observedAttributes = ['system-image', 'title', 'line-limit', 'truncation-mode']
+  static get observedAttributes() {
+    return ['system-image', 'title', 'line-limit', 'truncation-mode']
+  }
 
   static #template: HTMLTemplateElement
 

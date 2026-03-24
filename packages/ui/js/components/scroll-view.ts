@@ -1,9 +1,9 @@
 import { Snapshot } from '../snapshot'
-import { type TabRevealSwapDetail } from '../events'
+import { type TabDetail } from '../events'
 import { type TabView } from './tab-view'
 import { $, slowHideShow, onoff, frame } from '../internal/utils'
-import { type PageRevealSwapDetail } from '../events'
-import { NavigationProvider } from '../navigation-provider'
+import { type PageShowHideDetail, type PageRevealSwapDetail } from '../events'
+import { LifecycleObserver } from '../lifecycle-observer'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class ScrollView extends HTMLElement {
@@ -125,7 +125,7 @@ export class ScrollView extends HTMLElement {
     CleanupRegistry.unregister(this)
 
     frame().then(() =>
-      NavigationProvider.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: this }, bubbles: true, composed: true }))
+      LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true }))
     )
   }
 
@@ -148,16 +148,16 @@ export class ScrollView extends HTMLElement {
     )
 
     frame().then(() =>
-      NavigationProvider.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: this }, bubbles: true, composed: true }))
+      LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true }))
     )
   }
 
   #beforeTabSwapLastScrolltop?: number
 
-  #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {
-    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+  #handleTabReveal = (evt: CustomEvent<TabDetail>) => {
+    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
-    if (!(event.target as HTMLElement)?.contains(this)) return
+    if (!(evt.target as HTMLElement)?.contains(this)) return
 
     if (this.closest('[hidden]')) return
 
@@ -169,10 +169,10 @@ export class ScrollView extends HTMLElement {
     this.#beforeTabSwapLastScrolltop = undefined
   }
 
-  #handleTabBeforeswap = (event: CustomEvent<TabRevealSwapDetail>) => {
-    console.debug(`${ScrollView.name} ⚡️ ${event?.type}`)
+  #handleTabBeforeswap = (evt: CustomEvent<TabDetail>) => {
+    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
-    if (!(event.target as HTMLElement)?.contains(this)) return
+    if (!(evt.target as HTMLElement)?.contains(this)) return
 
     if (this.closest('[hidden]')) return
 

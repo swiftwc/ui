@@ -1,7 +1,8 @@
 import * as Components from '../components'
 import { kebabCase, $, onoff } from '../internal/utils'
+import { type PageRevealSwapDetail } from '../events'
 import { Snapshot } from '../snapshot'
-import { NavigationProvider } from '../navigation-provider'
+import { LifecycleObserver } from '../lifecycle-observer'
 import { type WebComponentCtor } from '../namespace-browser'
 import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
 import { NavigationPath } from '../internal/class/navigation-path'
@@ -208,6 +209,7 @@ export const startViewTransition = async (
 
     // prepare old
     from.body?.classList.add(Snapshot.config!['vt-fwd-class-name'])
+    from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
 
     for (const oldToolbar of from.toolBarConfig ?? []) oldToolbar.classList.add('fwn') // prepare navbs
 
@@ -225,7 +227,10 @@ export const startViewTransition = async (
 
     for (const bti of newToolbars?.filter?.(toolbarExclusion) ?? []) bti.classList.add('fwnn') // for (const ti of newToolbars ?? []) ti.classList.add('fwnn') //
 
-    for (const bt of tos?.filter?.(bodyExclusion) ?? []) bt.body?.classList.add('fwdd') //to?.classList.add('fwdd')
+    for (const bt of tos?.filter?.(bodyExclusion) ?? []) {
+      bt.body?.classList.add('fwdd') //to?.classList.add('fwdd')
+      bt.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: bt.body }, bubbles: true, composed: true }))
+    }
 
     if (0 < modalViews.length) {
       for await (const el of modalViews) (el as HTMLDialogElement).showModal()
@@ -269,6 +274,7 @@ export const startViewTransition = async (
 
     // if most-top effect is closing a modal, skip everything
     if ('DIALOG' === from.component?.tagName) {
+      from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
       ;(from.component as HTMLDialogElement).close()
       console.debug(`⚡️ view-dialog-transition-start (${type})`)
       await Promise.allSettled(from.component.getAnimations().map(({ finished }) => finished))
@@ -284,7 +290,8 @@ export const startViewTransition = async (
     if (!to) return console.debug('Can not go backwards.') // nothing to go back to
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
-    if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope')) if (!tv.moreTabAllowed) return
+    if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope'))
+      if ('bottom-bar' !== tv.cachedAdaptableTabBarPlacement) return
 
     // const { toolBarConfig: newToolbars } = getComputedView(to.body)
 
@@ -295,6 +302,7 @@ export const startViewTransition = async (
     for (const ti of to.toolBarConfig ?? []) ti.classList.add('bwnn')
 
     to.body?.classList.add('bwdd')
+    to.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pagereveal', { detail: { page: to.body }, bubbles: true, composed: true }))
 
     // prepare old
     const inbetweenModals = froms.map((item) => item.component).filter((item): item is NavigationHost => !!item && item.matches('dialog[open]')), //queryHostAll(oldPage).filter?.((item) => item.matches('dialog[open]')) ?? [], // FIXME: TEst this, added oldHost too
@@ -306,7 +314,10 @@ export const startViewTransition = async (
 
     for (const ti of [...(from.toolBarConfig ?? []), ...(oldToolbars?.filter?.(toolbarExclusion) ?? [])]) ti.classList.add('bwn')
 
-    for (const nn of [from.body, ...oldBodies?.filter?.(bodyExclusion)]) nn?.classList.add('bwd') //from?.classList.add('bwd')
+    for (const nn of [from.body, ...oldBodies?.filter?.(bodyExclusion)]) {
+      nn?.classList.add('bwd') //from?.classList.add('bwd')
+      nn?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: nn }, bubbles: true, composed: true }))
+    }
 
     for (const el of inbetweenModals) (el as HTMLDialogElement).close() // close old inbetween modals
 
@@ -530,4 +541,4 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 //   }
 // }
 
-export { Snapshot, NavigationProvider, NavigationPath, ConfirmationDialog }
+export { Snapshot, LifecycleObserver, NavigationPath, ConfirmationDialog }

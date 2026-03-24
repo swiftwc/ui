@@ -208,11 +208,11 @@
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      // NavigationProvider.addEventListener('pagereveal', navHandler)
-      // NavigationProvider.addEventListener('pageswap', navHandler)
+      // LifecycleObserver.addEventListener('pageshow', navHandler)
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
 
-      // document.addEventListener('pageswap', async (event) => {
-      //   console.debug(`⚡️ pageswap`)
+      // document.addEventListener('pagehide', async (event) => {
+      //   console.debug(`⚡️ pagehide`)
 
       //   if (event.detail.page.id === 'scloud_drive') alert(8)
 

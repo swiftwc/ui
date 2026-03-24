@@ -1,4 +1,4 @@
-import { startViewTransition, NavigationPath, NavigationProvider } from '../../packages/ui/js/client'
+import { startViewTransition, NavigationPath, LifecycleObserver } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -662,5 +662,5 @@ export const navHandler = async (event) => {
   }
 }
 
-NavigationProvider.addEventListener('pagereveal', navHandler)
-NavigationProvider.addEventListener('pageswap', navHandler)
+LifecycleObserver.addEventListener('pageshow', navHandler)
+LifecycleObserver.addEventListener('pagehide', navHandler)

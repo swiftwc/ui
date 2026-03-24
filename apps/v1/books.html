@@ -854,12 +854,21 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.js'
-      import { startViewTransition, NavigationPath, confirmationDialog } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationPath, confirmationDialog, LifecycleObserver } from '../../packages/ui/js/client'
+      // import { CSSStyleObserver } from '../../packages/ui/js/internal/class/css-style-observer'
 
-      // NavigationProvider.addEventListener('pagereveal', navHandler)
-      // NavigationProvider.addEventListener('pageswap', navHandler)
+      // LifecycleObserver.addEventListener('pageshow', (evt) => {
+      //   console.log(9999, evt)
+      // })
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
 
-      // document.addEventListener('tab-view:change', (event) => {
+      // const observer = new CSSStyleObserver()
+
+      // observer.observe(document.querySelector('tab-view'), (evt) => {
+      //   console.log(999999, evt)
+      // })
+
+      // document.addEventListener('tab-view:toggle', (event) => {
       //   console.debug(`⚡️ ${event?.type}`)
 
       //   const tab = event.detail.selection.at(-1), //document.querySelector(`#${}`),

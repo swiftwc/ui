@@ -1,32 +1,28 @@
-import { type NavigationStack } from '../components/navigation-stack'
-import { type NavigationSplitView } from '../components/navigation-split-view'
+import { type NavigationStack, type NavigationSplitView } from '../components'
+import { type TabBarPlacement } from '../components/tab-view'
 
-export type PageRevealSwapDetail = {
-  page: HTMLElement
-}
-
-export type TabRevealSwapDetail = {
+export type TabDetail = {
   tag: string
 }
 
-export type TabViewChangeDetail = {
+export type TabViewDetail = {
   selection: (NavigationStack | NavigationSplitView)[] //| null
 }
 
-export type TabMoreStackAllowanceDetail = {
-  moreTab: NavigationStack | null
+export type TabViewAdaptableTabBarPlacementDetail = {
+  oldValue?: TabBarPlacement
+  newValue?: TabBarPlacement
 }
 
 declare global {
   interface HTMLElementEventMap {
-    tabreveal: CustomEvent<TabRevealSwapDetail>
-    tabswap: CustomEvent<TabRevealSwapDetail>
-    beforetabreveal: CustomEvent<TabRevealSwapDetail>
-    beforetabswap: CustomEvent<TabRevealSwapDetail>
-    'tab-view:change': CustomEvent<TabViewChangeDetail>
-    pagereveal: CustomEvent<PageRevealSwapDetail>
-    pageswap: CustomEvent<PageRevealSwapDetail>
-    'tab-view:more-tab-allowed': CustomEvent<TabMoreStackAllowanceDetail>
-    'tab-view:more-tab-disallowed': CustomEvent<TabMoreStackAllowanceDetail>
+    tabshow: CustomEvent<TabDetail>
+    tabhide: CustomEvent<TabDetail>
+    tabreveal: CustomEvent<TabDetail>
+    tabswap: CustomEvent<TabDetail>
+    beforetabreveal: CustomEvent<TabDetail>
+    beforetabswap: CustomEvent<TabDetail>
+    'tab-view:toggle': CustomEvent<TabViewDetail>
+    'tab-view:adaptable-tab-bar-placement-change': CustomEvent<TabViewAdaptableTabBarPlacementDetail>
   }
 }

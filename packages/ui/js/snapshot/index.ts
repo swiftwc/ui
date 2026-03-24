@@ -34,7 +34,7 @@ export class Snapshot {
   }
 
   static #getOwnConfig() {
-    const style = getComputedStyle(document.documentElement, '::before'),
+    const style = self.getComputedStyle(document.documentElement, '::before'),
       content = style.getPropertyValue('content'),
       unquoted = content.replace(/^"(.*)"$/, '$1') // Remove quotes around the content
 

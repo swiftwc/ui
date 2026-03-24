@@ -35,8 +35,8 @@ export class NavigationLargeTitle extends HTMLElement {
     frame(this).then((r) => {
       if (!r) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
-      const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
-        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
+      const blockSizeProp = self.getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
+        blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(self.getComputedStyle(document.documentElement).fontSize) : 1)
 
       this.#observer = new IntersectionObserver(this.#handleIntersect, {
         root,

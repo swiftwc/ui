@@ -333,7 +333,7 @@
     touch-action: none !important;
   }
   html::before {
-    content: "ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&ipad-portrait-bp-max=42.9999rem&vt-fwd-class-name=fwd";
+    content: "ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&ipad-landscape-bp-min=68rem&ipad-landscape-bp-max=67.9999rem&ipad-portrait-bp-min=43rem&ipad-portrait-bp-max=42.9999rem&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -3332,6 +3332,9 @@
     margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1);
   }
   @media (pointer: coarse) {
+    :where(tab-view[tab-view-style=tab-bar-only]) {
+      --adaptable-tab-bar-placement: bottom-bar;
+    }
     :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
     }
@@ -3364,6 +3367,9 @@
     }
   }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
+    :where(tab-view:not([tab-view-style=tab-bar-only])) {
+      --adaptable-tab-bar-placement: bottom-bar;
+    }
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
     }
@@ -3384,6 +3390,9 @@
     }
   }
   @media (max-width: 67.9999rem) and (orientation: landscape) {
+    :where(tab-view:not([tab-view-style=tab-bar-only])) {
+      --adaptable-tab-bar-placement: ornament;
+    }
     :where(tab-view:not([tab-view-style=tab-bar-only]) scroll-view:not(dialog scroll-view)) {
       grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
     }
@@ -3473,6 +3482,9 @@
     }
   }
   @media (min-width: 68rem) and (orientation: landscape) {
+    :where(tab-view:not([tab-view-style=tab-bar-only])) {
+      --adaptable-tab-bar-placement: sidebar;
+    }
     tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view:not(:has(> [is=sidebar-view])) {
       --nav-split-view--content-inline-size: calc(var(--nav-split-view-content-inline-size) + var(--sidebar-inline-size, 0px));
     }
@@ -3487,6 +3499,9 @@
 }
 @layer sw-final {
   @media (pointer: fine) {
+    :where(tab-view[tab-view-style=tab-bar-only]) {
+      --adaptable-tab-bar-placement: top-bar;
+    }
     :where(tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view), tab-view[tab-view-style=tab-bar-only] body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
     }
@@ -3495,6 +3510,9 @@
     }
   }
   @media (min-width: 43rem) and (orientation: portrait) {
+    :where(tab-view:not([tab-view-style=tab-bar-only])) {
+      --adaptable-tab-bar-placement: top-bar;
+    }
     :where(tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-stack > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) navigation-split-view > scroll-view:not(dialog scroll-view) ~ tool-bar, tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view), tab-view:not([tab-view-style=tab-bar-only]) body-view > scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
     }

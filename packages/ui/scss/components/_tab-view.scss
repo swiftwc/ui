@@ -1,7 +1,19 @@
 @use '../vars';
 @use '../mixins';
 
+// @property --adaptable-tab-bar-placement {
+//   syntax: 'bottom-bar | ornament | sidebar | top-bar';
+//   inherits: true;
+//   initial-value: bottom-bar;
+// }
+
 @mixin make-iphone-tabview($selector) {
+  #{$selector} {
+    :where(&) {
+      --adaptable-tab-bar-placement: bottom-bar;
+    }
+  }
+
   scroll-view:not(dialog scroll-view) {
     #{$selector} navigation-stack > &,
     #{$selector} navigation-split-view > &,
@@ -41,6 +53,12 @@
 }
 
 @mixin make-ipad-tabview($selector) {
+  #{$selector} {
+    :where(&) {
+      --adaptable-tab-bar-placement: top-bar;
+    }
+  }
+
   scroll-view:not(dialog scroll-view) {
     #{$selector} navigation-stack > &,
     #{$selector} navigation-split-view > &,
@@ -141,6 +159,12 @@
   }
 
   @include mixins.if-iphone-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      :where(&) {
+        --adaptable-tab-bar-placement: ornament;
+      }
+    }
+
     scroll-view {
       tab-view:not([tab-view-style='tab-bar-only']) &:not(dialog scroll-view) {
         :where(&) {
@@ -218,6 +242,12 @@
   }
 
   @include mixins.if-ipad-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      :where(&) {
+        --adaptable-tab-bar-placement: sidebar;
+      }
+    }
+
     // custom override for nested nav
     tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view {
       &:not(:has(> [is='sidebar-view'])) {

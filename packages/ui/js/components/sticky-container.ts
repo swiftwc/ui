@@ -21,7 +21,7 @@ export class StickyContainer extends HTMLElement {
   #handleTransitionchange = ({ target, propertyName, pseudoElement }: TransitionEvent) => {
     if ('--stuck' !== propertyName || '::before' !== pseudoElement || !(target as HTMLElement)?.matches('sticky-container')) return
 
-    const stuck = getComputedStyle(this, 'before').getPropertyValue('--stuck')
+    const stuck = self.getComputedStyle(this, 'before').getPropertyValue('--stuck')
 
     this.toggleAttribute('stuck', '1' === stuck)
   }

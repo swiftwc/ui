@@ -42,7 +42,7 @@ export class BorderlessButton extends ButtonBase {
     CleanupRegistry.register(el, onoff('click', BorderlessButton.#handleClick, el).on())
   }
 
-  static #handleClick = async (event: Event) => {
+  static #handleClick = async (evt: Event) => {
     alert(99)
   }
 }

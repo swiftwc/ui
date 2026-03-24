@@ -1,12 +1,12 @@
 // import { type PageRevealSwapDetail } from '../events'
 
-export const NavigationProvider = new EventTarget()
+export const LifecycleObserver = new EventTarget()
 
 // export { default as closestHost } from './closest-host'
 // export { default as closestBody } from './closest-body'
 
-// export class NavigationProvider {
-// export const NavigationProvider = new EventTarget()
+// export class LifecycleObserver {
+// export const LifecycleObserver = new EventTarget()
 
 // static #pages = new WeakMap() //#pages = new WeakSet()
 

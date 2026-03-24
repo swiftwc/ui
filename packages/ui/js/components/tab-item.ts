@@ -1,7 +1,7 @@
 import { TabView } from './tab-view'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
-import { type TabRevealSwapDetail, type TabMoreStackAllowanceDetail } from '../events'
+import { type TabDetail, type TabViewAdaptableTabBarPlacementDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
@@ -46,38 +46,36 @@ export class TabItem extends ButtonBase {
 
     CleanupRegistry.register(btn, onoff('tabreveal tabswap', handler1 as unknown as EventListener, tv).on())
 
-    CleanupRegistry.register(btn, onoff('tab-view:more-tab-allowed tab-view:more-tab-disallowed', handler2 as unknown as EventListener, tv).on())
+    CleanupRegistry.register(btn, onoff('tab-view:adaptable-tab-bar-placement-change', handler2 as unknown as EventListener, tv).on())
 
     // if (tv?.selectedTab?.id === el.value)
     if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
-      void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: btn.value } }))
+      void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabDetail>('tabreveal', { detail: { tag: btn.value } }))
 
     if (tv?.moreTab)
-      this.#handleTabMoreStackAllowance(
-        btn,
-        new CustomEvent<TabMoreStackAllowanceDetail>(`tab-view:more-tab-${tv?.moreTabAllowed ? 'allowed' : 'disallowed'}`, {
-          detail: { moreTab: tv?.moreTab },
-        })
-      )
+      this.#handleTabMoreStackAllowance(btn, new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change'))
     // })
   }
 
-  static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, event: CustomEvent<TabMoreStackAllowanceDetail>) => {
-    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
+  static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
+    console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
-    if (event.detail?.moreTab?.id !== btn.value) return
+    const tv = btn.closest<TabView>('tab-view')
+    if (!tv) return
 
-    btn.hidden = event.type === 'tab-view:more-tab-disallowed'
+    if (tv.moreTab?.id !== btn.value) return
+
+    btn.hidden = 'bottom-bar' !== tv.cachedAdaptableTabBarPlacement
   }
 
-  static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, event: CustomEvent<TabRevealSwapDetail>) => {
-    console.debug(`${TabItem.name} ⚡️ ${event?.type}`)
+  static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
+    console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
-    if (event.detail?.tag !== btn.value) return
+    if (evt.detail?.tag !== btn.value) return
 
     // await Snapshot.waitReady
 
-    const isSelected = 'tabreveal' === event?.type
+    const isSelected = 'tabreveal' === evt?.type
 
     btn.ariaSelected = `${isSelected}`
 

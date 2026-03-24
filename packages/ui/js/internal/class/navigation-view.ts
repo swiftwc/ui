@@ -1,6 +1,7 @@
 import { frame } from '../utils'
 import { Snapshot } from '../../snapshot'
-import { type TabRevealSwapDetail, type PageRevealSwapDetail } from '../../events'
+import { type TabDetail } from '../../events'
+import { LifecycleObserver } from '../../lifecycle-observer'
 
 export class NavigationView extends HTMLElement {
   static observedAttributes = ['hidden']
@@ -11,10 +12,17 @@ export class NavigationView extends HTMLElement {
 
   disconnectedCallback() {
     // this.removeEventListener('tabreveal', this.#handleTabReveal)
+    if (this.closest('tab-view'))
+      frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {
-    // this.addEventListener('tabreveal', this.#handleTabReveal)
+    if (this.closest('tab-view'))
+      frame(this).then((r) => {
+        if (!r) return
+
+        this.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      })
 
     // Snapshot.waitReady.then(async () => {
     if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
@@ -23,13 +31,8 @@ export class NavigationView extends HTMLElement {
       frame(this).then((r) => {
         if (!r) return
 
-        this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
+        this.dispatchEvent(new CustomEvent<TabDetail>('tabreveal', { detail: { tag: this.id }, bubbles: true, composed: true }))
       })
-
-    // self.requestAnimationFrame(() =>
-
-    // ) // NOTE: ⚠️ repaint guard
-    // })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -49,7 +52,7 @@ export class NavigationView extends HTMLElement {
         frame(this).then((r) => {
           if (!r) return
 
-          this.dispatchEvent(new CustomEvent<TabRevealSwapDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
+          this.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
         })
 
         break
@@ -57,7 +60,7 @@ export class NavigationView extends HTMLElement {
     // })
   }
 
-  // #handleTabReveal = (event: CustomEvent<TabRevealSwapDetail>) => {
+  // #handleTabReveal = (event: CustomEvent<TabDetail>) => {
   //   console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
 
   //   if (this === event.target) return

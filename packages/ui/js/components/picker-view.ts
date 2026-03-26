@@ -159,11 +159,9 @@ export class PickerView extends HTMLElement {
   connectedCallback() {
     console.debug(`${PickerView.name} ⚡️ connect`)
 
-    // Snapshot.waitReady.then(() => {
     if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) return // will be picked up by attr-change!
 
     this.#render()
-    // })
   }
 
   disconnectedCallback() {
@@ -285,6 +283,7 @@ export class PickerView extends HTMLElement {
           characterData: true,
           subtree: true,
           childList: true,
+          // attributeFilter: ['value', 'label'], TODO:
         })
 
       this.#trackedElements.add(el)

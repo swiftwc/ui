@@ -703,9 +703,14 @@
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
               <button type="submit">goM</button>
+              <input name="ff" required maxlength="9" value="3443343434343434" />
+              <input name="ff2" type="number" required />
               <section-view>
                 <labeled-content>
-                  <text-field placeholder="here" label="Name" text="Customer 1"></text-field>
+                  <text-field placeholder="here" label="Name" text="3443343434343434" required keyboard-type="decimal-pad" max-length="9">
+                    <option slot="validity-message" value="custom-error:bad-input" label="0%"></option>
+                    <option slot="validity-message" value="value-missing" label="Minimum Tip"></option>
+                  </text-field>
                 </labeled-content>
                 <labeled-content>
                   <label-view title="Name" slot="label"></label-view>
@@ -882,17 +887,24 @@
 
       //   if (tab.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
       // })
+      document.addEventListener('input', (evt) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        console.log(88, evt) //.target.checkFormValidity())
+      })
       document.addEventListener('submit', (evt) => {
         console.debug(`⚡️ ${event?.type}`)
 
         evt.preventDefault()
 
         const form = evt.target
-        const data = new FormData(form)
+        const formData = new FormData(form)
+
+        const data = Object.fromEntries(formData.entries())
 
         // console.log(data.get('email')) // single field
 
-        console.log(99, evt, data) //.target.checkFormValidity())
+        console.log(99, evt, data, form.checkValidity()) //
       })
 
       document.addEventListener('tabroot', async (evt) => {

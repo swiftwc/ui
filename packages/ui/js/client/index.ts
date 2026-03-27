@@ -2,6 +2,7 @@ import * as Components from '../components'
 import { kebabCase, $, onoff } from '../internal/utils'
 import { type PageRevealSwapDetail } from '../events'
 import { Snapshot } from '../snapshot'
+import { I18n } from '../i18n'
 import { LifecycleObserver } from '../lifecycle-observer'
 import { type WebComponentCtor } from '../namespace-browser'
 import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
@@ -541,4 +542,4 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 //   }
 // }
 
-export { Snapshot, LifecycleObserver, NavigationPath, ConfirmationDialog }
+export { Snapshot, LifecycleObserver, NavigationPath, ConfirmationDialog, I18n }

@@ -1,3 +1,6 @@
+// import * as _intl from './intl'
+import cash from './cash'
+
 export { default as kebabCase } from './kebab-case'
 export { default as cssTime } from './css-time'
 export { default as debounce } from './debounce'
@@ -19,8 +22,9 @@ export { default as siblings } from './siblings'
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash
 // import cash, { prop as cashProp } from './cash'
-import cash from './cash'
 
 export const $: typeof cash = cash
+
+// export const intl: typeof _intl = _intl
 
 // export { cashProp as prop }

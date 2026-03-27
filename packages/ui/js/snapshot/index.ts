@@ -2,9 +2,9 @@
 // import { queryFrameToolbars, navigationRoot, queryParent, queryNest } from '../scene'
 
 export class Snapshot {
-  static #config?: Record<string, string>
-
   static #readyCalled = false
+
+  static #config?: Record<string, string>
 
   static readonly waitReady = Promise.all([
     'complete' === document.readyState ? Promise.resolve() : new Promise((r) => self.addEventListener('load', r, { once: true })),

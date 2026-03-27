@@ -1,12 +1,25 @@
 import { onoff, $, kebabCase } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { I18n } from '../i18n'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
 
 const observers = new MutationObserverSingleton()
 
 export class TextField extends HTMLElement {
   static get observedAttributes() {
-    return ['prompt', 'max-length', 'label', 'text', 'text-input-autocapitalization', 'disable-autocorrection', 'keyboard-type', 'required']
+    return [
+      'prompt',
+      'min-number',
+      'max-number',
+      'min-length',
+      'max-length',
+      'label',
+      'text',
+      'text-input-autocapitalization',
+      'disable-autocorrection',
+      'keyboard-type',
+      'required',
+    ]
   }
 
   static get formAssociated() {
@@ -25,7 +38,7 @@ export class TextField extends HTMLElement {
     <div part="root text-field-input-stack">
       <input type="text" part="root input text-field-form-input">
     </div>
-    <slot name="validity-message"></slot>
+    <slot name="validity-datalist" hidden></slot>
   </label>`,
     }))
   }
@@ -48,7 +61,7 @@ export class TextField extends HTMLElement {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
 
-    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-message]') ?? undefined
+    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-datalist]') ?? undefined
 
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
 
@@ -154,8 +167,23 @@ export class TextField extends HTMLElement {
         this.#input?.setAttribute('placeholder', newValue ?? '') // else this.#input?.removeAttribute(name)
 
         break
+      case 'min-length':
+        this.#input?.setAttribute('minlength', newValue ?? '')
+        this.#setFormValue()
+
+        break
       case 'max-length':
         this.#input?.setAttribute('maxlength', newValue ?? '')
+        this.#setFormValue()
+
+        break
+      case 'min-number':
+        this.#input?.setAttribute('min', newValue ?? '')
+        this.#setFormValue()
+
+        break
+      case 'max-number':
+        this.#input?.setAttribute('max', newValue ?? '')
         this.#setFormValue()
 
         break
@@ -171,13 +199,13 @@ export class TextField extends HTMLElement {
   }
 
   get text() {
-    return this.#input?.value ?? ''
+    return this.value.replace('.', I18n.decimalSeparator)
   }
 
   set text(v) {
     if (!this.#input) return
 
-    this.#input.value = v
+    this.#input.value = v.replace(/[^\d+-]+/g, '.')
 
     this.#setFormValue()
   }
@@ -224,19 +252,29 @@ export class TextField extends HTMLElement {
 
   #setFormValue = () => {
     // input.value has already been updated/synced !!
-    if (this.#input?.matches(':invalid')) {
-      this.setValidity(this.#input?.validity, this.#input?.validationMessage)
-    } else {
-      if (!this.matches(':disabled') && this.hasAttribute('required') && this.text.length <= 0) {
-        this.setValidity({ customError: true }, '1')
+    if (this.matches(':disabled')) return this.setValidity({})
+
+    if (this.hasAttribute('required')) {
+      if (this.#input?.matches(':invalid')) {
+        this.setValidity(this.#input?.validity, this.#input?.validationMessage)
+      } else if (['number-pad', 'decimal-pad'].includes(this.getAttribute('keyboard-type') ?? '')) {
+        if (this.hasAttribute('min-number') && Number.parseInt(this.getAttribute('min-number') ?? '0') > Number.parseInt(this.text)) {
+          this.setValidity({ rangeUnderflow: true })
+        } else if (this.hasAttribute('max-number') && Number.parseInt(this.getAttribute('max-number') ?? '0') < Number.parseInt(this.text)) {
+          this.setValidity({ rangeOverflow: true })
+        } else {
+          this.setValidity({})
+        }
       } else {
         this.setValidity({})
       }
+    } else {
+      this.setValidity({})
     }
 
     const entries = new FormData()
 
-    entries.append(this.name, this.text)
+    entries.append(this.name, this.value)
 
     this.#internals.setFormValue(entries)
   }
@@ -244,81 +282,143 @@ export class TextField extends HTMLElement {
   #handleInputPaste = (evt: ClipboardEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
-    if (!input) return
+    if (!this.#input) return
+    // const input = evt.target as HTMLInputElement | null
+    // if (!input) return
 
-    this.#preventDefault(evt, input, evt.clipboardData?.getData('text') ?? '')
+    evt.preventDefault()
+
+    const data = this.#identity(evt.clipboardData?.getData('text') ?? '') // number is now sanitized but contains edge cases like '+' and also global one separator that could be wither dot or decimal.
+
+    if (0 === data.length) return this.#shake().then(this.reportValidity) // nothing to paste
+
+    const start = this.#input.selectionStart ?? 0,
+      end = this.#input.selectionEnd ?? 0,
+      before = this.value.slice(0, start),
+      after = this.value.slice(end),
+      newValue = `${before}${data}${after}`
+
+    if (-1 < this.maxLength && this.maxLength < newValue.length) return this.#shake().then(this.reportValidity) // exceeding maxlength
+
+    this.#input.value = newValue
+
+    const newCaret = start + data.length
+    this.#input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
+
+    this.#setFormValue()
+  }
+
+  #identity = (str: string) => {
+    // 'ab-1.2.3.4x yz ' // "-1.234"
+    // '++12..34  ' // "+12.34"
+    // '-+5.6.7.8 ' // "-5.678"
+    // '  -+5.6,7.8  ' // "-5.678"
+    // 'foo123bar  ' // "123"
+    // '.12.3  ' // ".123"
+    // '    http://localhost:5173/input.html' // "5173."
+    // '    http://localhost:51,73/input.html' // "51,73"
+    // '    +- 0000.' // "+0000."
+    // '    +' // "+"
+    // '    +0000234' // "+0000234"
+    // '    +-1.2.3.4x yz ' // "+1.234"
+    let seenSign = false
+
+    switch (this.getAttribute('keyboard-type')) {
+      case 'decimal-pad': // allow only ^+- and then only one instance of ., finally remove all non digit rest appearances
+        let seenDot = false
+        return [...`${str.trim()}`].reduce((acc, ch, i) => {
+          if (!seenSign && (ch === '+' || ch === '-')) {
+            seenSign = true
+            return acc + ch
+          }
+          if ((ch === '.' || ch === ',') && !seenDot) {
+            seenDot = true
+            return acc + ch
+          }
+          if (/\d/.test(ch)) return acc + ch
+          return acc // skip everything else
+        }, '')
+
+      case 'number-pad': // allow only ^+- finally remove all non digit rest appearances
+        return [...`${str.trim()}`].reduce((acc, ch, i) => {
+          if (!seenSign && (ch === '+' || ch === '-')) {
+            seenSign = true
+            return acc + ch
+          }
+          if (/\d/.test(ch)) return acc + ch
+          return acc // skip everything else
+        }, '')
+
+      default:
+        return `${str}`
+    }
   }
 
   #handleInputBeforeinput = (evt: InputEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
-    if (!input) return
+    if (!this.#input) return
+    // const input = evt.target as HTMLInputElement | null
+    // if (!input) return
 
     if ('insertText' !== evt.inputType) return
 
-    this.#preventDefault(evt, input, evt.data ?? '')
-  }
+    const data = evt.data ?? ''
 
-  #preventDefault = (evt: Event, input: HTMLInputElement, data: string) => {
-    const newValue = `${input.value.slice(0, input.selectionStart ?? 0)}${data}${input.value.slice(input.selectionEnd ?? 0)}`
+    if (-1 < this.maxLength && 0 === data.length) {
+      evt.preventDefault()
+
+      return this.#shake().then(this.reportValidity)
+    } // nothing to add
+
+    const start = this.#input.selectionStart ?? 0,
+      end = this.#input.selectionEnd ?? 0,
+      before = this.value.slice(0, start),
+      after = this.value.slice(end),
+      newValue = `${before}${data}${after}`
+    // const newValue = `${this.value.slice(0, this.#input?.selectionStart ?? 0) ?? ''}${data}${this.value.slice(this.#input?.selectionEnd ?? 0) ?? ''}`
+
     if (0 === newValue.length) return
 
     switch (this.#input?.getAttribute('inputmode')) {
-      case 'numeric':
-        if (/^([+-]|\d+|[+-]\d+)?$/.test(newValue)) break
-
-        evt.preventDefault()
-
-        // const prevValidity = this.validity,
-        //   prevValiditationMessage = this.validationMessage
-
-        // this.setValidity({ customError: true }, 'bad-input')
-
-        this.#shake().then(this.reportValidity)
-
-        // this.setValidity(prevValidity, prevValiditationMessage) // restore
-        // console.log(isValidInteger(""));      // true
-        // console.log(isValidInteger("+"));     // true
-        // console.log(isValidInteger("-"));     // true
-        // console.log(isValidInteger("123"));   // true
-        // console.log(isValidInteger("+123"));  // true
-        // console.log(isValidInteger("-456"));  // true
-        // console.log(isValidInteger("12-3"));  // false
-        // console.log(isValidInteger("++123")); // false
-        // console.log(isValidInteger("123a"));  // false
-
-        return
       case 'decimal':
-        if (/^[+-]?(\d+([.,]\d*)?|[.,]\d*|[+-])$/.test(newValue)) break
+        if (/^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/.test(newValue)) break // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
 
         evt.preventDefault()
 
-        this.#shake().then(this.reportValidity)
+        return this.#shake().then(this.reportValidity)
 
-        // console.log(isValidDecimal(""));       // true
-        // console.log(isValidDecimal("+"));      // true
-        // console.log(isValidDecimal("-"));      // true
-        // console.log(isValidDecimal("123"));    // true
-        // console.log(isValidDecimal("+123"));   // true
-        // console.log(isValidDecimal("-456"));   // true
-        // console.log(isValidDecimal("12.34"));  // true
-        // console.log(isValidDecimal("-0,56"));  // true
-        // console.log(isValidDecimal(".78"));    // true
-        // console.log(isValidDecimal(",9"));     // true
-        // console.log(isValidDecimal("12.3.4")); // false
-        // console.log(isValidDecimal("12,3,4")); // false
-        // console.log(isValidDecimal("12-3"));   // false
-        // console.log(isValidDecimal("12a"));    // false
+      // console.log(isValidDecimal(""));       // true
+      // console.log(isValidDecimal("+"));      // true
+      // console.log(isValidDecimal("-"));      // true
+      // console.log(isValidDecimal("123"));    // true
+      // console.log(isValidDecimal("+123"));   // true
+      // console.log(isValidDecimal("-456"));   // true
+      // console.log(isValidDecimal("12.34"));  // true
+      // console.log(isValidDecimal("-0,56"));  // true
+      // console.log(isValidDecimal(".78"));    // true
+      // console.log(isValidDecimal(",9"));     // true
+      // console.log(isValidDecimal("12.3.4")); // false
+      // console.log(isValidDecimal("12,3,4")); // false
+      // console.log(isValidDecimal("12-3"));   // false
+      // console.log(isValidDecimal("12a"));    // false
+      case 'numeric':
+        if (/^([+-]|\d+|[+-]\d+)?$/.test(newValue)) break // allow single '+' or '-', then allow only digits
 
-        return
-    }
+        evt.preventDefault()
 
-    if (this.#input?.hasAttribute('maxlength') && 0 === data.length) {
-      evt.preventDefault()
+        return this.#shake().then(this.reportValidity)
 
-      this.#shake().then(this.reportValidity)
+      // this.setValidity(prevValidity, prevValiditationMessage) // restore
+      // console.log(isValidInteger(""));      // true
+      // console.log(isValidInteger("+"));     // true
+      // console.log(isValidInteger("-"));     // true
+      // console.log(isValidInteger("123"));   // true
+      // console.log(isValidInteger("+123"));  // true
+      // console.log(isValidInteger("-456"));  // true
+      // console.log(isValidInteger("12-3"));  // false
+      // console.log(isValidInteger("++123")); // false
+      // console.log(isValidInteger("123a"));  // false
     }
   }
 
@@ -347,7 +447,34 @@ export class TextField extends HTMLElement {
     return this.#internals.form
   }
   get name() {
-    return this.getAttribute('label') ?? ''
+    return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
+  }
+  get maxLength() {
+    if (!this.hasAttribute('max-length')) return -1
+
+    const number = Number(this.getAttribute('max-length'))
+
+    if (0 > number || number > Infinity) return -1
+
+    return number
+  }
+  get minLength() {
+    if (!this.hasAttribute('min-length')) return -1
+
+    const number = Number(this.getAttribute('min-length'))
+
+    if (0 > number || number > Infinity) return -1
+
+    return number
+  }
+  get value() {
+    return this.#input?.value ?? ''
+  }
+  get valueAsNumber() {
+    return Number(this.value)
+  }
+  get valueAsDate() {
+    return new Date(this.value)
   }
   get type() {
     return this.localName
@@ -363,29 +490,41 @@ export class TextField extends HTMLElement {
   }
 
   setValidity = (flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement) => {
-    let msg
+    // let msg
 
-    if (message)
+    // if (message)
+    for (const k in flags) {
+      const key = k as keyof ValidityStateFlags // ✅ type-safe cast
+      if (true !== flags[key]) continue
+
+      for (const el of this.#datalistSlot?.assignedElements({ flatten: true }) ?? []) {
+        if (!el.matches('option')) continue
+
+        const option = el as HTMLOptionElement
+
+        if (`${kebabCase(key)}` === option.value) {
+          message = option.label
+          break
+        } else if (`${kebabCase(key)}:${message}` === option.value) {
+          message = option.label
+          break
+        }
+      }
+    }
+
+    if (!message)
       for (const k in flags) {
         const key = k as keyof ValidityStateFlags // ✅ type-safe cast
         if (true !== flags[key]) continue
 
-        for (const el of this.#datalistSlot?.assignedElements({ flatten: true }) ?? []) {
-          if (!el.matches('option')) continue
+        message = kebabCase(key)
 
-          const option = el as HTMLOptionElement
-
-          if (`${kebabCase(key)}` === option.value) {
-            msg = option.label
-            break
-          } else if (`${kebabCase(key)}:${message}` === option.value) {
-            msg = option.label
-            break
-          }
-        }
+        break
       }
 
-    return this.#internals.setValidity(flags, msg ?? message, anchor ?? this.#input)
+    console.debug(`${TextField.name} ⚡️ validity-change`)
+
+    return this.#internals.setValidity(flags, message, anchor ?? this.#input)
   }
   checkValidity = () => {
     return this.#internals.checkValidity()

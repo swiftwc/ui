@@ -1,0 +1,230 @@
+<!doctype html>
+<html lang="fr" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>input</title>
+    <template id="template">
+      <h-stack>
+        <button class="make-list" list="">
+          <label-view title="Reset"></label-view>
+        </button>
+        <button class="make-list" list="inset">
+          <label-view title="Inset"></label-view>
+        </button>
+        <button class="make-list" list="inset-grouped">
+          <label-view title="Inset Grouped"></label-view>
+        </button>
+        <button class="make-list" list="sidebar">
+          <label-view title="Sidebar"></label-view>
+        </button>
+      </h-stack>
+      <p>form w/ Textfields</p>
+      <form is="form-view">
+        <input name="ff" required maxlength="9" minlength="5" value="3443343434343434" />
+        <input name="ff2" type="number" required min="9" />
+        <input name="ff3" type="number" required min="0.0009" step="0.0001" />
+        <button type="submit">submit!</button>
+        <text-field placeholder="here" label="Name"></text-field>
+        <text-field
+          placeholder="here"
+          label="Number"
+          text="3443343434343434"
+          required
+          keyboard-type="decimal-pad"
+          min-number="0"
+          max-number="999"
+          max-length="5"
+          max-length="20"
+        >
+          <option slot="validity-datalist" value="custom-error:bad-input" label="0%"></option>
+          <option slot="validity-datalist" value="value-missing" label="Minimum Tip"></option>
+          <option slot="validity-datalist" value="range-underflow" label="Minimum Tippps2323"></option>
+          <option slot="validity-datalist" value="custom-error:range-underflow" label="Minimum Tippp"></option>
+        </text-field>
+        <text-field placeholder="here" label="Name"></text-field>
+      </form>
+      <p>form w/ 2 sectioned Textfields</p>
+      <form is="form-view">
+        <section-view header="Personal Info">
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+        </section-view>
+        <section-view>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" title="Item Group 5"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+          <details is="disclosure-group">
+            <summary><label-view system-image="smiley" title="Item Group 6"></label-view></summary>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+            <text-field placeholder="here" label="Name"></text-field>
+          </details>
+        </section-view>
+      </form>
+      <p>form w/ 1 sectioned Textfields</p>
+      <form is="form-view">
+        <section-view header="Personal Info" footer="All is required">
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+      </form>
+      <p>form w/ sectioned Textfields+Pickers</p>
+      <form is="form-view">
+        <section-view header="Personal Info" footer="All is required">
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <picker-view placeholder="here" label="inline1" picker-style="inline">
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view placeholder="here" picker-style="inline">
+            <label-view slot="label" title="inline2"></label-view>
+            <label-view slot="tag" title="0%"></label-view>
+            <label-view slot="tag" title="Minimum Tip"></label-view>
+            <label-view slot="tag" title="Standard"></label-view>
+            <label-view slot="tag" title="Generous"></label-view>
+            <label-view slot="tag" title="Very Generous"></label-view>
+          </picker-view>
+          <picker-view placeholder="here" label="menu/list" picker-style="menu">
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view placeholder="here" label="pickk">
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <picker-view>
+            <button type="button"><label-view title="ddd"></label-view></button>
+            <button type="button"><label-view title="ddd"></label-view></button>
+            <button type="button"><label-view title="ddd"></label-view></button>
+            <button type="button"><label-view title="ddd"></label-view></button>
+            <button type="button"><label-view title="ddd"></label-view></button>
+            <datalist slot="list">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </picker-view>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+          <text-field placeholder="here" label="Name"></text-field>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <select is="picker"></select>
+        </section-view>
+        <section-view header="Personal Info" footer="All is required">
+          <button is="picker">bgbgbg</button>
+        </section-view>
+      </form>
+    </template>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <h-stack template="repeat(4,minmax(0,1fr))" placement="fill leading">
+          <v-stack placement="leading fill" style="background-color: white">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill" style="background-color: white">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+        </h-stack>
+        <label-view slot="navigation-bar-principal"><span>ghjh000</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="navigation-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="navigation-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
+    <script type="module">
+      import '/main.js'
+
+      for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
+        el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        const btn = event.target.closest('button'),
+          summary = event.target.closest('summary:has(button)')
+
+        if (summary) {
+          event.preventDefault()
+
+          if (btn) return summary.closest('details').toggleAttribute('open')
+
+          summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+        } else if (btn) {
+          btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
+        }
+      })
+    </script>
+  </body>
+</html>

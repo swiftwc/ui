@@ -5,6 +5,7 @@ type I18nProps = {
   options?: Intl.LocaleOptions
   locale: Intl.Locale
   decimalSeparator: string
+  dateOrder: string[]
 }
 
 export class I18n {
@@ -14,6 +15,7 @@ export class I18n {
   static #locale: Intl.Locale = new Intl.Locale('en')
   static #observer?: MutationObserver
   static #decimalSeparator: string = '.'
+  static #dateOrder: string[] = ['month', 'day', 'year']
 
   // ----------------------------
   // Lazy init
@@ -37,6 +39,8 @@ export class I18n {
           return this.#locale
         case 'decimalSeparator':
           return this.#decimalSeparator
+        case 'dateOrder':
+          return this.#dateOrder
       }
     },
     set: (_, prop: keyof I18nProps, value) => {
@@ -81,6 +85,10 @@ export class I18n {
     return this._props.decimalSeparator
   }
 
+  static get dateOrder() {
+    return this._props.dateOrder
+  }
+
   // ----------------------------
   // Core logic
   // ----------------------------
@@ -112,13 +120,24 @@ export class I18n {
     } catch {
       this.#locale = new Intl.Locale('en')
     }
+    console.debug(this.#locale)
 
     try {
       const nf = new Intl.NumberFormat(this.#locale)
       const parts = nf.formatToParts(1.1)
-      this.#decimalSeparator = parts.find((p) => p.type === 'decimal')?.value ?? '.'
+      this.#decimalSeparator = parts.find(({ type }) => type === 'decimal')?.value ?? '.'
     } catch {
       this.#decimalSeparator = '.'
     }
+    console.debug(this.#decimalSeparator)
+
+    try {
+      const df = new Intl.DateTimeFormat(this.#locale)
+      const parts = df.formatToParts(new Date(2000, 11, 31))
+      this.#dateOrder = parts.filter(({ type }) => type !== 'literal')?.map(({ type }) => type) ?? ['month', 'day', 'year']
+    } catch {
+      this.#dateOrder = ['month', 'day', 'year']
+    }
+    console.debug(`${I18n.name} ${this.#dateOrder}`)
   }
 }

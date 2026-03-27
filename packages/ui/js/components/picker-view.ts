@@ -6,10 +6,12 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 const observers = new MutationObserverSingleton()
 
 export class PickerView extends HTMLElement {
-  static ATTR = {
-    PLACEHOLDER: 'placeholder',
-    LABEL: 'label',
-    PICKER_STYLE: 'picker-style',
+  static get ATTR() {
+    return {
+      PLACEHOLDER: 'placeholder',
+      LABEL: 'label',
+      PICKER_STYLE: 'picker-style',
+    }
   }
 
   static get observedAttributes() {

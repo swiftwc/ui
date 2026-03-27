@@ -6,24 +6,22 @@ import { FormAssociatedBase } from '../internal/class/form-associated-base'
 
 const observers = new MutationObserverSingleton()
 
-type KeyboardType = 'decimal-pad' | 'number-pad' | 'default'
-const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
+type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'default'
+const datePickerStyles = ['decimal-pad', 'number-pad', 'default'] as const
 
-export class TextField extends FormAssociatedBase {
+export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {
     return [
+      'date-picker-style',
+      'required',
       'prompt',
-      // 'min-number',
-      // 'max-number',
-      'min-length',
-      'max-length',
       'label',
       'name',
+      'min-length',
+      'max-length',
       'text',
       'text-input-autocapitalization',
       'disable-autocorrection',
-      'keyboard-type',
-      'required',
     ]
   }
 
@@ -37,7 +35,9 @@ export class TextField extends FormAssociatedBase {
       <slot name="label"></slot>
     </div>
     <div part="root text-field-input-stack">
-      <input type="text" part="root input text-field-form-input">
+      <input type="text" name="day" part="root input text-field-form-input">
+      <input type="text" name="month" part="root input text-field-form-input" autofocus>
+      <input type="text" name="year" part="root input text-field-form-input">
     </div>
     <slot name="validity-datalist" hidden></slot>
   </label>`,
@@ -53,7 +53,11 @@ export class TextField extends FormAssociatedBase {
   #datalistSlot?: HTMLSlotElement
   #trackedElements = new Set<Element>()
 
-  #input?: HTMLInputElement
+  #lastFocused?: HTMLInputElement
+
+  #dayInput?: HTMLInputElement
+  #monthInput?: HTMLInputElement
+  #yearInput?: HTMLInputElement
 
   constructor() {
     super()
@@ -62,26 +66,29 @@ export class TextField extends FormAssociatedBase {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof DatePicker).template.content, true))
 
     this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-datalist]') ?? undefined
 
-    this.#input = this.#shadowRoot.querySelector('input') ?? undefined
+    this.#dayInput = this.#shadowRoot.querySelector('input[name=day]') ?? undefined
+    this.#monthInput = this.#shadowRoot.querySelector('input[name=month]') ?? undefined
+    this.#yearInput = this.#shadowRoot.querySelector('input[name=year]') ?? undefined
 
-    CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
+    CleanupRegistry.register(this, onoff('focusin', this.#handleFocusin, this).on())
 
-    CleanupRegistry.register(
-      this,
-      onoff(
-        [
-          { types: 'blur', listener: this.#handleInputBlur },
-          { types: 'input', listener: this.#handleInputInput },
-          { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
-          { types: 'paste', listener: this.#handleInputPaste as EventListener },
-        ],
-        this.#input
-      ).on()
-    )
+    for (const input of [this.#dayInput, this.#monthInput, this.#yearInput])
+      CleanupRegistry.register(
+        this,
+        onoff(
+          [
+            { types: 'blur', listener: this.#handleInputBlur },
+            { types: 'input', listener: this.#handleInputInput },
+            { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
+            { types: 'paste', listener: this.#handleInputPaste as EventListener },
+          ],
+          input
+        ).on()
+      )
 
     CleanupRegistry.unregister(this, 'datalist')
     CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
@@ -96,22 +103,22 @@ export class TextField extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    console.debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
-      case 'keyboard-type':
+      case 'date-picker-style':
         switch (newValue) {
           case 'decimal-pad':
-            this.#input?.setAttribute('inputmode', 'decimal')
+            this.#dayInput?.setAttribute('inputmode', 'decimal')
 
             break
           case 'number-pad':
-            this.#input?.setAttribute('inputmode', 'numeric')
+            this.#dayInput?.setAttribute('inputmode', 'numeric')
 
             break
           case 'default':
           default:
-            this.#input?.removeAttribute('inputmode')
+            this.#dayInput?.removeAttribute('inputmode')
 
             break
         }
@@ -122,20 +129,20 @@ export class TextField extends FormAssociatedBase {
       case 'text-input-autocapitalization':
         switch (newValue) {
           case 'never':
-            this.#input?.setAttribute('autocapitalize', 'off')
+            this.#dayInput?.setAttribute('autocapitalize', 'off')
 
             break
           case 'characters':
-            this.#input?.setAttribute('autocapitalize', newValue)
+            this.#dayInput?.setAttribute('autocapitalize', newValue)
 
             break
           case 'words':
-            this.#input?.setAttribute('autocapitalize', newValue)
+            this.#dayInput?.setAttribute('autocapitalize', newValue)
 
             break
           default:
           case 'sentences':
-            this.#input?.setAttribute('autocapitalize', 'on')
+            this.#dayInput?.setAttribute('autocapitalize', 'on')
 
             break
         }
@@ -148,8 +155,8 @@ export class TextField extends FormAssociatedBase {
             ['autocorrect', 'off'],
             ['spellcheck', 'false'],
           ])
-            this.#input?.setAttribute(k, v)
-        else for (const k of ['autocomplete', 'autocorrect', 'spellcheck']) this.#input?.removeAttribute(k)
+            this.#dayInput?.setAttribute(k, v)
+        else for (const k of ['autocomplete', 'autocorrect', 'spellcheck']) this.#dayInput?.removeAttribute(k)
 
         break
       case 'text':
@@ -157,7 +164,7 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'required':
-        this.#input?.setAttribute(name, newValue ?? '') // else this.#input?.removeAttribute(name)
+        this.#dayInput?.setAttribute(name, newValue ?? '') // else this.#input?.removeAttribute(name)
         this.#setFormValue()
 
         break
@@ -166,29 +173,19 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'prompt':
-        this.#input?.setAttribute('placeholder', newValue ?? '') // else this.#input?.removeAttribute(name)
+        this.#dayInput?.setAttribute('placeholder', newValue ?? '') // else this.#input?.removeAttribute(name)
 
         break
       case 'min-length':
-        this.#input?.setAttribute('minlength', newValue ?? '')
+        this.#dayInput?.setAttribute('minlength', newValue ?? '')
         this.#setFormValue()
 
         break
       case 'max-length':
-        this.#input?.setAttribute('maxlength', newValue ?? '')
+        this.#dayInput?.setAttribute('maxlength', newValue ?? '')
         this.#setFormValue()
 
         break
-      // case 'min-number':
-      //   this.#input?.setAttribute('min', newValue ?? '')
-      //   this.#setFormValue()
-
-      //   break
-      // case 'max-number':
-      //   this.#input?.setAttribute('max', newValue ?? '')
-      //   this.#setFormValue()
-
-      //   break
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
@@ -202,26 +199,26 @@ export class TextField extends FormAssociatedBase {
     }
   }
 
-  get keyboardType(): KeyboardType {
-    return (keyboardTypes as readonly string[]).includes(this.getAttribute('keyboard-type') ?? '')
-      ? (this.getAttribute('keyboard-type') as (typeof keyboardTypes)[number])
+  get datePickerStyle(): DatePickerStyle {
+    return (datePickerStyles as readonly string[]).includes(this.getAttribute('date-picker-style') ?? '')
+      ? (this.getAttribute('date-picker-style') as (typeof datePickerStyles)[number])
       : 'default'
   }
 
   get text() {
-    return this.#input?.value ?? '' //.replace('.', I18n.decimalSeparator)
+    return this.#dayInput?.value ?? '' //.replace('.', I18n.decimalSeparator)
   }
 
   set text(v) {
-    if (!this.#input) return
+    if (!this.#dayInput) return
 
-    this.#input.value = v //.replace(/[^\d+-]+/g, '.')
+    this.#dayInput.value = v //.replace(/[^\d+-]+/g, '.')
 
     this.#setFormValue()
   }
 
   #handleSlotchange = (evt: Event) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const slot = evt.target as HTMLSlotElement,
       assigned = slot.assignedElements({ flatten: true })
@@ -249,15 +246,15 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleTagMutation = (entry?: MutationRecord) => {
-    console.debug(`${TextField.name} ⚡️ mutation`)
+    console.debug(`${DatePicker.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
 
   #handleFocusin = (evt: Event) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    if (evt.target === this) this.#input?.focus()
+    if (evt.target === this) this.#dayInput?.focus()
   }
 
   #setFormValue = () => {
@@ -265,9 +262,9 @@ export class TextField extends FormAssociatedBase {
     if (this.matches(':disabled')) return this.setValidity({})
 
     if (this.hasAttribute('required')) {
-      if (this.#input?.matches(':invalid')) {
-        this.setValidity(this.#input?.validity, this.#input?.validationMessage)
-        // } else if (['number-pad', 'decimal-pad'].includes(this.getAttribute('keyboard-type') ?? '')) {
+      if (this.#dayInput?.matches(':invalid')) {
+        this.setValidity(this.#dayInput?.validity, this.#dayInput?.validationMessage)
+        // } else if (['number-pad', 'decimal-pad'].includes(this.getAttribute('date-picker-style') ?? '')) {
         // if (this.hasAttribute('min-number') && Number.parseInt(this.getAttribute('min-number') ?? '0') > Number.parseInt(this.text)) {
         //   this.setValidity({ rangeUnderflow: true })
         // } else if (this.hasAttribute('max-number') && Number.parseInt(this.getAttribute('max-number') ?? '0') < Number.parseInt(this.text)) {
@@ -290,9 +287,9 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    if (!this.#input) return
+    if (!this.#dayInput) return
     // const input = evt.target as HTMLInputElement | null
     // if (!input) return
 
@@ -302,8 +299,8 @@ export class TextField extends FormAssociatedBase {
 
     if (0 === data.length) return this.#shake().then(this.reportValidity) // nothing to paste
 
-    const start = this.#input.selectionStart ?? 0,
-      end = this.#input.selectionEnd ?? 0,
+    const start = this.#dayInput.selectionStart ?? 0,
+      end = this.#dayInput.selectionEnd ?? 0,
       before = this.text.slice(0, start),
       after = this.text.slice(end),
       newText = `${before}${data}${after}`
@@ -313,7 +310,7 @@ export class TextField extends FormAssociatedBase {
     this.text = newText
 
     const newCaret = start + data.length
-    this.#input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
+    this.#dayInput.setSelectionRange(newCaret, newCaret) // move caret after inserted char
 
     this.#setFormValue()
   }
@@ -334,7 +331,7 @@ export class TextField extends FormAssociatedBase {
     // '    +-1.2.3.4x yz ' // "+1.234"
     let seenSign = false
 
-    switch (this.keyboardType) {
+    switch (this.datePickerStyle) {
       case 'decimal-pad': // allow only ^+- and then only one instance of ., finally remove all non digit rest appearances
         let seenDot = false
         return [...`${str.trim()}`].reduce((acc, ch, i) => {
@@ -366,9 +363,9 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputBeforeinput = (evt: InputEvent) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    if (!this.#input) return
+    if (!this.#dayInput) return
     // const input = evt.target as HTMLInputElement | null
     // if (!input) return
 
@@ -382,15 +379,15 @@ export class TextField extends FormAssociatedBase {
       return this.#shake().then(this.reportValidity)
     } // nothing to add
 
-    const start = this.#input.selectionStart ?? 0,
-      end = this.#input.selectionEnd ?? 0,
+    const start = this.#dayInput.selectionStart ?? 0,
+      end = this.#dayInput.selectionEnd ?? 0,
       before = this.text.slice(0, start),
       after = this.text.slice(end),
       newText = `${before}${data}${after}`
 
     if (0 === newText.length) return
 
-    switch (this.#input.getAttribute('inputmode')) {
+    switch (this.#dayInput.getAttribute('inputmode')) {
       case 'decimal':
         if (/^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/.test(newText)) break // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
 
@@ -447,7 +444,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputBlur = (evt: Event) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     if (0 === this.text.length) return
 
@@ -457,7 +454,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputInput = (evt: Event) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     this.#setFormValue()
   }
@@ -490,7 +487,7 @@ export class TextField extends FormAssociatedBase {
   get value() {
     // text allows special edge cases, like '-.' or '+' and generally might be invalid number. It might also be localized and not US based.
     // here we make sure it is number-like, to be used in number operations.
-    switch (this.keyboardType) {
+    switch (this.datePickerStyle) {
       case 'decimal-pad':
       case 'number-pad':
         if ('string' !== typeof this.text) return '0'
@@ -524,7 +521,7 @@ export class TextField extends FormAssociatedBase {
     }
   }
   get valueAsNumber() {
-    switch (this.keyboardType) {
+    switch (this.datePickerStyle) {
       case 'decimal-pad':
       case 'number-pad':
         return Number(this.value)
@@ -579,9 +576,9 @@ export class TextField extends FormAssociatedBase {
         break
       }
 
-    console.debug(`${TextField.name} ⚡️ validity-change`)
+    console.debug(`${DatePicker.name} ⚡️ validity-change`)
 
-    return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#input)
+    return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#dayInput)
   }
   setCustomValidity = (message: string) => {
     this.#customValidity = message
@@ -599,7 +596,7 @@ export class TextField extends FormAssociatedBase {
     this.#setFormValue()
   }
   formDisabledCallback = (disabled: boolean) => {
-    if (this.#input) this.#input.disabled = disabled
+    if (this.#dayInput) this.#dayInput.disabled = disabled
   }
   formResetCallback = () => {
     this.text = ''

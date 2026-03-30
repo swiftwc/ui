@@ -11,25 +11,25 @@
     }
 
     :where(&)::part(text-field-stack) {
-      display: grid;
+      // display: grid;
 
       grid-template-columns: auto minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
     }
 
     :where(&)::part(text-field-label-stack) {
-      display: grid;
+      // display: grid;
     }
 
     :where(&)::part(text-field-input-stack) {
-      display: grid;
+      // display: grid;
 
       place-items: stretch;
       place-content: stretch;
     }
 
     :where(&)::part(text-field-form-input) {
-      display: grid;
+      // display: grid;
 
       text-align: end;
     }

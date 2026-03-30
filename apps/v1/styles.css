@@ -999,24 +999,32 @@
   picker-view:not([hidden])) {
     display: grid;
   }
-  ::part(menu-dialog),
-  ::part(menu-summary),
-  ::part(menu-form),
-  ::part(menu-scrollable),
-  ::part(picker-stack),
-  ::part(picker-label-stack),
-  ::part(picker-input-stack),
-  ::part(navigation-bar),
-  ::part(bottom-bar),
-  ::part(label-image-stack),
-  ::part(label-title-stack),
-  ::part(scroll-view-navbar),
-  ::part(scroll-view-toolbar),
-  ::part(scroll-view-navbar-stack),
-  ::part(scroll-view-toolbar-stack),
-  ::part(section-header-stack),
-  ::part(section-main-stack),
-  ::part(section-footer-stack) {
+  :where(text-field)::part(text-field-stack),
+  :where(text-field)::part(text-field-label-stack),
+  :where(text-field)::part(text-field-input-stack),
+  :where(text-field)::part(text-field-form-input),
+  :where(date-picker)::part(date-picker-stack),
+  :where(date-picker)::part(date-picker-label-stack),
+  :where(date-picker)::part(date-picker-input-stack),
+  :where(date-picker)::part(date-picker-form-input),
+  :where(menu-view)::part(menu-dialog),
+  :where(menu-view)::part(menu-summary),
+  :where(menu-view)::part(menu-form),
+  :where(menu-view)::part(menu-scrollable),
+  :where(picker-view)::part(picker-stack),
+  :where(picker-view)::part(picker-label-stack),
+  :where(picker-view)::part(picker-input-stack),
+  :where(tool-bar)::part(navigation-bar),
+  :where(tool-bar)::part(bottom-bar),
+  :where(label-view)::part(label-image-stack),
+  :where(label-view)::part(label-title-stack),
+  :where(scroll-view)::part(scroll-view-navbar),
+  :where(scroll-view)::part(scroll-view-toolbar),
+  :where(scroll-view)::part(scroll-view-navbar-stack),
+  :where(scroll-view)::part(scroll-view-toolbar-stack),
+  :where(section-view)::part(section-header-stack),
+  :where(section-view)::part(section-main-stack),
+  :where(section-view)::part(section-footer-stack) {
     display: grid;
   }
   :where(sidebar-toggle > button:not([hidden]),
@@ -3104,20 +3112,31 @@
     grid-template-rows: minmax(0, 1fr);
   }
   :where(text-field)::part(text-field-stack) {
-    display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
   }
-  :where(text-field)::part(text-field-label-stack) {
-    display: grid;
-  }
   :where(text-field)::part(text-field-input-stack) {
-    display: grid;
     place-items: stretch;
     place-content: stretch;
   }
   :where(text-field)::part(text-field-form-input) {
-    display: grid;
+    text-align: end;
+  }
+}
+@layer sw-components {
+  :where(date-picker) {
+    grid-template-columns: minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  :where(date-picker)::part(date-picker-stack) {
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-rows: minmax(0, 1fr);
+  }
+  :where(date-picker)::part(date-picker-input-stack) {
+    place-items: stretch;
+    place-content: stretch;
+  }
+  :where(date-picker)::part(date-picker-form-input) {
     text-align: end;
   }
 }

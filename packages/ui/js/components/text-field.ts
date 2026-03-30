@@ -2,9 +2,7 @@ import { onoff, $, kebabCase } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { I18n } from '../i18n'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { FormAssociatedBase } from '../internal/class/form-associated-base'
-
-const observers = new MutationObserverSingleton()
+import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 
 type KeyboardType = 'decimal-pad' | 'number-pad' | 'default'
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
@@ -13,6 +11,7 @@ export class TextField extends FormAssociatedBase {
   static get observedAttributes() {
     return [
       'prompt',
+      'minimum',
       // 'min-number',
       // 'max-number',
       'min-length',
@@ -24,6 +23,7 @@ export class TextField extends FormAssociatedBase {
       'disable-autocorrection',
       'keyboard-type',
       'required',
+      'disabled',
     ]
   }
 
@@ -46,19 +46,20 @@ export class TextField extends FormAssociatedBase {
 
   #shadowRoot
 
-  #internals: ElementInternals
+  // #internals: ElementInternals
 
   #customValidity: string = ''
 
   #datalistSlot?: HTMLSlotElement
-  #trackedElements = new Set<Element>()
 
   #input?: HTMLInputElement
 
+  get #internals(): ElementInternals {
+    return getInternals(this)
+  }
+
   constructor() {
     super()
-
-    this.#internals = this.attachInternals()
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
@@ -84,7 +85,7 @@ export class TextField extends FormAssociatedBase {
     )
 
     CleanupRegistry.unregister(this, 'datalist')
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#datalistSlot).on(), 'datalist')
   }
 
   connectedCallback() {
@@ -162,6 +163,7 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'name':
+      case 'minimum':
         this.#setFormValue()
 
         break
@@ -199,6 +201,32 @@ export class TextField extends FormAssociatedBase {
         this.#setFormValue()
 
         break
+      case 'disabled':
+        for (const el of this.#shadowRoot.querySelectorAll('input')) el.toggleAttribute('disabled', !newValue)
+
+        break
+    }
+
+    // render pattern
+    switch (this.keyboardType) {
+      case 'decimal-pad':
+        const allowedSignsRegex2 = String.raw`[+\-]?|[+\-]?(\d+([.,]\d*)?|[.,]\d*)`, // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
+          digitsDecimalsOnlyRegex = String.raw`(\d+([.,]\d*)?|[.,]\d*)?` // allow only one ',' or '.' and finally only digits
+
+        this.#input?.setAttribute('pattern', this.min < 0 ? allowedSignsRegex2 : digitsDecimalsOnlyRegex)
+
+        break
+      case 'number-pad':
+        const allowedSignsRegex = String.raw`([+\-]|\d+|[+\-]\d+)?`, // allow single '+' or '-', then allow only digits
+          digitsOnlyRegex = String.raw`\d*` // allow only digits
+
+        this.#input?.setAttribute('pattern', this.min < 0 ? allowedSignsRegex : digitsOnlyRegex)
+
+        break
+      default:
+        this.#input?.removeAttribute('pattern')
+
+        break
     }
   }
 
@@ -209,49 +237,15 @@ export class TextField extends FormAssociatedBase {
   }
 
   get text() {
-    return this.#input?.value ?? '' //.replace('.', I18n.decimalSeparator)
+    return this.#input?.value ?? ''
   }
 
   set text(v) {
     if (!this.#input) return
 
-    this.#input.value = v //.replace(/[^\d+-]+/g, '.')
+    this.#input.value = this.#patternTest(v) ? v : ''
 
     this.#setFormValue()
-  }
-
-  #handleSlotchange = (evt: Event) => {
-    console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
-
-    const slot = evt.target as HTMLSlotElement,
-      assigned = slot.assignedElements({ flatten: true })
-
-    for (const el of this.#trackedElements)
-      if (!assigned.includes(el)) {
-        observers.unobserve(el)
-        this.#trackedElements.delete(el)
-      }
-
-    for (const el of assigned) {
-      if (!this.#trackedElements.has(el))
-        observers.observe(el, this.#handleTagMutation, {
-          attributes: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
-          attributeFilter: ['value', 'label'],
-        })
-
-      this.#trackedElements.add(el)
-    }
-
-    if (0 < assigned.length) this.#handleTagMutation()
-  }
-
-  #handleTagMutation = (entry?: MutationRecord) => {
-    console.debug(`${TextField.name} ⚡️ mutation`)
-
-    this.setValidity(this.validity, this.validationMessage)
   }
 
   #handleFocusin = (evt: Event) => {
@@ -292,28 +286,27 @@ export class TextField extends FormAssociatedBase {
   #handleInputPaste = (evt: ClipboardEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    if (!this.#input) return
-    // const input = evt.target as HTMLInputElement | null
-    // if (!input) return
+    const input = evt.target as HTMLInputElement | null
+    if (!input) return
 
     evt.preventDefault()
 
     const data = this.#identity(evt.clipboardData?.getData('text') ?? '') // number is now sanitized but contains edge cases like '+' and also global one separator that could be wither dot or decimal.
 
-    if (0 === data.length) return this.#shake().then(this.reportValidity) // nothing to paste
+    if (0 === data.length) return this.shake().then(this.reportValidity) // nothing to paste
 
-    const start = this.#input.selectionStart ?? 0,
-      end = this.#input.selectionEnd ?? 0,
-      before = this.text.slice(0, start),
-      after = this.text.slice(end),
+    const start = input.selectionStart ?? 0,
+      end = input.selectionEnd ?? 0,
+      before = input.value.slice(0, start),
+      after = input.value.slice(end),
       newText = `${before}${data}${after}`
 
-    if (-1 < this.maxLength && this.maxLength < newText.length) return this.#shake().then(this.reportValidity) // exceeding maxlength
+    if (-1 < input.maxLength && input.maxLength < newText.length) return this.shake().then(this.reportValidity) // exceeding maxlength
 
-    this.text = newText
+    input.value = newText
 
     const newCaret = start + data.length
-    this.#input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
+    input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
 
     this.#setFormValue()
   }
@@ -338,10 +331,12 @@ export class TextField extends FormAssociatedBase {
       case 'decimal-pad': // allow only ^+- and then only one instance of ., finally remove all non digit rest appearances
         let seenDot = false
         return [...`${str.trim()}`].reduce((acc, ch, i) => {
-          if (!seenSign && (ch === '+' || ch === '-')) {
-            seenSign = true
-            return acc + ch
-          }
+          // +- signs are allowed
+          if (this.min < 0)
+            if (!seenSign && (ch === '+' || ch === '-')) {
+              seenSign = true
+              return acc + ch
+            }
           if ((ch === '.' || ch === ',') && !seenDot) {
             seenDot = true
             return acc + ch
@@ -352,10 +347,12 @@ export class TextField extends FormAssociatedBase {
 
       case 'number-pad': // allow only ^+- finally remove all non digit rest appearances
         return [...`${str.trim()}`].reduce((acc, ch, i) => {
-          if (!seenSign && (ch === '+' || ch === '-')) {
-            seenSign = true
-            return acc + ch
-          }
+          // +- signs are allowed
+          if (this.min < 0)
+            if (!seenSign && (ch === '+' || ch === '-')) {
+              seenSign = true
+              return acc + ch
+            }
           if (/\d/.test(ch)) return acc + ch
           return acc // skip everything else
         }, '')
@@ -365,84 +362,94 @@ export class TextField extends FormAssociatedBase {
     }
   }
 
+  #patternTest = (str: string) => {
+    switch (this.keyboardType) {
+      case 'decimal-pad':
+        const allowedSignsRegex2 = /^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/, // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
+          digitsDecimalsOnlyRegex = /^(\d+([.,]\d*)?|[.,]\d*)?$/ // allow only one ',' or '.' and finally only digits
+
+        return (this.min < 0 ? allowedSignsRegex2 : digitsDecimalsOnlyRegex).test(str)
+      //   // console.log(isValidDecimal(""));       // true
+      //   // console.log(isValidDecimal("+"));      // true
+      //   // console.log(isValidDecimal("-"));      // true
+      //   // console.log(isValidDecimal("123"));    // true
+      //   // console.log(isValidDecimal("+123"));   // true
+      //   // console.log(isValidDecimal("-456"));   // true
+      //   // console.log(isValidDecimal("12.34"));  // true
+      //   // console.log(isValidDecimal("-0,56"));  // true
+      //   // console.log(isValidDecimal(".78"));    // true
+      //   // console.log(isValidDecimal(",9"));     // true
+      //   // console.log(isValidDecimal("12.3.4")); // false
+      //   // console.log(isValidDecimal("12,3,4")); // false
+      //   // console.log(isValidDecimal("12-3"));   // false
+      //   // console.log(isValidDecimal("12a"));    // false
+      case 'number-pad':
+        const allowedSignsRegex = /^([+-]|\d+|[+-]\d+)?$/, // allow single '+' or '-', then allow only digits
+          digitsOnlyRegex = /^(\d+)?$/ // allow only digits
+
+        return (this.min < 0 ? allowedSignsRegex : digitsOnlyRegex).test(str)
+      //   // console.log(isValidInteger(""));      // true
+      //   // console.log(isValidInteger("+"));     // true
+      //   // console.log(isValidInteger("-"));     // true
+      //   // console.log(isValidInteger("123"));   // true
+      //   // console.log(isValidInteger("+123"));  // true
+      //   // console.log(isValidInteger("-456"));  // true
+      //   // console.log(isValidInteger("12-3"));  // false
+      //   // console.log(isValidInteger("++123")); // false
+      //   // console.log(isValidInteger("123a"));  // false
+      default:
+        return true
+    }
+  }
+
   #handleInputBeforeinput = (evt: InputEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    if (!this.#input) return
-    // const input = evt.target as HTMLInputElement | null
-    // if (!input) return
+    const input = evt.target as HTMLInputElement | null
+    if (!input) return
 
     if ('insertText' !== evt.inputType) return
 
     const data = evt.data ?? ''
 
-    if (-1 < this.maxLength && 0 === data.length) {
+    if (-1 < input.maxLength && 0 === data.length) {
       evt.preventDefault()
 
-      return this.#shake().then(this.reportValidity)
+      return this.shake().then(this.reportValidity)
     } // nothing to add
 
-    const start = this.#input.selectionStart ?? 0,
-      end = this.#input.selectionEnd ?? 0,
+    const start = input.selectionStart ?? 0,
+      end = input.selectionEnd ?? 0,
       before = this.text.slice(0, start),
       after = this.text.slice(end),
       newText = `${before}${data}${after}`
 
     if (0 === newText.length) return
 
-    switch (this.#input.getAttribute('inputmode')) {
+    switch (input.getAttribute('inputmode')) {
       case 'decimal':
-        if (/^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/.test(newText)) break // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
+        // const allowedSignsRegex2 = /^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/, // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
+        //   digitsDecimalsOnlyRegex = /^(\d+([.,]\d*)?|[.,]\d*)?$/ // allow only one ',' or '.' and finally only digits
+
+        // if ((this.min < 0 ? allowedSignsRegex2 : digitsDecimalsOnlyRegex).test(newText)) break
+        if (this.#patternTest(newText)) break
 
         evt.preventDefault()
 
-        return this.#shake().then(this.reportValidity)
+        return this.shake().then(this.reportValidity)
 
-      // console.log(isValidDecimal(""));       // true
-      // console.log(isValidDecimal("+"));      // true
-      // console.log(isValidDecimal("-"));      // true
-      // console.log(isValidDecimal("123"));    // true
-      // console.log(isValidDecimal("+123"));   // true
-      // console.log(isValidDecimal("-456"));   // true
-      // console.log(isValidDecimal("12.34"));  // true
-      // console.log(isValidDecimal("-0,56"));  // true
-      // console.log(isValidDecimal(".78"));    // true
-      // console.log(isValidDecimal(",9"));     // true
-      // console.log(isValidDecimal("12.3.4")); // false
-      // console.log(isValidDecimal("12,3,4")); // false
-      // console.log(isValidDecimal("12-3"));   // false
-      // console.log(isValidDecimal("12a"));    // false
       case 'numeric':
-        if (/^([+-]|\d+|[+-]\d+)?$/.test(newText)) break // allow single '+' or '-', then allow only digits
+        // const allowedSignsRegex = /^([+-]|\d+|[+-]\d+)?$/, // allow single '+' or '-', then allow only digits
+        //   digitsOnlyRegex = /^(\d+)?$/ // allow only digits
+
+        // if ((this.min < 0 ? allowedSignsRegex : digitsOnlyRegex).test(newText)) break
+        if (this.#patternTest(newText)) break
 
         evt.preventDefault()
 
-        return this.#shake().then(this.reportValidity)
+        return this.shake().then(this.reportValidity)
 
       // this.setValidity(prevValidity, prevValiditationMessage) // restore
-      // console.log(isValidInteger(""));      // true
-      // console.log(isValidInteger("+"));     // true
-      // console.log(isValidInteger("-"));     // true
-      // console.log(isValidInteger("123"));   // true
-      // console.log(isValidInteger("+123"));  // true
-      // console.log(isValidInteger("-456"));  // true
-      // console.log(isValidInteger("12-3"));  // false
-      // console.log(isValidInteger("++123")); // false
-      // console.log(isValidInteger("123a"));  // false
-    }
-  }
-
-  #shake = async (times = 3, distance = 8, duration = 400) => {
-    const frames = [{ transform: 'translateX(0)' }]
-
-    for (let i = 0; i < times; i++) frames.push({ transform: `translateX(-${distance}px)` }, { transform: `translateX(${distance}px)` })
-
-    frames.push({ transform: 'translateX(0)' })
-
-    try {
-      await this.animate(frames, { duration, easing: 'ease-in-out' }).finished
-    } catch {
-      //
     }
   }
 
@@ -463,30 +470,38 @@ export class TextField extends FormAssociatedBase {
   }
 
   // Optional: form participation properties
-  get form() {
-    return this.#internals.form
-  }
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }
-  get maxLength() {
-    if (!this.hasAttribute('max-length')) return -1
+  get min() {
+    if (!['number-pad', 'decimal-pad'].includes(this.keyboardType)) return -Infinity
 
-    const number = Number(this.getAttribute('max-length'))
+    if (!this.hasAttribute('minimum')) return -Infinity
 
-    if (0 > number || number > Infinity) return -1
+    const number = Number(this.getAttribute('minimum'))
 
-    return number
-  }
-  get minLength() {
-    if (!this.hasAttribute('min-length')) return -1
-
-    const number = Number(this.getAttribute('min-length'))
-
-    if (0 > number || number > Infinity) return -1
+    if (Number.isNaN(number)) return -Infinity
 
     return number
   }
+  // get maxLength() {
+  //   if (!this.hasAttribute('max-length')) return -1
+
+  //   const number = Number(this.getAttribute('max-length'))
+
+  //   if (0 > number || number > Infinity) return -1
+
+  //   return number
+  // }
+  // get minLength() {
+  //   if (!this.hasAttribute('min-length')) return -1
+
+  //   const number = Number(this.getAttribute('min-length'))
+
+  //   if (0 > number || number > Infinity) return -1
+
+  //   return number
+  // }
   get value() {
     // text allows special edge cases, like '-.' or '+' and generally might be invalid number. It might also be localized and not US based.
     // here we make sure it is number-like, to be used in number operations.
@@ -536,15 +551,6 @@ export class TextField extends FormAssociatedBase {
   get valueAsDate() {
     return new Date(this.value)
   }
-  get validity() {
-    return this.#internals.validity
-  }
-  get validationMessage() {
-    return this.#internals.validationMessage
-  }
-  get willValidate() {
-    return this.#internals.willValidate
-  }
 
   setValidity = (flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement) => {
     // let msg
@@ -589,17 +595,11 @@ export class TextField extends FormAssociatedBase {
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
     else this.#setFormValue()
   }
-  checkValidity = () => {
-    return this.#internals.checkValidity()
-  }
-  reportValidity = () => {
-    return this.#internals.reportValidity()
-  }
   formAssociatedCallback = (form: HTMLFormElement) => {
     this.#setFormValue()
   }
   formDisabledCallback = (disabled: boolean) => {
-    if (this.#input) this.#input.disabled = disabled
+    for (const el of this.#shadowRoot.querySelectorAll('input')) el.toggleAttribute('disabled', !disabled)
   }
   formResetCallback = () => {
     this.text = ''

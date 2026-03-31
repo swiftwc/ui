@@ -5,6 +5,7 @@ type I18nProps = {
   options?: Intl.LocaleOptions
   locale: Intl.Locale
   decimalSeparator: string
+  dateSeparator: string
   dateOrder: string[]
 }
 
@@ -15,6 +16,7 @@ export class I18n {
   static #locale: Intl.Locale = new Intl.Locale('en')
   static #observer?: MutationObserver
   static #decimalSeparator: string = '.'
+  static #dateSeparator: string = '/'
   static #dateOrder: string[] = ['month', 'day', 'year']
 
   // ----------------------------
@@ -39,6 +41,8 @@ export class I18n {
           return this.#locale
         case 'decimalSeparator':
           return this.#decimalSeparator
+        case 'dateSeparator':
+          return this.#dateSeparator
         case 'dateOrder':
           return this.#dateOrder
       }
@@ -83,6 +87,10 @@ export class I18n {
 
   static get decimalSeparator() {
     return this._props.decimalSeparator
+  }
+
+  static get dateSeparator() {
+    return this._props.dateSeparator
   }
 
   static get dateOrder() {
@@ -135,9 +143,16 @@ export class I18n {
       const df = new Intl.DateTimeFormat(this.#locale)
       const parts = df.formatToParts(new Date(2000, 11, 31))
       this.#dateOrder = parts.filter(({ type }) => type !== 'literal')?.map(({ type }) => type) ?? ['month', 'day', 'year']
+      this.#dateSeparator =
+        parts
+          .filter(({ type }) => type === 'literal')
+          .map(({ value }) => value)
+          .at(0) ?? '/'
     } catch {
       this.#dateOrder = ['month', 'day', 'year']
+      this.#dateSeparator = '/'
     }
+    console.debug(`${I18n.name} ${this.#dateSeparator}`)
     console.debug(`${I18n.name} ${this.#dateOrder}`)
   }
 }

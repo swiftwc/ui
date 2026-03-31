@@ -3135,6 +3135,7 @@
   :where(date-picker)::part(date-picker-input-stack) {
     place-items: stretch;
     place-content: stretch;
+    grid-auto-flow: column;
   }
   :where(date-picker)::part(date-picker-form-input) {
     text-align: end;

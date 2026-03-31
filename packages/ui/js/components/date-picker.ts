@@ -27,7 +27,9 @@ export class DatePicker extends FormAssociatedBase {
     </div>
     <div part="root date-picker-input-stack">
       <input type="text" name="month" placeholder="${mm}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input">
+      <span>${I18n.dateSeparator}</span>
       <input type="text" name="day" placeholder="${dd}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input">
+      <span>${I18n.dateSeparator}</span>
       <input type="text" name="year" placeholder="${yyyy}" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
     </div>
     <slot name="validity-datalist" hidden></slot>

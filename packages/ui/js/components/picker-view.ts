@@ -52,7 +52,7 @@ export class PickerView extends HTMLElement {
             <div part="root picker-input-stack">
               <slot></slot>
             </div>
-            <slot name="list"></slot>
+            <slot name="list" hidden></slot>
             <slot name="tag" hidden></slot>
           </label>
                 `,
@@ -102,7 +102,7 @@ export class PickerView extends HTMLElement {
           <option value="0" label="0%"></option>
         </datalist>
       </div>
-      <slot name="list"></slot>
+      <slot name="list" hidden></slot>
       </label>`,
             })
           )
@@ -121,7 +121,7 @@ export class PickerView extends HTMLElement {
           <div part="root picker-input-stack">
             <slot></slot>
           </div>
-          <slot name="list"></slot>
+          <slot name="list" hidden></slot>
           <slot name="tag" hidden></slot>
         </label>`,
             })
@@ -135,8 +135,8 @@ export class PickerView extends HTMLElement {
 
   #shadowRoot
 
-  #slot?: HTMLSlotElement
-  #labelSlot?: HTMLSlotElement
+  // #slot?: HTMLSlotElement
+  // #labelSlot?: HTMLSlotElement
   #datalistSlot?: HTMLSlotElement
   #tagSlot?: HTMLSlotElement
 
@@ -208,9 +208,9 @@ export class PickerView extends HTMLElement {
     this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
 
     this.#datalistSlot = this.#shadowRoot.querySelector('slot[name=list]') ?? undefined
-    this.#labelSlot = this.#shadowRoot.querySelector('slot[name=label]') ?? undefined
+    // this.#labelSlot = this.#shadowRoot.querySelector('slot[name=label]') ?? undefined
     this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
-    this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
+    // this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
     CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
@@ -301,7 +301,7 @@ export class PickerView extends HTMLElement {
 
       case 'list':
       default:
-        return slot?.assignedElements({ flatten: true })[0]?.querySelectorAll<HTMLOptionElement>(':scope>option')
+        return slot?.assignedElements({ flatten: true }) //[0]?.querySelectorAll<HTMLOptionElement>(':scope>option')
     }
   }
 
@@ -356,8 +356,8 @@ export class PickerView extends HTMLElement {
         break
       case 'inline':
       default:
-        const list = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`)),
-          section = list.querySelector(':scope>section-view') ?? list.appendChild($(`<section-view></section-view>`))
+        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`)),
+          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`))
 
         const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
 

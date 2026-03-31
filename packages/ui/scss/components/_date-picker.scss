@@ -19,6 +19,8 @@
     :where(&)::part(date-picker-input-stack) {
       place-items: stretch;
       place-content: stretch;
+
+      grid-auto-flow: column;
     }
 
     :where(&)::part(date-picker-form-input) {

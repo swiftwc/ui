@@ -10,7 +10,7 @@ export class LabelView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: `
+      innerHTML: String.raw`
   <div part="root label-image-stack">
     <slot name="image"></slot>
   </div>

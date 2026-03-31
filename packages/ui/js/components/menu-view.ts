@@ -11,7 +11,7 @@ export class MenuView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: `
+      innerHTML: String.raw`
   <button part="root button menu-summary">
     <slot name="label"></slot>
   </button>

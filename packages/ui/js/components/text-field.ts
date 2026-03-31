@@ -1,7 +1,6 @@
-import { onoff, $, kebabCase } from '../internal/utils'
+import { onoff, $, kebabCase, set, compareBigDecimals } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { I18n } from '../i18n'
-import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 
 type KeyboardType = 'decimal-pad' | 'number-pad' | 'default'
@@ -12,8 +11,7 @@ export class TextField extends FormAssociatedBase {
     return [
       'prompt',
       'minimum',
-      // 'min-number',
-      // 'max-number',
+      'maximum',
       'min-length',
       'max-length',
       'label',
@@ -31,7 +29,7 @@ export class TextField extends FormAssociatedBase {
 
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: `
+      innerHTML: String.raw`
     <label part="root text-field-stack">
     <div part="root text-field-label-stack">
       <slot name="label"></slot>
@@ -117,7 +115,7 @@ export class TextField extends FormAssociatedBase {
             break
         }
 
-        this.#setFormValue()
+        this.#sendValueToForm()
 
         break
       case 'text-input-autocapitalization':
@@ -159,12 +157,13 @@ export class TextField extends FormAssociatedBase {
         break
       case 'required':
         this.#input?.setAttribute(name, newValue ?? '') // else this.#input?.removeAttribute(name)
-        this.#setFormValue()
+        this.#sendValueToForm()
 
         break
       case 'name':
       case 'minimum':
-        this.#setFormValue()
+      case 'maximum':
+        this.#sendValueToForm()
 
         break
       case 'prompt':
@@ -173,24 +172,14 @@ export class TextField extends FormAssociatedBase {
         break
       case 'min-length':
         this.#input?.setAttribute('minlength', newValue ?? '')
-        this.#setFormValue()
+        this.#sendValueToForm()
 
         break
       case 'max-length':
         this.#input?.setAttribute('maxlength', newValue ?? '')
-        this.#setFormValue()
+        this.#sendValueToForm()
 
         break
-      // case 'min-number':
-      //   this.#input?.setAttribute('min', newValue ?? '')
-      //   this.#setFormValue()
-
-      //   break
-      // case 'max-number':
-      //   this.#input?.setAttribute('max', newValue ?? '')
-      //   this.#setFormValue()
-
-      //   break
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
@@ -198,7 +187,7 @@ export class TextField extends FormAssociatedBase {
           label.textContent = newValue
         } else label?.remove()
 
-        this.#setFormValue()
+        this.#sendValueToForm()
 
         break
       case 'disabled':
@@ -213,14 +202,14 @@ export class TextField extends FormAssociatedBase {
         const allowedSignsRegex2 = String.raw`[+\-]?|[+\-]?(\d+([.,]\d*)?|[.,]\d*)`, // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
           digitsDecimalsOnlyRegex = String.raw`(\d+([.,]\d*)?|[.,]\d*)?` // allow only one ',' or '.' and finally only digits
 
-        this.#input?.setAttribute('pattern', this.min < 0 ? allowedSignsRegex2 : digitsDecimalsOnlyRegex)
+        this.#input?.setAttribute('pattern', this.negativeNumbersAllowed ? allowedSignsRegex2 : digitsDecimalsOnlyRegex)
 
         break
       case 'number-pad':
         const allowedSignsRegex = String.raw`([+\-]|\d+|[+\-]\d+)?`, // allow single '+' or '-', then allow only digits
           digitsOnlyRegex = String.raw`\d*` // allow only digits
 
-        this.#input?.setAttribute('pattern', this.min < 0 ? allowedSignsRegex : digitsOnlyRegex)
+        this.#input?.setAttribute('pattern', this.negativeNumbersAllowed ? allowedSignsRegex : digitsOnlyRegex)
 
         break
       default:
@@ -241,11 +230,21 @@ export class TextField extends FormAssociatedBase {
   }
 
   set text(v) {
-    if (!this.#input) return
+    if (this.#input) {
+      const nv = this.#patternTest(v) ? v : ''
 
-    this.#input.value = this.#patternTest(v) ? v : ''
+      set(this.#input, 'value', nv)
 
-    this.#setFormValue()
+      // this.text AND this.value have NOW been updated to new values
+      // if user is NOT interacting replace new-text/input.value with the formatted version of the new-text/input.value!
+      if (document.activeElement !== this && 0 < this.#input.value.length) {
+        const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
+
+        set(this.#input, 'value', finalText) // if (this.text !== finalText) this.#input.value = finalText
+      }
+    }
+
+    this.#sendValueToForm()
   }
 
   #handleFocusin = (evt: Event) => {
@@ -254,24 +253,20 @@ export class TextField extends FormAssociatedBase {
     if (evt.target === this) this.#input?.focus()
   }
 
-  #setFormValue = () => {
+  #sendValueToForm = () => {
     // input.value has already been updated/synced !!
     if (this.matches(':disabled')) return this.setValidity({})
 
-    if (this.hasAttribute('required')) {
-      if (this.#input?.matches(':invalid')) {
-        this.setValidity(this.#input?.validity, this.#input?.validationMessage)
-        // } else if (['number-pad', 'decimal-pad'].includes(this.getAttribute('keyboard-type') ?? '')) {
-        // if (this.hasAttribute('min-number') && Number.parseInt(this.getAttribute('min-number') ?? '0') > Number.parseInt(this.text)) {
-        //   this.setValidity({ rangeUnderflow: true })
-        // } else if (this.hasAttribute('max-number') && Number.parseInt(this.getAttribute('max-number') ?? '0') < Number.parseInt(this.text)) {
-        //   this.setValidity({ rangeOverflow: true })
-        // } else {
-        // this.setValidity({})
-        // }
-      } else {
-        this.setValidity({})
-      }
+    // if (this.hasAttribute('required')) {
+    if (this.#input?.matches(':invalid')) {
+      this.setValidity(this.#input?.validity, this.#input?.validationMessage)
+    } else if (['number-pad', 'decimal-pad'].includes(this.keyboardType) && (this.hasAttribute('minimum') || this.hasAttribute('maximum'))) {
+      const underflow = compareBigDecimals(this.value, this.getAttribute('minimum') ?? '-Infinity'),
+        overflow = compareBigDecimals(this.value, this.getAttribute('maximum') ?? 'Infinity')
+
+      if (0 > underflow) this.setValidity({ rangeUnderflow: true })
+      else if (0 < overflow) this.setValidity({ rangeOverflow: true })
+      else this.setValidity({})
     } else {
       this.setValidity({})
     }
@@ -293,7 +288,7 @@ export class TextField extends FormAssociatedBase {
 
     const data = this.#identity(evt.clipboardData?.getData('text') ?? '') // number is now sanitized but contains edge cases like '+' and also global one separator that could be wither dot or decimal.
 
-    if (0 === data.length) return this.shake().then(this.reportValidity) // nothing to paste
+    if (0 === data.length) return this.shake() //.then(this.reportValidity) // nothing to paste
 
     const start = input.selectionStart ?? 0,
       end = input.selectionEnd ?? 0,
@@ -301,14 +296,14 @@ export class TextField extends FormAssociatedBase {
       after = input.value.slice(end),
       newText = `${before}${data}${after}`
 
-    if (-1 < input.maxLength && input.maxLength < newText.length) return this.shake().then(this.reportValidity) // exceeding maxlength
+    if (-1 < input.maxLength && input.maxLength < newText.length) return this.shake() //.then(this.reportValidity) // exceeding maxlength
 
     input.value = newText
 
     const newCaret = start + data.length
     input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
 
-    this.#setFormValue()
+    this.#sendValueToForm()
   }
 
   // NOTE: identity MUST always pass beforeinput checks
@@ -332,28 +327,28 @@ export class TextField extends FormAssociatedBase {
         let seenDot = false
         return [...`${str.trim()}`].reduce((acc, ch, i) => {
           // +- signs are allowed
-          if (this.min < 0)
+          if (this.negativeNumbersAllowed)
             if (!seenSign && (ch === '+' || ch === '-')) {
               seenSign = true
-              return acc + ch
+              return `${acc}${ch}`
             }
           if ((ch === '.' || ch === ',') && !seenDot) {
             seenDot = true
-            return acc + ch
+            return `${acc}${ch}`
           }
-          if (/\d/.test(ch)) return acc + ch
+          if (/\d/.test(ch)) return `${acc}${ch}`
           return acc // skip everything else
         }, '')
 
       case 'number-pad': // allow only ^+- finally remove all non digit rest appearances
         return [...`${str.trim()}`].reduce((acc, ch, i) => {
           // +- signs are allowed
-          if (this.min < 0)
+          if (this.negativeNumbersAllowed)
             if (!seenSign && (ch === '+' || ch === '-')) {
               seenSign = true
-              return acc + ch
+              return `${acc}${ch}`
             }
-          if (/\d/.test(ch)) return acc + ch
+          if (/\d/.test(ch)) return `${acc}${ch}`
           return acc // skip everything else
         }, '')
 
@@ -368,7 +363,7 @@ export class TextField extends FormAssociatedBase {
         const allowedSignsRegex2 = /^[+-]?$|^[+-]?(\d+([.,]\d*)?|[.,]\d*)$/, // allow single '+' or '-', then allow only one ',' or '.' and finally only digits
           digitsDecimalsOnlyRegex = /^(\d+([.,]\d*)?|[.,]\d*)?$/ // allow only one ',' or '.' and finally only digits
 
-        return (this.min < 0 ? allowedSignsRegex2 : digitsDecimalsOnlyRegex).test(str)
+        return (this.negativeNumbersAllowed ? allowedSignsRegex2 : digitsDecimalsOnlyRegex).test(str)
       //   // console.log(isValidDecimal(""));       // true
       //   // console.log(isValidDecimal("+"));      // true
       //   // console.log(isValidDecimal("-"));      // true
@@ -387,7 +382,7 @@ export class TextField extends FormAssociatedBase {
         const allowedSignsRegex = /^([+-]|\d+|[+-]\d+)?$/, // allow single '+' or '-', then allow only digits
           digitsOnlyRegex = /^(\d+)?$/ // allow only digits
 
-        return (this.min < 0 ? allowedSignsRegex : digitsOnlyRegex).test(str)
+        return (this.negativeNumbersAllowed ? allowedSignsRegex : digitsOnlyRegex).test(str)
       //   // console.log(isValidInteger(""));      // true
       //   // console.log(isValidInteger("+"));     // true
       //   // console.log(isValidInteger("-"));     // true
@@ -415,7 +410,7 @@ export class TextField extends FormAssociatedBase {
     if (-1 < input.maxLength && 0 === data.length) {
       evt.preventDefault()
 
-      return this.shake().then(this.reportValidity)
+      return this.shake() //.then(this.reportValidity)
     } // nothing to add
 
     const start = input.selectionStart ?? 0,
@@ -436,7 +431,7 @@ export class TextField extends FormAssociatedBase {
 
         evt.preventDefault()
 
-        return this.shake().then(this.reportValidity)
+        return this.shake() //.then(this.reportValidity)
 
       case 'numeric':
         // const allowedSignsRegex = /^([+-]|\d+|[+-]\d+)?$/, // allow single '+' or '-', then allow only digits
@@ -447,7 +442,7 @@ export class TextField extends FormAssociatedBase {
 
         evt.preventDefault()
 
-        return this.shake().then(this.reportValidity)
+        return this.shake() //.then(this.reportValidity)
 
       // this.setValidity(prevValidity, prevValiditationMessage) // restore
     }
@@ -458,50 +453,25 @@ export class TextField extends FormAssociatedBase {
 
     if (0 === this.text.length) return
 
-    const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
+    this.text = this.text
 
-    if (this.text !== finalText) this.text = finalText
+    // const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
+    // console.log(99, this.text, finalText)
+
+    // if (this.text !== finalText) this.text = finalText
   }
 
   #handleInputInput = (evt: Event) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    this.#setFormValue()
+    this.#sendValueToForm()
   }
 
   // Optional: form participation properties
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }
-  get min() {
-    if (!['number-pad', 'decimal-pad'].includes(this.keyboardType)) return -Infinity
 
-    if (!this.hasAttribute('minimum')) return -Infinity
-
-    const number = Number(this.getAttribute('minimum'))
-
-    if (Number.isNaN(number)) return -Infinity
-
-    return number
-  }
-  // get maxLength() {
-  //   if (!this.hasAttribute('max-length')) return -1
-
-  //   const number = Number(this.getAttribute('max-length'))
-
-  //   if (0 > number || number > Infinity) return -1
-
-  //   return number
-  // }
-  // get minLength() {
-  //   if (!this.hasAttribute('min-length')) return -1
-
-  //   const number = Number(this.getAttribute('min-length'))
-
-  //   if (0 > number || number > Infinity) return -1
-
-  //   return number
-  // }
   get value() {
     // text allows special edge cases, like '-.' or '+' and generally might be invalid number. It might also be localized and not US based.
     // here we make sure it is number-like, to be used in number operations.
@@ -538,6 +508,7 @@ export class TextField extends FormAssociatedBase {
         return this.text
     }
   }
+
   get valueAsNumber() {
     switch (this.keyboardType) {
       case 'decimal-pad':
@@ -548,8 +519,19 @@ export class TextField extends FormAssociatedBase {
         return ''
     }
   }
-  get valueAsDate() {
-    return new Date(this.value)
+
+  get negativeNumbersAllowed(): boolean {
+    // switch (this.keyboardType) {
+    //   case 'decimal-pad':
+    //   case 'number-pad':
+    const min = this.getAttribute('minimum') ?? '-Infinity',
+      max = this.getAttribute('maximum') ?? 'Infinity'
+
+    return compareBigDecimals('0', min) >= 0 && compareBigDecimals('0', max) <= 0
+
+    //   default:
+    //     return false
+    // }
   }
 
   setValidity = (flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement) => {
@@ -593,10 +575,10 @@ export class TextField extends FormAssociatedBase {
     this.#customValidity = message
 
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
-    else this.#setFormValue()
+    else this.#sendValueToForm()
   }
   formAssociatedCallback = (form: HTMLFormElement) => {
-    this.#setFormValue()
+    this.#sendValueToForm()
   }
   formDisabledCallback = (disabled: boolean) => {
     for (const el of this.#shadowRoot.querySelectorAll('input')) el.toggleAttribute('disabled', !disabled)

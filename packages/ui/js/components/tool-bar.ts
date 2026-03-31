@@ -10,7 +10,7 @@ export class ToolBar extends HTMLElement {
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
       // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
-      innerHTML: `
+      innerHTML: String.raw`
     <div part="root navigation-bar">
     <div part="root toolbar-leading-stack">
       <slot name="navigation-bar-leading"></slot>

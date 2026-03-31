@@ -15,7 +15,7 @@ export class ScrollView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: `
+      innerHTML: String.raw`
   <slot></slot>
   <div part="root scroll-view-navbar">
     <div part="root scroll-view-navbar-stack">

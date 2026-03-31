@@ -18,6 +18,9 @@ export { default as prevAll } from './prev-all'
 export { default as next } from './next'
 export { default as prev } from './prev'
 export { default as siblings } from './siblings'
+export { default as set } from './set'
+export { default as clamp } from './clamp'
+export { default as compareBigDecimals } from './compare-big-decimals'
 
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash

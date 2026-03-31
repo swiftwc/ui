@@ -44,7 +44,7 @@ export class PickerView extends HTMLElement {
           PickerView.#templates.set(
             style,
             Object.assign(document.createElement('template'), {
-              innerHTML: `
+              innerHTML: String.raw`
                 <label part="root picker-stack">
             <div part="root picker-label-stack">
               <slot name="label"></slot>
@@ -64,7 +64,7 @@ export class PickerView extends HTMLElement {
           //   PickerView.#templates.set(
           //     style,
           //     Object.assign(document.createElement('template'), {
-          //       innerHTML: `
+          //       innerHTML: String.raw`
           //     <label part="compact-picker">
           //       <input type="text" part="compact-input">
           //     </label>
@@ -77,7 +77,7 @@ export class PickerView extends HTMLElement {
           //   PickerView.#templates.set(
           //     style,
           //     Object.assign(document.createElement('template'), {
-          //       innerHTML: `
+          //       innerHTML: String.raw`
           //     <div part="fancy-picker">
           //       <span>Fancy Picker</span>
           //       <input type="text" part="fancy-input">
@@ -91,7 +91,7 @@ export class PickerView extends HTMLElement {
           PickerView.#templates.set(
             style,
             Object.assign(document.createElement('template'), {
-              innerHTML: `
+              innerHTML: String.raw`
       <label part="root text-field-stack">
       <div part="root text-field-label-stack">
         <slot name="label"></slot>
@@ -113,7 +113,7 @@ export class PickerView extends HTMLElement {
           PickerView.#templates.set(
             style,
             Object.assign(document.createElement('template'), {
-              innerHTML: `
+              innerHTML: String.raw`
           <label part="root picker-stack">
           <div part="root picker-label-stack">
             <slot name="label"></slot>

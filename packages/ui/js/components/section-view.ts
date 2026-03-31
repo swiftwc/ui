@@ -10,7 +10,7 @@ export class SectionView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: `
+      innerHTML: String.raw`
   <div part="root section-main-stack">
     <slot></slot>
   </div>

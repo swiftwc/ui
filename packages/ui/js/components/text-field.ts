@@ -29,8 +29,8 @@ export class TextField extends FormAssociatedBase {
   static #template: HTMLTemplateElement
 
   static get template() {
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: String.raw`
+    return (this.#template ??= $(
+      String.raw`
     <label part="root text-field-stack">
     <div part="root text-field-label-stack">
       <slot name="label"></slot>
@@ -40,7 +40,8 @@ export class TextField extends FormAssociatedBase {
     </div>
     <slot name="validity-options" hidden></slot>
   </label>`,
-    }))
+      ''
+    ))
   }
 
   #shadowRoot
@@ -66,6 +67,9 @@ export class TextField extends FormAssociatedBase {
 
     this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
 
     CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
@@ -83,19 +87,27 @@ export class TextField extends FormAssociatedBase {
       ).on()
     )
 
-    CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
-
-    // finally
-    if (!this.hasAttribute('text') || !this.#input) return
-
-    this.#input.value = this.getAttribute('text') ?? ''
-
-    this.#sendValueToForm(false)
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'change',
+        () => {
+          this.text = this.text
+        },
+        I18n.on
+      ).on()
+    )
   }
 
   connectedCallback() {
     super.connectedCallback()
+
+    // finally
+    if (!this.hasAttribute('text')) return
+
+    this.text = this.getAttribute('text') ?? '' // this.#input.value = this.getAttribute('text') ?? ''
+
+    this.#sendValueToForm(false)
   }
 
   disconnectedCallback() {
@@ -160,9 +172,8 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'text':
-        if (this.#input) this.#input.value = newValue ?? ''
-        // this.text = newValue ?? ''
-        // this.#sendValueToForm(false)
+        // if (this.#input) this.#input.value = newValue ?? ''
+        this.text = newValue ?? ''
 
         break
       case 'required':
@@ -468,9 +479,7 @@ export class TextField extends FormAssociatedBase {
 
     const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
 
-    if (this.text === finalText) return
-
-    input.value = finalText
+    if (!set(input, 'value', finalText)) return
 
     this.#sendValueToForm()
   }

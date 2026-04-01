@@ -19,6 +19,8 @@ export class I18n {
   static #dateSeparator: string = '/'
   static #dateOrder: string[] = ['month', 'day', 'year']
 
+  static on = new EventTarget()
+
   // ----------------------------
   // Lazy init
   // ----------------------------
@@ -120,6 +122,7 @@ export class I18n {
     if (!this.#observer) return
     this.#tag = document.documentElement.lang
     this.#getOwnConfig()
+    this.on.dispatchEvent(new CustomEvent('change'))
   }
 
   static #getOwnConfig() {

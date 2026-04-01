@@ -9,8 +9,8 @@ export class SectionView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: String.raw`
+    return (this.#template ??= $(
+      String.raw`
   <div part="root section-main-stack">
     <slot></slot>
   </div>
@@ -20,7 +20,8 @@ export class SectionView extends HTMLElement {
   <div part="root section-footer-stack">
     <slot name="footer"></slot>
   </div>`,
-    }))
+      ''
+    ))
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }
 

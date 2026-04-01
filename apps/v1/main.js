@@ -14,15 +14,15 @@ function queryInsertPosition(frame) {
   return 'afterend' // lookFor = 'nextElementSibling'
 }
 
-document.body.addEventListener('commit', async (event) => {
+document.addEventListener('commit', async (event) => {
   console.log('commit!!!', event.detail, event.target)
 
   // alert(event.detail)
 })
-document.body.addEventListener('selection', async (event) => {
+document.addEventListener('selection', async (event) => {
   console.log('selection!!!', event.detail, event.target)
 
-  if (event.detail.selection) alert(event.detail.selection)
+  if (event.detail.selection) console.log(event.detail.selection)
 })
 
 const toggleHandler = async (event) => {

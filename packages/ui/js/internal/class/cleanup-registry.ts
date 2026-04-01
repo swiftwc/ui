@@ -19,12 +19,19 @@ export class CleanupRegistry {
     const tokens = this.#cleanups.get(target)
     if (!tokens) return
 
-    if (undefined !== token) {
-      for (const fn of tokens.get(token) ?? []) fn()
-      tokens.delete(token)
-    } else {
+    if (token === undefined) {
       for (const fns of tokens.values()) for (const fn of fns) fn()
       this.#cleanups.delete(target)
+    } else if ('string' === typeof token && token.endsWith('*')) {
+      const prefix = token.slice(0, -1)
+      for (const [key, fns] of tokens)
+        if ('string' === typeof key && key.startsWith(prefix)) {
+          for (const fn of fns) fn()
+          tokens.delete(key)
+        }
+    } else {
+      for (const fn of tokens.get(token) ?? []) fn()
+      tokens.delete(token)
     }
   }
 }

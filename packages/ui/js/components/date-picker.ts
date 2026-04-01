@@ -15,28 +15,9 @@ export class DatePicker extends FormAssociatedBase {
     return ['date-picker-style', 'required', 'prompt', 'label', 'name', 'selection', 'disabled', 'minimum', 'maximum']
   }
 
-  static #template: HTMLTemplateElement
+  static #templates: Map<string, HTMLTemplateElement> = new Map()
 
-  static get template() {
-    const [yyyy = '', mm = '', dd = ''] = new Date().toISOString().split('T').shift()?.split('-') ?? []
-
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: String.raw`
-    <label part="root date-picker-stack">
-    <div part="root date-picker-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root date-picker-input-stack">
-      <input type="text" name="month" placeholder="${mm}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input">
-      <span part="root date-picker-separator">${I18n.dateSeparator}</span>
-      <input type="text" name="day" placeholder="${dd}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input">
-      <span part="root date-picker-separator">${I18n.dateSeparator}</span>
-      <input type="text" name="year" placeholder="${yyyy}" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
-    </div>
-    <slot name="validity-options" hidden></slot>
-  </label>`,
-    }))
-  }
+  // #lastRenderedStyle?: DatePickerStyle //string | null
 
   #shadowRoot
 
@@ -44,59 +25,74 @@ export class DatePicker extends FormAssociatedBase {
 
   #validitiesSlot?: HTMLSlotElement
 
-  #inputs: DateInput[]
+  #inputs: DateInput[] = []
 
   get #internals(): ElementInternals {
     return getInternals(this)
+  }
+
+  get template(): HTMLTemplateElement {
+    if (!DatePicker.#templates.has(this.datePickerStyle))
+      switch (this.datePickerStyle) {
+        default:
+          DatePicker.#templates.set(
+            this.datePickerStyle,
+            $(
+              String.raw`
+            <label part="root date-picker-stack">
+            <div part="root date-picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root date-picker-input-stack">
+              <input type="text" name="month" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input">
+              <span part="root date-picker-separator"></span>
+              <input type="text" name="day" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input">
+              <span part="root date-picker-separator"></span>
+              <input type="text" name="year" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
+            </div>
+            <slot name="validity-options" hidden></slot>
+          </label>`,
+              ''
+            )
+          )
+
+          break
+      }
+
+    return DatePicker.#templates.get(this.datePickerStyle)!
   }
 
   constructor() {
     super()
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof DatePicker).template.content, true))
-
-    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
-
-    this.#inputs = [...this.#shadowRoot.querySelectorAll<DateInput>('input')]
-      .sort((a, b) => I18n.dateOrder.indexOf(a.name) - I18n.dateOrder.indexOf(b.name))
-      .map((input, i) => {
-        input.style.order = `${i * 2}`
-        input.tabIndex = i + 1
-        return input
-      })
-
-    for (const span of this.#shadowRoot.querySelectorAll<HTMLElement>('input~span')) {
-      const prevOrder = Number((span.previousElementSibling as HTMLInputElement)?.style.getPropertyValue('order'))
-
-      span.style.setProperty('order', `${prevOrder + 1}`)
-    }
-
-    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
-
-    for (const input of this.#inputs)
-      CleanupRegistry.register(
-        this,
-        onoff(
-          [
-            { types: 'focus', listener: this.#handleInputFocus },
-            { types: 'blur', listener: this.#handleInputBlur },
-            { types: 'input', listener: this.#handleInputInput },
-            { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
-            { types: 'paste', listener: this.#handleInputPaste as EventListener },
-            { types: 'keydown', listener: this.#handleInputKeydown as EventListener },
-          ],
-          input
-        ).on()
-      )
-
-    CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
   }
 
   connectedCallback() {
     super.connectedCallback()
+
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
+
+    this.#render()
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'change',
+        () => {
+          this.#render()
+        },
+        I18n.on
+      ).on()
+    )
+
+    // finally
+    if (!this.hasAttribute('selection')) return
+
+    const [y = '', m = '', d = ''] = (this.getAttribute('selection') ?? '').split(/\D+/)
+    this.selection = { year: y, month: m, day: d }
+
+    this.#sendValueToForm(false)
   }
 
   disconnectedCallback() {
@@ -153,6 +149,67 @@ export class DatePicker extends FormAssociatedBase {
       : 'automatic'
   }
 
+  #render() {
+    console.debug(`${DatePicker.name} ⚡️ render (${this.datePickerStyle})`)
+
+    if (!this.isConnected) return
+
+    // if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
+    // this.#lastRenderedStyle = this.datePickerStyle
+
+    // clear shadow DOM
+    this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
+
+    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
+
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+
+    switch (this.datePickerStyle) {
+      default:
+        const [yyyy = '', mm = '', dd = ''] = new Date().toISOString().split('T').shift()?.split('-') ?? [],
+          map = { year: yyyy, month: mm, day: dd }
+
+        this.#inputs = [...this.#shadowRoot.querySelectorAll<DateInput>('input')]
+          .sort((a, b) => I18n.dateOrder.indexOf(a.name) - I18n.dateOrder.indexOf(b.name))
+          .map((input, i) => {
+            input.style.order = `${i * 2}`
+            input.tabIndex = i + 1
+            input.setAttribute('placeholder', map[input.name])
+            return input
+          })
+
+        for (const span of this.#shadowRoot.querySelectorAll<HTMLElement>('input~span')) {
+          const prevOrder = Number((span.previousElementSibling as HTMLInputElement)?.style.getPropertyValue('order'))
+
+          span.style.setProperty('order', `${prevOrder + 1}`)
+
+          span.textContent = I18n.dateSeparator
+        }
+
+        CleanupRegistry.unregister(this, 'inputs:*')
+        for (const input of this.#inputs) {
+          CleanupRegistry.register(
+            this,
+            onoff(
+              [
+                { types: 'focus', listener: this.#handleInputFocus },
+                { types: 'blur', listener: this.#handleInputBlur },
+                { types: 'input', listener: this.#handleInputInput },
+                { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
+                { types: 'paste', listener: this.#handleInputPaste as EventListener },
+                { types: 'keydown', listener: this.#handleInputKeydown as EventListener },
+              ],
+              input
+            ).on(),
+            `inputs:${input.name}`
+          )
+        }
+
+        break
+    }
+  }
+
   get selection(): { year: string; month: string; day: string } {
     const map = Object.fromEntries(this.#inputs.map(({ name, value }) => [name, value])) as Partial<Record<DateParts, string>>
 
@@ -176,8 +233,6 @@ export class DatePicker extends FormAssociatedBase {
 
       input.value = finalValue
     }
-
-    this.#sendValueToForm()
   }
 
   #handleClick = (evt: Event) => {
@@ -193,7 +248,7 @@ export class DatePicker extends FormAssociatedBase {
     evt.stopPropagation()
   }
 
-  #sendValueToForm = () => {
+  #sendValueToForm = (dispatchEvent: boolean = true) => {
     // input.value has already been updated/synced !!
     if (this.matches(':disabled')) return this.setValidity({})
 
@@ -223,7 +278,7 @@ export class DatePicker extends FormAssociatedBase {
 
     this.#internals.setFormValue(entries)
 
-    this.dispatchEvent(new CustomEvent<DatePickerSelectionDetail>('selection', { detail: { selection }, bubbles: true, composed: true }))
+    if (dispatchEvent) this.dispatchEvent(new CustomEvent<DatePickerSelectionDetail>('selection', { detail: { selection }, bubbles: true, composed: true }))
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
@@ -330,7 +385,9 @@ export class DatePicker extends FormAssociatedBase {
 
     if (!set(input, 'value', finalText)) return
 
-    this.selection = this.selection
+    // this.selection = this.selection
+
+    this.#sendValueToForm()
   }
 
   #handleInputInput = (evt: Event) => {
@@ -466,7 +523,7 @@ export class DatePicker extends FormAssociatedBase {
     this.#customValidity = message
 
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
-    else this.#sendValueToForm()
+    else this.#sendValueToForm(false)
   }
   formAssociatedCallback = (form: HTMLFormElement) => {
     this.#sendValueToForm()
@@ -480,5 +537,7 @@ export class DatePicker extends FormAssociatedBase {
       month: '',
       day: '',
     }
+
+    this.#sendValueToForm()
   }
 }

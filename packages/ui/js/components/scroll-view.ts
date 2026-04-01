@@ -14,8 +14,8 @@ export class ScrollView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: String.raw`
+    return (this.#template ??= $(
+      String.raw`
   <slot></slot>
   <div part="root scroll-view-navbar">
     <div part="root scroll-view-navbar-stack">
@@ -27,7 +27,8 @@ export class ScrollView extends HTMLElement {
       <slot name="bottom-bar-principal"></slot>
     </div>
   </div>`,
-    }))
+      ''
+    ))
   }
 
   #shadowRoot

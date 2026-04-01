@@ -8,9 +8,9 @@ export class ToolBar extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
-      innerHTML: String.raw`
+    // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
+    return (this.#template ??= $(
+      String.raw`
     <div part="root navigation-bar">
     <div part="root toolbar-leading-stack">
       <slot name="navigation-bar-leading"></slot>
@@ -33,7 +33,8 @@ export class ToolBar extends HTMLElement {
       <slot name="bottom-bar-trailing"></slot>
     </div>
   </div>`,
-    }))
+      ''
+    ))
   }
 
   #shadowRoot

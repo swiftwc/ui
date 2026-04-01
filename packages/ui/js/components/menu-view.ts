@@ -10,8 +10,8 @@ export class MenuView extends HTMLElement {
   static #template: HTMLTemplateElement
 
   static get template() {
-    return (this.#template ??= Object.assign(document.createElement('template'), {
-      innerHTML: String.raw`
+    return (this.#template ??= $(
+      String.raw`
   <button part="root button menu-summary">
     <slot name="label"></slot>
   </button>
@@ -22,7 +22,8 @@ export class MenuView extends HTMLElement {
       </div>
     </form>
   </dialog>`,
-    }))
+      ''
+    ))
   }
 
   #shadowRoot

@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="fr" dir="ltr">
+<html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
@@ -35,7 +35,8 @@
         <input name="ff3" type="number" required min="0.0009" step="0.0001" />
         <input name="ff4" type="date" min="2024-01-01" max="2026-31-12" required placeholder="99/99/9999" />
         <button type="submit">submit!</button>
-        <date-picker placeholder="here" label="Date" text="2025.19.81" minimum="2025-10-01" required></date-picker>
+        <date-picker placeholder="here" label="Date Selection" selection="2025.10.10" required></date-picker>
+        <date-picker placeholder="here" label="Invalid Date Selection" selection="2025.19.81" minimum="2025-10-01" required></date-picker>
         <text-field placeholder="here" label="Name" text="John Doe"></text-field>
         <text-field placeholder="here" label="Disabled" text="John Doe" required disabled></text-field>
         <text-field placeholder="here" label="Numberr" text="45" keyboard-type="decimal-pad" minimum="45" maximum="55"></text-field>

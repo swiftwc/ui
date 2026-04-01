@@ -61,8 +61,8 @@ export class PickerView extends FormAssociatedBase {
           // template.innerHTML = `<slot name="options"></slot><slot></slot>`
           PickerView.#templates.set(
             this.pickerStyle,
-            Object.assign(document.createElement('template'), {
-              innerHTML: String.raw`
+            $(
+              String.raw`
                 <label part="root picker-stack">
             <div part="root picker-label-stack">
               <slot name="label"></slot>
@@ -75,7 +75,8 @@ export class PickerView extends FormAssociatedBase {
             <slot name="validity-options" hidden></slot>
           </label>
                 `,
-            })
+              ''
+            )
           )
 
           //   break
@@ -131,8 +132,8 @@ export class PickerView extends FormAssociatedBase {
         default:
           PickerView.#templates.set(
             this.pickerStyle,
-            Object.assign(document.createElement('template'), {
-              innerHTML: String.raw`
+            $(
+              String.raw`
           <label part="root picker-stack">
           <div part="root picker-label-stack">
             <slot name="label"></slot>
@@ -144,7 +145,8 @@ export class PickerView extends FormAssociatedBase {
           <slot name="tag" hidden></slot>
           <slot name="validity-options" hidden></slot>
         </label>`,
-            })
+              ''
+            )
           )
 
           break
@@ -158,19 +160,22 @@ export class PickerView extends FormAssociatedBase {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    // this.#internals = this.attachInternals()
-
-    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
-
-    this.#render() // Snapshot.waitReady.then(this.#render.bind(this))
+    // this.#render() // Snapshot.waitReady.then(this.#render.bind(this))
   }
 
   connectedCallback() {
     console.debug(`${PickerView.name} ⚡️ connect`)
 
-    if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) return // will be picked up by attr-change!
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
-    this.#render()
+    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // will be picked up by attr-change!
+
+    // finally
+    if (!this.hasAttribute('selection')) return
+
+    this.#selection = this.getAttribute('selection') ?? ''
+
+    this.#sendValueToForm(false)
   }
 
   disconnectedCallback() {
@@ -202,11 +207,11 @@ export class PickerView extends FormAssociatedBase {
 
         this.#render()
 
-        this.#sendValueToForm()
+        // this.#sendValueToForm()
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
-        // TODO: alter options selected attr if set by datalist, else just set selection
+        // nothing happens
 
         break
     }
@@ -281,7 +286,7 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #sendValueToForm = () => {
+  #sendValueToForm = (dispatchEvent: boolean = true) => {
     // input.value has already been updated/synced !!
     if (this.matches(':disabled')) return this.setValidity({})
 
@@ -297,7 +302,8 @@ export class PickerView extends FormAssociatedBase {
 
     this.#internals.setFormValue(entries)
 
-    this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
+    if (dispatchEvent)
+      this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
   }
 
   #handleClick(evt: Event) {
@@ -345,21 +351,10 @@ export class PickerView extends FormAssociatedBase {
     if (0 < assigned.length) this.#handleTagMutation()
   }
 
-  static sourceNodes(slot?: HTMLSlotElement) {
-    switch (slot?.name) {
-      case 'tag':
-        return slot?.assignedElements({ flatten: true })
-
-      case 'options':
-      default:
-        return slot?.assignedElements({ flatten: true }) //[0]?.querySelectorAll<HTMLOptionElement>(':scope>option')
-    }
-  }
-
   static wrapTag(node: Element, slotName?: string) {
-    const btn = document.createElement('button')
-    btn.type = 'button'
-    btn.tabIndex = 0
+    const btn = $(`<button type="button" tabindex="0"></button>`) //document.createElement('button')
+    // btn.type = 'button'
+    // btn.tabIndex = 0
 
     switch (slotName) {
       case 'tag':
@@ -372,7 +367,7 @@ export class PickerView extends FormAssociatedBase {
       default:
         if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
 
-        const label = document.createElement('label-view')
+        const label = $(`<label-view></label-view>`) //document.createElement('label-view')
 
         if (node.hasAttribute('label')) label.setAttribute('title', node.getAttribute('label') ?? '')
 
@@ -396,7 +391,8 @@ export class PickerView extends FormAssociatedBase {
 
         menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
-        for (const el of PickerView.sourceNodes(sourceSlot) ?? []) menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? [])
+          menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
         // let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
 
         // if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
@@ -422,7 +418,8 @@ export class PickerView extends FormAssociatedBase {
           section.insertAdjacentElement('beforeend', el)
         } else section.innerHTML = ''
 
-        for (const el of PickerView.sourceNodes(sourceSlot) ?? []) section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? [])
+          section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 
         // let possibleLv = this.#slot?.assignedElements({ flatten: true })[0]
 
@@ -548,7 +545,7 @@ export class PickerView extends FormAssociatedBase {
     this.#customValidity = message
 
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
-    else this.#sendValueToForm()
+    else this.#sendValueToForm(false)
   }
   formAssociatedCallback = (form: HTMLFormElement) => {
     this.#sendValueToForm()

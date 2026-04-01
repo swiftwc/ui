@@ -702,10 +702,6 @@
         <scroll-view navigation-inline-title="customer 1" navigation-path="editcustomer1" style="--face: darkgray">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
-              <button type="submit">goM</button>
-              <input name="ff" required maxlength="9" value="3443343434343434" />
-              <input name="ff2" type="number" required min="9" />
-              <input name="ff3" type="number" required min="0.0009" step="0.0001" />
               <section-view>
                 <labeled-content>
                   <text-field
@@ -714,8 +710,8 @@
                     text="3443343434343434"
                     required
                     keyboard-type="decimal-pad"
-                    min-number="0"
-                    max-number="999"
+                    minimum="0"
+                    maximum="999"
                     max-length="10"
                   >
                     <option slot="validity-datalist" value="custom-error:bad-input" label="0%"></option>

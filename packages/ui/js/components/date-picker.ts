@@ -4,10 +4,10 @@ import { I18n } from '../i18n'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
+export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
+
 type DateParts = 'year' | 'month' | 'day'
 type DateInput = HTMLInputElement & { name: DateParts }
-
-export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
 
 export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {
@@ -27,9 +27,9 @@ export class DatePicker extends FormAssociatedBase {
     </div>
     <div part="root date-picker-input-stack">
       <input type="text" name="month" placeholder="${mm}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input">
-      <span>${I18n.dateSeparator}</span>
+      <span part="root date-picker-separator">${I18n.dateSeparator}</span>
       <input type="text" name="day" placeholder="${dd}" inputmode="numeric" pattern="\d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input">
-      <span>${I18n.dateSeparator}</span>
+      <span part="root date-picker-separator">${I18n.dateSeparator}</span>
       <input type="text" name="year" placeholder="${yyyy}" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
     </div>
     <slot name="validity-datalist" hidden></slot>
@@ -60,11 +60,17 @@ export class DatePicker extends FormAssociatedBase {
 
     this.#inputs = [...this.#shadowRoot.querySelectorAll<DateInput>('input')]
       .sort((a, b) => I18n.dateOrder.indexOf(a.name) - I18n.dateOrder.indexOf(b.name))
-      .map((input, index) => {
-        input.style.order = `${index}`
-        input.tabIndex = index + 1
+      .map((input, i) => {
+        input.style.order = `${i * 2}`
+        input.tabIndex = i + 1
         return input
       })
+
+    for (const span of this.#shadowRoot.querySelectorAll<HTMLElement>('input~span')) {
+      const prevOrder = Number((span.previousElementSibling as HTMLInputElement)?.style.getPropertyValue('order'))
+
+      span.style.setProperty('order', `${prevOrder + 1}`)
+    }
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 

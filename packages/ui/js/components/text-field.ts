@@ -3,8 +3,8 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { I18n } from '../i18n'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 
-type KeyboardType = 'decimal-pad' | 'number-pad' | 'default'
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
+export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
 
 export class TextField extends FormAssociatedBase {
   static get observedAttributes() {

@@ -9,6 +9,12 @@
 //   initial-value: automatic;
 // }
 
+// @property --label--style {
+//   syntax: '<number>';
+//   inherits: false;
+//   initial-value: 0;
+// }
+
 // @property --label-truncation-mode {
 //   syntax: 'tail';
 //   inherits: true;
@@ -40,8 +46,10 @@ $label-line-ifs: (
   ),
 );
 
-@mixin set-label-style($value) {
-  @if $value == h-title-and-icon {
+@mixin set-label-style($label-style) {
+  @if $label-style == h-title-and-icon {
+    --label-style: title-and-icon;
+
     --label--host-grid-template-columns: auto minmax(0, 1fr);
     --label--host-grid-template-rows: minmax(0, 1fr);
     --label--host-align-items: center;
@@ -51,11 +59,17 @@ $label-line-ifs: (
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
-  } @else if $value == h-icon-only {
+  } @else if $label-style == h-icon-only {
+    --label-style: icon-only;
+
     --label--iconstack-display: grid;
-  } @else if $value == h-title-only {
+  } @else if $label-style == h-title-only {
+    --label-style: title-only;
+
     --label--titlestack-display: grid;
-  } @else if $value == v-title-and-icon {
+  } @else if $label-style == v-title-and-icon {
+    --label-style: title-and-icon;
+
     --label--host-grid-template-columns: minmax(0, 1fr);
     --label--host-grid-template-rows: auto minmax(0, 1fr);
     --label--host-align-items: normal;
@@ -65,9 +79,13 @@ $label-line-ifs: (
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
-  } @else if $value == v-icon-only {
+  } @else if $label-style == v-icon-only {
+    --label-style: icon-only;
+
     --label--iconstack-display: grid;
-  } @else if $value == v-title-only {
+  } @else if $label-style == v-title-only {
+    --label-style: title-only;
+
     --label--titlestack-display: grid;
   }
 }
@@ -127,6 +145,8 @@ $label-line-ifs: (
 @layer #{vars.$components-layer} {
   label-view {
     :where(&) {
+      // transition: --label--style 1ms step-start;
+
       align-items: var(--label--host-align-items,);
       justify-items: var(--label--host-justify-items,);
       // place-items: center;

@@ -3,6 +3,9 @@ import { MutationObserverSingleton } from '../internal/class/mutation-observer-s
 import { $, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
+const pickerStyles = ['menu', 'inline', 'automatic'] as const
+export type PickerStyle = (typeof pickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
+
 const observers = new MutationObserverSingleton()
 
 export class PickerView extends HTMLElement {
@@ -24,13 +27,13 @@ export class PickerView extends HTMLElement {
 
   static #templates: Map<string, HTMLTemplateElement> = new Map()
 
-  #lastRenderedStyle?: string | null
+  #lastRenderedStyle?: PickerStyle //string | null
 
   get template(): HTMLTemplateElement {
-    const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? ''
+    // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? ''
 
-    if (!PickerView.#templates.has(style))
-      switch (style) {
+    if (!PickerView.#templates.has(this.pickerStyle))
+      switch (this.pickerStyle) {
         // case 'inline':
         //   template.innerHTML = `
         //     <list-view frame-width="infinity" part="root inline-form">
@@ -42,7 +45,7 @@ export class PickerView extends HTMLElement {
         case 'menu':
           // template.innerHTML = `<slot name="list"></slot><slot></slot>`
           PickerView.#templates.set(
-            style,
+            this.pickerStyle,
             Object.assign(document.createElement('template'), {
               innerHTML: String.raw`
                 <label part="root picker-stack">
@@ -87,31 +90,31 @@ export class PickerView extends HTMLElement {
           //   )
 
           break
-        case 'gg':
-          PickerView.#templates.set(
-            style,
-            Object.assign(document.createElement('template'), {
-              innerHTML: String.raw`
-      <label part="root text-field-stack">
-      <div part="root text-field-label-stack">
-        <slot name="label"></slot>
-      </div>
-      <div part="root text-field-input-stack">
-        <input type="text" part="root input text-field-form-input" list="tickmarks">
-        <datalist id="tickmarks">
-          <option value="0" label="0%"></option>
-        </datalist>
-      </div>
-      <slot name="list" hidden></slot>
-      </label>`,
-            })
-          )
+        //   case 'gg':
+        //     PickerView.#templates.set(
+        //       style,
+        //       Object.assign(document.createElement('template'), {
+        //         innerHTML: String.raw`
+        // <label part="root text-field-stack">
+        // <div part="root text-field-label-stack">
+        //   <slot name="label"></slot>
+        // </div>
+        // <div part="root text-field-input-stack">
+        //   <input type="text" part="root input text-field-form-input" list="tickmarks">
+        //   <datalist id="tickmarks">
+        //     <option value="0" label="0%"></option>
+        //   </datalist>
+        // </div>
+        // <slot name="list" hidden></slot>
+        // </label>`,
+        //       })
+        //     )
 
-          break
+        //     break
         case 'inline':
         default:
           PickerView.#templates.set(
-            style,
+            this.pickerStyle,
             Object.assign(document.createElement('template'), {
               innerHTML: String.raw`
           <label part="root picker-stack">
@@ -130,7 +133,7 @@ export class PickerView extends HTMLElement {
           break
       }
 
-    return PickerView.#templates.get(style)!
+    return PickerView.#templates.get(this.pickerStyle)!
   }
 
   #shadowRoot
@@ -151,9 +154,7 @@ export class PickerView extends HTMLElement {
 
     this.#internals = this.attachInternals()
 
-    const { on } = onoff('click', this.#handleClick, this)
-
-    CleanupRegistry.register(this, on())
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
     this.#render() // Snapshot.waitReady.then(this.#render.bind(this))
   }
@@ -171,13 +172,14 @@ export class PickerView extends HTMLElement {
 
     CleanupRegistry.unregister(this)
 
+    for (const el of this.#trackedElements) observers.unobserve(el)
+
     this.#trackedElements.clear()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    // Snapshot.waitReady.then(() => {
     switch (name) {
       case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
         this.#reflectPlaceholder(newValue)
@@ -192,17 +194,22 @@ export class PickerView extends HTMLElement {
 
         break
     }
-    // })
+  }
+
+  get pickerStyle(): PickerStyle {
+    return (pickerStyles as readonly string[]).includes(this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? '')
+      ? (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) as (typeof pickerStyles)[number])
+      : 'automatic'
   }
 
   #render() {
-    if (!this.isConnected) return
-
     console.debug(`${PickerView.name} ⚡️ render (${this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)})`)
 
-    const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
-    if (this.#lastRenderedStyle === style) return // skip if already applied
-    this.#lastRenderedStyle = style
+    if (!this.isConnected) return
+
+    // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
+    if (this.#lastRenderedStyle === this.pickerStyle) return // skip if already applied
+    this.#lastRenderedStyle = this.pickerStyle
 
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
@@ -221,34 +228,37 @@ export class PickerView extends HTMLElement {
     // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
     // if (0 < (this.#tagSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
 
-    switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
+    //this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
+    switch (
+      this.pickerStyle
       // case 'menu':
       //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
 
       //   break
-      case 'gg':
-        // reattach input listener
-        const input = this.#shadowRoot.querySelector('input')
-        if (input) {
-          input.addEventListener('input', () => {
-            this.#internals!.setFormValue(input.value)
-          })
+      // case 'gg':
+      //   // reattach input listener
+      //   const input = this.#shadowRoot.querySelector('input')
+      //   if (input) {
+      //     input.addEventListener('input', () => {
+      //       this.#internals!.setFormValue(input.value)
+      //     })
 
-          // restore placeholder if set
-          const placeholder = this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER)
-          if (placeholder) input.setAttribute('placeholder', placeholder)
-        }
+      //     // restore placeholder if set
+      //     const placeholder = this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER)
+      //     if (placeholder) input.setAttribute('placeholder', placeholder)
+      //   }
 
-        // restore label if set
-        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
-        if (label) this.#reflectLabel(label)
+      //   // restore label if set
+      //   const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
+      //   if (label) this.#reflectLabel(label)
 
-        break
+      //   break
       // case 'inline':
       // default:
       //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
 
       //   break
+    ) {
     }
   }
 
@@ -285,7 +295,7 @@ export class PickerView extends HTMLElement {
           characterData: true,
           subtree: true,
           childList: true,
-          // attributeFilter: ['value', 'label'], TODO:
+          // attributeFilter: ['value', 'label'],
         })
 
       this.#trackedElements.add(el)
@@ -338,7 +348,8 @@ export class PickerView extends HTMLElement {
 
     const sourceSlot = 0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length ? this.#datalistSlot : this.#tagSlot
 
-    switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
+    // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
+    switch (this.pickerStyle) {
       case 'menu':
         const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view></menu-view>`))
 

@@ -1007,6 +1007,7 @@
   :where(date-picker)::part(date-picker-label-stack),
   :where(date-picker)::part(date-picker-input-stack),
   :where(date-picker)::part(date-picker-form-input),
+  :where(date-picker)::part(date-picker-separator),
   :where(menu-view)::part(menu-dialog),
   :where(menu-view)::part(menu-summary),
   :where(menu-view)::part(menu-form),
@@ -1970,16 +1971,19 @@
   @supports not (x: if(else:red)) {
     @container style(--label-style: icon-only) {
       :where(label-view:not([label-style])) {
+        --label-style: icon-only;
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) {
       :where(label-view:not([label-style])) {
+        --label-style: title-only;
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) {
       :where(label-view:not([label-style])) {
+        --label-style: title-and-icon;
         --label--host-grid-template-columns: auto minmax(0, 1fr);
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
@@ -1990,12 +1994,15 @@
       }
     }
     :where(label-view[label-style=icon-only]) {
+      --label-style: icon-only;
       --label--iconstack-display: grid;
     }
     :where(label-view[label-style=title-only]) {
+      --label-style: title-only;
       --label--titlestack-display: grid;
     }
     :where(label-view[label-style=title-and-icon]) {
+      --label-style: title-and-icon;
       --label--host-grid-template-columns: auto minmax(0, 1fr);
       --label--host-grid-template-rows: minmax(0, 1fr);
       --label--host-align-items: center;
@@ -2006,6 +2013,7 @@
     }
     @container not style(--label-style) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
+        --label-style: title-and-icon;
         --label--host-grid-template-columns: auto minmax(0, 1fr);
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
@@ -2015,24 +2023,29 @@
         --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
+        --label-style: icon-only;
         --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
+        --label-style: title-only;
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
+        --label-style: icon-only;
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
+        --label-style: title-only;
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
+        --label-style: title-and-icon;
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
@@ -2044,12 +2057,15 @@
     }
     @container style(--label-flow: vertical) {
       :where(label-view[label-style=icon-only]) {
+        --label-style: icon-only;
         --label--iconstack-display: grid;
       }
       :where(label-view[label-style=title-only]) {
+        --label-style: title-only;
         --label--titlestack-display: grid;
       }
       :where(label-view[label-style=title-and-icon]) {
+        --label-style: title-and-icon;
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
@@ -2061,6 +2077,7 @@
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
+        --label-style: title-and-icon;
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
@@ -2070,9 +2087,11 @@
         --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
+        --label-style: icon-only;
         --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
+        --label-style: title-only;
         --label--titlestack-display: grid;
       }
     }

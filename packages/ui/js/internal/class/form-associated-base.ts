@@ -75,9 +75,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
 
     for (const el of trackedElements.get(this) ?? []) observers.unobserve(el)
 
-    trackedElements.get(this)?.clear()
-
-    trackedElements.delete
+    trackedElements.get(this)?.clear() // trackedElements.delete(this)
   }
 
   connectedCallback() {

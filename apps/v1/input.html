@@ -27,7 +27,7 @@
         </button>
       </h-stack>
       <p>form w/ Textfields</p>
-      <form is="form-view">
+      <form is="form-view" id="ghj">
         <input type="text" name="ff" required maxlength="9" minlength="5" value="3443343434343434" />
         <input type="text" name="ff0" minlength="5" value="3443343434343434" />
         <input type="text" name="ff5" pattern="\d*" value="dfggf34" />
@@ -36,16 +36,17 @@
         <input name="ff4" type="date" min="2024-01-01" max="2026-31-12" required placeholder="99/99/9999" />
         <button type="submit">submit!</button>
         <date-picker placeholder="here" label="Date" text="2025.19.81" minimum="2025-10-01" required></date-picker>
-        <text-field placeholder="here" label="Name" required disabled></text-field>
+        <text-field placeholder="here" label="Name" text="John Doe"></text-field>
+        <text-field placeholder="here" label="Disabled" text="John Doe" required disabled></text-field>
         <text-field placeholder="here" label="Numberr" text="45" keyboard-type="decimal-pad" minimum="45" maximum="55"></text-field>
         <text-field placeholder="here" label="Numberr" text="qwerty45" keyboard-type="decimal-pad" min-length="5" minimum="45"></text-field>
         <text-field placeholder="here" label="Number" text="3443343434343434" required keyboard-type="decimal-pad" max-length="15" max-length="20">
           <!-- minimum="0"
           maximum="999" -->
-          <option slot="validity-datalist" value="custom-error:bad-input" label="0%"></option>
-          <option slot="validity-datalist" value="value-missing" label="Minimum Tip"></option>
-          <option slot="validity-datalist" value="range-underflow" label="Minimum Tippps2323"></option>
-          <option slot="validity-datalist" value="custom-error:range-underflow" label="Minimum Tippp"></option>
+          <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
+          <option slot="validity-options" value="value-missing" label="Minimum Tip"></option>
+          <option slot="validity-options" value="range-underflow" label="Minimum Tippps2323"></option>
+          <option slot="validity-options" value="custom-error:range-underflow" label="Minimum Tippp"></option>
         </text-field>
         <text-field placeholder="here" label="Name"></text-field>
       </form>
@@ -94,12 +95,12 @@
         </section-view>
         <section-view header="Personal Info" footer="All is required">
           <picker-view placeholder="here" label="inline1" picker-style="inline">
-            <!-- <datalist slot="list"> -->
-            <option slot="list" value="0" label="0%"></option>
-            <option slot="list" value="10" label="Minimum Tip"></option>
-            <option slot="list" value="20" label="Standard"></option>
-            <option slot="list" value="30" label="Generous"></option>
-            <option slot="list" value="50" label="Very Generous"></option>
+            <!-- <datalist slot="options"> -->
+            <option slot="options" value="0" label="0%"></option>
+            <option slot="options" value="10" label="Minimum Tip"></option>
+            <option slot="options" value="20" label="Standard"></option>
+            <option slot="options" value="30" label="Generous"></option>
+            <option slot="options" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
           <picker-view placeholder="here" picker-style="inline">
@@ -111,21 +112,21 @@
             <label-view slot="tag" title="Very Generous"></label-view>
           </picker-view>
           <picker-view placeholder="here" label="menu/list" picker-style="menu">
-            <!-- <datalist slot="list"> -->
-            <option slot="list" value="0" label="0%"></option>
-            <option slot="list" value="10" label="Minimum Tip"></option>
-            <option slot="list" value="20" label="Standard"></option>
-            <option slot="list" value="30" label="Generous"></option>
-            <option slot="list" value="50" label="Very Generous"></option>
+            <!-- <datalist slot="options"> -->
+            <option slot="options" value="0" label="0%"></option>
+            <option slot="options" value="10" label="Minimum Tip"></option>
+            <option slot="options" value="20" label="Standard"></option>
+            <option slot="options" value="30" label="Generous"></option>
+            <option slot="options" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
           <picker-view placeholder="here" label="pickk">
-            <!-- <datalist slot="list"> -->
-            <option slot="list" value="0" label="0%"></option>
-            <option slot="list" value="10" label="Minimum Tip"></option>
-            <option slot="list" value="20" label="Standard"></option>
-            <option slot="list" value="30" label="Generous"></option>
-            <option slot="list" value="50" label="Very Generous"></option>
+            <!-- <datalist slot="options"> -->
+            <option slot="options" value="0" label="0%"></option>
+            <option slot="options" value="10" label="Minimum Tip"></option>
+            <option slot="options" value="20" label="Standard"></option>
+            <option slot="options" value="30" label="Generous"></option>
+            <option slot="options" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
           <picker-view>
@@ -134,12 +135,12 @@
             <button type="button"><label-view title="ddd"></label-view></button>
             <button type="button"><label-view title="ddd"></label-view></button>
             <button type="button"><label-view title="ddd"></label-view></button>
-            <!-- <datalist slot="list"> -->
-            <option slot="list" value="0" label="0%"></option>
-            <option slot="list" value="10" label="Minimum Tip"></option>
-            <option slot="list" value="20" label="Standard"></option>
-            <option slot="list" value="30" label="Generous"></option>
-            <option slot="list" value="50" label="Very Generous"></option>
+            <!-- <datalist slot="options"> -->
+            <option slot="options" value="0" label="0%"></option>
+            <option slot="options" value="10" label="Minimum Tip"></option>
+            <option slot="options" value="20" label="Standard"></option>
+            <option slot="options" value="30" label="Generous"></option>
+            <option slot="options" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
           <text-field placeholder="here" label="Name"></text-field>
@@ -208,7 +209,7 @@
         console.debug(`⚡️ ${event?.type}`)
 
         if (evt.target.closest('[name=ff]')) {
-          console.log(99, evt)
+          // console.log(99, evt)
           const value = evt.target.value
           // Arbitrary check
           if (value.includes('bad')) {
@@ -219,7 +220,6 @@
           // Optional: trigger immediate invalid UI
           // evt.target.reportValidity()
         } else if (evt.target.closest('text-field')) {
-          console.log(88, evt)
           const value = evt.target.value
           // Arbitrary check
           if (value.includes('bad')) {

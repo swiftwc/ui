@@ -2,6 +2,7 @@ import { onoff, $, kebabCase, clamp, set } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { I18n } from '../i18n'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { type DatePickerSelectionDetail } from '../events'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
 export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
@@ -11,7 +12,7 @@ type DateInput = HTMLInputElement & { name: DateParts }
 
 export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {
-    return ['date-picker-style', 'required', 'prompt', 'label', 'name', 'text', 'disabled', 'minimum', 'maximum']
+    return ['date-picker-style', 'required', 'prompt', 'label', 'name', 'selection', 'disabled', 'minimum', 'maximum']
   }
 
   static #template: HTMLTemplateElement
@@ -32,7 +33,7 @@ export class DatePicker extends FormAssociatedBase {
       <span part="root date-picker-separator">${I18n.dateSeparator}</span>
       <input type="text" name="year" placeholder="${yyyy}" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
     </div>
-    <slot name="validity-datalist" hidden></slot>
+    <slot name="validity-options" hidden></slot>
   </label>`,
     }))
   }
@@ -41,7 +42,7 @@ export class DatePicker extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  #datalistSlot?: HTMLSlotElement
+  #validitiesSlot?: HTMLSlotElement
 
   #inputs: DateInput[]
 
@@ -56,7 +57,7 @@ export class DatePicker extends FormAssociatedBase {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof DatePicker).template.content, true))
 
-    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-datalist]') ?? undefined
+    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 
     this.#inputs = [...this.#shadowRoot.querySelectorAll<DateInput>('input')]
       .sort((a, b) => I18n.dateOrder.indexOf(a.name) - I18n.dateOrder.indexOf(b.name))
@@ -90,8 +91,8 @@ export class DatePicker extends FormAssociatedBase {
         ).on()
       )
 
-    CleanupRegistry.unregister(this, 'datalist')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#datalistSlot).on(), 'datalist')
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
   }
 
   connectedCallback() {
@@ -106,7 +107,7 @@ export class DatePicker extends FormAssociatedBase {
     console.debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
-      case 'text':
+      case 'selection':
         const [y = '', m = '', d = ''] = (newValue ?? '').split(/\D+/)
         this.selection = { year: y, month: m, day: d }
 
@@ -214,11 +215,15 @@ export class DatePicker extends FormAssociatedBase {
       else this.setValidity({})
     }
 
+    const selection = `${this.selection.year}-${this.selection.month}-${this.selection.day}`
+
     const entries = new FormData()
 
-    entries.append(this.name, `${this.selection.year}-${this.selection.month}-${this.selection.day}`)
+    entries.append(this.name, selection)
 
     this.#internals.setFormValue(entries)
+
+    this.dispatchEvent(new CustomEvent<DatePickerSelectionDetail>('selection', { detail: { selection }, bubbles: true, composed: true }))
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
@@ -428,7 +433,7 @@ export class DatePicker extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#datalistSlot?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const option = el as HTMLOptionElement

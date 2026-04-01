@@ -1,19 +1,21 @@
-import { Snapshot } from '../snapshot'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { $, onoff } from '../internal/utils'
+import { $, onoff, kebabCase } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { type PickerSelectionDetail } from '../events'
 
 const pickerStyles = ['menu', 'inline', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
 
 const observers = new MutationObserverSingleton()
 
-export class PickerView extends HTMLElement {
+export class PickerView extends FormAssociatedBase {
   static get ATTR() {
     return {
       PLACEHOLDER: 'placeholder',
       LABEL: 'label',
       PICKER_STYLE: 'picker-style',
+      SELECTION: 'selection',
     }
   }
 
@@ -21,13 +23,26 @@ export class PickerView extends HTMLElement {
     return Object.values(this.ATTR)
   }
 
-  static get formAssociated() {
-    return true
-  }
-
   static #templates: Map<string, HTMLTemplateElement> = new Map()
 
   #lastRenderedStyle?: PickerStyle //string | null
+
+  #shadowRoot
+
+  #customValidity: string = ''
+
+  #validitiesSlot?: HTMLSlotElement
+
+  #datalistSlot?: HTMLSlotElement
+  #tagSlot?: HTMLSlotElement
+
+  #trackedElements = new Set<Element>()
+
+  #selection: string = ''
+
+  get #internals(): ElementInternals {
+    return getInternals(this)
+  }
 
   get template(): HTMLTemplateElement {
     // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? ''
@@ -43,7 +58,7 @@ export class PickerView extends HTMLElement {
 
         //   break
         case 'menu':
-          // template.innerHTML = `<slot name="list"></slot><slot></slot>`
+          // template.innerHTML = `<slot name="options"></slot><slot></slot>`
           PickerView.#templates.set(
             this.pickerStyle,
             Object.assign(document.createElement('template'), {
@@ -55,8 +70,9 @@ export class PickerView extends HTMLElement {
             <div part="root picker-input-stack">
               <slot></slot>
             </div>
-            <slot name="list" hidden></slot>
+            <slot name="options" hidden></slot>
             <slot name="tag" hidden></slot>
+            <slot name="validity-options" hidden></slot>
           </label>
                 `,
             })
@@ -105,7 +121,7 @@ export class PickerView extends HTMLElement {
         //     <option value="0" label="0%"></option>
         //   </datalist>
         // </div>
-        // <slot name="list" hidden></slot>
+        // <slot name="options" hidden></slot>
         // </label>`,
         //       })
         //     )
@@ -124,8 +140,9 @@ export class PickerView extends HTMLElement {
           <div part="root picker-input-stack">
             <slot></slot>
           </div>
-          <slot name="list" hidden></slot>
+          <slot name="options" hidden></slot>
           <slot name="tag" hidden></slot>
+          <slot name="validity-options" hidden></slot>
         </label>`,
             })
           )
@@ -136,23 +153,12 @@ export class PickerView extends HTMLElement {
     return PickerView.#templates.get(this.pickerStyle)!
   }
 
-  #shadowRoot
-
-  // #slot?: HTMLSlotElement
-  // #labelSlot?: HTMLSlotElement
-  #datalistSlot?: HTMLSlotElement
-  #tagSlot?: HTMLSlotElement
-
-  #trackedElements = new Set<Element>()
-
-  #internals?: ElementInternals
-
   constructor() {
     super()
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    this.#internals = this.attachInternals()
+    // this.#internals = this.attachInternals()
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
@@ -188,9 +194,19 @@ export class PickerView extends HTMLElement {
       case (this.constructor as typeof PickerView).ATTR.LABEL:
         this.#reflectLabel(newValue)
 
+        this.#sendValueToForm()
+
         break
       case (this.constructor as typeof PickerView).ATTR.PICKER_STYLE:
-        if (oldValue !== newValue) this.#render()
+        if (oldValue === newValue) break
+
+        this.#render()
+
+        this.#sendValueToForm()
+
+        break
+      case (this.constructor as typeof PickerView).ATTR.SELECTION:
+        // TODO: alter options selected attr if set by datalist, else just set selection
 
         break
     }
@@ -203,7 +219,7 @@ export class PickerView extends HTMLElement {
   }
 
   #render() {
-    console.debug(`${PickerView.name} ⚡️ render (${this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)})`)
+    console.debug(`${PickerView.name} ⚡️ render (${this.pickerStyle})`)
 
     if (!this.isConnected) return
 
@@ -214,10 +230,13 @@ export class PickerView extends HTMLElement {
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
 
-    this.#datalistSlot = this.#shadowRoot.querySelector('slot[name=list]') ?? undefined
-    // this.#labelSlot = this.#shadowRoot.querySelector('slot[name=label]') ?? undefined
-    this.#tagSlot = this.#shadowRoot.querySelector('slot[name=tag]') ?? undefined
-    // this.#slot = this.#shadowRoot.querySelector('slot:not([name])') ?? undefined
+    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
+
+    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=options]') ?? undefined
+    this.#tagSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=tag]') ?? undefined
+
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
     CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
@@ -262,6 +281,25 @@ export class PickerView extends HTMLElement {
     }
   }
 
+  #sendValueToForm = () => {
+    // input.value has already been updated/synced !!
+    if (this.matches(':disabled')) return this.setValidity({})
+
+    if (this.hasAttribute('required')) {
+      if (!this.#selection) {
+        this.setValidity({ badInput: true }, 'invalid-selection')
+      } else this.setValidity({})
+    } else this.setValidity({})
+
+    const entries = new FormData()
+
+    entries.append(this.name, this.#selection)
+
+    this.#internals.setFormValue(entries)
+
+    this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
+  }
+
   #handleClick(evt: Event) {
     console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
@@ -270,10 +308,13 @@ export class PickerView extends HTMLElement {
 
     if (!btn) return
 
-    if (btn.hasAttribute('tag'))
-      return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.getAttribute('tag') }, bubbles: true, composed: true }))
+    if (btn.hasAttribute('tag')) {
+      this.#selection = btn.getAttribute('tag') ?? '' //return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.getAttribute('tag') }, bubbles: true, composed: true }))
+    } else {
+      this.#selection = btn.textContent //this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.textContent }, bubbles: true, composed: true }))
+    }
 
-    return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.textContent }, bubbles: true, composed: true }))
+    this.#sendValueToForm()
   }
 
   #handleSlotchange = (evt: Event) => {
@@ -309,7 +350,7 @@ export class PickerView extends HTMLElement {
       case 'tag':
         return slot?.assignedElements({ flatten: true })
 
-      case 'list':
+      case 'options':
       default:
         return slot?.assignedElements({ flatten: true }) //[0]?.querySelectorAll<HTMLOptionElement>(':scope>option')
     }
@@ -327,7 +368,7 @@ export class PickerView extends HTMLElement {
         btn.appendChild(node.cloneNode(true))
 
         break
-      case 'list':
+      case 'options':
       default:
         if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
 
@@ -463,13 +504,59 @@ export class PickerView extends HTMLElement {
   }
 
   // Optional: form participation properties
-  get form() {
-    return this.#internals!.form
-  }
   get name() {
-    return this.getAttribute('name')
+    return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }
-  get type() {
-    return 'text'
+  setValidity = (flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement) => {
+    // let msg
+
+    // if (message)
+    for (const k in flags) {
+      const key = k as keyof ValidityStateFlags // ✅ type-safe cast
+      if (true !== flags[key]) continue
+
+      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
+        if (!el.matches('option')) continue
+
+        const option = el as HTMLOptionElement
+
+        if (`${kebabCase(key)}` === option.value) {
+          message = option.label
+          break
+        } else if (`${kebabCase(key)}:${message}` === option.value) {
+          message = option.label
+          break
+        }
+      }
+    }
+
+    if (!message)
+      for (const k in flags) {
+        const key = k as keyof ValidityStateFlags // ✅ type-safe cast
+        if (true !== flags[key]) continue
+
+        message = kebabCase(key)
+
+        break
+      }
+
+    console.debug(`${PickerView.name} ⚡️ validity-change`)
+
+    return this.#internals.setValidity(flags, this.#customValidity || message, anchor)
+  }
+  setCustomValidity = (message: string) => {
+    this.#customValidity = message
+
+    if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
+    else this.#sendValueToForm()
+  }
+  formAssociatedCallback = (form: HTMLFormElement) => {
+    this.#sendValueToForm()
+  }
+  formDisabledCallback = (disabled: boolean) => {
+    for (const btn of this.#shadowRoot.querySelectorAll('button')) btn.toggleAttribute('disabled', !disabled)
+  }
+  formResetCallback = () => {
+    this.#selection = ''
   }
 }

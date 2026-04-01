@@ -2,6 +2,7 @@ import { onoff, $, kebabCase, set, compareBigDecimals } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { I18n } from '../i18n'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { type TextFieldCommitDetail } from '../events'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
@@ -37,7 +38,7 @@ export class TextField extends FormAssociatedBase {
     <div part="root text-field-input-stack">
       <input type="text" part="root input text-field-form-input">
     </div>
-    <slot name="validity-datalist" hidden></slot>
+    <slot name="validity-options" hidden></slot>
   </label>`,
     }))
   }
@@ -48,7 +49,7 @@ export class TextField extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  #datalistSlot?: HTMLSlotElement
+  #validitiesSlot?: HTMLSlotElement
 
   #input?: HTMLInputElement
 
@@ -63,7 +64,7 @@ export class TextField extends FormAssociatedBase {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
 
-    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-datalist]') ?? undefined
+    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
 
@@ -82,8 +83,15 @@ export class TextField extends FormAssociatedBase {
       ).on()
     )
 
-    CleanupRegistry.unregister(this, 'datalist')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#datalistSlot).on(), 'datalist')
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+
+    // finally
+    if (!this.hasAttribute('text') || !this.#input) return
+
+    this.#input.value = this.getAttribute('text') ?? ''
+
+    this.#sendValueToForm(false)
   }
 
   connectedCallback() {
@@ -152,7 +160,9 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'text':
-        this.text = newValue ?? ''
+        if (this.#input) this.#input.value = newValue ?? ''
+        // this.text = newValue ?? ''
+        // this.#sendValueToForm(false)
 
         break
       case 'required':
@@ -230,21 +240,19 @@ export class TextField extends FormAssociatedBase {
   }
 
   set text(v) {
-    if (this.#input) {
-      const nv = this.#patternTest(v) ? v : ''
+    if (!this.#input) return
 
-      set(this.#input, 'value', nv)
+    const nv = this.#patternTest(v) ? v : ''
 
-      // this.text AND this.value have NOW been updated to new values
-      // if user is NOT interacting replace new-text/input.value with the formatted version of the new-text/input.value!
-      if (document.activeElement !== this && 0 < this.#input.value.length) {
-        const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
+    set(this.#input, 'value', nv)
 
-        set(this.#input, 'value', finalText) // if (this.text !== finalText) this.#input.value = finalText
-      }
+    // this.text AND this.value have NOW been updated to new values
+    // if user is NOT interacting replace new-text/input.value with the formatted version of the new-text/input.value!
+    if (document.activeElement !== this && 0 < this.#input.value.length) {
+      const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
+
+      set(this.#input, 'value', finalText) // if (this.text !== finalText) this.#input.value = finalText
     }
-
-    this.#sendValueToForm()
   }
 
   #handleFocusin = (evt: Event) => {
@@ -253,7 +261,7 @@ export class TextField extends FormAssociatedBase {
     if (evt.target === this) this.#input?.focus()
   }
 
-  #sendValueToForm = () => {
+  #sendValueToForm = (dispatchEvent: boolean = true) => {
     // input.value has already been updated/synced !!
     if (this.matches(':disabled')) return this.setValidity({})
 
@@ -276,6 +284,8 @@ export class TextField extends FormAssociatedBase {
     entries.append(this.name, this.text)
 
     this.#internals.setFormValue(entries)
+
+    if (dispatchEvent) this.dispatchEvent(new CustomEvent<TextFieldCommitDetail>('commit', { detail: { text: this.text }, bubbles: true, composed: true }))
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
@@ -303,7 +313,7 @@ export class TextField extends FormAssociatedBase {
     const newCaret = start + data.length
     input.setSelectionRange(newCaret, newCaret) // move caret after inserted char
 
-    this.#sendValueToForm()
+    this.#sendValueToForm() // input.dispatchEvent(new InputEvent('input', { bubbles: true })) // Manually trigger input event so listeners react
   }
 
   // NOTE: identity MUST always pass beforeinput checks
@@ -451,14 +461,18 @@ export class TextField extends FormAssociatedBase {
   #handleInputBlur = (evt: Event) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    if (0 === this.text.length) return
+    const input = evt.target as HTMLInputElement | null
+    if (!input) return
 
-    this.text = this.text
+    if (0 === input.value.length) return
 
-    // const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
-    // console.log(99, this.text, finalText)
+    const finalText = this.value.replace(/[.,]/g, I18n.decimalSeparator)
 
-    // if (this.text !== finalText) this.text = finalText
+    if (this.text === finalText) return
+
+    input.value = finalText
+
+    this.#sendValueToForm()
   }
 
   #handleInputInput = (evt: Event) => {
@@ -542,7 +556,7 @@ export class TextField extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#datalistSlot?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const option = el as HTMLOptionElement
@@ -575,7 +589,7 @@ export class TextField extends FormAssociatedBase {
     this.#customValidity = message
 
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
-    else this.#sendValueToForm()
+    else this.#sendValueToForm(false)
   }
   formAssociatedCallback = (form: HTMLFormElement) => {
     this.#sendValueToForm()
@@ -585,5 +599,7 @@ export class TextField extends FormAssociatedBase {
   }
   formResetCallback = () => {
     this.text = ''
+
+    this.#sendValueToForm()
   }
 }

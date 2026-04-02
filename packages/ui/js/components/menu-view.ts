@@ -7,7 +7,7 @@ export class MenuView extends HTMLElement {
     return ['open', 'closing', 'label']
   }
 
-  static #template: HTMLTemplateElement
+  static #template: DocumentFragment
 
   static get template() {
     return (this.#template ??= $(
@@ -36,7 +36,7 @@ export class MenuView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // Snapshot.waitReady.then(() => {
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template, true))
     // })
   }
 

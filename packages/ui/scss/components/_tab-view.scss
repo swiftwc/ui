@@ -1,16 +1,17 @@
 @use '../vars';
 @use '../mixins';
 
-// @property --adaptable-tab-bar-placement {
-//   syntax: 'bottom-bar | ornament | sidebar | top-bar';
-//   inherits: true;
-//   initial-value: bottom-bar;
-// }
+@property --adaptable-tab-bar-placement-index {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
 
 @mixin make-iphone-tabview($selector) {
   #{$selector} {
     :where(&) {
       --adaptable-tab-bar-placement: bottom-bar;
+      --adaptable-tab-bar-placement-index: 0;
     }
   }
 
@@ -56,6 +57,7 @@
   #{$selector} {
     :where(&) {
       --adaptable-tab-bar-placement: top-bar;
+      --adaptable-tab-bar-placement-index: 1;
     }
   }
 
@@ -91,19 +93,24 @@
     :where(&) {
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed
+
+      // css-style-observer
+      transition: --adaptable-tab-bar-placement-index 1ms step-start;
     }
 
     :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
       z-index: -1;
     }
 
-    @media (pointer: coarse) {
-      :where(& > navigation-stack, & > navigation-split-view) {
-        transform: scale(1);
-        transform-origin: bottom;
-        transition: transform 100ms ease-out allow-discrete;
-        @starting-style {
-          transform: scale(0.99);
+    @media (prefers-reduced-motion: no-preference) {
+      @media (pointer: coarse) {
+        :where(& > navigation-stack, & > navigation-split-view) {
+          transform: scale(1);
+          transform-origin: bottom;
+          transition: transform 100ms ease-out allow-discrete;
+          @starting-style {
+            transform: scale(0.99);
+          }
         }
       }
     }
@@ -162,6 +169,7 @@
     tab-view:not([tab-view-style='tab-bar-only']) {
       :where(&) {
         --adaptable-tab-bar-placement: ornament;
+        --adaptable-tab-bar-placement-index: 3;
       }
     }
 
@@ -245,6 +253,7 @@
     tab-view:not([tab-view-style='tab-bar-only']) {
       :where(&) {
         --adaptable-tab-bar-placement: sidebar;
+        --adaptable-tab-bar-placement-index: 4;
       }
     }
 

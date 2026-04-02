@@ -7,6 +7,7 @@ import { type TabDetail, type TabViewAdaptableTabBarPlacementDetail, type PageRe
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { Snapshot } from '../snapshot'
 import { NavigationPath } from '../internal/class/navigation-path'
+import { CSSStyleObserver } from '../internal/class/css-style-observer'
 
 const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as const
 
@@ -14,6 +15,8 @@ export type TabBarPlacement = (typeof TAB_BAR_PLACEMENTS)[number]
 
 export class TabView extends HTMLElement {
   #debouncedHandler
+
+  #cssStyleObserver?: CSSStyleObserver
 
   #afterTabRevealDelay = timeout()
 
@@ -36,10 +39,12 @@ export class TabView extends HTMLElement {
 
     this.#afterTabRevealDelay.cancel()
 
+    this.#cssStyleObserver?.disconnect()
+
     CleanupRegistry.unregister(this)
   }
 
-  get cachedAdaptableTabBarPlacement() {
+  get tabBarPlacement() {
     return this.#cachedAdaptableTabBarPlacement
   }
 
@@ -50,25 +55,31 @@ export class TabView extends HTMLElement {
   connectedCallback() {
     console.debug(`${TabView.name} ⚡️ connect`)
 
+    this.#cssStyleObserver = new CSSStyleObserver({
+      properties: ['--adaptable-tab-bar-placement-index'],
+    })
+    this.#cssStyleObserver.observe(this, this.#handleStyleChange)
+    Snapshot.waitReady.then(this.#handleStyleChange)
+
     // NOTE: wait for config
     Snapshot.waitReady.then(() => {
-      for (const [or, w, handler] of [
-        ['portrait', `max-width:${Snapshot.config!['ipad-portrait-bp-max']}`, this.#handleMediaChange],
-        ['landscape', `max-width:${Snapshot.config!['ipad-landscape-bp-max']}`, this.#handleMediaChange],
-        ['portrait', `min-width:${Snapshot.config!['ipad-portrait-bp-min']}`, this.#handleMediaChange],
-        ['landscape', `min-width:${Snapshot.config!['ipad-landscape-bp-min']}`, this.#handleMediaChange],
-      ]) {
-        const mediaQueryList = self.matchMedia(`(orientation:${or}) and (${w})`)
+      // for (const [or, w, handler] of [
+      //   ['portrait', `max-width:${Snapshot.config!['ipad-portrait-bp-max']}`, this.#handleMediaChange],
+      //   ['landscape', `max-width:${Snapshot.config!['ipad-landscape-bp-max']}`, this.#handleMediaChange],
+      //   ['portrait', `min-width:${Snapshot.config!['ipad-portrait-bp-min']}`, this.#handleMediaChange],
+      //   ['landscape', `min-width:${Snapshot.config!['ipad-landscape-bp-min']}`, this.#handleMediaChange],
+      // ]) {
+      //   const mediaQueryList = self.matchMedia(`(orientation:${or}) and (${w})`)
 
-        if (mediaQueryList.matches)
-          this.#handleMediaChange(
-            new MediaQueryListEvent('media-change', {
-              matches: mediaQueryList.matches,
-            })
-          ) // Initial check
+      //   if (mediaQueryList.matches)
+      //     this.#handleMediaChange(
+      //       new MediaQueryListEvent('media-change', {
+      //         matches: mediaQueryList.matches,
+      //       })
+      //     ) // Initial check
 
-        CleanupRegistry.register(this, onoff('change', handler as EventListener, mediaQueryList).on())
-      }
+      //   CleanupRegistry.register(this, onoff('change', handler as EventListener, mediaQueryList).on())
+      // }
 
       CleanupRegistry.register(
         this,
@@ -91,27 +102,54 @@ export class TabView extends HTMLElement {
     void this.#syncBodyFace()
   }
 
+  #handleStyleChange = () => {
+    console.debug(`${TabView.name} ⚡️ style`)
+
+    const style = self.getComputedStyle(this)
+
+    const placement = style.getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
+      newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
+
+    if (newValue !== this.#cachedAdaptableTabBarPlacement) {
+      const oldValue = this.#cachedAdaptableTabBarPlacement
+
+      this.#cachedAdaptableTabBarPlacement = newValue
+
+      this.dispatchEvent(
+        new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
+          detail: { oldValue, newValue },
+          bubbles: true,
+          composed: true,
+        })
+      )
+    }
+  }
+
   #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
     console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
-    if (evt.matches) {
-      const placement = self.getComputedStyle(this).getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
-        newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
+    if (!evt.matches) return
 
-      if (newValue !== this.#cachedAdaptableTabBarPlacement) {
-        const oldValue = this.#cachedAdaptableTabBarPlacement
+    this.#handleStyleChange()
 
-        this.#cachedAdaptableTabBarPlacement = newValue
+    // if (evt.matches) {
+    //   const placement = self.getComputedStyle(this).getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
+    //     newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
 
-        this.dispatchEvent(
-          new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
-            detail: { oldValue, newValue },
-            bubbles: true,
-            composed: true,
-          })
-        )
-      }
-    }
+    //   if (newValue !== this.#cachedAdaptableTabBarPlacement) {
+    //     const oldValue = this.#cachedAdaptableTabBarPlacement
+
+    //     this.#cachedAdaptableTabBarPlacement = newValue
+
+    //     this.dispatchEvent(
+    //       new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
+    //         detail: { oldValue, newValue },
+    //         bubbles: true,
+    //         composed: true,
+    //       })
+    //     )
+    //   }
+    // }
 
     // // trigger more-stack (dis)allowed event
     // if (evt.matches !== this.#moreStackAllowed) {

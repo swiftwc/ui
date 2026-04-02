@@ -2,6 +2,12 @@
 @use '../mixins';
 @use 'sass:map';
 
+@property --root-font-size {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 16;
+}
+
 @layer #{vars.$components-layer} {
   :root {
     color-scheme: light dark;

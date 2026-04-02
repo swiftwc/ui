@@ -292,7 +292,7 @@ export const startViewTransition = async (
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
     if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope'))
-      if ('bottom-bar' !== tv.cachedAdaptableTabBarPlacement) return
+      if ('bottom-bar' !== tv.tabBarPlacement) return
 
     // const { toolBarConfig: newToolbars } = getComputedView(to.body)
 

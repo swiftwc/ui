@@ -1,6 +1,7 @@
 import { type ScrollView } from './scroll-view'
 import { $, sleep, frame, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { Snapshot } from '../snapshot'
 
 /**
  * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
@@ -48,6 +49,18 @@ export class VKeyboard extends HTMLElement {
     //
 
     CleanupRegistry.register(this, onoff('focusin', this.#handleBodyFocusin, document.body).on())
+
+    Snapshot.waitReady.then(() => {
+      document.documentElement.style.setProperty('--root-font-size', parseFloat(self.getComputedStyle(document.documentElement).fontSize).toFixed(5))
+
+      CleanupRegistry.register(this, onoff('transitionrun', this.#handleDocumentTransitionrun as EventListener, document.documentElement).on())
+    })
+  }
+
+  #handleDocumentTransitionrun = (evt: TransitionEvent) => {
+    if (evt.target !== document.documentElement || 'font-size' !== evt.propertyName) return
+
+    document.documentElement.style.setProperty('--root-font-size', parseFloat(self.getComputedStyle(document.documentElement).fontSize).toFixed(5))
   }
 
   #handleWindowScroll = () => {

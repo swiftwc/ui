@@ -9,7 +9,8 @@ export class StickyContainer extends HTMLElement {
   connectedCallback() {
     console.debug(`${StickyContainer.name} ⚡️ connect`)
 
-    CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionchange as unknown as EventListener, this).on())
+    // CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionchange as unknown as EventListener, this).on())
+    CleanupRegistry.register(this, onoff('transitionrun', this.#handleTransitionrun as unknown as EventListener, this).on())
   }
 
   disconnectedCallback() {
@@ -18,7 +19,7 @@ export class StickyContainer extends HTMLElement {
     CleanupRegistry.unregister(this)
   }
 
-  #handleTransitionchange = ({ target, propertyName, pseudoElement }: TransitionEvent) => {
+  #handleTransitionrun = ({ target, propertyName, pseudoElement }: TransitionEvent) => {
     if ('--stuck' !== propertyName || '::before' !== pseudoElement || !(target as HTMLElement)?.matches('sticky-container')) return
 
     const stuck = self.getComputedStyle(this, 'before').getPropertyValue('--stuck')

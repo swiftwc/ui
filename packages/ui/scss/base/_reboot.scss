@@ -101,6 +101,10 @@
     touch-action: none !important;
   }
 
+  html {
+    transition: font-size 1ms step-start;
+  }
+
   // label {
   //   // remove this
   //   display: inline-grid;
@@ -137,11 +141,10 @@
     // toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
     // toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
     //
-    ipad-portrait-bp-max: vars.$ipad-portrait-bp-max,
-    ipad-portrait-bp-min: vars.$ipad-portrait-bp-min,
-    ipad-landscape-bp-max: vars.$ipad-landscape-bp-max,
-    ipad-landscape-bp-min: vars.$ipad-landscape-bp-min,
-
+    // ipad-portrait-bp-max: vars.$ipad-portrait-bp-max,
+    // ipad-portrait-bp-min: vars.$ipad-portrait-bp-min,
+    // ipad-landscape-bp-max: vars.$ipad-landscape-bp-max,
+    // ipad-landscape-bp-min: vars.$ipad-landscape-bp-min,
     ipad-sheet-view-inline-size: vars.$ipad-sheet-view-inline-size,
     ipad-sheet-view-height: vars.$ipad-sheet-view-height,
   );

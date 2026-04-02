@@ -21,6 +21,7 @@ export { default as siblings } from './siblings'
 export { default as set } from './set'
 export { default as clamp } from './clamp'
 export { default as compareBigDecimals } from './compare-big-decimals'
+export { default as add } from './add'
 
 // import * as cash from './cash' // import * as cash from './cash'
 // export const $ = cash

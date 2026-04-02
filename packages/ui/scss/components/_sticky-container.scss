@@ -15,7 +15,7 @@
       &::before {
         content: ''; // needs dimensions
         --stuck: 0;
-        transition: --stuck 10ms;
+        transition: --stuck 1ms step-start;
 
         @container scroll-state(stuck: top) {
           // background: Highlight;
@@ -39,5 +39,4 @@
       }
     }
   }
-
 }

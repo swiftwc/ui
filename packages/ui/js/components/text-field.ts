@@ -26,7 +26,7 @@ export class TextField extends FormAssociatedBase {
     ]
   }
 
-  static #template: HTMLTemplateElement
+  static #template: DocumentFragment
 
   static get template() {
     return (this.#template ??= $(
@@ -63,7 +63,7 @@ export class TextField extends FormAssociatedBase {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template, true))
 
     this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 

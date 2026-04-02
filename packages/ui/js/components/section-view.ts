@@ -6,7 +6,7 @@ export class SectionView extends HTMLElement {
     return ['header', 'footer']
   }
 
-  static #template: HTMLTemplateElement
+  static #template: DocumentFragment
 
   static get template() {
     return (this.#template ??= $(
@@ -41,7 +41,7 @@ export class SectionView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // Snapshot.waitReady.then(() => {
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template, true))
 
     // this.#sentinel = this.#shadowRoot.querySelector('.sticky-sentinel') ?? undefined
     // })

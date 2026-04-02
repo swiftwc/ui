@@ -6,7 +6,7 @@ export class LabelView extends HTMLElement {
     return ['system-image', 'title', 'line-limit', 'truncation-mode']
   }
 
-  static #template: HTMLTemplateElement
+  static #template: DocumentFragment
 
   static get template() {
     return (this.#template ??= $(
@@ -32,7 +32,7 @@ export class LabelView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     // Snapshot.waitReady.then(() => {
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template, true))
 
     // // this.#imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]') ?? undefined
     // // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined

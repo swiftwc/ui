@@ -5,7 +5,7 @@ import { $ } from '../internal/utils'
 const observers = new ResizeObserverSingleton()
 
 export class ToolBar extends HTMLElement {
-  static #template: HTMLTemplateElement
+  static #template: DocumentFragment
 
   static get template() {
     // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
@@ -50,7 +50,7 @@ export class ToolBar extends HTMLElement {
 
     // NOTE: wait for config
     // Snapshot.waitReady.then(() => {
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template.content, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template, true))
     // })
   }
 

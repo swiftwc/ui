@@ -65,7 +65,7 @@ export class TabItem extends ButtonBase {
 
     if (tv.moreTab?.id !== btn.value) return
 
-    btn.hidden = 'bottom-bar' !== tv.cachedAdaptableTabBarPlacement
+    btn.hidden = 'bottom-bar' !== tv.tabBarPlacement
   }
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {

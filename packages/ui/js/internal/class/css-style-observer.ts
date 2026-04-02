@@ -1,27 +1,33 @@
-import { Snapshot } from '../../snapshot'
-import { kebabCase, $, onoff } from '../../internal/utils'
+import { onoff } from '../../internal/utils'
 
 export class CSSStyleObserver {
   #cleanups?: () => void
 
-  constructor(target: HTMLElement) {}
+  #options?: { properties: string[] }
 
-  public async observe(target: Node, callback: (entry: MutationRecord) => void, options?: MutationObserverInit) {
-    this.#cleanups = onoff('transitionrun', this.#handleTransitionrun as EventListener, target).on()
-    // console.log(111, target)
+  constructor(
+    options: { properties: string[] } = {
+      properties: ['perspective-origin'], // --other-number-@property
+    }
+  ) {
+    this.#options = options
   }
 
-  public async unobserve(target: Node) {
+  public async observe(target: Node, callback: (evt: TransitionEvent) => void) {
+    const listener = this.#handleTransitionrun.bind(this, callback) as EventListener
+
+    this.#cleanups = onoff('transitionrun', listener, target).on()
+  }
+
+  public async disconnect() {
     this.#cleanups?.()
   }
 
-  #handleTransitionrun = (evt: TransitionEvent) => {
-    // if (evt.propertyName !== 'perspective-origin') return
+  #handleTransitionrun = (callback: (evt: TransitionEvent) => void, evt: TransitionEvent) => {
+    console.debug(`${CSSStyleObserver.name} ⚡️ ${evt?.type}`)
 
-    console.log(123, evt)
+    if (!this.#options?.properties.some((prop) => evt.propertyName.startsWith(prop))) return
 
-    // const currentColor = self.getComputedStyle(event.target as Element).perspectiveOrigin
-
-    // this.hasElementScrolledOverBottomEdge = !String(currentColor ?? '').endsWith(' 0px')
+    callback?.(evt)
   }
 }

@@ -6,7 +6,7 @@ const DEFAULT = ':scope>:first-child' as const
 
 interface CashFn {
   (innerHTML: string, selector?: typeof DEFAULT): Element
-  (innerHTML: string, selector: string): HTMLTemplateElement
+  (innerHTML: string, selector: string): DocumentFragment
   prop: typeof prop
 }
 //':scope>:first-child'
@@ -15,7 +15,7 @@ const cash: CashFn = ((innerHTML: string, selector: string = DEFAULT) => {
 
   if (selector === DEFAULT) return template.content.firstElementChild!
 
-  return template
+  return template.content
 }) as CashFn
 
 cash.prop = prop

@@ -23,7 +23,7 @@ export class PickerView extends FormAssociatedBase {
     return Object.values(this.ATTR)
   }
 
-  static #templates: Map<string, HTMLTemplateElement> = new Map()
+  static #templates: Map<string, DocumentFragment> = new Map()
 
   #lastRenderedStyle?: PickerStyle //string | null
 
@@ -44,7 +44,7 @@ export class PickerView extends FormAssociatedBase {
     return getInternals(this)
   }
 
-  get template(): HTMLTemplateElement {
+  get template(): DocumentFragment {
     // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? ''
 
     if (!PickerView.#templates.has(this.pickerStyle))
@@ -233,7 +233,7 @@ export class PickerView extends FormAssociatedBase {
     this.#lastRenderedStyle = this.pickerStyle
 
     // clear shadow DOM
-    this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
+    this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
     this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 

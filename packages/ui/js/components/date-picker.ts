@@ -15,7 +15,7 @@ export class DatePicker extends FormAssociatedBase {
     return ['date-picker-style', 'required', 'prompt', 'label', 'name', 'selection', 'disabled', 'minimum', 'maximum']
   }
 
-  static #templates: Map<string, HTMLTemplateElement> = new Map()
+  static #templates: Map<string, DocumentFragment> = new Map()
 
   // #lastRenderedStyle?: DatePickerStyle //string | null
 
@@ -31,7 +31,7 @@ export class DatePicker extends FormAssociatedBase {
     return getInternals(this)
   }
 
-  get template(): HTMLTemplateElement {
+  get template(): DocumentFragment {
     if (!DatePicker.#templates.has(this.datePickerStyle))
       switch (this.datePickerStyle) {
         default:
@@ -158,7 +158,7 @@ export class DatePicker extends FormAssociatedBase {
     // this.#lastRenderedStyle = this.datePickerStyle
 
     // clear shadow DOM
-    this.#shadowRoot.replaceChildren(document.importNode(this.template.content, true))
+    this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
     this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
 

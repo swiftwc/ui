@@ -79,12 +79,17 @@ export class TabItem extends ButtonBase {
 
     btn.ariaSelected = `${isSelected}`
 
-    if (isSelected)
+    if (!isSelected) return
+
+    setTimeout(() => {
+      if (btn.ariaSelected !== 'true' || !btn.isConnected) return
+
       btn.scrollIntoView({
         behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
         block: 'nearest',
         inline: 'nearest',
       })
+    }, 100)
   }
 
   static #handleClick = async (evt: Event) => {

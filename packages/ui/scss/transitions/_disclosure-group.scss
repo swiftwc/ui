@@ -11,6 +11,11 @@
         will-change: block-size, content-visibility;
       }
 
+      :where(& > summary > [slot='marker']) {
+        transition: transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+        will-change: transform;
+      }
+
       @supports not (interpolate-size: allow-keywords) {
         :where(&) {
           transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);

@@ -1,5 +1,5 @@
 import { DetailsBase } from '../namespace-browser/base'
-import { cssTime, timeout } from '../internal/utils'
+import { cssTime, timeout, $ } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
@@ -84,6 +84,8 @@ export class DisclosureGroup extends DetailsBase {
     })
     // })
 
+    el.querySelector(':scope>summary')?.appendChild($('<i class="ph ph-caret-right" slot="marker"></i>'))
+
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
@@ -104,6 +106,8 @@ export class DisclosureGroup extends DetailsBase {
     toggleTimers.get(details)!.next(
       () => {
         details.dataset.state = details.open ? 'open' : 'closed'
+
+        details?.dispatchEvent(new CustomEvent(`is-${details.open ? 'expanded' : 'collapsed'}`, { bubbles: true, composed: true }))
       },
       cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
     )

@@ -23,24 +23,26 @@ export function makeSlotchangeHandler(t: FormAssociatedBase) {
       const slot = evt.target as HTMLSlotElement,
         assigned = slot.assignedElements({ flatten: true })
 
-      for (const el of trackedElements.get(t) ?? [])
-        if (!assigned.includes(el)) {
-          observers.unobserve(el)
-          trackedElements.get(t)?.delete(el)
-        }
+      observers.syncObservations(trackedElements.get(t) ?? new Set(), assigned, handleTagMutation, ['value', 'label'])
 
-      for (const el of assigned) {
-        if (!trackedElements.get(t)?.has(el))
-          observers.observe(el, handleTagMutation, {
-            attributes: true,
-            characterData: true,
-            subtree: true,
-            childList: true,
-            attributeFilter: ['value', 'label'],
-          })
+      // for (const el of trackedElements.get(t) ?? [])
+      //   if (!assigned.includes(el)) {
+      //     observers.unobserve(el)
+      //     trackedElements.get(t)?.delete(el)
+      //   }
 
-        trackedElements.get(t)?.add(el)
-      }
+      // for (const el of assigned) {
+      //   if (!trackedElements.get(t)?.has(el))
+      //     observers.observe(el, handleTagMutation, {
+      //       attributes: true,
+      //       characterData: true,
+      //       subtree: true,
+      //       childList: true,
+      //       attributeFilter: ['value', 'label'],
+      //     })
+
+      //   trackedElements.get(t)?.add(el)
+      // }
 
       if (0 < assigned.length) handleTagMutation()
     },
@@ -73,9 +75,9 @@ export abstract class FormAssociatedBase extends HTMLElement {
 
     CleanupRegistry.unregister(this)
 
-    for (const el of trackedElements.get(this) ?? []) observers.unobserve(el)
-
-    trackedElements.get(this)?.clear() // trackedElements.delete(this)
+    observers.clearObservationsSet(trackedElements.get(this) ?? new Set())
+    // for (const el of trackedElements.get(this) ?? []) observers.unobserve(el)
+    // trackedElements.get(this)?.clear() // trackedElements.delete(this)
   }
 
   connectedCallback() {

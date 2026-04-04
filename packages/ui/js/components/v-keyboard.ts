@@ -103,7 +103,7 @@ export class VKeyboard extends HTMLElement {
 
     const parent = document.activeElement?.closest<ScrollView>('scroll-view')
 
-    parent?.scrollToElement?.(document.activeElement)
+    parent?.centerScrollToElement?.(document.activeElement)
   }
 
   set shouldKeyboardBeOpen(fn: () => boolean) {

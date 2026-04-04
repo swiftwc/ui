@@ -35,6 +35,8 @@
 
 @forward 'components/label-view';
 
+@forward 'components/labeled-content';
+
 @forward 'components/button-view';
 
 @forward 'components/body-view';
@@ -51,6 +53,9 @@
 @forward 'components/list-view';
 @forward 'components/form-view';
 @forward 'components/section-view';
+@forward 'components/table-view';
+@forward 'components/table-row';
+@forward 'components/table-column';
 
 @forward 'components/text-field';
 @forward 'components/date-picker';

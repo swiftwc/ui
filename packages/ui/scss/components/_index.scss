@@ -16,7 +16,10 @@
   [is='sheet-view'],
   [is='form-view'],
   [is='disclosure-group'],
+  [is='table-row'],
+  [is='table-column'],
   list-view,
+  table-view,
   tool-bar-item,
   tool-bar-item-group,
   sidebar-toggle,
@@ -36,6 +39,10 @@
   }
   // tool-bar,
 
+  :where(table-view)::part(table-container),
+  :where(table-view)::part(table-column-stack),
+  :where(table-view)::part(table-header-stack),
+  :where(table-view)::part(table-footer-stack),
   :where(text-field)::part(text-field-stack),
   :where(text-field)::part(text-field-label-stack),
   :where(text-field)::part(text-field-input-stack),

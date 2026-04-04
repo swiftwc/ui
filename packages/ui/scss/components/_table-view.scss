@@ -1,0 +1,175 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+@use 'sass:map';
+
+@property --adaptable-table-style-index {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+$table-ifs: (
+  inset: (
+    --list--item-color: var(--insetlist-item-color,),
+    --list--item-background-color: var(--insetlist-item-background-color,),
+    --list--highlighteditem-color: var(--insetlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetlist-highlighteditem-background-color,),
+    --list--item-border-radius: 0,
+    --list--host-background-color: var(--insetlist-background-color,),
+    --list--host-padding-inline: var(--insetlist-padding-inline),
+    --list--host-padding-block: var(--insetlist-padding-block),
+    //
+    --list--adjacentdetailsitem-border-radius: 0,
+    //
+    --list--details-background-color: var(--insetlist-openitem-background-color,),
+    --list--details-color: var(--insetlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetlist-opensummary-color,),
+  ),
+);
+$table-elses: (
+  --list--host-background-color: var(--list-background-color,),
+  --list--highlighteditem-background-color: var(--list-highlighteditem-background-color,),
+  --list--item-background-color: var(--list-item-background-color,),
+  --list--item-padding-inline-start: var(--list-item-padding-inline-start),
+  --list--item-padding-inline-end: var(--list-item-padding-inline-end),
+  --list--item-padding-block-start: var(--list-item-padding-block-start),
+  --list--item-padding-block-end: var(--list-item-padding-block-end),
+  --list--item-color: var(--list-item-color,),
+  --list--highlighteditem-color: var(--list-highlighteditem-color,),
+  //
+  --list--details-background-color: var(--list-openitem-background-color,),
+  --list--details-color: var(--list-openitem-color,),
+  --list--opensummary-background-color: var(--list-opensummary-background-color,),
+  --list--opensummary-color: var(--list-opensummary-color,),
+);
+
+@layer #{vars.$components-layer} {
+  table-view {
+    &:not(& &, list-view &, [is='form-view'] &) {
+      @extend %list;
+
+      :where(&) {
+        container: table / inline-size;
+
+        --table--expanded-columns: 1;
+
+        &::part(table-container) {
+          grid-template-columns: subgrid;
+          // grid-template-rows: subgrid;
+
+          transition: --adaptable-table-style-index 1ms step-start;
+          --adaptable-table-style-index: 0;
+          --adaptable-table-style: compact;
+        }
+
+        &::part(table-column-stack) {
+          grid-auto-flow: column;
+
+          grid-auto-columns: minmax(0, 1fr);
+
+          gap: 1rem;
+          padding-inline: 1rem;
+          padding-block: 0.5rem;
+          color: blue;
+          background-color: lightgray;
+          // border-bottom: red solid 1px;
+        }
+
+        &::part(table-header-stack),
+        &::part(table-footer-stack) {
+          padding-inline: 1rem;
+          padding-block: 0.5rem;
+          background-color: white;
+        }
+
+        &::part(table-header-stack) {
+          grid-auto-flow: column;
+          border-radius: var(--insetlist-item-border-radius) var(--insetlist-item-border-radius) 0 0;
+        }
+
+        &::part(table-footer-stack) {
+          grid-auto-flow: column;
+          border-radius: 0 0 var(--insetlist-item-border-radius) var(--insetlist-item-border-radius);
+        }
+
+        // > [is='table-row']:first-of-type {
+        //   border-top-left-radius: 0px;
+        //   border-top-right-radius: 0px;
+        // }
+
+        // > [is='table-row']:last-of-type {
+        //   border-bottom-left-radius: 0px;
+        //   border-bottom-right-radius: 0px;
+        // }
+      }
+
+      :where(&:has(> [slot='column']:nth-of-type(2)):not(:has(> [slot='column']:nth-of-type(3)))) {
+        --table--expanded-columns: 2;
+      }
+      :where(&:has(> [slot='column']:nth-of-type(3)):not(:has(> [slot='column']:nth-of-type(4)))) {
+        --table--expanded-columns: 3;
+      }
+
+      @container table (width <= 500px) {
+        :where(& > [slot='column']) {
+          display: none;
+          // visibility: collapse;
+        }
+      }
+      @container table (width > 500px) {
+        :where(&)::part(table-container) {
+          --adaptable-table-style-index: 1;
+          --adaptable-table-style: expanded;
+        }
+      }
+      @container table (width <= 500px) {
+        :where(&)::part(table-column-stack) {
+          display: none;
+        }
+        :where(& > [slot='column']) {
+          //
+        }
+      }
+
+      // wire
+      :where(&) {
+        @include mixins.write-props($table-elses);
+      }
+
+      // SECTION: ifs
+      @supports (x: #{string.unquote('if(else:red)')}) {
+        :where(&) {
+          @include mixins.write-ifs(--table-style, $table-ifs, $table-elses);
+        }
+      }
+
+      // SECTION: ifs polyfill
+      @supports not (x: #{string.unquote('if(else:red)')}) {
+        :where(&:not([table-style])) {
+          @each $v in vars.$table-styles {
+            @container style(--table-style: #{$v}) {
+              @include mixins.write-props(map.get($table-ifs, $v));
+            }
+          }
+        }
+        @each $v in vars.$table-styles {
+          :where(&[table-style='#{$v}']) {
+            @include mixins.write-props(map.get($table-ifs, $v));
+          }
+        }
+      }
+
+      // SECTION: attrs finally
+      @supports (x: #{string.unquote('attr(x type(*))')}) {
+        :where(&) {
+          --table-style: attr(table-style type(<custom-ident>), inherit);
+        }
+      }
+    }
+  }
+}

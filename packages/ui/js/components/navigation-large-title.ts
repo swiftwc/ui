@@ -116,7 +116,7 @@ export class NavigationLargeTitle extends HTMLElement {
       this.#styleObserver = new CSSStyleObserver()
       this.#styleObserver.observe(this, this.#handleStyleChange)
 
-      Snapshot.waitReady.then(this.#handleStyleChange)
+      Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange)) //Snapshot.waitReady.then(this.#handleStyleChange)
 
       // this.#observer?.observe(this)
 

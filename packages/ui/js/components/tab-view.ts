@@ -1,5 +1,5 @@
 import { cssTime, frame } from '../internal/utils'
-import { debounce, onoff, timeout } from '../internal/utils'
+import { debounce, onoff, timeout, siblings } from '../internal/utils'
 import { type TabViewDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
@@ -59,7 +59,7 @@ export class TabView extends HTMLElement {
       properties: ['--adaptable-tab-bar-placement-index'],
     })
     this.#cssStyleObserver.observe(this, this.#handleStyleChange)
-    Snapshot.waitReady.then(this.#handleStyleChange)
+    Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange)) // Snapshot.waitReady.then(this.#handleStyleChange)
 
     // NOTE: wait for config
     Snapshot.waitReady.then(() => {
@@ -89,11 +89,32 @@ export class TabView extends HTMLElement {
             { types: 'tabreveal tabswap', listener: this.#addAnimations },
             { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
             { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
+            {
+              types: 'click',
+              listener: this.#handleSummaryClick,
+            },
           ],
           this
         ).on()
       )
     })
+  }
+
+  #handleSummaryClick = (evt: Event) => {
+    const summary = (evt.target as HTMLElement).closest('summary')
+    if (!summary) return
+
+    if (0 === siblings('[aria-selected=true]', summary).length) return
+
+    if (!summary.closest('scroll-view')?.matches('tab-view > [is=sidebar-view] > scroll-view')) return
+
+    const form = summary.closest('[is=form-view]')
+    if (!form) return
+
+    const style = self.getComputedStyle(form)
+    if ('sidebar' !== style.getPropertyValue('--list-style')) return
+
+    this.#addAnimations()
   }
 
   #handleTabViewPagereveal = (evt: CustomEvent<PageRevealSwapDetail>) => {
@@ -269,7 +290,7 @@ export class TabView extends HTMLElement {
       }
   }
 
-  #addAnimations = (evt: Event) => {
+  #addAnimations = () => {
     this.setAttribute('js-aftertabreveal', '')
 
     this.#afterTabRevealDelay.next(

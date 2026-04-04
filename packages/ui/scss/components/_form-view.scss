@@ -99,7 +99,7 @@ $form-elses: (
 
 @layer #{vars.$components-layer} {
   [is='form-view'] {
-    &:not(& &, list-view &, [is='tab-bar'] > &) {
+    &:not(& &, list-view &, table-view &, [is='tab-bar'] > &) {
       @extend %list;
 
       // wire
@@ -165,7 +165,7 @@ $form-elses: (
           --form-style: attr(form-style type(<custom-ident>), inherit);
         }
         @include mixins.if-2col-split-view-fits {
-          :where(navigation-split-view &[list-style]) {
+          :where(navigation-split-view:has(> [is='sidebar-view']) > [is='sidebar-view'] &[list-style]) {
             --form-style: sidebar;
           }
           :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {

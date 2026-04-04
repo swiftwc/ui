@@ -183,9 +183,7 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.unregister(this)
 
-    for (const el of this.#trackedElements) observers.unobserve(el)
-
-    this.#trackedElements.clear()
+    observers.clearObservationsSet(this.#trackedElements)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -329,24 +327,26 @@ export class PickerView extends FormAssociatedBase {
     const slot = evt.target as HTMLSlotElement,
       assigned = slot.assignedElements({ flatten: true })
 
-    for (const el of this.#trackedElements)
-      if (!assigned.includes(el)) {
-        observers.unobserve(el)
-        this.#trackedElements.delete(el)
-      }
+    observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
 
-    for (const el of assigned) {
-      if (!this.#trackedElements.has(el))
-        observers.observe(el, this.#handleTagMutation, {
-          attributes: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
-          // attributeFilter: ['value', 'label'],
-        })
+    // for (const el of this.#trackedElements)
+    //   if (!assigned.includes(el)) {
+    //     observers.unobserve(el)
+    //     this.#trackedElements.delete(el)
+    //   }
 
-      this.#trackedElements.add(el)
-    }
+    // for (const el of assigned) {
+    //   if (!this.#trackedElements.has(el))
+    //     observers.observe(el, this.#handleTagMutation, {
+    //       attributes: true,
+    //       characterData: true,
+    //       subtree: true,
+    //       childList: true,
+    //       // attributeFilter: ['value', 'label'],
+    //     })
+
+    //   this.#trackedElements.add(el)
+    // }
 
     if (0 < assigned.length) this.#handleTagMutation()
   }

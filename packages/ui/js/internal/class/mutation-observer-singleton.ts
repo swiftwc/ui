@@ -25,4 +25,32 @@ export class MutationObserverSingleton {
 
     this.#observers.delete(target)
   }
+
+  /** Observes automatically all elements using a Set provided by outside. Calls renderCallback on EVERY change. */
+  public async syncObservations(set: Set<Element>, nodes: Element[], renderCallback: () => void, attributeFilter?: string[]) {
+    for (const el of set)
+      if (!nodes.includes(el)) {
+        this.unobserve(el)
+        set.delete(el)
+      }
+
+    for (const el of nodes) {
+      if (!set.has(el))
+        this.observe(el, renderCallback, {
+          attributes: true,
+          characterData: true,
+          subtree: true,
+          childList: true,
+          ...(attributeFilter && { attributeFilter }),
+        })
+
+      set.add(el)
+    }
+  }
+
+  public async clearObservationsSet(set: Set<Element>) {
+    for (const el of set) this.unobserve(el)
+
+    set.clear()
+  }
 }

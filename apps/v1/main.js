@@ -48,13 +48,41 @@ const addBindings = () => {
   }
 }
 
+document.body.addEventListener('submit', async (event) => {
+  console.debug(`⚡️ ${event?.type}`)
+
+  const form = event.target.closest('[is=form-view]:not([is="tab-bar"] [is=form-view],[is="sidebar-view"] [is=form-view])')
+
+  if (!form) return
+
+  event.preventDefault()
+
+  const navDest = event.submitter.closest('button[navigation-destination]')
+  if (navDest) {
+    const template = queryTemplate(navDest.getAttribute('navigation-destination')) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
+
+    const path = new NavigationPath(event.submitter)?.hydrate()
+
+    if (event.submitter.closest('.inplace')) {
+      const parent = [...path.parents()].at(0)?.hydrate()
+
+      modifyDOMforwards(undefined, parent, template)
+    } else {
+      await startViewTransition(event.submitter, 'forwards', async () => {
+        modifyDOMforwards(undefined, path, template)
+      })
+    }
+  }
+
+  addBindings()
+})
+
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ ${event?.type}`)
 
-  const navDest = event.target.closest('[navigation-destination]'),
-    backBtn = event.target.closest('.back')
+  const navDest = event.target.closest('button[type="button"][navigation-destination],summary[navigation-destination]')
 
-  if (backBtn) {
+  if (event.target.closest('.back')) {
     const path = new NavigationPath(event.target)?.hydrate()
 
     const parent = [...path.parents()].at(0)?.hydrate()
@@ -79,17 +107,23 @@ document.body.addEventListener('click', async (event) => {
 
     const path = new NavigationPath(event.target)?.hydrate()
 
-    const summary = event.target.closest('summary:has(button)')
+    if (event.target.closest('.inplace')) {
+      const parent = [...path.parents()].at(0)?.hydrate()
 
-    if (summary) {
-      event.preventDefault()
+      modifyDOMforwards(undefined, parent, template)
+    } else {
+      const summary = event.target.closest('summary:has(button)')
 
-      if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+      if (summary) {
+        event.preventDefault()
+
+        if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+      }
+
+      await startViewTransition(event.target, 'forwards', async () => {
+        modifyDOMforwards(undefined, path, template)
+      })
     }
-
-    await startViewTransition(event.target, 'forwards', async () => {
-      modifyDOMforwards(undefined, path, template)
-    })
 
     addBindings()
   }

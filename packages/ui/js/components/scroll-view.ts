@@ -5,6 +5,9 @@ import { $, slowHideShow, onoff, frame, set } from '../internal/utils'
 import { type PageShowHideDetail, type PageRevealSwapDetail } from '../events'
 import { LifecycleObserver } from '../lifecycle-observer'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+
+const observers = new ResizeObserverSingleton()
 
 export class ScrollView extends HTMLElement {
   static get observedAttributes() {
@@ -35,7 +38,12 @@ export class ScrollView extends HTMLElement {
 
   #navbarPrincipalSlot?: HTMLSlotElement
 
-  #isScrolling?: boolean
+  #isMidScroll?: boolean
+
+  #lastScrollTop: number = 0
+  // #stopRecordingScrollTop?: boolean = false
+
+  #beforeTabSwapLastScrolltop?: number
 
   constructor() {
     super()
@@ -47,41 +55,12 @@ export class ScrollView extends HTMLElement {
     this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
   }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
-
-    switch (name) {
-      case 'navigation-inline-title':
-        this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
-
-        break
-      case 'navigation-inline-subtitle':
-        this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
-
-        break
-      case 'navigation-title':
-        //
-
-        break
-      case 'navigation-bar-title-display-mode':
-        if (oldValue === newValue) break
-
-        if (this.closest('[hidden]')) break // iREPAINT ALERT! if (0 === this.offsetHeight + this.offsetWidth) break
-
-        if (!this.#isScrolling) break
-
-        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
-
-        slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
-
-        break
-    }
-  }
-
   disconnectedCallback() {
     console.debug(`${ScrollView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
+
+    observers.unobserve(this)
 
     frame().then(() =>
       LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true }))
@@ -117,6 +96,8 @@ export class ScrollView extends HTMLElement {
       LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true }))
     )
 
+    observers.observe(this, this.#handleMeasure.bind(this))
+
     // frame(this).then((r) => {
     //   if (!r) return
 
@@ -133,15 +114,72 @@ export class ScrollView extends HTMLElement {
     // })
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    switch (name) {
+      case 'navigation-inline-title':
+        this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
+
+        break
+      case 'navigation-inline-subtitle':
+        this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
+
+        break
+      case 'navigation-title':
+        //
+
+        break
+      case 'navigation-bar-title-display-mode':
+        if (oldValue === newValue) break
+
+        if (this.closest('[hidden]')) break // iREPAINT ALERT! if (0 === this.offsetHeight + this.offsetWidth) break
+
+        if (!this.#isMidScroll) break
+
+        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
+
+        slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
+
+        break
+    }
+  }
+
   #handleScroll: EventListener = (evt: Event) => {
-    if (!this.#isScrolling) this.#isScrolling = true
+    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+
+    if (!this.#isMidScroll) this.#isMidScroll = true
+
+    // if (this.#stopRecordingScrollTop) return
+
+    this.#lastScrollTop = (evt.target as HTMLElement).scrollTop
   }
 
   #handleScrollend: EventListener = (evt: Event) => {
-    if (this.#isScrolling) this.#isScrolling = false
+    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+
+    if (this.#isMidScroll) this.#isMidScroll = false
   }
 
-  #beforeTabSwapLastScrolltop?: number
+  #handleMeasure = (entry: ResizeObserverEntry) => {
+    console.debug(`${ScrollView.name} ⚡️ measure`)
+
+    if (0 === entry.contentRect.width + entry.contentRect.height) return
+
+    if (undefined === this.#beforeTabSwapLastScrolltop) return
+
+    if (this.#beforeTabSwapLastScrolltop === this.#lastScrollTop) return
+
+    // this.#stopRecordingScrollTop = true
+
+    entry.target.scrollTop = this.#beforeTabSwapLastScrolltop
+    // entry.target.scrollTo({
+    //   top: this.#beforeTabSwapLastScrolltop,
+    //   behavior: 'smooth',
+    // }) //
+    // this.#stopRecordingScrollTop = false
+    this.#beforeTabSwapLastScrolltop = undefined
+  }
 
   #handleTabReveal = (evt: CustomEvent<TabDetail>) => {
     console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
@@ -150,12 +188,35 @@ export class ScrollView extends HTMLElement {
 
     if (this.closest('[hidden]')) return
 
-    if (undefined === this.#beforeTabSwapLastScrolltop) return
-    if (this.#beforeTabSwapLastScrolltop === this.scrollTop) return
+    // console.log(888, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
 
-    this.scrollTop = this.#beforeTabSwapLastScrolltop
+    // this.style.setProperty('clip-path', 'inset(50%)')
+    // this.style.setProperty('opacity', '0.001')
+    // this.style.opacity = '0.001'
+    // console.log(99, this.style.opacity)
 
-    this.#beforeTabSwapLastScrolltop = undefined
+    // self.requestAnimationFrame(() => {
+    //   if (undefined === this.#beforeTabSwapLastScrolltop) return
+
+    //   if (this.#beforeTabSwapLastScrolltop === this.#lastScrollTop) return
+
+    //   this.#stopRecordingScrollTop = true
+
+    //   // console.log(999, this.#beforeTabSwapLastScrolltop)
+    //   // console.log(999, this, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
+
+    //   this.scrollTop = this.#beforeTabSwapLastScrolltop
+    //   // this.scrollTo({
+    //   //   top: this.#beforeTabSwapLastScrolltop,
+    //   //   behavior: 'instant',
+    //   // }) //
+    //   this.#stopRecordingScrollTop = false
+    //   this.#beforeTabSwapLastScrolltop = undefined
+
+    //   // self.requestAnimationFrame(() => {
+    //   //   // this.style.removeProperty('opacity')
+    //   // })
+    // })
   }
 
   #handleTabBeforeswap = (evt: CustomEvent<TabDetail>) => {
@@ -165,10 +226,10 @@ export class ScrollView extends HTMLElement {
 
     if (this.closest('[hidden]')) return
 
-    this.#beforeTabSwapLastScrolltop = this.scrollTop
+    this.#beforeTabSwapLastScrolltop = this.scrollTop //#lastScrollTop
   }
 
-  scrollToElement(child: Element) {
+  centerScrollToElement(child: Element) {
     // scrollTop needed to center child
     const parentRect = this.getBoundingClientRect(),
       childRect = child.getBoundingClientRect()

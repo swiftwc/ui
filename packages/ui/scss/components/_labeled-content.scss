@@ -1,0 +1,9 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  labeled-content {
+    :where(&) {
+      display: grid;
+    }
+  }
+}

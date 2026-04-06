@@ -74,7 +74,7 @@ export class ScrollView extends HTMLElement {
       this,
       onoff(
         [
-          { types: 'tabreveal', listener: this.#handleTabReveal as EventListener },
+          // { types: 'tabreveal', listener: this.#handleTabReveal as EventListener },
           { types: 'beforetabswap', listener: this.#handleTabBeforeswap as EventListener },
         ],
         this.closest<TabView>('tab-view') ?? undefined

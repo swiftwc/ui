@@ -146,74 +146,74 @@ export class TabView extends HTMLElement {
     }
   }
 
-  #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
-    console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
+  // #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
+  //   console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
-    if (!evt.matches) return
+  //   if (!evt.matches) return
 
-    this.#handleStyleChange()
+  //   this.#handleStyleChange()
 
-    // if (evt.matches) {
-    //   const placement = self.getComputedStyle(this).getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
-    //     newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
+  //   // if (evt.matches) {
+  //   //   const placement = self.getComputedStyle(this).getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
+  //   //     newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
 
-    //   if (newValue !== this.#cachedAdaptableTabBarPlacement) {
-    //     const oldValue = this.#cachedAdaptableTabBarPlacement
+  //   //   if (newValue !== this.#cachedAdaptableTabBarPlacement) {
+  //   //     const oldValue = this.#cachedAdaptableTabBarPlacement
 
-    //     this.#cachedAdaptableTabBarPlacement = newValue
+  //   //     this.#cachedAdaptableTabBarPlacement = newValue
 
-    //     this.dispatchEvent(
-    //       new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
-    //         detail: { oldValue, newValue },
-    //         bubbles: true,
-    //         composed: true,
-    //       })
-    //     )
-    //   }
-    // }
+  //   //     this.dispatchEvent(
+  //   //       new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
+  //   //         detail: { oldValue, newValue },
+  //   //         bubbles: true,
+  //   //         composed: true,
+  //   //       })
+  //   //     )
+  //   //   }
+  //   // }
 
-    // // trigger more-stack (dis)allowed event
-    // if (evt.matches !== this.#moreStackAllowed) {
-    //   this.#moreStackAllowed = evt.matches
+  //   // // trigger more-stack (dis)allowed event
+  //   // if (evt.matches !== this.#moreStackAllowed) {
+  //   //   this.#moreStackAllowed = evt.matches
 
-    //   const eventType = evt.matches ? 'tab-view:more-tab-allowed' : 'tab-view:more-tab-disallowed'
+  //   //   const eventType = evt.matches ? 'tab-view:more-tab-allowed' : 'tab-view:more-tab-disallowed'
 
-    //   this.dispatchEvent(new CustomEvent<TabMoreStackAllowanceDetail>(eventType, { detail: { moreTab: this.moreTab }, bubbles: true, composed: true }))
-    // }
+  //   //   this.dispatchEvent(new CustomEvent<TabMoreStackAllowanceDetail>(eventType, { detail: { moreTab: this.moreTab }, bubbles: true, composed: true }))
+  //   // }
 
-    // if (evt.matches) return // no button triggers should happen, already on iphone portrait
+  //   // if (evt.matches) return // no button triggers should happen, already on iphone portrait
 
-    // const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
-    // if (innerSelection) {
-    //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"][value="${CSS.escape(innerSelection)}"]`)
+  //   // const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
+  //   // if (innerSelection) {
+  //   //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"][value="${CSS.escape(innerSelection)}"]`)
 
-    //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
-    //   if (btn) {
-    //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
-    //     if (newTab) {
-    //       this.selectedTab = TabView.gatherTab(newTab)
+  //   //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
+  //   //   if (btn) {
+  //   //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
+  //   //     if (newTab) {
+  //   //       this.selectedTab = TabView.gatherTab(newTab)
 
-    //       return
-    //     }
-    //   }
-    // }
+  //   //       return
+  //   //     }
+  //   //   }
+  //   // }
 
-    // const outerSelection = this?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
+  //   // const outerSelection = this?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
 
-    // if (outerSelection && outerSelection === this.moreTab?.id) {
-    //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"]:not([value="${CSS.escape(outerSelection)}"])`)
+  //   // if (outerSelection && outerSelection === this.moreTab?.id) {
+  //   //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"]:not([value="${CSS.escape(outerSelection)}"])`)
 
-    //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
-    //   if (btn) {
-    //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
-    //     if (newTab) {
-    //       this.selectedTab = TabView.gatherTab(newTab)
+  //   //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
+  //   //   if (btn) {
+  //   //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
+  //   //     if (newTab) {
+  //   //       this.selectedTab = TabView.gatherTab(newTab)
 
-    //       return
-    //     }
-    //   }
-    // }
-  }
+  //   //       return
+  //   //     }
+  //   //   }
+  //   // }
+  // }
 
   #handleAdaptableTabBarPlacementChange = (evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
     console.debug(`${TabView.name} ⚡️ ${evt?.type}`)

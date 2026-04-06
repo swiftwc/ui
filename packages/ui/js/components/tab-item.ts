@@ -35,9 +35,6 @@ export class TabItem extends ButtonBase {
       ariaSelected: 'false',
     })
 
-    // Snapshot.waitReadyFor(btn).then((r) => {
-    //   if (!r) return
-
     CleanupRegistry.register(btn, onoff('click', TabItem.#handleClick, btn).on())
 
     const handler1 = TabItem.#handleTabRevealOrSwap.bind(null, btn),
@@ -48,13 +45,16 @@ export class TabItem extends ButtonBase {
 
     CleanupRegistry.register(btn, onoff('tab-view:adaptable-tab-bar-placement-change', handler2 as unknown as EventListener, tv).on())
 
-    // if (tv?.selectedTab?.id === el.value)
-    if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
-      void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabDetail>('tabreveal', { detail: { tag: btn.value } }))
+    // NOTE: Make sure before invoking props of TAB-VIEW
+    self.customElements.whenDefined('tab-view').then(() => {
+      if (!btn.isConnected) return
 
-    if (tv?.moreTab)
-      this.#handleTabMoreStackAllowance(btn, new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change'))
-    // })
+      if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
+        void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabDetail>('tabreveal', { detail: { tag: btn.value } }))
+
+      if (tv?.moreTab)
+        this.#handleTabMoreStackAllowance(btn, new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change'))
+    })
   }
 
   static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
@@ -70,7 +70,7 @@ export class TabItem extends ButtonBase {
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
     console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
-
+    console.log(9999, evt.detail?.tag, btn.value)
     if (evt.detail?.tag !== btn.value) return
 
     // await Snapshot.waitReady

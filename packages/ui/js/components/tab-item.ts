@@ -70,7 +70,7 @@ export class TabItem extends ButtonBase {
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
     console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
-    console.log(9999, evt.detail?.tag, btn.value)
+
     if (evt.detail?.tag !== btn.value) return
 
     // await Snapshot.waitReady

@@ -59,7 +59,7 @@ $list-ifs: (
     --list--adjacentitem-border-radius: unset,
     //
     --list--host-background-color: var(--sidebarlist-background-color,),
-    --list--host-padding-inline: var(---padding-inline),
+    --list--host-padding-inline: var(--sidebarlist-padding-inline),
     --list--host-padding-block: var(--sidebarlist-padding-block),
     //
     --list--item-background-color: var(--sidebarlist-item-background-color,),

@@ -15,8 +15,10 @@
 
       place-content: start;
       place-items: center;
+    }
 
-      &[aria-selected='true']::after {
+    &[aria-selected='true'] {
+      :where(&)::after {
         pointer-events: none;
         content: '';
         // color: blue;
@@ -35,7 +37,7 @@
         // position: absolute;
         // background-color: red;
         // inset-inline-end: 0;
-        transform: var(--menu--marker-rotate-transform);
+        // transform: var(--menu--marker-rotate-transform);
       }
     }
   }

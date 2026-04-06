@@ -54,25 +54,31 @@
     --navigation-bar-block-size: var(--tool-bar-block-size);
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
-    --nav-split-view-separator-color: 0 0 0;
-    --nav-split-view-separator-color-dark: 1 0 0;
-    --primary-label: 0 0 0;
-    --primary-label-dark: 1 0 0;
-    --secondary-text: 0 0 0;
-    --secondary-text-dark: 1 0 0;
+    --nav-split-view-separator-color: var(--divider);
+    --nav-split-view-separator-color-dark: var(--divider-dark);
+    --primary-label: oklch(0 0 0);
+    --primary-label-dark: oklch(1 0 0);
+    --secondary-label: oklch(0.4962 0 0);
+    --secondary-label-dark: oklch(0.6334 0 0);
+    --secondary-text: oklch(0 0 0);
+    --secondary-text-dark: oklch(1 0 0);
     --tint: oklch(0.5325 0.1899 257.12);
+    --tint1g: color-mix(in oklch, white 70%, var(--tint));
     --tint2: color-mix(in oklch, white 80%, var(--tint));
     --tint3: color-mix(in oklch, white 90%, var(--tint));
     --tintcontrast: white;
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
-    --separator: oklch(0.9249 0 0);
-    --primary-bg: 0.9566 0.0067 286.27;
-    --primary-bg-dark: 0 0 0;
-    --primary-grouped-bg: 1 0 0;
-    --primary-grouped-bg-dark: 0.8136 0.0428 255.03;
-    --secondary-bg: 0.8045 0.0779 73.42;
-    --secondary-bg-dark: 0.8045 0.0779 73.42;
+    --divider: oklch(0.9431 0 0);
+    --divider-dark: oklch(0.2858 0.0036 286.17);
+    --system-bg: oklch(1 0 0);
+    --system-bg-dark: oklch(0 0 0);
+    --primary-bg: oklch(0.9566 0.0067 286.27);
+    --primary-bg-dark: oklch(0 0 0);
+    --primary-grouped-bg: oklch(1 0 0);
+    --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
+    --secondary-bg: oklch(0.8045 0.0779 73.42);
+    --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
@@ -86,21 +92,21 @@
     --pill-border-radius: 99999px;
     --clear: transparent;
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha);
-    --toolbar-cell-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark);
+    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
     --toolbar-cell-block-padding-end: 0.25rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
-    --toolbar-cell-focus-bg: 0 0 0 / 0%;
-    --toolbar-cell-focus-bg-dark: 0 0 0 / 0%;
-    --toolbar-cell-active-bg: 0 0 0 / 0%;
-    --toolbar-cell-active-bg-dark: 0 0 0 / 0%;
+    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
-    --menu-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha);
-    --menu-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark);
+    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --menu-max-inline-size: 200px;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -108,24 +114,6 @@
     --menu-host-offscreen-filter: blur(10px);
     --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
     --touchglass-transition-duration: 300ms;
-  }
-  @media (pointer: fine) {
-    :root {
-      --primary-bg: 0.9761 0 0;
-      --primary-bg-dark: 0.2606 0.004 84.58;
-      --toolbar-cell-bg: 1 0 0;
-      --toolbar-cell-bg-dark: 0.2871 0.0029 17.33;
-      --menu-bg: 1 0 0;
-      --menu-bg-dark: 0.2871 0.0029 17.33;
-      --toolbar-cell-focus-bg: 0.8474 0.0858 9.09;
-      --toolbar-cell-focus-bg-dark: 0.7348 0 0;
-      --toolbar-cell-active-bg: 0.5999 0 0;
-      --toolbar-cell-active-bg-dark: 0.5999 0 0;
-      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-    }
-  }
-  :root {
     --disclosure-group-animation-duration: 300ms;
     --disclosure-group-animation-easing: ease-out;
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
@@ -173,15 +161,15 @@
     --list-item-padding-inline-end: 1rem;
     --list-item-padding-block-start: 1rem;
     --list-item-padding-block-start: 1rem;
-    --list-item-background-color: white;
+    --list-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --list-item-color: var(--text);
-    --list-highlighteditem-background-color: darkgray;
+    --list-highlighteditem-background-color: var(--tint1g);
     --list-highlighteditem-color: var(--text);
-    --insetlist-item-background-color: white;
+    --insetlist-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --insetlist-item-color: var(--text);
     --insetlist-highlighteditem-background-color: var(--tint);
     --insetlist-highlighteditem-color: var(--tintcontrast);
-    --insetgroupedlist-item-background-color: white;
+    --insetgroupedlist-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08));
     --insetgroupedlist-item-color: var(--text);
     --insetgroupedlist-highlighteditem-background-color: var(--tint);
     --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
@@ -189,9 +177,9 @@
     --sidebarlist-item-color: var(--text);
     --sidebarlist-highlighteditem-background-color: var(--tint);
     --sidebarlist-highlighteditem-color: var(--tintcontrast);
-    --list-openitem-background-color: lightgray;
+    --list-openitem-background-color: var(--tint3);
     --list-openitem-color: var(--text);
-    --list-opensummary-background-color: gray;
+    --list-opensummary-background-color: var(--tint2);
     --list-opensummary-color: var(--text);
     --insetgroupedlist-openitem-background-color: var(--tint3);
     --insetgroupedlist-openitem-color: var(--text);
@@ -209,15 +197,15 @@
     --form-item-padding-inline-end: 1rem;
     --form-item-padding-block-start: 1rem;
     --form-item-padding-block-start: 1rem;
-    --form-item-background-color: white;
+    --form-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --form-item-color: var(--text);
-    --form-highlighteditem-background-color: darkgray;
+    --form-highlighteditem-background-color: var(--tint1g);
     --form-highlighteditem-color: var(--text);
-    --insetform-item-background-color: white;
+    --insetform-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --insetform-item-color: var(--text);
     --insetform-highlighteditem-background-color: var(--tint);
     --insetform-highlighteditem-color: var(--tintcontrast);
-    --insetgroupedform-item-background-color: white;
+    --insetgroupedform-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08));
     --insetgroupedform-item-color: var(--text);
     --insetgroupedform-highlighteditem-background-color: var(--tint);
     --insetgroupedform-highlighteditem-color: var(--tintcontrast);
@@ -225,9 +213,9 @@
     --sidebarform-item-color: var(--text);
     --sidebarform-highlighteditem-background-color: var(--tint);
     --sidebarform-highlighteditem-color: var(--tintcontrast);
-    --form-openitem-background-color: lightgray;
+    --form-openitem-background-color: var(--tint3);
     --form-openitem-color: var(--text);
-    --form-opensummary-background-color: gray;
+    --form-opensummary-background-color: var(--tint2);
     --form-opensummary-color: var(--text);
     --insetgroupedform-openitem-background-color: var(--tint3);
     --insetgroupedform-openitem-color: var(--text);
@@ -242,8 +230,8 @@
     --sidebarform-opensummary-background-color: transparent;
     --sidebarform-opensummary-color: var(--text);
     --insetform-item-border-radius: 1rem;
-    --insetgroupedlist-background-color: darkgray;
-    --insetgroupedform-background-color: darkgray;
+    --insetgroupedlist-background-color: var(--face);
+    --insetgroupedform-background-color: var(--face);
     --insetlist-padding-inline: 1rem;
     --insetlist-padding-block: 0rem;
     --insetform-padding-inline: 1rem;
@@ -256,6 +244,28 @@
     --sidebarform-padding-inline: 1rem;
     --sidebarlist-padding-block: 1rem;
     --sidebarform-padding-block: 1rem;
+  }
+  @media (pointer: fine) {
+    :root {
+      --primary-bg: oklch(0.9761 0 0);
+      --primary-bg-dark: oklch(0.2666 0.0071 67.52);
+      --divider: oklch(0.9249 0 0);
+      --divider-dark: oklch(0.3452 0.0074 84.59);
+      --secondary-label: oklch(0.5999 0 0);
+      --secondary-label-dark: oklch(0.69 0.0019 67.79);
+      --toolbar-cell-bg: oklch(1 0 0);
+      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+      --menu-bg: oklch(1 0 0);
+      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
+      --toolbar-cell-focus-bg: oklch(0.8474 0.0858 9.09);
+      --toolbar-cell-focus-bg-dark: oklch(0.7348 0 0);
+      --toolbar-cell-active-bg: oklch(0.5999 0 0);
+      --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
+      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --insetgroupedlist-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59));
+      --insetgroupedform-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59));
+    }
   }
   html:has(color-scheme[dark]) {
     color-scheme: dark;
@@ -728,189 +738,6 @@
     --itemradiusbr: var(--list--item-border-radius,);
     --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
-  /* %list {
-    :where(&) {
-      position: relative;
-
-      grid-template-columns: var(--list--host-grid-template-columns,);
-    }
-
-    // add gaps to sections
-    > section-view:has(~ :not([slot])) {
-      :where(&) {
-        margin-bottom: var(--list-section-gap);
-      }
-    }
-
-    // props that apply only to root list
-    &:not(& &) {
-      :where(&) {
-        padding-inline: var(--list--root-padding-inline,);
-        padding-block: var(--list--root-padding-block,);
-
-        background-color: var(--list--root-background-color, var(--face));
-        // --list--root-background-color: aliceblue;
-      }
-
-      // pseudo bg for lists w/out section(s)
-      &:not(:has(> section-view)) {
-        :where(&)::before {
-          content: '';
-          position: absolute;
-          pointer-events: none;
-
-          inset-inline: var(--list--root-padding-inline, 0px);
-          inset-block: var(--list--root-padding-block, 0px);
-
-          border-radius: var(--toolbaritemradius,);
-
-          background-color: var(--groupedface,);
-        }
-      }
-    }
-
-    > [is='disclosure-group'] {
-      :where(&) {
-        background-color: var(--list--disclosure-contents-background-color,);
-
-        // force dg(s) to inherit roundness
-        border-radius: var(--toolbaritemradius);
-      }
-
-      // force open dg(s) to have diff bg
-      &[open] {
-        :where(&) {
-          --list--disclosure-contents-background-color: var(--tint3);
-
-          --list--separator-background-color: oklch(0.8884 0.0134 251.57);
-        }
-
-        > summary {
-          :where(&) {
-            --toolbaritemface: var(--tint2);
-          }
-        }
-
-        > * {
-          :where(&) {
-            --toolbaritemradius: 0;
-          }
-        }
-      }
-    }
-
-    // add paddings to all non-component children
-    &,
-    [is='disclosure-group'] {
-      > :not(button, [is='disclosure-group'], section-view) {
-        :where(&) {
-          padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
-          padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-        }
-      }
-    }
-    // turn nested headers/footers to inline items
-    > section-view section-view > [slot] {
-      // > text-field:not([slot]) {
-      :where(&) {
-        padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
-        padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-      }
-    }
-
-    // wire paddings to nested section-header(s) ????
-    // section-view section-view > [slot='header'] {
-    //   :where(&) {
-    // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
-    // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-    // }
-    // }
-
-    // list-items are relative positioned
-    &,
-    [is='disclosure-group'],
-    > section-view {
-      > * {
-        :where(&) {
-          position: relative;
-        }
-      }
-    }
-
-    // & > *,
-    // [is='disclosure-group'] > :not(summary),
-    // & > section-view > *:not([slot]),
-    // section-view section-view > [slot='header'] {
-    //   :where(&) {
-    //     position: relative;
-    //   }
-    // }
-
-    // wire list-separator(s)
-    &:not([columns]) > :not([is='disclosure-group']):has(~ :not(section-view)),
-    &:not([columns]) > [is='disclosure-group']:has(~ :not(section-view)), // > summary,
-    &:not([columns]) > section-view > :not([is='disclosure-group']):has(~ :not(section-view, [slot])),
-    &:not([columns]) > section-view > [is='disclosure-group']:has(~ :not(section-view, [slot])),// > summary,
-    &:not([columns]) > [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
-    &:not([columns]) > section-view > [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
-    &:not([columns]) > section-view section-view > [slot],
-    [is='disclosure-group'][open] > summary {
-      // &:not([columns]) > section-view > :not([slot]):has(~ :not([slot])),
-      // [is='disclosure-group'] > :not(summary):has(~ :not([slot])),
-      // section-view section-view > [slot='header'],
-      // &[columns='2'] > :not(:nth-last-child(-n + 2)),
-      // &[columns='2'] > section-view > *:not([slot]):not(:nth-last-child(-n + 2)) {
-      :where(&)::after {
-        content: '';
-        display: inline-grid;
-        position: absolute;
-        block-size: var(--list--separator-block-size, 1px);
-        visibility: var(--list--separator-visibility,);
-        // inline-size: 100%;
-        background-color: var(--list--separator-background-color);
-        inset: auto var(--list--separator-inset-inline-end, 0px) 0 var(--list--separator-inset-inline-start, 0px);
-      }
-    }
-
-    [is='disclosure-group'][open] > summary {
-      // --list--separator-visibility: collapse;
-    }
-
-    & > button,
-    // [is='disclosure-group'] > summary,
-    // & > [is='disclosure-group']:not([open]),
-    section-view > button,
-    // section-view > [is='disclosure-group']:not([open]),
-    [is='disclosure-group'] > button {
-      // :where(&):hover,
-      :where(&):active,
-      :where(&[aria-selected='true']) {
-        --list--separator-visibility: collapse;
-      }
-    }
-
-
-
-    // vars
-    :where(&) {
-      //}:not([is='tab-bar'] &)) {
-      // --list--root-padding-inline: 10px;
-      // // --list--root-padding-block: 10px;
-
-      --toolbaritempadistart: 1rem;
-      --toolbaritempadiend: 1rem;
-      --toolbaritempadbstart: 1rem;
-      --toolbaritempadbend: 1rem;
-
-      // --list--separator-visibility: visible;
-      // --list--separator-block-size: 1px;
-      --list--separator-inset-inline-start: var(--toolbaritempadistart);
-      --list--separator-background-color: var(--separator);
-      // --list--separator-inset-inline-end: 5px;
-
-      // --toolbaritemradius: 1rem;
-    }
-  } */
 }
 @layer sw-colors {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
@@ -937,13 +764,13 @@
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
   }
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true] {
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true]) {
     --itemface: var(--itemactiveface);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
@@ -1197,9 +1024,6 @@
   }
   :where([is=disclosure-group] > summary) {
     list-style: none;
-  }
-  :where([is=disclosure-group]:not([summary-accessory=hidden]) > summary:has(> [slot=marker])) {
-    position: relative;
   }
   :where([is=disclosure-group]:not([summary-accessory=hidden]) > summary:has(> [slot=marker])) > [slot=marker] {
     pointer-events: none;
@@ -2512,7 +2336,7 @@
     max-block-size: var(--menu-max-block-size, );
     overflow: clip auto;
     border-radius: inherit;
-    background-color: light-dark(oklch(var(--menu-bg)), oklch(var(--menu-bg-dark)));
+    background-color: light-dark(var(--menu-bg), var(--menu-bg-dark));
     scrollbar-width: thin;
   }
   :where(menu-view)::part(menu-form)::before {
@@ -2664,7 +2488,7 @@
       --list--highlighteditem-background-color: if(style(--list-style: inset): var(--insetlist-highlighteditem-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-highlighteditem-background-color, ); style(--list-style: sidebar): var(--sidebarlist-highlighteditem-background-color, ); else: var(--list-highlighteditem-background-color, ) ;);
       --list--item-border-radius: if(style(--list-style: inset): var(--insetlist-item-border-radius); style(--list-style: inset-grouped): var(--insetlist-item-border-radius); style(--list-style: sidebar): var(--insetlist-item-border-radius); );
       --list--host-background-color: if(style(--list-style: inset): var(--insetlist-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-background-color, ); style(--list-style: sidebar): var(--sidebarlist-background-color, ); else: var(--list-background-color, ) ;);
-      --list--host-padding-inline: if(style(--list-style: inset): var(--insetlist-padding-inline); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-inline); style(--list-style: sidebar): var(---padding-inline); );
+      --list--host-padding-inline: if(style(--list-style: inset): var(--insetlist-padding-inline); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-inline); style(--list-style: sidebar): var(--sidebarlist-padding-inline); );
       --list--host-padding-block: if(style(--list-style: inset): var(--insetlist-padding-block); style(--list-style: inset-grouped): var(--insetgroupedlist-padding-block); style(--list-style: sidebar): var(--sidebarlist-padding-block); );
       --list--adjacentdetailsitem-border-radius: if(style(--list-style: inset): 0; );
       --list--details-background-color: if(style(--list-style: inset): var(--insetlist-openitem-background-color, ); style(--list-style: inset-grouped): var(--insetgroupedlist-openitem-background-color, ); style(--list-style: sidebar): var(--sidebarlist-openitem-background-color, ); else: var(--list-openitem-background-color, ) ;);
@@ -2744,7 +2568,7 @@
         --list--item-padding-block-end: 5px;
         --list--adjacentitem-border-radius: unset;
         --list--host-background-color: var(--sidebarlist-background-color, );
-        --list--host-padding-inline: var(---padding-inline);
+        --list--host-padding-inline: var(--sidebarlist-padding-inline);
         --list--host-padding-block: var(--sidebarlist-padding-block);
         --list--item-background-color: var(--sidebarlist-item-background-color, );
         --list--item-color: var(--sidebarlist-item-color, );
@@ -2809,7 +2633,7 @@
       --list--item-padding-block-end: 5px;
       --list--adjacentitem-border-radius: unset;
       --list--host-background-color: var(--sidebarlist-background-color, );
-      --list--host-padding-inline: var(---padding-inline);
+      --list--host-padding-inline: var(--sidebarlist-padding-inline);
       --list--host-padding-block: var(--sidebarlist-padding-block);
       --list--item-background-color: var(--sidebarlist-item-background-color, );
       --list--item-color: var(--sidebarlist-item-color, );
@@ -2840,7 +2664,7 @@
         --list--item-padding-block-end: 5px;
         --list--adjacentitem-border-radius: unset;
         --list--host-background-color: var(--sidebarlist-background-color, );
-        --list--host-padding-inline: var(---padding-inline);
+        --list--host-padding-inline: var(--sidebarlist-padding-inline);
         --list--host-padding-block: var(--sidebarlist-padding-block);
         --list--item-background-color: var(--sidebarlist-item-background-color, );
         --list--item-color: var(--sidebarlist-item-color, );
@@ -3471,7 +3295,7 @@
     place-content: start;
     place-items: center;
   }
-  :where([is=table-column])[aria-selected=true]::after {
+  :where([is=table-column][aria-selected=true])::after {
     pointer-events: none;
     content: "";
     display: grid;
@@ -3480,7 +3304,6 @@
     background-color: blue;
     -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
-    transform: var(--menu--marker-rotate-transform);
   }
 }
 @layer sw-components {
@@ -3620,7 +3443,7 @@
       --toolbar-cell-opacity: 1;
     }
     :where(navigation-split-view > scroll-view) {
-      border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
     }
     :where(navigation-split-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       margin-inline-start: var(--nav-split-view--content-inline-size);
@@ -3660,7 +3483,7 @@
       --safe-area-inset-left: 0px;
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view) {
-      border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item-group) {
@@ -3696,7 +3519,7 @@
       --safe-area-inset-right: 0px;
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view) {
-      border-right: solid 1px light-dark(oklch(var(--nav-split-view-separator-color)), oklch(var(--nav-split-view-separator-color-dark)));
+      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view), navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view) ~ tool-bar) {
       --safe-area-inset-left: 0px;
@@ -4200,7 +4023,28 @@
     anchor-name: --tab-view-tabbar-selection;
   }
 }
-@layer sw-utils {}
+@layer sw-utils {
+  :where([foreground-color]) {
+    color: var(--color);
+  }
+  :where([foreground-color=secondary]) {
+    --color: var(--mutedtext);
+  }
+  :where(button[tint]) {
+    color: var(--color);
+  }
+  :where(button[tint=blue]) {
+    --color: blue;
+  }
+  :where(.active [foreground-color],
+  [aria-selected=true] [foreground-color]) {
+    color: inherit;
+  }
+  :where(.active button[tint],
+  [aria-selected=true] button[tint]) {
+    color: inherit;
+  }
+}
 @layer sw-utils {
   :where([frame\:width=infinity]) {
     inline-size: 100%;
@@ -5499,43 +5343,45 @@
 }
 @layer sw-colors {
   :root {
-    --canvas: light-dark(oklch(var(--primary-bg)), oklch(var(--primary-bg-dark)));
-    --canvastext: light-dark(oklch(var(--primary-label)), oklch(var(--primary-label-dark)));
-    --face: light-dark(oklch(var(--primary-bg)), oklch(var(--primary-bg-dark)));
-    --groupedface: light-dark(oklch(var(--primary-grouped-bg)), oklch(var(--primary-grouped-bg-dark)));
-    --text: light-dark(oklch(var(--primary-label)), oklch(var(--primary-label-dark)));
+    --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
+    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
+    --face: light-dark(var(--primary-bg), var(--primary-bg-dark));
+    --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
+    --text: light-dark(var(--primary-label), var(--primary-label-dark));
+    --separator: light-dark(var(--divider), var(--divider-dark));
+    --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
   }
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog]) {
-    --face: light-dark(oklch(var(--secondary-bg)), oklch(var(--secondary-bg-dark)));
-    --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+    --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-      --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
   }
   :where(tab-view > [is=sidebar-view]) {
     --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-    --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   :where(tab-view > [is=sidebar-view] [is=form-view]) {
     --list--highlighteditem-background-color: transparent;
     --list--highlighteditem-color: blue;
   }
   :where([is=tab-bar]) {
-    --toolbaritemtext: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+    --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
-    --toolbaritemface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-    --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-    --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   @media (pointer: fine) {
     :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
-      --toolbaritemface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-      --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-      --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     }
   }
   :where([is=tab-bar] [is=tab-item]) {
@@ -5544,19 +5390,19 @@
   }
   :where(sidebar-toggle,
   menu-view) {
-    --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-    --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   :where([is=confirmation-dialog]) {
-    --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-    --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-    --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   @media (pointer: fine) {
     :where([is=confirmation-dialog]) {
-      --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-      --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-      --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     }
   }
   /* list-view {

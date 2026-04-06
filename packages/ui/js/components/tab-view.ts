@@ -86,7 +86,7 @@ export class TabView extends HTMLElement {
         onoff(
           [
             { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
-            { types: 'tabreveal tabswap', listener: this.#addAnimations },
+            { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations },
             { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
             { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
             {

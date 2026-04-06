@@ -3,15 +3,19 @@
 
 @layer #{vars.$colors-layer} {
   :root {
-    --canvas: light-dark(oklch(var(--primary-bg)), oklch(var(--primary-bg-dark)));
+    --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
 
-    --canvastext: light-dark(oklch(var(--primary-label)), oklch(var(--primary-label-dark)));
+    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
 
     // ANCHOR: level 0
-    --face: light-dark(oklch(var(--primary-bg)), oklch(var(--primary-bg-dark)));
-    --groupedface: light-dark(oklch(var(--primary-grouped-bg)), oklch(var(--primary-grouped-bg-dark)));
+    --face: light-dark(var(--primary-bg), var(--primary-bg-dark));
+    --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
 
-    --text: light-dark(oklch(var(--primary-label)), oklch(var(--primary-label-dark)));
+    --text: light-dark(var(--primary-label), var(--primary-label-dark));
+
+    --separator: light-dark(var(--divider), var(--divider-dark));
+
+    --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
   }
 
   // :where(navigation-stack, navigation-split-view) {
@@ -21,9 +25,9 @@
 
   :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog']) {
     // ANCHOR: level 1
-    --face: light-dark(oklch(var(--secondary-bg)), oklch(var(--secondary-bg-dark)));
+    --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
 
-    --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   :where(navigation-split-view > [is='sidebar-view']) {
@@ -33,14 +37,14 @@
     @include mixins.if-2col-split-view-fits {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
 
-      --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
   }
 
   tab-view > [is='sidebar-view'] {
     :where(&) {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-      --text: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
 
     :where(& [is='form-view']) {
@@ -55,21 +59,21 @@
   }
 
   :where([is='tab-bar']) {
-    --toolbaritemtext: light-dark(oklch(var(--secondary-text)), oklch(var(--secondary-text-dark)));
+    --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     //, list-view) {
     //, [is='form-view'] BREAKS sidebar
-    --toolbaritemface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-    --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-    --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 
     @media (pointer: fine) {
-      --toolbaritemface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-      --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-      --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
       // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
     }
   }
@@ -88,21 +92,21 @@
   menu-view {
     // [is='disclosure-group'] {
     :where(&) {
-      --toolbaritemhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-      --toolbaritemactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     }
   }
 
   :where([is='confirmation-dialog']) {
-    --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-    --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-    --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+    --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 
     @media (pointer: fine) {
-      --dialogbtnface: light-dark(oklch(var(--toolbar-cell-bg)), oklch(var(--toolbar-cell-bg-dark)));
-      --dialogbtnhighlightface: light-dark(oklch(var(--toolbar-cell-focus-bg)), oklch(var(--toolbar-cell-focus-bg-dark)));
-      --dialogbtnactiveface: light-dark(oklch(var(--toolbar-cell-active-bg)), oklch(var(--toolbar-cell-active-bg-dark)));
+      --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
       // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
     }
   }

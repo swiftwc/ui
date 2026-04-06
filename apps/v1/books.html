@@ -123,7 +123,7 @@
       </navigation-stack>
 
       <navigation-stack id="more" hidden>
-        <scroll-view navigation-inline-title="More" style="--face: darkgray">
+        <scroll-view navigation-inline-title="More">
           <v-stack placement="leading fill">
             <list-view list-style="inset-grouped">
               <section-view>
@@ -198,7 +198,7 @@
               </v-stack>
             </scroll-view>
           </detail-placeholder>
-          <scroll-view navigation-path="customers" style="--face: white">
+          <scroll-view navigation-path="customers" style="--face: light-dark(var(--canvas), var(--primary-bg-dark))">
             <v-stack placement="leading fill">
               <navigation-title value="Customers" padding style="order: -2"></navigation-title>
               <list-view preferred-expanded-style="inset" style="--list--sticky-block-size: 70px">
@@ -352,7 +352,7 @@
         </navigation-stack>
 
         <navigation-split-view id="settings" hidden>
-          <scroll-view navigation-inline-title="Settings" style="--face: darkgray">
+          <scroll-view navigation-inline-title="Settings">
             <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
               <navigation-large-title padding>
                 <v-stack alignment="fill">
@@ -632,7 +632,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="About" navigation-path="About" style="--face: darkgray">
+        <scroll-view navigation-inline-title="About" navigation-path="About">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <label-view font="large-title" value="Device" padding></label-view>
             <list-view list-style="inset-grouped">
@@ -661,7 +661,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="customer1" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="customer1">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <button type="button" navigation-destination="customertransactions1">Transactions</button>
             <list-view columns="2" list-style="inset-grouped">
@@ -700,7 +700,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="editcustomer1" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="editcustomer1">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped" id="editcustomerform">
               <section-view>
@@ -772,7 +772,7 @@
     </template>
     <template>
       <dialog is="sheet-view" fine-presentation-large-adaptation="bottom-bar">
-        <scroll-view navigation-inline-title="new customer" navigation-path="createcustomer" style="--face: darkgray">
+        <scroll-view navigation-inline-title="new customer" navigation-path="createcustomer">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
@@ -817,7 +817,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="customer created" navigation-path="createcustomerdone" style="--face: darkgray">
+        <scroll-view navigation-inline-title="customer created" navigation-path="createcustomerdone">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
@@ -858,7 +858,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Transactions with Katie Abeles" navigation-path="customertransactions1" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Transactions with Katie Abeles" navigation-path="customertransactions1">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <details is="disclosure-group" open>
               <summary>
@@ -949,7 +949,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="invoice1" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="invoice1">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view columns="2" list-style="inset-grouped">
               <labeled-content>
@@ -991,7 +991,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="editinvoice1" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="editinvoice1">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped" id="editinvoiceform">
               <section-view>

@@ -86,7 +86,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: white">
+        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: light-dark(var(--canvas), var(--primary-bg-dark))">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">
@@ -100,15 +100,15 @@
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" template="minmax(0,1fr) auto">
                       <label-view title="Andrew & Priyanka"></label-view>
-                      <label-view title="5/22/26"></label-view>
+                      <label-view title="5/22/26" foreground-color="secondary"></label-view>
                     </h-stack>
                     <h-stack distribution="fill" template="minmax(0,1fr) auto">
-                      <label-view title="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
-                      <button type="button" tabindex="0">
+                      <label-view title="Trip Idea &mdash; AutoCamp Sequoia" foreground-color="secondary"></label-view>
+                      <button type="button" tabindex="0" tint="blue">
                         <label-view system-image="smiley" title="2"></label-view>
                       </button>
                     </h-stack>
-                    <div>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
+                    <div foreground-color="secondary">Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
                   </v-stack>
                 </summary>
                 <button type="button" navigation-destination="item3b">
@@ -168,7 +168,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: white">
+        <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: var(--canvas)">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">

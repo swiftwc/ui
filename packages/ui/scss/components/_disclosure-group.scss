@@ -21,7 +21,7 @@
     }
 
     :where(&:not([summary-accessory='hidden']) > summary:has(> [slot='marker'])) {
-      position: relative;
+      // position: relative;
 
       > [slot='marker'] {
         pointer-events: none;

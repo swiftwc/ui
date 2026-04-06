@@ -77,15 +77,20 @@
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
 
-    --nav-split-view-separator-color: 0 0 0;
-    --nav-split-view-separator-color-dark: 1 0 0;
+    --nav-split-view-separator-color: var(--divider); //oklch(0 0 0);
+    --nav-split-view-separator-color-dark: var(--divider-dark); //oklch(1 0 0);
 
-    --primary-label: 0 0 0;
-    --primary-label-dark: 1 0 0;
-    --secondary-text: 0 0 0;
-    --secondary-text-dark: 1 0 0;
+    --primary-label: oklch(0 0 0);
+    --primary-label-dark: oklch(1 0 0);
+
+    --secondary-label: oklch(0.4962 0 0); // ✅
+    --secondary-label-dark: oklch(0.6334 0 0); // ✅
+
+    --secondary-text: oklch(0 0 0);
+    --secondary-text-dark: oklch(1 0 0);
 
     --tint: oklch(0.5325 0.1899 257.12);
+    --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
     --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
     --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
 
@@ -94,16 +99,20 @@
     --tint-lch: 0.452 0.313214 264.052;
     --tint-lch-dark: 0.452 0.313214 264.052;
 
-    --separator: oklch(0.9249 0 0);
+    --divider: oklch(0.9431 0 0); // ✅
+    --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
 
-    --primary-bg: 0.9566 0.0067 286.27;
-    --primary-bg-dark: 0 0 0;
+    --system-bg: oklch(1 0 0); // ✅
+    --system-bg-dark: oklch(0 0 0); // ✅
 
-    --primary-grouped-bg: 1 0 0; //0.8136 0.0428 255.03;
-    --primary-grouped-bg-dark: 0.8136 0.0428 255.03;
+    --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
+    --primary-bg-dark: oklch(0 0 0); // ✅
 
-    --secondary-bg: 0.8045 0.0779 73.42;
-    --secondary-bg-dark: 0.8045 0.0779 73.42;
+    --primary-grouped-bg: oklch(1 0 0); //0.8136 0.0428 255.03;
+    --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
+
+    --secondary-bg: oklch(0.8045 0.0779 73.42);
+    --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
 
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
@@ -125,8 +134,8 @@
     --clear: transparent;
 
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha); //oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
@@ -134,15 +143,15 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
 
-    --toolbar-cell-focus-bg: 0 0 0 / 0%;
-    --toolbar-cell-focus-bg-dark: 0 0 0 / 0%;
-    --toolbar-cell-active-bg: 0 0 0 / 0%;
-    --toolbar-cell-active-bg-dark: 0 0 0 / 0%;
+    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 
-    --menu-bg: var(--sidebar-bg-lch) / var(--sidebar-bg-alpha);
-    --menu-bg-dark: var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark);
+    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --menu-max-inline-size: 200px;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -153,25 +162,6 @@
 
     --touchglass-transition-duration: 300ms;
     // --touchglass-transition-duration: 15s;
-
-    @media (pointer: fine) {
-      --primary-bg: 0.9761 0 0;
-      --primary-bg-dark: 0.2606 0.004 84.58;
-
-      --toolbar-cell-bg: 1 0 0;
-      --toolbar-cell-bg-dark: 0.2871 0.0029 17.33;
-
-      --menu-bg: 1 0 0;
-      --menu-bg-dark: 0.2871 0.0029 17.33;
-
-      --toolbar-cell-focus-bg: 0.8474 0.0858 9.09;
-      --toolbar-cell-focus-bg-dark: 0.7348 0 0;
-      --toolbar-cell-active-bg: 0.5999 0 0;
-      --toolbar-cell-active-bg-dark: 0.5999 0 0;
-
-      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-    }
 
     --disclosure-group-animation-duration: 300ms;
     // --disclosure-group-animation-duration: 4500ms;
@@ -204,6 +194,7 @@
     //
     --list-gap: 3rem;
     --form-gap: 1rem;
+
     --form-extra-gap: 3rem;
 
     @each $v in list, form {
@@ -212,17 +203,17 @@
       --#{$v}-item-padding-block-start: 1rem;
       --#{$v}-item-padding-block-start: 1rem;
 
-      --#{$v}-item-background-color: white;
+      --#{$v}-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --#{$v}-item-color: var(--text);
-      --#{$v}-highlighteditem-background-color: darkgray;
+      --#{$v}-highlighteditem-background-color: var(--tint1g);
       --#{$v}-highlighteditem-color: var(--text);
 
-      --inset#{$v}-item-background-color: white;
+      --inset#{$v}-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --inset#{$v}-item-color: var(--text);
       --inset#{$v}-highlighteditem-background-color: var(--tint);
       --inset#{$v}-highlighteditem-color: var(--tintcontrast);
 
-      --insetgrouped#{$v}-item-background-color: white;
+      --insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
       --insetgrouped#{$v}-item-color: var(--text);
       --insetgrouped#{$v}-highlighteditem-background-color: var(--tint);
       --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
@@ -232,9 +223,9 @@
       --sidebar#{$v}-highlighteditem-background-color: var(--tint);
       --sidebar#{$v}-highlighteditem-color: var(--tintcontrast);
 
-      --#{$v}-openitem-background-color: lightgray;
+      --#{$v}-openitem-background-color: var(--tint3);
       --#{$v}-openitem-color: var(--text);
-      --#{$v}-opensummary-background-color: gray;
+      --#{$v}-opensummary-background-color: var(--tint2);
       --#{$v}-opensummary-color: var(--text);
 
       --insetgrouped#{$v}-openitem-background-color: var(--tint3);
@@ -257,8 +248,8 @@
 
     --insetform-item-border-radius: 1rem;
 
-    --insetgroupedlist-background-color: darkgray;
-    --insetgroupedform-background-color: darkgray;
+    --insetgroupedlist-background-color: var(--face);
+    --insetgroupedform-background-color: var(--face);
 
     --insetlist-padding-inline: 1rem;
     --insetlist-padding-block: 0rem;
@@ -279,6 +270,38 @@
     // @media (pointer: fine) {
     //   --list-item-border-radius: 0.5rem;
     // }
+
+    @media (pointer: fine) {
+      --primary-bg: oklch(0.9761 0 0); // ✅
+      --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
+
+      --divider: oklch(0.9249 0 0); // ✅
+      --divider-dark: oklch(0.3452 0.0074 84.59); // ✅
+
+      --secondary-label: oklch(0.5999 0 0); // ✅
+      --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
+
+      --toolbar-cell-bg: oklch(1 0 0);
+      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+
+      --menu-bg: oklch(1 0 0);
+      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
+
+      --toolbar-cell-focus-bg: oklch(0.8474 0.0858 9.09);
+      --toolbar-cell-focus-bg-dark: oklch(0.7348 0 0);
+      --toolbar-cell-active-bg: oklch(0.5999 0 0);
+      --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
+
+      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+
+      // list
+      @each $v in list, form {
+        // --#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+        // --inset#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+        --insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      }
+    }
   }
 
   html:has(color-scheme[dark]) {

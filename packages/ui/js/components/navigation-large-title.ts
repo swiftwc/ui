@@ -220,11 +220,11 @@ export class NavigationLargeTitle extends HTMLElement {
   #applySlowness = (root: HTMLElement, isIntersecting: boolean) => {
     const value = isIntersecting ? 'large' : 'inline'
 
+    if (this.closest('[hidden]')) return // if (0 === this.offsetHeight + this.offsetWidth) continue
+
     if (value === root?.getAttribute('navigation-bar-title-display-mode')) return
 
     root?.setAttribute('navigation-bar-title-display-mode', value)
-
-    if (this.closest('[hidden]')) return // if (0 === this.offsetHeight + this.offsetWidth) continue
 
     if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
   }

@@ -28,7 +28,8 @@
       }
     </style>
   </head>
-  <body style="--canvas: darkgray; --face: darkgray">
+  <body>
+    <!-- style="--canvas: darkgray; --face: darkgray"> -->
     <v-keyboard></v-keyboard>
 
     <navigation-split-view column-visibility="double-column">
@@ -83,7 +84,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="General" navigation-path="General" style="--face: darkgray">
+        <scroll-view navigation-inline-title="General" navigation-path="General">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-large-title padding>
               <v-stack alignment="fill">
@@ -160,7 +161,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="About" navigation-path="About" style="--face: darkgray">
+        <scroll-view navigation-inline-title="About" navigation-path="About">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <label-view font="large-title" value="Device" padding></label-view>
             <list-view list-style="inset-grouped">
@@ -189,7 +190,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <label-view font="large-title" value="Accessibility" padding></label-view>
             <list-view list-style="inset-grouped">
@@ -218,7 +219,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance" style="--face: darkgray">
+        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view list-style="inset-grouped">
               <section-view header="Vision">

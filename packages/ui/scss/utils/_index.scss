@@ -1,37 +1,21 @@
 @use '../vars';
 
 @layer #{vars.$utils-layer} {
-  :where([foreground-color]) {
-    color: var(--color);
-  }
-
   :where([foreground-color='secondary']) {
-    //:not(.active [foreground-color], [aria-selected='true'] [foreground-color])) {
-    --color: var(--mutedtext);
-    // --label-color: var(--mutedtext);
+    color: var(--secondaryLabel);
   }
 
-  button {
-    :where(&[tint]) {
-      color: var(--color);
-    }
-    :where(&[tint='blue']) {
-      --color: blue;
-    }
+  :where([foreground-color='blue']) {
+    color: var(--blue);
   }
 
-  .active,
-  [aria-selected='true'] {
-    [foreground-color] {
-      :where(&) {
-        color: inherit;
-      }
-    }
+  // button {
+  //   :where(&[tint]) {
+  //     color: var(--color);
+  //   }
 
-    button[tint] {
-      :where(&) {
-        color: inherit;
-      }
-    }
-  }
+  //   :where(&[tint='blue']) {
+  //     --color: blue;
+  //   }
+  // }
 }

@@ -34,14 +34,14 @@
       <dialog is="sidebar-view">
         <scroll-view navigation-inline-title="Mailboxes">
           <v-stack placement="leading fill">
-            <list-view>
+            <list-view list-style="inset-grouped" preferred-root-disclosure-style="sidebar" style="--itempadistart: 1.5rem">
               <section-view>
                 <details is="disclosure-group" open>
                   <summary>
                     <label-view title="Favorites"></label-view>
                   </summary>
-                  <details is="disclosure-group" open>
-                    <summary>
+                  <details is="disclosure-group" disclosure-style="marker-leading" open>
+                    <summary style="--itempadistart: 0.4rem">
                       <label-view system-image="smiley" title="All Inboxes"></label-view>
                     </summary>
                     <button value="more"><label-view system-image="smiley" title="Personal"></label-view></button>
@@ -104,7 +104,7 @@
                     </h-stack>
                     <h-stack distribution="fill" template="minmax(0,1fr) auto">
                       <label-view title="Trip Idea &mdash; AutoCamp Sequoia" foreground-color="secondary"></label-view>
-                      <button type="button" tabindex="0" tint="blue">
+                      <button type="button" tabindex="0" foreground-color="blue">
                         <label-view system-image="smiley" title="2"></label-view>
                       </button>
                     </h-stack>
@@ -168,7 +168,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: var(--canvas)">
+        <scroll-view navigation-inline-title="Sent" navigation-path="sent" style="--face: light-dark(var(--canvas), var(--primary-bg-dark))">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">

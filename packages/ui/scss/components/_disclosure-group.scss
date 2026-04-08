@@ -1,59 +1,65 @@
 @use '../vars';
 @use '../mixins';
+@use 'sass:string';
 
 @layer #{vars.$components-layer} {
   [is='disclosure-group'] {
     :where(&) {
       overflow: clip;
 
-      --menu--host-details-content-block-size: 0;
+      --disclosure--host-details-content-block-size: 0;
 
-      --menu--marker-rotate-transform: rotate(0deg);
+      --disclosure-style: ;
+
+      --disclosure--summary-grid-template-columns: ;
+      --disclosure--summary-grid-auto-flow: ;
+      --disclosure--summary-gap: ;
+
+      --disclosure--marker-display: ;
+      --disclosure--marker-transform: ;
     }
 
     :where(& > summary) {
-      // display: grid; /// display: list-item;
-      list-style: none;
+      gap: var(--disclosure--summary-gap,);
 
-      // grid-auto-flow: column;
+      grid-auto-flow: var(--disclosure--summary-grid-auto-flow,);
 
-      // grid-template-columns: minmax(0, 1fr) auto;
+      grid-template-columns: var(--disclosure--summary-grid-template-columns,);
+
+      &::after {
+        pointer-events: none;
+        content: '';
+        display: var(--disclosure--marker-display,);
+        block-size: 1rem;
+        inline-size: 1rem;
+        background-color: var(--blue);
+        -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+        mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+        transform: var(--disclosure--marker-transform,);
+        transform-origin: center;
+        aspect-ratio: 1;
+        place-self: center;
+        order: var(--disclosure--marker-order,);
+      }
     }
 
-    :where(&:not([summary-accessory='hidden']) > summary:has(> [slot='marker'])) {
-      // position: relative;
-
-      > [slot='marker'] {
-        pointer-events: none;
-        // content: '';
-        color: blue;
-        // display: grid;
-        // content: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E');
-        // block-size: 24px;
-        // inline-size: 24px;
-        // font-size: 1rem;
-        // background-color: blue;
-        // object-fit: contain;
-        // -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E')
-        //   no-repeat center / contain;
-        // mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E')
-        //   no-repeat center / contain;
-        // content: "66";
-        position: absolute;
-        // background-color: red;
-        inset-inline-end: 0;
-        transform: var(--menu--marker-rotate-transform);
+    :where(& > summary) {
+      @container not (style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading)) {
+        --disclosure--marker-display: none;
       }
+      @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
+        --disclosure--summary-grid-auto-flow: column;
 
-      // &::marker {
-      //   color: blue;
-      //   display: none;
-      //   content: '→';
-      //   // content: "66";
-      //   list-style-type: square;
-      //   position: absolute;
-      //   background-color: red;
-      // }
+        --disclosure--summary-gap: 0.1rem;
+      }
+      @container style(--disclosure-style: marker-trailing) {
+        --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+      }
+      @container style(--disclosure-style: marker-leading) {
+        --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
+
+        --disclosure--marker-order: -1;
+      }
     }
 
     :where(&)::details-content {
@@ -61,7 +67,7 @@
 
       background: transparent;
 
-      block-size: var(--menu--host-details-content-block-size);
+      block-size: var(--disclosure--host-details-content-block-size);
     }
 
     :where(& > *:not(summary)) {
@@ -70,22 +76,22 @@
 
     &[open] {
       :where(&) {
-        --menu--host-details-content-block-size: auto;
+        --disclosure--host-details-content-block-size: auto;
 
-        --menu--marker-rotate-transform: rotate(90deg);
+        --disclosure--marker-transform: rotate(90deg);
       }
     }
 
     @supports not (interpolate-size: allow-keywords) {
       :where(&) {
-        grid-template-rows: var(--menu--host-grid-template-rows);
+        grid-template-rows: var(--disclosure--host-grid-template-rows);
 
         align-items: start;
         align-content: start;
 
-        --menu--host-grid-template-rows: auto 0fr;
+        --disclosure--host-grid-template-rows: auto 0fr;
 
-        --menu--host-details-content-block-size: auto;
+        --disclosure--host-details-content-block-size: auto;
       }
 
       :where(&)::details-content {
@@ -98,8 +104,25 @@
 
       &[open] {
         :where(&) {
-          --menu--host-grid-template-rows: auto 1fr;
+          --disclosure--host-grid-template-rows: auto 1fr;
         }
+      }
+    }
+
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --disclosure-style: attr(disclosure-style type(<custom-ident>), inherit);
+      }
+    }
+    @supports not (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&[disclosure-style='marker-trailing']) {
+        --disclosure-style: marker-trailing;
+      }
+      :where(&[disclosure-style='marker-leading']) {
+        --disclosure-style: marker-leading;
+      }
+      :where(&[disclosure-style='marker-hidden']) {
+        --disclosure-style: ;
       }
     }
   }

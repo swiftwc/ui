@@ -26,6 +26,78 @@
           <label-view title="Sidebar"></label-view>
         </button>
       </h-stack>
+      <p>w/ details [preferred-root-disclosure-style="sidebar"]</p>
+      <list-view preferred-root-disclosure-style="sidebar">
+        <details is="disclosure-group" open>
+          <summary>
+            <h-stack distribution="fill">
+              <label-view system-image="smiley" title="Item Group 1"></label-view>
+              <button type="button" tabindex="0">
+                <label-view system-image="smiley" title="Item Group 1"></label-view>
+              </button>
+            </h-stack>
+          </summary>
+          <details is="disclosure-group">
+            <summary>
+              <h-stack distribution="fill">
+                <label-view system-image="smiley" title="Item Group 1"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="smiley" title="Item Group 1"></label-view>
+                </button>
+              </h-stack>
+            </summary>
+            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 2"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 3"></label-view></button>
+            <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4"></label-view></button>
+            <whatever-name>
+              <list-view>
+                <section-view>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 5"></label-view></button>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 6"></label-view></button>
+                  <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 7"></label-view></button>
+                </section-view>
+              </list-view>
+            </whatever-name>
+          </details>
+        </details>
+        <details is="disclosure-group">
+          <summary>
+            <h-stack distribution="fill">
+              <label-view system-image="smiley" title="Item Group 1"></label-view>
+              <button type="button" tabindex="0">
+                <label-view system-image="smiley" title="Item Group 1"></label-view>
+              </button>
+            </h-stack>
+          </summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 2"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 3"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4"></label-view></button>
+          <whatever-name>
+            <list-view>
+              <section-view>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 5"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 6"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 7"></label-view></button>
+              </section-view>
+            </list-view>
+          </whatever-name>
+        </details>
+        <details is="disclosure-group">
+          <summary><label-view system-image="smiley" title="Item Group 2"></label-view></summary>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 2"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 3"></label-view></button>
+          <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 4"></label-view></button>
+          <whatever-name>
+            <list-view>
+              <section-view>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 5"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 6"></label-view></button>
+                <button type="button" tabindex="0"><label-view system-image="smiley" title="Item 7"></label-view></button>
+              </section-view>
+            </list-view>
+          </whatever-name>
+        </details>
+      </list-view>
       <p>w/ details</p>
       <list-view>
         <details is="disclosure-group" open>

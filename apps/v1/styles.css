@@ -58,8 +58,6 @@
     --nav-split-view-separator-color-dark: var(--divider-dark);
     --primary-label: oklch(0 0 0);
     --primary-label-dark: oklch(1 0 0);
-    --secondary-label: oklch(0.4962 0 0);
-    --secondary-label-dark: oklch(0.6334 0 0);
     --secondary-text: oklch(0 0 0);
     --secondary-text-dark: oklch(1 0 0);
     --tint: oklch(0.5325 0.1899 257.12);
@@ -164,7 +162,7 @@
     --list-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --list-item-color: var(--text);
     --list-highlighteditem-background-color: var(--tint1g);
-    --list-highlighteditem-color: var(--text);
+    --list-highlighteditem-color: ;
     --insetlist-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --insetlist-item-color: var(--text);
     --insetlist-highlighteditem-background-color: var(--tint);
@@ -200,7 +198,7 @@
     --form-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --form-item-color: var(--text);
     --form-highlighteditem-background-color: var(--tint1g);
-    --form-highlighteditem-color: var(--text);
+    --form-highlighteditem-color: ;
     --insetform-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
     --insetform-item-color: var(--text);
     --insetform-highlighteditem-background-color: var(--tint);
@@ -251,8 +249,6 @@
       --primary-bg-dark: oklch(0.2666 0.0071 67.52);
       --divider: oklch(0.9249 0 0);
       --divider-dark: oklch(0.3452 0.0074 84.59);
-      --secondary-label: oklch(0.5999 0 0);
-      --secondary-label-dark: oklch(0.69 0.0019 67.79);
       --toolbar-cell-bg: oklch(1 0 0);
       --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
       --menu-bg: oklch(1 0 0);
@@ -377,6 +373,9 @@
     padding-inline: var(--itempadistart,) var(--itempadiend,);
     padding-block: var(--itempadbstart,) var(--itempadbend,);
     border-radius: var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,);
+    grid-auto-flow: column;
+    grid-template-columns: var(--list--item-grid-template-columns, );
+    grid-template-rows: minmax(0, 1fr);
   }
   @media (prefers-reduced-motion: no-preference) {
     :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
@@ -480,6 +479,12 @@
       --list--selectedopensummary-color,
       var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
     );
+  }
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group] {
+    --disclosure-style: var(--list--rootsummary-marker-display,);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group] > summary,
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group] > summary,
@@ -635,12 +640,12 @@
     position: relative;
   }
   :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view))::after {
+    pointer-events: none;
     content: "";
     position: absolute;
     inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
     inline-size: 1px;
     background: var(--list--separator-background-color, var(--separator));
-    pointer-events: none;
   }
   :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :first-child:not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :first-child:not([slot]),
   table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:first-child > :not([slot]),
@@ -738,6 +743,44 @@
     --itemradiusbr: var(--list--item-border-radius,);
     --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)) {
+    --list--accessories-display: none;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button)) {
+    position: relative;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button)) ::after {
+    pointer-events: none;
+    content: "";
+    position: absolute;
+    inset: 50% var(--itempadiend) auto auto;
+    display: var(--list--accessories-display, grid);
+    block-size: 1.1rem;
+    inline-size: 1.1rem;
+    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    background-color: var(--quaternaryLabel);
+    place-self: center;
+    transform: translateY(-50%) translateX(50%);
+  }
 }
 @layer sw-colors {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
@@ -763,6 +806,8 @@
     --itemface: var(--itemactiveface,);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+    --secondaryLabel: var(--itemtext);
+    --blue: var(--itemtext);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
@@ -774,6 +819,8 @@
     --itemface: var(--itemactiveface);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+    --secondaryLabel: var(--itemtext);
+    --blue: var(--itemtext);
   }
 }
 @layer sw-components {
@@ -1019,45 +1066,98 @@
 @layer sw-components {
   :where([is=disclosure-group]) {
     overflow: clip;
-    --menu--host-details-content-block-size: 0;
-    --menu--marker-rotate-transform: rotate(0deg);
+    --disclosure--host-details-content-block-size: 0;
+    --disclosure-style: ;
+    --disclosure--summary-grid-template-columns: ;
+    --disclosure--summary-grid-auto-flow: ;
+    --disclosure--summary-gap: ;
+    --disclosure--marker-display: ;
+    --disclosure--marker-transform: ;
   }
   :where([is=disclosure-group] > summary) {
-    list-style: none;
+    gap: var(--disclosure--summary-gap, );
+    grid-auto-flow: var(--disclosure--summary-grid-auto-flow, );
+    grid-template-columns: var(--disclosure--summary-grid-template-columns, );
   }
-  :where([is=disclosure-group]:not([summary-accessory=hidden]) > summary:has(> [slot=marker])) > [slot=marker] {
+  :where([is=disclosure-group] > summary)::after {
     pointer-events: none;
-    color: blue;
-    position: absolute;
-    inset-inline-end: 0;
-    transform: var(--menu--marker-rotate-transform);
+    content: "";
+    display: var(--disclosure--marker-display, );
+    block-size: 1rem;
+    inline-size: 1rem;
+    background-color: var(--blue);
+    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    transform: var(--disclosure--marker-transform, );
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+    order: var(--disclosure--marker-order, );
+  }
+  @container not (style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading)) {
+    :where([is=disclosure-group] > summary) {
+      --disclosure--marker-display: none;
+    }
+  }
+  @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
+    :where([is=disclosure-group] > summary) {
+      --disclosure--summary-grid-auto-flow: column;
+      --disclosure--summary-gap: 0.1rem;
+    }
+  }
+  @container style(--disclosure-style: marker-trailing) {
+    :where([is=disclosure-group] > summary) {
+      --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+    }
+  }
+  @container style(--disclosure-style: marker-leading) {
+    :where([is=disclosure-group] > summary) {
+      --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
+      --disclosure--marker-order: -1;
+    }
   }
   :where([is=disclosure-group])::details-content {
     display: grid;
     background: transparent;
-    block-size: var(--menu--host-details-content-block-size);
+    block-size: var(--disclosure--host-details-content-block-size);
   }
   :where([is=disclosure-group] > *:not(summary)) {
     margin: 0;
   }
   :where([is=disclosure-group][open]) {
-    --menu--host-details-content-block-size: auto;
-    --menu--marker-rotate-transform: rotate(90deg);
+    --disclosure--host-details-content-block-size: auto;
+    --disclosure--marker-transform: rotate(90deg);
   }
   @supports not (interpolate-size: allow-keywords) {
     :where([is=disclosure-group]) {
-      grid-template-rows: var(--menu--host-grid-template-rows);
+      grid-template-rows: var(--disclosure--host-grid-template-rows);
       align-items: start;
       align-content: start;
-      --menu--host-grid-template-rows: auto 0fr;
-      --menu--host-details-content-block-size: auto;
+      --disclosure--host-grid-template-rows: auto 0fr;
+      --disclosure--host-details-content-block-size: auto;
     }
     :where([is=disclosure-group])::details-content {
       content-visibility: visible;
       min-height: 0;
     }
     :where([is=disclosure-group][open]) {
-      --menu--host-grid-template-rows: auto 1fr;
+      --disclosure--host-grid-template-rows: auto 1fr;
+    }
+  }
+  @supports (x: attr(x type(*))) {
+    :where([is=disclosure-group]) {
+      --disclosure-style: attr(disclosure-style type(<custom-ident>), inherit);
+    }
+  }
+  @supports not (x: attr(x type(*))) {
+    :where([is=disclosure-group][disclosure-style=marker-trailing]) {
+      --disclosure-style: marker-trailing;
+    }
+    :where([is=disclosure-group][disclosure-style=marker-leading]) {
+      --disclosure-style: marker-leading;
+    }
+    :where([is=disclosure-group][disclosure-style=marker-hidden]) {
+      --disclosure-style: ;
     }
   }
 }
@@ -2479,6 +2579,8 @@
     --list--details-color: var(--list-openitem-color, );
     --list--opensummary-background-color: var(--list-opensummary-background-color, );
     --list--opensummary-color: var(--list-opensummary-color, );
+    --list--item-grid-template-columns: minmax(0, 1fr) 1rem;
+    --list--accessories-display: grid;
   }
   @supports (x: if(else:red)) {
     :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
@@ -2513,6 +2615,9 @@
       --list--selectedrootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--list-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--list-style: sidebar): transparent; );
+      --list--item-grid-template-columns: if(style(--list-style: sidebar): minmax(0, 1fr); else: minmax(0, 1fr) 1rem ;);
+      --list--accessories-display: if(style(--list-style: sidebar): none; else: grid ;);
+      --list--rootsummary-marker-display: if(style(--list-style: sidebar): marker-trailing; );
     }
   }
   @supports not (x: if(else:red)) {
@@ -2584,6 +2689,9 @@
         --list--details-color: var(--sidebarlist-openitem-color, );
         --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarlist-opensummary-color, );
+        --list--item-grid-template-columns: minmax(0, 1fr);
+        --list--accessories-display: none;
+        --list--rootsummary-marker-display: marker-trailing;
       }
     }
     :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[list-style=inset]) {
@@ -2649,6 +2757,9 @@
       --list--details-color: var(--sidebarlist-openitem-color, );
       --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
       --list--opensummary-color: var(--sidebarlist-opensummary-color, );
+      --list--item-grid-template-columns: minmax(0, 1fr);
+      --list--accessories-display: none;
+      --list--rootsummary-marker-display: marker-trailing;
     }
     @media (min-width: 43rem) {
       :where(navigation-split-view [is=sidebar-view] list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[list-style]) {
@@ -2680,6 +2791,9 @@
         --list--details-color: var(--sidebarlist-openitem-color, );
         --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarlist-opensummary-color, );
+        --list--item-grid-template-columns: minmax(0, 1fr);
+        --list--accessories-display: none;
+        --list--rootsummary-marker-display: marker-trailing;
       }
       :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-expanded-style], navigation-split-view > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-expanded-style]) {
         --list--item-color: var(--insetlist-item-color, );
@@ -2713,6 +2827,48 @@
       }
     }
   }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] {
+    --list--rootsummary-color: var(--text);
+    --list--selectedrootsummary-color: var(--text);
+    --list--rootsummary-background-color: transparent;
+    --list--selectedrootsummary-background-color: transparent;
+    --list--rootsummary-padding-inline-start: var(--list--item-padding-inline-start);
+    --list--rootsummary-padding-inline-end: var(--list--item-padding-inline-start);
+    --list--rootsummary-padding-block-start: 5px;
+    --list--rootsummary-padding-block-end: 5px;
+  }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] ~ [is=disclosure-group],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] ~ [is=disclosure-group] {
+    margin-block-start: var(--list-gap);
+  }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] ~ [is=disclosure-group]::before,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] ~ [is=disclosure-group]::before {
+    display: none;
+  }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] {
+    --list--details-background-color: var(--list--item-background-color);
+    --list--opensummary-background-color: var(--list--item-background-color);
+  }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] > details,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] > button:first-of-type,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] > details,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] > button:first-of-type {
+    --itemradiustl: var(--list--item-border-radius);
+    --itemradiustr: var(--list--item-border-radius);
+  }
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] > details::before,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > [is=disclosure-group] > button:first-of-type::before,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] > details::before,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] > section-view > [is=disclosure-group] > button:first-of-type::before {
+    display: none;
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view), navigation-split-view > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
+      --list--item-grid-template-columns: minmax(0, 1fr);
+      --list--accessories-display: none;
+    }
+  }
 }
 @layer sw-components {
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
@@ -2726,6 +2882,8 @@
     --list--highlighteditem-background-color: var(--form-highlighteditem-background-color, );
     --list--item-color: var(--form-item-color, );
     --list--highlighteditem-color: var(--form-highlighteditem-color, );
+    --list--item-grid-template-columns: minmax(0, 1fr) 1rem;
+    --list--accessories-display: grid;
   }
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :where(section-view:has(> [slot=header]), section-view:has(> [slot=footer]) + section-view) {
     --list--section-gap: var(--form-extra-gap);
@@ -2763,6 +2921,9 @@
       --list--selectedrootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--form-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--form-style: sidebar): transparent; );
+      --list--item-grid-template-columns: if(style(--form-style: sidebar): minmax(0, 1fr); else: minmax(0, 1fr) 1rem ;);
+      --list--accessories-display: if(style(--form-style: sidebar): none; else: grid ;);
+      --list--rootsummary-marker-display: if(style(--form-style: sidebar): marker-trailing; );
     }
   }
   @supports not (x: if(else:red)) {
@@ -2834,6 +2995,9 @@
         --list--details-color: var(--sidebarform-openitem-color, );
         --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarform-opensummary-color, );
+        --list--item-grid-template-columns: minmax(0, 1fr);
+        --list--accessories-display: none;
+        --list--rootsummary-marker-display: marker-trailing;
       }
     }
     :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[form-style=inset]) {
@@ -2899,6 +3063,9 @@
       --list--details-color: var(--sidebarform-openitem-color, );
       --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
       --list--opensummary-color: var(--sidebarform-opensummary-color, );
+      --list--item-grid-template-columns: minmax(0, 1fr);
+      --list--accessories-display: none;
+      --list--rootsummary-marker-display: marker-trailing;
     }
     @media (min-width: 43rem) {
       :where(navigation-split-view [is=sidebar-view] [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[form-style]) {
@@ -2930,6 +3097,9 @@
         --list--details-color: var(--sidebarform-openitem-color, );
         --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarform-opensummary-color, );
+        --list--item-grid-template-columns: minmax(0, 1fr);
+        --list--accessories-display: none;
+        --list--rootsummary-marker-display: marker-trailing;
       }
       :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[preferred-expanded-style], navigation-split-view > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[preferred-expanded-style]) {
         --list--host-background-color: var(--insetform-background-color, );
@@ -2961,6 +3131,12 @@
       :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[preferred-expanded-style], navigation-split-view > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[preferred-expanded-style]) {
         --form-style: inset;
       }
+    }
+  }
+  @media (min-width: 43rem) {
+    :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), navigation-split-view > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
+      --list--item-grid-template-columns: minmax(0, 1fr);
+      --list--accessories-display: none;
     }
   }
 }
@@ -3231,6 +3407,7 @@
   }
   @container table (width > 500px) {
     :where([is=table-row]) {
+      --list--accessories-display: none;
       grid-auto-flow: column;
       grid-auto-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
@@ -4024,25 +4201,11 @@
   }
 }
 @layer sw-utils {
-  :where([foreground-color]) {
-    color: var(--color);
-  }
   :where([foreground-color=secondary]) {
-    --color: var(--mutedtext);
+    color: var(--secondaryLabel);
   }
-  :where(button[tint]) {
-    color: var(--color);
-  }
-  :where(button[tint=blue]) {
-    --color: blue;
-  }
-  :where(.active [foreground-color],
-  [aria-selected=true] [foreground-color]) {
-    color: inherit;
-  }
-  :where(.active button[tint],
-  [aria-selected=true] button[tint]) {
-    color: inherit;
+  :where([foreground-color=blue]) {
+    color: var(--blue);
   }
 }
 @layer sw-utils {
@@ -5301,7 +5464,7 @@
       transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
       will-change: block-size, content-visibility;
     }
-    :where([is=disclosure-group] > summary > [slot=marker]) {
+    :where([is=disclosure-group] > summary)::after {
       transition: transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
       will-change: transform;
     }
@@ -5341,6 +5504,288 @@
     }
   }
 }
+@property --label {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(0% 0 0deg), oklch(100% 0 0deg));
+  inherits: true;
+}
+@media (pointer: fine) {
+  @property --label {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(26.86% 0 0deg), oklch(90.34% 0.0013 106.43deg));
+    inherits: true;
+  }
+}
+@property --secondaryLabel {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(64.83% 0.0073 286.19deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --secondaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(53.26% 0.0062 286.19deg), oklch(75.2% 0.0057 286.26deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --secondaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(70.73% 0.0072 286.21deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --secondaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(63.47% 0.0059 286.23deg), oklch(80.9% 0.0056 286.27deg));
+    inherits: true;
+  }
+}
+@property --tertiaryLabel {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(50.07% 0.0047 286.23deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --tertiaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(58.76% 0.006 286.21deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --tertiaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(56.34% 0.0046 286.25deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --tertiaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(64.8% 0.0059 286.23deg));
+    inherits: true;
+  }
+}
+@property --quaternaryLabel {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(83.12% 0.0069 286.25deg), oklch(40.24% 0.0033 286.25deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --quaternaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(44.66% 0.0032 286.27deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --quaternaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(92.33% 0.0067 286.27deg), oklch(46.83% 0.0032 286.28deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --quaternaryLabel {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(51.09% 0.0031 286.29deg));
+    inherits: true;
+  }
+}
+@property --separator {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(94.31% 0 0deg), oklch(28.58% 0.0036 286.17deg));
+  inherits: true;
+}
+@media (pointer: fine) {
+  @property --separator {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(92.49% 0 0deg), oklch(34.52% 0.0074 84.59deg));
+    inherits: true;
+  }
+}
+@property --link {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(63.21% 0.2018 254.09deg), oklch(65.15% 0.191972 251.4696deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --link {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(57.34% 0.215 260.57deg), oklch(75.59% 0.135 244.32deg));
+    inherits: true;
+  }
+}
+@property --gray {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(64.83% 0.0073 286.19deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(53.26% 0.0062 286.19deg), oklch(75.2% 0.0057 286.26deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(70.73% 0.0072 286.21deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(63.47% 0.0059 286.23deg), oklch(80.9% 0.0056 286.27deg));
+    inherits: true;
+  }
+}
+@property --gray2 {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(50.07% 0.0047 286.23deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray2 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(58.76% 0.006 286.21deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray2 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(56.34% 0.0046 286.25deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray2 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(64.8% 0.0059 286.23deg));
+    inherits: true;
+  }
+}
+@property --gray3 {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(83.12% 0.0069 286.25deg), oklch(40.24% 0.0033 286.25deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray3 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(44.66% 0.0032 286.27deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray3 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(92.33% 0.0067 286.27deg), oklch(46.83% 0.0032 286.28deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray3 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(51.09% 0.0031 286.29deg));
+    inherits: true;
+  }
+}
+@property --gray4 {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(86.22% 0.0068 286.26deg), oklch(34.92% 0.0034 286.22deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray4 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(79.64% 0.0056 286.27deg), oklch(38.74% 0.0033 286.24deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray4 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(95.36% 0.0067 286.27deg), oklch(41.72% 0.0033 286.26deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray4 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(88.95% 0.0054 286.29deg), oklch(45.38% 0.0032 286.27deg));
+    inherits: true;
+  }
+}
+@property --gray5 {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(92.33% 0.0067 286.27deg), oklch(29.39% 0.0036 286.18deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray5 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(88.34% 0.0054 286.29deg), oklch(33.52% 0.0104 285.82deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray5 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(96.26% 0.0066 286.27deg), oklch(34.92% 0.0034 286.22deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray5 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(97.43% 0.0053 286.3deg), oklch(40.24% 0.0033 286.25deg));
+    inherits: true;
+  }
+}
+@property --gray6 {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(96.26% 0.0066 286.27deg), oklch(22.73% 0.0038 286.09deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray6 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(94.15% 0.0067 286.27deg), oklch(26.11% 0.0037 286.14deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray6 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(99.19% 0.003956 286.3273deg), oklch(29.39% 0.0036 286.18deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray6 {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(100% 0 0deg), oklch(33.36% 0.0035 286.21deg));
+    inherits: true;
+  }
+}
+@property --blue {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(63.21% 0.2018 254.09deg), oklch(65.15% 0.191972 251.4696deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --blue {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(57.34% 0.215 260.57deg), oklch(75.59% 0.135 244.32deg));
+    inherits: true;
+  }
+}
 @layer sw-colors {
   :root {
     --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
@@ -5348,8 +5793,6 @@
     --face: light-dark(var(--primary-bg), var(--primary-bg-dark));
     --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
     --text: light-dark(var(--primary-label), var(--primary-label-dark));
-    --separator: light-dark(var(--divider), var(--divider-dark));
-    --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
   }
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog]) {
     --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));

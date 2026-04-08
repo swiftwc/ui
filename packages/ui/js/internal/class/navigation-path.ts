@@ -37,19 +37,19 @@ export class NavigationPath {
   }
 
   get page() {
-    if (undefined === this.#page) this.#refreshPage()
+    if (undefined === this.#page) this.#queryPage()
 
     return this.#page
   }
 
   get toolBarConfig() {
-    if (undefined === this.#toolBarConfig) this.#refreshToolBarConfig()
+    if (undefined === this.#toolBarConfig) this.#queryToolBarConfig()
 
     return this.#toolBarConfig
   }
 
   get slot() {
-    if (undefined === this.#slot) this.#refreshSlot()
+    if (undefined === this.#slot) this.#querySlot()
 
     return this.#slot
   }
@@ -58,17 +58,19 @@ export class NavigationPath {
     this.#component = closestHost(any)
   }
 
-  #refreshPage() {
+  #queryPage() {
     this.#page = this.#component?.querySelector<NavigationPage>(':scope>scroll-view,:scope>[is=sidebar-view]') ?? null
   }
 
-  #refreshToolBarConfig() {
+  #queryToolBarConfig() {
     this.#toolBarConfig = [
-      ...(this.#component?.querySelectorAll<NavigationToolbarConfiguration>(`:scope > tool-bar > tool-bar-item,:scope > tool-bar > tool-bar-item-group`) ?? []),
+      ...(this.#component?.querySelectorAll<NavigationToolbarConfiguration>(
+        `:scope>tool-bar>tool-bar-item,:scope>tool-bar>tool-bar-item-group,:scope>[is=sidebar-view]>tool-bar>tool-bar-item,:scope>[is=sidebar-view]>tool-bar>tool-bar-item-group`
+      ) ?? []),
     ]
   }
 
-  #refreshSlot() {
+  #querySlot() {
     this.#slot =
       this.#component?.querySelector<NavigationHost>(
         ':scope>body-view:not([hidden]),:scope>[is=sheet-view]:not([hidden]),:scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'
@@ -78,11 +80,11 @@ export class NavigationPath {
   hydrate() {
     this.#body = closestBody(this.#component) ?? null
 
-    this.#refreshPage()
+    this.#queryPage()
 
-    this.#refreshToolBarConfig()
+    this.#queryToolBarConfig()
 
-    this.#refreshSlot()
+    this.#querySlot()
 
     return this
   }

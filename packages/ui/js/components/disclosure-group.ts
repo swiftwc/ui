@@ -84,7 +84,7 @@ export class DisclosureGroup extends DetailsBase {
     })
     // })
 
-    el.querySelector(':scope>summary')?.appendChild($('<i class="ph ph-caret-right" slot="marker"></i>'))
+    // el.querySelector(':scope>summary')?.appendChild($('<i class="ph ph-caret-right" slot="marker"></i>'))
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }

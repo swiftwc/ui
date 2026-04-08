@@ -11,7 +11,8 @@
         will-change: block-size, content-visibility;
       }
 
-      :where(& > summary > [slot='marker']) {
+      // :where(& > summary > [slot='marker']) {
+      :where(& > summary)::after {
         transition: transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
         will-change: transform;
       }

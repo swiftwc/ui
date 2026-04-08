@@ -26,6 +26,7 @@
 
     @container table (width > 500px) {
       :where(&) {
+        --list--accessories-display: none;
         // background: red;
         grid-auto-flow: column;
 

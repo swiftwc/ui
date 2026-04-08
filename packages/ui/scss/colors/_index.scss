@@ -1,6 +1,299 @@
 @use '../vars';
 @use '../mixins';
 
+@property --label {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0 0 0), oklch(1 0 0)); // ✅
+  inherits: true;
+}
+@media (pointer: fine) {
+  @property --label {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.2686 0 0), oklch(0.9034 0.0013 106.43)); // ✅
+    inherits: true;
+  }
+}
+
+// =gray
+@property --secondaryLabel {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.6483 0.0073 286.19)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --secondaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.5326 0.0062 286.19), oklch(0.752 0.0057 286.26)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --secondaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.7073 0.0072 286.21));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --secondaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.6347 0.0059 286.23), oklch(0.809 0.0056 286.27));
+    inherits: true;
+  }
+}
+// =gray2
+@property --tertiaryLabel {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.5007 0.0047 286.23)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --tertiaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.5876 0.006 286.21)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --tertiaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5634 0.0046 286.25));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --tertiaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.648 0.0059 286.23));
+    inherits: true;
+  }
+}
+// =gray3
+@property --quaternaryLabel {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.8312 0.0069 286.25), oklch(0.4024 0.0033 286.25));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --quaternaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.4466 0.0032 286.27)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --quaternaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9233 0.0067 286.27), oklch(0.4683 0.0032 286.28));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --quaternaryLabel {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5109 0.0031 286.29));
+    inherits: true;
+  }
+}
+
+@property --separator {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.9431 0 0), oklch(0.2858 0.0036 286.17)); // ✅
+  inherits: true;
+}
+@media (pointer: fine) {
+  @property --separator {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9249 0 0), oklch(0.3452 0.0074 84.59)); // ✅
+    inherits: true;
+  }
+}
+
+@property --link {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.6321 0.2018 254.09), oklch(0.6515 0.191972 251.4696)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --link {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.5734 0.215 260.57), oklch(0.7559 0.135 244.32)); // ✅
+    inherits: true;
+  }
+}
+
+// SECTION: gray colors
+@property --gray {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.6483 0.0073 286.19)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.5326 0.0062 286.19), oklch(0.752 0.0057 286.26)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.7073 0.0072 286.21));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.6347 0.0059 286.23), oklch(0.809 0.0056 286.27));
+    inherits: true;
+  }
+}
+@property --gray2 {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.5007 0.0047 286.23)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray2 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.5876 0.006 286.21)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray2 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5634 0.0046 286.25));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray2 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.648 0.0059 286.23));
+    inherits: true;
+  }
+}
+@property --gray3 {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.8312 0.0069 286.25), oklch(0.4024 0.0033 286.25));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray3 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.4466 0.0032 286.27)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray3 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9233 0.0067 286.27), oklch(0.4683 0.0032 286.28));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray3 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5109 0.0031 286.29));
+    inherits: true;
+  }
+}
+@property --gray4 {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.8622 0.0068 286.26), oklch(0.3492 0.0034 286.22)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray4 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.7964 0.0056 286.27), oklch(0.3874 0.0033 286.24)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray4 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9536 0.0067 286.27), oklch(0.4172 0.0033 286.26));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray4 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8895 0.0054 286.29), oklch(0.4538 0.0032 286.27));
+    inherits: true;
+  }
+}
+@property --gray5 {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.9233 0.0067 286.27), oklch(0.2939 0.0036 286.18));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray5 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8834 0.0054 286.29), oklch(0.3352 0.0104 285.82)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray5 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9626 0.0066 286.27), oklch(0.3492 0.0034 286.22)); // clamp near Gray6 light
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray5 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9743 0.0053 286.3), oklch(0.4024 0.0033 286.25));
+    inherits: true;
+  }
+}
+@property --gray6 {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.9626 0.0066 286.27), oklch(0.2273 0.0038 286.09));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --gray6 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9415 0.0067 286.27), oklch(0.2611 0.0037 286.14)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --gray6 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9919 0.003956 286.3273), oklch(0.2939 0.0036 286.18));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --gray6 {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(1 0 0), oklch(0.3336 0.0035 286.21)); // clamped at 255
+    inherits: true;
+  }
+}
+
+// SECTION: colors
+@property --blue {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.6321 0.2018 254.09), oklch(0.6515 0.191972 251.4696)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --blue {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.5734 0.215 260.57), oklch(0.7559 0.135 244.32)); // ✅
+    inherits: true;
+  }
+}
+
 @layer #{vars.$colors-layer} {
   :root {
     --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
@@ -13,9 +306,9 @@
 
     --text: light-dark(var(--primary-label), var(--primary-label-dark));
 
-    --separator: light-dark(var(--divider), var(--divider-dark));
+    // --separator: light-dark(var(--divider), var(--divider-dark));
 
-    --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
+    // --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
   }
 
   // :where(navigation-stack, navigation-split-view) {

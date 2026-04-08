@@ -16,10 +16,27 @@
     > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
     [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // :where(&:is(summary:not([is='disclosure-group'] [is='disclosure-group'] summary))) {
+      //   box-shadow: inset 0 0 4px magenta;
+      // }
+      // :where(&:is(button)) {
+      // @include mixins.componentize(summary);
+      // grid-template-columns: var(--list--buttonitem-grid-template-columns);
+      // }
+      // :where(&:is(summary)) {
+      //   --disclosure--marker-display: var(--list--item-marker-display,);
+      //   // outline: red solid 50px;
+      //   // @include mixins.componentize(item);
+      //   // grid-template-columns: var(--list--summaryitem-grid-template-columns);
+      // }
       :where(&) {
         // outline: magenta solid 4px;
         // box-shadow: inset 0 0 4px magenta;
         @include mixins.componentize(item);
+
+        grid-auto-flow: column;
+        grid-template-columns: var(--list--item-grid-template-columns,);
+        grid-template-rows: minmax(0, 1fr);
       }
       @media (prefers-reduced-motion: no-preference) {
         :where(&) {
@@ -183,6 +200,8 @@
     }
     > [is='disclosure-group'],
     > section-view > [is='disclosure-group'] {
+      --disclosure-style: var(--list--rootsummary-marker-display,);
+
       > summary {
         :where(&) {
           --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
@@ -386,12 +405,12 @@
         position: relative;
 
         &::after {
+          pointer-events: none;
           content: '';
           position: absolute;
           inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
           inline-size: 1px;
           background: var(--list--separator-background-color, var(--separator));
-          pointer-events: none;
         }
       }
 
@@ -459,6 +478,58 @@
         }
       }
     }
+
+    // SECTION: add accessories
+    // &:has(summary[marker-placement='leading']) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // --itempadistart: 4rem;
+
+      // --item-accessory-size: 24px;
+
+      // --list--item-grid-template-columns: minmax(0, 1fr) 50px;
+
+      &:not(:is(button)) {
+        --list--accessories-display: none;
+        // --list--accessories-padding-inline-end: 24px;
+      }
+
+      // &:is(button) {
+      // position: relative;
+      // display: grid;
+      // grid-template-columns: minmax(0, 1fr) 24px;
+      &:is(button) {
+        :where(&) {
+          position: relative;
+
+          ::after {
+            pointer-events: none;
+            content: '';
+            position: absolute;
+            inset: 50% var(--itempadiend) auto auto;
+            display: var(--list--accessories-display, grid);
+            block-size: 1.1rem;
+            inline-size: 1.1rem;
+            -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+            mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+            background-color: var(--quaternaryLabel);
+            place-self: center;
+            transform: translateY(-50%) translateX(50%);
+          }
+        }
+      }
+      // }
+    }
+    // }
+    // [is='disclosure-group'] summary [slot='marker'] {
+    //   font-size: calc(var(--list--accessory-size) * 1rem);
+    // }
+    // [is='disclosure-group']:has(> summary[marker-placement='leading']) {
+    //   > :not(summary) {
+    //     --itempadistart: calc(calc(var(--root-font-size) * 1px) * var(--list--accessory-size) + var(--list--item-padding-inline-start, 0px));
+    //   }
+    // }
   }
 }
 
@@ -482,11 +553,15 @@
     > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
     section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
     [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // :where(&:is(button)) {
       @include mixins.add-jsactive-state {
         --itemface: var(--itemactiveface,);
         --itemtext: var(--itemactivetext,);
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+        --secondaryLabel: var(--itemtext);
+        --blue: var(--itemtext);
       }
 
       &[aria-selected='true'] {
@@ -495,8 +570,12 @@
           --itemtext: var(--itemactivetext,);
 
           --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+          --secondaryLabel: var(--itemtext);
+          --blue: var(--itemtext);
         }
       }
+      // }
     }
   }
 }

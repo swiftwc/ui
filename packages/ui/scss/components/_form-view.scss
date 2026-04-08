@@ -77,12 +77,16 @@ $form-ifs: (
     //
     --list--separator-background-color: transparent,
     --list--activeseparator-background-color: transparent,
-
     //
     --list--details-background-color: var(--sidebarform-openitem-background-color,),
     --list--details-color: var(--sidebarform-openitem-color,),
     --list--opensummary-background-color: var(--sidebarform-opensummary-background-color,),
     --list--opensummary-color: var(--sidebarform-opensummary-color,),
+    //
+    --list--item-grid-template-columns: minmax(0, 1fr),
+    --list--accessories-display: none,
+    //
+    --list--rootsummary-marker-display: marker-trailing,
   ),
 );
 $form-elses: (
@@ -95,6 +99,9 @@ $form-elses: (
   --list--highlighteditem-background-color: var(--form-highlighteditem-background-color,),
   --list--item-color: var(--form-item-color,),
   --list--highlighteditem-color: var(--form-highlighteditem-color,),
+  //
+  --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-display: grid,
 );
 
 @layer #{vars.$components-layer} {
@@ -171,6 +178,15 @@ $form-elses: (
           :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
             --form-style: inset;
           }
+        }
+      }
+
+      // FINALLY AFTER ALL IFS
+      // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
+      @include mixins.if-2col-split-view-fits {
+        :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
+          --list--item-grid-template-columns: minmax(0, 1fr);
+          --list--accessories-display: none;
         }
       }
     }

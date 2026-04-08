@@ -75,12 +75,16 @@ $list-ifs: (
     //
     --list--separator-background-color: transparent,
     --list--activeseparator-background-color: transparent,
-
     //
     --list--details-background-color: var(--sidebarlist-openitem-background-color,),
     --list--details-color: var(--sidebarlist-openitem-color,),
     --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color,),
     --list--opensummary-color: var(--sidebarlist-opensummary-color,),
+    //
+    --list--item-grid-template-columns: minmax(0, 1fr),
+    --list--accessories-display: none,
+    //
+    --list--rootsummary-marker-display: marker-trailing,
   ),
 );
 $list-elses: (
@@ -98,6 +102,9 @@ $list-elses: (
   --list--details-color: var(--list-openitem-color,),
   --list--opensummary-background-color: var(--list-opensummary-background-color,),
   --list--opensummary-color: var(--list-opensummary-color,),
+  //
+  --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-display: grid,
 );
 
 @layer #{vars.$components-layer} {
@@ -169,6 +176,51 @@ $list-elses: (
           :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
             --list-style: inset;
           }
+        }
+      }
+
+      &[preferred-root-disclosure-style='sidebar'] {
+        --list--rootsummary-color: var(--text);
+        --list--selectedrootsummary-color: var(--text);
+        --list--rootsummary-background-color: transparent;
+        --list--selectedrootsummary-background-color: transparent;
+        --list--rootsummary-padding-inline-start: var(--list--item-padding-inline-start);
+        --list--rootsummary-padding-inline-end: var(--list--item-padding-inline-start);
+        --list--rootsummary-padding-block-start: 5px;
+        --list--rootsummary-padding-block-end: 5px;
+
+        > [is='disclosure-group'] ~ [is='disclosure-group'],
+        > section-view > [is='disclosure-group'] ~ [is='disclosure-group'] {
+          margin-block-start: var(--list-gap);
+
+          &::before {
+            display: none;
+          }
+        }
+
+        > [is='disclosure-group'],
+        > section-view > [is='disclosure-group'] {
+          --list--details-background-color: var(--list--item-background-color);
+          --list--opensummary-background-color: var(--list--item-background-color);
+
+          > details,
+          > button:first-of-type {
+            --itemradiustl: var(--list--item-border-radius);
+            --itemradiustr: var(--list--item-border-radius);
+
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+
+      // FINALLY AFTER ALL IFS
+      // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
+      @include mixins.if-2col-split-view-fits {
+        :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
+          --list--item-grid-template-columns: minmax(0, 1fr);
+          --list--accessories-display: none;
         }
       }
     }

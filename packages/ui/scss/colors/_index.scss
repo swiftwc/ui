@@ -1,97 +1,235 @@
 @use '../vars';
 @use '../mixins';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
 
-@property --label {
+$color-tokens: (
+  // SECTION: SystemColor
+  canvas: (
+      props: (
+        inherits: false,
+      ),
+      media: (
+        base: (
+          light: oklch(1 0 0),
+          dark: oklch(0 0 0),
+        ),
+      ),
+    ),
+  canvastext: (
+    props: (
+      inherits: false,
+    ),
+    media: (
+      base: (
+        light: oklch(0 0 0),
+        dark: oklch(1 0 0),
+      ),
+    ),
+  ),
+  // SECTION: bgs
+  background: (
+      props: (
+        inherits: true,
+      ),
+      media: (
+        base: (
+          light: oklch(1 0 0),
+          dark: oklch(0 0 0),
+        ),
+        // contrast: (
+        //   light: red,
+        //   dark: green,
+        // ),
+        // fine: (
+        //   light: red,
+        //   dark: green,
+        // ),
+        // fine-contrast: (
+        //   light: red,
+        //   dark: green,
+         // ),
+      ),
+    ),
+  secondaryBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0.2186 0.0039 286.08),
+      ),
+    ),
+  ),
+  tertiaryBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(1 0 0),
+        dark: oklch(0.2735 0.0036 286.16),
+      ),
+    ),
+  ),
+  groupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0 0 0),
+      ),
+    ),
+  ),
+  secondaryGroupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(1 0 0),
+        dark: oklch(0.2186 0.0039 286.08),
+      ),
+    ),
+  ),
+  tertiaryGroupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0.2735 0.0036 286.16),
+      ),
+    ),
+  )
+);
+
+@include mixins.generate-color-tokens($color-tokens);
+
+// SECTION: semantic colors
+@property --primary {
   syntax: '<color>';
   initial-value: light-dark(oklch(0 0 0), oklch(1 0 0)); // ✅
   inherits: true;
 }
 @media (pointer: fine) {
-  @property --label {
+  @property --primary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.2686 0 0), oklch(0.9034 0.0013 106.43)); // ✅
     inherits: true;
   }
 }
-
 // =gray
-@property --secondaryLabel {
+@property --secondary {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.6483 0.0073 286.19)); // ✅
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.5326 0.0062 286.19), oklch(0.752 0.0057 286.26)); // ✅
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.7073 0.0072 286.21));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.6347 0.0059 286.23), oklch(0.809 0.0056 286.27));
     inherits: true;
   }
 }
 // =gray2
-@property --tertiaryLabel {
+@property --tertiary {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.5007 0.0047 286.23)); // ✅
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.5876 0.006 286.21)); // ✅
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5634 0.0046 286.25));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.648 0.0059 286.23));
     inherits: true;
   }
 }
 // =gray3
-@property --quaternaryLabel {
+@property --quaternary {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.8312 0.0069 286.25), oklch(0.4024 0.0033 286.25));
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.4466 0.0032 286.27)); // ✅
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.9233 0.0067 286.27), oklch(0.4683 0.0032 286.28));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5109 0.0031 286.29));
+    inherits: true;
+  }
+}
+// =gray4
+@property --quinary {
+  syntax: '<color>';
+  initial-value: light-dark(oklch(0.8622 0.0068 286.26), oklch(0.3492 0.0034 286.22)); // ✅
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --quinary {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.7964 0.0056 286.27), oklch(0.3874 0.0033 286.24)); // ✅
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --quinary {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.9536 0.0067 286.27), oklch(0.4172 0.0033 286.26));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --quinary {
+    syntax: '<color>';
+    initial-value: light-dark(oklch(0.8895 0.0054 286.29), oklch(0.4538 0.0032 286.27));
     inherits: true;
   }
 }
@@ -109,13 +247,14 @@
   }
 }
 
-@property --link {
+// =blue
+@property --accentColor {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.6321 0.2018 254.09), oklch(0.6515 0.191972 251.4696)); // ✅
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --link {
+  @property --accentColor {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.5734 0.215 260.57), oklch(0.7559 0.135 244.32)); // ✅
     inherits: true;
@@ -281,6 +420,16 @@
 }
 
 // SECTION: colors
+@property --black {
+  syntax: '<color>';
+  initial-value: oklch(0 0 0); // ✅
+  inherits: true;
+}
+@property --white {
+  syntax: '<color>';
+  initial-value: oklch(1 0 0); // ✅
+  inherits: true;
+}
 @property --blue {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.6321 0.2018 254.09), oklch(0.6515 0.191972 251.4696)); // ✅
@@ -296,15 +445,15 @@
 
 @layer #{vars.$colors-layer} {
   :root {
-    --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
-
-    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
+    // --background: light-dark(oklch(1 0 0), oklch(0 0 0)); // ✅
 
     // ANCHOR: level 0
-    --face: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
+    --face: var(--background); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    --face2: var(--secondaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    --face3: var(--tertiaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
 
-    --text: light-dark(var(--primary-label), var(--primary-label-dark));
+    --text: var(--primary); //light-dark(var(--primary-label), var(--primary-label-dark));
 
     // --separator: light-dark(var(--divider), var(--divider-dark));
 
@@ -317,10 +466,16 @@
   // }
 
   :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog']) {
+    // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
     // ANCHOR: level 1
-    --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
+    --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+    --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
 
-    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+
+    // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   :where(navigation-split-view > [is='sidebar-view']) {

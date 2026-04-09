@@ -340,3 +340,68 @@
     }
   }
 }
+
+@mixin property-rule($name, $value, $props) {
+  @property --#{$name} {
+    syntax: '<color>';
+    initial-value: #{$value};
+    @each $k, $v in $props {
+      #{$k}: #{$v};
+    }
+  }
+}
+
+@mixin generate-color-tokens($tokens) {
+  $media-variants: (
+    base: '',
+    contrast: '(prefers-contrast: more)',
+    fine: '(pointer: fine)',
+    fine-contrast: '(pointer: fine) and (prefers-contrast: more)',
+  );
+
+  $color-schemes: (
+    light: '',
+    dark: '(prefers-color-scheme: dark)',
+  );
+
+  @each $token, $data in $tokens {
+    $props: map.get($data, props);
+    $media-map: map.get($data, media);
+
+    @each $variant, $mq in $media-variants {
+      $values: map.get($media-map, $variant);
+
+      @if $values {
+        @each $scheme, $scheme-mq in $color-schemes {
+          $value: map.get($values, $scheme);
+
+          // Build media query safely
+          $parts: ();
+          @if string.length($mq) > 0 {
+            $parts: list.append($parts, $mq, comma);
+          }
+          @if string.length($scheme-mq) > 0 {
+            $parts: list.append($parts, $scheme-mq, comma);
+          }
+
+          @if list.length($parts) == 0 {
+            @include property-rule($token, $value, $props);
+          } @else {
+            // Interpolate each part individually, separated by " and "
+            $query: '';
+            @each $part in $parts {
+              @if string.length($query) == 0 {
+                $query: '#{$part}';
+              } @else {
+                $query: '#{$query} and #{$part}';
+              }
+            }
+            @media #{$query} {
+              @include property-rule($token, $value, $props);
+            }
+          }
+        }
+      }
+    }
+  }
+}

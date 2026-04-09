@@ -518,7 +518,7 @@
             inline-size: var(--list--accessories-size, 1.1rem);
             -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
             mask: url(vars.$disclosure-affordance) no-repeat center / contain;
-            background-color: var(--quaternaryLabel);
+            background-color: var(--quaternary);
             place-self: center;
             transform: translateY(-50%) translateX(120%);
           }
@@ -565,7 +565,7 @@
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-        --secondaryLabel: var(--itemtext);
+        --secondary: var(--itemtext);
         --blue: var(--itemtext);
       }
 
@@ -576,7 +576,7 @@
 
           --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-          --secondaryLabel: var(--itemtext);
+          --secondary: var(--itemtext);
           --blue: var(--itemtext);
         }
       }

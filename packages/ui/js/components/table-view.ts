@@ -144,7 +144,7 @@ export class TableView extends HTMLElement {
       CleanupRegistry.register(this, onoff('click', this.#handleMenuClick, this.#compactToolbarItem).on(), 'compact_toolbar')
     }
 
-    this.#compactToolbarItem.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
+    this.#compactToolbarItem.innerHTML = `<label-view slot="label" system-image="dots-three"></label-view>`
 
     for (const node of this.#colSlot?.assignedElements({ flatten: true }) ?? []) {
       if (!node.matches('[is=table-column]')) continue

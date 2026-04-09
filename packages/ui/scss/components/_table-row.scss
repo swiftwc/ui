@@ -42,7 +42,7 @@
 
       > :nth-child(n + 2) {
         :where(&) {
-          color: var(--secondaryLabel);
+          color: var(--secondary);
         }
       }
     }
@@ -52,7 +52,7 @@
         :where(&) {
           display: none;
 
-          color: var(--secondaryLabel);
+          color: var(--secondary);
         }
       }
 

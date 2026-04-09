@@ -159,15 +159,15 @@
     --list-item-padding-inline-end: 1rem;
     --list-item-padding-block-start: 1rem;
     --list-item-padding-block-start: 1rem;
-    --list-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
+    --list-item-background-color: var(--background);
     --list-item-color: var(--text);
     --list-highlighteditem-background-color: var(--tint1g);
     --list-highlighteditem-color: ;
-    --insetlist-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
+    --insetlist-item-background-color: var(--background);
     --insetlist-item-color: var(--text);
     --insetlist-highlighteditem-background-color: var(--tint);
     --insetlist-highlighteditem-color: var(--tintcontrast);
-    --insetgroupedlist-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08));
+    --insetgroupedlist-item-background-color: var(--secondaryGroupedBackground);
     --insetgroupedlist-item-color: var(--text);
     --insetgroupedlist-highlighteditem-background-color: var(--tint);
     --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
@@ -195,15 +195,15 @@
     --form-item-padding-inline-end: 1rem;
     --form-item-padding-block-start: 1rem;
     --form-item-padding-block-start: 1rem;
-    --form-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
+    --form-item-background-color: var(--background);
     --form-item-color: var(--text);
     --form-highlighteditem-background-color: var(--tint1g);
     --form-highlighteditem-color: ;
-    --insetform-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark));
+    --insetform-item-background-color: var(--background);
     --insetform-item-color: var(--text);
     --insetform-highlighteditem-background-color: var(--tint);
     --insetform-highlighteditem-color: var(--tintcontrast);
-    --insetgroupedform-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08));
+    --insetgroupedform-item-background-color: var(--secondaryGroupedBackground);
     --insetgroupedform-item-color: var(--text);
     --insetgroupedform-highlighteditem-background-color: var(--tint);
     --insetgroupedform-highlighteditem-color: var(--tintcontrast);
@@ -228,8 +228,8 @@
     --sidebarform-opensummary-background-color: transparent;
     --sidebarform-opensummary-color: var(--text);
     --insetform-item-border-radius: 1rem;
-    --insetgroupedlist-background-color: var(--face);
-    --insetgroupedform-background-color: var(--face);
+    --insetgroupedlist-background-color: var(--groupedBackground);
+    --insetgroupedform-background-color: var(--groupedBackground);
     --insetlist-padding-inline: 1rem;
     --insetlist-padding-block: 0rem;
     --insetform-padding-inline: 1rem;
@@ -765,7 +765,7 @@
     inline-size: var(--list--accessories-size, 1.1rem);
     -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
-    background-color: var(--quaternaryLabel);
+    background-color: var(--quaternary);
     place-self: center;
     transform: translateY(-50%) translateX(120%);
   }
@@ -794,7 +794,7 @@
     --itemface: var(--itemactiveface,);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
-    --secondaryLabel: var(--itemtext);
+    --secondary: var(--itemtext);
     --blue: var(--itemtext);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
@@ -807,7 +807,7 @@
     --itemface: var(--itemactiveface);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
-    --secondaryLabel: var(--itemtext);
+    --secondary: var(--itemtext);
     --blue: var(--itemtext);
   }
 }
@@ -3211,7 +3211,7 @@
     padding-inline: 1rem;
     padding-block: 0.5rem;
     color: var(--blue);
-    background-color: lightgray;
+    background-color: var(--separator);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-header-stack), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-footer-stack) {
     padding-inline: 1rem;
@@ -3221,10 +3221,12 @@
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-header-stack) {
     grid-auto-flow: column;
     border-radius: var(--insetlist-item-border-radius) var(--insetlist-item-border-radius) 0 0;
+    border-bottom: 1px solid var(--separator);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-footer-stack) {
     grid-auto-flow: column;
     border-radius: 0 0 var(--insetlist-item-border-radius) var(--insetlist-item-border-radius);
+    border-top: 1px solid var(--separator);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view):has(> [slot=column]:nth-of-type(2)):not(:has(> [slot=column]:nth-of-type(3)))) {
     --table--expanded-columns: 2;
@@ -3399,13 +3401,13 @@
       grid-template-rows: minmax(0, 1fr);
     }
     :where([is=table-row] > :nth-child(n+2)) {
-      color: var(--secondaryLabel);
+      color: var(--secondary);
     }
   }
   @container table (width <= 500px) {
     :where([is=table-row] > :nth-child(n+2)) {
       display: none;
-      color: var(--secondaryLabel);
+      color: var(--secondary);
     }
     :where(table-view[preferred-compact-template="title:trailing:subtitle"] > [is=table-row]) {
       grid-template-columns: 1fr 1fr;
@@ -4187,11 +4189,22 @@
   }
 }
 @layer sw-utils {
-  :where([foreground-color=secondary]) {
-    color: var(--secondaryLabel);
+  :where([background-style=grouped]) {
+    --background: var(--groupedBackground);
+    --secondaryBackground: var(--secondaryGroupedBackground);
+    --tertiaryBackground: var(--tertiaryGroupedBackground);
+    --face: var(--background);
+    --face2: var(--secondaryBackground);
+    --face3: var(--tertiaryBackground);
   }
-  :where([foreground-color=blue]) {
+  :where([foreground=secondary]) {
+    color: var(--secondary);
+  }
+  :where([foreground=blue]) {
     color: var(--blue);
+  }
+  :where([foreground="blue.secondary"]) {
+    color: var(--blue2);
   }
 }
 @layer sw-utils {
@@ -5490,93 +5503,215 @@
     }
   }
 }
-@property --label {
+@property --canvas {
+  syntax: "<color>";
+  initial-value: oklch(100% 0 0deg);
+  inherits: false;
+}
+@media (prefers-color-scheme: dark) {
+  @property --canvas {
+    syntax: "<color>";
+    initial-value: oklch(0% 0 0deg);
+    inherits: false;
+  }
+}
+@property --canvastext {
+  syntax: "<color>";
+  initial-value: oklch(0% 0 0deg);
+  inherits: false;
+}
+@media (prefers-color-scheme: dark) {
+  @property --canvastext {
+    syntax: "<color>";
+    initial-value: oklch(100% 0 0deg);
+    inherits: false;
+  }
+}
+@property --background {
+  syntax: "<color>";
+  initial-value: oklch(100% 0 0deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --background {
+    syntax: "<color>";
+    initial-value: oklch(0% 0 0deg);
+    inherits: true;
+  }
+}
+@property --secondaryBackground {
+  syntax: "<color>";
+  initial-value: oklch(95.43% 0.0067 295.45deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --secondaryBackground {
+    syntax: "<color>";
+    initial-value: oklch(21.86% 0.0039 286.08deg);
+    inherits: true;
+  }
+}
+@property --tertiaryBackground {
+  syntax: "<color>";
+  initial-value: oklch(100% 0 0deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --tertiaryBackground {
+    syntax: "<color>";
+    initial-value: oklch(27.35% 0.0036 286.16deg);
+    inherits: true;
+  }
+}
+@property --groupedBackground {
+  syntax: "<color>";
+  initial-value: oklch(95.43% 0.0067 295.45deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --groupedBackground {
+    syntax: "<color>";
+    initial-value: oklch(0% 0 0deg);
+    inherits: true;
+  }
+}
+@property --secondaryGroupedBackground {
+  syntax: "<color>";
+  initial-value: oklch(100% 0 0deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --secondaryGroupedBackground {
+    syntax: "<color>";
+    initial-value: oklch(21.86% 0.0039 286.08deg);
+    inherits: true;
+  }
+}
+@property --tertiaryGroupedBackground {
+  syntax: "<color>";
+  initial-value: oklch(95.43% 0.0067 295.45deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --tertiaryGroupedBackground {
+    syntax: "<color>";
+    initial-value: oklch(27.35% 0.0036 286.16deg);
+    inherits: true;
+  }
+}
+@property --primary {
   syntax: "<color>";
   initial-value: light-dark(oklch(0% 0 0deg), oklch(100% 0 0deg));
   inherits: true;
 }
 @media (pointer: fine) {
-  @property --label {
+  @property --primary {
     syntax: "<color>";
     initial-value: light-dark(oklch(26.86% 0 0deg), oklch(90.34% 0.0013 106.43deg));
     inherits: true;
   }
 }
-@property --secondaryLabel {
+@property --secondary {
   syntax: "<color>";
   initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(64.83% 0.0073 286.19deg));
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: "<color>";
     initial-value: light-dark(oklch(53.26% 0.0062 286.19deg), oklch(75.2% 0.0057 286.26deg));
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: "<color>";
     initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(70.73% 0.0072 286.21deg));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --secondaryLabel {
+  @property --secondary {
     syntax: "<color>";
     initial-value: light-dark(oklch(63.47% 0.0059 286.23deg), oklch(80.9% 0.0056 286.27deg));
     inherits: true;
   }
 }
-@property --tertiaryLabel {
+@property --tertiary {
   syntax: "<color>";
   initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(50.07% 0.0047 286.23deg));
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: "<color>";
     initial-value: light-dark(oklch(64.83% 0.0073 286.19deg), oklch(58.76% 0.006 286.21deg));
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: "<color>";
     initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(56.34% 0.0046 286.25deg));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --tertiaryLabel {
+  @property --tertiary {
     syntax: "<color>";
     initial-value: light-dark(oklch(74.6% 0.0071 286.23deg), oklch(64.8% 0.0059 286.23deg));
     inherits: true;
   }
 }
-@property --quaternaryLabel {
+@property --quaternary {
   syntax: "<color>";
   initial-value: light-dark(oklch(83.12% 0.0069 286.25deg), oklch(40.24% 0.0033 286.25deg));
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: "<color>";
     initial-value: light-dark(oklch(75.2% 0.0057 286.26deg), oklch(44.66% 0.0032 286.27deg));
     inherits: true;
   }
 }
 @media (pointer: fine) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: "<color>";
     initial-value: light-dark(oklch(92.33% 0.0067 286.27deg), oklch(46.83% 0.0032 286.28deg));
     inherits: true;
   }
 }
 @media (pointer: fine) and (prefers-contrast: more) {
-  @property --quaternaryLabel {
+  @property --quaternary {
     syntax: "<color>";
     initial-value: light-dark(oklch(84.64% 0.0055 286.28deg), oklch(51.09% 0.0031 286.29deg));
+    inherits: true;
+  }
+}
+@property --quinary {
+  syntax: "<color>";
+  initial-value: light-dark(oklch(86.22% 0.0068 286.26deg), oklch(34.92% 0.0034 286.22deg));
+  inherits: true;
+}
+@media (prefers-contrast: more) {
+  @property --quinary {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(79.64% 0.0056 286.27deg), oklch(38.74% 0.0033 286.24deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --quinary {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(95.36% 0.0067 286.27deg), oklch(41.72% 0.0033 286.26deg));
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-contrast: more) {
+  @property --quinary {
+    syntax: "<color>";
+    initial-value: light-dark(oklch(88.95% 0.0054 286.29deg), oklch(45.38% 0.0032 286.27deg));
     inherits: true;
   }
 }
@@ -5592,13 +5727,13 @@
     inherits: true;
   }
 }
-@property --link {
+@property --accentColor {
   syntax: "<color>";
   initial-value: light-dark(oklch(63.21% 0.2018 254.09deg), oklch(65.15% 0.191972 251.4696deg));
   inherits: true;
 }
 @media (prefers-contrast: more) {
-  @property --link {
+  @property --accentColor {
     syntax: "<color>";
     initial-value: light-dark(oklch(57.34% 0.215 260.57deg), oklch(75.59% 0.135 244.32deg));
     inherits: true;
@@ -5760,6 +5895,16 @@
     inherits: true;
   }
 }
+@property --black {
+  syntax: "<color>";
+  initial-value: oklch(0% 0 0deg);
+  inherits: true;
+}
+@property --white {
+  syntax: "<color>";
+  initial-value: oklch(100% 0 0deg);
+  inherits: true;
+}
 @property --blue {
   syntax: "<color>";
   initial-value: light-dark(oklch(63.21% 0.2018 254.09deg), oklch(65.15% 0.191972 251.4696deg));
@@ -5774,15 +5919,16 @@
 }
 @layer sw-colors {
   :root {
-    --canvas: light-dark(var(--system-bg), var(--system-bg-dark));
-    --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
-    --face: light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
-    --text: light-dark(var(--primary-label), var(--primary-label-dark));
+    --face: var(--background);
+    --face2: var(--secondaryBackground);
+    --face3: var(--tertiaryBackground);
+    --text: var(--primary);
   }
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog]) {
-    --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
-    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --face: var(--background);
+    --face2: var(--secondaryBackground);
+    --face3: var(--tertiaryBackground);
+    --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {

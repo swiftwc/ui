@@ -203,17 +203,17 @@
       --#{$v}-item-padding-block-start: 1rem;
       --#{$v}-item-padding-block-start: 1rem;
 
-      --#{$v}-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
+      --#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --#{$v}-item-color: var(--text);
       --#{$v}-highlighteditem-background-color: var(--tint1g);
       --#{$v}-highlighteditem-color: ;
 
-      --inset#{$v}-item-background-color: light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
+      --inset#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --inset#{$v}-item-color: var(--text);
       --inset#{$v}-highlighteditem-background-color: var(--tint);
       --inset#{$v}-highlighteditem-color: var(--tintcontrast);
 
-      --insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
+      --insetgrouped#{$v}-item-background-color: var(--secondaryGroupedBackground); //light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
       --insetgrouped#{$v}-item-color: var(--text);
       --insetgrouped#{$v}-highlighteditem-background-color: var(--tint);
       --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
@@ -248,8 +248,8 @@
 
     --insetform-item-border-radius: 1rem;
 
-    --insetgroupedlist-background-color: var(--face);
-    --insetgroupedform-background-color: var(--face);
+    --insetgroupedlist-background-color: var(--groupedBackground);
+    --insetgroupedform-background-color: var(--groupedBackground);
 
     --insetlist-padding-inline: 1rem;
     --insetlist-padding-block: 0rem;

@@ -1,12 +1,26 @@
 @use '../vars';
 
 @layer #{vars.$utils-layer} {
-  :where([foreground-color='secondary']) {
-    color: var(--secondaryLabel);
+  :where([background-style='grouped']) {
+    --background: var(--groupedBackground);
+    --secondaryBackground: var(--secondaryGroupedBackground);
+    --tertiaryBackground: var(--tertiaryGroupedBackground);
+
+    --face: var(--background);
+    --face2: var(--secondaryBackground);
+    --face3: var(--tertiaryBackground);
   }
 
-  :where([foreground-color='blue']) {
+  :where([foreground='secondary']) {
+    color: var(--secondary);
+  }
+
+  :where([foreground='blue']) {
     color: var(--blue);
+  }
+
+  :where([foreground='blue.secondary']) {
+    color: var(--blue2);
   }
 
   // button {

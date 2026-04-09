@@ -81,7 +81,7 @@ $list-ifs: (
     --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color,),
     --list--opensummary-color: var(--sidebarlist-opensummary-color,),
     //
-    --list--item-grid-template-columns: minmax(0, 1fr),
+    // --list--item-grid-template-columns: minmax(0, 1fr),
     --list--accessories-display: none,
     //
     --list--rootsummary-marker-display: marker-trailing,
@@ -103,7 +103,8 @@ $list-elses: (
   --list--opensummary-background-color: var(--list-opensummary-background-color,),
   --list--opensummary-color: var(--list-opensummary-color,),
   //
-  --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  // --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-size: 1.1rem,
   --list--accessories-display: grid,
 );
 
@@ -219,7 +220,7 @@ $list-elses: (
       // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
       @include mixins.if-2col-split-view-fits {
         :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
-          --list--item-grid-template-columns: minmax(0, 1fr);
+          // --list--item-grid-template-columns: minmax(0, 1fr);
           --list--accessories-display: none;
         }
       }

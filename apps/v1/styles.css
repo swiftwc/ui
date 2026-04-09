@@ -373,9 +373,6 @@
     padding-inline: var(--itempadistart,) var(--itempadiend,);
     padding-block: var(--itempadbstart,) var(--itempadbend,);
     border-radius: var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,);
-    grid-auto-flow: column;
-    grid-template-columns: var(--list--item-grid-template-columns, );
-    grid-template-rows: minmax(0, 1fr);
   }
   @media (prefers-reduced-motion: no-preference) {
     :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
@@ -420,8 +417,8 @@
     margin-block-end: calc(var(--list--details-gap, 0px) / 2);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
-    --itempadistart: var(--list--item-padding-inline-start,);
-    --itempadiend: var(--list--item-padding-inline-end,);
+    --itempadistart: var(--list--item-padding-inline-start, 0rem);
+    --itempadiend: calc(var(--list--item-padding-inline-end, 0rem) + var(--list--accessories-size, 0rem));
     --itempadbstart: var(--list--item-padding-block-start,);
     --itempadbend: var(--list--item-padding-block-end,);
     --itemradiustr: var(--list--item-border-radius,);
@@ -560,8 +557,8 @@
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view))::before {
     content: "";
     position: absolute;
-    inset: 0 1rem auto 1rem;
-    height: 1px;
+    inset: 0rem calc(var(--list--item-padding-inline-end, 0rem) + var(--list--media-inner-padding-inline-end, 0rem)) auto calc(var(--list--item-padding-inline-start, 0rem) + var(--list--media-inner-padding-inline-start, 0rem));
+    block-size: 1px;
     background: var(--list--separator-background-color, var(--separator));
     pointer-events: none;
   }
@@ -743,15 +740,6 @@
     --itemradiusbr: var(--list--item-border-radius,);
     --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:is(button)) {
-    --list--accessories-display: none;
-  }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
@@ -767,19 +755,19 @@
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button)) ::after {
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button))::after {
     pointer-events: none;
     content: "";
     position: absolute;
     inset: 50% var(--itempadiend) auto auto;
     display: var(--list--accessories-display, grid);
-    block-size: 1.1rem;
-    inline-size: 1.1rem;
+    block-size: var(--list--accessories-size, 1.1rem);
+    inline-size: var(--list--accessories-size, 1.1rem);
     -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     background-color: var(--quaternaryLabel);
     place-self: center;
-    transform: translateY(-50%) translateX(50%);
+    transform: translateY(-50%) translateX(120%);
   }
 }
 @layer sw-colors {
@@ -2579,7 +2567,7 @@
     --list--details-color: var(--list-openitem-color, );
     --list--opensummary-background-color: var(--list-opensummary-background-color, );
     --list--opensummary-color: var(--list-opensummary-color, );
-    --list--item-grid-template-columns: minmax(0, 1fr) 1rem;
+    --list--accessories-size: 1.1rem;
     --list--accessories-display: grid;
   }
   @supports (x: if(else:red)) {
@@ -2615,7 +2603,6 @@
       --list--selectedrootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--list-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--list-style: sidebar): transparent; );
-      --list--item-grid-template-columns: if(style(--list-style: sidebar): minmax(0, 1fr); else: minmax(0, 1fr) 1rem ;);
       --list--accessories-display: if(style(--list-style: sidebar): none; else: grid ;);
       --list--rootsummary-marker-display: if(style(--list-style: sidebar): marker-trailing; );
     }
@@ -2689,7 +2676,6 @@
         --list--details-color: var(--sidebarlist-openitem-color, );
         --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarlist-opensummary-color, );
-        --list--item-grid-template-columns: minmax(0, 1fr);
         --list--accessories-display: none;
         --list--rootsummary-marker-display: marker-trailing;
       }
@@ -2757,7 +2743,6 @@
       --list--details-color: var(--sidebarlist-openitem-color, );
       --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
       --list--opensummary-color: var(--sidebarlist-opensummary-color, );
-      --list--item-grid-template-columns: minmax(0, 1fr);
       --list--accessories-display: none;
       --list--rootsummary-marker-display: marker-trailing;
     }
@@ -2791,7 +2776,6 @@
         --list--details-color: var(--sidebarlist-openitem-color, );
         --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarlist-opensummary-color, );
-        --list--item-grid-template-columns: minmax(0, 1fr);
         --list--accessories-display: none;
         --list--rootsummary-marker-display: marker-trailing;
       }
@@ -2865,7 +2849,6 @@
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view), navigation-split-view > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
-      --list--item-grid-template-columns: minmax(0, 1fr);
       --list--accessories-display: none;
     }
   }
@@ -2882,7 +2865,7 @@
     --list--highlighteditem-background-color: var(--form-highlighteditem-background-color, );
     --list--item-color: var(--form-item-color, );
     --list--highlighteditem-color: var(--form-highlighteditem-color, );
-    --list--item-grid-template-columns: minmax(0, 1fr) 1rem;
+    --list--accessories-size: 1.1rem;
     --list--accessories-display: grid;
   }
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :where(section-view:has(> [slot=header]), section-view:has(> [slot=footer]) + section-view) {
@@ -2921,7 +2904,6 @@
       --list--selectedrootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
       --list--separator-background-color: if(style(--form-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--form-style: sidebar): transparent; );
-      --list--item-grid-template-columns: if(style(--form-style: sidebar): minmax(0, 1fr); else: minmax(0, 1fr) 1rem ;);
       --list--accessories-display: if(style(--form-style: sidebar): none; else: grid ;);
       --list--rootsummary-marker-display: if(style(--form-style: sidebar): marker-trailing; );
     }
@@ -2995,7 +2977,6 @@
         --list--details-color: var(--sidebarform-openitem-color, );
         --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarform-opensummary-color, );
-        --list--item-grid-template-columns: minmax(0, 1fr);
         --list--accessories-display: none;
         --list--rootsummary-marker-display: marker-trailing;
       }
@@ -3063,7 +3044,6 @@
       --list--details-color: var(--sidebarform-openitem-color, );
       --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
       --list--opensummary-color: var(--sidebarform-opensummary-color, );
-      --list--item-grid-template-columns: minmax(0, 1fr);
       --list--accessories-display: none;
       --list--rootsummary-marker-display: marker-trailing;
     }
@@ -3097,7 +3077,6 @@
         --list--details-color: var(--sidebarform-openitem-color, );
         --list--opensummary-background-color: var(--sidebarform-opensummary-background-color, );
         --list--opensummary-color: var(--sidebarform-opensummary-color, );
-        --list--item-grid-template-columns: minmax(0, 1fr);
         --list--accessories-display: none;
         --list--rootsummary-marker-display: marker-trailing;
       }
@@ -3135,7 +3114,6 @@
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), navigation-split-view > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
-      --list--item-grid-template-columns: minmax(0, 1fr);
       --list--accessories-display: none;
     }
   }
@@ -3232,7 +3210,7 @@
     gap: 1rem;
     padding-inline: 1rem;
     padding-block: 0.5rem;
-    color: blue;
+    color: var(--blue);
     background-color: lightgray;
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-header-stack), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-footer-stack) {
@@ -3284,6 +3262,8 @@
     --list--details-color: var(--list-openitem-color, );
     --list--opensummary-background-color: var(--list-opensummary-background-color, );
     --list--opensummary-color: var(--list-opensummary-color, );
+    --list--accessories-size: 1.1rem;
+    --list--accessories-display: grid;
   }
   @supports (x: if(else:red)) {
     :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)) {
@@ -3407,19 +3387,25 @@
   }
   @container table (width > 500px) {
     :where([is=table-row]) {
+      --itempadiend: var(--itempadistart);
+    }
+    :where([is=table-row]):after {
+      display: none;
+    }
+    :where([is=table-row]) {
       --list--accessories-display: none;
       grid-auto-flow: column;
       grid-auto-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
     }
     :where([is=table-row] > :nth-child(n+2)) {
-      color: gray;
+      color: var(--secondaryLabel);
     }
   }
   @container table (width <= 500px) {
     :where([is=table-row] > :nth-child(n+2)) {
       display: none;
-      color: gray;
+      color: var(--secondaryLabel);
     }
     :where(table-view[preferred-compact-template="title:trailing:subtitle"] > [is=table-row]) {
       grid-template-columns: 1fr 1fr;
@@ -3478,7 +3464,7 @@
     display: grid;
     block-size: 24px;
     inline-size: 24px;
-    background-color: blue;
+    background-color: var(--blue);
     -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
   }

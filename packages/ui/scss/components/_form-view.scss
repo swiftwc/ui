@@ -83,7 +83,7 @@ $form-ifs: (
     --list--opensummary-background-color: var(--sidebarform-opensummary-background-color,),
     --list--opensummary-color: var(--sidebarform-opensummary-color,),
     //
-    --list--item-grid-template-columns: minmax(0, 1fr),
+    // --list--item-grid-template-columns: minmax(0, 1fr),
     --list--accessories-display: none,
     //
     --list--rootsummary-marker-display: marker-trailing,
@@ -100,7 +100,8 @@ $form-elses: (
   --list--item-color: var(--form-item-color,),
   --list--highlighteditem-color: var(--form-highlighteditem-color,),
   //
-  --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  // --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-size: 1.1rem,
   --list--accessories-display: grid,
 );
 
@@ -185,7 +186,7 @@ $form-elses: (
       // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
       @include mixins.if-2col-split-view-fits {
         :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
-          --list--item-grid-template-columns: minmax(0, 1fr);
+          // --list--item-grid-template-columns: minmax(0, 1fr);
           --list--accessories-display: none;
         }
       }

@@ -27,7 +27,7 @@
         block-size: 24px;
         inline-size: 24px;
         // font-size: 1rem;
-        background-color: blue;
+        background-color: var(--blue);
         // object-fit: contain;
         -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
         mask: url(vars.$disclosure-affordance) no-repeat center / contain;

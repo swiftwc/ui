@@ -26,6 +26,10 @@
 
     @container table (width > 500px) {
       :where(&) {
+        --itempadiend: var(--itempadistart);
+        &:after {
+          display: none;
+        }
         --list--accessories-display: none;
         // background: red;
         grid-auto-flow: column;
@@ -38,7 +42,7 @@
 
       > :nth-child(n + 2) {
         :where(&) {
-          color: gray;
+          color: var(--secondaryLabel);
         }
       }
     }
@@ -48,7 +52,7 @@
         :where(&) {
           display: none;
 
-          color: gray;
+          color: var(--secondaryLabel);
         }
       }
 

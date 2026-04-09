@@ -46,6 +46,9 @@ $table-elses: (
   --list--details-color: var(--list-openitem-color,),
   --list--opensummary-background-color: var(--list-opensummary-background-color,),
   --list--opensummary-color: var(--list-opensummary-color,),
+  //
+  --list--accessories-size: 1.1rem,
+  --list--accessories-display: grid,
 );
 
 @layer #{vars.$components-layer} {
@@ -75,7 +78,7 @@ $table-elses: (
           gap: 1rem;
           padding-inline: 1rem;
           padding-block: 0.5rem;
-          color: blue;
+          color: var(--blue);
           background-color: lightgray;
           // border-bottom: red solid 1px;
         }

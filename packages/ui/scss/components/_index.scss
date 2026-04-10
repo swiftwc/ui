@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  // all is a grid
+  // all is grid
   navigation-stack,
   navigation-split-view,
   navigation-large-title,
@@ -101,7 +101,6 @@
     tool-bar-item > button,
     tool-bar-item > input,
     [is='tab-bar'] [is='tab-item'],
-    menu-view > button,
     tool-bar-item [is='disclosure-group'] > button,
     tool-bar-item [is='disclosure-group'] > summary,
     [is='bordered-prominent']

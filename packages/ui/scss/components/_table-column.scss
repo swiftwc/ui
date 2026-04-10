@@ -18,25 +18,23 @@
     }
 
     &[aria-sort] {
-      :where(&)::after {
-        pointer-events: none;
+      :where(&) {
+        @include mixins.make-marker-pseudos(vars.$table-col-affordance);
 
-        content: '';
-        display: grid;
+        &::after {
+          display: grid;
 
-        block-size: var(--table-accessory-size);
-        inline-size: var(--table-accessory-size);
+          block-size: var(--table-accessory-size);
+          inline-size: var(--table-accessory-size);
 
-        background-color: var(--blue);
+          background-color: var(--blue);
 
-        -webkit-mask: url(vars.$table-col-affordance) no-repeat center / contain;
-        mask: url(vars.$table-col-affordance) no-repeat center / contain;
+          transform: var(--tablecol--after-rotate,);
 
-        transform: var(--tablecol--after-rotate,);
-
-        @media (prefers-reduced-motion: no-preference) {
-          transition: transform 100ms ease-out;
-          will-change: transform;
+          @media (prefers-reduced-motion: no-preference) {
+            transition: transform 100ms ease-out;
+            will-change: transform;
+          }
         }
       }
     }

@@ -505,18 +505,19 @@
         :where(&) {
           position: relative;
 
+          @include mixins.make-marker-pseudos(vars.$disclosure-affordance);
+
           &::after {
-            pointer-events: none;
-            content: '';
             position: absolute;
+
             inset: 50% var(--itempadiend) auto auto;
             display: var(--list--accessories-display, grid);
+
             block-size: var(--list--accessories-size, 1.1rem);
             inline-size: var(--list--accessories-size, 1.1rem);
-            -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
-            mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+
             background-color: var(--quaternary);
-            place-self: center;
+
             transform: translateY(-50%) translateX(120%);
           }
         }

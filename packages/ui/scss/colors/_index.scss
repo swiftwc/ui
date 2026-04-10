@@ -472,14 +472,24 @@ $colors: map.merge(
   }
 
   sidebar-toggle,
-  // tool-bar-item,
-  // [is='tab-item'],
-  // list-view > button,
-  menu-view {
+    // tool-bar-item,
+    // [is='tab-item'],
+    // list-view > button,
+    // this is temp for toolbar look aboove tables
+    menu-view {
     // [is='disclosure-group'] {
     :where(&) {
       --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
       --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    }
+  }
+
+  menu-view {
+    :where(&) {
+      --menuitemhighlighttext: light-dark(var(--menu-item-focus-color), var(--menu-item-focus-color-dark));
+      --menuitemhighlightface: light-dark(var(--menu-item-focus-bg), var(--menu-item-focus-bg-dark));
+      --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
+      --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
     }
   }
 

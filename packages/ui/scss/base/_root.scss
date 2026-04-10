@@ -152,13 +152,27 @@
 
     --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
     --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
-    --menu-max-inline-size: 200px;
+    --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
     --menu-host-offscreen-transform: scale(0);
     --menu-host-offscreen-filter: blur(10px);
 
     --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+
+    --menu-padding: 0.5rem;
+
+    --menu-item-padding-inline-start: 1rem;
+    --menu-item-padding-inline-end: 1rem;
+    --menu-item-padding-block-start: 0.5rem;
+    --menu-item-padding-block-end: 0.5rem;
+
+    --menu-item-border-radius: 1.2rem; // define this to be like a pill, based on an exemplar item min-height
+
+    --menu-item-focus-bg: oklch(0 0 0 / 0%);
+    --menu-item-focus-bg-dark: oklch(0 0 0 / 0%);
+    --menu-item-active-bg: oklch(0 0 0 / 20%);
+    --menu-item-active-bg-dark: oklch(1 0 0 / 20%);
 
     --touchglass-transition-duration: 300ms;
     // --touchglass-transition-duration: 15s;
@@ -302,6 +316,16 @@
 
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+
+      //
+      --menu-item-focus-color: white;
+      --menu-item-focus-color-dark: white;
+      --menu-item-active-color: white;
+      --menu-item-active-color-dark: white;
+      --menu-item-focus-bg: var(--accentColor);
+      --menu-item-focus-bg-dark: var(--accentColor);
+      --menu-item-active-bg: color-mix(in oklch, black 10%, var(--accentColor));
+      --menu-item-active-bg-dark: color-mix(in oklch, white 10%, var(--accentColor));
 
       // list
       // @each $v in list, form {

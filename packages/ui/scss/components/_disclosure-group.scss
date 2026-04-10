@@ -26,19 +26,18 @@
 
       grid-template-columns: var(--disclosure--summary-grid-template-columns,);
 
+      @include mixins.make-marker-pseudos(vars.$disclosure-affordance);
+
       &::after {
-        pointer-events: none;
-        content: '';
         display: var(--disclosure--marker-display,);
+
         block-size: 1rem;
         inline-size: 1rem;
+
         background-color: var(--blue);
-        -webkit-mask: url(vars.$disclosure-affordance) no-repeat center / contain;
-        mask: url(vars.$disclosure-affordance) no-repeat center / contain;
+
         transform: var(--disclosure--marker-transform,);
-        transform-origin: center;
-        aspect-ratio: 1;
-        place-self: center;
+
         order: var(--disclosure--marker-order,);
       }
     }

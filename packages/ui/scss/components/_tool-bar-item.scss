@@ -90,16 +90,16 @@
       --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     }
 
-    &:not(:disabled):not([readonly]) {
-      > button {
-        :where(&) {
-          --toolbaritempadistart: 0.3rem;
-          --toolbaritempadiend: 0.3rem;
-          --toolbaritempadbstart: 0.3rem;
-          --toolbaritempadbend: 0.3rem;
-        }
-      }
-    }
+    // &:not(:disabled):not([readonly]) {
+    //   > button {
+    //     :where(&) {
+    //       --toolbaritempadistart: 0.3rem;
+    //       --toolbaritempadiend: 0.3rem;
+    //       --toolbaritempadbstart: 0.3rem;
+    //       --toolbaritempadbend: 0.3rem;
+    //     }
+    //   }
+    // }
   }
 
   // list-view > button,

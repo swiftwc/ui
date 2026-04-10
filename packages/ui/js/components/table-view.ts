@@ -161,11 +161,19 @@ export class TableView extends HTMLElement {
     for (const node of this.#colSlot?.assignedElements({ flatten: true }) ?? []) {
       if (!node.matches('[is=table-column]')) continue
 
-      this.#compactToolbarItem.appendChild(
-        $(`<button type="button" tabindex="0">
-          <label-view title="Edit Sidebar/${node.ariaSort}"></label-view>
-        </button>`)
-      )
+      const btn = $(`<button type="button" tabindex="0">
+        <v-stack spacing="0" alignment="leading">
+          <label-view></label-view>
+          <label-view font="callout" foreground="secondary"></label-view>
+        </v-stack>
+      </button>`),
+        title = btn.querySelector('label-view:first-child'),
+        subTitle = btn.querySelector('label-view:last-child')
+
+      title?.setAttribute('title', node.textContent.trim())
+      subTitle?.setAttribute('title', node.ariaSort ?? '')
+
+      this.#compactToolbarItem.appendChild(btn)
     }
 
     // const wasConnected = this.#compactToolbarItem?.isConnected

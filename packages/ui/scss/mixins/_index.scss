@@ -235,6 +235,24 @@
   --toolbar-cell-opacity: 1;
 }
 
+@mixin make-marker-pseudos($affordance, $pseudo: after) {
+  &::#{$pseudo} {
+    pointer-events: none;
+    content: '';
+    // display: var(--disclosure--marker-display,);
+    // block-size: 1rem;
+    // inline-size: 1rem;
+    // background-color: var(--blue);
+    -webkit-mask: url($affordance) no-repeat center / contain;
+    mask: url($affordance) no-repeat center / contain;
+    // transform: var(--disclosure--marker-transform,);
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+    // order: var(--disclosure--marker-order,);
+  }
+}
+
 @mixin if-iphone-landscape {
   @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
     @content;

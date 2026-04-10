@@ -105,12 +105,22 @@
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
     --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
     --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
-    --menu-max-inline-size: 200px;
+    --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
     --menu-host-offscreen-transform: scale(0);
     --menu-host-offscreen-filter: blur(10px);
     --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+    --menu-padding: 0.5rem;
+    --menu-item-padding-inline-start: 1rem;
+    --menu-item-padding-inline-end: 1rem;
+    --menu-item-padding-block-start: 0.5rem;
+    --menu-item-padding-block-end: 0.5rem;
+    --menu-item-border-radius: 1.2rem;
+    --menu-item-focus-bg: oklch(0 0 0 / 0%);
+    --menu-item-focus-bg-dark: oklch(0 0 0 / 0%);
+    --menu-item-active-bg: oklch(0 0 0 / 20%);
+    --menu-item-active-bg-dark: oklch(1 0 0 / 20%);
     --touchglass-transition-duration: 300ms;
     --disclosure-group-animation-duration: 300ms;
     --disclosure-group-animation-easing: ease-out;
@@ -263,6 +273,14 @@
       --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --menu-item-focus-color: white;
+      --menu-item-focus-color-dark: white;
+      --menu-item-active-color: white;
+      --menu-item-active-color-dark: white;
+      --menu-item-focus-bg: var(--accentColor);
+      --menu-item-focus-bg-dark: var(--accentColor);
+      --menu-item-active-bg: color-mix(in oklch, black 10%, var(--accentColor));
+      --menu-item-active-bg-dark: color-mix(in oklch, white 10%, var(--accentColor));
     }
   }
   html:has(color-scheme[dark]) {
@@ -760,15 +778,25 @@
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button))::after {
     pointer-events: none;
     content: "";
+    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button))::after {
     position: absolute;
     inset: 50% var(--itempadiend) auto auto;
     display: var(--list--accessories-display, grid);
     block-size: var(--list--accessories-size, 1.1rem);
     inline-size: var(--list--accessories-size, 1.1rem);
-    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
-    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     background-color: var(--quaternary);
-    place-self: center;
     transform: translateY(-50%) translateX(120%);
   }
 }
@@ -994,7 +1022,6 @@
   tool-bar-item > button,
   tool-bar-item > input,
   [is=tab-bar] [is=tab-item],
-  menu-view > button,
   tool-bar-item [is=disclosure-group] > button,
   tool-bar-item [is=disclosure-group] > summary,
   [is=bordered-prominent]),
@@ -1102,16 +1129,18 @@
   :where([is=disclosure-group] > summary)::after {
     pointer-events: none;
     content: "";
+    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+  }
+  :where([is=disclosure-group] > summary)::after {
     display: var(--disclosure--marker-display, );
     block-size: 1rem;
     inline-size: 1rem;
     background-color: var(--blue);
-    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
-    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     transform: var(--disclosure--marker-transform, );
-    transform-origin: center;
-    aspect-ratio: 1;
-    place-self: center;
     order: var(--disclosure--marker-order, );
   }
   @container not (style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading)) {
@@ -1811,12 +1840,6 @@
       --toolbaritemface: var(--toolbaritemhighlightface,);
     }
   }
-  :where(menu-view:not(:disabled):not([readonly]) > button) {
-    --toolbaritempadistart: 0.3rem;
-    --toolbaritempadiend: 0.3rem;
-    --toolbaritempadbstart: 0.3rem;
-    --toolbaritempadbend: 0.3rem;
-  }
 }
 @layer sw-actions {
   :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
@@ -2452,6 +2475,7 @@
   :where(menu-view)::part(menu-scrollable) {
     scrollbar-width: thin;
     block-size: calc(100% + 1px);
+    padding: var(--menu-padding);
   }
   :where(menu-view)::part(menu-form) {
     inline-size: max-content;
@@ -2502,10 +2526,12 @@
     height: auto;
     max-inline-size: var(--menu--dialog-max-inline-size, );
     max-block-size: var(--menu--dialog-max-block-size, );
+    margin-block: var(--menu--dialog-margin-block, );
+    margin-inline: var(--menu--dialog-margin-inline, );
     transform: var(--menu--dialog-scale, );
     position-area: center;
     overflow: clip;
-    border-radius: 0.9rem;
+    border-radius: calc(var(--menu-item-border-radius) + var(--menu-padding));
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
     box-shadow: var(--menu-popover-box-shadow, );
     --menu--dialog-scale: scale(0);
@@ -2513,8 +2539,8 @@
   :where(menu-view[open])::part(menu-dialog) {
     --menu--dialog-max-inline-size: 100vw;
     --menu--dialog-max-block-size: 100vh;
-    margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
-    margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+    --menu--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+    --menu--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --menu--dialog-scale: scale(1);
   }
   @starting-style {
@@ -2530,15 +2556,71 @@
     --menu--summary-scale: scale(0.01);
     --menu--summary-filter: blur(10px);
   }
-  @supports not (x: attr(x type(*))) {
-    :where(menu-view[menu-style=button]) {
-      --menu-style: button;
+  :where(menu-view > button, menu-view > [is=disclosure-group] > button, menu-view > [is=disclosure-group] > summary), :where(menu-view > menu-view)::part(menu-summary) {
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--menuitemborder,);
+    background: var(--menuitemface,);
+    color: var(--menuitemtext,);
+    padding-inline: var(--menuitempadistart,) var(--menuitempadiend,);
+    padding-block: var(--menuitempadbstart,) var(--menuitempadbend,);
+    border-radius: var(--menuitemradiustl,) var(--menuitemradiustr,) var(--menuitemradiusbr,) var(--menuitemradiusbl,);
+  }
+  :where(menu-view)::part(menu-scrollable) {
+    --menuitempadistart: var(--menu-item-padding-inline-start);
+    --menuitempadiend: var(--menu-item-padding-inline-end);
+    --menuitempadbstart: var(--menu-item-padding-block-start);
+    --menuitempadbend: var(--menu-item-padding-block-end);
+    --menuitemradiustr: var(--menu-item-border-radius);
+    --menuitemradiustl: var(--menu-item-border-radius);
+    --menuitemradiusbr: var(--menu-item-border-radius);
+    --menuitemradiusbl: var(--menu-item-border-radius);
+  }
+}
+@layer sw-colors {
+  :where(menu-view > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
+  }
+  :where(menu-view > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
+    --menuitemface: var(--menuitemhighlightface,);
+    --menuitemtext: var(--menuitemhighlighttext,);
+  }
+  @media (pointer: fine) {
+    :where(menu-view > button:not(:disabled):not([readonly]),
+    menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
+    menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
+      --menuitemface: var(--menuitemhighlightface,);
+      --menuitemtext: var(--menuitemhighlighttext,);
     }
   }
-  @supports (x: attr(x type(*))) {
-    :where(menu-view) {
-      --menu-style: attr(menu-style type(<custom-ident>), inherit);
+  :where(menu-view > menu-view:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
+  }
+  :where(menu-view > menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+    --menuitemface: var(--menuitemhighlightface,);
+    --menuitemtext: var(--menuitemhighlighttext,);
+  }
+  @media (pointer: fine) {
+    :where(menu-view > menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
+      --menuitemface: var(--menuitemhighlightface,);
+      --menuitemtext: var(--menuitemhighlighttext,);
     }
+  }
+}
+@layer sw-actions {
+  :where(menu-view > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
+  menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):active {
+    --menuitemface: var(--menuitemactiveface,);
+    --menuitemtext: var(--menuitemactivetext,);
+  }
+  :where(menu-view > menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
+    --menuitemface: var(--menuitemactiveface,);
+    --menuitemtext: var(--menuitemactivetext,);
   }
 }
 @layer sw-components {
@@ -3523,12 +3605,17 @@
   :where([is=table-column][aria-sort])::after {
     pointer-events: none;
     content: "";
+    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+  }
+  :where([is=table-column][aria-sort])::after {
     display: grid;
     block-size: var(--table-accessory-size);
     inline-size: var(--table-accessory-size);
     background-color: var(--blue);
-    -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
-    mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
     transform: var(--tablecol--after-rotate, );
   }
   @media (prefers-reduced-motion: no-preference) {
@@ -3591,6 +3678,37 @@
   :where(picker-view) {
     --picker--stack-grid-template-columns: minmax(0, 1fr);
   }
+  @container style(--picker-style: menu) {
+    :where(picker-view > menu-view > button) {
+      position: relative;
+      grid-auto-flow: column;
+      grid-template-columns: 1rem minmax(0, 1fr);
+      column-gap: 1rem;
+    }
+    :where(picker-view > menu-view > button)::before {
+      pointer-events: none;
+      content: "";
+      -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+      mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+      transform-origin: center;
+      aspect-ratio: 1;
+      place-self: center;
+    }
+    :where(picker-view > menu-view > button)::before {
+      display: grid;
+      block-size: 1rem;
+      inline-size: 1rem;
+      background-color: var(--menuitemtext, var(--text));
+      transform: var(--tablecol--after-rotate, );
+      order: -1;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      :where(picker-view > menu-view > button)::before {
+        transition: transform 100ms ease-out;
+        will-change: transform;
+      }
+    }
+  }
   @supports (x: if(else:red)) {
     :where(picker-view) {
       --picker--labelstack-display: if(style(--picker-style: menu): grid; );
@@ -3602,6 +3720,35 @@
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--stack-grid-template-columns: auto minmax(0, 1fr);
+      }
+    }
+    :where(:where(picker-view[picker-style=menu]) > menu-view > button) {
+      position: relative;
+      grid-auto-flow: column;
+      grid-template-columns: 1rem minmax(0, 1fr);
+      column-gap: 1rem;
+    }
+    :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+      pointer-events: none;
+      content: "";
+      -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+      mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
+      transform-origin: center;
+      aspect-ratio: 1;
+      place-self: center;
+    }
+    :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+      display: grid;
+      block-size: 1rem;
+      inline-size: 1rem;
+      background-color: var(--menuitemtext, var(--text));
+      transform: var(--tablecol--after-rotate, );
+      order: -1;
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+        transition: transform 100ms ease-out;
+        will-change: transform;
       }
     }
     :where(picker-view[picker-style=menu]) {
@@ -6609,6 +6756,12 @@
   menu-view) {
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+  }
+  :where(menu-view) {
+    --menuitemhighlighttext: light-dark(var(--menu-item-focus-color), var(--menu-item-focus-color-dark));
+    --menuitemhighlightface: light-dark(var(--menu-item-focus-bg), var(--menu-item-focus-bg-dark));
+    --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
+    --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
   }
   :where([is=confirmation-dialog]) {
     --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));

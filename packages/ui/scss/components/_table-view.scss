@@ -12,23 +12,23 @@
 
 $table-ifs: (
   inset: (
-    --list--item-color: var(--insetlist-item-color,),
-    --list--item-background-color: var(--insetlist-item-background-color,),
-    --list--highlighteditem-color: var(--insetlist-highlighteditem-color,),
-    --list--highlighteditem-background-color: var(--insetlist-highlighteditem-background-color,),
+    --list--item-color: var(--insetgroupedlist-item-color,),
+    --list--item-background-color: var(--insetgroupedlist-item-background-color,),
+    --list--highlighteditem-color: var(--insetgroupedlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetgroupedlist-highlighteditem-background-color,),
     --list--item-border-radius: 0,
-    --list--host-background-color: var(--insetlist-background-color,),
-    --list--host-padding-inline: var(--insetlist-padding-inline),
-    --list--host-padding-block: var(--insetlist-padding-block),
+    --list--host-background-color: var(--insetgroupedlist-background-color,),
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    --list--host-padding-block: var(--insetgroupedlist-padding-block),
     //
     --list--adjacentdetailsitem-border-radius: 0,
     //
-    --list--details-background-color: var(--insetlist-openitem-background-color,),
-    --list--details-color: var(--insetlist-openitem-color,),
-    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
-    --list--opendetails-color: var(--insetlist-openitem-color,),
-    --list--opensummary-background-color: var(--insetlist-opensummary-background-color,),
-    --list--opensummary-color: var(--insetlist-opensummary-color,),
+    --list--details-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--details-color: var(--insetgroupedlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetgroupedlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetgroupedlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetgroupedlist-opensummary-color,),
   ),
 );
 $table-elses: (

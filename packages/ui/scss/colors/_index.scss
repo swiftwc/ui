@@ -6,6 +6,53 @@
 @use 'sass:string';
 
 $color-tokens: (
+  // SECTION: grays
+  gray: (
+      props: (
+        inherits: true,
+      ),
+      media: (
+        base: (
+          light: oklch(0.6483 0.0073 286.19),
+          dark: oklch(0.6483 0.0073 286.19),
+        ),
+        contrast: (
+          light: oklch(0.5326 0.0062 286.19),
+          dark: oklch(0.752 0.0057 286.26),
+        ),
+        fine: (
+          light: oklch(0.746 0.0071 286.23),
+          dark: oklch(0.7073 0.0072 286.21),
+        ),
+        fine-contrast: (
+          light: oklch(0.6347 0.0059 286.23),
+          dark: oklch(0.809 0.0056 286.27),
+        ),
+      ),
+    ),
+  gray2: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.752 0.0057 286.26),
+        dark: oklch(0.5007 0.0047 286.23),
+      ),
+      contrast: (
+        light: oklch(0.6483 0.0073 286.19),
+        dark: oklch(0.5876 0.006 286.21),
+      ),
+      fine: (
+        light: oklch(0.8464 0.0055 286.28),
+        dark: oklch(0.5634 0.0046 286.25),
+      ),
+      fine-contrast: (
+        light: oklch(0.746 0.0071 286.23),
+        dark: oklch(0.648 0.0059 286.23),
+      ),
+    ),
+  ),
   // SECTION: SystemColor
   canvas: (
       props: (
@@ -39,18 +86,6 @@ $color-tokens: (
           light: oklch(1 0 0),
           dark: oklch(0 0 0),
         ),
-        // contrast: (
-        //   light: red,
-        //   dark: green,
-        // ),
-        // fine: (
-        //   light: red,
-        //   dark: green,
-        // ),
-        // fine-contrast: (
-        //   light: red,
-        //   dark: green,
-         // ),
       ),
     ),
   secondaryBackground: (
@@ -110,7 +145,15 @@ $color-tokens: (
   )
 );
 
-@include mixins.generate-color-tokens($color-tokens);
+$colors: map.merge(
+  $color-tokens,
+  (
+    secondary: map.get($color-tokens, gray),
+    tertiary: map.get($color-tokens, gray2),
+  )
+);
+
+@include mixins.generate-color-tokens($colors);
 
 // SECTION: semantic colors
 @property --primary {
@@ -122,60 +165,6 @@ $color-tokens: (
   @property --primary {
     syntax: '<color>';
     initial-value: light-dark(oklch(0.2686 0 0), oklch(0.9034 0.0013 106.43)); // ✅
-    inherits: true;
-  }
-}
-// =gray
-@property --secondary {
-  syntax: '<color>';
-  initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.6483 0.0073 286.19)); // ✅
-  inherits: true;
-}
-@media (prefers-contrast: more) {
-  @property --secondary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.5326 0.0062 286.19), oklch(0.752 0.0057 286.26)); // ✅
-    inherits: true;
-  }
-}
-@media (pointer: fine) {
-  @property --secondary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.7073 0.0072 286.21));
-    inherits: true;
-  }
-}
-@media (pointer: fine) and (prefers-contrast: more) {
-  @property --secondary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.6347 0.0059 286.23), oklch(0.809 0.0056 286.27));
-    inherits: true;
-  }
-}
-// =gray2
-@property --tertiary {
-  syntax: '<color>';
-  initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.5007 0.0047 286.23)); // ✅
-  inherits: true;
-}
-@media (prefers-contrast: more) {
-  @property --tertiary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.5876 0.006 286.21)); // ✅
-    inherits: true;
-  }
-}
-@media (pointer: fine) {
-  @property --tertiary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5634 0.0046 286.25));
-    inherits: true;
-  }
-}
-@media (pointer: fine) and (prefers-contrast: more) {
-  @property --tertiary {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.648 0.0059 286.23));
     inherits: true;
   }
 }
@@ -262,58 +251,7 @@ $color-tokens: (
 }
 
 // SECTION: gray colors
-@property --gray {
-  syntax: '<color>';
-  initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.6483 0.0073 286.19)); // ✅
-  inherits: true;
-}
-@media (prefers-contrast: more) {
-  @property --gray {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.5326 0.0062 286.19), oklch(0.752 0.0057 286.26)); // ✅
-    inherits: true;
-  }
-}
-@media (pointer: fine) {
-  @property --gray {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.7073 0.0072 286.21));
-    inherits: true;
-  }
-}
-@media (pointer: fine) and (prefers-contrast: more) {
-  @property --gray {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.6347 0.0059 286.23), oklch(0.809 0.0056 286.27));
-    inherits: true;
-  }
-}
-@property --gray2 {
-  syntax: '<color>';
-  initial-value: light-dark(oklch(0.752 0.0057 286.26), oklch(0.5007 0.0047 286.23)); // ✅
-  inherits: true;
-}
-@media (prefers-contrast: more) {
-  @property --gray2 {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.6483 0.0073 286.19), oklch(0.5876 0.006 286.21)); // ✅
-    inherits: true;
-  }
-}
-@media (pointer: fine) {
-  @property --gray2 {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.8464 0.0055 286.28), oklch(0.5634 0.0046 286.25));
-    inherits: true;
-  }
-}
-@media (pointer: fine) and (prefers-contrast: more) {
-  @property --gray2 {
-    syntax: '<color>';
-    initial-value: light-dark(oklch(0.746 0.0071 286.23), oklch(0.648 0.0059 286.23));
-    inherits: true;
-  }
-}
+
 @property --gray3 {
   syntax: '<color>';
   initial-value: light-dark(oklch(0.8312 0.0069 286.25), oklch(0.4024 0.0033 286.25));

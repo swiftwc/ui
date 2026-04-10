@@ -342,7 +342,7 @@
 }
 
 @mixin property-rule($name, $value, $props) {
-  @property --#{$name} {
+  @property --#{"" + $name} {
     syntax: '<color>';
     initial-value: #{$value};
     @each $k, $v in $props {

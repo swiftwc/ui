@@ -64,7 +64,6 @@ export class MenuView extends HTMLElement {
   connectedCallback() {
     console.debug(`${MenuView.name} ⚡️ connect`)
 
-    // Snapshot.waitReady.then(() => {
     this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
 
     const trigger = this.#shadowRoot.querySelector('button') ?? undefined
@@ -104,9 +103,8 @@ export class MenuView extends HTMLElement {
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
 
-    $.prop('anchor-name', newAnchorName, summaryPart, 'important') //summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all
-    $.prop('position-anchor', newAnchorName, dialogPart) //dialogPart?.style.setProperty('position-anchor', newAnchorName)
-    // })
+    summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all // $.prop('anchor-name', newAnchorName, summaryPart, 'important') //
+    dialogPart?.style.setProperty('position-anchor', newAnchorName) // $.prop('position-anchor', newAnchorName, dialogPart) //
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {

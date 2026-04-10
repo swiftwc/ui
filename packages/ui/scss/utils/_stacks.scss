@@ -209,31 +209,33 @@ $v-placement-map: (
   }
 
   v-stack {
-    :where(&[padding]) {
-      padding-inline: 1rem;
-      padding-block-end: 1rem;
-    }
-    :where(& > [padding]:not(v-stack, v-flex-stack)) {
-      margin-inline: 1rem;
-    }
     // $spaces: 0, 1, 2, 3, 4;
     // @each $s in $spaces {
-    @for $i from 0 through 100 {
+    @for $i from 0 through 50 {
       :where(&[spacing='#{$i}']) {
         gap: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
       }
     }
+
     :where(&[frame\:alignment='center']) {
       justify-self: center;
     }
   }
+
+  // padding reserved word for stacks
+  v-stack,
   v-flex-stack {
-    // :where(&[alignment='fill']) {
-    //   place-items: stretch;
-    // }
     :where(&[padding]) {
       padding-inline: 1rem;
+    }
+
+    :where(scroll-view > &[padding]) {
       padding-block-end: 1rem;
+    }
+
+    // all direct children (excluding stacks) of stacks get margins, also some special cases like a details>summary[padding] etc.
+    :where(& > [padding]:not(&), & > [is='disclosure-group'] > summary[padding]) {
+      margin-inline: 1rem;
     }
   }
 }

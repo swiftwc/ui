@@ -20,18 +20,30 @@ export class TableView extends HTMLElement {
       String.raw`
     <div part="root table-container">
       <div part="root table-header-stack">
-        <slot name="header-leading"></slot>
-        <slot name="header-principal"></slot>
-        <slot name="header-trailing"></slot>
+        <div part="root table-header-leading-stack">
+          <slot name="header-leading"></slot>
+        </div>
+        <div part="root table-header-principal-stack">
+          <slot name="header-principal"></slot>
+        </div>
+        <div part="root table-header-trailing-stack">
+          <slot name="header-trailing"></slot>
+        </div>
       </div>
       <div part="root table-column-stack">
         <slot name="column"></slot>
       </div>
       <slot><p>empty</p></slot>
       <div part="root table-footer-stack">
-        <slot name="footer-leading"></slot>
-        <slot name="footer-principal"></slot>
-        <slot name="footer-trailing"></slot>
+        <div part="root table-footer-leading-stack">
+          <slot name="footer-leading"></slot>
+        </div>
+        <div part="root table-footer-principal-stack">
+          <slot name="footer-principal"></slot>
+        </div>
+        <div part="root table-footer-trailing-stack">
+          <slot name="footer-trailing"></slot>
+        </div>
       </div>
     </div>`,
       ''

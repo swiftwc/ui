@@ -1,6 +1,7 @@
 @use '../vars';
 @use '../mixins';
 @use '../placeholders';
+@use 'sass:string';
 
 @layer #{vars.$components-layer} {
   menu-view {
@@ -95,5 +96,16 @@
     }
 
     // @extend %list-item;
+
+    @supports not (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&[menu-style='button']) {
+        --menu-style: button;
+      }
+    }
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --menu-style: attr(menu-style type(<custom-ident>), inherit);
+      }
+    }
   }
 }

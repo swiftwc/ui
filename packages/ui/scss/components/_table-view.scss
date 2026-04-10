@@ -84,11 +84,27 @@ $table-elses: (
 
         &::part(table-header-stack),
         &::part(table-footer-stack) {
-          padding-inline: 1rem;
+          position: relative; // SAFARI BUG
 
-          padding-block: 0.5rem;
+          padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
+          // pointer-events: none;
 
-          background-color: white;
+          grid-template-columns: auto 1fr auto;
+          column-gap: var(--toolbar-col-gap);
+          // grid-auto-rows: 40px;
+
+          grid-template-rows: var(--toolbar-cell-min-size);
+
+          // place-items: center;
+          place-content: center; // middle of y axis
+
+          // padding-inline: 1rem;
+
+          // padding-block: 0.5rem;
+
+          background-color: var(--secondaryBackground);
+
+          // grid-auto-flow: column;
         }
 
         &::part(table-header-stack) {
@@ -103,6 +119,20 @@ $table-elses: (
           border-radius: 0 0 var(--insetlist-item-border-radius) var(--insetlist-item-border-radius);
 
           border-top: 1px solid var(--separator);
+        }
+
+        :where(&)::part(table-header-leading-stack),
+        :where(&)::part(table-header-principal-stack),
+        :where(&)::part(table-header-trailing-stack),
+        :where(&)::part(table-footer-leading-stack),
+        :where(&)::part(table-footer-principal-stack),
+        :where(&)::part(table-footer-trailing-stack) {
+          grid-auto-flow: column;
+          grid-template-columns: minmax(0, 1fr);
+
+          column-gap: var(--toolbar-col-gap);
+
+          padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
         }
 
         // > [is='table-row']:first-of-type {
@@ -139,6 +169,7 @@ $table-elses: (
         :where(&)::part(table-column-stack) {
           display: none;
         }
+
         :where(& > [slot='column']) {
           //
         }

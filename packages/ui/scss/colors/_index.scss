@@ -449,8 +449,8 @@ $color-tokens: (
 
     // ANCHOR: level 0
     --face: var(--background); //light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --face2: var(--secondaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
-    --face3: var(--tertiaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --face2: var(--secondaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --face3: var(--tertiaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
     // --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
 
     --text: var(--primary); //light-dark(var(--primary-label), var(--primary-label-dark));
@@ -469,8 +469,8 @@ $color-tokens: (
     // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
     // ANCHOR: level 1
     --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
-    --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
-    --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
 
     --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
     // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
@@ -485,14 +485,14 @@ $color-tokens: (
     @include mixins.if-2col-split-view-fits {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
 
-      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+      // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
   }
 
   tab-view > [is='sidebar-view'] {
     :where(&) {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+      // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
 
     :where(& [is='form-view']) {

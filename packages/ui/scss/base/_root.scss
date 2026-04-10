@@ -204,44 +204,44 @@
       --#{$v}-item-padding-block-start: 1rem;
 
       --#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
-      --#{$v}-item-color: var(--text);
+      --#{$v}-item-color: var(--primary);
       --#{$v}-highlighteditem-background-color: var(--tint1g);
       --#{$v}-highlighteditem-color: ;
 
       --inset#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
-      --inset#{$v}-item-color: var(--text);
+      --inset#{$v}-item-color: var(--primary);
       --inset#{$v}-highlighteditem-background-color: var(--tint);
       --inset#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --insetgrouped#{$v}-item-background-color: var(--secondaryGroupedBackground); //light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
-      --insetgrouped#{$v}-item-color: var(--text);
+      --insetgrouped#{$v}-item-color: var(--primary);
       --insetgrouped#{$v}-highlighteditem-background-color: var(--tint);
       --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --sidebar#{$v}-item-background-color: transparent;
-      --sidebar#{$v}-item-color: var(--text);
+      --sidebar#{$v}-item-color: var(--primary);
       --sidebar#{$v}-highlighteditem-background-color: var(--tint);
       --sidebar#{$v}-highlighteditem-color: var(--tintcontrast);
 
       --#{$v}-openitem-background-color: var(--tint3);
-      --#{$v}-openitem-color: var(--text);
+      --#{$v}-openitem-color: var(--primary);
       --#{$v}-opensummary-background-color: var(--tint2);
-      --#{$v}-opensummary-color: var(--text);
+      --#{$v}-opensummary-color: var(--primary);
 
       --insetgrouped#{$v}-openitem-background-color: var(--tint3);
-      --insetgrouped#{$v}-openitem-color: var(--text);
+      --insetgrouped#{$v}-openitem-color: var(--primary);
       --insetgrouped#{$v}-opensummary-background-color: var(--tint2);
-      --insetgrouped#{$v}-opensummary-color: var(--text);
+      --insetgrouped#{$v}-opensummary-color: var(--primary);
 
       --inset#{$v}-openitem-background-color: var(--tint3);
-      --inset#{$v}-openitem-color: var(--text);
+      --inset#{$v}-openitem-color: var(--primary);
       --inset#{$v}-opensummary-background-color: var(--tint2);
-      --inset#{$v}-opensummary-color: var(--text);
+      --inset#{$v}-opensummary-color: var(--primary);
 
       --sidebar#{$v}-openitem-background-color: transparent;
-      --sidebar#{$v}-openitem-color: var(--text);
+      --sidebar#{$v}-openitem-color: var(--primary);
       --sidebar#{$v}-opensummary-background-color: transparent;
-      --sidebar#{$v}-opensummary-color: var(--text);
+      --sidebar#{$v}-opensummary-color: var(--primary);
     }
 
     //
@@ -296,11 +296,11 @@
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
 
       // list
-      @each $v in list, form {
-        // --#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
-        // --inset#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
-        --insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
-      }
+      // @each $v in list, form {
+      //// --#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      //// --inset#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      //--insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      // }
     }
   }
 

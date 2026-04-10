@@ -68,10 +68,10 @@ $list-ifs: (
     --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color,),
     //
     --list--rootsummary-background-color: transparent,
-    --list--rootsummary-color: var(--text,),
+    --list--rootsummary-color: var(--primary,),
     // --list--rootsummary-border-radius: 0px,
     --list--selectedrootsummary-background-color: transparent,
-    --list--selectedrootsummary-color: var(--text,),
+    --list--selectedrootsummary-color: var(--primary,),
     //
     --list--separator-background-color: transparent,
     --list--activeseparator-background-color: transparent,
@@ -181,8 +181,8 @@ $list-elses: (
       }
 
       &[preferred-root-disclosure-style='sidebar'] {
-        --list--rootsummary-color: var(--text);
-        --list--selectedrootsummary-color: var(--text);
+        --list--rootsummary-color: var(--primary);
+        --list--selectedrootsummary-color: var(--primary);
         --list--rootsummary-background-color: transparent;
         --list--selectedrootsummary-background-color: transparent;
         --list--rootsummary-padding-inline-start: var(--list--item-padding-inline-start);

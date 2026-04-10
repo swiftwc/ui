@@ -160,73 +160,73 @@
     --list-item-padding-block-start: 1rem;
     --list-item-padding-block-start: 1rem;
     --list-item-background-color: var(--background);
-    --list-item-color: var(--text);
+    --list-item-color: var(--primary);
     --list-highlighteditem-background-color: var(--tint1g);
     --list-highlighteditem-color: ;
     --insetlist-item-background-color: var(--background);
-    --insetlist-item-color: var(--text);
+    --insetlist-item-color: var(--primary);
     --insetlist-highlighteditem-background-color: var(--tint);
     --insetlist-highlighteditem-color: var(--tintcontrast);
     --insetgroupedlist-item-background-color: var(--secondaryGroupedBackground);
-    --insetgroupedlist-item-color: var(--text);
+    --insetgroupedlist-item-color: var(--primary);
     --insetgroupedlist-highlighteditem-background-color: var(--tint);
     --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
     --sidebarlist-item-background-color: transparent;
-    --sidebarlist-item-color: var(--text);
+    --sidebarlist-item-color: var(--primary);
     --sidebarlist-highlighteditem-background-color: var(--tint);
     --sidebarlist-highlighteditem-color: var(--tintcontrast);
     --list-openitem-background-color: var(--tint3);
-    --list-openitem-color: var(--text);
+    --list-openitem-color: var(--primary);
     --list-opensummary-background-color: var(--tint2);
-    --list-opensummary-color: var(--text);
+    --list-opensummary-color: var(--primary);
     --insetgroupedlist-openitem-background-color: var(--tint3);
-    --insetgroupedlist-openitem-color: var(--text);
+    --insetgroupedlist-openitem-color: var(--primary);
     --insetgroupedlist-opensummary-background-color: var(--tint2);
-    --insetgroupedlist-opensummary-color: var(--text);
+    --insetgroupedlist-opensummary-color: var(--primary);
     --insetlist-openitem-background-color: var(--tint3);
-    --insetlist-openitem-color: var(--text);
+    --insetlist-openitem-color: var(--primary);
     --insetlist-opensummary-background-color: var(--tint2);
-    --insetlist-opensummary-color: var(--text);
+    --insetlist-opensummary-color: var(--primary);
     --sidebarlist-openitem-background-color: transparent;
-    --sidebarlist-openitem-color: var(--text);
+    --sidebarlist-openitem-color: var(--primary);
     --sidebarlist-opensummary-background-color: transparent;
-    --sidebarlist-opensummary-color: var(--text);
+    --sidebarlist-opensummary-color: var(--primary);
     --form-item-padding-inline-start: 1rem;
     --form-item-padding-inline-end: 1rem;
     --form-item-padding-block-start: 1rem;
     --form-item-padding-block-start: 1rem;
     --form-item-background-color: var(--background);
-    --form-item-color: var(--text);
+    --form-item-color: var(--primary);
     --form-highlighteditem-background-color: var(--tint1g);
     --form-highlighteditem-color: ;
     --insetform-item-background-color: var(--background);
-    --insetform-item-color: var(--text);
+    --insetform-item-color: var(--primary);
     --insetform-highlighteditem-background-color: var(--tint);
     --insetform-highlighteditem-color: var(--tintcontrast);
     --insetgroupedform-item-background-color: var(--secondaryGroupedBackground);
-    --insetgroupedform-item-color: var(--text);
+    --insetgroupedform-item-color: var(--primary);
     --insetgroupedform-highlighteditem-background-color: var(--tint);
     --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     --sidebarform-item-background-color: transparent;
-    --sidebarform-item-color: var(--text);
+    --sidebarform-item-color: var(--primary);
     --sidebarform-highlighteditem-background-color: var(--tint);
     --sidebarform-highlighteditem-color: var(--tintcontrast);
     --form-openitem-background-color: var(--tint3);
-    --form-openitem-color: var(--text);
+    --form-openitem-color: var(--primary);
     --form-opensummary-background-color: var(--tint2);
-    --form-opensummary-color: var(--text);
+    --form-opensummary-color: var(--primary);
     --insetgroupedform-openitem-background-color: var(--tint3);
-    --insetgroupedform-openitem-color: var(--text);
+    --insetgroupedform-openitem-color: var(--primary);
     --insetgroupedform-opensummary-background-color: var(--tint2);
-    --insetgroupedform-opensummary-color: var(--text);
+    --insetgroupedform-opensummary-color: var(--primary);
     --insetform-openitem-background-color: var(--tint3);
-    --insetform-openitem-color: var(--text);
+    --insetform-openitem-color: var(--primary);
     --insetform-opensummary-background-color: var(--tint2);
-    --insetform-opensummary-color: var(--text);
+    --insetform-opensummary-color: var(--primary);
     --sidebarform-openitem-background-color: transparent;
-    --sidebarform-openitem-color: var(--text);
+    --sidebarform-openitem-color: var(--primary);
     --sidebarform-opensummary-background-color: transparent;
-    --sidebarform-opensummary-color: var(--text);
+    --sidebarform-opensummary-color: var(--primary);
     --insetform-item-border-radius: 1rem;
     --insetgroupedlist-background-color: var(--groupedBackground);
     --insetgroupedform-background-color: var(--groupedBackground);
@@ -259,8 +259,6 @@
       --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --insetgroupedlist-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59));
-      --insetgroupedform-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59));
     }
   }
   html:has(color-scheme[dark]) {
@@ -928,7 +926,13 @@
   :where(table-view)::part(table-container),
   :where(table-view)::part(table-column-stack),
   :where(table-view)::part(table-header-stack),
+  :where(table-view)::part(table-header-leading-stack),
+  :where(table-view)::part(table-header-principal-stack),
+  :where(table-view)::part(table-header-trailing-stack),
   :where(table-view)::part(table-footer-stack),
+  :where(table-view)::part(table-footer-leading-stack),
+  :where(table-view)::part(table-footer-principal-stack),
+  :where(table-view)::part(table-footer-trailing-stack),
   :where(text-field)::part(text-field-stack),
   :where(text-field)::part(text-field-label-stack),
   :where(text-field)::part(text-field-input-stack),
@@ -2494,6 +2498,16 @@
     --menu--summary-scale: scale(0.01);
     --menu--summary-filter: blur(10px);
   }
+  @supports not (x: attr(x type(*))) {
+    :where(menu-view[menu-style=button]) {
+      --menu-style: button;
+    }
+  }
+  @supports (x: attr(x type(*))) {
+    :where(menu-view) {
+      --menu-style: attr(menu-style type(<custom-ident>), inherit);
+    }
+  }
 }
 @layer sw-components {
   :where([is=sidebar-view]) {
@@ -2598,9 +2612,9 @@
       --list--item-padding-block-start: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-block-start) ;);
       --list--item-padding-block-end: if(style(--list-style: sidebar): 5px; else: var(--list-item-padding-block-end) ;);
       --list--rootsummary-background-color: if(style(--list-style: sidebar): transparent; );
-      --list--rootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
+      --list--rootsummary-color: if(style(--list-style: sidebar): var(--primary, ); );
       --list--selectedrootsummary-background-color: if(style(--list-style: sidebar): transparent; );
-      --list--selectedrootsummary-color: if(style(--list-style: sidebar): var(--text, ); );
+      --list--selectedrootsummary-color: if(style(--list-style: sidebar): var(--primary, ); );
       --list--separator-background-color: if(style(--list-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--list-style: sidebar): transparent; );
       --list--accessories-display: if(style(--list-style: sidebar): none; else: grid ;);
@@ -2667,9 +2681,9 @@
         --list--highlighteditem-background-color: var(--sidebarlist-highlighteditem-background-color, );
         --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color, );
         --list--rootsummary-background-color: transparent;
-        --list--rootsummary-color: var(--text, );
+        --list--rootsummary-color: var(--primary, );
         --list--selectedrootsummary-background-color: transparent;
-        --list--selectedrootsummary-color: var(--text, );
+        --list--selectedrootsummary-color: var(--primary, );
         --list--separator-background-color: transparent;
         --list--activeseparator-background-color: transparent;
         --list--details-background-color: var(--sidebarlist-openitem-background-color, );
@@ -2734,9 +2748,9 @@
       --list--highlighteditem-background-color: var(--sidebarlist-highlighteditem-background-color, );
       --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color, );
       --list--rootsummary-background-color: transparent;
-      --list--rootsummary-color: var(--text, );
+      --list--rootsummary-color: var(--primary, );
       --list--selectedrootsummary-background-color: transparent;
-      --list--selectedrootsummary-color: var(--text, );
+      --list--selectedrootsummary-color: var(--primary, );
       --list--separator-background-color: transparent;
       --list--activeseparator-background-color: transparent;
       --list--details-background-color: var(--sidebarlist-openitem-background-color, );
@@ -2767,9 +2781,9 @@
         --list--highlighteditem-background-color: var(--sidebarlist-highlighteditem-background-color, );
         --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color, );
         --list--rootsummary-background-color: transparent;
-        --list--rootsummary-color: var(--text, );
+        --list--rootsummary-color: var(--primary, );
         --list--selectedrootsummary-background-color: transparent;
-        --list--selectedrootsummary-color: var(--text, );
+        --list--selectedrootsummary-color: var(--primary, );
         --list--separator-background-color: transparent;
         --list--activeseparator-background-color: transparent;
         --list--details-background-color: var(--sidebarlist-openitem-background-color, );
@@ -2812,8 +2826,8 @@
     }
   }
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[preferred-root-disclosure-style=sidebar] {
-    --list--rootsummary-color: var(--text);
-    --list--selectedrootsummary-color: var(--text);
+    --list--rootsummary-color: var(--primary);
+    --list--selectedrootsummary-color: var(--primary);
     --list--rootsummary-background-color: transparent;
     --list--selectedrootsummary-background-color: transparent;
     --list--rootsummary-padding-inline-start: var(--list--item-padding-inline-start);
@@ -2899,9 +2913,9 @@
       --list--item-padding-block-start: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-block-start) ;);
       --list--item-padding-block-end: if(style(--form-style: sidebar): 5px; else: var(--form-item-padding-block-end) ;);
       --list--rootsummary-background-color: if(style(--form-style: sidebar): transparent; );
-      --list--rootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
+      --list--rootsummary-color: if(style(--form-style: sidebar): var(--primary, ); );
       --list--selectedrootsummary-background-color: if(style(--form-style: sidebar): transparent; );
-      --list--selectedrootsummary-color: if(style(--form-style: sidebar): var(--text, ); );
+      --list--selectedrootsummary-color: if(style(--form-style: sidebar): var(--primary, ); );
       --list--separator-background-color: if(style(--form-style: sidebar): transparent; );
       --list--activeseparator-background-color: if(style(--form-style: sidebar): transparent; );
       --list--accessories-display: if(style(--form-style: sidebar): none; else: grid ;);
@@ -2968,9 +2982,9 @@
         --list--highlighteditem-background-color: var(--sidebarform-highlighteditem-background-color, );
         --list--highlighteditem-color: var(--sidebarform-highlighteditem-color, );
         --list--rootsummary-background-color: transparent;
-        --list--rootsummary-color: var(--text, );
+        --list--rootsummary-color: var(--primary, );
         --list--selectedrootsummary-background-color: transparent;
-        --list--selectedrootsummary-color: var(--text, );
+        --list--selectedrootsummary-color: var(--primary, );
         --list--separator-background-color: transparent;
         --list--activeseparator-background-color: transparent;
         --list--details-background-color: var(--sidebarform-openitem-background-color, );
@@ -3035,9 +3049,9 @@
       --list--highlighteditem-background-color: var(--sidebarform-highlighteditem-background-color, );
       --list--highlighteditem-color: var(--sidebarform-highlighteditem-color, );
       --list--rootsummary-background-color: transparent;
-      --list--rootsummary-color: var(--text, );
+      --list--rootsummary-color: var(--primary, );
       --list--selectedrootsummary-background-color: transparent;
-      --list--selectedrootsummary-color: var(--text, );
+      --list--selectedrootsummary-color: var(--primary, );
       --list--separator-background-color: transparent;
       --list--activeseparator-background-color: transparent;
       --list--details-background-color: var(--sidebarform-openitem-background-color, );
@@ -3068,9 +3082,9 @@
         --list--highlighteditem-background-color: var(--sidebarform-highlighteditem-background-color, );
         --list--highlighteditem-color: var(--sidebarform-highlighteditem-color, );
         --list--rootsummary-background-color: transparent;
-        --list--rootsummary-color: var(--text, );
+        --list--rootsummary-color: var(--primary, );
         --list--selectedrootsummary-background-color: transparent;
-        --list--selectedrootsummary-color: var(--text, );
+        --list--selectedrootsummary-color: var(--primary, );
         --list--separator-background-color: transparent;
         --list--activeseparator-background-color: transparent;
         --list--details-background-color: var(--sidebarform-openitem-background-color, );
@@ -3214,9 +3228,13 @@
     background-color: var(--separator);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-header-stack), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-footer-stack) {
-    padding-inline: 1rem;
-    padding-block: 0.5rem;
-    background-color: white;
+    position: relative;
+    padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
+    grid-template-columns: auto 1fr auto;
+    column-gap: var(--toolbar-col-gap);
+    grid-template-rows: var(--toolbar-cell-min-size);
+    place-content: center;
+    background-color: var(--secondaryBackground);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-header-stack) {
     grid-auto-flow: column;
@@ -3227,6 +3245,12 @@
     grid-auto-flow: column;
     border-radius: 0 0 var(--insetlist-item-border-radius) var(--insetlist-item-border-radius);
     border-top: 1px solid var(--separator);
+  }
+  :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-header-leading-stack), :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-header-principal-stack), :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-header-trailing-stack), :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-footer-leading-stack), :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-footer-principal-stack), :where(:where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)))::part(table-footer-trailing-stack) {
+    grid-auto-flow: column;
+    grid-template-columns: minmax(0, 1fr);
+    column-gap: var(--toolbar-col-gap);
+    padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view):has(> [slot=column]:nth-of-type(2)):not(:has(> [slot=column]:nth-of-type(3)))) {
     --table--expanded-columns: 2;
@@ -4194,8 +4218,6 @@
     --secondaryBackground: var(--secondaryGroupedBackground);
     --tertiaryBackground: var(--tertiaryGroupedBackground);
     --face: var(--background);
-    --face2: var(--secondaryBackground);
-    --face3: var(--tertiaryBackground);
   }
   :where([foreground=secondary]) {
     color: var(--secondary);
@@ -5920,25 +5942,19 @@
 @layer sw-colors {
   :root {
     --face: var(--background);
-    --face2: var(--secondaryBackground);
-    --face3: var(--tertiaryBackground);
     --text: var(--primary);
   }
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog]) {
     --face: var(--background);
-    --face2: var(--secondaryBackground);
-    --face3: var(--tertiaryBackground);
     --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
       --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-      --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
   }
   :where(tab-view > [is=sidebar-view]) {
     --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
-    --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   :where(tab-view > [is=sidebar-view] [is=form-view]) {
     --list--highlighteditem-background-color: transparent;

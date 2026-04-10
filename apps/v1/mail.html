@@ -31,8 +31,9 @@
     <v-keyboard></v-keyboard>
 
     <navigation-split-view>
-      <dialog is="sidebar-view">
-        <scroll-view navigation-inline-title="Mailboxes" preferred-compact-background-style="grouped">
+      <dialog is="sidebar-view" background-style="grouped">
+        <!-- TODO: -->
+        <scroll-view navigation-inline-title="Mailboxes">
           <v-stack placement="leading fill">
             <list-view list-style="inset-grouped" preferred-root-disclosure-style="sidebar" style="--itempadistart: 1.5rem">
               <section-view>
@@ -87,7 +88,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox" style="--face: light-dark(var(--canvas), var(--primary-bg-dark))">
+        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
               <button type="button" navigation-destination="item1">

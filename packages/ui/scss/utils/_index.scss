@@ -7,8 +7,8 @@
     --tertiaryBackground: var(--tertiaryGroupedBackground);
 
     --face: var(--background);
-    --face2: var(--secondaryBackground);
-    --face3: var(--tertiaryBackground);
+    // --face2: var(--secondaryBackground);
+    // --face3: var(--tertiaryBackground);
   }
 
   :where([foreground='secondary']) {

@@ -500,9 +500,6 @@
       // position: relative;
       // display: grid;
       // grid-template-columns: minmax(0, 1fr) 24px;
-      // @container not style(--list--accessories-size: 0rem) {
-      //   background-color: red;
-      // }
 
       &:is(button) {
         :where(&) {

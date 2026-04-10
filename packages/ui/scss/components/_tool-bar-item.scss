@@ -42,6 +42,7 @@
     :where(& > picker-view > menu-view)::part(menu-summary),
     :where(& > menu-view)::part(menu-summary) {
       place-items: center;
+
       place-content: center;
     }
   }

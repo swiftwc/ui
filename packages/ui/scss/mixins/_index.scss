@@ -163,10 +163,12 @@
 @mixin add-focus-visible-state($selector: '') {
   &:not(:disabled):not([readonly]) {
     :where(&) {
-      &:focus-visible#{$selector} {
+      &:focus-visible {
         outline: none;
 
-        @content;
+        &#{$selector} {
+          @content;
+        }
       }
 
       // @media (pointer: fine) {

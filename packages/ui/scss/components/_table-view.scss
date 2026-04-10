@@ -175,6 +175,21 @@ $table-elses: (
         }
       }
 
+      // toolbar
+      & > [slot^='header'],
+      & > [slot^='footer'] {
+        place-content: center;
+      }
+      // // @include mixins.center-toolbar-elements('&');
+      // :where(& > button[slot^='header'], & > button[slot^='footer']),
+      // :where(& > picker-view > menu-view)::part(menu-summary),
+      // :where(& > menu-view[slot^='header'], & > menu-view[slot^='footer'])::part(menu-summary) {
+      //   place-items: center;
+
+      //   place-content: center;
+      // }
+      // }
+
       // wire
       :where(&) {
         @include mixins.write-props($table-elses);

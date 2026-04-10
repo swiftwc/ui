@@ -150,7 +150,7 @@ export class TableView extends HTMLElement {
     //
 
     if (!this.#compactToolbarItem) {
-      this.#compactToolbarItem = $(`<menu-view slot="header-trailing"></menu-view>`)
+      this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`)
 
       CleanupRegistry.unregister(this, 'compact_toolbar')
       CleanupRegistry.register(this, onoff('click', this.#handleMenuClick, this.#compactToolbarItem).on(), 'compact_toolbar')

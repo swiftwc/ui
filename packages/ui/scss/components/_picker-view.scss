@@ -18,11 +18,13 @@ $picker-elses: (
   picker-view {
     :where(&) {
       grid-template-columns: minmax(0, 1fr);
+
       grid-template-rows: minmax(0, 1fr);
     }
 
     :where(&)::part(picker-stack) {
       grid-template-columns: var(--picker--stack-grid-template-columns,);
+
       grid-template-rows: minmax(0, 1fr);
     }
 

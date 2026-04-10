@@ -777,6 +777,14 @@
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly])):focus-visible {
     outline: none;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly])):focus-visible {
     --itemface: var(--itemhighlightface,);
     --itemtext: var(--itemhighlighttext,);
   }
@@ -825,6 +833,8 @@
   }
   :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):focus-visible {
     outline: none;
+  }
+  :where(:not(:disabled):not([readonly]):where([is=button-view] [button-style=bordered-prominent]), :not(:disabled):not([readonly]):where(button[is=bordered-prominent])):focus-visible {
     --toolbaritemface: var(--toolbaritemhighlightface,);
   }
   @media (pointer: fine) {
@@ -1002,6 +1012,15 @@
   tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
   [is=bordered-prominent]:not(:disabled):not([readonly])):focus-visible {
     outline: none;
+  }
+  :where(sidebar-toggle > button:not(:disabled):not([readonly]),
+  tool-bar-item > button:not(:disabled):not([readonly]),
+  tool-bar-item > input:not(:disabled):not([readonly]),
+  [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
+  menu-view > button:not(:disabled):not([readonly]),
+  tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
+  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
+  [is=bordered-prominent]:not(:disabled):not([readonly])):focus-visible {
     --toolbaritemface: var(--toolbaritemhighlightface,);
     --toolbaritemtext: var(--toolbaritemhighlighttext,);
   }
@@ -1018,8 +1037,10 @@
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
   }
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible {
     outline: none;
+  }
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
     --toolbaritemface: var(--toolbaritemhighlightface,);
     --toolbaritemtext: var(--toolbaritemhighlighttext,);
   }
@@ -1450,6 +1471,8 @@
 @layer sw-colors {
   :where([is=confirmation-dialog] > button:not(:disabled):not([readonly])):focus-visible {
     outline: none;
+  }
+  :where([is=confirmation-dialog] > button:not(:disabled):not([readonly])):focus-visible {
     --dialogbtnface: var(--dialogbtnhighlightface,);
     --dialogbtntext: var(--dialogbtnhighlighttext,);
   }
@@ -1770,8 +1793,10 @@
   }
 }
 @layer sw-colors {
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible {
     outline: none;
+  }
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
     --toolbaritemface: var(--toolbaritemhighlightface,);
   }
   @media (pointer: fine) {
@@ -3273,6 +3298,9 @@
     :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view))::part(table-column-stack) {
       display: none;
     }
+  }
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot^=header], table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot^=footer] {
+    place-content: center;
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)) {
     --list--host-background-color: var(--list-background-color, );

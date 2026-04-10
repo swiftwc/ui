@@ -12,7 +12,7 @@ export class MenuView extends HTMLElement {
   static get template() {
     return (this.#template ??= $(
       String.raw`
-  <button part="root button menu-summary">
+  <button type="button" part="root button menu-summary">
     <slot name="label"></slot>
   </button>
   <dialog part="root menu-dialog" autofocus inert>
@@ -35,9 +35,7 @@ export class MenuView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    // Snapshot.waitReady.then(() => {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template, true))
-    // })
   }
 
   disconnectedCallback() {

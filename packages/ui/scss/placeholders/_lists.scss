@@ -544,6 +544,11 @@
       @include mixins.add-focus-visible-state {
         --itemface: var(--itemhighlightface,);
         --itemtext: var(--itemhighlighttext,);
+
+        --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+        --secondary: var(--itemtext);
+        --blue: var(--itemtext);
       }
     }
   }

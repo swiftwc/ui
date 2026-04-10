@@ -45,7 +45,7 @@ $list-ifs: (
   ),
   sidebar: (
     --list--item-border-radius: var(--insetlist-item-border-radius),
-    --list--details-gap: var(--list-gap),
+    --list--details-gap: var(--list-row-gap),
     --list--rootsummary-padding-inline-start: 5px,
     --list--rootsummary-padding-inline-end: 5px,
     --list--rootsummary-padding-block-start: 2px,
@@ -115,7 +115,7 @@ $list-elses: (
 
       // wire
       :where(&) {
-        --list--section-gap: var(--list-gap);
+        --list--section-gap: var(--list-row-gap);
 
         @include mixins.write-props($list-elses);
         // --list--item-padding-inline-start: var(--list-item-padding-inline-start);
@@ -192,7 +192,7 @@ $list-elses: (
 
         > [is='disclosure-group'] ~ [is='disclosure-group'],
         > section-view > [is='disclosure-group'] ~ [is='disclosure-group'] {
-          margin-block-start: var(--list-gap);
+          margin-block-start: var(--list-row-gap);
 
           &::before {
             display: none;

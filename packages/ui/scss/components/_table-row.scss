@@ -7,15 +7,16 @@
 @layer #{vars.$components-layer} {
   [is='table-row'] {
     :where(&) {
-      row-gap: 0.5rem;
-      column-gap: 1rem;
+      row-gap: var(--table-row-gap);
+
+      column-gap: var(--table-col-gap);
 
       --label-line-limit: 1;
       --label-truncation-mode: tail;
     }
 
     @for $i from 1 through 10 {
-      @container table (width > 500px) and (style(--table--expanded-columns: #{$i})) {
+      @container table (width > #{vars.$table-expanded-bp}) and (style(--table--expanded-columns: #{$i})) {
         > :nth-child(n + #{$i + 1}) {
           :where(&) {
             display: none;
@@ -23,8 +24,9 @@
         }
       }
     }
-
-    @container table (width > 500px) {
+    
+    // dissmantle list and turn it into a h-column row
+    @container table (width > #{vars.$table-expanded-bp}) {
       :where(&) {
         --itempadiend: var(--itempadistart);
         &:after {
@@ -47,7 +49,7 @@
       }
     }
 
-    @container table (width <= 500px) {
+    @container table (width <= #{vars.$table-expanded-bp}) {
       > :nth-child(n + 2) {
         :where(&) {
           display: none;

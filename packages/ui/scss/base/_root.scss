@@ -192,7 +192,7 @@
     --insetlist-item-border-radius: 1rem;
 
     //
-    --list-gap: 3rem;
+    --list-row-gap: 3rem;
     --form-gap: 1rem;
 
     --form-extra-gap: 3rem;
@@ -271,6 +271,14 @@
     //   --list-item-border-radius: 0.5rem;
     // }
 
+    // tables
+    --table-row-gap: 0.5rem;
+    --table-col-gap: 1rem;
+
+    --table-accessory-gap: 0.2rem;
+    --table-accessory-size: 1.2rem;
+
+    // fine
     @media (pointer: fine) {
       --primary-bg: oklch(0.9761 0 0); // ✅
       --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅

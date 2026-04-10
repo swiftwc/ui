@@ -387,7 +387,7 @@ export class PickerView extends FormAssociatedBase {
     // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (this.pickerStyle) {
       case 'menu':
-        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view></menu-view>`))
+        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`))
 
         menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 

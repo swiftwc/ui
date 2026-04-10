@@ -59,63 +59,34 @@ $table-elses: (
       :where(&) {
         container: table / inline-size;
 
-        --table--expanded-columns: 1;
-
         &::part(table-container) {
           grid-template-columns: subgrid;
-
-          transition: --adaptable-table-style-index 1ms step-start;
-          --adaptable-table-style-index: 0;
-          --adaptable-table-style: compact;
-        }
-
-        &::part(table-column-stack) {
-          grid-auto-flow: column;
-
-          grid-auto-columns: minmax(0, 1fr);
-
-          gap: 1rem;
-          padding-inline: 1rem;
-          padding-block: 0.5rem;
-          color: var(--blue);
-          background-color: var(--separator);
-          // border-bottom: red solid 1px;
         }
 
         &::part(table-header-stack),
         &::part(table-footer-stack) {
           position: relative; // SAFARI BUG
 
-          padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
-          // pointer-events: none;
-
-          grid-template-columns: auto 1fr auto;
-          column-gap: var(--toolbar-col-gap);
-          // grid-auto-rows: 40px;
-
-          grid-template-rows: var(--toolbar-cell-min-size);
-
-          // place-items: center;
-          place-content: center; // middle of y axis
-
-          // padding-inline: 1rem;
-
-          // padding-block: 0.5rem;
+          padding-inline: var(--list--host-padding-inline, 0px);
 
           background-color: var(--secondaryBackground);
 
-          // grid-auto-flow: column;
+          column-gap: var(--toolbar-col-gap);
+
+          grid-auto-flow: column;
+          grid-template-columns: auto 1fr auto;
+          grid-template-rows: var(--toolbar-cell-min-size);
+
+          place-content: center; // middle of y axis
         }
 
         &::part(table-header-stack) {
-          grid-auto-flow: column;
           border-radius: var(--insetlist-item-border-radius) var(--insetlist-item-border-radius) 0 0;
 
           border-bottom: 1px solid var(--separator);
         }
 
         &::part(table-footer-stack) {
-          grid-auto-flow: column;
           border-radius: 0 0 var(--insetlist-item-border-radius) var(--insetlist-item-border-radius);
 
           border-top: 1px solid var(--separator);
@@ -131,19 +102,63 @@ $table-elses: (
           grid-template-columns: minmax(0, 1fr);
 
           column-gap: var(--toolbar-col-gap);
+        }
+      }
 
-          padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
+      &::part(table-column-stack) {
+        grid-auto-flow: column;
+        grid-auto-columns: minmax(0, 1fr);
+
+        column-gap: var(--table-col-gap);
+
+        padding-inline: var(--list--host-padding-inline, 0px);
+
+        padding-block: var(--table-row-gap);
+
+        color: var(--blue);
+
+        background-color: var(--separator);
+      }
+
+      // toolbars
+      > [slot^='header'],
+      > [slot^='footer'] {
+        :where(&) {
+          place-content: center;
+        }
+      }
+
+      // SECTION: Cols hider
+      @container table (width <= #{vars.$table-expanded-bp}) {
+        :where(& > [slot='column']) {
+          display: none;
         }
 
-        // > [is='table-row']:first-of-type {
-        //   border-top-left-radius: 0px;
-        //   border-top-right-radius: 0px;
-        // }
+        :where(&)::part(table-column-stack) {
+          display: none;
+        }
+      }
 
-        // > [is='table-row']:last-of-type {
-        //   border-bottom-left-radius: 0px;
-        //   border-bottom-right-radius: 0px;
-        // }
+      // SECTION: styleobserver
+      :where(&) {
+        &::part(table-container) {
+          transition: --adaptable-table-style-index 1ms step-start;
+
+          --adaptable-table-style-index: 0;
+          --adaptable-table-style: compact;
+        }
+
+        @container table (width > #{vars.$table-expanded-bp}) {
+          &::part(table-container) {
+            --adaptable-table-style-index: 1;
+            --adaptable-table-style: expanded;
+          }
+        }
+      }
+
+      // SECTION: Columns counter
+      :where(&) {
+        --table--expanded-columns: 1;
       }
 
       :where(&:has(> [slot='column']:nth-of-type(2)):not(:has(> [slot='column']:nth-of-type(3)))) {
@@ -153,33 +168,6 @@ $table-elses: (
         --table--expanded-columns: 3;
       }
 
-      @container table (width <= 500px) {
-        :where(& > [slot='column']) {
-          display: none;
-          // visibility: collapse;
-        }
-      }
-      @container table (width > 500px) {
-        :where(&)::part(table-container) {
-          --adaptable-table-style-index: 1;
-          --adaptable-table-style: expanded;
-        }
-      }
-      @container table (width <= 500px) {
-        :where(&)::part(table-column-stack) {
-          display: none;
-        }
-
-        :where(& > [slot='column']) {
-          //
-        }
-      }
-
-      // toolbar
-      & > [slot^='header'],
-      & > [slot^='footer'] {
-        place-content: center;
-      }
       // // @include mixins.center-toolbar-elements('&');
       // :where(& > button[slot^='header'], & > button[slot^='footer']),
       // :where(& > picker-view > menu-view)::part(menu-summary),

@@ -163,7 +163,7 @@ export class TableView extends HTMLElement {
 
       this.#compactToolbarItem.appendChild(
         $(`<button type="button" tabindex="0">
-          <label-view title="Edit Sidebar/${node.ariaSelected}"></label-view>
+          <label-view title="Edit Sidebar/${node.ariaSort}"></label-view>
         </button>`)
       )
     }

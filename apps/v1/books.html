@@ -624,7 +624,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -653,7 +653,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -687,7 +687,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -804,7 +804,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="x" title="Cancel"></label-view>
             </button>
           </tool-bar-item>
@@ -868,7 +868,7 @@
               <table-view table-style="inset" preferred-compact-template="title:trailing:subtitle">
                 <label-view title="22" foreground="secondary" slot="footer-leading"></label-view>
                 <h-stack slot="footer-trailing"><button tabindex="0">&lt;</button> <button tabindex="0">&gt;</button></h-stack>
-                <button is="table-column" type="button" tabindex="0" slot="column" aria-selected="true">
+                <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
                   <label-view title="Given Name"></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
@@ -905,7 +905,7 @@
                 <label-view system-image="smiley" title="INVOICES"></label-view>
               </summary>
               <table-view table-style="inset" preferred-compact-template="trailing:title:subtitle">
-                <button is="table-column" type="button" tabindex="0" slot="column" aria-selected="true">
+                <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
                   <label-view title="Given Name"></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
@@ -941,7 +941,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -978,7 +978,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="navigation-bar-leading">
-            <button type="button" class="back">
+            <button type="button" tabindex="0" class="back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -1144,10 +1144,14 @@
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ ${event?.type}`)
 
-        if (event.target.closest('[is=table-column]')) {
-          for (const el of document.querySelectorAll('[is=table-column]')) el.ariaSelected = null
+        const col = event.target.closest('[is=table-column]')
 
-          event.target.closest('[is=table-column]').ariaSelected = 'true'
+        if (col) {
+          const sort = col.ariaSort
+
+          for (const el of document.querySelectorAll('[is=table-column]')) el.ariaSort = null
+
+          col.ariaSort = 'ascending' === sort ? 'descending' : 'ascending'
         }
 
         const from = new NavigationPath(document.querySelector('[navigation-path="customers"]'))

@@ -110,8 +110,8 @@ export class NavigationLargeTitle extends HTMLElement {
 
     if (!root?.hasAttribute('navigation-bar-title-display-mode')) root?.setAttribute('navigation-bar-title-display-mode', 'large')
 
-    frame(this).then((r) => {
-      if (!r) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
+    frame(this).then(() => {
+      // if (!r) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
 
       this.#styleObserver = new CSSStyleObserver()
       this.#styleObserver.observe(this, this.#handleStyleChange)

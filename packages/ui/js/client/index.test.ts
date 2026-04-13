@@ -1,7 +1,7 @@
 import { expect, describe, test, beforeEach } from 'vitest'
 import { FormView, SidebarView, TabBar, NavigationStack, ScrollView, BodyView } from '../components'
 import { $ } from '../internal/utils'
-import { queryBodyAll, queryHostAll, queryToolbarConfigAll, closestHost, queryHost } from './index'
+import { NavigationPath } from './index'
 
 describe('prop', () => {
   let div: HTMLElement
@@ -25,11 +25,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(
-      `${queryBodyAll(queryHost(sv))
-        .map((item) => item.id)
-        .join('')}`
-    ).toBe('sv2sv3')
+    expect(`${[...new NavigationPath(sv).children()].map(({ body }) => body?.id).join('')}`).toBe('sv2sv3')
   })
 
   test('queryBodyAll 2', () => {
@@ -48,11 +44,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(
-      `${queryBodyAll(queryHost(sv))
-        .map((item) => item.id)
-        .join('')}`
-    ).toBe('sv4sv5')
+    expect(`${[...new NavigationPath(sv).children()].map(({ body }) => body?.id).join('')}`).toBe('sv4sv5')
   })
 
   test('queryBodyAll 3', () => {
@@ -77,11 +69,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(
-      `${queryBodyAll(queryHost(sv))
-        .map((item) => item.id)
-        .join('')}`
-    ).toBe('sv4sv5sv6sv7')
+    expect(`${[...new NavigationPath(sv).children()].map(({ body }) => body?.id).join('')}`).toBe('sv4sv5sv6sv7')
   })
 
   test('queryToolbarConfigAll 3', () => {
@@ -113,8 +101,10 @@ describe('prop', () => {
       sv = el.querySelector<ScrollView>('#sv1')!
 
     expect(
-      `${queryToolbarConfigAll(queryHost(sv))
-        .map((item) => item.id)
+      `${[...new NavigationPath(sv).children()]
+        .map(({ toolBarConfig }) => toolBarConfig)
+        .flat()
+        .map((item) => item?.id)
         .join('')}`
     ).toBe('sv4sv5sv6sv7')
   })
@@ -143,11 +133,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(
-      `${queryHostAll(sv)
-        .map((item) => item.id)
-        .join('')}`
-    ).toBe('sv4sv5sv6sv7')
+    expect(`${[...new NavigationPath(sv).children()].map(({ component }) => component?.id).join('')}`).toBe('sv4sv5sv6sv7')
   })
 
   test('closestHost', () => {
@@ -160,7 +146,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(closestHost(sv)?.id).toBe('n0')
+    expect(new NavigationPath(sv)?.component?.id).toBe('n0')
   })
   test('closestHost 2', () => {
     const el = div.appendChild(
@@ -174,7 +160,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
-    expect(closestHost(sv)?.id).toBe('b1')
+    expect(new NavigationPath(sv)?.component?.id).toBe('b1')
   })
 
   test('queryHost', () => {
@@ -187,7 +173,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
-    expect(queryHost(sv)?.id).toBe('b1')
+    expect(new NavigationPath(sv)?.slot?.id).toBe('b1')
   })
   test('queryHost 2', () => {
     const el = div.appendChild(
@@ -201,7 +187,7 @@ describe('prop', () => {
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
-    expect(queryHost(sv)?.id).toBe('b2')
+    expect(new NavigationPath(sv)?.slot?.id).toBe('b2')
   })
   test('queryHost 3', () => {
     const el = div.appendChild(
@@ -213,7 +199,7 @@ describe('prop', () => {
       ),
       n0 = el.querySelector<ScrollView>('#n0')!
 
-    expect(queryHost(n0)?.id).toBe(undefined)
+    expect(new NavigationPath(n0)?.component?.id).toBe(undefined)
   })
   test('queryHost 4', () => {
     const el = div.appendChild(
@@ -227,6 +213,6 @@ describe('prop', () => {
       ),
       b1 = el.querySelector<ScrollView>('#b1')!
 
-    expect(queryHost(b1)?.id).toBe(undefined)
+    expect(new NavigationPath(b1)?.component?.id).toBe('b1')
   })
 })

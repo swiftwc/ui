@@ -40,8 +40,8 @@ export class NavigationView extends HTMLElement {
     if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
 
     if (this.closest('tab-view'))
-      frame(this).then((r) => {
-        if (!r) return
+      frame(this).then(() => {
+        // if (!r) return
 
         LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
       })
@@ -73,8 +73,8 @@ export class NavigationView extends HTMLElement {
 
         console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
-        frame(this).then((r) => {
-          if (!r) return
+        frame(this).then(() => {
+          // if (!r) return
 
           target.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
         })

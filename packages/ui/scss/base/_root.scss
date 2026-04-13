@@ -327,6 +327,9 @@
       --menu-item-active-bg: color-mix(in oklch, black 10%, var(--accentColor));
       --menu-item-active-bg-dark: color-mix(in oklch, white 10%, var(--accentColor));
 
+      --picker-affordance-size: 1rem;
+      --picker-affordance-col-gap: 1rem;
+
       // list
       // @each $v in list, form {
       //// --#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅

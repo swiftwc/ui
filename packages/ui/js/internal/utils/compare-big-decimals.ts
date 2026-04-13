@@ -1,39 +1,33 @@
-// compareBigDecimals("1e3", "1000") // 0
-// compareBigDecimals("1e-3", "0.001") // 0
-// compareBigDecimals("-10", "-2") // -1 ✅
-// const arr = [
-//   "1.2",
-//   "1.10",
-//   "1.02",
-//   "1e2",
-//   "100",
-//   "-0.5"
-// ]
-// arr.sort(compareBigDecimals)
-// console.log(arr)
-// function isInRange(value: string, min: string, max: string): boolean {
-//   return compareBigDecimals(value, min) >= 0 && compareBigDecimals(value, max) <= 0
-// }
-// // examples
-// isInRange("-5", "-10", "-1")   // true
-// isInRange("-11", "-10", "-1")  // false
-// isInRange("0", "-10", "-1")    // false
-// isInRange("-Infinity", "-Infinity", "-1")  // true
-// isInRange("5", "-Infinity", "Infinity")    // true
+/**
+ * @example
+ * compareBigDecimals("1e3", "1000") // 0
+ * compareBigDecimals("1e-3", "0.001") // 0
+ * compareBigDecimals("-10", "-2") // -1 ✅
+ * const arr = ["1.2","1.10","1.02","1e2","100","-0.5"]
+ * arr.sort(compareBigDecimals)
+ * console.log(arr)
+ * function isInRange(value: string, min: string, max: string): boolean {return compareBigDecimals(value, min) >= 0 && compareBigDecimals(value, max) <= 0}
+ * // examples
+ * isInRange("-5", "-10", "-1")   // true
+ * isInRange("-11", "-10", "-1")  // false
+ * isInRange("0", "-10", "-1")    // false
+ * isInRange("-Infinity", "-Infinity", "-1")  // true
+ * isInRange("5", "-Infinity", "Infinity")    // true
+ */
 const POSITIVE_INFINITY = 'Infinity'
 const NEGATIVE_INFINITY = '-Infinity'
 
 export default function (a: string, b: string): number {
-  const aInf = isInfinity(a)
-  const bInf = isInfinity(b)
+  const aInf = isInfinity(a),
+    bInf = isInfinity(b)
 
   if (aInf !== 0 || bInf !== 0) {
     if (aInf === bInf) return 0
     return aInf > bInf ? 1 : -1
   }
 
-  const A = parse(a)
-  const B = parse(b)
+  const A = parse(a),
+    B = parse(b)
 
   // different signs
   if (A.sign !== B.sign) return A.sign - B.sign
@@ -41,21 +35,17 @@ export default function (a: string, b: string): number {
   const sign = A.sign
 
   // compare integer length
-  if (A.i.length !== B.i.length) {
-    return (A.i.length - B.i.length) * sign
-  }
+  if (A.i.length !== B.i.length) return (A.i.length - B.i.length) * sign
 
   // compare integer part
-  if (A.i !== B.i) {
-    return (A.i > B.i ? 1 : -1) * sign
-  }
+  if (A.i !== B.i) return (A.i > B.i ? 1 : -1) * sign
 
   // compare fractional part
   const max = Math.max(A.f.length, B.f.length)
 
   for (let i = 0; i < max; i++) {
-    const da = A.f.charCodeAt(i) || 48 // '0'
-    const db = B.f.charCodeAt(i) || 48
+    const da = A.f.charCodeAt(i) || 48, // '0'
+      db = B.f.charCodeAt(i) || 48
 
     if (da !== db) return (da > db ? 1 : -1) * sign
   }
@@ -71,8 +61,8 @@ function isInfinity(s: string): -1 | 0 | 1 {
 }
 
 function parse(input: string) {
-  let s = input.trim()
-  let sign = 1
+  let s = input.trim(),
+    sign = 1
 
   // sign
   if (s[0] === '-') {

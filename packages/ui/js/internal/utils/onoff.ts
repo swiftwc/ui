@@ -1,28 +1,34 @@
 /**
  * const el = document.querySelector('button')!
-
-// 1. Single — no event arg
-useEvent('click', () => console.log('clicked'), el)
-
-// 2. Single — with event arg
-useEvent('click', (e) => console.log(e.target), el)
-
-// 3. Single — with options
-useEvent('click', (e) => console.log(e), el, { passive: true, once: true })
-
-// 4. Single — capture as boolean
-useEvent('click', (e) => console.log(e), el, true)
-
-// 5. Array — shared t
-useEvent([
-  { types: 'click', listener: (e) => console.log('click', e) },
-  { types: 'mouseover mouseout', listener: (e) => console.log('hover', e) },
-], el)
-
-// 6. Using on/off
-const { on, off } = useEvent('scroll', (e) => console.log(e), el, { passive: true })
-on()   // start listening
-off()  // stop listening
+ *
+ * @example
+ * // 1. Single — no event arg
+ * onoff('click', () => console.log('clicked'), el)
+ *
+ * @example
+ * // 2. Single — with event arg
+ * onoff('click', (e) => console.log(e.target), el)
+ *
+ * @example
+ * // 3. Single — with options
+ * onoff('click', (e) => console.log(e), el, { passive: true, once: true })
+ *
+ * @example
+ * // 4. Single — capture as boolean
+ * onoff('click', (e) => console.log(e), el, true)
+ *
+ * @example
+ * // 5. Array — shared t
+ * onoff([
+ *   { types: 'click', listener: (e) => console.log('click', e) },
+ *   { types: 'mouseover mouseout', listener: (e) => console.log('hover', e) },
+ * ], el)
+ *
+ * @example
+ * // 6. Using on/off
+ * const { on, off } = onoff('scroll', (e) => console.log(e), el, { passive: true })
+ * on()   // start listening
+ * off()  // stop listening
  */
 // type Types = string
 type Options = boolean | AddEventListenerOptions
@@ -35,7 +41,7 @@ interface EventConfig {
 }
 
 function single(types: string, listener: EventListener, t?: EventTarget, addOptions?: Options) {
-  const events = types.split(' ')
+  const events = types?.split(' ')
 
   const removeOptions: boolean | EventListenerOptions | undefined =
     typeof addOptions === 'boolean' ? addOptions : addOptions !== undefined && 'capture' in addOptions ? { capture: addOptions.capture } : undefined

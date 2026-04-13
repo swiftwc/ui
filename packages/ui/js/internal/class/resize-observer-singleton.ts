@@ -8,9 +8,7 @@ export class ResizeObserverSingleton {
   constructor() {
     this.observer = Snapshot.waitReady.then(() => {
       return new ResizeObserver((entries) => {
-        // self.requestAnimationFrame(() => { NOTE: DO NOT add this slows down toolbar/scrollview
         for (const entry of entries) this.#observers.get(entry.target)?.(entry)
-        // })
       })
     })
   }

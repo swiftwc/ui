@@ -8,13 +8,6 @@ function closestHost(any?: HTMLElement) {
   return any?.closest<NavigationHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view') ?? undefined
 }
 
-/**
- * Gets current body (closest)
- */
-function closestBody(any?: HTMLElement) {
-  return closestHost(any)?.querySelector<Components.ScrollView>(`:scope > scroll-view,:scope > [is=sidebar-view] > scroll-view`) ?? undefined
-}
-
 export class NavigationPath {
   #component?: NavigationHost
 
@@ -31,7 +24,7 @@ export class NavigationPath {
   }
 
   get body() {
-    if (undefined === this.#body) this.#body = closestBody(this.#component) ?? null
+    if (undefined === this.#body) this.#queryBody()
 
     return this.#body
   }
@@ -58,6 +51,10 @@ export class NavigationPath {
     this.#component = closestHost(any)
   }
 
+  #queryBody() {
+    this.#body = closestHost(this.#component)?.querySelector<Components.ScrollView>(`:scope>scroll-view,:scope>[is=sidebar-view]>scroll-view`) ?? null
+  }
+
   #queryPage() {
     this.#page = this.#component?.querySelector<NavigationPage>(':scope>scroll-view,:scope>[is=sidebar-view]') ?? null
   }
@@ -78,7 +75,7 @@ export class NavigationPath {
   }
 
   hydrate() {
-    this.#body = closestBody(this.#component) ?? null
+    this.#queryBody()
 
     this.#queryPage()
 

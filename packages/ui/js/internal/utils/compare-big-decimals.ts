@@ -14,8 +14,8 @@
  * isInRange("-Infinity", "-Infinity", "-1")  // true
  * isInRange("5", "-Infinity", "Infinity")    // true
  */
-const POSITIVE_INFINITY = 'Infinity'
-const NEGATIVE_INFINITY = '-Infinity'
+const POSITIVE_INFINITY = 'Infinity',
+  NEGATIVE_INFINITY = '-Infinity'
 
 export default function (a: string, b: string): number {
   const aInf = isInfinity(a),

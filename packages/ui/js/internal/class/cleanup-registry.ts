@@ -19,7 +19,7 @@ export class CleanupRegistry {
     const tokens = this.#cleanups.get(target)
     if (!tokens) return
 
-    if (token === undefined) {
+    if (undefined === token) {
       for (const fns of tokens.values()) for (const fn of fns) fn()
       this.#cleanups.delete(target)
     } else if ('string' === typeof token && token.endsWith('*')) {

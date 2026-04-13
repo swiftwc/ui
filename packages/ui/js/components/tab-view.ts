@@ -1,5 +1,5 @@
 import { cssTime, frame } from '../internal/utils'
-import { debounce, onoff, timeout, siblings } from '../internal/utils'
+import { debounce, onoff, timeout, $ } from '../internal/utils'
 import { type TabViewDetail } from '../events'
 import { type NavigationStack } from './navigation-stack'
 import { type NavigationSplitView } from './navigation-split-view'
@@ -104,7 +104,7 @@ export class TabView extends HTMLElement {
     const summary = (evt.target as HTMLElement).closest('summary')
     if (!summary) return
 
-    if (0 === siblings('[aria-selected=true]', summary).length) return
+    if (0 === $.siblings('[aria-selected=true]', summary).length) return
 
     if (!summary.closest('scroll-view')?.matches('tab-view > [is=sidebar-view] > scroll-view')) return
 

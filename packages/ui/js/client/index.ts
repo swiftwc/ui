@@ -356,7 +356,6 @@ export const confirmationDialog = async (trigger: HTMLElement, title: string, en
 
   $.prop('anchor-name', newAnchorName, trigger, 'important')
   $.prop('position-anchor', newAnchorName, dialog as HTMLElement)
-  //
 
   if (title) {
     const label = $(`<label-view></label-view>`)

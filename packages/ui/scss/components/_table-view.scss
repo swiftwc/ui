@@ -120,12 +120,18 @@ $table-elses: (
         background-color: var(--separator);
       }
 
-      // toolbars
+      // SECTION: toolbars
       > [slot^='header'],
       > [slot^='footer'] {
         :where(&) {
           place-content: center;
         }
+      }
+
+      :where(& > button[slot^='header'], & > button[slot^='footer']),
+      :where(& > picker-view > menu-view[slot^='header'], & > picker-view > menu-view[slot^='footer'])::part(menu-summary),
+      :where(& > menu-view[slot^='header'], & > menu-view[slot^='footer'])::part(menu-summary) {
+        border-radius: 0.7rem;
       }
 
       // SECTION: Cols hider

@@ -204,7 +204,7 @@ export class TextField extends FormAssociatedBase {
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
-          label ??= this.appendChild($(`<span slot="label"></span>`))
+          label ??= this.appendChild($(`<span slot="label" foreground="secondary"></span>`))
           label.textContent = newValue
         } else label?.remove()
 

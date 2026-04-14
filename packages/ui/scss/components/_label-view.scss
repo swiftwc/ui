@@ -369,8 +369,6 @@ $label-line-ifs: (
         --label-truncation-mode: attr(truncation-mode type(<custom-ident>), inherit);
         --label-line-limit: attr(line-limit type(<number>), inherit);
         --label-font: attr(font type(<custom-ident>), inherit);
-        // --label--has-icon: attr(image-hint type(<custom-ident>), inherit);
-        // --label--has-title: attr(title-hint type(<custom-ident>), inherit);
       }
     }
 

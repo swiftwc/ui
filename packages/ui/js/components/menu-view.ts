@@ -53,8 +53,8 @@ export class MenuView extends HTMLElement {
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
 
-    $.prop('anchor-name', null, summaryPart) //summaryPart?.style.removeProperty('anchor-name')
-    $.prop('position-anchor', null, dialogPart) //dialogPart?.style.removeProperty('position-anchor')
+    summaryPart?.style.removeProperty('anchor-name') //$.prop('anchor-name', null, summaryPart)
+    dialogPart?.style.removeProperty('position-anchor') //$.prop('position-anchor', null, dialogPart)
 
     CleanupRegistry.unregister(this)
   }

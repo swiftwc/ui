@@ -1695,6 +1695,9 @@
   :where(h-stack[template="repeat(4,minmax(0,1fr))"]) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
+  :where(h-stack[template="repeat(2,minmax(0,1fr)) auto"]) {
+    grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
+  }
 }
 @layer sw-components {
   :where(v-stack) {
@@ -3365,6 +3368,9 @@
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot^=header],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot^=footer]) {
     place-content: center;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > button[slot^=header], table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > button[slot^=footer]), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > picker-view > menu-view[slot^=header], table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > picker-view > menu-view[slot^=footer])::part(menu-summary), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > menu-view[slot^=header], table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > menu-view[slot^=footer])::part(menu-summary) {
+    border-radius: 0.7rem;
   }
   @container table (width <= 31rem) {
     :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot=column]) {

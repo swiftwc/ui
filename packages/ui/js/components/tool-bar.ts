@@ -11,15 +11,15 @@ export class ToolBar extends HTMLElement {
     // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
     return (this.#template ??= $(
       String.raw`
-    <div part="root navigation-bar">
+    <div part="root top-bar">
     <div part="root toolbar-leading-stack">
-      <slot name="navigation-bar-leading"></slot>
+      <slot name="top-bar-leading"></slot>
     </div>
     <div part="root toolbar-principal-stack">
-      <slot name="navigation-bar-principal"></slot>
+      <slot name="top-bar-principal"></slot>
     </div>
     <div part="root toolbar-trailing-stack">
-      <slot name="navigation-bar-trailing"></slot>
+      <slot name="top-bar-trailing"></slot>
     </div>
   </div>
   <div part="root bottom-bar">
@@ -79,14 +79,14 @@ export class ToolBar extends HTMLElement {
       trailing = 'toolbar-trailing-stack' //Snapshot.config!['toolbar-trailing-stack-part-name']
 
     const parentMap = {
-      'navigation-bar': 'navbar',
+      'top-bar': 'navbar',
       'bottom-bar': 'toolbar', //'bottombar',
     } as const
 
     const { contentRect, target } = entry
 
-    const parentPart = target.parentElement?.part.contains('navigation-bar')
-      ? 'navigation-bar'
+    const parentPart = target.parentElement?.part.contains('top-bar')
+      ? 'top-bar'
       : target.parentElement?.part.contains('bottom-bar')
         ? 'bottom-bar'
         : null

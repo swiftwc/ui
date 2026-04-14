@@ -14,8 +14,8 @@
 
   // v-stack,
   // [is='tab-bar-stack'], {
-  scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
-  scroll-view:has(> [slot^='navigation-bar']) {
+  scroll-view:has(~ tool-bar > [slot^='top-bar']),
+  scroll-view:has(> [slot^='top-bar']) {
     :where(&) {
       scroll-padding-top: var(--navigation-bar-block-size);
     }
@@ -89,7 +89,7 @@
 
     &[navigation-bar-title-display-mode='large'] {
       :where(&) {
-        > [slot='navigation-bar-principal'] {
+        > [slot='top-bar-principal'] {
           opacity: 0;
 
           visibility: collapse;

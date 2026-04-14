@@ -15,7 +15,7 @@
 
       --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
 
-      :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='navigation-bar-']) {
+      :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='top-bar-']) {
         --label-style: icon-only;
       }
 

@@ -22,7 +22,7 @@ export class ScrollView extends HTMLElement {
   <slot></slot>
   <div part="root scroll-view-navbar">
     <div part="root scroll-view-navbar-stack">
-      <slot name="navigation-bar-principal"></slot>
+      <slot name="top-bar-principal"></slot>
     </div>
   </div>
   <div part="root scroll-view-toolbar">
@@ -52,7 +52,7 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template, true))
 
-    this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=navigation-bar-principal]') ?? undefined
+    this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=top-bar-principal]') ?? undefined
   }
 
   disconnectedCallback() {
@@ -245,10 +245,10 @@ export class ScrollView extends HTMLElement {
 
   #renderNavTitle = (title: string | null, subtitle: string | null) => {
     const vStack =
-      this.querySelector(':scope>[slot=navigation-bar-principal]') ??
+      this.querySelector(':scope>[slot=top-bar-principal]') ??
       this.appendChild(
         $(
-          `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+          `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
         )
       )
 

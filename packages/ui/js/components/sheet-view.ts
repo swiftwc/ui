@@ -107,7 +107,7 @@ export class SheetView extends DialogBase {
     console.debug(`${SheetView.name} ⚡️ ${evt?.type}`)
 
     if (evt.matches)
-      for (const item of el.querySelectorAll<HTMLElement>(':scope>tool-bar>[slot^="navigation-bar-"]')) {
+      for (const item of el.querySelectorAll<HTMLElement>(':scope>tool-bar>[slot^="top-bar-"]')) {
         item.dataset.previousSlot = item.getAttribute('slot') ?? ''
 
         item.slot = 'bottom-bar-trailing'

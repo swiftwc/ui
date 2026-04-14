@@ -13,7 +13,7 @@
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: auto 1fr auto;
       grid-template-areas:
-        'navigation-bar'
+        'top-bar'
         'spacer'
         'bottom-bar';
     }
@@ -37,7 +37,7 @@
       // min-width: calc(var(--tool-bar-block-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
     }
 
-    :where(&)::part(navigation-bar),
+    :where(&)::part(top-bar),
     :where(&)::part(bottom-bar) {
       position: relative; // SAFARI BUG
 
@@ -54,7 +54,7 @@
       place-content: center; // middle of y axis
     }
 
-    :where(&)::part(navigation-bar) {
+    :where(&)::part(top-bar) {
       // padding-inline: calc(
       //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
       //   )
@@ -62,7 +62,7 @@
       //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
       //   );
 
-      grid-area: navigation-bar;
+      grid-area: top-bar;
 
       block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
 
@@ -98,14 +98,14 @@
     }
 
     @include mixins.if-ipad-sheet-fits {
-      :where([is='sheet-view'] &)::part(navigation-bar),
+      :where([is='sheet-view'] &)::part(top-bar),
       :where([is='sheet-view'] &)::part(bottom-bar) {
         --safe-area-inset-left: 0px;
 
         --safe-area-inset-right: 0px;
       }
 
-      :where([is='sheet-view'] &)::part(navigation-bar) {
+      :where([is='sheet-view'] &)::part(top-bar) {
         --safe-area-inset-top: 0px;
       }
 
@@ -117,9 +117,9 @@
 }
 
 // @layer #{vars.$final-layer} {
-//   tool-bar-item[slot^='navigation-bar'],
-//   tool-bar-item-group[slot^='navigation-bar'] {
-//     :where(& menu-view, & tool-bar-item-group[slot^='navigation-bar'] menu-view)::part(menu-dialog) {
+//   tool-bar-item[slot^='top-bar'],
+//   tool-bar-item-group[slot^='top-bar'] {
+//     :where(& menu-view, & tool-bar-item-group[slot^='top-bar'] menu-view)::part(menu-dialog) {
 //       // position-area: center block-end;
 //     }
 //   }

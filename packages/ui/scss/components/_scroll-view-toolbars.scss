@@ -25,8 +25,8 @@
     }
   }
 
-  scroll-view:has(~ tool-bar > [slot^='navigation-bar']),
-  scroll-view:has(> [slot^='navigation-bar']) {
+  scroll-view:has(~ tool-bar > [slot^='top-bar']),
+  scroll-view:has(> [slot^='top-bar']) {
     :where(&)::part(scroll-view-navbar) {
       visibility: visible;
     }

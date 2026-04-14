@@ -47,14 +47,14 @@ export class NavigationTitle extends HTMLElement {
         this.querySelector(':scope>:not([slot])') ??
         this.appendChild(
           $(
-            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`
+            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`
           )
         ),
       vStack =
         el.querySelector(':scope>v-stack') ??
         el.appendChild(
           $(
-            `<v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+            `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
           )
         )
 
@@ -74,7 +74,7 @@ export class NavigationTitle extends HTMLElement {
 
     // const el = this.appendChild(
     //     Object.assign(document.createElement('template'), {
-    //       innerHTML: `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="navigation-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
+    //       innerHTML: `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
     //     }).content.firstElementChild!
     //   ),
     //   titleLabel = el.querySelector('label-view:nth-child(1)'),

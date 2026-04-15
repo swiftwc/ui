@@ -3,22 +3,40 @@
 
 @layer #{vars.$components-layer} {
   %button {
-    place-items: center;
+    :where(&) {
+      place-items: center;
 
-    place-content: center;
+      place-content: center;
 
-    // SECTION: componentize
-    @include mixins.componentize(btn);
+      // SECTION: componentize
+      @include mixins.componentize(btn);
 
-    --btnpadistart: 0.6rem;
-    --btnpadiend: 0.6rem;
-    --btnpadbstart: 0.6rem;
-    --btnpadbend: 0.6rem;
+      --btnpadistart: var(--regular-btn-padding);
+      --btnpadiend: var(--regular-btn-padding);
+      --btnpadbstart: var(--regular-btn-padding);
+      --btnpadbend: var(--regular-btn-padding);
 
-    --btnradiustl: 1rem;
-    --btnradiustr: 1rem;
-    --btnradiusbl: 1rem;
-    --btnradiusbr: 1rem;
+      --btnradiustl: var(--regular-btn-border-radius);
+      --btnradiustr: var(--regular-btn-border-radius);
+      --btnradiusbl: var(--regular-btn-border-radius);
+      --btnradiusbr: var(--regular-btn-border-radius);
+    }
+
+    @each $size, $media in vars.$button-sizes {
+      @if (regular != $size) {
+        :where(&[control-size='#{$size}']) {
+          --btnpadistart: var(--#{$size}-btn-padding);
+          --btnpadiend: var(--#{$size}-btn-padding);
+          --btnpadbstart: var(--#{$size}-btn-padding);
+          --btnpadbend: var(--#{$size}-btn-padding);
+
+          --btnradiustl: var(--#{$size}-btn-border-radius);
+          --btnradiustr: var(--#{$size}-btn-border-radius);
+          --btnradiusbl: var(--#{$size}-btn-border-radius);
+          --btnradiusbr: var(--#{$size}-btn-border-radius);
+        }
+      }
+    }
   }
 
   // %bordered-prominent-btn {

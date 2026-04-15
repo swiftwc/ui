@@ -23,7 +23,10 @@
 }
 
 @mixin make-floating-tabbar {
-  background: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+  background: light-dark(
+    var(--liquid-glass-bg),
+    var(--liquid-glass-bg-dark)
+  ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
   backdrop-filter: var(--liquid-glass-backdrop-filter);
   box-shadow: var(--liquid-glass-box-shadow);
 }

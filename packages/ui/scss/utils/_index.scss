@@ -23,11 +23,6 @@
     color: var(--blue2);
   }
 
-  // button {
-  //   :where(&[tint]) {
-  //     color: var(--color);
-  //   }
-
   [tint='gray'] {
     :where(&) {
       --accentColor: var(--gray);

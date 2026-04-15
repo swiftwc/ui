@@ -492,7 +492,10 @@ $colors: map.merge(
     // --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
 
     @include mixins.if-2col-split-view-fits {
-      --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      --face: light-dark(
+        var(--liquid-glass-bg),
+        var(--liquid-glass-bg-dark)
+      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
 
       // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
@@ -500,7 +503,10 @@ $colors: map.merge(
 
   tab-view > [is='sidebar-view'] {
     :where(&) {
-      --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      --face: light-dark(
+        var(--liquid-glass-bg),
+        var(--liquid-glass-bg-dark)
+      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
       // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
 
@@ -527,12 +533,12 @@ $colors: map.merge(
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 
-    @media (pointer: fine) {
-      --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-      // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
-    }
+    // @media (pointer: fine) {
+    //   --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    //   --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    //   --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+    // }
   }
 
   [is='tab-bar'] [is='tab-item'] {
@@ -570,12 +576,12 @@ $colors: map.merge(
     --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 
-    @media (pointer: fine) {
-      --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-      --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-      // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
-    }
+    // @media (pointer: fine) {
+    //   --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    //   --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    //   --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+    // }
   }
 
   :where([is='borderless-button']) {
@@ -626,6 +632,22 @@ $colors: map.merge(
       oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h),
       oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
     );
+  }
+
+  :where([is='glass-button']) {
+    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btnhighlighttext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+    );
+    --btnactivetext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+    );
+
+    --btnface: light-dark(var(--glass-btn-bg), var(--glass-btn-bg-dark));
+    --btnhighlightface: light-dark(var(--glass-btn-focus-bg), var(--glass-btn-focus-bg-dark));
+    --btnactiveface: light-dark(var(--glass-btn-active-bg), var(--glass-btn-active-bg-dark));
   }
 
   :where([is='glass-prominent-button']) {

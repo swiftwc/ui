@@ -3,8 +3,9 @@
 
 @layer #{vars.$components-layer} {
   [is='plain-button'] {
+    @extend %button;
+
     :where(&) {
-      @extend %button;
     }
   }
 }

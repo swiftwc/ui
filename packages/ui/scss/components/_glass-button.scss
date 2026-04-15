@@ -3,9 +3,9 @@
 
 @layer #{vars.$components-layer} {
   [is='glass-button'] {
-    :where(&) {
-      @extend %button;
+    @extend %button;
 
+    :where(&) {
       backdrop-filter: var(--liquid-glass-backdrop-filter);
 
       box-shadow: var(--toolbar-cell-box-shadow);

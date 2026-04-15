@@ -3,8 +3,9 @@
 
 @layer #{vars.$components-layer} {
   [is='borderless-button'] {
+    @extend %button;
+
     :where(&) {
-      @extend %button;
     }
 
     :where(&[role='destructive']) {

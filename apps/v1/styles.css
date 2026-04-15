@@ -31,18 +31,20 @@
     --sidebar-border-radius: 1rem;
     --sidebar-block-spacing: 1rem;
     --sidebar-inline-spacing: 1rem;
-    --sidebar-bg-lch: 1 0 0;
-    --sidebar-bg-lch-dark: 0.3171 0 0;
-    --sidebar-bg-alpha: 74.9%;
-    --sidebar-bg-alpha-dark: 50.2%;
+    --liquid-glass-bg-lch: 1 0 0;
+    --liquid-glass-bg-alpha: 74.9%;
+    --liquid-glass-bg-lch-dark: 0.3171 0 0;
+    --liquid-glass-bg-alpha-dark: 50.2%;
   }
   @media (prefers-reduced-transparency: reduce) {
     :root {
-      --sidebar-bg-alpha: 99%;
-      --sidebar-bg-alpha-dark: 99%;
+      --liquid-glass-bg-alpha: 99%;
+      --liquid-glass-bg-alpha-dark: 99%;
     }
   }
   :root {
+    --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
+    --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
@@ -88,21 +90,21 @@
     --pill-border-radius: 99999px;
     --clear: transparent;
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --toolbar-cell-bg: var(--liquid-glass-bg);
+    --toolbar-cell-bg-dark: var(--liquid-glass-bg-dark);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
     --toolbar-cell-block-padding-end: 0.25rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
-    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg: var(--toolbar-cell-bg);
+    --toolbar-cell-focus-bg-dark: var(--toolbar-cell-bg-dark);
+    --toolbar-cell-active-bg: var(--toolbar-cell-bg);
+    --toolbar-cell-active-bg-dark: var(--toolbar-cell-bg-dark);
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
-    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --menu-bg: var(--liquid-glass-bg);
+    --menu-bg-dark: var(--liquid-glass-bg-dark);
     --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -254,21 +256,61 @@
     --table-col-gap: 1rem;
     --table-accessory-gap: 0.2rem;
     --table-accessory-size: 1.2rem;
+    --glass-btn-bg: var(--liquid-glass-bg);
+    --glass-btn-bg-dark: var(--liquid-glass-bg-dark);
+    --glass-btn-focus-bg: var(--glass-btn-bg);
+    --glass-btn-focus-bg-dark: var(--glass-btn-bg-dark);
+    --glass-btn-active-bg: var(--glass-btn-bg);
+    --glass-btn-active-bg-dark: var(--glass-btn-bg-dark);
+    --mini-btn-padding: 0.2rem;
+    --mini-btn-padding: 0.2rem;
+    --mini-btn-border-radius: 1rem;
+    --mini-btn-border-radius: 1rem;
+    --regular-btn-padding: 0.6rem;
+    --regular-btn-padding: 0.6rem;
+    --regular-btn-border-radius: 1.2rem;
+    --regular-btn-border-radius: 1.2rem;
+    --small-btn-padding: 0.4rem;
+    --small-btn-padding: 0.4rem;
+    --small-btn-border-radius: 1rem;
+    --small-btn-border-radius: 1rem;
+    --large-btn-padding: 1.2rem;
+    --large-btn-padding: 1.2rem;
+    --large-btn-border-radius: 2.4rem;
+    --large-btn-border-radius: 2.4rem;
   }
   @media (pointer: fine) {
     :root {
+      --mini-btn-padding: 0.2rem;
+      --mini-btn-padding: 0.2rem;
+      --mini-btn-border-radius: 0.4rem;
+      --mini-btn-border-radius: 0.4rem;
+      --regular-btn-padding: 0.6rem;
+      --regular-btn-padding: 0.6rem;
+      --regular-btn-border-radius: 0.8rem;
+      --regular-btn-border-radius: 0.8rem;
+      --small-btn-padding: 0.4rem;
+      --small-btn-padding: 0.4rem;
+      --small-btn-border-radius: 0.6rem;
+      --small-btn-border-radius: 0.6rem;
+      --large-btn-padding: 1.2rem;
+      --large-btn-padding: 1.2rem;
+      --large-btn-border-radius: 1.4rem;
+      --large-btn-border-radius: 1.4rem;
       --primary-bg: oklch(0.9761 0 0);
       --primary-bg-dark: oklch(0.2666 0.0071 67.52);
       --divider: oklch(0.9249 0 0);
       --divider-dark: oklch(0.3452 0.0074 84.59);
-      --toolbar-cell-bg: oklch(1 0 0);
-      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
-      --menu-bg: oklch(1 0 0);
-      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
-      --toolbar-cell-focus-bg: oklch(0.8474 0.0858 9.09);
-      --toolbar-cell-focus-bg-dark: oklch(0.7348 0 0);
-      --toolbar-cell-active-bg: oklch(0.5999 0 0);
-      --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
+      --noglass-bg: oklch(1 0 0);
+      --noglass-bg-dark: oklch(0.2871 0.0029 17.33);
+      --toolbar-cell-bg: var(--noglass-bg);
+      --toolbar-cell-bg-dark: var(--noglass-bg-dark);
+      --toolbar-cell-focus-bg: oklch(0.9551 0 0);
+      --toolbar-cell-focus-bg-dark: oklch(0.3578 0.008 75.3);
+      --toolbar-cell-active-bg: oklch(0.9128 0 0);
+      --toolbar-cell-active-bg-dark: oklch(0.3995 0.0077 75.32);
+      --menu-bg: var(--noglass-bg);
+      --menu-bg-dark: var(--noglass-bg-dark);
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-item-focus-color: white;
@@ -853,7 +895,7 @@
   }
 }
 @layer sw-components {
-  :where([is=glass-prominent-button]), :where([is=glass-button]), :where([is=bordered-prominent-button]), :where([is=bordered-button]), :where([is=borderless-button]), :where([is=plain-button]) {
+  :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
     place-items: center;
     place-content: center;
     appearance: none;
@@ -864,33 +906,63 @@
     padding-inline: var(--btnpadistart,) var(--btnpadiend,);
     padding-block: var(--btnpadbstart,) var(--btnpadbend,);
     border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
-    --btnpadistart: 0.6rem;
-    --btnpadiend: 0.6rem;
-    --btnpadbstart: 0.6rem;
-    --btnpadbend: 0.6rem;
-    --btnradiustl: 1rem;
-    --btnradiustr: 1rem;
-    --btnradiusbl: 1rem;
-    --btnradiusbr: 1rem;
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
+  }
+  :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
+    --btnpadistart: var(--mini-btn-padding);
+    --btnpadiend: var(--mini-btn-padding);
+    --btnpadbstart: var(--mini-btn-padding);
+    --btnpadbend: var(--mini-btn-padding);
+    --btnradiustl: var(--mini-btn-border-radius);
+    --btnradiustr: var(--mini-btn-border-radius);
+    --btnradiusbl: var(--mini-btn-border-radius);
+    --btnradiusbr: var(--mini-btn-border-radius);
+  }
+  :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
+    --btnpadistart: var(--small-btn-padding);
+    --btnpadiend: var(--small-btn-padding);
+    --btnpadbstart: var(--small-btn-padding);
+    --btnpadbend: var(--small-btn-padding);
+    --btnradiustl: var(--small-btn-border-radius);
+    --btnradiustr: var(--small-btn-border-radius);
+    --btnradiusbl: var(--small-btn-border-radius);
+    --btnradiusbr: var(--small-btn-border-radius);
+  }
+  :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
+    --btnpadistart: var(--large-btn-padding);
+    --btnpadiend: var(--large-btn-padding);
+    --btnpadbstart: var(--large-btn-padding);
+    --btnpadbend: var(--large-btn-padding);
+    --btnradiustl: var(--large-btn-border-radius);
+    --btnradiustr: var(--large-btn-border-radius);
+    --btnradiusbl: var(--large-btn-border-radius);
+    --btnradiusbr: var(--large-btn-border-radius);
   }
 }
 @layer sw-colors {
-  :where(:not(:disabled):not([readonly]):where([is=glass-prominent-button]), :not(:disabled):not([readonly]):where([is=glass-button]), :not(:disabled):not([readonly]):where([is=bordered-prominent-button]), :not(:disabled):not([readonly]):where([is=bordered-button]), :not(:disabled):not([readonly]):where([is=borderless-button]), :not(:disabled):not([readonly]):where([is=plain-button])):focus-visible {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
     outline: none;
   }
-  :where(:not(:disabled):not([readonly]):where([is=glass-prominent-button]), :not(:disabled):not([readonly]):where([is=glass-button]), :not(:disabled):not([readonly]):where([is=bordered-prominent-button]), :not(:disabled):not([readonly]):where([is=bordered-button]), :not(:disabled):not([readonly]):where([is=borderless-button]), :not(:disabled):not([readonly]):where([is=plain-button])):focus-visible {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
     --btnface: var(--btnhighlightface,);
     --btntext: var(--btnhighlighttext,);
   }
   @media (pointer: fine) {
-    :where(:not(:disabled):not([readonly]):where([is=glass-prominent-button]), :not(:disabled):not([readonly]):where([is=glass-button]), :not(:disabled):not([readonly]):where([is=bordered-prominent-button]), :not(:disabled):not([readonly]):where([is=bordered-button]), :not(:disabled):not([readonly]):where([is=borderless-button]), :not(:disabled):not([readonly]):where([is=plain-button])):hover {
+    :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):hover {
       --btnface: var(--btnhighlightface,);
       --btntext: var(--btnhighlighttext,);
     }
   }
 }
 @layer sw-actions {
-  :where(:not(:disabled):not([readonly]):where([is=glass-prominent-button]), :not(:disabled):not([readonly]):where([is=glass-button]), :not(:disabled):not([readonly]):where([is=bordered-prominent-button]), :not(:disabled):not([readonly]):where([is=bordered-button]), :not(:disabled):not([readonly]):where([is=borderless-button]), :not(:disabled):not([readonly]):where([is=plain-button])):active {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
     --btnface: var(--btnactiveface,);
     --btntext: var(--btnactivetext,);
   }
@@ -4302,7 +4374,7 @@
     grid-auto-flow: column;
     grid-template-rows: minmax(0, 1fr);
     margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
-    background: light-dark(oklch(var(--sidebar-bg-lch)/var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark)/var(--sidebar-bg-alpha-dark)));
+    background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--liquid-glass-box-shadow);
     overflow: auto clip;
@@ -7201,11 +7273,17 @@
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
-      --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      --face: light-dark(
+        var(--liquid-glass-bg),
+        var(--liquid-glass-bg-dark)
+      );
     }
   }
   :where(tab-view > [is=sidebar-view]) {
-    --face: light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+    --face: light-dark(
+      var(--liquid-glass-bg),
+      var(--liquid-glass-bg-dark)
+    );
   }
   :where(tab-view > [is=sidebar-view] [is=form-view]) {
     --list--highlighteditem-background-color: transparent;
@@ -7218,13 +7296,6 @@
     --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  }
-  @media (pointer: fine) {
-    :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
-      --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-    }
   }
   :where([is=tab-bar] [is=tab-item]) {
     --toolbaritemhighlighttext: yellow;
@@ -7245,13 +7316,6 @@
     --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  }
-  @media (pointer: fine) {
-    :where([is=confirmation-dialog]) {
-      --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-      --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-      --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-    }
   }
   :where([is=borderless-button]) {
     --btntext: var(--accentColor);
@@ -7297,6 +7361,20 @@
       oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h),
       oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
     );
+  }
+  :where([is=glass-button]) {
+    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btnhighlighttext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+    );
+    --btnactivetext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+    );
+    --btnface: light-dark(var(--glass-btn-bg), var(--glass-btn-bg-dark));
+    --btnhighlightface: light-dark(var(--glass-btn-focus-bg), var(--glass-btn-focus-bg-dark));
+    --btnactiveface: light-dark(var(--glass-btn-active-bg), var(--glass-btn-active-bg-dark));
   }
   :where([is=glass-prominent-button]) {
     --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);

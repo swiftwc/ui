@@ -53,15 +53,27 @@
     --sidebar-block-spacing: 1rem;
     --sidebar-inline-spacing: 1rem;
 
-    --sidebar-bg-lch: 1 0 0;
-    --sidebar-bg-lch-dark: 0.3171 0 0;
-    --sidebar-bg-alpha: 74.9%;
-    --sidebar-bg-alpha-dark: 50.2%;
-
+    --liquid-glass-bg-lch: 1 0 0;
+    --liquid-glass-bg-alpha: 74.9%;
+    --liquid-glass-bg-lch-dark: 0.3171 0 0;
+    --liquid-glass-bg-alpha-dark: 50.2%;
     @media (prefers-reduced-transparency: reduce) {
-      --sidebar-bg-alpha: 99%;
-      --sidebar-bg-alpha-dark: 99%;
+      --liquid-glass-bg-alpha: 99%;
+      --liquid-glass-bg-alpha-dark: 99%;
     }
+    --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
+    --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
+    //color-mix(in oklch, red calc(100% - 50%), transparent)
+
+    // --sidebar-bg-lch: 1 0 0;
+    // --sidebar-bg-lch-dark: 0.3171 0 0;
+    // --sidebar-bg-alpha: 74.9%;
+    // --sidebar-bg-alpha-dark: 50.2%;
+
+    // @media (prefers-reduced-transparency: reduce) {
+    //   --sidebar-bg-alpha: 99%;
+    //   --sidebar-bg-alpha-dark: 99%;
+    // }
 
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px); //blur(4px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
@@ -134,8 +146,8 @@
     --clear: transparent;
 
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
@@ -143,15 +155,15 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
 
-    --toolbar-cell-focus-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-focus-bg-dark: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg: oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg-dark: oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 
-    --menu-bg: oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-    --menu-bg-dark: oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --menu-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
     --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -292,8 +304,36 @@
     --table-accessory-gap: 0.2rem;
     --table-accessory-size: 1.2rem;
 
+    --glass-btn-bg: var(--liquid-glass-bg);
+    --glass-btn-bg-dark: var(--liquid-glass-bg-dark);
+    --glass-btn-focus-bg: var(--glass-btn-bg);
+    --glass-btn-focus-bg-dark: var(--glass-btn-bg-dark);
+    --glass-btn-active-bg: var(--glass-btn-bg);
+    --glass-btn-active-bg-dark: var(--glass-btn-bg-dark);
+
+    // button sizes
+    @each $size, $media in vars.$button-sizes {
+      $props: map.get($media, default);
+      @if $props {
+        @each $k, $v in $props {
+          --#{$size}-btn-#{$k}: #{$v};
+          --#{$size}-btn-#{$k}: #{$v};
+        }
+      }
+    }
+
     // fine
     @media (pointer: fine) {
+      @each $size, $media in vars.$button-sizes {
+        $props: map.get($media, fine);
+        @if $props {
+          @each $k, $v in $props {
+            --#{$size}-btn-#{$k}: #{$v};
+            --#{$size}-btn-#{$k}: #{$v};
+          }
+        }
+      }
+
       --primary-bg: oklch(0.9761 0 0); // ✅
       --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
 
@@ -303,16 +343,19 @@
       // --secondary-label: oklch(0.5999 0 0); // ✅
       // --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
 
-      --toolbar-cell-bg: oklch(1 0 0);
-      --toolbar-cell-bg-dark: oklch(0.2871 0.0029 17.33);
+      --noglass-bg: oklch(1 0 0);
+      --noglass-bg-dark: oklch(0.2871 0.0029 17.33);
 
-      --menu-bg: oklch(1 0 0);
-      --menu-bg-dark: oklch(0.2871 0.0029 17.33);
+      --toolbar-cell-bg: var(--noglass-bg);
+      --toolbar-cell-bg-dark: var(--noglass-bg-dark);
 
-      --toolbar-cell-focus-bg: oklch(0.8474 0.0858 9.09);
-      --toolbar-cell-focus-bg-dark: oklch(0.7348 0 0);
-      --toolbar-cell-active-bg: oklch(0.5999 0 0);
-      --toolbar-cell-active-bg-dark: oklch(0.5999 0 0);
+      --toolbar-cell-focus-bg: oklch(0.9551 0 0); //FIXME: gray6!!!
+      --toolbar-cell-focus-bg-dark: oklch(0.3578 0.008 75.3); //FIXME: gray4!!!
+      --toolbar-cell-active-bg: oklch(0.9128 0 0); //FIXME: gray5!!!
+      --toolbar-cell-active-bg-dark: oklch(0.3995 0.0077 75.32); //FIXME: gray3!!!
+
+      --menu-bg: var(--noglass-bg);
+      --menu-bg-dark: var(--noglass-bg-dark);
 
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);

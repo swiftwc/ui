@@ -2,9 +2,13 @@
 @use '../placeholders';
 
 @layer #{vars.$components-layer} {
-  [is='borderless-button'] {
+  [is='bordered-button'] {
     :where(&) {
       @extend %button;
+
+      @media (pointer: fine) {
+        --accentColor: var(--primary);
+      }
     }
 
     :where(&[role='destructive']) {

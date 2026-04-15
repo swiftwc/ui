@@ -107,7 +107,7 @@
     //   touch-action: all;
     // }
 
-    // componentize
+    // SECTION: componentize
     :where(& > button, & > [is='disclosure-group'] > button, & > [is='disclosure-group'] > summary),
     :where(& > menu-view)::part(menu-summary) {
       @include mixins.componentize(menuitem);

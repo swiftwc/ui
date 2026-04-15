@@ -9,20 +9,21 @@ export class ToolBarItem extends HTMLElement {
   connectedCallback() {
     console.debug(`${ToolBarItem.name} ⚡️ connect`)
 
-    const { on } = onoff(
-      touchGlass(
-        this,
-        (t) => t.closest('tool-bar-item-group') ?? t,
-        (event: Event) => {
-          if ((event.target as HTMLElement).closest('menu-view[open]')) return false
+    CleanupRegistry.register(
+      this,
+      onoff(
+        touchGlass(
+          this,
+          (t) => t.closest('tool-bar-item-group') ?? t,
+          (event: Event) => {
+            if ((event.target as HTMLElement).closest('menu-view[open]')) return false
 
-          return true
-        }
-      ),
-      this
+            return true
+          }
+        ),
+        this
+      ).on()
     )
-
-    CleanupRegistry.register(this, on())
   }
 
   disconnectedCallback() {

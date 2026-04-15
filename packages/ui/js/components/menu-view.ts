@@ -80,21 +80,22 @@ export class MenuView extends HTMLElement {
       ).on()
     )
 
-    const { on } = onoff(
-      touchGlass(
-        this,
-        (t) => t,
-        (evt: PointerEvent) => {
-          if ((evt.target as HTMLElement).matches('menu-view')) return false
-          if (!(evt.target as HTMLElement).closest('menu-view[open]')) return false
+    CleanupRegistry.register(
+      this,
+      onoff(
+        touchGlass(
+          this,
+          (t) => t,
+          (evt: PointerEvent) => {
+            if ((evt.target as HTMLElement).matches('menu-view')) return false
+            if (!(evt.target as HTMLElement).closest('menu-view[open]')) return false
 
-          return true
-        }
-      ),
-      this
+            return true
+          }
+        ),
+        this
+      ).on()
     )
-
-    CleanupRegistry.register(this, on())
 
     const newAnchorName = `--menu-view-${self.crypto.randomUUID()}`
 

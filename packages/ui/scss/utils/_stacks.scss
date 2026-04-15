@@ -224,6 +224,7 @@ $v-placement-map: (
 
   // padding reserved word for stacks
   v-stack,
+  h-stack,
   v-flex-stack {
     :where(&[padding]) {
       padding-inline: 1rem;

@@ -3,6 +3,14 @@
 
 @layer #{vars.$final-layer} {
   @media (pointer: coarse) {
+    [is='glass-button'],
+    [is='glass-prominent-button'] {
+      :where(&[touch-glass]) {
+        --btn--scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
     menu-view {
       :where(&[touch-glass])::part(menu-dialog) {
         --menu--dialog-scale: scale(1.02);

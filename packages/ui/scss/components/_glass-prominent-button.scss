@@ -2,9 +2,15 @@
 @use '../placeholders';
 
 @layer #{vars.$components-layer} {
-  [is='borderless-button'] {
+  [is='glass-prominent-button'] {
     :where(&) {
       @extend %button;
+
+      backdrop-filter: var(--liquid-glass-backdrop-filter);
+
+      box-shadow: var(--toolbar-cell-box-shadow);
+
+      transform: var(--btn--scale,);
     }
 
     :where(&[role='destructive']) {

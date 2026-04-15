@@ -47,21 +47,22 @@ export class ConfirmationDialog extends DialogBase {
       ).on()
     )
 
-    const { on } = onoff(
-      touchGlass(
-        el,
-        (t) => t,
-        (evt: PointerEvent) => {
-          if ((evt.target as HTMLElement).matches('[is=confirmation-dialog]')) return false
-          // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
+    CleanupRegistry.register(
+      el,
+      onoff(
+        touchGlass(
+          el,
+          (t) => t,
+          (evt: PointerEvent) => {
+            if ((evt.target as HTMLElement).matches('[is=confirmation-dialog]')) return false
+            // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
 
-          return true
-        }
-      ),
-      el
+            return true
+          }
+        ),
+        el
+      ).on()
     )
-
-    CleanupRegistry.register(el, on())
 
     console.debug(`${ConfirmationDialog.name} ⚡️ will-open`)
 

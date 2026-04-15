@@ -2,34 +2,95 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  %bordered-prominent-btn {
-    --toolbaritempadistart: 20px;
-    --toolbaritempadiend: 20px;
-    --toolbaritempadbstart: 20px;
-    --toolbaritempadbend: 20px;
-    --toolbaritemradiustr: 20px;
-    --toolbaritemradiustl: 20px;
-    --toolbaritemradiusbr: 20px;
-    --toolbaritemradiusbl: 20px;
-    --toolbaritemface: chocolate;
-    --toolbaritemhighlightface: orange;
-    --toolbaritemactiveface: darkred;
+  %button {
+    place-items: center;
+
+    place-content: center;
+
+    // SECTION: componentize
+    @include mixins.componentize(btn);
+
+    --btnpadistart: 0.6rem;
+    --btnpadiend: 0.6rem;
+    --btnpadbstart: 0.6rem;
+    --btnpadbend: 0.6rem;
+
+    --btnradiustl: 1rem;
+    --btnradiustr: 1rem;
+    --btnradiusbl: 1rem;
+    --btnradiusbr: 1rem;
   }
 
-  %bordered-prominent-btn {
+  // %bordered-prominent-btn {
+  //   --toolbaritempadistart: 20px;
+  //   --toolbaritempadiend: 20px;
+  //   --toolbaritempadbstart: 20px;
+  //   --toolbaritempadbend: 20px;
+  //   --toolbaritemradiustr: 20px;
+  //   --toolbaritemradiustl: 20px;
+  //   --toolbaritemradiusbr: 20px;
+  //   --toolbaritemradiusbl: 20px;
+  //   --toolbaritemface: chocolate;
+  //   --toolbaritemhighlightface: orange;
+  //   --toolbaritemactiveface: darkred;
+  // }
+
+  // %bordered-prominent-btn {
+  //   @include mixins.add-focus-visible-state {
+  //     --toolbaritemface: var(--toolbaritemhighlightface,);
+  //   }
+  //   @include mixins.add-hover-state {
+  //     --toolbaritemface: var(--toolbaritemhighlightface,);
+  //   }
+  // }
+}
+
+// @layer #{vars.$ui-layer} {
+//   %bordered-prominent-btn {
+//     @include mixins.add-active-state {
+//       --toolbaritemface: var(--toolbaritemactiveface,);
+//     }
+//   }
+// }
+
+@layer #{vars.$colors-layer} {
+  // SECTION: componentize
+  %button {
     @include mixins.add-focus-visible-state {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
     }
     @include mixins.add-hover-state {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
     }
   }
 }
 
 @layer #{vars.$ui-layer} {
-  %bordered-prominent-btn {
+  // SECTION: componentize
+  %button {
     @include mixins.add-active-state {
-      --toolbaritemface: var(--toolbaritemactiveface,);
+      --btnface: var(--btnactiveface,);
+      --btntext: var(--btnactivetext,);
+    }
+  }
+}
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    %button {
+      :where(&) {
+        transition:
+          background-color 100ms ease-out allow-discrete,
+          opacity 100ms ease-out allow-discrete,
+          color 100ms ease-out allow-discrete;
+        will-change: background-color, opacity, color;
+      }
+
+      :where(&)::active {
+        transition-duration: 25ms;
+      }
     }
   }
 }

@@ -1,0 +1,10 @@
+@use '../vars';
+@use '../placeholders';
+
+@layer #{vars.$components-layer} {
+  [is='plain-button'] {
+    :where(&) {
+      @extend %button;
+    }
+  }
+}

@@ -664,23 +664,40 @@
       <body-view>
         <scroll-view navigation-inline-title="Katie Abeles" navigation-path="customer1" background-style="grouped">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <button type="button" navigation-destination="customertransactions1">Transactions</button>
+            <scroll-view-proxy>
+              <h-stack distribution="leading" padding tint="gray">
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+              </h-stack>
+            </scroll-view-proxy>
+
             <list-view columns="2" list-style="inset-grouped">
               <labeled-content>
                 <label-view title="Name" slot="label"></label-view>
-                <label-view title="Katie Abeles" slot="content"></label-view>
+                <label-view title="Katie Abeles" slot="content" foreground="secondary"></label-view>
               </labeled-content>
               <labeled-content>
                 <label-view title="Email" slot="label"></label-view>
-                <label-view title="Customer 1" slot="content"></label-view>
+                <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
               </labeled-content>
               <labeled-content>
                 <label-view title="Phone" slot="label"></label-view>
-                <label-view title="Customer 1" slot="content"></label-view>
+                <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
               </labeled-content>
               <labeled-content>
                 <label-view title="Language" slot="label"></label-view>
-                <label-view title="Language" slot="content"></label-view>
+                <label-view title="Language" slot="content" foreground="secondary"></label-view>
               </labeled-content>
             </list-view>
           </v-stack>
@@ -714,15 +731,15 @@
                   </text-field>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
                   <label-view title="Customer 1" slot="content"></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
                   <label-view title="Customer 1" slot="content"></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
                   <label-view title="Customer 1" slot="content"></label-view>
                 </labeled-content>
               </section-view>

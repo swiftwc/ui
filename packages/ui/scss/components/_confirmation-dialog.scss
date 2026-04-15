@@ -65,25 +65,28 @@
       }
     }
 
-    // componentize
+    // SECTION: componentize
     > button {
       :where(&) {
         @include mixins.componentize(dialogbtn);
       }
     }
-    --dialogbtnpadistart: 0.6rem;
-    --dialogbtnpadiend: 0.6rem;
-    --dialogbtnpadbstart: 0.6rem;
-    --dialogbtnpadbend: 0.6rem;
-    --dialogbtnradiustl: 1rem;
-    --dialogbtnradiustr: 1rem;
-    --dialogbtnradiusbl: 1rem;
-    --dialogbtnradiusbr: 1rem;
+
+    :where(&) {
+      --dialogbtnpadistart: 0.6rem;
+      --dialogbtnpadiend: 0.6rem;
+      --dialogbtnpadbstart: 0.6rem;
+      --dialogbtnpadbend: 0.6rem;
+      --dialogbtnradiustl: 1rem;
+      --dialogbtnradiustr: 1rem;
+      --dialogbtnradiusbl: 1rem;
+      --dialogbtnradiusbr: 1rem;
+    }
   }
 }
 
 @layer #{vars.$colors-layer} {
-  // componentize
+  // SECTION: componentize
   [is='confirmation-dialog'] {
     > button {
       @include mixins.add-focus-visible-state {
@@ -95,7 +98,7 @@
 }
 
 @layer #{vars.$ui-layer} {
-  // componentize
+  // SECTION: componentize
   [is='confirmation-dialog'] {
     > button {
       @include mixins.add-active-state {

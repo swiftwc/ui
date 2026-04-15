@@ -2,7 +2,7 @@
 @use '../placeholders';
 
 @layer #{vars.$components-layer} {
-  [is='borderless-button'] {
+  [is='bordered-prominent-button'] {
     :where(&) {
       @extend %button;
     }

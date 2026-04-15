@@ -1,0 +1,79 @@
+@use '../vars';
+@use '../mixins';
+@use 'sass:string';
+@use 'sass:map';
+
+@layer #{vars.$components-layer} {
+  // NOTE: A wrapper to {hv}-stack
+  scroll-view-proxy {
+    :where(&) {
+      display: contents;
+    }
+
+    &:has(> v-stack, > h-stack) {
+      > v-stack,
+      > h-stack {
+        :where(&) {
+          position: relative;
+
+          @include mixins.contain-overscroll;
+
+          scrollbar-width: thin;
+
+          container: scroll-view-proxy / inline-size;
+        }
+
+        :where(& > :not([slot])) {
+          scroll-snap-stop: normal;
+
+          scroll-snap-align: center;
+        }
+
+        :where(&[distribution='leading'] > :not([slot])) {
+          scroll-snap-align: start;
+        }
+
+        :where(&) {
+          &::before {
+            @include mixins.span-all;
+            content: '';
+            display: inline-grid;
+            block-size: 1px;
+            inline-size: 1px;
+            z-index: -1;
+            pointer-events: none;
+            position: absolute;
+          }
+        }
+      }
+
+      > v-stack {
+        :where(&) {
+          overflow: clip auto;
+
+          scroll-snap-type: block mandatory;
+
+          &::before {
+            block-size: calc(100cqb + 1px); // creates overflow
+          }
+        }
+      }
+
+      > h-stack {
+        :where(&) {
+          overflow: auto clip;
+
+          scroll-snap-type: inline mandatory;
+
+          &::before {
+            inline-size: calc(100cqi + 1px); // creates overflow
+          }
+        }
+
+        :where(&[padding]) {
+          scroll-padding-inline: 1rem;
+        }
+      }
+    }
+  }
+}

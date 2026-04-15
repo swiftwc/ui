@@ -34,21 +34,22 @@ export class TabBar extends DialogBase {
 
     CleanupRegistry.register(el, onoff('click', TabBar.#handleClick, el).on())
 
-    const { on } = onoff(
-      touchGlass(
-        el,
-        (t) => t,
-        (evt: PointerEvent) => {
-          if ((evt.target as HTMLElement).matches('[is=tab-bar]')) return false
-          if ((evt.target as HTMLElement).closest('tool-bar-item')) return false
+    CleanupRegistry.register(
+      el,
+      onoff(
+        touchGlass(
+          el,
+          (t) => t,
+          (evt: PointerEvent) => {
+            if ((evt.target as HTMLElement).matches('[is=tab-bar]')) return false
+            if ((evt.target as HTMLElement).closest('tool-bar-item')) return false
 
-          return true
-        }
-      ),
-      el
+            return true
+          }
+        ),
+        el
+      ).on()
     )
-
-    CleanupRegistry.register(el, on())
     // })
   }
 

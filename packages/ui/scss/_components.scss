@@ -18,6 +18,7 @@
 @forward 'components/confirmation-dialog';
 
 @forward 'components/scroll-view';
+@forward 'components/scroll-view-proxy';
 
 @forward 'components/h-stack';
 @forward 'components/v-stack';
@@ -29,7 +30,12 @@
 
 @forward 'components/tool-bar-item-group';
 
+@forward 'components/plain-button';
 @forward 'components/borderless-button';
+@forward 'components/bordered-button';
+@forward 'components/bordered-prominent-button';
+@forward 'components/glass-button';
+@forward 'components/glass-prominent-button';
 
 @forward 'components/tool-bar';
 
@@ -37,7 +43,7 @@
 
 @forward 'components/labeled-content';
 
-@forward 'components/button-view';
+// @forward 'components/button-view';
 
 @forward 'components/body-view';
 

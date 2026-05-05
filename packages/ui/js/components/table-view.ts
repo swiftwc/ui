@@ -1,8 +1,8 @@
-import { listActive, onoff, $ } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { Snapshot } from '../snapshot'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
+import { $, listActive, onoff } from '../internal/utils'
+import { Snapshot } from '../snapshot'
 
 const observers = new MutationObserverSingleton()
 

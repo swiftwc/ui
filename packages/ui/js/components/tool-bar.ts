@@ -1,4 +1,3 @@
-import { Snapshot } from '../snapshot'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $ } from '../internal/utils'
 

@@ -1,4 +1,4 @@
-import { type NavigationStack, type NavigationSplitView } from '../components'
+import { type NavigationSplitView, type NavigationStack } from '../components'
 import { type TabBarPlacement } from '../components/tab-view'
 
 export type TabDetail = {

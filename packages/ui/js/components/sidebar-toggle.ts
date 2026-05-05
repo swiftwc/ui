@@ -1,10 +1,6 @@
-import { type TabBar } from './tab-bar'
-import { type SidebarView } from './sidebar-view'
-import { debounce, $ } from '../internal/utils'
-import { Snapshot } from '../snapshot'
-import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { $, debounce, onoff } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 

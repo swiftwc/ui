@@ -1,6 +1,3 @@
-import { frame } from '../utils'
-import { type TabDetail } from '../../events'
-import { LifecycleObserver } from '../../lifecycle-observer'
 import { CleanupRegistry } from './cleanup-registry'
 import { MutationObserverSingleton } from './mutation-observer-singleton'
 

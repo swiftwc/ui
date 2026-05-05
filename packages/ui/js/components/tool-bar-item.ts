@@ -1,5 +1,5 @@
-import { touchGlass, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff, touchGlass } from '../internal/utils'
 
 export class ToolBarItem extends HTMLElement {
   constructor() {

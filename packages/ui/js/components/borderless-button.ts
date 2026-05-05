@@ -1,6 +1,6 @@
-import { ButtonBase } from '../namespace-browser/base'
-import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff } from '../internal/utils'
+import { ButtonBase } from '../namespace-browser/base'
 
 export class BorderlessButton extends ButtonBase {
   static get observedAttributes() {

@@ -1,7 +1,6 @@
-import { DialogBase } from '../namespace-browser/base'
-import { touchGlass, onoff } from '../internal/utils'
-import { Snapshot } from '../snapshot'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff, touchGlass } from '../internal/utils'
+import { DialogBase } from '../namespace-browser/base'
 
 export class TabBar extends DialogBase {
   constructor() {

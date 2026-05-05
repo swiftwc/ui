@@ -1,8 +1,8 @@
-import { DialogBase } from '../namespace-browser/base'
-import { touchGlass, $, onoff } from '../internal/utils'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
 import { type ReturnDetail } from '../events'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { $, onoff, touchGlass } from '../internal/utils'
+import { DialogBase } from '../namespace-browser/base'
 
 export class ConfirmationDialog extends DialogBase {
   static get observedAttributes() {

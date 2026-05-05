@@ -1,8 +1,8 @@
-import { onoff, $, kebabCase, set, compareBigDecimals } from '../internal/utils'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { I18n } from '../i18n'
-import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 import { type TextFieldCommitDetail } from '../events'
+import { I18n } from '../i18n'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { $, compareBigDecimals, kebabCase, onoff, set } from '../internal/utils'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'

@@ -1,7 +1,7 @@
-import { type ScrollView } from './scroll-view'
-import { $, sleep, frame, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { $, frame, onoff, sleep } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import { type ScrollView } from './scroll-view'
 
 /**
  * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.

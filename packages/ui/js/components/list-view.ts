@@ -1,5 +1,5 @@
-import { listActive, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { listActive, onoff } from '../internal/utils'
 
 export class ListView extends HTMLElement {
   // static formAssociated = true

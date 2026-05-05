@@ -1,5 +1,5 @@
-import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff } from '../internal/utils'
 
 export class StickyContainer extends HTMLElement {
   constructor() {

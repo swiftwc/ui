@@ -1,6 +1,6 @@
-import { DialogBase } from '../namespace-browser/base'
-import { onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { onoff } from '../internal/utils'
+import { DialogBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 export class SheetView extends DialogBase {
@@ -11,24 +11,6 @@ export class SheetView extends DialogBase {
   constructor() {
     super()
   }
-
-  // disconnectedCallback() {
-  //   SheetView.polyfillDisconnectedCallback(this)
-  // }
-
-  // connectedCallback() {
-  //   SheetView.polyfillConnectedCallback(this)
-  // }
-
-  // attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-  //   const entry = {
-  //     attributeName: name,
-  //     oldValue,
-  //     target: this,
-  //   }
-
-  //   SheetView.polyfillAttributeChangedCallback([entry])
-  // }
 
   static polyfillDisconnectedCallback(el: SheetView) {
     console.debug(`${SheetView.name} ⚡️ disconnect`)

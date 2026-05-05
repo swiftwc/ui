@@ -1,11 +1,9 @@
-import { Snapshot } from '../snapshot'
-import { type TabDetail } from '../events'
-import { type TabView } from './tab-view'
-import { $, slowHideShow, onoff, frame, set } from '../internal/utils'
-import { type PageShowHideDetail, type PageRevealSwapDetail } from '../events'
-import { LifecycleObserver } from '../lifecycle-observer'
+import { type PageShowHideDetail, type TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { $, frame, onoff, slowHideShow } from '../internal/utils'
+import { LifecycleObserver } from '../lifecycle-observer'
+import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
 

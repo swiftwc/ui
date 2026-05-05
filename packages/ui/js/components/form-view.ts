@@ -1,6 +1,6 @@
-import { FormBase } from '../namespace-browser/base'
-import { listActive, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { listActive, onoff } from '../internal/utils'
+import { FormBase } from '../namespace-browser/base'
 
 export class FormView extends FormBase {
   constructor() {

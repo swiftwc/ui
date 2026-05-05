@@ -1,8 +1,8 @@
-import { onoff, $, kebabCase, clamp, set } from '../internal/utils'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { I18n } from '../i18n'
-import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 import { type DatePickerSelectionDetail } from '../events'
+import { I18n } from '../i18n'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { $, clamp, kebabCase, onoff, set } from '../internal/utils'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
 export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'

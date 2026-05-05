@@ -1,4 +1,3 @@
-import { Snapshot } from '../snapshot'
 import { $ } from '../internal/utils'
 
 export class LabelView extends HTMLElement {

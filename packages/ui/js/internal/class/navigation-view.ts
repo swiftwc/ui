@@ -1,7 +1,7 @@
-import { frame, onoff } from '../utils'
 import { type TabDetail } from '../../events'
-import { LifecycleObserver } from '../../lifecycle-observer'
 import { CleanupRegistry } from '../../internal/class/cleanup-registry'
+import { LifecycleObserver } from '../../lifecycle-observer'
+import { frame, onoff } from '../utils'
 
 export class NavigationView extends HTMLElement {
   static get observedAttributes() {

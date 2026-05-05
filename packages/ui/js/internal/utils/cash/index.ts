@@ -1,10 +1,10 @@
-import prop from './prop'
-import nextAll from './next-all'
-import prevAll from './prev-all'
-import next from './next'
-import prev from './prev'
-import siblings from './siblings'
 import ancestors from './ancestors'
+import next from './next'
+import nextAll from './next-all'
+import prev from './prev'
+import prevAll from './prev-all'
+import prop from './prop'
+import siblings from './siblings'
 
 const DEFAULT = ':scope>:first-child' as const
 
@@ -38,4 +38,4 @@ cash.ancestors = ancestors
 
 export default cash
 
-export { prop, nextAll, prevAll, next, prev, siblings, ancestors }
+export { ancestors, next, nextAll, prev, prevAll, prop, siblings }

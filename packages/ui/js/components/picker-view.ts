@@ -1,8 +1,8 @@
-import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { $, onoff, kebabCase } from '../internal/utils'
+import { type PickerSelectionDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
-import { type PickerSelectionDetail } from '../events'
+import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
+import { $, kebabCase, onoff } from '../internal/utils'
 
 const pickerStyles = ['menu', 'inline', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'

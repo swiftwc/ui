@@ -1,13 +1,13 @@
 import * as Components from '../components'
-import { kebabCase, $, onoff } from '../internal/utils'
+import { ConfirmationDialog } from '../confirmation-dialog'
 import { type PageRevealSwapDetail } from '../events'
-import { Snapshot } from '../snapshot'
 import { I18n } from '../i18n'
+import { NavigationPath } from '../internal/class/navigation-path'
+import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
+import { $, kebabCase, onoff } from '../internal/utils'
 import { LifecycleObserver } from '../lifecycle-observer'
 import { type WebComponentCtor } from '../namespace-browser'
-import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
-import { NavigationPath } from '../internal/class/navigation-path'
-import { ConfirmationDialog } from '../confirmation-dialog'
+import { Snapshot } from '../snapshot'
 
 export const polyfills: Map<string, WebComponentCtor> = new Map()
 
@@ -391,4 +391,4 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
 // SECTION
 
-export { Snapshot, LifecycleObserver, NavigationPath, ConfirmationDialog, I18n }
+export { ConfirmationDialog, I18n, LifecycleObserver, NavigationPath, Snapshot }

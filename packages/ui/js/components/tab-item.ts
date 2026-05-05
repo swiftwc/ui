@@ -1,11 +1,10 @@
-import { TabView } from './tab-view'
-import { ButtonBase } from '../namespace-browser/base'
-import { Snapshot } from '../snapshot'
 import { type TabDetail, type TabViewAdaptableTabBarPlacementDetail } from '../events'
-import { type NavigationStack } from './navigation-stack'
-import { type NavigationSplitView } from './navigation-split-view'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { onoff } from '../internal/utils'
+import { ButtonBase } from '../namespace-browser/base'
+import { type NavigationSplitView } from './navigation-split-view'
+import { type NavigationStack } from './navigation-stack'
+import { TabView } from './tab-view'
 
 export class TabItem extends ButtonBase {
   constructor() {

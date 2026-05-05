@@ -1,13 +1,11 @@
-import { cssTime, frame } from '../internal/utils'
-import { debounce, onoff, timeout, $ } from '../internal/utils'
-import { type TabViewDetail } from '../events'
-import { type NavigationStack } from './navigation-stack'
-import { type NavigationSplitView } from './navigation-split-view'
-import { type TabDetail, type TabViewAdaptableTabBarPlacementDetail, type PageRevealSwapDetail } from '../events'
+import { type PageRevealSwapDetail, type TabDetail, type TabViewAdaptableTabBarPlacementDetail, type TabViewDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { Snapshot } from '../snapshot'
-import { NavigationPath } from '../internal/class/navigation-path'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
+import { NavigationPath } from '../internal/class/navigation-path'
+import { $, cssTime, debounce, frame, onoff, timeout } from '../internal/utils'
+import { Snapshot } from '../snapshot'
+import { type NavigationSplitView } from './navigation-split-view'
+import { type NavigationStack } from './navigation-stack'
 
 const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as const
 

@@ -1,5 +1,5 @@
 import { ButtonBase } from '../namespace-browser/base'
-import { touchGlass, $, onoff } from '../internal/utils'
+import { touchGlass, onoff } from '../internal/utils'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 
 export class GlassButton extends ButtonBase {

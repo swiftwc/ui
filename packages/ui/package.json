@@ -51,6 +51,7 @@
     "swiftwc": "./generated/index.js"
   },
   "scripts": {
+    "barrels": "barrelsby -D -d ./js/components -i *.ts",
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss",
     "build:ts:watch": "npm run prebuild && tsc --watch",

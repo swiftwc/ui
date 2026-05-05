@@ -75,8 +75,8 @@ export class ToolBar extends HTMLElement {
 
     if (this.closest('[hidden]')) return
 
-    const leading = 'toolbar-leading-stack', //Snapshot.config!['toolbar-leading-stack-part-name'],
-      trailing = 'toolbar-trailing-stack' //Snapshot.config!['toolbar-trailing-stack-part-name']
+    const leading = 'toolbar-leading-stack',
+      trailing = 'toolbar-trailing-stack'
 
     const parentMap = {
       'top-bar': 'navbar',
@@ -85,11 +85,7 @@ export class ToolBar extends HTMLElement {
 
     const { contentRect, target } = entry
 
-    const parentPart = target.parentElement?.part.contains('top-bar')
-      ? 'top-bar'
-      : target.parentElement?.part.contains('bottom-bar')
-        ? 'bottom-bar'
-        : null
+    const parentPart = target.parentElement?.part.contains('top-bar') ? 'top-bar' : target.parentElement?.part.contains('bottom-bar') ? 'bottom-bar' : null
     if (!parentPart) return
 
     const side = target.part.contains(leading) ? 'inline-start' : target.part.contains(trailing) ? 'inline-end' : null

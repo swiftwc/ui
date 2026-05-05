@@ -1,5 +1,4 @@
 export type WebComponentCtor = typeof HTMLElement & {
-  //CustomElementConstructor & {
   observedAttributes?: string[]
   polyfillExtends?: string
   polyfillConnectedCallback(el: HTMLElement): void

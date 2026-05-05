@@ -7,16 +7,6 @@ export class SidebarView extends DialogBase {
     super()
   }
 
-  // disconnectedCallback() {
-  //   console.debug(`${SidebarView.name} ⚡️ disconnect`)
-
-  //   SidebarView.polyfillDisconnectedCallback(this)
-  // }
-
-  // connectedCallback() {
-  //   SidebarView.polyfillConnectedCallback(this)
-  // }
-
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
     el.removeEventListener('click', SidebarView.#handleClick)
 

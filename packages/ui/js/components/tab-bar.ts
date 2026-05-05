@@ -7,14 +7,6 @@ export class TabBar extends DialogBase {
     super()
   }
 
-  // disconnectedCallback() {
-  //   TabBar.polyfillDisconnectedCallback(this)
-  // }
-
-  // connectedCallback() {
-  //   TabBar.polyfillConnectedCallback(this)
-  // }
-
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
     console.debug(`${TabBar.name} ⚡️ disconnect`)
 

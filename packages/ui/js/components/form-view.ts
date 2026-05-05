@@ -7,14 +7,6 @@ export class FormView extends FormBase {
     super()
   }
 
-  // disconnectedCallback() {
-  //   FormView.polyfillDisconnectedCallback(this)
-  // }
-
-  // connectedCallback() {
-  //   FormView.polyfillConnectedCallback(this)
-  // }
-
   static polyfillDisconnectedCallback(el: HTMLFormElement) {
     console.debug(`${FormView.name} ⚡️ disconnect`)
 

@@ -1,8 +1,8 @@
-import { expect, describe, test, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, test } from 'vitest'
+import { $ } from '../internal/utils'
 import { FormView } from './form-view'
 import { SidebarView } from './sidebar-view'
 import { TabBar } from './tab-bar'
-import { $ } from '../internal/utils'
 
 describe('prop', () => {
   let div: HTMLElement

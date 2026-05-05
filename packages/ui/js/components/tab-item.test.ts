@@ -1,4 +1,4 @@
-import { expect, describe, test, beforeEach } from 'vitest'
+import { beforeEach, describe, expect, test } from 'vitest'
 import { TabItem } from './tab-item'
 
 describe('prop', () => {

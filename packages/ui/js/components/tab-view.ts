@@ -56,46 +56,48 @@ export class TabView extends HTMLElement {
     this.#cssStyleObserver = new CSSStyleObserver({
       properties: ['--adaptable-tab-bar-placement-index'],
     })
+
     this.#cssStyleObserver.observe(this, this.#handleStyleChange)
+    
     Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange)) // Snapshot.waitReady.then(this.#handleStyleChange)
 
     // NOTE: wait for config
-    Snapshot.waitReady.then(() => {
-      // for (const [or, w, handler] of [
-      //   ['portrait', `max-width:${Snapshot.config!['ipad-portrait-bp-max']}`, this.#handleMediaChange],
-      //   ['landscape', `max-width:${Snapshot.config!['ipad-landscape-bp-max']}`, this.#handleMediaChange],
-      //   ['portrait', `min-width:${Snapshot.config!['ipad-portrait-bp-min']}`, this.#handleMediaChange],
-      //   ['landscape', `min-width:${Snapshot.config!['ipad-landscape-bp-min']}`, this.#handleMediaChange],
-      // ]) {
-      //   const mediaQueryList = self.matchMedia(`(orientation:${or}) and (${w})`)
+    // Snapshot.waitReady.then(() => { // FIXME: Check this removed!
+    // for (const [or, w, handler] of [
+    //   ['portrait', `max-width:${Snapshot.config!['ipad-portrait-bp-max']}`, this.#handleMediaChange],
+    //   ['landscape', `max-width:${Snapshot.config!['ipad-landscape-bp-max']}`, this.#handleMediaChange],
+    //   ['portrait', `min-width:${Snapshot.config!['ipad-portrait-bp-min']}`, this.#handleMediaChange],
+    //   ['landscape', `min-width:${Snapshot.config!['ipad-landscape-bp-min']}`, this.#handleMediaChange],
+    // ]) {
+    //   const mediaQueryList = self.matchMedia(`(orientation:${or}) and (${w})`)
 
-      //   if (mediaQueryList.matches)
-      //     this.#handleMediaChange(
-      //       new MediaQueryListEvent('media-change', {
-      //         matches: mediaQueryList.matches,
-      //       })
-      //     ) // Initial check
+    //   if (mediaQueryList.matches)
+    //     this.#handleMediaChange(
+    //       new MediaQueryListEvent('media-change', {
+    //         matches: mediaQueryList.matches,
+    //       })
+    //     ) // Initial check
 
-      //   CleanupRegistry.register(this, onoff('change', handler as EventListener, mediaQueryList).on())
-      // }
+    //   CleanupRegistry.register(this, onoff('change', handler as EventListener, mediaQueryList).on())
+    // }
 
-      CleanupRegistry.register(
-        this,
-        onoff(
-          [
-            { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
-            { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations },
-            { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
-            { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
-            {
-              types: 'click',
-              listener: this.#handleSummaryClick,
-            },
-          ],
-          this
-        ).on()
-      )
-    })
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
+          { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations },
+          { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
+          { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
+          {
+            types: 'click',
+            listener: this.#handleSummaryClick,
+          },
+        ],
+        this
+      ).on()
+    )
+    // })
   }
 
   #handleSummaryClick = (evt: Event) => {

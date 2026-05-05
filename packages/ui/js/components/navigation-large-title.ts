@@ -199,7 +199,7 @@ export class NavigationLargeTitle extends HTMLElement {
   // }
 
   #handleIntersect = (entries: IntersectionObserverEntry[], { root }: IntersectionObserver) => {
-    console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.[0]?.isIntersecting})`)
+    console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.at(0)?.isIntersecting})`)
 
     if (!(root instanceof HTMLElement)) return
 

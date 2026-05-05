@@ -5,7 +5,18 @@ import { layout } from "@mdit/plugin-layout";
 // import { demo } from "@mdit/plugin-demo";
 // import { tab } from "@mdit/plugin-tab";
 
-const defaultSidebar = [
+interface SidebarItem {
+  text: string;
+  link?: string;
+  items?: SidebarItem[];
+}
+
+interface SidebarGroup {
+  text: string;
+  items: SidebarItem[];
+}
+
+const defaultSidebar: SidebarGroup[] = [
   {
     text: "Sections",
     items: [
@@ -17,28 +28,11 @@ const defaultSidebar = [
   {
     text: "Web Components",
     items: [
-      // {
-      //   text: 'Structure',
-      // items: [
-      // ------------------------------------------------------------------------------------------------
-      // SOSSS IMPORTANT: First component has CUSTOM PREV MODIFICATIONS!!
       { text: "BodyView", link: "/web-components/body-view" },
-      // SOSSS IMPORTANT: First component has CUSTOM PREV MODIFICATIONS!!
-      // ------------------------------------------------------------------------------------------------
       { text: "NavigationStack", link: "/web-components/navigation-stack" },
-      {
-        text: "NavigationSplitView",
-        link: "/web-components/navigation-split-view",
-      },
+      { text: "NavigationSplitView", link: "/web-components/navigation-split-view" },
       { text: "TextField", link: "/web-components/text-field" },
-      // ------------------------------------------------------------------------------------------------
-      // SOSSS IMPORTANT: Last component has CUSTOM PREV MODIFICATIONS!!
       { text: "VStack", link: "/web-components/v-stack" },
-      // SOSSS IMPORTANT: Last component has CUSTOM PREV MODIFICATIONS!!
-      // ------------------------------------------------------------------------------------------------
-      // { text: 'Runtime API Examples', link: '/api-examples' }
-      // ]
-      // }
     ],
   },
   {
@@ -49,21 +43,30 @@ const defaultSidebar = [
       { text: "Dark Mode", link: "/installation/dark-mode" },
       { text: "JavaScript", link: "/installation/javascript" },
       { text: "Editor Setup", link: "/installation/editor-setup" },
-      // { text: 'Runtime API Examples', link: '/api-examples' }
+      // {
+      //   text: "Examples",
+      //   items: [
+      //     { text: "Hello World PWA", link: "/installation/hello-world-pwa" },
+      //     { text: "Hello World Web Ext", link: "/installation/hello-world-web-ext" },
+      //   ],
+      // },
     ],
   },
 ];
 
-const installationsSidebar = structuredClone(defaultSidebar);
+const installationsSidebar: SidebarGroup[] = structuredClone(defaultSidebar);
 
-installationsSidebar
-  .find((item) => item.text === "Get Started")
-  .items.find((item) => item.text === "Installation")
-  .items.push(
-    { text: "for Vite", link: "/installation/frameworks/vite" },
-    { text: "for EmberJS", link: "/installation/frameworks/emberjs" },
-    { text: "Manual", link: "/installation/frameworks/manual" },
-  );
+const getStartedGroup = installationsSidebar.find((g) => g.text === "Get Started");
+if (!getStartedGroup) throw new Error("Sidebar: 'Get Started' group not found");
+
+const installationItem = getStartedGroup.items.find((i) => i.text === "Installation");
+if (!installationItem) throw new Error("Sidebar: 'Installation' item not found in 'Get Started'");
+
+(installationItem.items ??= []).push(
+  { text: "for Vite", link: "/installation/frameworks/vite" },
+  { text: "for EmberJS", link: "/installation/frameworks/emberjs" },
+  { text: "Manual", link: "/installation/frameworks/manual" },
+);
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
@@ -106,6 +109,10 @@ export default defineConfig({
     nav: [
       { text: "Home", link: "/" },
       { text: "Docs", link: "/installation/" },
+      {
+        text: "1.0.0-alpha.1",
+        items: [{ text: "Changelog", link: "/item-1" }],
+      },
     ],
 
     sidebar: {

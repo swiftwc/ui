@@ -137,7 +137,7 @@ export class ScrollView extends HTMLElement {
 
         if (!this.#isMidScroll) break
 
-        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.[0] as HTMLElement | undefined
+        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
 
         slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 

@@ -22,6 +22,6 @@ export class BorderedButton extends ButtonBase {
   }
 
   static #handleClick = async (evt: Event) => {
-    alert(99)
+    // alert(99)
   }
 }

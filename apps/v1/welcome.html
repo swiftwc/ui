@@ -31,7 +31,7 @@
     <v-keyboard></v-keyboard>
 
     <navigation-stack>
-      <scroll-view>
+      <scroll-view background-style="grouped">
         <v-stack placement="leading fill">
           <label-view padding system-image="globe"></label-view>
           <list-view list-style="inset-grouped">
@@ -45,7 +45,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-path="region" id="gg">
+        <scroll-view navigation-path="region" id="gg" background-style="grouped">
           <v-stack placement="leading fill">
             <navigation-title value="Select Your Country or Region" padding></navigation-title>
             <list-view list-style="inset-grouped">
@@ -66,7 +66,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="appearance">
+        <scroll-view navigation-path="appearance" background-style="grouped">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
@@ -78,7 +78,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent" type="button" navigation-destination="data-privacy">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="data-privacy">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -95,7 +95,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="data-privacy">
+        <scroll-view navigation-path="data-privacy" background-style="grouped">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
@@ -103,7 +103,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent" type="button" navigation-destination="age-range">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="age-range">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -120,7 +120,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="age-range" navigation-inline-title="Age Range">
+        <scroll-view navigation-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
           <v-stack placement="leading fill">
             <v-stack padding>
               <navigation-title value="Data & Privacy"></navigation-title>
@@ -173,7 +173,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="location">
+        <scroll-view navigation-path="location" background-style="grouped">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
@@ -181,7 +181,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent" type="button" navigation-destination="analytics">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="analytics">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -198,7 +198,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="analytics">
+        <scroll-view navigation-path="analytics" background-style="grouped">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
@@ -206,7 +206,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent" type="button" navigation-destination="welcome">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="welcome">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -223,14 +223,14 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="welcome">
+        <scroll-view navigation-path="welcome" background-style="grouped">
           <v-flex-stack alignment="fill" padding>
             <v-stack frame-height="infinity">
               <text-view> Welcome to Swift WC </text-view>
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent" type="button" class="backtocontroller">
+              <button is="bordered-prominent-button" control-size="mini" type="button" class="backtocontroller">
                 <label-view title="Start Over"></label-view>
               </button>
             </v-stack>

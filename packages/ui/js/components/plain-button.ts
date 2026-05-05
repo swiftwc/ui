@@ -22,6 +22,6 @@ export class PlainButton extends ButtonBase {
   }
 
   static #handleClick = async (evt: Event) => {
-    alert(99)
+    // alert(99)
   }
 }

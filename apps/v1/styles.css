@@ -313,14 +313,16 @@
       --menu-bg-dark: var(--noglass-bg-dark);
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-item-focus-color: white;
-      --menu-item-focus-color-dark: white;
-      --menu-item-active-color: white;
-      --menu-item-active-color-dark: white;
+      --menu-item-focus-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --menu-item-focus-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --menu-item-active-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --menu-item-active-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
       --menu-item-focus-bg: var(--accentColor);
       --menu-item-focus-bg-dark: var(--accentColor);
-      --menu-item-active-bg: color-mix(in oklch, black 10%, var(--accentColor));
-      --menu-item-active-bg-dark: color-mix(in oklch, white 10%, var(--accentColor));
+      --menu-item-active-bg: oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h);
+      --menu-item-active-bg-dark: oklch(
+        from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h
+      );
       --picker-affordance-size: 1rem;
       --picker-affordance-col-gap: 1rem;
     }
@@ -1124,8 +1126,7 @@
   tool-bar-item > input,
   [is=tab-bar] [is=tab-item],
   tool-bar-item [is=disclosure-group] > button,
-  tool-bar-item [is=disclosure-group] > summary,
-  [is=bordered-prominent]),
+  tool-bar-item [is=disclosure-group] > summary),
   :where(menu-view)::part(menu-summary) {
     appearance: none;
     -webkit-appearance: none;
@@ -1144,8 +1145,7 @@
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
   menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
-  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
-  [is=bordered-prominent]:not(:disabled):not([readonly])):focus-visible {
+  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     outline: none;
   }
   :where(sidebar-toggle > button:not(:disabled):not([readonly]),
@@ -1154,8 +1154,7 @@
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
   menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
-  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
-  [is=bordered-prominent]:not(:disabled):not([readonly])):focus-visible {
+  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     --toolbaritemface: var(--toolbaritemhighlightface,);
     --toolbaritemtext: var(--toolbaritemhighlighttext,);
   }
@@ -1166,8 +1165,7 @@
     [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
     menu-view > button:not(:disabled):not([readonly]),
     tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
-    tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
-    [is=bordered-prominent]:not(:disabled):not([readonly])):hover {
+    tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
       --toolbaritemface: var(--toolbaritemhighlightface,);
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
@@ -1193,8 +1191,7 @@
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
   menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
-  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly]),
-  [is=bordered-prominent]:not(:disabled):not([readonly])):active {
+  tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):active {
     --toolbaritemface: var(--toolbaritemactiveface,);
     --toolbaritemtext: var(--toolbaritemactivetext,);
   }
@@ -6386,18 +6383,6 @@
     }
   }
 }
-@property --grayn2 {
-  syntax: "<color>";
-  initial-value: oklch(50.49% 0.0078 286.12deg);
-  inherits: true;
-}
-@media (prefers-color-scheme: dark) {
-  @property --grayn2 {
-    syntax: "<color>";
-    initial-value: oklch(77.14% 0.007 286.23deg);
-    inherits: true;
-  }
-}
 @property --gray {
   syntax: "<color>";
   initial-value: oklch(64.83% 0.0073 286.19deg);
@@ -6964,6 +6949,32 @@
     inherits: true;
   }
 }
+@property --separator {
+  syntax: "<color>";
+  initial-value: oklch(94.31% 0 0deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --separator {
+    syntax: "<color>";
+    initial-value: oklch(28.58% 0.0036 286.17deg);
+    inherits: true;
+  }
+}
+@media (pointer: fine) {
+  @property --separator {
+    syntax: "<color>";
+    initial-value: oklch(92.49% 0 0deg);
+    inherits: true;
+  }
+}
+@media (pointer: fine) and (prefers-color-scheme: dark) {
+  @property --separator {
+    syntax: "<color>";
+    initial-value: oklch(34.52% 0.0074 84.59deg);
+    inherits: true;
+  }
+}
 @property --secondary {
   syntax: "<color>";
   initial-value: oklch(64.83% 0.0073 286.19deg);
@@ -7240,18 +7251,6 @@
     inherits: true;
   }
 }
-@property --separator {
-  syntax: "<color>";
-  initial-value: light-dark(oklch(94.31% 0 0deg), oklch(28.58% 0.0036 286.17deg));
-  inherits: true;
-}
-@media (pointer: fine) {
-  @property --separator {
-    syntax: "<color>";
-    initial-value: light-dark(oklch(92.49% 0 0deg), oklch(34.52% 0.0074 84.59deg));
-    inherits: true;
-  }
-}
 @property --black {
   syntax: "<color>";
   initial-value: oklch(0% 0 0deg);
@@ -7287,7 +7286,7 @@
   }
   :where(tab-view > [is=sidebar-view] [is=form-view]) {
     --list--highlighteditem-background-color: transparent;
-    --list--highlighteditem-color: blue;
+    --list--highlighteditem-color: var(--accentColor);
   }
   :where([is=tab-bar]) {
     --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));

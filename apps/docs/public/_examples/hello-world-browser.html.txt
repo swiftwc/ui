@@ -1,5 +1,4 @@
 <!doctype html>
-<!-- [!code focus] -->
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
@@ -7,13 +6,14 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- [!code ++] -->
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <link rel="stylesheet" href="path/to/styles.css" />
+    <link rel="manifest" href="/manifest.webmanifest" />
     <title>My App</title>
   </head>
   <body>
-    <!-- [!code focus] -->
+    <!-- [!code ++] -->
     <v-keyboard></v-keyboard>
 
     <navigation-stack>
@@ -24,6 +24,7 @@
       </scroll-view>
     </navigation-stack>
 
+    <!-- [!code ++] -->
     <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
     <script type="module" src="path/to/my-app.js"></script>
   </body>

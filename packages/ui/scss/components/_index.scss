@@ -109,8 +109,7 @@
     tool-bar-item > input,
     [is='tab-bar'] [is='tab-item'],
     tool-bar-item [is='disclosure-group'] > button,
-    tool-bar-item [is='disclosure-group'] > summary,
-    [is='bordered-prominent']
+    tool-bar-item [is='disclosure-group'] > summary
   ),
   :where(menu-view)::part(menu-summary) {
     // display: grid;
@@ -173,8 +172,7 @@
   [is='tab-bar'] [is='tab-item'],
   menu-view > button,
   tool-bar-item [is='disclosure-group'] > button,
-  tool-bar-item [is='disclosure-group'] > summary,
-  [is='bordered-prominent'] {
+  tool-bar-item [is='disclosure-group'] > summary {
     @include mixins.add-focus-visible-state {
       --toolbaritemface: var(--toolbaritemhighlightface,);
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
@@ -216,8 +214,7 @@
   [is='tab-bar'] [is='tab-item'],
   menu-view > button,
   tool-bar-item [is='disclosure-group'] > button,
-  tool-bar-item [is='disclosure-group'] > summary,
-  [is='bordered-prominent'] {
+  tool-bar-item [is='disclosure-group'] > summary {
     @include mixins.add-active-state {
       --toolbaritemface: var(--toolbaritemactiveface,);
       --toolbaritemtext: var(--toolbaritemactivetext,);

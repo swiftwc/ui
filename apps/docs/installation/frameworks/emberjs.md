@@ -1,6 +1,6 @@
 # Install SwiftWC with Ember.js
 
-Setting up Tailwind CSS in an Ember.js project.
+How to install dependencies and structure your Ember.js app.
 
 ## Create your project
 
@@ -25,13 +25,15 @@ npm i -D @swiftwc/ui@latest
 
 ## Import the CSS file
 
-```ts{5-6} app/app.ts
+::: code-group
+
+```ts{5-6} [app.ts]
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
 import config from 'my-project/config/environment';
-import '@swiftwc/ui/styles.css';
-import '@swiftwc/ui/client';
+import '@swiftwc/ui/styles.css'; // [!code ++]
+import '@swiftwc/ui/client'; // [!code ++]
 export default class App extends Application {
   modulePrefix = config.modulePrefix;
   podModulePrefix = config.podModulePrefix;
@@ -39,6 +41,8 @@ export default class App extends Application {
 }
 loadInitializers(App, config.modulePrefix);
 ```
+
+:::
 
 ## Start your build process
 

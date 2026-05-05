@@ -2,6 +2,16 @@
 
 Add dependencies to your project manually.
 
+**Run the following command to add SwiftWC to your project:**
+
+::: code-group
+
+```sh{4} [npm]
+npm i @swiftwc/ui@latest
+```
+
+:::
+
 ## Add styles and scripts
 
 You can now start adding components to your project.
@@ -17,7 +27,6 @@ You can now start adding components to your project.
   </body>
 </html>
 ```
-
 
 ## That's it
 

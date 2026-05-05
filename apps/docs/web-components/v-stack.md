@@ -1,3 +1,9 @@
+---
+next:
+  text: "Installation"
+  link: "/installation/"
+---
+
 # VStack
 
 A view that presents views stacked vertically.

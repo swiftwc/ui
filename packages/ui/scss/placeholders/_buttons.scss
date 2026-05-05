@@ -38,38 +38,7 @@
       }
     }
   }
-
-  // %bordered-prominent-btn {
-  //   --toolbaritempadistart: 20px;
-  //   --toolbaritempadiend: 20px;
-  //   --toolbaritempadbstart: 20px;
-  //   --toolbaritempadbend: 20px;
-  //   --toolbaritemradiustr: 20px;
-  //   --toolbaritemradiustl: 20px;
-  //   --toolbaritemradiusbr: 20px;
-  //   --toolbaritemradiusbl: 20px;
-  //   --toolbaritemface: chocolate;
-  //   --toolbaritemhighlightface: orange;
-  //   --toolbaritemactiveface: darkred;
-  // }
-
-  // %bordered-prominent-btn {
-  //   @include mixins.add-focus-visible-state {
-  //     --toolbaritemface: var(--toolbaritemhighlightface,);
-  //   }
-  //   @include mixins.add-hover-state {
-  //     --toolbaritemface: var(--toolbaritemhighlightface,);
-  //   }
-  // }
 }
-
-// @layer #{vars.$ui-layer} {
-//   %bordered-prominent-btn {
-//     @include mixins.add-active-state {
-//       --toolbaritemface: var(--toolbaritemactiveface,);
-//     }
-//   }
-// }
 
 @layer #{vars.$colors-layer} {
   // SECTION: componentize

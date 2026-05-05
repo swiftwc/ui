@@ -20,7 +20,8 @@
   },
   "files": [
     "generated",
-    "scss"
+    "scss",
+    "web-components.html-data.json"
   ],
   "sass": "scss/index.scss",
   "keywords": [

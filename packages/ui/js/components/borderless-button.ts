@@ -49,9 +49,7 @@ export class BorderlessButton extends ButtonBase {
   }
 
   static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(
-      `${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`
-    )
+    console.debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {
       case 'role':
@@ -66,6 +64,6 @@ export class BorderlessButton extends ButtonBase {
   }
 
   static #handleClick = async (evt: Event) => {
-    alert(99)
+    // alert(99)
   }
 }

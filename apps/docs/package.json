@@ -8,6 +8,11 @@
     "dev": "vitepress dev"
   },
   "devDependencies": {
-    "vitepress": "^2.0.0-alpha.15"
+    "@mdit/plugin-align": "^0.24.2",
+    "@mdit/plugin-demo": "^0.23.2",
+    "@mdit/plugin-icon": "^0.24.2",
+    "@mdit/plugin-layout": "^0.2.2",
+    "@mdit/plugin-tab": "^0.24.2",
+    "vitepress": "^2.0.0-alpha.17"
   }
 }

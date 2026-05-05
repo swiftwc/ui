@@ -1,15 +1,21 @@
-# Install SwiftWC with Ember.js
+---
+prev:
+  text: "Installation"
+  link: "/installation/"
+---
 
-Setting up Tailwind CSS in an Ember.js project.
+# Install SwiftWC with Vite
 
-## Create your project
+How to install dependencies and structure your Vite app.
+
+## 1. Create your project
 
 ```bash
 npm create vite@latest my-project
 cd my-project
 ```
 
-## Install SwiftWC
+## 2. Install SwiftWC
 
 ::: code-group
 

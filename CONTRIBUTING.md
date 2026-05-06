@@ -27,6 +27,7 @@ packages
 │   │   ├── client
 │   │   └── components
 │   ├── scss
+│   │   └── components
 │   └── web-components.html-data
 └── eslint-plugin
 ```

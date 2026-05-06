@@ -1,8 +1,10 @@
-
+<!-- #region pre -->
 
 # NavigationSplitView
 
-A view that presents views in two or three columns.
+This is the description of the class.
+
+<!-- #endregion pre -->
 
 ## Overview
 
@@ -83,3 +85,14 @@ At narrow size classes, such as on iPhone or Apple Watch, a navigation split vie
 ### Adding a sidebar to a navigation split view
 
 Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+
+
+<!-- #region post -->
+
+## Relationships
+
+### Conforms To
+
+`NavigationView`
+
+<!-- #endregion post -->

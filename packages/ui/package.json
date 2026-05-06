@@ -45,7 +45,8 @@
     },
     "./css": "./generated/css/index.css",
     "./scss": "./scss/index.scss",
-    "./scss/*": "./scss/*.scss"
+    "./scss/*": "./scss/*.scss",
+    "./customElements/en": "./custom-elements/en.json"
   },
   "bin": {
     "swiftwc": "./generated/index.js"

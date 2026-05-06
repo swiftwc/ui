@@ -1,38 +1,10 @@
+import { abbr } from "@mdit/plugin-abbr";
 import { align } from "@mdit/plugin-align";
 import { dl } from "@mdit/plugin-dl";
-// import { field } from "@mdit/plugin-field";
 import { icon } from "@mdit/plugin-icon";
 import { layout } from "@mdit/plugin-layout";
+import data from "@swiftwc/ui/customElements/en" with { type: "json" };
 import { defineConfig } from "vitepress";
-// import { demo } from "@mdit/plugin-demo";
-// import { tab } from "@mdit/plugin-tab";
-import { readdir, readFile } from "node:fs/promises";
-import { dirname, join, resolve } from "node:path";
-import { fileURLToPath } from "node:url";
-
-const __dirname = dirname(fileURLToPath(import.meta.url));
-
-async function getMarkdownTitles(dir) {
-  const entries = await readdir(dir, { withFileTypes: true });
-  const mdFiles = entries.filter((e) => e.isFile() && e.name.endsWith(".md")).map((e) => e.name);
-
-  const results: { file: string; title?: string }[] = [];
-
-  for await (const file of mdFiles) {
-    const fullPath = join(dir, file);
-    const content = await readFile(fullPath, "utf-8");
-    if (fullPath.endsWith("index.md")) continue;
-    // Extract first H1 (# Title)
-    const match = content.match(/^#\s+(.+)$/m);
-
-    results.push({
-      file,
-      title: match ? match[1].trim() : undefined,
-    });
-  }
-
-  return results;
-}
 
 interface SidebarItem {
   text: string;
@@ -57,9 +29,9 @@ const defaultSidebar: SidebarGroup[] = [
   {
     text: "Web Components",
     items: await Promise.all(
-      (await getMarkdownTitles(resolve(__dirname, "../web-components"))).map(async (item) => ({
-        text: item.title ?? "",
-        link: `/web-components/${item.file}`,
+      (await Promise.all(data.modules)).map(async (item) => ({
+        text: item.declarations[0].name ?? "",
+        link: `/web-components/${item.declarations[0].tagName}`,
       })),
     ),
   },
@@ -104,6 +76,7 @@ export default defineConfig({
       md.use(icon);
       md.use(layout);
       md.use(dl);
+      md.use(abbr);
       // md.use(field);
       // md.use(demo, {
       //   // your options, name is required
@@ -119,7 +92,19 @@ export default defineConfig({
 
   cleanUrls: true,
 
-  lang: "en-US",
+  locales: {
+    root: {
+      label: "English",
+      lang: "en-US",
+    },
+    // fr: {
+    //   label: "French",
+    //   lang: "fr", // optional, will be added  as `lang` attribute on `html` tag
+    //   link: "/fr/guide", // default /fr/ -- shows on navbar translations menu, can be external
+
+    //   // other locale specific properties...
+    // },
+  },
 
   head: [["link", { rel: "icon", href: "/favicon.svg" }]],
 

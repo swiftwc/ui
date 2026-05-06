@@ -409,4 +409,4 @@ await rm(reflections, { recursive: true, force: true })
 
 await mkdir(reflections, { recursive: true })
 
-for (const [k, md] of mds) writeFileSync(resolve(__dirname, `${reflections}/${k}.md`), md)
+for (const [k, md] of mds) writeFileSync(resolve(__dirname, `${reflections}/${k}.md`), md, {})

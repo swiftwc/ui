@@ -4,9 +4,13 @@ next:
   link: "/installation/"
 ---
 
+<!-- #region pre -->
+
 # VStack
 
-A view that presents views stacked vertically.
+This is the description of the class.
+
+<!-- #endregion pre -->
 
 ## Overview
 
@@ -30,3 +34,14 @@ A view that presents views stacked vertically.
 ### Adding a sidebar to a navigation split view
 
 Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+
+
+<!-- #region post -->
+
+## Relationships
+
+### Conforms To
+
+`HTMLElement`
+
+<!-- #endregion post -->

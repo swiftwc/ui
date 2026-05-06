@@ -5,7 +5,7 @@ layout: home
 hero:
   name: "Web Components"
   text: "inspired by SwiftUI"
-  tagline: A set of ready-to-use web components that you can build on. Copy, paste, and ship your standalone web app or web extension. Open Source. Open Code.
+  tagline: A set of ready-to-use web components for building standalone web apps and web extensions.<br>Open Source. Open Code.
   actions:
     - theme: brand
       text: Get Started

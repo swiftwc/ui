@@ -1,5 +1,23 @@
+<!-- #region pre -->
+
 # SheetView
+
+This is the description of the class.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
 
 ## Parameters
 
-<!--@include: ../reflections/sheet-view.md-->
+`observedAttributes`
+
+: <Badge type="warning" text="readonly" /> string[]
+
+## Relationships
+
+### Conforms To
+
+`DialogBase`
+
+<!-- #endregion post -->

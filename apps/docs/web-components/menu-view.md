@@ -1,5 +1,23 @@
+<!-- #region pre -->
+
 # MenuView
+
+This is the description of the class.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
 
 ## Parameters
 
-<!--@include: ../reflections/menu-view.md-->
+`template`
+
+: <Badge type="warning" text="readonly" /> DocumentFragment
+
+## Relationships
+
+### Conforms To
+
+`HTMLElement`
+
+<!-- #endregion post -->

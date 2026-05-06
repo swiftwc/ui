@@ -1,5 +1,23 @@
+<!-- #region pre -->
+
 # ConfirmationDialog
+
+This is the description of the class.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
 
 ## Parameters
 
-<!--@include: ../reflections/confirmation-dialog.md-->
+`observedAttributes`
+
+: <Badge type="warning" text="readonly" /> string[]
+
+## Relationships
+
+### Conforms To
+
+`DialogBase`
+
+<!-- #endregion post -->

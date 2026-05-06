@@ -1,5 +1,23 @@
+<!-- #region pre -->
+
 # TabView
+
+.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
 
 ## Parameters
 
-<!--@include: ../reflections/tab-view.md-->
+`selectedTab`
+
+: <Badge type="warning" text="readonly" /> NavigationSplitView | NavigationStack
+
+## Relationships
+
+### Conforms To
+
+`HTMLElement`
+
+<!-- #endregion post -->

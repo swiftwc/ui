@@ -1,3 +1,17 @@
+<!-- #region pre -->
+
 # NavigationStack
 
-<!-- <iframe src="/examples/hello-world-browser.html"></iframe> -->
+This is the description of the class.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
+
+## Relationships
+
+### Conforms To
+
+`NavigationView`
+
+<!-- #endregion post -->

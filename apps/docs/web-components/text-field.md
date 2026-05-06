@@ -1,5 +1,23 @@
+<!-- #region pre -->
+
 # TextField
+
+.
+
+<!-- #endregion pre -->
+
+<!-- #region post -->
 
 ## Parameters
 
-<!--@include: ../reflections/text-field.md-->
+`negativeNumbersAllowed`
+
+: <Badge type="warning" text="readonly" /> boolean
+
+## Relationships
+
+### Conforms To
+
+`FormAssociatedBase`
+
+<!-- #endregion post -->

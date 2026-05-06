@@ -11,7 +11,7 @@
           "customElement": true,
           "name": "BodyView",
           "tagName": "body-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -43,9 +43,9 @@
           "customElement": true,
           "name": "BorderedButton",
           "tagName": "bordered-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -75,9 +75,9 @@
           "customElement": true,
           "name": "BorderedProminentButton",
           "tagName": "bordered-prominent-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -107,16 +107,10 @@
           "customElement": true,
           "name": "BorderlessButton",
           "tagName": "borderless-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            }
-          ],
           "attributes": [
             {
               "name": "role"
@@ -150,16 +144,10 @@
           "customElement": true,
           "name": "ConfirmationDialog",
           "tagName": "confirmation-dialog",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DialogBase"
+            "name": "DialogHTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            }
-          ],
           "attributes": [
             {
               "name": "anchor"
@@ -193,15 +181,11 @@
           "customElement": true,
           "name": "DatePicker",
           "tagName": "date-picker",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "FormAssociatedBase"
+            "name": "FormHTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -292,16 +276,10 @@
           "customElement": true,
           "name": "DisclosureGroup",
           "tagName": "disclosure-group",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DetailsBase"
+            "name": "DetailsHTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            }
-          ],
           "attributes": [
             {
               "name": "open"
@@ -335,9 +313,9 @@
           "customElement": true,
           "name": "FormView",
           "tagName": "form-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "FormBase"
+            "name": "FormHTMLElement"
           }
         }
       ],
@@ -367,9 +345,9 @@
           "customElement": true,
           "name": "GlassButton",
           "tagName": "glass-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -399,9 +377,9 @@
           "customElement": true,
           "name": "GlassProminentButton",
           "tagName": "glass-prominent-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -431,15 +409,11 @@
           "customElement": true,
           "name": "LabelView",
           "tagName": "label-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -487,7 +461,7 @@
           "customElement": true,
           "name": "ListView",
           "tagName": "list-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -519,15 +493,11 @@
           "customElement": true,
           "name": "MenuView",
           "tagName": "menu-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -572,7 +542,7 @@
           "customElement": true,
           "name": "NavigationLargeTitle",
           "tagName": "navigation-large-title",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -604,7 +574,7 @@
           "customElement": true,
           "name": "NavigationSplitView",
           "tagName": "navigation-split-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "NavigationView"
           }
@@ -636,7 +606,7 @@
           "customElement": true,
           "name": "NavigationStack",
           "tagName": "navigation-stack",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "NavigationView"
           }
@@ -668,16 +638,10 @@
           "customElement": true,
           "name": "NavigationTitle",
           "tagName": "navigation-title",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            }
-          ],
           "attributes": [
             {
               "name": "value"
@@ -714,18 +678,14 @@
           "customElement": true,
           "name": "PickerView",
           "tagName": "picker-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "FormAssociatedBase"
+            "name": "FormHTMLElement"
           },
           "members": [
             {
               "kind": "field",
               "name": "ATTR"
-            },
-            {
-              "kind": "field",
-              "name": "observedAttributes"
             },
             {
               "kind": "field",
@@ -768,9 +728,9 @@
           "customElement": true,
           "name": "PlainButton",
           "tagName": "plain-button",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -800,9 +760,9 @@
           "customElement": true,
           "name": "ScreenView",
           "tagName": "screen-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DialogBase"
+            "name": "DialogHTMLElement"
           }
         }
       ],
@@ -832,15 +792,11 @@
           "customElement": true,
           "name": "ScrollView",
           "tagName": "scroll-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -888,15 +844,11 @@
           "customElement": true,
           "name": "SectionView",
           "tagName": "section-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -938,16 +890,10 @@
           "customElement": true,
           "name": "SheetView",
           "tagName": "sheet-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DialogBase"
+            "name": "DialogHTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            }
-          ],
           "attributes": [
             {
               "name": "fine-presentation-large-adaptation"
@@ -981,7 +927,7 @@
           "customElement": true,
           "name": "SidebarToggle",
           "tagName": "sidebar-toggle",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1013,9 +959,9 @@
           "customElement": true,
           "name": "SidebarView",
           "tagName": "sidebar-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DialogBase"
+            "name": "DialogHTMLElement"
           }
         }
       ],
@@ -1045,7 +991,7 @@
           "customElement": true,
           "name": "StickyContainer",
           "tagName": "sticky-container",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1077,9 +1023,9 @@
           "customElement": true,
           "name": "TabBar",
           "tagName": "tab-bar",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "DialogBase"
+            "name": "DialogHTMLElement"
           }
         }
       ],
@@ -1109,9 +1055,9 @@
           "customElement": true,
           "name": "TabItem",
           "tagName": "tab-item",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
-            "name": "ButtonBase"
+            "name": "ButtonHTMLElement"
           }
         }
       ],
@@ -1213,7 +1159,7 @@
           "customElement": true,
           "name": "TableView",
           "tagName": "table-view",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1253,13 +1199,9 @@
           "tagName": "text-field",
           "description": "",
           "superclass": {
-            "name": "FormAssociatedBase"
+            "name": "FormHTMLElement"
           },
           "members": [
-            {
-              "kind": "field",
-              "name": "observedAttributes"
-            },
             {
               "kind": "field",
               "name": "template"
@@ -1368,7 +1310,7 @@
           "customElement": true,
           "name": "ToolBarItemGroup",
           "tagName": "tool-bar-item-group",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1400,7 +1342,7 @@
           "customElement": true,
           "name": "ToolBarItem",
           "tagName": "tool-bar-item",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1432,7 +1374,7 @@
           "customElement": true,
           "name": "ToolBar",
           "tagName": "tool-bar",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1470,7 +1412,7 @@
           "customElement": true,
           "name": "VKeyboard",
           "tagName": "v-keyboard",
-          "description": "BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.\nSo we live with a pescy body-scrollbar that shows up on resize on desktops.",
+          "description": "Required component, must be BODY tag",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1502,7 +1444,7 @@
           "customElement": true,
           "name": "VStack",
           "tagName": "v-stack",
-          "description": "This is the description of the class",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }

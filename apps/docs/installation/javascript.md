@@ -6,9 +6,8 @@ This library is published as an ES module and must be loaded using `<script type
 
 ::: code-group
 
-```html{7} [app.html]
+```html{6} [app.html]
 <!doctype html>
-<!-- [!code focus] -->
 <html lang="en" dir="ltr">
   <head></head>
   <body>
@@ -23,7 +22,7 @@ This library is published as an ES module and must be loaded using `<script type
 <html lang="en" dir="ltr">
   <head></head>
   <body>
-    <!-- [!code focus] -->
+     <!-- [!code focus] -->
     <script type="module" src="path/to/app.js">
      // [!code focus]
       import {client} from 'https://unpkg.com/@swiftwc/ui/client';

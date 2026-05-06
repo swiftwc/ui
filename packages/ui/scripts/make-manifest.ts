@@ -233,9 +233,9 @@ for (const sourceFile of project.getSourceFiles()) {
           customElement: true,
           name: `${cls.getName()}`,
           tagName: kebabCase(`${cls.getName()}`),
-          description: 'This is the description of the class',
+          description: '',
           superclass: {
-            name: cls.getBaseClass()?.getName() ?? 'HTMLElement',
+            name: cls.getBaseClass()?.getName()?.replaceAll('Base', 'HTMLElement')?.replaceAll('Associated', '') ?? 'HTMLElement',
           },
         },
       ],
@@ -263,7 +263,8 @@ for (const sourceFile of project.getSourceFiles()) {
         !m.hasModifier?.('protected') &&
         !m.hasModifier?.(SyntaxKind.PrivateKeyword) &&
         !m.hasModifier?.(SyntaxKind.ProtectedKeyword) &&
-        !m.getName().startsWith('#')
+        !m.getName().startsWith('#') &&
+        m.getName() !== 'observedAttributes'
       )
     })) {
       module.declarations[0].members ??= []
@@ -279,17 +280,17 @@ for (const sourceFile of project.getSourceFiles()) {
         // returnType2: m.getReturnType?.()?.getText?.(),
       })
 
-      const classNames = [
-        ...m
-          .getReturnType?.()
-          ?.getText?.()
-          .matchAll(/\.([A-Z]\w*)/g),
-      ].map((match) => match[1])
+      // const classNames = [
+      //   ...m
+      //     .getReturnType?.()
+      //     ?.getText?.()
+      //     .matchAll(/\.([A-Z]\w*)/g),
+      // ].map((match) => match[1])
 
-      mds.push([
-        kebabCase(`${cls.getName()}`),
-        `\`${m.getName()}\`\n\n: ${'GetAccessor' === m.getKindName() ? '<Badge type="warning" text="readonly" />' : ''} ${0 < classNames.length ? classNames.join(' | ') : m.getReturnType?.()?.getText?.()}`,
-      ])
+      // mds.push([
+      //   kebabCase(`${cls.getName()}`),
+      //   `\`${m.getName()}\`\n\n: ${'GetAccessor' === m.getKindName() ? '<Badge type="warning" text="readonly" />' : ''} ${0 < classNames.length ? classNames.join(' | ') : m.getReturnType?.()?.getText?.()}`,
+      // ])
     }
 
     const row: VsHtmlDataTag = {
@@ -311,6 +312,7 @@ for (const sourceFile of project.getSourceFiles()) {
         switch (tag.title) {
           case 'summary':
             row.description = tag.description ?? undefined
+            module.declarations[0].description = tag.description ?? ''
 
             // TODO: override name with @element!
             continue

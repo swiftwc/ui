@@ -1,3 +1,0 @@
-`name`
-
-: <Badge type="warning" text="readonly" /> string

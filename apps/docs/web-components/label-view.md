@@ -2,17 +2,11 @@
 
 # LabelView
 
-This is the description of the class.
+
 
 <!-- #endregion pre -->
 
 <!-- #region post -->
-
-## Parameters
-
-`template`
-
-: <Badge type="warning" text="readonly" /> DocumentFragment
 
 ## Relationships
 

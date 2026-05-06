@@ -2,7 +2,7 @@
 
 # PlainButton
 
-This is the description of the class.
+
 
 <!-- #endregion pre -->
 
@@ -12,6 +12,6 @@ This is the description of the class.
 
 ### Conforms To
 
-`ButtonBase`
+`ButtonHTMLElement`
 
 <!-- #endregion post -->

@@ -15,11 +15,11 @@ for await (const [i, mod] of data.modules.entries()) {
   for await (const dec of mod.declarations) {
     let reflections = "";
 
-    try {
-      reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
-    } catch {
-      //
-    }
+    // try {
+    //   reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
+    // } catch {
+    //   //
+    // }
 
     let partial = "";
 
@@ -31,7 +31,7 @@ for await (const [i, mod] of data.modules.entries()) {
 
     await writeFile(
       resolve(__dirname, `../web-components/${dec.tagName}.md`),
-      `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ""}<!-- #region pre -->\n\n# ${dec.name}\n\n${dec.description}.\n\n<!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n\n<!-- #endregion post -->`,
+      `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ""}<!-- #region pre -->\n\n# ${dec.name}\n\n${dec.description}${dec.description && !dec.description.endsWith(".") ? "." : ""}\n\n<!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n\n<!-- #endregion post -->`,
     );
   }
 }

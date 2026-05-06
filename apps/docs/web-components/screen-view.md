@@ -2,7 +2,7 @@
 
 # ScreenView
 
-This is the description of the class.
+
 
 <!-- #endregion pre -->
 
@@ -12,6 +12,6 @@ This is the description of the class.
 
 ### Conforms To
 
-`DialogBase`
+`DialogHTMLElement`
 
 <!-- #endregion post -->

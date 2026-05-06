@@ -1,0 +1,229 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+@use 'sass:map';
+
+$list-ifs: (
+  inset: (
+    --list--item-color: var(--insetlist-item-color,),
+    --list--item-background-color: var(--insetlist-item-background-color,),
+    --list--highlighteditem-color: var(--insetlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetlist-highlighteditem-background-color,),
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--host-background-color: var(--insetlist-background-color,),
+    --list--host-padding-inline: var(--insetlist-padding-inline),
+    --list--host-padding-block: var(--insetlist-padding-block),
+    //
+    --list--adjacentdetailsitem-border-radius: 0,
+    //
+    --list--details-background-color: var(--insetlist-openitem-background-color,),
+    --list--details-color: var(--insetlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetlist-opensummary-color,),
+  ),
+  inset-grouped: (
+    --list--item-color: var(--insetgroupedlist-item-color,),
+    --list--item-background-color: var(--insetgroupedlist-item-background-color,),
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--highlighteditem-color: var(--insetgroupedlist-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetgroupedlist-highlighteditem-background-color,),
+    --list--host-background-color: var(--insetgroupedlist-background-color,),
+    --list--host-padding-inline: var(--insetgroupedlist-padding-inline),
+    --list--host-padding-block: var(--insetgroupedlist-padding-block),
+    //
+    --list--adjacentitem-border-radius: 0,
+    //
+    --list--details-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--details-color: var(--insetgroupedlist-openitem-color,),
+    --list--opendetails-background-color: var(--insetgroupedlist-openitem-background-color,),
+    --list--opendetails-color: var(--insetgroupedlist-openitem-color,),
+    --list--opensummary-background-color: var(--insetgroupedlist-opensummary-background-color,),
+    --list--opensummary-color: var(--insetgroupedlist-opensummary-color,),
+  ),
+  sidebar: (
+    --list--item-border-radius: var(--insetlist-item-border-radius),
+    --list--details-gap: var(--list-row-gap),
+    --list--rootsummary-padding-inline-start: 5px,
+    --list--rootsummary-padding-inline-end: 5px,
+    --list--rootsummary-padding-block-start: 2px,
+    --list--rootsummary-padding-block-end: 2px,
+
+    --list--item-padding-inline-start: 5px,
+    --list--item-padding-inline-end: 5px,
+    --list--item-padding-block-start: 5px,
+    --list--item-padding-block-end: 5px,
+
+    --list--adjacentitem-border-radius: unset,
+    //
+    --list--host-background-color: var(--sidebarlist-background-color,),
+    --list--host-padding-inline: var(--sidebarlist-padding-inline),
+    --list--host-padding-block: var(--sidebarlist-padding-block),
+    //
+    --list--item-background-color: var(--sidebarlist-item-background-color,),
+    --list--item-color: var(--sidebarlist-item-color,),
+    --list--highlighteditem-background-color: var(--sidebarlist-highlighteditem-background-color,),
+    --list--highlighteditem-color: var(--sidebarlist-highlighteditem-color,),
+    //
+    --list--rootsummary-background-color: transparent,
+    --list--rootsummary-color: var(--primary,),
+    // --list--rootsummary-border-radius: 0px,
+    --list--selectedrootsummary-background-color: transparent,
+    --list--selectedrootsummary-color: var(--primary,),
+    //
+    --list--separator-background-color: transparent,
+    --list--activeseparator-background-color: transparent,
+    //
+    --list--details-background-color: var(--sidebarlist-openitem-background-color,),
+    --list--details-color: var(--sidebarlist-openitem-color,),
+    --list--opensummary-background-color: var(--sidebarlist-opensummary-background-color,),
+    --list--opensummary-color: var(--sidebarlist-opensummary-color,),
+    //
+    // --list--item-grid-template-columns: minmax(0, 1fr),
+    --list--accessories-display: none,
+    //
+    --list--rootsummary-marker-display: marker-trailing,
+  ),
+);
+$list-elses: (
+  --list--host-background-color: var(--list-background-color,),
+  --list--highlighteditem-background-color: var(--list-highlighteditem-background-color,),
+  --list--item-background-color: var(--list-item-background-color,),
+  --list--item-padding-inline-start: var(--list-item-padding-inline-start),
+  --list--item-padding-inline-end: var(--list-item-padding-inline-end),
+  --list--item-padding-block-start: var(--list-item-padding-block-start),
+  --list--item-padding-block-end: var(--list-item-padding-block-end),
+  --list--item-color: var(--list-item-color,),
+  --list--highlighteditem-color: var(--list-highlighteditem-color,),
+  //
+  --list--details-background-color: var(--list-openitem-background-color,),
+  --list--details-color: var(--list-openitem-color,),
+  --list--opensummary-background-color: var(--list-opensummary-background-color,),
+  --list--opensummary-color: var(--list-opensummary-color,),
+  //
+  // --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-size: 1.1rem,
+  --list--accessories-display: grid,
+);
+
+@layer #{vars.$components-layer} {
+  list-view {
+    &:not(& &, [is='form-view'] &, table-view &) {
+      @extend %list;
+
+      // wire
+      :where(&) {
+        --list--section-gap: var(--list-row-gap);
+
+        @include mixins.write-props($list-elses);
+        // --list--item-padding-inline-start: var(--list-item-padding-inline-start);
+        // --list--item-padding-inline-end: var(--list-item-padding-inline-end);
+        // --list--item-padding-block-start: var(--list-item-padding-block-start);
+        // --list--item-padding-block-end: var(--list-item-padding-block-end);
+
+        // --list--item-background-color: var(--list-item-background-color,);
+      }
+
+      // SECTION: ifs
+      @supports (x: #{string.unquote('if(else:red)')}) {
+        :where(&) {
+          @include mixins.write-ifs(--list-style, $list-ifs, $list-elses);
+          // --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
+
+          // --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
+
+          // --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
+          // --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
+
+          // --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
+        }
+      }
+
+      // SECTION: ifs polyfill
+      @supports not (x: #{string.unquote('if(else:red)')}) {
+        :where(&:not([list-style])) {
+          @each $v in vars.$list-styles {
+            @container style(--list-style: #{$v}) {
+              @include mixins.write-props(map.get($list-ifs, $v));
+            }
+          }
+        }
+        @each $v in vars.$list-styles {
+          :where(&[list-style='#{$v}']) {
+            @include mixins.write-props(map.get($list-ifs, $v));
+          }
+        }
+        @include mixins.if-2col-split-view-fits {
+          :where(navigation-split-view [is='sidebar-view'] &[list-style]) {
+            @include mixins.write-props(map.get($list-ifs, sidebar));
+          }
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+            @include mixins.write-props(map.get($list-ifs, inset));
+          }
+        }
+      }
+
+      // SECTION: attrs finally
+      @supports (x: #{string.unquote('attr(x type(*))')}) {
+        :where(&) {
+          --list-style: attr(list-style type(<custom-ident>), inherit);
+        }
+        @include mixins.if-2col-split-view-fits {
+          :where(navigation-split-view:has(> [is='sidebar-view']) > [is='sidebar-view'] &[list-style]) {
+            --list-style: sidebar;
+          }
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+            --list-style: inset;
+          }
+        }
+      }
+
+      &[preferred-root-disclosure-style='sidebar'] {
+        --list--rootsummary-color: var(--primary);
+        --list--selectedrootsummary-color: var(--primary);
+        --list--rootsummary-background-color: transparent;
+        --list--selectedrootsummary-background-color: transparent;
+        --list--rootsummary-padding-inline-start: var(--list--item-padding-inline-start);
+        --list--rootsummary-padding-inline-end: var(--list--item-padding-inline-start);
+        --list--rootsummary-padding-block-start: 5px;
+        --list--rootsummary-padding-block-end: 5px;
+
+        > [is='disclosure-group'] ~ [is='disclosure-group'],
+        > section-view > [is='disclosure-group'] ~ [is='disclosure-group'] {
+          margin-block-start: var(--list-row-gap);
+
+          &::before {
+            display: none;
+          }
+        }
+
+        > [is='disclosure-group'],
+        > section-view > [is='disclosure-group'] {
+          --list--details-background-color: var(--list--item-background-color);
+          --list--opensummary-background-color: var(--list--item-background-color);
+
+          > details,
+          > button:first-of-type {
+            --itemradiustl: var(--list--item-border-radius);
+            --itemradiustr: var(--list--item-border-radius);
+
+            &::before {
+              display: none;
+            }
+          }
+        }
+      }
+
+      // FINALLY AFTER ALL IFS
+      // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
+      @include mixins.if-2col-split-view-fits {
+        :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
+          // --list--item-grid-template-columns: minmax(0, 1fr);
+          --list--accessories-display: none;
+        }
+      }
+    }
+  }
+}

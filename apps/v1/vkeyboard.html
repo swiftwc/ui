@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" /> -->
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>vkeyboard</title>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <!-- <div id="tb" inert></div>
+    <div id="sa" inert></div>
+    <div id="kb" inert></div>
+    <div id="dv" inert></div>
+    <div id="sv" inert></div>
+    <div id="lv" inert></div> -->
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          ns1section0<button type="button" class="fw">→</button>
+          <button type="button" class="fww dlg">deep</button>
+          <p>...</p>
+          <details is="disclosure-group">
+            <summary>3 days ago</summary>
+            <p>January 27th, 2020 January 27th, 2020 January 27th</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+          </details>
+          <details is="disclosure-group" disclosure-style="marker-leading">
+            <summary>3 days ago</summary>
+            <p>January 27th, 2020 January 27th, 2020 January 27th</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+          </details>
+          <details is="disclosure-group" disclosure-style="marker-trailing">
+            <summary>3 days ago</summary>
+            <p>January 27th, 2020 January 27th, 2020 January 27th</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+          </details>
+          <details is="disclosure-group" disclosure-style>
+            <summary>3 days ago</summary>
+            <p>January 27th, 2020 January 27th, 2020 January 27th</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+            <p>January 27th, 2020</p>
+          </details>
+          <list-view></list-view>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <input type="text" />
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <h-divider></h-divider>
+          <!-- <h-divider frame:max-width="100cqi"></h-divider> -->
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <p>...</p>
+          <input type="text" />
+          <p>...</p>
+        </v-stack>
+        <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
+    <script type="module" src="/main.js"></script>
+
+    <nav popover>
+      <a href="/index.html">Back</a>
+    </nav>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
+  </body>
+</html>

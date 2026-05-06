@@ -1,0 +1,155 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  detail-placeholder {
+    :where(&) {
+      pointer-events: none;
+
+      touch-action: none;
+
+      position: absolute;
+
+      block-size: 100%; //calc(100% - 10px);
+      inline-size: var(--nav-split-view--detail-placeholder-inline-size,);
+
+      inset: var(--nav-split-view--detail-placeholder-inset,);
+
+      visibility: var(--nav-split-view--detail-placeholder-visibility,);
+
+      // box-shadow: inset 0 0 0 5px red;
+
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    > scroll-view {
+      :where(&) {
+        overflow: clip auto;
+
+        pointer-events: all;
+
+        @include mixins.contain-overscroll;
+
+        container: scroll-view / size; //inline-size;
+
+        padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
+        padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+
+        // outline: magenta solid 4px;
+
+        @include mixins.make-scrollable;
+
+        @include mixins.create-v-scroll-view;
+
+        &::before {
+          block-size: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
+        }
+
+        --face: transparent;
+      }
+    }
+
+    v-stack {
+      // outline: magenta solid 4px;
+    }
+  }
+
+  // SECTION placeholder styles
+  navigation-split-view {
+    @include mixins.ifnot-2col-split-view-fits {
+      detail-placeholder {
+        :where(&) {
+          --nav-split-view--detail-placeholder-visibility: collapse;
+        }
+      }
+    }
+
+    // ANCHOR: Sizing
+    @include mixins.if-2col-split-view-fits {
+      &:has(> [is='sidebar-view']) {
+        detail-placeholder {
+          :where(&) {
+            --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view--content-inline-size));
+
+            --nav-split-view--detail-placeholder-inline-size: calc(
+              100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size)
+            );
+          }
+        }
+
+        &:not([column-visibility='double-column']) {
+          @include mixins.ifnot-3col-split-view-fits {
+            &[preferred-compact-column='content'] {
+              detail-placeholder {
+                :where(&) {
+                  --nav-split-view--detail-placeholder-inset: 0 0 0 var(--nav-split-view--content-inline-size);
+
+                  --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view--content-inline-size));
+                }
+              }
+            }
+          }
+        }
+        &[column-visibility='double-column'] {
+          detail-placeholder {
+            :where(&) {
+              --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--sidebar-inline-spacing));
+
+              --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view-sidebar-inline-size) - var(--sidebar-inline-spacing));
+            }
+          }
+        }
+      }
+    }
+
+    // ANCHOR: Display
+    @include mixins.if-2col-split-view-fits {
+      // also hide when in 2col mode with detail view
+      &:not(:has(> [is='sidebar-view'])) {
+        &:has(> body-view) {
+          detail-placeholder {
+            :where(&) {
+              --nav-split-view--detail-placeholder-visibility: collapse;
+            }
+          }
+        }
+      }
+      &:has(> [is='sidebar-view']) {
+        &:not([column-visibility='double-column']) {
+          // hide when no content view
+          &[preferred-compact-column='content'] {
+            &:not(:has(> body-view)) {
+              detail-placeholder {
+                :where(&) {
+                  --nav-split-view--detail-placeholder-visibility: collapse;
+                }
+              }
+            }
+          }
+          // also hide when in 3col mode with detail view
+          @include mixins.if-3col-split-view-fits {
+            &:has(> body-view > body-view) {
+              detail-placeholder {
+                :where(&) {
+                  --nav-split-view--detail-placeholder-visibility: collapse;
+                }
+              }
+            }
+          }
+        }
+
+        // also hide when in 2col mode with detail view
+        &[column-visibility='double-column'] {
+          &:has(> body-view) {
+            detail-placeholder {
+              :where(&) {
+                --nav-split-view--detail-placeholder-visibility: collapse;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

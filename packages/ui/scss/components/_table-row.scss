@@ -1,0 +1,172 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+@use 'sass:map';
+
+@layer #{vars.$components-layer} {
+  [is='table-row'] {
+    :where(&) {
+      row-gap: var(--table-row-gap);
+
+      column-gap: var(--table-col-gap);
+
+      --label-line-limit: 1;
+      --label-truncation-mode: tail;
+    }
+
+    @for $i from 1 through 10 {
+      @container table (width > #{vars.$table-expanded-bp}) and (style(--table--expanded-columns: #{$i})) {
+        > :nth-child(n + #{$i + 1}) {
+          :where(&) {
+            display: none;
+          }
+        }
+      }
+    }
+    
+    // dissmantle list and turn it into a h-column row
+    @container table (width > #{vars.$table-expanded-bp}) {
+      :where(&) {
+        --itempadiend: var(--itempadistart);
+        &:after {
+          display: none;
+        }
+        --list--accessories-display: none;
+        // background: red;
+        grid-auto-flow: column;
+
+        grid-auto-columns: minmax(0, 1fr);
+
+        // grid-template-columns: repeat(var(--table--expanded-columns), minmax(0, 1fr));
+        grid-template-rows: minmax(0, 1fr);
+      }
+
+      > :nth-child(n + 2) {
+        :where(&) {
+          color: var(--secondary);
+        }
+      }
+    }
+
+    @container table (width <= #{vars.$table-expanded-bp}) {
+      > :nth-child(n + 2) {
+        :where(&) {
+          display: none;
+
+          color: var(--secondary);
+        }
+      }
+
+      // table-view[preferred-compact-template] > & {
+      //   > :nth-child(n + 2) {
+      //     :where(&) {
+      //       display: grid;
+      //     }
+      //   }
+      // }
+      table-view[preferred-compact-template='title:trailing:subtitle'] > & {
+        :where(&) {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: repeat(2, auto);
+          grid-template-areas:
+            'title trailing'
+            'subtitle _';
+          // grid-template-rows: repeat(3, auto); /* 3 rows for first 6 items */
+          // grid-template-areas:
+          //   'a b'
+          //   'c d'
+          //   'e f';
+        }
+        > :nth-child(-n + 3) {
+          :where(&) {
+            display: grid;
+          }
+        }
+        > :nth-child(1) {
+          :where(&) {
+            grid-area: title;
+          }
+        }
+        > :nth-child(2) {
+          :where(&) {
+            grid-area: trailing;
+            place-self: end;
+          }
+        }
+        > :nth-child(3) {
+          :where(&) {
+            grid-area: subtitle;
+            grid-column: 1 / -1;
+          }
+        }
+      }
+      table-view[preferred-compact-template='trailing:title:subtitle'] > & {
+        :where(&) {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: repeat(2, auto);
+          grid-template-areas:
+            'title trailing'
+            'subtitle _';
+          // grid-template-rows: repeat(3, auto); /* 3 rows for first 6 items */
+          // grid-template-areas:
+          //   'a b'
+          //   'c d'
+          //   'e f';
+        }
+        > :nth-child(-n + 3) {
+          :where(&) {
+            display: grid;
+          }
+        }
+        > :nth-child(1) {
+          :where(&) {
+            grid-area: trailing;
+            place-self: end;
+          }
+        }
+        > :nth-child(2) {
+          :where(&) {
+            grid-area: title;
+          }
+        }
+        > :nth-child(3) {
+          :where(&) {
+            grid-area: subtitle;
+            grid-column: 1 / -1;
+          }
+        }
+      }
+      table-view[preferred-compact-template='*'] > & {
+        > :nth-child(n + 2) {
+          :where(&) {
+            display: grid;
+          }
+        }
+      }
+
+      // :where(& > :nth-child(n + 7)) {
+      //   grid-column: 1 / -1; /* span all columns */
+      // }
+
+      // :where(& > :nth-child(1)) {
+      //   grid-area: a;
+      // }
+      // :where(& > :nth-child(2)) {
+      //   grid-area: b;
+      // }
+      // :where(& > :nth-child(3)) {
+      //   grid-area: c;
+      // }
+      // :where(& > :nth-child(4)) {
+      //   grid-area: d;
+      // }
+      // :where(& > :nth-child(5)) {
+      //   grid-area: e;
+      // }
+      // :where(& > :nth-child(6)) {
+      //   grid-area: f;
+      // }
+    }
+  }
+}

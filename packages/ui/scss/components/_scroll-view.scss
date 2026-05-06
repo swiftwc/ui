@@ -1,0 +1,130 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  scroll-view {
+    navigation-stack > &,
+    navigation-split-view > &,
+    [is='sidebar-view'] > &,
+    body-view > &,
+    [is='full-screen'] > &,
+    [is='sheet-view'] > & {
+      &:has(~ tool-bar > [slot^='top-bar']),
+      &:has(> [slot^='top-bar']) {
+        :where(&) {
+          scroll-padding-top: var(--navigation-bar-block-size);
+        }
+
+        :where(& > *:not([slot])) {
+          // margin-block-start: var(--navigation-bar-block-size);
+        }
+      }
+
+      &:has(~ tool-bar > [slot^='bottom-bar']),
+      &:has(> [slot^='bottom-bar']) {
+        :where(&) {
+          scroll-padding-bottom: var(--tool-bar-block-size);
+        }
+
+        :where(& > *:not([slot])) {
+          margin-block-end: var(--tool-bar-block-size);
+        }
+      }
+
+      :where(&) {
+        overflow: clip auto;
+
+        @include mixins.contain-overscroll;
+
+        // overflow-y: auto;
+        // overflow-x: clip;
+        // overscroll-behavior: contain;
+        // -webkit-overflow-scrolling: touch;
+        padding-block: var(--safe-area-inset-top) var(--safe-area-inset-bottom);
+        padding-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
+
+        container: scroll-view / size; //inline-size;
+
+        background-color: var(--face,);
+        color: var(--text,);
+
+        box-shadow: var(--scroll-view-box-shadow,);
+
+        transform: var(--scroll-view-translate,);
+
+        // --scroll-view-box-shadow: var(--screen-box-shadow);
+
+        // place-items: center;
+        //
+        // box-shadow:
+        //   2px 0 6px oklch(0 0 0 / 48%),
+        //   6px 0 16px oklch(0 0 0 / 67%) !important;
+
+        // grid-auto-rows: minmax(0, max-content);
+        // grid-template-rows: 100% 1px;
+        @include mixins.make-scrollable;
+
+        &::before {
+          block-size: calc(100% + var(--safe-area-inset-bottom) + 1px); //????? FIXME:
+
+          // outline: #c4e412 solid 10px;
+          // box-shadow: inset 0 0 0 6px #c4e412;
+        }
+
+        // @include mixins.make-toolbar-pseudos;
+        @include mixins.create-v-scroll-view;
+      }
+
+      &[navigation-bar-title-display-mode='large'] {
+        :where(&) {
+          > [slot='top-bar-principal'] {
+            opacity: 0;
+
+            visibility: collapse;
+          }
+        }
+      }
+
+      // &:has(list-view section-view[js-stuck], [is='form-view'] section-view[js-stuck]) {
+      //   :where(&) {
+      //     --navbar-backdrop-inset-block-end: -25px;
+      //   }
+      // }
+
+      sticky-container {
+        :where(&) {
+          @include mixins.make-toolbar-pseudos(bottom);
+        }
+      }
+
+      @supports (container-type: scroll-state) {
+        &:has(sticky-container[stuck]) {
+          :where(&)::part(scroll-view-navbar):before {
+            mask-image: none !important;
+          }
+        }
+      }
+
+      @supports not (container-type: scroll-state) {
+        &:has(sticky-container) {
+          :where(&)::part(scroll-view-navbar):before {
+            mask-image: none !important;
+          }
+        }
+      }
+    }
+  }
+
+  @include mixins.if-ipad-sheet-fits {
+    [is='sheet-view'] {
+      :where(& scroll-view:not(scroll-view scroll-view)) {
+        --safe-area-inset-top: 0px;
+        --safe-area-inset-right: 0px;
+        --safe-area-inset-bottom: 0px;
+        --safe-area-inset-left: 0px;
+        // padding-inline: 0px; //var(--edge-inset-inline-start)          var(--edge-inset-inline-end);
+        // padding-block: 0px; //var(--edge-inset-block-start) var(--edge-inset-block-end);
+      }
+    }
+  }
+}

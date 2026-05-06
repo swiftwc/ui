@@ -1,0 +1,93 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='sheet-view'] {
+    :where(&) {
+      @include mixins.reset-dialog;
+
+      // dowh
+      overflow: clip;
+      width: 100lvw;
+      height: var(--100lvh, 100lvh);
+
+      transform: var(--sheet-view-translate,);
+
+      --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
+
+      :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='top-bar-']) {
+        --label-style: icon-only;
+      }
+
+      @media (pointer: coarse) and (orientation: portrait) {
+        clip-path: inset(var(--safe-area-inset-top) 0 0 0 round 2rem 2rem 0 0);
+      }
+    }
+
+    @include mixins.if-ipad-sheet-fits {
+      :where(&) {
+        clip-path: none;
+
+        max-width: #{vars.$ipad-sheet-view-inline-size};
+
+        aspect-ratio: #{vars.$ipad-sheet-view-aspect-ratio};
+
+        border-radius: 26px;
+
+        margin: var(--safe-area-inset-top) var(--safe-area-inset-right) var(--safe-area-inset-bottom) var(--safe-area-inset-left);
+
+        height: auto;
+
+        inset-inline-start: calc(
+          var(--inset-inline-start-resettor, 1) *
+            calc(50lvw - calc(#{vars.$ipad-sheet-view-inline-size} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2))
+        );
+
+        inset-block-start: calc(50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2));
+      }
+
+      :where(& scroll-view) {
+        border-radius: 26px;
+      }
+
+      // NOTE: Safari-only mod for closing animation
+      @supports not selector(:open) {
+        &:has(&:not([open])) {
+          :where(&) {
+            overflow: visible;
+          }
+          scroll-view:has(~ body-view) {
+            &,
+            & ~ tool-bar {
+              :where(&) {
+                opacity: 0;
+              }
+            }
+          }
+        }
+
+        :where(& &:not([open])) {
+          inset-inline-start: 0;
+
+          inset-block-start: 0;
+        }
+      }
+
+      @include mixins.if-2col-split-view-fits {
+        // navigation-split-view & {
+        //   margin-inline-start: calc(
+        //     var(--safe-area-inset-left) - var(--nav-split-view-content-inline-size)
+        //   );
+        // }
+
+        // navigation-split-view[visibility='three-column'] & {
+        //   margin-inline-start: calc(
+        //     var(--safe-area-inset-left) - var(
+        //         --nav-split-view-content-inline-size
+        //       ) - var(--nav-split-view-sidebar-inline-size)
+        //   );
+        // }
+      }
+    }
+  }
+}

@@ -1,0 +1,18 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  v-stack {
+    :where(&) {
+      grid-template-columns: minmax(0, 1fr);
+
+      place-items: center;
+      place-content: center;
+
+      gap: 1rem;
+    }
+
+    // :where(& > *) {
+    // max-width: 100%;
+    // }
+  }
+}

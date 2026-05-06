@@ -1,0 +1,133 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  tool-bar {
+    :where(&) {
+      pointer-events: none;
+
+      touch-action: none;
+
+      color: var(--text,);
+
+      grid-template-columns: minmax(0, 1fr);
+      grid-template-rows: auto 1fr auto;
+      grid-template-areas:
+        'top-bar'
+        'spacer'
+        'bottom-bar';
+    }
+
+    :where(
+      & > *:not(sidebar-toggle),
+      & > sidebar-toggle > tool-bar-item,
+      tab-view > sidebar-toggle > tool-bar-item,
+      navigation-split-view > sidebar-toggle > tool-bar-item
+    ) {
+      backdrop-filter: var(--liquid-glass-backdrop-filter);
+      box-shadow: var(--toolbar-cell-box-shadow);
+
+      min-inline-size: var(--toolbar-cell-min-size);
+
+      // tfo
+      transform: var(--toolbar-cell-scale,);
+      filter: var(--toolbar-cell-filter,);
+      opacity: var(--toolbar-cell-opacity,);
+
+      // min-width: calc(var(--tool-bar-block-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
+    }
+
+    :where(&)::part(top-bar),
+    :where(&)::part(bottom-bar) {
+      position: relative; // SAFARI BUG
+
+      padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
+      pointer-events: none;
+
+      grid-template-columns: auto 1fr auto;
+      column-gap: var(--toolbar-col-gap);
+      // grid-auto-rows: 40px;
+
+      grid-template-rows: var(--toolbar-cell-min-size);
+
+      // place-items: center;
+      place-content: center; // middle of y axis
+    }
+
+    :where(&)::part(top-bar) {
+      // padding-inline: calc(
+      //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
+      //   )
+      //   calc(
+      //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
+      //   );
+
+      grid-area: top-bar;
+
+      block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+
+      padding-block-start: var(--safe-area-inset-top);
+    }
+
+    :where(&)::part(bottom-bar) {
+      // padding-inline: calc(
+      //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
+      //   )
+      //   calc(
+      //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
+      //   );
+
+      grid-area: bottom-bar;
+
+      block-size: calc(var(--safe-area-inset-bottom) + var(--tool-bar-block-size));
+
+      padding-block-end: var(--safe-area-inset-bottom);
+    }
+
+    :where(&)::part(toolbar-leading-stack),
+    :where(&)::part(toolbar-principal-stack),
+    :where(&)::part(toolbar-trailing-stack) {
+      display: grid;
+
+      grid-auto-flow: column;
+      grid-template-columns: minmax(0, 1fr);
+
+      column-gap: var(--toolbar-col-gap);
+
+      padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
+    }
+
+    @include mixins.if-ipad-sheet-fits {
+      :where([is='sheet-view'] &)::part(top-bar),
+      :where([is='sheet-view'] &)::part(bottom-bar) {
+        --safe-area-inset-left: 0px;
+
+        --safe-area-inset-right: 0px;
+      }
+
+      :where([is='sheet-view'] &)::part(top-bar) {
+        --safe-area-inset-top: 0px;
+      }
+
+      :where([is='sheet-view'] &)::part(bottom-bar) {
+        --safe-area-inset-bottom: 0px;
+      }
+    }
+  }
+}
+
+// @layer #{vars.$final-layer} {
+//   tool-bar-item[slot^='top-bar'],
+//   tool-bar-item-group[slot^='top-bar'] {
+//     :where(& menu-view, & tool-bar-item-group[slot^='top-bar'] menu-view)::part(menu-dialog) {
+//       // position-area: center block-end;
+//     }
+//   }
+
+//   tool-bar-item[slot^='bottom-bar'],
+//   tool-bar-item-group[slot^='bottom-bar'] {
+//     :where(& menu-view, & menu-view)::part(menu-dialog) {
+//       // position-area: center block-start;
+//     }
+//   }
+// }

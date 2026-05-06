@@ -1,0 +1,205 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>games</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <color-scheme dark></color-scheme>
+
+    <tab-view>
+      <navigation-stack id="home">
+        <scroll-view navigation-inline-title="Home">
+          <v-stack>
+            Home
+            <h-divider></h-divider>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view system-image="smiley"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <navigation-stack id="library" hidden>
+        <scroll-view navigation-inline-title="Library">
+          <v-stack>
+            ns2section0<button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <h-divider></h-divider>
+            <h-divider frame:max-width="100cqi"></h-divider>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="leading">
+            <button type="button">
+              <label-view title="leading"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="trailing">
+            <button type="button">
+              <label-view title="trailing"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button">
+            <label-view system-image="sidebar"></label-view>
+          </button>
+        </tool-bar-item>
+      </sidebar-toggle>
+
+      <dialog is="sidebar-view">
+        <scroll-view>
+          <v-stack>
+            <form is="form-view">
+              <button is="tab-item" value="home">
+                <label-view title="Home"></label-view>
+              </button>
+              <button is="tab-item" value="library">
+                <label-view title="Library"></label-view>
+              </button>
+            </form>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <sidebar-toggle slot="top-bar-leading">
+            <tool-bar-item>
+              <button type="button">
+                <label-view system-image="sidebar"></label-view>
+              </button>
+            </tool-bar-item>
+          </sidebar-toggle>
+        </tool-bar>
+      </dialog>
+
+      <dialog is="tab-bar">
+        <form is="form-view">
+          <button is="tab-item" value="home">
+            <label-view title="Home"></label-view>
+          </button>
+          <button is="tab-item" value="library">
+            <label-view title="Library"></label-view>
+          </button>
+        </form>
+
+        <!-- <sidebar-toggle>
+          <button type="button">
+            <label-view system-image="sidebar"></label-view>
+          </button>
+        </sidebar-toggle> -->
+      </dialog>
+    </tab-view>
+
+    <script type="module" src="/main.js"></script>
+  </body>
+</html>

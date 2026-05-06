@@ -1,0 +1,653 @@
+@use '../vars';
+@use '../mixins';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+@use 'sass:string';
+
+$color-tokens: (
+  // SECTION: grays
+  gray: (
+      props: (
+        inherits: true,
+      ),
+      media: (
+        base: (
+          light: oklch(0.6483 0.0073 286.19),
+          dark: oklch(0.6483 0.0073 286.19),
+        ),
+        contrast: (
+          light: oklch(0.5326 0.0062 286.19),
+          dark: oklch(0.752 0.0057 286.26),
+        ),
+        fine: (
+          light: oklch(0.746 0.0071 286.23),
+          dark: oklch(0.7073 0.0072 286.21),
+        ),
+        fine-contrast: (
+          light: oklch(0.6347 0.0059 286.23),
+          dark: oklch(0.809 0.0056 286.27),
+        ),
+      ),
+    ),
+  gray2: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.752 0.0057 286.26),
+        dark: oklch(0.5007 0.0047 286.23),
+      ),
+      contrast: (
+        light: oklch(0.6483 0.0073 286.19),
+        dark: oklch(0.5876 0.006 286.21),
+      ),
+      fine: (
+        light: oklch(0.8464 0.0055 286.28),
+        dark: oklch(0.5634 0.0046 286.25),
+      ),
+      fine-contrast: (
+        light: oklch(0.746 0.0071 286.23),
+        dark: oklch(0.648 0.0059 286.23),
+      ),
+    ),
+  ),
+  gray3: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.8312 0.0069 286.25),
+        dark: oklch(0.4024 0.0033 286.25),
+      ),
+      contrast: (
+        light: oklch(0.752 0.0057 286.26),
+        dark: oklch(0.4466 0.0032 286.27),
+      ),
+      fine: (
+        light: oklch(0.9233 0.0067 286.27),
+        dark: oklch(0.4683 0.0032 286.28),
+      ),
+      fine-contrast: (
+        light: oklch(0.8464 0.0055 286.28),
+        dark: oklch(0.5109 0.0031 286.29),
+      ),
+    ),
+  ),
+  gray4: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.8622 0.0068 286.26),
+        dark: oklch(0.3492 0.0034 286.22),
+      ),
+      contrast: (
+        light: oklch(0.7964 0.0056 286.27),
+        dark: oklch(0.3874 0.0033 286.24),
+      ),
+      fine: (
+        light: oklch(0.9536 0.0067 286.27),
+        dark: oklch(0.4172 0.0033 286.26),
+      ),
+      fine-contrast: (
+        light: oklch(0.8895 0.0054 286.29),
+        dark: oklch(0.4538 0.0032 286.27),
+      ),
+    ),
+  ),
+  gray5: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9233 0.0067 286.27),
+        dark: oklch(0.2939 0.0036 286.18),
+      ),
+      contrast: (
+        light: oklch(0.8834 0.0054 286.29),
+        dark: oklch(0.3352 0.0104 285.82),
+      ),
+      fine: (
+        light: oklch(0.9626 0.0066 286.27),
+        dark: oklch(0.3492 0.0034 286.22),
+      ),
+      fine-contrast: (
+        light: oklch(0.9743 0.0053 286.3),
+        dark: oklch(0.4024 0.0033 286.25),
+      ),
+    ),
+  ),
+  gray6: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9626 0.0066 286.27),
+        dark: oklch(0.2273 0.0038 286.09),
+      ),
+      contrast: (
+        light: oklch(0.9415 0.0067 286.27),
+        dark: oklch(0.2611 0.0037 286.14),
+      ),
+      fine: (
+        light: oklch(0.9919 0.003956 286.3273),
+        dark: oklch(0.2939 0.0036 286.18),
+      ),
+      fine-contrast: (
+        light: oklch(1 0 0),
+        dark: oklch(0.3336 0.0035 286.21),
+      ),
+    ),
+  ),
+  blue: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.5771 0.2207 258.72),
+        dark: oklch(0.5983 0.2103 256.76),
+      ),
+    ),
+  ),
+  blue2: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.7545 0.1248 249.16),
+        dark: oklch(0.3497 0.109177 253.3949),
+      ),
+    ),
+  ),
+  blue3: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.8728 0.0631 246.39),
+        dark: oklch(0.228 0.0588 246.17),
+      ),
+    ),
+  ),
+  blue4: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9063 0.0454 245.27),
+        dark: oklch(0.196 0.0464 241.89),
+      ),
+    ),
+  ),
+  blue5: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9063 0.0454 245.27),
+        dark: oklch(0.196 0.0464 241.89),
+      ),
+    ),
+  ),
+  red: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.6473 0.2385 27.3),
+        dark: oklch(0.6536 0.2325 26.55),
+      ),
+    ),
+  ),
+  red2: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.7766 0.1308 22.77),
+        dark: oklch(0.3893 0.1278 25.91),
+      ),
+    ),
+  ),
+  red3: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.8785 0.0643 22),
+        dark: oklch(0.2473 0.0667 23.31),
+      ),
+    ),
+  ),
+  red4: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9142 0.0439 23.18),
+        dark: oklch(0.2085 0.047 24.05),
+      ),
+    ),
+  ),
+  red5: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9142 0.0439 23.18),
+        dark: oklch(0.2085 0.047 24.05),
+      ),
+    ),
+  ),
+  //orangeemphasis light: oklch(0.6414 0.157 55.97) dark: oklch(0.83 0.1633 79.36)
+  // SECTION: SystemColor
+  canvas: (
+      props: (
+        inherits: false,
+      ),
+      media: (
+        base: (
+          light: oklch(1 0 0),
+          dark: oklch(0 0 0),
+        ),
+      ),
+    ),
+  canvastext: (
+    props: (
+      inherits: false,
+    ),
+    media: (
+      base: (
+        light: oklch(0 0 0),
+        dark: oklch(1 0 0),
+      ),
+    ),
+  ),
+  // SECTION: bgs
+  primary: (
+      props: (
+        inherits: true,
+      ),
+      media: (
+        base: (
+          light: oklch(0 0 0),
+          dark: oklch(1 0 0),
+        ),
+        fine: (
+          light: oklch(0.2686 0 0),
+          dark: oklch(0.9034 0.0013 106.43),
+        ),
+      ),
+    ),
+  background: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(1 0 0),
+        dark: oklch(0 0 0),
+      ),
+    ),
+  ),
+  secondaryBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0.2186 0.0039 286.08),
+      ),
+    ),
+  ),
+  tertiaryBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(1 0 0),
+        dark: oklch(0.2735 0.0036 286.16),
+      ),
+    ),
+  ),
+  groupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0 0 0),
+      ),
+    ),
+  ),
+  secondaryGroupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(1 0 0),
+        dark: oklch(0.2186 0.0039 286.08),
+      ),
+    ),
+  ),
+  tertiaryGroupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9543 0.0067 295.45),
+        dark: oklch(0.2735 0.0036 286.16),
+      ),
+    ),
+  ),
+  // SECTION: semantic colors
+  separator: (
+      props: (
+        inherits: true,
+      ),
+      media: (
+        base: (
+          light: oklch(0.9431 0 0),
+          dark: oklch(0.2858 0.0036 286.17),
+        ),
+        fine: (
+          light: oklch(0.9249 0 0),
+          dark: oklch(0.3452 0.0074 84.59),
+        ),
+      ),
+    )
+);
+
+$colors: map.merge(
+  $color-tokens,
+  (
+    secondary: map.get($color-tokens, gray),
+    tertiary: map.get($color-tokens, gray2),
+    quaternary: map.get($color-tokens, gray3),
+    quinary: map.get($color-tokens, gray4),
+    accentColor: map.get($color-tokens, blue),
+    accentColor2: map.get($color-tokens, blue2),
+    accentColor3: map.get($color-tokens, blue3),
+    accentColor4: map.get($color-tokens, blue4),
+    accentColor5: map.get($color-tokens, blue5),
+    // accent222: map.merge(
+    //     map.get($color-tokens, blue4),
+    //     (
+    //       props: (
+    //         inherits: false,
+    //       ),
+    //     )
+     //   ),
+  )
+);
+
+@include mixins.generate-color-tokens($colors);
+
+// SECTION: colors
+@property --black {
+  syntax: '<color>';
+  initial-value: oklch(0 0 0); // ✅
+  inherits: true;
+}
+
+@property --white {
+  syntax: '<color>';
+  initial-value: oklch(1 0 0); // ✅
+  inherits: true;
+}
+
+@layer #{vars.$colors-layer} {
+  :root {
+    // --background: light-dark(oklch(1 0 0), oklch(0 0 0)); // ✅
+
+    // ANCHOR: level 0
+    --face: var(--background); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --face2: var(--secondaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --face3: var(--tertiaryBackground); //light-dark(var(--primary-bg), var(--primary-bg-dark));
+    // --groupedface: light-dark(var(--primary-grouped-bg), var(--primary-grouped-bg-dark));
+
+    --text: var(--primary); //light-dark(var(--primary-label), var(--primary-label-dark));
+
+    // --separator: light-dark(var(--divider), var(--divider-dark));
+
+    // --mutedtext: light-dark(var(--secondary-label), var(--secondary-label-dark));
+  }
+
+  // :where(navigation-stack, navigation-split-view) {
+  //   --canvas: light-dark(oklch(var(--primary-bg)), var(--primary-bg-dark));
+  //   --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
+  // }
+
+  :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog']) {
+    // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
+    // ANCHOR: level 1
+    --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+
+    --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+
+    // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+  }
+
+  :where(navigation-split-view > [is='sidebar-view']) {
+    // --canvas: light-dark(oklch(var(--primary-bg)), var(--primary-bg-dark));
+    // --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
+
+    @include mixins.if-2col-split-view-fits {
+      --face: light-dark(
+        var(--liquid-glass-bg),
+        var(--liquid-glass-bg-dark)
+      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+
+      // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    }
+  }
+
+  tab-view > [is='sidebar-view'] {
+    :where(&) {
+      --face: light-dark(
+        var(--liquid-glass-bg),
+        var(--liquid-glass-bg-dark)
+      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    }
+
+    :where(& [is='form-view']) {
+      --list--highlighteditem-background-color: transparent;
+      --list--highlighteditem-color: var(--accentColor);
+    }
+    // :where(& [is='tab-item'][aria-selected='true']) {
+    //   --itemtext: blue;
+    //   --itemhighlighttext: blue;
+    //   --itemactivetext: blue;
+    // }
+  }
+
+  :where([is='tab-bar']) {
+    --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+  }
+
+  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
+    //, list-view) {
+    //, [is='form-view'] BREAKS sidebar
+    --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+
+    // @media (pointer: fine) {
+    //   --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    //   --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    //   --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+    // }
+  }
+
+  [is='tab-bar'] [is='tab-item'] {
+    :where(&) {
+      --toolbaritemhighlighttext: yellow;
+      --toolbaritemactivetext: chocolate;
+    }
+  }
+
+  sidebar-toggle,
+    // tool-bar-item,
+    // [is='tab-item'],
+    // list-view > button,
+    // this is temp for toolbar look aboove tables
+    menu-view {
+    // [is='disclosure-group'] {
+    :where(&) {
+      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    }
+  }
+
+  menu-view {
+    :where(&) {
+      --menuitemhighlighttext: light-dark(var(--menu-item-focus-color), var(--menu-item-focus-color-dark));
+      --menuitemhighlightface: light-dark(var(--menu-item-focus-bg), var(--menu-item-focus-bg-dark));
+
+      --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
+      --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
+    }
+  }
+
+  :where([is='confirmation-dialog']) {
+    --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+
+    // @media (pointer: fine) {
+    //   --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+    //   --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    //   --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+    // }
+  }
+
+  :where([is='borderless-button']) {
+    --btntext: var(--accentColor);
+    --btnhighlighttext: light-dark(
+      oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
+    );
+    --btnactivetext: light-dark(
+      oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
+    );
+  }
+
+  :where([is='bordered-button']) {
+    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btnhighlighttext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
+    );
+    --btnactivetext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
+    );
+
+    --btnface: light-dark(var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)), var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)));
+    --btnhighlightface: light-dark(
+      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
+    );
+    --btnactiveface: light-dark(
+      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
+    );
+  }
+
+  :where([is='bordered-prominent-button']) {
+    --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+    --btnface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
+    --btnhighlightface: light-dark(
+      oklch(from var(--accentColor) max(calc(l * 0.9), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.4), c) h)
+    );
+    --btnactiveface: light-dark(
+      oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
+    );
+  }
+
+  :where([is='glass-button']) {
+    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btnhighlighttext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+    );
+    --btnactivetext: light-dark(
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+    );
+
+    --btnface: light-dark(var(--glass-btn-bg), var(--glass-btn-bg-dark));
+    --btnhighlightface: light-dark(var(--glass-btn-focus-bg), var(--glass-btn-focus-bg-dark));
+    --btnactiveface: light-dark(var(--glass-btn-active-bg), var(--glass-btn-active-bg-dark));
+  }
+
+  :where([is='glass-prominent-button']) {
+    --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+    --btnface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
+    --btnhighlightface: light-dark(
+      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+    );
+    --btnactiveface: light-dark(
+      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+    );
+  }
+
+  /* list-view {
+    :where(&) {
+      // --toolbaritemface: ;
+      // --toolbaritemhighlightface: magenta;
+      --toolbaritemactiveface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      // --toolbaritemhighlighttext: yellow;
+      --toolbaritemactivetext: white;
+    }
+
+    :where(& [aria-selected='true']) {
+      --toolbaritemface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      --toolbaritemhighlightface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      --toolbaritemactiveface: light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+      --toolbaritemtext: white;
+      --toolbaritemhighlighttext: white;
+      --toolbaritemactivetext: white;
+    }
+  } */
+}

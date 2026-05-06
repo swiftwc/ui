@@ -1,0 +1,171 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>button</title>
+    <template id="template">
+      <h-stack>
+        <button class="make-btn">
+          <label-view title="Toggle tint on buttons"></label-view>
+        </button>
+      </h-stack>
+      <p>styles</p>
+      <button><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button"><label-view title="Tap Me"></label-view></button>
+      <p>LG</p>
+      <button control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" control-size="large"><label-view title="Tap Me"></label-view></button>
+      <p>SM</p>
+      <button control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" control-size="small"><label-view title="Tap Me"></label-view></button>
+      <p>XS</p>
+      <button control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" control-size="mini"><label-view title="Tap Me"></label-view></button>
+      <p>[role="cancel"]</p>
+      <button role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <p>[role="close"]</p>
+      <button role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <p>[role="confirm"]</p>
+      <button role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <p>[role="destructive"]</p>
+      <button role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="plain-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="borderless-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="bordered-prominent-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+      <button is="glass-prominent-button" role="destructive"><label-view title="Tap Me"></label-view></button>
+    </template>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <h-stack template="repeat(4,minmax(0,1fr))" placement="fill leading">
+          <v-stack placement="leading fill">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill" tint="gray">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill" tint="blue">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+          <v-stack placement="leading fill" tint="red">
+            <script>
+              document.currentScript.replaceWith(document.querySelector('#template').content.cloneNode(true))
+            </script>
+          </v-stack>
+        </h-stack>
+        <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
+    <script type="module">
+      import '/main.js'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        const btn = event.target.closest('.make-btn')
+
+        if (btn) {
+          const vstack = btn.closest('v-stack')
+          for (const el of vstack.querySelectorAll('button'))
+            if (!el.hasAttribute('tint')) el.setAttribute('tint', vstack.getAttribute('tint'))
+            else el.removeAttribute('tint')
+        }
+      })
+
+      window.addEventListener('blur', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        document.documentElement.style.setProperty('--accentColor', 'var(--gray)', 'important')
+        // document.documentElement.style.setProperty('--blue', 'var(--gray)', 'important')
+        // document.documentElement.style.setProperty('--blue2', 'var(--gray2)', 'important')
+        // document.documentElement.style.setProperty('--blue3', 'var(--gray3)', 'important')
+        // document.documentElement.style.setProperty('--blue4', 'var(--gray4)', 'important')
+        // document.documentElement.style.setProperty('--red', 'var(--gray)', 'important')
+      })
+
+      window.addEventListener('focus', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        document.documentElement.style.removeProperty('--accentColor')
+        // document.documentElement.style.removeProperty('--blue')
+        // document.documentElement.style.removeProperty('--blue2')
+        // document.documentElement.style.removeProperty('--blue3')
+        // document.documentElement.style.removeProperty('--blue4')
+        // document.documentElement.style.removeProperty('--red')
+      })
+    </script>
+  </body>
+</html>

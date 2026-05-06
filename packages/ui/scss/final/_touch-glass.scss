@@ -1,0 +1,67 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$final-layer} {
+  @media (pointer: coarse) {
+    [is='glass-button'],
+    [is='glass-prominent-button'] {
+      :where(&[touch-glass]) {
+        --btn--scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
+    menu-view {
+      :where(&[touch-glass])::part(menu-dialog) {
+        --menu--dialog-scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
+    [is='confirmation-dialog'] {
+      :where(&[touch-glass]) {
+        --confirmation--dialog-scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
+    tool-bar {
+      :where(& > *[touch-glass]) {
+        --toolbar-cell-scale: scale(1.07);
+        transition-duration: 100ms;
+      }
+    }
+
+    [is='tab-bar'] {
+      @include mixins.if-iphone-portrait {
+        :where(&[touch-glass]) {
+          --tab-bar-scale: scale(1.02);
+          transition-duration: 100ms;
+        }
+      }
+      @include mixins.if-iphone-landscape {
+        :where(&[touch-glass]) {
+          --tab-bar-scale: scale(1.02);
+          transition-duration: 100ms;
+        }
+      }
+      @include mixins.if-ipad-landscape {
+        :where(&[touch-glass]) {
+          --tab-bar-scale: scale(1.02);
+          transition-duration: 100ms;
+        }
+      }
+    }
+
+    navigation-split-view {
+      &:has(> [is='sidebar-view']) {
+        @include mixins.if-2col-split-view-fits {
+          :where(& > [is='sidebar-view'][touch-glass]) {
+            --sidebar-view-scale: scale(1.02);
+            transition-duration: 100ms;
+          }
+        }
+      }
+    }
+  }
+}

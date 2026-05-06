@@ -1,0 +1,405 @@
+@use '../vars';
+@use 'sass:string';
+@use 'sass:map';
+@use 'sass:list';
+
+@mixin span-all {
+  grid-column: 1 / -1; // span all columns
+  grid-row: 1 / -1; // span all rows
+}
+
+@mixin create-sidebar-measure($floating: false) {
+  @if $floating {
+    :where(&) {
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
+    }
+
+    :where(& ~ tool-bar) {
+      &::part(top-bar) {
+        --safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - max(env(safe-area-inset-left), var(--sidebar-inline-spacing)));
+      }
+    }
+  } @else {
+    :where(&) {
+      --navbar-safe-area-inset-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) - env(safe-area-inset-left));
+    }
+
+    :where(& ~ tool-bar) {
+      &::part(bottom-bar) {
+        --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
+      }
+
+      &::part(top-bar) {
+        --safe-area-inset-left: var(--sidebar-toggle-padding-inline-start, 0px);
+      }
+    }
+  }
+  //  :where(&)::part(scroll-view-navbar-stack) {
+  //   margin-inline-start: calc(env(safe-area-inset-left) * -1); // escape the possible paddings of scroll-view and move to left edge, for new calcs
+  // }
+  // :where(& ~ tool-bar)::part(top-bar) {
+  //   // --safe-area-inset-left: max(env(safe-area-inset-left), var(--sidebar-spacing));
+  //   --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-spacing)) + var(#{vars.$sidebar-toggle-padding-inline-start-css-prop}, 0px));
+  // }
+}
+
+@mixin discard-sidebar-measures {
+  :where(&) {
+    --navbar-safe-area-inset-left: revert;
+  }
+
+  :where(& ~ tool-bar) {
+    &::part(bottom-bar) {
+      --safe-area-inset-left: revert;
+    }
+
+    &::part(top-bar) {
+      --safe-area-inset-left: revert;
+    }
+  }
+  //  :where(&)::part(scroll-view-navbar-stack) {
+  //   margin-inline-start: unset;
+  //   --sidebar-spacing: 0px;
+  //   #{vars.$sidebar-toggle-padding-inline-start-css-prop}: 0px;
+  //   --safe-area-inset-left: 0px;
+  // }
+  // :where(& ~ tool-bar)::part(top-bar) {
+  //   --safe-area-inset-left: unset;
+  // }
+}
+
+@mixin create-v-scroll-view {
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: 0 minmax(max-content, 1fr);
+  grid-template-areas:
+    'toolbar'
+    'main';
+
+  & > *:not([slot]) {
+    grid-area: main;
+  }
+
+  &:has(~ tool-bar > [slot^='top-bar']),
+  &:has(> [slot^='top-bar']) {
+    grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
+  }
+}
+
+@mixin make-scrollable($pseudo: false) {
+  scrollbar-width: thin;
+
+  @if $pseudo {
+    block-size: calc(100% + 1px);
+  } @else {
+    // & > *:not([slot]) {
+    //   @include span-all;
+    //   // grid-column: 1 / -1; // span all columns
+    //   // grid-row: 1 / -1; // span all rows
+    // }
+
+    &::before {
+      @include span-all;
+      // grid-column: 1 / -1; // span all columns
+      // grid-row: 1 / -1; // span all rows
+      content: '';
+      display: block;
+      block-size: calc(100% + 1px); // creates overflow
+      z-index: -1;
+      pointer-events: none;
+    }
+  }
+}
+
+@mixin contain-overscroll() {
+  overscroll-behavior: contain;
+  -webkit-overflow-scrolling: touch;
+}
+
+@mixin make-toolbar-pseudos($dir: bottom) {
+  &:before,
+  &:after {
+    backface-visibility: hidden;
+
+    content: '';
+    inset: 0 0 var(--navbar-backdrop-inset-block-end, 0) 0;
+    position: absolute;
+    pointer-events: none;
+
+    z-index: -1;
+  }
+
+  &:before {
+    backdrop-filter: blur(2px);
+    mask-image: linear-gradient(to #{$dir}, oklch(0 0 0) 50%, oklch(0 0 0 / 0%) 100%);
+  }
+
+  &:after {
+    background-image: linear-gradient(to #{$dir}, var(--face) 0, oklch(0 0 0 / 0%) 100%);
+  }
+}
+
+@mixin add-focus-visible-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &:focus-visible {
+        outline: none;
+
+        &#{$selector} {
+          @content;
+        }
+      }
+
+      // @media (pointer: fine) {
+      //   &:hover#{$selector} {
+      //     @content;
+      //   }
+      // }
+    }
+  }
+}
+
+@mixin add-hover-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      @media (pointer: fine) {
+        &:hover#{$selector} {
+          @content;
+        }
+      }
+    }
+  }
+}
+
+@mixin add-active-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &:active#{$selector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin add-jsactive-state($selector: '') {
+  &:not(:disabled):not([readonly]) {
+    :where(&) {
+      &.active#{$selector} {
+        @content;
+      }
+    }
+  }
+}
+
+@mixin componentize($prefix) {
+  appearance: none;
+  -webkit-appearance: none;
+  border: var(--#{$prefix}border#{','}); //var(--itemborder,);
+  background: var(--#{$prefix}face#{','}); //var(--itemface,);
+  color: var(--#{$prefix}text#{','}); //var(--itemtext,);
+  padding-inline: var(--#{$prefix}padistart#{','}) var(--#{$prefix}padiend#{','});
+  padding-block: var(--#{$prefix}padbstart#{','}) var(--#{$prefix}padbend#{','});
+  border-radius: var(--#{$prefix}radiustl#{','}) var(--#{$prefix}radiustr#{','}) var(--#{$prefix}radiusbr#{','}) var(--#{$prefix}radiusbl#{','});
+}
+
+@mixin vt-toolbar-cell-offscreen-keyframe() {
+  --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+  --toolbar-cell-filter: blur(10px);
+  --toolbar-cell-opacity: 0;
+}
+
+@mixin vt-toolbar-cell-onscreen-keyframe() {
+  --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+  --toolbar-cell-filter: none;
+  --toolbar-cell-opacity: 1;
+}
+
+@mixin make-marker-pseudos($affordance, $pseudo: after) {
+  &::#{$pseudo} {
+    pointer-events: none;
+    content: '';
+    // display: var(--disclosure--marker-display,);
+    // block-size: 1rem;
+    // inline-size: 1rem;
+    // background-color: var(--blue);
+    -webkit-mask: url($affordance) no-repeat center / contain;
+    mask: url($affordance) no-repeat center / contain;
+    // transform: var(--disclosure--marker-transform,);
+    transform-origin: center;
+    aspect-ratio: 1;
+    place-self: center;
+    // order: var(--disclosure--marker-order,);
+  }
+}
+
+@mixin if-iphone-landscape {
+  @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-iphone-portrait {
+  @media (max-width: #{vars.$ipad-portrait-bp-max}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-landscape {
+  @media (min-width: #{vars.$ipad-landscape-bp-min}) and (orientation: landscape) {
+    @content;
+  }
+}
+
+@mixin if-ipad-portrait {
+  @media (min-width: #{vars.$ipad-portrait-bp-min}) and (orientation: portrait) {
+    @content;
+  }
+}
+
+@mixin if-ipad-sheet-fits {
+  @media (min-width: #{vars.$ipad-sheet-view-inline-size}) and (min-height: #{vars.$ipad-sheet-view-height}) {
+    @content;
+  }
+}
+
+@mixin if-2col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-2col-bp-min}) {
+    @content;
+  }
+}
+
+@mixin if-3col-split-view-fits {
+  @media (min-width: #{vars.$nav-split-view-3col-bp-min}) {
+    @content;
+  }
+}
+
+@mixin ifnot-2col-split-view-fits {
+  @media (max-width: #{vars.$nav-split-view-2col-bp-max}) {
+    @content;
+  }
+}
+
+@mixin ifnot-3col-split-view-fits {
+  @media (max-width: #{vars.$nav-split-view-3col-bp-max}) {
+    @content;
+  }
+}
+
+// Mixin for plain CSS (linear)
+@mixin write-props($props) {
+  @each $prop, $val in $props {
+    #{$prop}: #{$val};
+  }
+}
+
+// Mixin for generating nested if() for multiple variants
+@mixin write-ifs($comp, $all-variants, $elses: ()) {
+  // Collect all properties across all variants
+  $all-props: ();
+  @each $variant, $props in $all-variants {
+    @each $prop, $val in $props {
+      $existing: map.get($all-props, $prop);
+      @if $existing {
+        $all-props: map.merge(
+          $all-props,
+          (
+            $prop: list.append($existing, ($variant $val), comma),
+          )
+        );
+      } @else {
+        $all-props: map.merge(
+          $all-props,
+          (
+            $prop: (
+                ($variant $val),
+              ),
+          )
+        );
+      }
+    }
+  }
+
+  // Output each property with nested if() chain
+  @each $prop, $cases in $all-props {
+    $code: '';
+    $i: list.length($cases);
+    @while $i > 0 {
+      $case: list.nth($cases, $i);
+      $variant: list.nth($case, 1);
+      $val: list.nth($case, 2);
+      $code: 'style(#{$comp}: #{$variant}): #{$val}; #{$code}';
+      $i: $i - 1;
+    }
+    $else: map.get($elses, $prop);
+    @if ($else) {
+      #{$prop}: string.unquote('if(#{$code}else: #{$else} ;)');
+    } @else {
+      #{$prop}: string.unquote('if(#{$code})');
+    }
+  }
+}
+
+@mixin property-rule($name, $value, $props) {
+  @property --#{"" + $name} {
+    syntax: '<color>';
+    initial-value: #{$value};
+    @each $k, $v in $props {
+      #{$k}: #{$v};
+    }
+  }
+}
+
+@mixin generate-color-tokens($tokens) {
+  $media-variants: (
+    base: '',
+    contrast: '(prefers-contrast: more)',
+    fine: '(pointer: fine)',
+    fine-contrast: '(pointer: fine) and (prefers-contrast: more)',
+  );
+
+  $color-schemes: (
+    light: '',
+    dark: '(prefers-color-scheme: dark)',
+  );
+
+  @each $token, $data in $tokens {
+    $props: map.get($data, props);
+    $media-map: map.get($data, media);
+
+    @each $variant, $mq in $media-variants {
+      $values: map.get($media-map, $variant);
+
+      @if $values {
+        @each $scheme, $scheme-mq in $color-schemes {
+          $value: map.get($values, $scheme);
+
+          // Build media query safely
+          $parts: ();
+          @if string.length($mq) > 0 {
+            $parts: list.append($parts, $mq, comma);
+          }
+          @if string.length($scheme-mq) > 0 {
+            $parts: list.append($parts, $scheme-mq, comma);
+          }
+
+          @if list.length($parts) == 0 {
+            @include property-rule($token, $value, $props);
+          } @else {
+            // Interpolate each part individually, separated by " and "
+            $query: '';
+            @each $part in $parts {
+              @if string.length($query) == 0 {
+                $query: '#{$part}';
+              } @else {
+                $query: '#{$query} and #{$part}';
+              }
+            }
+            @media #{$query} {
+              @include property-rule($token, $value, $props);
+            }
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,19 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    [is='tab-bar'] {
+      // :where(&) {
+      //   transition: inset var(--sidebar-transition-duration) ease-out allow-discrete;
+      //   will-change: inset;
+      // }
+
+      > [is='form-view'] {
+        :where(&) {
+          transition: transform var(--sidebar-transition-duration) ease-out allow-discrete;
+          will-change: transform;
+        }
+      }
+    }
+  }
+}

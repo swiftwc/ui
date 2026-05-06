@@ -1,0 +1,83 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  %button {
+    :where(&) {
+      place-items: center;
+
+      place-content: center;
+
+      // SECTION: componentize
+      @include mixins.componentize(btn);
+
+      --btnpadistart: var(--regular-btn-padding);
+      --btnpadiend: var(--regular-btn-padding);
+      --btnpadbstart: var(--regular-btn-padding);
+      --btnpadbend: var(--regular-btn-padding);
+
+      --btnradiustl: var(--regular-btn-border-radius);
+      --btnradiustr: var(--regular-btn-border-radius);
+      --btnradiusbl: var(--regular-btn-border-radius);
+      --btnradiusbr: var(--regular-btn-border-radius);
+    }
+
+    @each $size, $media in vars.$button-sizes {
+      @if (regular != $size) {
+        :where(&[control-size='#{$size}']) {
+          --btnpadistart: var(--#{$size}-btn-padding);
+          --btnpadiend: var(--#{$size}-btn-padding);
+          --btnpadbstart: var(--#{$size}-btn-padding);
+          --btnpadbend: var(--#{$size}-btn-padding);
+
+          --btnradiustl: var(--#{$size}-btn-border-radius);
+          --btnradiustr: var(--#{$size}-btn-border-radius);
+          --btnradiusbl: var(--#{$size}-btn-border-radius);
+          --btnradiusbr: var(--#{$size}-btn-border-radius);
+        }
+      }
+    }
+  }
+}
+
+@layer #{vars.$colors-layer} {
+  // SECTION: componentize
+  %button {
+    @include mixins.add-focus-visible-state {
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
+    }
+    @include mixins.add-hover-state {
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  // SECTION: componentize
+  %button {
+    @include mixins.add-active-state {
+      --btnface: var(--btnactiveface,);
+      --btntext: var(--btnactivetext,);
+    }
+  }
+}
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    %button {
+      :where(&) {
+        transition:
+          background-color 100ms ease-out allow-discrete,
+          opacity 100ms ease-out allow-discrete,
+          color 100ms ease-out allow-discrete;
+        will-change: background-color, opacity, color;
+      }
+
+      :where(&)::active {
+        transition-duration: 25ms;
+      }
+    }
+  }
+}

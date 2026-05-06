@@ -1,0 +1,21 @@
+@use 'sass:math';
+@use 'sass:string';
+
+@function subtract-tiny($value) {
+  @if math.unit($value) == 'px' {
+    @return $value - 0.01px;
+  } @else if math.unit($value) == 'rem' {
+    @return $value - 0.0001rem; // “very large” subtraction
+  } @else {
+    @warn "Unsupported unit: #{unit($value)}";
+    @return $value;
+  }
+}
+
+@function map-to-query($map) {
+  $parts: '';
+  @each $key, $value in $map {
+    $parts: string.insert($parts, '&#{$key}=#{$value}', 0);
+  }
+  @return string.slice($parts, 2);
+}

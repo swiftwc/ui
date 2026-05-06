@@ -1,0 +1,249 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>files</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <tab-view tab-view-style="tab-bar-only">
+      <navigation-stack id="recents">
+        <scroll-view navigation-inline-title="Recents">
+          <v-stack placement="leading fill">
+            ns2section0<button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <h-divider></h-divider>
+            <h-divider frame:max-width="100cqi"></h-divider>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view title="Select"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view system-image="squares-four"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <navigation-split-view id="browse" preferred-compact-column="content" column-visibility="double-column" hidden>
+        <dialog is="sidebar-view">
+          <scroll-view navigation-inline-title="Browse">
+            <v-stack placement="leading fill">
+              <list-view>
+                <button type="button" navigation-destination="cloud_drive">
+                  <label-view system-image="smiley" title="Cloud Drive"></label-view>
+                </button>
+              </list-view>
+            </v-stack>
+          </scroll-view>
+
+          <tool-bar>
+            <tool-bar-item slot="top-bar-trailing">
+              <menu-view>
+                <label-view slot="label" system-image="dots-three"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="dots-three" title="Scan Documents"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="dots-three" title="Connect to Server"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view title="Edit Sidebar"></label-view>
+                </button>
+              </menu-view>
+            </tool-bar-item>
+          </tool-bar>
+        </dialog>
+
+        <sidebar-toggle>
+          <tool-bar-item>
+            <button type="button">
+              <label-view system-image="sidebar"></label-view>
+            </button>
+          </tool-bar-item>
+        </sidebar-toggle>
+      </navigation-split-view>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button">
+            <label-view system-image="sidebar"></label-view>
+          </button>
+        </tool-bar-item>
+      </sidebar-toggle>
+
+      <dialog is="tab-bar">
+        <form is="form-view">
+          <button is="tab-item" value="recents">
+            <label-view title="Recents" system-image="smiley"></label-view>
+          </button>
+          <button is="tab-item" value="browse">
+            <label-view title="Browse" system-image="smiley"></label-view>
+          </button>
+        </form>
+      </dialog>
+    </tab-view>
+
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Cloud Drive" navigation-path="cloud_drive">
+          <v-stack placement="leading fill">
+            browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view title="Select"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item-group slot="top-bar-trailing">
+            <tool-bar-item>
+              <button type="button">
+                <label-view system-image="folder-plus"></label-view>
+              </button>
+            </tool-bar-item>
+            <tool-bar-item>
+              <menu-view>
+                <label-view slot="label" system-image="squares-four"></label-view>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Icons"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="List"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Name"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Kind"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Date"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Size"></label-view>
+                </button>
+                <button type="button" tabindex="0">
+                  <label-view system-image="squares-four" title="Tags"></label-view>
+                </button>
+              </menu-view>
+            </tool-bar-item>
+          </tool-bar-item-group>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // LifecycleObserver.addEventListener('pageshow', navHandler)
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // document.addEventListener('pagehide', async (event) => {
+      //   console.debug(`⚡️ pagehide`)
+
+      //   if (event.detail.page.id === 'scloud_drive') alert(8)
+
+      //   document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = 'false'
+      // })
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      // const navDest = event.target.closest('[navigation-destination]')
+
+      // if (navDest) {
+      //   // const sv = closestBody(event.target),
+      //   // root = getRootViewController(sv),
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   // position = queryInsertPosition(host),
+      //   // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
+
+      //   // document.startViewTransition({
+      //   //   async update() {
+      //   //     startViewTransition(event, false)
+      //   //   },
+      //   //   types: ['forwards'],
+      //   // })
+      // }
+      // })
+    </script>
+  </body>
+</html>

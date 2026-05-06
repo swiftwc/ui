@@ -1,0 +1,56 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+
+@layer #{vars.$components-layer} {
+  body-view,
+  navigation-stack,
+  navigation-split-view,
+  [is='full-screen'],
+  [is='sheet-view'] {
+    :where(&) {
+      position: relative;
+
+      grid-auto-flow: column;
+
+      grid-template-columns: minmax(0, 1fr); //repeat(auto-fit, minmax(0, 1fr));
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(& > *:not([slot])) {
+      // & > *:not([slot]) {
+      @include mixins.span-all;
+    }
+  }
+
+  navigation-stack:has(> navigation-stack:not([hidden]),> navigation-split-view:not([hidden])),
+  navigation-stack:has(> body-view),
+  navigation-split-view:has(> body-view),
+  dialog:has(> body-view),
+  // body-view:has(> dialog),
+  body-view:has(> body-view) {
+    & > scroll-view,
+    & > [is='sidebar-view'] > scroll-view {
+      :where(&) {
+        --scroll-view-translate: translateX(var(--view-transition-leading-x));
+      }
+    }
+
+    // & > top-bar > tool-bar-item,
+    // & > bottom-bar > tool-bar-item,
+    // & > top-bar > tool-bar-item-group,
+    // & > bottom-bar > tool-bar-item-group,
+    // & > [is='sidebar-view'] > top-bar > tool-bar-item,
+    // & > [is='sidebar-view'] > bottom-bar > tool-bar-item,
+    // & > [is='sidebar-view'] > top-bar > tool-bar-item-group,
+    // & > [is='sidebar-view'] > bottom-bar > tool-bar-item-group {
+    & > tool-bar > tool-bar-item,
+    & > tool-bar > tool-bar-item-group,
+    & > [is='sidebar-view'] > tool-bar > tool-bar-item,
+    & > [is='sidebar-view'] > tool-bar > tool-bar-item-group {
+      :where(&) {
+        @include mixins.vt-toolbar-cell-offscreen-keyframe;
+      }
+    }
+  }
+}

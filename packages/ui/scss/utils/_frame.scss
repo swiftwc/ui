@@ -1,0 +1,84 @@
+@use '../vars';
+@use 'sass:math';
+
+@layer #{vars.$utils-layer} {
+  :where([frame\:width='infinity']) {
+    inline-size: 100%;
+  }
+  :where([frame\:max-width='infinity']) {
+    max-inline-size: 100%;
+  }
+  @for $i from 0 through 100 {
+    :where([frame\:max-width='#{$i}']) {
+      max-inline-size: #{$i}rem;
+    }
+    :where([frame\:max-width='#{$i}cqi']) {
+      max-inline-size: #{$i}cqi;
+    }
+  }
+
+  // :where([frame-width='infinity']) {
+  //   place-items: stretch; //justify-self: stretch;
+  // }
+  // :where([frame-alignment='leading']) {
+  //   align-self: start;
+  // }
+  // :where([frame-alignment='center']) {
+  //   align-self: center;
+  // }
+  // :where([frame-alignment='trailing']) {
+  //   align-self: end;
+  // }
+  // :where([alignment='start']) {
+  //   place-items: start;
+  // }
+  // :where([alignment='fill']) {
+  //   place-items: stretch;
+  // }
+  // :where([content='start']) {
+  //   place-content: start;
+  // }
+  // :where([justify-content='start']) {
+  //   justify-content: start;
+  // }
+  // :where([justify-content='start']) {
+  //   justify-content: start;
+  // }
+  // :where([spacer='top']) {
+  //   margin-top: auto;
+  // }
+  // :where([distribution='start']) {
+  //   place-content: start;
+  // }
+  // :where([distribution='space-between']) {
+  //   place-content: space-between;
+  // }
+  // :where(spacer) {
+  //   margin: auto;
+  // }
+
+  @media (prefers-reduced-motion: no-preference) {
+    :where([slow]) {
+      visibility: visible;
+
+      transition: opacity 250ms ease-out allow-discrete;
+      will-change: opacity;
+    }
+
+    :where([slow='hide']) {
+      opacity: 0;
+
+      @starting-style {
+        opacity: 1;
+      }
+    }
+
+    :where([slow='show']) {
+      opacity: 1;
+
+      @starting-style {
+        opacity: 0;
+      }
+    }
+  }
+}

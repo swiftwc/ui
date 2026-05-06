@@ -1,0 +1,251 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>welcome</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view background-style="grouped">
+        <v-stack placement="leading fill">
+          <label-view padding system-image="globe"></label-view>
+          <list-view list-style="inset-grouped">
+            <button type="button" navigation-destination="region">
+              <label-view title="English"></label-view>
+            </button>
+          </list-view>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+
+    <template>
+      <body-view>
+        <scroll-view navigation-path="region" id="gg" background-style="grouped">
+          <v-stack placement="leading fill">
+            <navigation-title value="Select Your Country or Region" padding></navigation-title>
+            <list-view list-style="inset-grouped">
+              <button type="button" navigation-destination="appearance">
+                <label-view title="USA"></label-view>
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="appearance" background-style="grouped">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
+              <navigation-title value="Appearance"></navigation-title>
+              <picker-view picker-style="inline">
+                <label-view title="Auto"></label-view>
+                <label-view title="Light"></label-view>
+                <label-view title="Dark"></label-view>
+              </picker-view>
+            </v-stack>
+
+            <v-stack alignment="fill">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="data-privacy">
+                <label-view title="Continue"></label-view>
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left" title="Back"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="data-privacy" background-style="grouped">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
+              <navigation-title value="Data & Privacy"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
+
+            <v-stack alignment="fill">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="age-range">
+                <label-view title="Continue"></label-view>
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left" title="Back"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
+          <v-stack placement="leading fill">
+            <v-stack padding>
+              <navigation-title value="Data & Privacy"></navigation-title>
+              <text-view> Select the age range </text-view>
+            </v-stack>
+
+            <list-view list-style="inset-grouped">
+              <button type="button" navigation-destination="terms">
+                <label-view title="Child"></label-view>
+              </button>
+              <button type="button" navigation-destination="terms">
+                <label-view title="Teen"></label-view>
+              </button>
+              <button type="button" navigation-destination="terms">
+                <label-view title="Adult"></label-view>
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left" title="Back"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <dialog is="sheet-view">
+        <scroll-view navigation-path="terms">
+          <v-stack placement="leading fill" padding>
+            <navigation-title value="Terms and Conditions"></navigation-title>
+            <text-view> lorem ipsum </text-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view title="Disagree"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button" navigation-destination="location" class="back">
+              <label-view title="Agree"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="location" background-style="grouped">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
+              <navigation-title value="Location Services"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
+
+            <v-stack alignment="fill">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="analytics">
+                <label-view title="Continue"></label-view>
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left" title="Back"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="analytics" background-style="grouped">
+          <v-stack placement="space-between fill" padding>
+            <v-stack alignment="fill">
+              <navigation-title value="Analytics"></navigation-title>
+              <text-view> lorem ipsum </text-view>
+            </v-stack>
+
+            <v-stack alignment="fill">
+              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="welcome">
+                <label-view title="Continue"></label-view>
+              </button>
+            </v-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left" title="Back"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-path="welcome" background-style="grouped">
+          <v-flex-stack alignment="fill" padding>
+            <v-stack frame-height="infinity">
+              <text-view> Welcome to Swift WC </text-view>
+            </v-stack>
+
+            <v-stack alignment="fill">
+              <button is="bordered-prominent-button" control-size="mini" type="button" class="backtocontroller">
+                <label-view title="Start Over"></label-view>
+              </button>
+            </v-stack>
+          </v-flex-stack>
+        </scroll-view>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+      // })
+    </script>
+  </body>
+</html>

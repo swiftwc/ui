@@ -1,0 +1,10 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  navigation-title {
+    :where(&) {
+      display: grid; //contents;
+    }
+  }
+}

@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="stylesheet" type="text/css" href="https://unpkg.com/@phosphor-icons/web/src/regular/style.css" />
+    <link rel="stylesheet" href="../../styles.css" />
+    <link rel="stylesheet" href="../../dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="../../manifest.webmanifest" />
+    <title>books</title>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-split-view>
+      <detail-placeholder>
+        <scroll-view>
+          <v-stack>
+            <label-view title="Nothing Selected"></label-view>
+          </v-stack>
+        </scroll-view>
+      </detail-placeholder>
+      <dialog is="sidebar-view">
+        <scroll-view>
+          <v-stack>
+            <p>...</p>
+            ns1section0<button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <h-divider></h-divider>
+            <h-divider frame:max-width="100cqi"></h-divider>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button">
+              <label-view title="leading"></label-view>
+            </button>
+          </tool-bar-item>
+
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view title="trailing"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button"><label-view title="sss333344" /></button>
+        </tool-bar-item>
+      </sidebar-toggle>
+    </navigation-split-view>
+
+    <script type="module" src="../../main.js"></script>
+
+    <nav popover>
+      <a href="../index.html">Back</a>
+    </nav>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
+  </body>
+</html>

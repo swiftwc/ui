@@ -1,0 +1,399 @@
+@use '../vars';
+@use '../mixins';
+@use 'sass:map';
+
+@property --root-font-size {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 16;
+}
+
+@layer #{vars.$components-layer} {
+  :root {
+    color-scheme: light dark;
+
+    // --ipad-bp: #{vars.$ipad-portrait-bp};
+
+    // --edge-inset-inline-start: 10px;
+    // --edge-inset-inline-end: 10px;
+    // --edge-inset-block-start: 10px;
+    // --edge-inset-block-end: 10px;
+
+    // tabview adds extra to these
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-right: env(safe-area-inset-right);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
+
+    --tool-bar-block-size: 4rem;
+
+    --top-layer-polyfill-z-index: 999999;
+
+    --iphone-tabbar-max-inline-size: 90svw;
+    --iphone-tabbar-block-size: var(--tool-bar-block-size);
+    --iphone-tabbar-border-radius: 9999px;
+    --iphone-tabbar-inline-padding-start: 3px;
+    --iphone-tabbar-inline-padding-end: 3px;
+    --iphone-tabbar-block-padding-start: 3px;
+    --iphone-tabbar-block-padding-end: 3px;
+
+    --ipad-tabbar-max-inline-size: 60svw;
+    --ipad-tabbar-block-size: 3rem;
+    --ipad-tabbar-border-radius: 9999px;
+    --ipad-tabbar-inline-padding-start: 5px;
+    --ipad-tabbar-inline-padding-end: 5px;
+    --ipad-tabbar-block-padding-start: 5px;
+    --ipad-tabbar-block-padding-end: 5px;
+
+    --tabbar-after-tabreveal-duration: 250ms;
+    // --tabbar-after-tabreveal-duration: 3250ms;
+
+    --sidebar-inline-size: 20rem;
+    --sidebar-border-radius: 1rem;
+    --sidebar-block-spacing: 1rem;
+    --sidebar-inline-spacing: 1rem;
+
+    --liquid-glass-bg-lch: 1 0 0;
+    --liquid-glass-bg-alpha: 74.9%;
+    --liquid-glass-bg-lch-dark: 0.3171 0 0;
+    --liquid-glass-bg-alpha-dark: 50.2%;
+    @media (prefers-reduced-transparency: reduce) {
+      --liquid-glass-bg-alpha: 99%;
+      --liquid-glass-bg-alpha-dark: 99%;
+    }
+    --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
+    --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
+    //color-mix(in oklch, red calc(100% - 50%), transparent)
+
+    // --sidebar-bg-lch: 1 0 0;
+    // --sidebar-bg-lch-dark: 0.3171 0 0;
+    // --sidebar-bg-alpha: 74.9%;
+    // --sidebar-bg-alpha-dark: 50.2%;
+
+    // @media (prefers-reduced-transparency: reduce) {
+    //   --sidebar-bg-alpha: 99%;
+    //   --sidebar-bg-alpha-dark: 99%;
+    // }
+
+    --liquid-glass-backdrop-filter: saturate(180%) blur(16px); //blur(4px);
+    --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
+    --liquid-glass-box-shadow:
+      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626),
+      inset -3px -3px 10px -3px light-dark(#ddd, #262626), inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26),
+      inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
+
+    --navigation-bar-block-size: var(--tool-bar-block-size);
+
+    --nav-split-view-sidebar-inline-size: 20rem;
+    --nav-split-view-content-inline-size: 25rem;
+
+    --nav-split-view-separator-color: var(--divider); //oklch(0 0 0);
+    --nav-split-view-separator-color-dark: var(--divider-dark); //oklch(1 0 0);
+
+    --primary-label: oklch(0 0 0);
+    --primary-label-dark: oklch(1 0 0);
+
+    // --secondary-label: oklch(0.4962 0 0); // ✅
+    // --secondary-label-dark: oklch(0.6334 0 0); // ✅
+
+    --secondary-text: oklch(0 0 0);
+    --secondary-text-dark: oklch(1 0 0);
+
+    --tint: oklch(0.5325 0.1899 257.12);
+    --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
+    --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
+    --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
+
+    --tintcontrast: white; //--tintcontrast: contrast-color(var(--tint));
+
+    // --tint-lch: 0.452 0.313214 264.052;
+    // --tint-lch-dark: 0.452 0.313214 264.052;
+
+    --divider: oklch(0.9431 0 0); // ✅
+    --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
+
+    --system-bg: oklch(1 0 0); // ✅
+    --system-bg-dark: oklch(0 0 0); // ✅
+
+    --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
+    --primary-bg-dark: oklch(0 0 0); // ✅
+
+    --primary-grouped-bg: oklch(1 0 0); //0.8136 0.0428 255.03;
+    --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
+
+    --secondary-bg: oklch(0.8045 0.0779 73.42);
+    --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
+
+    --view-transition-leading-x: -50%;
+    --view-transition-principal-x: 0%;
+    --view-transition-trailing-x: 100%;
+
+    --view-transition-toolbar-cell-onscreen-scale: 1;
+    --view-transition-toolbar-cell-offscreen-scale: 0;
+
+    --view-transition-dialog-onscreen-y: 0lvh;
+    --view-transition-dialog-onscreen-backdrop-bg: oklch(0 0 0 / 25%);
+    --view-transition-dialog-offscreen-y: 100lvh;
+
+    --view-transition-duration: 500ms;
+    // --view-transition-duration: 9s;
+
+    --sidebar-transition-duration: 250ms;
+
+    --pill-border-radius: 99999px;
+    --clear: transparent;
+
+    --toolbar-col-gap: 0.5rem;
+    --toolbar-cell-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-inline-padding-start: 0.25rem;
+    --toolbar-cell-inline-padding-end: 0.25rem;
+    --toolbar-cell-block-padding-start: 0.25rem;
+    --toolbar-cell-block-padding-end: 0.25rem;
+    --toolbar-cell-border-radius: var(--pill-border-radius);
+    --toolbar-cell-min-size: 2.8rem;
+
+    --toolbar-cell-focus-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
+
+    --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
+
+    --menu-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --menu-max-inline-size: 15rem;
+    --menu-max-block-size: 60vh;
+    --menu-spacing: 1rem;
+    --menu-host-offscreen-transform: scale(0);
+    --menu-host-offscreen-filter: blur(10px);
+
+    --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+
+    --menu-padding: 0.5rem;
+
+    --menu-item-padding-inline-start: 1rem;
+    --menu-item-padding-inline-end: 1rem;
+    --menu-item-padding-block-start: 0.5rem;
+    --menu-item-padding-block-end: 0.5rem;
+
+    --menu-item-border-radius: 1.2rem; // define this to be like a pill, based on an exemplar item min-height
+
+    --menu-item-focus-bg: oklch(0 0 0 / 0%);
+    --menu-item-focus-bg-dark: oklch(0 0 0 / 0%);
+
+    --menu-item-active-bg: oklch(0 0 0 / 20%);
+    --menu-item-active-bg-dark: oklch(1 0 0 / 20%);
+
+    --touchglass-transition-duration: 300ms;
+    // --touchglass-transition-duration: 15s;
+
+    --disclosure-group-animation-duration: 300ms;
+    // --disclosure-group-animation-duration: 4500ms;
+    // #{vars.$disclosure-group-animation-duration-css-prop}: 4500ms;
+    --disclosure-group-animation-easing: ease-out;
+
+    // --glass-shadow:
+    //   inset -1px -1px 0px -0.5px #fff, inset 1px 1px 0px -0.5px #fff, inset 3px 3px 10px -3px #ddd, inset -3px -3px 10px -3px #ddd, inset 0 0 5px 1px #fff,
+    //   inset 0 0 0 0.5px #00000040, inset 0 0 24px 0 #0000001a, 0 0 25px 0 #0003;
+    // --glass-shadow: var(--liquid-glass-box-shadow);
+
+    --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
+
+    // @media (prefers-color-scheme: dark) {
+    //   @include dark-theme;
+    // }
+
+    // label-view
+
+    @each $label, $props in vars.$label-fonts {
+      --label-#{$label}-font-size: #{map.get($props, size)};
+      --label-#{$label}-line-height: #{map.get($props, line)};
+      --label-#{$label}-font-weight: #{map.get($props, weight)};
+    }
+
+    // lists
+
+    --insetlist-item-border-radius: 1rem;
+
+    //
+    --list-row-gap: 3rem;
+    --form-gap: 1rem;
+
+    --form-extra-gap: 3rem;
+
+    @each $v in list, form {
+      --#{$v}-item-padding-inline-start: 1rem;
+      --#{$v}-item-padding-inline-end: 1rem;
+      --#{$v}-item-padding-block-start: 1rem;
+      --#{$v}-item-padding-block-start: 1rem;
+
+      --#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
+      --#{$v}-item-color: var(--primary);
+      --#{$v}-highlighteditem-background-color: var(--tint1g);
+      --#{$v}-highlighteditem-color: ;
+
+      --inset#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
+      --inset#{$v}-item-color: var(--primary);
+      --inset#{$v}-highlighteditem-background-color: var(--accentColor);
+      --inset#{$v}-highlighteditem-color: var(--tintcontrast);
+
+      --insetgrouped#{$v}-item-background-color: var(--secondaryGroupedBackground); //light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
+      --insetgrouped#{$v}-item-color: var(--primary);
+      --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor);
+      --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
+
+      --sidebar#{$v}-item-background-color: transparent;
+      --sidebar#{$v}-item-color: var(--primary);
+      --sidebar#{$v}-highlighteditem-background-color: var(--accentColor);
+      --sidebar#{$v}-highlighteditem-color: var(--tintcontrast);
+
+      --#{$v}-openitem-background-color: var(--tint3);
+      --#{$v}-openitem-color: var(--primary);
+      --#{$v}-opensummary-background-color: var(--tint2);
+      --#{$v}-opensummary-color: var(--primary);
+
+      --insetgrouped#{$v}-openitem-background-color: var(--tint3);
+      --insetgrouped#{$v}-openitem-color: var(--primary);
+      --insetgrouped#{$v}-opensummary-background-color: var(--tint2);
+      --insetgrouped#{$v}-opensummary-color: var(--primary);
+
+      --inset#{$v}-openitem-background-color: var(--tint3);
+      --inset#{$v}-openitem-color: var(--primary);
+      --inset#{$v}-opensummary-background-color: var(--tint2);
+      --inset#{$v}-opensummary-color: var(--primary);
+
+      --sidebar#{$v}-openitem-background-color: transparent;
+      --sidebar#{$v}-openitem-color: var(--primary);
+      --sidebar#{$v}-opensummary-background-color: transparent;
+      --sidebar#{$v}-opensummary-color: var(--primary);
+    }
+
+    //
+
+    --insetform-item-border-radius: 1rem;
+
+    --insetgroupedlist-background-color: var(--groupedBackground);
+    --insetgroupedform-background-color: var(--groupedBackground);
+
+    --insetlist-padding-inline: 1rem;
+    --insetlist-padding-block: 0rem;
+    --insetform-padding-inline: 1rem;
+    --insetform-padding-block: 0rem;
+
+    --insetgroupedlist-padding-inline: 1rem;
+    --insetgroupedform-padding-inline: 1rem;
+    --insetgroupedlist-padding-block: 1rem;
+    --insetgroupedform-padding-block: 1rem;
+
+    --sidebarlist-padding-inline: 1rem;
+    --sidebarform-padding-inline: 1rem;
+    --sidebarlist-padding-block: 1rem;
+    --sidebarform-padding-block: 1rem;
+
+    // --list-item-border-radius: 1rem;
+    // @media (pointer: fine) {
+    //   --list-item-border-radius: 0.5rem;
+    // }
+
+    // tables
+    --table-row-gap: 0.5rem;
+    --table-col-gap: 1rem;
+
+    --table-accessory-gap: 0.2rem;
+    --table-accessory-size: 1.2rem;
+
+    --glass-btn-bg: var(--liquid-glass-bg);
+    --glass-btn-bg-dark: var(--liquid-glass-bg-dark);
+    --glass-btn-focus-bg: var(--glass-btn-bg);
+    --glass-btn-focus-bg-dark: var(--glass-btn-bg-dark);
+    --glass-btn-active-bg: var(--glass-btn-bg);
+    --glass-btn-active-bg-dark: var(--glass-btn-bg-dark);
+
+    // button sizes 1/2
+    @each $size, $media in vars.$button-sizes {
+      $props: map.get($media, default);
+      @if $props {
+        @each $k, $v in $props {
+          --#{$size}-btn-#{$k}: #{$v};
+          --#{$size}-btn-#{$k}: #{$v};
+        }
+      }
+    }
+
+    // fine
+    @media (pointer: fine) {
+      // button sizes 2/2
+      @each $size, $media in vars.$button-sizes {
+        $props: map.get($media, fine);
+        @if $props {
+          @each $k, $v in $props {
+            --#{$size}-btn-#{$k}: #{$v};
+            --#{$size}-btn-#{$k}: #{$v};
+          }
+        }
+      }
+
+      --primary-bg: oklch(0.9761 0 0); // ✅
+      --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
+
+      --divider: oklch(0.9249 0 0); // ✅
+      --divider-dark: oklch(0.3452 0.0074 84.59); // ✅
+
+      // --secondary-label: oklch(0.5999 0 0); // ✅
+      // --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
+
+      --noglass-bg: oklch(1 0 0);
+      --noglass-bg-dark: oklch(0.2871 0.0029 17.33);
+
+      --toolbar-cell-bg: var(--noglass-bg);
+      --toolbar-cell-bg-dark: var(--noglass-bg-dark);
+
+      --toolbar-cell-focus-bg: oklch(0.9551 0 0); //FIXME: gray6!!!
+      --toolbar-cell-focus-bg-dark: oklch(0.3578 0.008 75.3); //FIXME: gray4!!!
+      --toolbar-cell-active-bg: oklch(0.9128 0 0); //FIXME: gray5!!!
+      --toolbar-cell-active-bg-dark: oklch(0.3995 0.0077 75.32); //FIXME: gray3!!!
+
+      --menu-bg: var(--noglass-bg);
+      --menu-bg-dark: var(--noglass-bg-dark);
+
+      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+
+      //
+      --menu-item-focus-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --menu-item-focus-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+      --menu-item-active-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --menu-item-active-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+      --menu-item-focus-bg: var(--accentColor);
+      --menu-item-focus-bg-dark: var(--accentColor);
+
+      --menu-item-active-bg: oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h); //color-mix(in oklch, black 10%, var(--accentColor));
+      --menu-item-active-bg-dark: oklch(
+        from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h
+      ); //color-mix(in oklch, white 10%, var(--accentColor));
+
+      --picker-affordance-size: 1rem;
+      --picker-affordance-col-gap: 1rem;
+
+      // list
+      // @each $v in list, form {
+      //// --#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      //// --inset#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      //--insetgrouped#{$v}-item-background-color: light-dark(var(--system-bg), oklch(0.2978 0.0076 84.59)); // ✅
+      // }
+    }
+  }
+
+  html:has(color-scheme[dark]) {
+    color-scheme: dark;
+  }
+
+  html:has(color-scheme[light]) {
+    color-scheme: light;
+  }
+}

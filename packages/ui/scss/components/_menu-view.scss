@@ -1,0 +1,176 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+
+@layer #{vars.$components-layer} {
+  menu-view {
+    :where(&)::part(menu-summary) {
+      transform: var(--menu--summary-scale,);
+      filter: var(--menu--summary-filter,);
+    }
+
+    :where(&)::part(menu-scrollable) {
+      @include mixins.make-scrollable(true);
+
+      padding: var(--menu-padding);
+    }
+
+    :where(&)::part(menu-form) {
+      // min-inline-size: 200px; // FIXME: del this
+      inline-size: max-content; //var(--menu-inline-size);
+      block-size: min-content;
+
+      max-inline-size: var(--menu-max-inline-size,);
+      max-block-size: var(--menu-max-block-size,);
+
+      overflow: clip auto;
+      border-radius: inherit;
+
+      background-color: light-dark(var(--menu-bg), var(--menu-bg-dark));
+      // border: transparent solid 20px; //make sure bezel is not covered
+
+      @include mixins.make-scrollable;
+      @include mixins.contain-overscroll;
+
+      // touch-action: all;
+
+      --menu--dialog-max-inline-size: anchor-size();
+      --menu--dialog-max-block-size: anchor-size();
+    }
+
+    :where(&)::part(menu-dialog) {
+      @include mixins.reset-dialog;
+
+      color: var(--text,);
+
+      touch-action: none;
+
+      position: fixed;
+
+      inline-size: fit-content;
+      block-size: fit-content;
+      height: auto; // safari
+      max-inline-size: var(--menu--dialog-max-inline-size,);
+      max-block-size: var(--menu--dialog-max-block-size,);
+
+      margin-block: var(--menu--dialog-margin-block,);
+      margin-inline: var(--menu--dialog-margin-inline,);
+
+      transform: var(--menu--dialog-scale,);
+
+      // position-anchor: --my-anchor; // overriden
+      position-area: center;
+
+      overflow: clip;
+      border-radius: calc(var(--menu-item-border-radius) + var(--menu-padding));
+
+      backdrop-filter: var(--liquid-glass-backdrop-filter,);
+      box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
+
+      // finally
+      --menu--dialog-scale: scale(0);
+    }
+
+    &[open] {
+      :where(&)::part(menu-dialog) {
+        --menu--dialog-max-inline-size: 100vw;
+        --menu--dialog-max-block-size: 100vh;
+
+        --menu--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+        --menu--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+
+        --menu--dialog-scale: scale(1);
+
+        @starting-style {
+          --menu--dialog-scale: scale(0);
+        }
+      }
+    }
+
+    &[closing] {
+      :where(&)::part(menu-dialog) {
+        --menu--dialog-max-inline-size: anchor-size();
+
+        --menu--dialog-max-block-size: anchor-size();
+      }
+    }
+
+    &[open] > &[open],
+    &[open]:not(tool-bar-item &) {
+      --menu--summary-scale: scale(0.01);
+
+      --menu--summary-filter: blur(10px);
+    }
+
+    // :where(& > *) {
+    //   touch-action: all;
+    // }
+
+    // SECTION: componentize
+    :where(& > button, & > [is='disclosure-group'] > button, & > [is='disclosure-group'] > summary),
+    :where(& > menu-view)::part(menu-summary) {
+      @include mixins.componentize(menuitem);
+    }
+
+    :where(&)::part(menu-scrollable) {
+      --menuitempadistart: var(--menu-item-padding-inline-start);
+      --menuitempadiend: var(--menu-item-padding-inline-end);
+      --menuitempadbstart: var(--menu-item-padding-block-start);
+      --menuitempadbend: var(--menu-item-padding-block-end);
+
+      --menuitemradiustr: var(--menu-item-border-radius);
+      --menuitemradiustl: var(--menu-item-border-radius);
+      --menuitemradiusbr: var(--menu-item-border-radius);
+      --menuitemradiusbl: var(--menu-item-border-radius);
+    }
+  }
+}
+
+// componentize
+@layer #{vars.$colors-layer} {
+  menu-view {
+    > button,
+    > [is='disclosure-group'] > button,
+    > [is='disclosure-group'] > summary {
+      @include mixins.add-focus-visible-state {
+        --menuitemface: var(--menuitemhighlightface,);
+        --menuitemtext: var(--menuitemhighlighttext,);
+      }
+      @include mixins.add-hover-state {
+        --menuitemface: var(--menuitemhighlightface,);
+        --menuitemtext: var(--menuitemhighlighttext,);
+      }
+    }
+    > menu-view {
+      @include mixins.add-focus-visible-state('::part(menu-summary)') {
+        --menuitemface: var(--menuitemhighlightface,);
+        --menuitemtext: var(--menuitemhighlighttext,);
+      }
+      @include mixins.add-hover-state('::part(menu-summary)') {
+        --menuitemface: var(--menuitemhighlightface,);
+        --menuitemtext: var(--menuitemhighlighttext,);
+      }
+    }
+  }
+}
+
+// componentize
+@layer #{vars.$ui-layer} {
+  menu-view {
+    > button,
+    > [is='disclosure-group'] > button,
+    > [is='disclosure-group'] > summary {
+      @include mixins.add-active-state {
+        --menuitemface: var(--menuitemactiveface,);
+        --menuitemtext: var(--menuitemactivetext,);
+      }
+    }
+    > menu-view {
+      @include mixins.add-active-state('::part(menu-summary)') {
+        --menuitemface: var(--menuitemactiveface,);
+        --menuitemtext: var(--menuitemactivetext,);
+      }
+    }
+  }
+}

@@ -1,0 +1,1248 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>books</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <tab-view>
+      <navigation-stack id="home">
+        <scroll-view navigation-inline-title="Home">
+          <v-stack>
+            <p>...</p>
+            ns1section0<button type="button" class="fw">→</button>
+            <button type="button" class="bw">🔙</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button"><label-view title="leading"></label-view></button>
+          </tool-bar-item>
+          <!-- <tool-bar-item>2</tool-bar-item> -->
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button"><label-view title="trailing"></label-view></button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <navigation-stack id="search" hidden>
+        <scroll-view navigation-inline-title="Search">
+          <v-stack>
+            ns2section0<button type="button" class="fw">→</button>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <h-divider></h-divider>
+            <h-divider frame:max-width="100cqi"></h-divider>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <p>...</p>
+            <input type="text" />
+            <p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button"><label-view title="leading"></label-view></button>
+          </tool-bar-item>
+          <!-- <tool-bar-item>2</tool-bar-item> -->
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button"><label-view title="trailing"></label-view></button>
+          </tool-bar-item>
+          <tool-bar-item slot="bottom-bar-leading">
+            <button type="button"><label-view title="leading"></label-view></button>
+          </tool-bar-item>
+          <!-- <tool-bar-item>2</tool-bar-item> -->
+          <tool-bar-item slot="bottom-bar-trailing">
+            <button type="button"><label-view title="trailing"></label-view></button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <navigation-stack id="more" hidden>
+        <scroll-view navigation-inline-title="More" background-style="grouped">
+          <v-stack placement="leading fill">
+            <list-view list-style="inset-grouped">
+              <section-view>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Home" system-image="house"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Search" system-image="magnifying-glass"></label-view>
+                </button>
+              </section-view>
+              <section-view header="Inventory">
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Items"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Inventory Adjustments"></label-view>
+                </button>
+              </section-view>
+              <section-view header="Sales">
+                <button type="button" class="fw" tag="customers">
+                  <label-view title="Customers" system-image="users"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Sales Orders"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Invoices"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Recurring Invoices"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Credit Notes"></label-view>
+                </button>
+              </section-view>
+              <section-view header="Purchases">
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Vendors"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Expenses"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Purchase Orders"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Bills"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Reports"></label-view>
+                </button>
+                <button type="button" class="fw" tag="ns3">
+                  <label-view title="Documents"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" class="fw" tag="settings">
+                  <label-view system-image="gear" title="Settings"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+
+        <navigation-split-view id="customers" hidden>
+          <detail-placeholder>
+            <scroll-view>
+              <v-stack>
+                <label-view title="Nothing Selected"></label-view>
+              </v-stack>
+            </scroll-view>
+          </detail-placeholder>
+          <scroll-view navigation-path="customers">
+            <!-- style="--face: light-dark(var(--canvas), var(--primary-bg-dark))"> -->
+            <v-stack placement="leading fill">
+              <navigation-title value="Customers" padding style="order: -2"></navigation-title>
+              <list-view preferred-expanded-style="inset" style="--list--sticky-block-size: 70px">
+                <section-view header="A">
+                  <button type="button" navigation-destination="customer1" selected-when="customer1 editcustomer1">
+                    <label-view title="Katie Abeles"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="item2">
+                    <label-view title="Item 2"></label-view>
+                  </button>
+                  <details is="disclosure-group">
+                    <summary navigation-destination="item3">
+                      <v-stack spacing="3" placement="leading fill">
+                        <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                          <label-view title="Andrew & Priyanka"></label-view>
+                          <label-view title="5/22/26"></label-view>
+                        </h-stack>
+                        <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                          <label-view title="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
+                          <button type="button" tabindex="0">
+                            <label-view system-image="smiley" title="2"></label-view>
+                          </button>
+                        </h-stack>
+                        <div>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
+                      </v-stack>
+                    </summary>
+                    <button type="button" navigation-destination="item3b">
+                      <v-stack spacing="3" placement="leading fill">
+                        <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                          <label-view title="Andrew"></label-view>
+                          <label-view title="5/22/26"></label-view>
+                        </h-stack>
+                        <label-view title="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
+                      </v-stack>
+                    </button>
+                    <button type="button" navigation-destination="item3c">
+                      <v-stack spacing="3" placement="leading fill">
+                        <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                          <label-view title="Priyanka"></label-view>
+                          <label-view title="5/21/26"></label-view>
+                        </h-stack>
+                        <label-view title="Can we just go this time?"></label-view>
+                      </v-stack>
+                    </button>
+                  </details>
+                </section-view>
+                <section-view header="B">
+                  <button type="button" navigation-destination="item2">
+                    <label-view title="Item 2"></label-view>
+                  </button>
+                  <details is="disclosure-group">
+                    <summary>
+                      <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                    </summary>
+                    <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                    <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                    <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                    <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+                  </details>
+                </section-view>
+                <section-view header="C">
+                  <details is="disclosure-group">
+                    <summary>
+                      <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                    </summary>
+                    <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                    <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                    <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                    <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+                  </details>
+                </section-view>
+                <section-view header="D">
+                  <button type="button" navigation-destination="item2">
+                    <label-view title="Item 2"></label-view>
+                  </button>
+                </section-view>
+              </list-view>
+              <sticky-container edge="navbar" style="order: -1" padding>
+                <v-stack spacing="0" alignment="fill" style="position: sticky; top: 0">
+                  <input type="search" placeholder="Search" style="height: 30px; outline: red solid 3px" />
+                  <button type="button">Filters</button>
+                </v-stack>
+              </sticky-container>
+            </v-stack>
+          </scroll-view>
+          <tool-bar>
+            <tool-bar-item slot="top-bar-trailing">
+              <button type="button" tabindex="0" id="newcustomer"><label-view system-image="plus"></label-view></button>
+            </tool-bar-item>
+          </tool-bar>
+        </navigation-split-view>
+
+        <navigation-stack id="ns3" hidden>
+          <scroll-view>
+            <v-stack>
+              <p>...</p>
+              ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <h-divider></h-divider>
+              <h-divider frame:max-width="100cqi"></h-divider>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <input type="text" />
+              <p>...</p>
+            </v-stack>
+          </scroll-view>
+
+          <tool-bar>
+            <tool-bar-item slot="top-bar-leading">
+              <button type="button"><label-view title="leading"></label-view></button>
+            </tool-bar-item>
+            <!-- <tool-bar-item>2</tool-bar-item> -->
+            <tool-bar-item slot="top-bar-trailing">
+              <button type="button"><label-view title="trailing"></label-view></button>
+            </tool-bar-item>
+          </tool-bar>
+        </navigation-stack>
+
+        <navigation-split-view id="settings" background-style="grouped" hidden>
+          <scroll-view navigation-inline-title="Settings">
+            <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+              <navigation-large-title padding>
+                <v-stack alignment="fill">
+                  <label-view title="Settings" font="large-title"></label-view>
+                  <label-view title="Manage yor overall setup and preferences." font="callout"></label-view>
+                </v-stack>
+              </navigation-large-title>
+              <form is="form-view" form-style="inset-grouped">
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="About"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="Software Update">
+                    <label-view title="Software Update"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="Storage">
+                    <label-view title="Storage"></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Warranty"></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Continuity"></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Autofill & Passwords"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Date & Time"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Language & Region"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Login Items & Extensions"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Sharing"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Startup Disk"></label-view>
+                  </button>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Time Machine"></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Device Management"></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button type="button" navigation-destination="About">
+                    <label-view title="Transfer or Reset"></label-view>
+                  </button>
+                </section-view>
+              </form>
+              <!-- <p>...</p>
+              settingssss
+              <button type="button" navigation-destination="setting">setinggg</button>
+              <button type="button" class="fw">→</button>
+              <button type="button" class="bw">🔙</button>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p>
+              <p>...</p> -->
+            </v-stack>
+            <!-- <input type="search" slot="top-bar-principal" placeholder="Search" /> -->
+          </scroll-view>
+        </navigation-split-view>
+
+        <tool-bar>
+          <!-- <tool-bar-item slot="top-bar-leading">
+            <button type="button"><label-view title="leading"></label-view></button>
+          </tool-bar-item> -->
+          <!-- <tool-bar-item>2</tool-bar-item> -->
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button"><label-view system-image="toggle-right"></label-view></button>
+          </tool-bar-item>
+        </tool-bar>
+      </navigation-stack>
+
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button">
+            <label-view system-image="sidebar"></label-view>
+          </button>
+        </tool-bar-item>
+      </sidebar-toggle>
+
+      <dialog is="sidebar-view">
+        <!-- <scroll-view navigation-inline-title="Mailboxes"> -->
+        <scroll-view>
+          <v-stack placement="leading fill">
+            <v-stack alignment="fill" padding>
+              <label-view title="Books" font="title"></label-view>
+              <label-view title="acct_..." font="callout"></label-view>
+            </v-stack>
+            <form is="form-view">
+              <button is="tab-item" value="home">
+                <label-view system-image="house" title="Home"></label-view>
+              </button>
+              <button is="tab-item" value="search">
+                <label-view title="Search" system-image="magnifying-glass"></label-view>
+              </button>
+              <details is="disclosure-group" open>
+                <summary>
+                  <label-view title="Inventory"></label-view>
+                </summary>
+                <button is="tab-item" navigation-destination="reports">
+                  <label-view system-image="smiley" title="Items"></label-view>
+                </button>
+                <button is="tab-item" navigation-destination="feedback">
+                  <label-view system-image="smiley" title="Inventory Adjustments"></label-view>
+                </button>
+              </details>
+              <details is="disclosure-group" open>
+                <summary>
+                  <label-view title="Sales"></label-view>
+                </summary>
+                <button is="tab-item" value="customers">
+                  <label-view system-image="users" title="Customers"></label-view>
+                </button>
+                <button is="tab-item" navigation-destination="feedback">
+                  <label-view system-image="smiley" title="Sales Orders"></label-view>
+                </button>
+                <button is="tab-item" navigation-destination="feedback">
+                  <label-view system-image="smiley" title="Invoices"></label-view>
+                </button>
+                <button is="tab-item" navigation-destination="feedback">
+                  <label-view system-image="smiley" title="Credit Notes"></label-view>
+                </button>
+              </details>
+              <details is="disclosure-group" open>
+                <summary>
+                  <label-view title="Other"></label-view>
+                </summary>
+                <button is="tab-item" navigation-destination="reports">
+                  <label-view system-image="smiley" title="Reports"></label-view>
+                </button>
+                <button is="tab-item" navigation-destination="feedback">
+                  <label-view system-image="smiley" title="Feedback"></label-view>
+                </button>
+              </details>
+              <!-- <button is="tab-item" value="ns3">
+                <label-view system-image="smiley" title="ns3"></label-view>
+              </button> -->
+              <button is="tab-item" value="settings">
+                <label-view system-image="gear" title="settings"></label-view>
+              </button>
+              <!-- <button is="tab-item" value="more">
+                <label-view system-image="smiley" title="moree"></label-view>
+              </button> -->
+            </form>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <!-- add this for MORE fn on iPad -->
+          <sidebar-toggle slot="top-bar-leading">
+            <tool-bar-item>
+              <button type="button">
+                <label-view system-image="sidebar"></label-view>
+              </button>
+            </tool-bar-item>
+          </sidebar-toggle>
+          <!-- <tool-bar-item slot="top-bar-leading">
+            <button type="button">
+              <label-view title="Edit"></label-view>
+            </button>
+          </tool-bar-item> -->
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button">
+              <label-view system-image="toggle-right"></label-view>
+            </button>
+          </tool-bar-item>
+          <!-- <tool-bar-item slot="bottom-bar-trailing">
+            <button type="button">
+              <label-view system-image="pencil-simple-line"></label-view>
+            </button>
+          </tool-bar-item> -->
+        </tool-bar>
+      </dialog>
+
+      <dialog is="tab-bar">
+        <form is="form-view">
+          <sidebar-toggle>
+            <button type="button">
+              <label-view system-image="sidebar" title="sss3" label-style="icon-only"></label-view>
+            </button>
+          </sidebar-toggle>
+          <button is="tab-item" value="home">
+            <label-view title="Home" system-image="house"></label-view>
+          </button>
+          <button is="tab-item" value="search">
+            <label-view title="Search" system-image="magnifying-glass"></label-view>
+          </button>
+          <button is="tab-item" value="more">
+            <label-view title="More" system-image="dots-three-circle"></label-view>
+          </button>
+        </form>
+
+        <!-- add this for MORE fn on iPad -->
+        <!-- <sidebar-toggle> -->
+        <!-- <tab-item> -->
+        <!-- <button type="button"><label-view title="sss3"></label-view></button> -->
+        <!-- </tab-item> -->
+        <!-- </sidebar-toggle> -->
+        <!-- <navigation-bar>
+          <tool-bar-item slot="leading">
+            <button type="button"><label-view title="leading"></label-view></button>
+          </tool-bar-item>
+
+          <tool-bar-item slot="trailing">
+            <button type="button"><label-view title="trailing"></label-view></button>
+          </tool-bar-item>
+        </navigation-bar> -->
+      </dialog>
+    </tab-view>
+
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Setting" navigation-path="setting">
+          <v-stack placement="leading fill" padding>
+            Item 3b setting
+            <button type="button" class="fw">→</button>
+            <button type="button" class="bw">🔙</button>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="About" navigation-path="About">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <label-view font="large-title" value="Device" padding></label-view>
+            <list-view list-style="inset-grouped">
+              <section-view>
+                <button type="button">
+                  <label-view title="About"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Software Update"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Storage"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="customer1" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <scroll-view-proxy>
+              <h-stack distribution="leading" padding tint="gray">
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+                <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
+              </h-stack>
+            </scroll-view-proxy>
+
+            <list-view columns="2" list-style="inset-grouped">
+              <labeled-content>
+                <label-view title="Name" slot="label"></label-view>
+                <label-view title="Katie Abeles" slot="content" foreground="secondary"></label-view>
+              </labeled-content>
+              <labeled-content>
+                <label-view title="Email" slot="label"></label-view>
+                <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
+              </labeled-content>
+              <labeled-content>
+                <label-view title="Phone" slot="label"></label-view>
+                <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
+              </labeled-content>
+              <labeled-content>
+                <label-view title="Language" slot="label"></label-view>
+                <label-view title="Language" slot="content" foreground="secondary"></label-view>
+              </labeled-content>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button" tabindex="0" class="inplace" navigation-destination="editcustomer1">
+              <label-view system-image="pencil-simple" title="Edit"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Katie Abeles" navigation-path="editcustomer1" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <form is="form-view" form-style="inset-grouped" id="editcustomerform">
+              <section-view>
+                <labeled-content>
+                  <text-field label="Name" text="Katie Abeles" required max-length="255">
+                    <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
+                    <option slot="validity-options" value="value-missing" label="Minimum Tip"></option>
+                    <option slot="validity-options" value="range-underflow" label="Minimum Tippps2323"></option>
+                    <option slot="validity-options" value="custom-error:range-underflow" label="Minimum Tippp"></option>
+                  </text-field>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label" foreground="secondary"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+              </section-view>
+              <section-view>
+                <button type="button" tabindex="0" id="gg" confirmation-dialog="makesure">
+                  <label-view title="Delete"></label-view>
+                </button>
+
+                <!-- <menu-view>
+                  <label-view slot="label" title="Delete"></label-view>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="dots-three" title="Scan Documents"></label-view>
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view system-image="dots-three" title="Connect to Server"></label-view>
+                  </button>
+                  <button type="button" tabindex="0">
+                    <label-view title="Edit Sidebar"></label-view>
+                  </button>
+                </menu-view> -->
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="createcustomer">ffdf</button>
+              </section-view>
+            </form>
+            <datalist id="makesure">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" navigation-destination="customer1" class="inplace">
+              <label-view system-image="x"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="submit" tabindex="0" form="editcustomerform" navigation-destination="customer1" class="inplace" value="done">
+              <label-view system-image="check"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <dialog is="sheet-view" fine-presentation-large-adaptation="bottom-bar">
+        <scroll-view navigation-inline-title="new customer" navigation-path="createcustomer" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <form is="form-view" form-style="inset-grouped">
+              <section-view>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+              </section-view>
+              <section-view>
+                <button type="button" tabindex="0">
+                  <label-view title="Delete"></label-view>
+                </button>
+              </section-view>
+            </form>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="x" title="Cancel"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button" tabindex="0" navigation-destination="createcustomerdone">
+              <label-view system-image="check" title="Create"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="customer created" navigation-path="createcustomerdone" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <form is="form-view" form-style="inset-grouped">
+              <section-view>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Name" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+              </section-view>
+              <section-view>
+                <button type="button" tabindex="0">
+                  <label-view title="Delete"></label-view>
+                </button>
+              </section-view>
+              <button type="button">ffdf</button>
+            </form>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button" tabindex="0" id="done">
+              <label-view system-image="check"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Transactions with Katie Abeles" navigation-path="customertransactions1" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <details is="disclosure-group" disclosure-style="marker-trailing" open>
+              <summary padding>
+                <label-view system-image="smiley" title="INVOICES"></label-view>
+              </summary>
+              <table-view table-style="inset" preferred-compact-template="title:trailing:subtitle">
+                <label-view title="22" foreground="secondary" slot="footer-leading"></label-view>
+                <h-stack slot="footer-trailing"><button tabindex="0">&lt;</button> <button tabindex="0">&gt;</button></h-stack>
+                <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
+                  <label-view title="Given Name"></label-view>
+                </button>
+                <button is="table-column" type="button" tabindex="0" slot="column">
+                  <label-view title="Family Name"></label-view>
+                </button>
+                <button is="table-column" type="button" tabindex="0" slot="column">
+                  <label-view title="E-Mail Address"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice1">
+                  <label-view title="Juan"></label-view>
+                  <label-view title="Chavez"></label-view>
+                  <label-view title="juanchavez@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Mei"></label-view>
+                  <label-view title="Chen"></label-view>
+                  <label-view title="meichen@example.com"></label-view>
+                  <label-view title="other"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Tom"></label-view>
+                  <label-view title="Clark"></label-view>
+                  <label-view title="tomclark@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Gita"></label-view>
+                  <label-view title="Kumar"></label-view>
+                  <label-view title="gitakumar@example.com"></label-view>
+                </button>
+              </table-view>
+            </details>
+            <details is="disclosure-group" disclosure-style="marker-trailing" open>
+              <summary padding>
+                <label-view system-image="smiley" title="INVOICES"></label-view>
+              </summary>
+              <table-view table-style="inset" preferred-compact-template="trailing:title:subtitle">
+                <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
+                  <label-view title="Given Name"></label-view>
+                </button>
+                <button is="table-column" type="button" tabindex="0" slot="column">
+                  <label-view title="Family Name"></label-view>
+                </button>
+                <button is="table-column" type="button" tabindex="0" slot="column">
+                  <label-view title="E-Mail Address"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice1">
+                  <label-view title="Juan"></label-view>
+                  <label-view title="Chavez"></label-view>
+                  <label-view title="juanchavez@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Mei"></label-view>
+                  <label-view title="Chen"></label-view>
+                  <label-view title="meichen@example.com"></label-view>
+                  <label-view title="other"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Tom"></label-view>
+                  <label-view title="Clark"></label-view>
+                  <label-view title="tomclark@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Gita"></label-view>
+                  <label-view title="Kumar"></label-view>
+                  <label-view title="gitakumar@example.com"></label-view>
+                </button>
+              </table-view>
+            </details>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="invoice1" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view columns="2" list-style="inset-grouped">
+              <labeled-content>
+                <label-view title="Invoice#" slot="label"></label-view>
+                <label-view title="Katie Abeles" slot="content"></label-view>
+              </labeled-content>
+              <labeled-content>
+                <label-view title="Invoice Date" slot="label"></label-view>
+                <label-view title="Customer 1" slot="content"></label-view>
+              </labeled-content>
+            </list-view>
+            <list-view list-style="inset-grouped">
+              <section-view>
+                <labeled-content>
+                  <label-view title="Subject" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Payment Terms" slot="label"></label-view>
+                  <label-view title="Language" slot="content"></label-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="button" tabindex="0" navigation-destination="editinvoice1" class="inplace">
+              <label-view system-image="pencil-simple" title="Edit"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Invoice #0001" navigation-path="editinvoice1" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <form is="form-view" form-style="inset-grouped" id="editinvoiceform">
+              <section-view>
+                <labeled-content>
+                  <text-field label="Invoice#" text="0001" required max-length="255">
+                    <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
+                    <option slot="validity-options" value="value-missing" label="Minimum Tip"></option>
+                    <option slot="validity-options" value="range-underflow" label="Minimum Tippps2323"></option>
+                    <option slot="validity-options" value="custom-error:range-underflow" label="Minimum Tippp"></option>
+                  </text-field>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Invoice Date" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Subject" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+                <labeled-content>
+                  <label-view title="Payment Terms" slot="label"></label-view>
+                  <label-view title="Customer 1" slot="content"></label-view>
+                </labeled-content>
+              </section-view>
+              <section-view>
+                <button type="button" tabindex="0" id="gg" confirmation-dialog="makesure">
+                  <label-view title="Delete"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="createcustomer">ffdf</button>
+              </section-view>
+            </form>
+            <datalist id="makesure">
+              <option value="0" label="0%"></option>
+              <option value="10" label="Minimum Tip"></option>
+              <option value="20" label="Standard"></option>
+              <option value="30" label="Generous"></option>
+              <option value="50" label="Very Generous"></option>
+            </datalist>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" navigation-destination="invoice1" class="inplace">
+              <label-view system-image="x"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="top-bar-trailing">
+            <button type="submit" tabindex="0" form="editinvoiceform" navigation-destination="invoice1" class="inplace" value="done">
+              <label-view system-image="check"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.js'
+      import { startViewTransition, NavigationPath, confirmationDialog, LifecycleObserver } from '../../packages/ui/js/client'
+      // import { CSSStyleObserver } from '../../packages/ui/js/internal/class/css-style-observer'
+
+      // LifecycleObserver.addEventListener('pageshow', (evt) => {
+      //   console.log(9999, evt)
+      // })
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // const observer = new CSSStyleObserver()
+
+      // observer.observe(document.querySelector('tab-view'), (evt) => {
+      //   console.log(999999, evt)
+      // })
+
+      // document.addEventListener('tab-view:toggle', (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      //   const tab = event.detail.selection.at(-1), //document.querySelector(`#${}`),
+      //     sv = queryBodyAll(tab).at(-1),
+      //     style = getComputedStyle(sv)
+
+      //   console.log(99, sv)
+      //   if (style.getPropertyValue('--face') === getComputedStyle(document.body).getPropertyValue('--face')) return document.body.style.removeProperty('--face')
+
+      //   if (tab.matches('tab-view>navigation-stack>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+
+      //   if (tab.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
+      // })
+      document.addEventListener('input', (evt) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        console.log(11, evt) //.target.checkFormValidity())
+      })
+      // document.addEventListener('submit', (evt) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      //   evt.preventDefault()
+
+      //   const form = evt.target
+      //   const formData = new FormData(form)
+
+      //   const data = Object.fromEntries(formData.entries())
+
+      //   // console.log(data.get('email')) // single field
+
+      //   console.log(22, evt, data, form.checkValidity()) //
+      // })
+
+      document.addEventListener('tabroot', async (evt) => {
+        console.debug(`⚡️ ${evt?.type}`)
+
+        const path = new NavigationPath(evt.target).hydrate(),
+          from = [...path.children()].at(0)?.hydrate()
+
+        if (from)
+          return await startViewTransition(from.body, 'backwards', async () => {
+            modifyDOMbackwards(from)
+          })
+
+        // special case going to more tab on small screens, must purge all deep views so that when clicks goes just to direct child
+        if (evt.target.closest('tab-view').moreTab !== evt.target) return
+
+        for (const el of evt.target.querySelectorAll(':scope>body-view,:scope>[is=sheet-view],:scope>navigation-stack,:scope>navigation-split-view')) {
+          const path = new NavigationPath(el).hydrate()
+
+          if (path.slot) path.slot.remove()
+        }
+      })
+
+      // document.addEventListener('submit', async (evt) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      //   evt.preventDefault()
+
+      //   // if (event.target.closest('#editcustomerform')) {
+      //   //   console.log(999, evt.submitter)
+      //   //   // const template = queryTemplate(navDest.getAttribute('navigation-destination')) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
+
+      //   //   // const path = new NavigationPath(event.target)?.hydrate()
+
+      //   //   // const parent = [...path.parents()].at(0)?.hydrate()
+
+      //   //   // modifyDOMforwards(undefined, parent, template)
+
+      //   //   const from = new NavigationPath(document.querySelector('[navigation-path="customers"]'))
+      //   //   modifyDOMforwards(undefined, from, queryTemplate(`customer1`))
+      //   // }
+      // })
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        const col = event.target.closest('[is=table-column]')
+
+        if (col) {
+          const sort = col.ariaSort
+
+          for (const el of document.querySelectorAll('[is=table-column]')) el.ariaSort = null
+
+          col.ariaSort = 'ascending' === sort ? 'descending' : 'ascending'
+        }
+
+        const from = new NavigationPath(document.querySelector('[navigation-path="customers"]'))
+
+        if (event.target.closest('#gg')) {
+          try {
+            const value = await confirmationDialog(event.target, 'Are you sure?', [
+              [
+                'Delete',
+                {
+                  role: 'destructive',
+                  // action() {
+                  //   alert(99)
+                  // },
+                },
+              ],
+            ])
+
+            switch (value) {
+              case '0':
+                alert(9)
+
+                break
+            }
+          } catch {
+            //
+          }
+        }
+
+        if (event.target.closest('#newcustomer')) {
+          await startViewTransition(event.target, 'forwards', {
+            async updateCallback() {
+              modifyDOMforwards(undefined, from, queryTemplate(`createcustomer`), false)
+            },
+            tos() {
+              return [new NavigationPath(document.querySelector('[navigation-path="customers"]').previousElementSibling).hydrate()]
+            },
+          })
+        }
+
+        // if (event.target.closest('#edit')) {
+        //   const from2 = [...new NavigationPath(event.target).parents()].at(0)
+        //   modifyDOMforwards(undefined, from2, queryTemplate(`editcustomer1`))
+        // if (event.target.closest('#canceledit')) {
+        //   modifyDOMforwards(undefined, from, queryTemplate(`customer1`))
+        // } else if (event.target.closest('#doneedit')) {
+        //   modifyDOMforwards(undefined, from, queryTemplate(`customer1`))
+        // } else
+        if (event.target.closest('#done')) {
+          const from = new NavigationPath(event.target.closest('dialog'))
+
+          await startViewTransition(from.component, 'backwards', async () => {
+            modifyDOMbackwards(from)
+          })
+        }
+
+        // const navDest = event.target.closest('[navigation-destination]')
+
+        // if (event.target.closest('.back')) {
+        //   const path = new NavigationPath(event.target)?.hydrate()
+
+        //   const parent = [...path.parents()].at(0)?.hydrate()
+
+        //   await startViewTransition(event.target, 'backwards', async () => {
+        //     modifyDOMbackwards(path)
+        //   })
+        // } else if (navDest) {
+        //   const path = new NavigationPath(event.target)?.hydrate()
+
+        //   await startViewTransition(event.target, 'forwards', async () => {
+        //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+        //   })
+        // }
+      })
+    </script>
+  </body>
+</html>

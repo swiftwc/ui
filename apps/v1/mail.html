@@ -1,0 +1,346 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>mail</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-split-view>
+      <dialog is="sidebar-view" background-style="grouped">
+        <!-- TODO: -->
+        <scroll-view navigation-inline-title="Mailboxes">
+          <v-stack placement="leading fill">
+            <list-view list-style="inset-grouped" preferred-root-disclosure-style="sidebar" style="--itempadistart: 1.5rem">
+              <section-view>
+                <!-- SAFARI BUG FIX for flashing  disclosure-style="marker-trailing"-->
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view title="Favorites"></label-view>
+                  </summary>
+                  <details is="disclosure-group" disclosure-style="marker-leading" open>
+                    <summary style="--itempadistart: 0.4rem">
+                      <label-view system-image="smiley" title="All Inboxes"></label-view>
+                    </summary>
+                    <button value="more"><label-view system-image="smiley" title="Personal"></label-view></button>
+                    <button value="more"><label-view system-image="smiley" title="Work"></label-view></button>
+                  </details>
+                </details>
+              </section-view>
+              <section-view>
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view title="Personal"></label-view>
+                  </summary>
+                  <button type="button" navigation-destination="inbox"><label-view system-image="smiley" title="Inbox"></label-view></button>
+                  <button type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" title="Sent"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" title="Trash"></label-view></button>
+                  <button value="more"><label-view system-image="smiley" title="Archive"></label-view></button>
+                </details>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button">
+              <label-view title="Edit"></label-view>
+            </button>
+          </tool-bar-item>
+          <tool-bar-item slot="bottom-bar-trailing">
+            <button type="button">
+              <label-view system-image="pencil-simple-line"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button"><label-view title="sss333344"></label-view></button>
+        </tool-bar-item>
+      </sidebar-toggle>
+    </navigation-split-view>
+
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox">
+          <v-stack placement="leading fill">
+            <list-view preferred-expanded-style="inset">
+              <button type="button" navigation-destination="item1">
+                <label-view title="Item 1"></label-view>
+              </button>
+              <button type="button" navigation-destination="item2">
+                <label-view title="Item 2"></label-view>
+              </button>
+              <details is="disclosure-group" class="rootonclose">
+                <summary navigation-destination="item3">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                      <label-view title="Andrew & Priyanka"></label-view>
+                      <label-view title="5/22/26" foreground="secondary"></label-view>
+                    </h-stack>
+                    <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                      <label-view title="Trip Idea &mdash; AutoCamp Sequoia" foreground="secondary"></label-view>
+                      <button type="button" tabindex="0" foreground="blue">
+                        <label-view system-image="smiley" title="2"></label-view>
+                      </button>
+                    </h-stack>
+                    <div foreground="secondary">Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
+                  </v-stack>
+                </summary>
+                <button type="button" navigation-destination="item3b">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                      <label-view title="Andrew"></label-view>
+                      <label-view title="5/22/26"></label-view>
+                    </h-stack>
+                    <label-view title="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
+                  </v-stack>
+                </button>
+                <button type="button" navigation-destination="item3c">
+                  <v-stack spacing="3" placement="leading fill">
+                    <h-stack distribution="fill" template="minmax(0,1fr) auto">
+                      <label-view title="Priyanka"></label-view>
+                      <label-view title="5/21/26"></label-view>
+                    </h-stack>
+                    <label-view title="Can we just go this time?"></label-view>
+                  </v-stack>
+                </button>
+              </details>
+              <button type="button" navigation-destination="item2">
+                <label-view title="Item 2"></label-view>
+              </button>
+              <details is="disclosure-group" class="rootonclose">
+                <summary>
+                  <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                </summary>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+              </details>
+              <details is="disclosure-group" class="rootonclose">
+                <summary>
+                  <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                </summary>
+                <button type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+              </details>
+              <button type="button" navigation-destination="item2">
+                <label-view title="Item 2"></label-view>
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Sent" navigation-path="sent">
+          <v-stack placement="leading fill">
+            <list-view preferred-expanded-style="inset">
+              <button type="button" navigation-destination="item1">
+                <label-view title="Item 1"></label-view>
+              </button>
+              <button type="button" navigation-destination="item2">
+                <label-view title="Item 2"></label-view>
+              </button>
+              <button type="button" navigation-destination="item1">
+                <label-view title="Item 3"></label-view>
+              </button>
+              <button type="button" navigation-destination="item2">
+                <label-view title="Item 4"></label-view>
+              </button>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Item 1" navigation-path="item1">
+          <v-stack placement="leading fill" padding> Item 1 </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Item 2" navigation-path="item2">
+          <v-stack placement="leading fill" padding> Item 2 </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Trip Idea - AutoCamp Sequoia" navigation-path="item3">
+          <v-stack placement="leading fill" padding> Trip Idea - AutoCamp Sequoia </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Item 3a" navigation-path="item3a">
+          <v-stack placement="leading fill" padding> Item 3a </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Item b" navigation-path="item3b">
+          <v-stack placement="leading fill" padding> Item 3b </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // LifecycleObserver.addEventListener('pageshow', navHandler)
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // const toggleHandler = async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      //   if ('closed' !== event.newState) return
+
+      //   if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
+
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   const from1 = [...path.children()].at(0)
+
+      //   await startViewTransition(from1.body, 'backwards', async () => {
+      //     modifyDOMbackwards(from1)
+      //   })
+      // }
+
+      // const addBindings = () => {
+      //   for (const el of document.querySelectorAll('details')) {
+      //     el.removeEventListener('toggle', toggleHandler)
+      //     el.addEventListener('toggle', toggleHandler)
+      //   }
+      // }
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      //   const navDest = event.target.closest('[navigation-destination]')
+
+      //   if (event.target.closest('.back')) {
+      //     const path = new NavigationPath(event.target)?.hydrate()
+
+      //     const parent = [...path.parents()].at(0)?.hydrate()
+
+      //     if (navDest && parent.body) parent.component.inert = true
+
+      //     await startViewTransition(event.target, 'backwards', async () => {
+      //       modifyDOMbackwards(path)
+      //     })
+
+      //     if (navDest && parent.body) {
+      //       await startViewTransition(parent.body, 'forwards', async () => {
+      //         modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //       })
+
+      //       addBindings()
+
+      //       parent.component.inert = false
+      //     }
+      //   } else if (navDest) {
+      //     const path = new NavigationPath(event.target)?.hydrate()
+
+      //     const summary = event.target.closest('summary:has(button)')
+
+      //     if (summary) {
+      //       event.preventDefault()
+
+      //       if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+      //     }
+
+      //     await startViewTransition(event.target, 'forwards', async () => {
+      //       modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //     })
+
+      //     addBindings()
+      //   }
+      // })
+    </script>
+  </body>
+</html>

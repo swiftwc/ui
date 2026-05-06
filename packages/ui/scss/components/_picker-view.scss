@@ -1,0 +1,122 @@
+@use '../vars';
+@use '../mixins';
+@use 'sass:string';
+@use 'sass:map';
+
+$picker-ifs: (
+  menu: (
+    --picker--labelstack-display: grid,
+    --picker--stack-grid-template-columns: auto minmax(0, 1fr),
+  ),
+);
+
+$picker-elses: (
+  --picker--stack-grid-template-columns: minmax(0, 1fr), //auto minmax(0, 1fr),
+);
+
+@mixin make-button-affordance() {
+  position: relative;
+
+  grid-auto-flow: column;
+  grid-template-columns: var(--picker-affordance-size) minmax(0, 1fr);
+  column-gap: var(--picker-affordance-col-gap);
+
+  @include mixins.make-marker-pseudos(vars.$picker-affordance, before);
+
+  &::before {
+    display: grid;
+
+    block-size: var(--picker-affordance-size);
+    inline-size: var(--picker-affordance-size);
+
+    background-color: var(--menuitemtext, var(--text));
+
+    transform: var(--tablecol--after-rotate,);
+
+    @media (prefers-reduced-motion: no-preference) {
+      transition: transform 100ms ease-out;
+      will-change: transform;
+    }
+
+    opacity: 0;
+  }
+
+  &[aria-selected='true']::before {
+    opacity: 1;
+  }
+}
+
+@layer #{vars.$components-layer} {
+  picker-view {
+    :where(&) {
+      grid-template-columns: minmax(0, 1fr);
+
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(picker-stack) {
+      grid-template-columns: var(--picker--stack-grid-template-columns,);
+
+      grid-template-rows: minmax(0, 1fr);
+    }
+
+    :where(&)::part(picker-label-stack) {
+      display: var(--picker--labelstack-display, none); // display: none;
+    }
+
+    :where(&) {
+      // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
+      @include mixins.write-props($picker-elses);
+    }
+
+    :where(tool-bar-item &) {
+      // --picker--labelstack-display: none;
+      // --picker--stack-grid-template-columns: minmax(0, 1fr);
+    }
+
+    :where(form &) {
+      // --picker--labelstack-display: grid;
+      // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
+    }
+
+    :where(& > menu-view > button) {
+      @container style(--picker-style: menu) {
+        @include make-button-affordance;
+      }
+    }
+
+    // SECTION: ifs
+    @supports (x: #{string.unquote('if(else:red)')}) {
+      :where(&) {
+        @include mixins.write-ifs(--picker-style, $picker-ifs, $picker-elses);
+      }
+    }
+
+    // SECTION: ifs polyfill
+    @supports not (x: #{string.unquote('if(else:red)')}) {
+      :where(&:not([picker-style])) {
+        @each $v in vars.$picker-styles {
+          @container style(--picker-style: #{$v}) {
+            @include mixins.write-props(map.get($picker-ifs, $v)); //@include set-picker-style($v);
+          }
+        }
+      }
+      @each $v in vars.$picker-styles {
+        :where(&[picker-style='#{$v}']) {
+          :where(& > menu-view > button) {
+            @include make-button-affordance;
+          }
+
+          @include mixins.write-props(map.get($picker-ifs, $v)); //@include set-picker-style($v);
+        }
+      }
+    }
+
+    // SECTION: attrs finally
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --picker-style: attr(picker-style type(<custom-ident>), inherit);
+      }
+    }
+  }
+}

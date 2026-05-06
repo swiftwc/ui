@@ -1,0 +1,589 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  %list {
+    :where(&) {
+      background-color: var(--list--host-background-color,);
+
+      padding-inline: var(--list--host-padding-inline,);
+      padding-block: var(--list--host-padding-block,);
+
+      grid-template-columns: var(--list--host-grid-template-columns,);
+    }
+
+    // componentize buttons
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // :where(&:is(summary:not([is='disclosure-group'] [is='disclosure-group'] summary))) {
+      //   box-shadow: inset 0 0 4px magenta;
+      // }
+      // :where(&:is(button)) {
+      // @include mixins.componentize(summary);
+      // grid-template-columns: var(--list--buttonitem-grid-template-columns);
+      // }
+      // :where(&:is(summary)) {
+      //   --disclosure--marker-display: var(--list--item-marker-display,);
+      //   // outline: red solid 50px;
+      //   // @include mixins.componentize(item);
+      //   // grid-template-columns: var(--list--summaryitem-grid-template-columns);
+      // }
+      :where(&) {
+        // outline: magenta solid 4px;
+        // box-shadow: inset 0 0 4px magenta;
+        @include mixins.componentize(item);
+
+        // grid-auto-flow: column;
+        // grid-template-columns: var(--list--item-grid-template-columns,);
+        // grid-template-rows: minmax(0, 1fr);
+      }
+      @media (prefers-reduced-motion: no-preference) {
+        :where(&) {
+          // outline: yellow solid 4px;
+
+          transition:
+            background-color 300ms ease-out allow-discrete,
+            color 300ms ease-out allow-discrete;
+          will-change: background-color, color;
+
+          // &:active,
+          &.active {
+            transition-duration: 0ms;
+          }
+        }
+      }
+    }
+    // [is='disclosure-group'] {
+    //   :where(&) {
+    //     background-color: var(--list--details-background-color,);
+    //   }
+    //   &[open] {
+    //     :where(&) {
+    //       background-color: var(--list--opendetails-background-color, var(--list--details-background-color,));
+    //     }
+    //   }
+    // }
+    // > [is='disclosure-group'],
+    // > section-view > [is='disclosure-group'] {
+    //   :where(&) {
+    //     background-color: var(--list--rootdetails-background-color, var(--list--details-background-color,));
+    //   }
+    //   &[open] {
+    //     :where(&) {
+    //       background-color: var(--list--openrootdetails-background-color, var(--list--rootdetails-background-color, var(--list--details-background-color,)));
+    //     }
+    //   }
+    // }
+
+    // SECTION: wire gaps
+    :not([slot], section-view) ~ section-view {
+      :where(&) {
+        padding-block-start: var(--list--section-gap,);
+      }
+    }
+    section-view:not([slot]) ~ section-view {
+      :where(&) {
+        padding-block-start: var(--list--section-gap,);
+      }
+    }
+    section-view:has(~ :not([slot], section-view)) {
+      :where(&) {
+        padding-block-end: var(--list--section-gap,);
+      }
+    }
+    // section-view:has(~ section-view:not([slot])) {
+    //   :where(&) {
+    // padding-bottom: calc(var(--list--section-gap, 0px) / 2);
+    //   }
+    // }
+    :not([slot], [is='disclosure-group']) ~ [is='disclosure-group'] {
+      :where(&) {
+        margin-block-start: var(--list--details-gap,);
+      }
+    }
+    [is='disclosure-group']:not([slot]) ~ [is='disclosure-group'] {
+      :where(&) {
+        margin-block-start: calc(var(--list--details-gap, 0px) / 2);
+      }
+    }
+    [is='disclosure-group']:has(~ :not([slot], [is='disclosure-group'])) {
+      :where(&) {
+        margin-block-end: var(--list--details-gap,);
+      }
+    }
+    [is='disclosure-group']:has(~ [is='disclosure-group']:not([slot])) {
+      :where(&) {
+        margin-block-end: calc(var(--list--details-gap, 0px) / 2);
+      }
+    }
+
+    // SECTION: wire paddings
+    :where(&) {
+      --itempadistart: var(--list--item-padding-inline-start, 0rem);
+      --itempadiend: calc(var(--list--item-padding-inline-end, 0rem) + var(--list--accessories-size, 0rem));
+      --itempadbstart: var(--list--item-padding-block-start,);
+      --itempadbend: var(--list--item-padding-block-end,);
+
+      --itemradiustr: var(--list--item-border-radius,);
+      --itemradiustl: var(--list--item-border-radius,);
+      --itemradiusbr: var(--list--item-border-radius,);
+      --itemradiusbl: var(--list--item-border-radius,);
+
+      --itemface: var(--list--item-background-color,);
+      --itemhighlightface: var(--list--highlighteditem-background-color, var(--list--item-background-color,));
+      --itemactiveface: var(--list--highlighteditem-background-color, var(--list--item-background-color,));
+
+      --itemtext: var(--list--item-color,);
+      --itemhighlighttext: var(--list--highlighteditem-color, var(--list--item-color,));
+      --itemactivetext: var(--list--highlighteditem-color, var(--list--item-color,));
+    }
+
+    // SECTION: overwrites for details
+    [is='disclosure-group'] {
+      > :not(summary) {
+        :where(&) {
+          --itemface: var(--list--details-background-color, var(--list--item-background-color,));
+          --itemhighlightface: var(
+            --list--selecteddetails-background-color,
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
+          );
+          --itemactiveface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
+
+          --itemtext: var(--list--details-color, var(--list--item-color,));
+          --itemhighlighttext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+          --itemactivetext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+        }
+      }
+      > summary {
+        :where([is='disclosure-group'][open] &) {
+          --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
+          --itemhighlightface: var(
+            --list--selectedopendetails-background-color,
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
+          );
+          --itemactiveface: var(
+            --list--selectedopendetails-background-color,
+            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
+          );
+
+          --itemtext: var(--list--opendetails-color, var(--list--item-color,));
+          --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+          --itemactivetext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
+        }
+      }
+      &[open] {
+        > summary {
+          :where(&) {
+            --itemface: var(--list--opensummary-background-color, var(--list--item-background-color,));
+            --itemhighlightface: var(
+              --list--selectedopensummary-background-color,
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+            );
+            --itemactiveface: var(
+              --list--selectedopensummary-background-color,
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+            );
+
+            --itemtext: var(--list--opensummary-color, var(--list--item-color,));
+            --itemhighlighttext: var(
+              --list--selectedopensummary-color,
+              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
+            );
+            --itemactivetext: var(
+              --list--selectedopensummary-color,
+              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
+            );
+          }
+        }
+      }
+    }
+    > [is='disclosure-group'],
+    > section-view > [is='disclosure-group'] {
+      --disclosure-style: var(--list--rootsummary-marker-display,);
+
+      > summary {
+        :where(&) {
+          --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
+          --itemhighlightface: var(
+            --list--selectedrootsummary-background-color,
+            var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+          );
+          --itemactiveface: var(
+            --list--selectedrootsummary-background-color,
+            var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+          );
+
+          --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
+          --itemhighlighttext: var(
+            --list--selectedrootsummary-color,
+            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
+          );
+          --itemactivetext: var(
+            --list--selectedrootsummary-color,
+            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
+          );
+
+          // overwrite extra stuff for rootsummary
+          // outline: red solid 4px;
+          // box-shadow: inset 0 0 3px yellow;
+
+          --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
+          --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
+          --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
+          --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
+
+          // --itemradiustl: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiustr: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiusbl: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+          // --itemradiusbr: var(--list--rootsummary-border-radius, var(--list--item-border-radius,));
+        }
+      }
+      &[open] > summary {
+        :where(&) {
+          --itemface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
+          --itemhighlightface: var(
+            --list--selectedrootsummary-background-color,
+            var(
+              --list--selectedopensummary-background-color,
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+            )
+          );
+          --itemactiveface: var(
+            --list--selectedrootsummary-background-color,
+            var(
+              --list--selectedopensummary-background-color,
+              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
+            )
+          );
+
+          --itemtext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
+          --itemhighlighttext: var(
+            --list--selectedrootsummary-color,
+            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))))
+          );
+          --itemactivetext: var(
+            --list--selectedrootsummary-color,
+            var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))))
+          );
+        }
+      }
+    }
+
+    // SECTION: add borders + arrows
+    > :not([slot]) ~ :not([slot], section-view),
+    section-view > :not([slot]) ~ :not([slot], section-view),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot], section-view) {
+      :where(&) {
+        position: relative;
+
+        &::before {
+          content: '';
+          position: absolute;
+          inset: 0rem calc(var(--list--item-padding-inline-end, 0rem) + var(--list--media-inner-padding-inline-end, 0rem)) auto
+            calc(var(--list--item-padding-inline-start, 0rem) + var(--list--media-inner-padding-inline-start, 0rem));
+          block-size: 1px;
+          background: var(--list--separator-background-color, var(--separator));
+          pointer-events: none;
+        }
+
+        // &::after {
+        //   pointer-events: none;
+        //   content: '';
+        //   position: absolute;
+        //   inset: 50% 0 auto auto;
+        //   display: var(--list--accessories-display,);
+        //   block-size: 24px;
+        //   inline-size: 24px;
+        //   -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E')
+        //     no-repeat center / contain;
+        //   mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E')
+        //     no-repeat center / contain;
+        //   background-color: red;
+        //   transform: translateY(-50%);
+        // }
+      }
+      // :where(&:is([aria-selected='true'], [is='disclosure-group']):has(> [aria-selected='true'])) {
+      //   outline: red solid 4px;
+      // }
+      // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
+      // :where(&:is([aria-selected='true']), &:is([is='disclosure-group']):not([open]):has(> [aria-selected='true'])) {
+      // :where(&:is([aria-selected='true'])) {
+      :where(&:is([is='disclosure-group']:has(> summary[aria-selected='true']))),
+      :where(&:is([is='disclosure-group']:has(> summary.active))) {
+        // outline: red solid 4px;
+        &::before {
+          --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+        }
+      }
+    }
+
+    // SECTION: sharpen top corners
+    > :not([slot]) ~ :not([slot], section-view),
+    section-view > :not([slot]) ~ :not([slot], section-view),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+      :where(&) {
+        // outline: yellow solid 5px;
+        --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+        --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+      }
+      // :where(&:is(%list > [is='disclosure-group'], %list > section-view > [is='disclosure-group']) > summary) {
+      //   // outline: yellow solid 5px;
+      //   --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      //   --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      // }
+      :where(&:is([is='disclosure-group'] :not([slot]))) {
+        // outline: green solid 5px;
+        --itemradiustl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+        --itemradiustr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+      }
+    }
+
+    // SECTION: sharpen bottom corners
+    > :not([slot]):has(~ :not([slot], section-view)),
+    section-view > :not([slot]):has(~ :not([slot], section-view)),
+    [is='disclosure-group'] > :not([slot], summary):has(~ :not([slot])),
+    [is='disclosure-group']:not([data-state='closed']) > summary {
+      :where(&) {
+        // outline: green solid 5px;
+        --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+        --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
+      }
+      //:where(&:is([is='disclosure-group']) > summary, &:is([is='disclosure-group']) > section-view > summary) {
+      // :where(&:is([is='disclosure-group']) > summary) {
+      //   // outline: green solid 5px;
+      //   --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      //   --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--rootsummary-border-radius, var(--list--item-border-radius,))); //0 0;
+      // }
+      :where(&:is([is='disclosure-group'] :not([slot]))) {
+        // outline: green solid 5px;
+        --itemradiusbl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+        --itemradiusbr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,))); //0 0;
+      }
+    }
+
+    // > :not([slot]) ~ :not([slot]):has(~ :not([slot], section-view)),
+    // section-view > :not([slot]) ~ :not([slot]):has(~ :not([slot], section-view)),
+    // [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+    //   :where(&) {
+    //     --itemradius: 0;
+    //   }
+    //   :where(&:is([is='disclosure-group']) > summary) {
+    //     --itemradius: 0;
+    //   }
+    // }
+
+    // SECTION: style section heders/footers
+    section-view:not(section-view section-view) {
+      :where(&)::part(section-footer-stack),
+      :where(&)::part(section-header-stack) {
+        // outline: magenta 4px solid;
+        padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px))
+          calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
+
+        margin-inline: calc(var(--list--root-padding-inline) * -1);
+
+        padding-block: 1px;
+      }
+
+      :where(&)::part(section-header-stack) {
+        top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
+
+        position: sticky;
+
+        // backdrop-filter: blur(20px);
+
+        // text-shadow: 0 0 5px var(--face);
+      }
+    }
+
+    // SECTION: Enable 2-col layout
+    &[columns='2'] {
+      :where(&) {
+        --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
+
+        // SECTION: add borders
+        position: relative;
+
+        &::after {
+          pointer-events: none;
+          content: '';
+          position: absolute;
+          inset: var(--list--host-padding-block, 0px) auto var(--list--host-padding-block, 0px) 50%;
+          inline-size: 1px;
+          background: var(--list--separator-background-color, var(--separator));
+        }
+      }
+
+      // SECTION: overwrite already sharpened corners
+      > :first-child:not([slot]),
+      section-view:first-child > :not([slot]),
+      [is='disclosure-group']:first-child > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+          --itemradiusbr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+          --itemradiusbr: var(--list--adjacentitem-border-radius,); //var(--list--item-border-radius,);
+        }
+      }
+      > :nth-child(2):not([slot]),
+      section-view:nth-child(2) > :not([slot]),
+      [is='disclosure-group']:nth-child(2) > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--item-border-radius,);
+
+          &::before {
+            content: none;
+          }
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--item-border-radius,);
+
+          &::before {
+            content: none;
+          }
+        }
+      }
+      > :nth-last-child(2):not([slot]),
+      section-view:nth-last-child(2) > :not([slot]),
+      [is='disclosure-group']:nth-last-child(2) > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,);
+          --itemradiusbl: var(--list--item-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiustr: var(--list--adjacentitem-border-radius,);
+          --itemradiusbl: var(--list--item-border-radius,);
+        }
+      }
+      > :last-child:not([slot]),
+      section-view:last-child > :not([slot]),
+      [is='disclosure-group']:last-child > :not([slot]) {
+        :where(&) {
+          // outline: yellow solid 5px;
+          --itemradiusbr: var(--list--item-border-radius,);
+          --itemradiusbl: var(--list--adjacentitem-border-radius,);
+        }
+        :where(&:is([is='disclosure-group'] :not([slot]))) {
+          // outline: green solid 5px;
+          --itemradiusbr: var(--list--item-border-radius,);
+          --itemradiusbl: var(--list--adjacentitem-border-radius,);
+        }
+      }
+    }
+
+    // SECTION: add accessories
+    // &:has(summary[marker-placement='leading']) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // --itempadistart: 4rem;
+
+      // --item-accessory-size: 24px;
+
+      // --list--item-grid-template-columns: minmax(0, 1fr) 50px;
+
+      // &:not(:is(button)) {
+      //   --list--accessories-display: none;
+      //   // --list--accessories-padding-inline-end: 24px;
+      // }
+
+      // &:is(button) {
+      // position: relative;
+      // display: grid;
+      // grid-template-columns: minmax(0, 1fr) 24px;
+
+      &:is(button) {
+        :where(&) {
+          position: relative;
+
+          @include mixins.make-marker-pseudos(vars.$disclosure-affordance);
+
+          &::after {
+            position: absolute;
+
+            inset: 50% var(--itempadiend) auto auto;
+            display: var(--list--accessories-display, grid);
+
+            block-size: var(--list--accessories-size, 1.1rem);
+            inline-size: var(--list--accessories-size, 1.1rem);
+
+            background-color: var(--quaternary);
+
+            transform: translateY(-50%) translateX(120%);
+          }
+        }
+      }
+      // }
+    }
+    // }
+    // [is='disclosure-group'] summary [slot='marker'] {
+    //   font-size: calc(var(--list--accessory-size) * 1rem);
+    // }
+    // [is='disclosure-group']:has(> summary[marker-placement='leading']) {
+    //   > :not(summary) {
+    //     --itempadistart: calc(calc(var(--root-font-size) * 1px) * var(--list--accessory-size) + var(--list--item-padding-inline-start, 0px));
+    //   }
+    // }
+  }
+}
+
+@layer #{vars.$colors-layer} {
+  // componentize
+  %list {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      @include mixins.add-focus-visible-state {
+        --itemface: var(--itemhighlightface,);
+        --itemtext: var(--itemhighlighttext,);
+
+        --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+        --secondary: var(--itemtext);
+        --blue: var(--itemtext);
+      }
+    }
+  }
+}
+
+@layer #{vars.$ui-layer} {
+  // componentize
+  %list {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+      // :where(&:is(button)) {
+      @include mixins.add-jsactive-state {
+        --itemface: var(--itemactiveface,);
+        --itemtext: var(--itemactivetext,);
+
+        --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+        --secondary: var(--itemtext);
+        --blue: var(--itemtext);
+      }
+
+      &[aria-selected='true'] {
+        :where(&) {
+          --itemface: var(--itemactiveface);
+          --itemtext: var(--itemactivetext,);
+
+          --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+
+          --secondary: var(--itemtext);
+          --blue: var(--itemtext);
+        }
+      }
+      // }
+    }
+  }
+}

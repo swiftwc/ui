@@ -1,0 +1,20 @@
+{
+  "private": true,
+  "name": "@swiftwc/v1",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "dev:scss": "sass ../../packages/ui/scss/index.scss:styles.css dev.scss:dev.css --watch",
+    "dev:tunnel": "ngrok http --config .config/ngrok.yml 5173",
+    "preview:scss": "sass --no-source-map ../../packages/ui/scss/index.scss styles.css --watch"
+  },
+  "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@html-eslint/eslint-plugin": "^0.60.0",
+    "@html-eslint/parser": "^0.60.0",
+    "@swiftwc/eslint-plugin": "*",
+    "eslint": "^10.3.0",
+    "typescript-eslint": "^8.59.2",
+    "vite": "^8.0.1"
+  }
+}

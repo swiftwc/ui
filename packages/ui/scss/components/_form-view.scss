@@ -1,0 +1,195 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+@use 'sass:map';
+
+$form-ifs: (
+  inset: (
+    --list--host-background-color: var(--insetform-background-color,),
+    --list--host-padding-inline: var(--insetform-padding-inline),
+    --list--host-padding-block: var(--insetform-padding-block),
+    //
+    --list--item-color: var(--insetform-item-color,),
+    --list--item-background-color: var(--insetform-item-background-color,),
+    --list--highlighteditem-color: var(--insetform-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetform-highlighteditem-background-color,),
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    //
+    --list--adjacentdetailsitem-border-radius: 0,
+    //
+    --list--details-background-color: var(--insetform-openitem-background-color,),
+    --list--details-color: var(--insetform-openitem-color,),
+    --list--opendetails-background-color: var(--insetform-openitem-background-color,),
+    --list--opendetails-color: var(--insetform-openitem-color,),
+    --list--opensummary-background-color: var(--insetform-opensummary-background-color,),
+    --list--opensummary-color: var(--insetform-opensummary-color,),
+  ),
+  inset-grouped: (
+    --list--host-background-color: var(--insetgroupedform-background-color,),
+    --list--host-padding-inline: var(--insetgroupedform-padding-inline),
+    --list--host-padding-block: var(--insetgroupedform-padding-block),
+    //
+    --list--item-color: var(--insetgroupedform-item-color,),
+    --list--item-background-color: var(--insetgroupedform-item-background-color,),
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--highlighteditem-color: var(--insetgroupedform-highlighteditem-color,),
+    --list--highlighteditem-background-color: var(--insetgroupedform-highlighteditem-background-color,),
+    //
+    --list--adjacentitem-border-radius: 0,
+    //
+    --list--details-background-color: var(--insetgroupedform-openitem-background-color,),
+    --list--details-color: var(--insetgroupedform-openitem-color,),
+    --list--opendetails-background-color: var(--insetgroupedform-openitem-background-color,),
+    --list--opendetails-color: var(--insetgroupedform-openitem-color,),
+    --list--opensummary-background-color: var(--insetgroupedform-opensummary-background-color,),
+    --list--opensummary-color: var(--insetgroupedform-opensummary-color,),
+  ),
+  sidebar: (
+    --list--item-border-radius: var(--insetform-item-border-radius),
+    --list--details-gap: var(--form-gap),
+    --list--rootsummary-padding-inline-start: 5px,
+    --list--rootsummary-padding-inline-end: 5px,
+    --list--rootsummary-padding-block-start: 2px,
+    --list--rootsummary-padding-block-end: 2px,
+
+    --list--item-padding-inline-start: 5px,
+    --list--item-padding-inline-end: 5px,
+    --list--item-padding-block-start: 5px,
+    --list--item-padding-block-end: 5px,
+
+    --list--adjacentitem-border-radius: unset,
+    //
+    --list--host-background-color: var(--sidebarform-background-color,),
+    --list--host-padding-inline: var(--sidebarform-padding-inline),
+    --list--host-padding-block: var(--sidebarform-padding-block),
+    //
+    --list--item-background-color: var(--sidebarform-item-background-color,),
+    --list--item-color: var(--sidebarform-item-color,),
+    --list--highlighteditem-background-color: var(--sidebarform-highlighteditem-background-color,),
+    --list--highlighteditem-color: var(--sidebarform-highlighteditem-color,),
+    //
+    --list--rootsummary-background-color: transparent,
+    --list--rootsummary-color: var(--primary,),
+    // --list--rootsummary-border-radius: 0px,
+    --list--selectedrootsummary-background-color: transparent,
+    --list--selectedrootsummary-color: var(--primary,),
+    //
+    --list--separator-background-color: transparent,
+    --list--activeseparator-background-color: transparent,
+    //
+    --list--details-background-color: var(--sidebarform-openitem-background-color,),
+    --list--details-color: var(--sidebarform-openitem-color,),
+    --list--opensummary-background-color: var(--sidebarform-opensummary-background-color,),
+    --list--opensummary-color: var(--sidebarform-opensummary-color,),
+    //
+    // --list--item-grid-template-columns: minmax(0, 1fr),
+    --list--accessories-display: none,
+    //
+    --list--rootsummary-marker-display: marker-trailing,
+  ),
+);
+$form-elses: (
+  --list--host-background-color: var(--form-background-color,),
+  --list--item-padding-inline-start: var(--form-item-padding-inline-start),
+  --list--item-padding-inline-end: var(--form-item-padding-inline-end),
+  --list--item-padding-block-start: var(--form-item-padding-block-start),
+  --list--item-padding-block-end: var(--form-item-padding-block-end),
+  --list--item-background-color: var(--form-item-background-color,),
+  --list--highlighteditem-background-color: var(--form-highlighteditem-background-color,),
+  --list--item-color: var(--form-item-color,),
+  --list--highlighteditem-color: var(--form-highlighteditem-color,),
+  //
+  // --list--item-grid-template-columns: minmax(0, 1fr) 1rem,
+  --list--accessories-size: 1.1rem,
+  --list--accessories-display: grid,
+);
+
+@layer #{vars.$components-layer} {
+  [is='form-view'] {
+    &:not(& &, list-view &, table-view &, [is='tab-bar'] > &) {
+      @extend %list;
+
+      // wire
+      :where(&) {
+        --list--section-gap: var(--form-gap);
+
+        @include mixins.write-props($form-elses);
+
+        // --list--item-padding-inline-start: var(--form-item-padding-inline-start);
+        // --list--item-padding-inline-end: var(--form-item-padding-inline-end);
+        // --list--item-padding-block-start: var(--form-item-padding-block-start);
+        // --list--item-padding-block-end: var(--form-item-padding-block-end);
+
+        // --list--item-background-color: var(--list-item-background-color,);
+      }
+
+      :where(section-view:has(> [slot='header']), section-view:has(> [slot='footer']) + section-view) {
+        --list--section-gap: var(--form-extra-gap);
+      }
+
+      // SECTION: ifs
+      @supports (x: #{string.unquote('if(else:red)')}) {
+        :where(&) {
+          @include mixins.write-ifs(--form-style, $form-ifs, $form-elses);
+          // --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
+
+          // --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
+
+          // --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
+          // --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
+
+          // --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
+        }
+      }
+
+      // SECTION: ifs polyfill
+      @supports not (x: #{string.unquote('if(else:red)')}) {
+        :where(&:not([form-style])) {
+          @each $v in vars.$form-styles {
+            @container style(--form-style: #{$v}) {
+              @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
+            }
+          }
+        }
+        @each $v in vars.$form-styles {
+          :where(&[form-style='#{$v}']) {
+            @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
+          }
+        }
+        @include mixins.if-2col-split-view-fits {
+          :where(navigation-split-view [is='sidebar-view'] &[form-style]) {
+            @include mixins.write-props(map.get($form-ifs, sidebar));
+          }
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+            @include mixins.write-props(map.get($form-ifs, inset));
+          }
+        }
+      }
+
+      // SECTION: attrs finally
+      @supports (x: #{string.unquote('attr(x type(*))')}) {
+        :where(&) {
+          --form-style: attr(form-style type(<custom-ident>), inherit);
+        }
+        @include mixins.if-2col-split-view-fits {
+          :where(navigation-split-view:has(> [is='sidebar-view']) > [is='sidebar-view'] &[list-style]) {
+            --form-style: sidebar;
+          }
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+            --form-style: inset;
+          }
+        }
+      }
+
+      // FINALLY AFTER ALL IFS
+      // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
+      @include mixins.if-2col-split-view-fits {
+        :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
+          // --list--item-grid-template-columns: minmax(0, 1fr);
+          --list--accessories-display: none;
+        }
+      }
+    }
+  }
+}

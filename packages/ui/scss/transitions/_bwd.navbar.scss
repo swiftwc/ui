@@ -1,0 +1,19 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  tool-bar-item,
+  tool-bar-item-group {
+    &.bwn {
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
+    }
+
+    &.bwnn {
+      @include mixins.vt-toolbar-cell-onscreen-keyframe;
+    }
+
+    &.bwnn.bwn {
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
+    }
+  }
+}

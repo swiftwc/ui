@@ -1,0 +1,12 @@
+@layer base, web-components, transitions;
+@layer base {
+  *,
+  *::before,
+  *::after {
+    box-sizing: border-box;
+  }
+  html::before {
+    content: "vt-fwd-class-name=forward";
+    display: none;
+  }
+}

@@ -1,0 +1,359 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>settings</title>
+    <meta name="theme-color" content="black" />
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <style>
+      :root {
+        font-family: Inter, sans-serif;
+        font-feature-settings:
+          'liga' 1,
+          'calt' 1;
+      }
+      @supports (font-variation-settings: normal) {
+        :root {
+          font-family: InterVariable, sans-serif;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- style="--canvas: darkgray; --face: darkgray"> -->
+    <v-keyboard></v-keyboard>
+
+    <navigation-split-view column-visibility="double-column" background-style="grouped">
+      <dialog is="sidebar-view">
+        <scroll-view>
+          <v-stack placement="leading fill">
+            <list-view list-style="inset-grouped" style="--list--media-inner-padding-inline-start: 2.3rem">
+              <section-view>
+                <button type="button">
+                  <label-view system-image="smiley" title="Storage Full"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button">
+                  <label-view system-image="smiley" title="WiFi"></label-view>
+                </button>
+                <button type="button">
+                  <label-view system-image="smiley" title="Bluetooth"></label-view>
+                </button>
+                <button type="button">
+                  <label-view system-image="smiley" title="Network"></label-view>
+                </button>
+                <button type="button">
+                  <label-view system-image="smiley" title="Energy"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="General">
+                  <label-view system-image="smiley" title="General"></label-view>
+                </button>
+                <button type="button" navigation-destination="Accessibility">
+                  <label-view system-image="smiley" title="Accessibility"></label-view>
+                </button>
+                <button type="button" navigation-destination="Appearance">
+                  <label-view system-image="smiley" title="Appearance"></label-view>
+                </button>
+                <button type="button">
+                  <label-view system-image="smiley" title="AI Intelligense"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+          <input type="search" slot="top-bar-principal" placeholder="Search" />
+        </scroll-view>
+      </dialog>
+      <sidebar-toggle>
+        <tool-bar-item>
+          <button type="button"><label-view title="sss333344"></label-view></button>
+        </tool-bar-item>
+      </sidebar-toggle>
+    </navigation-split-view>
+
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="General" navigation-path="General">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <navigation-large-title padding>
+              <v-stack alignment="fill">
+                <label-view title="General" font="large-title"></label-view>
+                <label-view title="Manage yor overall setup and preferences." font="callout"></label-view>
+              </v-stack>
+            </navigation-large-title>
+            <form is="form-view" form-style="inset-grouped">
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="About"></label-view>
+                </button>
+                <button type="button" navigation-destination="Software Update">
+                  <label-view title="Software Update"></label-view>
+                </button>
+                <button type="button" navigation-destination="Storage">
+                  <label-view title="Storage"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Warranty"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Continuity"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Autofill & Passwords"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Date & Time"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Language & Region"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Login Items & Extensions"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Sharing"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Startup Disk"></label-view>
+                </button>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Time Machine"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Device Management"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button type="button" navigation-destination="About">
+                  <label-view title="Transfer or Reset"></label-view>
+                </button>
+              </section-view>
+            </form>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="About" navigation-path="About">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <label-view font="large-title" value="Device" padding></label-view>
+            <list-view list-style="inset-grouped">
+              <section-view>
+                <button type="button">
+                  <label-view title="About"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Software Update"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Storage"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <label-view font="large-title" value="Accessibility" padding></label-view>
+            <list-view list-style="inset-grouped">
+              <section-view header="Vision">
+                <button type="button">
+                  <label-view title="VoiceOver"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Zoom"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Hover Text"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped">
+              <section-view header="Vision">
+                <button type="button">
+                  <label-view title="VoiceOver"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Zoom"></label-view>
+                </button>
+                <button type="button">
+                  <label-view title="Hover Text"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // LifecycleObserver.addEventListener('pageshow', navHandler)
+      // LifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // setTimeout(() => {
+      //   const el = document.querySelector('[is=sidebar-view] scroll-view')
+
+      //   const beforeStyles = getComputedStyle(el, '::before')
+      //   const beforeHeight = beforeStyles.height
+
+      //   alert(`${el.clientHeight}:${beforeHeight}`)
+      // }, 1400)
+
+      // const cl = new WeakSet()
+      // document.addEventListener('pointerdown', async (event) => {
+      //   cl.add(event.target)
+      // })
+      // document.addEventListener('pointerout', async (event) => {
+      //   cl.delete(event.target)
+
+      //   const navDest = event.target.closest('[navigation-destination]')
+      //   if (!navDest) return
+
+      //   alert(8)
+      // })
+      // document.addEventListener('gotpointercapture', async (event) => {
+      //   alert(1)
+      // })
+      // document.addEventListener('lostpointercapture', async (event) => {
+      //   alert(3)
+      // })
+      // document.addEventListener('pointerout', async (event) => {
+      //   const navDest = event.target.closest('[navigation-destination]')
+
+      //   if (!navDest) return
+      //   alert(8)
+      // })
+
+      // document.addEventListener('pointercancel', async (event) => {
+      //   const navDest = event.target.closest('[navigation-destination]')
+
+      //   if (!navDest) return
+      //   alert(7)
+      // })
+      // if (self.PointerEvent) {
+      //   document.addEventListener('pointermove', async (event) => {
+      //     const navDest = event.target.closest('[navigation-destination]')
+      //     if (!navDest) return
+
+      //     // navDest.removeAttribute('aria-selected') //ariaSelected = 'false'
+      //   })
+      //   document.addEventListener('pointerup', async (event) => {
+      //     const navDest = event.target.closest('[navigation-destination]')
+      //     if (!navDest) return
+
+      //     const { left, right, top, bottom } = navDest.getBoundingClientRect()
+      //     const x = event.clientX
+      //     const y = event.clientY
+      //     if (x >= left && x <= right && y >= top && y <= bottom) {
+      //       navDest.ariaSelected = 'true'
+      //     }
+
+      //     // event.target.classList.add('active')
+      //   })
+      //   // document.addEventListener('pointerleave', async (event) => {
+      //   //   const navDest = event.target.closest('[navigation-destination]')
+      //   //   if (!navDest) return
+
+      //   //   navDest.ariaSelected = 'false'
+      //   //   // event.target.classList.remove('active')
+      //   //   // alert(9)
+      //   // })
+      // }
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      // const navDest = event.target.closest('[navigation-destination]')
+
+      // if (event.target.closest('.back')) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   const parent = [...path.parents()].at(0)?.hydrate()
+
+      //   if (navDest && parent.body) parent.component.inert = true
+
+      //   await startViewTransition(event.target, 'backwards', async () => {
+      //     modifyDOMbackwards(path)
+      //   })
+
+      //   if (navDest && parent.body) {
+      //     await startViewTransition(parent.body, 'forwards', async () => {
+      //       modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //     })
+
+      //     parent.component.inert = false
+      //   }
+      // } else if (navDest) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
+      // }
+      // })
+    </script>
+  </body>
+</html>

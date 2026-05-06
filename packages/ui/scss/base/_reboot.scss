@@ -1,0 +1,158 @@
+@use '../vars';
+@use '../functions';
+
+@layer #{vars.$base-layer}, #{vars.$components-layer}, #{vars.$nav-components-layer}, #{vars.$tab-components-layer}, #{vars.$utils-layer}, #{vars.$colors-layer}, #{vars.$ui-layer}, #{vars.$transitions-layer}, #{vars.$final-layer};
+
+@layer #{vars.$base-layer} {
+  // html,
+  // body {
+  //   overflow: auto;
+  // }
+
+  :root {
+    interpolate-size: allow-keywords;
+  }
+
+  *,
+  *::before,
+  *::after,
+  *::part(root) {
+    box-sizing: border-box;
+  }
+
+  *,
+  *::part(root) {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+
+  *,
+  *::part(root) {
+    -webkit-touch-callout: none; // disables long-press menu
+  }
+
+  *:not(input, textarea),
+  *::part(root) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  button,
+  select {
+    text-transform: none;
+  }
+
+  button,
+  *::part(button),
+  input,
+  *::part(input),
+  optgroup,
+  *::part(optgroup),
+  select,
+  *::part(select),
+  textarea *::part(textarea) {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+    // color: inherit;
+  }
+
+  [role='button'],
+  button,
+  *::part(button) {
+    text-align: unset;
+
+    // appearance: none;
+    // -webkit-appearance: none;
+
+    touch-action: manipulation;
+  }
+
+  [role='button'],
+  summary,
+  button,
+  *::part(button) {
+    cursor: pointer;
+  }
+
+  input,
+  *::part(input) {
+    min-inline-size: 25px; // NOTE: For inputs overflowing-x
+  }
+
+  body {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0px, 1fr);
+
+    position: absolute;
+    inset: 0;
+
+    margin: 0;
+    padding: 0;
+
+    background-color: var(--canvas); //light-dark(oklch(var(--primary-bg)), var(--primary-bg-dark));
+
+    color: var(--canvastext); //light-dark(var(--primary-label), var(--primary-label-dark));
+
+    touch-action: none !important;
+  }
+
+  html {
+    transition: font-size 1ms step-start;
+  }
+
+  // label {
+  //   // remove this
+  //   display: inline-grid;
+  //   position: relative;
+  //   // min-height: var(--toolbar-cell-min-size);
+  //   // min-width: var(--toolbar-cell-min-size);
+  //   // container-type: inline-size;
+
+  //   grid-template-columns: minmax(0, 1fr);
+  //   grid-template-rows: minmax(0, 1fr);
+
+  //   place-content: center;
+  //   place-items: center;
+  //   // line-height: 1;
+
+  //   > svg {
+  //     display: inline-grid;
+  //     width: 2rem;
+  //     height: 2rem;
+  //   }
+
+  //   > i {
+  //     display: inline-grid;
+  //     font-size: 2rem;
+  //   }
+  // }
+
+  $CONFIG: (
+    vt-fwd-class-name: vars.$vt-fwd-class-name,
+
+    // sidebar-toggle-padding-inline-start-css-prop: vars.$sidebar-toggle-padding-inline-start-css-prop,
+    //
+    // toolbar-leading-stack-part-name: vars.$toolbar-leading-stack-part-name,
+    // toolbar-principal-stack-part-name: vars.$toolbar-principal-stack-part-name,
+    // toolbar-trailing-stack-part-name: vars.$toolbar-trailing-stack-part-name,
+    //
+    // ipad-portrait-bp-max: vars.$ipad-portrait-bp-max,
+    // ipad-portrait-bp-min: vars.$ipad-portrait-bp-min,
+    // ipad-landscape-bp-max: vars.$ipad-landscape-bp-max,
+    // ipad-landscape-bp-min: vars.$ipad-landscape-bp-min,
+    ipad-sheet-view-inline-size: vars.$ipad-sheet-view-inline-size,
+    ipad-sheet-view-height: vars.$ipad-sheet-view-height,
+  );
+
+  @debug functions.map-to-query($CONFIG);
+
+  html::before {
+    content: '#{functions.map-to-query($CONFIG)}';
+    display: none;
+  }
+}

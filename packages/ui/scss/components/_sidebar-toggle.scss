@@ -1,0 +1,124 @@
+@use '../vars';
+@use '../mixins';
+
+@mixin make-ipad-stoggle($selector) {
+  :where(#{$selector} [is='tab-bar'] > [is='form-view'] > &) {
+    position: sticky;
+
+    left: 0;
+
+    backdrop-filter: blur(20px);
+
+    border-radius: inherit;
+    // inline-size: fit-content;
+    // order: -1;
+  }
+
+  :where(#{$selector} > &) {
+    display: none;
+  }
+}
+
+@layer #{vars.$components-layer} {
+  sidebar-toggle {
+    tab-view:not([tab-view-style='tab-bar-only']) > &, // this is landscape toggle
+    navigation-split-view > & {
+      :where(&) {
+        position: fixed;
+
+        inset: max(env(safe-area-inset-top), var(--sidebar-block-spacing)) auto auto 0; //max(env(safe-area-inset-left), var(--sidebar-spacing));
+
+        padding-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
+
+        block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+
+        // place-items: center;
+
+        place-content: center;
+
+        grid-template-rows: var(--toolbar-cell-min-size);
+      }
+
+      :where(& > *) {
+        min-inline-size: var(--toolbar-cell-min-size);
+      }
+    }
+
+    @include mixins.if-ipad-portrait {
+      tab-view navigation-split-view > & {
+        inset-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
+      }
+    }
+
+    // ANCHOR: TABVIEW
+
+    @media (pointer: fine) {
+      @include make-ipad-stoggle("tab-view[tab-view-style='tab-bar-only']");
+    }
+
+    @include mixins.if-iphone-portrait {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &, tab-view:not([tab-view-style='tab-bar-only']) > &) {
+        display: none;
+      }
+    }
+
+    @include mixins.if-ipad-portrait {
+      @include make-ipad-stoggle("tab-view:not([tab-view-style='tab-bar-only'])");
+    }
+
+    @include mixins.if-iphone-landscape {
+      :where(tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &) {
+        display: none;
+      }
+    }
+
+    @include mixins.if-ipad-landscape {
+      :where(
+        tab-view:not([tab-view-style='tab-bar-only']) [is='tab-bar'] > [is='form-view'] > &,
+        tab-view:not([tab-view-style='tab-bar-only']) > &,
+        tab-view:not([tab-view-style='tab-bar-only']) > [is='sidebar-view'] > tool-bar > &
+      ) {
+        display: none;
+      }
+    }
+
+    // ANCHOR: NSPLITVIEW
+
+    @include mixins.ifnot-2col-split-view-fits {
+      :where(navigation-split-view > &) {
+        display: none;
+      }
+    }
+
+    @include mixins.if-3col-split-view-fits {
+      :where(navigation-split-view > &) {
+        display: none;
+      }
+    }
+
+    @include mixins.if-2col-split-view-fits {
+      :where(navigation-split-view:not(:has(> [is='sidebar-view'])) > &) {
+        display: none;
+      }
+
+      :where(
+        navigation-split-view:has(> [is='sidebar-view']):not([preferred-compact-column='content']) > &,
+        navigation-split-view:has(> [is='sidebar-view'])[column-visibility='double-column'] > &
+      ) {
+        display: none;
+      }
+    }
+
+    // @include mixins.if-2col-split-view-fits {
+    //   @include mixins.if-3col-split-view-fits {
+    //     navigation-split-view:has(
+    //         > dialog[is='sidebar-view']
+    //       )[preferred-compact-column='content'] {
+    //       > & {
+    //         //
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}

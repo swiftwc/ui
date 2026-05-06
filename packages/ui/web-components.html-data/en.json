@@ -1,0 +1,330 @@
+{
+  "version": 1.1,
+  "tags": [
+    {
+      "name": "body-view"
+    },
+    {
+      "name": "bordered-button"
+    },
+    {
+      "name": "bordered-prominent-button"
+    },
+    {
+      "name": "borderless-button",
+      "attributes": [
+        {
+          "name": "role"
+        }
+      ]
+    },
+    {
+      "name": "confirmation-dialog",
+      "attributes": [
+        {
+          "name": "anchor"
+        }
+      ]
+    },
+    {
+      "name": "date-picker",
+      "attributes": [
+        {
+          "name": "date-picker-style",
+          "description": "Value Type: “graphical” | “field” | “automatic”\nDescription: The style of this element",
+          "values": [
+            {
+              "name": "graphical"
+            },
+            {
+              "name": "field"
+            },
+            {
+              "name": "automatic"
+            }
+          ]
+        },
+        {
+          "name": "required"
+        },
+        {
+          "name": "prompt"
+        },
+        {
+          "name": "label"
+        },
+        {
+          "name": "name"
+        },
+        {
+          "name": "selection"
+        },
+        {
+          "name": "disabled"
+        },
+        {
+          "name": "minimum"
+        },
+        {
+          "name": "maximum"
+        }
+      ]
+    },
+    {
+      "name": "disclosure-group",
+      "attributes": [
+        {
+          "name": "open",
+          "description": "Description: The status of this element"
+        }
+      ]
+    },
+    {
+      "name": "form-view"
+    },
+    {
+      "name": "glass-button"
+    },
+    {
+      "name": "glass-prominent-button"
+    },
+    {
+      "name": "label-view",
+      "attributes": [
+        {
+          "name": "system-image"
+        },
+        {
+          "name": "title"
+        },
+        {
+          "name": "line-limit"
+        },
+        {
+          "name": "truncation-mode"
+        }
+      ]
+    },
+    {
+      "name": "list-view"
+    },
+    {
+      "name": "menu-view",
+      "attributes": [
+        {
+          "name": "open"
+        },
+        {
+          "name": "closing"
+        },
+        {
+          "name": "label"
+        }
+      ]
+    },
+    {
+      "name": "navigation-large-title"
+    },
+    {
+      "name": "navigation-split-view"
+    },
+    {
+      "name": "navigation-stack"
+    },
+    {
+      "name": "navigation-title",
+      "attributes": [
+        {
+          "name": "value"
+        },
+        {
+          "name": "subtitle"
+        }
+      ]
+    },
+    {
+      "name": "picker-view"
+    },
+    {
+      "name": "plain-button"
+    },
+    {
+      "name": "screen-view"
+    },
+    {
+      "name": "scroll-view",
+      "attributes": [
+        {
+          "name": "navigation-title"
+        },
+        {
+          "name": "navigation-inline-title"
+        },
+        {
+          "name": "navigation-inline-subtitle"
+        },
+        {
+          "name": "navigation-bar-title-display-mode"
+        }
+      ]
+    },
+    {
+      "name": "section-view",
+      "attributes": [
+        {
+          "name": "header"
+        },
+        {
+          "name": "footer"
+        }
+      ]
+    },
+    {
+      "name": "sheet-view",
+      "attributes": [
+        {
+          "name": "fine-presentation-large-adaptation"
+        }
+      ]
+    },
+    {
+      "name": "sidebar-toggle"
+    },
+    {
+      "name": "sidebar-view"
+    },
+    {
+      "name": "sticky-container"
+    },
+    {
+      "name": "tab-bar"
+    },
+    {
+      "name": "tab-item"
+    },
+    {
+      "name": "tab-view",
+      "description": ""
+    },
+    {
+      "name": "table-view"
+    },
+    {
+      "name": "text-field",
+      "description": "",
+      "attributes": [
+        {
+          "name": "prompt"
+        },
+        {
+          "name": "minimum"
+        },
+        {
+          "name": "maximum"
+        },
+        {
+          "name": "min-length"
+        },
+        {
+          "name": "max-length"
+        },
+        {
+          "name": "label"
+        },
+        {
+          "name": "name"
+        },
+        {
+          "name": "text"
+        },
+        {
+          "name": "text-input-autocapitalization"
+        },
+        {
+          "name": "disable-autocorrection"
+        },
+        {
+          "name": "keyboard-type"
+        },
+        {
+          "name": "required"
+        },
+        {
+          "name": "disabled"
+        }
+      ]
+    },
+    {
+      "name": "tool-bar-item-group"
+    },
+    {
+      "name": "tool-bar-item"
+    },
+    {
+      "name": "tool-bar"
+    },
+    {
+      "name": "v-keyboard",
+      "description": "Required component, must be BODY tag"
+    },
+    {
+      "name": "v-stack"
+    }
+  ],
+  "globalAttributes": [
+    {
+      "name": "frame:width",
+      "description": "Sets inline-size",
+      "valueSet": "frameWidth"
+    },
+    {
+      "name": "frame:max-width",
+      "description": "Sets max-inline-size",
+      "valueSet": "frameMaxWidth"
+    }
+  ],
+  "valueSets": [
+    {
+      "name": "frameWidth",
+      "values": [
+        {
+          "name": "infinity",
+          "description": "100%"
+        },
+        {
+          "name": "0",
+          "description": "0rem"
+        },
+        {
+          "name": "1",
+          "description": "1rem"
+        },
+        {
+          "name": "2",
+          "description": "2rem"
+        }
+      ]
+    },
+    {
+      "name": "frameMaxWidth",
+      "values": [
+        {
+          "name": "infinity",
+          "description": "100%"
+        },
+        {
+          "name": "0",
+          "description": "0rem"
+        },
+        {
+          "name": "1",
+          "description": "1rem"
+        },
+        {
+          "name": "2",
+          "description": "2rem"
+        }
+      ]
+    }
+  ]
+}

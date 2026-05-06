@@ -1,0 +1,11 @@
+@use '../vars';
+
+@layer #{vars.$nav-components-layer} {
+  navigation-stack {
+    :where(&) {
+      touch-action: none;
+
+      block-size: var(--100lvh, 100lvh);
+    }
+  }
+}

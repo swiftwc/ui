@@ -1,0 +1,25 @@
+@use '../vars';
+@use 'sass:math';
+@use 'sass:map';
+@use 'sass:list';
+
+@layer #{vars.$utils-layer} {
+  // general utils
+  @for $i from 0 through 50 {
+    :where([padding-horizontal='#{$i}']) {
+      padding-inline: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
+    }
+
+    :where([padding-vertical='#{$i}']) {
+      padding-block: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
+    }
+
+    :where([margin-horizontal='#{$i}']) {
+      margin-inline: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
+    }
+
+    :where([margin-vertical='#{$i}']) {
+      margin-block: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
+    }
+  }
+}

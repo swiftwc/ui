@@ -1,0 +1,52 @@
+@use '../vars';
+@use '../mixins';
+@use '../placeholders';
+@use 'sass:string';
+@use 'sass:map';
+
+@layer #{vars.$components-layer} {
+  [is='table-column'] {
+    :where(&) {
+      column-gap: var(--table-accessory-gap);
+
+      grid-auto-flow: column;
+      grid-template-columns: auto var(--table-accessory-size);
+
+      place-content: start;
+
+      place-items: center;
+    }
+
+    &[aria-sort] {
+      :where(&) {
+        @include mixins.make-marker-pseudos(vars.$table-col-affordance);
+
+        &::after {
+          display: grid;
+
+          block-size: var(--table-accessory-size);
+          inline-size: var(--table-accessory-size);
+
+          background-color: var(--blue);
+
+          transform: var(--tablecol--after-rotate,);
+
+          @media (prefers-reduced-motion: no-preference) {
+            transition: transform 100ms ease-out;
+            will-change: transform;
+          }
+        }
+      }
+    }
+
+    // &[aria-sort='ascending'] {
+    //   :where(&)::after {
+    //   }
+    // }
+    &[aria-sort='descending'] {
+      :where(&)::after {
+        --tablecol--after-rotate: rotate(180deg);
+      }
+    }
+  }
+}

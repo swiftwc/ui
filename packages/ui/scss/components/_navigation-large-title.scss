@@ -1,0 +1,27 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  navigation-large-title {
+    :where(&) {
+      // display: grid;
+
+      // css-style-observer
+      // perspective-origin: var(--navigation-bar-block-size);
+      transition: --navigation-bar-block-size 1ms step-start;
+
+      // caption-side 1ms step-start,
+      // orphans 1ms step-start,
+      // page-break-before 1ms step-start,
+      // font-size 1ms step-start;
+    }
+
+    scroll-view[navigation-bar-title-display-mode='inline']:has(&) &[navigation-bar-auto-hide] {
+      :where(&) {
+        opacity: 0;
+
+        visibility: collapse;
+      }
+    }
+  }
+}

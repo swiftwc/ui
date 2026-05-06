@@ -1,0 +1,174 @@
+@use 'functions';
+@use 'sass:math';
+
+$base-layer: sw-base !default;
+$components-layer: sw-components !default;
+$nav-components-layer: sw-nav-components !default;
+$tab-components-layer: sw-tab-components !default;
+$utils-layer: sw-utils !default;
+$colors-layer: sw-colors !default;
+$ui-layer: sw-actions !default;
+$transitions-layer: sw-transitions !default;
+$final-layer: sw-final !default;
+
+$vt-fwd-class-name: fwd !default;
+
+$nav-split-view-2col-bp: 43rem !default;
+$nav-split-view-3col-bp: 64rem !default;
+
+// $ipad-sheet-view-inline-size: 12rem !default;
+$ipad-sheet-view-inline-size: 37rem !default;
+
+$ipad-sheet-view-aspect-ratio: math.div(4, 3) !default;
+
+// $ipad-portrait-bp: 20rem !default;
+$ipad-portrait-bp: 43rem !default;
+
+// $ipad-landscape-bp: 30rem !default;
+$ipad-landscape-bp: 68rem !default;
+
+$table-expanded-bp: 31rem !default;
+
+// SECTION: Defaults
+$picker-styles: menu;
+$label-styles: icon-only, title-only, title-and-icon;
+$list-styles: inset, inset-grouped, sidebar;
+$form-styles: inset, inset-grouped, sidebar;
+$table-styles: inset;
+
+$label-fonts: (
+  footnote: (
+    size: 1rem,
+    line: 1rem,
+    weight: 400,
+  ),
+  caption2: (
+    size: 0.75rem,
+    line: calc(1 / 0.75),
+    weight: 400,
+  ),
+  caption: (
+    size: 0.875rem,
+    line: calc(1.25 / 0.875),
+    weight: 400,
+  ),
+  callout: (
+    size: 0.875rem,
+    line: 0.875rem,
+    weight: 400,
+  ),
+  body: (
+    size: 1rem,
+    line: calc(1.5 / 1),
+    weight: 400,
+  ),
+  subheadline: (
+    size: 1.125rem,
+    line: calc(1.75 / 1.125),
+    weight: 400,
+  ),
+  headline: (
+    size: 1.25rem,
+    line: calc(1.75 / 1.25),
+    weight: 500,
+  ),
+  title3: (
+    size: 1.5rem,
+    line: calc(2 / 1.5),
+    weight: 600,
+  ),
+  title2: (
+    size: 1.875rem,
+    line: calc(2.25 / 1.875),
+    weight: 600,
+  ),
+  title: (
+    size: 2.25rem,
+    line: calc(2.5 / 2.25),
+    weight: 600,
+  ),
+  large-title: (
+    size: 3rem,
+    line: 1,
+    weight: 700,
+  ),
+  extra-large-title: (
+    size: 3.75rem,
+    line: 1,
+    weight: 700,
+  ),
+);
+
+// button sizes
+$button-sizes: (
+  mini: (
+    default: (
+      padding: 0.2rem,
+      border-radius: 1rem,
+    ),
+    fine: (
+      padding: 0.2rem,
+      border-radius: 0.4rem,
+    ),
+  ),
+  regular: (
+    default: (
+      padding: 0.6rem,
+      border-radius: 1.2rem,
+    ),
+    fine: (
+      padding: 0.6rem,
+      border-radius: 0.8rem,
+    ),
+  ),
+  small: (
+    default: (
+      padding: 0.4rem,
+      border-radius: 1rem,
+    ),
+    fine: (
+      padding: 0.4rem,
+      border-radius: 0.6rem,
+    ),
+  ),
+  large: (
+    default: (
+      padding: 1.2rem,
+      border-radius: 2.4rem,
+    ),
+    fine: (
+      padding: 1.2rem,
+      border-radius: 1.4rem,
+    ),
+  ),
+);
+
+$disclosure-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E'; // ph-caret-right-bold
+$table-col-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E'; // ph-caret-up-bold
+$picker-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E'; // ph-check-bold
+
+// SECTION: computed(s)
+
+$ipad-portrait-bp-max: #{functions.subtract-tiny($ipad-portrait-bp)};
+$ipad-portrait-bp-min: $ipad-portrait-bp;
+$ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
+$ipad-landscape-bp-min: $ipad-landscape-bp;
+
+$ipad-sheet-view-height: math.div($ipad-sheet-view-inline-size, $ipad-sheet-view-aspect-ratio); //4/3
+
+$nav-split-view-2col-bp-max: #{functions.subtract-tiny($nav-split-view-2col-bp)};
+$nav-split-view-2col-bp-min: $nav-split-view-2col-bp;
+$nav-split-view-3col-bp-max: #{functions.subtract-tiny($nav-split-view-3col-bp)};
+$nav-split-view-3col-bp-min: $nav-split-view-3col-bp;
+
+@debug $ipad-portrait-bp-max;
+
+// SECTION: checks
+
+@if ($ipad-portrait-bp < $ipad-sheet-view-inline-size) {
+  @warn "$ipad-sheet-view-inline-size should not be larger than $ipad-portrait-bp! Breaks centering";
+}
+
+@if ($nav-split-view-3col-bp < $nav-split-view-2col-bp) {
+  @warn "$nav-split-view-2col-bp should not be larger than $nav-split-view-3col-bp!";
+}

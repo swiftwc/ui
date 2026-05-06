@@ -10,7 +10,9 @@
     "release": "changeset version"
   },
   "devDependencies": {
-    "@dotenvx/dotenvx": "^1.51.4",
+    "@dotenvx/dotenvx": "^1.57.1",
+    "barrelsby": "^2.8.1",
+    "prettier": "^3.8.1",
     "typescript": "^5.9.3"
   }
 }

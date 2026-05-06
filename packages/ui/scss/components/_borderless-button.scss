@@ -1,0 +1,19 @@
+@use '../vars';
+@use '../placeholders';
+
+@layer #{vars.$components-layer} {
+  [is='borderless-button'] {
+    @extend %button;
+
+    :where(&) {
+    }
+
+    :where(&[role='destructive']) {
+      --accentColor: var(--red);
+      --accentColor2: var(--red2);
+      --accentColor3: var(--red3);
+      --accentColor4: var(--red4);
+      --accentColor5: var(--red5);
+    }
+  }
+}

@@ -1,0 +1,128 @@
+@use '../vars';
+@use '../mixins';
+@use 'sass:string';
+
+@layer #{vars.$components-layer} {
+  [is='disclosure-group'] {
+    :where(&) {
+      overflow: clip;
+
+      --disclosure--host-details-content-block-size: 0;
+
+      --disclosure-style: ;
+
+      --disclosure--summary-grid-template-columns: ;
+      --disclosure--summary-grid-auto-flow: ;
+      --disclosure--summary-gap: ;
+
+      --disclosure--marker-display: ;
+      --disclosure--marker-transform: ;
+    }
+
+    :where(& > summary) {
+      gap: var(--disclosure--summary-gap,);
+
+      grid-auto-flow: var(--disclosure--summary-grid-auto-flow,);
+
+      grid-template-columns: var(--disclosure--summary-grid-template-columns,);
+
+      @include mixins.make-marker-pseudos(vars.$disclosure-affordance);
+
+      &::after {
+        display: var(--disclosure--marker-display,);
+
+        block-size: 1rem;
+        inline-size: 1rem;
+
+        background-color: var(--blue);
+
+        transform: var(--disclosure--marker-transform,);
+
+        order: var(--disclosure--marker-order,);
+      }
+    }
+
+    :where(& > summary) {
+      @container not (style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading)) {
+        --disclosure--marker-display: none;
+      }
+      @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
+        --disclosure--summary-grid-auto-flow: column;
+
+        --disclosure--summary-gap: 0.1rem;
+      }
+      @container style(--disclosure-style: marker-trailing) {
+        --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+      }
+      @container style(--disclosure-style: marker-leading) {
+        --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
+
+        --disclosure--marker-order: -1;
+      }
+    }
+
+    :where(&)::details-content {
+      display: grid;
+
+      background: transparent;
+
+      block-size: var(--disclosure--host-details-content-block-size);
+    }
+
+    :where(& > *:not(summary)) {
+      margin: 0;
+    }
+
+    &[open] {
+      :where(&) {
+        --disclosure--host-details-content-block-size: auto;
+
+        --disclosure--marker-transform: rotate(90deg);
+      }
+    }
+
+    @supports not (interpolate-size: allow-keywords) {
+      :where(&) {
+        grid-template-rows: var(--disclosure--host-grid-template-rows);
+
+        align-items: start;
+        align-content: start;
+
+        --disclosure--host-grid-template-rows: auto 0fr;
+
+        --disclosure--host-details-content-block-size: auto;
+      }
+
+      :where(&)::details-content {
+        // block-size: auto;
+
+        content-visibility: visible;
+
+        min-height: 0;
+      }
+
+      &[open] {
+        :where(&) {
+          --disclosure--host-grid-template-rows: auto 1fr;
+        }
+      }
+    }
+
+    @supports (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&) {
+        --disclosure-style: attr(disclosure-style type(<custom-ident>), inherit);
+      }
+    }
+    @supports not (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&[disclosure-style='marker-trailing']) {
+        --disclosure-style: marker-trailing;
+      }
+      :where(&[disclosure-style='marker-leading']) {
+        --disclosure-style: marker-leading;
+      }
+      :where(&[disclosure-style='marker-hidden']) {
+        --disclosure-style: ;
+      }
+    }
+  }
+}

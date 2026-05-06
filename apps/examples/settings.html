@@ -1,0 +1,44 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="preconnect" href="https://unpkg.com/" />
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="%VITE_STYLES_URL%" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>settings</title>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-split-view column-visibility="double-column">
+      <scroll-view>
+        <v-stack>ns1section0<button type="button" class="fw">→</button> </v-stack>
+      </scroll-view>
+
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <!-- <tool-bar-item>2</tool-bar-item> -->
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-split-view>
+
+    <script type="module" src="%VITE_SCRIPT_URL%"></script>
+    <script type="module">
+      import { Snapshot, polyfills, startViewTransition } from "%VITE_SCRIPT_URL%";
+
+      document.body.addEventListener("click", async (event) => {
+        alert("click");
+      });
+    </script>
+  </body>
+</html>

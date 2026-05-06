@@ -1,0 +1,53 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='sidebar-view'] {
+    :where(&) {
+      @include mixins.reset-dialog;
+
+      // dowh
+      width: 100%;
+      height: 100%;
+      position: relative;
+
+      @include mixins.make-backdrop-transitionable;
+
+      transform: var(--sidebar-view-scale,);
+
+      --list-style: sidebar;
+      --form-style: sidebar;
+
+      @include mixins.ifnot-2col-split-view-fits {
+        :where(navigation-split-view &) {
+          --list-style: unset;
+          --form-style: unset;
+        }
+      }
+    }
+
+    :where(& > *) {
+      @include mixins.span-all;
+    }
+
+    &[open] {
+      :where(&) {
+        @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+      }
+
+      // @starting-style {
+      //   :where(&) {
+      //     transform: translateY(var(--view-transition-dialog-offscreen-y));
+      //   }
+      // }
+    }
+  }
+}
+
+@layer #{vars.$final-layer} {
+  [is='sidebar-view'] {
+    :where(&[open]) {
+      margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
+    }
+  }
+}

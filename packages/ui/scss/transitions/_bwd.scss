@@ -1,0 +1,39 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  scroll-view {
+    &.bwd {
+      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+
+      --scroll-view-box-shadow: var(--screen-box-shadow);
+    }
+
+    &.bwdd {
+      // visibility: visible;
+
+      // Inert nested landmarks of destination so that destination can be interacted with
+      // Make sure old/outgoing elements can NOT be interacted with (new elements are stacked lower)
+      ~ body-view,
+      ~ navigation-stack,
+      ~ navigation-split-view {
+        pointer-events: none;
+      }
+
+      // IMPORTANT: This requires `!important` bc/ css does not enforce this over the general keep-things-stacked-offscreen rule.
+      --scroll-view-translate: translateX(var(--view-transition-principal-x));
+    }
+
+    &.bwdd.bwd {
+      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+    }
+  }
+
+  // NOTE: Cannot force root scroll-view to be interacted with! Tabbar gets below the stack.
+  // navigation-split-view > .bwdd {
+  //   z-index: 0;
+  // }
+  navigation-split-view > body-view:has(~ .bwdd) {
+    pointer-events: none;
+    // z-index: 1;
+  }
+}

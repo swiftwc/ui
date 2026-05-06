@@ -1,0 +1,310 @@
+@use '../vars';
+@use '../mixins';
+
+@property --adaptable-tab-bar-placement-index {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@mixin make-iphone-tabview($selector) {
+  #{$selector} {
+    :where(&) {
+      --adaptable-tab-bar-placement: bottom-bar;
+      --adaptable-tab-bar-placement-index: 0;
+    }
+  }
+
+  scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+    #{$selector} navigation-stack > &,
+    #{$selector} navigation-split-view > &,
+    #{$selector} body-view > & {
+      &,
+      & ~ tool-bar {
+        :where(&) {
+          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
+        }
+      }
+    }
+  }
+  #{$selector} navigation-split-view > [is='sidebar-view'] > scroll-view {
+    @include mixins.ifnot-2col-split-view-fits {
+      &,
+      & ~ tool-bar {
+        :where(&) {
+          --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
+        }
+      }
+    }
+  }
+
+  scroll-view:not(:has(~ tool-bar > [slot^='bottom-bar'])):not(:has(> [slot^='bottom-bar'])) {
+    :where(#{$selector} navigation-stack > &),
+    :where(#{$selector} navigation-split-view > &),
+    :where(#{$selector} body-view > &) {
+      --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-block-spacing)) + var(--iphone-tabbar-block-size));
+    }
+
+    :where(#{$selector} navigation-split-view > [is='sidebar-view'] > &) {
+      @include mixins.ifnot-2col-split-view-fits {
+        --safe-area-inset-bottom: calc(max(env(safe-area-inset-bottom), var(--sidebar-block-spacing)) + var(--iphone-tabbar-block-size));
+      }
+    }
+  }
+}
+
+@mixin make-ipad-tabview($selector) {
+  #{$selector} {
+    :where(&) {
+      --adaptable-tab-bar-placement: top-bar;
+      --adaptable-tab-bar-placement-index: 1;
+    }
+  }
+
+  scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+    #{$selector} navigation-stack > &,
+    #{$selector} navigation-split-view > &,
+    #{$selector} body-view > & {
+      &,
+      & ~ tool-bar {
+        :where(&) {
+          --safe-area-inset-top: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
+        }
+      }
+    }
+  }
+  :where(#{$selector} navigation-split-view > [is='sidebar-view']) {
+    padding-block-start: calc(max(env(safe-area-inset-top), var(--sidebar-block-spacing)) + var(--ipad-tabbar-block-size));
+  }
+}
+
+@layer #{vars.$tab-components-layer} {
+  tab-view {
+    // // more navstack is only for portrait mobile!
+    // & > navigation-stack > scroll-view:has(~ navigation-split-view) {
+    //   &,
+    //   & ~ tool-bar {
+    //     :where(&) {
+    //       display: none;
+    //     }
+    //   }
+    // }
+
+    :where(&) {
+      grid-template-columns: subgrid; // inherits columns from container
+      grid-template-rows: subgrid; // inherits rows if needed
+
+      // css-style-observer
+      transition: --adaptable-tab-bar-placement-index 1ms step-start;
+    }
+
+    :where(& > navigation-stack[hidden], & > navigation-split-view[hidden]) {
+      z-index: -1;
+    }
+
+    @media (prefers-reduced-motion: no-preference) {
+      @media (pointer: coarse) {
+        :where(& > navigation-stack, & > navigation-split-view) {
+          transform: scale(1);
+          transform-origin: bottom;
+          transition: transform 100ms ease-out allow-discrete;
+          @starting-style {
+            transform: scale(0.99);
+          }
+        }
+      }
+    }
+
+    :where(& > [is='sidebar-view']) {
+      @include mixins.make-floating-sidebar;
+
+      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1); // hide off screen
+    }
+  }
+
+  // body:has(tab-view input[type='checkbox']:checked) {
+  // grid-template: 'aside main' 1fr / 300px minmax(0, 1fr);
+  // }
+
+  // if iphone
+  @media (pointer: coarse) {
+    @include make-iphone-tabview("tab-view[tab-view-style='tab-bar-only']");
+  }
+
+  // if iphone landscape OR ipad landscape
+  @media (orientation: landscape) {
+    scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &,
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &,
+      tab-view:not([tab-view-style='tab-bar-only']) body-view > & {
+        &,
+        & ~ tool-bar {
+          :where(&) {
+            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-block-spacing));
+
+            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
+          }
+        }
+      }
+    }
+    tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > [is='sidebar-view'] > scroll-view {
+      @include mixins.ifnot-2col-split-view-fits {
+        &,
+        & ~ tool-bar {
+          :where(&) {
+            --safe-area-inset-top: max(env(safe-area-inset-top), var(--sidebar-block-spacing));
+
+            --safe-area-inset-bottom: max(env(safe-area-inset-bottom), var(--sidebar-block-spacing));
+          }
+        }
+      }
+    }
+  }
+
+  @include mixins.if-iphone-portrait {
+    @include make-iphone-tabview("tab-view:not([tab-view-style='tab-bar-only'])");
+  }
+
+  @include mixins.if-iphone-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      :where(&) {
+        --adaptable-tab-bar-placement: ornament;
+        --adaptable-tab-bar-placement-index: 3;
+      }
+    }
+
+    scroll-view {
+      tab-view:not([tab-view-style='tab-bar-only']) &:not(dialog scroll-view):not(scroll-view scroll-view) {
+        :where(&) {
+          grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
+
+          // force navbar visibility bc/ of sidebartoggle shown
+          &::part(scroll-view-navbar) {
+            visibility: visible;
+          }
+        }
+
+        // move ONLY navbar to the side
+        @include mixins.create-sidebar-measure;
+      }
+
+      // APPLY FOR NSV
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > [is='sidebar-view']:not([open]) > & {
+        @include mixins.ifnot-2col-split-view-fits {
+          @include mixins.create-sidebar-measure;
+        }
+        @include mixins.if-2col-split-view-fits {
+          @include mixins.create-sidebar-measure(true);
+        }
+      }
+    }
+
+    tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view {
+      // DISCARDS
+      @include mixins.if-2col-split-view-fits {
+        &:not(:has(> [is='sidebar-view'])) {
+          > body-view {
+            scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+              @include mixins.discard-sidebar-measures;
+            }
+          }
+        }
+        &:has(> [is='sidebar-view']) {
+          &:not([column-visibility='double-column']) {
+            &:not([preferred-compact-column='content']) {
+              > body-view {
+                scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+                  @include mixins.discard-sidebar-measures;
+                }
+              }
+            }
+            &[preferred-compact-column='content'] {
+              @include mixins.ifnot-3col-split-view-fits {
+                > body-view {
+                  > body-view {
+                    scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+                      @include mixins.discard-sidebar-measures;
+                    }
+                  }
+                }
+              }
+            }
+            @include mixins.if-3col-split-view-fits {
+              > body-view {
+                scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+                  @include mixins.discard-sidebar-measures;
+                }
+              }
+            }
+          }
+          &[column-visibility='double-column'] {
+            > body-view {
+              scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+                @include mixins.discard-sidebar-measures;
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+
+  @include mixins.if-ipad-landscape {
+    tab-view:not([tab-view-style='tab-bar-only']) {
+      :where(&) {
+        --adaptable-tab-bar-placement: sidebar;
+        --adaptable-tab-bar-placement-index: 4;
+      }
+    }
+
+    // custom override for nested nav
+    tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view {
+      &:not(:has(> [is='sidebar-view'])) {
+        --nav-split-view--content-inline-size: calc(var(--nav-split-view-content-inline-size) + var(--sidebar-inline-size, 0px));
+
+        > body-view {
+          --sidebar-inline-size: 0px;
+          --sidebar-inline-spacing: 0px;
+        }
+      }
+    }
+
+    scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-stack > &,
+      tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view > &,
+      tab-view:not([tab-view-style='tab-bar-only']) body-view > & {
+        &,
+        & ~ tool-bar {
+          :where(&) {
+            --safe-area-inset-left: calc(max(env(safe-area-inset-left), var(--sidebar-inline-spacing)) + var(--sidebar-inline-size));
+          }
+        }
+      }
+    }
+
+    // custom override for nested nav
+    // tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view:not(:has(> [is='sidebar-view'])) {
+    //   --nav-split-view--content-inline-size: calc(var(--nav-split-view-content-inline-size) + var(--sidebar-inline-size, 0px));
+    // }
+    // scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
+    //   tab-view:not([tab-view-style='tab-bar-only']) navigation-split-view:not(:has(> [is='sidebar-view'])) > body-view & {
+    //     &,
+    //     & ~ tool-bar {
+    //       :where(&) {
+    //         --safe-area-inset-left: 0px;
+    //       }
+    //     }
+    //   }
+    // }
+  }
+}
+
+@layer #{vars.$final-layer} {
+  @media (pointer: fine) {
+    @include make-ipad-tabview("tab-view[tab-view-style='tab-bar-only']");
+  }
+
+  @include mixins.if-ipad-portrait {
+    @include make-ipad-tabview("tab-view:not([tab-view-style='tab-bar-only'])");
+  }
+}

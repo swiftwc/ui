@@ -1,0 +1,41 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  // principal-stack > tool-bar-item {
+  //   position: absolute;
+  //   transition: transform 2s ease-out;
+  // }
+
+  // ::slotted(tool-bar-item) {
+  //   background-color: red;
+  // }
+
+  // toolbar {
+  //   display: grid;
+  //   grid-auto-flow: column;
+  //   column-gap: 10px;
+  //   grid-column: 1 / -1; // span all columns
+  //   grid-row: 1 / -1; // span all rows
+  // }
+
+  tool-bar-item,
+  tool-bar-item-group {
+    &.fwn {
+      // BUG: Safari doesn't enforce scaling without this here again redundantly!
+      // @include mixins.vt-toolbar-cell-offscreen-keyframe;
+    }
+
+    &.fwnn {
+      @include mixins.vt-toolbar-cell-onscreen-keyframe;
+
+      @starting-style {
+        @include mixins.vt-toolbar-cell-offscreen-keyframe;
+      }
+    }
+
+    &.fwnn.fwn {
+      @include mixins.vt-toolbar-cell-offscreen-keyframe;
+    }
+  }
+}

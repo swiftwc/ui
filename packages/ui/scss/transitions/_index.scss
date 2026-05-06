@@ -1,0 +1,74 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    // ::view-transition-old(root),
+    // ::view-transition-new(root) {
+    //   animation-duration: 15s;
+    // }
+    // ::view-transition-old(root) {
+    //   animation: 15s ease-out both slide-to-left;
+    // }
+
+    // ::view-transition-new(root) {
+    //   animation: 15s ease-out both slide-from-right;
+    // }
+    scroll-view {
+      &.#{vars.$vt-fwd-class-name},
+      &.fwdd,
+      &.bwd,
+      &.bwdd {
+        transition:
+          transform var(--view-transition-duration) ease-out allow-discrete,
+          padding-inline-start var(--sidebar-transition-duration) ease-out allow-discrete,
+          margin-inline-start var(--sidebar-transition-duration) ease-out allow-discrete;
+
+        will-change: transform, padding-inline-start, margin-inline-start, scroll-position;
+      }
+    }
+
+    tool-bar-item,
+    tool-bar-item-group {
+      &.fwn,
+      &.fwnn,
+      &.bwn,
+      &.bwnn {
+        transition:
+          transform var(--view-transition-duration) ease-out allow-discrete,
+          opacity var(--view-transition-duration) ease-out allow-discrete,
+          filter var(--view-transition-duration) ease-out allow-discrete;
+
+        will-change: transform, opacity, filter;
+      }
+      // > * {
+      // transition: filter var(--view-transition-duration) ease-out allow-discrete;
+      // will-change: filter;
+      // }
+      // }
+    }
+
+    tool-bar-item,
+    tool-bar-item-group {
+      :where(&) {
+        transition:
+          transform var(--touchglass-transition-duration) ease-out allow-discrete,
+          filter var(--touchglass-transition-duration) ease-out allow-discrete;
+
+        will-change: transform, filter;
+      }
+    }
+
+    [is='sheet-view'] {
+      transition:
+        transform var(--view-transition-duration) ease-out allow-discrete,
+        overlay var(--view-transition-duration) ease-out allow-discrete,
+        display var(--view-transition-duration) ease-out allow-discrete;
+      // transition: background-color var(--view-transition-duration) ease-out
+      //   allow-discrete;
+      will-change: transform, overlay, display;
+
+      @include mixins.make-backdrop-transitionable;
+    }
+  }
+}

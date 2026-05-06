@@ -1,0 +1,15 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  [is='full-screen'] {
+    :where(&) {
+      @include mixins.reset-dialog;
+
+      // dowh
+      overflow: clip;
+      inline-size: 100lvw;
+      block-size: var(--100lvh, 100lvh);
+    }
+  }
+}

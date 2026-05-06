@@ -1,0 +1,88 @@
+@mixin reset-dialog {
+  // :where(&) {
+  // position: absolute;
+  inset-inline: 0px;
+  inset-block: 0px; //inset-inline-start: 0px;
+  // width: fit-content;
+  // height: fit-content;
+  margin: 0px; //margin-top: auto;
+  border: none; //border-top-style: solid;border-right-style: solid;border-bottom-style: solid;border-left-style: solid;
+  padding: 0px; //padding-top: 1em;
+  background-color: transparent; //background-color: canvas;
+  color: transparent; //color: canvastext;
+  // display: none;
+
+  // dialog:modal {
+  // position: fixed;
+  // overflow-x: auto;
+  // overflow-y: auto;
+  // inset-block-start: 0px;
+  max-width: 100lvw; //max-width: calc(100% - 2em - 6px);
+  max-height: 100lvh; //max-height: calc(100% - 2em - 6px);
+  // visibility: visible;
+  // }
+
+  outline: none;
+
+  &::backdrop {
+    background-color: transparent;
+  }
+  // }
+}
+
+@mixin make-backdrop-transitionable {
+  &::backdrop {
+    @media (prefers-reduced-motion: no-preference) {
+      transition:
+        display var(--view-transition-duration) ease-out allow-discrete,
+        overlay var(--view-transition-duration) ease-out allow-discrete,
+        background-color var(--view-transition-duration) ease-out allow-discrete;
+      will-change: background-color, overlay, display;
+    }
+  }
+}
+
+@mixin add-dialog-backdrop-transition-frames($new-background-color) {
+  &::backdrop {
+    background-color: $new-background-color;
+  }
+  // must be after above rule!
+  @starting-style {
+    &::backdrop {
+      background-color: transparent;
+    }
+  }
+}
+
+@mixin make-floating-sidebar {
+  :where(&) {
+    inline-size: var(--nav-split-view-sidebar-inline-size); // override
+
+    margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing)); // float
+
+    --safe-area-inset-left: 0px; // now a floating
+
+    overflow: visible; // override
+
+    padding-block: max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
+
+    border-radius: var(--sidebar-border-radius);
+  }
+
+  > scroll-view {
+    &,
+    & ~ tool-bar {
+      :where(&) {
+        --safe-area-inset-top: 0px;
+        --safe-area-inset-bottom: 0px;
+      }
+    }
+    :where(&) {
+      border-radius: var(--sidebar-border-radius);
+
+      backdrop-filter: var(--liquid-glass-backdrop-filter);
+
+      --scroll-view-box-shadow: var(--liquid-glass-box-shadow);
+    }
+  }
+}

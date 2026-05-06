@@ -1,0 +1,12 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    [is='glass-prominent-button'] {
+      :where(&) {
+        transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+      }
+    }
+  }
+}

@@ -1,0 +1,145 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  tool-bar-item {
+    :where(&) {
+      // moved from > * of old
+      pointer-events: all;
+
+      // min-height: var(--toolbar-cell-min-size);
+      // min-width: var(--toolbar-cell-min-size);
+      // moved from > * of old
+
+      // background-color: red;
+      // padding: 5px;
+      border-radius: var(--pill-border-radius);
+
+      // height: 40px;
+
+      // pointer-events: all;
+      // container-type: inline-size;
+
+      //
+      // --toolbaritemface: var(--toolbar-cell-bg);
+      // --toolbaritempadistart: calc(var(--toolbar-cell-inline-padding) * 2);
+      // --toolbaritempadbstart: calc(var(--toolbar-cell-block-padding) * 2);
+      --toolbaritemradiustl: var(--toolbar-cell-border-radius);
+      --toolbaritemradiustr: var(--toolbar-cell-border-radius);
+      --toolbaritemradiusbl: var(--toolbar-cell-border-radius);
+      --toolbaritemradiusbr: var(--toolbar-cell-border-radius);
+      --toolbaritemborder: 0;
+    }
+
+    :where(&:has([disabled])) {
+      pointer-events: none;
+    }
+  }
+
+  // NOTE: MUST be right-after the above `all: unset` in this SAME page!
+  tool-bar-item {
+    :where(& > button),
+    :where(& > picker-view > menu-view)::part(menu-summary),
+    :where(& > menu-view)::part(menu-summary) {
+      place-items: center;
+
+      place-content: center;
+    }
+  }
+
+  // tool-bar-item[slot],
+  // tool-bar-item-group {
+  // @media (prefers-reduced-motion: no-preference) {
+  //   transition:
+  //     display var(--menu-animation-duration) allow-discrete ease-out,
+  //     overlay var(--menu-animation-duration) allow-discrete ease-out,
+  //     transform var(--menu-animation-duration) allow-discrete ease-out;
+  //   will-change: transform, overlay, display;
+  // }
+  // }
+
+  // tool-bar-item {
+  // min-height: var(--toolbar-cell-min-size);
+  // min-width: var(--toolbar-cell-min-size);
+  // }
+}
+
+@layer #{vars.$colors-layer} {
+  // sidebar-toggle > button,
+  // tool-bar-item > button,
+  // tool-bar-item > input,
+  // [is='tab-item'],
+  // // list-view > button,
+  // menu-view > button,
+  // [is='disclosure-group'] > button,
+  // [is='disclosure-group'] > summary {
+  //   &:not(:disabled):not([readonly]) {
+  //     :where(&) {
+  //       @include mixins.add-focus-visible-state {
+  //         --toolbaritemface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+  //       }
+  //     }
+  //   }
+  // }
+
+  menu-view {
+    @include mixins.add-focus-visible-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    }
+    @include mixins.add-hover-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    }
+
+    // &:not(:disabled):not([readonly]) {
+    //   > button {
+    //     :where(&) {
+    //       --toolbaritempadistart: 0.3rem;
+    //       --toolbaritempadiend: 0.3rem;
+    //       --toolbaritempadbstart: 0.3rem;
+    //       --toolbaritempadbend: 0.3rem;
+    //     }
+    //   }
+    // }
+  }
+
+  // list-view > button,
+  // [is='form-view'] > button {
+  //   &:not(:disabled):not([readonly]) {
+  //     :where(&) {
+  //       --toolbaritempadistart: 0.3rem;
+  //       --toolbaritempadbstart: 0.3rem;
+  //     }
+  //   }
+  // }
+}
+
+@layer #{vars.$ui-layer} {
+  // sidebar-toggle > button,
+  // tool-bar-item > button,
+  // tool-bar-item > input,
+  // [is='tab-item'],
+  // // list-view > button,
+  // menu-view > button,
+  // [is='disclosure-group'] > summary,
+  // [is='disclosure-group'] > button {
+  //   // &:not(:disabled):not([readonly]) {
+  //   //   :where(&) {
+  //   @include mixins.add-active-state {
+  //     --toolbaritemface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+  //   }
+  //   //   }
+  //   // }
+  // }
+
+  menu-view {
+    @include mixins.add-active-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemactiveface,); //light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+    }
+  }
+
+  :where(tool-bar-item[slot]:has(menu-view[open])),
+  :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
+    --toolbar-cell-scale: var(--menu-host-offscreen-transform);
+    --toolbar-cell-filter: var(--menu-host-offscreen-filter);
+  }
+}

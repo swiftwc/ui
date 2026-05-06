@@ -1,0 +1,24 @@
+@use '../vars';
+
+@layer #{vars.$transitions-layer} {
+  scroll-view {
+    // Make sure old/outgoing elements can NOT be interacted with (new elements are already stacked higher)
+    &.#{vars.$vt-fwd-class-name} {
+      pointer-events: none;
+    }
+
+    &.fwdd {
+      --scroll-view-translate: translateX(var(--view-transition-principal-x));
+
+      --scroll-view-box-shadow: var(--screen-box-shadow);
+
+      @starting-style {
+        --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+      }
+    }
+
+    &.fwdd.#{vars.$vt-fwd-class-name} {
+      --scroll-view-translate: translateX(var(--view-transition-leading-x));
+    }
+  }
+}

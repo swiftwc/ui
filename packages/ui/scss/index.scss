@@ -1,1 +1,18 @@
-@debug "Hello world!";
+@use 'vars';
+@use 'mixins';
+
+@forward 'base';
+
+@forward 'placeholders';
+
+@forward 'components';
+
+@forward 'utils';
+
+@forward 'transitions';
+
+@forward 'colors';
+
+@forward 'final';
+
+@debug '@swiftwc/ui/scss ⚡️ loaded';

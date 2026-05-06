@@ -1,0 +1,14 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  v-keyboard {
+    :where(&) {
+      position: fixed;
+
+      inset: 0lvh auto auto 0lvw;
+
+      inline-size: 100lvw; //width
+      block-size: 100lvh; //height
+    }
+  }
+}

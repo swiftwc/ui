@@ -1,0 +1,241 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  // SECTION: all is grid
+
+  navigation-stack,
+  navigation-split-view,
+  navigation-large-title,
+  scroll-view,
+  body-view,
+  tab-view,
+  [is='sidebar-view'],
+  [is='tab-bar'],
+  [is='full-screen'],
+  [is='confirmation-dialog'],
+  [is='sheet-view'],
+  [is='form-view'],
+  [is='disclosure-group'],
+  [is='table-row'],
+  [is='table-column'],
+  [is='borderless-button'],
+  [is='bordered-button'],
+  [is='bordered-prominent-button'],
+  [is='plain-button'],
+  [is='glass-button'],
+  [is='glass-prominent-button'],
+  list-view,
+  table-view,
+  tool-bar-item,
+  tool-bar-item-group,
+  sidebar-toggle,
+  [is='form-view'],
+  v-stack,
+  h-stack,
+  tool-bar,
+  label-view,
+  menu-view,
+  section-view,
+  text-field,
+  detail-placeholder,
+  picker-view {
+    :where(&:not([hidden])) {
+      display: grid;
+    }
+  }
+
+  :where(table-view)::part(table-container),
+  :where(table-view)::part(table-column-stack),
+  :where(table-view)::part(table-header-stack),
+  :where(table-view)::part(table-header-leading-stack),
+  :where(table-view)::part(table-header-principal-stack),
+  :where(table-view)::part(table-header-trailing-stack),
+  :where(table-view)::part(table-footer-stack),
+  :where(table-view)::part(table-footer-leading-stack),
+  :where(table-view)::part(table-footer-principal-stack),
+  :where(table-view)::part(table-footer-trailing-stack),
+  :where(text-field)::part(text-field-stack),
+  :where(text-field)::part(text-field-label-stack),
+  :where(text-field)::part(text-field-input-stack),
+  :where(text-field)::part(text-field-form-input),
+  :where(date-picker)::part(date-picker-stack),
+  :where(date-picker)::part(date-picker-label-stack),
+  :where(date-picker)::part(date-picker-input-stack),
+  :where(date-picker)::part(date-picker-form-input),
+  :where(date-picker)::part(date-picker-separator),
+  :where(menu-view)::part(menu-dialog),
+  :where(menu-view)::part(menu-summary),
+  :where(menu-view)::part(menu-form),
+  :where(menu-view)::part(menu-scrollable),
+  :where(picker-view)::part(picker-stack),
+  :where(picker-view)::part(picker-label-stack),
+  :where(picker-view)::part(picker-input-stack),
+  :where(tool-bar)::part(top-bar),
+  :where(tool-bar)::part(bottom-bar),
+  :where(label-view)::part(label-image-stack),
+  :where(label-view)::part(label-title-stack),
+  :where(scroll-view)::part(scroll-view-navbar),
+  :where(scroll-view)::part(scroll-view-toolbar),
+  :where(scroll-view)::part(scroll-view-navbar-stack),
+  :where(scroll-view)::part(scroll-view-toolbar-stack),
+  :where(section-view)::part(section-header-stack),
+  :where(section-view)::part(section-main-stack),
+  :where(section-view)::part(section-footer-stack) {
+    display: grid;
+  }
+
+  // SECTION: takeovers
+
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  list-view > button,
+  [is='form-view'] > button,
+  section-view > button,
+  menu-view > button,
+  [is='disclosure-group'] > button,
+  [is='disclosure-group'] > summary {
+    :where(&:not([hidden])) {
+      display: grid;
+    }
+  }
+
+  // SECTION: componentize
+
+  :where(
+    sidebar-toggle > button,
+    tool-bar-item > button,
+    tool-bar-item > input,
+    [is='tab-bar'] [is='tab-item'],
+    tool-bar-item [is='disclosure-group'] > button,
+    tool-bar-item [is='disclosure-group'] > summary
+  ),
+  :where(menu-view)::part(menu-summary) {
+    // display: grid;
+    // place-items: center;
+    // place-content: center;
+    // container-type: inline-size;
+    // > * {
+    //   font-size: 100cqw;
+    // }
+
+    // all: unset;
+    //.....
+
+    // text-align: unset;
+
+    // appearance: none;
+    // -webkit-appearance: none;
+
+    //.....
+    // place-items: center;
+    // place-content: center;
+
+    // box-shadow: none;
+    // outline: 0;
+    @include mixins.componentize(toolbaritem);
+    // appearance: none;
+    // -webkit-appearance: none;
+    // border: var(--toolbaritemborder,);
+    // background: var(--toolbaritemface,);
+    // color: var(--toolbaritemtext,);
+    // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
+    // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
+    // border-radius: var(--toolbaritemradius,);
+    // min-inline-size: 25px; // NOTE: For inputs overflowing-x
+  }
+
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     :where(&) {
+  //       border: var(--itemborder,);
+  //       background: var(--itemface,);
+  //       color: var(--itemtext,);
+  //       padding-inline: var(--itempadistart,) var(--itempadiend,);
+  //       padding-block: var(--itempadbstart,) var(--itempadbend,);
+  //       border-radius: var(--itemradius,);
+  //     }
+  //   }
+  // }
+}
+
+// SECTION: componentize
+@layer #{vars.$colors-layer} {
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is='tab-bar'] [is='tab-item'],
+  menu-view > button,
+  tool-bar-item [is='disclosure-group'] > button,
+  tool-bar-item [is='disclosure-group'] > summary {
+    @include mixins.add-focus-visible-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+    @include mixins.add-hover-state {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+  }
+  menu-view {
+    @include mixins.add-focus-visible-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+    @include mixins.add-hover-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemhighlightface,);
+      --toolbaritemtext: var(--toolbaritemhighlighttext,);
+    }
+  }
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     @include mixins.add-focus-visible-state {
+  //       --itemface: var(--itemhighlightface,);
+  //       --itemtext: var(--itemhighlighttext,);
+  //     }
+  //   }
+  // }
+}
+
+// SECTION: componentize
+@layer #{vars.$ui-layer} {
+  sidebar-toggle > button,
+  tool-bar-item > button,
+  tool-bar-item > input,
+  [is='tab-bar'] [is='tab-item'],
+  menu-view > button,
+  tool-bar-item [is='disclosure-group'] > button,
+  tool-bar-item [is='disclosure-group'] > summary {
+    @include mixins.add-active-state {
+      --toolbaritemface: var(--toolbaritemactiveface,);
+      --toolbaritemtext: var(--toolbaritemactivetext,);
+    }
+  }
+  menu-view {
+    @include mixins.add-active-state('::part(menu-summary)') {
+      --toolbaritemface: var(--toolbaritemactiveface,);
+      --toolbaritemtext: var(--toolbaritemactivetext,);
+    }
+  }
+  // itemize
+  // list-view,
+  // [is='form-view'] {
+  //   > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name),
+  //   [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, whatever-name) {
+  //     @include mixins.add-active-state {
+  //       --itemface: var(--itemactiveface,);
+  //       --itemtext: var(--itemactivetext,);
+  //     }
+  //   }
+  // }
+}

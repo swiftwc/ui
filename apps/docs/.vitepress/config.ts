@@ -92,6 +92,8 @@ export default defineConfig({
 
   cleanUrls: true,
 
+  base: "/",
+
   locales: {
     root: {
       label: "English",

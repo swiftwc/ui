@@ -1,0 +1,494 @@
+<!DOCTYPE html>
+<html lang="en-US" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title>Runtime API Examples | SwiftWC</title>
+    <meta name="description" content="Elegant SwiftUI-inspired web components for standalone web apps and web extensions.">
+    <meta name="generator" content="VitePress v2.0.0-alpha.17">
+    <link rel="preload stylesheet" href="/assets/style.zMIAkXH4.css" as="style">
+    <link rel="preload stylesheet" href="/vp-icons.css" as="style">
+    
+    <script type="module" src="/assets/app.C6SyY40N.js"></script>
+    <link rel="preload" href="/assets/inter-roman-latin.Cy4MYw_J.woff2" as="font" type="font/woff2" crossorigin="">
+    <link rel="modulepreload" href="/assets/chunks/theme.DRn3_mbE.js">
+    <link rel="modulepreload" href="/assets/chunks/framework.OQqo_Ysp.js">
+    <link rel="modulepreload" href="/assets/api-examples.md.DHqniywO.lean.js">
+    <link rel="icon" href="/favicon.svg">
+    <script id="check-dark-mode">(()=>{const e=localStorage.getItem("vitepress-theme-appearance")||"auto",a=window.matchMedia("(prefers-color-scheme: dark)").matches;(!e||e==="auto"?a:e==="dark")&&document.documentElement.classList.add("dark")})();</script>
+    <script id="check-mac-os">document.documentElement.classList.toggle("mac",/Mac|iPhone|iPod|iPad/i.test(navigator.platform));</script>
+  </head>
+  <body>
+    <div id="app"><div class="Layout" data-v-abfb7ba8><!--[--><!--]--><!--[--><span tabindex="-1" data-v-3b257a0a></span><a href="#VPContent" class="VPSkipLink visually-hidden" data-v-3b257a0a>Skip to content</a><!--]--><!----><header class="VPNav" data-v-abfb7ba8 data-v-a0b2321a><div class="VPNavBar has-sidebar top" data-v-a0b2321a data-v-df8b92a3><div class="wrapper" data-v-df8b92a3><div class="container" data-v-df8b92a3><div class="title" data-v-df8b92a3><div class="VPNavBarTitle has-sidebar" data-v-df8b92a3 data-v-381c7abb><a class="title" href="/" data-v-381c7abb><!--[--><!--]--><!--[--><!--[--><!--[--><img class="VPImage dark logo" src="/logo-dark.svg" alt data-v-35a7d0b8><!--]--><!--[--><img class="VPImage light logo" src="/logo-light.svg" alt data-v-35a7d0b8><!--]--><!--]--><!--]--><span data-v-381c7abb>SwiftWC</span><!--[--><!--]--></a></div></div><div class="content" data-v-df8b92a3><div class="content-body" data-v-df8b92a3><!--[--><!--]--><div class="VPNavBarSearch search" data-v-df8b92a3 data-v-9d963081><!--[--><button type="button" class="VPNavBarSearchButton" aria-label="Search" aria-keyshortcuts="/ control+k meta+k" data-v-9d963081 data-v-6007d037><span class="vpi-search" aria-hidden="true" data-v-6007d037></span><span class="text" data-v-6007d037>Search</span><span class="keys" aria-hidden="true" data-v-6007d037><kbd class="key-cmd" data-v-6007d037>⌘</kbd><kbd class="key-ctrl" data-v-6007d037>Ctrl</kbd><kbd data-v-6007d037>K</kbd></span></button><!----><!--]--></div><nav aria-labelledby="main-nav-aria-label" class="VPNavBarMenu menu" data-v-df8b92a3 data-v-860fda33><span id="main-nav-aria-label" class="visually-hidden" data-v-860fda33> Main Navigation </span><!--[--><!--[--><a class="VPLink link VPNavBarMenuLink" href="/" tabindex="0" data-v-860fda33 data-v-d9754c9a><!--[--><span data-v-d9754c9a>Home</span><!--]--></a><!--]--><!--[--><a class="VPLink link VPNavBarMenuLink" href="/installation/" tabindex="0" data-v-860fda33 data-v-d9754c9a><!--[--><span data-v-d9754c9a>Docs</span><!--]--></a><!--]--><!--[--><div class="VPFlyout VPNavBarMenuGroup" data-v-860fda33 data-v-0b52c8fe><button type="button" class="button" aria-haspopup="true" aria-expanded="false" data-v-0b52c8fe><span class="text" data-v-0b52c8fe><!----><span data-v-0b52c8fe>v1.0-alpha.1</span><span class="vpi-chevron-down text-icon" data-v-0b52c8fe></span></span></button><div class="menu" data-v-0b52c8fe><div class="VPMenu" data-v-0b52c8fe data-v-ca69ded9><div class="items" data-v-ca69ded9><!--[--><!--[--><div class="VPMenuLink" data-v-ca69ded9 data-v-665c6a9d><a class="VPLink link" href="/item-1" data-v-665c6a9d><!--[--><span data-v-665c6a9d>Changelog</span><!--]--></a></div><!--]--><!--]--></div><!--[--><!--]--></div></div></div><!--]--><!--]--></nav><!----><div class="VPNavBarAppearance appearance" data-v-df8b92a3 data-v-af096f4a><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title aria-checked="false" data-v-af096f4a data-v-e40a8bb6 data-v-4a1c76db><span class="check" data-v-4a1c76db><span class="icon" data-v-4a1c76db><!--[--><span class="vpi-sun sun" data-v-e40a8bb6></span><span class="vpi-moon moon" data-v-e40a8bb6></span><!--]--></span></span></button></div><div class="VPSocialLinks VPNavBarSocialLinks social-links" data-v-df8b92a3 data-v-164c457f data-v-c26cd89d><!--[--><a class="VPSocialLink no-icon" href="https://github.com/swiftwc/ui" aria-label="github" target="_blank" rel="me noopener" data-v-c26cd89d data-v-874c0b76><span class="vpi-social-github"></span></a><!--]--></div><div class="VPFlyout VPNavBarExtra extra" data-v-df8b92a3 data-v-20a8c82b data-v-0b52c8fe><button type="button" class="button" aria-haspopup="true" aria-expanded="false" aria-label="extra navigation" data-v-0b52c8fe><span class="vpi-more-horizontal icon" data-v-0b52c8fe></span></button><div class="menu" data-v-0b52c8fe><div class="VPMenu" data-v-0b52c8fe data-v-ca69ded9><!----><!--[--><!--[--><!----><div class="group" data-v-20a8c82b><div class="item appearance" data-v-20a8c82b><p class="label" data-v-20a8c82b>Appearance</p><div class="appearance-action" data-v-20a8c82b><button class="VPSwitch VPSwitchAppearance" type="button" role="switch" title aria-checked="false" data-v-20a8c82b data-v-e40a8bb6 data-v-4a1c76db><span class="check" data-v-4a1c76db><span class="icon" data-v-4a1c76db><!--[--><span class="vpi-sun sun" data-v-e40a8bb6></span><span class="vpi-moon moon" data-v-e40a8bb6></span><!--]--></span></span></button></div></div></div><div class="group" data-v-20a8c82b><div class="item social-links" data-v-20a8c82b><div class="VPSocialLinks social-links-list" data-v-20a8c82b data-v-c26cd89d><!--[--><a class="VPSocialLink no-icon" href="https://github.com/swiftwc/ui" aria-label="github" target="_blank" rel="me noopener" data-v-c26cd89d data-v-874c0b76><span class="vpi-social-github"></span></a><!--]--></div></div></div><!--]--><!--]--></div></div></div><!--[--><!--]--><button type="button" class="VPNavBarHamburger hamburger" aria-label="mobile navigation" aria-expanded="false" aria-controls="VPNavScreen" data-v-df8b92a3 data-v-5dea55bf><span class="container" data-v-5dea55bf><span class="top" data-v-5dea55bf></span><span class="middle" data-v-5dea55bf></span><span class="bottom" data-v-5dea55bf></span></span></button></div></div></div></div><div class="divider" data-v-df8b92a3><div class="divider-line" data-v-df8b92a3></div></div></div><!----></header><div class="VPLocalNav has-sidebar empty" data-v-abfb7ba8 data-v-a1555d26><div class="container" data-v-a1555d26><button class="menu" aria-expanded="false" aria-controls="VPSidebarNav" data-v-a1555d26><span class="vpi-align-left menu-icon" data-v-a1555d26></span><span class="menu-text" data-v-a1555d26>Menu</span></button><div class="VPLocalNavOutlineDropdown" style="--vp-vh:0px;" data-v-a1555d26 data-v-8ca43daf><button data-v-8ca43daf>Return to top</button><!----></div></div></div><aside class="VPSidebar" data-v-abfb7ba8 data-v-71d76522><div class="curtain" data-v-71d76522></div><nav class="nav" id="VPSidebarNav" aria-labelledby="sidebar-aria-label" tabindex="-1" data-v-71d76522><span class="visually-hidden" id="sidebar-aria-label" data-v-71d76522> Sidebar Navigation </span><!--[--><!--]--><!--[--><div class="no-transition group" data-v-b60d39e6><section class="VPSidebarItem level-0" data-v-b60d39e6 data-v-c467f688><div class="item" role="button" tabindex="0" data-v-c467f688><div class="indicator" data-v-c467f688></div><h2 class="text" data-v-c467f688>Sections</h2><!----></div><div class="items" data-v-c467f688><!--[--><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/intro" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Introduction</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Web Components</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Installation</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><div class="no-transition group" data-v-b60d39e6><section class="VPSidebarItem level-0" data-v-b60d39e6 data-v-c467f688><div class="item" role="button" tabindex="0" data-v-c467f688><div class="indicator" data-v-c467f688></div><h2 class="text" data-v-c467f688>Web Components</h2><!----></div><div class="items" data-v-c467f688><!--[--><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/body-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>BodyView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/bordered-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>BorderedButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/bordered-prominent-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>BorderedProminentButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/borderless-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>BorderlessButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/confirmation-dialog" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ConfirmationDialog</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/date-picker" data-v-c467f688><!--[--><p class="text" data-v-c467f688>DatePicker</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/disclosure-group" data-v-c467f688><!--[--><p class="text" data-v-c467f688>DisclosureGroup</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/form-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>FormView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/glass-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>GlassButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/glass-prominent-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>GlassProminentButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/label-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>LabelView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/list-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ListView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/menu-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>MenuView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/navigation-large-title" data-v-c467f688><!--[--><p class="text" data-v-c467f688>NavigationLargeTitle</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/navigation-split-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>NavigationSplitView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/navigation-stack" data-v-c467f688><!--[--><p class="text" data-v-c467f688>NavigationStack</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/navigation-title" data-v-c467f688><!--[--><p class="text" data-v-c467f688>NavigationTitle</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/picker-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>PickerView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/plain-button" data-v-c467f688><!--[--><p class="text" data-v-c467f688>PlainButton</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/screen-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ScreenView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/scroll-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ScrollView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/section-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>SectionView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/sheet-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>SheetView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/sidebar-toggle" data-v-c467f688><!--[--><p class="text" data-v-c467f688>SidebarToggle</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/sidebar-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>SidebarView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/sticky-container" data-v-c467f688><!--[--><p class="text" data-v-c467f688>StickyContainer</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tab-bar" data-v-c467f688><!--[--><p class="text" data-v-c467f688>TabBar</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tab-item" data-v-c467f688><!--[--><p class="text" data-v-c467f688>TabItem</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tab-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>TabView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/table-view" data-v-c467f688><!--[--><p class="text" data-v-c467f688>TableView</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/text-field" data-v-c467f688><!--[--><p class="text" data-v-c467f688>TextField</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tool-bar-item-group" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ToolBarItemGroup</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tool-bar-item" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ToolBarItem</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/tool-bar" data-v-c467f688><!--[--><p class="text" data-v-c467f688>ToolBar</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/v-keyboard" data-v-c467f688><!--[--><p class="text" data-v-c467f688>VKeyboard</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/web-components/v-stack" data-v-c467f688><!--[--><p class="text" data-v-c467f688>VStack</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><div class="no-transition group" data-v-b60d39e6><section class="VPSidebarItem level-0" data-v-b60d39e6 data-v-c467f688><div class="item" role="button" tabindex="0" data-v-c467f688><div class="indicator" data-v-c467f688></div><h2 class="text" data-v-c467f688>Get Started</h2><!----></div><div class="items" data-v-c467f688><!--[--><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" tabindex="0" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Installation</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/app-layout" data-v-c467f688><!--[--><p class="text" data-v-c467f688>App HTML Layout</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/dark-mode" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Dark Mode</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/javascript" data-v-c467f688><!--[--><p class="text" data-v-c467f688>JavaScript</p><!--]--></a><!----></div><!----></div><div class="VPSidebarItem level-1 is-link" data-v-c467f688 data-v-c467f688><div class="item" data-v-c467f688><div class="indicator" data-v-c467f688></div><a class="VPLink link link" href="/installation/editor-setup" data-v-c467f688><!--[--><p class="text" data-v-c467f688>Editor Setup</p><!--]--></a><!----></div><!----></div><!--]--></div></section></div><!--]--><!--[--><!--]--></nav></aside><div class="VPContent has-sidebar" id="VPContent" data-v-abfb7ba8 data-v-41b99266><div class="VPDoc has-sidebar has-aside" data-v-41b99266 data-v-e9c01962><!--[--><!--]--><div class="container" data-v-e9c01962><div class="aside" data-v-e9c01962><div class="aside-curtain" data-v-e9c01962></div><div class="aside-container" data-v-e9c01962><div class="aside-content" data-v-e9c01962><div class="VPDocAside" data-v-e9c01962 data-v-6d7b3c46><!--[--><!--]--><!--[--><!--]--><nav aria-labelledby="doc-outline-aria-label" class="VPDocAsideOutline" data-v-6d7b3c46 data-v-3dd0d1cf><div class="content" data-v-3dd0d1cf><div class="outline-marker" data-v-3dd0d1cf></div><div aria-level="2" class="outline-title" id="doc-outline-aria-label" role="heading" data-v-3dd0d1cf>On this page</div><ul class="VPDocOutlineItem root" data-v-3dd0d1cf data-v-d0276d81><!--[--><!--]--></ul></div></nav><!--[--><!--]--><div class="spacer" data-v-6d7b3c46></div><!--[--><!--]--><!----><!--[--><!--]--><!--[--><!--]--></div></div></div></div><div class="content" data-v-e9c01962><div class="content-container" data-v-e9c01962><!--[--><!--]--><main class="main" data-v-e9c01962><div style="position:relative;" class="vp-doc _api-examples external-link-icon-enabled" data-v-e9c01962><div><h1 id="runtime-api-examples" tabindex="-1">Runtime API Examples <a class="header-anchor" href="#runtime-api-examples" aria-label="Permalink to “Runtime API Examples”">​</a></h1><p>This page demonstrates usage of some of the runtime APIs provided by VitePress.</p><p>The main <code>useData()</code> API can be used to access site, theme, and page data for the current page. It works in both <code>.md</code> and <code>.vue</code> files:</p><div class="language-md"><button title="Copy Code" class="copy"></button><span class="lang">md</span><pre class="shiki shiki-themes github-light github-dark" style="--shiki-light:#24292e;--shiki-dark:#e1e4e8;--shiki-light-bg:#fff;--shiki-dark-bg:#24292e;" tabindex="0" dir="ltr"><code><span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;script setup&gt;</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">import { useData } from &#39;vitepress&#39;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">const { theme, page, frontmatter } = useData()</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;/script&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">## Results</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### Theme Data</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;pre&gt;{{ theme }}&lt;/pre&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### Page Data</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;pre&gt;{{ page }}&lt;/pre&gt;</span></span>
+<span class="line"></span>
+<span class="line"><span style="--shiki-light:#005CC5;--shiki-light-font-weight:bold;--shiki-dark:#79B8FF;--shiki-dark-font-weight:bold;">### Page Frontmatter</span></span>
+<span class="line"><span style="--shiki-light:#24292E;--shiki-dark:#E1E4E8;">&lt;pre&gt;{{ frontmatter }}&lt;/pre&gt;</span></span></code></pre></div><h2 id="results" tabindex="-1">Results <a class="header-anchor" href="#results" aria-label="Permalink to “Results”">​</a></h2><h3 id="theme-data" tabindex="-1">Theme Data <a class="header-anchor" href="#theme-data" aria-label="Permalink to “Theme Data”">​</a></h3><pre>{
+  &quot;externalLinkIcon&quot;: true,
+  &quot;i18nRouting&quot;: true,
+  &quot;logo&quot;: {
+    &quot;light&quot;: &quot;/logo-light.svg&quot;,
+    &quot;dark&quot;: &quot;/logo-dark.svg&quot;
+  },
+  &quot;nav&quot;: [
+    {
+      &quot;text&quot;: &quot;Home&quot;,
+      &quot;link&quot;: &quot;/&quot;
+    },
+    {
+      &quot;text&quot;: &quot;Docs&quot;,
+      &quot;link&quot;: &quot;/installation/&quot;
+    },
+    {
+      &quot;text&quot;: &quot;v1.0-alpha.1&quot;,
+      &quot;items&quot;: [
+        {
+          &quot;text&quot;: &quot;Changelog&quot;,
+          &quot;link&quot;: &quot;/item-1&quot;
+        }
+      ]
+    }
+  ],
+  &quot;sidebar&quot;: {
+    &quot;/installation/frameworks/&quot;: [
+      {
+        &quot;text&quot;: &quot;Sections&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;Introduction&quot;,
+            &quot;link&quot;: &quot;/intro&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Web Components&quot;,
+            &quot;link&quot;: &quot;/web-components/&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Installation&quot;,
+            &quot;link&quot;: &quot;/installation/&quot;
+          }
+        ]
+      },
+      {
+        &quot;text&quot;: &quot;Web Components&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;BodyView&quot;,
+            &quot;link&quot;: &quot;/web-components/body-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderedButton&quot;,
+            &quot;link&quot;: &quot;/web-components/bordered-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderedProminentButton&quot;,
+            &quot;link&quot;: &quot;/web-components/bordered-prominent-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderlessButton&quot;,
+            &quot;link&quot;: &quot;/web-components/borderless-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ConfirmationDialog&quot;,
+            &quot;link&quot;: &quot;/web-components/confirmation-dialog&quot;
+          },
+          {
+            &quot;text&quot;: &quot;DatePicker&quot;,
+            &quot;link&quot;: &quot;/web-components/date-picker&quot;
+          },
+          {
+            &quot;text&quot;: &quot;DisclosureGroup&quot;,
+            &quot;link&quot;: &quot;/web-components/disclosure-group&quot;
+          },
+          {
+            &quot;text&quot;: &quot;FormView&quot;,
+            &quot;link&quot;: &quot;/web-components/form-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;GlassButton&quot;,
+            &quot;link&quot;: &quot;/web-components/glass-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;GlassProminentButton&quot;,
+            &quot;link&quot;: &quot;/web-components/glass-prominent-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;LabelView&quot;,
+            &quot;link&quot;: &quot;/web-components/label-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ListView&quot;,
+            &quot;link&quot;: &quot;/web-components/list-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;MenuView&quot;,
+            &quot;link&quot;: &quot;/web-components/menu-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationLargeTitle&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-large-title&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationSplitView&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-split-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationStack&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-stack&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationTitle&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-title&quot;
+          },
+          {
+            &quot;text&quot;: &quot;PickerView&quot;,
+            &quot;link&quot;: &quot;/web-components/picker-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;PlainButton&quot;,
+            &quot;link&quot;: &quot;/web-components/plain-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ScreenView&quot;,
+            &quot;link&quot;: &quot;/web-components/screen-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ScrollView&quot;,
+            &quot;link&quot;: &quot;/web-components/scroll-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SectionView&quot;,
+            &quot;link&quot;: &quot;/web-components/section-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SheetView&quot;,
+            &quot;link&quot;: &quot;/web-components/sheet-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SidebarToggle&quot;,
+            &quot;link&quot;: &quot;/web-components/sidebar-toggle&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SidebarView&quot;,
+            &quot;link&quot;: &quot;/web-components/sidebar-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;StickyContainer&quot;,
+            &quot;link&quot;: &quot;/web-components/sticky-container&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabBar&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-bar&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabItem&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-item&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabView&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TableView&quot;,
+            &quot;link&quot;: &quot;/web-components/table-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TextField&quot;,
+            &quot;link&quot;: &quot;/web-components/text-field&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBarItemGroup&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar-item-group&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBarItem&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar-item&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBar&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar&quot;
+          },
+          {
+            &quot;text&quot;: &quot;VKeyboard&quot;,
+            &quot;link&quot;: &quot;/web-components/v-keyboard&quot;
+          },
+          {
+            &quot;text&quot;: &quot;VStack&quot;,
+            &quot;link&quot;: &quot;/web-components/v-stack&quot;
+          }
+        ]
+      },
+      {
+        &quot;text&quot;: &quot;Get Started&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;Installation&quot;,
+            &quot;link&quot;: &quot;/installation/&quot;,
+            &quot;items&quot;: [
+              {
+                &quot;text&quot;: &quot;for Vite&quot;,
+                &quot;link&quot;: &quot;/installation/frameworks/vite&quot;
+              },
+              {
+                &quot;text&quot;: &quot;for EmberJS&quot;,
+                &quot;link&quot;: &quot;/installation/frameworks/emberjs&quot;
+              },
+              {
+                &quot;text&quot;: &quot;Manual&quot;,
+                &quot;link&quot;: &quot;/installation/frameworks/manual&quot;
+              }
+            ]
+          },
+          {
+            &quot;text&quot;: &quot;App HTML Layout&quot;,
+            &quot;link&quot;: &quot;/installation/app-layout&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Dark Mode&quot;,
+            &quot;link&quot;: &quot;/installation/dark-mode&quot;
+          },
+          {
+            &quot;text&quot;: &quot;JavaScript&quot;,
+            &quot;link&quot;: &quot;/installation/javascript&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Editor Setup&quot;,
+            &quot;link&quot;: &quot;/installation/editor-setup&quot;
+          }
+        ]
+      }
+    ],
+    &quot;/&quot;: [
+      {
+        &quot;text&quot;: &quot;Sections&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;Introduction&quot;,
+            &quot;link&quot;: &quot;/intro&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Web Components&quot;,
+            &quot;link&quot;: &quot;/web-components/&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Installation&quot;,
+            &quot;link&quot;: &quot;/installation/&quot;
+          }
+        ]
+      },
+      {
+        &quot;text&quot;: &quot;Web Components&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;BodyView&quot;,
+            &quot;link&quot;: &quot;/web-components/body-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderedButton&quot;,
+            &quot;link&quot;: &quot;/web-components/bordered-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderedProminentButton&quot;,
+            &quot;link&quot;: &quot;/web-components/bordered-prominent-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;BorderlessButton&quot;,
+            &quot;link&quot;: &quot;/web-components/borderless-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ConfirmationDialog&quot;,
+            &quot;link&quot;: &quot;/web-components/confirmation-dialog&quot;
+          },
+          {
+            &quot;text&quot;: &quot;DatePicker&quot;,
+            &quot;link&quot;: &quot;/web-components/date-picker&quot;
+          },
+          {
+            &quot;text&quot;: &quot;DisclosureGroup&quot;,
+            &quot;link&quot;: &quot;/web-components/disclosure-group&quot;
+          },
+          {
+            &quot;text&quot;: &quot;FormView&quot;,
+            &quot;link&quot;: &quot;/web-components/form-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;GlassButton&quot;,
+            &quot;link&quot;: &quot;/web-components/glass-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;GlassProminentButton&quot;,
+            &quot;link&quot;: &quot;/web-components/glass-prominent-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;LabelView&quot;,
+            &quot;link&quot;: &quot;/web-components/label-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ListView&quot;,
+            &quot;link&quot;: &quot;/web-components/list-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;MenuView&quot;,
+            &quot;link&quot;: &quot;/web-components/menu-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationLargeTitle&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-large-title&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationSplitView&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-split-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationStack&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-stack&quot;
+          },
+          {
+            &quot;text&quot;: &quot;NavigationTitle&quot;,
+            &quot;link&quot;: &quot;/web-components/navigation-title&quot;
+          },
+          {
+            &quot;text&quot;: &quot;PickerView&quot;,
+            &quot;link&quot;: &quot;/web-components/picker-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;PlainButton&quot;,
+            &quot;link&quot;: &quot;/web-components/plain-button&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ScreenView&quot;,
+            &quot;link&quot;: &quot;/web-components/screen-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ScrollView&quot;,
+            &quot;link&quot;: &quot;/web-components/scroll-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SectionView&quot;,
+            &quot;link&quot;: &quot;/web-components/section-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SheetView&quot;,
+            &quot;link&quot;: &quot;/web-components/sheet-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SidebarToggle&quot;,
+            &quot;link&quot;: &quot;/web-components/sidebar-toggle&quot;
+          },
+          {
+            &quot;text&quot;: &quot;SidebarView&quot;,
+            &quot;link&quot;: &quot;/web-components/sidebar-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;StickyContainer&quot;,
+            &quot;link&quot;: &quot;/web-components/sticky-container&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabBar&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-bar&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabItem&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-item&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TabView&quot;,
+            &quot;link&quot;: &quot;/web-components/tab-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TableView&quot;,
+            &quot;link&quot;: &quot;/web-components/table-view&quot;
+          },
+          {
+            &quot;text&quot;: &quot;TextField&quot;,
+            &quot;link&quot;: &quot;/web-components/text-field&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBarItemGroup&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar-item-group&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBarItem&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar-item&quot;
+          },
+          {
+            &quot;text&quot;: &quot;ToolBar&quot;,
+            &quot;link&quot;: &quot;/web-components/tool-bar&quot;
+          },
+          {
+            &quot;text&quot;: &quot;VKeyboard&quot;,
+            &quot;link&quot;: &quot;/web-components/v-keyboard&quot;
+          },
+          {
+            &quot;text&quot;: &quot;VStack&quot;,
+            &quot;link&quot;: &quot;/web-components/v-stack&quot;
+          }
+        ]
+      },
+      {
+        &quot;text&quot;: &quot;Get Started&quot;,
+        &quot;items&quot;: [
+          {
+            &quot;text&quot;: &quot;Installation&quot;,
+            &quot;link&quot;: &quot;/installation/&quot;,
+            &quot;items&quot;: []
+          },
+          {
+            &quot;text&quot;: &quot;App HTML Layout&quot;,
+            &quot;link&quot;: &quot;/installation/app-layout&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Dark Mode&quot;,
+            &quot;link&quot;: &quot;/installation/dark-mode&quot;
+          },
+          {
+            &quot;text&quot;: &quot;JavaScript&quot;,
+            &quot;link&quot;: &quot;/installation/javascript&quot;
+          },
+          {
+            &quot;text&quot;: &quot;Editor Setup&quot;,
+            &quot;link&quot;: &quot;/installation/editor-setup&quot;
+          }
+        ]
+      }
+    ]
+  },
+  &quot;socialLinks&quot;: [
+    {
+      &quot;icon&quot;: &quot;github&quot;,
+      &quot;link&quot;: &quot;https://github.com/swiftwc/ui&quot;
+    }
+  ],
+  &quot;footer&quot;: {
+    &quot;message&quot;: &quot;&lt;small&gt;This is an independent organization. It is not affiliated with, endorsed by, or sponsored by Apple Inc. or the Swift project.&lt;/small&gt;&quot;,
+    &quot;copyright&quot;: &quot;Released under the &lt;a href=\&quot;https://github.com/swiftwc/ui/blob/main/LICENSE.md\&quot; target=\&quot;_blank\&quot;&gt;MIT License&lt;/a&gt;.&quot;
+  },
+  &quot;search&quot;: {
+    &quot;provider&quot;: &quot;local&quot;
+  }
+}</pre><h3 id="page-data" tabindex="-1">Page Data <a class="header-anchor" href="#page-data" aria-label="Permalink to “Page Data”">​</a></h3><pre>{
+  &quot;title&quot;: &quot;Runtime API Examples&quot;,
+  &quot;description&quot;: &quot;&quot;,
+  &quot;frontmatter&quot;: {
+    &quot;outline&quot;: &quot;deep&quot;
+  },
+  &quot;headers&quot;: [],
+  &quot;relativePath&quot;: &quot;api-examples.md&quot;,
+  &quot;filePath&quot;: &quot;api-examples.md&quot;
+}</pre><h3 id="page-frontmatter" tabindex="-1">Page Frontmatter <a class="header-anchor" href="#page-frontmatter" aria-label="Permalink to “Page Frontmatter”">​</a></h3><pre>{
+  &quot;outline&quot;: &quot;deep&quot;
+}</pre><h2 id="more" tabindex="-1">More <a class="header-anchor" href="#more" aria-label="Permalink to “More”">​</a></h2><p>Check out the documentation for the <a href="https://vitepress.dev/reference/runtime-api#usedata" target="_blank" rel="noreferrer">full list of runtime APIs</a>.</p></div></div></main><footer class="VPDocFooter" data-v-e9c01962 data-v-4f9813fa><!--[--><!--]--><!----><nav class="prev-next" aria-labelledby="doc-footer-aria-label" data-v-4f9813fa><span class="visually-hidden" id="doc-footer-aria-label" data-v-4f9813fa>Pager</span><div class="pager" data-v-4f9813fa><!----></div><div class="pager" data-v-4f9813fa><a class="VPLink link pager-link next" href="/intro" data-v-4f9813fa><!--[--><span class="desc" data-v-4f9813fa>Next page</span><span class="title" data-v-4f9813fa>Introduction</span><!--]--></a></div></nav></footer><!--[--><!--]--></div></div></div><!--[--><!--]--></div></div><footer class="VPFooter has-sidebar" data-v-abfb7ba8 data-v-5e8932eb><div class="container" data-v-5e8932eb><p class="message" data-v-5e8932eb><small>This is an independent organization. It is not affiliated with, endorsed by, or sponsored by Apple Inc. or the Swift project.</small></p><p class="copyright" data-v-5e8932eb>Released under the <a href="https://github.com/swiftwc/ui/blob/main/LICENSE.md" target="_blank">MIT License</a>.</p></div></footer><!--[--><!--]--></div></div>
+    <script>window.__VP_HASH_MAP__=JSON.parse("{\"api-examples.md\":\"DHqniywO\",\"index.md\":\"DuGXsvpw\",\"installation_app-layout.md\":\"By7V3quW\",\"installation_dark-mode.md\":\"CYmU6XCX\",\"installation_editor-setup.md\":\"BG6StMTl\",\"installation_frameworks_emberjs.md\":\"XpCnBcnq\",\"installation_frameworks_manual.md\":\"AboMvsMY\",\"installation_frameworks_vite.md\":\"BoCv_md0\",\"installation_hello-world-pwa.md\":\"CJsIxBet\",\"installation_index.md\":\"Bxzf9ugS\",\"installation_javascript.md\":\"x17XQB8t\",\"installation_pwa.md\":\"BaKouiSJ\",\"intro.md\":\"UoCJnaAB\",\"markdown-examples.md\":\"bsuC1230\",\"partials_index.md\":\"kki_CUjx\",\"partials_navigation-split-view.md\":\"DRyR6t0O\",\"partials_v-stack.md\":\"DqKeNFn3\",\"web-components_body-view.md\":\"-6h7OUc4\",\"web-components_bordered-button.md\":\"DUhG5d_8\",\"web-components_bordered-prominent-button.md\":\"G2ck-g22\",\"web-components_borderless-button.md\":\"DrjNmKpX\",\"web-components_confirmation-dialog.md\":\"Bk32TD-t\",\"web-components_date-picker.md\":\"BoRa1fqV\",\"web-components_disclosure-group.md\":\"DzUHmTO8\",\"web-components_form-view.md\":\"BGo32bOk\",\"web-components_glass-button.md\":\"C0Z1QWa8\",\"web-components_glass-prominent-button.md\":\"DGMUXO6l\",\"web-components_index.md\":\"DegSbJNw\",\"web-components_label-view.md\":\"BWJpD5h_\",\"web-components_list-view.md\":\"BgVXkyOl\",\"web-components_menu-view.md\":\"D7jFjKnZ\",\"web-components_navigation-large-title.md\":\"DcAKWtug\",\"web-components_navigation-split-view.md\":\"BUerTxyc\",\"web-components_navigation-stack.md\":\"DIGsFFDX\",\"web-components_navigation-title.md\":\"CtqD7qUe\",\"web-components_picker-view.md\":\"DojmZbzu\",\"web-components_plain-button.md\":\"C-Y-lhb1\",\"web-components_screen-view.md\":\"CLCtK1i5\",\"web-components_scroll-view.md\":\"kuu_SoJl\",\"web-components_section-view.md\":\"BxS4istu\",\"web-components_sheet-view.md\":\"eUDUK84O\",\"web-components_sidebar-toggle.md\":\"CcXWAr-i\",\"web-components_sidebar-view.md\":\"CZsXbx6s\",\"web-components_sticky-container.md\":\"DwIiQc-k\",\"web-components_tab-bar.md\":\"CrpmdUYv\",\"web-components_tab-item.md\":\"KyHQxZW0\",\"web-components_tab-view.md\":\"CBQqqbPX\",\"web-components_table-view.md\":\"cbrhIZJf\",\"web-components_text-field.md\":\"CPtcPnLS\",\"web-components_tool-bar-item-group.md\":\"88DoPs0_\",\"web-components_tool-bar-item.md\":\"BtUi8K1S\",\"web-components_tool-bar.md\":\"CoZr4pj8\",\"web-components_v-keyboard.md\":\"tB4NAsW2\",\"web-components_v-stack.md\":\"BcXHPPcC\"}");window.__VP_SITE_DATA__=JSON.parse("{\"lang\":\"en-US\",\"dir\":\"ltr\",\"title\":\"SwiftWC\",\"description\":\"Elegant SwiftUI-inspired web components for standalone web apps and web extensions.\",\"base\":\"/\",\"head\":[],\"router\":{\"prefetchLinks\":true},\"appearance\":true,\"themeConfig\":{\"externalLinkIcon\":true,\"i18nRouting\":true,\"logo\":{\"light\":\"/logo-light.svg\",\"dark\":\"/logo-dark.svg\"},\"nav\":[{\"text\":\"Home\",\"link\":\"/\"},{\"text\":\"Docs\",\"link\":\"/installation/\"},{\"text\":\"v1.0-alpha.1\",\"items\":[{\"text\":\"Changelog\",\"link\":\"/item-1\"}]}],\"sidebar\":{\"/installation/frameworks/\":[{\"text\":\"Sections\",\"items\":[{\"text\":\"Introduction\",\"link\":\"/intro\"},{\"text\":\"Web Components\",\"link\":\"/web-components/\"},{\"text\":\"Installation\",\"link\":\"/installation/\"}]},{\"text\":\"Web Components\",\"items\":[{\"text\":\"BodyView\",\"link\":\"/web-components/body-view\"},{\"text\":\"BorderedButton\",\"link\":\"/web-components/bordered-button\"},{\"text\":\"BorderedProminentButton\",\"link\":\"/web-components/bordered-prominent-button\"},{\"text\":\"BorderlessButton\",\"link\":\"/web-components/borderless-button\"},{\"text\":\"ConfirmationDialog\",\"link\":\"/web-components/confirmation-dialog\"},{\"text\":\"DatePicker\",\"link\":\"/web-components/date-picker\"},{\"text\":\"DisclosureGroup\",\"link\":\"/web-components/disclosure-group\"},{\"text\":\"FormView\",\"link\":\"/web-components/form-view\"},{\"text\":\"GlassButton\",\"link\":\"/web-components/glass-button\"},{\"text\":\"GlassProminentButton\",\"link\":\"/web-components/glass-prominent-button\"},{\"text\":\"LabelView\",\"link\":\"/web-components/label-view\"},{\"text\":\"ListView\",\"link\":\"/web-components/list-view\"},{\"text\":\"MenuView\",\"link\":\"/web-components/menu-view\"},{\"text\":\"NavigationLargeTitle\",\"link\":\"/web-components/navigation-large-title\"},{\"text\":\"NavigationSplitView\",\"link\":\"/web-components/navigation-split-view\"},{\"text\":\"NavigationStack\",\"link\":\"/web-components/navigation-stack\"},{\"text\":\"NavigationTitle\",\"link\":\"/web-components/navigation-title\"},{\"text\":\"PickerView\",\"link\":\"/web-components/picker-view\"},{\"text\":\"PlainButton\",\"link\":\"/web-components/plain-button\"},{\"text\":\"ScreenView\",\"link\":\"/web-components/screen-view\"},{\"text\":\"ScrollView\",\"link\":\"/web-components/scroll-view\"},{\"text\":\"SectionView\",\"link\":\"/web-components/section-view\"},{\"text\":\"SheetView\",\"link\":\"/web-components/sheet-view\"},{\"text\":\"SidebarToggle\",\"link\":\"/web-components/sidebar-toggle\"},{\"text\":\"SidebarView\",\"link\":\"/web-components/sidebar-view\"},{\"text\":\"StickyContainer\",\"link\":\"/web-components/sticky-container\"},{\"text\":\"TabBar\",\"link\":\"/web-components/tab-bar\"},{\"text\":\"TabItem\",\"link\":\"/web-components/tab-item\"},{\"text\":\"TabView\",\"link\":\"/web-components/tab-view\"},{\"text\":\"TableView\",\"link\":\"/web-components/table-view\"},{\"text\":\"TextField\",\"link\":\"/web-components/text-field\"},{\"text\":\"ToolBarItemGroup\",\"link\":\"/web-components/tool-bar-item-group\"},{\"text\":\"ToolBarItem\",\"link\":\"/web-components/tool-bar-item\"},{\"text\":\"ToolBar\",\"link\":\"/web-components/tool-bar\"},{\"text\":\"VKeyboard\",\"link\":\"/web-components/v-keyboard\"},{\"text\":\"VStack\",\"link\":\"/web-components/v-stack\"}]},{\"text\":\"Get Started\",\"items\":[{\"text\":\"Installation\",\"link\":\"/installation/\",\"items\":[{\"text\":\"for Vite\",\"link\":\"/installation/frameworks/vite\"},{\"text\":\"for EmberJS\",\"link\":\"/installation/frameworks/emberjs\"},{\"text\":\"Manual\",\"link\":\"/installation/frameworks/manual\"}]},{\"text\":\"App HTML Layout\",\"link\":\"/installation/app-layout\"},{\"text\":\"Dark Mode\",\"link\":\"/installation/dark-mode\"},{\"text\":\"JavaScript\",\"link\":\"/installation/javascript\"},{\"text\":\"Editor Setup\",\"link\":\"/installation/editor-setup\"}]}],\"/\":[{\"text\":\"Sections\",\"items\":[{\"text\":\"Introduction\",\"link\":\"/intro\"},{\"text\":\"Web Components\",\"link\":\"/web-components/\"},{\"text\":\"Installation\",\"link\":\"/installation/\"}]},{\"text\":\"Web Components\",\"items\":[{\"text\":\"BodyView\",\"link\":\"/web-components/body-view\"},{\"text\":\"BorderedButton\",\"link\":\"/web-components/bordered-button\"},{\"text\":\"BorderedProminentButton\",\"link\":\"/web-components/bordered-prominent-button\"},{\"text\":\"BorderlessButton\",\"link\":\"/web-components/borderless-button\"},{\"text\":\"ConfirmationDialog\",\"link\":\"/web-components/confirmation-dialog\"},{\"text\":\"DatePicker\",\"link\":\"/web-components/date-picker\"},{\"text\":\"DisclosureGroup\",\"link\":\"/web-components/disclosure-group\"},{\"text\":\"FormView\",\"link\":\"/web-components/form-view\"},{\"text\":\"GlassButton\",\"link\":\"/web-components/glass-button\"},{\"text\":\"GlassProminentButton\",\"link\":\"/web-components/glass-prominent-button\"},{\"text\":\"LabelView\",\"link\":\"/web-components/label-view\"},{\"text\":\"ListView\",\"link\":\"/web-components/list-view\"},{\"text\":\"MenuView\",\"link\":\"/web-components/menu-view\"},{\"text\":\"NavigationLargeTitle\",\"link\":\"/web-components/navigation-large-title\"},{\"text\":\"NavigationSplitView\",\"link\":\"/web-components/navigation-split-view\"},{\"text\":\"NavigationStack\",\"link\":\"/web-components/navigation-stack\"},{\"text\":\"NavigationTitle\",\"link\":\"/web-components/navigation-title\"},{\"text\":\"PickerView\",\"link\":\"/web-components/picker-view\"},{\"text\":\"PlainButton\",\"link\":\"/web-components/plain-button\"},{\"text\":\"ScreenView\",\"link\":\"/web-components/screen-view\"},{\"text\":\"ScrollView\",\"link\":\"/web-components/scroll-view\"},{\"text\":\"SectionView\",\"link\":\"/web-components/section-view\"},{\"text\":\"SheetView\",\"link\":\"/web-components/sheet-view\"},{\"text\":\"SidebarToggle\",\"link\":\"/web-components/sidebar-toggle\"},{\"text\":\"SidebarView\",\"link\":\"/web-components/sidebar-view\"},{\"text\":\"StickyContainer\",\"link\":\"/web-components/sticky-container\"},{\"text\":\"TabBar\",\"link\":\"/web-components/tab-bar\"},{\"text\":\"TabItem\",\"link\":\"/web-components/tab-item\"},{\"text\":\"TabView\",\"link\":\"/web-components/tab-view\"},{\"text\":\"TableView\",\"link\":\"/web-components/table-view\"},{\"text\":\"TextField\",\"link\":\"/web-components/text-field\"},{\"text\":\"ToolBarItemGroup\",\"link\":\"/web-components/tool-bar-item-group\"},{\"text\":\"ToolBarItem\",\"link\":\"/web-components/tool-bar-item\"},{\"text\":\"ToolBar\",\"link\":\"/web-components/tool-bar\"},{\"text\":\"VKeyboard\",\"link\":\"/web-components/v-keyboard\"},{\"text\":\"VStack\",\"link\":\"/web-components/v-stack\"}]},{\"text\":\"Get Started\",\"items\":[{\"text\":\"Installation\",\"link\":\"/installation/\",\"items\":[]},{\"text\":\"App HTML Layout\",\"link\":\"/installation/app-layout\"},{\"text\":\"Dark Mode\",\"link\":\"/installation/dark-mode\"},{\"text\":\"JavaScript\",\"link\":\"/installation/javascript\"},{\"text\":\"Editor Setup\",\"link\":\"/installation/editor-setup\"}]}]},\"socialLinks\":[{\"icon\":\"github\",\"link\":\"https://github.com/swiftwc/ui\"}],\"footer\":{\"message\":\"<small>This is an independent organization. It is not affiliated with, endorsed by, or sponsored by Apple Inc. or the Swift project.</small>\",\"copyright\":\"Released under the <a href=\\\"https://github.com/swiftwc/ui/blob/main/LICENSE.md\\\" target=\\\"_blank\\\">MIT License</a>.\"},\"search\":{\"provider\":\"local\"}},\"locales\":{\"root\":{\"label\":\"English\",\"lang\":\"en-US\"}},\"scrollOffset\":134,\"cleanUrls\":true,\"additionalConfig\":{}}");</script>
+    
+  </body>
+</html>

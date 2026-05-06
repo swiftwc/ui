@@ -5,7 +5,7 @@
   "publishConfig": {
     "access": "public"
   },
-  "license": "MIT",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
   "author": {
     "name": "The SwiftWC/UI Authors",
     "url": "https://github.com/swiftwc/ui/graphs/contributors"
@@ -53,12 +53,12 @@
   },
   "scripts": {
     "prebuild": "rm -rf generated",
-    "build": "npm run build:ts && npm run build:scss",
+    "build": "npm run build:ts && npm run build:scss && npm run build:barrels && npm run build:registry",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
-    "build:manifest": "tsx scripts/make-manifest.ts",
     "build:barrels": "barrelsby -D -q -S -d ./js/components -e \".\\.test\\.ts\"",
+    "build:registry": "tsx scripts/make-manifest.ts",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "test": "vitest --dom"

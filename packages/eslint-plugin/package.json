@@ -1,8 +1,8 @@
 {
   "name": "@swiftwc/eslint-plugin",
   "version": "1.0.0",
-  "description": "ESLint plugin for SwiftWC.",
-  "license": "MIT",
+  "description": "Rules enforcing best practices while using SwiftWC web components.",
+  "license": "SEE LICENSE IN ../../LICENSE.md",
   "author": {
     "name": "The SwiftWC/UI Authors",
     "url": "https://github.com/swiftwc/ui/graphs/contributors"
@@ -10,12 +10,15 @@
   "repository": {
     "type": "git",
     "url": "git+https://github.com/swiftwc/ui.git",
-    "directory": "packages/ui"
+    "directory": "packages/esling-plugin"
   },
   "bugs": {
     "url": "https://github.com/swiftwc/ui/issues"
   },
   "type": "module",
+  "peerDependencies": {
+    "@swiftwc/ui": "^1.0.0"
+  },
   "exports": {
     "./html": "./html.js",
     "./ember": "./ember.js"

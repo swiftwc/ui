@@ -26,11 +26,19 @@ features:
       src: /red.avif
       width: "100%"
     details: Create tabed views
-    link: https://github.com/swiftwc/ui
-  - title: Feature B
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
-  - title: Feature C
-    details: Lorem ipsum dolor sit amet, consectetur adipiscing elit
+    link: /web-components/tab-view
+  - title: NavigationSplitView <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
+    icon:
+      src: /red.avif
+      width: "100%"
+    details: Create tabed views
+    link: /web-components/tab-view
+  - title: NavigationStack <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
+    icon:
+      src: /red.avif
+      width: "100%"
+    details: Create tabed views
+    link: /web-components/tab-view
 ---
 
 <style>

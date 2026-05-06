@@ -3,6 +3,7 @@
   "name": "@swiftwc/docs",
   "type": "module",
   "scripts": {
+    "barrels": "node scripts/make-barrels.mjs",
     "build": "vitepress build",
     "preview": "vitepress preview",
     "dev": "vitepress dev"
@@ -10,9 +11,12 @@
   "devDependencies": {
     "@mdit/plugin-align": "^0.24.2",
     "@mdit/plugin-demo": "^0.23.2",
+    "@mdit/plugin-dl": "^0.23.2",
+    "@mdit/plugin-field": "^0.24.2",
     "@mdit/plugin-icon": "^0.24.2",
     "@mdit/plugin-layout": "^0.2.2",
     "@mdit/plugin-tab": "^0.24.2",
+    "@types/doctrine": "^0.0.9",
     "vitepress": "^2.0.0-alpha.17"
   }
 }

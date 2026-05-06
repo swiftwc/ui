@@ -1,0 +1,1529 @@
+{
+  "schemaVersion": "2.1.0",
+  "readme": "README.md",
+  "modules": [
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/body-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "BodyView",
+          "tagName": "body-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BodyView",
+          "declaration": {
+            "name": "BodyView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "body-view",
+          "declaration": {
+            "name": "BodyView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/bordered-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "BorderedButton",
+          "tagName": "bordered-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BorderedButton",
+          "declaration": {
+            "name": "BorderedButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "bordered-button",
+          "declaration": {
+            "name": "BorderedButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/bordered-prominent-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "BorderedProminentButton",
+          "tagName": "bordered-prominent-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BorderedProminentButton",
+          "declaration": {
+            "name": "BorderedProminentButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "bordered-prominent-button",
+          "declaration": {
+            "name": "BorderedProminentButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/borderless-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "BorderlessButton",
+          "tagName": "borderless-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "role"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "BorderlessButton",
+          "declaration": {
+            "name": "BorderlessButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "borderless-button",
+          "declaration": {
+            "name": "BorderlessButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/confirmation-dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ConfirmationDialog",
+          "tagName": "confirmation-dialog",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DialogBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "anchor"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ConfirmationDialog",
+          "declaration": {
+            "name": "ConfirmationDialog"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "confirmation-dialog",
+          "declaration": {
+            "name": "ConfirmationDialog"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/date-picker.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DatePicker",
+          "tagName": "date-picker",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "FormAssociatedBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            },
+            {
+              "kind": "field",
+              "name": "datePickerStyle"
+            },
+            {
+              "kind": "field",
+              "name": "selection"
+            },
+            {
+              "kind": "field",
+              "name": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value"
+            },
+            {
+              "kind": "field",
+              "name": "valueAsDate"
+            },
+            {
+              "kind": "field",
+              "name": "minimum"
+            },
+            {
+              "kind": "field",
+              "name": "maximum"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "date-picker-style"
+            },
+            {
+              "name": "required"
+            },
+            {
+              "name": "prompt"
+            },
+            {
+              "name": "label"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "selection"
+            },
+            {
+              "name": "disabled"
+            },
+            {
+              "name": "minimum"
+            },
+            {
+              "name": "maximum"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DatePicker",
+          "declaration": {
+            "name": "DatePicker"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "date-picker",
+          "declaration": {
+            "name": "DatePicker"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/disclosure-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DisclosureGroup",
+          "tagName": "disclosure-group",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DetailsBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DisclosureGroup",
+          "declaration": {
+            "name": "DisclosureGroup"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "disclosure-group",
+          "declaration": {
+            "name": "DisclosureGroup"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/form-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "FormView",
+          "tagName": "form-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "FormBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FormView",
+          "declaration": {
+            "name": "FormView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "form-view",
+          "declaration": {
+            "name": "FormView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/glass-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "GlassButton",
+          "tagName": "glass-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GlassButton",
+          "declaration": {
+            "name": "GlassButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "glass-button",
+          "declaration": {
+            "name": "GlassButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/glass-prominent-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "GlassProminentButton",
+          "tagName": "glass-prominent-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "GlassProminentButton",
+          "declaration": {
+            "name": "GlassProminentButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "glass-prominent-button",
+          "declaration": {
+            "name": "GlassProminentButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/label-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LabelView",
+          "tagName": "label-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "system-image"
+            },
+            {
+              "name": "title"
+            },
+            {
+              "name": "line-limit"
+            },
+            {
+              "name": "truncation-mode"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LabelView",
+          "declaration": {
+            "name": "LabelView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "label-view",
+          "declaration": {
+            "name": "LabelView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/list-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ListView",
+          "tagName": "list-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ListView",
+          "declaration": {
+            "name": "ListView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "list-view",
+          "declaration": {
+            "name": "ListView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/menu-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "MenuView",
+          "tagName": "menu-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "open"
+            },
+            {
+              "name": "closing"
+            },
+            {
+              "name": "label"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "MenuView",
+          "declaration": {
+            "name": "MenuView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "menu-view",
+          "declaration": {
+            "name": "MenuView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/navigation-large-title.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NavigationLargeTitle",
+          "tagName": "navigation-large-title",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavigationLargeTitle",
+          "declaration": {
+            "name": "NavigationLargeTitle"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "navigation-large-title",
+          "declaration": {
+            "name": "NavigationLargeTitle"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/navigation-split-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NavigationSplitView",
+          "tagName": "navigation-split-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "NavigationView"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavigationSplitView",
+          "declaration": {
+            "name": "NavigationSplitView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "navigation-split-view",
+          "declaration": {
+            "name": "NavigationSplitView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/navigation-stack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NavigationStack",
+          "tagName": "navigation-stack",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "NavigationView"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavigationStack",
+          "declaration": {
+            "name": "NavigationStack"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "navigation-stack",
+          "declaration": {
+            "name": "NavigationStack"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/navigation-title.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NavigationTitle",
+          "tagName": "navigation-title",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "subtitle"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavigationTitle",
+          "declaration": {
+            "name": "NavigationTitle"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "navigation-title",
+          "declaration": {
+            "name": "NavigationTitle"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/picker-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "PickerView",
+          "tagName": "picker-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "FormAssociatedBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "ATTR"
+            },
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            },
+            {
+              "kind": "field",
+              "name": "pickerStyle"
+            },
+            {
+              "kind": "field",
+              "name": "name"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PickerView",
+          "declaration": {
+            "name": "PickerView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "picker-view",
+          "declaration": {
+            "name": "PickerView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/plain-button.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "PlainButton",
+          "tagName": "plain-button",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "PlainButton",
+          "declaration": {
+            "name": "PlainButton"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "plain-button",
+          "declaration": {
+            "name": "PlainButton"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/screen-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ScreenView",
+          "tagName": "screen-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DialogBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScreenView",
+          "declaration": {
+            "name": "ScreenView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "screen-view",
+          "declaration": {
+            "name": "ScreenView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/scroll-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ScrollView",
+          "tagName": "scroll-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "navigation-title"
+            },
+            {
+              "name": "navigation-inline-title"
+            },
+            {
+              "name": "navigation-inline-subtitle"
+            },
+            {
+              "name": "navigation-bar-title-display-mode"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScrollView",
+          "declaration": {
+            "name": "ScrollView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "scroll-view",
+          "declaration": {
+            "name": "ScrollView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/section-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SectionView",
+          "tagName": "section-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "header"
+            },
+            {
+              "name": "footer"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SectionView",
+          "declaration": {
+            "name": "SectionView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "section-view",
+          "declaration": {
+            "name": "SectionView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/sheet-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SheetView",
+          "tagName": "sheet-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DialogBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "fine-presentation-large-adaptation"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SheetView",
+          "declaration": {
+            "name": "SheetView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sheet-view",
+          "declaration": {
+            "name": "SheetView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/sidebar-toggle.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SidebarToggle",
+          "tagName": "sidebar-toggle",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SidebarToggle",
+          "declaration": {
+            "name": "SidebarToggle"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sidebar-toggle",
+          "declaration": {
+            "name": "SidebarToggle"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/sidebar-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SidebarView",
+          "tagName": "sidebar-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DialogBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SidebarView",
+          "declaration": {
+            "name": "SidebarView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sidebar-view",
+          "declaration": {
+            "name": "SidebarView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/sticky-container.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "StickyContainer",
+          "tagName": "sticky-container",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "StickyContainer",
+          "declaration": {
+            "name": "StickyContainer"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "sticky-container",
+          "declaration": {
+            "name": "StickyContainer"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tab-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TabBar",
+          "tagName": "tab-bar",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "DialogBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabBar",
+          "declaration": {
+            "name": "TabBar"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tab-bar",
+          "declaration": {
+            "name": "TabBar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tab-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TabItem",
+          "tagName": "tab-item",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "ButtonBase"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabItem",
+          "declaration": {
+            "name": "TabItem"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tab-item",
+          "declaration": {
+            "name": "TabItem"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tab-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TabView",
+          "tagName": "tab-view",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "tabBarPlacement"
+            },
+            {
+              "kind": "field",
+              "name": "moreTab"
+            },
+            {
+              "kind": "field",
+              "name": "selectedTab"
+            }
+          ],
+          "events": [
+            {
+              "name": "fires",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "fires",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "fires",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "fires",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TabView",
+          "declaration": {
+            "name": "TabView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tab-view",
+          "declaration": {
+            "name": "TabView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/table-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TableView",
+          "tagName": "table-view",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TableView",
+          "declaration": {
+            "name": "TableView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "table-view",
+          "declaration": {
+            "name": "TableView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/text-field.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextField",
+          "tagName": "text-field",
+          "description": "",
+          "superclass": {
+            "name": "FormAssociatedBase"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "observedAttributes"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            },
+            {
+              "kind": "field",
+              "name": "keyboardType"
+            },
+            {
+              "kind": "field",
+              "name": "text"
+            },
+            {
+              "kind": "field",
+              "name": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value"
+            },
+            {
+              "kind": "field",
+              "name": "valueAsNumber"
+            },
+            {
+              "kind": "field",
+              "name": "negativeNumbersAllowed"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "label"
+            },
+            {
+              "name": "slot",
+              "description": "validity-options"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "prompt"
+            },
+            {
+              "name": "minimum"
+            },
+            {
+              "name": "maximum"
+            },
+            {
+              "name": "min-length"
+            },
+            {
+              "name": "max-length"
+            },
+            {
+              "name": "label"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "text"
+            },
+            {
+              "name": "text-input-autocapitalization"
+            },
+            {
+              "name": "disable-autocorrection"
+            },
+            {
+              "name": "keyboard-type"
+            },
+            {
+              "name": "required"
+            },
+            {
+              "name": "disabled"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextField",
+          "declaration": {
+            "name": "TextField"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "text-field",
+          "declaration": {
+            "name": "TextField"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tool-bar-item-group.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ToolBarItemGroup",
+          "tagName": "tool-bar-item-group",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ToolBarItemGroup",
+          "declaration": {
+            "name": "ToolBarItemGroup"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tool-bar-item-group",
+          "declaration": {
+            "name": "ToolBarItemGroup"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tool-bar-item.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ToolBarItem",
+          "tagName": "tool-bar-item",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ToolBarItem",
+          "declaration": {
+            "name": "ToolBarItem"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tool-bar-item",
+          "declaration": {
+            "name": "ToolBarItem"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/tool-bar.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ToolBar",
+          "tagName": "tool-bar",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ToolBar",
+          "declaration": {
+            "name": "ToolBar"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "tool-bar",
+          "declaration": {
+            "name": "ToolBar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/v-keyboard.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "VKeyboard",
+          "tagName": "v-keyboard",
+          "description": "BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.\nSo we live with a pescy body-scrollbar that shows up on resize on desktops.",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VKeyboard",
+          "declaration": {
+            "name": "VKeyboard"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "v-keyboard",
+          "declaration": {
+            "name": "VKeyboard"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/v-stack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "VStack",
+          "tagName": "v-stack",
+          "description": "This is the description of the class",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VStack",
+          "declaration": {
+            "name": "VStack"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "v-stack",
+          "declaration": {
+            "name": "VStack"
+          }
+        }
+      ]
+    }
+  ]
+}

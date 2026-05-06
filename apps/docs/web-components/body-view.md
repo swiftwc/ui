@@ -5,5 +5,3 @@ prev:
 ---
 
 # BodyView
-
-🚧 This page is under construction.

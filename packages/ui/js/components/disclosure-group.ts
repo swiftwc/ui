@@ -6,7 +6,12 @@ const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>
 
 export class DisclosureGroup extends DetailsBase {
   static get observedAttributes() {
-    return ['open']
+    return [
+      /**
+       * The status of this element
+       */
+      'open',
+    ]
   }
 
   constructor() {

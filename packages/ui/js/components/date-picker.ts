@@ -12,7 +12,21 @@ type DateInput = HTMLInputElement & { name: DateParts }
 
 export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {
-    return ['date-picker-style', 'required', 'prompt', 'label', 'name', 'selection', 'disabled', 'minimum', 'maximum']
+    return [
+      /**
+       * The style of this element
+       * @type {"graphical"|"field"|"automatic"}
+       */
+      'date-picker-style',
+      'required',
+      'prompt',
+      'label',
+      'name',
+      'selection',
+      'disabled',
+      'minimum',
+      'maximum',
+    ]
   }
 
   static #templates: Map<string, DocumentFragment> = new Map()

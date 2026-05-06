@@ -7,6 +7,10 @@ import { $, compareBigDecimals, kebabCase, onoff, set } from '../internal/utils'
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
 
+/**
+ * @slot label
+ * @slot validity-options
+ */
 export class TextField extends FormAssociatedBase {
   static get observedAttributes() {
     return [

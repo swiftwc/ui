@@ -11,6 +11,12 @@ const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as c
 
 export type TabBarPlacement = (typeof TAB_BAR_PLACEMENTS)[number]
 
+/**
+ * @fires tabshow A Tab is shown
+ * @fires tabhide A Tab is hidden
+ * @fires tab-view:toggle
+ * @fires tab-view:adaptable-tab-bar-placement-change
+ */
 export class TabView extends HTMLElement {
   #debouncedHandler
 
@@ -58,7 +64,7 @@ export class TabView extends HTMLElement {
     })
 
     this.#cssStyleObserver.observe(this, this.#handleStyleChange)
-    
+
     Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange)) // Snapshot.waitReady.then(this.#handleStyleChange)
 
     // NOTE: wait for config

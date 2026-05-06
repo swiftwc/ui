@@ -21,7 +21,7 @@
   "files": [
     "generated",
     "scss",
-    "web-components.html-data.json"
+    "web-components.html-data"
   ],
   "sass": "scss/index.scss",
   "keywords": [
@@ -51,19 +51,24 @@
     "swiftwc": "./generated/index.js"
   },
   "scripts": {
-    "barrels": "barrelsby -D -q -S -d ./js/components -e \".\\.test\\.ts\"",
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
+    "build:manifest": "tsx scripts/make-manifest.ts",
+    "build:barrels": "barrelsby -D -q -S -d ./js/components -e \".\\.test\\.ts\"",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "test": "vitest --dom"
   },
   "devDependencies": {
+    "doctrine": "^3.0.0",
     "happy-dom": "^20.7.0",
     "sass": "^1.98.0",
+    "ts-morph": "^28.0.0",
+    "tsx": "^4.21.0",
     "vitest": "^4.0.18"
-  }
+  },
+  "customElements": "custom-elements/en.json"
 }

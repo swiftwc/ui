@@ -9,6 +9,12 @@
     "preview:scss": "sass --no-source-map ../../packages/ui/scss/index.scss styles.css --watch"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
+    "@html-eslint/eslint-plugin": "^0.60.0",
+    "@html-eslint/parser": "^0.60.0",
+    "@swiftwc/eslint-plugin": "*",
+    "eslint": "^10.3.0",
+    "typescript-eslint": "^8.59.2",
     "vite": "^8.0.1"
   }
 }

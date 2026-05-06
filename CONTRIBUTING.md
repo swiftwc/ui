@@ -10,7 +10,7 @@ If you need any help, feel free to reach out to [swiftui-wc@proton.me](mailto:sw
 
 This repository is a monorepo.
 
-- We use [pnpm](https://npmjs.com) and [`workspaces`](https://docs.npmjs.com/cli/v11/using-npm/workspaces) for development.
+- We use [npm](https://npmjs.com) and [`workspaces`](https://docs.npmjs.com/cli/v11/using-npm/workspaces) for development.
 
 ## Structure
 

@@ -130,7 +130,7 @@ export default defineConfig({
         text: "v1.0-alpha.1",
         items: [
           { text: "What’s New", link: "/changelog" },
-          { text: "Sponsor Open Source", link: "https://github.com/sponsors/swiftwc" },
+          // { text: "Sponsor Open Source", link: "https://github.com/sponsors/swiftwc" },
         ],
       },
     ],

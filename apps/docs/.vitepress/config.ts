@@ -128,7 +128,10 @@ export default defineConfig({
       { text: "Docs", link: "/installation/" },
       {
         text: "v1.0-alpha.1",
-        items: [{ text: "Changelog", link: "/item-1" }],
+        items: [
+          { text: "What’s New", link: "/changelog" },
+          { text: "Sponsor Open Source", link: "https://github.com/sponsors/swiftwc" },
+        ],
       },
     ],
 
@@ -140,7 +143,8 @@ export default defineConfig({
     socialLinks: [{ icon: "github", link: "https://github.com/swiftwc/ui" }],
 
     footer: {
-      message: "<small>This is an independent organization. It is not affiliated with, endorsed by, or sponsored by Apple Inc. or the Swift project.</small>",
+      message:
+        "<small>SwiftUI is a trademark of Apple Inc. This is an independent organization—not affiliated with, endorsed by, or sponsored by Apple Inc. or the Swift project.</small>",
       copyright: 'Released under the <a href="https://github.com/swiftwc/ui/blob/main/LICENSE.md" target="_blank">MIT License</a>.',
     },
 

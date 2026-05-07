@@ -1,52 +1,52 @@
 {
-  "hash": "379fb3d4",
+  "hash": "9d0676eb",
   "configHash": "1bfda9e5",
-  "lockfileHash": "bf8fc7e6",
-  "browserHash": "4e820b87",
+  "lockfileHash": "afac81e8",
+  "browserHash": "2d67823d",
   "optimized": {
     "vue": {
       "src": "../../../../../node_modules/vue/dist/vue.runtime.esm-bundler.js",
       "file": "vue.js",
-      "fileHash": "fee01f34",
+      "fileHash": "c12e5512",
       "needsInterop": false
     },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress___@vue_devtools-api.js",
-      "fileHash": "c1cf0797",
+      "fileHash": "76981ebb",
       "needsInterop": false
     },
     "vitepress > @vueuse/core": {
       "src": "../../../../../node_modules/@vueuse/core/dist/index.js",
       "file": "vitepress___@vueuse_core.js",
-      "fileHash": "0097dc0f",
+      "fileHash": "44f23759",
       "needsInterop": false
     },
     "vitepress > @vueuse/integrations/useFocusTrap": {
       "src": "../../../../../node_modules/@vueuse/integrations/dist/useFocusTrap.js",
       "file": "vitepress___@vueuse_integrations_useFocusTrap.js",
-      "fileHash": "eb4881df",
+      "fileHash": "e3afb42d",
       "needsInterop": false
     },
     "vitepress > mark.js/src/vanilla.js": {
       "src": "../../../../../node_modules/mark.js/src/vanilla.js",
       "file": "vitepress___mark__js_src_vanilla__js.js",
-      "fileHash": "2ef6ce20",
+      "fileHash": "f316380e",
       "needsInterop": false
     },
     "vitepress > minisearch": {
       "src": "../../../../../node_modules/minisearch/dist/es/index.js",
       "file": "vitepress___minisearch.js",
-      "fileHash": "c13c02b9",
+      "fileHash": "0c129de2",
       "needsInterop": false
     }
   },
   "chunks": {
-    "chunk-7EBQ43A5": {
-      "file": "chunk-7EBQ43A5.js"
+    "chunk-2ZPAADSE": {
+      "file": "chunk-2ZPAADSE.js"
     },
-    "chunk-4NEETABE": {
-      "file": "chunk-4NEETABE.js"
+    "chunk-YXAKNNQR": {
+      "file": "chunk-YXAKNNQR.js"
     }
   }
 }

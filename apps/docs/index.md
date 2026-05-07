@@ -65,6 +65,6 @@ features:
 
 <Badge type="tip" text="✨v1" />
 
-# What’s New in SwiftWC 1 {#no-anchor}
+# What’s New in SwiftWC {#no-anchor}
 
 ::: center

@@ -14,7 +14,6 @@ const project = new Project({
 
 project.addSourceFilesAtPaths('js/components/**/*.ts')
 
-// https://github.com/webcomponents/custom-elements-manifest
 interface CustomElementDataV2 {
   schemaVersion: '2.1.0'
   readme: string
@@ -28,7 +27,6 @@ interface CustomElementModule {
   exports: { kind: string; name: string; declaration: { name: string } }[]
 }
 
-// https://custom-elements-manifest.open-wc.org/analyzer/getting-started/
 interface CustomElementDecl {
   kind: string
   customElement: boolean
@@ -47,7 +45,6 @@ interface CustomElementDecl {
   superclass: { name: string }
 }
 
-// https://github.com/microsoft/vscode-custom-data/tree/main/samples/webcomponents
 interface VsHtmlDataV1 {
   version: 1.1
   tags?: VsHtmlDataTag[]

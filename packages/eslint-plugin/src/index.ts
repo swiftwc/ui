@@ -1,6 +1,12 @@
+import type { Linter, RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint'
 import { readFileSync } from 'fs'
 
-export const RULES = {
+export type TagNode = {
+  name: string
+  parent?: TagNode
+}
+
+export const RULES: Record<string, string[]> = {
   'v-keyboard': ['body'],
 
   'scroll-view': ['body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
@@ -8,7 +14,13 @@ export const RULES = {
   dialog: ['tab-view', 'template'],
 }
 
-export function validate(tag, getParentTag, allowedParents, context, node) {
+export function validate(
+  tag: string,
+  getParentTag: (node: TagNode) => TagNode | undefined,
+  allowedParents: string[],
+  context: RuleContext<string, readonly unknown[]>,
+  node: TagNode
+) {
   // let parent = getParentTag(node)
   // let isValid = false
 
@@ -22,11 +34,12 @@ export function validate(tag, getParentTag, allowedParents, context, node) {
 
   const parentTag = getParentTag(node)
 
-  const isValid = allowedParents.includes(parentTag.name)
+  const isValid = allowedParents.includes(parentTag?.name ?? '')
 
   if (isValid) return
 
   context.report({
+    // @ts-expect-error
     node,
     messageId: 'disallowedTag',
     data: {
@@ -53,7 +66,7 @@ export const swiftwc = {
           description: 'Restrict allowed HTML tags',
           url: `https://github.com/swiftwc/ui`,
         },
-        languages: ['html/html'],
+        // languages: ['html/html'],
         schema: [],
         // schema: [
         //   {
@@ -93,9 +106,9 @@ export const swiftwc = {
       //   }
       // },
 
-      create(context) {
+      create(context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener {
         return {
-          Tag(node) {
+          Tag(node: TagNode) {
             const tag = node.name
 
             const allowedParents = RULES[tag]
@@ -129,7 +142,7 @@ export const swiftwc = {
       },
     },
   },
-}
+} satisfies Linter.Plugin
 
 Object.assign(swiftwc.configs, {
   recommended: [

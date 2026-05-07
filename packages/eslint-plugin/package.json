@@ -26,7 +26,18 @@
     "eslint": ">=10.0.0"
   },
   "exports": {
-    "./html/en": "./html/en.js",
-    "./emberjs/en": "./emberjs/en.js"
+    "./html/en": "./generated/html/en.js",
+    "./emberjs/en": "./generated/emberjs/en.js"
+  },
+  "scripts": {
+    "prebuild": "rm -rf generated",
+    "build": "npm run build:ts",
+    "build:ts:watch": "npm run prebuild && tsc --watch",
+    "build:ts": "tsc",
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write"
+  },
+  "devDependencies": {
+    "@typescript-eslint/utils": "^8.59.2"
   }
 }

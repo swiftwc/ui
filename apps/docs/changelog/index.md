@@ -11,4 +11,4 @@ Latest updates and announcements.
 
 We’ve published the official ESLint plugin for SwiftWC.
 
-See the [editor setup](/installation/editor-setup#linting) for more details.
+See the [editor setup](/installation/editor-setup#linting) page for more details.

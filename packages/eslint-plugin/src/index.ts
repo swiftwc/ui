@@ -3,6 +3,7 @@ import { readFileSync } from 'fs'
 
 export type TagNode = {
   name: string
+  type: string
   parent?: TagNode
 }
 
@@ -21,20 +22,17 @@ export function validate(
   context: RuleContext<string, readonly unknown[]>,
   node: TagNode
 ) {
-  // let parent = getParentTag(node)
-  // let isValid = false
+  let parentTag = getParentTag(node),
+    isValid = false
 
-  // while (parent) {
-  //   if (parent.type === 'Tag' && allowedParents.includes(parent.name)) {
-  //     isValid = true
-  //     break
-  //   }
-  //   parent = getParentTag(parent)
-  // }
+  while (parentTag) {
+    if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
+      isValid = true
+      break
+    }
 
-  const parentTag = getParentTag(node)
-
-  const isValid = allowedParents.includes(parentTag?.name ?? '')
+    parentTag = getParentTag(parentTag)
+  }
 
   if (isValid) return
 

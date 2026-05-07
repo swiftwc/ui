@@ -5,17 +5,14 @@ export const RULES = {
     dialog: ['tab-view', 'template'],
 };
 export function validate(tag, getParentTag, allowedParents, context, node) {
-    // let parent = getParentTag(node)
-    // let isValid = false
-    // while (parent) {
-    //   if (parent.type === 'Tag' && allowedParents.includes(parent.name)) {
-    //     isValid = true
-    //     break
-    //   }
-    //   parent = getParentTag(parent)
-    // }
-    const parentTag = getParentTag(node);
-    const isValid = allowedParents.includes(parentTag?.name ?? '');
+    let parentTag = getParentTag(node), isValid = false;
+    while (parentTag) {
+        if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
+            isValid = true;
+            break;
+        }
+        parentTag = getParentTag(parentTag);
+    }
     if (isValid)
         return;
     context.report({

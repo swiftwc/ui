@@ -3,7 +3,9 @@ swiftwc.rules['allowed-tags'].meta.docs.description = 'Restrict allowed HTML tag
 swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}';
 swiftwc.rules['allowed-tags'].create = (context) => {
     return {
-        ElementNode(node) {
+        // '*': (node) => {
+        // if('GlimmerElementNode' !== node.type) return
+        GlimmerElementNode(node) {
             // @ts-expect-error
             const tag = node.tag;
             const allowedParents = RULES[tag];

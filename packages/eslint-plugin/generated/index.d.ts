@@ -1,6 +1,7 @@
 import type { RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint';
 export type TagNode = {
     name: string;
+    type: string;
     parent?: TagNode;
 };
 export declare const RULES: Record<string, string[]>;

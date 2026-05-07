@@ -7,7 +7,9 @@ swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is on
 
 swiftwc.rules['allowed-tags'].create = (context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener => {
   return {
-    ElementNode(node: TagNode) {
+    // '*': (node) => {
+    // if('GlimmerElementNode' !== node.type) return
+    GlimmerElementNode(node: TagNode) {
       // @ts-expect-error
       const tag = node.tag
 

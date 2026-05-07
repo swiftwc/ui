@@ -13,7 +13,7 @@ cd my-project
 
 ::: code-group
 
-```bash [ember]
+```bash [ember CLI]
 ember install @swiftwc/ui@latest
 ```
 

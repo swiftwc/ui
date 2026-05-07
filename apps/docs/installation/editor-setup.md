@@ -23,57 +23,23 @@ Tooling to improve the developer experience when working with SwictWC.
 
 Highlighting errors and potential bugs in your HTML markup.
 
-::: code-group
+### Choose Your Framework
 
-```sh{4} [npm]
-npm i -D eslint@latest @eslint/js@latest @swiftwc/eslint-plugin@latest
-```
+<script setup>
+import { VPTeamMembers } from 'vitepress/theme'
 
-:::
-
-**Add this to your ESLint configuration file:**
-
-:::: info Modify `eslint.config.js` like this:
-
-::: code-group
-
-```js [🇺🇸]
-import html from "@html-eslint/eslint-plugin";
-import parser from "@html-eslint/parser";
-// [!code ++]
-import swiftwc from "@swiftwc/eslint-plugin/html/en";
-
-export default [
+const members = [
   {
-    files: ["**/*.html"],
-    languageOptions: {
-      parser,
-    },
-    plugins: {
-      html,
-      // [!code ++]
-      swiftwc,
-    },
-    language: "html/html",
-    rules: {
-      // [!code ++]
-      ...swiftwc.configs.recommended.rules,
-      // 👇🏻 customize above rules here
-    },
+    avatar: '/manual.svg',
+    org: 'Manual',
+    orgLink: '/installation/editor-setup/manual',
   },
-];
-```
+  {
+    avatar: '/ember.svg',
+    org: 'Ember.js',
+    orgLink: '/installation/editor-setup/emberjs',
+  },
+]
+</script>
 
-:::
-
-::::
-
-::: details `@html-eslint/eslint-plugin` and `@html-eslint/parser` are required for linting HTML files
-
-They are used to understand your code before applying any rules.
-
-```sh{4} [npm]
-npm i -D @html-eslint/eslint-plugin @html-eslint/parser
-```
-
-:::
+<VPTeamMembers size="small" :members />

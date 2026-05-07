@@ -13,9 +13,9 @@ hero:
     - theme: alt
       text: Browse Components
       link: /web-components/
-    - theme: alt
-      text: What’s New in SwiftWC 1
-      link: .#no-anchor
+# - theme: alt
+#   text: What’s New in SwiftWC 1
+#   link: .#no-anchor
 # - theme: alt
 #   text: Star on GitHub
 #   link: https://github.com/swiftwc/ui

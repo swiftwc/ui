@@ -1,7 +1,12 @@
 {
   "name": "@swiftwc/eslint-plugin",
   "version": "1.0.0",
-  "description": "Rules enforcing best practices while using SwiftWC web components.",
+  "description": "Rules enforcing best practices while using SwiftWC.",
+  "keywords": [
+    "eslint",
+    "eslintplugin",
+    "eslint-plugin"
+  ],
   "license": "SEE LICENSE IN ../../LICENSE.md",
   "author": {
     "name": "The SwiftWC/UI Authors",
@@ -17,10 +22,11 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@swiftwc/ui": "^1.0.0"
+    "@swiftwc/ui": "^1.0.0",
+    "eslint": ">=10.0.0"
   },
   "exports": {
-    "./html": "./html.js",
-    "./ember": "./ember.js"
+    "./html/en": "./html/en.js",
+    "./emberjs/en": "./emberjs/en.js"
   }
 }

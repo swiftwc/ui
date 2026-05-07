@@ -1,6 +1,6 @@
 import html from '@html-eslint/eslint-plugin'
 import parser from '@html-eslint/parser'
-import allowedHtmlTags from '@swiftwc/eslint-plugin/html'
+import swiftwcHtml from '@swiftwc/eslint-plugin/html/en'
 
 export default [
   {
@@ -10,11 +10,12 @@ export default [
     },
     plugins: {
       html,
-      'allowed-html-tags': allowedHtmlTags,
+      swiftwc: swiftwcHtml,
     },
     language: 'html/html',
     rules: {
-      'allowed-html-tags/allowed-tags': 'error', //['error', { allowed: ['div', 'span', 'my-button', 'my-card'] }],
+      ...swiftwcHtml.configs.recommended.rules,
+      'swiftwc/allowed-tags': 'error', //['error', { allowed: ['div', 'span', 'my-button', 'my-card'] }],
     },
   },
 ]

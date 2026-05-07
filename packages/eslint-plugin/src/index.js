@@ -1,8 +1,6 @@
 import { readFileSync } from 'fs'
 
-const { name, version } = JSON.parse(readFileSync(new URL('./package.json', import.meta.url), 'utf8'))
-
-const RULES = {
+export const RULES = {
   'v-keyboard': ['body'],
 
   'scroll-view': ['body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
@@ -10,7 +8,7 @@ const RULES = {
   dialog: ['tab-view', 'template'],
 }
 
-function validate(tag, getParentTag, allowedParents, context, node) {
+export function validate(tag, getParentTag, allowedParents, context, node) {
   // let parent = getParentTag(node)
   // let isValid = false
 
@@ -38,11 +36,15 @@ function validate(tag, getParentTag, allowedParents, context, node) {
   })
 }
 
-const plugin = {
+const { name, version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
+
+export const swiftwc = {
   meta: {
     name,
     version,
+    namespace: 'swiftwc',
   },
+  configs: {},
   rules: {
     'allowed-tags': {
       meta: {
@@ -93,13 +95,13 @@ const plugin = {
 
       create(context) {
         return {
-          ElementNode(node) {
-            const tag = node.tag
+          Tag(node) {
+            const tag = node.name
 
             const allowedParents = RULES[tag]
             if (!allowedParents) return // 👈 ignore unknown tags completely
 
-            validate(tag, (item) => item.tag, allowedParents, context, node)
+            validate(tag, (item) => item.parent, allowedParents, context, node)
 
             // let parent = node.parent
             // let valid = false
@@ -129,17 +131,15 @@ const plugin = {
   },
 }
 
-export default plugin
-
-export const configs = {
+Object.assign(swiftwc.configs, {
   recommended: [
     {
       plugins: {
-        'allowed-html-tags': plugin,
+        swiftwc,
       },
       rules: {
-        'allowed-html-tags/allowed-tags': 'error', //['error', { allowed: ['div', 'span', 'my-button', 'my-card'] }],
+        'swiftwc/allowed-tags': 'error', //['error', { allowed: ['div', 'span', 'my-button', 'my-card'] }],
       },
     },
   ],
-}
+})

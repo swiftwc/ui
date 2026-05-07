@@ -48,11 +48,11 @@ export default [
     },
     plugins: {
       html,
-      'allowed-html-tags': allowedHtmlTags,
+      'swiftwc': allowedHtmlTags,
     },
     language: 'html/html',
     rules: {
-      'allowed-html-tags/allowed-tags': 'error',
+      'swiftwc/allowed-tags': 'error',
     },
   },
 ]

@@ -1,3 +1,5 @@
+> “A vulnerability unnamed is a threat unaddressed.”
+
 # Security Policy
 
 ## Supported Versions

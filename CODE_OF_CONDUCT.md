@@ -1,6 +1,7 @@
-# How We Act Here
 
 > “Strong together, we are. Divided, we fall.”
+
+# How We Act Here
 
 ## Code of Conduct
 

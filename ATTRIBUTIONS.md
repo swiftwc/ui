@@ -1,6 +1,6 @@
-# Attributions
-
 > “All who came before, honored must be. In their work, the path is revealed.”
+
+# Attributions
 
 ## Libraries
 

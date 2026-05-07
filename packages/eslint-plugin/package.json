@@ -22,7 +22,7 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@swiftwc/ui": "^1.0.0",
+    "@swiftwc/ui": "*",
     "eslint": ">=10.0.0"
   },
   "exports": {

@@ -1,4 +1,4 @@
-# [SwiftWC/UI](https://github.com/swiftwc/ui)
+# [SwiftWC/UI](https://swiftwc.github.io/ui/)
 
 Elegant SwiftUI-inspired web components for ambitious web apps and web extensions.
 

@@ -1,6 +1,9 @@
+
+> “Pass on what you have learned.”
+
 # Contributing
 
-Thanks for your interest in contributing to ui.shadcn.com. We’re happy to have you here.
+Thanks for your interest in contributing to swiftwc.dev. We’re happy to have you here :)
 
 Please take a moment to review this document before submitting your first pull request. We also strongly recommend that you check for open issues and pull requests to see if someone else is working on something similar.
 

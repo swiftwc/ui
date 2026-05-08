@@ -4,10 +4,18 @@ Add dependencies to your project manually.
 
 **Run the following command to add SwiftWC to your project:**
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
-```sh{4} [npm]
+```bash [npm]
 npm i @swiftwc/ui@latest
+```
+
+```bash [bun]
+bun add --exact @swiftwc/ui@latest --dev
 ```
 
 :::

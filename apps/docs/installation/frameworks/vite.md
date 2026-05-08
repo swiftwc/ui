@@ -17,33 +17,33 @@ cd my-project
 
 ## 2. Install SwiftWC
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
 ```bash [npm]
-npm i -D @tailwindcss/vite @swiftwc/ui@latest
+npm i -D @swiftwc/ui@latest
+```
+
+```bash [bun]
+bun add --exact @swiftwc/ui@latest --dev
 ```
 
 :::
 
 ## Import the CSS file
 
-::: code-group
-
 ```css{1} [app.css]
 @import "@swiftwc/ui/css";
 ```
 
-:::
-
 ## Import the Client file
-
-::: code-group
 
 ```ts{1} [main.ts]
 import { Snapshot } "@swiftwc/ui/client";
 ```
-
-:::
 
 ## Start your build process
 

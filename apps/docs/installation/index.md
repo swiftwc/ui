@@ -15,6 +15,10 @@ Instructions on how to add the SwiftWC Web Components to your app.
 
 **Just add two lines into your HTML and you are ready-to-go:**
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
 ```html [unpkg]
@@ -36,11 +40,11 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <html>
   <head>
     <!-- [!code ++] -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui/css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@0.0.0-dev.8/generated/css/index.css" />
   </head>
   <body>
     <!-- [!code ++] -->
-    <script type="module" src="https://cdn.jsdelivr.net/npm/@swiftwc/ui/client"></script>
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@swiftwc/ui@latest/generated/client/index.js"></script>
   </body>
 </html>
 ```
@@ -73,19 +77,13 @@ Instructions on how to add the SwiftWC Web Components to your app.
 </html>
 ```
 
-```html [cdnjs]
-<!doctype html>
-<html>
-  <head>
-    <!-- [!code ++] -->
+<!--
+```html [cloudflare]
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/@swiftwc/ui/css" />
-  </head>
-  <body>
-    <!-- [!code ++] -->
+
     <script type="module" src="https://cdnjs.cloudflare.com/@swiftwc/ui/client"></script>
-  </body>
-</html>
 ```
+-->
 
 :::
 

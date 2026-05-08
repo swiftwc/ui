@@ -2,10 +2,18 @@
 
 **Run the following command to add SwiftWC to your project:**
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
-```sh{4} [npm]
+```bash [npm]
 npm i -D eslint@latest @eslint/js@latest @swiftwc/eslint-plugin@latest
+```
+
+```bash [bun]
+bun add --exact eslint@latest @eslint/js@latest @swiftwc/eslint-plugin@latest --dev
 ```
 
 :::
@@ -14,9 +22,11 @@ npm i -D eslint@latest @eslint/js@latest @swiftwc/eslint-plugin@latest
 
 :::: info Modify `eslint.config.js` like this:
 
-::: code-group
+::::tabs key:theme
 
-```js [🇺🇸]
+== 🇺🇸
+
+```js [eslint.config.js]
 import html from "@html-eslint/eslint-plugin";
 import parser from "@html-eslint/parser";
 // [!code ++]
@@ -43,16 +53,18 @@ export default [
 ];
 ```
 
-:::
-
 ::::
 
 ::: details `@html-eslint/eslint-plugin` and `@html-eslint/parser` are required for linting HTML files
 
 They are used to understand your code before applying any rules.
 
-```sh{4} [npm]
+```bash [npm]
 npm i -D @html-eslint/eslint-plugin @html-eslint/parser
+```
+
+```bash [bun]
+bun add --exact @html-eslint/eslint-plugin @html-eslint/parser --dev
 ```
 
 :::

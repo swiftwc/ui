@@ -4,18 +4,18 @@ Tooling to improve the developer experience when working with SwictWC.
 
 ## IntelliSense for VS Code
 
-:::: info Modify `settings.json` of your VSCode like this:
+:::: info Modify `.vscode/settings.json` of your VSCode like this:
 
-::: code-group
+::::tabs key:theme
 
-```json [🇺🇸]
+== 🇺🇸
+
+```json [settings.json]
 {
   // [!code ++]
   "html.customData": ["./packages/ui/web-components.html-data/en.json"]
 }
 ```
-
-:::
 
 ::::
 

@@ -2,14 +2,22 @@
 
 **Run the following command to add SwiftWC to your project:**
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
-```sh{4} [ember CLI]
+```bash [ember CLI]
 ember install @swiftwc/eslint-plugin@latest
 ```
 
-```sh{4} [npm]
+```bash [npm]
 npm i -D @swiftwc/eslint-plugin@latest
+```
+
+```bash [bun]
+bun add --exact @swiftwc/eslint-plugin@latest --dev
 ```
 
 :::
@@ -18,9 +26,11 @@ npm i -D @swiftwc/eslint-plugin@latest
 
 :::: info Modify `eslint.config.js` like this:
 
-::: code-group
+::::tabs key:theme
 
-```js [🇺🇸]
+== 🇺🇸
+
+```js [eslint.config.js]
 import globals from "globals";
 import js from "@eslint/js";
 
@@ -61,8 +71,6 @@ export default [
   },
 ];
 ```
-
-:::
 
 ::::
 

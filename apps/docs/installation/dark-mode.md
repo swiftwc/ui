@@ -8,9 +8,11 @@ By default, SwiftWC components respect the `prefers-color-scheme` device prefere
 
 **To override the color scheme, add the `<color-scheme>` tag inside the `<body>` like this:**
 
-::: code-group
+::::tabs key:theme
 
-```html [☾]
+== ☾
+
+```html [app.html]
 <!doctype html>
 <html lang="en" dir="ltr">
   <head></head>
@@ -23,7 +25,9 @@ By default, SwiftWC components respect the `prefers-color-scheme` device prefere
 </html>
 ```
 
-```html [☀️]
+== ☀️
+
+```html [app.html]
 <!doctype html>
 <html lang="en" dir="ltr">
   <head></head>
@@ -35,5 +39,3 @@ By default, SwiftWC components respect the `prefers-color-scheme` device prefere
   </body>
 </html>
 ```
-
-:::

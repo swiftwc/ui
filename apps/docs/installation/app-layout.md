@@ -2,8 +2,6 @@
 
 All SwiftWC apps require this minimal HTML structure:
 
-::: code-group
-
 ```html{3} [app.html]
 <!doctype html>
 <!-- [!code focus] -->
@@ -16,8 +14,6 @@ All SwiftWC apps require this minimal HTML structure:
   </body>
 </html>
 ```
-
-:::
 
 ::: details `lang` and `dir` attributes are required
 Use them to adapt component formatting preferences and view-transitions direction.

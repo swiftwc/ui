@@ -11,6 +11,10 @@ cd my-project
 
 ## Install SwiftWC
 
+:::tabs key:install
+
+== latest
+
 ::: code-group
 
 ```bash [ember CLI]
@@ -21,11 +25,13 @@ ember install @swiftwc/ui@latest
 npm i -D @swiftwc/ui@latest
 ```
 
+```bash [bun]
+bun add --exact @swiftwc/ui@latest --dev
+```
+
 :::
 
 ## Import the CSS file
-
-::: code-group
 
 ```ts{5-6} [app.ts]
 import Application from '@ember/application';
@@ -41,8 +47,6 @@ export default class App extends Application {
 }
 loadInitializers(App, config.modulePrefix);
 ```
-
-:::
 
 ## Start your build process
 

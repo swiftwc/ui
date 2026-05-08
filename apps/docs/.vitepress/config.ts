@@ -5,6 +5,8 @@ import { icon } from "@mdit/plugin-icon";
 import { layout } from "@mdit/plugin-layout";
 import data from "@swiftwc/ui/customElements/en" with { type: "json" };
 import { defineConfig } from "vitepress";
+import { groupIconMdPlugin, groupIconVitePlugin } from "vitepress-plugin-group-icons";
+import { tabsMarkdownPlugin } from "vitepress-plugin-tabs";
 
 interface SidebarItem {
   text: string;
@@ -83,6 +85,9 @@ if (!editorSetupItem) throw new Error("Sidebar: 'Editor Setup' item not found in
 
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
+  vite: {
+    plugins: [groupIconVitePlugin()],
+  },
   markdown: {
     config: (md) => {
       md.use(align);
@@ -90,6 +95,11 @@ export default defineConfig({
       md.use(layout);
       md.use(dl);
       md.use(abbr);
+      //
+      md.use(tabsMarkdownPlugin);
+      md.use(groupIconMdPlugin, {
+        titleBar: { includeSnippet: true },
+      });
       // md.use(field);
       // md.use(demo, {
       //   // your options, name is required

@@ -1,7 +1,7 @@
 ---
 next:
-  text: "App HTML Layout"
-  link: "/installation/app-layout"
+  text: "Editor Setup"
+  link: "/installation/editor-setup"
 ---
 
 # Installation

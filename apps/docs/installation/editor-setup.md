@@ -1,3 +1,9 @@
+---
+prev:
+  text: "Installation"
+  link: "/installation/"
+---
+
 # Editor Setup
 
 Tooling to improve the developer experience when working with SwictWC.
@@ -13,7 +19,7 @@ Tooling to improve the developer experience when working with SwictWC.
 ```json [settings.json]
 {
   // [!code ++]
-  "html.customData": ["./packages/ui/web-components.html-data/en.json"]
+  "html.customData": ["./node_modules/@swiftwc/ui/web-components.html-data/en.json"]
 }
 ```
 

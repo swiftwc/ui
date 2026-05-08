@@ -41,10 +41,10 @@ const defaultSidebar: SidebarGroup[] = [
     text: "Get Started",
     items: [
       { text: "Installation", link: "/installation/", items: [] },
+      { text: "Editor Setup", link: "/installation/editor-setup" },
       { text: "App HTML Layout", link: "/installation/app-layout" },
       { text: "Dark Mode", link: "/installation/dark-mode" },
       { text: "JavaScript", link: "/installation/javascript" },
-      { text: "Editor Setup", link: "/installation/editor-setup" },
       // {
       //   text: "Examples",
       //   items: [

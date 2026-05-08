@@ -223,21 +223,19 @@ $v-placement-map: (
   }
 
   // padding reserved word for stacks
-  // NOTE: Spacing utils are NOT wrapped in `:where` selectors, to override tailwind or other resets!
   v-stack,
   h-stack,
   v-flex-stack {
-    &[padding] {
+    :where(&[padding]) {
       padding-inline: 1rem;
     }
 
-    scroll-view > &[padding] {
+    :where(scroll-view > &[padding]) {
       padding-block-end: 1rem;
     }
 
     // all direct children (excluding stacks) of stacks get margins, also some special cases like a details>summary[padding] etc.
-    & > [padding]:not(&),
-    & > [is='disclosure-group'] > summary[padding] {
+    :where(& > [padding]:not(&), & > [is='disclosure-group'] > summary[padding]) {
       margin-inline: 1rem;
     }
   }

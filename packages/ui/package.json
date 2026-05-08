@@ -71,8 +71,5 @@
     "tsx": "^4.21.0",
     "vitest": "^4.0.18"
   },
-  "customElements": "custom-elements/en.json",
-  "dependencies": {
-    "@swiftwc/docs": "*"
-  }
+  "customElements": "custom-elements/en.json"
 }

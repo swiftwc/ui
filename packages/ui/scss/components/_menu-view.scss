@@ -136,20 +136,32 @@
       @include mixins.add-focus-visible-state {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
+
+        --secondary: var(--menuitemtext);
+        --blue: var(--menuitemtext);
       }
       @include mixins.add-hover-state {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
+
+        --secondary: var(--menuitemtext);
+        --blue: var(--menuitemtext);
       }
     }
     > menu-view {
       @include mixins.add-focus-visible-state('::part(menu-summary)') {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
+
+        --secondary: var(--menuitemtext);
+        --blue: var(--menuitemtext);
       }
       @include mixins.add-hover-state('::part(menu-summary)') {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
+
+        --secondary: var(--menuitemtext);
+        --blue: var(--menuitemtext);
       }
     }
   }

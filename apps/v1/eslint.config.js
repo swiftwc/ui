@@ -1,6 +1,6 @@
 import html from '@html-eslint/eslint-plugin'
 import parser from '@html-eslint/parser'
-import swiftwc from '@swiftwc/eslint-plugin/html/en'
+import swiftwc from '../../packages/eslint-plugin/generated/html/en.js'
 
 export default [
   {

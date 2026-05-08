@@ -2720,6 +2720,8 @@
   menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     --menuitemface: var(--menuitemhighlightface,);
     --menuitemtext: var(--menuitemhighlighttext,);
+    --secondary: var(--menuitemtext);
+    --blue: var(--menuitemtext);
   }
   @media (pointer: fine) {
     :where(menu-view > button:not(:disabled):not([readonly]),
@@ -2727,6 +2729,8 @@
     menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
       --menuitemface: var(--menuitemhighlightface,);
       --menuitemtext: var(--menuitemhighlighttext,);
+      --secondary: var(--menuitemtext);
+      --blue: var(--menuitemtext);
     }
   }
   :where(menu-view > menu-view:not(:disabled):not([readonly])):focus-visible {
@@ -2735,11 +2739,15 @@
   :where(menu-view > menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
     --menuitemface: var(--menuitemhighlightface,);
     --menuitemtext: var(--menuitemhighlighttext,);
+    --secondary: var(--menuitemtext);
+    --blue: var(--menuitemtext);
   }
   @media (pointer: fine) {
     :where(menu-view > menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
       --menuitemface: var(--menuitemhighlightface,);
       --menuitemtext: var(--menuitemhighlighttext,);
+      --secondary: var(--menuitemtext);
+      --blue: var(--menuitemtext);
     }
   }
 }

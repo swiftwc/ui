@@ -4,21 +4,21 @@
 @use 'sass:list';
 
 @layer #{vars.$utils-layer} {
-  // general utils
+  // NOTE: Spacing utils are NOT wrapped in `:where` selectors, to override tailwind or other resets!
   @for $i from 0 through 50 {
-    :where([padding-horizontal='#{$i}']) {
+    [padding-horizontal='#{$i}'] {
       padding-inline: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
     }
 
-    :where([padding-vertical='#{$i}']) {
+    [padding-vertical='#{$i}'] {
       padding-block: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
     }
 
-    :where([margin-horizontal='#{$i}']) {
+    [margin-horizontal='#{$i}'] {
       margin-inline: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
     }
 
-    :where([margin-vertical='#{$i}']) {
+    [margin-vertical='#{$i}'] {
       margin-block: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
     }
   }

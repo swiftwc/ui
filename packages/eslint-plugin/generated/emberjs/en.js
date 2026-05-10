@@ -11,8 +11,7 @@ swiftwc.rules['allowed-tags'].create = (context) => {
             const allowedParents = RULES[tag];
             if (!allowedParents)
                 return; // 👈 ignore unknown tags completely
-            // @ts-expect-error
-            validate(tag, (item) => item.tag, allowedParents, context, node);
+            validate(tag, (item) => item.parent, allowedParents, context, node);
         },
     };
 };

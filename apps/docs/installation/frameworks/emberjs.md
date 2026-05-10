@@ -48,6 +48,22 @@ export default class App extends Application {
 loadInitializers(App, config.modulePrefix);
 ```
 
+## Prioritize CSS layers
+
+Add all sw-\* layers after other base rules. For example, [Tailwind CSS](https://tailwindcss.com/docs/adding-custom-styles#using-custom-css) applies global margin, padding, and border resets accross the page using a `base` `@layer`.
+
+To properly install SwiftWC, add a `@layer` rule at the begining of your stylesheet and move all other base layers at the begining, then follow with all the SwiftWC layers, and finally add any other layers you need, for example Tailwind requires 3 more layers.
+
+**Your styles file should look like this:**
+
+```ts [app.css]
+/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+@import 'tailwindcss';
+
+// [!code ++]
+@layer base, sw-base, sw-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-ui, sw-transitions, sw-final, components, utilities, theme;
+```
+
 ## Start your build process
 
 ```bash

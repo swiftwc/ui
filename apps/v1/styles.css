@@ -4365,6 +4365,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
+    touch-action: none;
     position-anchor: --tab-view-tabbar-selection;
     inset: anchor(--tab-view-tabbar-selection top) auto auto anchor(--tab-view-tabbar-selection left);
     inline-size: anchor-size();
@@ -4376,6 +4377,7 @@
     overscroll-behavior: contain;
     -webkit-overflow-scrolling: touch;
     pointer-events: all;
+    touch-action: none;
     grid-auto-flow: column;
     grid-template-rows: minmax(0, 1fr);
     margin-inline: var(--safe-area-inset-left) var(--safe-area-inset-right);
@@ -4527,6 +4529,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
+    touch-action: none;
     position-anchor: --tab-view-sidebar-selection;
     inset: anchor(--tab-view-sidebar-selection top) auto auto anchor(--tab-view-sidebar-selection left);
     inline-size: anchor-size();

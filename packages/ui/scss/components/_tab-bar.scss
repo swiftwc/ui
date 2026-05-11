@@ -8,6 +8,7 @@
     position: absolute;
     background-color: rgba(0, 0, 0, 0.4);
     pointer-events: none;
+    touch-action: none;
 
     position-anchor: #{$anchor-name};
     // position-area: center;
@@ -160,6 +161,8 @@
         @include mixins.contain-overscroll;
 
         pointer-events: all;
+
+        touch-action: none; // important for backdrop pans!
 
         grid-auto-flow: column;
         grid-template-rows: minmax(0, 1fr);

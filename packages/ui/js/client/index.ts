@@ -23,6 +23,11 @@ for (const [k, Ctor] of Object.entries(Components)) {
 
     if (!(document.createElement(Ctor.polyfillExtends, { is }) instanceof Ctor)) polyfills.set(is, Ctor)
 
+    // const testEl = document.createElement('template')
+    // testEl.innerHTML = `<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`
+    // const testNode = testEl.content.firstElementChild,
+    if (!($(`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`) instanceof Ctor)) polyfills.set(is, Ctor)
+
     continue
   }
 

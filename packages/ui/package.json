@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/ui",
-  "version": "0.0.0-dev.12",
+  "version": "0.0.0-dev.13",
   "description": "Elegant SwiftUI-inspired web components for standalone web apps and web extensions.",
   "publishConfig": {
     "access": "public"
@@ -53,7 +53,7 @@
   },
   "scripts": {
     "prebuild": "rm -rf generated",
-    "build": "npm run build:ts && npm run build:scss",
+    "build": "npm run build:ts && npm run build:scss && npm run build:manifest && npm run build:barrels",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",

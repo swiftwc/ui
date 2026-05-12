@@ -54,7 +54,7 @@ export class NavigationView extends HTMLElement {
 
         if (!this.closest('tab-view')) break // tabview stuff
 
-        let eventType = this.hasAttribute(name) ? 'tabshow' : 'tabhide',
+        let eventType = this.hasAttribute(name) ? 'tabhide' : 'tabshow',
           target = LifecycleObserver
 
         // isRecent by 100ms window

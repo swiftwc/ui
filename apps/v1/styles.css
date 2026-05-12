@@ -338,6 +338,7 @@
 @layer sw-base {
   :root {
     interpolate-size: allow-keywords;
+    touch-action: manipulation;
   }
   *,
   *::before,

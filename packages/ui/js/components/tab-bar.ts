@@ -44,10 +44,10 @@ export class TabBar extends DialogBase {
     // })
   }
 
-  static #handleClick = async (event: Event) => {
-    console.debug(`${TabBar.name} ⚡️ ${event?.type}`)
+  static #handleClick = async (evt: Event) => {
+    console.debug(`${TabBar.name} ⚡️ ${evt?.type}`)
 
-    if ('DIALOG' === (event.target as HTMLElement).tagName && 'tab-bar' === (event.target as HTMLElement).getAttribute('is'))
-      (event?.target as HTMLDialogElement)?.close?.()
+    if ('DIALOG' === (evt.target as HTMLElement).tagName && 'tab-bar' === (evt.target as HTMLElement).getAttribute('is'))
+      (evt?.target as HTMLDialogElement)?.close?.()
   }
 }

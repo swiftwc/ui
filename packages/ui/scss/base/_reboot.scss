@@ -11,6 +11,8 @@
 
   :root {
     interpolate-size: allow-keywords;
+
+    touch-action: manipulation; // Disabling double-tap to zoom removes the need for browsers to delay the generation of click events when the user taps the screen
   }
 
   *,

@@ -43,6 +43,10 @@
       "types": "./generated/client/index.d.ts",
       "default": "./generated/client/index.js"
     },
+    "./events": {
+      "types": "./generated/events/index.d.ts",
+      "default": "./generated/events/index.js"
+    },
     "./css": "./generated/css/index.css",
     "./scss": "./scss/index.scss",
     "./scss/*": "./scss/*.scss",

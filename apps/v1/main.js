@@ -1,4 +1,4 @@
-import { startViewTransition, NavigationPath, LifecycleObserver } from '../../packages/ui/js/client'
+import { LifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -636,7 +636,7 @@ export function modifyDOMbackwards(host) {
   if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.component.tagName)) {
     host.component.hidden = true
 
-    child.component?.remove()
+    child?.component?.remove()
   } else {
     host.component.remove()
   }

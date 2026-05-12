@@ -62,13 +62,16 @@ export class TabItem extends ButtonBase {
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
     console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
-    if (evt.detail?.tag !== btn.value) return
+    const tv = btn?.closest<TabView>('tab-view')
+    if (!tv) return
+
+    // if (evt.detail?.tag !== btn.value) return
 
     // await Snapshot.waitReady
 
-    const isSelected = 'tabreveal' === evt?.type
+    const isSelected = tv.selectedTab.map(({ id }) => id).includes(btn.value) //'tabreveal' === evt?.type
 
-    btn.ariaSelected = `${isSelected}`
+    if (`${isSelected}` !== btn.ariaSelected) btn.ariaSelected = `${isSelected}`
 
     if (!isSelected) return
 

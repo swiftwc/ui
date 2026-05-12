@@ -1123,12 +1123,12 @@
         const path = new NavigationPath(evt.target).hydrate(),
           from = [...path.children()].at(0)?.hydrate()
 
-        if (from)
+        if (from?.body)
           return await startViewTransition(from.body, 'backwards', async () => {
             modifyDOMbackwards(from)
           })
 
-        // special case going to more tab on small screens, must purge all deep views so that when clicks goes just to direct child
+        // special case going <-> to more tab on small screens, must purge all deep views so that when clicks goes just to direct child
         if (evt.target.closest('tab-view').moreTab !== evt.target) return
 
         for (const el of evt.target.querySelectorAll(':scope>body-view,:scope>[is=sheet-view],:scope>navigation-stack,:scope>navigation-split-view')) {

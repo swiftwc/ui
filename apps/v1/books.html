@@ -492,57 +492,67 @@
               <label-view title="acct_..." font="callout"></label-view>
             </v-stack>
             <form is="form-view">
-              <button is="tab-item" value="home">
-                <label-view system-image="house" title="Home"></label-view>
-              </button>
-              <button is="tab-item" value="search">
-                <label-view title="Search" system-image="magnifying-glass"></label-view>
-              </button>
-              <details is="disclosure-group" open>
-                <summary>
-                  <label-view title="Inventory"></label-view>
-                </summary>
-                <button is="tab-item" navigation-destination="reports">
-                  <label-view system-image="smiley" title="Items"></label-view>
+              <section-view>
+                <button is="tab-item" value="home">
+                  <label-view system-image="house" title="Home"></label-view>
                 </button>
-                <button is="tab-item" navigation-destination="feedback">
-                  <label-view system-image="smiley" title="Inventory Adjustments"></label-view>
+                <button is="tab-item" value="search">
+                  <label-view title="Search" system-image="magnifying-glass"></label-view>
                 </button>
-              </details>
-              <details is="disclosure-group" open>
-                <summary>
-                  <label-view title="Sales"></label-view>
-                </summary>
-                <button is="tab-item" value="customers">
-                  <label-view system-image="users" title="Customers"></label-view>
-                </button>
-                <button is="tab-item" navigation-destination="feedback">
-                  <label-view system-image="smiley" title="Sales Orders"></label-view>
-                </button>
-                <button is="tab-item" navigation-destination="feedback">
-                  <label-view system-image="smiley" title="Invoices"></label-view>
-                </button>
-                <button is="tab-item" navigation-destination="feedback">
-                  <label-view system-image="smiley" title="Credit Notes"></label-view>
-                </button>
-              </details>
-              <details is="disclosure-group" open>
-                <summary>
-                  <label-view title="Other"></label-view>
-                </summary>
-                <button is="tab-item" navigation-destination="reports">
-                  <label-view system-image="smiley" title="Reports"></label-view>
-                </button>
-                <button is="tab-item" navigation-destination="feedback">
-                  <label-view system-image="smiley" title="Feedback"></label-view>
-                </button>
-              </details>
+              </section-view>
+              <section-view>
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view title="Inventory"></label-view>
+                  </summary>
+                  <button is="tab-item" navigation-destination="reports">
+                    <label-view system-image="smiley" title="Items"></label-view>
+                  </button>
+                  <button is="tab-item" navigation-destination="feedback">
+                    <label-view system-image="smiley" title="Inventory Adjustments"></label-view>
+                  </button>
+                </details>
+              </section-view>
+              <section-view>
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view title="Sales"></label-view>
+                  </summary>
+                  <button is="tab-item" value="customers">
+                    <label-view system-image="users" title="Customers"></label-view>
+                  </button>
+                  <button is="tab-item" navigation-destination="feedback">
+                    <label-view system-image="smiley" title="Sales Orders"></label-view>
+                  </button>
+                  <button is="tab-item" navigation-destination="feedback">
+                    <label-view system-image="smiley" title="Invoices"></label-view>
+                  </button>
+                  <button is="tab-item" navigation-destination="feedback">
+                    <label-view system-image="smiley" title="Credit Notes"></label-view>
+                  </button>
+                </details>
+              </section-view>
+              <section-view>
+                <details is="disclosure-group" open>
+                  <summary>
+                    <label-view title="Other"></label-view>
+                  </summary>
+                  <button is="tab-item" navigation-destination="reports">
+                    <label-view system-image="smiley" title="Reports"></label-view>
+                  </button>
+                  <button is="tab-item" navigation-destination="feedback">
+                    <label-view system-image="smiley" title="Feedback"></label-view>
+                  </button>
+                </details>
+              </section-view>
               <!-- <button is="tab-item" value="ns3">
                 <label-view system-image="smiley" title="ns3"></label-view>
               </button> -->
-              <button is="tab-item" value="settings">
-                <label-view system-image="gear" title="settings"></label-view>
-              </button>
+              <section-view>
+                <button is="tab-item" value="settings">
+                  <label-view system-image="gear" title="settings"></label-view>
+                </button>
+              </section-view>
               <!-- <button is="tab-item" value="more">
                 <label-view system-image="smiley" title="moree"></label-view>
               </button> -->
@@ -665,7 +675,8 @@
         <scroll-view navigation-inline-title="Katie Abeles" navigation-path="customer1" background-style="grouped">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <scroll-view-proxy>
-              <h-stack distribution="leading" padding tint="gray">
+              <!-- <h-stack distribution="leading" padding tint="gray"> -->
+              <h-stack padding tint="gray">
                 <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
                 <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>
                 <button type="button" is="bordered-prominent-button" navigation-destination="customertransactions1">Transactions</button>

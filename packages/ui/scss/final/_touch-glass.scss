@@ -63,5 +63,22 @@
         }
       }
     }
+
+    tab-view {
+      :where(& > [is='sidebar-view'][touch-glass]) {
+        --sidebar-view-scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+
+      :where(& > sidebar-toggle > *[touch-glass]) {
+        --toolbar-cell-scale: scale(1.07);
+        transition-duration: 100ms;
+      }
+
+      :where(& > [is='sidebar-view'] > tool-bar > sidebar-toggle > *[touch-glass]) {
+        --toolbar-cell-scale: scale(1.07);
+        transition-duration: 100ms;
+      }
+    }
   }
 }

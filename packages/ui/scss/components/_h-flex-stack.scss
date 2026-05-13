@@ -1,0 +1,23 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  h-flex-stack {
+    :where(&) {
+      display: flex;
+      flex-flow: row nowrap;
+
+      place-items: safe center;
+      place-content: safe center;
+    }
+
+    :where(& > *) {
+      max-block-size: 100%;
+    }
+
+    > [frame-height='infinity'] {
+      :where(&) {
+        flex-grow: 1;
+      }
+    }
+  }
+}

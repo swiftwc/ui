@@ -1,7 +1,7 @@
 const touchList = new WeakMap()
 
-function onDown(evt: PointerEvent) {
-  const el = (evt.target as HTMLElement).closest<HTMLElement>('button,summary')
+function onDown({ target }: PointerEvent) {
+  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
   if (!el) return
 
   touchList.set(
@@ -18,11 +18,11 @@ function onDown(evt: PointerEvent) {
   el.closest<HTMLElement>('scroll-view')?.addEventListener('scroll', onScroll, { once: true, passive: true })
 }
 
-function onOver(evt: PointerEvent) {
-  const el = (evt.target as HTMLElement).closest<HTMLElement>('button,summary')
+function onOver({ target, buttons }: PointerEvent) {
+  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
   if (!el) return
 
-  if (0 === evt.buttons) return
+  if (0 === buttons) return
 
   el.classList.add('active')
 
@@ -31,8 +31,8 @@ function onOver(evt: PointerEvent) {
   el.addEventListener('pointerleave', onLeave, { once: true, passive: true })
 }
 
-function onLeave(evt: PointerEvent) {
-  const el = (evt.target as HTMLElement).closest<HTMLElement>('button,summary')
+function onLeave({ target }: PointerEvent) {
+  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
   if (!el) return
 
   el.addEventListener('pointerover', onOver, { once: true, passive: true })
@@ -48,8 +48,8 @@ function onLeave(evt: PointerEvent) {
   // })
 }
 
-function onCancel(evt: PointerEvent) {
-  const el = (evt.target as HTMLElement).closest<HTMLElement>('button,summary')
+function onCancel({ target }: PointerEvent) {
+  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
   if (!el) return
 
   // self.requestAnimationFrame(() => {
@@ -64,8 +64,8 @@ function onCancel(evt: PointerEvent) {
   // })
 }
 
-function onScroll(evt: Event) {
-  for (const el of (evt.target as HTMLElement).querySelectorAll<HTMLElement>('button,summary')) {
+function onScroll({ target }: Event) {
+  for (const el of (target as HTMLElement | null)?.querySelectorAll<HTMLElement>('button,summary') ?? []) {
     el.classList.remove('active')
     if (touchList.has(el)) clearTimeout(touchList.get(el))
     touchList.delete(el)

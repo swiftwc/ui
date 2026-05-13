@@ -3,97 +3,97 @@
 @use 'sass:map';
 @use 'sass:list';
 
-$h-map: (
-  leading: start,
-  center: center,
-  trailing: end,
-  fill: stretch, // cross-axis stretch
-);
+// $h-map: (
+//   leading: start,
+//   center: center,
+//   trailing: end,
+//   fill: stretch, // cross-axis stretch
+// );
 
-$v-map: (
-  top: start,
-  center: center,
-  bottom: end,
-  fill: stretch, // cross-axis stretch
-);
+// $v-map: (
+//   top: start,
+//   center: center,
+//   bottom: end,
+//   fill: stretch, // cross-axis stretch
+// );
 
-$placement-map: (
-  top-leading: start start,
-  top: start center,
-  top-trailing: start end,
-  center-leading: center start,
-  center: center center,
-  center-trailing: center end,
-  bottom-leading: end start,
-  bottom: end center,
-  bottom-trailing: end end,
-);
+// $placement-map: (
+//   top-leading: start start,
+//   top: start center,
+//   top-trailing: start end,
+//   center-leading: center start,
+//   center: center center,
+//   center-trailing: center end,
+//   bottom-leading: end start,
+//   bottom: end center,
+//   bottom-trailing: end end,
+// );
 
-$alignment-map: (
-  leading: start,
-  center: center,
-  trailing: end,
-  fill: stretch, // cross-axis stretch
-);
+// $alignment-map: (
+//   leading: start,
+//   center: center,
+//   trailing: end,
+//   fill: stretch, // cross-axis stretch
+// );
 
-$distribution-map: (
-  top: start,
-  center: center,
-  bottom: end,
-  fill: stretch,
-  between: space-between,
-  evenly: space-evenly,
-);
+// $distribution-map: (
+//   top: start,
+//   center: center,
+//   bottom: end,
+//   fill: stretch,
+//   between: space-between,
+//   evenly: space-evenly,
+// );
 
 $inline-map: (
   leading: (
-    (justify-items start),
-    (justify-content start),
+    (justify-items (start)),
+    (justify-content (start)),
   ),
   'leading fill': (
-    (justify-items start),
-    (justify-content stretch),
+    (justify-items (start)),
+    (justify-content (stretch)),
   ),
   center: (
-    (justify-items center),
-    (justify-content center),
+    (justify-items (safe center)),
+    (justify-content (safe center)),
   ),
   trailing: (
-    (justify-items end),
-    (justify-content end),
+    (justify-items (end)),
+    (justify-content (end)),
   ),
   fill: (
-    (justify-items stretch),
-    (justify-content stretch),
+    (justify-items (stretch)),
+    (justify-content (stretch)),
   ),
   space-between: (
-    (justify-content space-between),
+    (justify-content (space-between)),
   ),
 );
 
 $block-map: (
   leading: (
-    (align-items start),
-    (align-content start),
+    (align-items (start)),
+    (align-content (start)),
   ),
   'leading fill': (
-    (align-items start),
-    (align-content stretch),
+    (align-items (start)),
+    (align-content (stretch)),
   ),
   center: (
-    (align-items center),
-    (align-content center),
+    (align-items (center)),
+    (align-content (center)),
   ),
   trailing: (
-    (align-items end),
-    (align-content end),
+    (align-items (end)),
+    (align-content (end)),
   ),
   fill: (
-    (align-items stretch),
-    (align-content stretch),
+    (align-items (stretch)),
+    (align-content (stretch)),
   ),
   space-between: (
-    (align-content space-between),
+    (align-content (space-between)),
   ),
 );
 
@@ -129,7 +129,7 @@ $v-placement-map: (
     @each $k, $declarations in $inline-map {
       &[distribution='#{$k}'] {
         @each $decl in $declarations {
-          #{list.nth($decl, 1)}: #{list.nth($decl, 2)};
+          #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
     }
@@ -138,7 +138,7 @@ $v-placement-map: (
     @each $k, $declarations in $block-map {
       &[alignment='#{$k}'] {
         @each $decl in $declarations {
-          #{list.nth($decl, 1)}: #{list.nth($decl, 2)};
+          #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
     }
@@ -172,7 +172,7 @@ $v-placement-map: (
     @each $k, $declarations in $block-map {
       &[distribution='#{$k}'] {
         @each $decl in $declarations {
-          #{list.nth($decl, 1)}: #{list.nth($decl, 2)};
+          #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
     }
@@ -181,7 +181,7 @@ $v-placement-map: (
     @each $k, $declarations in $inline-map {
       &[alignment='#{$k}'] {
         @each $decl in $declarations {
-          #{list.nth($decl, 1)}: #{list.nth($decl, 2)};
+          #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
     }
@@ -225,6 +225,7 @@ $v-placement-map: (
   // padding reserved word for stacks
   v-stack,
   h-stack,
+  h-flex-stack,
   v-flex-stack {
     :where(&[padding]) {
       padding-inline: 1rem;

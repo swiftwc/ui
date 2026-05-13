@@ -1,23 +1,12 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { $, debounce, onoff } from '../internal/utils'
+import { debounce, onoff } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
 export class SidebarToggle extends HTMLElement {
-  // #ro
-  // #io
-
   constructor() {
     super()
-
-    // this.#ro = new ResizeObserver(
-    //   debounce(this.#handleMeasure.bind(this), 100, true)
-    // )
-
-    // this.#io = new IntersectionObserver((entries) => {
-    //   this._checkVisibility2(entries)
-    // })
   }
 
   connectedCallback() {
@@ -29,21 +18,16 @@ export class SidebarToggle extends HTMLElement {
       target: this,
     }
 
-    // NOTE: wait for config
-    // Snapshot.waitReady.then(() => {
     observers.observe(this, debounce(SidebarToggle.#handleMeasure, 100, true)) //this.#ro?.observe(this)
-    // this.#io.observe(this)
 
     // @ts-expect-error
     SidebarToggle.#handleMeasure([entry])
-    // })
   }
 
   disconnectedCallback() {
     console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
 
-    observers.unobserve(this) //this.#ro?.disconnect()
-    // this.#io.disconnect()
+    observers.unobserve(this)
 
     CleanupRegistry.unregister(this)
   }
@@ -59,86 +43,59 @@ export class SidebarToggle extends HTMLElement {
   static #handleMeasure(entry?: ResizeObserverEntry) {
     console.debug(`${SidebarToggle.name} ⚡️ measure`)
 
-    const target = entry?.target as HTMLElement
+    const { target } = entry ?? {}
+    if (!(target instanceof HTMLElement)) return
 
     // set/remove css var/prop to parent based on shown/hidden
-    // for (const { target } of entries) {
+    const tv = target.parentElement
+    // inlineSize = entry.borderBoxSize?.at(0)?.inlineSize ?? entry.contentRect?.width ?? 0,
+    // blockSize = entry.borderBoxSize?.at(0)?.blockSize ?? entry.contentRect?.height ?? 0
 
-    const tv = target?.parentElement,
-      width = target?.offsetWidth ?? 0
+    self.requestAnimationFrame(() => {
+      const inlineSize = target.offsetWidth ?? 0
 
-    // const gapProp =
-    //     getComputedStyle(tg).getPropertyValue('--toolbar-col-gap') || '0',
-    //   gap = parseFloat(gapProp) * 1 //(gapProp.endsWith('rem')? parseFloat(getComputedStyle(document.documentElement).fontSize): 1)
-    if (0 < width)
-      $.prop('--sidebar-toggle-padding-inline-start', `${width}px`, tv) //tv?.style?.setProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'], `${width}px`)
-    else $.prop('--sidebar-toggle-padding-inline-start', null, tv) //tv?.style?.removeProperty?.(Snapshot.config!['sidebar-toggle-padding-inline-start-css-prop'])
-    // }
+      if (0 < inlineSize)
+        tv?.style?.setProperty?.('--sidebar-toggle-padding-inline-start', `${inlineSize}px`) //$.prop('--sidebar-toggle-padding-inline-start', `${inlineSize}px`, tv) //
+      else tv?.style?.removeProperty?.('--sidebar-toggle-padding-inline-start') //$.prop('--sidebar-toggle-padding-inline-start', null, tv) //
+    })
 
     // auto close IF open
-    // for (const { target } of entries) {
     const { container, sideBar } = SidebarToggle.query(target) //target?.closest('navigation-split-view,tab-view')
-
-    // const sideBar = container?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
 
     if (!sideBar?.open) return
 
-    switch (container?.tagName) {
-      case 'NAVIGATION-SPLIT-VIEW':
-        // const sideBar = target?.parentElement?.querySelector<HTMLDialogElement>(':scope > dialog[is=sidebar-view]')
+    self.requestAnimationFrame(() => {
+      switch (container?.tagName) {
+        case 'NAVIGATION-SPLIT-VIEW':
+          if (0 < target.offsetWidth && 0 < target.offsetHeight) return
 
-        // if (!sideBar?.open) return
+          break
+        case 'TAB-VIEW':
+          // scan all toggles for anyone that is visible, sign that sidebar should stay open
+          if (
+            [
+              ...container.querySelectorAll<HTMLElement>(
+                ':scope > sidebar-toggle,:scope > [is=tab-bar] > sidebar-toggle' //,:scope > [is='sidebar-view'] > tool-bar > sidebar-toggle" ?? FIXME: removed this bc/ inside sidebar!
+              ),
+            ].some(({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight)
+          )
+            return
 
-        if (0 < (target as HTMLElement).offsetWidth && 0 < (target as HTMLElement).offsetHeight) return
+          break
+      }
 
-        // sideBar?.close?.()
-
-        break
-      case 'TAB-VIEW':
-        // const tabBar = container.querySelector<HTMLDialogElement>(':scope > dialog[is=tab-bar]')
-
-        // if (!tabBar?.open) return
-
-        // scan all toggles for anyone that is visible, sign that sidebar should stay open
-        if (
-          [
-            ...container.querySelectorAll<HTMLElement>(
-              ":scope > sidebar-toggle,:scope > [is=tab-bar] > sidebar-toggle,:scope > [is='sidebar-view'] > tool-bar > sidebar-toggle"
-            ),
-          ].some(({ offsetWidth, offsetHeight }) => 0 < offsetWidth && 0 < offsetHeight)
-        )
-          return
-
-        //tabBar?.close?.()
-
-        break
-    }
-
-    sideBar?.close?.()
-    // }
+      sideBar?.close?.()
+    })
   }
-
-  // _checkVisibility2(entries) {
-  //   entries.forEach((entry) => {
-  //     console.log('Visible in viewport?', entry.isIntersecting)
-  //   })
-  // }
 
   #handleClick(evt: Event) {
     console.debug(`${SidebarToggle.name} ⚡️ ${evt?.type}`)
 
-    const target = evt.target as HTMLElement
+    const { target } = evt as Event & { target: HTMLElement | null }
 
     if (!target?.closest('button')) return
 
-    const { sideBar } = SidebarToggle.query(target as HTMLElement)
-
-    // const container = target?.closest('tab-view,navigation-split-view')
-
-    // const dialog =
-    //   'TAB-VIEW' === container?.tagName
-    //     ? container.querySelector<TabBar>('dialog[is="tab-bar"]')
-    //     : container?.querySelector<SidebarView>('dialog[is="sidebar-view"]')
+    const { sideBar } = SidebarToggle.query(target)
 
     if (!sideBar?.open) sideBar?.showModal()
     else sideBar.close()

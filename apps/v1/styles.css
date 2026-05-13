@@ -1723,31 +1723,13 @@
   scroll-view-proxy:has(> v-stack, > h-stack) > h-stack[distribution=leading] > :not([slot])) {
     scroll-snap-align: start;
   }
-  :where(scroll-view-proxy:has(> v-stack, > h-stack) > v-stack,
-  scroll-view-proxy:has(> v-stack, > h-stack) > h-stack)::before {
-    grid-column: 1/-1;
-    grid-row: 1/-1;
-    content: "";
-    display: inline-grid;
-    block-size: 1px;
-    inline-size: 1px;
-    z-index: -1;
-    pointer-events: none;
-    position: absolute;
-  }
   :where(scroll-view-proxy:has(> v-stack, > h-stack) > v-stack) {
     overflow: clip auto;
     scroll-snap-type: block mandatory;
   }
-  :where(scroll-view-proxy:has(> v-stack, > h-stack) > v-stack)::before {
-    block-size: calc(100cqb + 1px);
-  }
   :where(scroll-view-proxy:has(> v-stack, > h-stack) > h-stack) {
     overflow: auto clip;
     scroll-snap-type: inline mandatory;
-  }
-  :where(scroll-view-proxy:has(> v-stack, > h-stack) > h-stack)::before {
-    inline-size: calc(100cqi + 1px);
   }
   :where(scroll-view-proxy:has(> v-stack, > h-stack) > h-stack[padding]) {
     scroll-padding-inline: 1rem;
@@ -1757,8 +1739,8 @@
   :where(h-stack) {
     grid-auto-flow: column;
     grid-template-rows: minmax(0, 1fr);
-    place-items: center;
-    place-content: center;
+    place-items: safe center;
+    place-content: safe center;
     gap: 1rem;
   }
   :where(h-stack[template="minmax(0,1fr) auto"]) {
@@ -1777,8 +1759,8 @@
 @layer sw-components {
   :where(v-stack) {
     grid-template-columns: minmax(0, 1fr);
-    place-items: center;
-    place-content: center;
+    place-items: safe center;
+    place-content: safe center;
     gap: 1rem;
   }
 }
@@ -5251,61 +5233,61 @@
 @layer sw-utils {
   h-stack[distribution=leading],
   v-flex-stack[distribution=leading] {
-    justify-items: start;
-    justify-content: start;
+    justify-items: start  ;
+    justify-content: start  ;
   }
   h-stack[distribution="leading fill"],
   v-flex-stack[distribution="leading fill"] {
-    justify-items: start;
-    justify-content: stretch;
+    justify-items: start  ;
+    justify-content: stretch  ;
   }
   h-stack[distribution=center],
   v-flex-stack[distribution=center] {
-    justify-items: center;
-    justify-content: center;
+    justify-items: safe center  ;
+    justify-content: safe center  ;
   }
   h-stack[distribution=trailing],
   v-flex-stack[distribution=trailing] {
-    justify-items: end;
-    justify-content: end;
+    justify-items: end  ;
+    justify-content: end  ;
   }
   h-stack[distribution=fill],
   v-flex-stack[distribution=fill] {
-    justify-items: stretch;
-    justify-content: stretch;
+    justify-items: stretch  ;
+    justify-content: stretch  ;
   }
   h-stack[distribution=space-between],
   v-flex-stack[distribution=space-between] {
-    justify-content: space-between;
+    justify-content: space-between  ;
   }
   h-stack[alignment=leading],
   v-flex-stack[alignment=leading] {
-    align-items: start;
-    align-content: start;
+    align-items: start  ;
+    align-content: start  ;
   }
   h-stack[alignment="leading fill"],
   v-flex-stack[alignment="leading fill"] {
-    align-items: start;
-    align-content: stretch;
+    align-items: start  ;
+    align-content: stretch  ;
   }
   h-stack[alignment=center],
   v-flex-stack[alignment=center] {
-    align-items: center;
-    align-content: center;
+    align-items: center  ;
+    align-content: center  ;
   }
   h-stack[alignment=trailing],
   v-flex-stack[alignment=trailing] {
-    align-items: end;
-    align-content: end;
+    align-items: end  ;
+    align-content: end  ;
   }
   h-stack[alignment=fill],
   v-flex-stack[alignment=fill] {
-    align-items: stretch;
-    align-content: stretch;
+    align-items: stretch  ;
+    align-content: stretch  ;
   }
   h-stack[alignment=space-between],
   v-flex-stack[alignment=space-between] {
-    align-content: space-between;
+    align-content: space-between  ;
   }
   h-stack[placement="fill leading"],
   v-flex-stack[placement="fill leading"] {
@@ -5320,61 +5302,61 @@
   }
   v-stack[distribution=leading],
   h-flex-stack[distribution=leading] {
-    align-items: start;
-    align-content: start;
+    align-items: start  ;
+    align-content: start  ;
   }
   v-stack[distribution="leading fill"],
   h-flex-stack[distribution="leading fill"] {
-    align-items: start;
-    align-content: stretch;
+    align-items: start  ;
+    align-content: stretch  ;
   }
   v-stack[distribution=center],
   h-flex-stack[distribution=center] {
-    align-items: center;
-    align-content: center;
+    align-items: center  ;
+    align-content: center  ;
   }
   v-stack[distribution=trailing],
   h-flex-stack[distribution=trailing] {
-    align-items: end;
-    align-content: end;
+    align-items: end  ;
+    align-content: end  ;
   }
   v-stack[distribution=fill],
   h-flex-stack[distribution=fill] {
-    align-items: stretch;
-    align-content: stretch;
+    align-items: stretch  ;
+    align-content: stretch  ;
   }
   v-stack[distribution=space-between],
   h-flex-stack[distribution=space-between] {
-    align-content: space-between;
+    align-content: space-between  ;
   }
   v-stack[alignment=leading],
   h-flex-stack[alignment=leading] {
-    justify-items: start;
-    justify-content: start;
+    justify-items: start  ;
+    justify-content: start  ;
   }
   v-stack[alignment="leading fill"],
   h-flex-stack[alignment="leading fill"] {
-    justify-items: start;
-    justify-content: stretch;
+    justify-items: start  ;
+    justify-content: stretch  ;
   }
   v-stack[alignment=center],
   h-flex-stack[alignment=center] {
-    justify-items: center;
-    justify-content: center;
+    justify-items: safe center  ;
+    justify-content: safe center  ;
   }
   v-stack[alignment=trailing],
   h-flex-stack[alignment=trailing] {
-    justify-items: end;
-    justify-content: end;
+    justify-items: end  ;
+    justify-content: end  ;
   }
   v-stack[alignment=fill],
   h-flex-stack[alignment=fill] {
-    justify-items: stretch;
-    justify-content: stretch;
+    justify-items: stretch  ;
+    justify-content: stretch  ;
   }
   v-stack[alignment=space-between],
   h-flex-stack[alignment=space-between] {
-    justify-content: space-between;
+    justify-content: space-between  ;
   }
   v-stack[placement="leading fill"],
   h-flex-stack[placement="leading fill"] {
@@ -5545,23 +5527,33 @@
   }
   :where(v-stack[padding],
   h-stack[padding],
+  h-flex-stack[padding],
   v-flex-stack[padding]) {
     padding-inline: 1rem;
   }
   :where(scroll-view > v-stack[padding],
   scroll-view > h-stack[padding],
+  scroll-view > h-flex-stack[padding],
   scroll-view > v-flex-stack[padding]) {
     padding-block-end: 1rem;
   }
   :where(v-stack > [padding]:not(v-stack,
   h-stack,
+  h-flex-stack,
   v-flex-stack), v-stack > [is=disclosure-group] > summary[padding],
   h-stack > [padding]:not(v-stack,
   h-stack,
+  h-flex-stack,
   v-flex-stack),
   h-stack > [is=disclosure-group] > summary[padding],
+  h-flex-stack > [padding]:not(v-stack,
+  h-stack,
+  h-flex-stack,
+  v-flex-stack),
+  h-flex-stack > [is=disclosure-group] > summary[padding],
   v-flex-stack > [padding]:not(v-stack,
   h-stack,
+  h-flex-stack,
   v-flex-stack),
   v-flex-stack > [is=disclosure-group] > summary[padding]) {
     margin-inline: 1rem;
@@ -7463,6 +7455,20 @@
   @media (pointer: coarse) and (min-width: 43rem) {
     :where(navigation-split-view:has(> [is=sidebar-view]) > [is=sidebar-view][touch-glass]) {
       --sidebar-view-scale: scale(1.02);
+      transition-duration: 100ms;
+    }
+  }
+  @media (pointer: coarse) {
+    :where(tab-view > [is=sidebar-view][touch-glass]) {
+      --sidebar-view-scale: scale(1.02);
+      transition-duration: 100ms;
+    }
+    :where(tab-view > sidebar-toggle > *[touch-glass]) {
+      --toolbar-cell-scale: scale(1.07);
+      transition-duration: 100ms;
+    }
+    :where(tab-view > [is=sidebar-view] > tool-bar > sidebar-toggle > *[touch-glass]) {
+      --toolbar-cell-scale: scale(1.07);
       transition-duration: 100ms;
     }
   }

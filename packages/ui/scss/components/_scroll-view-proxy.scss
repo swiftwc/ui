@@ -33,18 +33,18 @@
           scroll-snap-align: start;
         }
 
-        :where(&) {
-          &::before {
-            @include mixins.span-all;
-            content: '';
-            display: inline-grid;
-            block-size: 1px;
-            inline-size: 1px;
-            z-index: -1;
-            pointer-events: none;
-            position: absolute;
-          }
-        }
+        // :where(&) {
+        //   &::before {
+        //     @include mixins.span-all;
+        //     content: '';
+        //     display: inline-grid;
+        //     block-size: 1px;
+        //     inline-size: 1px;
+        //     z-index: -1;
+        //     pointer-events: none;
+        //     position: absolute;
+        //   }
+        // }
       }
 
       > v-stack {
@@ -53,9 +53,9 @@
 
           scroll-snap-type: block mandatory;
 
-          &::before {
-            block-size: calc(100cqb + 1px); // creates overflow
-          }
+          // &::before {
+          //   block-size: calc(100cqb + 1px); // creates overflow
+          // }
         }
       }
 
@@ -65,9 +65,9 @@
 
           scroll-snap-type: inline mandatory;
 
-          &::before {
-            inline-size: calc(100cqi + 1px); // creates overflow
-          }
+          // &::before {
+          //   inline-size: calc(100cqi + 1px); // creates overflow
+          // }
         }
 
         :where(&[padding]) {

@@ -7,7 +7,9 @@
   "scripts": {
     "prebuild": "rm -rf packages/*/generated",
     "build": "tsc -b packages/*",
-    "release": "changeset version"
+    "release": "changeset version",
+    "preprerelease": "node -e \"const readline=require('node:readline');const {execSync}=require('node:child_process');const run=c=>execSync(c,{encoding:'utf8'}).trim();if(run('git status --porcelain')){console.error('Git working tree is not clean');process.exit(1);}",
+    "prerelease": "npm run version:pkg --bump=prerelease -w @swiftwc/ui && git commit -m \"chore(ui): bumped version\" && git push origin dev"
   },
   "devDependencies": {
     "barrelsby": "^2.8.1",

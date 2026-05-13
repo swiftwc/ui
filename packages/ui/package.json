@@ -65,7 +65,8 @@
     "build:barrels": "barrelsby -D -q -S -d ./js/components -e \".\\.test\\.ts\"",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
-    "test": "vitest --dom"
+    "test": "vitest --dom",
+    "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },
   "devDependencies": {
     "doctrine": "^3.0.0",

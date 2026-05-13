@@ -3988,6 +3988,7 @@
       inline-size: var(--nav-split-view-sidebar-inline-size);
       margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
       --safe-area-inset-left: 0px;
+      --safe-area-inset-right: 0px;
       overflow: visible;
       padding-block: max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
       border-radius: var(--sidebar-border-radius);
@@ -4116,19 +4117,20 @@
       }
     }
   }
-  :where(:where(tab-view > [is=sidebar-view])) {
+  :where(tab-view > [is=sidebar-view]) {
     inline-size: var(--nav-split-view-sidebar-inline-size);
     margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
     --safe-area-inset-left: 0px;
+    --safe-area-inset-right: 0px;
     overflow: visible;
     padding-block: max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
     border-radius: var(--sidebar-border-radius);
   }
-  :where(:where(tab-view > [is=sidebar-view]) > scroll-view, :where(tab-view > [is=sidebar-view]) > scroll-view ~ tool-bar) {
+  :where(tab-view > [is=sidebar-view] > scroll-view, tab-view > [is=sidebar-view] > scroll-view ~ tool-bar) {
     --safe-area-inset-top: 0px;
     --safe-area-inset-bottom: 0px;
   }
-  :where(:where(tab-view > [is=sidebar-view]) > scroll-view) {
+  :where(tab-view > [is=sidebar-view] > scroll-view) {
     border-radius: var(--sidebar-border-radius);
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     --scroll-view-box-shadow: var(--liquid-glass-box-shadow);

@@ -61,6 +61,7 @@
     margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing)); // float
 
     --safe-area-inset-left: 0px; // now a floating
+    --safe-area-inset-right: 0px; // now a floating FIXME: Check new addition
 
     overflow: visible; // override
 

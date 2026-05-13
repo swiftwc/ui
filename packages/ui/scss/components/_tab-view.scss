@@ -115,10 +115,12 @@
       }
     }
 
-    :where(& > [is='sidebar-view']) {
+    > [is='sidebar-view'] {
       @include mixins.make-floating-sidebar;
 
-      margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1); // hide off screen
+      :where(&) {
+        margin-inline-start: calc(var(--nav-split-view-sidebar-inline-size) * -1); // hide off screen
+      }
     }
   }
 

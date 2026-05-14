@@ -39,8 +39,7 @@
         height: auto;
 
         inset-inline-start: calc(
-          var(--inset-inline-start-resettor, 1) *
-            calc(50lvw - calc(#{vars.$ipad-sheet-view-inline-size} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2))
+          var(--inset-inline-start-resettor, 1) * calc(50lvw - calc(#{vars.$ipad-sheet-view-inline-size} / 2) - calc(calc(var(--safe-area-inset-left) + var(--safe-area-inset-right)) / 2))
         );
 
         inset-block-start: calc(50lvh - calc(#{vars.$ipad-sheet-view-height} / 2) - calc(calc(var(--safe-area-inset-top) + var(--safe-area-inset-bottom)) / 2));

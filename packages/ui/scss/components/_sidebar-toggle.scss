@@ -101,10 +101,7 @@
         display: none;
       }
 
-      :where(
-        navigation-split-view:has(> [is='sidebar-view']):not([preferred-compact-column='content']) > &,
-        navigation-split-view:has(> [is='sidebar-view'])[column-visibility='double-column'] > &
-      ) {
+      :where(navigation-split-view:has(> [is='sidebar-view']):not([preferred-compact-column='content']) > &, navigation-split-view:has(> [is='sidebar-view'])[column-visibility='double-column'] > &) {
         display: none;
       }
     }

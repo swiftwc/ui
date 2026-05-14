@@ -58,8 +58,7 @@ export class ToolBar extends HTMLElement {
 
     // NOTE: wait for config
     // Snapshot.waitReady.then(() => {
-    for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`))
-      observers.observe(el, this.#measureStacks.bind(this))
+    for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`)) observers.observe(el, this.#measureStacks.bind(this))
     // })
   }
 

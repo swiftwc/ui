@@ -72,9 +72,7 @@
           :where(&) {
             --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view--content-inline-size));
 
-            --nav-split-view--detail-placeholder-inline-size: calc(
-              100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size)
-            );
+            --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size));
           }
         }
 

@@ -552,14 +552,8 @@ $colors: map.merge(
 
   :where([is='borderless-button']) {
     --btntext: var(--accentColor);
-    --btnhighlighttext: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
-    );
-    --btnactivetext: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
-    );
+    --btnhighlighttext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
+    --btnactivetext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h));
   }
 
   :where([is='bordered-button']) {
@@ -590,14 +584,8 @@ $colors: map.merge(
     --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
     --btnface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
-    --btnhighlightface: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.9), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.4), c) h)
-    );
-    --btnactiveface: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
-    );
+    --btnhighlightface: light-dark(oklch(from var(--accentColor) max(calc(l * 0.9), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.4), c) h));
+    --btnactiveface: light-dark(oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
   }
 
   :where([is='glass-button']) {
@@ -622,14 +610,8 @@ $colors: map.merge(
     --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
     --btnface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
-    --btnhighlightface: light-dark(
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
-    );
-    --btnactiveface: light-dark(
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
-    );
+    --btnhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
+    --btnactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
   }
 
   /* list-view {

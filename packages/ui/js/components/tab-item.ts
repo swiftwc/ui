@@ -40,11 +40,9 @@ export class TabItem extends ButtonBase {
     self.customElements.whenDefined('tab-view').then(() => {
       if (!btn.isConnected) return
 
-      if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value))
-        void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabDetail>('tabreveal', { detail: { tag: btn.value } }))
+      if (tv?.selectedTab?.map(({ id }) => id)?.includes(btn.value)) void this.#handleTabRevealOrSwap(btn, new CustomEvent<TabDetail>('tabreveal', { detail: { tag: btn.value } }))
 
-      if (tv?.moreTab)
-        this.#handleTabMoreStackAllowance(btn, new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change'))
+      if (tv?.moreTab) this.#handleTabMoreStackAllowance(btn, new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change'))
     })
   }
 

@@ -40,7 +40,6 @@ export class SidebarView extends DialogBase {
   static #handleClick = async (evt: Event) => {
     console.debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
 
-    if ('DIALOG' === (evt.target as HTMLElement).tagName && 'sidebar-view' === (evt.target as HTMLElement).getAttribute('is'))
-      (evt?.target as HTMLDialogElement)?.close?.()
+    if ('DIALOG' === (evt.target as HTMLElement).tagName && 'sidebar-view' === (evt.target as HTMLElement).getAttribute('is')) (evt?.target as HTMLDialogElement)?.close?.()
   }
 }

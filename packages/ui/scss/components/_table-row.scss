@@ -24,7 +24,7 @@
         }
       }
     }
-    
+
     // dissmantle list and turn it into a h-column row
     @container table (width > #{vars.$table-expanded-bp}) {
       :where(&) {

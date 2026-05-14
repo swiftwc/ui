@@ -60,9 +60,7 @@ export class ScrollView extends HTMLElement {
 
     observers.unobserve(this)
 
-    frame().then(() =>
-      LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true }))
-    )
+    frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {
@@ -90,9 +88,7 @@ export class ScrollView extends HTMLElement {
       ).on()
     )
 
-    frame().then(() =>
-      LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true }))
-    )
+    frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true })))
 
     observers.observe(this, this.#handleMeasure.bind(this))
 

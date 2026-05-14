@@ -48,9 +48,7 @@ export class SheetView extends DialogBase {
 
         if ('bottom-bar' !== (target as HTMLElement).getAttribute(attributeName ?? '')) break
 
-        const mediaQueryList = self.matchMedia(
-          `(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`
-        )
+        const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`)
 
         SheetView.#handleMediaChange(
           node,

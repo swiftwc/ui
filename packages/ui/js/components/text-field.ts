@@ -13,21 +13,7 @@ export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'nu
  */
 export class TextField extends FormAssociatedBase {
   static get observedAttributes() {
-    return [
-      'prompt',
-      'minimum',
-      'maximum',
-      'min-length',
-      'max-length',
-      'label',
-      'name',
-      'text',
-      'text-input-autocapitalization',
-      'disable-autocorrection',
-      'keyboard-type',
-      'required',
-      'disabled',
-    ]
+    return ['prompt', 'minimum', 'maximum', 'min-length', 'max-length', 'label', 'name', 'text', 'text-input-autocapitalization', 'disable-autocorrection', 'keyboard-type', 'required', 'disabled']
   }
 
   static #template: DocumentFragment
@@ -245,9 +231,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   get keyboardType(): KeyboardType {
-    return (keyboardTypes as readonly string[]).includes(this.getAttribute('keyboard-type') ?? '')
-      ? (this.getAttribute('keyboard-type') as (typeof keyboardTypes)[number])
-      : 'default'
+    return (keyboardTypes as readonly string[]).includes(this.getAttribute('keyboard-type') ?? '') ? (this.getAttribute('keyboard-type') as (typeof keyboardTypes)[number]) : 'default'
   }
 
   get text() {

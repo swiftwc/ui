@@ -300,8 +300,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#internals.setFormValue(entries)
 
-    if (dispatchEvent)
-      this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
+    if (dispatchEvent) this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
   }
 
   #handleClick(evt: Event) {
@@ -391,8 +390,7 @@ export class PickerView extends FormAssociatedBase {
 
         menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? [])
-          menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
         // let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
 
         // if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
@@ -418,8 +416,7 @@ export class PickerView extends FormAssociatedBase {
           section.insertAdjacentElement('beforeend', el)
         } else section.innerHTML = ''
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? [])
-          section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 
         // let possibleLv = this.#slot?.assignedElements({ flatten: true })[0]
 

@@ -98,9 +98,7 @@
 
         // overflow: clip;
 
-        scroll-padding-left: calc(
-          var(--sidebar-toggle-padding-inline-start, 0px) + var(--ipad-tabbar-block-padding-start) + var(--ipad-tabbar-block-padding-end)
-        );
+        scroll-padding-left: calc(var(--sidebar-toggle-padding-inline-start, 0px) + var(--ipad-tabbar-block-padding-start) + var(--ipad-tabbar-block-padding-end));
 
         // overflow: auto clip;
 

@@ -58,6 +58,7 @@
   "scripts": {
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss && npm run build:manifest && npm run build:barrels && npm run build:barrels:i18n",
+    "postbuild": "npm run format:write",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",

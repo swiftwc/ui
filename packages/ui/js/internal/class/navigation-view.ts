@@ -21,8 +21,7 @@ export class NavigationView extends HTMLElement {
     this.#recentBefore = undefined
 
     // this.removeEventListener('tabreveal', this.#handleTabReveal)
-    if (this.closest('tab-view'))
-      frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
+    if (this.closest('tab-view')) frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {

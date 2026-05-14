@@ -2,6 +2,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
+/**
+ * @summary A screen that lets users switch between different views using buttons, tabs, or other controls.
+ */
 export class TabBar extends DialogBase {
   constructor() {
     super()

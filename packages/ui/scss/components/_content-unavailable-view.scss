@@ -1,0 +1,45 @@
+@use '../vars';
+@use '../placeholders';
+
+@layer #{vars.$components-layer} {
+  content-unavailable-view {
+    :where(&) {
+      place-content: center;
+      place-items: center;
+
+      text-align: center;
+
+      row-gap: 1rem;
+
+      &::part(content-unavailable-actions-stack) {
+        row-gap: 0.2rem;
+      }
+
+      &::part(content-unavailable-title-stack) {
+        --label-flow: vertical;
+
+        --label-font: title3; // NOTE: Safari fix
+      }
+    }
+
+    > :not([slot]) {
+      --label-image-size: 5rem;
+
+      --label-gap: 1rem;
+
+      // --label-font: title3;
+    }
+
+    &:not(:has(> [slot='description'])) {
+      :where(&)::part(content-unavailable-description-stack) {
+        display: none;
+      }
+    }
+
+    &:not(:has(> [slot='actions'])) {
+      :where(&)::part(content-unavailable-actions-stack) {
+        display: none;
+      }
+    }
+  }
+}

@@ -174,6 +174,59 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/content-unavailable-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ContentUnavailableView",
+          "tagName": "content-unavailable-view",
+          "description": "A message with a title and extra information that you show when part of your app can’t be used.",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "description"
+            },
+            {
+              "name": "slot",
+              "description": "actions"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "search"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ContentUnavailableView",
+          "declaration": {
+            "name": "ContentUnavailableView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "content-unavailable-view",
+          "declaration": {
+            "name": "ContentUnavailableView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/date-picker.ts",
       "declarations": [
         {
@@ -574,7 +627,7 @@
           "customElement": true,
           "name": "NavigationSplitView",
           "tagName": "navigation-split-view",
-          "description": "",
+          "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.",
           "superclass": {
             "name": "NavigationView"
           }
@@ -606,7 +659,7 @@
           "customElement": true,
           "name": "NavigationStack",
           "tagName": "navigation-stack",
-          "description": "",
+          "description": "A view that shows a main screen and lets you open other screens on top of it.",
           "superclass": {
             "name": "NavigationView"
           }
@@ -779,6 +832,38 @@
           "name": "screen-view",
           "declaration": {
             "name": "ScreenView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/scroll-view-proxy.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ScrollViewProxy",
+          "tagName": "scroll-view-proxy",
+          "description": "A wrapper to {hv}-stacks",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ScrollViewProxy",
+          "declaration": {
+            "name": "ScrollViewProxy"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "scroll-view-proxy",
+          "declaration": {
+            "name": "ScrollViewProxy"
           }
         }
       ]
@@ -1023,7 +1108,7 @@
           "customElement": true,
           "name": "TabBar",
           "tagName": "tab-bar",
-          "description": "",
+          "description": "A screen that lets users switch between different views using buttons, tabs, or other controls.",
           "superclass": {
             "name": "DialogHTMLElement"
           }

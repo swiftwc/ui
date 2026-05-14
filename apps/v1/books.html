@@ -193,9 +193,12 @@
         <navigation-split-view id="customers" hidden>
           <detail-placeholder>
             <scroll-view>
-              <v-stack>
+              <content-unavailable-view>
+                <label-view title="Nothing Selected" foreground="secondary"></label-view>
+              </content-unavailable-view>
+              <!-- <v-stack>
                 <label-view title="Nothing Selected"></label-view>
-              </v-stack>
+              </v-stack> -->
             </scroll-view>
           </detail-placeholder>
           <scroll-view navigation-path="customers">

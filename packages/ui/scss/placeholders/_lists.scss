@@ -144,10 +144,7 @@
       > :not(summary) {
         :where(&) {
           --itemface: var(--list--details-background-color, var(--list--item-background-color,));
-          --itemhighlightface: var(
-            --list--selecteddetails-background-color,
-            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-          );
+          --itemhighlightface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
           --itemactiveface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
 
           --itemtext: var(--list--details-color, var(--list--item-color,));
@@ -158,14 +155,8 @@
       > summary {
         :where([is='disclosure-group'][open] &) {
           --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
-          --itemhighlightface: var(
-            --list--selectedopendetails-background-color,
-            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-          );
-          --itemactiveface: var(
-            --list--selectedopendetails-background-color,
-            var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-          );
+          --itemhighlightface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
+          --itemactiveface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
 
           --itemtext: var(--list--opendetails-color, var(--list--item-color,));
           --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
@@ -186,14 +177,8 @@
             );
 
             --itemtext: var(--list--opensummary-color, var(--list--item-color,));
-            --itemhighlighttext: var(
-              --list--selectedopensummary-color,
-              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-            );
-            --itemactivetext: var(
-              --list--selectedopensummary-color,
-              var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-            );
+            --itemhighlighttext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
+            --itemactivetext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
           }
         }
       }
@@ -215,14 +200,8 @@
           );
 
           --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
-          --itemhighlighttext: var(
-            --list--selectedrootsummary-color,
-            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-          );
-          --itemactivetext: var(
-            --list--selectedrootsummary-color,
-            var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-          );
+          --itemhighlighttext: var(--list--selectedrootsummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
+          --itemactivetext: var(--list--selectedrootsummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
 
           // overwrite extra stuff for rootsummary
           // outline: red solid 4px;
@@ -244,17 +223,11 @@
           --itemface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
           --itemhighlightface: var(
             --list--selectedrootsummary-background-color,
-            var(
-              --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
-            )
+            var(--list--selectedopensummary-background-color, var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,))))
           );
           --itemactiveface: var(
             --list--selectedrootsummary-background-color,
-            var(
-              --list--selectedopensummary-background-color,
-              var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
-            )
+            var(--list--selectedopensummary-background-color, var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,))))
           );
 
           --itemtext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
@@ -378,8 +351,7 @@
       :where(&)::part(section-footer-stack),
       :where(&)::part(section-header-stack) {
         // outline: magenta 4px solid;
-        padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px))
-          calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
+        padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px)) calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
 
         margin-inline: calc(var(--list--root-padding-inline) * -1);
 

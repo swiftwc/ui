@@ -134,8 +134,7 @@ document.addEventListener('touchstart', () => {}, { passive: true })
 const cleanup = (lm?: Element, type?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 
-  if (['backwards', 'forwards'].includes(type ?? ''))
-    for (let i = arr.length - 1; i >= 0; i--) if (arr[i].startsWith('backwards' === type ? 'fw' : 'bw')) arr.splice(i, 1)
+  if (['backwards', 'forwards'].includes(type ?? '')) for (let i = arr.length - 1; i >= 0; i--) if (arr[i].startsWith('backwards' === type ? 'fw' : 'bw')) arr.splice(i, 1)
 
   for (const el of [...(lm?.querySelectorAll(arr.map((v) => `.${v}`).join(',')) ?? [])]) el.classList.remove(...arr)
 }
@@ -147,11 +146,7 @@ type NavigateOptions = {
   tos?: () => NavigationPath[]
 }
 
-export const startViewTransition = async (
-  target: HTMLElement,
-  type: TransitionType = 'forwards',
-  updateCallbackOrOptions: UpdateCallback | NavigateOptions = async () => {}
-) => {
+export const startViewTransition = async (target: HTMLElement, type: TransitionType = 'forwards', updateCallbackOrOptions: UpdateCallback | NavigateOptions = async () => {}) => {
   console.debug(`startViewTransition (${type})`, target)
 
   if (!(target instanceof HTMLElement)) throw new TypeError("Argument 1 ('target') to client.startViewTransition must be an instance of HTMLElement")
@@ -222,14 +217,10 @@ export const startViewTransition = async (
     // prepare new
     const toolbarExclusion =
         0 < modalViews.length
-          ? (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) =>
-              value.parentElement?.matches('tool-bar:not(dialog tool-bar,body-view ~ tool-bar)')
-          : (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) =>
-              value.parentElement?.matches('tool-bar:not(body-view ~ tool-bar)'),
+          ? (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar,body-view ~ tool-bar)')
+          : (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(body-view ~ tool-bar)'),
       bodyExclusion =
-        0 < modalViews.length
-          ? (item: NavigationPath) => item.body?.matches('scroll-view:not(dialog scroll-view)')
-          : (value: NavigationPath, index: number, array: NavigationPath[]) => value
+        0 < modalViews.length ? (item: NavigationPath) => item.body?.matches('scroll-view:not(dialog scroll-view)') : (value: NavigationPath, index: number, array: NavigationPath[]) => value
 
     for (const bti of newToolbars?.filter?.(toolbarExclusion) ?? []) bti.classList.add('fwnn') // for (const ti of newToolbars ?? []) ti.classList.add('fwnn') //
 
@@ -249,10 +240,7 @@ export const startViewTransition = async (
     } else {
       console.debug(`⚡️ view-transition-start (${type})`)
 
-      await Promise.allSettled([
-        ...(from.body?.getAnimations().map(({ finished }) => finished) ?? []),
-        ...(to?.body?.getAnimations().map(({ finished }) => finished) ?? []),
-      ])
+      await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
       console.debug(`⚡️ view-transition-end (${type})`)
     }
@@ -296,8 +284,7 @@ export const startViewTransition = async (
     if (!to) return console.debug('Can not go backwards.') // nothing to go back to
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
-    if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope'))
-      if ('bottom-bar' !== tv.tabBarPlacement) return
+    if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope')) if ('bottom-bar' !== tv.tabBarPlacement) return
 
     // const { toolBarConfig: newToolbars } = getComputedView(to.body)
 
@@ -330,10 +317,7 @@ export const startViewTransition = async (
     // capture trans
     console.debug(`⚡️ view-transition-start (${type})`)
 
-    await Promise.allSettled([
-      ...(from.body?.getAnimations().map(({ finished }) => finished) ?? []),
-      ...(to.body?.getAnimations().map(({ finished }) => finished) ?? []),
-    ])
+    await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
     console.debug(`⚡️ view-transition-end (${type})`)
 

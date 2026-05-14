@@ -3,6 +3,19 @@
 @use 'sass:string';
 @use 'sass:map';
 
+// scalpel precision
+@property --label-gap {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@property --label-image-size {
+  syntax: '<length>';
+  inherits: false;
+  initial-value: 0;
+}
+
 // @property --label-style {
 //   syntax: 'title-and-icon | icon-only | title-only | automatic';
 //   inherits: true;
@@ -55,7 +68,8 @@ $label-line-ifs: (
     --label--host-align-items: center;
     --label--host-justify-items: normal;
 
-    --label--host-gap: 0.3rem;
+    --label-gap: 0.3rem;
+    --label--host-gap: var(--label-gap);
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
@@ -75,7 +89,8 @@ $label-line-ifs: (
     --label--host-align-items: normal;
     --label--host-justify-items: center;
 
-    --label--host-gap: 0.3rem;
+    --label-gap: 0.3rem;
+    --label--host-gap: var(--label-gap);
 
     --label--iconstack-display: grid;
     --label--titlestack-display: grid;
@@ -158,7 +173,10 @@ $label-line-ifs: (
       grid-template-rows: var(--label--host-grid-template-rows,);
       // grid-template-areas: 'label-image-stack label-title-stack';
 
-      gap: var(--label--host-gap,);
+      gap: var(--label--host-gap,); //;
+
+      --label-image-size: 2rem;
+      --label-imagestack-fontsize: var(--label-image-size);
       // gap: 0;
 
       white-space: var(--label--host-white-space,);
@@ -184,8 +202,8 @@ $label-line-ifs: (
       &::part(label-image-stack) {
         aspect-ratio: 1 / 1;
 
-        inline-size: var(--label-image-size, 2rem);
-        font-size: var(--label-image-size, 2rem);
+        inline-size: var(--label-imagestack-fontsize);
+        font-size: var(--label-imagestack-fontsize);
 
         // line-height: 1;
 
@@ -255,34 +273,23 @@ $label-line-ifs: (
         --label--host-grid-template-columns: if(
           style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
             style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
-            else: if(
-              style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;)
-                ; else: minmax(0, 1fr) ;
-            )
-            ;
+            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
         );
         --label--host-grid-template-rows: if(
           style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
             style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
-            else: if(
-              style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;)
-                ; else: minmax(0, 1fr) ;
-            )
-            ;
+            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
         );
 
-        --label--host-gap: if(
-          style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;
-        );
+        --label-gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;);
+        --label--host-gap: if(style(--label-style: title-and-icon): var(--label-gap) ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): var(--label-gap) ;) ;);
 
         --label--iconstack-display: if(
-          style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
-            else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+          style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
         );
 
         --label--titlestack-display: if(
-          style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
-            else: if(style(--label--has-title: yes): grid ; else: none;) ;
+          style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
         );
       }
     }

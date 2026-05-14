@@ -92,7 +92,7 @@ export class DatePicker extends FormAssociatedBase {
     CleanupRegistry.register(
       this,
       onoff(
-        'change',
+        'localechange',
         () => {
           this.#render()
         },
@@ -158,9 +158,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   get datePickerStyle(): DatePickerStyle {
-    return (datePickerStyles as readonly string[]).includes(this.getAttribute('date-picker-style') ?? '')
-      ? (this.getAttribute('date-picker-style') as (typeof datePickerStyles)[number])
-      : 'automatic'
+    return (datePickerStyles as readonly string[]).includes(this.getAttribute('date-picker-style') ?? '') ? (this.getAttribute('date-picker-style') as (typeof datePickerStyles)[number]) : 'automatic'
   }
 
   #render() {
@@ -392,10 +390,7 @@ export class DatePicker extends FormAssociatedBase {
 
     if (0 === input.value.length) return
 
-    const finalText = `${clamp(this.value[input.name] ?? '0', DatePicker.#min(input), DatePicker.#max(input))}`.padStart(
-      parseInt(input.getAttribute('maxlength') ?? '0'),
-      '0'
-    )
+    const finalText = `${clamp(this.value[input.name] ?? '0', DatePicker.#min(input), DatePicker.#max(input))}`.padStart(parseInt(input.getAttribute('maxlength') ?? '0'), '0')
 
     if (!set(input, 'value', finalText)) return
 

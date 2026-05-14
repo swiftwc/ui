@@ -62,7 +62,7 @@
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
     "build:manifest": "tsx scripts/make-manifest.ts",
-    "build:barrels": "barrelsby -D -q -S -d ./js/components -e \".\\.test\\.ts\"",
+    "build:barrels": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --directory ./js/components --exclude \".\\.test\\.ts\"",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "test": "vitest --dom",
@@ -76,5 +76,8 @@
     "tsx": "^4.21.0",
     "vitest": "^4.0.18"
   },
-  "customElements": "custom-elements/en.json"
+  "customElements": "custom-elements/en.json",
+  "imports": {
+    "#internal/*": "./js/internal/*"
+  }
 }

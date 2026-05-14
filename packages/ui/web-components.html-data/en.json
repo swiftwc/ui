@@ -27,6 +27,15 @@
       ]
     },
     {
+      "name": "content-unavailable-view",
+      "description": "A message with a title and extra information that you show when part of your app can’t be used.",
+      "attributes": [
+        {
+          "name": "search"
+        }
+      ]
+    },
+    {
       "name": "date-picker",
       "attributes": [
         {
@@ -126,10 +135,12 @@
       "name": "navigation-large-title"
     },
     {
-      "name": "navigation-split-view"
+      "name": "navigation-split-view",
+      "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section."
     },
     {
-      "name": "navigation-stack"
+      "name": "navigation-stack",
+      "description": "A view that shows a main screen and lets you open other screens on top of it."
     },
     {
       "name": "navigation-title",
@@ -150,6 +161,10 @@
     },
     {
       "name": "screen-view"
+    },
+    {
+      "name": "scroll-view-proxy",
+      "description": "A wrapper to {hv}-stacks"
     },
     {
       "name": "scroll-view",
@@ -197,7 +212,8 @@
       "name": "sticky-container"
     },
     {
-      "name": "tab-bar"
+      "name": "tab-bar",
+      "description": "A screen that lets users switch between different views using buttons, tabs, or other controls."
     },
     {
       "name": "tab-item"

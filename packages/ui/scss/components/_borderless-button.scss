@@ -17,3 +17,11 @@
     }
   }
 }
+
+@layer #{vars.$utils-layer} {
+  [is='borderless-button'] {
+    :where(&) {
+      text-align: center;
+    }
+  }
+}

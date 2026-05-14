@@ -17,3 +17,11 @@
     }
   }
 }
+
+@layer #{vars.$utils-layer} {
+  [is='bordered-prominent-button'] {
+    :where(&) {
+      text-align: center;
+    }
+  }
+}

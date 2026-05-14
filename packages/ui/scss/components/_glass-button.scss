@@ -22,3 +22,11 @@
     }
   }
 }
+
+@layer #{vars.$utils-layer} {
+  [is='glass-button'] {
+    :where(&) {
+      text-align: center;
+    }
+  }
+}

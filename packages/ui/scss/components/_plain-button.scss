@@ -9,3 +9,10 @@
     }
   }
 }
+@layer #{vars.$utils-layer} {
+  [is='plain-button'] {
+    :where(&) {
+      text-align: center;
+    }
+  }
+}

@@ -499,10 +499,7 @@
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not(summary), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not(summary), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not(summary)) {
     --itemface: var(--list--details-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(
-      --list--selecteddetails-background-color,
-      var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-    );
+    --itemhighlightface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
     --itemactiveface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
     --itemtext: var(--list--details-color, var(--list--item-color,));
     --itemhighlighttext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
@@ -510,14 +507,8 @@
   }
   :where([is=disclosure-group][open] table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > summary, [is=disclosure-group][open] [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > summary, [is=disclosure-group][open] list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > summary) {
     --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
-    --itemhighlightface: var(
-      --list--selectedopendetails-background-color,
-      var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-    );
-    --itemactiveface: var(
-      --list--selectedopendetails-background-color,
-      var(--list--highlighteditem-background-color, var(--list--item-background-color,))
-    );
+    --itemhighlightface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
+    --itemactiveface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
     --itemtext: var(--list--opendetails-color, var(--list--item-color,));
     --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
     --itemactivetext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
@@ -533,14 +524,8 @@
       var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
     );
     --itemtext: var(--list--opensummary-color, var(--list--item-color,));
-    --itemhighlighttext: var(
-      --list--selectedopensummary-color,
-      var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-    );
-    --itemactivetext: var(
-      --list--selectedopensummary-color,
-      var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-    );
+    --itemhighlighttext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
+    --itemactivetext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
   }
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group],
@@ -562,14 +547,8 @@
       var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
     );
     --itemtext: var(--list--rootsummary-color, var(--list--item-color,));
-    --itemhighlighttext: var(
-      --list--selectedrootsummary-color,
-      var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-    );
-    --itemactivetext: var(
-      --list--selectedrootsummary-color,
-      var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,)))
-    );
+    --itemhighlighttext: var(--list--selectedrootsummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
+    --itemactivetext: var(--list--selectedrootsummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
     --itempadistart: var(--list--rootsummary-padding-inline-start, var(--list--item-padding-inline-start,));
     --itempadiend: var(--list--rootsummary-padding-inline-end, var(--list--item-padding-inline-end,));
     --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
@@ -582,17 +561,11 @@
     --itemface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
     --itemhighlightface: var(
       --list--selectedrootsummary-background-color,
-      var(
-        --list--selectedopensummary-background-color,
-        var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
-      )
+      var(--list--selectedopensummary-background-color, var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,))))
     );
     --itemactiveface: var(
       --list--selectedrootsummary-background-color,
-      var(
-        --list--selectedopensummary-background-color,
-        var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)))
-      )
+      var(--list--selectedopensummary-background-color, var(--list--selectedsummary-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,))))
     );
     --itemtext: var(--list--rootsummary-color, var(--list--opensummary-color, var(--list--item-color,)));
     --itemhighlighttext: var(
@@ -1057,6 +1030,7 @@
   [is=glass-prominent-button]:not([hidden]),
   list-view:not([hidden]),
   table-view:not([hidden]),
+  content-unavailable-view:not([hidden]),
   tool-bar-item:not([hidden]),
   tool-bar-item-group:not([hidden]),
   sidebar-toggle:not([hidden]),
@@ -1072,6 +1046,9 @@
   picker-view:not([hidden])) {
     display: grid;
   }
+  :where(content-unavailable-view)::part(content-unavailable-title-stack),
+  :where(content-unavailable-view)::part(content-unavailable-description-stack),
+  :where(content-unavailable-view)::part(content-unavailable-actions-stack),
   :where(table-view)::part(table-container),
   :where(table-view)::part(table-column-stack),
   :where(table-view)::part(table-header-stack),
@@ -1527,6 +1504,31 @@
   }
 }
 @layer sw-components {
+  :where(content-unavailable-view) {
+    place-content: center;
+    place-items: center;
+    text-align: center;
+    row-gap: 1rem;
+  }
+  :where(content-unavailable-view)::part(content-unavailable-actions-stack) {
+    row-gap: 0.2rem;
+  }
+  :where(content-unavailable-view)::part(content-unavailable-title-stack) {
+    --label-flow: vertical;
+    --label-font: title3;
+  }
+  content-unavailable-view > :not([slot]) {
+    --label-image-size: 5rem;
+    --label-gap: 1rem;
+  }
+  :where(content-unavailable-view:not(:has(> [slot=description])))::part(content-unavailable-description-stack) {
+    display: none;
+  }
+  :where(content-unavailable-view:not(:has(> [slot=actions])))::part(content-unavailable-actions-stack) {
+    display: none;
+  }
+}
+@layer sw-components {
   :where([is=confirmation-dialog]) {
     inset-inline: 0px;
     inset-block: 0px;
@@ -1929,6 +1931,11 @@
   }
 }
 @layer sw-components {}
+@layer sw-utils {
+  :where([is=plain-button]) {
+    text-align: center;
+  }
+}
 @layer sw-components {
   :where([is=borderless-button][role=destructive]) {
     --accentColor: var(--red);
@@ -1936,6 +1943,11 @@
     --accentColor3: var(--red3);
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
+  }
+}
+@layer sw-utils {
+  :where([is=borderless-button]) {
+    text-align: center;
   }
 }
 @layer sw-components {
@@ -1952,6 +1964,11 @@
     --accentColor5: var(--red5);
   }
 }
+@layer sw-utils {
+  :where([is=bordered-button]) {
+    text-align: center;
+  }
+}
 @layer sw-components {
   :where([is=bordered-prominent-button][role=destructive]) {
     --accentColor: var(--red);
@@ -1959,6 +1976,11 @@
     --accentColor3: var(--red3);
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
+  }
+}
+@layer sw-utils {
+  :where([is=bordered-prominent-button]) {
+    text-align: center;
   }
 }
 @layer sw-components {
@@ -1975,6 +1997,11 @@
     --accentColor5: var(--red5);
   }
 }
+@layer sw-utils {
+  :where([is=glass-button]) {
+    text-align: center;
+  }
+}
 @layer sw-components {
   :where([is=glass-prominent-button]) {
     backdrop-filter: var(--liquid-glass-backdrop-filter);
@@ -1987,6 +2014,11 @@
     --accentColor3: var(--red3);
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
+  }
+}
+@layer sw-utils {
+  :where([is=glass-prominent-button]) {
+    text-align: center;
   }
 }
 @layer sw-components {
@@ -2047,6 +2079,16 @@
     }
   }
 }
+@property --label-gap {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
+@property --label-image-size {
+  syntax: "<length>";
+  inherits: false;
+  initial-value: 0;
+}
 @layer sw-components {
   :where(label-view) {
     align-items: var(--label--host-align-items, );
@@ -2054,6 +2096,8 @@
     grid-template-columns: var(--label--host-grid-template-columns, );
     grid-template-rows: var(--label--host-grid-template-rows, );
     gap: var(--label--host-gap, );
+    --label-image-size: 2rem;
+    --label-imagestack-fontsize: var(--label-image-size);
     white-space: var(--label--host-white-space, );
   }
   :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
@@ -2068,8 +2112,8 @@
   }
   :where(label-view)::part(label-image-stack) {
     aspect-ratio: 1/1;
-    inline-size: var(--label-image-size, 2rem);
-    font-size: var(--label-image-size, 2rem);
+    inline-size: var(--label-imagestack-fontsize);
+    font-size: var(--label-imagestack-fontsize);
   }
   :where(label-view)::part(label-title-stack) {
     text-decoration: underline;
@@ -2107,31 +2151,20 @@
       --label--host-grid-template-columns: if(
         style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
           style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
-          else: if(
-            style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;)
-              ; else: minmax(0, 1fr) ;
-          )
-          ;
+          else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
       );
       --label--host-grid-template-rows: if(
         style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
           style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
-          else: if(
-            style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;)
-              ; else: minmax(0, 1fr) ;
-          )
-          ;
+          else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
       );
-      --label--host-gap: if(
-        style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;
-      );
+      --label-gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;);
+      --label--host-gap: if(style(--label-style: title-and-icon): var(--label-gap) ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): var(--label-gap) ;) ;);
       --label--iconstack-display: if(
-        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ;
-          else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
       );
       --label--titlestack-display: if(
-        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ;
-          else: if(style(--label--has-title: yes): grid ; else: none;) ;
+        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
       );
     }
   }
@@ -2155,7 +2188,8 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label--host-gap: 0.3rem;
+        --label-gap: 0.3rem;
+        --label--host-gap: var(--label-gap);
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
@@ -2174,7 +2208,8 @@
       --label--host-grid-template-rows: minmax(0, 1fr);
       --label--host-align-items: center;
       --label--host-justify-items: normal;
-      --label--host-gap: 0.3rem;
+      --label-gap: 0.3rem;
+      --label--host-gap: var(--label-gap);
       --label--iconstack-display: grid;
       --label--titlestack-display: grid;
     }
@@ -2185,7 +2220,8 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label--host-gap: 0.3rem;
+        --label-gap: 0.3rem;
+        --label--host-gap: var(--label-gap);
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
@@ -2217,7 +2253,8 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--host-gap: 0.3rem;
+        --label-gap: 0.3rem;
+        --label--host-gap: var(--label-gap);
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
@@ -2237,7 +2274,8 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--host-gap: 0.3rem;
+        --label-gap: 0.3rem;
+        --label--host-gap: var(--label-gap);
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
@@ -2249,7 +2287,8 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--host-gap: 0.3rem;
+        --label-gap: 0.3rem;
+        --label--host-gap: var(--label-gap);
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }

@@ -20,3 +20,11 @@
     }
   }
 }
+
+@layer #{vars.$utils-layer} {
+  [is='bordered-button'] {
+    :where(&) {
+      text-align: center;
+    }
+  }
+}

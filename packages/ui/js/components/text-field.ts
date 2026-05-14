@@ -94,7 +94,7 @@ export class TextField extends FormAssociatedBase {
     CleanupRegistry.register(
       this,
       onoff(
-        'change',
+        'localechange',
         () => {
           this.text = this.text
         },

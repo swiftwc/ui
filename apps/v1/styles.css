@@ -1765,6 +1765,15 @@
     place-content: safe center;
     gap: 1rem;
   }
+  :where(v-stack[template="auto auto minmax(0,1fr)"]) {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  :where(v-stack[template="auto minmax(0,1fr)"]) {
+    grid-template-rows: auto minmax(0, 1fr);
+  }
+  :where(v-stack[template="auto auto autominmax(0,1fr)"]) {
+    grid-template-rows: auto auto autominmax(0, 1fr);
+  }
 }
 @layer sw-components {
   :where(v-flex-stack) {
@@ -5396,6 +5405,11 @@
   v-stack[alignment=space-between],
   h-flex-stack[alignment=space-between] {
     justify-content: space-between  ;
+  }
+  v-stack[placement=fill],
+  h-flex-stack[placement=fill] {
+    place-items: stretch  ;
+    place-content: stretch  ;
   }
   v-stack[placement="leading fill"],
   h-flex-stack[placement="leading fill"] {

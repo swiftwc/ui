@@ -1,4 +1,4 @@
-import { el, en } from './translations'
+import { el, en } from './locales'
 
 type LocaleInput = Intl.UnicodeBCP47LocaleIdentifier | Intl.Locale
 

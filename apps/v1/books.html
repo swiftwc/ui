@@ -203,8 +203,9 @@
           </detail-placeholder>
           <scroll-view navigation-path="customers">
             <!-- style="--face: light-dark(var(--canvas), var(--primary-bg-dark))"> -->
-            <v-stack placement="leading fill">
+            <v-stack placement="fill" template="auto auto minmax(0,1fr)">
               <navigation-title value="Customers" padding style="order: -2"></navigation-title>
+              <!-- <content-unavailable-view search padding></content-unavailable-view> -->
               <list-view preferred-expanded-style="inset" style="--list--sticky-block-size: 70px">
                 <section-view header="A">
                   <button type="button" navigation-destination="customer1" selected-when="customer1 editcustomer1">

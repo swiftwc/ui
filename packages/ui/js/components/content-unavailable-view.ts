@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '#internal/class/cleanup-registry.js'
-import { $, onoff } from '#internal/utils/index.js'
 import { I18n } from '../i18n'
+import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { $, onoff } from '../internal/utils'
 
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.

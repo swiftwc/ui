@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff,buttonRole } from '../internal/utils'
+import { buttonRole, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 
 export class BorderlessButton extends ButtonBase {
@@ -28,13 +28,12 @@ export class BorderlessButton extends ButtonBase {
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
+    const node = target instanceof HTMLButtonElement && target
+    if (!node) return
+
     switch (attributeName) {
       case 'role':
-        // let label = this.querySelector(':scope>[slot=label]')
-        // if (newValue) {
-        //   label ??= this.appendChild($(`<label-view slot="label"></label-view>`))
-        //   label.setAttribute('title', newValue)
-        // } else label?.remove()
+        buttonRole(target, attributeName)
 
         break
     }

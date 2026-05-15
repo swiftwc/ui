@@ -2,13 +2,26 @@
   "version": 1.1,
   "tags": [
     {
+      "name": "alert-dialog"
+    },
+    {
       "name": "body-view"
     },
     {
-      "name": "bordered-button"
+      "name": "bordered-button",
+      "attributes": [
+        {
+          "name": "role"
+        }
+      ]
     },
     {
-      "name": "bordered-prominent-button"
+      "name": "bordered-prominent-button",
+      "attributes": [
+        {
+          "name": "role"
+        }
+      ]
     },
     {
       "name": "borderless-button",
@@ -92,10 +105,20 @@
       "name": "form-view"
     },
     {
-      "name": "glass-button"
+      "name": "glass-button",
+      "attributes": [
+        {
+          "name": "role"
+        }
+      ]
     },
     {
-      "name": "glass-prominent-button"
+      "name": "glass-prominent-button",
+      "attributes": [
+        {
+          "name": "role"
+        }
+      ]
     },
     {
       "name": "label-view",
@@ -271,10 +294,20 @@
       ]
     },
     {
-      "name": "tool-bar-item-group"
+      "name": "tool-bar-item-group",
+      "attributes": [
+        {
+          "name": "preferred-fine-modal-placement"
+        }
+      ]
     },
     {
-      "name": "tool-bar-item"
+      "name": "tool-bar-item",
+      "attributes": [
+        {
+          "name": "preferred-fine-modal-placement"
+        }
+      ]
     },
     {
       "name": "tool-bar"
@@ -311,6 +344,11 @@
   ],
   "globalAttributes": [
     {
+      "name": "tint",
+      "description": "Sets accent color",
+      "valueSet": "tintSet"
+    },
+    {
       "name": "frame:width",
       "description": "Sets inline-size",
       "valueSet": "frameWidth"
@@ -322,6 +360,23 @@
     }
   ],
   "valueSets": [
+    {
+      "name": "tintSet",
+      "values": [
+        {
+          "name": "gray",
+          "description": "like secondary, like disabled"
+        },
+        {
+          "name": "red",
+          "description": "system red color"
+        },
+        {
+          "name": "blue",
+          "description": "system blue color"
+        }
+      ]
+    },
     {
       "name": "frameWidth",
       "values": [

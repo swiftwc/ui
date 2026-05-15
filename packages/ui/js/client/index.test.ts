@@ -17,11 +17,14 @@ describe('prop', () => {
 
   test('queryBodyAll', () => {
     const el = div.appendChild(
-        $(`<navigation-stack>
+        $(
+          `<navigation-stack>
         <scroll-view id="sv1"></scroll-view>
         <body-view><scroll-view id="sv2"></scroll-view>
         <body-view><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -30,7 +33,8 @@ describe('prop', () => {
 
   test('queryBodyAll 2', () => {
     const el = div.appendChild(
-        $(`<navigation-stack>
+        $(
+          `<navigation-stack>
         <scroll-view id="sv1"></scroll-view>
         <navigation-stack hidden>
         <body-view><scroll-view id="sv2"></scroll-view>
@@ -40,7 +44,9 @@ describe('prop', () => {
         <body-view><scroll-view id="sv4"></scroll-view>
         <body-view><scroll-view id="sv5"></scroll-view></body-view></body-view>
         </navigation-stack>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -49,7 +55,8 @@ describe('prop', () => {
 
   test('queryBodyAll 3', () => {
     const el = div.appendChild(
-        $(`<navigation-stack>
+        $(
+          `<navigation-stack>
         <scroll-view id="sv1"></scroll-view>
         <navigation-stack hidden>
           <scroll-view id="sv1a"></scroll-view>
@@ -65,7 +72,9 @@ describe('prop', () => {
           </body-view>
           <scroll-view id="sv4"></scroll-view>
         </navigation-split-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -74,7 +83,8 @@ describe('prop', () => {
 
   test('queryToolbarConfigAll 3', () => {
     const el = div.appendChild(
-        $(`<navigation-stack>
+        $(
+          `<navigation-stack>
           <scroll-view id="sv1"></scroll-view>
           <tool-bar><tool-bar-item id="sv0"></tool-bar-item></tool-bar>
           <navigation-stack hidden>
@@ -96,7 +106,9 @@ describe('prop', () => {
             <scroll-view></scroll-view>
             <tool-bar><tool-bar-item id="sv4"></tool-bar-item></tool-bar>
           </navigation-split-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -111,7 +123,8 @@ describe('prop', () => {
 
   test('queryHostAll', () => {
     const el = div.appendChild(
-        $(`<navigation-stack>
+        $(
+          `<navigation-stack>
         <scroll-view id="sv1"></scroll-view>
         <navigation-stack hidden>
           <body-view id="sv2"><scroll-view></scroll-view>
@@ -129,7 +142,9 @@ describe('prop', () => {
           </body-view>
           <scroll-view></scroll-view>
         </navigation-split-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -138,11 +153,14 @@ describe('prop', () => {
 
   test('closestHost', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -150,13 +168,16 @@ describe('prop', () => {
   })
   test('closestHost 2', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1">
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
@@ -165,11 +186,14 @@ describe('prop', () => {
 
   test('queryHost', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -177,13 +201,16 @@ describe('prop', () => {
   })
   test('queryHost 2', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1">
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
@@ -191,11 +218,14 @@ describe('prop', () => {
   })
   test('queryHost 3', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       n0 = el.querySelector<ScrollView>('#n0')!
 
@@ -203,13 +233,16 @@ describe('prop', () => {
   })
   test('queryHost 4', () => {
     const el = div.appendChild(
-        $(`<navigation-stack id="n0">
+        $(
+          `<navigation-stack id="n0">
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1">
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`, '>1')
+        </navigation-stack>`,
+          '>1'
+        )
       ),
       b1 = el.querySelector<ScrollView>('#b1')!
 

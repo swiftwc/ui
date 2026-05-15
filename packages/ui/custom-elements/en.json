@@ -4,6 +4,38 @@
   "modules": [
     {
       "kind": "javascript-module",
+      "path": "./generated/components/alert-dialog.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "AlertDialog",
+          "tagName": "alert-dialog",
+          "description": "",
+          "superclass": {
+            "name": "DialogHTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "AlertDialog",
+          "declaration": {
+            "name": "AlertDialog"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "alert-dialog",
+          "declaration": {
+            "name": "AlertDialog"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/body-view.ts",
       "declarations": [
         {
@@ -46,7 +78,12 @@
           "description": "",
           "superclass": {
             "name": "ButtonHTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "role"
+            }
+          ]
         }
       ],
       "exports": [
@@ -78,7 +115,12 @@
           "description": "",
           "superclass": {
             "name": "ButtonHTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "role"
+            }
+          ]
         }
       ],
       "exports": [
@@ -401,7 +443,12 @@
           "description": "",
           "superclass": {
             "name": "ButtonHTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "role"
+            }
+          ]
         }
       ],
       "exports": [
@@ -433,7 +480,12 @@
           "description": "",
           "superclass": {
             "name": "ButtonHTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "role"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1398,7 +1450,12 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "preferred-fine-modal-placement"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1430,7 +1487,12 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "preferred-fine-modal-placement"
+            }
+          ]
         }
       ],
       "exports": [

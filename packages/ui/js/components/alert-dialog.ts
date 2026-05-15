@@ -1,39 +1,30 @@
 import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
-import { type ReturnDetail } from '../events'
+import { type AlertReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { isInside, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
-export class ConfirmationDialog extends DialogBase {
-  static get observedAttributes() {
-    return ['anchor']
-  }
-
+export class AlertDialog extends DialogBase {
   constructor() {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: ConfirmationDialog) {
-    console.debug(`${ConfirmationDialog.name} ⚡️ disconnect`)
-
-    const positionAnchor = el.style.getPropertyValue('position-anchor')
-
-    document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`)?.style.removeProperty('anchor-name') //$.prop('anchor-name', null, document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`))
-    el.style.removeProperty('position-anchor') //$.prop('position-anchor', null, el)
+  static polyfillDisconnectedCallback(el: AlertDialog) {
+    console.debug(`${AlertDialog.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
 
     EvtBus.dispatchEvent(
-      new CustomEvent<ReturnDetail>('return', {
-        detail: { returnValue: el.returnValue, positionAnchor },
+      new CustomEvent<AlertReturnDetail>('return', {
+        detail: { returnValue: el.returnValue },
         bubbles: true,
         composed: true,
       })
     )
   }
 
-  static polyfillConnectedCallback(el: ConfirmationDialog) {
-    console.debug(`${ConfirmationDialog.name} ⚡️ connect`)
+  static polyfillConnectedCallback(el: AlertDialog) {
+    console.debug(`${AlertDialog.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -57,8 +48,7 @@ export class ConfirmationDialog extends DialogBase {
             const target = evt.target instanceof HTMLElement && evt.target
             if (!target) return true
 
-            if (target.matches('[is=confirmation-dialog]')) return false
-            // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
+            if (target.matches('[is=alert-dialog]')) return false
 
             return true
           }
@@ -67,7 +57,7 @@ export class ConfirmationDialog extends DialogBase {
       ).on()
     )
 
-    console.debug(`${ConfirmationDialog.name} ⚡️ will-open`)
+    console.debug(`${AlertDialog.name} ⚡️ will-open`)
 
     el.removeAttribute('closing')
 
@@ -81,24 +71,18 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(`${ConfirmationDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
-
-    // const newValue = (target as HTMLElement).getAttribute(attributeName ?? '')
+    console.debug(`${AlertDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {
       case 'label':
-        // let label = this.querySelector(':scope>[slot=label]')
-        // if (newValue) {
-        //   label ??= this.appendChild($(`<label-view slot="label"></label-view>`))
-        //   label.setAttribute('title', newValue)
-        // } else label?.remove()
+        //
 
         break
     }
   }
 
   static #handleDialogClick = (evt: PointerEvent) => {
-    console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     const dialog = evt.currentTarget instanceof HTMLDialogElement && evt.currentTarget
     if (!dialog) return
@@ -126,7 +110,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static #handleDialogCancel: EventListener = (evt: Event) => {
-    console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     if (!evt.cancelable) return
 
@@ -137,7 +121,7 @@ export class ConfirmationDialog extends DialogBase {
 
     target.inert = true
 
-    console.debug(`${ConfirmationDialog.name} ⚡️ will-close`)
+    console.debug(`${AlertDialog.name} ⚡️ will-close`)
 
     target.setAttribute('closing', '')
 
@@ -151,7 +135,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static #handleDialogClose: EventListener = (evt: Event) => {
-    console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLDialogElement && evt.target
     if (!target) return

@@ -16,5 +16,6 @@ export { default as sleep } from './sleep'
 export { default as slowHideShow } from './slow-hide-show'
 export { default as timeout } from './timeout'
 export { default as touchGlass } from './touch-glass'
+export { default as isInside } from './is-inside'
 
 export const $: typeof cash = cash

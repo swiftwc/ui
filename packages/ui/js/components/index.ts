@@ -1,3 +1,4 @@
+export * from './alert-dialog'
 export * from './body-view'
 export * from './bordered-button'
 export * from './bordered-prominent-button'

@@ -332,7 +332,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
 
 export const alert = async (title?: string, message?: string, actions?: Array<[string, any]>, options?: { titleVisibility?: boolean }) => {
   const dialog = $<HTMLDialogElement>(
-    `<dialog is="confirmation-dialog">
+    `<dialog is="alert-dialog">
                   ${(actions ?? []).map(
                     (item, index) => `<button type="button" tabindex="0" value="${index}">
                     <label-view title="${item[0]}"></label-view>
@@ -353,6 +353,8 @@ export const alert = async (title?: string, message?: string, actions?: Array<[s
     label.setAttribute('title', message)
     dialog.insertAdjacentElement('afterbegin', label)
   }
+
+  document.body.insertAdjacentElement('beforeend', dialog)
 
   dialog.showModal()
 

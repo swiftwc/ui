@@ -15,8 +15,7 @@ export class LabelView extends HTMLElement {
   </div>
   <div part="root label-title-stack">
     <slot></slot>
-  </div>`,
-      ''
+  </div>`
     ))
   }
 
@@ -61,7 +60,7 @@ export class LabelView extends HTMLElement {
       case 'system-image':
         let image = this.querySelector(':scope>[slot=image]')
         if (newValue) {
-          image ??= this.appendChild($(`<i slot="image"></i>`))
+          image ??= this.appendChild($(`<i slot="image"></i>`, '>1'))
           image.setAttribute('class', `ph ph-${newValue}`)
         } else image?.remove()
         // // const imgSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=image]')
@@ -82,7 +81,7 @@ export class LabelView extends HTMLElement {
       case 'title':
         let title = this.querySelector(':scope>:not([slot])')
         if (newValue) {
-          title ??= this.appendChild($(`<span></span>`))
+          title ??= this.appendChild($(`<span></span>`, '>1'))
           title.textContent = newValue
         } else title?.remove()
         // // const titleSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])')

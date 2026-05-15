@@ -29,8 +29,7 @@ export class TextField extends FormAssociatedBase {
       <input type="text" part="root input text-field-form-input">
     </div>
     <slot name="validity-options" hidden></slot>
-  </label>`,
-      ''
+  </label>`
     ))
   }
 
@@ -194,7 +193,7 @@ export class TextField extends FormAssociatedBase {
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
-          label ??= this.appendChild($(`<span slot="label" foreground="secondary"></span>`))
+          label ??= this.appendChild($(`<span slot="label" foreground="secondary"></span>`, '>1'))
           label.textContent = newValue
         } else label?.remove()
 
@@ -290,7 +289,7 @@ export class TextField extends FormAssociatedBase {
   #handleInputPaste = (evt: ClipboardEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
+    const input = evt.target instanceof HTMLInputElement && evt.target
     if (!input) return
 
     evt.preventDefault()
@@ -409,7 +408,7 @@ export class TextField extends FormAssociatedBase {
   #handleInputBeforeinput = (evt: InputEvent) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
+    const input = evt.target instanceof HTMLInputElement && evt.target
     if (!input) return
 
     if ('insertText' !== evt.inputType) return
@@ -460,7 +459,7 @@ export class TextField extends FormAssociatedBase {
   #handleInputBlur = (evt: Event) => {
     console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
+    const input = evt.target instanceof HTMLInputElement && evt.target
     if (!input) return
 
     if (0 === input.value.length) return

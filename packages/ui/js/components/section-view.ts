@@ -18,8 +18,7 @@ export class SectionView extends HTMLElement {
   </div>
   <div part="root section-footer-stack">
     <slot name="footer"></slot>
-  </div>`,
-      ''
+  </div>`
     ))
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }
@@ -82,7 +81,7 @@ export class SectionView extends HTMLElement {
       case 'header':
         let header = this.querySelector(':scope>[slot=header]')
         if (newValue) {
-          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`))
+          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`, '>1'))
           header.querySelector('label-view')?.setAttribute('title', newValue)
         } else header?.remove()
 
@@ -90,7 +89,7 @@ export class SectionView extends HTMLElement {
       case 'footer':
         let footer = this.querySelector(':scope>[slot=footer]')
         if (newValue) {
-          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`))
+          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`, '>1'))
           footer.querySelector('label-view')?.setAttribute('title', newValue)
         } else footer?.remove()
 

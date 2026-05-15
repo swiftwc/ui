@@ -50,9 +50,8 @@
     --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
     --liquid-glass-box-shadow:
-      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626),
-      inset -3px -3px 10px -3px light-dark(#ddd, #262626), inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26),
-      inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
+      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626), inset -3px -3px 10px -3px light-dark(#ddd, #262626),
+      inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26), inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
     --navigation-bar-block-size: var(--tool-bar-block-size);
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
@@ -320,9 +319,7 @@
       --menu-item-focus-bg: var(--accentColor);
       --menu-item-focus-bg-dark: var(--accentColor);
       --menu-item-active-bg: oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h);
-      --menu-item-active-bg-dark: oklch(
-        from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h
-      );
+      --menu-item-active-bg-dark: oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h);
       --picker-affordance-size: 1rem;
       --picker-affordance-col-gap: 1rem;
     }
@@ -1378,9 +1375,7 @@
   @media (min-width: 43rem) {
     :where(navigation-split-view:has(> [is=sidebar-view]) detail-placeholder) {
       --nav-split-view--detail-placeholder-inset: 0 0 0 calc(var(--nav-split-view-sidebar-inline-size) + var(--nav-split-view--content-inline-size));
-      --nav-split-view--detail-placeholder-inline-size: calc(
-        100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size)
-      );
+      --nav-split-view--detail-placeholder-inline-size: calc(100lvw - var(--nav-split-view-sidebar-inline-size) - var(--nav-split-view--content-inline-size));
     }
   }
   @media (min-width: 43rem) and (max-width: 63.9999rem) {
@@ -1751,6 +1746,9 @@
   :where(h-stack[template="auto minmax(0,1fr) auto auto"]) {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
   }
+  :where(h-stack[template="auto minmax(0,1fr) auto"]) {
+    grid-template-columns: auto minmax(0, 1fr) auto;
+  }
   :where(h-stack[template="repeat(4,minmax(0,1fr))"]) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
@@ -1765,14 +1763,17 @@
     place-content: safe center;
     gap: 1rem;
   }
-  :where(v-stack[template="auto auto minmax(0,1fr)"]) {
-    grid-template-rows: auto auto minmax(0, 1fr);
-  }
   :where(v-stack[template="auto minmax(0,1fr)"]) {
     grid-template-rows: auto minmax(0, 1fr);
   }
-  :where(v-stack[template="auto auto autominmax(0,1fr)"]) {
-    grid-template-rows: auto auto autominmax(0, 1fr);
+  :where(v-stack[template="auto auto minmax(0,1fr)"]) {
+    grid-template-rows: auto auto minmax(0, 1fr);
+  }
+  :where(v-stack[template="auto auto auto minmax(0,1fr)"]) {
+    grid-template-rows: auto auto auto minmax(0, 1fr);
+  }
+  :where(v-stack[template="auto auto auto auto minmax(0,1fr)"]) {
+    grid-template-rows: auto auto auto auto minmax(0, 1fr);
   }
 }
 @layer sw-components {
@@ -2039,9 +2040,7 @@
     grid-template-rows: auto 1fr auto;
     grid-template-areas: "top-bar" "spacer" "bottom-bar";
   }
-  :where(tool-bar > *:not(sidebar-toggle), tool-bar > sidebar-toggle > tool-bar-item,
-  tab-view > sidebar-toggle > tool-bar-item,
-  navigation-split-view > sidebar-toggle > tool-bar-item) {
+  :where(tool-bar > *:not(sidebar-toggle), tool-bar > sidebar-toggle > tool-bar-item, tab-view > sidebar-toggle > tool-bar-item, navigation-split-view > sidebar-toggle > tool-bar-item) {
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     min-inline-size: var(--toolbar-cell-min-size);
@@ -5254,6 +5253,12 @@
   :where([frame\:max-width="100cqi"]) {
     max-inline-size: 100cqi;
   }
+  :where([frame\:alignment=top]) {
+    align-self: top;
+  }
+  :where([frame\:alignment=leading]) {
+    justify-self: start;
+  }
   @media (prefers-reduced-motion: no-preference) {
     :where([slow]) {
       visibility: visible;
@@ -7377,14 +7382,8 @@
   }
   :where([is=borderless-button]) {
     --btntext: var(--accentColor);
-    --btnhighlighttext: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
-    );
-    --btnactivetext: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
-    );
+    --btnhighlighttext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
+    --btnactivetext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h));
   }
   :where([is=bordered-button]) {
     --btntext: var(--accentEmphasis, var(--accentColor));
@@ -7411,14 +7410,8 @@
     --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
     --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
     --btnface: var(--accentColor);
-    --btnhighlightface: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.9), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.4), c) h)
-    );
-    --btnactiveface: light-dark(
-      oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
-    );
+    --btnhighlightface: light-dark(oklch(from var(--accentColor) max(calc(l * 0.9), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.4), c) h));
+    --btnactiveface: light-dark(oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
   }
   :where([is=glass-button]) {
     --btntext: var(--accentEmphasis, var(--accentColor));
@@ -7439,14 +7432,8 @@
     --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
     --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
     --btnface: var(--accentColor);
-    --btnhighlightface: light-dark(
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
-    );
-    --btnactiveface: light-dark(
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
-    );
+    --btnhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
+    --btnactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
   }
   /* list-view {
     :where(&) {

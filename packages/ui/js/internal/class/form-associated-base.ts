@@ -17,8 +17,10 @@ export function makeSlotchangeHandler(t: FormAssociatedBase) {
   const handleSlotchange = (evt: Event) => {
       console.debug(`${makeSlotchangeHandler.name} ⚡️ ${evt?.type}`)
 
-      const slot = evt.target as HTMLSlotElement,
-        assigned = slot.assignedElements({ flatten: true })
+      const slot = evt.target instanceof HTMLSlotElement && evt.target
+      if (!slot) return
+
+      const assigned = slot.assignedElements({ flatten: true })
 
       observers.syncObservations(trackedElements.get(t) ?? new Set(), assigned, handleTagMutation, ['value', 'label'])
 

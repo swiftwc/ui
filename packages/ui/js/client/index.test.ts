@@ -21,7 +21,7 @@ describe('prop', () => {
         <scroll-view id="sv1"></scroll-view>
         <body-view><scroll-view id="sv2"></scroll-view>
         <body-view><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -40,7 +40,7 @@ describe('prop', () => {
         <body-view><scroll-view id="sv4"></scroll-view>
         <body-view><scroll-view id="sv5"></scroll-view></body-view></body-view>
         </navigation-stack>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -65,7 +65,7 @@ describe('prop', () => {
           </body-view>
           <scroll-view id="sv4"></scroll-view>
         </navigation-split-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -96,7 +96,7 @@ describe('prop', () => {
             <scroll-view></scroll-view>
             <tool-bar><tool-bar-item id="sv4"></tool-bar-item></tool-bar>
           </navigation-split-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -129,7 +129,7 @@ describe('prop', () => {
           </body-view>
           <scroll-view></scroll-view>
         </navigation-split-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -142,7 +142,7 @@ describe('prop', () => {
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -156,7 +156,7 @@ describe('prop', () => {
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
@@ -169,7 +169,7 @@ describe('prop', () => {
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv1')!
 
@@ -183,7 +183,7 @@ describe('prop', () => {
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       sv = el.querySelector<ScrollView>('#sv2')!
 
@@ -195,7 +195,7 @@ describe('prop', () => {
         <scroll-view id="sv1"></scroll-view>
         <body-view id="b1"><scroll-view id="sv2"></scroll-view>
         <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       n0 = el.querySelector<ScrollView>('#n0')!
 
@@ -209,7 +209,7 @@ describe('prop', () => {
           <scroll-view id="sv2"></scroll-view>
           <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
         </body-view>
-        </navigation-stack>`)
+        </navigation-stack>`, '>1')
       ),
       b1 = el.querySelector<ScrollView>('#b1')!
 

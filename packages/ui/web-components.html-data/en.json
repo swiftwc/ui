@@ -284,7 +284,29 @@
       "description": "Required component, must be BODY tag"
     },
     {
-      "name": "v-stack"
+      "name": "v-stack",
+      "description": "",
+      "attributes": [
+        {
+          "name": "{leading|\"leading fill\"|center|trailing|fill|space",
+          "description": "\nDescription: between} distribution"
+        },
+        {
+          "name": "template",
+          "description": "Value Type: “auto spacer” | “auto auto spacer” | “auto auto auto spacer”",
+          "values": [
+            {
+              "name": "auto spacer"
+            },
+            {
+              "name": "auto auto spacer"
+            },
+            {
+              "name": "auto auto auto spacer"
+            }
+          ]
+        }
+      ]
     }
   ],
   "globalAttributes": [

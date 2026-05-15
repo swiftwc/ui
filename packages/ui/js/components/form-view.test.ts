@@ -18,9 +18,12 @@ describe('prop', () => {
 
   test('[method]', () => {
     const el = div.appendChild(
-        $(`<dialog is="sidebar-view">
+        $(
+          `<dialog is="sidebar-view">
         <form-view></form-view>
-        </dialog>`)
+        </dialog>`,
+          '>1'
+        )
       ),
       headerLabel = el.querySelector<FormView>('form-view')!
 

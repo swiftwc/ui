@@ -74,8 +74,7 @@ export class PickerView extends FormAssociatedBase {
             <slot name="tag" hidden></slot>
             <slot name="validity-options" hidden></slot>
           </label>
-                `,
-              ''
+                `
             )
           )
 
@@ -144,8 +143,7 @@ export class PickerView extends FormAssociatedBase {
           <slot name="options" hidden></slot>
           <slot name="tag" hidden></slot>
           <slot name="validity-options" hidden></slot>
-        </label>`,
-              ''
+        </label>`
             )
           )
 
@@ -306,8 +304,10 @@ export class PickerView extends FormAssociatedBase {
   #handleClick(evt: Event) {
     console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
-    const target = evt.target as HTMLElement,
-      btn = target?.closest('button')
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    const btn = target?.closest('button')
 
     if (!btn) return
 
@@ -323,8 +323,10 @@ export class PickerView extends FormAssociatedBase {
   #handleSlotchange = (evt: Event) => {
     console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
-    const slot = evt.target as HTMLSlotElement,
-      assigned = slot.assignedElements({ flatten: true })
+    const slot = evt.target instanceof HTMLSlotElement && evt.target
+    if (!slot) return
+
+    const assigned = slot.assignedElements({ flatten: true })
 
     observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
 
@@ -351,7 +353,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static wrapTag(node: Element, slotName?: string) {
-    const btn = $(`<button type="button" tabindex="0"></button>`) //document.createElement('button')
+    const btn = $(`<button type="button" tabindex="0"></button>`, '>1') //document.createElement('button')
     // btn.type = 'button'
     // btn.tabIndex = 0
 
@@ -366,7 +368,7 @@ export class PickerView extends FormAssociatedBase {
       default:
         if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
 
-        const label = $(`<label-view></label-view>`) //document.createElement('label-view')
+        const label = $(`<label-view></label-view>`, '>1') //document.createElement('label-view')
 
         if (node.hasAttribute('label')) label.setAttribute('title', node.getAttribute('label') ?? '')
 
@@ -386,7 +388,7 @@ export class PickerView extends FormAssociatedBase {
     // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (this.pickerStyle) {
       case 'menu':
-        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`))
+        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1'))
 
         menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
@@ -402,14 +404,14 @@ export class PickerView extends FormAssociatedBase {
         break
       case 'inline':
       default:
-        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`)),
-          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`))
+        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
+          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
 
         const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
 
         // if (label) section.setAttribute('header', label)
         if (label) {
-          const el = $(`<label-view></label-view>`)
+          const el = $(`<label-view></label-view>`, '>1')
 
           el.setAttribute('title', label)
 
@@ -469,7 +471,7 @@ export class PickerView extends FormAssociatedBase {
     //   default:
     let label = this.querySelector(':scope>[slot=label]')
     if (value) {
-      label ??= this.appendChild($(`<span slot="label"></span>`))
+      label ??= this.appendChild($(`<span slot="label"></span>`, '>1'))
       label.textContent = value
     } else label?.remove()
 

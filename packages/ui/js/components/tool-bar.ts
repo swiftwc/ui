@@ -31,8 +31,7 @@ export class ToolBar extends HTMLElement {
     <div part="root toolbar-trailing-stack">
       <slot name="bottom-bar-trailing"></slot>
     </div>
-  </div>`,
-      ''
+  </div>`
     ))
   }
 

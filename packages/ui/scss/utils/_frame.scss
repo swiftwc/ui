@@ -17,6 +17,13 @@
     }
   }
 
+  :where([frame\:alignment='top']) {
+    align-self: top;
+  }
+  :where([frame\:alignment='leading']) {
+    justify-self: start;
+  }
+
   // :where([frame-width='infinity']) {
   //   place-items: stretch; //justify-self: stretch;
   // }

@@ -1,8 +1,9 @@
 @use '../vars';
 @use 'sass:string';
 @use 'sass:list';
+@use '../mixins';
 
-$v-stack-templates: ((auto auto minmax(0, 1fr)), (auto minmax(0, 1fr)), (auto auto autominmax(0, 1fr)));
+$v-stack-templates: ((auto minmax(0, 1fr)), (auto auto minmax(0, 1fr)), (auto auto auto minmax(0, 1fr)), (auto auto auto auto minmax(0, 1fr)));
 
 @layer #{vars.$components-layer} {
   v-stack {
@@ -19,17 +20,6 @@ $v-stack-templates: ((auto auto minmax(0, 1fr)), (auto minmax(0, 1fr)), (auto au
     // max-width: 100%;
     // }
 
-    @each $template in $v-stack-templates {
-      $parts: string.split('#{$template}', ', ');
-      $result: '';
-      @each $part in $parts {
-        $result: $result + '#{$part},';
-      }
-      $result: string.slice($result, 1, string.length($result) - 1);
-      @debug $result, $template;
-      :where(&[template='#{$result}']) {
-        grid-template-rows: $template;
-      }
-    }
+    @include mixins.make-template($v-stack-templates, grid-template-rows);
   }
 }

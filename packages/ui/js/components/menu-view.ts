@@ -20,8 +20,7 @@ export class MenuView extends HTMLElement {
         <slot></slot>
       </div>
     </form>
-  </dialog>`,
-      ''
+  </dialog>`
     ))
   }
 
@@ -86,8 +85,11 @@ export class MenuView extends HTMLElement {
           this,
           (t) => t,
           (evt: PointerEvent) => {
-            if ((evt.target as HTMLElement).matches('menu-view')) return false
-            if (!(evt.target as HTMLElement).closest('menu-view[open]')) return false
+            const target = evt.target instanceof HTMLElement && evt.target
+            if (!target) return true
+
+            if (target.matches('menu-view')) return false
+            if (!target.closest('menu-view[open]')) return false
 
             return true
           }
@@ -144,7 +146,7 @@ export class MenuView extends HTMLElement {
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
-          label ??= this.appendChild($(`<label-view slot="label"></label-view>`))
+          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
           label.setAttribute('title', newValue)
         } else label?.remove()
 
@@ -155,9 +157,10 @@ export class MenuView extends HTMLElement {
   #handleDialogClick: EventListener = (evt: Event) => {
     console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
-    if ((evt.target as HTMLElement).matches('dialog')) return this.toggleAttribute('open', false) // click outside
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
 
-    const target = evt.target as HTMLElement
+    if (target.matches('dialog')) return this.toggleAttribute('open', false) // click outside
 
     target.scrollIntoView({
       behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
@@ -165,7 +168,7 @@ export class MenuView extends HTMLElement {
       inline: 'nearest',
     })
 
-    if (!(evt.target as HTMLElement).closest('button')) return
+    if (!target.closest('button')) return
     // TODO: Handle btns this.toggleAttribute('open', false)
 
     this.toggleAttribute('open', false)

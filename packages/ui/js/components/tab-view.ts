@@ -107,7 +107,10 @@ export class TabView extends HTMLElement {
   }
 
   #handleSummaryClick = (evt: Event) => {
-    const summary = (evt.target as HTMLElement).closest('summary')
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    const summary = target.closest('summary')
     if (!summary) return
 
     if (0 === $.siblings('[aria-selected=true]', summary).length) return

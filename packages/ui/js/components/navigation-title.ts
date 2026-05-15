@@ -46,26 +46,28 @@ export class NavigationTitle extends HTMLElement {
         this.querySelector(':scope>:not([slot])') ??
         this.appendChild(
           $(
-            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`
+            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
+            '>1'
           )
         ),
       vStack =
         el.querySelector(':scope>v-stack') ??
         el.appendChild(
           $(
-            `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+            `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
+            '>1'
           )
         )
 
     let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
     if (title) {
-      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`))
+      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`, '>1'))
       titleLabel.setAttribute('title', title)
     } else titleLabel?.remove()
 
     let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
     if (subtitle) {
-      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`))
+      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`, '>1'))
       subtitleLabel.setAttribute('title', subtitle)
     } else subtitleLabel?.remove()
 

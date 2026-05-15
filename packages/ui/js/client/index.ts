@@ -26,7 +26,7 @@ for (const [k, Ctor] of Object.entries(Components)) {
     // const testEl = document.createElement('template')
     // testEl.innerHTML = `<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`
     // const testNode = testEl.content.firstElementChild,
-    if (!($(`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`) instanceof Ctor)) polyfills.set(is, Ctor)
+    if (!($(`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`, '>1') instanceof Ctor)) polyfills.set(is, Ctor)
 
     continue
   }
@@ -330,50 +330,104 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
   }
 }
 
-export const confirmationDialog = async (trigger: HTMLElement, title: string, entries: Array<[string, any]>, controller = new AbortController()) => {
+export const alert = async (title?: string, message?: string, actions?: Array<[string, any]>, options?: { titleVisibility?: boolean }) => {
+  const dialog = $<HTMLDialogElement>(
+    `<dialog is="confirmation-dialog">
+                  ${(actions ?? []).map(
+                    (item, index) => `<button type="button" tabindex="0" value="${index}">
+                    <label-view title="${item[0]}"></label-view>
+                  </button>`
+                  )}
+                </dialog>`,
+    '>1'
+  )
+
+  if (title) {
+    const label = $(`<label-view></label-view>`, '>1')
+    label.setAttribute('title', title)
+    dialog.insertAdjacentElement('afterbegin', label)
+  }
+
+  if (message) {
+    const label = $(`<label-view></label-view>`, '>1')
+    label.setAttribute('title', message)
+    dialog.insertAdjacentElement('afterbegin', label)
+  }
+
+  dialog.showModal()
+
+  const { promise, resolve } = Promise.withResolvers<any>(),
+    off = onoff(
+      'return',
+      (evt: any) => {
+        off()
+        resolve(evt.detail.returnValue)
+      },
+      ConfirmationDialog,
+      { once: true }
+    ).on()
+
+  return promise
+}
+
+export const confirmationDialog = async (trigger: HTMLElement, title: string, entries: Array<[string, any]>, options?: { controller?: AbortController; titleVisibility?: boolean }) => {
   const newAnchorName = `--confirmation-dialog-${self.crypto.randomUUID()}`
 
-  const dialog = $(
+  const dialog = $<HTMLDialogElement>(
     `<dialog is="confirmation-dialog">
                   ${entries.map(
                     (item, index) => `<button type="button" tabindex="0" value="${index}">
                     <label-view title="${item[0]}"></label-view>
                   </button>`
                   )}
-                </dialog>`
+                </dialog>`,
+    '>1'
   )
 
-  $.prop('anchor-name', newAnchorName, trigger, 'important')
-  $.prop('position-anchor', newAnchorName, dialog as HTMLElement)
+  trigger.style.setProperty('anchor-name', newAnchorName, 'important') //$.prop('anchor-name', newAnchorName, trigger, 'important')
+  dialog.style.setProperty('position-anchor', newAnchorName) //$.prop('position-anchor', newAnchorName, dialog)
 
-  if (title) {
-    const label = $(`<label-view></label-view>`)
+  if (title && false !== options?.titleVisibility) {
+    const label = $(`<label-view></label-view>`, '>1')
     label.setAttribute('title', title)
     dialog.insertAdjacentElement('afterbegin', label)
   }
 
   trigger.closest('body-view')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
 
-  return await new Promise((resolve, reject) => {
-    const onClose = (evt: any) => {
+  const { promise, resolve } = Promise.withResolvers<any>(),
+    off = onoff(
+      'return',
+      (evt: any) => {
         off()
         resolve(evt.detail.returnValue)
       },
-      off = onoff('return', onClose, ConfirmationDialog, { once: true }).on()
+      ConfirmationDialog,
+      { once: true }
+    ).on()
 
-    // const onAbort = () => {
-    //   cleanup()
-    //   reject(new DOMException('aborted', 'AbortError'))
-    // }
+  return promise
 
-    // const cleanup = () => {
-    //   ConfirmationDialog.removeEventListener('close', onClose)
-    //   // controller.signal.removeEventListener('abort', onAbort)
-    // }
+  // return await new Promise((resolve, reject) => {
+  //   const onClose = (evt: any) => {
+  //       off()
+  //       resolve(evt.detail.returnValue)
+  //     },
+  //     off = onoff('return', onClose, ConfirmationDialog, { once: true }).on()
 
-    // ConfirmationDialog.addEventListener('close', onClose, { once: true })
-    // controller.signal.addEventListener('abort', onAbort, { once: true })
-  })
+  //   // const onAbort = () => {
+  //   //   cleanup()
+  //   //   reject(new DOMException('aborted', 'AbortError'))
+  //   // }
+
+  //   // const cleanup = () => {
+  //   //   ConfirmationDialog.removeEventListener('close', onClose)
+  //   //   // controller.signal.removeEventListener('abort', onAbort)
+  //   // }
+
+  //   // ConfirmationDialog.addEventListener('close', onClose, { once: true })
+  //   // controller.signal.addEventListener('abort', onAbort, { once: true })
+  // })
 }
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()

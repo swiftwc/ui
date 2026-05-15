@@ -16,7 +16,10 @@ export class ToolBarItem extends HTMLElement {
           this,
           (t) => t.closest('tool-bar-item-group') ?? t,
           (evt: Event) => {
-            if ((evt.target as HTMLElement).closest('menu-view[open]')) return false
+            const target = evt.target instanceof HTMLElement && evt.target
+            if (!target) return true
+
+            if (target.closest('menu-view[open]')) return false
 
             return true
           }

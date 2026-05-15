@@ -48,8 +48,10 @@ export class DisclosureGroup extends DetailsBase {
   static #handleToggle = async (evt: Event) => {
     console.debug(`${DisclosureGroup.name} ⚡️ ${evt?.type}`)
 
-    const details = evt.currentTarget as HTMLDetailsElement,
-      newValue = details.open ? 'opening' : 'closing'
+    const details = evt.currentTarget instanceof HTMLDetailsElement && evt.currentTarget
+    if (!details) return
+
+    const newValue = details.open ? 'opening' : 'closing'
 
     if (newValue !== details.dataset.state) details.dataset.state = newValue
 

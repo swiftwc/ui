@@ -65,8 +65,7 @@ export class DatePicker extends FormAssociatedBase {
               <input type="text" name="year" inputmode="numeric" pattern="\d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input">
             </div>
             <slot name="validity-options" hidden></slot>
-          </label>`,
-              ''
+          </label>`
             )
           )
 
@@ -143,7 +142,7 @@ export class DatePicker extends FormAssociatedBase {
       case 'label':
         let label = this.querySelector(':scope>[slot=label]')
         if (newValue) {
-          label ??= this.appendChild($(`<span slot="label"></span>`))
+          label ??= this.appendChild($(`<span slot="label"></span>`, '>1'))
           label.textContent = newValue
         } else label?.remove()
 
@@ -250,7 +249,10 @@ export class DatePicker extends FormAssociatedBase {
   #handleClick = (evt: Event) => {
     console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = (evt.target as HTMLElement)?.closest('input')
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    const input = target.closest('input')
     if (input) return
 
     this.#shadowRoot.querySelector<HTMLInputElement>('input.focus')?.focus?.()
@@ -296,7 +298,7 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputPaste = (evt: ClipboardEvent) => {
     console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
+    const input = evt.target instanceof HTMLInputElement && evt.target
     if (!input) return
 
     evt.preventDefault()
@@ -327,7 +329,7 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputBeforeinput = (evt: InputEvent) => {
     console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as HTMLInputElement | null
+    const input = evt.target instanceof HTMLInputElement && evt.target
     if (!input) return
 
     if ('insertText' !== evt.inputType) return
@@ -386,7 +388,10 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputBlur = (evt: Event) => {
     console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target as DateInput
+    const target = evt.target instanceof HTMLInputElement && evt.target
+    if (!target) return
+
+    const input = target as DateInput
 
     if (0 === input.value.length) return
 

@@ -1,7 +1,7 @@
 import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
 import { type ReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, onoff, touchGlass } from '../internal/utils'
+import { onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class ConfirmationDialog extends DialogBase {
@@ -18,8 +18,8 @@ export class ConfirmationDialog extends DialogBase {
 
     const positionAnchor = el.style.getPropertyValue('position-anchor')
 
-    $.prop('anchor-name', null, document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`))
-    $.prop('position-anchor', null, el)
+    document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`)?.style.removeProperty('anchor-name') //$.prop('anchor-name', null, document.querySelector<HTMLElement>(`[style*="${positionAnchor}"]`))
+    el.style.removeProperty('position-anchor') //$.prop('position-anchor', null, el)
 
     CleanupRegistry.unregister(el)
 
@@ -54,7 +54,10 @@ export class ConfirmationDialog extends DialogBase {
           el,
           (t) => t,
           (evt: PointerEvent) => {
-            if ((evt.target as HTMLElement).matches('[is=confirmation-dialog]')) return false
+            const target = evt.target instanceof HTMLElement && evt.target
+            if (!target) return true
+
+            if (target.matches('[is=confirmation-dialog]')) return false
             // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
 
             return true
@@ -95,10 +98,11 @@ export class ConfirmationDialog extends DialogBase {
   static #handleDialogClick = (evt: PointerEvent) => {
     console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
-    const dialog = evt.currentTarget as HTMLDialogElement | null
+    const dialog = evt.currentTarget instanceof HTMLDialogElement && evt.currentTarget
     if (!dialog) return
 
-    const target = evt.target as HTMLElement | null
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
 
     const rect = dialog.getBoundingClientRect()
 
@@ -128,7 +132,7 @@ export class ConfirmationDialog extends DialogBase {
 
     if (!evt.cancelable) return
 
-    const target = evt.target as HTMLDialogElement | null
+    const target = evt.target instanceof HTMLDialogElement && evt.target
     if (!target) return
 
     evt.preventDefault()
@@ -151,7 +155,8 @@ export class ConfirmationDialog extends DialogBase {
   static #handleDialogClose: EventListener = (evt: Event) => {
     console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
-    const target = evt.target as HTMLDialogElement | null
+    const target = evt.target instanceof HTMLDialogElement && evt.target
+    if (!target) return
 
     target?.remove()
   }

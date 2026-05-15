@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../functions';
 @use 'sass:string';
 @use 'sass:map';
 @use 'sass:list';
@@ -345,6 +346,22 @@
     initial-value: #{$value};
     @each $k, $v in $props {
       #{$k}: #{$v};
+    }
+  }
+}
+
+@mixin make-template($tokens, $prop) {
+  @each $template in $tokens {
+    $parts: string.split('#{$template}', ', ');
+    $result: '';
+    @each $part in $parts {
+      $result: $result + '#{$part},';
+    }
+    $result: string.slice($result, 1, string.length($result) - 1);
+    $final-result: functions.str-replace($result, 'minmax(0,1fr)', 'spacer');
+    @debug $final-result, $template;
+    :where(&[template='#{$result}']) {
+      #{$prop}: $template;
     }
   }
 }

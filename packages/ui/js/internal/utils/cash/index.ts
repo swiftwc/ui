@@ -6,11 +6,12 @@ import prevAll from './prev-all'
 import prop from './prop'
 import siblings from './siblings'
 
-const DEFAULT = ':scope>:first-child' as const
+const DEFAULT = '>1' as const
 
 interface CashFn {
-  (innerHTML: string, selector?: typeof DEFAULT): Element
-  (innerHTML: string, selector: string): DocumentFragment
+  (innerHTML: string): DocumentFragment
+  <T extends Element = Element>(innerHTML: string, selector: typeof DEFAULT): T
+  <T extends Element = Element>(innerHTML: string, selector: string): T
   prop: typeof prop
   nextAll: typeof nextAll
   prevAll: typeof prevAll
@@ -20,12 +21,14 @@ interface CashFn {
   ancestors: typeof ancestors
 }
 
-const cash: CashFn = ((innerHTML: string, selector: string = DEFAULT) => {
+const cash: CashFn = (<T extends Element = Element>(innerHTML: string, selector?: string): T | DocumentFragment => {
   const template = Object.assign(document.createElement('template'), { innerHTML })
 
-  if (selector === DEFAULT) return template.content.firstElementChild!
+  if (!selector) return template.content
 
-  return template.content
+  if (selector === DEFAULT) return template.content.firstElementChild as T // OVERKILL
+
+  return template.content.querySelector<T>('>1' === selector ? ':first-child' : selector) as T
 }) as CashFn
 
 cash.prop = prop

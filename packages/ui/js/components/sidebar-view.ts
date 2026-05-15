@@ -23,8 +23,11 @@ export class SidebarView extends DialogBase {
           el,
           (t) => t,
           (evt: PointerEvent) => {
-            if ((evt.target as HTMLElement).matches('[is=sidebar-view]')) return false
-            if ((evt.target as HTMLElement).closest('tool-bar-item')) return false
+            const target = evt.target instanceof HTMLElement && evt.target
+            if (!target) return true
+
+            if (target.matches('[is=sidebar-view]')) return false
+            if (target.closest('tool-bar-item')) return false
 
             return true
           }
@@ -40,6 +43,9 @@ export class SidebarView extends DialogBase {
   static #handleClick = async (evt: Event) => {
     console.debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
 
-    if ('DIALOG' === (evt.target as HTMLElement).tagName && 'sidebar-view' === (evt.target as HTMLElement).getAttribute('is')) (evt?.target as HTMLDialogElement)?.close?.()
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    if (target instanceof HTMLDialogElement && 'sidebar-view' === target.getAttribute('is')) target.close?.()
   }
 }

@@ -45,8 +45,7 @@ export class TableView extends HTMLElement {
           <slot name="footer-trailing"></slot>
         </div>
       </div>
-    </div>`,
-      ''
+    </div>`
     ))
   }
 
@@ -129,8 +128,10 @@ export class TableView extends HTMLElement {
   #handleSlotchange = (evt: Event) => {
     console.debug(`${TableView.name} ⚡️ ${evt?.type}`)
 
-    const slot = evt.target as HTMLSlotElement,
-      assigned = slot.assignedElements({ flatten: true })
+    const slot = evt.target instanceof HTMLSlotElement && evt.target
+    if (!slot) return
+
+    const assigned = slot.assignedElements({ flatten: true })
 
     observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
 
@@ -150,7 +151,7 @@ export class TableView extends HTMLElement {
     //
 
     if (!this.#compactToolbarItem) {
-      this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`)
+      this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
 
       CleanupRegistry.unregister(this, 'compact_toolbar')
       CleanupRegistry.register(this, onoff('click', this.#handleMenuClick, this.#compactToolbarItem).on(), 'compact_toolbar')
@@ -161,12 +162,15 @@ export class TableView extends HTMLElement {
     for (const node of this.#colSlot?.assignedElements({ flatten: true }) ?? []) {
       if (!node.matches('[is=table-column]')) continue
 
-      const btn = $(`<button type="button" tabindex="0">
+      const btn = $(
+          `<button type="button" tabindex="0">
         <v-stack spacing="0" alignment="leading">
           <label-view></label-view>
           <label-view font="callout" foreground="secondary"></label-view>
         </v-stack>
-      </button>`),
+      </button>`,
+          '>1'
+        ),
         title = btn.querySelector('label-view:first-child'),
         subTitle = btn.querySelector('label-view:last-child')
 
@@ -213,7 +217,10 @@ export class TableView extends HTMLElement {
   }
 
   #handleMenuClick = (evt: Event) => {
-    const btn = (evt.target as HTMLElement).closest('button')
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    const btn = target.closest('button')
     if (!btn) return
 
     const siblings = [...(btn.parentNode?.querySelectorAll(':scope>button') ?? [])]

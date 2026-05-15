@@ -1532,7 +1532,15 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "{leading|\"leading fill\"|center|trailing|fill|space"
+            },
+            {
+              "name": "template"
+            }
+          ]
         }
       ],
       "exports": [

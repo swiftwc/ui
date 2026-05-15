@@ -35,8 +35,7 @@ export class ContentUnavailableView extends HTMLElement {
       </div>
       <div part="root content-unavailable-actions-stack">
         <slot name="actions"></slot>
-      </div>`,
-      ''
+      </div>`
     ))
   }
 
@@ -94,8 +93,8 @@ export class ContentUnavailableView extends HTMLElement {
   }
 
   #renderSearch = (search: string | null) => {
-    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<label-view><i class="ph ph-magnifying-glass" slot="image" foreground="secondary"></i></label-view>`)),
-      descText = this.querySelector(':scope>[slot=description]') ?? this.appendChild($(`<label-view foreground="secondary" slot="description"></label-view>`))
+    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<label-view><i class="ph ph-magnifying-glass" slot="image" foreground="secondary"></i></label-view>`, '>1')),
+      descText = this.querySelector(':scope>[slot=description]') ?? this.appendChild($(`<label-view foreground="secondary" slot="description"></label-view>`, '>1'))
 
     if (search) {
       const interpolate = (text: string, vars: Record<string, string>) => text.replaceAll(/\{(\w+)\}/g, (_, key: string) => vars[key] ?? '')

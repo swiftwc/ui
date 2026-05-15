@@ -1,8 +1,9 @@
 @use '../vars';
+@use '../mixins';
 @use 'sass:string';
 @use 'sass:list';
 
-$h-stack-templates: ((minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (repeat(4, minmax(0, 1fr))), (repeat(2, minmax(0, 1fr)) auto));
+$h-stack-templates: ((minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (auto minmax(0, 1fr) auto), (repeat(4, minmax(0, 1fr))), (repeat(2, minmax(0, 1fr)) auto));
 
 @layer #{vars.$components-layer} {
   h-stack {
@@ -23,17 +24,6 @@ $h-stack-templates: ((minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (re
     //   }
     // }
 
-    @each $template in $h-stack-templates {
-      $parts: string.split('#{$template}', ', ');
-      $result: '';
-      @each $part in $parts {
-        $result: $result + '#{$part},';
-      }
-      $result: string.slice($result, 1, string.length($result) - 1);
-      @debug $result, $template;
-      :where(&[template='#{$result}']) {
-        grid-template-columns: $template;
-      }
-    }
+    @include mixins.make-template($h-stack-templates, grid-template-columns);
   }
 }

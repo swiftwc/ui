@@ -81,6 +81,17 @@ const vscode: VsHtmlDataV1 = {
   tags: [],
   globalAttributes: [
     {
+      name: 'tint',
+      description: 'Sets accent color',
+      valueSet: 'tintSet',
+      // values: [
+      //   { name: 'infinity', description: '100%' },
+      //   { name: '0', description: '0rem' },
+      //   { name: '1', description: '1rem' },
+      //   { name: '2', description: '2rem' },
+      // ],
+    },
+    {
       name: 'frame:width',
       description: 'Sets inline-size',
       valueSet: 'frameWidth',
@@ -104,6 +115,14 @@ const vscode: VsHtmlDataV1 = {
     },
   ],
   valueSets: [
+    {
+      name: 'tintSet',
+      values: [
+        { name: 'gray', description: 'like secondary, like disabled' },
+        { name: 'red', description: 'system red color' },
+        { name: 'blue', description: 'system blue color' },
+      ],
+    },
     {
       name: 'frameWidth',
       values: [
@@ -225,6 +244,43 @@ for (const sourceFile of project.getSourceFiles()) {
               name: tag.title,
               description: tag.description ?? undefined,
             })
+
+            continue
+          case 'attr':
+            if (!tag.description) continue
+
+            const attr: VsHtmlDataAttr = {
+              name: '',
+            }
+
+            const [a, b] = tag.description.split('-', 2).map((s) => s.trim())
+
+            if (b) attr.description = `\nDescription: ${b}`
+
+            const matches = [...a.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
+
+            if (0 < matches.length) {
+              const lastIndex = a.slice(a.lastIndexOf('}') + 1)
+              ;(module.declarations[0].attributes ??= []).push({
+                name: lastIndex.trim(),
+              })
+
+              attr.name = lastIndex.trim()
+
+              const types: string[] = (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
+              if (types) {
+                attr.description = `Value Type: “${types.join('” | “')}”${attr.description ? `\n${attr.description}` : ''}`
+                attr.values ??= types.map((item) => ({ name: item }))
+              }
+              ;(row.attributes ??= []).push(attr)
+            } else {
+              ;(module.declarations[0].attributes ??= []).push({
+                name: a.trim(),
+              })
+
+              attr.name = a.trim()
+              ;(row.attributes ??= []).push(attr)
+            }
 
             continue
         }

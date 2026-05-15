@@ -27,8 +27,7 @@ export class ScrollView extends HTMLElement {
     <div part="root scroll-view-toolbar-stack">
       <slot name="bottom-bar-principal"></slot>
     </div>
-  </div>`,
-      ''
+  </div>`
     ))
   }
 
@@ -146,7 +145,10 @@ export class ScrollView extends HTMLElement {
 
     // if (this.#stopRecordingScrollTop) return
 
-    this.#lastScrollTop = (evt.target as HTMLElement).scrollTop
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    this.#lastScrollTop = target.scrollTop
   }
 
   #handleScrollend: EventListener = (evt: Event) => {
@@ -178,7 +180,10 @@ export class ScrollView extends HTMLElement {
   #handleTabReveal = (evt: CustomEvent<TabDetail>) => {
     console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
-    if (!(evt.target as HTMLElement)?.contains(this)) return
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    if (!target.contains(this)) return
 
     if (this.closest('[hidden]')) return
 
@@ -216,7 +221,10 @@ export class ScrollView extends HTMLElement {
   #handleTabBeforeswap = (evt: CustomEvent<TabDetail>) => {
     console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
-    if (!(evt.target as HTMLElement)?.contains(this)) return
+    const target = evt.target instanceof HTMLElement && evt.target
+    if (!target) return
+
+    if (!target.contains(this)) return
 
     if (this.closest('[hidden]')) return
 
@@ -242,19 +250,20 @@ export class ScrollView extends HTMLElement {
       this.querySelector(':scope>[slot=top-bar-principal]') ??
       this.appendChild(
         $(
-          `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`
+          `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
+          '>1'
         )
       )
 
     let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
     if (title) {
-      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`))
+      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`, '>1'))
       titleLabel.setAttribute('title', title)
     } else titleLabel?.remove()
 
     let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
     if (subtitle) {
-      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`))
+      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`, '>1'))
       subtitleLabel.setAttribute('title', subtitle)
     } else subtitleLabel?.remove()
   }

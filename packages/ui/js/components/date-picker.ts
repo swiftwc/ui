@@ -363,6 +363,8 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputKeydown = ({ type, target, key }: KeyboardEvent) => {
     console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
+    if (!(target instanceof HTMLInputElement && target)) return
+
     const input = target as DateInput
     if (!input) return
 

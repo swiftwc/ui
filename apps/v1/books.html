@@ -1084,13 +1084,13 @@
 
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.js'
-      import { startViewTransition, NavigationPath, confirmationDialog, LifecycleObserver } from '../../packages/ui/js/client'
+      import { startViewTransition, NavigationPath, confirmationDialog, lifecycleObserver } from '../../packages/ui/js/client'
       // import { CSSStyleObserver } from '../../packages/ui/js/internal/class/css-style-observer'
 
-      // LifecycleObserver.addEventListener('pageshow', (evt) => {
+      // lifecycleObserver.addEventListener('pageshow', (evt) => {
       //   console.log(9999, evt)
       // })
-      // LifecycleObserver.addEventListener('pagehide', navHandler)
+      // lifecycleObserver.addEventListener('pagehide', navHandler)
 
       // const observer = new CSSStyleObserver()
 
@@ -1191,15 +1191,13 @@
         if (event.target.closest('#gg')) {
           try {
             const value = await confirmationDialog(event.target, 'Are you sure?', [
-              [
-                'Delete',
-                {
-                  role: 'destructive',
-                  // action() {
-                  //   alert(99)
-                  // },
-                },
-              ],
+              // 'Deleteeee',
+              {
+                role: 'destructive',
+                // action() {
+                //   alert(99)
+                // },
+              },
             ])
 
             switch (value) {

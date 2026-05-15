@@ -1,4 +1,4 @@
-import { alert, LifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
+import { alert, lifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -130,7 +130,20 @@ document.body.addEventListener('click', async (event) => {
 
   if (event.target.closest('button')) {
     if (event.target.closest('.alert')) {
-      void alert('99')
+      void alert(
+        'Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail',
+        'The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed.',
+        [
+          // 'Delete',
+          {
+            label: 'Delete',
+            role: 'destructive',
+            // action() {
+            //   alert(99)
+            // },
+          },
+        ]
+      )
     }
     if (event.target.closest('.backtocontroller')) {
       const path = new NavigationPath(event.target)?.hydrate()
@@ -706,5 +719,5 @@ export const navHandler = async (event) => {
   }
 }
 
-LifecycleObserver.addEventListener('pageshow', navHandler)
-LifecycleObserver.addEventListener('pagehide', navHandler)
+lifecycleObserver.addEventListener('pageshow', navHandler)
+lifecycleObserver.addEventListener('pagehide', navHandler)

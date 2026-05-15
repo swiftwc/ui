@@ -18,12 +18,14 @@
 @forward 'components/content-unavailable-view';
 
 @forward 'components/confirmation-dialog';
+@forward 'components/alert-dialog';
 
 @forward 'components/scroll-view';
 @forward 'components/scroll-view-proxy';
 
 @forward 'components/h-stack';
 @forward 'components/v-stack';
+@forward 'components/h-flex-stack';
 @forward 'components/v-flex-stack';
 
 @forward 'components/scroll-view-toolbars';

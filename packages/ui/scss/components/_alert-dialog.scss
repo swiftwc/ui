@@ -2,7 +2,7 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  [is='confirmation-dialog'] {
+  [is='alert-dialog'] {
     :where(&) {
       @include mixins.reset-dialog;
 
@@ -15,15 +15,16 @@
       inline-size: fit-content;
       block-size: fit-content;
       height: auto; // safari
-      max-inline-size: var(--confirmation--dialog-max-inline-size,);
-      max-block-size: var(--confirmation--dialog-max-block-size,);
+      max-inline-size: min(20rem, 80vw);
+      max-block-size: 80vh;
 
-      margin-block: var(--confirmation--dialog-margin-block,);
-      margin-inline: var(--confirmation--dialog-margin-inline,);
+      margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+      margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
-      transform: var(--confirmation--dialog-scale,);
+      transform: var(--alert--dialog-scale,);
+      opacity: var(--alert--dialog-opacity,);
 
-      position-anchor: --confirmation-dialog; // overriden
+      position-anchor: --alert-dialog; // overriden
       position-area: center;
 
       overflow: clip;
@@ -34,41 +35,36 @@
 
       padding-block: 1rem;
       padding-inline: 1em;
-      gap: 0.5rem;
+      gap: 1rem;
 
       // finally
-      --confirmation--dialog-scale: scale(0);
+      --alert--dialog-scale: scale(1.2);
+      --alert--dialog-opacity: 0.8;
     }
 
     &[open] {
       :where(&) {
-        --confirmation--dialog-max-inline-size: 100vw;
-        --confirmation--dialog-max-block-size: 100vh;
-
-        --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
-        --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
-
-        --confirmation--dialog-scale: scale(1);
+        --alert--dialog-scale: scale(1);
+        --alert--dialog-opacity: 1;
 
         @starting-style {
-          --confirmation--dialog-scale: scale(0);
+          --alert--dialog-scale: scale(1.2);
+          --alert--dialog-opacity: 0.8;
         }
       }
     }
 
     &[closing] {
       :where(&) {
-        --confirmation--dialog-max-inline-size: anchor-size();
-        --confirmation--dialog-max-block-size: anchor-size();
-
-        --confirmation--dialog-scale: scale(0);
+        --alert--dialog-scale: scale(0.98);
+        --alert--dialog-opacity: 0;
       }
     }
 
     // SECTION: componentize
     // > button {
     //   :where(&) {
-    //     @include mixins.componentize(dialogbtn);
+    // @include mixins.componentize(dialogbtn);
     //   }
     // }
 
@@ -87,7 +83,7 @@
 
 // @layer #{vars.$colors-layer} {
 //   // SECTION: componentize
-//   [is='confirmation-dialog'] {
+//   [is='alert-dialog'] {
 //     > button {
 //       @include mixins.add-focus-visible-state {
 //         --dialogbtnface: var(--dialogbtnhighlightface,);
@@ -99,7 +95,7 @@
 
 // @layer #{vars.$ui-layer} {
 //   // SECTION: componentize
-//   [is='confirmation-dialog'] {
+//   [is='alert-dialog'] {
 //     > button {
 //       @include mixins.add-active-state {
 //         --dialogbtnface: var(--dialogbtnactiveface,);

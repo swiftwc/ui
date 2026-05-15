@@ -934,6 +934,14 @@
     }
   }
 }
+@layer sw-utils {
+  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
+    display: none;
+  }
+  [is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot], [is=glass-button]:not(:has(> :not([slot]))) > [slot], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot], [is=bordered-button]:not(:has(> :not([slot]))) > [slot], [is=borderless-button]:not(:has(> :not([slot]))) > [slot], [is=plain-button]:not(:has(> :not([slot]))) > [slot] {
+    display: grid;
+  }
+}
 @layer sw-actions {
   :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
     --btnface: var(--btnactiveface,);
@@ -1014,6 +1022,7 @@
   [is=tab-bar]:not([hidden]),
   [is=full-screen]:not([hidden]),
   [is=confirmation-dialog]:not([hidden]),
+  [is=alert-dialog]:not([hidden]),
   [is=sheet-view]:not([hidden]),
   [is=form-view]:not([hidden]),
   [is=disclosure-group]:not([hidden]),
@@ -1579,40 +1588,61 @@
     --confirmation--dialog-max-block-size: anchor-size();
     --confirmation--dialog-scale: scale(0);
   }
-  :where([is=confirmation-dialog] > button) {
-    appearance: none;
-    -webkit-appearance: none;
-    border: var(--dialogbtnborder,);
-    background: var(--dialogbtnface,);
-    color: var(--dialogbtntext,);
-    padding-inline: var(--dialogbtnpadistart,) var(--dialogbtnpadiend,);
-    padding-block: var(--dialogbtnpadbstart,) var(--dialogbtnpadbend,);
-    border-radius: var(--dialogbtnradiustl,) var(--dialogbtnradiustr,) var(--dialogbtnradiusbr,) var(--dialogbtnradiusbl,);
-  }
-  :where([is=confirmation-dialog]) {
-    --dialogbtnpadistart: 0.6rem;
-    --dialogbtnpadiend: 0.6rem;
-    --dialogbtnpadbstart: 0.6rem;
-    --dialogbtnpadbend: 0.6rem;
-    --dialogbtnradiustl: 1rem;
-    --dialogbtnradiustr: 1rem;
-    --dialogbtnradiusbl: 1rem;
-    --dialogbtnradiusbr: 1rem;
-  }
 }
-@layer sw-colors {
-  :where([is=confirmation-dialog] > button:not(:disabled):not([readonly])):focus-visible {
+@layer sw-components {
+  :where([is=alert-dialog]) {
+    inset-inline: 0px;
+    inset-block: 0px;
+    margin: 0px;
+    border: none;
+    padding: 0px;
+    background-color: transparent;
+    color: transparent;
+    max-width: 100lvw;
+    max-height: 100lvh;
     outline: none;
   }
-  :where([is=confirmation-dialog] > button:not(:disabled):not([readonly])):focus-visible {
-    --dialogbtnface: var(--dialogbtnhighlightface,);
-    --dialogbtntext: var(--dialogbtnhighlighttext,);
+  :where([is=alert-dialog])::backdrop {
+    background-color: transparent;
   }
-}
-@layer sw-actions {
-  :where([is=confirmation-dialog] > button:not(:disabled):not([readonly])):active {
-    --dialogbtnface: var(--dialogbtnactiveface,);
-    --dialogbtntext: var(--dialogbtnactivetext,);
+  :where([is=alert-dialog]) {
+    color: var(--text, );
+    touch-action: none;
+    position: fixed;
+    inline-size: fit-content;
+    block-size: fit-content;
+    height: auto;
+    max-inline-size: min(20rem, 80vw);
+    max-block-size: 80vh;
+    margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+    margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+    transform: var(--alert--dialog-scale, );
+    opacity: var(--alert--dialog-opacity, );
+    position-anchor: --alert-dialog;
+    position-area: center;
+    overflow: clip;
+    border-radius: 0.9rem;
+    backdrop-filter: var(--liquid-glass-backdrop-filter, );
+    box-shadow: var(--menu-popover-box-shadow, );
+    padding-block: 1rem;
+    padding-inline: 1em;
+    gap: 1rem;
+    --alert--dialog-scale: scale(1.2);
+    --alert--dialog-opacity: 0.8;
+  }
+  :where([is=alert-dialog][open]) {
+    --alert--dialog-scale: scale(1);
+    --alert--dialog-opacity: 1;
+  }
+  @starting-style {
+    :where([is=alert-dialog][open]) {
+      --alert--dialog-scale: scale(1.2);
+      --alert--dialog-opacity: 0.8;
+    }
+  }
+  :where([is=alert-dialog][closing]) {
+    --alert--dialog-scale: scale(0.98);
+    --alert--dialog-opacity: 0;
   }
 }
 @layer sw-components {
@@ -1774,6 +1804,20 @@
   }
   :where(v-stack[template="auto auto auto auto minmax(0,1fr)"]) {
     grid-template-rows: auto auto auto auto minmax(0, 1fr);
+  }
+}
+@layer sw-components {
+  :where(h-flex-stack) {
+    display: flex;
+    flex-flow: row nowrap;
+    place-items: safe center;
+    place-content: safe center;
+  }
+  :where(h-flex-stack > *) {
+    max-block-size: 100%;
+  }
+  :where(h-flex-stack > [frame-height=infinity]) {
+    flex-grow: 1;
   }
 }
 @layer sw-components {
@@ -6400,6 +6444,13 @@
     }
   }
 }
+@layer sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=alert-dialog]) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+  }
+}
 @layer sw-transitions {}
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
@@ -7330,7 +7381,7 @@
     --face: var(--background);
     --text: var(--primary);
   }
-  :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog]) {
+  :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog], [is=alert-dialog]) {
     --face: var(--background);
     --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
   }
@@ -7375,7 +7426,7 @@
     --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
     --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
   }
-  :where([is=confirmation-dialog]) {
+  :where([is=confirmation-dialog], [is=alert-dialog]) {
     --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
@@ -7467,6 +7518,10 @@
     }
     :where([is=confirmation-dialog][touch-glass]) {
       --confirmation--dialog-scale: scale(1.02);
+      transition-duration: 100ms;
+    }
+    :where([is=alert-dialog][touch-glass]) {
+      --alert--dialog-scale: scale(1.02);
       transition-duration: 100ms;
     }
     :where(tool-bar > *[touch-glass]) {

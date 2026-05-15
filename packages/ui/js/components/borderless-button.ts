@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff } from '../internal/utils'
+import { onoff,buttonRole } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 
 export class BorderlessButton extends ButtonBase {
@@ -25,7 +25,7 @@ export class BorderlessButton extends ButtonBase {
     CleanupRegistry.register(el, onoff('click', BorderlessButton.#handleClick, el).on())
   }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {

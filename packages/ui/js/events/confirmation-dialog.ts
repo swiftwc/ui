@@ -1,10 +1,10 @@
-export type ReturnDetail = {
+export type ConfirmationReturnDetail = {
   returnValue: string
   positionAnchor: string
 }
 
 declare global {
   interface HTMLElementEventMap {
-    return: CustomEvent<ReturnDetail>
+    'confirmation:return': CustomEvent<ConfirmationReturnDetail>
   }
 }

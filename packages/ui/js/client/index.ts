@@ -1,11 +1,10 @@
+import { alertDialog, confirmationDialog as confirmationDialogBus, lifecycleObserver } from '../buses'
 import * as Components from '../components'
-import { ConfirmationDialog } from '../confirmation-dialog'
 import { type PageRevealSwapDetail } from '../events'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
 import { $, kebabCase, onoff } from '../internal/utils'
-import { LifecycleObserver } from '../lifecycle-observer'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
 
@@ -64,7 +63,7 @@ if (0 < polyfills.size) {
             target: el,
           }
 
-          void polyfill.polyfillAttributeChangedCallback([entry])
+          polyfill.polyfillAttributeChangedCallback([entry])
         }
     },
     unobserve = (el: HTMLElement) => {
@@ -330,28 +329,46 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
   }
 }
 
-export const alert = async (title?: string, message?: string, actions?: Array<[string, any]>, options?: { titleVisibility?: boolean }) => {
-  const dialog = $<HTMLDialogElement>(
-    `<dialog is="alert-dialog">
-                  ${(actions ?? []).map(
-                    (item, index) => `<button type="button" tabindex="0" value="${index}">
-                    <label-view title="${item[0]}"></label-view>
-                  </button>`
-                  )}
-                </dialog>`,
-    '>1'
-  )
+export const alert = async (
+  title?: string,
+  message?: string,
+  actions?: {
+    label?: string
+    image?: string
+    role?: string
+    // action?: () => void | Promise<void>
+  }[],
+  options?: { titleVisibility?: boolean }
+) => {
+  const dialog = $<HTMLDialogElement>(`<dialog is="alert-dialog"></dialog>`, '>1'),
+    vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
 
   if (title) {
-    const label = $(`<label-view></label-view>`, '>1')
+    const label = $(`<label-view font="headline"></label-view>`, '>1')
     label.setAttribute('title', title)
-    dialog.insertAdjacentElement('afterbegin', label)
+    vStack.insertAdjacentElement('beforeend', label)
   }
 
   if (message) {
-    const label = $(`<label-view></label-view>`, '>1')
+    const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
     label.setAttribute('title', message)
-    dialog.insertAdjacentElement('afterbegin', label)
+    vStack.insertAdjacentElement('beforeend', label)
+  }
+
+  for (const [index, action] of (actions ?? []).entries()) {
+    const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
+
+    btn.setAttribute('value', `${index}`)
+    if (action?.role) btn.setAttribute('role', action.role)
+
+    if (action.label || action.image) {
+      const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
+      if (action.label) label.setAttribute('title', action.label)
+      if (action.image) label.setAttribute('system-image', action.image)
+      btn.appendChild(label)
+    }
+
+    dialog.insertAdjacentElement('beforeend', btn)
   }
 
   document.body.insertAdjacentElement('beforeend', dialog)
@@ -360,31 +377,32 @@ export const alert = async (title?: string, message?: string, actions?: Array<[s
 
   const { promise, resolve } = Promise.withResolvers<any>(),
     off = onoff(
-      'return',
+      'alert:return',
       (evt: any) => {
         off()
         resolve(evt.detail.returnValue)
       },
-      ConfirmationDialog,
+      alertDialog,
       { once: true }
     ).on()
 
   return promise
 }
 
-export const confirmationDialog = async (trigger: HTMLElement, title: string, entries: Array<[string, any]>, options?: { controller?: AbortController; titleVisibility?: boolean }) => {
+export const confirmationDialog = async (
+  trigger: HTMLElement,
+  title: string,
+  actions?: {
+    label?: string
+    image?: string
+    role?: string
+    // action?: () => void | Promise<void>
+  }[],
+  options?: { controller?: AbortController; titleVisibility?: boolean }
+) => {
   const newAnchorName = `--confirmation-dialog-${self.crypto.randomUUID()}`
 
-  const dialog = $<HTMLDialogElement>(
-    `<dialog is="confirmation-dialog">
-                  ${entries.map(
-                    (item, index) => `<button type="button" tabindex="0" value="${index}">
-                    <label-view title="${item[0]}"></label-view>
-                  </button>`
-                  )}
-                </dialog>`,
-    '>1'
-  )
+  const dialog = $<HTMLDialogElement>(`<dialog is="confirmation-dialog"></dialog>`, '>1')
 
   trigger.style.setProperty('anchor-name', newAnchorName, 'important') //$.prop('anchor-name', newAnchorName, trigger, 'important')
   dialog.style.setProperty('position-anchor', newAnchorName) //$.prop('position-anchor', newAnchorName, dialog)
@@ -392,19 +410,35 @@ export const confirmationDialog = async (trigger: HTMLElement, title: string, en
   if (title && false !== options?.titleVisibility) {
     const label = $(`<label-view></label-view>`, '>1')
     label.setAttribute('title', title)
-    dialog.insertAdjacentElement('afterbegin', label)
+    dialog.insertAdjacentElement('beforeend', label)
+  }
+
+  for (const [index, action] of (actions ?? []).entries()) {
+    const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
+
+    btn.setAttribute('value', `${index}`)
+    if (action?.role) btn.setAttribute('role', action.role)
+
+    if (action.label || action.image) {
+      const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
+      if (action.label) label.setAttribute('title', action.label)
+      if (action.image) label.setAttribute('system-image', action.image)
+      btn.appendChild(label)
+    }
+
+    dialog.insertAdjacentElement('beforeend', btn)
   }
 
   trigger.closest('body-view')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
 
   const { promise, resolve } = Promise.withResolvers<any>(),
     off = onoff(
-      'return',
+      'confirmation:return',
       (evt: any) => {
         off()
         resolve(evt.detail.returnValue)
       },
-      ConfirmationDialog,
+      confirmationDialogBus,
       { once: true }
     ).on()
 
@@ -436,4 +470,4 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
 // SECTION
 
-export { ConfirmationDialog, I18n, LifecycleObserver, NavigationPath, Snapshot }
+export { I18n, lifecycleObserver, NavigationPath, Snapshot }

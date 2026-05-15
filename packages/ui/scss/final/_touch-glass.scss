@@ -25,6 +25,13 @@
       }
     }
 
+    [is='alert-dialog'] {
+      :where(&[touch-glass]) {
+        --alert--dialog-scale: scale(1.02);
+        transition-duration: 100ms;
+      }
+    }
+
     tool-bar {
       :where(& > *[touch-glass]) {
         --toolbar-cell-scale: scale(1.07);

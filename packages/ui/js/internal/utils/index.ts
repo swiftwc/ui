@@ -2,11 +2,13 @@
 import cash from './cash'
 
 export { default as add } from './add'
+export { default as buttonRole } from './button-role'
 export { default as clamp } from './clamp'
 export { default as compareBigDecimals } from './compare-big-decimals'
 export { default as cssTime } from './css-time'
 export { default as debounce } from './debounce'
 export { default as frame } from './frame'
+export { default as isInside } from './is-inside'
 export { default as kebabCase } from './kebab-case'
 export { default as listActive } from './list-active'
 export { default as microtask } from './microtask'
@@ -16,6 +18,5 @@ export { default as sleep } from './sleep'
 export { default as slowHideShow } from './slow-hide-show'
 export { default as timeout } from './timeout'
 export { default as touchGlass } from './touch-glass'
-export { default as isInside } from './is-inside'
 
 export const $: typeof cash = cash

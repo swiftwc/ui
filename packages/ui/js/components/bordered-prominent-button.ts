@@ -1,8 +1,12 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff } from '../internal/utils'
+import { buttonRole, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 
 export class BorderedProminentButton extends ButtonBase {
+  static get observedAttributes() {
+    return ['role']
+  }
+
   constructor() {
     super()
   }
@@ -19,6 +23,20 @@ export class BorderedProminentButton extends ButtonBase {
     el.tabIndex = 0
 
     CleanupRegistry.register(el, onoff('click', BorderedProminentButton.#handleClick, el).on())
+  }
+
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+    console.debug(`${BorderedProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+
+    const node = target instanceof HTMLButtonElement && target
+    if (!node) return
+
+    switch (attributeName) {
+      case 'role':
+        buttonRole(target, attributeName)
+
+        break
+    }
   }
 
   static #handleClick = async (evt: Event) => {

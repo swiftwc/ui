@@ -1,8 +1,12 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff, touchGlass } from '../internal/utils'
+import { buttonRole, onoff, touchGlass } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 
 export class GlassButton extends ButtonBase {
+  static get observedAttributes() {
+    return ['role']
+  }
+
   constructor() {
     super()
   }
@@ -29,5 +33,19 @@ export class GlassButton extends ButtonBase {
     )
 
     el.tabIndex = 0
+  }
+
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+    console.debug(`${GlassButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+
+    const node = target instanceof HTMLButtonElement && target
+    if (!node) return
+
+    switch (attributeName) {
+      case 'role':
+        buttonRole(target, attributeName)
+
+        break
+    }
   }
 }

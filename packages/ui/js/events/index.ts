@@ -1,3 +1,4 @@
+export * from './alert-dialog'
 export * from './confirmation-dialog'
 export * from './date-picker'
 export * from './lifecycle-observer'

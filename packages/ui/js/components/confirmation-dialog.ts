@@ -1,5 +1,5 @@
-import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
-import { type ReturnDetail } from '../events'
+import { confirmationDialog } from '../buses'
+import { type ConfirmationReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { isInside, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
@@ -23,8 +23,8 @@ export class ConfirmationDialog extends DialogBase {
 
     CleanupRegistry.unregister(el)
 
-    EvtBus.dispatchEvent(
-      new CustomEvent<ReturnDetail>('return', {
+    confirmationDialog.dispatchEvent(
+      new CustomEvent<ConfirmationReturnDetail>('confirmation:return', {
         detail: { returnValue: el.returnValue, positionAnchor },
         bubbles: true,
         composed: true,
@@ -80,7 +80,7 @@ export class ConfirmationDialog extends DialogBase {
     el.showModal()
   }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${ConfirmationDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     // const newValue = (target as HTMLElement).getAttribute(attributeName ?? '')

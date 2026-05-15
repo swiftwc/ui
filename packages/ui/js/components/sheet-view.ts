@@ -35,34 +35,36 @@ export class SheetView extends DialogBase {
     el.autofocus = true
   }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-    await Snapshot.waitReady // NOTE: wait for config
+    // NOTE: wait for config
+    Snapshot.waitReady.then(() => {
+      switch (attributeName) {
+        case 'fine-presentation-large-adaptation':
+          const node = target instanceof HTMLDialogElement && target
+          if (!node) break
 
-    switch (attributeName) {
-      case 'fine-presentation-large-adaptation':
-        const node = target as HTMLDialogElement
+          CleanupRegistry.unregister(node, 'mediaquery')
 
-        CleanupRegistry.unregister(node, 'mediaquery')
+          if ('bottom-bar' !== target.getAttribute(attributeName ?? '')) break
 
-        if ('bottom-bar' !== (target as HTMLElement).getAttribute(attributeName ?? '')) break
+          const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`)
 
-        const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`)
+          SheetView.#handleMediaChange(
+            node,
+            new MediaQueryListEvent(`media-change`, {
+              matches: mediaQueryList.matches,
+            })
+          ) // Initial check
 
-        SheetView.#handleMediaChange(
-          node,
-          new MediaQueryListEvent(`media-change`, {
-            matches: mediaQueryList.matches,
-          })
-        ) // Initial check
+          const handler1 = SheetView.#handleMediaChange.bind(null, node)
 
-        const handler1 = SheetView.#handleMediaChange.bind(null, node)
+          CleanupRegistry.register(node, onoff('change', handler1 as unknown as EventListener, mediaQueryList).on(), 'mediaquery')
 
-        CleanupRegistry.register(node, onoff('change', handler1 as unknown as EventListener, mediaQueryList).on(), 'mediaquery')
-
-        break
-    }
+          break
+      }
+    })
   }
 
   static #handleKeydown = (evt: KeyboardEvent) => {

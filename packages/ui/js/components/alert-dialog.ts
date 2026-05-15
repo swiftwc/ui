@@ -1,7 +1,7 @@
-import { ConfirmationDialog as EvtBus } from '../confirmation-dialog'
+import { alertDialog } from '../buses'
 import { type AlertReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { isInside, onoff, touchGlass } from '../internal/utils'
+import { onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class AlertDialog extends DialogBase {
@@ -14,8 +14,8 @@ export class AlertDialog extends DialogBase {
 
     CleanupRegistry.unregister(el)
 
-    EvtBus.dispatchEvent(
-      new CustomEvent<AlertReturnDetail>('return', {
+    alertDialog.dispatchEvent(
+      new CustomEvent<AlertReturnDetail>('alert:return', {
         detail: { returnValue: el.returnValue },
         bubbles: true,
         composed: true,
@@ -70,7 +70,7 @@ export class AlertDialog extends DialogBase {
     el.showModal()
   }
 
-  static async polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     console.debug(`${AlertDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {
@@ -89,8 +89,6 @@ export class AlertDialog extends DialogBase {
 
     const target = evt.target instanceof HTMLElement && evt.target
     if (!target) return
-
-    if (target.matches('dialog') && !isInside(evt.clientX, evt.clientY, dialog.getBoundingClientRect())) return dialog.requestClose() // click outside
 
     const button = target.closest<HTMLButtonElement>('button')
     if (!button) return

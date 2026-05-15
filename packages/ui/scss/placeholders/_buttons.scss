@@ -54,6 +54,19 @@
   }
 }
 
+@layer #{vars.$utils-layer} {
+  %button {
+    > [slot] {
+      :where(&) {
+        display: none;
+      }
+    }
+    &:not(:has(> :not([slot]))) > [slot] {
+      display: grid;
+    }
+  }
+}
+
 @layer #{vars.$ui-layer} {
   // SECTION: componentize
   %button {

@@ -1,6 +1,6 @@
+import { lifecycleObserver } from '../../buses'
 import { type TabDetail } from '../../events'
 import { CleanupRegistry } from '../../internal/class/cleanup-registry'
-import { LifecycleObserver } from '../../lifecycle-observer'
 import { frame, onoff } from '../utils'
 
 export class NavigationView extends HTMLElement {
@@ -21,7 +21,7 @@ export class NavigationView extends HTMLElement {
     this.#recentBefore = undefined
 
     // this.removeEventListener('tabreveal', this.#handleTabReveal)
-    if (this.closest('tab-view')) frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
+    if (this.closest('tab-view')) frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {
@@ -42,7 +42,7 @@ export class NavigationView extends HTMLElement {
       frame(this).then(() => {
         // if (!r) return
 
-        LifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
+        lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
       })
   }
 
@@ -54,7 +54,7 @@ export class NavigationView extends HTMLElement {
         if (!this.closest('tab-view')) break // tabview stuff
 
         let eventType = this.hasAttribute(name) ? 'tabhide' : 'tabshow',
-          target = LifecycleObserver
+          target = lifecycleObserver
 
         // isRecent by 100ms window
         if (this.#recentBefore && performance.now() - this.#recentBefore.time <= 100) {

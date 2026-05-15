@@ -6,4 +6,13 @@ export default defineTranslations(() => ({
     Label: 'No Results for ”{search}”',
     Description: 'Check the spelling or try a new search.',
   },
+  ButtonRole: {
+    Default: {
+      Cancel: 'Cancel',
+      Close: 'Close',
+      Confirm: 'Confirm',
+      Destructive: 'Delete',
+      OK: 'OK',
+    },
+  },
 }))

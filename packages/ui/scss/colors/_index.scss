@@ -439,7 +439,7 @@ $colors: map.merge(
   //   --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   // }
 
-  :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog']) {
+  :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog'], [is='alert-dialog']) {
     // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
     // ANCHOR: level 1
     --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
@@ -536,7 +536,7 @@ $colors: map.merge(
     }
   }
 
-  :where([is='confirmation-dialog']) {
+  :where([is='confirmation-dialog'], [is='alert-dialog']) {
     --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --dialogbtnhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --dialogbtnactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));

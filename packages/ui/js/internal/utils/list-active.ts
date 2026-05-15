@@ -1,7 +1,9 @@
 const touchList = new WeakMap()
 
 function onDown({ target }: PointerEvent) {
-  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
+  if (!(target instanceof HTMLElement && target)) return
+
+  const el = target.closest<HTMLElement>('button,summary')
   if (!el) return
 
   touchList.set(
@@ -19,7 +21,9 @@ function onDown({ target }: PointerEvent) {
 }
 
 function onOver({ target, buttons }: PointerEvent) {
-  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
+  if (!(target instanceof HTMLElement && target)) return
+
+  const el = target.closest<HTMLElement>('button,summary')
   if (!el) return
 
   if (0 === buttons) return
@@ -32,7 +36,9 @@ function onOver({ target, buttons }: PointerEvent) {
 }
 
 function onLeave({ target }: PointerEvent) {
-  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
+  if (!(target instanceof HTMLElement && target)) return
+
+  const el = target.closest<HTMLElement>('button,summary')
   if (!el) return
 
   el.addEventListener('pointerover', onOver, { once: true, passive: true })
@@ -49,7 +55,9 @@ function onLeave({ target }: PointerEvent) {
 }
 
 function onCancel({ target }: PointerEvent) {
-  const el = (target as HTMLElement | null)?.closest<HTMLElement>('button,summary')
+  if (!(target instanceof HTMLElement && target)) return
+
+  const el = target.closest<HTMLElement>('button,summary')
   if (!el) return
 
   // self.requestAnimationFrame(() => {
@@ -65,7 +73,9 @@ function onCancel({ target }: PointerEvent) {
 }
 
 function onScroll({ target }: Event) {
-  for (const el of (target as HTMLElement | null)?.querySelectorAll<HTMLElement>('button,summary') ?? []) {
+  if (!(target instanceof HTMLElement && target)) return
+
+  for (const el of target.querySelectorAll<HTMLElement>('button,summary') ?? []) {
     el.classList.remove('active')
     if (touchList.has(el)) clearTimeout(touchList.get(el))
     touchList.delete(el)

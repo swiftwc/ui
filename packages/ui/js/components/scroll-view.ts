@@ -1,8 +1,8 @@
+import { lifecycleObserver } from '../buses'
 import { type PageShowHideDetail, type TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, frame, onoff, slowHideShow } from '../internal/utils'
-import { LifecycleObserver } from '../lifecycle-observer'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -59,7 +59,7 @@ export class ScrollView extends HTMLElement {
 
     observers.unobserve(this)
 
-    frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true })))
+    frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pagehide', { detail: { page: this }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {
@@ -87,7 +87,7 @@ export class ScrollView extends HTMLElement {
       ).on()
     )
 
-    frame().then(() => LifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true })))
+    frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<PageShowHideDetail>('pageshow', { detail: { page: this }, bubbles: true, composed: true })))
 
     observers.observe(this, this.#handleMeasure.bind(this))
 

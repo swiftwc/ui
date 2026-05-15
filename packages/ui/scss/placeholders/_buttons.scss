@@ -8,6 +8,8 @@
 
       place-content: center;
 
+      position: relative;
+
       // SECTION: componentize
       @include mixins.componentize(btn);
 
@@ -20,6 +22,26 @@
       --btnradiustr: var(--regular-btn-border-radius);
       --btnradiusbl: var(--regular-btn-border-radius);
       --btnradiusbr: var(--regular-btn-border-radius);
+    }
+
+    &:has(> [slot='overlay']) {
+      :where(& > *:not([slot='overlay'])) {
+        opacity: 0;
+      }
+
+      :where(& > [slot='overlay']) {
+        position: absolute;
+
+        transition: opacity ease-out 200ms;
+
+        max-inline-size: 90%;
+        max-block-size: 90%;
+        border-radius: inherit;
+
+        @starting-style {
+          opacity: 0;
+        }
+      }
     }
 
     @each $size, $media in vars.$button-sizes {
@@ -61,8 +83,15 @@
         display: none;
       }
     }
-    &:not(:has(> :not([slot]))) > [slot] {
-      display: grid;
+    &:has(> [slot='overlay']) {
+      :where(& > [slot='overlay']) {
+        display: grid;
+      }
+    }
+    &:not(:has(> :not([slot]))) > [slot='placeholder'] {
+      :where(&) {
+        display: grid;
+      }
     }
   }
 }

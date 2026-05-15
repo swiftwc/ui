@@ -871,6 +871,7 @@
   :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
     place-items: center;
     place-content: center;
+    position: relative;
     appearance: none;
     -webkit-appearance: none;
     border: var(--btnborder,);
@@ -887,6 +888,21 @@
     --btnradiustr: var(--regular-btn-border-radius);
     --btnradiusbl: var(--regular-btn-border-radius);
     --btnradiusbr: var(--regular-btn-border-radius);
+  }
+  :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
+    opacity: 0;
+  }
+  :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+    position: absolute;
+    transition: opacity ease-out 200ms;
+    max-inline-size: 90%;
+    max-block-size: 90%;
+    border-radius: inherit;
+  }
+  @starting-style {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      opacity: 0;
+    }
   }
   :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
     --btnpadistart: var(--mini-btn-padding);
@@ -938,7 +954,10 @@
   :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
     display: none;
   }
-  [is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot], [is=glass-button]:not(:has(> :not([slot]))) > [slot], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot], [is=bordered-button]:not(:has(> :not([slot]))) > [slot], [is=borderless-button]:not(:has(> :not([slot]))) > [slot], [is=plain-button]:not(:has(> :not([slot]))) > [slot] {
+  :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+    display: grid;
+  }
+  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
     display: grid;
   }
 }
@@ -1471,8 +1490,13 @@
     transform: var(--sheet-view-translate, );
     --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
   }
-  :where(:where([is=sheet-view])[fine-presentation-large-adaptation=bottom-bar] > tool-bar > [slot^=top-bar-]) {
+  :where(:where([is=sheet-view]) > tool-bar > [slot=top-bar-leading], :where([is=sheet-view]) > tool-bar > [slot=top-bar-trailing]) {
     --label-style: icon-only;
+  }
+  @media (pointer: coarse) {
+    :where(:where([is=sheet-view]) > tool-bar > [slot^=bottom-bar-]) {
+      --label-style: icon-only;
+    }
   }
   @media (pointer: coarse) and (orientation: portrait) {
     :where([is=sheet-view]) {

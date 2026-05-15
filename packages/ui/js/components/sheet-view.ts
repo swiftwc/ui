@@ -1,7 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { onoff } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
-import { Snapshot } from '../snapshot'
 
 export class SheetView extends DialogBase {
   static get observedAttributes() {
@@ -39,32 +38,32 @@ export class SheetView extends DialogBase {
     console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     // NOTE: wait for config
-    Snapshot.waitReady.then(() => {
-      switch (attributeName) {
-        case 'fine-presentation-large-adaptation':
-          const node = target instanceof HTMLDialogElement && target
-          if (!node) break
+    // Snapshot.waitReady.then(() => {
+    //   switch (attributeName) {
+    //     case 'fine-presentation-large-adaptation':
+    //       const node = target instanceof HTMLDialogElement && target
+    //       if (!node) break
 
-          CleanupRegistry.unregister(node, 'mediaquery')
+    //       CleanupRegistry.unregister(node, 'mediaquery')
 
-          if ('bottom-bar' !== target.getAttribute(attributeName ?? '')) break
+    //       if ('bottom-bar' !== target.getAttribute(attributeName ?? '')) break
 
-          const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`)
+    //       const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${Snapshot.config!['ipad-sheet-view-inline-size']}) and (min-height: ${Snapshot.config!['ipad-sheet-view-height']})`)
 
-          SheetView.#handleMediaChange(
-            node,
-            new MediaQueryListEvent(`media-change`, {
-              matches: mediaQueryList.matches,
-            })
-          ) // Initial check
+    //       SheetView.#handleMediaChange(
+    //         node,
+    //         new MediaQueryListEvent(`media-change`, {
+    //           matches: mediaQueryList.matches,
+    //         })
+    //       ) // Initial check
 
-          const handler1 = SheetView.#handleMediaChange.bind(null, node)
+    //       const handler1 = SheetView.#handleMediaChange.bind(null, node)
 
-          CleanupRegistry.register(node, onoff('change', handler1 as unknown as EventListener, mediaQueryList).on(), 'mediaquery')
+    //       CleanupRegistry.register(node, onoff('change', handler1 as unknown as EventListener, mediaQueryList).on(), 'mediaquery')
 
-          break
-      }
-    })
+    //       break
+    //   }
+    // })
   }
 
   static #handleKeydown = (evt: KeyboardEvent) => {

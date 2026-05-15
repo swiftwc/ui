@@ -372,34 +372,34 @@ export class TextField extends FormAssociatedBase {
           digitsDecimalsOnlyRegex = /^(\d+([.,]\d*)?|[.,]\d*)?$/ // allow only one ',' or '.' and finally only digits
 
         return (this.negativeNumbersAllowed ? allowedSignsRegex2 : digitsDecimalsOnlyRegex).test(str)
-      //   // console.log(isValidDecimal(""));       // true
-      //   // console.log(isValidDecimal("+"));      // true
-      //   // console.log(isValidDecimal("-"));      // true
-      //   // console.log(isValidDecimal("123"));    // true
-      //   // console.log(isValidDecimal("+123"));   // true
-      //   // console.log(isValidDecimal("-456"));   // true
-      //   // console.log(isValidDecimal("12.34"));  // true
-      //   // console.log(isValidDecimal("-0,56"));  // true
-      //   // console.log(isValidDecimal(".78"));    // true
-      //   // console.log(isValidDecimal(",9"));     // true
-      //   // console.log(isValidDecimal("12.3.4")); // false
-      //   // console.log(isValidDecimal("12,3,4")); // false
-      //   // console.log(isValidDecimal("12-3"));   // false
-      //   // console.log(isValidDecimal("12a"));    // false
+      //   // isValidDecimal("");       // true
+      //   // isValidDecimal("+");      // true
+      //   // isValidDecimal("-");      // true
+      //   // isValidDecimal("123");    // true
+      //   // isValidDecimal("+123");   // true
+      //   // isValidDecimal("-456");   // true
+      //   // isValidDecimal("12.34");  // true
+      //   // isValidDecimal("-0,56");  // true
+      //   // isValidDecimal(".78");    // true
+      //   // isValidDecimal(",9");     // true
+      //   // isValidDecimal("12.3.4"); // false
+      //   // isValidDecimal("12,3,4"); // false
+      //   // isValidDecimal("12-3");   // false
+      //   // isValidDecimal("12a");    // false
       case 'number-pad':
         const allowedSignsRegex = /^([+-]|\d+|[+-]\d+)?$/, // allow single '+' or '-', then allow only digits
           digitsOnlyRegex = /^(\d+)?$/ // allow only digits
 
         return (this.negativeNumbersAllowed ? allowedSignsRegex : digitsOnlyRegex).test(str)
-      //   // console.log(isValidInteger(""));      // true
-      //   // console.log(isValidInteger("+"));     // true
-      //   // console.log(isValidInteger("-"));     // true
-      //   // console.log(isValidInteger("123"));   // true
-      //   // console.log(isValidInteger("+123"));  // true
-      //   // console.log(isValidInteger("-456"));  // true
-      //   // console.log(isValidInteger("12-3"));  // false
-      //   // console.log(isValidInteger("++123")); // false
-      //   // console.log(isValidInteger("123a"));  // false
+      //   // isValidInteger("");      // true
+      //   // isValidInteger("+");     // true
+      //   // isValidInteger("-");     // true
+      //   // isValidInteger("123");   // true
+      //   // isValidInteger("+123");  // true
+      //   // isValidInteger("-456");  // true
+      //   // isValidInteger("12-3");  // false
+      //   // isValidInteger("++123"); // false
+      //   // isValidInteger("123a");  // false
       default:
         return true
     }

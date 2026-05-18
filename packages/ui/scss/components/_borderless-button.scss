@@ -6,6 +6,10 @@
     @extend %button;
 
     :where(&) {
+      --btnpadistart: 0.1rem;
+      --btnpadiend: 0.1rem;
+      --btnpadbstart: 0.1rem;
+      --btnpadbend: 0.1rem;
     }
 
     :where(&[role='destructive']) {

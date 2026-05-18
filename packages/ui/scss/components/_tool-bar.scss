@@ -108,6 +108,21 @@
         --safe-area-inset-bottom: 0px;
       }
     }
+
+    // FIXME: Add live tooltip
+    // NOTE: By default toolbars items dialogs have only icons, (except if they define/force w/ labelStyle)
+    // NOTE: By default bottombar items dialogs on iphone have only icons, (except if they define/force w/ labelStyle)
+    > [slot^='top-bar-'],
+    > [slot^='bottom-bar-'] {
+      :where(&) {
+        // --label-style: icon-only;
+      }
+    }
+    // @media (pointer: coarse) {
+    //   :where(& > tool-bar > [slot^='bottom-bar-']) {
+    //     --label-style: icon-only;
+    //   }
+    // }
   }
 }
 

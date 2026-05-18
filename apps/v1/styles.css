@@ -409,7 +409,7 @@
     transition: font-size 1ms step-start;
   }
   html::before {
-    content: "ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
+    content: "delete-button-icon=trash&confirm-button-icon=check&close-button-icon=x&cancel-button-icon=x&ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
     display: none;
   }
 }
@@ -880,24 +880,30 @@
     padding-inline: var(--btnpadistart,) var(--btnpadiend,);
     padding-block: var(--btnpadbstart,) var(--btnpadbend,);
     border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
-    --btnpadistart: var(--regular-btn-padding);
-    --btnpadiend: var(--regular-btn-padding);
-    --btnpadbstart: var(--regular-btn-padding);
-    --btnpadbend: var(--regular-btn-padding);
     --btnradiustl: var(--regular-btn-border-radius);
     --btnradiustr: var(--regular-btn-border-radius);
     --btnradiusbl: var(--regular-btn-border-radius);
     --btnradiusbr: var(--regular-btn-border-radius);
   }
+  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
+    position: absolute;
+    visibility: collapse;
+    max-inline-size: 90%;
+    max-block-size: 90%;
+    border-radius: inherit;
+  }
+  :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
+    visibility: visible;
+  }
+  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
+    position: relative;
+    visibility: visible;
+  }
   :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
     opacity: 0;
   }
   :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-    position: absolute;
     transition: opacity ease-out 200ms;
-    max-inline-size: 90%;
-    max-block-size: 90%;
-    border-radius: inherit;
   }
   @starting-style {
     :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
@@ -905,34 +911,34 @@
     }
   }
   :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
-    --btnpadistart: var(--mini-btn-padding);
-    --btnpadiend: var(--mini-btn-padding);
-    --btnpadbstart: var(--mini-btn-padding);
-    --btnpadbend: var(--mini-btn-padding);
     --btnradiustl: var(--mini-btn-border-radius);
     --btnradiustr: var(--mini-btn-border-radius);
     --btnradiusbl: var(--mini-btn-border-radius);
     --btnradiusbr: var(--mini-btn-border-radius);
   }
+  :where([control-size=regular][is=glass-prominent-button], [control-size=regular][is=glass-button], [control-size=regular][is=bordered-prominent-button], [control-size=regular][is=bordered-button], [control-size=regular][is=borderless-button], [control-size=regular][is=plain-button]) {
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
+  }
   :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
-    --btnpadistart: var(--small-btn-padding);
-    --btnpadiend: var(--small-btn-padding);
-    --btnpadbstart: var(--small-btn-padding);
-    --btnpadbend: var(--small-btn-padding);
     --btnradiustl: var(--small-btn-border-radius);
     --btnradiustr: var(--small-btn-border-radius);
     --btnradiusbl: var(--small-btn-border-radius);
     --btnradiusbr: var(--small-btn-border-radius);
   }
   :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
-    --btnpadistart: var(--large-btn-padding);
-    --btnpadiend: var(--large-btn-padding);
-    --btnpadbstart: var(--large-btn-padding);
-    --btnpadbend: var(--large-btn-padding);
     --btnradiustl: var(--large-btn-border-radius);
     --btnradiustr: var(--large-btn-border-radius);
     --btnradiusbl: var(--large-btn-border-radius);
     --btnradiusbr: var(--large-btn-border-radius);
+  }
+  [control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button] {
+    --label-font: callout;
+  }
+  [control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button] {
+    --label-font: caption;
   }
 }
 @layer sw-colors {
@@ -948,17 +954,6 @@
       --btnface: var(--btnhighlightface,);
       --btntext: var(--btnhighlighttext,);
     }
-  }
-}
-@layer sw-utils {
-  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
-    display: none;
-  }
-  :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-    display: grid;
-  }
-  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
-    display: grid;
   }
 }
 @layer sw-actions {
@@ -1490,14 +1485,6 @@
     transform: var(--sheet-view-translate, );
     --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
   }
-  :where(:where([is=sheet-view]) > tool-bar > [slot=top-bar-leading], :where([is=sheet-view]) > tool-bar > [slot=top-bar-trailing]) {
-    --label-style: icon-only;
-  }
-  @media (pointer: coarse) {
-    :where(:where([is=sheet-view]) > tool-bar > [slot^=bottom-bar-]) {
-      --label-style: icon-only;
-    }
-  }
   @media (pointer: coarse) and (orientation: portrait) {
     :where([is=sheet-view]) {
       clip-path: inset(var(--safe-area-inset-top) 0 0 0 round 2rem 2rem 0 0);
@@ -2015,6 +2002,12 @@
   }
 }
 @layer sw-components {
+  :where([is=borderless-button]) {
+    --btnpadistart: 0.1rem;
+    --btnpadiend: 0.1rem;
+    --btnpadbstart: 0.1rem;
+    --btnpadbend: 0.1rem;
+  }
   :where([is=borderless-button][role=destructive]) {
     --accentColor: var(--red);
     --accentColor2: var(--red2);
@@ -2029,10 +2022,40 @@
   }
 }
 @layer sw-components {
+  :where([is=bordered-button]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
   @media (pointer: fine) {
     :where([is=bordered-button]) {
       --accentColor: var(--primary);
     }
+  }
+  :where([is=bordered-button][control-size=mini]) {
+    --btnpadistart: var(--mini-btn-padding);
+    --btnpadiend: var(--mini-btn-padding);
+    --btnpadbstart: var(--mini-btn-padding);
+    --btnpadbend: var(--mini-btn-padding);
+  }
+  :where([is=bordered-button][control-size=regular]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=bordered-button][control-size=small]) {
+    --btnpadistart: var(--small-btn-padding);
+    --btnpadiend: var(--small-btn-padding);
+    --btnpadbstart: var(--small-btn-padding);
+    --btnpadbend: var(--small-btn-padding);
+  }
+  :where([is=bordered-button][control-size=large]) {
+    --btnpadistart: var(--large-btn-padding);
+    --btnpadiend: var(--large-btn-padding);
+    --btnpadbstart: var(--large-btn-padding);
+    --btnpadbend: var(--large-btn-padding);
   }
   :where([is=bordered-button][role=destructive]) {
     --accentColor: var(--red);
@@ -2048,6 +2071,36 @@
   }
 }
 @layer sw-components {
+  :where([is=bordered-prominent-button]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=bordered-prominent-button][control-size=mini]) {
+    --btnpadistart: var(--mini-btn-padding);
+    --btnpadiend: var(--mini-btn-padding);
+    --btnpadbstart: var(--mini-btn-padding);
+    --btnpadbend: var(--mini-btn-padding);
+  }
+  :where([is=bordered-prominent-button][control-size=regular]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=bordered-prominent-button][control-size=small]) {
+    --btnpadistart: var(--small-btn-padding);
+    --btnpadiend: var(--small-btn-padding);
+    --btnpadbstart: var(--small-btn-padding);
+    --btnpadbend: var(--small-btn-padding);
+  }
+  :where([is=bordered-prominent-button][control-size=large]) {
+    --btnpadistart: var(--large-btn-padding);
+    --btnpadiend: var(--large-btn-padding);
+    --btnpadbstart: var(--large-btn-padding);
+    --btnpadbend: var(--large-btn-padding);
+  }
   :where([is=bordered-prominent-button][role=destructive]) {
     --accentColor: var(--red);
     --accentColor2: var(--red2);
@@ -2066,6 +2119,34 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     transform: var(--btn--scale, );
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=glass-button][control-size=mini]) {
+    --btnpadistart: var(--mini-btn-padding);
+    --btnpadiend: var(--mini-btn-padding);
+    --btnpadbstart: var(--mini-btn-padding);
+    --btnpadbend: var(--mini-btn-padding);
+  }
+  :where([is=glass-button][control-size=regular]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=glass-button][control-size=small]) {
+    --btnpadistart: var(--small-btn-padding);
+    --btnpadiend: var(--small-btn-padding);
+    --btnpadbstart: var(--small-btn-padding);
+    --btnpadbend: var(--small-btn-padding);
+  }
+  :where([is=glass-button][control-size=large]) {
+    --btnpadistart: var(--large-btn-padding);
+    --btnpadiend: var(--large-btn-padding);
+    --btnpadbstart: var(--large-btn-padding);
+    --btnpadbend: var(--large-btn-padding);
   }
   :where([is=glass-button][role=destructive]) {
     --accentColor: var(--red);
@@ -2085,6 +2166,34 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--toolbar-cell-box-shadow);
     transform: var(--btn--scale, );
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=glass-prominent-button][control-size=mini]) {
+    --btnpadistart: var(--mini-btn-padding);
+    --btnpadiend: var(--mini-btn-padding);
+    --btnpadbstart: var(--mini-btn-padding);
+    --btnpadbend: var(--mini-btn-padding);
+  }
+  :where([is=glass-prominent-button][control-size=regular]) {
+    --btnpadistart: var(--regular-btn-padding);
+    --btnpadiend: var(--regular-btn-padding);
+    --btnpadbstart: var(--regular-btn-padding);
+    --btnpadbend: var(--regular-btn-padding);
+  }
+  :where([is=glass-prominent-button][control-size=small]) {
+    --btnpadistart: var(--small-btn-padding);
+    --btnpadiend: var(--small-btn-padding);
+    --btnpadbstart: var(--small-btn-padding);
+    --btnpadbend: var(--small-btn-padding);
+  }
+  :where([is=glass-prominent-button][control-size=large]) {
+    --btnpadistart: var(--large-btn-padding);
+    --btnpadiend: var(--large-btn-padding);
+    --btnpadbstart: var(--large-btn-padding);
+    --btnpadbend: var(--large-btn-padding);
   }
   :where([is=glass-prominent-button][role=destructive]) {
     --accentColor: var(--red);

@@ -149,6 +149,11 @@
     // ipad-landscape-bp-min: vars.$ipad-landscape-bp-min,
     ipad-sheet-view-inline-size: vars.$ipad-sheet-view-inline-size,
     ipad-sheet-view-height: vars.$ipad-sheet-view-height,
+    //
+    cancel-button-icon: vars.$cancel-button-icon,
+    close-button-icon: vars.$close-button-icon,
+    confirm-button-icon: vars.$confirm-button-icon,
+    delete-button-icon: vars.$delete-button-icon,
   );
 
   @debug functions.map-to-query($CONFIG);

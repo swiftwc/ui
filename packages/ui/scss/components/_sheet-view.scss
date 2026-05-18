@@ -16,18 +16,18 @@
       --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
 
       // :where(&[fine-presentation-large-adaptation='bottom-bar'] > tool-bar > [slot^='top-bar-']) {
-      // FIXME: Add live tooltip
-      // NOTE: By default toolbars items dialogs have only icons, (except if they define/force w/ labelStyle)
-      :where(& > tool-bar > [slot='top-bar-leading'], & > tool-bar > [slot='top-bar-trailing']) {
-        --label-style: icon-only;
-      }
+      // // FIXME: Add live tooltip
+      // // NOTE: By default toolbars items dialogs have only icons, (except if they define/force w/ labelStyle)
+      // :where(& > tool-bar > [slot='top-bar-leading'], & > tool-bar > [slot='top-bar-trailing']) {
+      //   --label-style: icon-only;
+      // }
 
-      // NOTE: By default bottombar items dialogs on iphone have only icons, (except if they define/force w/ labelStyle)
-      @media (pointer: coarse) {
-        :where(& > tool-bar > [slot^='bottom-bar-']) {
-          --label-style: icon-only;
-        }
-      }
+      // // NOTE: By default bottombar items dialogs on iphone have only icons, (except if they define/force w/ labelStyle)
+      // @media (pointer: coarse) {
+      //   :where(& > tool-bar > [slot^='bottom-bar-']) {
+      //     --label-style: icon-only;
+      //   }
+      // }
 
       @media (pointer: coarse) and (orientation: portrait) {
         clip-path: inset(var(--safe-area-inset-top) 0 0 0 round 2rem 2rem 0 0);

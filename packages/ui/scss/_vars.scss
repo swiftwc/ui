@@ -147,6 +147,11 @@ $disclosure-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000
 $table-col-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M216.49,168.49a12,12,0,0,1-17,0L128,97,56.49,168.49a12,12,0,0,1-17-17l80-80a12,12,0,0,1,17,0l80,80A12,12,0,0,1,216.49,168.49Z"%3E%3C/path%3E%3C/svg%3E'; // ph-caret-up-bold
 $picker-affordance: 'data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E'; // ph-check-bold
 
+$cancel-button-icon: 'x'; // ph-trash
+$close-button-icon: 'x'; // ph-trash
+$confirm-button-icon: 'check'; // ph-trash
+$delete-button-icon: 'trash'; // ph-trash
+
 // SECTION: computed(s)
 
 $ipad-portrait-bp-max: #{functions.subtract-tiny($ipad-portrait-bp)};

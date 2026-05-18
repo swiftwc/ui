@@ -6,6 +6,19 @@
     @extend %button;
 
     :where(&) {
+      --btnpadistart: var(--regular-btn-padding);
+      --btnpadiend: var(--regular-btn-padding);
+      --btnpadbstart: var(--regular-btn-padding);
+      --btnpadbend: var(--regular-btn-padding);
+    }
+
+    @each $size, $media in vars.$button-sizes {
+      :where(&[control-size='#{$size}']) {
+        --btnpadistart: var(--#{$size}-btn-padding);
+        --btnpadiend: var(--#{$size}-btn-padding);
+        --btnpadbstart: var(--#{$size}-btn-padding);
+        --btnpadbend: var(--#{$size}-btn-padding);
+      }
     }
 
     :where(&[role='destructive']) {

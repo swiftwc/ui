@@ -52,7 +52,15 @@
       <p>[role="cancel"]</p>
       <button role="cancel"><label-view title="Tap Me"></label-view></button>
       <button is="plain-button" role="cancel"><label-view title="Tap Me"></label-view></button>
-      <button is="borderless-button" role="cancel"><label-view title="Tap Me"></label-view></button>
+      <h-stack>
+        <button is="borderless-button" role="cancel">
+          <!-- <label-view title="Tap Me"></label-view> -->
+        </button>
+        <button is="borderless-button" role="cancel">
+          <label-view title="Tap Me"></label-view>
+          <label-view slot="placeholder" title="Deleteee"></label-view>
+        </button>
+      </h-stack>
       <button is="bordered-button" role="cancel"><label-view title="Tap Me"></label-view></button>
       <button is="bordered-prominent-button" role="cancel"><label-view title="Tap Me"></label-view></button>
       <button is="glass-button" role="cancel"><label-view title="Tap Me"></label-view></button>
@@ -60,7 +68,15 @@
       <p>[role="close"]</p>
       <button role="close"><label-view title="Tap Me"></label-view></button>
       <button is="plain-button" role="close"><label-view title="Tap Me"></label-view></button>
-      <button is="borderless-button" role="close"><label-view title="Tap Me"></label-view></button>
+      <h-stack>
+        <button is="borderless-button" role="close">
+          <!-- <label-view title="Tap Me"></label-view> -->
+        </button>
+        <button is="borderless-button" role="close">
+          <label-view title="Tap Me"></label-view>
+          <label-view slot="placeholder" title="Deleteee"></label-view>
+        </button>
+      </h-stack>
       <button is="bordered-button" role="close"><label-view title="Tap Me"></label-view></button>
       <button is="bordered-prominent-button" role="close"><label-view title="Tap Me"></label-view></button>
       <button is="glass-button" role="close"><label-view title="Tap Me"></label-view></button>
@@ -68,7 +84,15 @@
       <p>[role="confirm"]</p>
       <button role="confirm"><label-view title="Tap Me"></label-view></button>
       <button is="plain-button" role="confirm"><label-view title="Tap Me"></label-view></button>
-      <button is="borderless-button" role="confirm"><label-view title="Tap Me"></label-view></button>
+      <h-stack>
+        <button is="borderless-button" role="confirm">
+          <!-- <label-view title="Tap Me"></label-view> -->
+        </button>
+        <button is="borderless-button" role="confirm">
+          <label-view title="Tap Me"></label-view>
+          <label-view slot="placeholder" title="Deleteee"></label-view>
+        </button>
+      </h-stack>
       <button is="bordered-button" role="confirm"><label-view title="Tap Me"></label-view></button>
       <button is="bordered-prominent-button" role="confirm"><label-view title="Tap Me"></label-view></button>
       <button is="glass-button" role="confirm"><label-view title="Tap Me"></label-view></button>
@@ -76,11 +100,18 @@
       <p>[role="destructive"]</p>
       <button role="destructive"><label-view title="Tap Me"></label-view></button>
       <button is="plain-button" role="destructive"><label-view title="Tap Me"></label-view><label-view slot="placeholder" title="Delete"></label-view></button>
-      <button is="borderless-button" role="destructive">
-        <label-view title="Tap Me"></label-view><label-view slot="placeholder" title="Delete"></label-view>
-      </button>
+      <h-stack>
+        <button is="borderless-button" role="destructive" style="--label-style: icon-only">
+          <!-- <label-view title="Tap Me"></label-view> -->
+        </button>
+        <button is="borderless-button" role="destructive" style="--label-style: icon-only">
+          <label-view title="Tap Me"></label-view>
+          <label-view slot="placeholder" title="Delete"></label-view>
+        </button>
+      </h-stack>
       <button is="bordered-button" role="destructive">
-        <label-view title="Tap Me"></label-view><label-view slot="placeholder" title="Delete"></label-view>
+        <label-view title="Tap Me"></label-view>
+        <label-view slot="placeholder" title="Delete"></label-view>
         <label-view slot="overlay" title="loading..."></label-view>
       </button>
       <button is="bordered-prominent-button" role="destructive">

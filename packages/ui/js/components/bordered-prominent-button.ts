@@ -1,7 +1,12 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { buttonRole, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
+import { Snapshot } from '../snapshot'
 
+/**
+ * @slot overlay
+ *
+ */
 export class BorderedProminentButton extends ButtonBase {
   static get observedAttributes() {
     return ['role']
@@ -33,7 +38,9 @@ export class BorderedProminentButton extends ButtonBase {
 
     switch (attributeName) {
       case 'role':
-        buttonRole(target, attributeName)
+        Snapshot.waitReady.then(() => {
+          buttonRole(target, attributeName)
+        })
 
         break
     }

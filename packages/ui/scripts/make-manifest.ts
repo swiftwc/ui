@@ -3,7 +3,13 @@ import { writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ArrayLiteralExpression, Project, SyntaxKind } from 'ts-morph'
-import { kebabCase } from '../js/internal/utils'
+
+const kebabCase = (str: string) =>
+  str
+    .replace(/([a-z])([A-Z])/g, '$1-$2') // camelCase → camel-Case
+    .replace(/[\s_]+/g, '-') // spaces/underscores → -
+    .replace(/-+/g, '-') // collapse multiple -
+    .toLowerCase()
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 

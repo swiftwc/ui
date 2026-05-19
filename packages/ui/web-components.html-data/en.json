@@ -9,6 +9,7 @@
     },
     {
       "name": "bordered-button",
+      "description": "",
       "attributes": [
         {
           "name": "role"
@@ -17,6 +18,7 @@
     },
     {
       "name": "bordered-prominent-button",
+      "description": "",
       "attributes": [
         {
           "name": "role"
@@ -25,6 +27,7 @@
     },
     {
       "name": "borderless-button",
+      "description": "",
       "attributes": [
         {
           "name": "role"
@@ -106,6 +109,7 @@
     },
     {
       "name": "glass-button",
+      "description": "",
       "attributes": [
         {
           "name": "role"
@@ -114,6 +118,7 @@
     },
     {
       "name": "glass-prominent-button",
+      "description": "",
       "attributes": [
         {
           "name": "role"
@@ -218,12 +223,7 @@
       ]
     },
     {
-      "name": "sheet-view",
-      "attributes": [
-        {
-          "name": "fine-presentation-large-adaptation"
-        }
-      ]
+      "name": "sheet-view"
     },
     {
       "name": "sidebar-toggle"
@@ -294,30 +294,21 @@
       ]
     },
     {
-      "name": "tool-bar-item-group",
-      "attributes": [
-        {
-          "name": "preferred-fine-modal-placement"
-        }
-      ]
+      "name": "tool-bar-item-group"
     },
     {
-      "name": "tool-bar-item",
-      "attributes": [
-        {
-          "name": "preferred-fine-modal-placement"
-        }
-      ]
+      "name": "tool-bar-item"
     },
     {
-      "name": "tool-bar"
+      "name": "tool-bar",
+      "description": ""
     },
     {
-      "name": "v-keyboard",
+      "name": "vkeyboard",
       "description": "Required component, must be BODY tag"
     },
     {
-      "name": "v-stack",
+      "name": "vstack",
       "description": "",
       "attributes": [
         {

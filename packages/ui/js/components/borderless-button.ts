@@ -38,7 +38,9 @@ export class BorderlessButton extends ButtonBase {
 
     switch (attributeName) {
       case 'role':
-        Snapshot.waitReady.then(() => {  buttonRole(target, attributeName) })
+        Snapshot.waitReady.then(() => {
+          buttonRole(target, attributeName)
+        })
 
         break
     }

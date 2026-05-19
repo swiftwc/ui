@@ -79,6 +79,12 @@
           "superclass": {
             "name": "ButtonHTMLElement"
           },
+          "slots": [
+            {
+              "name": "slot",
+              "description": "overlay"
+            }
+          ],
           "attributes": [
             {
               "name": "role"
@@ -116,6 +122,12 @@
           "superclass": {
             "name": "ButtonHTMLElement"
           },
+          "slots": [
+            {
+              "name": "slot",
+              "description": "overlay"
+            }
+          ],
           "attributes": [
             {
               "name": "role"
@@ -153,6 +165,12 @@
           "superclass": {
             "name": "ButtonHTMLElement"
           },
+          "slots": [
+            {
+              "name": "slot",
+              "description": "overlay"
+            }
+          ],
           "attributes": [
             {
               "name": "role"
@@ -444,6 +462,12 @@
           "superclass": {
             "name": "ButtonHTMLElement"
           },
+          "slots": [
+            {
+              "name": "slot",
+              "description": "overlay"
+            }
+          ],
           "attributes": [
             {
               "name": "role"
@@ -481,6 +505,12 @@
           "superclass": {
             "name": "ButtonHTMLElement"
           },
+          "slots": [
+            {
+              "name": "slot",
+              "description": "overlay"
+            }
+          ],
           "attributes": [
             {
               "name": "role"
@@ -1030,12 +1060,7 @@
           "description": "",
           "superclass": {
             "name": "DialogHTMLElement"
-          },
-          "attributes": [
-            {
-              "name": "fine-presentation-large-adaptation"
-            }
-          ]
+          }
         }
       ],
       "exports": [
@@ -1450,12 +1475,7 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          },
-          "attributes": [
-            {
-              "name": "preferred-fine-modal-placement"
-            }
-          ]
+          }
         }
       ],
       "exports": [
@@ -1487,12 +1507,7 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          },
-          "attributes": [
-            {
-              "name": "preferred-fine-modal-placement"
-            }
-          ]
+          }
         }
       ],
       "exports": [
@@ -1530,6 +1545,48 @@
               "kind": "field",
               "name": "template"
             }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal"
+            },
+            {
+              "name": "slot",
+              "description": "primary-action - The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+            },
+            {
+              "name": "slot",
+              "description": "confirmation-action - The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+            },
+            {
+              "name": "slot",
+              "description": "destructive-action - The item represents a destructive action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+            },
+            {
+              "name": "slot",
+              "description": "top-bar-leading - Places the item in the leading edge of the top bar"
+            },
+            {
+              "name": "slot",
+              "description": "top-bar-principal - Places the item in the middle of the top bar"
+            },
+            {
+              "name": "slot",
+              "description": "top-bar-trailing - Places the item in the trailing edge of the top bar"
+            },
+            {
+              "name": "slot",
+              "description": "bottom-bar-leading - Places the item in the leading edge of the bottom bar"
+            },
+            {
+              "name": "slot",
+              "description": "bottom-bar-principal - Places the item in the middle of the bottom bar"
+            },
+            {
+              "name": "slot",
+              "description": "bottom-bar-trailing - Places the item in the trailing edge of the bottom bar"
+            }
           ]
         }
       ],
@@ -1552,13 +1609,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/v-keyboard.ts",
+      "path": "./generated/components/vkeyboard.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
           "name": "VKeyboard",
-          "tagName": "v-keyboard",
+          "tagName": "vkeyboard",
           "description": "Required component, must be BODY tag",
           "superclass": {
             "name": "HTMLElement"
@@ -1575,7 +1632,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "v-keyboard",
+          "name": "vkeyboard",
           "declaration": {
             "name": "VKeyboard"
           }
@@ -1584,13 +1641,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/v-stack.ts",
+      "path": "./generated/components/vstack.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
           "name": "VStack",
-          "tagName": "v-stack",
+          "tagName": "vstack",
           "description": "",
           "superclass": {
             "name": "HTMLElement"
@@ -1615,7 +1672,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "v-stack",
+          "name": "vstack",
           "declaration": {
             "name": "VStack"
           }

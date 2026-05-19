@@ -360,6 +360,10 @@
   select {
     text-transform: none;
   }
+  .ph,
+  .ph::before {
+    display: grid;
+  }
   button,
   *::part(button),
   input,
@@ -1210,12 +1214,25 @@
   :where([is=disclosure-group]) {
     overflow: clip;
     --disclosure--host-details-content-block-size: 0;
-    --disclosure-style: ;
-    --disclosure--summary-grid-template-columns: ;
-    --disclosure--summary-grid-auto-flow: ;
-    --disclosure--summary-gap: ;
-    --disclosure--marker-display: ;
-    --disclosure--marker-transform: ;
+  }
+  @supports (x: if(else:red)) {
+    :where([is=disclosure-group]) {
+      --disclosure--marker-display: if(style(--disclosure-style: marker-trailing): ; style(--disclosure-style: marker-leading): ; else: none;);
+      --disclosure--summary-grid-auto-flow: if(style(--disclosure-style: marker-trailing): column ; style(--disclosure-style: marker-leading): column ;);
+      --disclosure--summary-gap: if(style(--disclosure-style: marker-trailing): 0.1rem ; style(--disclosure-style: marker-leading): 0.1rem ;);
+      --disclosure--summary-grid-template-columns: if(style(--disclosure-style: marker-trailing): minmax(0, 1fr) auto ; style(--disclosure-style: marker-leading): auto minmax(0, 1fr) ;);
+      --disclosure--marker-order: if(style(--disclosure-style: marker-leading): -1 ;);
+    }
+  }
+  @supports not (x: if(else:red)) {
+    :where([is=disclosure-group]) {
+      --disclosure-style: ;
+      --disclosure--summary-grid-template-columns: ;
+      --disclosure--summary-grid-auto-flow: ;
+      --disclosure--summary-gap: ;
+      --disclosure--marker-display: none;
+      --disclosure--marker-transform: ;
+    }
   }
   :where([is=disclosure-group] > summary) {
     gap: var(--disclosure--summary-gap, );
@@ -1239,26 +1256,28 @@
     transform: var(--disclosure--marker-transform, );
     order: var(--disclosure--marker-order, );
   }
-  @container not (style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading)) {
-    :where([is=disclosure-group] > summary) {
-      --disclosure--marker-display: none;
+  @supports not (x: if(else:red)) {
+    @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
+      :where([is=disclosure-group] > summary) {
+        --disclosure--marker-display: grid;
+      }
     }
-  }
-  @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
-    :where([is=disclosure-group] > summary) {
-      --disclosure--summary-grid-auto-flow: column;
-      --disclosure--summary-gap: 0.1rem;
+    @container style(--disclosure-style: marker-trailing) or style(--disclosure-style: marker-leading) {
+      :where([is=disclosure-group] > summary) {
+        --disclosure--summary-grid-auto-flow: column;
+        --disclosure--summary-gap: 0.1rem;
+      }
     }
-  }
-  @container style(--disclosure-style: marker-trailing) {
-    :where([is=disclosure-group] > summary) {
-      --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+    @container style(--disclosure-style: marker-trailing) {
+      :where([is=disclosure-group] > summary) {
+        --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+      }
     }
-  }
-  @container style(--disclosure-style: marker-leading) {
-    :where([is=disclosure-group] > summary) {
-      --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
-      --disclosure--marker-order: -1;
+    @container style(--disclosure-style: marker-leading) {
+      :where([is=disclosure-group] > summary) {
+        --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
+        --disclosure--marker-order: -1;
+      }
     }
   }
   :where([is=disclosure-group])::details-content {
@@ -1298,8 +1317,24 @@
     :where([is=disclosure-group][disclosure-style=marker-trailing]) {
       --disclosure-style: marker-trailing;
     }
+    @supports not (x: if(else:red)) {
+      :where([is=disclosure-group][disclosure-style=marker-trailing]) {
+        --disclosure--marker-display: grid;
+        --disclosure--summary-grid-auto-flow: column;
+        --disclosure--summary-gap: 0.1rem;
+        --disclosure--summary-grid-template-columns: minmax(0, 1fr) auto;
+      }
+    }
     :where([is=disclosure-group][disclosure-style=marker-leading]) {
       --disclosure-style: marker-leading;
+    }
+    @supports not (x: if(else:red)) {
+      :where([is=disclosure-group][disclosure-style=marker-leading]) {
+        --disclosure--marker-display: grid;
+        --disclosure--summary-grid-auto-flow: column;
+        --disclosure--summary-gap: 0.1rem;
+        --disclosure--summary-grid-template-columns: auto minmax(0, 1fr);
+      }
     }
     :where([is=disclosure-group][disclosure-style=marker-hidden]) {
       --disclosure-style: ;
@@ -1533,7 +1568,7 @@
     --label-font: title3;
   }
   content-unavailable-view > :not([slot]) {
-    --label-image-size: 5rem;
+    --label-image-size: 5;
     --label-gap: 1rem;
   }
   :where(content-unavailable-view:not(:has(> [slot=description])))::part(content-unavailable-description-stack) {
@@ -1956,6 +1991,17 @@
     place-items: center;
     place-content: center;
   }
+  :where(tool-bar-item > button:has(> label-view > :not([slot])) > label-view,
+  tool-bar-item > picker-view > menu-view:has(> label-view > :not([slot])) > label-view,
+  tool-bar-item > menu-view:has(> label-view > :not([slot])) > label-view) {
+    --label-padding-inline: 0.5rem;
+  }
+  @media (pointer: fine) {
+    :where(tool-bar-item > button > label-view,
+    tool-bar-item > menu-view > label-view) {
+      --label-image-size: 1.8;
+    }
+  }
 }
 @layer sw-colors {
   :where(menu-view:not(:disabled):not([readonly])):focus-visible {
@@ -2263,6 +2309,18 @@
       --safe-area-inset-bottom: 0px;
     }
   }
+  :where(tool-bar > [slot^=top-bar-] > button:has(> label-view > [slot=image]),
+  tool-bar > [slot=cancellation-action] > button:has(> label-view > [slot=image]),
+  tool-bar > [slot=primary-action] > button:has(> label-view > [slot=image]),
+  tool-bar > [slot=confirmation-action] > button:has(> label-view > [slot=image]),
+  tool-bar > [slot=destructive-action] > button:has(> label-view > [slot=image])) {
+    --label-style: icon-only;
+  }
+  @media (pointer: coarse) {
+    :where(tool-bar > [slot^=bottom-bar-] > button:has(> label-view > [slot=image])) {
+      --label-style: icon-only;
+    }
+  }
 }
 @property --label-gap {
   syntax: "<length>";
@@ -2270,19 +2328,24 @@
   initial-value: 0;
 }
 @property --label-image-size {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 2;
+}
+@property --label-padding-inline {
   syntax: "<length>";
   inherits: false;
   initial-value: 0;
 }
 @layer sw-components {
   :where(label-view) {
+    padding-inline: var(--label-padding-inline);
     align-items: var(--label--host-align-items, );
     justify-items: var(--label--host-justify-items, );
     grid-template-columns: var(--label--host-grid-template-columns, );
     grid-template-rows: var(--label--host-grid-template-rows, );
     gap: var(--label--host-gap, );
-    --label-image-size: 2rem;
-    --label-imagestack-fontsize: var(--label-image-size);
+    --label-imagestack-fontsize: calc(var(--label-image-size) * 1rem);
     white-space: var(--label--host-white-space, );
   }
   :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
@@ -4661,6 +4724,11 @@
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) * -1 - 150%));
     }
   }
+  @media (pointer: fine) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view[tab-view-style=tab-bar-only] [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
+      animation: ipad_form_view_slide_up_offedge var(--sidebar-transition-duration) ease forwards;
+    }
+  }
   @media (max-width: 42.9999rem) and (orientation: portrait) {
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       --tab-bar-width: 100lvw;
@@ -4725,6 +4793,11 @@
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
       transform: translateY(calc(max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) * -1 - 150%));
+    }
+  }
+  @media (min-width: 43rem) and (orientation: portrait) and (prefers-reduced-motion: no-preference) {
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=sidebar-view][open] ~ [is=tab-bar] > [is=form-view]) {
+      animation: ipad_form_view_slide_up_offedge var(--sidebar-transition-duration) ease forwards;
     }
   }
   @media (orientation: landscape) {
@@ -6631,6 +6704,11 @@
     }
   }
 }
+@keyframes ipad_form_view_slide_up_offedge {
+  to {
+    opacity: 0;
+  }
+}
 @property --gray {
   syntax: "<color>";
   initial-value: oklch(64.83% 0.0073 286.19deg);
@@ -7538,15 +7616,13 @@
   }
   :where([is=tab-bar]) {
     --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemhighlighttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemactivetext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
     --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  }
-  :where([is=tab-bar] [is=tab-item]) {
-    --toolbaritemhighlighttext: yellow;
-    --toolbaritemactivetext: chocolate;
   }
   :where(sidebar-toggle,
   menu-view) {

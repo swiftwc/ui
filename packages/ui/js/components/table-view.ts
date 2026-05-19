@@ -51,7 +51,8 @@ export class TableView extends HTMLElement {
 
   #shadowRoot
 
-  #colSlot?: HTMLSlotElement
+  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // #colSlot?: HTMLSlotElement
   // #slot?: HTMLSlotElement
 
   constructor() {
@@ -61,10 +62,14 @@ export class TableView extends HTMLElement {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TableView).template, true))
 
-    this.#colSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=column]') ?? undefined
+    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
+    CleanupRegistry.register(this, () => {
+      this.#slots = new Map()
+    })
+    // this.#colSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=column]') ?? undefined
     // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-    this.#colSlot?.addEventListener('slotchange', this.#handleSlotchange)
+    this.#slots?.get('column')?.addEventListener('slotchange', this.#handleSlotchange)
 
     // this.append(
     //   document.createRange().createContextualFragment(`<menu-view slot="header-trailing">
@@ -141,7 +146,7 @@ export class TableView extends HTMLElement {
   #handleTagMutation = (entry?: MutationRecord) => {
     console.debug(`${TableView.name} ⚡️ mutation`)
 
-    // const sourceSlot = 0 < (this.#colSlot?.assignedElements({ flatten: true }) ?? []).length ? this.#colSlot : this.#colSlot
+    // const sourceSlot = 0 < (this.#slots?.get('column')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('column') : this.#slots?.get('column')
 
     // const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view></menu-view>`))
 
@@ -159,7 +164,7 @@ export class TableView extends HTMLElement {
 
     this.#compactToolbarItem.innerHTML = `<label-view slot="label" system-image="dots-three"></label-view>`
 
-    for (const node of this.#colSlot?.assignedElements({ flatten: true }) ?? []) {
+    for (const node of this.#slots?.get('column')?.assignedElements({ flatten: true }) ?? []) {
       if (!node.matches('[is=table-column]')) continue
 
       const btn = $(

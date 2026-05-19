@@ -39,7 +39,8 @@ export class TextField extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  #validitiesSlot?: HTMLSlotElement
+  // #validitiesSlot?: HTMLSlotElement
+  #slots?: Map<string, HTMLSlotElement> = new Map()
 
   #input?: HTMLInputElement
 
@@ -54,10 +55,13 @@ export class TextField extends FormAssociatedBase {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template, true))
 
-    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
+    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
+    CleanupRegistry.register(this, () => {
+      this.#slots = new Map()
+    })
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
 
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
 
@@ -552,7 +556,7 @@ export class TextField extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const option = el as HTMLOptionElement

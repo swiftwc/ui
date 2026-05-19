@@ -3,6 +3,18 @@ import { $ } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
+/**
+ * @slot cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal
+ * @slot primary-action - The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
+ * @slot confirmation-action - The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
+ * @slot destructive-action - The item represents a destructive action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
+ * @slot top-bar-leading - Places the item in the leading edge of the top bar
+ * @slot top-bar-principal - Places the item in the middle of the top bar
+ * @slot top-bar-trailing - Places the item in the trailing edge of the top bar
+ * @slot bottom-bar-leading - Places the item in the leading edge of the bottom bar
+ * @slot bottom-bar-principal - Places the item in the middle of the bottom bar
+ * @slot bottom-bar-trailing - Places the item in the trailing edge of the bottom bar
+ */
 export class ToolBar extends HTMLElement {
   static #template: DocumentFragment
 
@@ -12,6 +24,7 @@ export class ToolBar extends HTMLElement {
       String.raw`
     <div part="root top-bar">
     <div part="root toolbar-leading-stack">
+      <slot name="cancellation-action"></slot>
       <slot name="top-bar-leading"></slot>
     </div>
     <div part="root toolbar-principal-stack">
@@ -19,6 +32,9 @@ export class ToolBar extends HTMLElement {
     </div>
     <div part="root toolbar-trailing-stack">
       <slot name="top-bar-trailing"></slot>
+      <slot name="primary-action"></slot>
+      <slot name="confirmation-action"></slot>
+      <slot name="destructive-action"></slot>
     </div>
   </div>
   <div part="root bottom-bar">
@@ -38,7 +54,7 @@ export class ToolBar extends HTMLElement {
   #shadowRoot
 
   get #scrollView() {
-    return this.parentElement?.querySelector(':scope > scroll-view') ?? undefined //this.previousElementSibling ?? undefined
+    return this.parentElement?.querySelector<HTMLElement>(':scope>scroll-view') ?? undefined //this.previousElementSibling ?? undefined
   }
 
   constructor() {
@@ -46,10 +62,7 @@ export class ToolBar extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    // NOTE: wait for config
-    // Snapshot.waitReady.then(() => {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template, true))
-    // })
   }
 
   connectedCallback() {
@@ -80,7 +93,10 @@ export class ToolBar extends HTMLElement {
       'bottom-bar': 'toolbar', //'bottombar',
     } as const
 
-    const { contentRect, target } = entry
+    const {
+      contentRect: { width },
+      target,
+    } = entry
 
     const parentPart = target.parentElement?.part.contains('top-bar') ? 'top-bar' : target.parentElement?.part.contains('bottom-bar') ? 'bottom-bar' : null
     if (!parentPart) return
@@ -90,6 +106,6 @@ export class ToolBar extends HTMLElement {
 
     const prop = `--${parentMap[parentPart]}-padding-${side}`
 
-    $.prop(prop, `${Math.round(contentRect.width)}px`, this.#scrollView as HTMLElement) //;(this.#scrollView as HTMLElement)?.style?.setProperty(prop, `${Math.round(contentRect.width)}px`)
+    this.#scrollView?.style?.setProperty(prop, `${Math.round(width)}px`) // $.prop(prop, `${Math.round(width)}px`, this.#scrollView) //
   }
 }

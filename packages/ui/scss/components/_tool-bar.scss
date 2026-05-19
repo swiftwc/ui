@@ -110,19 +110,29 @@
     }
 
     // FIXME: Add live tooltip
-    // NOTE: By default toolbars items dialogs have only icons, (except if they define/force w/ labelStyle)
-    // NOTE: By default bottombar items dialogs on iphone have only icons, (except if they define/force w/ labelStyle)
+    // NOTE: By default top bar items with icons, prefer only icon to be shown, (except if they define/force w/ labelStyle)
     > [slot^='top-bar-'],
-    > [slot^='bottom-bar-'] {
-      :where(&) {
-        // --label-style: icon-only;
+    > [slot='cancellation-action'],
+    > [slot='primary-action'],
+    > [slot='confirmation-action'],
+    > [slot='destructive-action'] {
+      // > label-view,
+      > button:has(> label-view > [slot='image']) {
+        :where(&) {
+          --label-style: icon-only;
+        }
       }
     }
-    // @media (pointer: coarse) {
-    //   :where(& > tool-bar > [slot^='bottom-bar-']) {
-    //     --label-style: icon-only;
-    //   }
-    // }
+    // NOTE: By default bottom bar items with icons on iphone, prefer only icon to be shown, (except if they define/force w/ labelStyle)
+    @media (pointer: coarse) {
+      > [slot^='bottom-bar-'] {
+        > button:has(> label-view > [slot='image']) {
+          :where(&) {
+            --label-style: icon-only;
+          }
+        }
+      }
+    }
   }
 }
 

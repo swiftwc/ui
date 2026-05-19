@@ -1,5 +1,5 @@
 import { lifecycleObserver } from '../../buses'
-import { type TabDetail } from '../../events'
+import type { TabBeforeDetail, TabDetail } from '../../events'
 import { CleanupRegistry } from '../../internal/class/cleanup-registry'
 import { frame, onoff } from '../utils'
 
@@ -82,7 +82,7 @@ export class NavigationView extends HTMLElement {
     }
   }
 
-  #handleBeforeTabRevealOrSwap = (evt: CustomEvent<TabDetail>) => {
+  #handleBeforeTabRevealOrSwap = (evt: CustomEvent<TabBeforeDetail>) => {
     console.debug(`${NavigationView.name} ⚡️ ${evt?.type}`)
 
     if (this.id !== evt.detail?.tag) return

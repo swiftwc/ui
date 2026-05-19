@@ -37,7 +37,8 @@ export class DatePicker extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  #validitiesSlot?: HTMLSlotElement
+  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // #validitiesSlot?: HTMLSlotElement
 
   #inputs: DateInput[] = []
 
@@ -171,10 +172,18 @@ export class DatePicker extends FormAssociatedBase {
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
-    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
+    CleanupRegistry.unregister(this, 'slots')
+    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
+    CleanupRegistry.register(
+      this,
+      () => {
+        this.#slots = new Map()
+      },
+      'slots'
+    )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
 
     switch (this.datePickerStyle) {
       default:
@@ -506,7 +515,7 @@ export class DatePicker extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const option = el as HTMLOptionElement

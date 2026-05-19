@@ -1,4 +1,4 @@
-import { type PageRevealSwapDetail, type TabDetail, type TabViewAdaptableTabBarPlacementDetail, type TabViewDetail } from '../events'
+import { type PageRevealSwapDetail, type TabBeforeDetail, type TabViewAdaptableTabBarPlacementDetail, type TabViewDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { NavigationPath } from '../internal/class/navigation-path'
@@ -92,7 +92,7 @@ export class TabView extends HTMLElement {
       onoff(
         [
           { types: 'tabreveal tabswap', listener: this.#debouncedHandler },
-          { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations },
+          { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations as EventListener },
           { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
           { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
           {
@@ -123,7 +123,9 @@ export class TabView extends HTMLElement {
     const style = self.getComputedStyle(form)
     if ('sidebar' !== style.getPropertyValue('--list-style')) return
 
-    this.#addAnimations()
+    this.#addAnimations(
+      new CustomEvent<TabBeforeDetail>('beforetabreveal', { detail: { tag: '', ms: cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`) }, bubbles: true, composed: true })
+    )
   }
 
   #handleTabViewPagereveal = (evt: CustomEvent<PageRevealSwapDetail>) => {
@@ -276,13 +278,15 @@ export class TabView extends HTMLElement {
     //
     const selectors = [':not(:is(:scope>{{tag}}))', ':is(:scope>{{tag}})'] // first nested ones, then root ones
 
+    const ms = cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
+
     for (const selector of selectors)
       for (const ns of this.querySelectorAll<HTMLElement>(
         `navigation-stack:not([hidden])${selector.replace('{{tag}}', 'navigation-stack')},navigation-split-view:not([hidden])${selector.replace('{{tag}}', 'navigation-split-view')}`
       )) {
         if (!tabs.some((tab) => !ns.contains(tab))) continue // shouldRun
 
-        ns.dispatchEvent(new CustomEvent<TabDetail>('beforetabswap', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+        ns.dispatchEvent(new CustomEvent<TabBeforeDetail>('beforetabswap', { detail: { tag: ns.id, ms }, bubbles: true, composed: true }))
 
         ns.hidden = true // triggers
       }
@@ -293,25 +297,20 @@ export class TabView extends HTMLElement {
       )) {
         if (!tabs.some((tab) => ns.contains(tab))) continue // shouldRun
 
-        ns.dispatchEvent(new CustomEvent<TabDetail>('beforetabreveal', { detail: { tag: ns.id }, bubbles: true, composed: true }))
+        ns.dispatchEvent(new CustomEvent<TabBeforeDetail>('beforetabreveal', { detail: { tag: ns.id, ms }, bubbles: true, composed: true }))
 
         ns.hidden = false // triggers
       }
   }
 
-  #addAnimations = () => {
+  #addAnimations = (evt: CustomEvent<TabBeforeDetail>) => {
     this.setAttribute('js-aftertabreveal', '')
 
-    this.#afterTabRevealDelay.next(
-      () => {
-        this.removeAttribute('js-aftertabreveal')
-      },
-      cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
-    )
+    // const ms = cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
 
-    // this.removeAttribute('js-aftertabreveal')
-
-    // this.#afterTabRevealDelay = undefined
+    this.#afterTabRevealDelay.next(() => {
+      this.removeAttribute('js-aftertabreveal')
+    }, evt.detail.ms)
   }
 
   #handleSelectionChange = (evt: Event) => {

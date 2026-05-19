@@ -488,6 +488,8 @@ $colors: map.merge(
 
   :where([is='tab-bar']) {
     --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemhighlighttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemactivetext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
@@ -506,12 +508,12 @@ $colors: map.merge(
     // }
   }
 
-  [is='tab-bar'] [is='tab-item'] {
-    :where(&) {
-      --toolbaritemhighlighttext: yellow;
-      --toolbaritemactivetext: chocolate;
-    }
-  }
+  // [is='tab-bar'] [is='tab-item'] {
+  //   :where(&) {
+  //     --toolbaritemhighlighttext: yellow;
+  //     --toolbaritemactivetext: chocolate;
+  //   }
+  // }
 
   sidebar-toggle,
     // tool-bar-item,

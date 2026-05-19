@@ -33,7 +33,8 @@ export class ScrollView extends HTMLElement {
 
   #shadowRoot
 
-  #navbarPrincipalSlot?: HTMLSlotElement
+  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // #navbarPrincipalSlot?: HTMLSlotElement
 
   #isMidScroll?: boolean
 
@@ -49,7 +50,10 @@ export class ScrollView extends HTMLElement {
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template, true))
 
-    this.#navbarPrincipalSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=top-bar-principal]') ?? undefined
+    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
+    CleanupRegistry.register(this, () => {
+      this.#slots = new Map()
+    })
   }
 
   disconnectedCallback() {
@@ -130,7 +134,7 @@ export class ScrollView extends HTMLElement {
 
         if (!this.#isMidScroll) break
 
-        const title = this.#navbarPrincipalSlot?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
+        const title = this.#slots?.get('top-bar-principal')?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
 
         slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
 

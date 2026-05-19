@@ -1,6 +1,11 @@
 import { type NavigationSplitView, type NavigationStack } from '../components'
 import { type TabBarPlacement } from '../components/tab-view'
 
+export type TabBeforeDetail = {
+  tag: string
+  ms: number
+}
+
 export type TabDetail = {
   tag: string
 }
@@ -20,8 +25,8 @@ declare global {
     tabhide: CustomEvent<TabDetail>
     tabreveal: CustomEvent<TabDetail>
     tabswap: CustomEvent<TabDetail>
-    beforetabreveal: CustomEvent<TabDetail>
-    beforetabswap: CustomEvent<TabDetail>
+    beforetabreveal: CustomEvent<TabBeforeDetail>
+    beforetabswap: CustomEvent<TabBeforeDetail>
     'tab-view:toggle': CustomEvent<TabViewDetail>
     'tab-view:adaptable-tab-bar-placement-change': CustomEvent<TabViewAdaptableTabBarPlacementDetail>
   }

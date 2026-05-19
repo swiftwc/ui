@@ -43,6 +43,11 @@
     text-transform: none;
   }
 
+  .ph,
+  .ph::before {
+    display: grid;
+  }
+
   button,
   *::part(button),
   input,

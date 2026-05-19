@@ -34,7 +34,7 @@ export class SidebarToggle extends HTMLElement {
 
   private static query(target?: HTMLElement) {
     const container = target?.closest('navigation-split-view,tab-view'),
-      sideBar = container?.querySelector<HTMLDialogElement>(':scope > [is=sidebar-view]')
+      sideBar = container?.querySelector<HTMLDialogElement>(':scope>[is=sidebar-view]')
 
     return { container, sideBar }
   }

@@ -11,6 +11,12 @@
 }
 
 @property --label-image-size {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 2;
+}
+
+@property --label-padding-inline {
   syntax: '<length>';
   inherits: false;
   initial-value: 0;
@@ -168,6 +174,8 @@ $label-line-ifs: (
     :where(&) {
       // transition: --label--style 1ms step-start;
 
+      padding-inline: var(--label-padding-inline);
+
       align-items: var(--label--host-align-items,);
       justify-items: var(--label--host-justify-items,);
       // place-items: center;
@@ -181,8 +189,8 @@ $label-line-ifs: (
 
       gap: var(--label--host-gap,); //;
 
-      --label-image-size: 2rem;
-      --label-imagestack-fontsize: var(--label-image-size);
+      // --label-image-size: 2rem;
+      --label-imagestack-fontsize: calc(var(--label-image-size) * 1rem);
       // gap: 0;
 
       white-space: var(--label--host-white-space,);
@@ -227,28 +235,40 @@ $label-line-ifs: (
       }
     }
 
-    :where(&:has(> [slot='image'])) {
-      --label--has-icon: yes;
-      // background-color: green;
+    &:has(> [slot='image']) {
+      :where(&) {
+        --label--has-icon: yes;
+        // background-color: green;
+      }
     }
-    :where(&:has(> :not([slot]))) {
-      --label--has-title: yes;
-      // background-color: red;
+    &:has(> :not([slot])) {
+      :where(&) {
+        --label--has-title: yes;
+        // background-color: red;
+      }
     }
 
-    :where(& > :not([slot])) {
-      // grid-area: label-title-stack;
-      overflow: var(--label--overflow,);
+    > :not([slot]) {
+      :where(&) {
+        // grid-area: label-title-stack;
+        overflow: var(--label--overflow,);
 
-      text-overflow: var(--label--text-overflow,);
+        text-overflow: var(--label--text-overflow,);
 
-      display: var(--label--display,);
+        display: var(--label--display,);
 
-      -webkit-box-orient: var(--label--box-orient,);
+        -webkit-box-orient: var(--label--box-orient,);
 
-      line-clamp: var(--label--line-clamp,);
-      -webkit-line-clamp: var(--label--line-clamp,);
+        line-clamp: var(--label--line-clamp,);
+        -webkit-line-clamp: var(--label--line-clamp,);
+      }
     }
+
+    // > [slot='image'] {
+    //   :where(&:is(i)) {
+    //     line-height: 1.1;
+    //   }
+    // }
 
     // vars
     @supports (x: #{string.unquote('if(else:red)')}) {

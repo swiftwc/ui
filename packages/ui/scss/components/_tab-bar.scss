@@ -122,6 +122,11 @@
   #{$selector} [is='sidebar-view'][open] ~ & > [is='form-view'] {
     :where(&) {
       transform: translateY(calc(calc(max(var(--safe-area-inset-top), var(--sidebar-block-spacing)) * -1) - 150%));
+
+      // SAFARI FIX
+      @media (prefers-reduced-motion: no-preference) {
+        animation: ipad_form_view_slide_up_offedge var(--sidebar-transition-duration) ease forwards;
+      }
     }
   }
 }

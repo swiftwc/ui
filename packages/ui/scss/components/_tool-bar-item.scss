@@ -45,6 +45,25 @@
 
       place-content: center;
     }
+
+    // NOTE: labels w/ text in toolbar items have paddings
+    > button:has(> label-view > :not([slot])),
+    > picker-view > menu-view:has(> label-view > :not([slot])),
+    > menu-view:has(> label-view > :not([slot])) {
+      :where(& > label-view) {
+        --label-padding-inline: 0.5rem;
+      }
+    }
+
+    // NOTE: on fine screens, toolbar icons are a little smaller
+    @media (pointer: fine) {
+      > button > label-view,
+      > menu-view > label-view {
+        :where(&) {
+          --label-image-size: 1.8;
+        }
+      }
+    }
   }
 
   // tool-bar-item[slot],

@@ -24,7 +24,7 @@ export class CSSStyleObserver {
   }
 
   #handleTransitionrun = (callback: (evt: TransitionEvent) => void, evt: TransitionEvent) => {
-    console.debug(`${CSSStyleObserver.name} ⚡️ ${evt?.type}`)
+    console.debug(`${CSSStyleObserver.name} ⚡️ ${evt?.type} (${evt.propertyName})`)
 
     if (!this.#options?.properties.some((prop) => evt.propertyName.startsWith(prop))) return
 

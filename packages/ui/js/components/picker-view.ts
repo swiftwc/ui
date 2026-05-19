@@ -31,10 +31,12 @@ export class PickerView extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  #validitiesSlot?: HTMLSlotElement
+  #slots?: Map<string, HTMLSlotElement> = new Map()
 
-  #datalistSlot?: HTMLSlotElement
-  #tagSlot?: HTMLSlotElement
+  // #validitiesSlot?: HTMLSlotElement
+
+  // #datalistSlot?: HTMLSlotElement
+  // #tagSlot?: HTMLSlotElement
 
   #trackedElements = new Set<Element>()
 
@@ -231,28 +233,33 @@ export class PickerView extends FormAssociatedBase {
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
-    this.#validitiesSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=validity-options]') ?? undefined
-
-    this.#datalistSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=options]') ?? undefined
-    this.#tagSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=tag]') ?? undefined
+    CleanupRegistry.unregister(this, 'slots')
+    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
+    CleanupRegistry.register(
+      this,
+      () => {
+        this.#slots = new Map()
+      },
+      'slots'
+    )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#validitiesSlot).on(), 'validities')
+    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#datalistSlot).on(), 'datalist')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('options')).on(), 'datalist')
 
     CleanupRegistry.unregister(this, 'tags') //off2()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#tagSlot).on(), 'tags')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('tag')).on(), 'tags')
 
-    // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
-    // if (0 < (this.#tagSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
+    // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
+    // if (0 < (this.#slots?.get('tag')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
 
     //this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (
       this.pickerStyle
       // case 'menu':
-      //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
+      //   // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
 
       //   break
       // case 'gg':
@@ -275,7 +282,7 @@ export class PickerView extends FormAssociatedBase {
       //   break
       // case 'inline':
       // default:
-      //   // if (0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
+      //   // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
 
       //   break
     ) {
@@ -383,7 +390,7 @@ export class PickerView extends FormAssociatedBase {
   #handleTagMutation = (entry?: MutationRecord) => {
     console.debug(`${PickerView.name} ⚡️ mutation`)
 
-    const sourceSlot = 0 < (this.#datalistSlot?.assignedElements({ flatten: true }) ?? []).length ? this.#datalistSlot : this.#tagSlot
+    const sourceSlot = 0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('options') : this.#slots?.get('tag')
 
     // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (this.pickerStyle) {
@@ -511,7 +518,7 @@ export class PickerView extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#validitiesSlot?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const option = el as HTMLOptionElement

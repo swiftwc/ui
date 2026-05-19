@@ -505,7 +505,8 @@
                 </button>
               </section-view>
               <section-view>
-                <details is="disclosure-group" open>
+                <!-- Safari fix: add disclosure-style -->
+                <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
                     <label-view title="Inventory"></label-view>
                   </summary>
@@ -518,7 +519,8 @@
                 </details>
               </section-view>
               <section-view>
-                <details is="disclosure-group" open>
+                <!-- Safari fix: add disclosure-style -->
+                <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
                     <label-view title="Sales"></label-view>
                   </summary>
@@ -537,7 +539,8 @@
                 </details>
               </section-view>
               <section-view>
-                <details is="disclosure-group" open>
+                <!-- Safari fix: add disclosure-style -->
+                <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
                     <label-view title="Other"></label-view>
                   </summary>
@@ -835,12 +838,12 @@
           </v-stack>
         </scroll-view>
         <tool-bar>
-          <tool-bar-item slot="top-bar-leading">
+          <tool-bar-item slot="cancellation-action">
             <button type="button" tabindex="0" class="back">
               <label-view system-image="x" title="Cancel"></label-view>
             </button>
           </tool-bar-item>
-          <tool-bar-item slot="top-bar-trailing">
+          <tool-bar-item slot="primary-action" tint="blue">
             <button type="button" tabindex="0" navigation-destination="createcustomerdone">
               <label-view system-image="check" title="Create"></label-view>
             </button>

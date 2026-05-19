@@ -492,20 +492,36 @@ $colors: map.merge(
     --toolbaritemactivetext: light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
-  :where(tool-bar-item, tool-bar-item-group, navigation-split-view sidebar-toggle) {
-    //, list-view) {
-    //, [is='form-view'] BREAKS sidebar
-    --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-    --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-    --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-    // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
+  tool-bar-item,
+  tool-bar-item-group,
+  navigation-split-view sidebar-toggle {
+    :where(&) {
+      //, list-view) {
+      //, [is='form-view'] BREAKS sidebar
+      --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+      // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark)); //light-dark(oklch(var(--tint-lch) / 1), oklch(var(--tint-lch-dark) / 1));
 
-    // @media (pointer: fine) {
-    //   --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
-    //   --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-    //   --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-    //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
-    // }
+      // @media (pointer: fine) {
+      //   --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
+      //   --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      //   --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+      //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
+      // }
+    }
+    :where(&[tint]) {
+      --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+      --toolbaritemface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
+      --toolbaritemhighlightface: light-dark(
+        oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+        oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+      );
+      --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
+    }
   }
 
   // [is='tab-bar'] [is='tab-item'] {

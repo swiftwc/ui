@@ -29,6 +29,12 @@
       --toolbaritemradiusbl: var(--toolbar-cell-border-radius);
       --toolbaritemradiusbr: var(--toolbar-cell-border-radius);
       --toolbaritemborder: 0;
+
+      --menusummaryradiustl: var(--toolbar-cell-border-radius);
+      --menusummaryradiustr: var(--toolbar-cell-border-radius);
+      --menusummaryradiusbl: var(--toolbar-cell-border-radius);
+      --menusummaryradiusbr: var(--toolbar-cell-border-radius);
+      --menusummaryborder: 0;
     }
 
     :where(&:has([disabled])) {
@@ -46,7 +52,11 @@
       place-content: center;
     }
 
-    // NOTE: labels w/ text in toolbar items have paddings
+    > button {
+      @include mixins.takeover-button-slots;
+    }
+
+    // NOTE: add paddings to labels w/ text in toolbar items
     > button:has(> label-view > :not([slot])),
     > picker-view > menu-view:has(> label-view > :not([slot])),
     > menu-view:has(> label-view > :not([slot])) {
@@ -56,14 +66,14 @@
     }
 
     // NOTE: on fine screens, toolbar icons are a little smaller
-    @media (pointer: fine) {
-      > button > label-view,
-      > menu-view > label-view {
-        :where(&) {
-          --label-image-size: 1.8;
-        }
-      }
-    }
+    // @media (pointer: fine) {
+    //   > button > label-view,
+    //   > menu-view > label-view {
+    //     :where(&) {
+    //       --label-image-size: 1.8;
+    //     }
+    //   }
+    // }
   }
 
   // tool-bar-item[slot],
@@ -83,54 +93,43 @@
   // }
 }
 
-@layer #{vars.$colors-layer} {
-  // sidebar-toggle > button,
-  // tool-bar-item > button,
-  // tool-bar-item > input,
-  // [is='tab-item'],
-  // // list-view > button,
-  // menu-view > button,
-  // [is='disclosure-group'] > button,
-  // [is='disclosure-group'] > summary {
-  //   &:not(:disabled):not([readonly]) {
-  //     :where(&) {
-  //       @include mixins.add-focus-visible-state {
-  //         --toolbaritemface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-  //       }
-  //     }
-  //   }
-  // }
+// @layer #{vars.$colors-layer} {
+// sidebar-toggle > button,
+// tool-bar-item > button,
+// tool-bar-item > input,
+// [is='tab-item'],
+// // list-view > button,
+// menu-view > button,
+// [is='disclosure-group'] > button,
+// [is='disclosure-group'] > summary {
+//   &:not(:disabled):not([readonly]) {
+//     :where(&) {
+//       @include mixins.add-focus-visible-state {
+//         --toolbaritemface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+//       }
+//     }
+//   }
+// }
 
-  menu-view {
-    @include mixins.add-focus-visible-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-    }
-    @include mixins.add-hover-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-    }
+// menu-view {
+// @include mixins.add-focus-visible-state('::part(menu-summary)') {
+//   --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+// }
+// @include mixins.add-hover-state('::part(menu-summary)') {
+//   --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+// }
+// }
 
-    // &:not(:disabled):not([readonly]) {
-    //   > button {
-    //     :where(&) {
-    //       --toolbaritempadistart: 0.3rem;
-    //       --toolbaritempadiend: 0.3rem;
-    //       --toolbaritempadbstart: 0.3rem;
-    //       --toolbaritempadbend: 0.3rem;
-    //     }
-    //   }
-    // }
-  }
-
-  // list-view > button,
-  // [is='form-view'] > button {
-  //   &:not(:disabled):not([readonly]) {
-  //     :where(&) {
-  //       --toolbaritempadistart: 0.3rem;
-  //       --toolbaritempadbstart: 0.3rem;
-  //     }
-  //   }
-  // }
-}
+// list-view > button,
+// [is='form-view'] > button {
+//   &:not(:disabled):not([readonly]) {
+//     :where(&) {
+//       --toolbaritempadistart: 0.3rem;
+//       --toolbaritempadbstart: 0.3rem;
+//     }
+//   }
+// }
+// }
 
 @layer #{vars.$ui-layer} {
   // sidebar-toggle > button,
@@ -150,11 +149,11 @@
   //   // }
   // }
 
-  menu-view {
-    @include mixins.add-active-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemactiveface,); //light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-    }
-  }
+  // menu-view {
+  //   @include mixins.add-active-state('::part(menu-summary)') {
+  //     --toolbaritemface: var(--toolbaritemactiveface,); //light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+  //   }
+  // }
 
   :where(tool-bar-item[slot]:has(menu-view[open])),
   :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {

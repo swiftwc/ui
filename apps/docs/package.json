@@ -6,7 +6,7 @@
     "barrels": "node scripts/make-barrels.mjs",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "dev": "vitepress dev"
+    "start": "vitepress dev"
   },
   "devDependencies": {
     "@mdit/plugin-abbr": "^0.23.2",

@@ -129,6 +129,75 @@ if (0 < polyfills.size) {
 // SECTION: Safari polyfill
 document.addEventListener('touchstart', () => {}, { passive: true })
 
+// SECTION
+
+const mediaQueryList = self.matchMedia(`(pointer: fine)`)
+
+document.addEventListener(
+  'pointerover',
+  ({ target, relatedTarget }: PointerEvent) => {
+    if (!(target instanceof HTMLElement && target)) return
+
+    const trigger = target.closest<HTMLElement>('[help]')
+    if (!trigger) return
+
+    if (relatedTarget instanceof HTMLElement && relatedTarget && trigger.contains(relatedTarget)) return
+
+    const newAnchorName = `--help-${self.crypto.randomUUID()}`
+
+    const tooltip = $<HTMLElement>(`<fine-tooltip><span>weewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweew</span></fine-tooltip>`, '>1')
+
+    document.body.appendChild(tooltip)
+
+    trigger.style.setProperty('anchor-name', newAnchorName)
+
+    tooltip.style.setProperty('position-anchor', newAnchorName)
+
+    console.log(999, trigger)
+  },
+  { passive: true }
+)
+
+document.addEventListener(
+  'pointerout',
+  ({ target, relatedTarget }: PointerEvent) => {
+    if (!(target instanceof HTMLElement && target)) return
+
+    const trigger = target.closest<HTMLElement>('[help]')
+    if (!trigger) return
+
+    if (relatedTarget instanceof HTMLElement && relatedTarget && trigger.contains(relatedTarget)) return
+
+    const anchorName = (
+      trigger.style as CSSStyleDeclaration & {
+        anchorName: string
+      }
+    ).anchorName
+
+    if (!anchorName.startsWith('--help-')) {
+      for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
+
+      for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
+
+      return
+    }
+
+    const tooltip = document.querySelector<HTMLElement>(`[style*="${CSS.escape(anchorName)}"]:not([help])`)
+    if (!tooltip) {
+      for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
+
+      for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
+
+      return
+    }
+
+    trigger.style.removeProperty('anchor-name')
+
+    tooltip.remove?.()
+  },
+  { passive: true }
+)
+
 // SECTION: Transitions
 const cleanup = (lm?: Element, type?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
@@ -340,53 +409,55 @@ export const alert = async (
   }[],
   options?: { titleVisibility?: boolean }
 ) => {
-  const dialog = $<HTMLDialogElement>(`<dialog is="alert-dialog"></dialog>`, '>1'),
-    vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
+  await navigator.locks.request('alert:', async () => {
+    const dialog = $<HTMLDialogElement>(`<dialog is="alert-dialog"></dialog>`, '>1'),
+      vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
 
-  if (title) {
-    const label = $(`<label-view font="headline"></label-view>`, '>1')
-    label.setAttribute('title', title)
-    vStack.insertAdjacentElement('beforeend', label)
-  }
-
-  if (message) {
-    const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
-    label.setAttribute('title', message)
-    vStack.insertAdjacentElement('beforeend', label)
-  }
-
-  for (const [index, action] of (actions ?? []).entries()) {
-    const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
-
-    btn.setAttribute('value', `${index}`)
-    if (action?.role) btn.setAttribute('role', action.role)
-
-    if (action.label || action.image) {
-      const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
-      if (action.label) label.setAttribute('title', action.label)
-      if (action.image) label.setAttribute('system-image', action.image)
-      btn.appendChild(label)
+    if (title) {
+      const label = $(`<label-view font="headline"></label-view>`, '>1')
+      label.setAttribute('title', title)
+      vStack.insertAdjacentElement('beforeend', label)
     }
 
-    dialog.insertAdjacentElement('beforeend', btn)
-  }
+    if (message) {
+      const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
+      label.setAttribute('title', message)
+      vStack.insertAdjacentElement('beforeend', label)
+    }
 
-  document.body.insertAdjacentElement('beforeend', dialog)
+    for (const [index, action] of (actions ?? []).entries()) {
+      const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
 
-  dialog.showModal()
+      btn.setAttribute('value', `${index}`)
+      if (action?.role) btn.setAttribute('role', action.role)
 
-  const { promise, resolve } = Promise.withResolvers<any>(),
-    off = onoff(
-      'alert:return',
-      (evt: any) => {
-        off()
-        resolve(evt.detail.returnValue)
-      },
-      alertDialog,
-      { once: true }
-    ).on()
+      if (action.label || action.image) {
+        const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
+        if (action.label) label.setAttribute('title', action.label)
+        if (action.image) label.setAttribute('system-image', action.image)
+        btn.appendChild(label)
+      }
 
-  return promise
+      dialog.insertAdjacentElement('beforeend', btn)
+    }
+
+    document.body.insertAdjacentElement('beforeend', dialog)
+
+    dialog.showModal()
+
+    const { promise, resolve } = Promise.withResolvers<any>(),
+      off = onoff(
+        'alert:return',
+        (evt: any) => {
+          off()
+          resolve(evt.detail.returnValue)
+        },
+        alertDialog,
+        { once: true }
+      ).on()
+
+    return promise
+  })
 }
 
 export const confirmationDialog = async (

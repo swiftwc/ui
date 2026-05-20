@@ -49,7 +49,7 @@ export class GlassButton extends ButtonBase {
     switch (attributeName) {
       case 'role':
         Snapshot.waitReady.then(() => {
-          buttonRole(target, attributeName)
+          buttonRole(target, target.getAttribute(attributeName))
         })
 
         break

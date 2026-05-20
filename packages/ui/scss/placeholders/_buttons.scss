@@ -24,50 +24,7 @@
       --btnradiusbr: var(--regular-btn-border-radius);
     }
 
-    > [slot] {
-      :where(&) {
-        position: absolute;
-
-        visibility: collapse;
-
-        // take over
-        max-inline-size: 90%;
-
-        max-block-size: 90%;
-
-        border-radius: inherit;
-      }
-    }
-    > [slot='overlay'] {
-      :where(&) {
-        visibility: visible;
-      }
-    }
-    &:not(:has(> :not([slot]))) > [slot='placeholder'] {
-      :where(&) {
-        position: relative;
-
-        visibility: visible;
-      }
-    }
-
-    &:has(> [slot='overlay']) {
-      > *:not([slot='overlay']) {
-        :where(&) {
-          opacity: 0;
-        }
-      }
-
-      > [slot='overlay'] {
-        :where(&) {
-          transition: opacity ease-out 200ms;
-
-          @starting-style {
-            opacity: 0;
-          }
-        }
-      }
-    }
+    @include mixins.takeover-button-slots;
 
     @each $size, $media in vars.$button-sizes {
       // @if (regular != $size) {

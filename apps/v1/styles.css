@@ -45,6 +45,18 @@
   :root {
     --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
     --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
+    --clear-glass-bg: var(--liquid-glass-bg);
+    --clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --clear-glass-focus-bg: var(--clear-glass-bg);
+    --clear-glass-focus-bg-dark: var(--clear-glass-bg-dark);
+    --clear-glass-active-bg: var(--clear-glass-bg);
+    --clear-glass-active-bg-dark: var(--clear-glass-bg-dark);
+    --control-clear-glass-bg: var(--liquid-glass-bg);
+    --control-clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --control-clear-glass-focus-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-focus-bg-dark: var(--control-clear-glass-bg-dark);
+    --control-clear-glass-active-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-active-bg-dark: var(--control-clear-glass-bg-dark);
     --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
     --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
     --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
@@ -57,10 +69,8 @@
     --nav-split-view-content-inline-size: 25rem;
     --nav-split-view-separator-color: var(--divider);
     --nav-split-view-separator-color-dark: var(--divider-dark);
-    --primary-label: oklch(0 0 0);
-    --primary-label-dark: oklch(1 0 0);
-    --secondary-text: oklch(0 0 0);
-    --secondary-text-dark: oklch(1 0 0);
+    --secondary-text: var(--black);
+    --secondary-text-dark: var(--white);
     --tint: oklch(0.5325 0.1899 257.12);
     --tint1g: color-mix(in oklch, white 70%, var(--tint));
     --tint2: color-mix(in oklch, white 80%, var(--tint));
@@ -68,11 +78,11 @@
     --tintcontrast: white;
     --divider: oklch(0.9431 0 0);
     --divider-dark: oklch(0.2858 0.0036 286.17);
-    --system-bg: oklch(1 0 0);
-    --system-bg-dark: oklch(0 0 0);
+    --system-bg: var(--white);
+    --system-bg-dark: var(--black);
     --primary-bg: oklch(0.9566 0.0067 286.27);
-    --primary-bg-dark: oklch(0 0 0);
-    --primary-grouped-bg: oklch(1 0 0);
+    --primary-bg-dark: var(--black);
+    --primary-grouped-bg: var(--white);
     --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
     --secondary-bg: oklch(0.8045 0.0779 73.42);
     --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
@@ -89,21 +99,21 @@
     --pill-border-radius: 99999px;
     --clear: transparent;
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: var(--liquid-glass-bg);
-    --toolbar-cell-bg-dark: var(--liquid-glass-bg-dark);
+    --toolbar-cell-bg: var(--control-clear-glass-bg);
+    --toolbar-cell-bg-dark: var(--control-clear-glass-bg-dark);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
     --toolbar-cell-block-padding-end: 0.25rem;
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
-    --toolbar-cell-focus-bg: var(--toolbar-cell-bg);
-    --toolbar-cell-focus-bg-dark: var(--toolbar-cell-bg-dark);
-    --toolbar-cell-active-bg: var(--toolbar-cell-bg);
-    --toolbar-cell-active-bg-dark: var(--toolbar-cell-bg-dark);
+    --toolbar-cell-focus-bg: var(--control-clear-glass-focus-bg);
+    --toolbar-cell-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
+    --toolbar-cell-active-bg: var(--control-clear-glass-active-bg);
+    --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark);
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
-    --menu-bg: var(--liquid-glass-bg);
-    --menu-bg-dark: var(--liquid-glass-bg-dark);
+    --menu-bg: var(--control-clear-glass-bg);
+    --menu-bg-dark: var(--control-clear-glass-bg-dark);
     --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -116,10 +126,6 @@
     --menu-item-padding-block-start: 0.5rem;
     --menu-item-padding-block-end: 0.5rem;
     --menu-item-border-radius: 1.2rem;
-    --menu-item-focus-bg: oklch(0 0 0 / 0%);
-    --menu-item-focus-bg-dark: oklch(0 0 0 / 0%);
-    --menu-item-active-bg: oklch(0 0 0 / 20%);
-    --menu-item-active-bg-dark: oklch(1 0 0 / 20%);
     --touchglass-transition-duration: 300ms;
     --disclosure-group-animation-duration: 300ms;
     --disclosure-group-animation-easing: ease-out;
@@ -255,12 +261,6 @@
     --table-col-gap: 1rem;
     --table-accessory-gap: 0.2rem;
     --table-accessory-size: 1.2rem;
-    --glass-btn-bg: var(--liquid-glass-bg);
-    --glass-btn-bg-dark: var(--liquid-glass-bg-dark);
-    --glass-btn-focus-bg: var(--glass-btn-bg);
-    --glass-btn-focus-bg-dark: var(--glass-btn-bg-dark);
-    --glass-btn-active-bg: var(--glass-btn-bg);
-    --glass-btn-active-bg-dark: var(--glass-btn-bg-dark);
     --mini-btn-padding: 0.2rem;
     --mini-btn-padding: 0.2rem;
     --mini-btn-border-radius: 1rem;
@@ -300,26 +300,14 @@
       --primary-bg-dark: oklch(0.2666 0.0071 67.52);
       --divider: oklch(0.9249 0 0);
       --divider-dark: oklch(0.3452 0.0074 84.59);
-      --noglass-bg: oklch(1 0 0);
-      --noglass-bg-dark: oklch(0.2871 0.0029 17.33);
-      --toolbar-cell-bg: var(--noglass-bg);
-      --toolbar-cell-bg-dark: var(--noglass-bg-dark);
-      --toolbar-cell-focus-bg: oklch(0.9551 0 0);
-      --toolbar-cell-focus-bg-dark: oklch(0.3578 0.008 75.3);
-      --toolbar-cell-active-bg: oklch(0.9128 0 0);
-      --toolbar-cell-active-bg-dark: oklch(0.3995 0.0077 75.32);
-      --menu-bg: var(--noglass-bg);
-      --menu-bg-dark: var(--noglass-bg-dark);
+      --control-clear-glass-bg: var(--white);
+      --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
+      --control-clear-glass-focus-bg: var(--gray5);
+      --control-clear-glass-focus-bg-dark: oklch(0.3578 0.008 75.3);
+      --control-clear-glass-active-bg: var(--gray3);
+      --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32);
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-item-focus-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-focus-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-active-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-active-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-focus-bg: var(--accentColor);
-      --menu-item-focus-bg-dark: var(--accentColor);
-      --menu-item-active-bg: oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h);
-      --menu-item-active-bg-dark: oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h);
       --picker-affordance-size: 1rem;
       --picker-affordance-col-gap: 1rem;
     }
@@ -411,6 +399,11 @@
   }
   html {
     transition: font-size 1ms step-start;
+  }
+  @media (pointer: fine) {
+    html {
+      font-size: 14px;
+    }
   }
   html::before {
     content: "delete-button-icon=trash&confirm-button-icon=check&close-button-icon=x&cancel-button-icon=x&ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
@@ -892,9 +885,6 @@
   :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
     position: absolute;
     visibility: collapse;
-    max-inline-size: 90%;
-    max-block-size: 90%;
-    border-radius: inherit;
   }
   :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
     visibility: visible;
@@ -906,8 +896,10 @@
   :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
     opacity: 0;
   }
-  :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-    transition: opacity ease-out 200ms;
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      transition: opacity ease-out 200ms;
+    }
   }
   @starting-style {
     :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
@@ -1057,6 +1049,7 @@
   content-unavailable-view:not([hidden]),
   tool-bar-item:not([hidden]),
   tool-bar-item-group:not([hidden]),
+  fine-tooltip:not([hidden]),
   sidebar-toggle:not([hidden]),
   [is=form-view]:not([hidden]),
   v-stack:not([hidden]),
@@ -1128,8 +1121,7 @@
   tool-bar-item > input,
   [is=tab-bar] [is=tab-item],
   tool-bar-item [is=disclosure-group] > button,
-  tool-bar-item [is=disclosure-group] > summary),
-  :where(menu-view)::part(menu-summary) {
+  tool-bar-item [is=disclosure-group] > summary) {
     appearance: none;
     -webkit-appearance: none;
     border: var(--toolbaritemborder,);
@@ -1145,7 +1137,6 @@
   tool-bar-item > button:not(:disabled):not([readonly]),
   tool-bar-item > input:not(:disabled):not([readonly]),
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
-  menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     outline: none;
@@ -1154,7 +1145,6 @@
   tool-bar-item > button:not(:disabled):not([readonly]),
   tool-bar-item > input:not(:disabled):not([readonly]),
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
-  menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
     --toolbaritemface: var(--toolbaritemhighlightface,);
@@ -1165,22 +1155,8 @@
     tool-bar-item > button:not(:disabled):not([readonly]),
     tool-bar-item > input:not(:disabled):not([readonly]),
     [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
-    menu-view > button:not(:disabled):not([readonly]),
     tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
     tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):hover {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
-      --toolbaritemtext: var(--toolbaritemhighlighttext,);
-    }
-  }
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible {
-    outline: none;
-  }
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
-    --toolbaritemface: var(--toolbaritemhighlightface,);
-    --toolbaritemtext: var(--toolbaritemhighlighttext,);
-  }
-  @media (pointer: fine) {
-    :where(menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
       --toolbaritemface: var(--toolbaritemhighlightface,);
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
@@ -1191,13 +1167,8 @@
   tool-bar-item > button:not(:disabled):not([readonly]),
   tool-bar-item > input:not(:disabled):not([readonly]),
   [is=tab-bar] [is=tab-item]:not(:disabled):not([readonly]),
-  menu-view > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > button:not(:disabled):not([readonly]),
   tool-bar-item [is=disclosure-group] > summary:not(:disabled):not([readonly])):active {
-    --toolbaritemface: var(--toolbaritemactiveface,);
-    --toolbaritemtext: var(--toolbaritemactivetext,);
-  }
-  :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
     --toolbaritemface: var(--toolbaritemactiveface,);
     --toolbaritemtext: var(--toolbaritemactivetext,);
   }
@@ -1467,6 +1438,48 @@
     }
   }
 }
+@layer sw-tab-components {
+  :where(fine-tooltip) {
+    color: var(--text, );
+    pointer-events: none;
+    touch-action: none;
+    position: fixed;
+    inline-size: 100px;
+    block-size: 100px;
+    height: auto;
+    max-inline-size: var(--confirmation--dialog-max-inline-size, );
+    max-block-size: var(--confirmation--dialog-max-block-size, );
+    margin-block: var(--confirmation--dialog-margin-block, );
+    margin-inline: var(--confirmation--dialog-margin-inline, );
+    position-anchor: --confirmation-dialog;
+    position-area: center;
+    overflow: clip;
+    border-radius: 0.9rem;
+    backdrop-filter: var(--liquid-glass-backdrop-filter, );
+    box-shadow: var(--menu-popover-box-shadow, );
+    padding-block: 1rem;
+    padding-inline: 1em;
+    gap: 0.5rem;
+    --confirmation--dialog-scale: scale(0);
+  }
+  :where(fine-tooltip[open]) {
+    --confirmation--dialog-max-inline-size: 100vw;
+    --confirmation--dialog-max-block-size: 100vh;
+    --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+    --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+    --confirmation--dialog-scale: scale(1);
+  }
+  @starting-style {
+    :where(fine-tooltip[open]) {
+      --confirmation--dialog-scale: scale(0);
+    }
+  }
+  :where(fine-tooltip[closing]) {
+    --confirmation--dialog-max-inline-size: anchor-size();
+    --confirmation--dialog-max-block-size: anchor-size();
+    --confirmation--dialog-scale: scale(0);
+  }
+}
 @property --stuck {
   syntax: "<number>";
   inherits: false;
@@ -1660,12 +1673,11 @@
     height: auto;
     max-inline-size: min(20rem, 80vw);
     max-block-size: 80vh;
-    margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
-    margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+    margin-block: auto;
+    margin-inline: auto;
     transform: var(--alert--dialog-scale, );
     opacity: var(--alert--dialog-opacity, );
-    position-anchor: --alert-dialog;
-    position-area: center;
+    place-self: center;
     overflow: clip;
     border-radius: 0.9rem;
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
@@ -1816,19 +1828,19 @@
     place-content: safe center;
     gap: 1rem;
   }
-  :where(h-stack[template="minmax(0,1fr) auto"]) {
+  :where(h-stack[template="spacer auto"]) {
     grid-template-columns: minmax(0, 1fr) auto;
   }
-  :where(h-stack[template="auto minmax(0,1fr) auto auto"]) {
+  :where(h-stack[template="auto spacer auto auto"]) {
     grid-template-columns: auto minmax(0, 1fr) auto auto;
   }
-  :where(h-stack[template="auto minmax(0,1fr) auto"]) {
+  :where(h-stack[template="auto spacer auto"]) {
     grid-template-columns: auto minmax(0, 1fr) auto;
   }
-  :where(h-stack[template="repeat(4,minmax(0,1fr))"]) {
+  :where(h-stack[template="repeat(4,spacer)"]) {
     grid-template-columns: repeat(4, minmax(0, 1fr));
   }
-  :where(h-stack[template="repeat(2,minmax(0,1fr)) auto"]) {
+  :where(h-stack[template="repeat(2,spacer) auto"]) {
     grid-template-columns: repeat(2, minmax(0, 1fr)) auto;
   }
 }
@@ -1839,16 +1851,16 @@
     place-content: safe center;
     gap: 1rem;
   }
-  :where(v-stack[template="auto minmax(0,1fr)"]) {
+  :where(v-stack[template="auto spacer"]) {
     grid-template-rows: auto minmax(0, 1fr);
   }
-  :where(v-stack[template="auto auto minmax(0,1fr)"]) {
+  :where(v-stack[template="auto auto spacer"]) {
     grid-template-rows: auto auto minmax(0, 1fr);
   }
-  :where(v-stack[template="auto auto auto minmax(0,1fr)"]) {
+  :where(v-stack[template="auto auto auto spacer"]) {
     grid-template-rows: auto auto auto minmax(0, 1fr);
   }
-  :where(v-stack[template="auto auto auto auto minmax(0,1fr)"]) {
+  :where(v-stack[template="auto auto auto auto spacer"]) {
     grid-template-rows: auto auto auto auto minmax(0, 1fr);
   }
 }
@@ -1983,6 +1995,11 @@
     --toolbaritemradiusbl: var(--toolbar-cell-border-radius);
     --toolbaritemradiusbr: var(--toolbar-cell-border-radius);
     --toolbaritemborder: 0;
+    --menusummaryradiustl: var(--toolbar-cell-border-radius);
+    --menusummaryradiustr: var(--toolbar-cell-border-radius);
+    --menusummaryradiusbl: var(--toolbar-cell-border-radius);
+    --menusummaryradiusbr: var(--toolbar-cell-border-radius);
+    --menusummaryborder: 0;
   }
   :where(tool-bar-item:has([disabled])) {
     pointer-events: none;
@@ -1991,35 +2008,37 @@
     place-items: center;
     place-content: center;
   }
+  :where(tool-bar-item > button > [slot]) {
+    position: absolute;
+    visibility: collapse;
+  }
+  :where(tool-bar-item > button > [slot=overlay]) {
+    visibility: visible;
+  }
+  :where(tool-bar-item > button:not(:has(> :not([slot]))) > [slot=placeholder]) {
+    position: relative;
+    visibility: visible;
+  }
+  :where(tool-bar-item > button:has(> [slot=overlay]) > *:not([slot=overlay])) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where(tool-bar-item > button:has(> [slot=overlay]) > [slot=overlay]) {
+      transition: opacity ease-out 200ms;
+    }
+  }
+  @starting-style {
+    :where(tool-bar-item > button:has(> [slot=overlay]) > [slot=overlay]) {
+      opacity: 0;
+    }
+  }
   :where(tool-bar-item > button:has(> label-view > :not([slot])) > label-view,
   tool-bar-item > picker-view > menu-view:has(> label-view > :not([slot])) > label-view,
   tool-bar-item > menu-view:has(> label-view > :not([slot])) > label-view) {
     --label-padding-inline: 0.5rem;
   }
-  @media (pointer: fine) {
-    :where(tool-bar-item > button > label-view,
-    tool-bar-item > menu-view > label-view) {
-      --label-image-size: 1.8;
-    }
-  }
-}
-@layer sw-colors {
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible {
-    outline: none;
-  }
-  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
-    --toolbaritemface: var(--toolbaritemhighlightface,);
-  }
-  @media (pointer: fine) {
-    :where(menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
-    }
-  }
 }
 @layer sw-actions {
-  :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
-    --toolbaritemface: var(--toolbaritemactiveface,);
-  }
   :where(tool-bar-item[slot]:has(menu-view[open])),
   :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
     --toolbar-cell-scale: var(--menu-host-offscreen-transform);
@@ -2958,6 +2977,16 @@
     --menu--summary-scale: scale(0.01);
     --menu--summary-filter: blur(10px);
   }
+  :where(menu-view)::part(menu-summary) {
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--menusummaryborder,);
+    background: var(--menusummaryface,);
+    color: var(--menusummarytext,);
+    padding-inline: var(--menusummarypadistart,) var(--menusummarypadiend,);
+    padding-block: var(--menusummarypadbstart,) var(--menusummarypadbend,);
+    border-radius: var(--menusummaryradiustl,) var(--menusummaryradiustr,) var(--menusummaryradiusbr,) var(--menusummaryradiusbl,);
+  }
   :where(menu-view > button, menu-view > [is=disclosure-group] > button, menu-view > [is=disclosure-group] > summary), :where(menu-view > menu-view)::part(menu-summary) {
     appearance: none;
     -webkit-appearance: none;
@@ -2980,6 +3009,19 @@
   }
 }
 @layer sw-colors {
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
+  }
+  :where(menu-view:not(:disabled):not([readonly])):focus-visible::part(menu-summary) {
+    --menusummaryface: var(--menusummaryhighlightface,);
+    --menusummarytext: var(--menusummaryhighlighttext,);
+  }
+  @media (pointer: fine) {
+    :where(menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
+      --menusummaryface: var(--menusummaryhighlightface,);
+      --menusummarytext: var(--menusummaryhighlighttext,);
+    }
+  }
   :where(menu-view > button:not(:disabled):not([readonly]),
   menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
   menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):focus-visible {
@@ -3022,6 +3064,10 @@
   }
 }
 @layer sw-actions {
+  :where(menu-view:not(:disabled):not([readonly])):active::part(menu-summary) {
+    --menusummaryface: var(--menusummaryactiveface,);
+    --menusummarytext: var(--menusummaryactivetext,);
+  }
   :where(menu-view > button:not(:disabled):not([readonly]),
   menu-view > [is=disclosure-group] > button:not(:disabled):not([readonly]),
   menu-view > [is=disclosure-group] > summary:not(:disabled):not([readonly])):active {
@@ -6620,6 +6666,13 @@
 }
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
+    :where(fine-tooltip) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+  }
+}
+@layer sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
     :where(menu-view)::part(menu-summary) {
       transition: transform var(--touchglass-transition-duration) allow-discrete ease-out, filter var(--touchglass-transition-duration) allow-discrete ease-out;
       will-change: transform;
@@ -7587,6 +7640,11 @@
   initial-value: oklch(100% 0 0deg);
   inherits: true;
 }
+@property --clear {
+  syntax: "<color>";
+  initial-value: oklch(0% 0 0deg / 0);
+  inherits: true;
+}
 @layer sw-colors {
   :root {
     --face: var(--background);
@@ -7626,29 +7684,48 @@
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
-  :where(tool-bar-item[tint],
+  :where(tool-bar-item[tint], [tint] tool-bar-item,
   tool-bar-item-group[tint],
-  navigation-split-view sidebar-toggle[tint]) {
-    --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --toolbaritemface: var(--accentColor);
-    --toolbaritemhighlightface: light-dark(
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
-    );
+  [tint] tool-bar-item-group,
+  navigation-split-view sidebar-toggle[tint],
+  [tint] navigation-split-view sidebar-toggle) {
+    --toolbaritemface: light-dark(var(--accentColor), var(--accentColor));
+    --toolbaritemtext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+    --toolbaritemhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
+    --toolbaritemhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
+    --toolbaritemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
   }
-  :where(sidebar-toggle,
-  menu-view) {
+  :where(sidebar-toggle) {
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
   :where(menu-view) {
-    --menuitemhighlighttext: light-dark(var(--menu-item-focus-color), var(--menu-item-focus-color-dark));
-    --menuitemhighlightface: light-dark(var(--menu-item-focus-bg), var(--menu-item-focus-bg-dark));
-    --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
-    --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
+    --menuitemhighlightface: light-dark(var(--clear), var(--clear));
+    --menuitemactiveface: light-dark(oklch(0 0 0 / 20%), oklch(1 0 0 / 20%));
+  }
+  @media (pointer: fine) {
+    :where(menu-view) {
+      --menuitemhighlightface: light-dark(var(--accentColor), var(--accentColor));
+      --menuitemhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+      --menuitemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+      --menuitemactiveface: light-dark(
+        oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+        oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h)
+      );
+    }
+  }
+  :where(menu-view) {
+    --menusummaryhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+    --menusummaryactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
+  }
+  :where(tool-bar-item > picker-view > menu-view, tool-bar-item > menu-view) {
+    --menusummaryface: var(--toolbaritemface);
+    --menusummaryhighlightface: var(--toolbaritemhighlightface);
+    --menusummaryactiveface: var(--toolbaritemactiveface);
+    --menusummarytext: var(--toolbaritemtext);
+    --menusummaryhighlighttext: var(--toolbaritemhighlighttext);
+    --menusummaryactivetext: var(--toolbaritemactivetext);
   }
   :where([is=confirmation-dialog], [is=alert-dialog]) {
     --dialogbtnface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
@@ -7698,17 +7775,17 @@
       oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
       oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
     );
-    --btnface: light-dark(var(--glass-btn-bg), var(--glass-btn-bg-dark));
-    --btnhighlightface: light-dark(var(--glass-btn-focus-bg), var(--glass-btn-focus-bg-dark));
-    --btnactiveface: light-dark(var(--glass-btn-active-bg), var(--glass-btn-active-bg-dark));
+    --btnface: light-dark(var(--clear-glass-bg), var(--clear-glass-bg-dark));
+    --btnhighlightface: light-dark(var(--clear-glass-focus-bg), var(--clear-glass-focus-bg-dark));
+    --btnactiveface: light-dark(var(--clear-glass-active-bg), var(--clear-glass-active-bg-dark));
   }
   :where([is=glass-prominent-button]) {
-    --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --btnface: var(--accentColor);
+    --btnface: light-dark(var(--accentColor), var(--accentColor));
+    --btntext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --btnhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
+    --btnhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --btnactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
+    --btnactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
   }
   /* list-view {
     :where(&) {

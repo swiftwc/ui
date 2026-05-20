@@ -61,8 +61,27 @@
       --liquid-glass-bg-alpha: 99%;
       --liquid-glass-bg-alpha-dark: 99%;
     }
+    //
     --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
     --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
+
+    --clear-glass-bg: var(--liquid-glass-bg);
+    --clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --clear-glass-focus-bg: var(--clear-glass-bg);
+    --clear-glass-focus-bg-dark: var(--clear-glass-bg-dark);
+    --clear-glass-active-bg: var(--clear-glass-bg);
+    --clear-glass-active-bg-dark: var(--clear-glass-bg-dark);
+
+    // @include mixins.wire-tinted-glass(tinted-glass-bg, tinted-glass-focus-bg, tinted-glass-active-bg);
+
+    // This is for glass effect on interactive elements like controls that supports hover on fine screens and active state!
+    // NOTE: On fine screens this fallbacks/transforms into a basic color w/out glass efect!
+    --control-clear-glass-bg: var(--liquid-glass-bg);
+    --control-clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --control-clear-glass-focus-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-focus-bg-dark: var(--control-clear-glass-bg-dark);
+    --control-clear-glass-active-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-active-bg-dark: var(--control-clear-glass-bg-dark);
     //color-mix(in oklch, red calc(100% - 50%), transparent)
 
     // --sidebar-bg-lch: 1 0 0;
@@ -88,17 +107,17 @@
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
 
-    --nav-split-view-separator-color: var(--divider); //oklch(0 0 0);
-    --nav-split-view-separator-color-dark: var(--divider-dark); //oklch(1 0 0);
+    --nav-split-view-separator-color: var(--divider); //var(--black);
+    --nav-split-view-separator-color-dark: var(--divider-dark); //var(--white);
 
-    --primary-label: oklch(0 0 0);
-    --primary-label-dark: oklch(1 0 0);
+    // --primary-label: var(--black);
+    // --primary-label-dark: var(--white);
 
     // --secondary-label: oklch(0.4962 0 0); // ✅
     // --secondary-label-dark: oklch(0.6334 0 0); // ✅
 
-    --secondary-text: oklch(0 0 0);
-    --secondary-text-dark: oklch(1 0 0);
+    --secondary-text: var(--black);
+    --secondary-text-dark: var(--white);
 
     --tint: oklch(0.5325 0.1899 257.12);
     --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
@@ -113,13 +132,13 @@
     --divider: oklch(0.9431 0 0); // ✅
     --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
 
-    --system-bg: oklch(1 0 0); // ✅
-    --system-bg-dark: oklch(0 0 0); // ✅
+    --system-bg: var(--white); // ✅
+    --system-bg-dark: var(--black); // ✅
 
     --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
-    --primary-bg-dark: oklch(0 0 0); // ✅
+    --primary-bg-dark: var(--black); // ✅
 
-    --primary-grouped-bg: oklch(1 0 0); //0.8136 0.0428 255.03;
+    --primary-grouped-bg: var(--white); //0.8136 0.0428 255.03;
     --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
 
     --secondary-bg: oklch(0.8045 0.0779 73.42);
@@ -145,8 +164,8 @@
     --clear: transparent;
 
     --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
-    --toolbar-cell-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg: var(--control-clear-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)); //oklch(0 0 0 / 0%);
+    --toolbar-cell-bg-dark: var(--control-clear-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)); //oklch(0 0 0 / 0%);
     --toolbar-cell-inline-padding-start: 0.25rem;
     --toolbar-cell-inline-padding-end: 0.25rem;
     --toolbar-cell-block-padding-start: 0.25rem;
@@ -154,15 +173,16 @@
     --toolbar-cell-border-radius: var(--pill-border-radius);
     --toolbar-cell-min-size: 2.8rem;
 
-    --toolbar-cell-focus-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
-    --toolbar-cell-focus-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg: var(--toolbar-cell-bg); //oklch(0 0 0 / 0%);
-    --toolbar-cell-active-bg-dark: var(--toolbar-cell-bg-dark); //oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg: var(--control-clear-glass-focus-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-focus-bg-dark: var(--control-clear-glass-focus-bg-dark); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg: var(--control-clear-glass-active-bg); //oklch(0 0 0 / 0%);
+    --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark); //oklch(0 0 0 / 0%);
 
     --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
 
-    --menu-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
-    --menu-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+    --menu-bg: var(--control-clear-glass-bg); //--menu-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
+    --menu-bg-dark: var(--control-clear-glass-bg-dark); //--menu-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
+
     --menu-max-inline-size: 15rem;
     --menu-max-block-size: 60vh;
     --menu-spacing: 1rem;
@@ -179,12 +199,6 @@
     --menu-item-padding-block-end: 0.5rem;
 
     --menu-item-border-radius: 1.2rem; // define this to be like a pill, based on an exemplar item min-height
-
-    --menu-item-focus-bg: oklch(0 0 0 / 0%);
-    --menu-item-focus-bg-dark: oklch(0 0 0 / 0%);
-
-    --menu-item-active-bg: oklch(0 0 0 / 20%);
-    --menu-item-active-bg-dark: oklch(1 0 0 / 20%);
 
     --touchglass-transition-duration: 300ms;
     // --touchglass-transition-duration: 15s;
@@ -304,13 +318,6 @@
     --table-accessory-gap: 0.2rem;
     --table-accessory-size: 1.2rem;
 
-    --glass-btn-bg: var(--liquid-glass-bg);
-    --glass-btn-bg-dark: var(--liquid-glass-bg-dark);
-    --glass-btn-focus-bg: var(--glass-btn-bg);
-    --glass-btn-focus-bg-dark: var(--glass-btn-bg-dark);
-    --glass-btn-active-bg: var(--glass-btn-bg);
-    --glass-btn-active-bg-dark: var(--glass-btn-bg-dark);
-
     // button sizes 1/2
     @each $size, $media in vars.$button-sizes {
       $props: map.get($media, default);
@@ -321,6 +328,8 @@
         }
       }
     }
+
+    // SECTION
 
     // fine
     @media (pointer: fine) {
@@ -344,35 +353,21 @@
       // --secondary-label: oklch(0.5999 0 0); // ✅
       // --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
 
-      --noglass-bg: oklch(1 0 0);
-      --noglass-bg-dark: oklch(0.2871 0.0029 17.33);
+      // SECTION Glass
 
-      --toolbar-cell-bg: var(--noglass-bg);
-      --toolbar-cell-bg-dark: var(--noglass-bg-dark);
+      --control-clear-glass-bg: var(--white);
+      --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
+      --control-clear-glass-focus-bg: var(--gray5); //oklch(0.9551 0 0); //FIXME: gray6!!!
+      --control-clear-glass-focus-bg-dark: oklch(0.3578 0.008 75.3); //FIXME: gray4!!!
+      --control-clear-glass-active-bg: var(--gray3); //oklch(0.9128 0 0); //FIXME: gray5!!!
+      --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32); //FIXME: gray3!!!
 
-      --toolbar-cell-focus-bg: oklch(0.9551 0 0); //FIXME: gray6!!!
-      --toolbar-cell-focus-bg-dark: oklch(0.3578 0.008 75.3); //FIXME: gray4!!!
-      --toolbar-cell-active-bg: oklch(0.9128 0 0); //FIXME: gray5!!!
-      --toolbar-cell-active-bg-dark: oklch(0.3995 0.0077 75.32); //FIXME: gray3!!!
-
-      --menu-bg: var(--noglass-bg);
-      --menu-bg-dark: var(--noglass-bg-dark);
+      // SECTION
 
       --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
       --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
 
       //
-      --menu-item-focus-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-focus-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-
-      --menu-item-active-color: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --menu-item-active-color-dark: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-
-      --menu-item-focus-bg: var(--accentColor);
-      --menu-item-focus-bg-dark: var(--accentColor);
-
-      --menu-item-active-bg: oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h); //color-mix(in oklch, black 10%, var(--accentColor));
-      --menu-item-active-bg-dark: oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h); //color-mix(in oklch, white 10%, var(--accentColor));
 
       --picker-affordance-size: 1rem;
       --picker-affordance-col-gap: 1rem;

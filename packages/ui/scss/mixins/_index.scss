@@ -360,7 +360,7 @@
     $result: string.slice($result, 1, string.length($result) - 1);
     $final-result: functions.str-replace($result, 'minmax(0,1fr)', 'spacer');
     @debug $final-result, $template;
-    :where(&[template='#{$result}']) {
+    :where(&[template='#{$final-result}']) {
       #{$prop}: $template;
     }
   }

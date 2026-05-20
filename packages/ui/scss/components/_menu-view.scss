@@ -108,6 +108,9 @@
     // }
 
     // SECTION: componentize
+    :where(&)::part(menu-summary) {
+      @include mixins.componentize(menusummary);
+    }
     :where(& > button, & > [is='disclosure-group'] > button, & > [is='disclosure-group'] > summary),
     :where(& > menu-view)::part(menu-summary) {
       @include mixins.componentize(menuitem);
@@ -130,6 +133,15 @@
 // componentize
 @layer #{vars.$colors-layer} {
   menu-view {
+    @include mixins.add-focus-visible-state('::part(menu-summary)') {
+      --menusummaryface: var(--menusummaryhighlightface,);
+      --menusummarytext: var(--menusummaryhighlighttext,);
+    }
+    @include mixins.add-hover-state('::part(menu-summary)') {
+      --menusummaryface: var(--menusummaryhighlightface,);
+      --menusummarytext: var(--menusummaryhighlighttext,);
+    }
+
     > button,
     > [is='disclosure-group'] > button,
     > [is='disclosure-group'] > summary {
@@ -170,6 +182,11 @@
 // componentize
 @layer #{vars.$ui-layer} {
   menu-view {
+    @include mixins.add-active-state('::part(menu-summary)') {
+      --menusummaryface: var(--menusummaryactiveface,);
+      --menusummarytext: var(--menusummaryactivetext,);
+    }
+
     > button,
     > [is='disclosure-group'] > button,
     > [is='disclosure-group'] > summary {

@@ -417,6 +417,12 @@ $colors: map.merge(
   inherits: true;
 }
 
+@property --clear {
+  syntax: '<color>';
+  initial-value: oklch(0 0 0 / 0%); // ✅
+  inherits: true;
+}
+
 @layer #{vars.$colors-layer} {
   :root {
     // --background: light-dark(oklch(1 0 0), oklch(0 0 0)); // ✅
@@ -510,17 +516,13 @@ $colors: map.merge(
       //   // --toolbaritemtext: light-dark(var(--primary-label), var(--primary-label-dark));
       // }
     }
-    :where(&[tint]) {
-      --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
-      --toolbaritemface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
-      --toolbaritemhighlightface: light-dark(
-        oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-        oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
-      );
-      --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
+    :where(&[tint], [tint] &) {
+      // --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      // --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+      // --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+
+      @include mixins.wire-tinted-glass(toolbaritem);
     }
   }
 
@@ -531,12 +533,12 @@ $colors: map.merge(
   //   }
   // }
 
-  sidebar-toggle,
+  sidebar-toggle {
     // tool-bar-item,
     // [is='tab-item'],
     // list-view > button,
     // this is temp for toolbar look aboove tables
-    menu-view {
+    // menu-view {
     // [is='disclosure-group'] {
     :where(&) {
       --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
@@ -546,12 +548,43 @@ $colors: map.merge(
 
   menu-view {
     :where(&) {
-      --menuitemhighlighttext: light-dark(var(--menu-item-focus-color), var(--menu-item-focus-color-dark));
-      --menuitemhighlightface: light-dark(var(--menu-item-focus-bg), var(--menu-item-focus-bg-dark));
+      --menuitemhighlightface: light-dark(var(--clear), var(--clear));
 
-      --menuitemactivetext: light-dark(var(--menu-item-active-color), var(--menu-item-active-color-dark));
-      --menuitemactiveface: light-dark(var(--menu-item-active-bg), var(--menu-item-active-bg-dark));
+      --menuitemactiveface: light-dark(oklch(0 0 0 / 20%), oklch(1 0 0 / 20%));
+
+      @media (pointer: fine) {
+        --menuitemhighlightface: light-dark(var(--accentColor), var(--accentColor));
+
+        --menuitemhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+
+        --menuitemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+
+        --menuitemactiveface: light-dark(
+          oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+          oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.2), c) h)
+        ); //color-mix(in oklch, black 10%, var(--accentColor)); //color-mix(in oklch, white 10%, var(--accentColor));
+      }
+
+      --menusummaryhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
+      --menusummaryactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
     }
+
+    tool-bar-item > picker-view > &,
+    tool-bar-item > & {
+      :where(&) {
+        --menusummaryface: var(--toolbaritemface);
+        --menusummaryhighlightface: var(--toolbaritemhighlightface);
+        --menusummaryactiveface: var(--toolbaritemactiveface);
+        --menusummarytext: var(--toolbaritemtext);
+        --menusummaryhighlighttext: var(--toolbaritemhighlighttext);
+        --menusummaryactivetext: var(--toolbaritemactivetext);
+      }
+    }
+
+    // :where(&[tint]) {
+    // @include mixins.wire-tinted-menu(menuitemface, menuitemhighlightface, menuitemactiveface);
+    // @include mixins.wire-menu-colors;
+    // }
   }
 
   :where([is='confirmation-dialog'], [is='alert-dialog']) {
@@ -617,19 +650,17 @@ $colors: map.merge(
       oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
     );
 
-    --btnface: light-dark(var(--glass-btn-bg), var(--glass-btn-bg-dark));
-    --btnhighlightface: light-dark(var(--glass-btn-focus-bg), var(--glass-btn-focus-bg-dark));
-    --btnactiveface: light-dark(var(--glass-btn-active-bg), var(--glass-btn-active-bg-dark));
+    --btnface: light-dark(var(--clear-glass-bg), var(--clear-glass-bg-dark));
+    --btnhighlightface: light-dark(var(--clear-glass-focus-bg), var(--clear-glass-focus-bg-dark));
+    --btnactiveface: light-dark(var(--clear-glass-active-bg), var(--clear-glass-active-bg-dark));
   }
 
   :where([is='glass-prominent-button']) {
-    --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-    --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    // --btntext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    // --btnhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    // --btnactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
-    --btnface: var(--accentColor); //light-dark(var(--accentColor), var(--accentColor));
-    --btnhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
-    --btnactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
+    @include mixins.wire-tinted-glass(btn);
   }
 
   /* list-view {

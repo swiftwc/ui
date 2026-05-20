@@ -43,6 +43,7 @@
     text-transform: none;
   }
 
+  // FIXME:
   .ph,
   .ph::before {
     display: grid;
@@ -110,6 +111,10 @@
 
   html {
     transition: font-size 1ms step-start;
+
+    @media (pointer: fine) {
+      font-size: 14px;
+    }
   }
 
   // label {

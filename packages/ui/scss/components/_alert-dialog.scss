@@ -18,14 +18,13 @@
       max-inline-size: min(20rem, 80vw);
       max-block-size: 80vh;
 
-      margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
-      margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+      margin-block: auto;
+      margin-inline: auto;
 
       transform: var(--alert--dialog-scale,);
       opacity: var(--alert--dialog-opacity,);
 
-      position-anchor: --alert-dialog; // overriden
-      position-area: center;
+      place-self: center;
 
       overflow: clip;
       border-radius: 0.9rem;

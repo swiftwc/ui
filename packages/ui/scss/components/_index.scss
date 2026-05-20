@@ -31,6 +31,7 @@
   content-unavailable-view,
   tool-bar-item,
   tool-bar-item-group,
+  fine-tooltip,
   sidebar-toggle,
   [is='form-view'],
   v-stack,
@@ -115,8 +116,8 @@
     [is='tab-bar'] [is='tab-item'],
     tool-bar-item [is='disclosure-group'] > button,
     tool-bar-item [is='disclosure-group'] > summary
-  ),
-  :where(menu-view)::part(menu-summary) {
+  ) {
+    // :where(menu-view)::part(menu-summary) {
     // display: grid;
     // place-items: center;
     // place-content: center;
@@ -175,7 +176,7 @@
   tool-bar-item > button,
   tool-bar-item > input,
   [is='tab-bar'] [is='tab-item'],
-  menu-view > button,
+  // menu-view > button,
   tool-bar-item [is='disclosure-group'] > button,
   tool-bar-item [is='disclosure-group'] > summary {
     @include mixins.add-focus-visible-state {
@@ -187,16 +188,16 @@
       --toolbaritemtext: var(--toolbaritemhighlighttext,);
     }
   }
-  menu-view {
-    @include mixins.add-focus-visible-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
-      --toolbaritemtext: var(--toolbaritemhighlighttext,);
-    }
-    @include mixins.add-hover-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemhighlightface,);
-      --toolbaritemtext: var(--toolbaritemhighlighttext,);
-    }
-  }
+  // menu-view {
+  //   @include mixins.add-focus-visible-state('::part(menu-summary)') {
+  //     --toolbaritemface: var(--toolbaritemhighlightface,);
+  //     --toolbaritemtext: var(--toolbaritemhighlighttext,);
+  //   }
+  //   @include mixins.add-hover-state('::part(menu-summary)') {
+  //     --toolbaritemface: var(--toolbaritemhighlightface,);
+  //     --toolbaritemtext: var(--toolbaritemhighlighttext,);
+  //   }
+  // }
   // itemize
   // list-view,
   // [is='form-view'] {
@@ -217,7 +218,7 @@
   tool-bar-item > button,
   tool-bar-item > input,
   [is='tab-bar'] [is='tab-item'],
-  menu-view > button,
+  // menu-view > button,
   tool-bar-item [is='disclosure-group'] > button,
   tool-bar-item [is='disclosure-group'] > summary {
     @include mixins.add-active-state {
@@ -225,12 +226,12 @@
       --toolbaritemtext: var(--toolbaritemactivetext,);
     }
   }
-  menu-view {
-    @include mixins.add-active-state('::part(menu-summary)') {
-      --toolbaritemface: var(--toolbaritemactiveface,);
-      --toolbaritemtext: var(--toolbaritemactivetext,);
-    }
-  }
+  // menu-view {
+  //   @include mixins.add-active-state('::part(menu-summary)') {
+  //     --toolbaritemface: var(--toolbaritemactiveface,);
+  //     --toolbaritemtext: var(--toolbaritemactivetext,);
+  //   }
+  // }
   // itemize
   // list-view,
   // [is='form-view'] {

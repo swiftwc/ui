@@ -6,7 +6,7 @@ import onoff from './onoff'
 
 function renderPlaceholder(el: HTMLElement, role: string | null) {
   const label = el.querySelector(':scope>[slot=placeholder]') ?? el.appendChild($(`<label-view slot="placeholder"></label-view>`, '>1'))
-
+  console.log(9999999, el, role)
   switch (role) {
     case 'cancel':
       label.setAttribute('title', I18n.t('ButtonRole').Default.Cancel)
@@ -19,6 +19,11 @@ function renderPlaceholder(el: HTMLElement, role: string | null) {
 
       break
     case 'confirm':
+      label.setAttribute('title', I18n.t('ButtonRole').Default.Confirm)
+      label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
+
+      break
+    case 'confirmation-action':
       label.setAttribute('title', I18n.t('ButtonRole').Default.Confirm)
       label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
 
@@ -39,8 +44,8 @@ function renderPlaceholder(el: HTMLElement, role: string | null) {
   // } else label?.remove()
 }
 
-export default function (target: HTMLElement, attributeName: string | null) {
-  renderPlaceholder(target, target.getAttribute(attributeName ?? ''))
+export default function (target: HTMLElement, role: string | null) {
+  renderPlaceholder(target, role)
 
   CleanupRegistry.unregister(target, 'i18n')
 
@@ -49,7 +54,7 @@ export default function (target: HTMLElement, attributeName: string | null) {
     onoff(
       'localechange',
       () => {
-        renderPlaceholder(target, target.getAttribute(attributeName ?? ''))
+        renderPlaceholder(target, role)
       },
       I18n.on
     ).on(),

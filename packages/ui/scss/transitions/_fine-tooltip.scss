@@ -1,0 +1,19 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  @media (prefers-reduced-motion: no-preference) {
+    fine-tooltip {
+      :where(&) {
+        // transition:
+        //   block-size var(--menu-animation-duration) allow-discrete ease-out,
+        //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
+        //   display var(--menu-animation-duration) allow-discrete ease-out,
+        //   overlay var(--menu-animation-duration) allow-discrete ease-out,
+        //   transform var(--menu-animation-duration) allow-discrete ease-out;
+        transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+        // will-change: block-size, inline-size, transform, overlay, display;
+      }
+    }
+  }
+}

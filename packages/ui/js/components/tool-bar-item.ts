@@ -1,10 +1,11 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff, touchGlass } from '../internal/utils'
+import { buttonRole, onoff, touchGlass } from '../internal/utils'
+import { Snapshot } from '../snapshot'
 
 export class ToolBarItem extends HTMLElement {
-  // static get observedAttributes() {
-  //   return ['preferred-fine-modal-placement']
-  // }
+  static get observedAttributes() {
+    return ['slot', 'data-previous-slot']
+  }
 
   constructor() {
     super()
@@ -56,21 +57,19 @@ export class ToolBarItem extends HTMLElement {
     CleanupRegistry.unregister(this)
   }
 
-  // attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-  //   console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-  //   switch (name) {
-  //     case 'preferred-fine-modal-placement':
-  //       Snapshot.waitReady.then(() => {
-  //         toolbarRepositioner(
-  //           this,
-  //           new MediaQueryListEvent(`media-change`, {
-  //             matches: Snapshot.breakpoints?.get('fine_dialog_sheet'),
-  //           })
-  //         ) // Initial check
-  //       })
+    switch (name) {
+      case 'slot':
+      case 'data-previous-slot':
+        const target = this.querySelector<HTMLElement>(':scope>button')
+        if (target && ['confirmation-action'].includes(newValue ?? ''))
+          Snapshot.waitReady.then(() => {
+            buttonRole(target, newValue)
+          })
 
-  //       break
-  //   }
-  // }
+        break
+    }
+  }
 }

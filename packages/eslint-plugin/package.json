@@ -32,8 +32,8 @@
   "scripts": {
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts",
-    "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
+    "start": "npm run prebuild && tsc --watch",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write"
   },

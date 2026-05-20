@@ -105,6 +105,9 @@
       ]
     },
     {
+      "name": "fine-tooltip"
+    },
+    {
       "name": "form-view"
     },
     {
@@ -297,7 +300,15 @@
       "name": "tool-bar-item-group"
     },
     {
-      "name": "tool-bar-item"
+      "name": "tool-bar-item",
+      "attributes": [
+        {
+          "name": "slot"
+        },
+        {
+          "name": "data-previous-slot"
+        }
+      ]
     },
     {
       "name": "tool-bar",

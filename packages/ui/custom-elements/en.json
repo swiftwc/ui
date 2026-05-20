@@ -419,6 +419,38 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/fine-tooltip.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "FineTooltip",
+          "tagName": "fine-tooltip",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "FineTooltip",
+          "declaration": {
+            "name": "FineTooltip"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "fine-tooltip",
+          "declaration": {
+            "name": "FineTooltip"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/form-view.ts",
       "declarations": [
         {
@@ -1507,7 +1539,15 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "slot"
+            },
+            {
+              "name": "data-previous-slot"
+            }
+          ]
         }
       ],
       "exports": [

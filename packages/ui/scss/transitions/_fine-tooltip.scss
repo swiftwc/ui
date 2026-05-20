@@ -5,14 +5,16 @@
   @media (prefers-reduced-motion: no-preference) {
     fine-tooltip {
       :where(&) {
-        // transition:
-        //   block-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   display var(--menu-animation-duration) allow-discrete ease-out,
-        //   overlay var(--menu-animation-duration) allow-discrete ease-out,
-        //   transform var(--menu-animation-duration) allow-discrete ease-out;
-        transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-        // will-change: block-size, inline-size, transform, overlay, display;
+        transition:
+          opacity 150ms allow-discrete ease-out,
+          transform 150ms allow-discrete ease-out;
+        transition-delay: 200ms;
+        will-change: opacity, transform;
+      }
+
+      :where(&[closing]) {
+        transition-duration: 100ms;
+        transition-delay: 0ms;
       }
     }
   }

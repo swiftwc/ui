@@ -131,11 +131,7 @@ document.addEventListener('touchstart', () => {}, { passive: true })
 
 // SECTION
 
-const mediaQueryList = self.matchMedia(`(pointer: fine)`)
-
-document.addEventListener(
-  'pointerover',
-  ({ target, relatedTarget }: PointerEvent) => {
+const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
     if (!(target instanceof HTMLElement && target)) return
 
     const trigger = target.closest<HTMLElement>('[help]')
@@ -145,22 +141,20 @@ document.addEventListener(
 
     const newAnchorName = `--help-${self.crypto.randomUUID()}`
 
-    const tooltip = $<HTMLElement>(`<fine-tooltip><span>weewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweewweewewewewewewweew</span></fine-tooltip>`, '>1')
-
-    document.body.appendChild(tooltip)
+    const tooltip = $<HTMLElement>(`<fine-tooltip></fine-tooltip>`, '>1')
 
     trigger.style.setProperty('anchor-name', newAnchorName)
 
     tooltip.style.setProperty('position-anchor', newAnchorName)
 
-    console.log(999, trigger)
-  },
-  { passive: true }
-)
+    document.body.appendChild(tooltip)
 
-document.addEventListener(
-  'pointerout',
-  ({ target, relatedTarget }: PointerEvent) => {
+    // setInterval(() => {
+    //   trigger.setAttribute('help', trigger.getAttribute('help') + 'h')
+    // }, 2000)
+    // console.log(999, trigger)
+  },
+  handleDone = ({ target, relatedTarget }: PointerEvent) => {
     if (!(target instanceof HTMLElement && target)) return
 
     const trigger = target.closest<HTMLElement>('[help]')
@@ -173,30 +167,46 @@ document.addEventListener(
         anchorName: string
       }
     ).anchorName
-
-    if (!anchorName.startsWith('--help-')) {
-      for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
-
-      for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
-
-      return
-    }
+    if (!anchorName.startsWith('--help-')) return
+    // for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
+    // for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
+    //   return
+    // }
 
     const tooltip = document.querySelector<HTMLElement>(`[style*="${CSS.escape(anchorName)}"]:not([help])`)
-    if (!tooltip) {
-      for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
+    if (!tooltip) return
+    // for (const el of document.querySelectorAll<HTMLElement>(`[style*="--help-${CSS.escape(anchorName)}"][help]`)) el.style.removeProperty('anchor-name') //trigger.style.removeProperty('anchor-name')
+    // for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
+    //   return
+    // }
+    // trigger.style.removeProperty('anchor-name')
 
-      for (const el of document.querySelectorAll(`[style*="${CSS.escape(anchorName)}"]:not([help])`)) el.remove()
+    tooltip.hidePopover() // tooltip.remove?.()
+  }
 
-      return
-    }
+const mediaQueryList = self.matchMedia(`(pointer: fine)`)
 
-    trigger.style.removeProperty('anchor-name')
+mediaQueryList.addEventListener('change', ({ matches }) => {
+  for (const [k, v] of [
+    ['pointerover', handleHelp],
+    ['pointerout', handleDone],
+  ] as Array<[keyof DocumentEventMap, (e: any) => void]>)
+    document.removeEventListener(k, v)
 
-    tooltip.remove?.()
-  },
-  { passive: true }
-)
+  if (matches)
+    for (const [k, v] of [
+      ['pointerover', handleHelp],
+      ['pointerout', handleDone],
+    ] as Array<[keyof DocumentEventMap, (e: any) => void]>)
+      document.addEventListener(k, v, { passive: true })
+})
+
+if (mediaQueryList.matches)
+  for (const [k, v] of [
+    ['pointerover', handleHelp],
+    ['pointerout', handleDone],
+  ] as Array<[keyof DocumentEventMap, (e: any) => void]>)
+    document.addEventListener(k, v, { passive: true })
 
 // SECTION: Transitions
 const cleanup = (lm?: Element, type?: TransitionType) => {
@@ -432,7 +442,7 @@ export const alert = async (
       if (action?.role) btn.setAttribute('role', action.role)
 
       if (action.label || action.image) {
-        const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
+        const label = $(`<label-view></label-view>`, '>1')
         if (action.label) label.setAttribute('title', action.label)
         if (action.image) label.setAttribute('system-image', action.image)
         btn.appendChild(label)

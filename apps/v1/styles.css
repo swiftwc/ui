@@ -64,11 +64,10 @@
     --liquid-glass-box-shadow:
       var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626), inset -3px -3px 10px -3px light-dark(#ddd, #262626),
       inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26), inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
+    --control-clear-glass-box-shadow: var(--liquid-glass-box-shadow);
     --navigation-bar-block-size: var(--tool-bar-block-size);
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
-    --nav-split-view-separator-color: var(--divider);
-    --nav-split-view-separator-color-dark: var(--divider-dark);
     --secondary-text: var(--black);
     --secondary-text-dark: var(--white);
     --tint: oklch(0.5325 0.1899 257.12);
@@ -76,12 +75,8 @@
     --tint2: color-mix(in oklch, white 80%, var(--tint));
     --tint3: color-mix(in oklch, white 90%, var(--tint));
     --tintcontrast: white;
-    --divider: oklch(0.9431 0 0);
-    --divider-dark: oklch(0.2858 0.0036 286.17);
     --system-bg: var(--white);
     --system-bg-dark: var(--black);
-    --primary-bg: oklch(0.9566 0.0067 286.27);
-    --primary-bg-dark: var(--black);
     --primary-grouped-bg: var(--white);
     --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
     --secondary-bg: oklch(0.8045 0.0779 73.42);
@@ -111,7 +106,7 @@
     --toolbar-cell-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
     --toolbar-cell-active-bg: var(--control-clear-glass-active-bg);
     --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark);
-    --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
+    --toolbar-cell-box-shadow: var(--control-clear-glass-box-shadow);
     --menu-bg: var(--control-clear-glass-bg);
     --menu-bg-dark: var(--control-clear-glass-bg-dark);
     --menu-max-inline-size: 15rem;
@@ -119,7 +114,7 @@
     --menu-spacing: 1rem;
     --menu-host-offscreen-transform: scale(0);
     --menu-host-offscreen-filter: blur(10px);
-    --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+    --menu-popover-box-shadow: var(--control-clear-glass-box-shadow);
     --menu-padding: 0.5rem;
     --menu-item-padding-inline-start: 1rem;
     --menu-item-padding-inline-end: 1rem;
@@ -277,6 +272,8 @@
     --large-btn-padding: 1.2rem;
     --large-btn-border-radius: 2.4rem;
     --large-btn-border-radius: 2.4rem;
+    --picker-affordance-size: 1rem;
+    --picker-affordance-col-gap: 1rem;
   }
   @media (pointer: fine) {
     :root {
@@ -296,20 +293,13 @@
       --large-btn-padding: 1.2rem;
       --large-btn-border-radius: 1.4rem;
       --large-btn-border-radius: 1.4rem;
-      --primary-bg: oklch(0.9761 0 0);
-      --primary-bg-dark: oklch(0.2666 0.0071 67.52);
-      --divider: oklch(0.9249 0 0);
-      --divider-dark: oklch(0.3452 0.0074 84.59);
       --control-clear-glass-bg: var(--white);
       --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
       --control-clear-glass-focus-bg: var(--gray5);
       --control-clear-glass-focus-bg-dark: oklch(0.3578 0.008 75.3);
       --control-clear-glass-active-bg: var(--gray3);
       --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32);
-      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --picker-affordance-size: 1rem;
-      --picker-affordance-col-gap: 1rem;
+      --control-clear-glass-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
     }
   }
   html:has(color-scheme[dark]) {
@@ -1444,41 +1434,55 @@
     pointer-events: none;
     touch-action: none;
     position: fixed;
-    inline-size: 100px;
-    block-size: 100px;
+    inline-size: max-content;
+    block-size: max-content;
     height: auto;
-    max-inline-size: var(--confirmation--dialog-max-inline-size, );
-    max-block-size: var(--confirmation--dialog-max-block-size, );
-    margin-block: var(--confirmation--dialog-margin-block, );
-    margin-inline: var(--confirmation--dialog-margin-inline, );
-    position-anchor: --confirmation-dialog;
-    position-area: center;
+    max-inline-size: 80vw;
+    max-block-size: 80vh;
+    margin-block: var(--tooltip--dialog-margin-block, );
+    margin-inline: var(--tooltip--dialog-margin-inline, );
+    transform: var(--tooltip--dialog-scale, ) var(--tooltip--dialog-translate, );
+    opacity: var(--tooltip--dialog-opacity, );
+    transform-origin: top;
+    position-anchor: --fine-tooltip;
+    position-area: bottom center;
     overflow: clip;
     border-radius: 0.9rem;
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
     box-shadow: var(--menu-popover-box-shadow, );
-    padding-block: 1rem;
-    padding-inline: 1em;
+    padding-block: 0.5rem;
+    padding-inline: 1rem;
     gap: 0.5rem;
-    --confirmation--dialog-scale: scale(0);
+    border: none;
+    position-try-fallbacks: --custom-top;
+    position-try-order: most-height;
+    position-visibility: anchors-visible;
+    --tooltip--dialog-translate: translateY(-10%);
+    --tooltip--dialog-scale: scale(0.9);
+    --tooltip--dialog-opacity: 0;
   }
   :where(fine-tooltip[open]) {
-    --confirmation--dialog-max-inline-size: 100vw;
-    --confirmation--dialog-max-block-size: 100vh;
-    --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
-    --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
-    --confirmation--dialog-scale: scale(1);
+    --tooltip--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
+    --tooltip--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
+    --tooltip--dialog-translate: translateY(0);
+    --tooltip--dialog-scale: scale(1);
+    --tooltip--dialog-opacity: 0.9;
   }
   @starting-style {
     :where(fine-tooltip[open]) {
-      --confirmation--dialog-scale: scale(0);
+      --tooltip--dialog-translate: translateY(-10%);
+      --tooltip--dialog-scale: scale(0.9);
+      --tooltip--dialog-opacity: 0;
     }
   }
   :where(fine-tooltip[closing]) {
-    --confirmation--dialog-max-inline-size: anchor-size();
-    --confirmation--dialog-max-block-size: anchor-size();
-    --confirmation--dialog-scale: scale(0);
+    --tooltip--dialog-translate: translateY(-10%);
+    --tooltip--dialog-scale: scale(0.9);
+    --tooltip--dialog-opacity: 0;
   }
+}
+@position-try --custom-top {
+  position-area: top center;
 }
 @property --stuck {
   syntax: "<number>";
@@ -1626,7 +1630,7 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
     box-shadow: var(--menu-popover-box-shadow, );
     padding-block: 1rem;
-    padding-inline: 1em;
+    padding-inline: 1rem;
     gap: 0.5rem;
     --confirmation--dialog-scale: scale(0);
   }
@@ -1683,7 +1687,7 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
     box-shadow: var(--menu-popover-box-shadow, );
     padding-block: 1rem;
-    padding-inline: 1em;
+    padding-inline: 1rem;
     gap: 1rem;
     --alert--dialog-scale: scale(1.2);
     --alert--dialog-opacity: 0.8;
@@ -4294,7 +4298,7 @@
       --toolbar-cell-opacity: 1;
     }
     :where(navigation-split-view > scroll-view) {
-      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      border-right: solid 1px var(--separator);
     }
     :where(navigation-split-view > body-view scroll-view:not(dialog scroll-view):not(scroll-view scroll-view), navigation-split-view > body-view scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) ~ tool-bar) {
       margin-inline-start: var(--nav-split-view--content-inline-size);
@@ -4335,7 +4339,7 @@
       --safe-area-inset-left: 0px;
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view) {
-      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      border-right: solid 1px var(--separator);
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item,
     navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column])[preferred-compact-column=content] > body-view > scroll-view ~ tool-bar > tool-bar-item-group) {
@@ -4371,7 +4375,7 @@
       --safe-area-inset-right: 0px;
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view) {
-      border-right: solid 1px light-dark(var(--nav-split-view-separator-color), var(--nav-split-view-separator-color-dark));
+      border-right: solid 1px var(--separator);
     }
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view):not(scroll-view scroll-view), navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > body-view scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) ~ tool-bar) {
       --safe-area-inset-left: 0px;
@@ -6667,7 +6671,13 @@
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
     :where(fine-tooltip) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+      transition: opacity 150ms allow-discrete ease-out, transform 150ms allow-discrete ease-out;
+      transition-delay: 200ms;
+      will-change: opacity, transform;
+    }
+    :where(fine-tooltip[closing]) {
+      transition-duration: 100ms;
+      transition-delay: 0ms;
     }
   }
 }

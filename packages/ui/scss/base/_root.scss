@@ -102,13 +102,15 @@
       var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626), inset -3px -3px 10px -3px light-dark(#ddd, #262626),
       inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26), inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
 
+    --control-clear-glass-box-shadow: var(--liquid-glass-box-shadow);
+
     --navigation-bar-block-size: var(--tool-bar-block-size);
 
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
 
-    --nav-split-view-separator-color: var(--divider); //var(--black);
-    --nav-split-view-separator-color-dark: var(--divider-dark); //var(--white);
+    // --nav-split-view-separator-color: var(--divider); //var(--black);
+    // --nav-split-view-separator-color-dark: var(--divider-dark); //var(--white);
 
     // --primary-label: var(--black);
     // --primary-label-dark: var(--white);
@@ -129,14 +131,14 @@
     // --tint-lch: 0.452 0.313214 264.052;
     // --tint-lch-dark: 0.452 0.313214 264.052;
 
-    --divider: oklch(0.9431 0 0); // ✅
-    --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
+    // --divider: oklch(0.9431 0 0); // ✅
+    // --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
 
     --system-bg: var(--white); // ✅
     --system-bg-dark: var(--black); // ✅
 
-    --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
-    --primary-bg-dark: var(--black); // ✅
+    // --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
+    // --primary-bg-dark: var(--black); // ✅
 
     --primary-grouped-bg: var(--white); //0.8136 0.0428 255.03;
     --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
@@ -178,7 +180,7 @@
     --toolbar-cell-active-bg: var(--control-clear-glass-active-bg); //oklch(0 0 0 / 0%);
     --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark); //oklch(0 0 0 / 0%);
 
-    --toolbar-cell-box-shadow: var(--liquid-glass-box-shadow);
+    --toolbar-cell-box-shadow: var(--control-clear-glass-box-shadow);
 
     --menu-bg: var(--control-clear-glass-bg); //--menu-bg: var(--liquid-glass-bg); //oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha));
     --menu-bg-dark: var(--control-clear-glass-bg-dark); //--menu-bg-dark: var(--liquid-glass-bg-dark); //oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark));
@@ -189,7 +191,7 @@
     --menu-host-offscreen-transform: scale(0);
     --menu-host-offscreen-filter: blur(10px);
 
-    --menu-popover-box-shadow: var(--liquid-glass-box-shadow);
+    --menu-popover-box-shadow: var(--control-clear-glass-box-shadow);
 
     --menu-padding: 0.5rem;
 
@@ -329,6 +331,9 @@
       }
     }
 
+    --picker-affordance-size: 1rem;
+    --picker-affordance-col-gap: 1rem;
+
     // SECTION
 
     // fine
@@ -344,11 +349,11 @@
         }
       }
 
-      --primary-bg: oklch(0.9761 0 0); // ✅
-      --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
+      // --primary-bg: oklch(0.9761 0 0); // ✅
+      // --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
 
-      --divider: oklch(0.9249 0 0); // ✅
-      --divider-dark: oklch(0.3452 0.0074 84.59); // ✅
+      // --divider: oklch(0.9249 0 0); // ✅
+      // --divider-dark: oklch(0.3452 0.0074 84.59); // ✅
 
       // --secondary-label: oklch(0.5999 0 0); // ✅
       // --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
@@ -362,15 +367,11 @@
       --control-clear-glass-active-bg: var(--gray3); //oklch(0.9128 0 0); //FIXME: gray5!!!
       --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32); //FIXME: gray3!!!
 
+      --control-clear-glass-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+
       // SECTION
 
-      --toolbar-cell-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-      --menu-popover-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-
       //
-
-      --picker-affordance-size: 1rem;
-      --picker-affordance-col-gap: 1rem;
 
       // list
       // @each $v in list, form {

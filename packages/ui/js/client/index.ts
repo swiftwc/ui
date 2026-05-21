@@ -455,7 +455,7 @@ export const alert = async (
 
     dialog.showModal()
 
-    const { promise, resolve } = Promise.withResolvers<any>(),
+    const { promise, resolve } = Promise.withResolvers<unknown>(),
       off = onoff(
         'alert:return',
         (evt: any) => {
@@ -501,7 +501,7 @@ export const confirmationDialog = async (
     if (action?.role) btn.setAttribute('role', action.role)
 
     if (action.label || action.image) {
-      const label = $(`<label-view title="${action.label}"></label-view>`, '>1')
+      const label = $(`<label-view></label-view>`, '>1')
       if (action.label) label.setAttribute('title', action.label)
       if (action.image) label.setAttribute('system-image', action.image)
       btn.appendChild(label)
@@ -510,9 +510,9 @@ export const confirmationDialog = async (
     dialog.insertAdjacentElement('beforeend', btn)
   }
 
-  trigger.closest('body-view')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
+  trigger.closest('body-view,dialog')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
 
-  const { promise, resolve } = Promise.withResolvers<any>(),
+  const { promise, resolve } = Promise.withResolvers<unknown>(),
     off = onoff(
       'confirmation:return',
       (evt: any) => {

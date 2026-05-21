@@ -2369,7 +2369,7 @@
   }
 }
 @layer sw-colors {
-  [is=bordered-prominent-button] {
+  [is=glass-prominent-button] {
     --secondary: var(--btntext);
     --blue: var(--btntext);
   }
@@ -7794,6 +7794,10 @@
     --toolbaritemhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
     --toolbaritemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+    --secondary: var(--btntext);
+    --blue: var(--btntext);
+    --accentColorEffective: var(--btntext);
+    --accentColor: var(--btntext);
   }
   :where(sidebar-toggle) {
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));

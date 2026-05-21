@@ -40,10 +40,9 @@
     :where(&:has([disabled])) {
       pointer-events: none;
     }
-  }
 
-  // NOTE: MUST be right-after the above `all: unset` in this SAME page!
-  tool-bar-item {
+    // NOTE: MUST be right-after the above `all: unset` in this SAME page!
+
     :where(& > button),
     :where(& > picker-view > menu-view)::part(menu-summary),
     :where(& > menu-view)::part(menu-summary) {
@@ -54,6 +53,18 @@
 
     > button {
       @include mixins.takeover-button-slots;
+
+      // [tint] &,
+      // &[tint] {
+      //   :where(&) {
+      //     // NOTE: Make everything inside prominent buttons white
+      //     --secondary: var(--btntext);
+      //     --blue: var(--btntext);
+
+      //     --accentColorEffective: var(--btntext);
+      //     --accentColor: var(--btntext);
+      //   }
+      // }
     }
 
     // NOTE: add paddings to labels w/ text in toolbar items
@@ -75,86 +86,9 @@
     //   }
     // }
   }
-
-  // tool-bar-item[slot],
-  // tool-bar-item-group {
-  // @media (prefers-reduced-motion: no-preference) {
-  //   transition:
-  //     display var(--menu-animation-duration) allow-discrete ease-out,
-  //     overlay var(--menu-animation-duration) allow-discrete ease-out,
-  //     transform var(--menu-animation-duration) allow-discrete ease-out;
-  //   will-change: transform, overlay, display;
-  // }
-  // }
-
-  // tool-bar-item {
-  // min-height: var(--toolbar-cell-min-size);
-  // min-width: var(--toolbar-cell-min-size);
-  // }
 }
 
-// @layer #{vars.$colors-layer} {
-// sidebar-toggle > button,
-// tool-bar-item > button,
-// tool-bar-item > input,
-// [is='tab-item'],
-// // list-view > button,
-// menu-view > button,
-// [is='disclosure-group'] > button,
-// [is='disclosure-group'] > summary {
-//   &:not(:disabled):not([readonly]) {
-//     :where(&) {
-//       @include mixins.add-focus-visible-state {
-//         --toolbaritemface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-//       }
-//     }
-//   }
-// }
-
-// menu-view {
-// @include mixins.add-focus-visible-state('::part(menu-summary)') {
-//   --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-// }
-// @include mixins.add-hover-state('::part(menu-summary)') {
-//   --toolbaritemface: var(--toolbaritemhighlightface,); //light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
-// }
-// }
-
-// list-view > button,
-// [is='form-view'] > button {
-//   &:not(:disabled):not([readonly]) {
-//     :where(&) {
-//       --toolbaritempadistart: 0.3rem;
-//       --toolbaritempadbstart: 0.3rem;
-//     }
-//   }
-// }
-// }
-
 @layer #{vars.$ui-layer} {
-  // sidebar-toggle > button,
-  // tool-bar-item > button,
-  // tool-bar-item > input,
-  // [is='tab-item'],
-  // // list-view > button,
-  // menu-view > button,
-  // [is='disclosure-group'] > summary,
-  // [is='disclosure-group'] > button {
-  //   // &:not(:disabled):not([readonly]) {
-  //   //   :where(&) {
-  //   @include mixins.add-active-state {
-  //     --toolbaritemface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  //   }
-  //   //   }
-  //   // }
-  // }
-
-  // menu-view {
-  //   @include mixins.add-active-state('::part(menu-summary)') {
-  //     --toolbaritemface: var(--toolbaritemactiveface,); //light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
-  //   }
-  // }
-
   :where(tool-bar-item[slot]:has(menu-view[open])),
   :where(tool-bar-item-group:has(> tool-bar-item menu-view[open])) {
     --toolbar-cell-scale: var(--menu-host-offscreen-transform);

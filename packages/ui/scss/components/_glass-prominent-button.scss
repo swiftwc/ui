@@ -41,7 +41,7 @@
 }
 
 @layer #{vars.$colors-layer} {
-  [is='bordered-prominent-button'] {
+  [is='glass-prominent-button'] {
     --secondary: var(--btntext);
     --blue: var(--btntext);
   }

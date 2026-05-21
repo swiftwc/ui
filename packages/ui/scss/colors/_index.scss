@@ -523,6 +523,12 @@ $colors: map.merge(
       // --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
       @include mixins.wire-tinted-glass(toolbaritem);
+
+      --secondary: var(--btntext);
+      --blue: var(--btntext);
+
+      --accentColorEffective: var(--btntext);
+      --accentColor: var(--btntext);
     }
   }
 

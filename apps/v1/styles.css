@@ -1037,6 +1037,7 @@
   list-view:not([hidden]),
   table-view:not([hidden]),
   content-unavailable-view:not([hidden]),
+  progress-view:not([hidden]),
   tool-bar-item:not([hidden]),
   tool-bar-item-group:not([hidden]),
   fine-tooltip:not([hidden]),
@@ -1053,6 +1054,7 @@
   picker-view:not([hidden])) {
     display: grid;
   }
+  :where(progress-view)::part(progress-control),
   :where(content-unavailable-view)::part(content-unavailable-title-stack),
   :where(content-unavailable-view)::part(content-unavailable-description-stack),
   :where(content-unavailable-view)::part(content-unavailable-actions-stack),
@@ -1428,6 +1430,84 @@
     }
   }
 }
+@property --progress-view-style-index {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 0;
+}
+@layer sw-components {
+  :where(progress-view) {
+    transition: --progress-view-style-index 1ms step-start;
+    grid-template-columns: minmax(0, 1fr);
+    place-items: center;
+    place-content: center;
+    gap: 0.3rem;
+  }
+  :where(progress-view)::part(progress-line-control) {
+    background-color: var(--gray3);
+    inline-size: 100%;
+    block-size: 5px;
+    border-radius: var(--pill-border-radius);
+    border-left: solid 40px var(--accentColorEffective, var(--accentColor));
+  }
+  :where(progress-view)::part(progress-circular-control) {
+    position: relative;
+    inline-size: 2rem;
+    block-size: 2rem;
+  }
+  :where(progress-view)::part(progress-circular-blade) {
+    position: absolute;
+    inset: 32.5% auto auto 42.5%;
+    inline-size: 12.5%;
+    block-size: 32.5%;
+    background-color: var(--accentColorEffective, var(--secondary));
+    border-radius: var(--pill-border-radius);
+    will-change: opacity;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where(progress-view)::part(progress-circular-blade) {
+      animation: progressViewCircular 1s linear infinite;
+    }
+  }
+  :where(progress-view)::part(progress-circular-blade-1) {
+    transform: rotate(45deg) translateY(-100%);
+    animation-delay: -1.625s;
+  }
+  :where(progress-view)::part(progress-circular-blade-2) {
+    transform: rotate(90deg) translateY(-100%);
+    animation-delay: -1.5s;
+  }
+  :where(progress-view)::part(progress-circular-blade-3) {
+    transform: rotate(135deg) translateY(-100%);
+    animation-delay: -1.375s;
+  }
+  :where(progress-view)::part(progress-circular-blade-4) {
+    transform: rotate(180deg) translateY(-100%);
+    animation-delay: -1.25s;
+  }
+  :where(progress-view)::part(progress-circular-blade-5) {
+    transform: rotate(225deg) translateY(-100%);
+    animation-delay: -1.125s;
+  }
+  :where(progress-view)::part(progress-circular-blade-6) {
+    transform: rotate(270deg) translateY(-100%);
+    animation-delay: -1s;
+  }
+  :where(progress-view)::part(progress-circular-blade-7) {
+    transform: rotate(315deg) translateY(-100%);
+    animation-delay: -0.875s;
+  }
+  :where(progress-view)::part(progress-circular-blade-8) {
+    transform: rotate(360deg) translateY(-100%);
+    animation-delay: -0.75s;
+  }
+  :where(progress-view[progress-view-style=circular]) {
+    --progress-view-style-index: 0;
+  }
+  :where(progress-view[progress-view-style=linear]) {
+    --progress-view-style-index: 1;
+  }
+}
 @layer sw-tab-components {
   :where(fine-tooltip) {
     color: var(--text, );
@@ -1586,7 +1666,7 @@
   }
   content-unavailable-view > :not([slot]) {
     --label-image-size: 5;
-    --label-gap: 1rem;
+    --label-gap: 1;
   }
   :where(content-unavailable-view:not(:has(> [slot=description])))::part(content-unavailable-description-stack) {
     display: none;
@@ -2078,6 +2158,8 @@
     --btnpadbend: 0.1rem;
   }
   :where([is=borderless-button][role=destructive]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -2127,6 +2209,8 @@
     --btnpadbend: var(--large-btn-padding);
   }
   :where([is=bordered-button][role=destructive]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -2171,6 +2255,8 @@
     --btnpadbend: var(--large-btn-padding);
   }
   :where([is=bordered-prominent-button][role=destructive]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -2218,6 +2304,8 @@
     --btnpadbend: var(--large-btn-padding);
   }
   :where([is=glass-button][role=destructive]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -2265,6 +2353,8 @@
     --btnpadbend: var(--large-btn-padding);
   }
   :where([is=glass-prominent-button][role=destructive]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -2346,9 +2436,9 @@
   }
 }
 @property --label-gap {
-  syntax: "<length>";
+  syntax: "<number>";
   inherits: false;
-  initial-value: 0;
+  initial-value: 0.3;
 }
 @property --label-image-size {
   syntax: "<number>";
@@ -2367,30 +2457,9 @@
     justify-items: var(--label--host-justify-items, );
     grid-template-columns: var(--label--host-grid-template-columns, );
     grid-template-rows: var(--label--host-grid-template-rows, );
-    gap: var(--label--host-gap, );
+    gap: calc(var(--label-gap) * 1rem);
     --label-imagestack-fontsize: calc(var(--label-image-size) * 1rem);
     white-space: var(--label--host-white-space, );
-  }
-  :where(label-view)::part(label-image-stack), :where(label-view)::part(label-title-stack) {
-    grid-auto-columns: minmax(0, 1fr);
-    grid-auto-rows: minmax(0, 1fr);
-  }
-  :where(label-view)::part(label-image-stack) {
-    display: var(--label--iconstack-display, none);
-  }
-  :where(label-view)::part(label-title-stack) {
-    display: var(--label--titlestack-display, none);
-  }
-  :where(label-view)::part(label-image-stack) {
-    aspect-ratio: 1/1;
-    inline-size: var(--label-imagestack-fontsize);
-    font-size: var(--label-imagestack-fontsize);
-  }
-  :where(label-view)::part(label-title-stack) {
-    text-decoration: underline;
-    font-size: var(--label--titlestack-font-size, );
-    line-height: var(--label--titlestack-line-height, );
-    font-weight: var(--label--titlestack-font-weight, );
   }
   :where(label-view:has(> [slot=image])) {
     --label--has-icon: yes;
@@ -2405,6 +2474,16 @@
     -webkit-box-orient: var(--label--box-orient, );
     line-clamp: var(--label--line-clamp, );
     -webkit-line-clamp: var(--label--line-clamp, );
+    text-decoration: underline;
+    font-size: var(--label--titlestack-font-size, );
+    line-height: var(--label--titlestack-line-height, );
+    font-weight: var(--label--titlestack-font-weight, );
+  }
+  label-view > [slot=image] {
+    aspect-ratio: 1/1;
+    inline-size: var(--label-imagestack-fontsize);
+    block-size: var(--label-imagestack-fontsize);
+    font-size: var(--label-imagestack-fontsize);
   }
   @supports (x: if(else:red)) {
     :where(label-view) {
@@ -2429,27 +2508,17 @@
           style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
           else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
       );
-      --label-gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;);
-      --label--host-gap: if(style(--label-style: title-and-icon): var(--label-gap) ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): var(--label-gap) ;) ;);
-      --label--iconstack-display: if(
-        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
-      );
-      --label--titlestack-display: if(
-        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
-      );
     }
   }
   @supports not (x: if(else:red)) {
     @container style(--label-style: icon-only) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
-        --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
-        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) {
@@ -2459,19 +2528,13 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label-gap: 0.3rem;
-        --label--host-gap: var(--label-gap);
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
       }
     }
     :where(label-view[label-style=icon-only]) {
       --label-style: icon-only;
-      --label--iconstack-display: grid;
     }
     :where(label-view[label-style=title-only]) {
       --label-style: title-only;
-      --label--titlestack-display: grid;
     }
     :where(label-view[label-style=title-and-icon]) {
       --label-style: title-and-icon;
@@ -2479,10 +2542,6 @@
       --label--host-grid-template-rows: minmax(0, 1fr);
       --label--host-align-items: center;
       --label--host-justify-items: normal;
-      --label-gap: 0.3rem;
-      --label--host-gap: var(--label-gap);
-      --label--iconstack-display: grid;
-      --label--titlestack-display: grid;
     }
     @container not style(--label-style) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
@@ -2491,30 +2550,22 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label-gap: 0.3rem;
-        --label--host-gap: var(--label-gap);
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
-        --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
-        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
-        --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
-        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
@@ -2524,20 +2575,14 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label-gap: 0.3rem;
-        --label--host-gap: var(--label-gap);
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
       }
     }
     @container style(--label-flow: vertical) {
       :where(label-view[label-style=icon-only]) {
         --label-style: icon-only;
-        --label--iconstack-display: grid;
       }
       :where(label-view[label-style=title-only]) {
         --label-style: title-only;
-        --label--titlestack-display: grid;
       }
       :where(label-view[label-style=title-and-icon]) {
         --label-style: title-and-icon;
@@ -2545,10 +2590,6 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label-gap: 0.3rem;
-        --label--host-gap: var(--label-gap);
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
       }
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
@@ -2558,18 +2599,12 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label-gap: 0.3rem;
-        --label--host-gap: var(--label-gap);
-        --label--iconstack-display: grid;
-        --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
-        --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
-        --label--titlestack-display: grid;
       }
     }
     @container style(--label-line-limit: 1) {
@@ -4910,6 +4945,8 @@
     color: var(--blue2);
   }
   :where([tint=gray]) {
+    --accentColorEffective: var(--gray);
+    --accentColorEffective4: var(--gray4);
     --accentColor: var(--gray);
     --accentColor2: var(--gray2);
     --accentColor3: var(--gray3);
@@ -4920,6 +4957,8 @@
     --accentSubtle: var(--gray4);
   }
   :where([tint=blue]) {
+    --accentColorEffective: var(--blue);
+    --accentColorEffective4: var(--blue4);
     --accentColor: var(--blue);
     --accentColor2: var(--blue2);
     --accentColor3: var(--blue3);
@@ -4930,6 +4969,8 @@
     --accentSubtle: var(--blue4);
   }
   :where([tint=red]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
     --accentColor2: var(--red2);
     --accentColor3: var(--red3);
@@ -6693,6 +6734,19 @@
   }
 }
 @layer sw-transitions {
+  @keyframes progressViewCircular {
+    0% {
+      opacity: 0.85;
+    }
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      opacity: 0.25;
+    }
+  }
+}
+@layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
     :where([is=glass-button]) {
       transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
@@ -7748,23 +7802,23 @@
     --btnactivetext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h));
   }
   :where([is=bordered-button]) {
-    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btntext: var(--accentColorEffective, var(--accentColor));
     --btnhighlighttext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
     );
     --btnactivetext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
     );
-    --btnface: light-dark(var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)), var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)));
+    --btnface: light-dark(var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)), var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)));
     --btnhighlightface: light-dark(
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
     );
     --btnactiveface: light-dark(
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
     );
   }
   :where([is=bordered-prominent-button]) {
@@ -7776,14 +7830,14 @@
     --btnactiveface: light-dark(oklch(from var(--accentColor) max(calc(l * 0.8), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
   }
   :where([is=glass-button]) {
-    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btntext: var(--accentColorEffective, var(--accentColor));
     --btnhighlighttext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
     );
     --btnactivetext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
     );
     --btnface: light-dark(var(--clear-glass-bg), var(--clear-glass-bg-dark));
     --btnhighlightface: light-dark(var(--clear-glass-focus-bg), var(--clear-glass-focus-bg-dark));

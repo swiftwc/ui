@@ -920,6 +920,59 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/progress-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ProgressView",
+          "tagName": "progress-view",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "progressViewStyle"
+            },
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label"
+            },
+            {
+              "name": "current-value-label"
+            },
+            {
+              "name": "value"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ProgressView",
+          "declaration": {
+            "name": "ProgressView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "progress-view",
+          "declaration": {
+            "name": "ProgressView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/screen-view.ts",
       "declarations": [
         {

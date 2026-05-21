@@ -1,0 +1,98 @@
+@use '../vars';
+
+// @property --progress-view-style {
+//   syntax: 'circular | linear';
+//   inherits: false;
+//   initial-value: circular;
+// }
+@property --progress-view-style-index {
+  syntax: '<number>';
+  inherits: false;
+  initial-value: 0;
+}
+
+@layer #{vars.$components-layer} {
+  progress-view {
+    :where(&) {
+      transition: --progress-view-style-index 1ms step-start;
+
+      grid-template-columns: minmax(0, 1fr);
+
+      place-items: center;
+      place-content: center;
+
+      gap: 0.3rem;
+
+      &::part(progress-line-control) {
+        background-color: var(--gray3);
+
+        inline-size: 100%;
+        block-size: 5px;
+
+        border-radius: var(--pill-border-radius);
+
+        border-left: solid 40px var(--accentColorEffective, var(--accentColor));
+      }
+
+      &::part(progress-circular-control) {
+        position: relative;
+
+        inline-size: 2rem;
+        block-size: 2rem;
+      }
+
+      &::part(progress-circular-blade) {
+        position: absolute;
+        inset: 32.5% auto auto 42.5%;
+        inline-size: 12.5%;
+        block-size: 32.5%;
+        background-color: var(--accentColorEffective, var(--secondary));
+        border-radius: var(--pill-border-radius);
+        will-change: opacity;
+        @media (prefers-reduced-motion: no-preference) {
+          animation: progressViewCircular 1s linear infinite;
+        }
+      }
+      &::part(progress-circular-blade-1) {
+        transform: rotate(45deg) translateY(-100%);
+        animation-delay: -1.625s;
+      }
+      &::part(progress-circular-blade-2) {
+        transform: rotate(90deg) translateY(-100%);
+        animation-delay: -1.5s;
+      }
+      &::part(progress-circular-blade-3) {
+        transform: rotate(135deg) translateY(-100%);
+        animation-delay: -1.375s;
+      }
+      &::part(progress-circular-blade-4) {
+        transform: rotate(180deg) translateY(-100%);
+        animation-delay: -1.25s;
+      }
+      &::part(progress-circular-blade-5) {
+        transform: rotate(225deg) translateY(-100%);
+        animation-delay: -1.125s;
+      }
+      &::part(progress-circular-blade-6) {
+        transform: rotate(270deg) translateY(-100%);
+        animation-delay: -1s;
+      }
+      &::part(progress-circular-blade-7) {
+        transform: rotate(315deg) translateY(-100%);
+        animation-delay: -0.875s;
+      }
+      &::part(progress-circular-blade-8) {
+        transform: rotate(360deg) translateY(-100%);
+        animation-delay: -0.75s;
+      }
+    }
+
+    @each $k, $v in (circular: 0, linear: 1) {
+      &[progress-view-style='#{$k}'] {
+        :where(&) {
+          --progress-view-style-index: #{$v};
+        }
+      }
+    }
+  }
+}

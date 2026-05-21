@@ -29,9 +29,9 @@ export class PickerView extends FormAssociatedBase {
 
   #shadowRoot
 
-  #customValidity: string = ''
-
   #slots?: Map<string, HTMLSlotElement> = new Map()
+
+  #customValidity: string = ''
 
   // #validitiesSlot?: HTMLSlotElement
 

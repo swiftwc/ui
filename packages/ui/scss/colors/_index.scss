@@ -608,25 +608,34 @@ $colors: map.merge(
   }
 
   :where([is='bordered-button']) {
-    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btntext: var(--accentColorEffective, var(--accentColor));
     --btnhighlighttext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h)
     );
     --btnactivetext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h)
     );
 
-    --btnface: light-dark(var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)), var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)));
+    --btnface: light-dark(var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)), var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)));
     --btnhighlightface: light-dark(
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
     );
     --btnactiveface: light-dark(
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
-      oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
+      oklch(from var(--accentColorEffective4, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
     );
+    // --btnface: light-dark(var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)), var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)));
+    // --btnhighlightface: light-dark(
+    //   oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.95), 0) min(calc(c * 1.8), c) h),
+    //   oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.2), 1) min(calc(c * 1.8), c) h)
+    // );
+    // --btnactiveface: light-dark(
+    //   oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) max(calc(l * 0.9), 0) min(calc(c * 1.8), c) h),
+    //   oklch(from var(--accentSubtle, oklch(from var(--accentColor4) l 0 h)) min(calc(l * 1.3), 1) min(calc(c * 1.8), c) h)
+    // );
   }
 
   :where([is='bordered-prominent-button']) {
@@ -640,14 +649,14 @@ $colors: map.merge(
   }
 
   :where([is='glass-button']) {
-    --btntext: var(--accentEmphasis, var(--accentColor));
+    --btntext: var(--accentColorEffective, var(--accentColor));
     --btnhighlighttext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h)
     );
     --btnactivetext: light-dark(
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
-      oklch(from var(--accentEmphasis, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h),
+      oklch(from var(--accentColorEffective, var(--accentColor)) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h)
     );
 
     --btnface: light-dark(var(--clear-glass-bg), var(--clear-glass-bg-dark));

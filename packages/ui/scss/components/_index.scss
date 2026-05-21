@@ -29,6 +29,7 @@
   list-view,
   table-view,
   content-unavailable-view,
+  progress-view,
   tool-bar-item,
   tool-bar-item-group,
   fine-tooltip,
@@ -48,6 +49,7 @@
     }
   }
 
+  :where(progress-view)::part(progress-control),
   :where(content-unavailable-view)::part(content-unavailable-title-stack),
   :where(content-unavailable-view)::part(content-unavailable-description-stack),
   :where(content-unavailable-view)::part(content-unavailable-actions-stack),

@@ -25,6 +25,9 @@
 
   [tint='gray'] {
     :where(&) {
+      --accentColorEffective: var(--gray);
+      --accentColorEffective4: var(--gray4);
+
       --accentColor: var(--gray);
       --accentColor2: var(--gray2);
       --accentColor3: var(--gray3);
@@ -40,6 +43,9 @@
 
   [tint='blue'] {
     :where(&) {
+      --accentColorEffective: var(--blue);
+      --accentColorEffective4: var(--blue4);
+
       --accentColor: var(--blue);
       --accentColor2: var(--blue2);
       --accentColor3: var(--blue3);
@@ -54,6 +60,9 @@
 
   [tint='red'] {
     :where(&) {
+      --accentColorEffective: var(--red);
+      --accentColorEffective4: var(--red4);
+
       --accentColor: var(--red);
       --accentColor2: var(--red2);
       --accentColor3: var(--red3);

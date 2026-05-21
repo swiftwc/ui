@@ -10,12 +10,16 @@ export class LabelView extends HTMLElement {
   static get template() {
     return (this.#template ??= $(
       String.raw`
-  <div part="root label-image-stack">
     <slot name="image"></slot>
-  </div>
-  <div part="root label-title-stack">
     <slot></slot>
-  </div>`
+    `
+      //     String.raw`
+      // <div part="root label-image-stack">
+      //   <slot name="image"></slot>
+      // </div>
+      // <div part="root label-title-stack">
+      //   <slot></slot>
+      // </div>`
     ))
   }
 

@@ -6,7 +6,7 @@ import onoff from './onoff'
 
 function renderPlaceholder(el: HTMLElement, role: string | null) {
   const label = el.querySelector(':scope>[slot=placeholder]') ?? el.appendChild($(`<label-view slot="placeholder"></label-view>`, '>1'))
-  console.log(9999999, el, role)
+
   switch (role) {
     case 'cancel':
       label.setAttribute('title', I18n.t('ButtonRole').Default.Cancel)

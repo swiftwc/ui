@@ -191,6 +191,21 @@
       "name": "plain-button"
     },
     {
+      "name": "progress-view",
+      "description": "",
+      "attributes": [
+        {
+          "name": "label"
+        },
+        {
+          "name": "current-value-label"
+        },
+        {
+          "name": "value"
+        }
+      ]
+    },
+    {
       "name": "screen-view"
     },
     {

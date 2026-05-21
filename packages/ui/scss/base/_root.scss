@@ -1,6 +1,7 @@
 @use '../vars';
 @use '../mixins';
 @use 'sass:map';
+@use 'sass:string';
 
 @property --root-font-size {
   syntax: '<number>';

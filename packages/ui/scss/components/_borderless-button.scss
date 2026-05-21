@@ -13,6 +13,9 @@
     }
 
     :where(&[role='destructive']) {
+      --accentColorEffective: var(--red);
+      --accentColorEffective4: var(--red4);
+
       --accentColor: var(--red);
       --accentColor2: var(--red2);
       --accentColor3: var(--red3);

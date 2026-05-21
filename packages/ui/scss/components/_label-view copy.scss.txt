@@ -5,9 +5,9 @@
 
 // scalpel precision
 @property --label-gap {
-  syntax: '<number>';
+  syntax: '<length>';
   inherits: false;
-  initial-value: 0.3;
+  initial-value: 0;
 }
 
 @property --label-image-size {
@@ -33,6 +33,7 @@
 //   inherits: false;
 //   initial-value: regular;
 // }
+
 
 // @property --label--style {
 //   syntax: '<number>';
@@ -79,10 +80,20 @@ $label-line-ifs: (
     --label--host-grid-template-rows: minmax(0, 1fr);
     --label--host-align-items: center;
     --label--host-justify-items: normal;
+
+    --label-gap: 0.3rem;
+    --label--host-gap: var(--label-gap);
+
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
   } @else if $label-style == h-icon-only {
     --label-style: icon-only;
+
+    --label--iconstack-display: grid;
   } @else if $label-style == h-title-only {
     --label-style: title-only;
+
+    --label--titlestack-display: grid;
   } @else if $label-style == v-title-and-icon {
     --label-style: title-and-icon;
 
@@ -90,12 +101,41 @@ $label-line-ifs: (
     --label--host-grid-template-rows: auto minmax(0, 1fr);
     --label--host-align-items: normal;
     --label--host-justify-items: center;
+
+    --label-gap: 0.3rem;
+    --label--host-gap: var(--label-gap);
+
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
   } @else if $label-style == v-icon-only {
     --label-style: icon-only;
+
+    --label--iconstack-display: grid;
   } @else if $label-style == v-title-only {
     --label-style: title-only;
+
+    --label--titlestack-display: grid;
   }
 }
+
+// @mixin set-label-truncation-mode($value) {
+//   @if $value == 'tail' {
+//     --label--overflow: hidden;
+
+//     --label--text-overflow: ellipsis;
+//   }
+// }
+
+// @mixin set-label-line-limit($value) {
+//   @if $value == 1 {
+//     --label--host-white-space: nowrap;
+//   } @else {
+//     --label--host-white-space: normal;
+//     --label--display: -webkit-box;
+//     --label--box-orient: vertical;
+//     --label--line-clamp: #{$value};
+//   }
+// }
 
 @mixin set-label-font($value) {
   --label--titlestack-font-size: var(--label-#{$value}-font-size);
@@ -133,19 +173,67 @@ $label-line-ifs: (
 @layer #{vars.$components-layer} {
   label-view {
     :where(&) {
+      // transition: --label--style 1ms step-start;
+
       padding-inline: var(--label-padding-inline);
 
       align-items: var(--label--host-align-items,);
       justify-items: var(--label--host-justify-items,);
+      // place-items: center;
+      // place-content: center;
 
+      // grid-auto-flow: column;
+      // grid-auto-columns: minmax(0, 1fr);
       grid-template-columns: var(--label--host-grid-template-columns,);
       grid-template-rows: var(--label--host-grid-template-rows,);
+      // grid-template-areas: 'label-image-stack label-title-stack';
 
-      gap: calc(var(--label-gap) * 1rem);
+      gap: var(--label--host-gap,); //;
 
+      // --label-image-size: 2rem;
       --label-imagestack-fontsize: calc(var(--label-image-size) * 1rem);
+      // gap: 0;
 
       white-space: var(--label--host-white-space,);
+
+      &::part(label-image-stack),
+      &::part(label-title-stack) {
+        // display: none;
+
+        grid-auto-columns: minmax(0, 1fr);
+        grid-auto-rows: minmax(0, 1fr);
+        // grid-template-columns: subgrid;
+        // grid-template-rows: subgrid;
+      }
+
+      &::part(label-image-stack) {
+        display: var(--label--iconstack-display, none);
+      }
+
+      &::part(label-title-stack) {
+        display: var(--label--titlestack-display, none);
+      }
+
+      &::part(label-image-stack) {
+        aspect-ratio: 1 / 1;
+
+        inline-size: var(--label-imagestack-fontsize);
+        font-size: var(--label-imagestack-fontsize);
+
+        // line-height: 1;
+
+        // grid-area: label-image-stack;
+      }
+
+      &::part(label-title-stack) {
+        text-decoration: underline;
+
+        font-size: var(--label--titlestack-font-size,);
+        line-height: var(--label--titlestack-line-height,);
+        font-weight: var(--label--titlestack-font-weight,);
+
+        // grid-area: label-title-stack;
+      }
     }
 
     &:has(> [slot='image']) {
@@ -154,7 +242,6 @@ $label-line-ifs: (
         // background-color: green;
       }
     }
-
     &:has(> :not([slot])) {
       :where(&) {
         --label--has-title: yes;
@@ -164,6 +251,7 @@ $label-line-ifs: (
 
     > :not([slot]) {
       :where(&) {
+        // grid-area: label-title-stack;
         overflow: var(--label--overflow,);
 
         text-overflow: var(--label--text-overflow,);
@@ -174,25 +262,14 @@ $label-line-ifs: (
 
         line-clamp: var(--label--line-clamp,);
         -webkit-line-clamp: var(--label--line-clamp,);
-
-        text-decoration: underline;
-
-        font-size: var(--label--titlestack-font-size,);
-
-        line-height: var(--label--titlestack-line-height,);
-
-        font-weight: var(--label--titlestack-font-weight,);
       }
     }
 
-    > [slot='image'] {
-      aspect-ratio: 1 / 1;
-
-      inline-size: var(--label-imagestack-fontsize);
-      block-size: var(--label-imagestack-fontsize);
-
-      font-size: var(--label-imagestack-fontsize);
-    }
+    // > [slot='image'] {
+    //   :where(&:is(i)) {
+    //     line-height: 1.1;
+    //   }
+    // }
 
     // vars
     @supports (x: #{string.unquote('if(else:red)')}) {
@@ -230,6 +307,17 @@ $label-line-ifs: (
             style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
             else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
         );
+
+        --label-gap: if(style(--label-style: title-and-icon): 0.3rem ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): 0.3rem ;) ;);
+        --label--host-gap: if(style(--label-style: title-and-icon): var(--label-gap) ; else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): var(--label-gap) ;) ;);
+
+        --label--iconstack-display: if(
+          style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+        );
+
+        --label--titlestack-display: if(
+          style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
+        );
       }
     }
 
@@ -248,12 +336,15 @@ $label-line-ifs: (
       }
       @container not style(--label-style) {
         &:not([label-style]) {
+          // :where(&[image-hint='yes'][title-hint='yes']) {
           :where(&:has(> [slot='image']):has(> :not([slot]))) {
             @include set-label-style(h-title-and-icon);
           }
+          // :where(&[image-hint='yes']:not([title-hint='yes'])) {
           :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
             @include set-label-style(h-icon-only);
           }
+          // :where(&[title-hint='yes']:not([image-hint='yes'])) {
           :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
             @include set-label-style(h-title-only);
           }

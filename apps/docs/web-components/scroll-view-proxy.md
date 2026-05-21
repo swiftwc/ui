@@ -1,8 +1,8 @@
 <!-- #region pre -->
 
-# TabBar
+# ScrollViewProxy
 
-A screen that lets users switch between different views using buttons, tabs, or other controls.
+A wrapper to {hv}-stacks.
 
 <!-- #endregion pre -->
 
@@ -12,6 +12,6 @@ A screen that lets users switch between different views using buttons, tabs, or 
 
 ### Conforms To
 
-`DialogHTMLElement`
+`HTMLElement`
 
 <!-- #endregion post -->

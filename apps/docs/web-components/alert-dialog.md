@@ -1,8 +1,14 @@
+---
+prev:
+  text: "Web Components"
+  link: "/web-components/"
+---
+
 <!-- #region pre -->
 
-# TabBar
+# AlertDialog
 
-A screen that lets users switch between different views using buttons, tabs, or other controls.
+
 
 <!-- #endregion pre -->
 

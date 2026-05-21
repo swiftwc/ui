@@ -1,8 +1,8 @@
 <!-- #region pre -->
 
-# BodyView
+# ContentUnavailableView
 
-
+A message with a title and extra information that you show when part of your app can’t be used.
 
 <!-- #endregion pre -->
 

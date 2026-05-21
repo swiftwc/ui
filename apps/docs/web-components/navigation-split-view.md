@@ -2,7 +2,7 @@
 
 # NavigationSplitView
 
-
+A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.
 
 <!-- #endregion pre -->
 

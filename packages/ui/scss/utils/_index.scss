@@ -35,10 +35,10 @@
       --accentColor5: var(--gray5);
     }
 
-    :where(&[is='bordered-button']) {
-      // --accentEmphasis: light-dark(color-mix(in oklch, var(--gray) 50%, var(--black)), color-mix(in oklch, var(--gray) 50%, var(--white)));
-      --accentSubtle: var(--gray4);
-    }
+    // :where(&[is='bordered-button']) {
+    //   // --accentEmphasis: light-dark(color-mix(in oklch, var(--gray) 50%, var(--black)), color-mix(in oklch, var(--gray) 50%, var(--white)));
+    //   --accentSubtle: var(--gray4);
+    // }
   }
 
   [tint='blue'] {
@@ -53,9 +53,9 @@
       --accentColor5: var(--blue5);
     }
 
-    :where(&[is='bordered-button']) {
-      --accentSubtle: var(--blue4);
-    }
+    // :where(&[is='bordered-button']) {
+    //   --accentSubtle: var(--blue4);
+    // }
   }
 
   [tint='red'] {
@@ -70,8 +70,8 @@
       --accentColor5: var(--red5);
     }
 
-    :where(&[is='bordered-button']) {
-      --accentSubtle: var(--red4);
-    }
+    // :where(&[is='bordered-button']) {
+    //   --accentSubtle: var(--red4);
+    // }
   }
 }

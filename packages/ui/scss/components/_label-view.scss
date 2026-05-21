@@ -79,10 +79,17 @@ $label-line-ifs: (
     --label--host-grid-template-rows: minmax(0, 1fr);
     --label--host-align-items: center;
     --label--host-justify-items: normal;
+
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
   } @else if $label-style == h-icon-only {
     --label-style: icon-only;
+
+    --label--iconstack-display: grid;
   } @else if $label-style == h-title-only {
     --label-style: title-only;
+
+    --label--titlestack-display: grid;
   } @else if $label-style == v-title-and-icon {
     --label-style: title-and-icon;
 
@@ -90,10 +97,17 @@ $label-line-ifs: (
     --label--host-grid-template-rows: auto minmax(0, 1fr);
     --label--host-align-items: normal;
     --label--host-justify-items: center;
+
+    --label--iconstack-display: grid;
+    --label--titlestack-display: grid;
   } @else if $label-style == v-icon-only {
     --label-style: icon-only;
+
+    --label--iconstack-display: grid;
   } @else if $label-style == v-title-only {
     --label-style: title-only;
+
+    --label--titlestack-display: grid;
   }
 }
 
@@ -182,6 +196,8 @@ $label-line-ifs: (
         line-height: var(--label--titlestack-line-height,);
 
         font-weight: var(--label--titlestack-font-weight,);
+
+        display: var(--label--titlestack-display, none);
       }
     }
 
@@ -192,6 +208,8 @@ $label-line-ifs: (
       block-size: var(--label-imagestack-fontsize);
 
       font-size: var(--label-imagestack-fontsize);
+
+      display: var(--label--iconstack-display, none);
     }
 
     // vars
@@ -229,6 +247,14 @@ $label-line-ifs: (
           style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
             style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
             else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
+        );
+
+        --label--iconstack-display: if(
+          style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+        );
+
+        --label--titlestack-display: if(
+          style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
         );
       }
     }

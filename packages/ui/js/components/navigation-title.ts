@@ -46,7 +46,7 @@ export class NavigationTitle extends HTMLElement {
         this.querySelector(':scope>:not([slot])') ??
         this.appendChild(
           $(
-            `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
+            `<navigation-large-title><v-stack spacing="0" alignment="fill"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
             '>1'
           )
         ),
@@ -54,7 +54,7 @@ export class NavigationTitle extends HTMLElement {
         el.querySelector(':scope>v-stack') ??
         el.appendChild(
           $(
-            `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
+            `<v-stack spacing="0" alignment="fill"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
             '>1'
           )
         )

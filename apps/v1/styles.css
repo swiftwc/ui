@@ -2264,6 +2264,12 @@
     --accentColor5: var(--red5);
   }
 }
+@layer sw-colors {
+  [is=bordered-prominent-button] {
+    --secondary: var(--btntext);
+    --blue: var(--btntext);
+  }
+}
 @layer sw-utils {
   :where([is=bordered-prominent-button]) {
     text-align: center;
@@ -2360,6 +2366,12 @@
     --accentColor3: var(--red3);
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
+  }
+}
+@layer sw-colors {
+  [is=bordered-prominent-button] {
+    --secondary: var(--btntext);
+    --blue: var(--btntext);
   }
 }
 @layer sw-utils {
@@ -2478,12 +2490,14 @@
     font-size: var(--label--titlestack-font-size, );
     line-height: var(--label--titlestack-line-height, );
     font-weight: var(--label--titlestack-font-weight, );
+    display: var(--label--titlestack-display, none);
   }
   label-view > [slot=image] {
     aspect-ratio: 1/1;
     inline-size: var(--label-imagestack-fontsize);
     block-size: var(--label-imagestack-fontsize);
     font-size: var(--label-imagestack-fontsize);
+    display: var(--label--iconstack-display, none);
   }
   @supports (x: if(else:red)) {
     :where(label-view) {
@@ -2508,17 +2522,25 @@
           style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
           else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
       );
+      --label--iconstack-display: if(
+        style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+      );
+      --label--titlestack-display: if(
+        style(--label-style: icon-only): none ; style(--label-style: title-only): grid ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-title: yes): grid ; else: none;) ;
+      );
     }
   }
   @supports not (x: if(else:red)) {
     @container style(--label-style: icon-only) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
+        --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
+        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) {
@@ -2528,13 +2550,17 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
       }
     }
     :where(label-view[label-style=icon-only]) {
       --label-style: icon-only;
+      --label--iconstack-display: grid;
     }
     :where(label-view[label-style=title-only]) {
       --label-style: title-only;
+      --label--titlestack-display: grid;
     }
     :where(label-view[label-style=title-and-icon]) {
       --label-style: title-and-icon;
@@ -2542,6 +2568,8 @@
       --label--host-grid-template-rows: minmax(0, 1fr);
       --label--host-align-items: center;
       --label--host-justify-items: normal;
+      --label--iconstack-display: grid;
+      --label--titlestack-display: grid;
     }
     @container not style(--label-style) {
       :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
@@ -2550,22 +2578,28 @@
         --label--host-grid-template-rows: minmax(0, 1fr);
         --label--host-align-items: center;
         --label--host-justify-items: normal;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
+        --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
+        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
+        --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
+        --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
@@ -2575,14 +2609,18 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
       }
     }
     @container style(--label-flow: vertical) {
       :where(label-view[label-style=icon-only]) {
         --label-style: icon-only;
+        --label--iconstack-display: grid;
       }
       :where(label-view[label-style=title-only]) {
         --label-style: title-only;
+        --label--titlestack-display: grid;
       }
       :where(label-view[label-style=title-and-icon]) {
         --label-style: title-and-icon;
@@ -2590,6 +2628,8 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
       }
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
@@ -2599,12 +2639,16 @@
         --label--host-grid-template-rows: auto minmax(0, 1fr);
         --label--host-align-items: normal;
         --label--host-justify-items: center;
+        --label--iconstack-display: grid;
+        --label--titlestack-display: grid;
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
+        --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
+        --label--titlestack-display: grid;
       }
     }
     @container style(--label-line-limit: 1) {
@@ -4953,9 +4997,6 @@
     --accentColor4: var(--gray4);
     --accentColor5: var(--gray5);
   }
-  :where([tint=gray][is=bordered-button]) {
-    --accentSubtle: var(--gray4);
-  }
   :where([tint=blue]) {
     --accentColorEffective: var(--blue);
     --accentColorEffective4: var(--blue4);
@@ -4965,9 +5006,6 @@
     --accentColor4: var(--blue4);
     --accentColor5: var(--blue5);
   }
-  :where([tint=blue][is=bordered-button]) {
-    --accentSubtle: var(--blue4);
-  }
   :where([tint=red]) {
     --accentColorEffective: var(--red);
     --accentColorEffective4: var(--red4);
@@ -4976,9 +5014,6 @@
     --accentColor3: var(--red3);
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
-  }
-  :where([tint=red][is=bordered-button]) {
-    --accentSubtle: var(--red4);
   }
 }
 @layer sw-utils {

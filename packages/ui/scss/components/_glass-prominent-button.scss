@@ -40,6 +40,13 @@
   }
 }
 
+@layer #{vars.$colors-layer} {
+  [is='bordered-prominent-button'] {
+    --secondary: var(--btntext);
+    --blue: var(--btntext);
+  }
+}
+
 @layer #{vars.$utils-layer} {
   [is='glass-prominent-button'] {
     :where(&) {

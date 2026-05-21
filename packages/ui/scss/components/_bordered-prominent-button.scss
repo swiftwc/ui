@@ -1,5 +1,6 @@
 @use '../vars';
 @use '../placeholders';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   [is='bordered-prominent-button'] {
@@ -31,6 +32,13 @@
       --accentColor4: var(--red4);
       --accentColor5: var(--red5);
     }
+  }
+}
+
+@layer #{vars.$colors-layer} {
+  [is='bordered-prominent-button'] {
+    --secondary: var(--btntext);
+    --blue: var(--btntext);
   }
 }
 

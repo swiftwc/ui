@@ -39,6 +39,11 @@ function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
         label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
 
         break
+      case 'cancellation-action':
+        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
+        label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
+
+        break
       case 'destructive':
         label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Destructive)
         label.setAttribute('system-image', Snapshot.config!['delete-button-icon'])

@@ -479,6 +479,7 @@ export const alert = async (
 export const confirmationDialog = async (
   trigger: HTMLElement,
   title: string,
+  message?: string,
   actions?: {
     label?: string
     image?: string
@@ -489,15 +490,22 @@ export const confirmationDialog = async (
 ) => {
   const newAnchorName = `--confirmation-dialog-${self.crypto.randomUUID()}`
 
-  const dialog = $<HTMLDialogElement>(`<dialog is="confirmation-dialog"></dialog>`, '>1')
+  const dialog = $<HTMLDialogElement>(`<dialog is="confirmation-dialog"></dialog>`, '>1'),
+    vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
 
   trigger.style.setProperty('anchor-name', newAnchorName, 'important') //$.prop('anchor-name', newAnchorName, trigger, 'important')
   dialog.style.setProperty('position-anchor', newAnchorName) //$.prop('position-anchor', newAnchorName, dialog)
 
   if (title && false !== options?.titleVisibility) {
-    const label = $(`<label-view></label-view>`, '>1')
+    const label = $(`<label-view font="headline"></label-view>`, '>1')
     label.setAttribute('title', title)
-    dialog.insertAdjacentElement('beforeend', label)
+    vStack.insertAdjacentElement('beforeend', label)
+  }
+
+  if (message && false !== options?.titleVisibility) {
+    const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
+    label.setAttribute('title', message)
+    vStack.insertAdjacentElement('beforeend', label)
   }
 
   for (const [index, action] of (actions ?? []).entries()) {

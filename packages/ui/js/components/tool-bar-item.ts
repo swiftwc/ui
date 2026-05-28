@@ -67,7 +67,7 @@ export class ToolBarItem extends HTMLElement {
         const target = this.querySelector<HTMLElement>(':scope>button'),
           nv = this.getAttribute('data-previous-slot') ?? this.getAttribute('slot') ?? ''
 
-        if (target && ['confirmation-action'].includes(nv))
+        if (target && ['confirmation-action', 'cancellation-action'].includes(nv))
           Snapshot.waitReady.then(() => {
             buttonRole(target, nv, this.getAttribute('title-key'))
           })

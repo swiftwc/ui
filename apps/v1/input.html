@@ -51,6 +51,16 @@
         </text-field>
         <text-field placeholder="here" label="Name"></text-field>
       </form>
+      <form>
+        <text-field placeholder="here" label="Number" text="3443343434343434" required min-length="15" max-length="20">
+          <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
+          <option slot="validity-options" value="value-missing" label="Minimum Tip"></option>
+          <option slot="validity-options" value="too-short" label="Minimum Tippppty"></option>
+          <option slot="validity-options" value="range-underflow" label="Minimum Tippps2323"></option>
+          <option slot="validity-options" value="custom-error:too-short" label="Minimum Tippp"></option>
+        </text-field>
+        <button type="submit">text-maxlength!</button>
+      </form>
       <p>form w/ 2 sectioned Textfields</p>
       <form is="form-view">
         <section-view header="Personal Info">

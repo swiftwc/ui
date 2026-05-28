@@ -32,13 +32,25 @@
       --accentColor4: var(--red4);
       --accentColor5: var(--red5);
     }
+    :where(&[role='confirm']) {
+      --accentColorEffective: var(--blue);
+      --accentColorEffective4: var(--blue4);
+
+      --accentColor: var(--blue);
+      --accentColor2: var(--blue2);
+      --accentColor3: var(--blue3);
+      --accentColor4: var(--blue4);
+      --accentColor5: var(--blue5);
+    }
   }
 }
 
 @layer #{vars.$colors-layer} {
-  [is='bordered-prominent-button'] {
-    --secondary: var(--btntext);
-    --blue: var(--btntext);
+  [is='bordered-prominent-button'] > * {
+    :where(&) {
+      --secondary: var(--btntext);
+      --blue: var(--btntext);
+    }
   }
 }
 

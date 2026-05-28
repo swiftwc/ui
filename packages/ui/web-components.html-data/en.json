@@ -13,6 +13,9 @@
       "attributes": [
         {
           "name": "role"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },
@@ -22,6 +25,9 @@
       "attributes": [
         {
           "name": "role"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },
@@ -31,6 +37,9 @@
       "attributes": [
         {
           "name": "role"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },
@@ -116,6 +125,9 @@
       "attributes": [
         {
           "name": "role"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },
@@ -125,6 +137,9 @@
       "attributes": [
         {
           "name": "role"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },
@@ -322,6 +337,9 @@
         },
         {
           "name": "data-previous-slot"
+        },
+        {
+          "name": "title-key"
         }
       ]
     },

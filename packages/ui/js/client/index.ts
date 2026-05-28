@@ -455,7 +455,7 @@ export const alert = async (
 
     dialog.showModal()
 
-    const { promise, resolve } = Promise.withResolvers<unknown>(),
+    const { promise, resolve } = Promise.withResolvers<string>(),
       off = onoff(
         'alert:return',
         (evt: any) => {
@@ -512,7 +512,7 @@ export const confirmationDialog = async (
 
   trigger.closest('body-view,dialog')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
 
-  const { promise, resolve } = Promise.withResolvers<unknown>(),
+  const { promise, resolve } = Promise.withResolvers<string>(),
     off = onoff(
       'confirmation:return',
       (evt: any) => {
@@ -552,3 +552,5 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 // SECTION
 
 export { I18n, lifecycleObserver, NavigationPath, Snapshot }
+
+export { type NavigationHost }

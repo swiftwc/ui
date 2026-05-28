@@ -11,7 +11,7 @@ hero:
       text: Get Started
       link: /installation/
     - theme: alt
-      text: Browse Components
+      text: View Components
       link: /web-components/
 # - theme: alt
 #   text: What’s New in SwiftWC 1

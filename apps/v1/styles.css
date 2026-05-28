@@ -1695,9 +1695,10 @@
     color: var(--text, );
     touch-action: none;
     position: fixed;
-    inline-size: fit-content;
-    block-size: fit-content;
+    inline-size: max-content;
+    block-size: max-content;
     height: auto;
+    min-inline-size: min(20rem, 80svw);
     max-inline-size: var(--confirmation--dialog-max-inline-size, );
     max-block-size: var(--confirmation--dialog-max-block-size, );
     margin-block: var(--confirmation--dialog-margin-block, );
@@ -7794,6 +7795,12 @@
     --toolbaritemhighlighttext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
     --toolbaritemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
+  }
+  :where(tool-bar-item[tint], [tint] tool-bar-item,
+  tool-bar-item-group[tint],
+  [tint] tool-bar-item-group,
+  navigation-split-view sidebar-toggle[tint],
+  [tint] navigation-split-view sidebar-toggle) > button {
     --secondary: var(--btntext);
     --blue: var(--btntext);
     --accentColorEffective: var(--btntext);

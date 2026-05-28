@@ -42,49 +42,19 @@ export class NavigationTitle extends HTMLElement {
   }
 
   #render = (title: string | null, subtitle: string | null) => {
-    const el =
-        this.querySelector(':scope>:not([slot])') ??
-        this.appendChild(
-          $(
-            `<navigation-large-title><v-stack spacing="0" alignment="fill"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
-            '>1'
-          )
-        ),
-      vStack =
-        el.querySelector(':scope>v-stack') ??
-        el.appendChild(
-          $(
-            `<v-stack spacing="0" alignment="fill"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack>`,
-            '>1'
-          )
-        )
+    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`,
+      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"></label-view>`,
+      vStactTemplate = `<v-stack spacing="0" alignment="fill">${titleTemplate}${subtitleTemplate}</v-stack>`
 
-    let titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)')
-    if (title) {
-      titleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`, '>1'))
-      titleLabel.setAttribute('title', title)
-    } else titleLabel?.remove()
+    const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
+      vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
 
-    let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)')
-    if (subtitle) {
-      subtitleLabel ??= vStack.appendChild($(`<label-view line-limit="1" truncation-mode="tail" font="callout"></label-view>`, '>1'))
-      subtitleLabel.setAttribute('title', subtitle)
-    } else subtitleLabel?.remove()
+    const titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)') ?? vStack.appendChild($(titleTemplate, '>1'))
+    if (title) titleLabel.setAttribute('title', title)
+    else titleLabel?.removeAttribute('title')
 
-    // for (const el of this.querySelectorAll(':scope>*')) el.remove()
-
-    // const el = this.appendChild(
-    //     Object.assign(document.createElement('template'), {
-    //       innerHTML: `<navigation-large-title><v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"></label-view><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></v-stack></navigation-large-title>`,
-    //     }).content.firstElementChild!
-    //   ),
-    //   titleLabel = el.querySelector('label-view:nth-child(1)'),
-    //   subtitleLabel = el.querySelector('label-view:nth-child(2)')
-
-    // if (title) titleLabel?.setAttribute('label', title)
-    // else titleLabel?.remove()
-
-    // if (subtitle) subtitleLabel?.setAttribute('label', subtitle)
-    // else subtitleLabel?.remove()
+    const subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)') ?? vStack.appendChild($(subtitleTemplate, '>1'))
+    if (subtitle) subtitleLabel.setAttribute('title', subtitle)
+    else subtitleLabel?.removeAttribute('title')
   }
 }

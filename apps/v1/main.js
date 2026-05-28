@@ -759,7 +759,12 @@ export const navHandler = async (event) => {
         .some(Boolean)
     else el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
   }
+
+  for (const el of document.querySelectorAll('button[tag]'))
+    el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.getAttribute('tag'))}"]:not([hidden])`))}`
 }
 
+lifecycleObserver.addEventListener('tabshow', navHandler)
+lifecycleObserver.addEventListener('tabhide', navHandler)
 lifecycleObserver.addEventListener('pageshow', navHandler)
 lifecycleObserver.addEventListener('pagehide', navHandler)

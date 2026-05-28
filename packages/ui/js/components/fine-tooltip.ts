@@ -6,7 +6,13 @@ export class FineTooltip extends HTMLElement {
     super()
   }
 
-  #handleMutation = (mutations: MutationRecord[]) => {
+  #handleTriggerRemovalMutation = (mutations: MutationRecord[]) => {
+    if (this.#queryTrigger?.isConnected) return
+
+    this?.remove()
+  }
+
+  #handleTriggerAttrMutation = (mutations: MutationRecord[]) => {
     for (const { target, attributeName } of mutations) if (target instanceof HTMLElement && target && attributeName) this.#render(target.getAttribute(attributeName))
   }
 
@@ -28,7 +34,8 @@ export class FineTooltip extends HTMLElement {
     }
   }
 
-  #observer = new MutationObserver(this.#handleMutation)
+  #mutationObserver = new MutationObserver(this.#handleTriggerAttrMutation)
+  #mutationObserver2 = new MutationObserver(this.#handleTriggerRemovalMutation)
 
   #resizeObserver = new ResizeObserver(this.#handleMeasure)
 
@@ -74,7 +81,8 @@ export class FineTooltip extends HTMLElement {
 
     this.#resizeObserver.unobserve(this)
 
-    this.#observer?.disconnect()
+    this.#mutationObserver?.disconnect()
+    this.#mutationObserver2?.disconnect()
 
     this.#queryTrigger?.style.removeProperty('anchor-name')
 
@@ -101,9 +109,13 @@ export class FineTooltip extends HTMLElement {
     } else {
       this.#render(trigger.getAttribute('help'))
 
-      this.#observer.observe(trigger, {
+      this.#mutationObserver.observe(trigger, {
         attributes: true,
         attributeFilter: ['help'],
+      })
+      this.#mutationObserver2.observe(document.body, {
+        childList: true,
+        subtree: true,
       })
 
       this.#resizeObserver.observe(this)

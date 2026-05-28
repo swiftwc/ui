@@ -3,9 +3,9 @@
   "name": "@swiftwc/v1",
   "type": "module",
   "scripts": {
-    "dev": "vite",
-    "dev:scss": "sass ../../packages/ui/scss/index.scss:styles.css dev.scss:dev.css --watch",
-    "dev:tunnel": "ngrok http --config .config/ngrok.yml 5173",
+    "start": "vite",
+    "start:scss": "sass ../../packages/ui/scss/index.scss:styles.css dev.scss:dev.css --watch",
+    "start:tunnel": "ngrok http --config .config/ngrok.yml 5173",
     "preview:scss": "sass --no-source-map ../../packages/ui/scss/index.scss styles.css --watch",
     "test:eslint": "npx eslint --debug books.html"
   },

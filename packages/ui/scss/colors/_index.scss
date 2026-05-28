@@ -517,18 +517,23 @@ $colors: map.merge(
       // }
     }
 
-    :where(&[tint], [tint] &) {
-      // --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      // --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
-      // --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+    &[tint],
+    [tint] & {
+      :where(&) {
+        // --toolbaritemtext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+        // --toolbaritemhighlighttext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
+        // --toolbaritemactivetext: oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none);
 
-      @include mixins.wire-tinted-glass(toolbaritem);
+        @include mixins.wire-tinted-glass(toolbaritem);
 
-      --secondary: var(--btntext);
-      --blue: var(--btntext);
+        > button {
+          --secondary: var(--btntext);
+          --blue: var(--btntext);
 
-      --accentColorEffective: var(--btntext);
-      --accentColor: var(--btntext);
+          --accentColorEffective: var(--btntext);
+          --accentColor: var(--btntext);
+        }
+      }
     }
   }
 

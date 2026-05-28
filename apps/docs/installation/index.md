@@ -21,7 +21,7 @@ Instructions on how to add the SwiftWC Web Components to your app.
 
 ::: code-group
 
-```html [unpkg]
+```html [UNPKG]
 <!doctype html>
 <html>
   <head>

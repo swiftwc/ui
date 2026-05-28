@@ -7,12 +7,10 @@ export default defineTranslations(() => ({
     Description: 'Ελέγξτε την ορθογραφία ή δοκιμάστε μια νέα αναζήτηση.',
   },
   ButtonRole: {
-    Default: {
-      Cancel: 'Cancel',
-      Close: 'Close',
-      Confirm: 'Confirm',
-      Destructive: 'Διαγραφή',
-      OK: 'OK',
-    },
+    Cancel: 'Cancel',
+    Close: 'Close',
+    Confirm: 'Confirm',
+    Destructive: 'Διαγραφή',
+    OK: 'OK',
   },
 }))

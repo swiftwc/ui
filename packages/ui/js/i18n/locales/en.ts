@@ -7,12 +7,10 @@ export default defineTranslations(() => ({
     Description: 'Check the spelling or try a new search.',
   },
   ButtonRole: {
-    Default: {
-      Cancel: 'Cancel',
-      Close: 'Close',
-      Confirm: 'Confirm',
-      Destructive: 'Delete',
-      OK: 'OK',
-    },
+    Cancel: 'Cancel',
+    Close: 'Close',
+    Confirm: 'Confirm',
+    Destructive: 'Delete',
+    OK: 'OK',
   },
 }))

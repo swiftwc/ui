@@ -4,7 +4,7 @@ import { Snapshot } from '../snapshot'
 
 export class ToolBarItem extends HTMLElement {
   static get observedAttributes() {
-    return ['slot', 'data-previous-slot']
+    return ['slot', 'data-previous-slot', 'title-key']
   }
 
   constructor() {
@@ -63,10 +63,13 @@ export class ToolBarItem extends HTMLElement {
     switch (name) {
       case 'slot':
       case 'data-previous-slot':
-        const target = this.querySelector<HTMLElement>(':scope>button')
-        if (target && ['confirmation-action'].includes(newValue ?? ''))
+      case 'title-key':
+        const target = this.querySelector<HTMLElement>(':scope>button'),
+          nv = this.getAttribute('data-previous-slot') ?? this.getAttribute('slot') ?? ''
+
+        if (target && ['confirmation-action'].includes(nv))
           Snapshot.waitReady.then(() => {
-            buttonRole(target, newValue)
+            buttonRole(target, nv, this.getAttribute('title-key'))
           })
 
         break

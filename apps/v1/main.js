@@ -186,6 +186,8 @@ document.body.addEventListener('click', async (event) => {
           },
         ]
       )
+    } else if (event.target.closest('.alert2')) {
+      void alert()
     }
     if (event.target.closest('.backtocontroller')) {
       const path = new NavigationPath(event.target)?.hydrate()

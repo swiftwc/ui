@@ -435,7 +435,13 @@ export const alert = async (
       vStack.insertAdjacentElement('beforeend', label)
     }
 
-    for (const [index, action] of (actions ?? []).entries()) {
+    for (const [index, action] of (
+      actions ?? [
+        {
+          role: 'close',
+        },
+      ]
+    ).entries()) {
       const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
 
       btn.setAttribute('value', `${index}`)

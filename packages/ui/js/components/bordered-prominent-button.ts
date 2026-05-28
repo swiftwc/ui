@@ -9,7 +9,7 @@ import { Snapshot } from '../snapshot'
  */
 export class BorderedProminentButton extends ButtonBase {
   static get observedAttributes() {
-    return ['role']
+    return ['role', 'title-key']
   }
 
   constructor() {
@@ -37,9 +37,10 @@ export class BorderedProminentButton extends ButtonBase {
     if (!node) return
 
     switch (attributeName) {
+      case 'title-key':
       case 'role':
         Snapshot.waitReady.then(() => {
-          buttonRole(target, target.getAttribute(attributeName))
+          buttonRole(target, target.getAttribute('role'), target.getAttribute('title-key'))
         })
 
         break

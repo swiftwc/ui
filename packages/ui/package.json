@@ -71,8 +71,8 @@
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "test": "vitest --dom",
-    "predeploy": "rm -rf generated",
-    "deploy": "npm run build:ts && npm run build:scss",
+    "prepackage": "rm -rf generated",
+    "package": "npm run build:ts && npm run build:scss",
     "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },
   "devDependencies": {

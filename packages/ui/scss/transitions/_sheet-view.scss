@@ -1,0 +1,30 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$transitions-layer} {
+  [is='sheet-view'] {
+    &:not([open]) {
+      z-index: var(--top-layer-polyfill-z-index);
+    }
+
+    &[open] {
+      --sheet-view-translate: translateY(var(--view-transition-dialog-onscreen-y));
+
+      @include mixins.if-ipad-sheet-fits {
+        @include mixins.if-2col-split-view-fits {
+          navigation-split-view & {
+            margin-inline-start: var(--safe-area-inset-left);
+          }
+        }
+      }
+
+      @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+
+      @starting-style {
+        & {
+          --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
+        }
+      }
+    }
+  }
+}

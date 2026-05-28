@@ -1749,6 +1749,12 @@
   :where([is=alert-dialog])::backdrop {
     background-color: transparent;
   }
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=alert-dialog])::backdrop {
+      transition: display var(--view-transition-duration) ease-out allow-discrete, overlay var(--view-transition-duration) ease-out allow-discrete, background-color var(--view-transition-duration) ease-out allow-discrete;
+      will-change: background-color, overlay, display;
+    }
+  }
   :where([is=alert-dialog]) {
     color: var(--text, );
     touch-action: none;
@@ -1773,6 +1779,14 @@
     --alert--dialog-scale: scale(1.2);
     --alert--dialog-opacity: 0.8;
   }
+  :where([is=alert-dialog][open])::backdrop {
+    background-color: var(--view-transition-dialog-onscreen-backdrop-bg);
+  }
+  @starting-style {
+    :where([is=alert-dialog][open])::backdrop {
+      background-color: transparent;
+    }
+  }
   :where([is=alert-dialog][open]) {
     --alert--dialog-scale: scale(1);
     --alert--dialog-opacity: 1;
@@ -1781,6 +1795,14 @@
     :where([is=alert-dialog][open]) {
       --alert--dialog-scale: scale(1.2);
       --alert--dialog-opacity: 0.8;
+    }
+  }
+  :where([is=alert-dialog][closing])::backdrop {
+    background-color: var(--clear);
+  }
+  @starting-style {
+    :where([is=alert-dialog][closing])::backdrop {
+      background-color: transparent;
     }
   }
   :where([is=alert-dialog][closing]) {
@@ -6806,7 +6828,8 @@
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
     :where([is=alert-dialog]) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+      transition: display var(--touchglass-transition-duration) allow-discrete ease-out, overlay var(--touchglass-transition-duration) allow-discrete ease-out, transform var(--touchglass-transition-duration) allow-discrete ease-out, opacity var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform, overlay, display, opacity;
     }
   }
 }

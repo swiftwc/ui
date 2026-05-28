@@ -6,6 +6,8 @@
     :where(&) {
       @include mixins.reset-dialog;
 
+      @include mixins.make-backdrop-transitionable;
+
       color: var(--text,);
 
       touch-action: none;
@@ -43,6 +45,8 @@
 
     &[open] {
       :where(&) {
+        @include mixins.add-dialog-backdrop-transition-frames(var(--view-transition-dialog-onscreen-backdrop-bg));
+
         --alert--dialog-scale: scale(1);
         --alert--dialog-opacity: 1;
 
@@ -55,6 +59,8 @@
 
     &[closing] {
       :where(&) {
+        @include mixins.add-dialog-backdrop-transition-frames(var(--clear));
+
         --alert--dialog-scale: scale(0.98);
         --alert--dialog-opacity: 0;
       }

@@ -5,14 +5,13 @@
   @media (prefers-reduced-motion: no-preference) {
     [is='alert-dialog'] {
       :where(&) {
-        // transition:
-        //   block-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   display var(--menu-animation-duration) allow-discrete ease-out,
-        //   overlay var(--menu-animation-duration) allow-discrete ease-out,
-        //   transform var(--menu-animation-duration) allow-discrete ease-out;
-        transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-        // will-change: block-size, inline-size, transform, overlay, display;
+        transition:
+          display var(--touchglass-transition-duration) allow-discrete ease-out,
+          overlay var(--touchglass-transition-duration) allow-discrete ease-out,
+          transform var(--touchglass-transition-duration) allow-discrete ease-out,
+          opacity var(--touchglass-transition-duration) allow-discrete ease-out;
+        // transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+        will-change: transform, overlay, display, opacity;
       }
     }
   }

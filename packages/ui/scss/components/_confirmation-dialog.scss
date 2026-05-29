@@ -46,7 +46,7 @@
     &[open] {
       :where(&) {
         --confirmation--dialog-max-inline-size: min(20rem, 80vw);
-        --confirmation--dialog-max-block-size:80vh;
+        --confirmation--dialog-max-block-size: 80vh;
 
         --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
         --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));

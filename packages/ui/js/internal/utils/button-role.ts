@@ -7,58 +7,58 @@ import onoff from './onoff'
 type ButtonRole = keyof ReturnType<typeof I18n.t<'ButtonRole'>>
 
 function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
-  if (!el.isConnected) return
+  // if (!el.isConnected) return
 
-  self.requestAnimationFrame(() => {
-    if (!el.isConnected) return
+  // self.requestAnimationFrame(() => {
+  //   if (!el.isConnected) return
 
-    const label = el.querySelector(':scope>[slot=placeholder]') ?? el.appendChild($(`<label-view slot="placeholder"></label-view>`, '>1'))
+  const label = el.querySelector(':scope>[slot=placeholder]') ?? el.appendChild($(`<label-view slot="placeholder"></label-view>`, '>1'))
 
-    switch (role) {
-      case 'cancel':
-        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
-        label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
+  switch (role) {
+    case 'cancel':
+      label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
+      label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
 
-        break
-      case 'close':
-        if (label.closest('[is=alert-dialog]')) {
-          label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').OK)
-        } else {
-          label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Close)
-          label.setAttribute('system-image', Snapshot.config!['close-button-icon'])
-        }
+      break
+    case 'close':
+      if (label.closest('[is=alert-dialog]')) {
+        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').OK)
+      } else {
+        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Close)
+        label.setAttribute('system-image', Snapshot.config!['close-button-icon'])
+      }
 
-        break
-      case 'confirm':
-        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
-        label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
+      break
+    case 'confirm':
+      label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
+      label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
 
-        break
-      case 'confirmation-action':
-        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
-        label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
+      break
+    case 'confirmation-action':
+      label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
+      label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
 
-        break
-      case 'cancellation-action':
-        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
-        label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
+      break
+    case 'cancellation-action':
+      label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
+      label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
 
-        break
-      case 'destructive':
-        label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Destructive)
-        label.setAttribute('system-image', Snapshot.config!['delete-button-icon'])
+      break
+    case 'destructive':
+      label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Destructive)
+      label.setAttribute('system-image', Snapshot.config!['delete-button-icon'])
 
-        break
-      default:
-        label?.remove()
+      break
+    default:
+      label?.remove()
 
-        break
-    }
+      break
+  }
 
-    // if (role) {
-    //   label.setAttribute('title', I18n.t('ButtonRole').Default.Destructive)
-    // } else label?.remove()
-  })
+  // if (role) {
+  //   label.setAttribute('title', I18n.t('ButtonRole').Default.Destructive)
+  // } else label?.remove()
+  // })
 }
 
 export default function (target: HTMLElement, role: string | null, titleKey?: string | null) {

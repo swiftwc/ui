@@ -349,18 +349,49 @@
     },
     {
       "name": "vkeyboard",
-      "description": "Required component, must be BODY tag"
+      "description": "Required component, used to handle the virtual keyboard on touch devices.",
+      "attributes": [
+        {
+          "name": "system-font",
+          "description": "Value Type: “Inter”\n\nDescription: Prefers the \"Inter\" font family, if loaded.",
+          "values": [
+            {
+              "name": "Inter"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "vstack",
       "description": "",
       "attributes": [
         {
-          "name": "{leading|\"leading fill\"|center|trailing|fill|space",
-          "description": "\nDescription: between} distribution"
+          "name": "distribution",
+          "description": "Value Type: “leading” | “leading fill” | “center” | “trailing” | “fill” | “space-between”\n\nDescription: The distribution of cols",
+          "values": [
+            {
+              "name": "leading"
+            },
+            {
+              "name": "leading fill"
+            },
+            {
+              "name": "center"
+            },
+            {
+              "name": "trailing"
+            },
+            {
+              "name": "fill"
+            },
+            {
+              "name": "space-between"
+            }
+          ]
         },
         {
-          "name": "template",
+          "name": "templat",
           "description": "Value Type: “auto spacer” | “auto auto spacer” | “auto auto auto spacer”",
           "values": [
             {

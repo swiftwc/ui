@@ -2,7 +2,7 @@
 
 # VKeyboard
 
-Required component, must be BODY tag.
+Required component, used to handle the virtual keyboard on touch devices.
 
 <!-- #endregion pre -->
 

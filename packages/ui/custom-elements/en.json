@@ -1727,10 +1727,15 @@
           "customElement": true,
           "name": "VKeyboard",
           "tagName": "vkeyboard",
-          "description": "Required component, must be BODY tag",
+          "description": "Required component, used to handle the virtual keyboard on touch devices.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "system-font"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1765,10 +1770,10 @@
           },
           "attributes": [
             {
-              "name": "{leading|\"leading fill\"|center|trailing|fill|space"
+              "name": "distribution"
             },
             {
-              "name": "template"
+              "name": "templat"
             }
           ]
         }

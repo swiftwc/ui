@@ -8,7 +8,7 @@ import { type ScrollView } from './scroll-view'
  * So we live with a pescy body-scrollbar that shows up on resize on desktops.
  *
  * @summary Required component, used to handle the virtual keyboard on touch devices.
- * 
+ *
  * @attr {Inter} system-font - Prefers the "Inter" font family, if loaded.
  */
 export class VKeyboard extends HTMLElement {

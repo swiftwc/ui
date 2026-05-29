@@ -2,7 +2,7 @@
 import cash from './cash'
 
 export { default as add } from './add'
-export { default as buttonRole } from './button-role'
+export { default as ensurePlaceholder } from './ensure-placeholder'
 export { default as clamp } from './clamp'
 export { default as compareBigDecimals } from './compare-big-decimals'
 export { default as cssTime } from './css-time'

@@ -1,14 +1,10 @@
 import { I18n } from '../../i18n'
 import { Snapshot } from '../../snapshot'
-import { CleanupRegistry } from '../class/cleanup-registry'
 import { default as $ } from './cash'
-import onoff from './onoff'
 
 type ButtonRole = keyof ReturnType<typeof I18n.t<'ButtonRole'>>
 
-const observing = new WeakMap<WeakKey, MutationObserver>()
-
-function ensurePlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
+function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
   // if (!el.isConnected) return
 
   // self.requestAnimationFrame(() => {
@@ -63,20 +59,14 @@ function ensurePlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
   // })
 }
 
-export default function (host: HTMLElement, target: HTMLElement, role: string | null, titleKey?: string | null) {
+export default function (target: HTMLElement | null, role: string | null, titleKey?: string | null) {
+  if (!target) return
+
   const overiderTitle = typeof titleKey === 'string' && titleKey in I18n.t('ButtonRole') ? (titleKey as ButtonRole) : undefined
 
-  ensurePlaceholder(target, role, overiderTitle)
+  renderPlaceholder(target, role, overiderTitle)
 
-  if (observing.has(host)) observing.get(host)?.disconnect()
+  // CleanupRegistry.unregister(target, 'i18n')
 
-  CleanupRegistry.unregister(target, 'i18n')
-
-  CleanupRegistry.register(target, onoff('localechange', () => ensurePlaceholder(target, role, overiderTitle), I18n.on).on(), 'i18n')
-
-  observing.set(host, new MutationObserver(() => ensurePlaceholder(target, role, overiderTitle)))
-
-  observing.get(host)?.observe(host, {
-    childList: true,
-  })
+  // CleanupRegistry.register(target, onoff('localechange', () => renderPlaceholder(target, role, overiderTitle), I18n.on).on(), 'i18n')
 }

@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { buttonRole, onoff } from '../internal/utils'
+import { ensurePlaceholder, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -40,7 +40,7 @@ export class BorderlessButton extends ButtonBase {
       case 'title-key':
       case 'role':
         Snapshot.waitReady.then(() => {
-          buttonRole(target, target, target.getAttribute('role'), target.getAttribute('title-key'))
+          ensurePlaceholder(target, target.getAttribute('role'), target.getAttribute('title-key'))
         })
 
         break

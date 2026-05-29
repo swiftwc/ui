@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { buttonRole, onoff, touchGlass } from '../internal/utils'
+import { ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 export class ToolBarItem extends HTMLElement {
@@ -7,8 +7,18 @@ export class ToolBarItem extends HTMLElement {
     return ['slot', 'data-previous-slot', 'title-key']
   }
 
+  #mutationObserver?: MutationObserver
+
   constructor() {
     super()
+  }
+
+  disconnectedCallback() {
+    console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
+
+    this.#mutationObserver?.disconnect()
+
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
@@ -51,12 +61,6 @@ export class ToolBarItem extends HTMLElement {
     // })
   }
 
-  disconnectedCallback() {
-    console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
-
-    CleanupRegistry.unregister(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -64,12 +68,22 @@ export class ToolBarItem extends HTMLElement {
       case 'slot':
       case 'data-previous-slot':
       case 'title-key':
-        const target = this.querySelector<HTMLElement>(':scope>button'),
-          nv = this.getAttribute('data-previous-slot') ?? this.getAttribute('slot') ?? ''
+        this.#mutationObserver?.disconnect()
 
-        if (target && ['confirmation-action', 'cancellation-action'].includes(nv))
+        const role = this.getAttribute('data-previous-slot') ?? this.getAttribute('slot') ?? '',
+          tKey = this.getAttribute('title-key')
+
+        if (['confirmation-action', 'cancellation-action'].includes(role))
           Snapshot.waitReady.then(() => {
-            buttonRole(this, target, nv, this.getAttribute('title-key'))
+            ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey)
+
+            this.#mutationObserver = new MutationObserver((mutations: MutationRecord[]) => {
+              for (const { target } of mutations) if (target instanceof HTMLElement && target) ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey)
+            })
+
+            this.#mutationObserver.observe(this, {
+              childList: true,
+            })
           })
 
         break

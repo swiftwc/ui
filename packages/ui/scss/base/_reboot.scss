@@ -122,7 +122,7 @@
 
     font-variation-settings: var(--host--font-variation-settings, normal);
 
-    &:has(body > v-keyboard[system-font='Inter']) {
+    :where(&:has(body > v-keyboard[system-font='Inter'])) {
       --host--font-family: Verdana, Inter, sans-serif;
 
       --host--font-feature-settings: 'liga' 1, 'calt' 1;

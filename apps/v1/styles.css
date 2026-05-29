@@ -400,12 +400,12 @@
     font-feature-settings: var(--host--font-feature-settings, normal);
     font-variation-settings: var(--host--font-variation-settings, normal);
   }
-  html:has(body > v-keyboard[system-font=Inter]) {
+  :where(html:has(body > v-keyboard[system-font=Inter])) {
     --host--font-family: Verdana, Inter, sans-serif;
     --host--font-feature-settings: 'liga' 1, 'calt' 1;
   }
   @supports (font-variation-settings: normal) {
-    html:has(body > v-keyboard[system-font=Inter]) {
+    :where(html:has(body > v-keyboard[system-font=Inter])) {
       --host--font-family: Verdana, InterVariable, sans-serif;
     }
   }

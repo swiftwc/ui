@@ -1,4 +1,4 @@
-import { alert, lifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
+import { alert, confirmationDialog, lifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
 
 function queryInsertPosition(frame) {
   //?: Components.BodyView | Components.SheetView) {
@@ -125,6 +125,15 @@ document.body.addEventListener('click', async (event) => {
   const navDest = event.target.closest('button[type="button"][navigation-destination],summary[navigation-destination]')
 
   if (event.target.closest('.back')) {
+    if (event.target.closest('.back-confirmation')) {
+      const confirm = await confirmationDialog(event.target, 'Are you sure?', undefined, [
+        {
+          role: 'cancel',
+        },
+      ])
+
+      if ('0' === confirm) return
+    }
     const path = new NavigationPath(event.target)?.hydrate()
 
     const parent = [...path.parents()].at(0)?.hydrate()

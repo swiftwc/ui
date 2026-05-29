@@ -1710,10 +1710,9 @@
     color: var(--text, );
     touch-action: none;
     position: fixed;
-    inline-size: fit-content;
+    inline-size: max-content;
     block-size: fit-content;
     height: auto;
-    min-inline-size: var(--confirmation--dialog-min-inline-size, );
     max-inline-size: var(--confirmation--dialog-max-inline-size, );
     max-block-size: var(--confirmation--dialog-max-block-size, );
     margin-block: var(--confirmation--dialog-margin-block, );
@@ -1731,7 +1730,6 @@
     --confirmation--dialog-scale: scale(0);
   }
   :where([is=confirmation-dialog][open]) {
-    --confirmation--dialog-min-inline-size: min(20rem, 80svw);
     --confirmation--dialog-max-inline-size: min(20rem, 80vw);
     --confirmation--dialog-max-block-size: 80vh;
     --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
@@ -1744,7 +1742,6 @@
     }
   }
   :where([is=confirmation-dialog][closing]) {
-    --confirmation--dialog-min-inline-size: anchor-size();
     --confirmation--dialog-max-inline-size: anchor-size();
     --confirmation--dialog-max-block-size: anchor-size();
     --confirmation--dialog-scale: scale(0);

@@ -12,11 +12,11 @@
 
       position: fixed;
 
-      inline-size: fit-content;
+      inline-size: max-content;
       block-size: fit-content;
       height: auto; // safari
 
-      min-inline-size: var(--confirmation--dialog-min-inline-size,); //min(20rem, 80svw);
+      // min-inline-size: var(--confirmation--dialog-min-inline-size,);
 
       max-inline-size: var(--confirmation--dialog-max-inline-size,);
       max-block-size: var(--confirmation--dialog-max-block-size,);
@@ -25,6 +25,7 @@
       margin-inline: var(--confirmation--dialog-margin-inline,);
 
       transform: var(--confirmation--dialog-scale,);
+      // transform-origin: top left;
 
       position-anchor: --confirmation-dialog; // overriden
       position-area: center;
@@ -45,7 +46,7 @@
 
     &[open] {
       :where(&) {
-        --confirmation--dialog-min-inline-size: min(20rem, 80svw);
+        // --confirmation--dialog-min-inline-size: min(20rem, 80svw);
 
         --confirmation--dialog-max-inline-size: min(20rem, 80vw);
         --confirmation--dialog-max-block-size: 80vh;
@@ -63,7 +64,7 @@
 
     &[closing] {
       :where(&) {
-        --confirmation--dialog-min-inline-size: anchor-size();
+        // --confirmation--dialog-min-inline-size: anchor-size();
 
         --confirmation--dialog-max-inline-size: anchor-size();
         --confirmation--dialog-max-block-size: anchor-size();
@@ -71,47 +72,5 @@
         --confirmation--dialog-scale: scale(0);
       }
     }
-
-    // SECTION: componentize
-    // > button {
-    //   :where(&) {
-    //     @include mixins.componentize(dialogbtn);
-    //   }
-    // }
-
-    // :where(&) {
-    //   --dialogbtnpadistart: 0.6rem;
-    //   --dialogbtnpadiend: 0.6rem;
-    //   --dialogbtnpadbstart: 0.6rem;
-    //   --dialogbtnpadbend: 0.6rem;
-    //   --dialogbtnradiustl: 1rem;
-    //   --dialogbtnradiustr: 1rem;
-    //   --dialogbtnradiusbl: 1rem;
-    //   --dialogbtnradiusbr: 1rem;
-    // }
   }
 }
-
-// @layer #{vars.$colors-layer} {
-//   // SECTION: componentize
-//   [is='confirmation-dialog'] {
-//     > button {
-//       @include mixins.add-focus-visible-state {
-//         --dialogbtnface: var(--dialogbtnhighlightface,);
-//         --dialogbtntext: var(--dialogbtnhighlighttext,);
-//       }
-//     }
-//   }
-// }
-
-// @layer #{vars.$ui-layer} {
-//   // SECTION: componentize
-//   [is='confirmation-dialog'] {
-//     > button {
-//       @include mixins.add-active-state {
-//         --dialogbtnface: var(--dialogbtnactiveface,);
-//         --dialogbtntext: var(--dialogbtnactivetext,);
-//       }
-//     }
-//   }
-// }

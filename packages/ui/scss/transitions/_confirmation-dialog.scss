@@ -5,6 +5,15 @@
   @media (prefers-reduced-motion: no-preference) {
     [is='confirmation-dialog'] {
       :where(&) {
+        // transition:
+        //   inset var(--menu-animation-duration) allow-discrete ease-out,
+        //   width var(--menu-animation-duration) allow-discrete ease-out,
+        //   height var(--menu-animation-duration) allow-discrete ease-out,
+        //   block-size var(--menu-animation-duration) allow-discrete ease-out,
+        //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
+        //   display var(--menu-animation-duration) allow-discrete ease-out,
+        //   overlay var(--menu-animation-duration) allow-discrete ease-out,
+        //   transform var(--menu-animation-duration) allow-discrete ease-out;
         transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
         // will-change: block-size, inline-size, transform, overlay, display;
       }

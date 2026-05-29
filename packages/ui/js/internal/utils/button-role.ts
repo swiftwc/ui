@@ -6,7 +6,9 @@ import onoff from './onoff'
 
 type ButtonRole = keyof ReturnType<typeof I18n.t<'ButtonRole'>>
 
-function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
+const observing = new WeakMap<WeakKey, MutationObserver>()
+
+function ensurePlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
   // if (!el.isConnected) return
 
   // self.requestAnimationFrame(() => {
@@ -64,19 +66,17 @@ function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
 export default function (target: HTMLElement, role: string | null, titleKey?: string | null) {
   const overiderTitle = typeof titleKey === 'string' && titleKey in I18n.t('ButtonRole') ? (titleKey as ButtonRole) : undefined
 
-  renderPlaceholder(target, role, overiderTitle)
+  ensurePlaceholder(target, role, overiderTitle)
+
+  if (observing.has(target)) observing.get(target)?.disconnect()
 
   CleanupRegistry.unregister(target, 'i18n')
 
-  CleanupRegistry.register(
-    target,
-    onoff(
-      'localechange',
-      () => {
-        renderPlaceholder(target, role, overiderTitle)
-      },
-      I18n.on
-    ).on(),
-    'i18n'
-  )
+  CleanupRegistry.register(target, onoff('localechange', () => ensurePlaceholder(target, role, overiderTitle), I18n.on).on(), 'i18n')
+
+  observing.set(target, new MutationObserver(() => ensurePlaceholder(target, role, overiderTitle)))
+
+  observing.get(target)?.observe(target, {
+    childList: true,
+  })
 }

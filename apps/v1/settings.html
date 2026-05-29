@@ -14,23 +14,10 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
-    <style>
-      :root {
-        font-family: Inter, sans-serif;
-        font-feature-settings:
-          'liga' 1,
-          'calt' 1;
-      }
-      @supports (font-variation-settings: normal) {
-        :root {
-          font-family: InterVariable, sans-serif;
-        }
-      }
-    </style>
   </head>
   <body>
     <!-- style="--canvas: darkgray; --face: darkgray"> -->
-    <v-keyboard></v-keyboard>
+    <v-keyboard system-font="Inter"></v-keyboard>
 
     <navigation-split-view column-visibility="double-column" background-style="grouped">
       <dialog is="sidebar-view">

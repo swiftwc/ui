@@ -395,6 +395,20 @@
       font-size: 14px;
     }
   }
+  html {
+    font-family: var(--host--font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-feature-settings: var(--host--font-feature-settings, normal);
+    font-variation-settings: var(--host--font-variation-settings, normal);
+  }
+  html:has(body > v-keyboard[system-font=Inter]) {
+    --host--font-family: Verdana, Inter, sans-serif;
+    --host--font-feature-settings: 'liga' 1, 'calt' 1;
+  }
+  @supports (font-variation-settings: normal) {
+    html:has(body > v-keyboard[system-font=Inter]) {
+      --host--font-family: Verdana, InterVariable, sans-serif;
+    }
+  }
   html::before {
     content: "delete-button-icon=trash&confirm-button-icon=check&close-button-icon=x&cancel-button-icon=x&ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
     display: none;
@@ -874,6 +888,7 @@
   }
   :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
     position: absolute;
+    inset: 0;
     visibility: collapse;
   }
   :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
@@ -1698,9 +1713,9 @@
     inline-size: fit-content;
     block-size: fit-content;
     height: auto;
-    min-inline-size: min(20rem, 80svw);
-    max-inline-size: min(20rem, 80vw);
-    max-block-size: 80vh;
+    min-inline-size: var(--confirmation--dialog-min-inline-size, );
+    max-inline-size: var(--confirmation--dialog-max-inline-size, );
+    max-block-size: var(--confirmation--dialog-max-block-size, );
     margin-block: var(--confirmation--dialog-margin-block, );
     margin-inline: var(--confirmation--dialog-margin-inline, );
     transform: var(--confirmation--dialog-scale, );
@@ -1716,6 +1731,9 @@
     --confirmation--dialog-scale: scale(0);
   }
   :where([is=confirmation-dialog][open]) {
+    --confirmation--dialog-min-inline-size: min(20rem, 80svw);
+    --confirmation--dialog-max-inline-size: min(20rem, 80vw);
+    --confirmation--dialog-max-block-size: 80vh;
     --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
     --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --confirmation--dialog-scale: scale(1);
@@ -1726,6 +1744,9 @@
     }
   }
   :where([is=confirmation-dialog][closing]) {
+    --confirmation--dialog-min-inline-size: anchor-size();
+    --confirmation--dialog-max-inline-size: anchor-size();
+    --confirmation--dialog-max-block-size: anchor-size();
     --confirmation--dialog-scale: scale(0);
   }
 }
@@ -2113,6 +2134,7 @@
   }
   :where(tool-bar-item > button > [slot]) {
     position: absolute;
+    inset: 0;
     visibility: collapse;
   }
   :where(tool-bar-item > button > [slot=overlay]) {

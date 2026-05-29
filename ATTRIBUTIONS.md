@@ -14,6 +14,7 @@
 - [HTML Custom Data](https://github.com/microsoft/vscode-custom-data)
 - [web-component-analyzer](https://github.com/runem/web-component-analyzer)
 - [relative-time-element](https://github.com/github/relative-time-element)
+- [tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 
 ## Special thanks
 

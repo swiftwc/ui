@@ -16,7 +16,7 @@
       block-size: fit-content;
       height: auto; // safari
 
-      min-inline-size: min(20rem, 80svw);
+      min-inline-size: var(--confirmation--dialog-min-inline-size,); //min(20rem, 80svw);
 
       max-inline-size: var(--confirmation--dialog-max-inline-size,);
       max-block-size: var(--confirmation--dialog-max-block-size,);
@@ -45,6 +45,8 @@
 
     &[open] {
       :where(&) {
+        --confirmation--dialog-min-inline-size: min(20rem, 80svw);
+
         --confirmation--dialog-max-inline-size: min(20rem, 80vw);
         --confirmation--dialog-max-block-size: 80vh;
 
@@ -61,6 +63,8 @@
 
     &[closing] {
       :where(&) {
+        --confirmation--dialog-min-inline-size: anchor-size();
+
         --confirmation--dialog-max-inline-size: anchor-size();
         --confirmation--dialog-max-block-size: anchor-size();
 

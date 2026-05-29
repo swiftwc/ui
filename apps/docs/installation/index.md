@@ -40,9 +40,15 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <html>
   <head>
     <!-- [!code ++] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code ++] -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web"></script>
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@0.0.0-dev.8/generated/css/index.css" />
   </head>
   <body>
+    <!-- [!code focus] -->
     <!-- [!code ++] -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@swiftwc/ui@latest/generated/client/index.js"></script>
   </body>

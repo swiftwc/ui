@@ -4,6 +4,8 @@
       // take over NOTE: NO other propsm they break grids!! KISS pos+visibility+opacity
       position: absolute;
 
+      inset: 0;
+
       visibility: collapse;
     }
   }

@@ -69,7 +69,7 @@ export class ToolBarItem extends HTMLElement {
 
         if (target && ['confirmation-action', 'cancellation-action'].includes(nv))
           Snapshot.waitReady.then(() => {
-            buttonRole(target, nv, this.getAttribute('title-key'))
+            buttonRole(this, target, nv, this.getAttribute('title-key'))
           })
 
         break

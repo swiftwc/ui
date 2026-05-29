@@ -50,7 +50,7 @@ export class GlassProminentButton extends ButtonBase {
       case 'title-key':
       case 'role':
         Snapshot.waitReady.then(() => {
-          buttonRole(target, target.getAttribute('role'), target.getAttribute('title-key'))
+          buttonRole(target, target, target.getAttribute('role'), target.getAttribute('title-key'))
         })
 
         break

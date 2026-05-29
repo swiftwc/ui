@@ -1183,21 +1183,26 @@
 
         if (event.target.closest('#gg')) {
           try {
-            const value = await confirmationDialog(event.target, 'Are you sure?', 'really really sure??', [
-              // 'Deleteeee',
-              {
-                role: 'destructive',
-                // action() {
-                //   alert(99)
-                // },
-              },
-              {
-                role: 'confirm',
-                // action() {
-                //   alert(99)
-                // },
-              },
-            ])
+            const value = await confirmationDialog(
+              event.target,
+              'Are you sure?',
+              'really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really really sure??',
+              [
+                // 'Deleteeee',
+                {
+                  role: 'destructive',
+                  // action() {
+                  //   alert(99)
+                  // },
+                },
+                {
+                  role: 'confirm',
+                  // action() {
+                  //   alert(99)
+                  // },
+                },
+              ]
+            )
 
             switch (value) {
               case '0':

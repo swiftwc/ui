@@ -126,11 +126,16 @@ document.body.addEventListener('click', async (event) => {
 
   if (event.target.closest('.back')) {
     if (event.target.closest('.back-confirmation')) {
-      const confirm = await confirmationDialog(event.target, 'Are you sure?', undefined, [
-        {
-          role: 'cancel',
-        },
-      ])
+      const confirm = await confirmationDialog(
+        event.target,
+        'Are you sure?',
+        'Are you very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very sure?',
+        [
+          {
+            role: 'cancel',
+          },
+        ]
+      )
 
       if ('0' === confirm) return
     }

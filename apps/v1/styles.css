@@ -1710,7 +1710,7 @@
     color: var(--text, );
     touch-action: none;
     position: fixed;
-    inline-size: max-content;
+    inline-size: var(--confirmation--dialog-inline-size, anchor-size());
     block-size: fit-content;
     height: auto;
     max-inline-size: var(--confirmation--dialog-max-inline-size, );
@@ -1718,6 +1718,7 @@
     margin-block: var(--confirmation--dialog-margin-block, );
     margin-inline: var(--confirmation--dialog-margin-inline, );
     transform: var(--confirmation--dialog-scale, );
+    opacity: var(--confirmation--dialog-opacity, );
     position-anchor: --confirmation-dialog;
     position-area: center;
     overflow: clip;
@@ -1727,24 +1728,30 @@
     padding-block: 1rem;
     padding-inline: 1rem;
     gap: 1rem;
-    --confirmation--dialog-scale: scale(0);
+    --confirmation--dialog-scale: scale(0.7);
+    --confirmation--dialog-opacity: 0.8;
   }
   :where([is=confirmation-dialog][open]) {
+    --confirmation--dialog-inline-size: min(20rem, 80vw);
     --confirmation--dialog-max-inline-size: min(20rem, 80vw);
     --confirmation--dialog-max-block-size: 80vh;
     --confirmation--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));
     --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --confirmation--dialog-scale: scale(1);
+    --confirmation--dialog-opacity: 1;
   }
   @starting-style {
     :where([is=confirmation-dialog][open]) {
-      --confirmation--dialog-scale: scale(0);
+      --confirmation--dialog-scale: scale(0.7);
+      --confirmation--dialog-opacity: 0.8;
     }
   }
   :where([is=confirmation-dialog][closing]) {
+    --confirmation--dialog-inline-size: anchor-size();
     --confirmation--dialog-max-inline-size: anchor-size();
     --confirmation--dialog-max-block-size: anchor-size();
-    --confirmation--dialog-scale: scale(0);
+    --confirmation--dialog-scale: scale(0.7);
+    --confirmation--dialog-opacity: 0;
   }
 }
 @layer sw-components {

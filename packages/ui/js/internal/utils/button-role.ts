@@ -63,20 +63,20 @@ function ensurePlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
   // })
 }
 
-export default function (target: HTMLElement, role: string | null, titleKey?: string | null) {
+export default function (host: HTMLElement, target: HTMLElement, role: string | null, titleKey?: string | null) {
   const overiderTitle = typeof titleKey === 'string' && titleKey in I18n.t('ButtonRole') ? (titleKey as ButtonRole) : undefined
 
   ensurePlaceholder(target, role, overiderTitle)
 
-  if (observing.has(target)) observing.get(target)?.disconnect()
+  if (observing.has(host)) observing.get(host)?.disconnect()
 
   CleanupRegistry.unregister(target, 'i18n')
 
   CleanupRegistry.register(target, onoff('localechange', () => ensurePlaceholder(target, role, overiderTitle), I18n.on).on(), 'i18n')
 
-  observing.set(target, new MutationObserver(() => ensurePlaceholder(target, role, overiderTitle)))
+  observing.set(host, new MutationObserver(() => ensurePlaceholder(target, role, overiderTitle)))
 
-  observing.get(target)?.observe(target, {
+  observing.get(host)?.observe(host, {
     childList: true,
   })
 }

@@ -12,7 +12,7 @@
 
       position: fixed;
 
-      inline-size: max-content;
+      inline-size: var(--confirmation--dialog-inline-size, anchor-size());
       block-size: fit-content;
       height: auto; // safari
 
@@ -26,6 +26,8 @@
 
       transform: var(--confirmation--dialog-scale,);
       // transform-origin: top left;
+
+      opacity: var(--confirmation--dialog-opacity,);
 
       position-anchor: --confirmation-dialog; // overriden
       position-area: center;
@@ -41,11 +43,13 @@
       gap: 1rem;
 
       // finally
-      --confirmation--dialog-scale: scale(0);
+      --confirmation--dialog-scale: scale(0.7);
+      --confirmation--dialog-opacity: 0.8;
     }
 
     &[open] {
       :where(&) {
+        --confirmation--dialog-inline-size: min(20rem, 80vw);
         // --confirmation--dialog-min-inline-size: min(20rem, 80svw);
 
         --confirmation--dialog-max-inline-size: min(20rem, 80vw);
@@ -55,21 +59,25 @@
         --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
 
         --confirmation--dialog-scale: scale(1);
+        --confirmation--dialog-opacity: 1;
 
         @starting-style {
-          --confirmation--dialog-scale: scale(0);
+          --confirmation--dialog-scale: scale(0.7);
+          --confirmation--dialog-opacity: 0.8;
         }
       }
     }
 
     &[closing] {
       :where(&) {
+        --confirmation--dialog-inline-size: anchor-size();
         // --confirmation--dialog-min-inline-size: anchor-size();
 
         --confirmation--dialog-max-inline-size: anchor-size();
         --confirmation--dialog-max-block-size: anchor-size();
 
-        --confirmation--dialog-scale: scale(0);
+        --confirmation--dialog-scale: scale(0.7);
+        --confirmation--dialog-opacity: 0;
       }
     }
   }

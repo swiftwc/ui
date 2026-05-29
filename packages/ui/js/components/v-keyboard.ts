@@ -7,7 +7,9 @@ import { type ScrollView } from './scroll-view'
  * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
  * So we live with a pescy body-scrollbar that shows up on resize on desktops.
  *
- * @summary Required component, must be BODY tag
+ * @summary Required component, used to handle the virtual keyboard on touch devices.
+ * 
+ * @attr {Inter} system-font - Prefers the "Inter" font family, if loaded.
  */
 export class VKeyboard extends HTMLElement {
   /**

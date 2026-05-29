@@ -401,12 +401,12 @@
     font-variation-settings: var(--host--font-variation-settings, normal);
   }
   :where(html:has(body > v-keyboard[system-font=Inter])) {
-    --host--font-family: Verdana, Inter, sans-serif;
+    --host--font-family: Inter, sans-serif;
     --host--font-feature-settings: 'liga' 1, 'calt' 1;
   }
   @supports (font-variation-settings: normal) {
     :where(html:has(body > v-keyboard[system-font=Inter])) {
-      --host--font-family: Verdana, InterVariable, sans-serif;
+      --host--font-family: InterVariable, sans-serif;
     }
   }
   html::before {

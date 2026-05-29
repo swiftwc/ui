@@ -1,4 +1,4 @@
-# App HTML Layout
+# PWA Layout
 
 All SwiftWC apps require this minimal HTML structure:
 

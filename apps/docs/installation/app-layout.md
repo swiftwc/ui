@@ -10,16 +10,15 @@ All SwiftWC apps require this minimal HTML structure:
   <body>
     <!-- [!code focus] -->
     <!-- [!code ++] -->
-    <v-keyboard></v-keyboard>
+    <v-keyboard system-font="Inter"></v-keyboard>
   </body>
 </html>
 ```
 
-::: details `lang` and `dir` attributes are required
+::: details `lang` and `dir` attributes are required on the HTML tag
 Use them to adapt component formatting preferences and view-transitions direction.
 
 ```html{2}
-<!-- Must be set on the HTML tag -->
 <html lang="en" dir="ltr">
   <head></head>
   <body></body>
@@ -28,13 +27,12 @@ Use them to adapt component formatting preferences and view-transitions directio
 
 :::
 
-::: details `<v-keyboard>` tag is required
+::: details `<v-keyboard>` tag is required inside the BODY tag
 It is used to handle the virtual keyboard on touch devices.
 
 ```html{1,4}
 <body>
-  <!-- Must be placed inside the BODY tag -->
-  <v-keyboard></v-keyboard>
+  <v-keyboard system-font="Inter"></v-keyboard>
 </body>
 ```
 

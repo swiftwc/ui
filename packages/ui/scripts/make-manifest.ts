@@ -259,7 +259,9 @@ for (const sourceFile of project.getSourceFiles()) {
               name: '',
             }
 
-            const [a, b] = tag.description.split('-', 2).map((s) => s.trim())
+            const i = tag.description.lastIndexOf('-'),
+              a = tag.description.slice(0, i).trim(),
+              b = i !== -1 ? tag.description.slice(i + 1).trim() : undefined
 
             if (b) attr.description = `\nDescription: ${b}`
 

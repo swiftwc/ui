@@ -8,6 +8,7 @@ import { $, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
 
+//#region polyfills
 export const polyfills: Map<string, WebComponentCtor> = new Map()
 
 type TransitionType = 'forwards' | 'backwards' | 'reload'
@@ -128,6 +129,7 @@ if (0 < polyfills.size) {
 
 // SECTION: Safari polyfill
 document.addEventListener('touchstart', () => {}, { passive: true })
+//#endregion
 
 // SECTION
 
@@ -208,7 +210,7 @@ if (mediaQueryList.matches)
   ] as Array<[keyof DocumentEventMap, (e: any) => void]>)
     document.addEventListener(k, v, { passive: true })
 
-// SECTION: Transitions
+//#region Transitions
 const cleanup = (lm?: Element, type?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 
@@ -407,7 +409,9 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     await updateCallback()
   }
 }
+//#endregion
 
+//#region fns
 export const alert = async (
   title?: string,
   message?: string,
@@ -560,11 +564,14 @@ export const confirmationDialog = async (
   //   // controller.signal.addEventListener('abort', onAbort, { once: true })
   // })
 }
+//#endregion
 
 void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
-// SECTION
+//#region exports
 
 export { I18n, lifecycleObserver, NavigationPath, Snapshot }
 
 export { type NavigationHost }
+
+//#endregion

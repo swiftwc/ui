@@ -1,23 +1,26 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { listActive, onoff } from '../internal/utils'
+import { $, listActive, onoff } from '../internal/utils'
 
 export class ListView extends HTMLElement {
-  // static formAssociated = true
+  // static #template: DocumentFragment
 
-  // #internals
+  // static get template() {
+  //   return (this.#template ??= $(
+  //     String.raw`
+  //   <slot name="searchable"></slot>
+  //   <slot></slot>
+  //   `
+  //   ))
+  // }
 
-  // #options
-
-  // #focusedIndex = 0
-
-  // #selected = new Set()
+  // #shadowRoot
 
   constructor() {
     super()
 
-    // this.#internals = this.attachInternals()
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    // this.tabIndex = 0
+    // this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ListView).template, true))
   }
 
   disconnectedCallback() {
@@ -30,14 +33,6 @@ export class ListView extends HTMLElement {
     console.debug(`${ListView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
-    // this.setAttribute('role', 'listbox')
-    // this.setAttribute('aria-multiselectable', 'true')
-    // this.#options = Array.from(this.querySelectorAll('[option]'))
-
-    // this.addEventListener('pointerleave', this.#onCancel)
-    // this.addEventListener('click', this.#onClick)
-    // this.addEventListener('keydown', this.#onKeyDown)
-    // this.#updateOptionAttributes()
   }
 
   // #onClick = (e: Event) => {

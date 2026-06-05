@@ -3,7 +3,7 @@
 @use 'sass:string';
 @use 'sass:list';
 
-$h-stack-templates: ((minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (auto minmax(0, 1fr) auto), (repeat(4, minmax(0, 1fr))), (repeat(2, minmax(0, 1fr)) auto));
+$h-stack-templates: ((auto minmax(0, 1fr)), (minmax(0, 1fr) auto), (auto minmax(0, 1fr) auto auto), (auto minmax(0, 1fr) auto), (repeat(4, minmax(0, 1fr))), (repeat(2, minmax(0, 1fr)) auto));
 
 @layer #{vars.$components-layer} {
   h-stack {

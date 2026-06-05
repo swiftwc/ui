@@ -1956,6 +1956,9 @@
     place-content: safe center;
     gap: 1rem;
   }
+  :where(h-stack[template="auto spacer"]) {
+    grid-template-columns: auto minmax(0, 1fr);
+  }
   :where(h-stack[template="spacer auto"]) {
     grid-template-columns: minmax(0, 1fr) auto;
   }

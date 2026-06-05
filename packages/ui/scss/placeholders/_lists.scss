@@ -494,7 +494,6 @@
           }
         }
       }
-      // }
     }
     // }
     // [is='disclosure-group'] summary [slot='marker'] {
@@ -503,6 +502,17 @@
     // [is='disclosure-group']:has(> summary[marker-placement='leading']) {
     //   > :not(summary) {
     //     --itempadistart: calc(calc(var(--root-font-size) * 1px) * var(--list--accessory-size) + var(--list--item-padding-inline-start, 0px));
+    //   }
+    // }
+
+    // // SECTION: add searchable
+    // > [slot='searchable'] {
+    //   :where(&) {
+    //     position: sticky;
+
+    //     top: 20px
+
+    //     background: red;
     //   }
     // }
   }

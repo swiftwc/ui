@@ -104,7 +104,7 @@ export class DatePicker extends FormAssociatedBase {
     if (!this.hasAttribute('selection')) return
 
     const [y = '', m = '', d = ''] = (this.getAttribute('selection') ?? '').split(/\D+/)
-    this.selection = { year: y, month: m, day: d }
+    this.selectedDate = { year: y, month: m, day: d }
 
     this.#sendValueToForm(false)
   }
@@ -119,7 +119,7 @@ export class DatePicker extends FormAssociatedBase {
     switch (name) {
       case 'selection':
         const [y = '', m = '', d = ''] = (newValue ?? '').split(/\D+/)
-        this.selection = { year: y, month: m, day: d }
+        this.selectedDate = { year: y, month: m, day: d }
 
         break
       case 'required':
@@ -230,7 +230,7 @@ export class DatePicker extends FormAssociatedBase {
     }
   }
 
-  get selection(): { year: string; month: string; day: string } {
+  get selectedDate(): { year: string; month: string; day: string } {
     const map = Object.fromEntries(this.#inputs.map(({ name, value }) => [name, value])) as Partial<Record<DateParts, string>>
 
     return {
@@ -240,7 +240,7 @@ export class DatePicker extends FormAssociatedBase {
     }
   }
 
-  set selection(v) {
+  set selectedDate(v) {
     for (const input of this.#inputs) {
       const nv = v[input.name] ?? '',
         pattern = /^(\d+)?$/
@@ -293,7 +293,7 @@ export class DatePicker extends FormAssociatedBase {
       else this.setValidity({})
     }
 
-    const selection = `${this.selection.year}-${this.selection.month}-${this.selection.day}`
+    const selection = `${this.selectedDate.year}-${this.selectedDate.month}-${this.selectedDate.day}`
 
     const entries = new FormData()
 
@@ -557,7 +557,7 @@ export class DatePicker extends FormAssociatedBase {
     for (const input of this.#inputs) input.toggleAttribute('disabled', !disabled)
   }
   formResetCallback = () => {
-    this.selection = {
+    this.selectedDate = {
       year: '',
       month: '',
       day: '',

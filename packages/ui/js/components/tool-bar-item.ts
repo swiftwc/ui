@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
+import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 export class ToolBarItem extends HTMLElement {
@@ -14,7 +14,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
+    debug(`${ToolBarItem.name} ⚡️ disconnect`)
 
     this.#mutationObserver?.disconnect()
 
@@ -22,7 +22,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${ToolBarItem.name} ⚡️ connect`)
+    debug(`${ToolBarItem.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,
@@ -62,7 +62,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'slot':

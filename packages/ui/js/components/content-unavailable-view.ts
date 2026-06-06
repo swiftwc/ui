@@ -1,6 +1,6 @@
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, onoff } from '../internal/utils'
+import { $, debug, onoff } from '../internal/utils'
 
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.
@@ -58,15 +58,15 @@ export class ContentUnavailableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ContentUnavailableView.name} ⚡️ disconnect`)
+    debug(`${ContentUnavailableView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    console.debug(`${ContentUnavailableView.name} ⚡️ connect`)
+    debug(`${ContentUnavailableView.name} ⚡️ connect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${ContentUnavailableView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${ContentUnavailableView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'search':

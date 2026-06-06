@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, listActive, onoff } from '../internal/utils'
+import { debug, listActive, onoff } from '../internal/utils'
 
 export class ListView extends HTMLElement {
   // static #template: DocumentFragment
@@ -24,13 +24,13 @@ export class ListView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ListView.name} ⚡️ disconnect`)
+    debug(`${ListView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    console.debug(`${ListView.name} ⚡️ connect`)
+    debug(`${ListView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
   }

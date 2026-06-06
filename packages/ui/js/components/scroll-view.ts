@@ -2,7 +2,7 @@ import { lifecycleObserver } from '../buses'
 import { type PageShowHideDetail, type TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { $, frame, onoff, slowHideShow } from '../internal/utils'
+import { $, debug, frame, onoff, slowHideShow } from '../internal/utils'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -57,7 +57,7 @@ export class ScrollView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ScrollView.name} ⚡️ disconnect`)
+    debug(`${ScrollView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -67,7 +67,7 @@ export class ScrollView extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${ScrollView.name} ⚡️ connect`)
+    debug(`${ScrollView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,
@@ -112,7 +112,7 @@ export class ScrollView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'navigation-inline-title':
@@ -143,7 +143,7 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleScroll: EventListener = (evt: Event) => {
-    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
     if (!this.#isMidScroll) this.#isMidScroll = true
 
@@ -156,13 +156,13 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleScrollend: EventListener = (evt: Event) => {
-    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
     if (this.#isMidScroll) this.#isMidScroll = false
   }
 
   #handleMeasure = (entry: ResizeObserverEntry) => {
-    console.debug(`${ScrollView.name} ⚡️ measure`)
+    debug(`${ScrollView.name} ⚡️ measure`)
 
     if (0 === entry.contentRect.width + entry.contentRect.height) return
 
@@ -182,7 +182,7 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleTabReveal = (evt: CustomEvent<TabDetail>) => {
-    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLElement && evt.target
     if (!target) return
@@ -223,7 +223,7 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleTabBeforeswap = (evt: CustomEvent<TabDetail>) => {
-    console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLElement && evt.target
     if (!target) return

@@ -1,7 +1,7 @@
 import { alertDialog } from '../buses'
 import { type AlertReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff, touchGlass } from '../internal/utils'
+import { debug, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class AlertDialog extends DialogBase {
@@ -10,7 +10,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: AlertDialog) {
-    console.debug(`${AlertDialog.name} ⚡️ disconnect`)
+    debug(`${AlertDialog.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
 
@@ -24,7 +24,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static polyfillConnectedCallback(el: AlertDialog) {
-    console.debug(`${AlertDialog.name} ⚡️ connect`)
+    debug(`${AlertDialog.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -57,7 +57,7 @@ export class AlertDialog extends DialogBase {
       ).on()
     )
 
-    console.debug(`${AlertDialog.name} ⚡️ will-open`)
+    debug(`${AlertDialog.name} ⚡️ will-open`)
 
     el.removeAttribute('closing')
 
@@ -71,7 +71,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(`${AlertDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${AlertDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {
       case 'label':
@@ -82,7 +82,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static #handleDialogClick = (evt: PointerEvent) => {
-    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
+    debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     const dialog = evt.currentTarget instanceof HTMLDialogElement && evt.currentTarget
     if (!dialog) return
@@ -108,7 +108,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static #handleDialogCancel: EventListener = (evt: Event) => {
-    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
+    debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     if (!evt.cancelable) return
 
@@ -119,7 +119,7 @@ export class AlertDialog extends DialogBase {
 
     target.inert = true
 
-    console.debug(`${AlertDialog.name} ⚡️ will-close`)
+    debug(`${AlertDialog.name} ⚡️ will-close`)
 
     target.setAttribute('closing', '')
 
@@ -133,7 +133,7 @@ export class AlertDialog extends DialogBase {
   }
 
   static #handleDialogClose: EventListener = (evt: Event) => {
-    console.debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
+    debug(`${AlertDialog.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLDialogElement && evt.target
     if (!target) return

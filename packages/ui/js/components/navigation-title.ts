@@ -1,4 +1,4 @@
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 import { type ScrollView } from './scroll-view'
 
 export class NavigationTitle extends HTMLElement {
@@ -11,15 +11,15 @@ export class NavigationTitle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
+    debug(`${NavigationTitle.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    console.debug(`${NavigationTitle.name} ⚡️ connect`)
+    debug(`${NavigationTitle.name} ⚡️ connect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     const sibling = this.closest<ScrollView>('scroll-view') ?? undefined
 

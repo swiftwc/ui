@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff } from '../internal/utils'
+import { debug, onoff } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -13,13 +13,13 @@ export class SheetView extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: SheetView) {
-    console.debug(`${SheetView.name} ⚡️ disconnect`)
+    debug(`${SheetView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: SheetView) {
-    console.debug(`${SheetView.name} ⚡️ connect`)
+    debug(`${SheetView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -51,7 +51,7 @@ export class SheetView extends DialogBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     // // NOTE: wait for config
     // Snapshot.waitReady.then(() => {
@@ -83,7 +83,7 @@ export class SheetView extends DialogBase {
   }
 
   static #handleKeydown = (evt: KeyboardEvent) => {
-    console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.key})`)
+    debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.key})`)
 
     if ('Escape' !== evt.key) return
 
@@ -93,7 +93,7 @@ export class SheetView extends DialogBase {
   }
 
   static #handleCancel = (evt: Event) => {
-    console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.cancelable})`)
+    debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.cancelable})`)
 
     if (!evt.cancelable) return
 
@@ -101,7 +101,7 @@ export class SheetView extends DialogBase {
   }
 
   static #handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, evt) => {
-    console.debug(`${SheetView.name} ⚡️ ${evt?.type}`)
+    debug(`${SheetView.name} ⚡️ ${evt?.type}`)
 
     if (evt.matches)
       for (const item of el.querySelectorAll<HTMLElement>(

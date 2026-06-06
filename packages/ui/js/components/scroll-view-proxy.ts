@@ -1,3 +1,5 @@
+import { debug } from '../internal/utils'
+
 /**
  * @summary A wrapper to {hv}-stacks
  */
@@ -7,10 +9,10 @@ export class ScrollViewProxy extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
+    debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
+    debug(`${ScrollViewProxy.name} ⚡️ connect`)
   }
 }

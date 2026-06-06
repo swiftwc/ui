@@ -1,7 +1,7 @@
 import { lifecycleObserver } from '../../buses'
 import type { TabBeforeDetail, TabDetail } from '../../events'
 import { CleanupRegistry } from '../../internal/class/cleanup-registry'
-import { frame, onoff } from '../utils'
+import { debug, frame, onoff } from '../utils'
 
 export class NavigationView extends HTMLElement {
   static get observedAttributes() {
@@ -70,7 +70,7 @@ export class NavigationView extends HTMLElement {
           this.#recentBefore = undefined
         }
 
-        console.debug(`${NavigationView.name} 💡 ${eventType}`)
+        debug(`${NavigationView.name} 💡 ${eventType}`)
 
         frame(this).then(() => {
           // if (!r) return
@@ -83,7 +83,7 @@ export class NavigationView extends HTMLElement {
   }
 
   #handleBeforeTabRevealOrSwap = (evt: CustomEvent<TabBeforeDetail>) => {
-    console.debug(`${NavigationView.name} ⚡️ ${evt?.type}`)
+    debug(`${NavigationView.name} ⚡️ ${evt?.type}`)
 
     if (this.id !== evt.detail?.tag) return
 
@@ -94,7 +94,7 @@ export class NavigationView extends HTMLElement {
   }
 
   // #handleTabReveal = (event: CustomEvent<TabDetail>) => {
-  //   console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
+  //   debug(`${NavigationView.name} ⚡️ ${event?.type}`)
 
   //   if (this === event.target) return
 

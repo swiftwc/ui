@@ -1,4 +1,5 @@
 import { NavigationView } from '../internal/class/navigation-view'
+import { debug } from '../internal/utils'
 
 /**
  * @summary A view that shows a main screen and lets you open other screens on top of it.
@@ -9,19 +10,19 @@ export class NavigationStack extends NavigationView {
   }
 
   disconnectedCallback() {
-    console.debug(`${NavigationStack.name} ⚡️ disconnect`)
+    debug(`${NavigationStack.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
   connectedCallback() {
-    console.debug(`${NavigationStack.name} ⚡️ connect`)
+    debug(`${NavigationStack.name} ⚡️ connect`)
 
     super.connectedCallback()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
 

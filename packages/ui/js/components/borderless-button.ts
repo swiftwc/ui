@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ensurePlaceholder, onoff } from '../internal/utils'
+import { debug, ensurePlaceholder, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -17,13 +17,13 @@ export class BorderlessButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: BorderlessButton) {
-    console.debug(`${BorderlessButton.name} ⚡️ disconnect`)
+    debug(`${BorderlessButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: BorderlessButton) {
-    console.debug(`${BorderlessButton.name} ⚡️ connect`)
+    debug(`${BorderlessButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
 
@@ -31,7 +31,7 @@ export class BorderlessButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement && target
     if (!node) return

@@ -1,7 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { $, listActive, onoff } from '../internal/utils'
+import { $, debug, listActive, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 const observers = new MutationObserverSingleton()
@@ -103,7 +103,7 @@ export class TableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${TableView.name} ⚡️ disconnect`)
+    debug(`${TableView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -115,7 +115,7 @@ export class TableView extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${TableView.name} ⚡️ connect`)
+    debug(`${TableView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
@@ -131,7 +131,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleSlotchange = (evt: Event) => {
-    console.debug(`${TableView.name} ⚡️ ${evt?.type}`)
+    debug(`${TableView.name} ⚡️ ${evt?.type}`)
 
     const slot = evt.target instanceof HTMLSlotElement && evt.target
     if (!slot) return
@@ -144,7 +144,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleTagMutation = (entry?: MutationRecord) => {
-    console.debug(`${TableView.name} ⚡️ mutation`)
+    debug(`${TableView.name} ⚡️ mutation`)
 
     // const sourceSlot = 0 < (this.#slots?.get('column')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('column') : this.#slots?.get('column')
 
@@ -194,7 +194,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    console.debug(`${TableView.name} ⚡️ style`)
+    debug(`${TableView.name} ⚡️ style`)
 
     const target = this.#shadowRoot.querySelector('[part*=table-container]') ?? undefined
     if (!target) return

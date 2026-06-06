@@ -1,3 +1,4 @@
+import { debug } from '../utils'
 import { CleanupRegistry } from './cleanup-registry'
 import { MutationObserverSingleton } from './mutation-observer-singleton'
 
@@ -15,7 +16,7 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 
 export function makeSlotchangeHandler(t: FormAssociatedBase) {
   const handleSlotchange = (evt: Event) => {
-      console.debug(`${makeSlotchangeHandler.name} ⚡️ ${evt?.type}`)
+      debug(`${makeSlotchangeHandler.name} ⚡️ ${evt?.type}`)
 
       const slot = evt.target instanceof HTMLSlotElement && evt.target
       if (!slot) return
@@ -46,7 +47,7 @@ export function makeSlotchangeHandler(t: FormAssociatedBase) {
       if (0 < assigned.length) handleTagMutation()
     },
     handleTagMutation = (entry?: MutationRecord) => {
-      console.debug(`${handleTagMutation.name} ⚡️ mutation`)
+      debug(`${handleTagMutation.name} ⚡️ mutation`)
 
       t.setValidity(t.validity, t.validationMessage)
     }
@@ -70,7 +71,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
+    debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -80,7 +81,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${FormAssociatedBase.name} ⚡️ connect`)
+    debug(`${FormAssociatedBase.name} ⚡️ connect`)
   }
 
   get type() {

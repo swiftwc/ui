@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff } from '../internal/utils'
+import { debug, onoff } from '../internal/utils'
 
 export class StickyContainer extends HTMLElement {
   constructor() {
@@ -7,14 +7,14 @@ export class StickyContainer extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${StickyContainer.name} ⚡️ connect`)
+    debug(`${StickyContainer.name} ⚡️ connect`)
 
     // CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionrun as unknown as EventListener, this).on())
     CleanupRegistry.register(this, onoff('transitionrun', this.#handleTransitionrun as unknown as EventListener, this).on())
   }
 
   disconnectedCallback() {
-    console.debug(`${StickyContainer.name} ⚡️ disconnect`)
+    debug(`${StickyContainer.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }

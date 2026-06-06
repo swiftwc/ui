@@ -4,7 +4,7 @@ import { type PageRevealSwapDetail } from '../events'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { type NavigationHost, NavigationToolbarConfiguration } from '../internal/privateNamespace'
-import { $, kebabCase, onoff } from '../internal/utils'
+import { $, debug, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
 
@@ -34,7 +34,7 @@ for (const [k, Ctor] of Object.entries(Components)) {
   if (!customElements.get(is)) customElements.define(is, Ctor)
 }
 
-console.debug(polyfills)
+debug(polyfills)
 
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
@@ -73,7 +73,7 @@ if (0 < polyfills.size) {
     polyfillTagNamesCacheSelector = [...polyfillTagNamesCache.values()].map((v) => `${v}`.toLowerCase()).join(','),
     flatten = (node: HTMLElement) => [node, ...(node.querySelectorAll?.(polyfillTagNamesCacheSelector) ?? [])]
 
-  console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
+  debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${CSS.escape(is)}"]`)) {
@@ -227,7 +227,7 @@ type NavigateOptions = {
 }
 
 export const startViewTransition = async (target: HTMLElement, type: TransitionType = 'forwards', updateCallbackOrOptions: UpdateCallback | NavigateOptions = async () => {}) => {
-  console.debug(`startViewTransition (${type})`, target)
+  debug(`startViewTransition (${type})`, target)
 
   if (!(target instanceof HTMLElement)) throw new TypeError("Argument 1 ('target') to client.startViewTransition must be an instance of HTMLElement")
 
@@ -279,9 +279,9 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     // dialogFrames = [toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item): item is HTMLDialogElement => item instanceof HTMLDialogElement) //[toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item) => item?.matches('dialog'))
     // if ('DIALOG' === newHost?.tagName) {
     //   ;(newHost as HTMLDialogElement).showModal()
-    //   console.debug(`⚡️ view-transition-start (${type})`)
+    //   debug(`⚡️ view-transition-start (${type})`)
     //   await Promise.allSettled(newHost.getAnimations().map(({ finished }) => finished))
-    //   console.debug(`⚡️ view-transition-end (${type})`)
+    //   debug(`⚡️ view-transition-end (${type})`)
     //   return
     // }
 
@@ -312,17 +312,17 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     if (0 < modalViews.length) {
       for await (const el of modalViews) (el as HTMLDialogElement).showModal()
 
-      console.debug(`⚡️ view-dialog-transition-start (${type})`)
+      debug(`⚡️ view-dialog-transition-start (${type})`)
 
       await Promise.allSettled(modalViews?.[0].getAnimations().map(({ finished }) => finished))
 
-      console.debug(`⚡️ view-dialog-transition-end (${type})`)
+      debug(`⚡️ view-dialog-transition-end (${type})`)
     } else {
-      console.debug(`⚡️ view-transition-start (${type})`)
+      debug(`⚡️ view-transition-start (${type})`)
 
       await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
-      console.debug(`⚡️ view-transition-end (${type})`)
+      debug(`⚡️ view-transition-end (${type})`)
     }
 
     if (0 < (to?.component?.querySelectorAll(`.${Snapshot.config?.['vt-fwd-class-name']},.bwd`) ?? []).length) return
@@ -350,9 +350,9 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     if ('DIALOG' === from.component?.tagName) {
       from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
       ;(from.component as HTMLDialogElement).close()
-      console.debug(`⚡️ view-dialog-transition-start (${type})`)
+      debug(`⚡️ view-dialog-transition-start (${type})`)
       await Promise.allSettled(from.component.getAnimations().map(({ finished }) => finished))
-      console.debug(`⚡️ view-dialog-transition-end (${type})`)
+      debug(`⚡️ view-dialog-transition-end (${type})`)
       if (from.component.matches('[open]')) return
       await updateCallback()
       return // just close modal
@@ -361,7 +361,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     const to = [...from.parents()].at(0)?.hydrate() //closestBody(oldPath.component?.parentElement ?? undefined)
     // console.log(99, to)
 
-    if (!to) return console.debug('Can not go backwards.') // nothing to go back to
+    if (!to) return debug('Can not go backwards.') // nothing to go back to
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
     if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope')) if ('bottom-bar' !== tv.tabBarPlacement) return
@@ -395,11 +395,11 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     for (const el of inbetweenModals) (el as HTMLDialogElement).close() // close old inbetween modals
 
     // capture trans
-    console.debug(`⚡️ view-transition-start (${type})`)
+    debug(`⚡️ view-transition-start (${type})`)
 
     await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
-    console.debug(`⚡️ view-transition-end (${type})`)
+    debug(`⚡️ view-transition-end (${type})`)
 
     if (to.body?.closest(`.bwd,.${Snapshot.config?.['vt-fwd-class-name']}`)) return
 

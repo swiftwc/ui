@@ -1,13 +1,15 @@
+import { debug } from '../internal/utils'
+
 export class BodyView extends HTMLElement {
   constructor() {
     super()
   }
 
   disconnectedCallback() {
-    console.debug(`${BodyView.name} ⚡️ disconnect`)
+    debug(`${BodyView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    console.debug(`${BodyView.name} ⚡️ connect`)
+    debug(`${BodyView.name} ⚡️ connect`)
   }
 }

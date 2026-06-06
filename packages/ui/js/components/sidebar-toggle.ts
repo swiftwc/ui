@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { debounce, onoff } from '../internal/utils'
+import { debounce, debug, onoff } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
@@ -10,7 +10,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${SidebarToggle.name} ⚡️ connect`)
+    debug(`${SidebarToggle.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
@@ -25,7 +25,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
+    debug(`${SidebarToggle.name} ⚡️ disconnect`)
 
     observers.unobserve(this)
 
@@ -41,7 +41,7 @@ export class SidebarToggle extends HTMLElement {
 
   // This triggers on show/hide of any of sidebar-toggle elements
   static #handleMeasure(entry?: ResizeObserverEntry) {
-    console.debug(`${SidebarToggle.name} ⚡️ measure`)
+    debug(`${SidebarToggle.name} ⚡️ measure`)
 
     const target = entry?.target instanceof HTMLElement && entry.target
     if (!target) return
@@ -89,7 +89,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   #handleClick(evt: Event) {
-    console.debug(`${SidebarToggle.name} ⚡️ ${evt?.type}`)
+    debug(`${SidebarToggle.name} ⚡️ ${evt?.type}`)
 
     const target = evt?.target instanceof HTMLElement && evt.target
     if (!target) return

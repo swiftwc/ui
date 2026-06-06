@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff, touchGlass } from '../internal/utils'
+import { debug, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class SidebarView extends DialogBase {
@@ -41,7 +41,7 @@ export class SidebarView extends DialogBase {
 
   /** Autoclose on click outside. */
   static #handleClick = async (evt: Event) => {
-    console.debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
+    debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLElement && evt.target
     if (!target) return

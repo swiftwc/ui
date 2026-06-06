@@ -2,7 +2,7 @@ import { type PickerSelectionDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
 import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
-import { $, kebabCase, onoff } from '../internal/utils'
+import { $, debug, kebabCase, onoff } from '../internal/utils'
 
 const pickerStyles = ['menu', 'inline', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
@@ -164,7 +164,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   connectedCallback() {
-    console.debug(`${PickerView.name} ⚡️ connect`)
+    debug(`${PickerView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
@@ -179,7 +179,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   disconnectedCallback() {
-    console.debug(`${PickerView.name} ⚡️ disconnect`)
+    debug(`${PickerView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -187,7 +187,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
@@ -222,7 +222,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #render() {
-    console.debug(`${PickerView.name} ⚡️ render (${this.pickerStyle})`)
+    debug(`${PickerView.name} ⚡️ render (${this.pickerStyle})`)
 
     if (!this.isConnected) return
 
@@ -309,7 +309,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleClick(evt: Event) {
-    console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+    debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
     const target = evt.target instanceof HTMLElement && evt.target
     if (!target) return
@@ -328,7 +328,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleSlotchange = (evt: Event) => {
-    console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+    debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
     const slot = evt.target instanceof HTMLSlotElement && evt.target
     if (!slot) return
@@ -388,7 +388,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleTagMutation = (entry?: MutationRecord) => {
-    console.debug(`${PickerView.name} ⚡️ mutation`)
+    debug(`${PickerView.name} ⚡️ mutation`)
 
     const sourceSlot = 0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('options') : this.#slots?.get('tag')
 
@@ -543,7 +543,7 @@ export class PickerView extends FormAssociatedBase {
         break
       }
 
-    console.debug(`${PickerView.name} ⚡️ validity-change`)
+    debug(`${PickerView.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor)
   }

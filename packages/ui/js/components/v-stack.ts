@@ -1,3 +1,5 @@
+import { debug } from '../internal/utils'
+
 /**
  * @attr {leading|"leading fill"|center|trailing|fill|space-between} distribution - The distribution of cols
  *
@@ -9,10 +11,10 @@ export class VStack extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${VStack.name} ⚡️ connect`)
+    debug(`${VStack.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    console.debug(`${VStack.name} ⚡️ disconnect`)
+    debug(`${VStack.name} ⚡️ disconnect`)
   }
 }

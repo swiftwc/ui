@@ -1,4 +1,4 @@
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 
 export class SectionView extends HTMLElement {
   static get observedAttributes() {
@@ -46,7 +46,7 @@ export class SectionView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${SectionView.name} ⚡️ disconnect`)
+    debug(`${SectionView.name} ⚡️ disconnect`)
 
     // if (this.#sentinel) this.#observer?.unobserve(this.#sentinel)
 
@@ -54,7 +54,7 @@ export class SectionView extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${SectionView.name} ⚡️ connect`)
+    debug(`${SectionView.name} ⚡️ connect`)
 
     // this.#sibling = this.closest('scroll-view') ?? undefined
 
@@ -74,7 +74,7 @@ export class SectionView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     // Snapshot.waitReady.then(() => {
     switch (name) {
@@ -99,7 +99,7 @@ export class SectionView extends HTMLElement {
   }
 
   // #handleIntersect = async (entries: IntersectionObserverEntry[]) => {
-  //   console.debug(`${SectionView.name} ⚡️ intersect (${entries?.length})`)
+  //   debug(`${SectionView.name} ⚡️ intersect (${entries?.length})`)
 
   //   for (const {
   //     target: { tagName },
@@ -113,7 +113,7 @@ export class SectionView extends HTMLElement {
   // }
 
   // #handleSlotchange = (event: Event) => {
-  //   console.debug(`${SectionView.name} ⚡️ ${event?.type}`)
+  //   debug(`${SectionView.name} ⚡️ ${event?.type}`)
 
   //   // const assigned = this.#headerSlot?.assignedElements({ flatten: true })?.[0] ?? undefined
 

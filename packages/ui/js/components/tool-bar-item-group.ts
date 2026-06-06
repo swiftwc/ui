@@ -1,4 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { debug } from '../internal/utils'
 
 export class ToolBarItemGroup extends HTMLElement {
   // static get observedAttributes() {
@@ -10,7 +11,7 @@ export class ToolBarItemGroup extends HTMLElement {
   }
 
   connectedCallback() {
-    console.debug(`${ToolBarItemGroup.name} ⚡️ connect`)
+    debug(`${ToolBarItemGroup.name} ⚡️ connect`)
 
     // if (!this.closest('[is=sheet-view]')) return
     // if (!self.matchMedia('(pointer: fine)').matches) return
@@ -30,13 +31,13 @@ export class ToolBarItemGroup extends HTMLElement {
   }
 
   disconnectedCallback() {
-    console.debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
+    debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   // attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-  //   console.debug(`${ToolBarItemGroup.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+  //   debug(`${ToolBarItemGroup.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
   //   switch (name) {
   //     case 'preferred-fine-modal-placement':

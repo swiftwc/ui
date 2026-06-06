@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
+import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -17,13 +17,13 @@ export class GlassButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: ButtonBase) {
-    console.debug(`${GlassButton.name} ⚡️ disconnect`)
+    debug(`${GlassButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: ButtonBase) {
-    console.debug(`${GlassButton.name} ⚡️ connect`)
+    debug(`${GlassButton.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -41,7 +41,7 @@ export class GlassButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    console.debug(`${GlassButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${GlassButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement && target
     if (!node) return

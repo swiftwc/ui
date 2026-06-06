@@ -221,9 +221,8 @@ export class TableView extends HTMLElement {
     }
   }
 
-  #handleMenuClick = (evt: Event) => {
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+  #handleMenuClick = ({ target }: Event) => {
+    if (!(target instanceof HTMLElement && target)) return
 
     const btn = target.closest('button')
     if (!btn) return

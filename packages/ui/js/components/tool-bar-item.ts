@@ -30,9 +30,8 @@ export class ToolBarItem extends HTMLElement {
         touchGlass(
           this,
           (t) => t.closest('tool-bar-item-group') ?? t,
-          (evt: Event) => {
-            const target = evt.target instanceof HTMLElement && evt.target
-            if (!target) return true
+          ({ target }: Event) => {
+            if (!(target instanceof HTMLElement && target)) return true
 
             if (target.closest('menu-view[open]')) return false
 

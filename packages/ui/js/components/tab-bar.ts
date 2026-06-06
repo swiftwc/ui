@@ -34,9 +34,8 @@ export class TabBar extends DialogBase {
         touchGlass(
           el,
           (t) => t,
-          (evt: PointerEvent) => {
-            const target = evt.target instanceof HTMLElement && evt.target
-            if (!target) return true
+          ({ target }: PointerEvent) => {
+            if (!(target instanceof HTMLElement && target)) return true
 
             if (target.matches('[is=tab-bar]')) return false
             if (target.closest('tool-bar-item')) return false
@@ -50,11 +49,10 @@ export class TabBar extends DialogBase {
     // })
   }
 
-  static #handleClick = async (evt: Event) => {
-    debug(`${TabBar.name} ⚡️ ${evt?.type}`)
+  static #handleClick = async ({ target, type }: Event) => {
+    debug(`${TabBar.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     if (target instanceof HTMLDialogElement && 'tab-bar' === target.getAttribute('is')) target.close?.()
   }

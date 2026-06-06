@@ -106,9 +106,8 @@ export class TabView extends HTMLElement {
     // })
   }
 
-  #handleSummaryClick = (evt: Event) => {
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+  #handleSummaryClick = ({ target }: Event) => {
+    if (!(target instanceof HTMLElement && target)) return
 
     const summary = target.closest('summary')
     if (!summary) return

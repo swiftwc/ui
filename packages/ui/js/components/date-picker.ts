@@ -258,8 +258,8 @@ export class DatePicker extends FormAssociatedBase {
   #handleClick = (evt: Event) => {
     debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    const { target } = evt
+    if (!(target instanceof HTMLElement && target)) return
 
     const input = target.closest('input')
     if (input) return
@@ -396,11 +396,10 @@ export class DatePicker extends FormAssociatedBase {
     for (const input of this.#inputs) input.classList.toggle('focus', input === evt.target)
   }
 
-  #handleInputBlur = (evt: Event) => {
-    debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+  #handleInputBlur = ({ target, type }: Event) => {
+    debug(`${DatePicker.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLInputElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLInputElement && target)) return
 
     const input = target as DateInput
 

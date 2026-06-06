@@ -22,9 +22,8 @@ export class SidebarView extends DialogBase {
         touchGlass(
           el,
           (t) => t,
-          (evt: PointerEvent) => {
-            const target = evt.target instanceof HTMLElement && evt.target
-            if (!target) return true
+          ({ target }: PointerEvent) => {
+            if (!(target instanceof HTMLElement && target)) return true
 
             if (target.matches('[is=sidebar-view]')) return false
             if (target.closest('tool-bar-item')) return false
@@ -40,11 +39,10 @@ export class SidebarView extends DialogBase {
   }
 
   /** Autoclose on click outside. */
-  static #handleClick = async (evt: Event) => {
-    debug(`${SidebarView.name} ⚡️ ${evt?.type}`)
+  static #handleClick = async ({ target, type }: Event) => {
+    debug(`${SidebarView.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     if (target instanceof HTMLDialogElement && 'sidebar-view' === target.getAttribute('is')) target.close?.()
   }

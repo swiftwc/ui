@@ -308,11 +308,10 @@ export class PickerView extends FormAssociatedBase {
     if (dispatchEvent) this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
   }
 
-  #handleClick(evt: Event) {
-    debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+  #handleClick({ type, target }: Event) {
+    debug(`${PickerView.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     const btn = target?.closest('button')
 
@@ -360,9 +359,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static wrapTag(node: Element, slotName?: string) {
-    const btn = $(`<button type="button" tabindex="0"></button>`, '>1') //document.createElement('button')
-    // btn.type = 'button'
-    // btn.tabIndex = 0
+    const btn = $(`<button type="button" tabindex="0"></button>`, '>1')
 
     switch (slotName) {
       case 'tag':
@@ -375,7 +372,7 @@ export class PickerView extends FormAssociatedBase {
       default:
         if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
 
-        const label = $(`<label-view></label-view>`, '>1') //document.createElement('label-view')
+        const label = $(`<label-view></label-view>`, '>1')
 
         if (node.hasAttribute('label')) label.setAttribute('title', node.getAttribute('label') ?? '')
 
@@ -414,16 +411,16 @@ export class PickerView extends FormAssociatedBase {
         const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
           section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
 
-        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
+        section.innerHTML = ''
 
-        // if (label) section.setAttribute('header', label)
+        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
         if (label) {
           const el = $(`<label-view></label-view>`, '>1')
 
           el.setAttribute('title', label)
 
           section.insertAdjacentElement('beforeend', el)
-        } else section.innerHTML = ''
+        }
 
         for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 

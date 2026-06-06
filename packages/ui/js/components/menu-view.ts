@@ -84,9 +84,8 @@ export class MenuView extends HTMLElement {
         touchGlass(
           this,
           (t) => t,
-          (evt: PointerEvent) => {
-            const target = evt.target instanceof HTMLElement && evt.target
-            if (!target) return true
+          ({ target }: PointerEvent) => {
+            if (!(target instanceof HTMLElement && target)) return true
 
             if (target.matches('menu-view')) return false
             if (!target.closest('menu-view[open]')) return false
@@ -154,11 +153,10 @@ export class MenuView extends HTMLElement {
     }
   }
 
-  #handleDialogClick: EventListener = (evt: Event) => {
-    debug(`${MenuView.name} ⚡️ ${evt?.type}`)
+  #handleDialogClick: EventListener = ({ type, target }: Event) => {
+    debug(`${MenuView.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     if (target.matches('dialog')) return this.toggleAttribute('open', false) // click outside
 

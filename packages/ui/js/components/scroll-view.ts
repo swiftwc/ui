@@ -142,15 +142,14 @@ export class ScrollView extends HTMLElement {
     }
   }
 
-  #handleScroll: EventListener = (evt: Event) => {
-    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+  #handleScroll: EventListener = ({ target, type }: Event) => {
+    debug(`${ScrollView.name} ⚡️ ${type}`)
 
     if (!this.#isMidScroll) this.#isMidScroll = true
 
     // if (this.#stopRecordingScrollTop) return
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     this.#lastScrollTop = target.scrollTop
   }
@@ -181,11 +180,10 @@ export class ScrollView extends HTMLElement {
     this.#beforeTabSwapLastScrolltop = undefined
   }
 
-  #handleTabReveal = (evt: CustomEvent<TabDetail>) => {
-    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+  #handleTabReveal = ({ type, target }: CustomEvent<TabDetail>) => {
+    debug(`${ScrollView.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     if (!target.contains(this)) return
 
@@ -222,11 +220,10 @@ export class ScrollView extends HTMLElement {
     // })
   }
 
-  #handleTabBeforeswap = (evt: CustomEvent<TabDetail>) => {
-    debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+  #handleTabBeforeswap = ({ type, target }: CustomEvent<TabDetail>) => {
+    debug(`${ScrollView.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLElement && target)) return
 
     if (!target.contains(this)) return
 

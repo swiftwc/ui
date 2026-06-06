@@ -53,9 +53,8 @@ export class ConfirmationDialog extends DialogBase {
         touchGlass(
           el,
           (t) => t,
-          (evt: PointerEvent) => {
-            const target = evt.target instanceof HTMLElement && evt.target
-            if (!target) return true
+          ({ target }: PointerEvent) => {
+            if (!(target instanceof HTMLElement && target)) return true
 
             if (target.matches('[is=confirmation-dialog]')) return false
             // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
@@ -100,11 +99,11 @@ export class ConfirmationDialog extends DialogBase {
   static #handleDialogClick = (evt: PointerEvent) => {
     debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
-    const dialog = evt.currentTarget instanceof HTMLDialogElement && evt.currentTarget
-    if (!dialog) return
+    const { target, currentTarget: dialog } = evt
 
-    const target = evt.target instanceof HTMLElement && evt.target
-    if (!target) return
+    if (!(dialog instanceof HTMLDialogElement && dialog)) return
+
+    if (!(target instanceof HTMLElement && target)) return
 
     if (target.matches('dialog') && !isInside(evt.clientX, evt.clientY, dialog.getBoundingClientRect())) return dialog.requestClose() // click outside
 
@@ -130,8 +129,8 @@ export class ConfirmationDialog extends DialogBase {
 
     if (!evt.cancelable) return
 
-    const target = evt.target instanceof HTMLDialogElement && evt.target
-    if (!target) return
+    const { target } = evt
+    if (!(target instanceof HTMLDialogElement && target)) return
 
     evt.preventDefault()
 
@@ -150,11 +149,10 @@ export class ConfirmationDialog extends DialogBase {
     })
   }
 
-  static #handleDialogClose: EventListener = (evt: Event) => {
-    debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+  static #handleDialogClose: EventListener = ({ type, target }: Event) => {
+    debug(`${ConfirmationDialog.name} ⚡️ ${type}`)
 
-    const target = evt.target instanceof HTMLDialogElement && evt.target
-    if (!target) return
+    if (!(target instanceof HTMLDialogElement && target)) return
 
     target.remove()
   }

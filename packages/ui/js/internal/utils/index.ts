@@ -1,12 +1,14 @@
 // import * as _intl from './intl'
-import cash from './cash'
+// import cash from './cash'
 
 export { default as add } from './add'
-export { default as ensurePlaceholder } from './ensure-placeholder'
+export { default as $ } from './cash'
 export { default as clamp } from './clamp'
 export { default as compareBigDecimals } from './compare-big-decimals'
 export { default as cssTime } from './css-time'
 export { default as debounce } from './debounce'
+export { default as debug } from './debug'
+export { default as ensurePlaceholder } from './ensure-placeholder'
 export { default as frame } from './frame'
 export { default as isInside } from './is-inside'
 export { default as kebabCase } from './kebab-case'
@@ -19,4 +21,4 @@ export { default as slowHideShow } from './slow-hide-show'
 export { default as timeout } from './timeout'
 export { default as touchGlass } from './touch-glass'
 
-export const $: typeof cash = cash
+// export const $: typeof cash = cash

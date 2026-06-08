@@ -307,8 +307,8 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputPaste = (evt: ClipboardEvent) => {
     debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target instanceof HTMLInputElement && evt.target
-    if (!input) return
+    const { target: input } = evt
+    if (!(input instanceof HTMLInputElement && input)) return
 
     evt.preventDefault()
 
@@ -338,8 +338,8 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputBeforeinput = (evt: InputEvent) => {
     debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target instanceof HTMLInputElement && evt.target
-    if (!input) return
+    const { target: input } = evt
+    if (!(input instanceof HTMLInputElement && input)) return
 
     if ('insertText' !== evt.inputType) return
 

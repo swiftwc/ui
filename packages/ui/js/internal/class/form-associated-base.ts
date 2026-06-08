@@ -15,34 +15,14 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 }
 
 export function makeSlotchangeHandler(t: FormAssociatedBase) {
-  const handleSlotchange = (evt: Event) => {
-      debug(`${makeSlotchangeHandler.name} ⚡️ ${evt?.type}`)
+  const handleSlotchange = ({ type, target: slot }: Event) => {
+      debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
 
-      const slot = evt.target instanceof HTMLSlotElement && evt.target
-      if (!slot) return
+      if (!(slot instanceof HTMLSlotElement && slot)) return
 
       const assigned = slot.assignedElements({ flatten: true })
 
       observers.syncObservations(trackedElements.get(t) ?? new Set(), assigned, handleTagMutation, ['value', 'label'])
-
-      // for (const el of trackedElements.get(t) ?? [])
-      //   if (!assigned.includes(el)) {
-      //     observers.unobserve(el)
-      //     trackedElements.get(t)?.delete(el)
-      //   }
-
-      // for (const el of assigned) {
-      //   if (!trackedElements.get(t)?.has(el))
-      //     observers.observe(el, handleTagMutation, {
-      //       attributes: true,
-      //       characterData: true,
-      //       subtree: true,
-      //       childList: true,
-      //       attributeFilter: ['value', 'label'],
-      //     })
-
-      //   trackedElements.get(t)?.add(el)
-      // }
 
       if (0 < assigned.length) handleTagMutation()
     },

@@ -293,8 +293,8 @@ export class TextField extends FormAssociatedBase {
   #handleInputPaste = (evt: ClipboardEvent) => {
     debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target instanceof HTMLInputElement && evt.target
-    if (!input) return
+    const { target: input } = evt
+    if (!(input instanceof HTMLInputElement && input)) return
 
     evt.preventDefault()
 
@@ -412,8 +412,8 @@ export class TextField extends FormAssociatedBase {
   #handleInputBeforeinput = (evt: InputEvent) => {
     debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
-    const input = evt.target instanceof HTMLInputElement && evt.target
-    if (!input) return
+    const { target: input } = evt
+    if (!(input instanceof HTMLInputElement && input)) return
 
     if ('insertText' !== evt.inputType) return
 
@@ -460,11 +460,10 @@ export class TextField extends FormAssociatedBase {
     }
   }
 
-  #handleInputBlur = (evt: Event) => {
-    debug(`${TextField.name} ⚡️ ${evt?.type}`)
+  #handleInputBlur = ({ type, target: input }: Event) => {
+    debug(`${TextField.name} ⚡️ ${type}`)
 
-    const input = evt.target instanceof HTMLInputElement && evt.target
-    if (!input) return
+    if (!(input instanceof HTMLInputElement && input)) return
 
     if (0 === input.value.length) return
 

@@ -16,7 +16,7 @@ export class Snapshot {
   static on = new EventTarget()
 
   static readonly waitReady = Promise.all([
-    'complete' === document.readyState ? Promise.resolve() : new Promise((r) => self.addEventListener('load', r, { once: true })),
+    'complete' === document.readyState ? Promise.resolve() : new Promise<void>((r) => self.addEventListener('load', () => r(), { once: true })),
     (async () => {
       if (!this.#readyCalled) await this.setOwnConfig()
     })(), // Lazy config read promise, triggered on first access

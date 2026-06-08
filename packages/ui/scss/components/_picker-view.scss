@@ -79,7 +79,12 @@ $picker-elses: (
       // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
     }
 
-    :where(& > menu-view > button) {
+    :where(& menu-view > menu-view > label-view[slot='label']) {
+      @container style(--picker-style: menu) {
+        margin-inline-start: 2rem;
+      }
+    }
+    :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
       @container style(--picker-style: menu) {
         @include make-button-affordance;
       }
@@ -103,7 +108,11 @@ $picker-elses: (
       }
       @each $v in vars.$picker-styles {
         :where(&[picker-style='#{$v}']) {
-          :where(& > menu-view > button) {
+          :where(& menu-view > menu-view > label-view[slot='label']) {
+            margin-inline-start: 2rem;
+          }
+
+          :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
             @include make-button-affordance;
           }
 

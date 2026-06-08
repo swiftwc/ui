@@ -421,13 +421,13 @@
     padding-block: var(--list--host-padding-block, );
     grid-template-columns: var(--list--host-grid-template-columns, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)) {
     appearance: none;
     -webkit-appearance: none;
     border: var(--itemborder,);
@@ -438,48 +438,48 @@
     border-radius: var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,);
   }
   @media (prefers-reduced-motion: no-preference) {
-    :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)) {
+    :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)) {
       transition: background-color 300ms ease-out allow-discrete, color 300ms ease-out allow-discrete;
       will-change: background-color, color;
     }
-    :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name),
-    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)).active {
+    :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name),
+    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)).active {
       transition-duration: 0ms;
     }
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], section-view) ~ section-view, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], section-view) ~ section-view, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], section-view) ~ section-view) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], section-view) ~ section-view:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], section-view) ~ section-view:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], section-view) ~ section-view:not(menu-view *)) {
     padding-block-start: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not([slot]) ~ section-view, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not([slot]) ~ section-view, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not([slot]) ~ section-view) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not([slot]) ~ section-view:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not([slot]) ~ section-view:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not([slot]) ~ section-view:not(menu-view *)) {
     padding-block-start: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:has(~ :not([slot], section-view)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:has(~ :not([slot], section-view)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:has(~ :not([slot], section-view))) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:has(~ :not([slot], section-view)):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:has(~ :not([slot], section-view)):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:has(~ :not([slot], section-view)):not(menu-view *)) {
     padding-block-end: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *)) {
     margin-block-start: var(--list--details-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *)) {
     margin-block-start: calc(var(--list--details-gap, 0px) / 2);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group]))) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *)) {
     margin-block-end: var(--list--details-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot]))) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *)) {
     margin-block-end: calc(var(--list--details-gap, 0px) / 2);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
+  :where(table-view:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     --itempadistart: var(--list--item-padding-inline-start, 0rem);
     --itempadiend: calc(var(--list--item-padding-inline-end, 0rem) + var(--list--accessories-size, 0rem));
     --itempadbstart: var(--list--item-padding-block-start,);
@@ -495,7 +495,7 @@
     --itemhighlighttext: var(--list--highlighteditem-color, var(--list--item-color,));
     --itemactivetext: var(--list--highlighteditem-color, var(--list--item-color,));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not(summary), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not(summary), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not(summary)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not(menu-view *) > :not(summary), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not(menu-view *) > :not(summary), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not(menu-view *) > :not(summary)) {
     --itemface: var(--list--details-background-color, var(--list--item-background-color,));
     --itemhighlightface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
     --itemactiveface: var(--list--selecteddetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
@@ -503,7 +503,7 @@
     --itemhighlighttext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
     --itemactivetext: var(--list--selecteddetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
   }
-  :where([is=disclosure-group][open] table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > summary, [is=disclosure-group][open] [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > summary, [is=disclosure-group][open] list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > summary) {
+  :where([is=disclosure-group][open] table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not(menu-view *) > summary, [is=disclosure-group][open] [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not(menu-view *) > summary, [is=disclosure-group][open] list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not(menu-view *) > summary) {
     --itemface: var(--list--opendetails-background-color, var(--list--item-background-color,));
     --itemhighlightface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
     --itemactiveface: var(--list--selectedopendetails-background-color, var(--list--highlighteditem-background-color, var(--list--item-background-color,)));
@@ -511,7 +511,7 @@
     --itemhighlighttext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
     --itemactivetext: var(--list--selectedopendetails-color, var(--list--highlighteditem-color, var(--list--item-color,)));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group][open] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group][open] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group][open] > summary) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not(menu-view *)[open] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not(menu-view *)[open] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not(menu-view *)[open] > summary) {
     --itemface: var(--list--opensummary-background-color, var(--list--item-background-color,));
     --itemhighlightface: var(
       --list--selectedopensummary-background-color,
@@ -525,16 +525,16 @@
     --itemhighlighttext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
     --itemactivetext: var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))));
   }
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group],
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group],
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group] {
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group]:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group]:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group]:not(menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group]:not(menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group]:not(menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group]:not(menu-view *) {
     --disclosure-style: var(--list--rootsummary-marker-display,);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group] > summary,
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group] > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group] > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group] > summary) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group]:not(menu-view *) > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group]:not(menu-view *) > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group]:not(menu-view *) > summary,
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group]:not(menu-view *) > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group]:not(menu-view *) > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group]:not(menu-view *) > summary) {
     --itemface: var(--list--rootsummary-background-color, var(--list--item-background-color,));
     --itemhighlightface: var(
       --list--selectedrootsummary-background-color,
@@ -552,10 +552,10 @@
     --itempadbstart: var(--list--rootsummary-padding-block-start, var(--list--item-padding-block-start,));
     --itempadbend: var(--list--rootsummary-padding-block-end, var(--list--item-padding-block-end,));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group][open] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group][open] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group][open] > summary,
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group][open] > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group][open] > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group][open] > summary) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [is=disclosure-group]:not(menu-view *)[open] > summary, [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > [is=disclosure-group]:not(menu-view *)[open] > summary, list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > [is=disclosure-group]:not(menu-view *)[open] > summary,
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > section-view > [is=disclosure-group]:not(menu-view *)[open] > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > section-view > [is=disclosure-group]:not(menu-view *)[open] > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > section-view > [is=disclosure-group]:not(menu-view *)[open] > summary) {
     --itemface: var(--list--rootsummary-background-color, var(--list--opensummary-background-color, var(--list--item-background-color,)));
     --itemhighlightface: var(
       --list--selectedrootsummary-background-color,
@@ -575,22 +575,22 @@
       var(--list--selectedopensummary-color, var(--list--selectedsummary-color, var(--list--highlighteditem-color, var(--list--item-color,))))
     );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *)) {
     position: relative;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view))::before {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *))::before {
     content: "";
     position: absolute;
     inset: 0rem calc(var(--list--item-padding-inline-end, 0rem) + var(--list--media-inner-padding-inline-end, 0rem)) auto calc(var(--list--item-padding-inline-start, 0rem) + var(--list--media-inner-padding-inline-start, 0rem));
@@ -598,81 +598,81 @@
     background: var(--list--separator-background-color, var(--separator));
     pointer-events: none;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary[aria-selected=true])))::before, :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group]:has(> summary.active)))::before {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary[aria-selected=true])))::before, :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group]:has(> summary.active)))::before {
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot])) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *)) {
     --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
     --itemradiustr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view):is([is=disclosure-group] :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group] :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot]):is([is=disclosure-group] :not([slot]))) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]) ~ :not([slot], section-view, menu-view *):is([is=disclosure-group] :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *):is([is=disclosure-group] :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *):is([is=disclosure-group] :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot]) ~ :not([slot], menu-view *):is([is=disclosure-group] :not([slot]))) {
     --itemradiustl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
     --itemradiustr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]):has(~ :not([slot], section-view)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]):has(~ :not([slot], section-view)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]):has(~ :not([slot], section-view)),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view)),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]):has(~ :not([slot], section-view)),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([data-state=closed]) > summary,
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed]) > summary,
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([data-state=closed]) > summary) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]):has(~ :not([slot], section-view, menu-view *)), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view, menu-view *)), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary,
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary,
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary) {
     --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
     --itemradiusbr: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]):has(~ :not([slot], section-view)):is([is=disclosure-group] :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], summary):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group] :not([slot])),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group] :not([slot])),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([data-state=closed]) > summary:is([is=disclosure-group] :not([slot]))) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)):is([is=disclosure-group] :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], summary, menu-view *):has(~ :not([slot])):is([is=disclosure-group] :not([slot])),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary:is([is=disclosure-group] :not([slot])),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary:is([is=disclosure-group] :not([slot])),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([data-state=closed], menu-view *) > summary:is([is=disclosure-group] :not([slot]))) {
     --itemradiusbl: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
     --itemradiusbr: var(--list--adjacentdetailsitem-border-radius, var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)));
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view))::part(section-footer-stack), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view))::part(section-header-stack) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view, menu-view *))::part(section-footer-stack), :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view, menu-view *))::part(section-header-stack) {
     padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px)) calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
     margin-inline: calc(var(--list--root-padding-inline) * -1);
     padding-block: 1px;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view))::part(section-header-stack) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view, menu-view *))::part(section-header-stack) {
     top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
     position: sticky;
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
     position: relative;
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view))::after {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view))::after {
     pointer-events: none;
     content: "";
     position: absolute;
@@ -680,118 +680,118 @@
     inline-size: 1px;
     background: var(--list--separator-background-color, var(--separator));
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :first-child:not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :first-child:not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:first-child > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:first-child > :not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:first-child > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:first-child > :not([slot])) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :first-child:not([slot]), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :first-child:not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:first-child > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:first-child > :not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:first-child > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:first-child > :not([slot])) {
     --itemradiustr: var(--list--adjacentitem-border-radius,);
     --itemradiusbr: var(--list--adjacentitem-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :first-child:not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:first-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
     --itemradiustr: var(--list--adjacentitem-border-radius,);
     --itemradiusbr: var(--list--adjacentitem-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot])) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot])) {
     --itemradiustr: var(--list--item-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]))::before {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]))::before {
     content: none;
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
     --itemradiustr: var(--list--item-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])))::before {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])))::before {
     content: none;
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-last-child(2):not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-last-child(2):not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-last-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-last-child(2) > :not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot])) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-last-child(2):not([slot]), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-last-child(2):not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-last-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-last-child(2) > :not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot])) {
     --itemradiustr: var(--list--adjacentitem-border-radius,);
     --itemradiusbl: var(--list--item-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :nth-last-child(2):not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:nth-last-child(2) > :not([slot]):is([is=disclosure-group] :not([slot]))) {
     --itemradiustr: var(--list--adjacentitem-border-radius,);
     --itemradiusbl: var(--list--item-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :last-child:not([slot]), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :last-child:not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:last-child > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:last-child > :not([slot]),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:last-child > :not([slot]),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:last-child > :not([slot])) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :last-child:not([slot]), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :last-child:not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:last-child > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:last-child > :not([slot]),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:last-child > :not([slot]),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:last-child > :not([slot])) {
     --itemradiusbr: var(--list--item-border-radius,);
     --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
-  :where(table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  table-view[columns="2"]:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  [columns="2"][is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
-  list-view[columns="2"]:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
+  :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) > :last-child:not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot])),
+  list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:last-child > :not([slot]):is([is=disclosure-group] :not([slot]))) {
     --itemradiusbr: var(--list--item-border-radius,);
     --itemradiusbl: var(--list--adjacentitem-border-radius,);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button)) {
     position: relative;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button))::after {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button))::after {
     pointer-events: none;
     content: "";
     -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M184.49,136.49l-80,80a12,12,0,0,1-17-17L159,128,87.51,56.49a12,12,0,1,1,17-17l80,80A12,12,0,0,1,184.49,136.49Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
@@ -800,13 +800,13 @@
     aspect-ratio: 1;
     place-self: center;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):is(button))::after {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button))::after {
     position: absolute;
     inset: 50% var(--itempadiend) auto auto;
     display: var(--list--accessories-display, grid);
@@ -817,22 +817,22 @@
   }
 }
 @layer sw-colors {
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly])):focus-visible {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly])):focus-visible {
     outline: none;
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly])):focus-visible {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly])):focus-visible {
     --itemface: var(--itemhighlightface,);
     --itemtext: var(--itemhighlighttext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
@@ -841,26 +841,26 @@
   }
 }
 @layer sw-actions {
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly]),
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name):not(:disabled):not([readonly])).active {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly])).active {
     --itemface: var(--itemactiveface,);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, whatever-name)[aria-selected=true]) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true]) {
     --itemface: var(--itemactiveface);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
@@ -3132,6 +3132,8 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter, );
     box-shadow: var(--menu-popover-box-shadow, );
     --menu--dialog-scale: scale(0);
+    --menu--summary-scale: ;
+    --menu--summary-filter: ;
   }
   :where(menu-view[open])::part(menu-dialog) {
     --menu--dialog-max-inline-size: 100vw;
@@ -3140,16 +3142,11 @@
     --menu--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --menu--dialog-scale: scale(1);
   }
-  @starting-style {
-    :where(menu-view[open])::part(menu-dialog) {
-      --menu--dialog-scale: scale(0);
-    }
-  }
   :where(menu-view[closing])::part(menu-dialog) {
     --menu--dialog-max-inline-size: anchor-size();
     --menu--dialog-max-block-size: anchor-size();
   }
-  menu-view[open] > menu-view[open], menu-view[open]:not(tool-bar-item menu-view) {
+  menu-view[open]:not(tool-bar-item > menu-view) {
     --menu--summary-scale: scale(0.01);
     --menu--summary-filter: blur(10px);
   }
@@ -4314,13 +4311,18 @@
     --picker--stack-grid-template-columns: minmax(0, 1fr);
   }
   @container style(--picker-style: menu) {
-    :where(picker-view > menu-view > button) {
+    :where(picker-view menu-view > menu-view > label-view[slot=label]) {
+      margin-inline-start: 2rem;
+    }
+  }
+  @container style(--picker-style: menu) {
+    :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary) {
       position: relative;
       grid-auto-flow: column;
       grid-template-columns: var(--picker-affordance-size) minmax(0, 1fr);
       column-gap: var(--picker-affordance-col-gap);
     }
-    :where(picker-view > menu-view > button)::before {
+    :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary)::before {
       pointer-events: none;
       content: "";
       -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
@@ -4329,7 +4331,7 @@
       aspect-ratio: 1;
       place-self: center;
     }
-    :where(picker-view > menu-view > button)::before {
+    :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary)::before {
       display: grid;
       block-size: var(--picker-affordance-size);
       inline-size: var(--picker-affordance-size);
@@ -4337,15 +4339,15 @@
       transform: var(--tablecol--after-rotate, );
     }
     @media (prefers-reduced-motion: no-preference) {
-      :where(picker-view > menu-view > button)::before {
+      :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary)::before {
         transition: transform 100ms ease-out;
         will-change: transform;
       }
     }
-    :where(picker-view > menu-view > button)::before {
+    :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary)::before {
       opacity: 0;
     }
-    :where(picker-view > menu-view > button)[aria-selected=true]::before {
+    :where(picker-view menu-view > button, picker-view menu-view > [is=disclosure-group] > button, picker-view menu-view > [is=disclosure-group] > summary)[aria-selected=true]::before {
       opacity: 1;
     }
   }
@@ -4362,13 +4364,16 @@
         --picker--stack-grid-template-columns: auto minmax(0, 1fr);
       }
     }
-    :where(:where(picker-view[picker-style=menu]) > menu-view > button) {
+    :where(:where(picker-view[picker-style=menu]) menu-view > menu-view > label-view[slot=label]) {
+      margin-inline-start: 2rem;
+    }
+    :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary) {
       position: relative;
       grid-auto-flow: column;
       grid-template-columns: var(--picker-affordance-size) minmax(0, 1fr);
       column-gap: var(--picker-affordance-col-gap);
     }
-    :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+    :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary)::before {
       pointer-events: none;
       content: "";
       -webkit-mask: url('data:image/svg+xml,%3Csvg xmlns="http://www.w3.org/2000/svg" width="100%" height="100%" fill="currentColor" viewBox="0 0 256 256"%3E%3Cpath d="M232.49,80.49l-128,128a12,12,0,0,1-17,0l-56-56a12,12,0,1,1,17-17L96,183,215.51,63.51a12,12,0,0,1,17,17Z"%3E%3C/path%3E%3C/svg%3E') no-repeat center/contain;
@@ -4377,7 +4382,7 @@
       aspect-ratio: 1;
       place-self: center;
     }
-    :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+    :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary)::before {
       display: grid;
       block-size: var(--picker-affordance-size);
       inline-size: var(--picker-affordance-size);
@@ -4385,15 +4390,15 @@
       transform: var(--tablecol--after-rotate, );
     }
     @media (prefers-reduced-motion: no-preference) {
-      :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+      :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary)::before {
         transition: transform 100ms ease-out;
         will-change: transform;
       }
     }
-    :where(:where(picker-view[picker-style=menu]) > menu-view > button)::before {
+    :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary)::before {
       opacity: 0;
     }
-    :where(:where(picker-view[picker-style=menu]) > menu-view > button)[aria-selected=true]::before {
+    :where(:where(picker-view[picker-style=menu]) menu-view > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > button, :where(picker-view[picker-style=menu]) menu-view > [is=disclosure-group] > summary)[aria-selected=true]::before {
       opacity: 1;
     }
     :where(picker-view[picker-style=menu]) {

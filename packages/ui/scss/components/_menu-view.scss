@@ -7,6 +7,7 @@
   menu-view {
     :where(&)::part(menu-summary) {
       transform: var(--menu--summary-scale,);
+
       filter: var(--menu--summary-filter,);
     }
 
@@ -70,6 +71,8 @@
 
       // finally
       --menu--dialog-scale: scale(0);
+      --menu--summary-scale: ;
+      --menu--summary-filter: ;
     }
 
     &[open] {
@@ -82,9 +85,10 @@
 
         --menu--dialog-scale: scale(1);
 
-        @starting-style {
-          --menu--dialog-scale: scale(0);
-        }
+        // BUG: Safari rerenders entire scale animation on every button change
+        // @starting-style {
+        // --menu--dialog-scale: scale(0);
+        // }
       }
     }
 
@@ -96,8 +100,10 @@
       }
     }
 
-    &[open] > &[open],
-    &[open]:not(tool-bar-item &) {
+    // shrink again, if opened outside of a direct parent toolbaritem (they shrink themselves)
+    // &[open] > &[open],
+    // &[open]:not(tool-bar-item &) {
+    &[open]:not(tool-bar-item > &) {
       --menu--summary-scale: scale(0.01);
 
       --menu--summary-filter: blur(10px);

@@ -1,13 +1,11 @@
 import { type PickerSelectionDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
-import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, debug, kebabCase, onoff } from '../internal/utils'
 
 const pickerStyles = ['menu', 'inline', 'automatic'] as const
-export type PickerStyle = (typeof pickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
-
-const observers = new MutationObserverSingleton()
+export type PickerStyle = (typeof pickerStyles)[number]
 
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {
@@ -25,6 +23,50 @@ export class PickerView extends FormAssociatedBase {
 
   static #templates: Map<string, DocumentFragment> = new Map()
 
+  #handleTagMutation = (entries: MutationRecord[]) => {
+    debug(`${PickerView.name} ⚡️ mutation`)
+
+    switch (this.pickerStyle) {
+      case 'menu': {
+        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1')),
+          label = menu.querySelector(':scope>label-view') ?? menu.appendChild($(`<label-view slot="label" system-image="dots-three"></label-view>`, '>1'))
+
+        label.setAttribute('title', 'rtyty')
+
+        for (const el of menu.querySelectorAll(':scope>:not([slot])')) el.remove()
+
+        PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
+
+        break
+      }
+      case 'inline':
+      default: {
+        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
+          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
+
+        for (const el of section.querySelectorAll(':scope>:not([slot])')) el.remove() // section.innerHTML = ''
+
+        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
+        if (label) {
+          const el = $(`<label-view></label-view>`, '>1')
+
+          el.setAttribute('title', label)
+
+          section.insertAdjacentElement('beforeend', el)
+        }
+
+        PickerView.#reflectButtons(
+          [...(this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [])].filter((el) => el.matches('option')),
+          section
+        )
+
+        break
+      }
+    }
+  }
+
+  #observers = new MutationObserverSet(this.#handleTagMutation)
+
   #lastRenderedStyle?: PickerStyle //string | null
 
   #shadowRoot
@@ -33,13 +75,6 @@ export class PickerView extends FormAssociatedBase {
 
   #customValidity: string = ''
 
-  // #validitiesSlot?: HTMLSlotElement
-
-  // #datalistSlot?: HTMLSlotElement
-  // #tagSlot?: HTMLSlotElement
-
-  #trackedElements = new Set<Element>()
-
   #selection: string = ''
 
   get #internals(): ElementInternals {
@@ -47,8 +82,6 @@ export class PickerView extends FormAssociatedBase {
   }
 
   get template(): DocumentFragment {
-    // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? ''
-
     if (!PickerView.#templates.has(this.pickerStyle))
       switch (this.pickerStyle) {
         // case 'inline':
@@ -60,7 +93,7 @@ export class PickerView extends FormAssociatedBase {
 
         //   break
         case 'menu':
-          // template.innerHTML = `<slot name="options"></slot><slot></slot>`
+          // template.innerHTML = `<slot name="list"></slot><slot></slot>`
           PickerView.#templates.set(
             this.pickerStyle,
             $(
@@ -72,8 +105,7 @@ export class PickerView extends FormAssociatedBase {
             <div part="root picker-input-stack">
               <slot></slot>
             </div>
-            <slot name="options" hidden></slot>
-            <slot name="tag" hidden></slot>
+            <slot name="list" hidden></slot>
             <slot name="validity-options" hidden></slot>
           </label>
                 `
@@ -123,7 +155,7 @@ export class PickerView extends FormAssociatedBase {
         //     <option value="0" label="0%"></option>
         //   </datalist>
         // </div>
-        // <slot name="options" hidden></slot>
+        // <slot name="list" hidden></slot>
         // </label>`,
         //       })
         //     )
@@ -142,8 +174,7 @@ export class PickerView extends FormAssociatedBase {
           <div part="root picker-input-stack">
             <slot></slot>
           </div>
-          <slot name="options" hidden></slot>
-          <slot name="tag" hidden></slot>
+          <slot name="list" hidden></slot>
           <slot name="validity-options" hidden></slot>
         </label>`
             )
@@ -159,8 +190,6 @@ export class PickerView extends FormAssociatedBase {
     super()
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    // this.#render() // Snapshot.waitReady.then(this.#render.bind(this))
   }
 
   connectedCallback() {
@@ -183,7 +212,7 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.unregister(this)
 
-    observers.clearObservationsSet(this.#trackedElements)
+    this.#observers.unobserveAll()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -204,8 +233,6 @@ export class PickerView extends FormAssociatedBase {
         if (oldValue === newValue) break
 
         this.#render()
-
-        // this.#sendValueToForm()
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -247,19 +274,19 @@ export class PickerView extends FormAssociatedBase {
     CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('options')).on(), 'datalist')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('list')).on(), 'datalist')
 
-    CleanupRegistry.unregister(this, 'tags') //off2()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('tag')).on(), 'tags')
+    // CleanupRegistry.unregister(this, 'tags') //off2()
+    // CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('tag')).on(), 'tags')
 
-    // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
+    // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
     // if (0 < (this.#slots?.get('tag')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
 
     //this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (
       this.pickerStyle
       // case 'menu':
-      //   // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
+      //   // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
 
       //   break
       // case 'gg':
@@ -282,7 +309,7 @@ export class PickerView extends FormAssociatedBase {
       //   break
       // case 'inline':
       // default:
-      //   // if (0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
+      //   // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
 
       //   break
     ) {
@@ -313,102 +340,80 @@ export class PickerView extends FormAssociatedBase {
 
     if (!(target instanceof HTMLElement && target)) return
 
-    const btn = target?.closest('button')
-
+    const btn = target.closest('button')
     if (!btn) return
 
-    if (btn.hasAttribute('tag')) {
-      this.#selection = btn.getAttribute('tag') ?? '' //return this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.getAttribute('tag') }, bubbles: true, composed: true }))
-    } else {
-      this.#selection = btn.textContent //this.dispatchEvent(new CustomEvent('selection', { detail: { tag: btn.textContent }, bubbles: true, composed: true }))
-    }
+    this.#selection = btn.getAttribute('value') ?? btn.textContent?.trim() ?? ''
 
     this.#sendValueToForm()
   }
 
-  #handleSlotchange = (evt: Event) => {
-    debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+  #handleSlotchange = ({ type, target: slot }: Event) => {
+    debug(`${PickerView.name} ⚡️ ${type}`)
 
-    const slot = evt.target instanceof HTMLSlotElement && evt.target
-    if (!slot) return
+    if (!(slot instanceof HTMLSlotElement && slot)) return
 
-    const assigned = slot.assignedElements({ flatten: true })
+    const assigned = slot.assignedElements()
 
-    observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
+    this.#observers.syncObservations(assigned)
 
-    if (0 < assigned.length) this.#handleTagMutation()
+    if (0 < assigned.length) this.#handleTagMutation([])
   }
 
-  static #wrapTag(node: Element, slotName?: string) {
+  static #wrapOptionTag(node: HTMLOptionElement) {
     const btn = $(`<button type="button" tabindex="0"></button>`, '>1')
 
-    switch (slotName) {
-      case 'tag':
-        if (node.hasAttribute('tag')) btn.setAttribute('tag', node.getAttribute('tag') ?? '')
+    btn.setAttribute('value', node.getAttribute('value') ?? node.textContent?.trim() ?? '')
 
-        btn.appendChild(node.cloneNode(true))
-
-        break
-      case 'options':
-      default:
-        if (node.hasAttribute('value')) btn.setAttribute('tag', node.getAttribute('value') ?? '')
-
-        const label = $(`<label-view></label-view>`, '>1')
-
-        if (node.hasAttribute('label')) label.setAttribute('title', node.getAttribute('label') ?? '')
-
-        btn.appendChild(label)
-
-        break
-    }
+    const label = $(`<label-view></label-view>`, '>1')
+    label.setAttribute('title', node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim() ?? '')
+    btn.appendChild(label)
 
     return btn
   }
 
-  #handleTagMutation = (entry?: MutationRecord) => {
-    debug(`${PickerView.name} ⚡️ mutation`)
+  static #reflectButtons(nodes: Element[], container: Element) {
+    for (const node of nodes)
+      switch (node.tagName) {
+        case 'DATALIST': {
+          const group = $(`<menu-view tabindex="0"></menu-view>`, '>1'),
+            label = group.querySelector(':scope>label-view') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
-    const sourceSlot = 0 < (this.#slots?.get('options')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('options') : this.#slots?.get('tag')
+          if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
 
-    // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
-    switch (this.pickerStyle) {
-      case 'menu': {
-        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1'))
+          if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
 
-        menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
+          PickerView.#reflectButtons([...node.children] as Element[], group)
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) menu.insertAdjacentElement('beforeend', PickerView.#wrapTag(el, sourceSlot?.name))
-        // let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
+          container.appendChild(group)
 
-        // if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
-
-        // possibleMv.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
-
-        // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) possibleMv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
-
-        break
-      }
-      case 'inline':
-      default: {
-        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
-          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
-
-        section.innerHTML = ''
-
-        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
-        if (label) {
-          const el = $(`<label-view></label-view>`, '>1')
-
-          el.setAttribute('title', label)
-
-          section.insertAdjacentElement('beforeend', el)
+          break
         }
+        case 'OPTGROUP': {
+          const labelT = `<label-view></label-view>`,
+            summaryT = `<summary>${labelT}</summary>`
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) section.insertAdjacentElement('beforeend', PickerView.#wrapTag(el, sourceSlot?.name))
+          const group = $(`<details is="disclosure-group">${summaryT}</details>`, '>1'),
+            summary = group.querySelector(':scope>summary') ?? group.appendChild($(summaryT, '>1')),
+            summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
 
-        break
+          if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
+
+          if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+
+          PickerView.#reflectButtons([...node.children] as Element[], group)
+
+          container.appendChild(group)
+
+          break
+        }
+        case 'OPTION':
+        default: {
+          container.appendChild(PickerView.#wrapOptionTag(node as HTMLOptionElement))
+
+          break
+        }
       }
-    }
   }
 
   #reflectPlaceholder(value: string | null) {
@@ -439,7 +444,7 @@ export class PickerView extends FormAssociatedBase {
       label.textContent = value
     } else label?.remove()
 
-    this.#handleTagMutation()
+    this.#handleTagMutation([])
 
     // const el =
     //   (this.#labelSlot?.assignedElements({ flatten: true })[0] as HTMLElement) ??

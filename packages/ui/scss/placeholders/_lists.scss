@@ -13,9 +13,9 @@
     }
 
     // componentize buttons
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
       // :where(&:is(summary:not([is='disclosure-group'] [is='disclosure-group'] summary))) {
       //   box-shadow: inset 0 0 4px magenta;
       // }
@@ -78,17 +78,17 @@
 
     // SECTION: wire gaps
     :not([slot], section-view) ~ section-view {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         padding-block-start: var(--list--section-gap,);
       }
     }
     section-view:not([slot]) ~ section-view {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         padding-block-start: var(--list--section-gap,);
       }
     }
     section-view:has(~ :not([slot], section-view)) {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         padding-block-end: var(--list--section-gap,);
       }
     }
@@ -98,28 +98,28 @@
     //   }
     // }
     :not([slot], [is='disclosure-group']) ~ [is='disclosure-group'] {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         margin-block-start: var(--list--details-gap,);
       }
     }
     [is='disclosure-group']:not([slot]) ~ [is='disclosure-group'] {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         margin-block-start: calc(var(--list--details-gap, 0px) / 2);
       }
     }
     [is='disclosure-group']:has(~ :not([slot], [is='disclosure-group'])) {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         margin-block-end: var(--list--details-gap,);
       }
     }
     [is='disclosure-group']:has(~ [is='disclosure-group']:not([slot])) {
-      :where(&) {
+      :where(&:not(menu-view *)) {
         margin-block-end: calc(var(--list--details-gap, 0px) / 2);
       }
     }
 
     // SECTION: wire paddings
-    :where(&) {
+    :where(&:not(menu-view *)) {
       --itempadistart: var(--list--item-padding-inline-start, 0rem);
       --itempadiend: calc(var(--list--item-padding-inline-end, 0rem) + var(--list--accessories-size, 0rem));
       --itempadbstart: var(--list--item-padding-block-start,);
@@ -140,7 +140,7 @@
     }
 
     // SECTION: overwrites for details
-    [is='disclosure-group'] {
+    [is='disclosure-group']:not(menu-view *) {
       > :not(summary) {
         :where(&) {
           --itemface: var(--list--details-background-color, var(--list--item-background-color,));
@@ -183,8 +183,8 @@
         }
       }
     }
-    > [is='disclosure-group'],
-    > section-view > [is='disclosure-group'] {
+    > [is='disclosure-group']:not(menu-view *),
+    > section-view > [is='disclosure-group']:not(menu-view *) {
       --disclosure-style: var(--list--rootsummary-marker-display,);
 
       > summary {
@@ -244,9 +244,9 @@
     }
 
     // SECTION: add borders + arrows
-    > :not([slot]) ~ :not([slot], section-view),
-    section-view > :not([slot]) ~ :not([slot], section-view),
-    [is='disclosure-group'] > :not([slot]) ~ :not([slot], section-view) {
+    > :not([slot]) ~ :not([slot], section-view, menu-view *),
+    section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot], section-view, menu-view *) {
       :where(&) {
         position: relative;
 
@@ -292,9 +292,9 @@
     }
 
     // SECTION: sharpen top corners
-    > :not([slot]) ~ :not([slot], section-view),
-    section-view > :not([slot]) ~ :not([slot], section-view),
-    [is='disclosure-group'] > :not([slot]) ~ :not([slot]) {
+    > :not([slot]) ~ :not([slot], section-view, menu-view *),
+    section-view > :not([slot]) ~ :not([slot], section-view, menu-view *),
+    [is='disclosure-group'] > :not([slot]) ~ :not([slot], menu-view *) {
       :where(&) {
         // outline: yellow solid 5px;
         --itemradiustl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
@@ -313,10 +313,10 @@
     }
 
     // SECTION: sharpen bottom corners
-    > :not([slot]):has(~ :not([slot], section-view)),
-    section-view > :not([slot]):has(~ :not([slot], section-view)),
-    [is='disclosure-group'] > :not([slot], summary):has(~ :not([slot])),
-    [is='disclosure-group']:not([data-state='closed']) > summary {
+    > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+    section-view > :not([slot]):has(~ :not([slot], section-view, menu-view *)),
+    [is='disclosure-group'] > :not([slot], summary, menu-view *):has(~ :not([slot])),
+    [is='disclosure-group']:not([data-state='closed'], menu-view *) > summary {
       :where(&) {
         // outline: green solid 5px;
         --itemradiusbl: var(--list--adjacentitem-border-radius, var(--list--item-border-radius,)); //0 0;
@@ -347,7 +347,7 @@
     // }
 
     // SECTION: style section heders/footers
-    section-view:not(section-view section-view) {
+    section-view:not(section-view section-view, menu-view *) {
       :where(&)::part(section-footer-stack),
       :where(&)::part(section-header-stack) {
         // outline: magenta 4px solid;
@@ -370,7 +370,7 @@
     }
 
     // SECTION: Enable 2-col layout
-    &[columns='2'] {
+    &[columns='2']:not(menu-view *) {
       :where(&) {
         --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
 
@@ -454,9 +454,9 @@
 
     // SECTION: add accessories
     // &:has(summary[marker-placement='leading']) {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
       // --itempadistart: 4rem;
 
       // --item-accessory-size: 24px;
@@ -521,9 +521,9 @@
 @layer #{vars.$colors-layer} {
   // componentize
   %list {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
       @include mixins.add-focus-visible-state {
         --itemface: var(--itemhighlightface,);
         --itemtext: var(--itemhighlighttext,);
@@ -540,9 +540,9 @@
 @layer #{vars.$ui-layer} {
   // componentize
   %list {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, whatever-name) {
+    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
+    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
       // :where(&:is(button)) {
       @include mixins.add-jsactive-state {
         --itemface: var(--itemactiveface,);

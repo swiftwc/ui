@@ -130,11 +130,10 @@ export class TableView extends HTMLElement {
     Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange))
   }
 
-  #handleSlotchange = (evt: Event) => {
-    debug(`${TableView.name} ⚡️ ${evt?.type}`)
+  #handleSlotchange = ({ type, target: slot }: Event) => {
+    debug(`${TableView.name} ⚡️ ${type}`)
 
-    const slot = evt.target instanceof HTMLSlotElement && evt.target
-    if (!slot) return
+    if (!(slot instanceof HTMLSlotElement && slot)) return
 
     const assigned = slot.assignedElements({ flatten: true })
 

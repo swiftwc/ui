@@ -25,6 +25,25 @@ export class MutationObserverSingleton {
   }
 
   /** Observes automatically all elements using a Set provided by outside. Calls renderCallback on EVERY change. */
+  // shortcur fot this
+  // #trackedElements = new Set<Element>()
+  // for (const el of this.#trackedElements)
+  //   if (!assigned.includes(el)) {
+  //     observers.unobserve(el)
+  //     this.#trackedElements.delete(el)
+  //   }
+  // for (const el of assigned) {
+  //   if (!this.#trackedElements.has(el))
+  //     observers.observe(el, this.#handleTagMutation, {
+  //       attributes: true,
+  //       characterData: true,
+  //       subtree: true,
+  //       childList: true,
+  //       // attributeFilter: ['value', 'label'],
+  //     })
+
+  //   this.#trackedElements.add(el)
+  // }
   public async syncObservations(set: Set<Element>, nodes: Element[], renderCallback: () => void, attributeFilter?: string[]) {
     for (const el of set)
       if (!nodes.includes(el)) {

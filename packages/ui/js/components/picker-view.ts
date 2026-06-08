@@ -336,29 +336,10 @@ export class PickerView extends FormAssociatedBase {
 
     observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
 
-    // for (const el of this.#trackedElements)
-    //   if (!assigned.includes(el)) {
-    //     observers.unobserve(el)
-    //     this.#trackedElements.delete(el)
-    //   }
-
-    // for (const el of assigned) {
-    //   if (!this.#trackedElements.has(el))
-    //     observers.observe(el, this.#handleTagMutation, {
-    //       attributes: true,
-    //       characterData: true,
-    //       subtree: true,
-    //       childList: true,
-    //       // attributeFilter: ['value', 'label'],
-    //     })
-
-    //   this.#trackedElements.add(el)
-    // }
-
     if (0 < assigned.length) this.#handleTagMutation()
   }
 
-  static wrapTag(node: Element, slotName?: string) {
+  static #wrapTag(node: Element, slotName?: string) {
     const btn = $(`<button type="button" tabindex="0"></button>`, '>1')
 
     switch (slotName) {
@@ -391,12 +372,12 @@ export class PickerView extends FormAssociatedBase {
 
     // switch (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
     switch (this.pickerStyle) {
-      case 'menu':
+      case 'menu': {
         const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1'))
 
         menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) menu.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) menu.insertAdjacentElement('beforeend', PickerView.#wrapTag(el, sourceSlot?.name))
         // let possibleMv = this.#slot?.assignedElements({ flatten: true })[0]
 
         // if ('MENU-VIEW' !== possibleMv?.tagName) possibleMv = this.appendChild(document.createElement('menu-view'))
@@ -406,8 +387,9 @@ export class PickerView extends FormAssociatedBase {
         // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) possibleMv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
 
         break
+      }
       case 'inline':
-      default:
+      default: {
         const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
           section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
 
@@ -422,32 +404,10 @@ export class PickerView extends FormAssociatedBase {
           section.insertAdjacentElement('beforeend', el)
         }
 
-        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) section.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
-
-        // let possibleLv = this.#slot?.assignedElements({ flatten: true })[0]
-
-        // if ('LIST-VIEW' !== possibleLv?.tagName) possibleLv = this.appendChild(document.createElement('list-view'))
-
-        // const sv = document.createElement('section-view')
-        // sv.setAttribute('header', 'section-header')
-
-        // possibleLv.appendChild(sv)
-
-        // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) sv.insertAdjacentElement('beforeend', PickerView.wrapTag(el, sourceSlot?.name))
-
-        // for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
-
-        // for (const el of PickerView.sourceNodes(sourceSlot) ?? []) {
-        //   const btn = document.createElement('button')
-        //   btn.type = 'button'
-        //   btn.tabIndex = 0
-
-        //   btn.appendChild(PickerView.wrapTag(el, sourceSlot?.name))
-
-        //   this.insertAdjacentElement('beforeend', btn)
-        // }
+        for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) section.insertAdjacentElement('beforeend', PickerView.#wrapTag(el, sourceSlot?.name))
 
         break
+      }
     }
   }
 

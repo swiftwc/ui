@@ -724,8 +724,8 @@ export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
   // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
   //   createHTML: (string) => string.replace(/</g, '&lt;'),
   // })
-  if (trigger?.hasAttribute('tag')) {
-    document.querySelector(`#${trigger.getAttribute('tag')}`).hidden = false
+  if (trigger?.hasAttribute('data-tag')) {
+    document.querySelector(`#${trigger.getAttribute('data-tag')}`).hidden = false
   } else {
     // if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
     //   position = 'beforebegin'
@@ -776,8 +776,8 @@ export const navHandler = async (event) => {
     else el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
   }
 
-  for (const el of document.querySelectorAll('button[tag]'))
-    el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.getAttribute('tag'))}"]:not([hidden])`))}`
+  for (const el of document.querySelectorAll('button[data-tag]'))
+    el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.getAttribute('data-tag'))}"]:not([hidden])`))}`
 }
 
 lifecycleObserver.addEventListener('tabshow', navHandler)

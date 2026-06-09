@@ -1,7 +1,8 @@
 import { type DatePickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, clamp, debug, kebabCase, onoff, set } from '../internal/utils'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
@@ -33,11 +34,18 @@ export class DatePicker extends FormAssociatedBase {
 
   // #lastRenderedStyle?: DatePickerStyle //string | null
 
+  #renderValidityMsgs = (entries: MutationRecord[]) => {
+    debug(`${DatePicker.name} ⚡️ mutation`)
+
+    this.setValidity(this.validity, this.validationMessage)
+  }
+
   #shadowRoot
 
   #customValidity: string = ''
 
   #slots?: Map<string, HTMLSlotElement> = new Map()
+  #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
   // #validitiesSlot?: HTMLSlotElement
 
   #inputs: DateInput[] = []
@@ -111,6 +119,8 @@ export class DatePicker extends FormAssociatedBase {
 
   disconnectedCallback() {
     super.disconnectedCallback()
+
+    this.#validityObservers.unobserveAll()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -183,7 +193,7 @@ export class DatePicker extends FormAssociatedBase {
     )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
 
     switch (this.datePickerStyle) {
       default:
@@ -228,6 +238,18 @@ export class DatePicker extends FormAssociatedBase {
 
         break
     }
+  }
+
+  #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
+    debug(`${DatePicker.name} ⚡️ ${type}`)
+
+    if (!(slot instanceof HTMLSlotElement && slot)) return
+
+    const assigned = slot.assignedElements()
+
+    this.#validityObservers.syncObservations(assigned, ['value', 'label'])
+
+    if (0 < assigned.length) this.#renderValidityMsgs([])
   }
 
   get #selectedDate(): { year: string; month: string; day: string } {

@@ -1,11 +1,31 @@
 import { type PickerSelectionDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
+import { NavigationPath } from '../internal/class/navigation-path'
+import { startViewTransition } from '../internal/privateNamespace'
 import { $, debug, kebabCase, onoff } from '../internal/utils'
 
-const pickerStyles = ['menu', 'inline', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
+
+const navigationLinkTemplate = $(
+  `<body-view>
+        <scroll-view>
+          <v-stack padding placement="leading fill">
+            <button type="button" class="bw">🔙</button>
+            <button type="button" class="bww">🔚</button>
+            <button type="button" class="bww2">🔚 of modal</button>
+            <button type="button" class="fww">deep</button>
+            <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
+          </v-stack>
+        </scroll-view>
+
+        <tool-bar></tool-bar>
+
+          </body-view>`,
+  '>1'
+)
 
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {
@@ -23,13 +43,45 @@ export class PickerView extends FormAssociatedBase {
 
   static #templates: Map<string, DocumentFragment> = new Map()
 
-  #handleTagMutation = (entries: MutationRecord[]) => {
+  #renderList = (entries: MutationRecord[]) => {
     debug(`${PickerView.name} ⚡️ mutation`)
 
     switch (this.pickerStyle) {
+      case 'navigation-link': {
+        const label = this.querySelector(':scope>label-view') ?? this.appendChild($(`<label-view system-image="dots-three"></label-view>`, '>1'))
+
+        label.setAttribute('title', 'rtyty')
+
+        // for (const el of menu.querySelectorAll(':scope>:not([slot])')) el.remove()
+
+        // PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
+
+        label.addEventListener('click', async (evt) => {
+          const path = new NavigationPath(evt.target)?.hydrate()
+
+          await startViewTransition(evt.target, 'forwards', async () => {
+            if (!(path instanceof NavigationPath)) throw new Error('invalid view')
+
+            const position = 'beforebegin' //queryInsertPosition(path.component) //'afterend'
+            const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+            const node = navigationLinkTemplate
+
+            path.page.insertAdjacentElement(position, node)
+
+            // modifyDOMforwards(undefined, path, template)
+          })
+
+          console.log(9999, path)
+        })
+
+        this.appendChild(label)
+
+        break
+      }
       case 'menu': {
         const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1')),
-          label = menu.querySelector(':scope>label-view') ?? menu.appendChild($(`<label-view slot="label" system-image="dots-three"></label-view>`, '>1'))
+          label = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label" system-image="dots-three"></label-view>`, '>1'))
 
         label.setAttribute('title', 'rtyty')
 
@@ -65,13 +117,19 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #observers = new MutationObserverSet(this.#handleTagMutation)
+  #renderValidityMsgs = (entries: MutationRecord[]) => {
+    debug(`${PickerView.name} ⚡️ mutation`)
+
+    this.setValidity(this.validity, this.validationMessage)
+  }
 
   #lastRenderedStyle?: PickerStyle //string | null
 
   #shadowRoot
 
   #slots?: Map<string, HTMLSlotElement> = new Map()
+  #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
+  #observers = new MutationObserverSet(this.#renderList)
 
   #customValidity: string = ''
 
@@ -84,16 +142,27 @@ export class PickerView extends FormAssociatedBase {
   get template(): DocumentFragment {
     if (!PickerView.#templates.has(this.pickerStyle))
       switch (this.pickerStyle) {
-        // case 'inline':
-        //   template.innerHTML = `
-        //     <list-view frame-width="infinity" part="root inline-form">
-        //       <slot></slot>
-        //     </list-view>
-        //   `
+        case 'navigation-link':
+          PickerView.#templates.set(
+            this.pickerStyle,
+            $(
+              String.raw`
+                <label part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root picker-input-stack">
+              <slot></slot>
+            </div>
+            <slot name="list" hidden></slot>
+            <slot name="validity-options" hidden></slot>
+          </label>
+                `
+            )
+          )
 
-        //   break
+          break
         case 'menu':
-          // template.innerHTML = `<slot name="list"></slot><slot></slot>`
           PickerView.#templates.set(
             this.pickerStyle,
             $(
@@ -212,6 +281,7 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.unregister(this)
 
+    this.#validityObservers.unobserveAll()
     this.#observers.unobserveAll()
   }
 
@@ -271,10 +341,10 @@ export class PickerView extends FormAssociatedBase {
     )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('list')).on(), 'datalist')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleListSlotchange, this.#slots?.get('list')).on(), 'datalist')
 
     // CleanupRegistry.unregister(this, 'tags') //off2()
     // CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('tag')).on(), 'tags')
@@ -348,7 +418,19 @@ export class PickerView extends FormAssociatedBase {
     this.#sendValueToForm()
   }
 
-  #handleSlotchange = ({ type, target: slot }: Event) => {
+  #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
+    debug(`${PickerView.name} ⚡️ ${type}`)
+
+    if (!(slot instanceof HTMLSlotElement && slot)) return
+
+    const assigned = slot.assignedElements()
+
+    this.#validityObservers.syncObservations(assigned, ['value', 'label'])
+
+    if (0 < assigned.length) this.#renderValidityMsgs([])
+  }
+
+  #handleListSlotchange = ({ type, target: slot }: Event) => {
     debug(`${PickerView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement && slot)) return
@@ -357,7 +439,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#observers.syncObservations(assigned)
 
-    if (0 < assigned.length) this.#handleTagMutation([])
+    if (0 < assigned.length) this.#renderList([])
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {
@@ -377,7 +459,7 @@ export class PickerView extends FormAssociatedBase {
       switch (node.tagName) {
         case 'DATALIST': {
           const group = $(`<menu-view tabindex="0"></menu-view>`, '>1'),
-            label = group.querySelector(':scope>label-view') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+            label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
           if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
 
@@ -444,7 +526,7 @@ export class PickerView extends FormAssociatedBase {
       label.textContent = value
     } else label?.remove()
 
-    this.#handleTagMutation([])
+    this.#renderList([])
 
     // const el =
     //   (this.#labelSlot?.assignedElements({ flatten: true })[0] as HTMLElement) ??

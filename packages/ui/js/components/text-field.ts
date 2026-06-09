@@ -1,7 +1,8 @@
 import { type TextFieldCommitDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase, getInternals, makeSlotchangeHandler } from '../internal/class/form-associated-base'
+import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, compareBigDecimals, debug, kebabCase, onoff, set } from '../internal/utils'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
@@ -33,6 +34,12 @@ export class TextField extends FormAssociatedBase {
     ))
   }
 
+  #renderValidityMsgs = (entries: MutationRecord[]) => {
+    debug(`${TextField.name} ⚡️ mutation`)
+
+    this.setValidity(this.validity, this.validationMessage)
+  }
+
   #shadowRoot
 
   // #internals: ElementInternals
@@ -41,6 +48,7 @@ export class TextField extends FormAssociatedBase {
 
   // #validitiesSlot?: HTMLSlotElement
   #slots?: Map<string, HTMLSlotElement> = new Map()
+  #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
 
   #input?: HTMLInputElement
 
@@ -61,7 +69,7 @@ export class TextField extends FormAssociatedBase {
     })
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff(makeSlotchangeHandler(this), this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
 
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
 
@@ -105,6 +113,8 @@ export class TextField extends FormAssociatedBase {
 
   disconnectedCallback() {
     super.disconnectedCallback()
+
+    this.#validityObservers.unobserveAll()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -255,6 +265,18 @@ export class TextField extends FormAssociatedBase {
 
       set(this.#input, 'value', finalText) // if (this.text !== finalText) this.#input.value = finalText
     }
+  }
+
+  #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
+    debug(`${TextField.name} ⚡️ ${type}`)
+
+    if (!(slot instanceof HTMLSlotElement && slot)) return
+
+    const assigned = slot.assignedElements()
+
+    this.#validityObservers.syncObservations(assigned, ['value', 'label'])
+
+    if (0 < assigned.length) this.#renderValidityMsgs([])
   }
 
   #handleFocusin = (evt: Event) => {

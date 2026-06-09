@@ -1,17 +1,13 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { MutationObserverSingleton } from '../internal/class/mutation-observer-singleton'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, debug, listActive, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
-
-const observers = new MutationObserverSingleton()
 
 export class TableView extends HTMLElement {
   #styleObserver?: CSSStyleObserver
 
   #compactToolbarItem?: Element
-
-  #trackedElements = new Set<Element>()
 
   static #template: DocumentFragment
 
@@ -52,8 +48,6 @@ export class TableView extends HTMLElement {
   #shadowRoot
 
   #slots?: Map<string, HTMLSlotElement> = new Map()
-  // #colSlot?: HTMLSlotElement
-  // #slot?: HTMLSlotElement
 
   constructor() {
     super()
@@ -66,10 +60,8 @@ export class TableView extends HTMLElement {
     CleanupRegistry.register(this, () => {
       this.#slots = new Map()
     })
-    // this.#colSlot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name=column]') ?? undefined
-    // this.#slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot:not([name])') ?? undefined
 
-    this.#slots?.get('column')?.addEventListener('slotchange', this.#handleSlotchange)
+    this.#slots?.get('column')?.addEventListener('slotchange', this.#handleColumnSlotchange)
 
     // this.append(
     //   document.createRange().createContextualFragment(`<menu-view slot="header-trailing">
@@ -109,7 +101,7 @@ export class TableView extends HTMLElement {
 
     this.#styleObserver?.disconnect()
 
-    observers.clearObservationsSet(this.#trackedElements)
+    this.#observers.unobserveAll()
 
     this.#compactToolbarItem = undefined
   }
@@ -130,29 +122,20 @@ export class TableView extends HTMLElement {
     Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange))
   }
 
-  #handleSlotchange = ({ type, target: slot }: Event) => {
+  #handleColumnSlotchange = ({ type, target: slot }: Event) => {
     debug(`${TableView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement && slot)) return
 
-    const assigned = slot.assignedElements({ flatten: true })
+    const assigned = slot.assignedElements()
 
-    observers.syncObservations(this.#trackedElements, assigned, this.#handleTagMutation)
+    this.#observers.syncObservations(assigned)
 
-    if (0 < assigned.length) this.#handleTagMutation()
+    if (0 < assigned.length) this.#renderColumns([])
   }
 
-  #handleTagMutation = (entry?: MutationRecord) => {
+  #renderColumns = (entries: MutationRecord[]) => {
     debug(`${TableView.name} ⚡️ mutation`)
-
-    // const sourceSlot = 0 < (this.#slots?.get('column')?.assignedElements({ flatten: true }) ?? []).length ? this.#slots?.get('column') : this.#slots?.get('column')
-
-    // const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view></menu-view>`))
-
-    // menu.innerHTML = `<label-view slot="label" system-image="dots-three" title="rtyty"></label-view>`
-
-    // for (const el of sourceSlot?.assignedElements({ flatten: true }) ?? []) menu.insertAdjacentElement('beforeend', TableView.wrapTag(el, sourceSlot?.name))
-    //
 
     if (!this.#compactToolbarItem) {
       this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
@@ -183,14 +166,9 @@ export class TableView extends HTMLElement {
 
       this.#compactToolbarItem.appendChild(btn)
     }
-
-    // const wasConnected = this.#compactToolbarItem?.isConnected
-    // this.#compactToolbarItem?.removeEventListener('click', this.#handleMenuClick)
-    // this.#compactToolbarItem?.remove()
-    // this.#compactToolbarItem = menu
-    // this.#compactToolbarItem?.addEventListener('click', this.#handleMenuClick)
-    // if (wasConnected) this.insertAdjacentElement('beforeend', this.#compactToolbarItem)
   }
+
+  #observers = new MutationObserverSet(this.#renderColumns)
 
   #handleStyleChange = () => {
     debug(`${TableView.name} ⚡️ style`)

@@ -1,12 +1,11 @@
 import { debug } from '../utils'
 import { CleanupRegistry } from './cleanup-registry'
-import { MutationObserverSingleton } from './mutation-observer-singleton'
 
 const internals = new WeakMap<FormAssociatedBase, ElementInternals>()
 
-const trackedElements = new WeakMap<FormAssociatedBase, Set<Element>>()
+// const trackedElements = new WeakMap<FormAssociatedBase, Set<Element>>()
 
-const observers = new MutationObserverSingleton()
+// const observers = new MutationObserverSingleton()
 
 export function getInternals(instance: FormAssociatedBase): ElementInternals {
   const i = internals.get(instance)
@@ -14,26 +13,26 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
   return i
 }
 
-export function makeSlotchangeHandler(t: FormAssociatedBase) {
-  const handleSlotchange = ({ type, target: slot }: Event) => {
-      debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
+// export function makeSlotchangeHandler(t: FormAssociatedBase) {
+//   const handleSlotchange = ({ type, target: slot }: Event) => {
+//       debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
 
-      if (!(slot instanceof HTMLSlotElement && slot)) return
+//       if (!(slot instanceof HTMLSlotElement && slot)) return
 
-      const assigned = slot.assignedElements({ flatten: true })
+//       const assigned = slot.assignedElements({ flatten: true })
 
-      observers.syncObservations(trackedElements.get(t) ?? new Set(), assigned, handleTagMutation, ['value', 'label'])
+//       observers.syncObservations(trackedElements.get(t) ?? new Set(), assigned, handleTagMutation, ['value', 'label'])
 
-      if (0 < assigned.length) handleTagMutation()
-    },
-    handleTagMutation = (entry?: MutationRecord) => {
-      debug(`${handleTagMutation.name} ⚡️ mutation`)
+//       if (0 < assigned.length) handleTagMutation()
+//     },
+//     handleTagMutation = (entry?: MutationRecord) => {
+//       debug(`${handleTagMutation.name} ⚡️ mutation`)
 
-      t.setValidity(t.validity, t.validationMessage)
-    }
+//       t.setValidity(t.validity, t.validationMessage)
+//     }
 
-  return [{ types: 'slotchange', listener: handleSlotchange }]
-}
+//   return [{ types: 'slotchange', listener: handleSlotchange }]
+// }
 
 export abstract class FormAssociatedBase extends HTMLElement {
   abstract setValidity(flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement): void
@@ -47,7 +46,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
 
     internals.set(this, this.attachInternals())
 
-    trackedElements.set(this, new Set<Element>())
+    // trackedElements.set(this, new Set<Element>())
   }
 
   disconnectedCallback() {
@@ -55,9 +54,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
 
     CleanupRegistry.unregister(this)
 
-    observers.clearObservationsSet(trackedElements.get(this) ?? new Set())
-    // for (const el of trackedElements.get(this) ?? []) observers.unobserve(el)
-    // trackedElements.get(this)?.clear() // trackedElements.delete(this)
+    // observers.clearObservationsSet(trackedElements.get(this) ?? new Set())
   }
 
   connectedCallback() {

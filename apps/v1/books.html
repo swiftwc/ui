@@ -801,6 +801,13 @@
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
+                <picker-view label="Foo Bar" picker-style="navigation-link">
+                  <option slot="list" value="0" label="000%"></option>
+                  <option slot="list" value="10" label="Minimum Tip"></option>
+                  <option slot="list" value="20" label="Standard"></option>
+                  <option slot="list" value="30" label="Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                </picker-view>
                 <labeled-content>
                   <label-view title="Name" slot="label"></label-view>
                   <label-view title="Customer 1" slot="content"></label-view>

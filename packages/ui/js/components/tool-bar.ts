@@ -4,10 +4,10 @@ import { $, debug } from '../internal/utils'
 const observers = new ResizeObserverSingleton()
 
 /**
- * @slot cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal
+ * @slot cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal
  * @slot primary-action - The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
  * @slot confirmation-action - The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
- * @slot destructive-action - The item represents a destructive action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
+ * @slot destructive-action - The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal
  * @slot top-bar-leading - Places the item in the leading edge of the top bar
  * @slot top-bar-principal - Places the item in the middle of the top bar
  * @slot top-bar-trailing - Places the item in the trailing edge of the top bar
@@ -25,6 +25,7 @@ export class ToolBar extends HTMLElement {
     <div part="root top-bar">
     <div part="root toolbar-leading-stack">
       <slot name="cancellation-action"></slot>
+      <slot name="destructive-action"></slot>
       <slot name="top-bar-leading"></slot>
     </div>
     <div part="root toolbar-principal-stack">
@@ -34,7 +35,6 @@ export class ToolBar extends HTMLElement {
       <slot name="top-bar-trailing"></slot>
       <slot name="primary-action"></slot>
       <slot name="confirmation-action"></slot>
-      <slot name="destructive-action"></slot>
     </div>
   </div>
   <div part="root bottom-bar">

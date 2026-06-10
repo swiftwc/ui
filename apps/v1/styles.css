@@ -1651,7 +1651,7 @@
     :where([is=sheet-view] scroll-view) {
       border-radius: 26px;
     }
-    @supports not selector(:open) {
+    @supports (hanging-punctuation: first) {
       :where([is=sheet-view]:has([is=sheet-view]:not([open]))) {
         overflow: visible;
       }

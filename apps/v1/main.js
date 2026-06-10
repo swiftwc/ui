@@ -1,18 +1,4 @@
-import { alert, confirmationDialog, lifecycleObserver, NavigationPath, startViewTransition } from '../../packages/ui/js/client'
-
-function queryInsertPosition(frame) {
-  //?: Components.BodyView | Components.SheetView) {
-  if (frame?.tagName === 'NAVIGATION-SPLIT-VIEW')
-    return 'beforebegin' // lookFor = 'previousElementSibling'
-  else if (
-    frame?.parentElement?.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-    frame?.parentElement.querySelector(':scope > [is=sidebar-view]') &&
-    frame?.tagName === 'BODY-VIEW'
-  )
-    return 'beforebegin' // lookFor = 'previousElementSibling'
-
-  return 'afterend' // lookFor = 'nextElementSibling'
-}
+import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from '../../packages/ui/js/client'
 
 document.addEventListener('commit', async (event) => {
   console.log('commit!!!', event.detail, event.target)

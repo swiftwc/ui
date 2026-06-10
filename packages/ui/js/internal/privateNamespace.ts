@@ -12,6 +12,14 @@ export type NavigationToolbarConfiguration = Components.ToolBarItem | Components
 
 export type NavigationPage = Components.SidebarView | Components.ScrollView // this is a body wrapper!
 
+export function queryInsertPosition(frame: NavigationHost) {
+  if ('NAVIGATION-SPLIT-VIEW' === frame?.tagName)
+    return 'beforebegin' // lookFor = 'previousElementSibling'
+  else if ('NAVIGATION-SPLIT-VIEW' === frame?.parentElement?.tagName && frame?.parentElement.querySelector(':scope>[is=sidebar-view]') && 'BODY-VIEW' === frame?.tagName) return 'beforebegin' // lookFor = 'previousElementSibling'
+
+  return 'afterend' // lookFor = 'nextElementSibling'
+}
+
 const cleanup = (lm?: Element, type?: TransitionType) => {
   let arr: string[] = [Snapshot.config!['vt-fwd-class-name'], 'fwdd', 'fwn', 'fwnn', 'bwd', 'bwdd', 'bwn', 'bwnn']
 
@@ -147,6 +155,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
       oldBodies = froms.map((item) => item.body).filter((item) => !!item)
     // console.log(99, queryToolbarConfigAll(oldSlot), oldToolbars)
 
+    console.log(99, from)
     // if most-top effect is closing a modal, skip everything
     if ('DIALOG' === from.component?.tagName) {
       from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
@@ -160,7 +169,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     }
 
     const to = [...from.parents()].at(0)?.hydrate() //closestBody(oldPath.component?.parentElement ?? undefined)
-    // console.log(99, to)
+    console.log(99, to)
 
     if (!to) return debug('Can not go backwards.') // nothing to go back to
 

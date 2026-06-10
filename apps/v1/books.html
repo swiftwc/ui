@@ -801,12 +801,59 @@
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
-                <picker-view label="Foo Bar" picker-style="navigation-link">
+                <picker-view label="Foo Bar" picker-style="navigation-link" searchable>
+                  <datalist data-system-image="dots-three" data-label="gfgfgfg0" slot="list">
+                    <optgroup label="Theropods">
+                      <option value="Tyrannosaurus23"></option>
+                      <option>Velociraptor</option>
+                      <option>Deinonychus</option>
+                    </optgroup>
+                    <optgroup label="Sauropods">
+                      <option>Diplodocus</option>
+                      <option>Saltasaurus</option>
+                      <option>Apatosaurus</option>
+                    </optgroup>
+                    <datalist data-label="gfgfgfg1">
+                      <optgroup label="Theropods34">
+                        <option value="Tyrannosaurus45"></option>
+                        <option>Velociraptor</option>
+                        <option>Deinonychus</option>
+                      </optgroup>
+                      <optgroup label="Sauropods34">
+                        <option>Diplodocus</option>
+                        <option>Saltasaurus</option>
+                        <option>Apatosaurus</option>
+                      </optgroup>
+                    </datalist>
+                  </datalist>
+                  <optgroup label="Theropods" slot="list">
+                    <option>Tyrannosaurus</option>
+                    <option>Velociraptor</option>
+                    <option>Deinonychus</option>
+                  </optgroup>
+                  <optgroup label="Sauropods" slot="list">
+                    <option>Diplodocus</option>
+                    <option>Saltasaurus</option>
+                    <option>Apatosaurus</option>
+                  </optgroup>
                   <option slot="list" value="0" label="000%"></option>
                   <option slot="list" value="10" label="Minimum Tip"></option>
                   <option slot="list" value="20" label="Standard"></option>
                   <option slot="list" value="30" label="Generous"></option>
                   <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <!-- </datalist> -->
                 </picker-view>
                 <labeled-content>
                   <label-view title="Name" slot="label"></label-view>

@@ -7,6 +7,7 @@ export default defineTranslations(() => ({
     Description: 'Check the spelling or try a new search.',
   },
   ButtonRole: {
+    Back: 'Back',
     Cancel: 'Cancel',
     Close: 'Close',
     Confirm: 'Confirm',

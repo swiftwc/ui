@@ -60,7 +60,8 @@
       }
 
       // NOTE: Safari-only mod for closing animation
-      @supports not selector(:open) {
+      // @supports not selector(:open) {
+      @supports (hanging-punctuation: first) {
         &:has(&:not([open])) {
           :where(&) {
             overflow: visible;

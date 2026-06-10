@@ -1,31 +1,52 @@
 import { type PickerSelectionDetail } from '../events'
+import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { startViewTransition } from '../internal/privateNamespace'
+import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, debug, kebabCase, onoff } from '../internal/utils'
 
-const pickerStyles = ['menu', 'inline', 'navigation-link', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
-const navigationLinkTemplate = $(
-  `<body-view>
-        <scroll-view>
-          <v-stack padding placement="leading fill">
-            <button type="button" class="bw">🔙</button>
-            <button type="button" class="bww">🔚</button>
-            <button type="button" class="bww2">🔚 of modal</button>
-            <button type="button" class="fww">deep</button>
-            <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
-          </v-stack>
-        </scroll-view>
+const update = (path: NavigationPath, node: Element, overwrite = true) => {
+  if (!(path instanceof NavigationPath)) throw new Error('invalid view')
 
-        <tool-bar></tool-bar>
+  const { component, page } = path
+  if (!component) return
 
-          </body-view>`,
-  '>1'
-)
+  const position = queryInsertPosition(component) //'afterend'
+  // const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+  if (page) page.insertAdjacentElement(position, node)
+}
+
+const replaceList = (current?: HTMLElement, source?: HTMLElement) => {
+  const { page: oldPage, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
+    { page: newPage, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
+
+  const oldList = oldPage?.querySelector('list-view'),
+    newList = newPage?.querySelector('list-view'),
+    oldBackBtn = oldToolbar?.at(0)?.querySelector('button'),
+    newBackBtn = newToolbar?.at(0)?.querySelector('button')
+
+  // pre replace
+  const oldOpenedDetails = [...(oldList?.querySelectorAll('details[open]>summary') ?? [])].map((item) => item.textContent.trim())
+
+  // replace
+  if (oldList && newList) oldList.replaceWith(newList)
+
+  if (oldBackBtn && newBackBtn) oldBackBtn.replaceWith(newBackBtn)
+
+  // post replace
+  for (const label of oldOpenedDetails)
+    for (const summary of newList?.querySelectorAll('details>summary') ?? [])
+      if (summary.textContent.trim() === label) {
+        summary.parentElement?.setAttribute('open', 'open')
+        break
+      }
+}
 
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {
@@ -34,6 +55,7 @@ export class PickerView extends FormAssociatedBase {
       LABEL: 'label',
       PICKER_STYLE: 'picker-style',
       SELECTION: 'selection',
+      SEARCHABLE: 'searchable',
     }
   }
 
@@ -43,39 +65,142 @@ export class PickerView extends FormAssociatedBase {
 
   static #templates: Map<string, DocumentFragment> = new Map()
 
+  #spawn?: HTMLElement
+
+  #renderPage = (tag: 'body-view' | 'sheet-view', searchable: boolean = false, title?: string | null, node?: Element) => {
+    const body = $<HTMLElement>(
+        `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="caret-left"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
+        '>1'
+      ),
+      sv = body.querySelector<HTMLElement>('scroll-view'),
+      list = body.querySelector<HTMLElement>('list-view'),
+      backBtn = body.querySelector<HTMLButtonElement>('button')
+
+    if (title) sv?.setAttribute('navigation-inline-title', title)
+
+    if (searchable) {
+      list?.style.setProperty('--list--sticky-block-size', '70px')
+
+      list?.insertAdjacentHTML(
+        'afterend',
+        `<sticky-container edge="navbar" style="order: -1" padding>
+                <v-stack spacing="0" alignment="fill" style="position: sticky; top: 0">
+                  <input type="search" placeholder="Search" style="height: 30px; outline: red solid 3px">
+                  <button type="button">Filters</button>
+                </v-stack>
+              </sticky-container>`
+      )
+    }
+
+    backBtn?.setAttribute('help', I18n.t('ButtonRole').Back)
+
+    backBtn?.addEventListener('click', async (evt: Event) => {
+      evt.stopImmediatePropagation()
+      evt.preventDefault()
+
+      const { target } = evt
+      if (!(target instanceof HTMLElement && target)) return
+
+      const { component } = new NavigationPath(target)?.hydrate()
+
+      await startViewTransition(target, 'backwards', async () => {
+        component?.remove()
+      })
+    })
+
+    const elements = node ? Array.from(node.children) : (this.#slots?.get('list')?.assignedElements() ?? [])
+
+    for (const el of elements) {
+      if (!(el instanceof HTMLElement)) continue
+
+      switch (el.tagName) {
+        case 'OPTGROUP': {
+          const details = PickerView.#wrapOptgroupTag(el as HTMLOptGroupElement)
+
+          PickerView.#reflectButtons([...el.children] as Element[], details)
+
+          for (const btn of details.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageClick)
+
+          list?.appendChild(details)
+
+          break
+        }
+        case 'OPTION': {
+          const btn = PickerView.#wrapOptionTag(el as HTMLOptionElement)
+
+          btn.addEventListener('click', this.#handlePageClick)
+
+          list?.appendChild(btn)
+
+          break
+        }
+        default: {
+          const btn = $<HTMLButtonElement>(`<button type="button" tabindex="0"><label-view></label-view></button>`, '>1'),
+            label = btn.querySelector(':scope>label-view')
+
+          if (el.dataset.label) label?.setAttribute('title', el.dataset.label)
+
+          btn.addEventListener('click', async (evt: Event) => {
+            evt.stopImmediatePropagation()
+            evt.preventDefault()
+
+            const { target } = evt
+            if (!(target instanceof HTMLElement && target)) return
+
+            const newPage = this.#renderPage('body-view', this.hasAttribute('searchable'), el.dataset.label, el)
+            if (!newPage) return
+
+            const path = new NavigationPath(target)?.hydrate()
+
+            await startViewTransition(target, 'forwards', async () => {
+              update(path, newPage)
+            })
+          })
+
+          list?.appendChild(btn)
+          break
+        }
+      }
+    }
+
+    return body
+  }
+
   #renderList = (entries: MutationRecord[]) => {
     debug(`${PickerView.name} ⚡️ mutation`)
 
     switch (this.pickerStyle) {
+      case 'sheet':
       case 'navigation-link': {
+        // label
         const label = this.querySelector(':scope>label-view') ?? this.appendChild($(`<label-view system-image="dots-three"></label-view>`, '>1'))
 
         label.setAttribute('title', 'rtyty')
 
-        // for (const el of menu.querySelectorAll(':scope>:not([slot])')) el.remove()
-
-        // PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
-
-        label.addEventListener('click', async (evt) => {
-          const path = new NavigationPath(evt.target)?.hydrate()
-
-          await startViewTransition(evt.target, 'forwards', async () => {
-            if (!(path instanceof NavigationPath)) throw new Error('invalid view')
-
-            const position = 'beforebegin' //queryInsertPosition(path.component) //'afterend'
-            const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
-
-            const node = navigationLinkTemplate
-
-            path.page.insertAdjacentElement(position, node)
-
-            // modifyDOMforwards(undefined, path, template)
-          })
-
-          console.log(9999, path)
-        })
+        CleanupRegistry.unregister(this, 'trigger')
+        CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, label).on(), 'trigger')
 
         this.appendChild(label)
+
+        // rebuild snapshot(tree)
+        if (!this.#spawn) break
+
+        // rerender level 0
+        replaceList(this.#spawn, this.#renderPage('body-view', this.hasAttribute('searchable'), this.getAttribute('label')))
+
+        for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
+          const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+          if (0 >= depth) continue
+
+          const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
+          if (!datalist) {
+            el.remove()
+
+            break
+          }
+
+          replaceList(el, this.#renderPage('body-view', this.hasAttribute('searchable'), datalist.dataset.label, datalist))
+        }
 
         break
       }
@@ -142,6 +267,7 @@ export class PickerView extends FormAssociatedBase {
   get template(): DocumentFragment {
     if (!PickerView.#templates.has(this.pickerStyle))
       switch (this.pickerStyle) {
+        case 'sheet':
         case 'navigation-link':
           PickerView.#templates.set(
             this.pickerStyle,
@@ -264,6 +390,17 @@ export class PickerView extends FormAssociatedBase {
   connectedCallback() {
     debug(`${PickerView.name} ⚡️ connect`)
 
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'localechange',
+        () => {
+          this.#renderList([])
+        },
+        I18n.on
+      ).on()
+    )
+
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
     if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // will be picked up by attr-change!
@@ -303,6 +440,12 @@ export class PickerView extends FormAssociatedBase {
         if (oldValue === newValue) break
 
         this.#render()
+
+        break
+      case (this.constructor as typeof PickerView).ATTR.SEARCHABLE:
+        if (oldValue === newValue) break
+
+        this.#renderList([])
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -346,44 +489,8 @@ export class PickerView extends FormAssociatedBase {
     CleanupRegistry.unregister(this, 'datalist') //off1()
     CleanupRegistry.register(this, onoff('slotchange', this.#handleListSlotchange, this.#slots?.get('list')).on(), 'datalist')
 
-    // CleanupRegistry.unregister(this, 'tags') //off2()
-    // CleanupRegistry.register(this, onoff('slotchange', this.#handleSlotchange, this.#slots?.get('tag')).on(), 'tags')
-
-    // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
-    // if (0 < (this.#slots?.get('tag')?.assignedElements({ flatten: true }) ?? []).length) this.#handleTagMutation()
-
-    //this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) {
-    switch (
-      this.pickerStyle
-      // case 'menu':
-      //   // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleMenuDatalistMutation()
-
-      //   break
-      // case 'gg':
-      //   // reattach input listener
-      //   const input = this.#shadowRoot.querySelector('input')
-      //   if (input) {
-      //     input.addEventListener('input', () => {
-      //       this.#internals!.setFormValue(input.value)
-      //     })
-
-      //     // restore placeholder if set
-      //     const placeholder = this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER)
-      //     if (placeholder) input.setAttribute('placeholder', placeholder)
-      //   }
-
-      //   // restore label if set
-      //   const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
-      //   if (label) this.#reflectLabel(label)
-
-      //   break
-      // case 'inline':
-      // default:
-      //   // if (0 < (this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []).length) this.#handleInlineDatalistMutation()
-
-      //   break
-    ) {
-    }
+    // switch (this.pickerStyle) {
+    // }
   }
 
   #sendValueToForm = (dispatchEvent: boolean = true) => {
@@ -403,6 +510,54 @@ export class PickerView extends FormAssociatedBase {
     this.#internals.setFormValue(entries)
 
     if (dispatchEvent) this.dispatchEvent(new CustomEvent<PickerSelectionDetail>('selection', { detail: { selection: this.#selection }, bubbles: true, composed: true }))
+  }
+
+  #handleTriggerClick = async ({ type, target }: Event) => {
+    debug(`${PickerView.name} ⚡️ ${type}`)
+
+    if (!(target instanceof HTMLElement && target)) return
+
+    this.#spawn?.remove?.()
+
+    const level0 = this.#renderPage('sheet-view', this.hasAttribute('searchable'), this.getAttribute('label'))
+    if (!level0) return
+
+    const path = new NavigationPath(target)?.hydrate()
+
+    await startViewTransition(target, 'forwards', async () => {
+      this.#spawn = level0
+
+      update(path, level0)
+    })
+  }
+
+  #handlePageClick = async (evt: Event) => {
+    debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+
+    evt.stopImmediatePropagation()
+    evt.preventDefault()
+
+    const { target } = evt
+    if (!(target instanceof HTMLElement && target)) return
+
+    const btn = target.closest('button')
+    if (!btn) return
+
+    const proceed = () => {
+      this.#spawn?.remove()
+
+      this.#selection = btn.getAttribute('value') ?? btn.textContent?.trim() ?? ''
+
+      this.#sendValueToForm()
+    }
+
+    const { body } = new NavigationPath(this.#spawn)?.hydrate()
+
+    if (!body) return proceed()
+
+    await startViewTransition(body, 'backwards', async () => {
+      proceed()
+    })
   }
 
   #handleClick({ type, target }: Event) {
@@ -454,6 +609,21 @@ export class PickerView extends FormAssociatedBase {
     return btn
   }
 
+  static #wrapOptgroupTag(node: HTMLOptGroupElement) {
+    const labelT = `<label-view></label-view>`,
+      summaryT = `<summary>${labelT}</summary>`
+
+    const group = $(`<details is="disclosure-group">${summaryT}</details>`, '>1'),
+      summary = group.querySelector(':scope>summary') ?? group.appendChild($(summaryT, '>1')),
+      summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
+
+    if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
+
+    if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+
+    return group
+  }
+
   static #reflectButtons(nodes: Element[], container: Element) {
     for (const node of nodes)
       switch (node.tagName) {
@@ -472,16 +642,7 @@ export class PickerView extends FormAssociatedBase {
           break
         }
         case 'OPTGROUP': {
-          const labelT = `<label-view></label-view>`,
-            summaryT = `<summary>${labelT}</summary>`
-
-          const group = $(`<details is="disclosure-group">${summaryT}</details>`, '>1'),
-            summary = group.querySelector(':scope>summary') ?? group.appendChild($(summaryT, '>1')),
-            summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
-
-          if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
-
-          if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+          const group = PickerView.#wrapOptgroupTag(node as HTMLOptGroupElement)
 
           PickerView.#reflectButtons([...node.children] as Element[], group)
 
@@ -507,19 +668,6 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectLabel(value: string | null) {
-    // switch (this.getAttribute('picker-style')) {
-    //   case 'menu':
-    //     this.#slot!.assignedElements({ flatten: true })[0].setAttribute('label', value ?? '')
-    //     // if (!mv) {
-    //     //   mv = document.createElement('label-view')
-    //     //   mv.slot = 'label'
-    //     //   this.append(mv)
-    //     // }
-
-    //     // mv.textContent = newValue //el2.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-
-    //     break
-    //   default:
     let label = this.querySelector(':scope>[slot=label]')
     if (value) {
       label ??= this.appendChild($(`<span slot="label"></span>`, '>1'))
@@ -527,27 +675,6 @@ export class PickerView extends FormAssociatedBase {
     } else label?.remove()
 
     this.#renderList([])
-
-    // const el =
-    //   (this.#labelSlot?.assignedElements({ flatten: true })[0] as HTMLElement) ??
-    //   (() => {
-    //     const el = document.createElement('span')
-    //     el.slot = 'label'
-    //     return this.appendChild(el)
-    //   })()
-
-    // el.textContent = value ?? '' // el.replaceChildren(escapeHTMLPolicy.createHTML(newValue))
-    // break
-    // }
-
-    // const assigned = this.#labelSlot?.assignedElements({ flatten: true }) as HTMLElement[] | undefined
-    // let el = assigned?.[0]
-    // if (!el) {
-    //   el = document.createElement('span')
-    //   el.slot = 'label'
-    //   this.append(el)
-    // }
-    // el.textContent = value ?? ''
   }
 
   // Optional: form participation properties

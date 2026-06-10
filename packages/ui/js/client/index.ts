@@ -2,7 +2,7 @@ import { alertDialog, confirmationDialog as confirmationDialogBus, lifecycleObse
 import * as Components from '../components'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { type NavigationHost, startViewTransition } from '../internal/privateNamespace'
+import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, debug, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
@@ -366,7 +366,7 @@ void Snapshot.waitReady // void Snapshot.setOwnConfig()
 
 //#region exports
 
-export { I18n, lifecycleObserver, NavigationPath, Snapshot, startViewTransition }
+export { I18n, lifecycleObserver, NavigationPath, queryInsertPosition, Snapshot, startViewTransition }
 
 export { type NavigationHost }
 

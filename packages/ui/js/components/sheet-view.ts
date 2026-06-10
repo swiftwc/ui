@@ -105,9 +105,9 @@ export class SheetView extends DialogBase {
 
     if (evt.matches)
       for (const item of el.querySelectorAll<HTMLElement>(
-        ':scope>tool-bar>[slot^="top-bar-"],:scope>tool-bar>[slot="cancellation-action"],:scope>tool-bar>[slot="primary-action"],:scope>tool-bar>[slot="confirmation-action"],:scope>tool-bar>[slot="destructive-action"]'
+        ':scope>tool-bar>[slot="cancellation-action"],:scope>tool-bar>[slot="primary-action"],:scope>tool-bar>[slot="confirmation-action"],:scope>tool-bar>[slot="destructive-action"]'
       )) {
-        const newSlot = item.slot.endsWith('leading') ? 'bottom-bar-leading' : 'bottom-bar-trailing'
+        const newSlot = ['destructive-action'].includes(item.slot) ? 'bottom-bar-trailing' : 'bottom-bar-leading'
 
         if (item.slot !== newSlot) item.dataset.previousSlot = item.slot
 

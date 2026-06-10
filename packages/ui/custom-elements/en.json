@@ -318,10 +318,6 @@
             },
             {
               "kind": "field",
-              "name": "selectedDate"
-            },
-            {
-              "kind": "field",
               "name": "name"
             },
             {
@@ -1104,6 +1100,46 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/search-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "SearchView",
+          "tagName": "search-view",
+          "description": "",
+          "superclass": {
+            "name": "InputHTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "role"
+            },
+            {
+              "name": "title-key"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "SearchView",
+          "declaration": {
+            "name": "SearchView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "search-view",
+          "declaration": {
+            "name": "SearchView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/section-view.ts",
       "declarations": [
         {
@@ -1660,7 +1696,7 @@
           "slots": [
             {
               "name": "slot",
-              "description": "cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal"
+              "description": "cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal"
             },
             {
               "name": "slot",
@@ -1672,7 +1708,7 @@
             },
             {
               "name": "slot",
-              "description": "destructive-action - The item represents a destructive action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+              "description": "destructive-action - The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal"
             },
             {
               "name": "slot",

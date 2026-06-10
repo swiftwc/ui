@@ -245,6 +245,17 @@
       ]
     },
     {
+      "name": "search-view",
+      "attributes": [
+        {
+          "name": "role"
+        },
+        {
+          "name": "title-key"
+        }
+      ]
+    },
+    {
       "name": "section-view",
       "attributes": [
         {

@@ -54,6 +54,8 @@
 
 #### [ScrollView](/web-components/scroll-view.md)
 
+#### [SearchView](/web-components/search-view.md)
+
 #### [SectionView](/web-components/section-view.md)
 
 #### [SheetView](/web-components/sheet-view.md)

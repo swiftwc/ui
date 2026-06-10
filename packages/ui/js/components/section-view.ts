@@ -60,7 +60,7 @@ export class SectionView extends HTMLElement {
 
     // Snapshot.waitReady.then(() => {
     // if (!(await frame(this))) return // NOTE: Required or BREAKS transitions  // self.requestAnimationFrame(() => {
-    // if (!this.isConnected) return
+
     // const blockSizeProp = getComputedStyle(this).getPropertyValue('--navigation-bar-block-size') || '0', //`${document.documentElement.computedStyleMap().get(`--navigation-bar-block-size`) ?? '0'}`, //
     //   blockSize = parseFloat(blockSizeProp) * (blockSizeProp.endsWith('rem') ? parseFloat(getComputedStyle(document.documentElement).fontSize) : 1)
     // this.#observer = new IntersectionObserver(this.#handleIntersect, {

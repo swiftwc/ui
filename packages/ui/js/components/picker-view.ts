@@ -476,8 +476,6 @@ export class PickerView extends FormAssociatedBase {
   #render() {
     debug(`${PickerView.name} ⚡️ render (${this.pickerStyle})`)
 
-    if (!this.isConnected) return
-
     // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
     if (this.#lastRenderedStyle === this.pickerStyle) return // skip if already applied
     this.#lastRenderedStyle = this.pickerStyle

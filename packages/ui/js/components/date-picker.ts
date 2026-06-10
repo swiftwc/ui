@@ -174,8 +174,6 @@ export class DatePicker extends FormAssociatedBase {
   #render() {
     debug(`${DatePicker.name} ⚡️ render (${this.datePickerStyle})`)
 
-    if (!this.isConnected) return
-
     // if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
     // this.#lastRenderedStyle = this.datePickerStyle
 

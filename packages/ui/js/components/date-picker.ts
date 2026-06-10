@@ -247,7 +247,8 @@ export class DatePicker extends FormAssociatedBase {
 
     this.#validityObservers.syncObservations(assigned, ['value', 'label'])
 
-    if (0 < assigned.length) this.#renderValidityMsgs([])
+    // if (0 < assigned.length)
+    this.#renderValidityMsgs([])
   }
 
   get #selectedDate(): { year: string; month: string; day: string } {

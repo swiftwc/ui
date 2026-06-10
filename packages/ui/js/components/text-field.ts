@@ -276,7 +276,8 @@ export class TextField extends FormAssociatedBase {
 
     this.#validityObservers.syncObservations(assigned, ['value', 'label'])
 
-    if (0 < assigned.length) this.#renderValidityMsgs([])
+    // if (0 < assigned.length)
+    this.#renderValidityMsgs([])
   }
 
   #handleFocusin = (evt: Event) => {

@@ -91,7 +91,7 @@ export class PickerView extends FormAssociatedBase {
               </sticky-container>`
       )
 
-      const searchInput = sv?.querySelector('input[type=search]')
+      const searchInput = sv?.querySelector('input') // FIXME: compoennt is=search-view??
 
       searchInput?.addEventListener('focus', (evt) => {
         if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchfocus', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
@@ -592,7 +592,8 @@ export class PickerView extends FormAssociatedBase {
 
     this.#validityObservers.syncObservations(assigned, ['value', 'label'])
 
-    if (0 < assigned.length) this.#renderValidityMsgs([])
+    // if (0 < assigned.length)
+    this.#renderValidityMsgs([])
   }
 
   #handleListSlotchange = ({ type, target: slot }: Event) => {
@@ -604,7 +605,8 @@ export class PickerView extends FormAssociatedBase {
 
     this.#observers.syncObservations(assigned)
 
-    if (0 < assigned.length) this.#renderList([])
+    // if (0 < assigned.length)
+    this.#renderList([])
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {

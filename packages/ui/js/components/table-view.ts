@@ -131,7 +131,8 @@ export class TableView extends HTMLElement {
 
     this.#observers.syncObservations(assigned)
 
-    if (0 < assigned.length) this.#renderColumns([])
+    // if (0 < assigned.length)
+    this.#renderColumns([])
   }
 
   #renderColumns = (entries: MutationRecord[]) => {

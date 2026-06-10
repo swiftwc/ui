@@ -123,8 +123,8 @@
     // --secondary-label: oklch(0.4962 0 0); // ✅
     // --secondary-label-dark: oklch(0.6334 0 0); // ✅
 
-    --secondary-text: var(--black);
-    --secondary-text-dark: var(--white);
+    // --secondary-text: var(--black);
+    // --secondary-text-dark: var(--white);
 
     --tint: oklch(0.5325 0.1899 257.12);
     --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
@@ -139,17 +139,17 @@
     // --divider: oklch(0.9431 0 0); // ✅
     // --divider-dark: oklch(0.2858 0.0036 286.17); // ✅
 
-    --system-bg: var(--white); // ✅
-    --system-bg-dark: var(--black); // ✅
+    // --system-bg: var(--white); // ✅
+    // --system-bg-dark: var(--black); // ✅
 
     // --primary-bg: oklch(0.9566 0.0067 286.27); // ✅
     // --primary-bg-dark: var(--black); // ✅
 
-    --primary-grouped-bg: var(--white); //0.8136 0.0428 255.03;
-    --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
+    // --primary-grouped-bg: var(--white); //0.8136 0.0428 255.03;
+    // --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
 
-    --secondary-bg: oklch(0.8045 0.0779 73.42);
-    --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
+    // --secondary-bg: oklch(0.8045 0.0779 73.42);
+    // --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
 
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
@@ -250,11 +250,13 @@
       --#{$v}-item-padding-block-start: 1rem;
       --#{$v}-item-padding-block-start: 1rem;
 
+      // FIXME: feat-sheet 3/3
       --#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --#{$v}-item-color: var(--primary);
       --#{$v}-highlighteditem-background-color: var(--tint1g);
       --#{$v}-highlighteditem-color: ;
 
+      // FIXME: feat-sheet 3/3
       --inset#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --inset#{$v}-item-color: var(--primary);
       --inset#{$v}-highlighteditem-background-color: var(--accentColor);

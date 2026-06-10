@@ -1,5 +1,5 @@
 import type * as Components from '../components'
-import { type PageRevealSwapDetail } from '../events'
+import type { PageRevealSwapDetail } from '../events'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { debug } from '../internal/utils'
 import { Snapshot } from '../snapshot'
@@ -155,7 +155,6 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
       oldBodies = froms.map((item) => item.body).filter((item) => !!item)
     // console.log(99, queryToolbarConfigAll(oldSlot), oldToolbars)
 
-    console.log(99, from)
     // if most-top effect is closing a modal, skip everything
     if ('DIALOG' === from.component?.tagName) {
       from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
@@ -169,7 +168,6 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     }
 
     const to = [...from.parents()].at(0)?.hydrate() //closestBody(oldPath.component?.parentElement ?? undefined)
-    console.log(99, to)
 
     if (!to) return debug('Can not go backwards.') // nothing to go back to
 

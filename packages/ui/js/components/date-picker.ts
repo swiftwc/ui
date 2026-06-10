@@ -1,4 +1,4 @@
-import { type DatePickerSelectionDetail } from '../events'
+import type { DatePickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'

@@ -1,4 +1,4 @@
-import { type PickerSelectionDetail } from '../events'
+import type { PickerSearchableDetail, PickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
@@ -84,12 +84,24 @@ export class PickerView extends FormAssociatedBase {
       list?.insertAdjacentHTML(
         'afterend',
         `<sticky-container edge="navbar" style="order: -1" padding>
-                <v-stack spacing="0" alignment="fill" style="position: sticky; top: 0">
-                  <input type="search" placeholder="Search" style="height: 30px; outline: red solid 3px">
+                <v-stack spacing="0" alignment="fill">
+                  <input is="search-view" placeholder="Search">
                   <button type="button">Filters</button>
                 </v-stack>
               </sticky-container>`
       )
+
+      const searchInput = sv?.querySelector('input[type=search]')
+
+      searchInput?.addEventListener('focus', (evt) => {
+        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchfocus', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      })
+      searchInput?.addEventListener('blur', (evt) => {
+        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchblur', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      })
+      searchInput?.addEventListener('input', (evt) => {
+        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchinput', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      })
     }
 
     backBtn?.setAttribute('help', I18n.t('ButtonRole').Back)
@@ -519,7 +531,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#spawn?.remove?.()
 
-    const level0 = this.#renderPage('sheet-view', this.hasAttribute('searchable'), this.getAttribute('label'))
+    const level0 = this.#renderPage('sheet' === this.pickerStyle ? 'sheet-view' : 'body-view', this.hasAttribute('searchable'), this.getAttribute('label'))
     if (!level0) return
 
     const path = new NavigationPath(target)?.hydrate()

@@ -269,8 +269,8 @@
                 </section-view>
               </list-view>
               <sticky-container edge="navbar" style="order: -1" padding>
-                <v-stack spacing="0" alignment="fill" style="position: sticky; top: 0">
-                  <input type="search" placeholder="Search" style="height: 30px; outline: red solid 3px" />
+                <v-stack spacing="0" alignment="fill">
+                  <input is="search-view" placeholder="Search" />
                   <button type="button">Filters</button>
                 </v-stack>
               </sticky-container>
@@ -451,7 +451,7 @@
               <p>...</p>
               <p>...</p> -->
             </v-stack>
-            <!-- <input type="search" slot="top-bar-principal" placeholder="Search" /> -->
+            <!-- <input is="search-view" slot="top-bar-principal" placeholder="Search" /> -->
           </scroll-view>
         </navigation-split-view>
 
@@ -853,7 +853,6 @@
                   <option slot="list" value="50" label="Very Generous"></option>
                   <option slot="list" value="50" label="Very Generous"></option>
                   <option slot="list" value="50" label="Very Generous"></option>
-                  <!-- </datalist> -->
                 </picker-view>
                 <labeled-content>
                   <label-view title="Name" slot="label"></label-view>
@@ -1219,6 +1218,20 @@
       //   //   modifyDOMforwards(undefined, from, queryTemplate(`customer1`))
       //   // }
       // })
+
+      document.addEventListener('picker:searchfocus', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        event.target.innerHTML = `<option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>
+                  <option slot="list" value="50" label="Very Generous"></option>`
+
+        event.detail.element.querySelector('input[type=search]').focus()
+      })
 
       document.addEventListener('click', async (event) => {
         console.debug(`⚡️ ${event?.type}`)

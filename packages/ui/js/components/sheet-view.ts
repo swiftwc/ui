@@ -1,13 +1,8 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { debug, onoff } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
-import { Snapshot } from '../snapshot'
 
 export class SheetView extends DialogBase {
-  // static get observedAttributes() {
-  //   return ['fine-presentation-large-adaptation']
-  // }
-
   constructor() {
     super()
   }
@@ -33,21 +28,6 @@ export class SheetView extends DialogBase {
     )
 
     el.autofocus = true
-
-    if (!self.matchMedia('(pointer: fine)').matches) return
-
-    const handler1 = this.#handleMediaChange.bind(null, el)
-
-    CleanupRegistry.register(el, onoff('fine_dialog_sheet:change', handler1 as unknown as EventListener, Snapshot.on).on())
-
-    Snapshot.waitReady.then(() => {
-      this.#handleMediaChange(
-        el,
-        new MediaQueryListEvent(`media-change`, {
-          matches: Snapshot.breakpoints?.get('fine_dialog_sheet'),
-        })
-      ) // Initial check
-    })
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
@@ -98,26 +78,5 @@ export class SheetView extends DialogBase {
     if (!evt.cancelable) return
 
     evt.preventDefault()
-  }
-
-  static #handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, evt) => {
-    debug(`${SheetView.name} ⚡️ ${evt?.type}`)
-
-    if (evt.matches)
-      for (const item of el.querySelectorAll<HTMLElement>(
-        ':scope>tool-bar>[slot="cancellation-action"],:scope>tool-bar>[slot="primary-action"],:scope>tool-bar>[slot="confirmation-action"],:scope>tool-bar>[slot="destructive-action"]'
-      )) {
-        const newSlot = ['destructive-action'].includes(item.slot) ? 'bottom-bar-trailing' : 'bottom-bar-leading'
-
-        if (item.slot !== newSlot) item.dataset.previousSlot = item.slot
-
-        item.slot = newSlot
-      }
-    else
-      for (const item of el.querySelectorAll<HTMLElement>(':scope>tool-bar>[data-previous-slot]')) {
-        item.slot = item.dataset.previousSlot ?? ''
-
-        delete item.dataset.previousSlot
-      }
   }
 }

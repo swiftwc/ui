@@ -1,4 +1,4 @@
-import { type PageRevealSwapDetail, type TabBeforeDetail, type TabViewAdaptableTabBarPlacementDetail, type TabViewDetail } from '../events'
+import type { PageRevealSwapDetail, TabBeforeDetail, TabViewAdaptableTabBarPlacementDetail, TabViewDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { NavigationPath } from '../internal/class/navigation-path'

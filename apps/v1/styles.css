@@ -68,19 +68,11 @@
     --navigation-bar-block-size: var(--tool-bar-block-size);
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
-    --secondary-text: var(--black);
-    --secondary-text-dark: var(--white);
     --tint: oklch(0.5325 0.1899 257.12);
     --tint1g: color-mix(in oklch, white 70%, var(--tint));
     --tint2: color-mix(in oklch, white 80%, var(--tint));
     --tint3: color-mix(in oklch, white 90%, var(--tint));
     --tintcontrast: white;
-    --system-bg: var(--white);
-    --system-bg-dark: var(--black);
-    --primary-grouped-bg: var(--white);
-    --primary-grouped-bg-dark: oklch(0.8136 0.0428 255.03);
-    --secondary-bg: oklch(0.8045 0.0779 73.42);
-    --secondary-bg-dark: oklch(0.8045 0.0779 73.42);
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
     --view-transition-trailing-x: 100%;
@@ -1033,6 +1025,7 @@
   scroll-view:not([hidden]),
   body-view:not([hidden]),
   tab-view:not([hidden]),
+  [is=search-view]:not([hidden]),
   [is=sidebar-view]:not([hidden]),
   [is=tab-bar]:not([hidden]),
   [is=full-screen]:not([hidden]),
@@ -1066,6 +1059,7 @@
   section-view:not([hidden]),
   text-field:not([hidden]),
   detail-placeholder:not([hidden]),
+  sticky-container:not([hidden]),
   picker-view:not([hidden])) {
     display: grid;
   }
@@ -1602,7 +1596,7 @@
   :where(sticky-container[edge=navbar]) {
     top: var(--navigation-bar-block-size);
   }
-  @container (max-block-size: 400px) {
+  @container (max-block-size: 25rem) {
     :where(sticky-container) {
       position: relative;
       top: unset;
@@ -1895,6 +1889,9 @@
   }
   :where(navigation-stack > scroll-view sticky-container, navigation-split-view > scroll-view sticky-container, [is=sidebar-view] > scroll-view sticky-container, body-view > scroll-view sticky-container, [is=full-screen] > scroll-view sticky-container, [is=sheet-view] > scroll-view sticky-container):after {
     background-image: linear-gradient(to bottom, var(--face) 0, oklch(0% 0 0deg / 0) 100%);
+  }
+  :where(navigation-stack > scroll-view sticky-container, navigation-split-view > scroll-view sticky-container, [is=sidebar-view] > scroll-view sticky-container, body-view > scroll-view sticky-container, [is=full-screen] > scroll-view sticky-container, [is=sheet-view] > scroll-view sticky-container):after {
+    display: none;
   }
   @supports (container-type: scroll-state) {
     :where(navigation-stack > scroll-view:has(sticky-container[stuck]), navigation-split-view > scroll-view:has(sticky-container[stuck]), [is=sidebar-view] > scroll-view:has(sticky-container[stuck]), body-view > scroll-view:has(sticky-container[stuck]), [is=full-screen] > scroll-view:has(sticky-container[stuck]), [is=sheet-view] > scroll-view:has(sticky-container[stuck]))::part(scroll-view-navbar):before {
@@ -2470,6 +2467,15 @@
 @layer sw-utils {
   :where([is=glass-prominent-button]) {
     text-align: center;
+  }
+}
+@layer sw-components {
+  :where([is=search-view]) {
+    height: 30px;
+    backdrop-filter: var(--liquid-glass-backdrop-filter, );
+    box-shadow: var(--menu-popover-box-shadow, );
+    border-radius: var(--pill-border-radius);
+    padding-inline: 1rem;
   }
 }
 @layer sw-components {
@@ -6069,26 +6075,32 @@
   scroll-view > v-flex-stack[padding]) {
     padding-block-end: 1rem;
   }
-  :where(v-stack > [padding]:not(v-stack,
+  :where(v-stack > [padding]:not(v-stack, sticky-container,
   h-stack,
   h-flex-stack,
   v-flex-stack), v-stack > [is=disclosure-group] > summary[padding],
-  h-stack > [padding]:not(v-stack,
+  h-stack > [padding]:not(v-stack, sticky-container,
   h-stack,
   h-flex-stack,
   v-flex-stack),
   h-stack > [is=disclosure-group] > summary[padding],
-  h-flex-stack > [padding]:not(v-stack,
+  h-flex-stack > [padding]:not(v-stack, sticky-container,
   h-stack,
   h-flex-stack,
   v-flex-stack),
   h-flex-stack > [is=disclosure-group] > summary[padding],
-  v-flex-stack > [padding]:not(v-stack,
+  v-flex-stack > [padding]:not(v-stack, sticky-container,
   h-stack,
   h-flex-stack,
   v-flex-stack),
   v-flex-stack > [is=disclosure-group] > summary[padding]) {
     margin-inline: 1rem;
+  }
+  :where(v-stack > sticky-container,
+  h-stack > sticky-container,
+  h-flex-stack > sticky-container,
+  v-flex-stack > sticky-container) {
+    padding-inline: 1rem;
   }
 }
 @layer sw-utils {
@@ -7850,30 +7862,24 @@
   }
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog], [is=alert-dialog]) {
     --face: var(--background);
-    --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    --background: var(--secondaryBackground);
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
-      --face: light-dark(
-        var(--liquid-glass-bg),
-        var(--liquid-glass-bg-dark)
-      );
+      --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
     }
   }
   :where(tab-view > [is=sidebar-view]) {
-    --face: light-dark(
-      var(--liquid-glass-bg),
-      var(--liquid-glass-bg-dark)
-    );
+    --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
   }
   :where(tab-view > [is=sidebar-view] [is=form-view]) {
     --list--highlighteditem-background-color: transparent;
     --list--highlighteditem-color: var(--accentColor);
   }
   :where([is=tab-bar]) {
-    --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
-    --toolbaritemhighlighttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
-    --toolbaritemactivetext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemtext: var(--text);
+    --toolbaritemhighlighttext: var(--text);
+    --toolbaritemactivetext: var(--text);
   }
   :where(tool-bar-item,
   tool-bar-item-group,

@@ -94,6 +94,10 @@
       sticky-container {
         :where(&) {
           @include mixins.make-toolbar-pseudos(bottom);
+
+          &:after {
+            display: none;
+          }
         }
       }
 

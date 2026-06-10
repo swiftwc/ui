@@ -119,7 +119,7 @@ document.body.addEventListener("click", async (event) => {
                       <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0">aaaa${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
                       <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0" disabled>dddd${root.querySelectorAll("scroll-view").length}</button></tool-bar-item>
                       <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">gggg${root.querySelectorAll("scroll-view").length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="top-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll("scroll-view").length}"></tool-bar-item>
+                      <tool-bar-item slot="top-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll("scroll-view").length}"></tool-bar-item>
                     </tool-bar>
                   </${6 === root.querySelectorAll("scroll-view").length ? "dialog" : "body-view"}>
                   `,

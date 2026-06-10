@@ -3,48 +3,6 @@
 @use 'sass:map';
 @use 'sass:list';
 
-// $h-map: (
-//   leading: start,
-//   center: center,
-//   trailing: end,
-//   fill: stretch, // cross-axis stretch
-// );
-
-// $v-map: (
-//   top: start,
-//   center: center,
-//   bottom: end,
-//   fill: stretch, // cross-axis stretch
-// );
-
-// $placement-map: (
-//   top-leading: start start,
-//   top: start center,
-//   top-trailing: start end,
-//   center-leading: center start,
-//   center: center center,
-//   center-trailing: center end,
-//   bottom-leading: end start,
-//   bottom: end center,
-//   bottom-trailing: end end,
-// );
-
-// $alignment-map: (
-//   leading: start,
-//   center: center,
-//   trailing: end,
-//   fill: stretch, // cross-axis stretch
-// );
-
-// $distribution-map: (
-//   top: start,
-//   center: center,
-//   bottom: end,
-//   fill: stretch,
-//   between: space-between,
-//   evenly: space-evenly,
-// );
-
 $inline-map: (
   leading: (
     (justify-items (start)),
@@ -240,8 +198,12 @@ $v-placement-map: (
     }
 
     // all direct children (excluding stacks) of stacks get margins, also some special cases like a details>summary[padding] etc.
-    :where(& > [padding]:not(&), & > [is='disclosure-group'] > summary[padding]) {
+    :where(& > [padding]:not(&, sticky-container), & > [is='disclosure-group'] > summary[padding]) {
       margin-inline: 1rem;
+    }
+
+    :where(& > sticky-container) {
+      padding-inline: 1rem;
     }
   }
 }

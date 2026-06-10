@@ -29,6 +29,37 @@ export abstract class DialogBase extends HTMLDialogElement {
   }
 }
 
+export abstract class InputBase extends HTMLInputElement {
+  static polyfillExtends = 'input' as const
+  static polyfillConnectedCallback(el: HTMLInputElement) {}
+  static polyfillDisconnectedCallback(el: HTMLInputElement) {}
+  static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof InputBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof InputBase
+
+    ctor.polyfillConnectedCallback(this)
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    const ctor = this.constructor as typeof InputBase
+
+    const entry = {
+      attributeName: name,
+      oldValue,
+      target: this,
+    }
+
+    ctor.polyfillAttributeChangedCallback([entry])
+  }
+}
+
 export abstract class ButtonBase extends HTMLButtonElement {
   static polyfillExtends = 'button' as const
   static polyfillConnectedCallback(el: HTMLButtonElement) {}

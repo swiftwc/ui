@@ -365,7 +365,7 @@ document.body.addEventListener('click', async (event) => {
                                           
                                           <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                           
-                                          <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                                         </tool-bar>
                                       </dialog>
                                       <tool-bar>
@@ -379,7 +379,7 @@ document.body.addEventListener('click', async (event) => {
                                         
                                         <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                         
-                                        <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                                       </tool-bar>
                                     </dialog>
                                     <tool-bar>
@@ -393,7 +393,7 @@ document.body.addEventListener('click', async (event) => {
                                       
                                       <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                       
-                                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                                     </tool-bar>
                                   </body-view>
                                   <tool-bar>
@@ -407,7 +407,7 @@ document.body.addEventListener('click', async (event) => {
                                     
                                     <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                     
-                                    <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                    <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                                   </tool-bar>
                                 </body-view>
                                 <tool-bar>
@@ -421,7 +421,7 @@ document.body.addEventListener('click', async (event) => {
                                   
                                   <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                   
-                                  <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                  <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                                 </tool-bar>
                               </body-view>
                               <tool-bar>
@@ -435,7 +435,7 @@ document.body.addEventListener('click', async (event) => {
                                 
                                 <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                                 
-                                <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                               </tool-bar>
                             </dialog>`
                                 : ''
@@ -451,7 +451,7 @@ document.body.addEventListener('click', async (event) => {
                               
                               <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                               
-                              <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                              <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                             </tool-bar>
                           </body-view>
                           <tool-bar>
@@ -465,7 +465,7 @@ document.body.addEventListener('click', async (event) => {
                             
                             <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                             
-                            <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                            <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                           </tool-bar>
                         </body-view>
                         <tool-bar>
@@ -479,7 +479,7 @@ document.body.addEventListener('click', async (event) => {
                           
                           <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                           
-                          <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                         </tool-bar>
                       </body-view>
                       <tool-bar>
@@ -493,7 +493,7 @@ document.body.addEventListener('click', async (event) => {
                         
                         <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                         
-                        <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                       </tool-bar>
                     </body-view>
                     <tool-bar>
@@ -507,7 +507,7 @@ document.body.addEventListener('click', async (event) => {
                       
                       <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                       
-                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </tool-bar>
                   </body-view>
                   `
@@ -600,7 +600,7 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0" disabled><label-view system-image="smiley"></label-view></button></tool-bar-item>
 
                       <tool-bar-item-group tint="red" slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view system-image="smiley" slot="label"></label-view><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button><button tabindex="0"><label-view title="ddd"></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="top-bar-trailing"><input type="search" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="top-bar-trailing"><input is="search-view" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
                       <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0"><label-view title="a${controller.querySelectorAll('scroll-view').length}"></label-view></button></tool-bar-item>
                       <tool-bar-item slot="bottom-bar-leading">
                       <menu-view tabindex="0">
@@ -614,7 +614,7 @@ document.body.addEventListener('click', async (event) => {
                       </tool-bar-item>
                       <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item>
                       <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="image" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
-                      <tool-bar-item slot="bottom-bar-trailing"><input type="search" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
                     </tool-bar>
                   </${tag}>
                   `
@@ -770,3 +770,5 @@ lifecycleObserver.addEventListener('tabshow', navHandler)
 lifecycleObserver.addEventListener('tabhide', navHandler)
 lifecycleObserver.addEventListener('pageshow', navHandler)
 lifecycleObserver.addEventListener('pagehide', navHandler)
+
+document.addEventListener('tabroot', navHandler)

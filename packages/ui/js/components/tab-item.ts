@@ -1,4 +1,4 @@
-import { type TabDetail, type TabViewAdaptableTabBarPlacementDetail } from '../events'
+import type { TabDetail, TabViewAdaptableTabBarPlacementDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { debug, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'

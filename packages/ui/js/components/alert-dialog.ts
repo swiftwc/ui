@@ -1,5 +1,5 @@
 import { alertDialog } from '../buses'
-import { type AlertReturnDetail } from '../events'
+import type { AlertReturnDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { debug, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'

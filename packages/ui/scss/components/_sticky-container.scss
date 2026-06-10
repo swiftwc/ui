@@ -32,7 +32,7 @@
       }
     }
 
-    @container (max-block-size: 400px) {
+    @container (max-block-size: 25rem) {
       :where(&) {
         position: relative;
         top: unset;

@@ -1,5 +1,5 @@
 import { lifecycleObserver } from '../buses'
-import { type PageShowHideDetail, type TabDetail } from '../events'
+import type { PageShowHideDetail, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, debug, frame, onoff, slowHideShow } from '../internal/utils'

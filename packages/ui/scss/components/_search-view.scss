@@ -1,0 +1,18 @@
+@use '../vars';
+@use '../placeholders';
+
+@layer #{vars.$components-layer} {
+  [is='search-view'] {
+    :where(&) {
+      height: 30px;
+      // outline: red solid 3px;
+
+      backdrop-filter: var(--liquid-glass-backdrop-filter,);
+      box-shadow: var(--menu-popover-box-shadow,);
+
+      border-radius: var(--pill-border-radius);
+
+      padding-inline: 1rem;
+    }
+  }
+}

@@ -1,7 +1,9 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { adaptiveSlot } from '../internal/decorators'
 import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
+@adaptiveSlot((el) => !el.closest('tool-bar-item-group'))
 export class ToolBarItem extends HTMLElement {
   static get observedAttributes() {
     return ['slot', 'data-previous-slot', 'title-key']
@@ -41,23 +43,6 @@ export class ToolBarItem extends HTMLElement {
         this
       ).on()
     )
-
-    // if (this.closest('tool-bar-item-group')) return
-    // if (!this.closest('[is=sheet-view]')) return
-    // if (!self.matchMedia('(pointer: fine)').matches) return
-
-    // const handler1 = toolbarRepositioner.bind(null, this)
-
-    // CleanupRegistry.register(this, onoff('fine_dialog_sheet:change', handler1 as unknown as EventListener, Snapshot.on).on())
-
-    // Snapshot.waitReady.then(() => {
-    //   toolbarRepositioner(
-    //     this,
-    //     new MediaQueryListEvent(`media-change`, {
-    //       matches: Snapshot.breakpoints?.get('fine_dialog_sheet'),
-    //     })
-    //   ) // Initial check
-    // })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -66,7 +51,7 @@ export class ToolBarItem extends HTMLElement {
     switch (name) {
       case 'slot':
       case 'data-previous-slot':
-      case 'title-key':
+      case 'title-key': {
         this.#mutationObserver?.disconnect()
 
         const role = this.getAttribute('data-previous-slot') ?? this.getAttribute('slot') ?? '',
@@ -86,6 +71,7 @@ export class ToolBarItem extends HTMLElement {
           })
 
         break
+      }
     }
   }
 }

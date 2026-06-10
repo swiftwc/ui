@@ -452,7 +452,8 @@ $colors: map.merge(
     // --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
     // --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
 
-    --background: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    // FIXME: feat-sheet 1/3
+    --background: var(--secondaryBackground); //light-dark(var(--secondary-bg), var(--secondary-bg-dark));
     // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
 
     // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
@@ -463,10 +464,8 @@ $colors: map.merge(
     // --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
 
     @include mixins.if-2col-split-view-fits {
-      --face: light-dark(
-        var(--liquid-glass-bg),
-        var(--liquid-glass-bg-dark)
-      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
+      //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
 
       // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
@@ -474,10 +473,8 @@ $colors: map.merge(
 
   tab-view > [is='sidebar-view'] {
     :where(&) {
-      --face: light-dark(
-        var(--liquid-glass-bg),
-        var(--liquid-glass-bg-dark)
-      ); //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
+      --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
+      //light-dark(oklch(var(--sidebar-bg-lch) / var(--sidebar-bg-alpha)), oklch(var(--sidebar-bg-lch-dark) / var(--sidebar-bg-alpha-dark)));
       // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
     }
 
@@ -493,9 +490,9 @@ $colors: map.merge(
   }
 
   :where([is='tab-bar']) {
-    --toolbaritemtext: light-dark(var(--secondary-text), var(--secondary-text-dark));
-    --toolbaritemhighlighttext: light-dark(var(--secondary-text), var(--secondary-text-dark));
-    --toolbaritemactivetext: light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemtext: var(--text); //light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemhighlighttext: var(--text); //light-dark(var(--secondary-text), var(--secondary-text-dark));
+    --toolbaritemactivetext: var(--text); //light-dark(var(--secondary-text), var(--secondary-text-dark));
   }
 
   tool-bar-item,

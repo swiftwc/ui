@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { $, debug } from '../internal/utils'
+import { $, devFlags } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 const progressViewStyles = ['circular', 'linear'] as const
@@ -82,13 +82,13 @@ export class ProgressView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${ProgressView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    debug(`${ProgressView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ connect`)
 
     this.#cssStyleObserver = new CSSStyleObserver({
       properties: ['--progress-view-style-index'],
@@ -100,7 +100,7 @@ export class ProgressView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'label': {
@@ -124,7 +124,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    debug(`${ProgressView.name} ⚡️ style`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ style`)
 
     const raw = self.getComputedStyle(this).getPropertyValue('--progress-view-style-index').trim()
 
@@ -138,7 +138,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #render() {
-    debug(`${ProgressView.name} ⚡️ render (${this.#progressViewStyle})`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ render (${this.#progressViewStyle})`)
 
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle

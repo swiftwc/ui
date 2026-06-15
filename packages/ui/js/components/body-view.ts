@@ -1,4 +1,4 @@
-import { debug } from '../internal/utils'
+import { devFlags } from '../internal/utils'
 
 export class BodyView extends HTMLElement {
   constructor() {
@@ -6,10 +6,10 @@ export class BodyView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${BodyView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${BodyView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    debug(`${BodyView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${BodyView.name} ⚡️ connect`)
   }
 }

@@ -1,4 +1,4 @@
-import { debug } from '../internal/utils'
+import { devFlags } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class ScreenView extends DialogBase {
@@ -7,6 +7,6 @@ export class ScreenView extends DialogBase {
   }
 
   disconnectedCallback() {
-    debug(`${ScreenView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${ScreenView.name} ⚡️ disconnect`)
   }
 }

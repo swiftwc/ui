@@ -1,4 +1,4 @@
-import { $, debug } from '../internal/utils'
+import { $, devFlags } from '../internal/utils'
 
 export class LabelView extends HTMLElement {
   static get observedAttributes() {
@@ -34,15 +34,15 @@ export class LabelView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${LabelView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    debug(`${LabelView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'system-image':

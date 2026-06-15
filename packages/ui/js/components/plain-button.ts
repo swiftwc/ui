@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff } from '../internal/utils'
+import { devFlags, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 
 export class PlainButton extends ButtonBase {
@@ -8,13 +8,13 @@ export class PlainButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: PlainButton) {
-    debug(`${PlainButton.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${PlainButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: PlainButton) {
-    debug(`${PlainButton.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${PlainButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
 

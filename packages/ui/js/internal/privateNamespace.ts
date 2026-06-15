@@ -1,7 +1,7 @@
 import type * as Components from '../components'
 import type { PageRevealSwapDetail } from '../events'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { debug } from '../internal/utils'
+import { devFlags } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 type TransitionType = 'forwards' | 'backwards' | 'reload'
@@ -36,7 +36,7 @@ type NavigateOptions = {
 }
 
 export const startViewTransition = async (target: HTMLElement, type: TransitionType = 'forwards', updateCallbackOrOptions: UpdateCallback | NavigateOptions = async () => {}) => {
-  debug(`startViewTransition (${type})`, target)
+  if (devFlags.debug) console.debug(`startViewTransition (${type})`, target)
 
   if (!(target instanceof HTMLElement)) throw new TypeError("Argument 1 ('target') to client.startViewTransition must be an instance of HTMLElement")
 
@@ -88,9 +88,9 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     // dialogFrames = [toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item): item is HTMLDialogElement => item instanceof HTMLDialogElement) //[toFrame, ...(Snapshot.leaveFrames ?? [])].filter((item) => item?.matches('dialog'))
     // if ('DIALOG' === newHost?.tagName) {
     //   ;(newHost as HTMLDialogElement).showModal()
-    //   debug(`⚡️ view-transition-start (${type})`)
+    //   if (devFlags.debug) console.debug(`⚡️ view-transition-start (${type})`)
     //   await Promise.allSettled(newHost.getAnimations().map(({ finished }) => finished))
-    //   debug(`⚡️ view-transition-end (${type})`)
+    //   if (devFlags.debug) console.debug(`⚡️ view-transition-end (${type})`)
     //   return
     // }
 
@@ -121,17 +121,17 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     if (0 < modalViews.length) {
       for await (const el of modalViews) (el as HTMLDialogElement).showModal()
 
-      debug(`⚡️ view-dialog-transition-start (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-dialog-transition-start (${type})`)
 
       await Promise.allSettled(modalViews?.[0].getAnimations().map(({ finished }) => finished))
 
-      debug(`⚡️ view-dialog-transition-end (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-dialog-transition-end (${type})`)
     } else {
-      debug(`⚡️ view-transition-start (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-transition-start (${type})`)
 
       await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to?.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
-      debug(`⚡️ view-transition-end (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-transition-end (${type})`)
     }
 
     if (0 < (to?.component?.querySelectorAll(`.${Snapshot.config?.['vt-fwd-class-name']},.bwd`) ?? []).length) return
@@ -159,9 +159,9 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     if ('DIALOG' === from.component?.tagName) {
       from.body?.dispatchEvent(new CustomEvent<PageRevealSwapDetail>('pageswap', { detail: { page: from.body }, bubbles: true, composed: true }))
       ;(from.component as HTMLDialogElement).close()
-      debug(`⚡️ view-dialog-transition-start (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-dialog-transition-start (${type})`)
       await Promise.allSettled(from.component.getAnimations().map(({ finished }) => finished))
-      debug(`⚡️ view-dialog-transition-end (${type})`)
+      if (devFlags.debug) console.debug(`⚡️ view-dialog-transition-end (${type})`)
       if (from.component.matches('[open]')) return
       await updateCallback()
       return // just close modal
@@ -169,7 +169,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
 
     const to = [...from.parents()].at(0)?.hydrate() //closestBody(oldPath.component?.parentElement ?? undefined)
 
-    if (!to) return debug('Can not go backwards.') // nothing to go back to
+    if (!to) return console.debug('Can not go backwards.') // nothing to go back to
 
     const tv = to.body?.closest<Components.TabView>('tab-view')
     if (tv && to.body?.matches('tab-view>navigation-stack:has(> navigation-stack,> navigation-split-view)>:scope')) if ('bottom-bar' !== tv.tabBarPlacement) return
@@ -203,11 +203,11 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     for (const el of inbetweenModals) (el as HTMLDialogElement).close() // close old inbetween modals
 
     // capture trans
-    debug(`⚡️ view-transition-start (${type})`)
+    if (devFlags.debug) console.debug(`⚡️ view-transition-start (${type})`)
 
     await Promise.allSettled([...(from.body?.getAnimations().map(({ finished }) => finished) ?? []), ...(to.body?.getAnimations().map(({ finished }) => finished) ?? [])])
 
-    debug(`⚡️ view-transition-end (${type})`)
+    if (devFlags.debug) console.debug(`⚡️ view-transition-end (${type})`)
 
     if (to.body?.closest(`.bwd,.${Snapshot.config?.['vt-fwd-class-name']}`)) return
 

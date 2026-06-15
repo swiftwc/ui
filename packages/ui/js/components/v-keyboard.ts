@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, debug, frame, onoff, sleep } from '../internal/utils'
+import { $, devFlags, frame, onoff, sleep } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { type ScrollView } from './scroll-view'
 
@@ -25,13 +25,13 @@ export class VKeyboard extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${VKeyboard.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    debug(`${VKeyboard.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ connect`)
 
     this.inert = true
 
@@ -85,7 +85,7 @@ export class VKeyboard extends HTMLElement {
   }
 
   #handleWindowOrientationchange = async () => {
-    debug(`${VKeyboard.name} ⚡️ orientationchange`)
+    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ orientationchange`)
 
     if (!(await frame(this))) return //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
 
@@ -93,7 +93,7 @@ export class VKeyboard extends HTMLElement {
   }
 
   #handleBodyFocusin = async () => {
-    debug(`${VKeyboard.name} ⚡️ focusin`)
+    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ focusin`)
 
     await sleep(100) // self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
 

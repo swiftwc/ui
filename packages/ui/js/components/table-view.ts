@@ -1,7 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, debug, listActive, onoff } from '../internal/utils'
+import { $, devFlags, listActive, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 export class TableView extends HTMLElement {
@@ -95,7 +95,7 @@ export class TableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${TableView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -107,7 +107,7 @@ export class TableView extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${TableView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
@@ -123,7 +123,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleColumnSlotchange = ({ type, target: slot }: Event) => {
-    debug(`${TableView.name} ⚡️ ${type}`)
+    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement && slot)) return
 
@@ -136,7 +136,7 @@ export class TableView extends HTMLElement {
   }
 
   #renderColumns = (entries: MutationRecord[]) => {
-    debug(`${TableView.name} ⚡️ mutation`)
+    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ mutation`)
 
     if (!this.#compactToolbarItem) {
       this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
@@ -172,7 +172,7 @@ export class TableView extends HTMLElement {
   #observers = new MutationObserverSet(this.#renderColumns)
 
   #handleStyleChange = () => {
-    debug(`${TableView.name} ⚡️ style`)
+    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ style`)
 
     const target = this.#shadowRoot.querySelector('[part*=table-container]') ?? undefined
     if (!target) return

@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { cssTime, debug, onoff, timeout } from '../internal/utils'
+import { cssTime, devFlags, onoff, timeout } from '../internal/utils'
 import { DetailsBase } from '../namespace-browser/base'
 
 const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>()
@@ -19,19 +19,19 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
+    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
-    debug(`${DisclosureGroup.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
-    debug(`${DisclosureGroup.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ connect`)
 
     const newValue = el.open ? 'open' : 'closed'
 
@@ -46,7 +46,7 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   static #handleToggle = async (evt: Event) => {
-    debug(`${DisclosureGroup.name} ⚡️ ${evt?.type}`)
+    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ ${evt?.type}`)
 
     const details = evt.currentTarget instanceof HTMLDetailsElement && evt.currentTarget
     if (!details) return

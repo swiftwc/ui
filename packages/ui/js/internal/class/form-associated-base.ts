@@ -1,4 +1,4 @@
-import { debug } from '../utils'
+import { devFlags } from '../utils'
 import { CleanupRegistry } from './cleanup-registry'
 
 const internals = new WeakMap<FormAssociatedBase, ElementInternals>()
@@ -15,7 +15,7 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 
 // export function makeSlotchangeHandler(t: FormAssociatedBase) {
 //   const handleSlotchange = ({ type, target: slot }: Event) => {
-//       debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
+//       if (devFlags.debug) console.debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
 
 //       if (!(slot instanceof HTMLSlotElement && slot)) return
 
@@ -26,7 +26,7 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 //       if (0 < assigned.length) handleTagMutation()
 //     },
 //     handleTagMutation = (entry?: MutationRecord) => {
-//       debug(`${handleTagMutation.name} ⚡️ mutation`)
+//       if (devFlags.debug) console.debug(`${handleTagMutation.name} ⚡️ mutation`)
 
 //       t.setValidity(t.validity, t.validationMessage)
 //     }
@@ -50,7 +50,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -58,7 +58,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${FormAssociatedBase.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${FormAssociatedBase.name} ⚡️ connect`)
   }
 
   get type() {

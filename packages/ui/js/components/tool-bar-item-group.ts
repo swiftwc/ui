@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { adaptiveSlot } from '../internal/decorators'
-import { debug } from '../internal/utils'
+import { devFlags } from '../internal/utils'
 
 @adaptiveSlot()
 export class ToolBarItemGroup extends HTMLElement {
@@ -9,11 +9,11 @@ export class ToolBarItemGroup extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${ToolBarItemGroup.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${ToolBarItemGroup.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }

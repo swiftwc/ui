@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, debug, onoff } from '../internal/utils'
+import { $, devFlags, onoff } from '../internal/utils'
 
 export class FineTooltip extends HTMLElement {
   constructor() {
@@ -17,7 +17,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
-    debug(`${FineTooltip.name} ⚡️ measure`)
+    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ measure`)
 
     if (target.hasAttribute('closing')) return
 
@@ -61,7 +61,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${FineTooltip.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ connect`)
 
     this.removeAttribute('closing')
 
@@ -77,7 +77,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${FineTooltip.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ disconnect`)
 
     this.#resizeObserver.unobserve(this)
 

@@ -2,7 +2,7 @@ import type { PageRevealSwapDetail, TabBeforeDetail, TabViewAdaptableTabBarPlace
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { $, cssTime, debounce, debug, frame, onoff, timeout } from '../internal/utils'
+import { $, cssTime, debounce, devFlags, frame, onoff, timeout } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { type NavigationSplitView } from './navigation-split-view'
 import { type NavigationStack } from './navigation-stack'
@@ -39,7 +39,7 @@ export class TabView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${TabView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${TabView.name} ⚡️ disconnect`)
 
     this.#afterTabRevealDelay.cancel()
 
@@ -57,7 +57,7 @@ export class TabView extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${TabView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${TabView.name} ⚡️ connect`)
 
     this.#cssStyleObserver = new CSSStyleObserver({
       properties: ['--adaptable-tab-bar-placement-index'],
@@ -128,13 +128,13 @@ export class TabView extends HTMLElement {
   }
 
   #handleTabViewPagereveal = (evt: CustomEvent<PageRevealSwapDetail>) => {
-    debug(`${TabView.name} ⚡️ ${evt?.type}`)
+    if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
     void this.#syncBodyFace()
   }
 
   #handleStyleChange = () => {
-    debug(`${TabView.name} ⚡️ style`)
+    if (devFlags.debug) console.debug(`${TabView.name} ⚡️ style`)
 
     const style = self.getComputedStyle(this)
 
@@ -157,7 +157,7 @@ export class TabView extends HTMLElement {
   }
 
   // #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
-  //   debug(`${TabView.name} ⚡️ ${evt?.type}`)
+  //   if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
   //   if (!evt.matches) return
 
@@ -226,7 +226,7 @@ export class TabView extends HTMLElement {
   // }
 
   #handleAdaptableTabBarPlacementChange = (evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
-    debug(`${TabView.name} ⚡️ ${evt?.type}`)
+    if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
     if ('bottom-bar' !== evt.detail.oldValue) return // button triggers should happen, ONLY when going FROM bottom-bar TO anything else
 
@@ -321,7 +321,7 @@ export class TabView extends HTMLElement {
 
     void this.#syncBodyFace()
 
-    debug(`${TabView.name} 💡 ${eventType}`)
+    if (devFlags.debug) console.debug(`${TabView.name} 💡 ${eventType}`)
 
     this.dispatchEvent(new CustomEvent<TabViewDetail>(eventType, { detail: { selection: this.selectedTab }, bubbles: true, composed: true }))
   }

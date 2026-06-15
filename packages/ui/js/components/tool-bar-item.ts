@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { adaptiveSlot } from '../internal/decorators'
-import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
+import { devFlags, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 @adaptiveSlot((el) => !el.closest('tool-bar-item-group'))
@@ -16,7 +16,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   disconnectedCallback() {
-    debug(`${ToolBarItem.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
 
     this.#mutationObserver?.disconnect()
 
@@ -24,7 +24,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   connectedCallback() {
-    debug(`${ToolBarItem.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,
@@ -46,7 +46,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'slot':

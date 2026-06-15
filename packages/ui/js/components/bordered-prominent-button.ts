@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, ensurePlaceholder, onoff } from '../internal/utils'
+import { devFlags, ensurePlaceholder, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -17,13 +17,13 @@ export class BorderedProminentButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: BorderedProminentButton) {
-    debug(`${BorderedProminentButton.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${BorderedProminentButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: BorderedProminentButton) {
-    debug(`${BorderedProminentButton.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${BorderedProminentButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
 
@@ -31,7 +31,7 @@ export class BorderedProminentButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    debug(`${BorderedProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    if (devFlags.debug) console.debug(`${BorderedProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement && target
     if (!node) return

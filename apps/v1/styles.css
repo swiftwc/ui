@@ -985,7 +985,8 @@
     grid-column: 1/-1;
     grid-row: 1/-1;
   }
-  :where(navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > scroll-view, navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > scroll-view,
+  :where(navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > scroll-view,
+  navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > scroll-view,
   navigation-stack:has(> body-view) > scroll-view,
   navigation-stack:has(> body-view) > [is=sidebar-view] > scroll-view,
   navigation-split-view:has(> body-view) > scroll-view,
@@ -996,7 +997,10 @@
   body-view:has(> body-view) > [is=sidebar-view] > scroll-view) {
     --scroll-view-translate: translateX(var(--view-transition-leading-x));
   }
-  :where(navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > tool-bar > tool-bar-item-group, navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item, navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item-group,
+  :where(navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > tool-bar > tool-bar-item,
+  navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > tool-bar > tool-bar-item-group,
+  navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item,
+  navigation-stack:has(> navigation-stack:not([hidden]), > navigation-split-view:not([hidden])) > [is=sidebar-view] > tool-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > tool-bar > tool-bar-item,
   navigation-stack:has(> body-view) > tool-bar > tool-bar-item-group,
   navigation-stack:has(> body-view) > [is=sidebar-view] > tool-bar > tool-bar-item,

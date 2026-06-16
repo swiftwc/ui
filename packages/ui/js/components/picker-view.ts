@@ -6,6 +6,7 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import type { MenuView } from './menu-view'
 
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
@@ -56,6 +57,7 @@ export class PickerView extends FormAssociatedBase {
       PICKER_STYLE: 'picker-style',
       SELECTION: 'selection',
       SEARCHABLE: 'searchable',
+      CURRENT_VALUE_LABEL: 'current-value-label',
     }
   }
 
@@ -178,21 +180,24 @@ export class PickerView extends FormAssociatedBase {
     return body
   }
 
-  #renderList = (entries: MutationRecord[]) => {
+  #renderSlotted = (entries: MutationRecord[]) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
 
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {
-        // label
-        const label = this.querySelector(':scope>label-view') ?? this.appendChild($(`<label-view system-image="dots-three"></label-view>`, '>1'))
+        // current value label only
+        const currentValueLabel = this.querySelector(':scope>label-view:not([slot])') ?? this.appendChild($(`<label-view></label-view>`, '>1'))
 
-        label.setAttribute('title', 'rtyty')
+        // reset state
+        currentValueLabel.setAttribute('system-image', 'dots-three')
+        currentValueLabel.setAttribute('title', 'rtyty')
+
+        // clear all siblings
+        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
 
         CleanupRegistry.unregister(this, 'trigger')
-        CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, label).on(), 'trigger')
-
-        this.appendChild(label)
+        CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, currentValueLabel).on(), 'trigger')
 
         // rebuild snapshot(tree)
         if (!this.#spawn) break
@@ -214,40 +219,59 @@ export class PickerView extends FormAssociatedBase {
           replaceList(el, this.#renderPage('body-view', this.hasAttribute('searchable'), datalist.dataset.label, datalist))
         }
 
+        this.#syncSelectionToUI()
+
         break
       }
       case 'menu': {
-        const menu = this.querySelector(':scope>menu-view:not([slot])') ?? this.appendChild($(`<menu-view tabindex="0"></menu-view>`, '>1')),
-          label = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label" system-image="dots-three"></label-view>`, '>1'))
+        const menu = this.querySelector<MenuView>(':scope>menu-view:not([slot])') ?? this.appendChild<MenuView>($(`<menu-view></menu-view>`, '>1'))
 
+        // reset state
+        menu.innerHTML = ''
+        menu.tabIndex = 0
+
+        // clear all siblings
+        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (menu !== el) el.remove()
+
+        const label = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+
+        label.setAttribute('system-image', 'dots-three')
         label.setAttribute('title', 'rtyty')
 
-        for (const el of menu.querySelectorAll(':scope>:not([slot])')) el.remove()
-
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
+
+        this.#syncSelectionToUI()
 
         break
       }
       case 'inline':
       default: {
-        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view><section-view></section-view></list-view>`, '>1')),
-          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(`<section-view></section-view>`, '>1'))
+        const sectionTpl = `<section-view></section-view>`
 
-        for (const el of section.querySelectorAll(':scope>:not([slot])')) el.remove() // section.innerHTML = ''
+        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view>${sectionTpl}</list-view>`, '>1')),
+          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(sectionTpl, '>1'))
 
-        const label = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
-        if (label) {
-          const el = $(`<label-view></label-view>`, '>1')
+        // reset state
+        section.innerHTML = ''
 
-          el.setAttribute('title', label)
+        // clear all siblings
+        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (inlineList !== el) el.remove()
 
-          section.insertAdjacentElement('beforeend', el)
+        const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
+        if (value) {
+          const label = $(`<label-view></label-view>`, '>1')
+
+          label.setAttribute('title', value)
+
+          section.insertAdjacentElement('beforeend', label)
         }
 
         PickerView.#reflectButtons(
           [...(this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [])].filter((el) => el.matches('option')),
           section
         )
+
+        this.#syncSelectionToUI()
 
         break
       }
@@ -266,7 +290,7 @@ export class PickerView extends FormAssociatedBase {
 
   #slots?: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
-  #observers = new MutationObserverSet(this.#renderList)
+  #observers = new MutationObserverSet(this.#renderSlotted)
 
   #customValidity: string = ''
 
@@ -407,7 +431,7 @@ export class PickerView extends FormAssociatedBase {
       onoff(
         'localechange',
         () => {
-          this.#renderList([])
+          this.#renderSlotted([])
         },
         I18n.on
       ).on()
@@ -445,7 +469,7 @@ export class PickerView extends FormAssociatedBase {
       case (this.constructor as typeof PickerView).ATTR.LABEL:
         this.#reflectLabel(newValue)
 
-        this.#sendValueToForm()
+        // this.#sendValueToForm()
 
         break
       case (this.constructor as typeof PickerView).ATTR.PICKER_STYLE:
@@ -457,7 +481,13 @@ export class PickerView extends FormAssociatedBase {
       case (this.constructor as typeof PickerView).ATTR.SEARCHABLE:
         if (oldValue === newValue) break
 
-        this.#renderList([])
+        this.#renderSlotted([])
+
+        break
+      case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL:
+        if (oldValue === newValue) break
+
+        // FIXME:
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -468,9 +498,9 @@ export class PickerView extends FormAssociatedBase {
   }
 
   get pickerStyle(): PickerStyle {
-    return (pickerStyles as readonly string[]).includes(this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) ?? '')
-      ? (this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE) as (typeof pickerStyles)[number])
-      : 'automatic'
+    const attr = (this.constructor as typeof PickerView).ATTR.PICKER_STYLE
+
+    return (pickerStyles as readonly string[]).includes(this.getAttribute(attr) ?? '') ? (this.getAttribute(attr) as (typeof pickerStyles)[number]) : 'automatic'
   }
 
   #render() {
@@ -498,6 +528,8 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
     CleanupRegistry.register(this, onoff('slotchange', this.#handleListSlotchange, this.#slots?.get('list')).on(), 'datalist')
+
+    // #renderSlotted should run automatically now by slotchange initial event
 
     // switch (this.pickerStyle) {
     // }
@@ -606,17 +638,22 @@ export class PickerView extends FormAssociatedBase {
     this.#observers.syncObservations(assigned)
 
     // if (0 < assigned.length)
-    this.#renderList([])
+    this.#renderSlotted([])
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {
-    const btn = $(`<button type="button" tabindex="0"></button>`, '>1')
+    const btn = $(`<button type="button" tabindex="0"><h-stack template="auto spacer"><label-view system-image="check"></label-view></h-stack></button>`, '>1'),
+      hStack = btn.querySelector<HTMLElement>(':scope>h-stack'),
+      chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
 
     btn.setAttribute('value', node.getAttribute('value') ?? node.textContent?.trim() ?? '')
 
+    // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
+
     const label = $(`<label-view></label-view>`, '>1')
     label.setAttribute('title', node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim() ?? '')
-    btn.appendChild(label)
+
+    hStack?.appendChild(label)
 
     return btn
   }
@@ -686,7 +723,23 @@ export class PickerView extends FormAssociatedBase {
       label.textContent = value
     } else label?.remove()
 
-    this.#renderList([])
+    this.#renderSlotted([])
+  }
+
+  #syncSelectionToUI() {
+    // walk all rendered buttons and toggle the check indicator
+    for (const btn of this.querySelectorAll<HTMLButtonElement>('button[value]')) {
+      const isSelected = btn.getAttribute('value') === this.#selection
+      btn.querySelector('label-view[system-image="check"]')?.toggleAttribute('hidden', !isSelected) // or however you show/hide the check
+    }
+
+    // also sync the spawn (sheet/navigation) if open
+    if (this.#spawn) {
+      for (const btn of this.#spawn.querySelectorAll<HTMLButtonElement>('button[value]')) {
+        const isSelected = btn.getAttribute('value') === this.#selection
+        btn.querySelector('label-view[system-image="check"]')?.toggleAttribute('hidden', !isSelected)
+      }
+    }
   }
 
   // Optional: form participation properties
@@ -744,5 +797,7 @@ export class PickerView extends FormAssociatedBase {
   }
   formResetCallback = () => {
     this.#selection = ''
+
+    this.#sendValueToForm()
   }
 }

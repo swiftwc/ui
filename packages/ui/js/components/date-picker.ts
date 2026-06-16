@@ -128,8 +128,8 @@ export class DatePicker extends FormAssociatedBase {
 
     switch (name) {
       case 'selection':
-        const [y = '', m = '', d = ''] = (newValue ?? '').split(/\D+/)
-        this.#selectedDate = { year: y, month: m, day: d }
+        // nothing happens// const [y = '', m = '', d = ''] = (newValue ?? '').split(/\D+/)
+        // this.#selectedDate = { year: y, month: m, day: d }
 
         break
       case 'required':
@@ -157,7 +157,7 @@ export class DatePicker extends FormAssociatedBase {
           label.textContent = newValue
         } else label?.remove()
 
-        this.#sendValueToForm()
+        // this.#sendValueToForm()
 
         break
       case 'disabled':

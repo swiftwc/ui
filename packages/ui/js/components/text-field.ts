@@ -176,7 +176,7 @@ export class TextField extends FormAssociatedBase {
         break
       case 'text':
         // if (this.#input) this.#input.value = newValue ?? ''
-        this.text = newValue ?? ''
+        // nothing happens //this.text = newValue ?? ''
 
         break
       case 'required':
@@ -211,7 +211,7 @@ export class TextField extends FormAssociatedBase {
           label.textContent = newValue
         } else label?.remove()
 
-        this.#sendValueToForm()
+        // this.#sendValueToForm()
 
         break
       case 'disabled':

@@ -23,30 +23,42 @@ const update = (path: NavigationPath, node: Element, overwrite = true) => {
   if (page) page.insertAdjacentElement(position, node)
 }
 
-const replaceList = (current?: HTMLElement, source?: HTMLElement) => {
-  const { page: oldPage, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
-    { page: newPage, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
+const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
+  const { page: oldSv, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
+    { page: newSv, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
 
-  const oldList = oldPage?.querySelector('list-view'),
-    newList = newPage?.querySelector('list-view'),
+  const oldVStack = oldSv?.querySelector<HTMLElement>(':scope>v-stack'),
+    newVStack = newSv?.querySelector<HTMLElement>(':scope>v-stack'),
     oldBackBtn = oldToolbar?.at(0)?.querySelector('button'),
     newBackBtn = newToolbar?.at(0)?.querySelector('button')
 
-  // pre replace
-  const oldOpenedDetails = [...(oldList?.querySelectorAll('details[open]>summary') ?? [])].map((item) => item.textContent.trim())
+  // pre replace list (always exist)
+  const oldOpenedDetails = [...(oldVStack?.querySelectorAll('list-view details[open]>summary') ?? [])].map((item) => item.textContent.trim())
 
-  // replace
-  if (oldList && newList) oldList.replaceWith(newList)
+  // replace list (always exist)
+  if (oldVStack && newVStack) oldVStack.replaceWith(newVStack)
 
-  if (oldBackBtn && newBackBtn) oldBackBtn.replaceWith(newBackBtn)
-
-  // post replace
+  // post replace list (always exist)
   for (const label of oldOpenedDetails)
-    for (const summary of newList?.querySelectorAll('details>summary') ?? [])
+    for (const summary of newVStack?.querySelectorAll('list-view details>summary') ?? [])
       if (summary.textContent.trim() === label) {
         summary.parentElement?.setAttribute('open', 'open')
         break
       }
+
+  // replace backbtns (always exist)
+  if (oldBackBtn && newBackBtn) oldBackBtn.replaceWith(newBackBtn)
+
+  // overwrite navtitle (always exist)
+  oldSv?.setAttribute('navigation-inline-title', newSv?.getAttribute('navigation-inline-title') ?? '')
+}
+
+const extractTagFromOption = (node: HTMLOptionElement) => {
+  return ((node.getAttribute('value') ?? node.textContent?.trim()) || node.getAttribute('label')) ?? ''
+}
+
+const extractCurrentValueFromOption = (node: HTMLOptionElement) => {
+  return (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || ''
 }
 
 export class PickerView extends FormAssociatedBase {
@@ -69,7 +81,7 @@ export class PickerView extends FormAssociatedBase {
 
   #spawn?: HTMLElement
 
-  #renderPage = (tag: 'body-view' | 'sheet-view', searchable: boolean = false, title?: string | null, node?: Element) => {
+  #spawnPage = (tag: 'body-view' | 'sheet-view', searchable: boolean = false, title?: string | null, node?: Element) => {
     const body = $<HTMLElement>(
         `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="caret-left"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
         '>1'
@@ -95,14 +107,35 @@ export class PickerView extends FormAssociatedBase {
 
       const searchInput = sv?.querySelector('input') // FIXME: compoennt is=search-view??
 
-      searchInput?.addEventListener('focus', (evt) => {
-        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchfocus', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      searchInput?.addEventListener('focus', (evt: Event) => {
+        if (this.#spawn)
+          this.dispatchEvent(
+            new CustomEvent<PickerSearchableDetail>('picker:searchfocus', {
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              bubbles: true,
+              composed: true,
+            })
+          )
       })
-      searchInput?.addEventListener('blur', (evt) => {
-        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchblur', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      searchInput?.addEventListener('blur', (evt: Event) => {
+        if (this.#spawn)
+          this.dispatchEvent(
+            new CustomEvent<PickerSearchableDetail>('picker:searchblur', {
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              bubbles: true,
+              composed: true,
+            })
+          )
       })
-      searchInput?.addEventListener('input', (evt) => {
-        if (this.#spawn) this.dispatchEvent(new CustomEvent<PickerSearchableDetail>('picker:searchinput', { detail: { element: this.#spawn }, bubbles: true, composed: true }))
+      searchInput?.addEventListener('input', (evt: Event) => {
+        if (this.#spawn)
+          this.dispatchEvent(
+            new CustomEvent<PickerSearchableDetail>('picker:searchinput', {
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              bubbles: true,
+              composed: true,
+            })
+          )
       })
     }
 
@@ -133,7 +166,7 @@ export class PickerView extends FormAssociatedBase {
 
           PickerView.#reflectButtons([...el.children] as Element[], details)
 
-          for (const btn of details.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageClick)
+          for (const btn of details.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
 
           list?.appendChild(details)
 
@@ -142,7 +175,7 @@ export class PickerView extends FormAssociatedBase {
         case 'OPTION': {
           const btn = PickerView.#wrapOptionTag(el as HTMLOptionElement)
 
-          btn.addEventListener('click', this.#handlePageClick)
+          btn.addEventListener('click', this.#handlePageBtnClick)
 
           list?.appendChild(btn)
 
@@ -161,17 +194,20 @@ export class PickerView extends FormAssociatedBase {
             const { target } = evt
             if (!(target instanceof HTMLElement && target)) return
 
-            const newPage = this.#renderPage('body-view', this.hasAttribute('searchable'), el.dataset.label, el)
+            const newPage = this.#spawnPage('body-view', this.hasAttribute('searchable'), el.dataset.label, el)
             if (!newPage) return
 
             const path = new NavigationPath(target)?.hydrate()
 
             await startViewTransition(target, 'forwards', async () => {
               update(path, newPage)
+
+              this.#reflectSelectionOnButtons()
             })
           })
 
           list?.appendChild(btn)
+
           break
         }
       }
@@ -190,8 +226,8 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = this.querySelector(':scope>label-view:not([slot])') ?? this.appendChild($(`<label-view></label-view>`, '>1'))
 
         // reset state
-        currentValueLabel.setAttribute('system-image', 'dots-three')
-        currentValueLabel.setAttribute('title', 'rtyty')
+        currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
+        currentValueLabel.setAttribute('title', this.#selection) // overwritten
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -203,7 +239,7 @@ export class PickerView extends FormAssociatedBase {
         if (!this.#spawn) break
 
         // rerender level 0
-        replaceList(this.#spawn, this.#renderPage('body-view', this.hasAttribute('searchable'), this.getAttribute('label')))
+        reflectSpawnedElement(this.#spawn, this.#spawnPage('body-view', this.hasAttribute('searchable'), this.getAttribute('label')))
 
         for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
           const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
@@ -216,10 +252,8 @@ export class PickerView extends FormAssociatedBase {
             break
           }
 
-          replaceList(el, this.#renderPage('body-view', this.hasAttribute('searchable'), datalist.dataset.label, datalist))
+          reflectSpawnedElement(el, this.#spawnPage('body-view', this.hasAttribute('searchable'), datalist.dataset.label, datalist))
         }
-
-        this.#syncSelectionToUI()
 
         break
       }
@@ -233,14 +267,12 @@ export class PickerView extends FormAssociatedBase {
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (menu !== el) el.remove()
 
-        const label = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+        const currentValueLabel = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
-        label.setAttribute('system-image', 'dots-three')
-        label.setAttribute('title', 'rtyty')
+        currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
+        currentValueLabel.setAttribute('title', this.#selection) // overwritten
 
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
-
-        this.#syncSelectionToUI()
 
         break
       }
@@ -271,11 +303,13 @@ export class PickerView extends FormAssociatedBase {
           section
         )
 
-        this.#syncSelectionToUI()
-
         break
       }
     }
+
+    this.#reflectSelectionOnButtons()
+
+    this.#reflectCurrentValueLabel()
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
@@ -485,9 +519,9 @@ export class PickerView extends FormAssociatedBase {
 
         break
       case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL:
-        if (oldValue === newValue) break
+        // if (oldValue === newValue) break
 
-        // FIXME:
+        this.#reflectCurrentValueLabel()
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -561,7 +595,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#spawn?.remove?.()
 
-    const level0 = this.#renderPage('sheet' === this.pickerStyle ? 'sheet-view' : 'body-view', this.hasAttribute('searchable'), this.getAttribute('label'))
+    const level0 = this.#spawnPage('sheet' === this.pickerStyle ? 'sheet-view' : 'body-view', this.hasAttribute('searchable'), this.getAttribute('label'))
     if (!level0) return
 
     const path = new NavigationPath(target)?.hydrate()
@@ -570,25 +604,31 @@ export class PickerView extends FormAssociatedBase {
       this.#spawn = level0
 
       update(path, level0)
+
+      this.#reflectSelectionOnButtons()
     })
   }
 
-  #handlePageClick = async (evt: Event) => {
+  #handlePageBtnClick = async (evt: Event) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
     evt.stopImmediatePropagation()
     evt.preventDefault()
 
-    const { target } = evt
-    if (!(target instanceof HTMLElement && target)) return
+    const { currentTarget: btn } = evt
+    if (!(btn instanceof HTMLElement && btn)) return
 
-    const btn = target.closest('button')
-    if (!btn) return
+    // const btn = target.closest('button')
+    // if (!btn) return
 
     const proceed = () => {
       this.#spawn?.remove()
 
-      this.#selection = btn.getAttribute('value') ?? btn.textContent?.trim() ?? ''
+      this.#selection = btn.getAttribute('value') ?? ''
+
+      this.#reflectSelectionOnButtons()
+
+      this.#reflectCurrentValueLabel()
 
       this.#sendValueToForm()
     }
@@ -610,7 +650,11 @@ export class PickerView extends FormAssociatedBase {
     const btn = target.closest('button')
     if (!btn) return
 
-    this.#selection = btn.getAttribute('value') ?? btn.textContent?.trim() ?? ''
+    this.#selection = btn.getAttribute('value') ?? ''
+
+    this.#reflectSelectionOnButtons()
+
+    this.#reflectCurrentValueLabel()
 
     this.#sendValueToForm()
   }
@@ -643,15 +687,15 @@ export class PickerView extends FormAssociatedBase {
 
   static #wrapOptionTag(node: HTMLOptionElement) {
     const btn = $(`<button type="button" tabindex="0"><h-stack template="auto spacer"><label-view system-image="check"></label-view></h-stack></button>`, '>1'),
-      hStack = btn.querySelector<HTMLElement>(':scope>h-stack'),
-      chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
+      hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
+    // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
 
-    btn.setAttribute('value', node.getAttribute('value') ?? node.textContent?.trim() ?? '')
+    btn.setAttribute('value', extractTagFromOption(node))
 
     // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
 
     const label = $(`<label-view></label-view>`, '>1')
-    label.setAttribute('title', node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim() ?? '')
+    label.setAttribute('title', extractCurrentValueFromOption(node))
 
     hStack?.appendChild(label)
 
@@ -717,27 +761,59 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectLabel(value: string | null) {
-    let label = this.querySelector(':scope>[slot=label]')
+    let label = this.querySelector(':scope>label-view[slot=label]')
     if (value) {
-      label ??= this.appendChild($(`<span slot="label"></span>`, '>1'))
-      label.textContent = value
+      label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+      label.setAttribute('foreground', 'secondary')
+      label.setAttribute('title', value)
     } else label?.remove()
 
     this.#renderSlotted([])
   }
 
-  #syncSelectionToUI() {
-    // walk all rendered buttons and toggle the check indicator
-    for (const btn of this.querySelectorAll<HTMLButtonElement>('button[value]')) {
-      const isSelected = btn.getAttribute('value') === this.#selection
-      btn.querySelector('label-view[system-image="check"]')?.toggleAttribute('hidden', !isSelected) // or however you show/hide the check
-    }
+  #reflectSelectionOnButtons() {
+    // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
+    for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+      el.querySelector<HTMLElement>('label-view[system-image="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
     // also sync the spawn (sheet/navigation) if open
-    if (this.#spawn) {
-      for (const btn of this.#spawn.querySelectorAll<HTMLButtonElement>('button[value]')) {
-        const isSelected = btn.getAttribute('value') === this.#selection
-        btn.querySelector('label-view[system-image="check"]')?.toggleAttribute('hidden', !isSelected)
+    if (this.#spawn)
+      for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
+        el.querySelector<HTMLElement>('label-view[system-image="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+  }
+
+  #reflectCurrentValueLabel() {
+    const selectedTag = this.#slots
+        ?.get('list')
+        ?.assignedElements({ flatten: true })
+        .flatMap<HTMLOptionElement>((el) => [...(el.matches('option') ? [el as HTMLOptionElement] : []), ...el.querySelectorAll<HTMLOptionElement>('option')])
+        .find((el) => this.#selection === extractTagFromOption(el)),
+      cvl = selectedTag ? extractCurrentValueFromOption(selectedTag) : '',
+      final = (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl || this.#selection
+
+    switch (this.pickerStyle) {
+      case 'sheet':
+      case 'navigation-link': {
+        const currentValueLabel = this.querySelector(':scope>label-view:not([slot])')
+
+        currentValueLabel?.setAttribute('system-image', 'dots-three')
+        currentValueLabel?.setAttribute('title', final)
+
+        break
+      }
+      case 'menu': {
+        const currentValueLabel = this.querySelector<MenuView>(':scope>menu-view:not([slot])>label-view[slot=label]')
+
+        currentValueLabel?.setAttribute('system-image', 'dots-three')
+        currentValueLabel?.setAttribute('title', final)
+
+        break
+      }
+      case 'inline':
+      default: {
+        //
+
+        break
       }
     }
   }
@@ -797,6 +873,10 @@ export class PickerView extends FormAssociatedBase {
   }
   formResetCallback = () => {
     this.#selection = ''
+
+    this.#reflectSelectionOnButtons()
+
+    this.#reflectCurrentValueLabel()
 
     this.#sendValueToForm()
   }

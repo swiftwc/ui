@@ -4,6 +4,7 @@ export type PickerSelectionDetail = {
 
 export type PickerSearchableDetail = {
   element: HTMLElement // dialog or body-view
+  search: string //search term
 }
 
 declare global {

@@ -151,10 +151,11 @@ export class DatePicker extends FormAssociatedBase {
 
         break
       case 'label':
-        let label = this.querySelector(':scope>[slot=label]')
+        let label = this.querySelector(':scope>label-view[slot=label]')
         if (newValue) {
-          label ??= this.appendChild($(`<span slot="label"></span>`, '>1'))
-          label.textContent = newValue
+          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+          label.setAttribute('foreground', 'secondary')
+          label.setAttribute('title', newValue)
         } else label?.remove()
 
         // this.#sendValueToForm()

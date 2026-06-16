@@ -27,30 +27,51 @@ const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
   const { page: oldSv, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
     { page: newSv, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
 
-  const oldVStack = oldSv?.querySelector<HTMLElement>(':scope>v-stack'),
-    newVStack = newSv?.querySelector<HTMLElement>(':scope>v-stack'),
+  const oldList = oldSv?.querySelector<HTMLElement>('list-view'),
+    newList = newSv?.querySelector<HTMLElement>('list-view'),
     oldBackBtn = oldToolbar?.at(0)?.querySelector('button'),
     newBackBtn = newToolbar?.at(0)?.querySelector('button')
 
-  // pre replace list (always exist)
-  const oldOpenedDetails = [...(oldVStack?.querySelectorAll('list-view details[open]>summary') ?? [])].map((item) => item.textContent.trim())
+  // pre replace list (always exists)
+  const oldOpenedDetails = [...(oldList?.querySelectorAll('list-view details[open]>summary') ?? [])].map((item) => item.textContent.trim())
 
-  // replace list (always exist)
-  if (oldVStack && newVStack) oldVStack.replaceWith(newVStack)
+  // replace list (always exists)
+  if (oldList && newList) oldList.replaceWith(newList)
 
-  // post replace list (always exist)
+  // post replace list (always exists)
   for (const label of oldOpenedDetails)
-    for (const summary of newVStack?.querySelectorAll('list-view details>summary') ?? [])
+    for (const summary of newList?.querySelectorAll('list-view details>summary') ?? [])
       if (summary.textContent.trim() === label) {
         summary.parentElement?.setAttribute('open', 'open')
         break
       }
 
-  // replace backbtns (always exist)
+  // replace backbtns (always exists)
   if (oldBackBtn && newBackBtn) oldBackBtn.replaceWith(newBackBtn)
 
-  // overwrite navtitle (always exist)
+  // overwrite navtitle (always exists)
   oldSv?.setAttribute('navigation-inline-title', newSv?.getAttribute('navigation-inline-title') ?? '')
+
+  // replace search (if exists)
+  oldList?.style.setProperty('--list--sticky-block-size', newList?.style.getPropertyValue('--list--sticky-block-size') ?? '')
+
+  // replace search (if exists)
+  const oldSearch = oldSv?.querySelector<HTMLElement>('sticky-container'),
+    newSearch = newSv?.querySelector<HTMLElement>('sticky-container')
+
+  // if already exists, DO NOTHING dont mess up the input element
+  if (newSearch) {
+    if (!oldSearch)
+      oldSv?.insertAdjacentHTML(
+        'afterend',
+        `<sticky-container edge="navbar" style="order: -1" padding>
+                <v-stack spacing="0" alignment="fill">
+                  <input is="search-view" placeholder="Search">
+                  <button type="button">Filters</button>
+                </v-stack>
+              </sticky-container>`
+      )
+  } else oldSearch?.remove()
 }
 
 const extractTagFromOption = (node: HTMLOptionElement) => {
@@ -227,7 +248,7 @@ export class PickerView extends FormAssociatedBase {
 
         // reset state
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
+        currentValueLabel.setAttribute('title', this.#selection) //, this.#currentValueLabel) // overwritten
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -270,7 +291,7 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
+        currentValueLabel.setAttribute('title', this.#selection) //this.#currentValueLabel) // overwritten
 
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
 

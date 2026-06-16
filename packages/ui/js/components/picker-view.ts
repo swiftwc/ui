@@ -227,7 +227,7 @@ export class PickerView extends FormAssociatedBase {
 
         // reset state
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#selection) // overwritten
+        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -270,7 +270,7 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#selection) // overwritten
+        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
 
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
 
@@ -782,22 +782,28 @@ export class PickerView extends FormAssociatedBase {
         el.querySelector<HTMLElement>('label-view[system-image="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
   }
 
-  #reflectCurrentValueLabel() {
-    const selectedTag = this.#slots
-        ?.get('list')
-        ?.assignedElements({ flatten: true })
-        .flatMap<HTMLOptionElement>((el) => [...(el.matches('option') ? [el as HTMLOptionElement] : []), ...el.querySelectorAll<HTMLOptionElement>('option')])
-        .find((el) => this.#selection === extractTagFromOption(el)),
-      cvl = selectedTag ? extractCurrentValueFromOption(selectedTag) : '',
-      final = (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl || this.#selection
+  get #currentTag() {
+    return this.#slots
+      ?.get('list')
+      ?.assignedElements({ flatten: true })
+      .flatMap<HTMLOptionElement>((el) => [...(el.matches('option') ? [el as HTMLOptionElement] : []), ...el.querySelectorAll<HTMLOptionElement>('option')])
+      .find((el) => this.#selection === extractTagFromOption(el))
+  }
 
+  get #currentValueLabel() {
+    const cvl = this.#currentTag ? extractCurrentValueFromOption(this.#currentTag) : ''
+
+    return (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl || this.#selection
+  }
+
+  #reflectCurrentValueLabel() {
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {
         const currentValueLabel = this.querySelector(':scope>label-view:not([slot])')
 
         currentValueLabel?.setAttribute('system-image', 'dots-three')
-        currentValueLabel?.setAttribute('title', final)
+        currentValueLabel?.setAttribute('title', this.#currentValueLabel)
 
         break
       }
@@ -805,7 +811,7 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = this.querySelector<MenuView>(':scope>menu-view:not([slot])>label-view[slot=label]')
 
         currentValueLabel?.setAttribute('system-image', 'dots-three')
-        currentValueLabel?.setAttribute('title', final)
+        currentValueLabel?.setAttribute('title', this.#currentValueLabel)
 
         break
       }

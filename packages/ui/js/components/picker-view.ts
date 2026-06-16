@@ -248,7 +248,7 @@ export class PickerView extends FormAssociatedBase {
 
         // reset state
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#selection) //, this.#currentValueLabel) // overwritten
+        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -291,7 +291,7 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
 
         currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#selection) //this.#currentValueLabel) // overwritten
+        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
 
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
 

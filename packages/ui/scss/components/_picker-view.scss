@@ -14,37 +14,37 @@ $picker-elses: (
   --picker--stack-grid-template-columns: minmax(0, 1fr), //auto minmax(0, 1fr),
 );
 
-@mixin make-button-affordance() {
-  position: relative;
+// @mixin make-button-affordance() {
+//   position: relative;
 
-  grid-auto-flow: column;
-  grid-template-columns: var(--picker-affordance-size) minmax(0, 1fr);
-  column-gap: var(--picker-affordance-col-gap);
+//   grid-auto-flow: column;
+//   grid-template-columns: var(--picker-affordance-size) minmax(0, 1fr);
+//   column-gap: var(--picker-affordance-col-gap);
 
-  @include mixins.make-marker-pseudos(vars.$picker-affordance, before);
+//   @include mixins.make-marker-pseudos(vars.$picker-affordance, before);
 
-  &::before {
-    display: grid;
+//   &::before {
+//     display: grid;
 
-    block-size: var(--picker-affordance-size);
-    inline-size: var(--picker-affordance-size);
+//     block-size: var(--picker-affordance-size);
+//     inline-size: var(--picker-affordance-size);
 
-    background-color: var(--menuitemtext, var(--text));
+//     background-color: var(--menuitemtext, var(--text));
 
-    transform: var(--tablecol--after-rotate,);
+//     transform: var(--tablecol--after-rotate,);
 
-    @media (prefers-reduced-motion: no-preference) {
-      transition: transform 100ms ease-out;
-      will-change: transform;
-    }
+//     @media (prefers-reduced-motion: no-preference) {
+//       transition: transform 100ms ease-out;
+//       will-change: transform;
+//     }
 
-    opacity: 0;
-  }
+//     opacity: 0;
+//   }
 
-  &[aria-selected='true']::before {
-    opacity: 1;
-  }
-}
+//   &[aria-selected='true']::before {
+//     opacity: 1;
+//   }
+// }
 
 @layer #{vars.$components-layer} {
   picker-view {
@@ -84,11 +84,11 @@ $picker-elses: (
         margin-inline-start: 2rem;
       }
     }
-    :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
-      @container style(--picker-style: menu) {
-        @include make-button-affordance;
-      }
-    }
+    // :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
+    //   @container style(--picker-style: menu) {
+    //     @include make-button-affordance;
+    //   }
+    // }
 
     // SECTION: ifs
     @supports (x: #{string.unquote('if(else:red)')}) {
@@ -112,9 +112,9 @@ $picker-elses: (
             margin-inline-start: 2rem;
           }
 
-          :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
-            @include make-button-affordance;
-          }
+          // :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
+          //   @include make-button-affordance;
+          // }
 
           @include mixins.write-props(map.get($picker-ifs, $v)); //@include set-picker-style($v);
         }

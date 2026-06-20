@@ -85,9 +85,15 @@ $label-line-ifs: (
   } @else if $label-style == h-icon-only {
     --label-style: icon-only;
 
+    --label--host-align-items: center;
+    --label--host-justify-items: normal;
+
     --label--iconstack-display: grid;
   } @else if $label-style == h-title-only {
     --label-style: title-only;
+
+    --label--host-align-items: center;
+    --label--host-justify-items: normal;
 
     --label--titlestack-display: grid;
   } @else if $label-style == v-title-and-icon {
@@ -103,9 +109,15 @@ $label-line-ifs: (
   } @else if $label-style == v-icon-only {
     --label-style: icon-only;
 
+    --label--host-align-items: normal;
+    --label--host-justify-items: center;
+
     --label--iconstack-display: grid;
   } @else if $label-style == v-title-only {
     --label-style: title-only;
+
+    --label--host-align-items: normal;
+    --label--host-justify-items: center;
 
     --label--titlestack-display: grid;
   }

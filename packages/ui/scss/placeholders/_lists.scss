@@ -1,6 +1,8 @@
 @use '../vars';
 @use '../mixins';
 
+$list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker-view, menu-view, menu-view *, whatever-name)';
+
 @layer #{vars.$components-layer} {
   %list {
     :where(&) {
@@ -13,9 +15,9 @@
     }
 
     // componentize buttons
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
+    > #{$list-item-selector},
+    section-view > #{$list-item-selector},
+    [is='disclosure-group'] > #{$list-item-selector} {
       // :where(&:is(summary:not([is='disclosure-group'] [is='disclosure-group'] summary))) {
       //   box-shadow: inset 0 0 4px magenta;
       // }
@@ -454,25 +456,9 @@
 
     // SECTION: add accessories
     // &:has(summary[marker-placement='leading']) {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
-      // --itempadistart: 4rem;
-
-      // --item-accessory-size: 24px;
-
-      // --list--item-grid-template-columns: minmax(0, 1fr) 50px;
-
-      // &:not(:is(button)) {
-      //   --list--accessories-display: none;
-      //   // --list--accessories-padding-inline-end: 24px;
-      // }
-
-      // &:is(button) {
-      // position: relative;
-      // display: grid;
-      // grid-template-columns: minmax(0, 1fr) 24px;
-
+    > #{$list-item-selector},
+    section-view > #{$list-item-selector},
+    [is='disclosure-group'] > #{$list-item-selector} {
       &:is(button) {
         :where(&) {
           position: relative;
@@ -521,9 +507,9 @@
 @layer #{vars.$colors-layer} {
   // componentize
   %list {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
+    > #{$list-item-selector},
+    section-view > #{$list-item-selector},
+    [is='disclosure-group'] > #{$list-item-selector} {
       @include mixins.add-focus-visible-state {
         --itemface: var(--itemhighlightface,);
         --itemtext: var(--itemhighlighttext,);
@@ -540,9 +526,9 @@
 @layer #{vars.$ui-layer} {
   // componentize
   %list {
-    > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    section-view > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name),
-    [is='disclosure-group'] > :not([slot], section-view, [is='disclosure-group'], picker-view, menu-view, menu-view *, whatever-name) {
+    > #{$list-item-selector},
+    section-view > #{$list-item-selector},
+    [is='disclosure-group'] > #{$list-item-selector} {
       // :where(&:is(button)) {
       @include mixins.add-jsactive-state {
         --itemface: var(--itemactiveface,);

@@ -2635,12 +2635,16 @@
     @container style(--label-style: icon-only) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
+        --label--host-align-items: center;
+        --label--host-justify-items: normal;
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
+        --label--host-align-items: center;
+        --label--host-justify-items: normal;
         --label--titlestack-display: grid;
       }
     }
@@ -2657,10 +2661,14 @@
     }
     :where(label-view[label-style=icon-only]) {
       --label-style: icon-only;
+      --label--host-align-items: center;
+      --label--host-justify-items: normal;
       --label--iconstack-display: grid;
     }
     :where(label-view[label-style=title-only]) {
       --label-style: title-only;
+      --label--host-align-items: center;
+      --label--host-justify-items: normal;
       --label--titlestack-display: grid;
     }
     :where(label-view[label-style=title-and-icon]) {
@@ -2684,22 +2692,30 @@
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
+        --label--host-align-items: center;
+        --label--host-justify-items: normal;
         --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
+        --label--host-align-items: center;
+        --label--host-justify-items: normal;
         --label--titlestack-display: grid;
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: icon-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--iconstack-display: grid;
       }
     }
     @container style(--label-style: title-only) and style(--label-flow: vertical) {
       :where(label-view:not([label-style])) {
         --label-style: title-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--titlestack-display: grid;
       }
     }
@@ -2717,10 +2733,14 @@
     @container style(--label-flow: vertical) {
       :where(label-view[label-style=icon-only]) {
         --label-style: icon-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--iconstack-display: grid;
       }
       :where(label-view[label-style=title-only]) {
         --label-style: title-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--titlestack-display: grid;
       }
       :where(label-view[label-style=title-and-icon]) {
@@ -2745,10 +2765,14 @@
       }
       :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--iconstack-display: grid;
       }
       :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
         --label-style: title-only;
+        --label--host-align-items: normal;
+        --label--host-justify-items: center;
         --label--titlestack-display: grid;
       }
     }

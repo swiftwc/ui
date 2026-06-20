@@ -90,6 +90,8 @@ export class ProgressView extends HTMLElement {
   connectedCallback() {
     if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ connect`)
 
+    this.inert = true
+
     this.#cssStyleObserver = new CSSStyleObserver({
       properties: ['--progress-view-style-index'],
     })

@@ -82,6 +82,7 @@ $list-ifs: (
     --list--opensummary-color: var(--sidebarlist-opensummary-color,),
     //
     // --list--item-grid-template-columns: minmax(0, 1fr),
+    --list--accessories-size: 0rem,
     --list--accessories-display: none,
     //
     --list--rootsummary-marker-display: marker-trailing,
@@ -219,10 +220,28 @@ $list-elses: (
       // FINALLY AFTER ALL IFS
       // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
       @include mixins.if-2col-split-view-fits {
-        :where(navigation-split-view > scroll-view &, navigation-split-view > body-view > scroll-view &) {
-          // --list--item-grid-template-columns: minmax(0, 1fr);
+        :where(navigation-split-view > scroll-view &) {
+          --list--accessories-size: 0rem;
           --list--accessories-display: none;
         }
+        // is content-view!
+        :where(navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view &) {
+          --list--accessories-size: 0rem;
+          --list--accessories-display: none;
+        }
+      }
+      // is content-view!
+      @include mixins.if-3col-split-view-fits {
+        :where(navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view &) {
+          --list--accessories-size: 0rem;
+          --list--accessories-display: none;
+        }
+      }
+
+      // Hide accessories
+      :where(&[navigation-link-indicator-visibility='hidden']) {
+        --list--accessories-size: 0rem;
+        --list--accessories-display: none;
       }
     }
   }

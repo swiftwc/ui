@@ -459,7 +459,8 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     > #{$list-item-selector},
     section-view > #{$list-item-selector},
     [is='disclosure-group'] > #{$list-item-selector} {
-      &:is(button) {
+      // NOTE: drill-in chevron show up only on nav-link buttons. Paddings and all other props have already been taken over!
+      &:is(navigation-split-view button[is='navigation-link'], navigation-stack button[is='navigation-link']) {
         :where(&) {
           position: relative;
 

@@ -78,17 +78,16 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     //   }
     // }
 
-    // SECTION: wire gaps
-    :not([slot], section-view) ~ section-view:not([slot]) {
+    // SECTION: wire gaps between
+    // NOTE: apply gap to top of sections when adjacent to any
+    // :not([slot], section-view) ~ section-view:not([slot]),
+    // section-view:not([slot]) ~ section-view:not([slot]) {
+    :not([slot]) ~ section-view:not([slot]) {
       :where(&:not(menu-view *)) {
         padding-block-start: var(--list--section-gap,);
       }
     }
-    section-view:not([slot]) ~ section-view:not([slot]) {
-      :where(&:not(menu-view *)) {
-        padding-block-start: var(--list--section-gap,);
-      }
-    }
+    // NOTE: apply to bottom of sections when they have non-section adjacents
     section-view:not([slot]):has(~ :not([slot], section-view)) {
       :where(&:not(menu-view *)) {
         padding-block-end: var(--list--section-gap,);
@@ -99,26 +98,29 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     // padding-bottom: calc(var(--list--section-gap, 0px) / 2);
     //   }
     // }
-    :not([slot], [is='disclosure-group']) ~ [is='disclosure-group']:not([slot]) {
+    // NOTE: apply gap to top of details when adjacent to any(except summary)
+    // :not([slot], [is='disclosure-group'], summary) ~ [is='disclosure-group']:not([slot]) {
+    :not([slot], summary) ~ [is='disclosure-group']:not([slot]) {
       :where(&:not(menu-view *)) {
         margin-block-start: var(--list--details-gap,);
       }
     }
-    [is='disclosure-group']:not([slot]) ~ [is='disclosure-group']:not([slot]) {
-      :where(&:not(menu-view *)) {
-        margin-block-start: calc(var(--list--details-gap, 0px) / 2);
-      }
-    }
+    // [is='disclosure-group']:not([slot]) ~ [is='disclosure-group']:not([slot]) {
+    //   :where(&:not(menu-view *)) {
+    //     margin-block-start: calc(var(--list--details-gap, 0px) / 2);
+    //   }
+    // }
+    // NOTE: apply to bottom of details when they have non-details adjacents
     [is='disclosure-group']:not([slot]):has(~ :not([slot], [is='disclosure-group'])) {
       :where(&:not(menu-view *)) {
         margin-block-end: var(--list--details-gap,);
       }
     }
-    [is='disclosure-group']:not([slot]):has(~ [is='disclosure-group']:not([slot])) {
-      :where(&:not(menu-view *)) {
-        margin-block-end: calc(var(--list--details-gap, 0px) / 2);
-      }
-    }
+    // [is='disclosure-group']:not([slot]):has(~ [is='disclosure-group']:not([slot])) {
+    //   :where(&:not(menu-view *)) {
+    //     margin-block-end: calc(var(--list--details-gap, 0px) / 2);
+    //   }
+    // }
 
     // SECTION: wire paddings
     :where(&:not(menu-view *)) {

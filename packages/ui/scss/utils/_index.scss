@@ -38,8 +38,8 @@
   }
 
   @each $tint in gray, blue, red, green, orange {
-    [tint='"" + $tint'],
-    [list-item-tint='"" + $tint'] {
+    [tint='#{"" + $tint}'],
+    [list-item-tint='#{"" + $tint}'] {
       :where(&) {
         --accentColorEffective: var(--#{$tint});
         --accentColorEffective4: var(--#{$tint}4);

@@ -5255,8 +5255,8 @@
   :where([foreground="blue.secondary"]) {
     color: var(--blue2);
   }
-  :where([tint='"" + $tint'],
-  [list-item-tint='"" + $tint']) {
+  :where([tint=gray],
+  [list-item-tint=gray]) {
     --accentColorEffective: var(--gray);
     --accentColorEffective4: var(--gray4);
     --accentColor: var(--gray);
@@ -5265,8 +5265,8 @@
     --accentColor4: var(--gray4);
     --accentColor5: var(--gray5);
   }
-  :where([tint='"" + $tint'],
-  [list-item-tint='"" + $tint']) {
+  :where([tint=blue],
+  [list-item-tint=blue]) {
     --accentColorEffective: var(--blue);
     --accentColorEffective4: var(--blue4);
     --accentColor: var(--blue);
@@ -5275,8 +5275,8 @@
     --accentColor4: var(--blue4);
     --accentColor5: var(--blue5);
   }
-  :where([tint='"" + $tint'],
-  [list-item-tint='"" + $tint']) {
+  :where([tint=red],
+  [list-item-tint=red]) {
     --accentColorEffective: var(--red);
     --accentColorEffective4: var(--red4);
     --accentColor: var(--red);
@@ -5285,8 +5285,8 @@
     --accentColor4: var(--red4);
     --accentColor5: var(--red5);
   }
-  :where([tint='"" + $tint'],
-  [list-item-tint='"" + $tint']) {
+  :where([tint=green],
+  [list-item-tint=green]) {
     --accentColorEffective: var(--green);
     --accentColorEffective4: var(--green4);
     --accentColor: var(--green);
@@ -5295,8 +5295,8 @@
     --accentColor4: var(--green4);
     --accentColor5: var(--green5);
   }
-  :where([tint='"" + $tint'],
-  [list-item-tint='"" + $tint']) {
+  :where([tint=orange],
+  [list-item-tint=orange]) {
     --accentColorEffective: var(--orange);
     --accentColorEffective4: var(--orange4);
     --accentColor: var(--orange);

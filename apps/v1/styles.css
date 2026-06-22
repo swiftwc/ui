@@ -834,6 +834,7 @@
     --blue: var(--itemtext);
     --red: var(--itemtext);
     --green: var(--itemtext);
+    --orange: var(--itemtext);
     --accentColor: var(--itemtext);
     --accentColorEffective: var(--itemtext);
   }
@@ -861,6 +862,7 @@
     --blue: var(--itemtext);
     --red: var(--itemtext);
     --green: var(--itemtext);
+    --orange: var(--itemtext);
     --accentColor: var(--itemtext);
     --accentColorEffective: var(--itemtext);
   }
@@ -886,6 +888,7 @@
     --blue: var(--itemtext);
     --red: var(--itemtext);
     --green: var(--itemtext);
+    --orange: var(--itemtext);
     --accentColor: var(--itemtext);
     --accentColorEffective: var(--itemtext);
   }
@@ -2373,6 +2376,7 @@
     --blue: var(--btntext);
     --red: var(--btntext);
     --green: var(--btntext);
+    --orange: var(--btntext);
     --accentColor: var(--btntext);
     --accentColorEffective: var(--btntext);
   }
@@ -2499,6 +2503,7 @@
     --blue: var(--btntext);
     --red: var(--btntext);
     --green: var(--btntext);
+    --orange: var(--btntext);
     --accentColor: var(--btntext);
     --accentColorEffective: var(--btntext);
   }
@@ -3278,6 +3283,7 @@
     --blue: var(--menuitemtext);
     --red: var(--menuitemtext);
     --green: var(--menuitemtext);
+    --orange: var(--menuitemtext);
     --accentColor: var(--menuitemtext);
     --accentColorEffective: var(--menuitemtext);
   }
@@ -3291,6 +3297,7 @@
       --blue: var(--menuitemtext);
       --red: var(--menuitemtext);
       --green: var(--menuitemtext);
+      --orange: var(--menuitemtext);
       --accentColor: var(--menuitemtext);
       --accentColorEffective: var(--menuitemtext);
     }
@@ -3305,6 +3312,7 @@
     --blue: var(--menuitemtext);
     --red: var(--menuitemtext);
     --green: var(--menuitemtext);
+    --orange: var(--menuitemtext);
     --accentColor: var(--menuitemtext);
     --accentColorEffective: var(--menuitemtext);
   }
@@ -3316,6 +3324,7 @@
       --blue: var(--menuitemtext);
       --red: var(--menuitemtext);
       --green: var(--menuitemtext);
+      --orange: var(--menuitemtext);
       --accentColor: var(--menuitemtext);
       --accentColorEffective: var(--menuitemtext);
     }
@@ -5285,6 +5294,16 @@
     --accentColor3: var(--green3);
     --accentColor4: var(--green4);
     --accentColor5: var(--green5);
+  }
+  :where([tint='"" + $tint'],
+  [list-item-tint='"" + $tint']) {
+    --accentColorEffective: var(--orange);
+    --accentColorEffective4: var(--orange4);
+    --accentColor: var(--orange);
+    --accentColor2: var(--orange2);
+    --accentColor3: var(--orange3);
+    --accentColor4: var(--orange4);
+    --accentColor5: var(--orange5);
   }
 }
 @layer sw-utils {
@@ -8191,6 +8210,7 @@
     --blue: var(--btntext);
     --red: var(--btntext);
     --green: var(--btntext);
+    --orange: var(--btntext);
     --accentColor: var(--btntext);
     --accentColorEffective: var(--btntext);
   }

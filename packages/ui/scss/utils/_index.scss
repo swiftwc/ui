@@ -37,7 +37,7 @@
     color: var(--blue2);
   }
 
-  @each $tint in gray, blue, red, green {
+  @each $tint in gray, blue, red, green, orange {
     [tint='"" + $tint'],
     [list-item-tint='"" + $tint'] {
       :where(&) {

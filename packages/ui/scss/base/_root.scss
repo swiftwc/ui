@@ -126,10 +126,10 @@
     // --secondary-text: var(--black);
     // --secondary-text-dark: var(--white);
 
-    --tint: oklch(0.5325 0.1899 257.12);
-    --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
-    --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
-    --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
+    // --tint: oklch(0.5325 0.1899 257.12);
+    // --tint1g: color-mix(in oklch, white 70%, var(--tint)); //oklch(0.9208 0.0306 249.69);
+    // --tint2: color-mix(in oklch, white 80%, var(--tint)); //oklch(0.9208 0.0306 249.69);
+    // --tint3: color-mix(in oklch, white 90%, var(--tint)); //oklch(0.9607 0.0148 251.16);
 
     --tintcontrast: white; //--tintcontrast: contrast-color(var(--tint));
 
@@ -255,7 +255,7 @@
       // FIXME: feat-sheet 3/3
       --#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --#{$v}-item-color: var(--primary);
-      --#{$v}-highlighteditem-background-color: var(--tint1g);
+      --#{$v}-highlighteditem-background-color: var(--accentColor3);
       --#{$v}-highlighteditem-color: ;
 
       // FIXME: feat-sheet 3/3
@@ -274,19 +274,19 @@
       --sidebar#{$v}-highlighteditem-background-color: var(--accentColor);
       --sidebar#{$v}-highlighteditem-color: var(--tintcontrast);
 
-      --#{$v}-openitem-background-color: var(--tint3);
+      --#{$v}-openitem-background-color: var(--accentColor5);
       --#{$v}-openitem-color: var(--primary);
-      --#{$v}-opensummary-background-color: var(--tint2);
+      --#{$v}-opensummary-background-color: var(--accentColor4);
       --#{$v}-opensummary-color: var(--primary);
 
-      --insetgrouped#{$v}-openitem-background-color: var(--tint3);
+      --insetgrouped#{$v}-openitem-background-color: var(--accentColor5);
       --insetgrouped#{$v}-openitem-color: var(--primary);
-      --insetgrouped#{$v}-opensummary-background-color: var(--tint2);
+      --insetgrouped#{$v}-opensummary-background-color: var(--accentColor4);
       --insetgrouped#{$v}-opensummary-color: var(--primary);
 
-      --inset#{$v}-openitem-background-color: var(--tint3);
+      --inset#{$v}-openitem-background-color: var(--accentColor5);
       --inset#{$v}-openitem-color: var(--primary);
-      --inset#{$v}-opensummary-background-color: var(--tint2);
+      --inset#{$v}-opensummary-background-color: var(--accentColor4);
       --inset#{$v}-opensummary-color: var(--primary);
 
       --sidebar#{$v}-openitem-background-color: transparent;

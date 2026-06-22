@@ -68,10 +68,6 @@
     --navigation-bar-block-size: var(--tool-bar-block-size);
     --nav-split-view-sidebar-inline-size: 20rem;
     --nav-split-view-content-inline-size: 25rem;
-    --tint: oklch(0.5325 0.1899 257.12);
-    --tint1g: color-mix(in oklch, white 70%, var(--tint));
-    --tint2: color-mix(in oklch, white 80%, var(--tint));
-    --tint3: color-mix(in oklch, white 90%, var(--tint));
     --tintcontrast: white;
     --view-transition-leading-x: -50%;
     --view-transition-principal-x: 0%;
@@ -164,7 +160,7 @@
     --list-item-padding-block-start: 1rem;
     --list-item-background-color: var(--background);
     --list-item-color: var(--primary);
-    --list-highlighteditem-background-color: var(--tint1g);
+    --list-highlighteditem-background-color: var(--accentColor3);
     --list-highlighteditem-color: ;
     --insetlist-item-background-color: var(--background);
     --insetlist-item-color: var(--primary);
@@ -178,17 +174,17 @@
     --sidebarlist-item-color: var(--primary);
     --sidebarlist-highlighteditem-background-color: var(--accentColor);
     --sidebarlist-highlighteditem-color: var(--tintcontrast);
-    --list-openitem-background-color: var(--tint3);
+    --list-openitem-background-color: var(--accentColor5);
     --list-openitem-color: var(--primary);
-    --list-opensummary-background-color: var(--tint2);
+    --list-opensummary-background-color: var(--accentColor4);
     --list-opensummary-color: var(--primary);
-    --insetgroupedlist-openitem-background-color: var(--tint3);
+    --insetgroupedlist-openitem-background-color: var(--accentColor5);
     --insetgroupedlist-openitem-color: var(--primary);
-    --insetgroupedlist-opensummary-background-color: var(--tint2);
+    --insetgroupedlist-opensummary-background-color: var(--accentColor4);
     --insetgroupedlist-opensummary-color: var(--primary);
-    --insetlist-openitem-background-color: var(--tint3);
+    --insetlist-openitem-background-color: var(--accentColor5);
     --insetlist-openitem-color: var(--primary);
-    --insetlist-opensummary-background-color: var(--tint2);
+    --insetlist-opensummary-background-color: var(--accentColor4);
     --insetlist-opensummary-color: var(--primary);
     --sidebarlist-openitem-background-color: transparent;
     --sidebarlist-openitem-color: var(--primary);
@@ -207,7 +203,7 @@
     --form-item-padding-block-start: 1rem;
     --form-item-background-color: var(--background);
     --form-item-color: var(--primary);
-    --form-highlighteditem-background-color: var(--tint1g);
+    --form-highlighteditem-background-color: var(--accentColor3);
     --form-highlighteditem-color: ;
     --insetform-item-background-color: var(--background);
     --insetform-item-color: var(--primary);
@@ -221,17 +217,17 @@
     --sidebarform-item-color: var(--primary);
     --sidebarform-highlighteditem-background-color: var(--accentColor);
     --sidebarform-highlighteditem-color: var(--tintcontrast);
-    --form-openitem-background-color: var(--tint3);
+    --form-openitem-background-color: var(--accentColor5);
     --form-openitem-color: var(--primary);
-    --form-opensummary-background-color: var(--tint2);
+    --form-opensummary-background-color: var(--accentColor4);
     --form-opensummary-color: var(--primary);
-    --insetgroupedform-openitem-background-color: var(--tint3);
+    --insetgroupedform-openitem-background-color: var(--accentColor5);
     --insetgroupedform-openitem-color: var(--primary);
-    --insetgroupedform-opensummary-background-color: var(--tint2);
+    --insetgroupedform-opensummary-background-color: var(--accentColor4);
     --insetgroupedform-opensummary-color: var(--primary);
-    --insetform-openitem-background-color: var(--tint3);
+    --insetform-openitem-background-color: var(--accentColor5);
     --insetform-openitem-color: var(--primary);
-    --insetform-opensummary-background-color: var(--tint2);
+    --insetform-opensummary-background-color: var(--accentColor4);
     --insetform-opensummary-color: var(--primary);
     --sidebarform-openitem-background-color: transparent;
     --sidebarform-openitem-color: var(--primary);
@@ -7371,13 +7367,13 @@
 }
 @property --blue5 {
   syntax: "<color>";
-  initial-value: oklch(90.63% 0.0454 245.27deg);
+  initial-value: oklch(93.99% 0.0298 245.27deg);
   inherits: true;
 }
 @media (prefers-color-scheme: dark) {
   @property --blue5 {
     syntax: "<color>";
-    initial-value: oklch(19.6% 0.0464 241.89deg);
+    initial-value: oklch(16.02% 0.0312 241.89deg);
     inherits: true;
   }
 }
@@ -7431,13 +7427,13 @@
 }
 @property --red5 {
   syntax: "<color>";
-  initial-value: oklch(91.42% 0.0439 23.18deg);
+  initial-value: oklch(94.51% 0.0312 23.18deg);
   inherits: true;
 }
 @media (prefers-color-scheme: dark) {
   @property --red5 {
     syntax: "<color>";
-    initial-value: oklch(20.85% 0.047 24.05deg);
+    initial-value: oklch(16.92% 0.0381 24.05deg);
     inherits: true;
   }
 }
@@ -7855,13 +7851,13 @@
 }
 @property --accentColor5 {
   syntax: "<color>";
-  initial-value: oklch(90.63% 0.0454 245.27deg);
+  initial-value: oklch(93.99% 0.0298 245.27deg);
   inherits: true;
 }
 @media (prefers-color-scheme: dark) {
   @property --accentColor5 {
     syntax: "<color>";
-    initial-value: oklch(19.6% 0.0464 241.89deg);
+    initial-value: oklch(16.02% 0.0312 241.89deg);
     inherits: true;
   }
 }
@@ -7976,6 +7972,10 @@
     --btnhighlighttext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.7), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.4), c) h));
     --btnactivetext: light-dark(oklch(from var(--accentColor) max(calc(l * 0.5), 0) min(calc(c * 1.4), c) h), oklch(from var(--accentColor) min(calc(l * 1.3), 1) min(calc(c * 1.4), c) h));
   }
+  /**
+  * NOTE: --accentColorEffective does NOT exist, it is NOT set anywhere initially!
+  * NOTE: Some controls use it to override the initial style WHEN/IF ...Effective is set by someone above.
+  */
   :where([is=bordered-button]) {
     --btntext: var(--accentColorEffective, var(--accentColor));
     --btnhighlighttext: light-dark(

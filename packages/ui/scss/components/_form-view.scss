@@ -188,6 +188,14 @@ $form-elses: (
       @include mixins.if-content-view-list {
         --list--accessories-size: 0rem;
         --list--accessories-display: none;
+
+        @each $v in list, form {
+          --inset#{$v}-highlighteditem-background-color: var(--accentColor);
+          --inset#{$v}-highlighteditem-color: var(--tintcontrast);
+
+          --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor);
+          --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
+        }
       }
 
       // Hide accessories

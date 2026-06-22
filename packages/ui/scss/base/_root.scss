@@ -261,13 +261,13 @@
       // FIXME: feat-sheet 3/3
       --inset#{$v}-item-background-color: var(--background); //light-dark(var(--system-bg), var(--primary-bg-dark)); // ✅
       --inset#{$v}-item-color: var(--primary);
-      --inset#{$v}-highlighteditem-background-color: var(--accentColor);
-      --inset#{$v}-highlighteditem-color: var(--tintcontrast);
+      --inset#{$v}-highlighteditem-background-color: var(--accentColor3); //var(--accentColor);
+      --inset#{$v}-highlighteditem-color: ; //var(--tintcontrast);
 
       --insetgrouped#{$v}-item-background-color: var(--secondaryGroupedBackground); //light-dark(var(--system-bg), oklch(0.2186 0.0039 286.08)); // ✅
       --insetgrouped#{$v}-item-color: var(--primary);
-      --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor);
-      --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
+      --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor3); //var(--accentColor);
+      --insetgrouped#{$v}-highlighteditem-color: ; //var(--tintcontrast);
 
       --sidebar#{$v}-item-background-color: transparent;
       --sidebar#{$v}-item-color: var(--primary);

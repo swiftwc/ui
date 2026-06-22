@@ -164,12 +164,12 @@
     --list-highlighteditem-color: ;
     --insetlist-item-background-color: var(--background);
     --insetlist-item-color: var(--primary);
-    --insetlist-highlighteditem-background-color: var(--accentColor);
-    --insetlist-highlighteditem-color: var(--tintcontrast);
+    --insetlist-highlighteditem-background-color: var(--accentColor3);
+    --insetlist-highlighteditem-color: ;
     --insetgroupedlist-item-background-color: var(--secondaryGroupedBackground);
     --insetgroupedlist-item-color: var(--primary);
-    --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
-    --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+    --insetgroupedlist-highlighteditem-background-color: var(--accentColor3);
+    --insetgroupedlist-highlighteditem-color: ;
     --sidebarlist-item-background-color: transparent;
     --sidebarlist-item-color: var(--primary);
     --sidebarlist-highlighteditem-background-color: var(--accentColor);
@@ -207,12 +207,12 @@
     --form-highlighteditem-color: ;
     --insetform-item-background-color: var(--background);
     --insetform-item-color: var(--primary);
-    --insetform-highlighteditem-background-color: var(--accentColor);
-    --insetform-highlighteditem-color: var(--tintcontrast);
+    --insetform-highlighteditem-background-color: var(--accentColor3);
+    --insetform-highlighteditem-color: ;
     --insetgroupedform-item-background-color: var(--secondaryGroupedBackground);
     --insetgroupedform-item-color: var(--primary);
-    --insetgroupedform-highlighteditem-background-color: var(--accentColor);
-    --insetgroupedform-highlighteditem-color: var(--tintcontrast);
+    --insetgroupedform-highlighteditem-background-color: var(--accentColor3);
+    --insetgroupedform-highlighteditem-color: ;
     --sidebarform-item-background-color: transparent;
     --sidebarform-item-color: var(--primary);
     --sidebarform-highlighteditem-background-color: var(--accentColor);
@@ -3667,16 +3667,40 @@
     :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
     :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
   }
   @media (min-width: 64rem) {
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
   }
   :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)[navigation-link-indicator-visibility=hidden]) {
@@ -3951,16 +3975,40 @@
     :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
     :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
   }
   @media (min-width: 64rem) {
     :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
+      --insetlist-highlighteditem-background-color: var(--accentColor);
+      --insetlist-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+      --insetform-highlighteditem-background-color: var(--accentColor);
+      --insetform-highlighteditem-color: var(--tintcontrast);
+      --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+      --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[navigation-link-indicator-visibility=hidden]) {
@@ -7903,17 +7951,13 @@
     --toolbaritemactivetext: var(--text);
   }
   :where(tool-bar-item,
-  tool-bar-item-group,
-  navigation-split-view sidebar-toggle) {
+  tool-bar-item-group) {
     --toolbaritemface: light-dark(var(--toolbar-cell-bg), var(--toolbar-cell-bg-dark));
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));
     --toolbaritemactiveface: light-dark(var(--toolbar-cell-active-bg), var(--toolbar-cell-active-bg-dark));
   }
-  :where(tool-bar-item[tint], [tint] tool-bar-item,
-  tool-bar-item-group[tint],
-  [tint] tool-bar-item-group,
-  navigation-split-view sidebar-toggle[tint],
-  [tint] navigation-split-view sidebar-toggle) {
+  :where(tool-bar-item:not(tool-bar-item-group tool-bar-item)[tint],
+  tool-bar-item-group[tint]) {
     --toolbaritemface: light-dark(var(--accentColor), var(--accentColor));
     --toolbaritemtext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
     --toolbaritemhighlightface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.1), 1) min(calc(c * 1.1), c) h));
@@ -7921,11 +7965,8 @@
     --toolbaritemactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
     --toolbaritemactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
   }
-  :where(tool-bar-item[tint], [tint] tool-bar-item,
-  tool-bar-item-group[tint],
-  [tint] tool-bar-item-group,
-  navigation-split-view sidebar-toggle[tint],
-  [tint] navigation-split-view sidebar-toggle) > button {
+  :where(tool-bar-item:not(tool-bar-item-group tool-bar-item)[tint],
+  tool-bar-item-group[tint]) > button {
     --secondary: var(--btntext);
     --blue: var(--btntext);
     --accentColor: var(--btntext);

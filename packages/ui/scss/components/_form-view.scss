@@ -172,6 +172,30 @@ $form-elses: (
         }
       }
 
+      // NOTE: on safari takes it from manually setting it above
+      // make list-buttons tintable
+      @container not style(--form-style: sidebar) {
+        button[list-item-tint] {
+          :where(&) {
+            --itemhighlightface: var(--accentColor3);
+            --itemactiveface: var(--accentColor3);
+          }
+          &:not([is='navigation-link']) {
+            --itemtext: var(--accentColor);
+            --itemhighlighttext: var(--accentColor);
+            --itemactivetext: var(--accentColor);
+          }
+        }
+      }
+      @container style(--form-style: sidebar) {
+        button[list-item-tint] {
+          :where(&) {
+            --itemhighlightface: var(--accentColor);
+            --itemactiveface: var(--accentColor);
+          }
+        }
+      }
+
       // FINALLY AFTER ALL IFS
       // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
       @include mixins.if-content-view-list {
@@ -183,6 +207,19 @@ $form-elses: (
           --insetform-highlighteditem-color: var(--tintcontrast);
           --insetgroupedform-highlighteditem-background-color: var(--accentColor);
           --insetgroupedform-highlighteditem-color: var(--tintcontrast);
+        }
+
+        // override tint colors of tintable buttons
+        @container style(--list-style: inset) or style(--list-style: inset-grouped) {
+          button[list-item-tint] {
+            :where(&) {
+              // --itemhighlighttext: var(--tintcontrast);
+              // --itemactivetext: var(--tintcontrast);
+
+              --itemhighlightface: var(--accentColor);
+              --itemactiveface: var(--accentColor);
+            }
+          }
         }
       }
 

@@ -506,7 +506,7 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
       // }
       &:is(label-view[list-item-tint]) {
         :where(&[list-item-tint='red'] > [slot='image']) {
-          color: red;
+          color: var(--red);
         }
       }
       // &:is(button[list-item-tint='red']) {
@@ -544,9 +544,11 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-        @include mixins.takeover-color-vars(item);
-        // --secondary: var(--itemtext);
-        // --blue: var(--itemtext);
+        > * {
+          @include mixins.takeover-color-vars(item);
+          // --secondary: var(--itemtext);
+          // --blue: var(--itemtext);
+        }
       }
     }
   }
@@ -565,7 +567,9 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-        @include mixins.takeover-color-vars(item);
+        > * {
+          @include mixins.takeover-color-vars(item);
+        }
         // --secondary: var(--itemtext);
         // --blue: var(--itemtext);
       }
@@ -577,9 +581,11 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
           --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-          @include mixins.takeover-color-vars(item);
-          // --secondary: var(--itemtext);
-          // --blue: var(--itemtext);
+          > * {
+            @include mixins.takeover-color-vars(item);
+            // --secondary: var(--itemtext);
+            // --blue: var(--itemtext);
+          }
         }
       }
       // }

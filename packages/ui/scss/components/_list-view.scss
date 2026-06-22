@@ -174,23 +174,25 @@ $list-elses: (
       // FINALLY AFTER ALL IFS
 
       // NOTE: on safari takes it from manually setting it above
+      // make list-buttons tintable
       @container not style(--list-style: sidebar) {
-        button[list-item-tint='red'] {
+        button[list-item-tint] {
           :where(&) {
-            // --itemtext: var(--red);
-            // --itemhighlighttext: var(--red);
-            // --itemactivetext: var(--red);
-
-            --itemhighlightface: var(--red3);
-            --itemactiveface: var(--red3);
+            --itemhighlightface: var(--accentColor3);
+            --itemactiveface: var(--accentColor3);
+          }
+          &:not([is='navigation-link']) {
+            --itemtext: var(--accentColor);
+            --itemhighlighttext: var(--accentColor);
+            --itemactivetext: var(--accentColor);
           }
         }
       }
       @container style(--list-style: sidebar) {
-        button[list-item-tint='red'] {
+        button[list-item-tint] {
           :where(&) {
-            --itemhighlightface: var(--red);
-            --itemactiveface: var(--red);
+            --itemhighlightface: var(--accentColor);
+            --itemactiveface: var(--accentColor);
           }
         }
       }
@@ -207,15 +209,15 @@ $list-elses: (
           --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
         }
 
-        // NOTE: no accentcolors here, directly set to color since accent is overriden
+        // override tint colors of tintable buttons
         @container style(--list-style: inset) or style(--list-style: inset-grouped) {
-          button[list-item-tint='red'] {
+          button[list-item-tint] {
             :where(&) {
               // --itemhighlighttext: var(--tintcontrast);
               // --itemactivetext: var(--tintcontrast);
 
-              --itemhighlightface: var(--red);
-              --itemactiveface: var(--red);
+              --itemhighlightface: var(--accentColor);
+              --itemactiveface: var(--accentColor);
             }
           }
         }

@@ -37,7 +37,8 @@
     color: var(--blue2);
   }
 
-  [tint='gray'] {
+  [tint='gray'],
+  [list-item-tint='gray'] {
     :where(&) {
       --accentColorEffective: var(--gray);
       --accentColorEffective4: var(--gray4);
@@ -55,7 +56,8 @@
     // }
   }
 
-  [tint='blue'] {
+  [tint='blue'],
+  [list-item-tint='blue'] {
     :where(&) {
       --accentColorEffective: var(--blue);
       --accentColorEffective4: var(--blue4);
@@ -72,7 +74,8 @@
     // }
   }
 
-  [tint='red'] {
+  [tint='red'],
+  [list-item-tint='red'] {
     :where(&) {
       --accentColorEffective: var(--red);
       --accentColorEffective4: var(--red4);

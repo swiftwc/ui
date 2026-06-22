@@ -799,7 +799,7 @@
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red] > [slot=image],
   [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red] > [slot=image],
   list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red] > [slot=image]) {
-    color: red;
+    color: var(--red);
   }
 }
 @layer sw-colors {
@@ -822,6 +822,14 @@
     --itemface: var(--itemhighlightface,);
     --itemtext: var(--itemhighlighttext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly])):focus-visible > * {
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
     --red: var(--itemtext);
@@ -840,6 +848,14 @@
     --itemface: var(--itemactiveface,);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly])).active > * {
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
     --red: var(--itemtext);
@@ -856,6 +872,14 @@
     --itemface: var(--itemactiveface);
     --itemtext: var(--itemactivetext,);
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true]) > * {
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
     --red: var(--itemtext);
@@ -3631,15 +3655,20 @@
     }
   }
   @container not style(--list-style: sidebar) {
-    :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint=red]) {
-      --itemhighlightface: var(--red3);
-      --itemactiveface: var(--red3);
+    :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]) {
+      --itemhighlightface: var(--accentColor3);
+      --itemactiveface: var(--accentColor3);
+    }
+    list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]:not([is=navigation-link]) {
+      --itemtext: var(--accentColor);
+      --itemhighlighttext: var(--accentColor);
+      --itemactivetext: var(--accentColor);
     }
   }
   @container style(--list-style: sidebar) {
-    :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint=red]) {
-      --itemhighlightface: var(--red);
-      --itemactiveface: var(--red);
+    :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]) {
+      --itemhighlightface: var(--accentColor);
+      --itemactiveface: var(--accentColor);
     }
   }
   @media (min-width: 43rem) {
@@ -3652,9 +3681,9 @@
       --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
     }
     @container style(--list-style: inset) or style(--list-style: inset-grouped) {
-      :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint=red]) {
-        --itemhighlightface: var(--red);
-        --itemactiveface: var(--red);
+      :where(navigation-split-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
       }
     }
     :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
@@ -3666,9 +3695,9 @@
       --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
     }
     @container style(--list-style: inset) or style(--list-style: inset-grouped) {
-      :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint=red]) {
-        --itemhighlightface: var(--red);
-        --itemactiveface: var(--red);
+      :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
       }
     }
   }
@@ -3682,9 +3711,9 @@
       --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
     }
     @container style(--list-style: inset) or style(--list-style: inset-grouped) {
-      :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint=red]) {
-        --itemhighlightface: var(--red);
-        --itemactiveface: var(--red);
+      :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
       }
     }
   }
@@ -3998,6 +4027,23 @@
       }
     }
   }
+  @container not style(--form-style: sidebar) {
+    :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]) {
+      --itemhighlightface: var(--accentColor3);
+      --itemactiveface: var(--accentColor3);
+    }
+    [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]:not([is=navigation-link]) {
+      --itemtext: var(--accentColor);
+      --itemhighlighttext: var(--accentColor);
+      --itemactivetext: var(--accentColor);
+    }
+  }
+  @container style(--form-style: sidebar) {
+    :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]) {
+      --itemhighlightface: var(--accentColor);
+      --itemactiveface: var(--accentColor);
+    }
+  }
   @media (min-width: 43rem) {
     :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
       --list--accessories-size: 0rem;
@@ -4007,6 +4053,12 @@
       --insetgroupedform-highlighteditem-background-color: var(--accentColor);
       --insetgroupedform-highlighteditem-color: var(--tintcontrast);
     }
+    @container style(--list-style: inset) or style(--list-style: inset-grouped) {
+      :where(navigation-split-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
+      }
+    }
     :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
       --list--accessories-size: 0rem;
       --list--accessories-display: none;
@@ -4014,6 +4066,12 @@
       --insetform-highlighteditem-color: var(--tintcontrast);
       --insetgroupedform-highlighteditem-background-color: var(--accentColor);
       --insetgroupedform-highlighteditem-color: var(--tintcontrast);
+    }
+    @container style(--list-style: inset) or style(--list-style: inset-grouped) {
+      :where(navigation-split-view:has(> [is=sidebar-view])[preferred-compact-column=content]:not([column-visibility=double-column]) > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
+      }
     }
   }
   @media (min-width: 64rem) {
@@ -4024,6 +4082,12 @@
       --insetform-highlighteditem-color: var(--tintcontrast);
       --insetgroupedform-highlighteditem-background-color: var(--accentColor);
       --insetgroupedform-highlighteditem-color: var(--tintcontrast);
+    }
+    @container style(--list-style: inset) or style(--list-style: inset-grouped) {
+      :where(navigation-split-view:has(> [is=sidebar-view]):not([column-visibility=double-column]) > body-view > scroll-view [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) button[list-item-tint]) {
+        --itemhighlightface: var(--accentColor);
+        --itemactiveface: var(--accentColor);
+      }
     }
   }
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])[navigation-link-indicator-visibility=hidden]) {
@@ -5173,7 +5237,8 @@
   :where([foreground="blue.secondary"]) {
     color: var(--blue2);
   }
-  :where([tint=gray]) {
+  :where([tint=gray],
+  [list-item-tint=gray]) {
     --accentColorEffective: var(--gray);
     --accentColorEffective4: var(--gray4);
     --accentColor: var(--gray);
@@ -5182,7 +5247,8 @@
     --accentColor4: var(--gray4);
     --accentColor5: var(--gray5);
   }
-  :where([tint=blue]) {
+  :where([tint=blue],
+  [list-item-tint=blue]) {
     --accentColorEffective: var(--blue);
     --accentColorEffective4: var(--blue4);
     --accentColor: var(--blue);
@@ -5191,7 +5257,8 @@
     --accentColor4: var(--blue4);
     --accentColor5: var(--blue5);
   }
-  :where([tint=red]) {
+  :where([tint=red],
+  [list-item-tint=red]) {
     --accentColorEffective: var(--red);
     --accentColorEffective4: var(--red4);
     --accentColor: var(--red);

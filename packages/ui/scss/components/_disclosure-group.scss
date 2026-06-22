@@ -8,6 +8,13 @@
       overflow: clip;
 
       --disclosure--host-details-content-block-size: 0;
+
+      --disclosure--summary-grid-template-columns: ;
+      --disclosure--summary-grid-auto-flow: ;
+      --disclosure--summary-gap: ;
+
+      --disclosure--marker-display: none;
+      --disclosure--marker-transform: ;
     }
 
     @supports (x: #{string.unquote('if(else:red)')}) {
@@ -27,13 +34,6 @@
     @supports not (x: #{string.unquote('if(else:red)')}) {
       :where(&) {
         --disclosure-style: ;
-
-        --disclosure--summary-grid-template-columns: ;
-        --disclosure--summary-grid-auto-flow: ;
-        --disclosure--summary-gap: ;
-
-        --disclosure--marker-display: none;
-        --disclosure--marker-transform: ;
       }
     }
 
@@ -94,9 +94,9 @@
       block-size: var(--disclosure--host-details-content-block-size);
     }
 
-    :where(& > *:not(summary)) {
-      margin: 0;
-    }
+    // :where(& > *:not(summary)) {
+    // margin: 0;
+    // }
 
     &[open] {
       :where(&) {

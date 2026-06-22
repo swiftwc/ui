@@ -109,7 +109,7 @@ $list-elses: (
   --list--accessories-display: grid,
 );
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$list-components-layer} {
   list-view {
     &:not(& &, [is='form-view'] &, table-view &) {
       @extend %list;

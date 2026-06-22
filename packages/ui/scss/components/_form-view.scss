@@ -106,7 +106,7 @@ $form-elses: (
   --list--accessories-display: grid,
 );
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$list-components-layer} {
   [is='form-view'] {
     &:not(& &, list-view &, table-view &, [is='tab-bar'] > &) {
       @extend %list;

@@ -295,7 +295,7 @@
     color-scheme: light;
   }
 }
-@layer sw-base, sw-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
+@layer sw-base, sw-components, sw-nav-components, sw-list-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
 @layer sw-base {
   :root {
     interpolate-size: allow-keywords;
@@ -400,7 +400,7 @@
     display: none;
   }
 }
-@layer sw-components {
+@layer sw-list-components {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     background-color: var(--list--host-background-color, );
     padding-inline: var(--list--host-padding-inline, );
@@ -444,25 +444,25 @@
       transition-duration: 0ms;
     }
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], section-view) ~ section-view:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], section-view) ~ section-view:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], section-view) ~ section-view:not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], section-view) ~ section-view:not([slot]):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], section-view) ~ section-view:not([slot]):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], section-view) ~ section-view:not([slot]):not(menu-view *)) {
     padding-block-start: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not([slot]) ~ section-view:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not([slot]) ~ section-view:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not([slot]) ~ section-view:not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not([slot]) ~ section-view:not([slot]):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not([slot]) ~ section-view:not([slot]):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not([slot]) ~ section-view:not([slot]):not(menu-view *)) {
     padding-block-start: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:has(~ :not([slot], section-view)):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:has(~ :not([slot], section-view)):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:has(~ :not([slot], section-view)):not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not([slot]):has(~ :not([slot], section-view)):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not([slot]):has(~ :not([slot], section-view)):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not([slot]):has(~ :not([slot], section-view)):not(menu-view *)) {
     padding-block-end: var(--list--section-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not([slot]):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not([slot]):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) :not([slot], [is=disclosure-group]) ~ [is=disclosure-group]:not([slot]):not(menu-view *)) {
     margin-block-start: var(--list--details-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not([slot]):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not([slot]):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]) ~ [is=disclosure-group]:not([slot]):not(menu-view *)) {
     margin-block-start: calc(var(--list--details-gap, 0px) / 2);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ :not([slot], [is=disclosure-group])):not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]):has(~ :not([slot], [is=disclosure-group])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]):has(~ :not([slot], [is=disclosure-group])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]):has(~ :not([slot], [is=disclosure-group])):not(menu-view *)) {
     margin-block-end: var(--list--details-gap, );
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:has(~ [is=disclosure-group]:not([slot])):not(menu-view *)) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group]:not([slot]):has(~ [is=disclosure-group]:not([slot])):not(menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group]:not([slot]):has(~ [is=disclosure-group]:not([slot])):not(menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group]:not([slot]):has(~ [is=disclosure-group]:not([slot])):not(menu-view *)) {
     margin-block-end: calc(var(--list--details-gap, 0px) / 2);
   }
   :where(table-view:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
@@ -800,6 +800,15 @@
     inline-size: var(--list--accessories-size, 1.1rem);
     background-color: var(--quaternary);
     transform: translateY(-50%) translateX(120%);
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint=red]) {
+    --itemtext: red;
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
@@ -1199,6 +1208,11 @@
   :where([is=disclosure-group]) {
     overflow: clip;
     --disclosure--host-details-content-block-size: 0;
+    --disclosure--summary-grid-template-columns: ;
+    --disclosure--summary-grid-auto-flow: ;
+    --disclosure--summary-gap: ;
+    --disclosure--marker-display: none;
+    --disclosure--marker-transform: ;
   }
   @supports (x: if(else:red)) {
     :where([is=disclosure-group]) {
@@ -1212,11 +1226,6 @@
   @supports not (x: if(else:red)) {
     :where([is=disclosure-group]) {
       --disclosure-style: ;
-      --disclosure--summary-grid-template-columns: ;
-      --disclosure--summary-grid-auto-flow: ;
-      --disclosure--summary-gap: ;
-      --disclosure--marker-display: none;
-      --disclosure--marker-transform: ;
     }
   }
   :where([is=disclosure-group] > summary) {
@@ -1269,9 +1278,6 @@
     display: grid;
     background: transparent;
     block-size: var(--disclosure--host-details-content-block-size);
-  }
-  :where([is=disclosure-group] > *:not(summary)) {
-    margin: 0;
   }
   :where([is=disclosure-group][open]) {
     --disclosure--host-details-content-block-size: auto;
@@ -3363,7 +3369,7 @@
     margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));
   }
 }
-@layer sw-components {
+@layer sw-list-components {
   :where(list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     --list--section-gap: var(--list-row-gap);
     --list--host-background-color: var(--list-background-color, );
@@ -3708,7 +3714,7 @@
     --list--accessories-display: none;
   }
 }
-@layer sw-components {
+@layer sw-list-components {
   :where([is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view])) {
     --list--section-gap: var(--form-gap);
     --list--host-background-color: var(--form-background-color, );
@@ -4091,7 +4097,7 @@
   inherits: false;
   initial-value: 0;
 }
-@layer sw-components {
+@layer sw-list-components {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view)) {
     container: table/inline-size;
   }

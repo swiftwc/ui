@@ -3,7 +3,7 @@
 
 $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker-view, menu-view, menu-view *, whatever-name)';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$list-components-layer} {
   %list {
     :where(&) {
       background-color: var(--list--host-background-color,);
@@ -79,17 +79,17 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     // }
 
     // SECTION: wire gaps
-    :not([slot], section-view) ~ section-view {
+    :not([slot], section-view) ~ section-view:not([slot]) {
       :where(&:not(menu-view *)) {
         padding-block-start: var(--list--section-gap,);
       }
     }
-    section-view:not([slot]) ~ section-view {
+    section-view:not([slot]) ~ section-view:not([slot]) {
       :where(&:not(menu-view *)) {
         padding-block-start: var(--list--section-gap,);
       }
     }
-    section-view:has(~ :not([slot], section-view)) {
+    section-view:not([slot]):has(~ :not([slot], section-view)) {
       :where(&:not(menu-view *)) {
         padding-block-end: var(--list--section-gap,);
       }
@@ -99,22 +99,22 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     // padding-bottom: calc(var(--list--section-gap, 0px) / 2);
     //   }
     // }
-    :not([slot], [is='disclosure-group']) ~ [is='disclosure-group'] {
+    :not([slot], [is='disclosure-group']) ~ [is='disclosure-group']:not([slot]) {
       :where(&:not(menu-view *)) {
         margin-block-start: var(--list--details-gap,);
       }
     }
-    [is='disclosure-group']:not([slot]) ~ [is='disclosure-group'] {
+    [is='disclosure-group']:not([slot]) ~ [is='disclosure-group']:not([slot]) {
       :where(&:not(menu-view *)) {
         margin-block-start: calc(var(--list--details-gap, 0px) / 2);
       }
     }
-    [is='disclosure-group']:has(~ :not([slot], [is='disclosure-group'])) {
+    [is='disclosure-group']:not([slot]):has(~ :not([slot], [is='disclosure-group'])) {
       :where(&:not(menu-view *)) {
         margin-block-end: var(--list--details-gap,);
       }
     }
-    [is='disclosure-group']:has(~ [is='disclosure-group']:not([slot])) {
+    [is='disclosure-group']:not([slot]):has(~ [is='disclosure-group']:not([slot])) {
       :where(&:not(menu-view *)) {
         margin-block-end: calc(var(--list--details-gap, 0px) / 2);
       }
@@ -502,6 +502,11 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
       //     --itemtext: blue;
       //   }
       // }
+      &:is(label-view[list-item-tint]) {
+        :where(&[list-item-tint='red']) {
+          --itemtext: red;
+        }
+      }
       &:is(button[list-item-tint='red']) {
         :where(&) {
           --itemtext: red;

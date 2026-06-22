@@ -119,26 +119,12 @@ $list-elses: (
         --list--section-gap: var(--list-row-gap);
 
         @include mixins.write-props($list-elses);
-        // --list--item-padding-inline-start: var(--list-item-padding-inline-start);
-        // --list--item-padding-inline-end: var(--list-item-padding-inline-end);
-        // --list--item-padding-block-start: var(--list-item-padding-block-start);
-        // --list--item-padding-block-end: var(--list-item-padding-block-end);
-
-        // --list--item-background-color: var(--list-item-background-color,);
       }
 
       // SECTION: ifs
       @supports (x: #{string.unquote('if(else:red)')}) {
         :where(&) {
-          @include mixins.write-ifs(--list-style, $list-ifs, $list-elses);
-          // --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
-
-          // --toolbaritemradius: if(style(--list-style: inset-grouped): 1rem ; style(--list-style: sidebar): 1rem ;);
-
-          // --list--separator-block-size: if(style(--list-style: sidebar): 0px ;);
-          // --list--separator-visibility: if(style(--list-style: collapse): 0px ;);
-
-          // --list--root-background-color: if(style(--list-style: sidebar): transparent ;);
+          @include mixins.write-ifs(--list-style, $list-ifs, $list-elses); // --list--root-padding-inline: if(style(--list-style: inset-grouped): 0.5rem ; style(--list-style: sidebar): 0.5rem ;);
         }
       }
 
@@ -147,12 +133,16 @@ $list-elses: (
         :where(&:not([list-style])) {
           @each $v in vars.$list-styles {
             @container style(--list-style: #{$v}) {
+              --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
+
               @include mixins.write-props(map.get($list-ifs, $v));
             }
           }
         }
         @each $v in vars.$list-styles {
           :where(&[list-style='#{$v}']) {
+            --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
+
             @include mixins.write-props(map.get($list-ifs, $v));
           }
         }
@@ -179,6 +169,62 @@ $list-elses: (
             --list-style: inset;
           }
         }
+      }
+
+      // FINALLY AFTER ALL IFS
+
+      // NOTE: on safari takes it from manually setting it above
+      @container not style(--list-style: sidebar) {
+        button[list-item-tint='red'] {
+          :where(&) {
+            // --itemtext: var(--red);
+            // --itemhighlighttext: var(--red);
+            // --itemactivetext: var(--red);
+
+            --itemhighlightface: var(--red3);
+            --itemactiveface: var(--red3);
+          }
+        }
+      }
+      @container style(--list-style: sidebar) {
+        button[list-item-tint='red'] {
+          :where(&) {
+            --itemhighlightface: var(--red);
+            --itemactiveface: var(--red);
+          }
+        }
+      }
+
+      // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
+      @include mixins.if-content-view-list {
+        :where(&) {
+          --list--accessories-size: 0rem;
+          --list--accessories-display: none;
+
+          --insetlist-highlighteditem-background-color: var(--accentColor);
+          --insetlist-highlighteditem-color: var(--tintcontrast);
+          --insetgroupedlist-highlighteditem-background-color: var(--accentColor);
+          --insetgroupedlist-highlighteditem-color: var(--tintcontrast);
+        }
+
+        // NOTE: no accentcolors here, directly set to color since accent is overriden
+        @container style(--list-style: inset) or style(--list-style: inset-grouped) {
+          button[list-item-tint='red'] {
+            :where(&) {
+              // --itemhighlighttext: var(--tintcontrast);
+              // --itemactivetext: var(--tintcontrast);
+
+              --itemhighlightface: var(--red);
+              --itemactiveface: var(--red);
+            }
+          }
+        }
+      }
+
+      // Hide accessories
+      :where(&[navigation-link-indicator-visibility='hidden']) {
+        --list--accessories-size: 0rem;
+        --list--accessories-display: none;
       }
 
       &[preferred-root-disclosure-style='sidebar'] {
@@ -215,27 +261,6 @@ $list-elses: (
             }
           }
         }
-      }
-
-      // FINALLY AFTER ALL IFS
-      // TODO: Also apply this on state of sidebar w/ full-screen detail 1/2
-      @include mixins.if-content-view-list {
-        --list--accessories-size: 0rem;
-        --list--accessories-display: none;
-
-        @each $v in list, form {
-          --inset#{$v}-highlighteditem-background-color: var(--accentColor);
-          --inset#{$v}-highlighteditem-color: var(--tintcontrast);
-
-          --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor);
-          --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
-        }
-      }
-
-      // Hide accessories
-      :where(&[navigation-link-indicator-visibility='hidden']) {
-        --list--accessories-size: 0rem;
-        --list--accessories-display: none;
       }
     }
   }

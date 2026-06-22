@@ -505,15 +505,18 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
       //   }
       // }
       &:is(label-view[list-item-tint]) {
-        :where(&[list-item-tint='red']) {
-          --itemtext: red;
+        :where(&[list-item-tint='red'] > [slot='image']) {
+          color: red;
         }
       }
-      &:is(button[list-item-tint='red']) {
-        :where(&) {
-          --itemtext: red;
-        }
-      }
+      // &:is(button[list-item-tint='red']) {
+      //   :where(&) {
+      //     --itemtext: red;
+
+      //     --insetgroupedlist-highlighteditem-background-color:red;
+      //     --insetgroupedlist-highlighteditem-color:red;
+      //   }
+      // }
     }
 
     // // SECTION: add searchable

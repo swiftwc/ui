@@ -116,13 +116,6 @@ $form-elses: (
         --list--section-gap: var(--form-gap);
 
         @include mixins.write-props($form-elses);
-
-        // --list--item-padding-inline-start: var(--form-item-padding-inline-start);
-        // --list--item-padding-inline-end: var(--form-item-padding-inline-end);
-        // --list--item-padding-block-start: var(--form-item-padding-block-start);
-        // --list--item-padding-block-end: var(--form-item-padding-block-end);
-
-        // --list--item-background-color: var(--list-item-background-color,);
       }
 
       :where(section-view:has(> [slot='header']), section-view:has(> [slot='footer']) + section-view) {
@@ -132,15 +125,7 @@ $form-elses: (
       // SECTION: ifs
       @supports (x: #{string.unquote('if(else:red)')}) {
         :where(&) {
-          @include mixins.write-ifs(--form-style, $form-ifs, $form-elses);
-          // --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
-
-          // --toolbaritemradius: if(style(--form-style: inset-grouped): 1rem ; style(--form-style: sidebar): 1rem ;);
-
-          // --list--separator-block-size: if(style(--form-style: sidebar): 0px ;);
-          // --list--separator-visibility: if(style(--form-style: collapse): 0px ;);
-
-          // --list--root-background-color: if(style(--form-style: sidebar): transparent ;);
+          @include mixins.write-ifs(--form-style, $form-ifs, $form-elses); // --list--root-padding-inline: if(style(--form-style: inset-grouped): 0.5rem ; style(--form-style: sidebar): 0.5rem ;);
         }
       }
 
@@ -149,12 +134,16 @@ $form-elses: (
         :where(&:not([form-style])) {
           @each $v in vars.$form-styles {
             @container style(--form-style: #{$v}) {
+              --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
+
               @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
             }
           }
         }
         @each $v in vars.$form-styles {
           :where(&[form-style='#{$v}']) {
+            --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
+
             @include mixins.write-props(map.get($form-ifs, $v)); //@include set-form-style($v);
           }
         }
@@ -186,15 +175,14 @@ $form-elses: (
       // FINALLY AFTER ALL IFS
       // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
       @include mixins.if-content-view-list {
-        --list--accessories-size: 0rem;
-        --list--accessories-display: none;
+        :where(&) {
+          --list--accessories-size: 0rem;
+          --list--accessories-display: none;
 
-        @each $v in list, form {
-          --inset#{$v}-highlighteditem-background-color: var(--accentColor);
-          --inset#{$v}-highlighteditem-color: var(--tintcontrast);
-
-          --insetgrouped#{$v}-highlighteditem-background-color: var(--accentColor);
-          --insetgrouped#{$v}-highlighteditem-color: var(--tintcontrast);
+          --insetform-highlighteditem-background-color: var(--accentColor);
+          --insetform-highlighteditem-color: var(--tintcontrast);
+          --insetgroupedform-highlighteditem-background-color: var(--accentColor);
+          --insetgroupedform-highlighteditem-color: var(--tintcontrast);
         }
       }
 

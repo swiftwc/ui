@@ -205,7 +205,9 @@
 @mixin takeover-color-vars($prefix) {
   --secondary: var(--#{$prefix}text);
   --blue: var(--#{$prefix}text);
+  --red: var(--#{$prefix}text);
 
+  // NOTE: breaks list-item-tints
   --accentColor: var(--#{$prefix}text);
   --accentColorEffective: var(--#{$prefix}text);
 }
@@ -297,17 +299,17 @@
 @mixin if-content-view-list {
   @include if-2col-split-view-fits {
     // is content-view!
-    :where(navigation-split-view > scroll-view &) {
+    navigation-split-view > scroll-view & {
       @content;
     }
     // is content-view!
-    :where(navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view &) {
+    navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view & {
       @content;
     }
   }
   // is content-view!
   @include if-3col-split-view-fits {
-    :where(navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view &) {
+    navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view & {
       @content;
     }
   }

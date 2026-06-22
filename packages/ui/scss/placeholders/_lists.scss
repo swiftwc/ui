@@ -492,6 +492,23 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
     //   }
     // }
 
+    // SECTION: add tints
+    > #{$list-item-selector},
+    section-view > #{$list-item-selector},
+    [is='disclosure-group'] > #{$list-item-selector} {
+      // NOTE: drill-in chevron show up only on nav-link buttons. Paddings and all other props have already been taken over!
+      // &:is(button:not([is='navigation-link'])) {
+      //   :where(&) {
+      //     --itemtext: blue;
+      //   }
+      // }
+      &:is(button[list-item-tint='red']) {
+        :where(&) {
+          --itemtext: red;
+        }
+      }
+    }
+
     // // SECTION: add searchable
     // > [slot='searchable'] {
     //   :where(&) {
@@ -517,8 +534,9 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-        --secondary: var(--itemtext);
-        --blue: var(--itemtext);
+        @include mixins.takeover-color-vars(item);
+        // --secondary: var(--itemtext);
+        // --blue: var(--itemtext);
       }
     }
   }
@@ -537,8 +555,9 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
         --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-        --secondary: var(--itemtext);
-        --blue: var(--itemtext);
+        @include mixins.takeover-color-vars(item);
+        // --secondary: var(--itemtext);
+        // --blue: var(--itemtext);
       }
 
       &[aria-selected='true'] {
@@ -548,8 +567,9 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
           --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
 
-          --secondary: var(--itemtext);
-          --blue: var(--itemtext);
+          @include mixins.takeover-color-vars(item);
+          // --secondary: var(--itemtext);
+          // --blue: var(--itemtext);
         }
       }
       // }

@@ -244,6 +244,8 @@
 
     --form-extra-gap: 3rem;
 
+    --insetform-item-border-radius: 1rem;
+
     @each $v in list, form {
       --#{$v}-item-padding-inline-start: 1rem;
       --#{$v}-item-padding-inline-end: 1rem;
@@ -291,29 +293,20 @@
       --sidebar#{$v}-openitem-color: var(--primary);
       --sidebar#{$v}-opensummary-background-color: transparent;
       --sidebar#{$v}-opensummary-color: var(--primary);
+
+      --insetgrouped#{$v}-background-color: var(--groupedBackground);
+
+      --inset#{$v}-padding-inline: 1rem;
+      --inset#{$v}-padding-block: 0rem;
+
+      --insetgrouped#{$v}-padding-inline: 1rem;
+      --insetgrouped#{$v}-padding-block: 1rem;
+
+      --sidebar#{$v}-padding-inline: 1rem;
+      --sidebar#{$v}-padding-block: 1rem;
     }
 
     //
-
-    --insetform-item-border-radius: 1rem;
-
-    --insetgroupedlist-background-color: var(--groupedBackground);
-    --insetgroupedform-background-color: var(--groupedBackground);
-
-    --insetlist-padding-inline: 1rem;
-    --insetlist-padding-block: 0rem;
-    --insetform-padding-inline: 1rem;
-    --insetform-padding-block: 0rem;
-
-    --insetgroupedlist-padding-inline: 1rem;
-    --insetgroupedform-padding-inline: 1rem;
-    --insetgroupedlist-padding-block: 1rem;
-    --insetgroupedform-padding-block: 1rem;
-
-    --sidebarlist-padding-inline: 1rem;
-    --sidebarform-padding-inline: 1rem;
-    --sidebarlist-padding-block: 1rem;
-    --sidebarform-padding-block: 1rem;
 
     // --list-item-border-radius: 1rem;
     // @media (pointer: fine) {

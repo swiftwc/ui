@@ -1,5 +1,6 @@
 @use '../vars';
 @use '../placeholders';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   [is='glass-prominent-button'] {
@@ -53,8 +54,9 @@
 @layer #{vars.$colors-layer} {
   [is='glass-prominent-button'] > * {
     :where(&) {
-      --secondary: var(--btntext);
-      --blue: var(--btntext);
+      @include mixins.takeover-color-vars(btn);
+      // --secondary: var(--btntext);
+      // --blue: var(--btntext);
     }
   }
 }

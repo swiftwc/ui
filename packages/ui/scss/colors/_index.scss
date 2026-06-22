@@ -524,11 +524,12 @@ $colors: map.merge(
         @include mixins.wire-tinted-glass(toolbaritem);
 
         > button {
-          --secondary: var(--btntext);
-          --blue: var(--btntext);
+          @include mixins.takeover-color-vars(btn);
+          // --secondary: var(--btntext);
+          // --blue: var(--btntext);
 
-          --accentColorEffective: var(--btntext);
-          --accentColor: var(--btntext);
+          // --accentColorEffective: var(--btntext);
+          // --accentColor: var(--btntext);
         }
       }
     }

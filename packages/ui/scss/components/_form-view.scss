@@ -185,23 +185,9 @@ $form-elses: (
 
       // FINALLY AFTER ALL IFS
       // TODO: Also apply this on state of sidebar w/ full-screen detail 2/2
-      @include mixins.if-2col-split-view-fits {
-        :where(navigation-split-view > scroll-view &) {
-          --list--accessories-size: 0rem;
-          --list--accessories-display: none;
-        }
-        // is content-view!
-        :where(navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view &) {
-          --list--accessories-size: 0rem;
-          --list--accessories-display: none;
-        }
-      }
-      // is content-view!
-      @include mixins.if-3col-split-view-fits {
-        :where(navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view &) {
-          --list--accessories-size: 0rem;
-          --list--accessories-display: none;
-        }
+      @include mixins.if-content-view-list {
+        --list--accessories-size: 0rem;
+        --list--accessories-display: none;
       }
 
       // Hide accessories

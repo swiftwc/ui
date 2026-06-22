@@ -25,6 +25,10 @@
     }
   }
 
+  :where([foreground='accent']) {
+    color: var(--accentColor);
+  }
+
   :where([foreground='secondary']) {
     color: var(--secondary);
   }

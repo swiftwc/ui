@@ -48,8 +48,9 @@
 @layer #{vars.$colors-layer} {
   [is='bordered-prominent-button'] > * {
     :where(&) {
-      --secondary: var(--btntext);
-      --blue: var(--btntext);
+      @include mixins.takeover-color-vars(btn);
+      // --secondary: var(--btntext);
+      // --blue: var(--btntext);
     }
   }
 }

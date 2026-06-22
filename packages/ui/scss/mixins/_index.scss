@@ -202,6 +202,14 @@
   border-radius: var(--#{$prefix}radiustl#{','}) var(--#{$prefix}radiustr#{','}) var(--#{$prefix}radiusbr#{','}) var(--#{$prefix}radiusbl#{','});
 }
 
+@mixin takeover-color-vars($prefix) {
+  --secondary: var(--#{$prefix}text);
+  --blue: var(--#{$prefix}text);
+
+  --accentColor: var(--#{$prefix}text);
+  --accentColorEffective: var(--#{$prefix}text);
+}
+
 @mixin vt-toolbar-cell-offscreen-keyframe() {
   --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
   --toolbar-cell-filter: blur(10px);
@@ -283,6 +291,25 @@
 @mixin ifnot-3col-split-view-fits {
   @media (max-width: #{vars.$nav-split-view-3col-bp-max}) {
     @content;
+  }
+}
+
+@mixin if-content-view-list {
+  @include if-2col-split-view-fits {
+    // is content-view!
+    :where(navigation-split-view > scroll-view &) {
+      @content;
+    }
+    // is content-view!
+    :where(navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view &) {
+      @content;
+    }
+  }
+  // is content-view!
+  @include if-3col-split-view-fits {
+    :where(navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view &) {
+      @content;
+    }
   }
 }
 

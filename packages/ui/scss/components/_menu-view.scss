@@ -155,15 +155,17 @@
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
 
-        --secondary: var(--menuitemtext);
-        --blue: var(--menuitemtext);
+        @include mixins.takeover-color-vars(menuitem);
+        // --secondary: var(--menuitemtext);
+        // --blue: var(--menuitemtext);
       }
       @include mixins.add-hover-state {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
 
-        --secondary: var(--menuitemtext);
-        --blue: var(--menuitemtext);
+        @include mixins.takeover-color-vars(menuitem);
+        // --secondary: var(--menuitemtext);
+        // --blue: var(--menuitemtext);
       }
     }
     > menu-view {
@@ -171,15 +173,17 @@
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
 
-        --secondary: var(--menuitemtext);
-        --blue: var(--menuitemtext);
+        @include mixins.takeover-color-vars(menuitem);
+        // --secondary: var(--menuitemtext);
+        // --blue: var(--menuitemtext);
       }
       @include mixins.add-hover-state('::part(menu-summary)') {
         --menuitemface: var(--menuitemhighlightface,);
         --menuitemtext: var(--menuitemhighlighttext,);
 
-        --secondary: var(--menuitemtext);
-        --blue: var(--menuitemtext);
+        @include mixins.takeover-color-vars(menuitem);
+        // --secondary: var(--menuitemtext);
+        // --blue: var(--menuitemtext);
       }
     }
   }

@@ -157,6 +157,7 @@
     --list-row-gap: 3rem;
     --form-gap: 1rem;
     --form-extra-gap: 3rem;
+    --insetform-item-border-radius: 1rem;
     --list-item-padding-inline-start: 1rem;
     --list-item-padding-inline-end: 1rem;
     --list-item-padding-block-start: 1rem;
@@ -193,6 +194,13 @@
     --sidebarlist-openitem-color: var(--primary);
     --sidebarlist-opensummary-background-color: transparent;
     --sidebarlist-opensummary-color: var(--primary);
+    --insetgroupedlist-background-color: var(--groupedBackground);
+    --insetlist-padding-inline: 1rem;
+    --insetlist-padding-block: 0rem;
+    --insetgroupedlist-padding-inline: 1rem;
+    --insetgroupedlist-padding-block: 1rem;
+    --sidebarlist-padding-inline: 1rem;
+    --sidebarlist-padding-block: 1rem;
     --form-item-padding-inline-start: 1rem;
     --form-item-padding-inline-end: 1rem;
     --form-item-padding-block-start: 1rem;
@@ -229,20 +237,12 @@
     --sidebarform-openitem-color: var(--primary);
     --sidebarform-opensummary-background-color: transparent;
     --sidebarform-opensummary-color: var(--primary);
-    --insetform-item-border-radius: 1rem;
-    --insetgroupedlist-background-color: var(--groupedBackground);
     --insetgroupedform-background-color: var(--groupedBackground);
-    --insetlist-padding-inline: 1rem;
-    --insetlist-padding-block: 0rem;
     --insetform-padding-inline: 1rem;
     --insetform-padding-block: 0rem;
-    --insetgroupedlist-padding-inline: 1rem;
     --insetgroupedform-padding-inline: 1rem;
-    --insetgroupedlist-padding-block: 1rem;
     --insetgroupedform-padding-block: 1rem;
-    --sidebarlist-padding-inline: 1rem;
     --sidebarform-padding-inline: 1rem;
-    --sidebarlist-padding-block: 1rem;
     --sidebarform-padding-block: 1rem;
     --table-row-gap: 0.5rem;
     --table-col-gap: 1rem;
@@ -805,6 +805,15 @@
     background-color: var(--quaternary);
     transform: translateY(-50%) translateX(120%);
   }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red]),
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(button[list-item-tint=red])) {
+    --itemtext: red;
+  }
 }
 @layer sw-colors {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):not(:disabled):not([readonly]),
@@ -828,6 +837,8 @@
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
+    --accentColor: var(--itemtext);
+    --accentColorEffective: var(--itemtext);
   }
 }
 @layer sw-actions {
@@ -843,6 +854,8 @@
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
+    --accentColor: var(--itemtext);
+    --accentColorEffective: var(--itemtext);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
   table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name)[aria-selected=true],
@@ -856,6 +869,8 @@
     --list--separator-background-color: var(--list--highlighteditem-separator-background-color,);
     --secondary: var(--itemtext);
     --blue: var(--itemtext);
+    --accentColor: var(--itemtext);
+    --accentColorEffective: var(--itemtext);
   }
 }
 @layer sw-components {
@@ -2342,6 +2357,8 @@
   :where([is=bordered-prominent-button] > *) {
     --secondary: var(--btntext);
     --blue: var(--btntext);
+    --accentColor: var(--btntext);
+    --accentColorEffective: var(--btntext);
   }
 }
 @layer sw-utils {
@@ -2464,6 +2481,8 @@
   :where([is=glass-prominent-button] > *) {
     --secondary: var(--btntext);
     --blue: var(--btntext);
+    --accentColor: var(--btntext);
+    --accentColorEffective: var(--btntext);
   }
 }
 @layer sw-utils {
@@ -3239,6 +3258,8 @@
     --menuitemtext: var(--menuitemhighlighttext,);
     --secondary: var(--menuitemtext);
     --blue: var(--menuitemtext);
+    --accentColor: var(--menuitemtext);
+    --accentColorEffective: var(--menuitemtext);
   }
   @media (pointer: fine) {
     :where(menu-view > button:not(:disabled):not([readonly]),
@@ -3248,6 +3269,8 @@
       --menuitemtext: var(--menuitemhighlighttext,);
       --secondary: var(--menuitemtext);
       --blue: var(--menuitemtext);
+      --accentColor: var(--menuitemtext);
+      --accentColorEffective: var(--menuitemtext);
     }
   }
   :where(menu-view > menu-view:not(:disabled):not([readonly])):focus-visible {
@@ -3258,6 +3281,8 @@
     --menuitemtext: var(--menuitemhighlighttext,);
     --secondary: var(--menuitemtext);
     --blue: var(--menuitemtext);
+    --accentColor: var(--menuitemtext);
+    --accentColorEffective: var(--menuitemtext);
   }
   @media (pointer: fine) {
     :where(menu-view > menu-view:not(:disabled):not([readonly])):hover::part(menu-summary) {
@@ -3265,6 +3290,8 @@
       --menuitemtext: var(--menuitemhighlighttext,);
       --secondary: var(--menuitemtext);
       --blue: var(--menuitemtext);
+      --accentColor: var(--menuitemtext);
+      --accentColorEffective: var(--menuitemtext);
     }
   }
 }
@@ -5077,6 +5104,9 @@
     --secondaryBackground: var(--secondaryGroupedBackground);
     --tertiaryBackground: var(--tertiaryGroupedBackground);
     --face: var(--background);
+  }
+  :where([foreground=accent]) {
+    color: var(--accentColor);
   }
   :where([foreground=secondary]) {
     color: var(--secondary);
@@ -7902,8 +7932,8 @@
   [tint] navigation-split-view sidebar-toggle) > button {
     --secondary: var(--btntext);
     --blue: var(--btntext);
-    --accentColorEffective: var(--btntext);
     --accentColor: var(--btntext);
+    --accentColorEffective: var(--btntext);
   }
   :where(sidebar-toggle) {
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));

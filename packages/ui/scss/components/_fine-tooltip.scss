@@ -48,6 +48,8 @@
       --tooltip--dialog-translate: translateY(-10%);
       --tooltip--dialog-scale: scale(0.9);
       --tooltip--dialog-opacity: 0;
+
+      --label--host-white-space: pre-line;
     }
 
     &[open] {

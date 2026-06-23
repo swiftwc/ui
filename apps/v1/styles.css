@@ -1583,6 +1583,7 @@
     --tooltip--dialog-translate: translateY(-10%);
     --tooltip--dialog-scale: scale(0.9);
     --tooltip--dialog-opacity: 0;
+    --label--host-white-space: pre-line;
   }
   :where(fine-tooltip[open]) {
     --tooltip--dialog-margin-block: max(env(safe-area-inset-top), var(--menu-spacing)) max(env(safe-area-inset-bottom), var(--menu-spacing));

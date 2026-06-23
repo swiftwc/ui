@@ -1,5 +1,6 @@
 import { alertDialog, confirmationDialog as confirmationDialogBus, lifecycleObserver } from '../buses'
 import * as Components from '../components'
+import type { AlertReturnDetail, ConfirmationReturnDetail } from '../events'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
@@ -219,7 +220,7 @@ export const alert = async (
   }[],
   options?: { titleVisibility?: boolean }
 ) => {
-  await navigator.locks.request('alert:', async () => {
+  return await navigator.locks.request('alert:', async () => {
     const dialog = $<HTMLDialogElement>(`<dialog is="alert-dialog"></dialog>`, '>1'),
       vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
 
@@ -265,8 +266,10 @@ export const alert = async (
       off = onoff(
         'alert:return',
         (evt: any) => {
+          const { detail } = evt as CustomEvent<AlertReturnDetail>
+
           off()
-          resolve(evt.detail.returnValue)
+          resolve(detail.returnValue)
         },
         alertDialog,
         { once: true }
@@ -330,44 +333,23 @@ export const confirmationDialog = async (
     off = onoff(
       'confirmation:return',
       (evt: any) => {
+        const { detail } = evt as CustomEvent<ConfirmationReturnDetail>
+
         off()
-        resolve(evt.detail.returnValue)
+        resolve(detail.returnValue)
       },
       confirmationDialogBus,
       { once: true }
     ).on()
 
   return promise
-
-  // return await new Promise((resolve, reject) => {
-  //   const onClose = (evt: any) => {
-  //       off()
-  //       resolve(evt.detail.returnValue)
-  //     },
-  //     off = onoff('return', onClose, ConfirmationDialog, { once: true }).on()
-
-  //   // const onAbort = () => {
-  //   //   cleanup()
-  //   //   reject(new DOMException('aborted', 'AbortError'))
-  //   // }
-
-  //   // const cleanup = () => {
-  //   //   ConfirmationDialog.removeEventListener('close', onClose)
-  //   //   // controller.signal.removeEventListener('abort', onAbort)
-  //   // }
-
-  //   // ConfirmationDialog.addEventListener('close', onClose, { once: true })
-  //   // controller.signal.addEventListener('abort', onAbort, { once: true })
-  // })
 }
 //#endregion
 
-void Snapshot.waitReady // void Snapshot.setOwnConfig()
+void Snapshot.waitReady
 
 //#region exports
-
 export { I18n, lifecycleObserver, NavigationPath, queryInsertPosition, Snapshot, startViewTransition }
 
 export { type NavigationHost }
-
 //#endregion

@@ -1,6 +1,9 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { devFlags, listActive, onoff } from '../internal/utils'
 
+/**
+ * @attr {hidden} navigation-link-indicator-visibility - Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+ */
 export class ListView extends HTMLElement {
   // static #template: DocumentFragment
 

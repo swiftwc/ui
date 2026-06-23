@@ -98,6 +98,28 @@ const vscode: VsHtmlDataV1 = {
       // ],
     },
     {
+      name: 'list-item-tint',
+      description: 'Sets accent color on list items',
+      valueSet: 'tintSet',
+      // values: [
+      //   { name: 'infinity', description: '100%' },
+      //   { name: '0', description: '0rem' },
+      //   { name: '1', description: '1rem' },
+      //   { name: '2', description: '2rem' },
+      // ],
+    },
+    {
+      name: 'foreground',
+      description: 'Sets foreground color',
+      valueSet: 'foregroundSet',
+      // values: [
+      //   { name: 'infinity', description: '100%' },
+      //   { name: '0', description: '0rem' },
+      //   { name: '1', description: '1rem' },
+      //   { name: '2', description: '2rem' },
+      // ],
+    },
+    {
       name: 'frame:width',
       description: 'Sets inline-size',
       valueSet: 'frameWidth',
@@ -127,6 +149,16 @@ const vscode: VsHtmlDataV1 = {
         { name: 'gray', description: 'like secondary, like disabled' },
         { name: 'red', description: 'system red color' },
         { name: 'blue', description: 'system blue color' },
+        { name: 'green', description: 'system green color' },
+        { name: 'orange', description: 'system orange color' },
+      ],
+    },
+    {
+      name: 'foregroundSet',
+      values: [
+        { name: 'secondary', description: 'system secondary color' },
+        { name: 'blue', description: 'system blue color' },
+        { name: 'blue.secondary', description: 'system secondary blue color' },
       ],
     },
     {

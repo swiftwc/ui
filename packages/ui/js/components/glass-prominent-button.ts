@@ -4,12 +4,23 @@ import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 /**
+ * @summary A button that applies prominent glass border artwork based on the button’s context.
+ *
+ * @example <button is="glass-prominent-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button>
+ *
  * @slot overlay
  *
  */
 export class GlassProminentButton extends ButtonBase {
   static get observedAttributes() {
-    return ['role', 'title-key']
+    return [
+      /**
+       * A value that describes the purpose of a button
+       * @type {destructive|confirm}
+       */
+      'role',
+      'title-key',
+    ]
   }
 
   constructor() {

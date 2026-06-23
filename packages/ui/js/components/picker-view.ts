@@ -707,7 +707,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {
-    const btn = $(`<button type="button" tabindex="0"><h-stack template="auto spacer"><label-view system-image="check"></label-view></h-stack></button>`, '>1'),
+    const btn = $(`<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view system-image="check"></label-view></h-stack></button>`, '>1'),
       hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
     // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
 

@@ -8,7 +8,7 @@ const progressViewStyles = ['circular', 'linear'] as const
 type ProgressViewStyle = (typeof progressViewStyles)[number]
 
 /**
- *
+ * @summary A view that shows the progress toward completion of a task.
  */
 export class ProgressView extends HTMLElement {
   static get observedAttributes() {

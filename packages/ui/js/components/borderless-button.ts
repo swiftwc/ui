@@ -4,12 +4,23 @@ import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 /**
+ * @summary A button that doesn’t apply a border.
+ *
+ * @example <button is="borderless-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button>
+ *
  * @slot overlay
  *
  */
 export class BorderlessButton extends ButtonBase {
   static get observedAttributes() {
-    return ['role', 'title-key']
+    return [
+      /**
+       * A value that describes the purpose of a button
+       * @type {destructive|confirm}
+       */
+      'role',
+      'title-key',
+    ]
   }
 
   constructor() {

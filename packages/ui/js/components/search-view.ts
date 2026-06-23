@@ -3,9 +3,9 @@ import { devFlags, onoff, touchGlass } from '../internal/utils'
 import { InputBase } from '../namespace-browser/base'
 
 export class SearchView extends InputBase {
-  static get observedAttributes() {
-    return ['role', 'title-key']
-  }
+  // static get observedAttributes() {
+  //   return ['role', 'title-key']
+  // }
 
   constructor() {
     super()

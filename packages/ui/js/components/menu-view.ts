@@ -1,6 +1,9 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff, touchGlass } from '../internal/utils'
 
+/**
+ * @summary A control for presenting a menu of actions.
+ */
 export class MenuView extends HTMLElement {
   static get observedAttributes() {
     return ['open', 'closing', 'label']

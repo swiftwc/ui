@@ -4,6 +4,9 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, devFlags, listActive, onoff } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
+/**
+ * @summary Display selectable, sortable data arranged in rows and columns.
+ */
 export class TableView extends HTMLElement {
   #styleObserver?: CSSStyleObserver
 

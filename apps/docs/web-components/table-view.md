@@ -2,7 +2,7 @@
 
 # TableView
 
-
+Display selectable, sortable data arranged in rows and columns.
 
 <!-- #endregion pre -->
 

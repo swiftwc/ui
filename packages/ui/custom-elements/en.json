@@ -75,7 +75,7 @@
           "customElement": true,
           "name": "BorderedButton",
           "tagName": "bordered-button",
-          "description": "",
+          "description": "A button that applies standard border artwork based on the button’s context.",
           "superclass": {
             "name": "ButtonHTMLElement"
           },
@@ -121,7 +121,7 @@
           "customElement": true,
           "name": "BorderedProminentButton",
           "tagName": "bordered-prominent-button",
-          "description": "",
+          "description": "A button that applies standard border prominent artwork based on the button’s context.",
           "superclass": {
             "name": "ButtonHTMLElement"
           },
@@ -167,7 +167,7 @@
           "customElement": true,
           "name": "BorderlessButton",
           "tagName": "borderless-button",
-          "description": "",
+          "description": "A button that doesn’t apply a border.",
           "superclass": {
             "name": "ButtonHTMLElement"
           },
@@ -394,7 +394,7 @@
           "customElement": true,
           "name": "DisclosureGroup",
           "tagName": "disclosure-group",
-          "description": "",
+          "description": "A view that shows or hides another content view, based on the state of a disclosure control.",
           "superclass": {
             "name": "DetailsHTMLElement"
           },
@@ -466,7 +466,12 @@
           "description": "",
           "superclass": {
             "name": "FormHTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow"
+            }
+          ]
         }
       ],
       "exports": [
@@ -495,7 +500,7 @@
           "customElement": true,
           "name": "GlassButton",
           "tagName": "glass-button",
-          "description": "",
+          "description": "A button that applies glass border artwork based on the button’s context.",
           "superclass": {
             "name": "ButtonHTMLElement"
           },
@@ -541,7 +546,7 @@
           "customElement": true,
           "name": "GlassProminentButton",
           "tagName": "glass-prominent-button",
-          "description": "",
+          "description": "A button that applies prominent glass border artwork based on the button’s context.",
           "superclass": {
             "name": "ButtonHTMLElement"
           },
@@ -642,7 +647,12 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow"
+            }
+          ]
         }
       ],
       "exports": [
@@ -671,7 +681,7 @@
           "customElement": true,
           "name": "MenuView",
           "tagName": "menu-view",
-          "description": "",
+          "description": "A control for presenting a menu of actions.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -739,6 +749,38 @@
           "name": "navigation-large-title",
           "declaration": {
             "name": "NavigationLargeTitle"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/navigation-link.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "NavigationLink",
+          "tagName": "navigation-link",
+          "description": "A button that controls a navigation presentation.",
+          "superclass": {
+            "name": "ButtonHTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "NavigationLink",
+          "declaration": {
+            "name": "NavigationLink"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "navigation-link",
+          "declaration": {
+            "name": "NavigationLink"
           }
         }
       ]
@@ -938,7 +980,7 @@
           "customElement": true,
           "name": "ProgressView",
           "tagName": "progress-view",
-          "description": "",
+          "description": "A view that shows the progress toward completion of a task.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1110,15 +1152,7 @@
           "description": "",
           "superclass": {
             "name": "InputHTMLElement"
-          },
-          "attributes": [
-            {
-              "name": "role"
-            },
-            {
-              "name": "title-key"
-            }
-          ]
+          }
         }
       ],
       "exports": [
@@ -1457,7 +1491,7 @@
           "customElement": true,
           "name": "TableView",
           "tagName": "table-view",
-          "description": "",
+          "description": "Display selectable, sortable data arranged in rows and columns.",
           "superclass": {
             "name": "HTMLElement"
           },

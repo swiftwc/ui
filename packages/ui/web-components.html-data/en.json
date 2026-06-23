@@ -9,10 +9,12 @@
     },
     {
       "name": "bordered-button",
-      "description": "",
+      "description": "A button that applies standard border artwork based on the button’s context.",
       "attributes": [
         {
-          "name": "role"
+          "name": "role",
+          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
+          "values": []
         },
         {
           "name": "title-key"
@@ -21,10 +23,12 @@
     },
     {
       "name": "bordered-prominent-button",
-      "description": "",
+      "description": "A button that applies standard border prominent artwork based on the button’s context.",
       "attributes": [
         {
-          "name": "role"
+          "name": "role",
+          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
+          "values": []
         },
         {
           "name": "title-key"
@@ -33,10 +37,12 @@
     },
     {
       "name": "borderless-button",
-      "description": "",
+      "description": "A button that doesn’t apply a border.",
       "attributes": [
         {
-          "name": "role"
+          "name": "role",
+          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
+          "values": []
         },
         {
           "name": "title-key"
@@ -106,6 +112,7 @@
     },
     {
       "name": "disclosure-group",
+      "description": "A view that shows or hides another content view, based on the state of a disclosure control.",
       "attributes": [
         {
           "name": "open",
@@ -117,14 +124,28 @@
       "name": "fine-tooltip"
     },
     {
-      "name": "form-view"
-    },
-    {
-      "name": "glass-button",
+      "name": "form-view",
       "description": "",
       "attributes": [
         {
-          "name": "role"
+          "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow",
+          "description": "Value Type: “hidden”\n\nDescription: chevron on NavigationLink buttons inside.",
+          "values": [
+            {
+              "name": "hidden"
+            }
+          ]
+        }
+      ]
+    },
+    {
+      "name": "glass-button",
+      "description": "A button that applies glass border artwork based on the button’s context.",
+      "attributes": [
+        {
+          "name": "role",
+          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
+          "values": []
         },
         {
           "name": "title-key"
@@ -133,10 +154,12 @@
     },
     {
       "name": "glass-prominent-button",
-      "description": "",
+      "description": "A button that applies prominent glass border artwork based on the button’s context.",
       "attributes": [
         {
-          "name": "role"
+          "name": "role",
+          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
+          "values": []
         },
         {
           "name": "title-key"
@@ -161,10 +184,23 @@
       ]
     },
     {
-      "name": "list-view"
+      "name": "list-view",
+      "description": "",
+      "attributes": [
+        {
+          "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow",
+          "description": "Value Type: “hidden”\n\nDescription: chevron on NavigationLink buttons inside.",
+          "values": [
+            {
+              "name": "hidden"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "menu-view",
+      "description": "A control for presenting a menu of actions.",
       "attributes": [
         {
           "name": "open"
@@ -179,6 +215,10 @@
     },
     {
       "name": "navigation-large-title"
+    },
+    {
+      "name": "navigation-link",
+      "description": "A button that controls a navigation presentation."
     },
     {
       "name": "navigation-split-view",
@@ -207,7 +247,7 @@
     },
     {
       "name": "progress-view",
-      "description": "",
+      "description": "A view that shows the progress toward completion of a task.",
       "attributes": [
         {
           "name": "label"
@@ -245,15 +285,7 @@
       ]
     },
     {
-      "name": "search-view",
-      "attributes": [
-        {
-          "name": "role"
-        },
-        {
-          "name": "title-key"
-        }
-      ]
+      "name": "search-view"
     },
     {
       "name": "section-view",
@@ -290,7 +322,8 @@
       "description": ""
     },
     {
-      "name": "table-view"
+      "name": "table-view",
+      "description": "Display selectable, sortable data arranged in rows and columns."
     },
     {
       "name": "text-field",
@@ -426,6 +459,16 @@
       "valueSet": "tintSet"
     },
     {
+      "name": "list-item-tint",
+      "description": "Sets accent color on list items",
+      "valueSet": "tintSet"
+    },
+    {
+      "name": "foreground",
+      "description": "Sets foreground color",
+      "valueSet": "foregroundSet"
+    },
+    {
       "name": "frame:width",
       "description": "Sets inline-size",
       "valueSet": "frameWidth"
@@ -451,6 +494,31 @@
         {
           "name": "blue",
           "description": "system blue color"
+        },
+        {
+          "name": "green",
+          "description": "system green color"
+        },
+        {
+          "name": "orange",
+          "description": "system orange color"
+        }
+      ]
+    },
+    {
+      "name": "foregroundSet",
+      "values": [
+        {
+          "name": "secondary",
+          "description": "system secondary color"
+        },
+        {
+          "name": "blue",
+          "description": "system blue color"
+        },
+        {
+          "name": "blue.secondary",
+          "description": "system secondary blue color"
         }
       ]
     },

@@ -2,7 +2,7 @@
 
 # MenuView
 
-
+A control for presenting a menu of actions.
 
 <!-- #endregion pre -->
 

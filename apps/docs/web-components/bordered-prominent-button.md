@@ -2,7 +2,7 @@
 
 # BorderedProminentButton
 
-
+A button that applies standard border prominent artwork based on the button’s context.
 
 <!-- #endregion pre -->
 

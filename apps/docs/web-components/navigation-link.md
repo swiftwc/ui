@@ -1,8 +1,8 @@
 <!-- #region pre -->
 
-# BorderlessButton
+# NavigationLink
 
-A button that doesn’t apply a border.
+A button that controls a navigation presentation.
 
 <!-- #endregion pre -->
 

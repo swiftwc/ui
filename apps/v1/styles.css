@@ -5253,8 +5253,62 @@
   :where([foreground=blue]) {
     color: var(--blue);
   }
+  :where([foreground=red]) {
+    color: var(--red);
+  }
+  :where([foreground=green]) {
+    color: var(--green);
+  }
+  :where([foreground=orange]) {
+    color: var(--orange);
+  }
   :where([foreground="blue.secondary"]) {
     color: var(--blue2);
+  }
+  :where([foreground="red.secondary"]) {
+    color: var(--red2);
+  }
+  :where([foreground="green.secondary"]) {
+    color: var(--green2);
+  }
+  :where([foreground="orange.secondary"]) {
+    color: var(--orange2);
+  }
+  :where([foreground="blue.tertiary"]) {
+    color: var(--blue3);
+  }
+  :where([foreground="red.tertiary"]) {
+    color: var(--red3);
+  }
+  :where([foreground="green.tertiary"]) {
+    color: var(--green3);
+  }
+  :where([foreground="orange.tertiary"]) {
+    color: var(--orange3);
+  }
+  :where([foreground="blue.quaternary"]) {
+    color: var(--blue4);
+  }
+  :where([foreground="red.quaternary"]) {
+    color: var(--red4);
+  }
+  :where([foreground="green.quaternary"]) {
+    color: var(--green4);
+  }
+  :where([foreground="orange.quaternary"]) {
+    color: var(--orange4);
+  }
+  :where([foreground="blue.quinary"]) {
+    color: var(--blue5);
+  }
+  :where([foreground="red.quinary"]) {
+    color: var(--red5);
+  }
+  :where([foreground="green.quinary"]) {
+    color: var(--green5);
+  }
+  :where([foreground="orange.quinary"]) {
+    color: var(--orange5);
   }
   :where([tint=gray],
   [list-item-tint=gray]) {

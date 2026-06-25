@@ -351,6 +351,22 @@ export class PickerView extends FormAssociatedBase {
 
   #selection: string = ''
 
+  get selection() {
+    return this.#selection
+  }
+
+  set selection(v) {
+    if (Object.is(this.#selection, v)) return
+
+    this.#selection = v
+
+    this.#reflectSelectionOnButtons()
+
+    this.#reflectCurrentValueLabel()
+
+    this.#sendValueToForm()
+  }
+
   get #internals(): ElementInternals {
     return getInternals(this)
   }

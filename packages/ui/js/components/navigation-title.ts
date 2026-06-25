@@ -1,6 +1,25 @@
+import { microtaskOnConnected } from '../internal/decorators'
 import { $, devFlags } from '../internal/utils'
 import type { ScrollView } from './scroll-view'
 
+// const _sync = Symbol('sync')
+// @microtaskOnConnected((el) => (el as NavigationTitle)[_sync]())
+// attributeChangedCallback fires
+//   → originalAttrChanged (your #render) runs synchronously  ✅
+//   → schedule() queues microtask
+//     → microtask flush: syncToScrollView runs with already-updated attrs ✅
+
+@microtaskOnConnected<NavigationTitle>((el) => {
+  const sibling = el.closest<ScrollView>('scroll-view'),
+    value = el.getAttribute('value'),
+    subtitle = el.getAttribute('subtitle')
+
+  if (null === value) sibling?.removeAttribute('navigation-inline-title')
+  else sibling?.setAttribute('navigation-inline-title', value)
+
+  if (null === subtitle) sibling?.removeAttribute('navigation-inline-subtitle')
+  else sibling?.setAttribute('navigation-inline-subtitle', subtitle)
+})
 export class NavigationTitle extends HTMLElement {
   static get observedAttributes() {
     return ['value', 'subtitle']
@@ -21,24 +40,7 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    const sibling = this.closest<ScrollView>('scroll-view') ?? undefined
-
-    switch (name) {
-      case 'value':
-        if (null === newValue) sibling?.removeAttribute('navigation-inline-title')
-        else sibling?.setAttribute('navigation-inline-title', newValue)
-
-        this.#render(newValue, this.getAttribute('subtitle'))
-
-        break
-      case 'subtitle':
-        if (null === newValue) sibling?.removeAttribute('navigation-inline-subtitle')
-        else sibling?.setAttribute('navigation-inline-subtitle', newValue)
-
-        this.#render(this.getAttribute('value'), newValue)
-
-        break
-    }
+    this.#render(this.getAttribute('value'), this.getAttribute('subtitle'))
   }
 
   #render = (title: string | null, subtitle: string | null) => {

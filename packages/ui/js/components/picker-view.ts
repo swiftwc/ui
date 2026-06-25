@@ -128,31 +128,31 @@ export class PickerView extends FormAssociatedBase {
 
       const searchInput = sv?.querySelector('input') // FIXME: compoennt is=search-view??
 
-      searchInput?.addEventListener('focus', (evt: Event) => {
+      searchInput?.addEventListener('focus', ({ target }: Event) => {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchfocus', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: target instanceof HTMLInputElement ? target.value : '' },
               bubbles: true,
               composed: true,
             })
           )
       })
-      searchInput?.addEventListener('blur', (evt: Event) => {
+      searchInput?.addEventListener('blur', ({ target }: Event) => {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchblur', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: target instanceof HTMLInputElement ? target.value : '' },
               bubbles: true,
               composed: true,
             })
           )
       })
-      searchInput?.addEventListener('input', (evt: Event) => {
+      searchInput?.addEventListener('input', ({ target }: Event) => {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchinput', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: target instanceof HTMLInputElement ? target.value : '' },
               bubbles: true,
               composed: true,
             })

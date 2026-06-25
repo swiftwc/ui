@@ -130,16 +130,22 @@ export class ScrollView extends HTMLElement {
       case 'navigation-bar-title-display-mode':
         if (oldValue === newValue) break
 
-        if (this.closest('[hidden]')) break // iREPAINT ALERT! if (0 === this.offsetHeight + this.offsetWidth) break
-
-        if (!this.#isMidScroll) break
-
-        const title = this.#slots?.get('top-bar-principal')?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
-
-        slowHideShow('largeinline' === `${oldValue}${newValue}` ? 'show' : 'hide', title)
+        this.#syncSibling(`${oldValue}${newValue}`)
 
         break
     }
+  }
+
+  #syncSibling = (comp: string) => {
+    if (!this.isConnected) return
+
+    if (this.closest('[hidden]')) return // iREPAINT ALERT! if (0 === this.offsetHeight + this.offsetWidth) break
+
+    if (!this.#isMidScroll) return
+
+    const title = this.#slots?.get('top-bar-principal')?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
+
+    slowHideShow('largeinline' === `${comp}` ? 'show' : 'hide', title)
   }
 
   #handleScroll: EventListener = ({ target, type }: Event) => {
@@ -180,45 +186,45 @@ export class ScrollView extends HTMLElement {
     this.#beforeTabSwapLastScrolltop = undefined
   }
 
-  #handleTabReveal = ({ type, target }: CustomEvent<TabDetail>) => {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
+  // #handleTabReveal = ({ type, target }: CustomEvent<TabDetail>) => {
+  //   if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement)) return
+  //   if (!(target instanceof HTMLElement)) return
 
-    if (!target.contains(this)) return
+  //   if (!target.contains(this)) return
 
-    if (this.closest('[hidden]')) return
+  //   if (this.closest('[hidden]')) return
 
-    // console.log(888, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
+  //   // console.log(888, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
 
-    // this.style.setProperty('clip-path', 'inset(50%)')
-    // this.style.setProperty('opacity', '0.001')
-    // this.style.opacity = '0.001'
-    // console.log(99, this.style.opacity)
+  //   // this.style.setProperty('clip-path', 'inset(50%)')
+  //   // this.style.setProperty('opacity', '0.001')
+  //   // this.style.opacity = '0.001'
+  //   // console.log(99, this.style.opacity)
 
-    // self.requestAnimationFrame(() => {
-    //   if (undefined === this.#beforeTabSwapLastScrolltop) return
+  //   // self.requestAnimationFrame(() => {
+  //   //   if (undefined === this.#beforeTabSwapLastScrolltop) return
 
-    //   if (this.#beforeTabSwapLastScrolltop === this.#lastScrollTop) return
+  //   //   if (this.#beforeTabSwapLastScrolltop === this.#lastScrollTop) return
 
-    //   this.#stopRecordingScrollTop = true
+  //   //   this.#stopRecordingScrollTop = true
 
-    //   // console.log(999, this.#beforeTabSwapLastScrolltop)
-    //   // console.log(999, this, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
+  //   //   // console.log(999, this.#beforeTabSwapLastScrolltop)
+  //   //   // console.log(999, this, this.#beforeTabSwapLastScrolltop, this.#lastScrollTop)
 
-    //   this.scrollTop = this.#beforeTabSwapLastScrolltop
-    //   // this.scrollTo({
-    //   //   top: this.#beforeTabSwapLastScrolltop,
-    //   //   behavior: 'instant',
-    //   // }) //
-    //   this.#stopRecordingScrollTop = false
-    //   this.#beforeTabSwapLastScrolltop = undefined
+  //   //   this.scrollTop = this.#beforeTabSwapLastScrolltop
+  //   //   // this.scrollTo({
+  //   //   //   top: this.#beforeTabSwapLastScrolltop,
+  //   //   //   behavior: 'instant',
+  //   //   // }) //
+  //   //   this.#stopRecordingScrollTop = false
+  //   //   this.#beforeTabSwapLastScrolltop = undefined
 
-    //   // self.requestAnimationFrame(() => {
-    //   //   // this.style.removeProperty('opacity')
-    //   // })
-    // })
-  }
+  //   //   // self.requestAnimationFrame(() => {
+  //   //   //   // this.style.removeProperty('opacity')
+  //   //   // })
+  //   // })
+  // }
 
   #handleTabBeforeswap = ({ type, target }: CustomEvent<TabDetail>) => {
     if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)

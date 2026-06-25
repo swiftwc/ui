@@ -20,7 +20,7 @@ export class StickyContainer extends HTMLElement {
   }
 
   #handleTransitionrun = ({ target, propertyName, pseudoElement }: TransitionEvent) => {
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if ('--stuck' !== propertyName || '::before' !== pseudoElement || !target.matches('sticky-container')) return
 

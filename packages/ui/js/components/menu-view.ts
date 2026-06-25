@@ -88,7 +88,7 @@ export class MenuView extends HTMLElement {
           this,
           (t) => t,
           ({ target }: PointerEvent) => {
-            if (!(target instanceof HTMLElement && target)) return true
+            if (!(target instanceof HTMLElement)) return true
 
             if (target.matches('menu-view')) return false
             if (!target.closest('menu-view[open]')) return false
@@ -159,7 +159,7 @@ export class MenuView extends HTMLElement {
   #handleDialogClick: EventListener = ({ type, target }: Event) => {
     if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (target.matches('dialog')) return this.toggleAttribute('open', false) // click outside
 

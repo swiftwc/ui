@@ -45,7 +45,7 @@ export class AlertDialog extends DialogBase {
           el,
           (t) => t,
           ({ target }: PointerEvent) => {
-            if (!(target instanceof HTMLElement && target)) return true
+            if (!(target instanceof HTMLElement)) return true
 
             if (target.matches('[is=alert-dialog]')) return false
 
@@ -85,9 +85,9 @@ export class AlertDialog extends DialogBase {
 
     const { target, currentTarget: dialog } = evt
 
-    if (!(dialog instanceof HTMLDialogElement && dialog)) return
+    if (!(dialog instanceof HTMLDialogElement)) return
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const button = target.closest<HTMLButtonElement>('button')
     if (!button) return
@@ -113,7 +113,7 @@ export class AlertDialog extends DialogBase {
 
     const { target } = evt
 
-    if (!(target instanceof HTMLDialogElement && target)) return
+    if (!(target instanceof HTMLDialogElement)) return
 
     evt.preventDefault()
 
@@ -135,7 +135,7 @@ export class AlertDialog extends DialogBase {
   static #handleDialogClose: EventListener = ({ type, target }: Event) => {
     if (devFlags.debug) console.debug(`${AlertDialog.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLDialogElement && target)) return
+    if (!(target instanceof HTMLDialogElement)) return
 
     target.remove()
   }

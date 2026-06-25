@@ -13,7 +13,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   #handleTriggerAttrMutation = (mutations: MutationRecord[]) => {
-    for (const { target, attributeName } of mutations) if (target instanceof HTMLElement && target && attributeName) this.#render(target.getAttribute(attributeName))
+    for (const { target, attributeName } of mutations) if (target instanceof HTMLElement && attributeName) this.#render(target.getAttribute(attributeName))
   }
 
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
@@ -21,7 +21,7 @@ export class FineTooltip extends HTMLElement {
 
     if (target.hasAttribute('closing')) return
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const { top } = target.getBoundingClientRect()
 

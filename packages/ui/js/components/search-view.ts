@@ -38,7 +38,7 @@ export class SearchView extends InputBase {
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     if (devFlags.debug) console.debug(`${SearchView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-    const node = target instanceof HTMLInputElement && target
+    const node = target instanceof HTMLInputElement
     if (!node) return
 
     //

@@ -35,7 +35,7 @@ export class TabBar extends DialogBase {
           el,
           (t) => t,
           ({ target }: PointerEvent) => {
-            if (!(target instanceof HTMLElement && target)) return true
+            if (!(target instanceof HTMLElement)) return true
 
             if (target.matches('[is=tab-bar]')) return false
             if (target.closest('tool-bar-item')) return false
@@ -52,7 +52,7 @@ export class TabBar extends DialogBase {
   static #handleClick = async ({ target, type }: Event) => {
     if (devFlags.debug) console.debug(`${TabBar.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (target instanceof HTMLDialogElement && 'tab-bar' === target.getAttribute('is')) target.close?.()
   }

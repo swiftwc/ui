@@ -1,5 +1,5 @@
 import { $, devFlags } from '../internal/utils'
-import { type ScrollView } from './scroll-view'
+import type { ScrollView } from './scroll-view'
 
 export class NavigationTitle extends HTMLElement {
   static get observedAttributes() {

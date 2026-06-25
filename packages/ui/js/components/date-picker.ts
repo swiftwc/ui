@@ -242,7 +242,7 @@ export class DatePicker extends FormAssociatedBase {
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
-    if (!(slot instanceof HTMLSlotElement && slot)) return
+    if (!(slot instanceof HTMLSlotElement)) return
 
     const assigned = slot.assignedElements()
 
@@ -281,7 +281,7 @@ export class DatePicker extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target } = evt
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const input = target.closest('input')
     if (input) return
@@ -330,7 +330,7 @@ export class DatePicker extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
-    if (!(input instanceof HTMLInputElement && input)) return
+    if (!(input instanceof HTMLInputElement)) return
 
     evt.preventDefault()
 
@@ -361,7 +361,7 @@ export class DatePicker extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
-    if (!(input instanceof HTMLInputElement && input)) return
+    if (!(input instanceof HTMLInputElement)) return
 
     if ('insertText' !== evt.inputType) return
 
@@ -394,7 +394,7 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputKeydown = ({ type, target, key }: KeyboardEvent) => {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLInputElement && target)) return
+    if (!(target instanceof HTMLInputElement)) return
 
     const input = target as DateInput
     if (!input) return
@@ -421,7 +421,7 @@ export class DatePicker extends FormAssociatedBase {
   #handleInputBlur = ({ target, type }: Event) => {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLInputElement && target)) return
+    if (!(target instanceof HTMLInputElement)) return
 
     const input = target as DateInput
 

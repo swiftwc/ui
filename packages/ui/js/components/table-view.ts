@@ -128,7 +128,7 @@ export class TableView extends HTMLElement {
   #handleColumnSlotchange = ({ type, target: slot }: Event) => {
     if (devFlags.debug) console.debug(`${TableView.name} ⚡️ ${type}`)
 
-    if (!(slot instanceof HTMLSlotElement && slot)) return
+    if (!(slot instanceof HTMLSlotElement)) return
 
     const assigned = slot.assignedElements()
 
@@ -203,7 +203,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleMenuClick = ({ target }: Event) => {
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const btn = target.closest('button')
     if (!btn) return

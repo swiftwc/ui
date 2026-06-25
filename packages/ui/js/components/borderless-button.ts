@@ -44,7 +44,7 @@ export class BorderlessButton extends ButtonBase {
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     if (devFlags.debug) console.debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-    const node = target instanceof HTMLButtonElement && target
+    const node = target instanceof HTMLButtonElement
     if (!node) return
 
     switch (attributeName) {

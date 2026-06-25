@@ -54,7 +54,7 @@ export class GlassProminentButton extends ButtonBase {
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     if (devFlags.debug) console.debug(`${GlassProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
-    const node = target instanceof HTMLButtonElement && target
+    const node = target instanceof HTMLButtonElement
     if (!node) return
 
     switch (attributeName) {

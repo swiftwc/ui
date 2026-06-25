@@ -149,7 +149,7 @@ export class ScrollView extends HTMLElement {
 
     // if (this.#stopRecordingScrollTop) return
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     this.#lastScrollTop = target.scrollTop
   }
@@ -183,7 +183,7 @@ export class ScrollView extends HTMLElement {
   #handleTabReveal = ({ type, target }: CustomEvent<TabDetail>) => {
     if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (!target.contains(this)) return
 
@@ -223,7 +223,7 @@ export class ScrollView extends HTMLElement {
   #handleTabBeforeswap = ({ type, target }: CustomEvent<TabDetail>) => {
     if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (!target.contains(this)) return
 

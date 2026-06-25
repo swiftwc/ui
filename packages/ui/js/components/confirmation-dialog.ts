@@ -54,7 +54,7 @@ export class ConfirmationDialog extends DialogBase {
           el,
           (t) => t,
           ({ target }: PointerEvent) => {
-            if (!(target instanceof HTMLElement && target)) return true
+            if (!(target instanceof HTMLElement)) return true
 
             if (target.matches('[is=confirmation-dialog]')) return false
             // if (!(event.target as HTMLElement).closest('menu-view[open]')) return false
@@ -101,9 +101,9 @@ export class ConfirmationDialog extends DialogBase {
 
     const { target, currentTarget: dialog } = evt
 
-    if (!(dialog instanceof HTMLDialogElement && dialog)) return
+    if (!(dialog instanceof HTMLDialogElement)) return
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (target.matches('dialog') && !isInside(evt.clientX, evt.clientY, dialog.getBoundingClientRect())) return dialog.requestClose() // click outside
 
@@ -130,7 +130,7 @@ export class ConfirmationDialog extends DialogBase {
     if (!evt.cancelable) return
 
     const { target } = evt
-    if (!(target instanceof HTMLDialogElement && target)) return
+    if (!(target instanceof HTMLDialogElement)) return
 
     evt.preventDefault()
 
@@ -152,7 +152,7 @@ export class ConfirmationDialog extends DialogBase {
   static #handleDialogClose: EventListener = ({ type, target }: Event) => {
     if (devFlags.debug) console.debug(`${ConfirmationDialog.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLDialogElement && target)) return
+    if (!(target instanceof HTMLDialogElement)) return
 
     target.remove()
   }

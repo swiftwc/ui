@@ -132,12 +132,12 @@ document.addEventListener('touchstart', () => {}, { passive: true })
 // SECTION
 
 const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const trigger = target.closest<HTMLElement>('[help]')
     if (!trigger) return
 
-    if (relatedTarget instanceof HTMLElement && relatedTarget && trigger.contains(relatedTarget)) return
+    if (relatedTarget instanceof HTMLElement && trigger.contains(relatedTarget)) return
 
     const newAnchorName = `--help-${self.crypto.randomUUID()}`
 
@@ -155,12 +155,12 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
     // console.log(999, trigger)
   },
   handleDone = ({ target, relatedTarget }: PointerEvent) => {
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const trigger = target.closest<HTMLElement>('[help]')
     if (!trigger) return
 
-    if (relatedTarget instanceof HTMLElement && relatedTarget && trigger.contains(relatedTarget)) return
+    if (relatedTarget instanceof HTMLElement && trigger.contains(relatedTarget)) return
 
     const anchorName = (
       trigger.style as CSSStyleDeclaration & {

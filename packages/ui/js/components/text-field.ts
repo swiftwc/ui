@@ -271,7 +271,7 @@ export class TextField extends FormAssociatedBase {
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
     if (devFlags.debug) console.debug(`${TextField.name} ⚡️ ${type}`)
 
-    if (!(slot instanceof HTMLSlotElement && slot)) return
+    if (!(slot instanceof HTMLSlotElement)) return
 
     const assigned = slot.assignedElements()
 
@@ -318,7 +318,7 @@ export class TextField extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
-    if (!(input instanceof HTMLInputElement && input)) return
+    if (!(input instanceof HTMLInputElement)) return
 
     evt.preventDefault()
 
@@ -437,7 +437,7 @@ export class TextField extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
-    if (!(input instanceof HTMLInputElement && input)) return
+    if (!(input instanceof HTMLInputElement)) return
 
     if ('insertText' !== evt.inputType) return
 
@@ -487,7 +487,7 @@ export class TextField extends FormAssociatedBase {
   #handleInputBlur = ({ type, target: input }: Event) => {
     if (devFlags.debug) console.debug(`${TextField.name} ⚡️ ${type}`)
 
-    if (!(input instanceof HTMLInputElement && input)) return
+    if (!(input instanceof HTMLInputElement)) return
 
     if (0 === input.value.length) return
 

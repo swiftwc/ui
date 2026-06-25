@@ -44,7 +44,7 @@ export class SidebarToggle extends HTMLElement {
     if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ measure`)
 
     const { target } = entry ?? {}
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     // set/remove css var/prop to parent based on shown/hidden
     const tv = target.parentElement
@@ -91,7 +91,7 @@ export class SidebarToggle extends HTMLElement {
   #handleClick({ target, type }: Event) {
     if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     if (!target?.closest('button')) return
 

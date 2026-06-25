@@ -33,7 +33,7 @@ export class ToolBarItem extends HTMLElement {
           this,
           (t) => t.closest('tool-bar-item-group') ?? t,
           ({ target }: Event) => {
-            if (!(target instanceof HTMLElement && target)) return true
+            if (!(target instanceof HTMLElement)) return true
 
             if (target.closest('menu-view[open]')) return false
 
@@ -62,7 +62,7 @@ export class ToolBarItem extends HTMLElement {
             ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey)
 
             this.#mutationObserver = new MutationObserver((mutations: MutationRecord[]) => {
-              for (const { target } of mutations) if (target instanceof HTMLElement && target) ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey)
+              for (const { target } of mutations) if (target instanceof HTMLElement) ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey)
             })
 
             this.#mutationObserver.observe(this, {

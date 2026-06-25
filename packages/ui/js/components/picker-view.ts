@@ -132,7 +132,7 @@ export class PickerView extends FormAssociatedBase {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchfocus', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
               bubbles: true,
               composed: true,
             })
@@ -142,7 +142,7 @@ export class PickerView extends FormAssociatedBase {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchblur', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
               bubbles: true,
               composed: true,
             })
@@ -152,7 +152,7 @@ export class PickerView extends FormAssociatedBase {
         if (this.#spawn)
           this.dispatchEvent(
             new CustomEvent<PickerSearchableDetail>('picker:searchinput', {
-              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement && evt.target ? evt.target.value : '' },
+              detail: { element: this.#spawn, search: evt.target instanceof HTMLInputElement ? evt.target.value : '' },
               bubbles: true,
               composed: true,
             })
@@ -167,7 +167,7 @@ export class PickerView extends FormAssociatedBase {
       evt.preventDefault()
 
       const { target } = evt
-      if (!(target instanceof HTMLElement && target)) return
+      if (!(target instanceof HTMLElement)) return
 
       const { component } = new NavigationPath(target)?.hydrate()
 
@@ -213,7 +213,7 @@ export class PickerView extends FormAssociatedBase {
             evt.preventDefault()
 
             const { target } = evt
-            if (!(target instanceof HTMLElement && target)) return
+            if (!(target instanceof HTMLElement)) return
 
             const newPage = this.#spawnPage('body-view', this.hasAttribute('searchable'), el.dataset.label, el)
             if (!newPage) return
@@ -612,7 +612,7 @@ export class PickerView extends FormAssociatedBase {
   #handleTriggerClick = async ({ type, target }: Event) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     this.#spawn?.remove?.()
 
@@ -637,7 +637,7 @@ export class PickerView extends FormAssociatedBase {
     evt.preventDefault()
 
     const { currentTarget: btn } = evt
-    if (!(btn instanceof HTMLElement && btn)) return
+    if (!(btn instanceof HTMLElement)) return
 
     // const btn = target.closest('button')
     // if (!btn) return
@@ -666,7 +666,7 @@ export class PickerView extends FormAssociatedBase {
   #handleClick({ type, target }: Event) {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
 
-    if (!(target instanceof HTMLElement && target)) return
+    if (!(target instanceof HTMLElement)) return
 
     const btn = target.closest('button')
     if (!btn) return
@@ -683,7 +683,7 @@ export class PickerView extends FormAssociatedBase {
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
 
-    if (!(slot instanceof HTMLSlotElement && slot)) return
+    if (!(slot instanceof HTMLSlotElement)) return
 
     const assigned = slot.assignedElements()
 
@@ -696,7 +696,7 @@ export class PickerView extends FormAssociatedBase {
   #handleListSlotchange = ({ type, target: slot }: Event) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
 
-    if (!(slot instanceof HTMLSlotElement && slot)) return
+    if (!(slot instanceof HTMLSlotElement)) return
 
     const assigned = slot.assignedElements()
 

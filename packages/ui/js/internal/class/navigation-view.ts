@@ -22,16 +22,16 @@ export class NavigationView extends HTMLElement {
 
         if (!this.closest('tab-view')) break // tabview stuff
 
+        // trigger show/hide/reveal/swap on NEXT tick
+        // show/hide run on initial render too (show on NEXT tick, is also taken care of on connected on initial render)
         let eventType = this.hasAttribute(name) ? 'tabhide' : 'tabshow',
           target = lifecycleObserver
 
         // isRecent by 100ms window
-        if (this.#recentBefore && performance.now() - this.#recentBefore.time <= 100) {
-          if (this.#recentBefore.type === 'beforetabreveal') {
-            eventType = 'tabreveal'
-            target = this
-          } else if (this.#recentBefore.type === 'beforetabswap') {
-            eventType = 'tabswap'
+        // && performance.now() - this.#recentBefore.time <= 100) {
+        if (this.#recentBefore) {
+          if (['beforetabreveal', 'beforetabswap'].includes(this.#recentBefore.type)) {
+            eventType = this.#recentBefore.type === 'beforetabreveal' ? 'tabreveal' : 'tabswap'
             target = this
           }
 
@@ -41,11 +41,7 @@ export class NavigationView extends HTMLElement {
 
         if (devFlags.debug) console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
-        frame(this).then(() => {
-          // if (!r) return
-
-          target.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true }))
-        })
+        frame(this).then(() => target.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true })))
 
         break
     }
@@ -56,41 +52,37 @@ export class NavigationView extends HTMLElement {
 
     this.#recentBefore = undefined
 
-    // this.removeEventListener('tabreveal', this.#handleTabReveal)
-    if (this.closest('tab-view')) frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
+    // trigger hide on NEXT tick
+    if (!this.closest('tab-view')) return
+
+    frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
   }
 
   connectedCallback() {
-    if (this.closest('tab-view')) {
-      // frame(this).then((r) => {
-      //   if (!r) return
+    if (!this.closest('tab-view')) return
 
-      //   this.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
-      // })
+    // wire befores
+    CleanupRegistry.register(this, onoff('beforetabreveal beforetabswap', this.#handleBeforeTabRevealOrSwap as EventListener, this).on())
 
-      CleanupRegistry.register(this, onoff('beforetabreveal beforetabswap', this.#handleBeforeTabRevealOrSwap as EventListener, this).on())
-    }
+    // trigger show on NEXT tick
+    if (this.hasAttribute('hidden')) return // skip if already rendered by attr-change during upgrade!
 
-    // Snapshot.waitReady.then(async () => {
-    if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
-
-    if (this.closest('tab-view'))
-      frame(this).then(() => {
-        // if (!r) return
-
-        lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
-      })
+    frame(this).then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true })))
   }
 
-  #handleBeforeTabRevealOrSwap = (evt: CustomEvent<TabBeforeDetail>) => {
-    if (devFlags.debug) console.debug(`${NavigationView.name} ⚡️ ${evt?.type}`)
+  #handleBeforeTabRevealOrSwap = ({ type, detail }: CustomEvent<TabBeforeDetail>) => {
+    if (devFlags.debug) console.debug(`${NavigationView.name} ⚡️ ${type}`)
 
-    if (this.id !== evt.detail?.tag) return
+    if (this.id !== detail?.tag) return
 
     this.#recentBefore = {
-      type: evt.type, // beforetabreveal / beforetabswap
+      type, // beforetabreveal / beforetabswap
       time: performance.now(),
     }
+
+    self.queueMicrotask(() => {
+      this.#recentBefore = undefined
+    }) // auto-expire after current task
   }
 
   // #handleTabReveal = (event: CustomEvent<TabDetail>) => {

@@ -542,7 +542,7 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
-    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // will be picked up by attr-change!
+    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // skip if already rendered by attr-change during upgrade!
 
     // finally
     if (!this.hasAttribute('selection')) return

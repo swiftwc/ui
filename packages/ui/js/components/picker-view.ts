@@ -478,41 +478,6 @@ export class PickerView extends FormAssociatedBase {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
   }
 
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ connect`)
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        'localechange',
-        () => {
-          this.#renderSlotted([])
-        },
-        I18n.on
-      ).on()
-    )
-
-    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
-
-    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // will be picked up by attr-change!
-
-    // finally
-    if (!this.hasAttribute('selection')) return
-
-    this.#selection = this.getAttribute('selection') ?? ''
-
-    this.#sendValueToForm(false)
-  }
-
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ disconnect`)
-
-    CleanupRegistry.unregister(this)
-
-    this.#validityObservers.unobserveAll()
-    this.#observers.unobserveAll()
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -550,6 +515,41 @@ export class PickerView extends FormAssociatedBase {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
+
+    this.#validityObservers.unobserveAll()
+    this.#observers.unobserveAll()
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ connect`)
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'localechange',
+        () => {
+          this.#renderSlotted([])
+        },
+        I18n.on
+      ).on()
+    )
+
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
+
+    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // will be picked up by attr-change!
+
+    // finally
+    if (!this.hasAttribute('selection')) return
+
+    this.#selection = this.getAttribute('selection') ?? ''
+
+    this.#sendValueToForm(false)
   }
 
   get pickerStyle(): PickerStyle {

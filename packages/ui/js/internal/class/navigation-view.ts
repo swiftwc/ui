@@ -15,37 +15,6 @@ export class NavigationView extends HTMLElement {
     super()
   }
 
-  disconnectedCallback() {
-    CleanupRegistry.unregister(this)
-
-    this.#recentBefore = undefined
-
-    // this.removeEventListener('tabreveal', this.#handleTabReveal)
-    if (this.closest('tab-view')) frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
-  }
-
-  connectedCallback() {
-    if (this.closest('tab-view')) {
-      // frame(this).then((r) => {
-      //   if (!r) return
-
-      //   this.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
-      // })
-
-      CleanupRegistry.register(this, onoff('beforetabreveal beforetabswap', this.#handleBeforeTabRevealOrSwap as EventListener, this).on())
-    }
-
-    // Snapshot.waitReady.then(async () => {
-    if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
-
-    if (this.closest('tab-view'))
-      frame(this).then(() => {
-        // if (!r) return
-
-        lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
-      })
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     switch (name) {
       case 'hidden':
@@ -80,6 +49,37 @@ export class NavigationView extends HTMLElement {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    CleanupRegistry.unregister(this)
+
+    this.#recentBefore = undefined
+
+    // this.removeEventListener('tabreveal', this.#handleTabReveal)
+    if (this.closest('tab-view')) frame().then(() => lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabhide', { detail: { tag: this.id }, bubbles: true, composed: true })))
+  }
+
+  connectedCallback() {
+    if (this.closest('tab-view')) {
+      // frame(this).then((r) => {
+      //   if (!r) return
+
+      //   this.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      // })
+
+      CleanupRegistry.register(this, onoff('beforetabreveal beforetabswap', this.#handleBeforeTabRevealOrSwap as EventListener, this).on())
+    }
+
+    // Snapshot.waitReady.then(async () => {
+    if (this.hasAttribute('hidden')) return // will be picked up by attr-change!
+
+    if (this.closest('tab-view'))
+      frame(this).then(() => {
+        // if (!r) return
+
+        lifecycleObserver.dispatchEvent(new CustomEvent<TabDetail>('tabshow', { detail: { tag: this.id }, bubbles: true, composed: true }))
+      })
   }
 
   #handleBeforeTabRevealOrSwap = (evt: CustomEvent<TabBeforeDetail>) => {

@@ -56,6 +56,31 @@ export class ScrollView extends HTMLElement {
     })
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    switch (name) {
+      case 'navigation-inline-title':
+        this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
+
+        break
+      case 'navigation-inline-subtitle':
+        this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
+
+        break
+      case 'navigation-title':
+        //
+
+        break
+      case 'navigation-bar-title-display-mode':
+        if (oldValue === newValue) break
+
+        this.#syncSibling(`${oldValue}${newValue}`)
+
+        break
+    }
+  }
+
   disconnectedCallback() {
     if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ disconnect`)
 
@@ -109,31 +134,6 @@ export class ScrollView extends HTMLElement {
     //     this.dispatchEvent(new CustomEvent('resizeend', { bubbles: true, composed: true }))
     //   })
     // })
-  }
-
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
-
-    switch (name) {
-      case 'navigation-inline-title':
-        this.#renderNavTitle(newValue, this.getAttribute('navigation-inline-subtitle'))
-
-        break
-      case 'navigation-inline-subtitle':
-        this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
-
-        break
-      case 'navigation-title':
-        //
-
-        break
-      case 'navigation-bar-title-display-mode':
-        if (oldValue === newValue) break
-
-        this.#syncSibling(`${oldValue}${newValue}`)
-
-        break
-    }
   }
 
   #syncSibling = (comp: string) => {

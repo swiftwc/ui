@@ -4,18 +4,6 @@ export abstract class DialogBase extends HTMLDialogElement {
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
-  disconnectedCallback() {
-    const ctor = this.constructor as typeof DialogBase
-
-    ctor.polyfillDisconnectedCallback(this)
-  }
-
-  connectedCallback() {
-    const ctor = this.constructor as typeof DialogBase
-
-    ctor.polyfillConnectedCallback(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     const ctor = this.constructor as typeof DialogBase
 
@@ -26,6 +14,18 @@ export abstract class DialogBase extends HTMLDialogElement {
     }
 
     ctor.polyfillAttributeChangedCallback([entry])
+  }
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof DialogBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof DialogBase
+
+    ctor.polyfillConnectedCallback(this)
   }
 }
 
@@ -35,18 +35,6 @@ export abstract class InputBase extends HTMLInputElement {
   static polyfillDisconnectedCallback(el: HTMLInputElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
-  disconnectedCallback() {
-    const ctor = this.constructor as typeof InputBase
-
-    ctor.polyfillDisconnectedCallback(this)
-  }
-
-  connectedCallback() {
-    const ctor = this.constructor as typeof InputBase
-
-    ctor.polyfillConnectedCallback(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     const ctor = this.constructor as typeof InputBase
 
@@ -57,6 +45,18 @@ export abstract class InputBase extends HTMLInputElement {
     }
 
     ctor.polyfillAttributeChangedCallback([entry])
+  }
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof InputBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof InputBase
+
+    ctor.polyfillConnectedCallback(this)
   }
 }
 
@@ -66,18 +66,6 @@ export abstract class ButtonBase extends HTMLButtonElement {
   static polyfillDisconnectedCallback(el: HTMLButtonElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
-  disconnectedCallback() {
-    const ctor = this.constructor as typeof ButtonBase
-
-    ctor.polyfillDisconnectedCallback(this)
-  }
-
-  connectedCallback() {
-    const ctor = this.constructor as typeof ButtonBase
-
-    ctor.polyfillConnectedCallback(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     const ctor = this.constructor as typeof ButtonBase
 
@@ -88,6 +76,18 @@ export abstract class ButtonBase extends HTMLButtonElement {
     }
 
     ctor.polyfillAttributeChangedCallback([entry])
+  }
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof ButtonBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof ButtonBase
+
+    ctor.polyfillConnectedCallback(this)
   }
 }
 
@@ -97,18 +97,6 @@ export abstract class DetailsBase extends HTMLDetailsElement {
   static polyfillDisconnectedCallback(el: HTMLDetailsElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
-  disconnectedCallback() {
-    const ctor = this.constructor as typeof DetailsBase
-
-    ctor.polyfillDisconnectedCallback(this)
-  }
-
-  connectedCallback() {
-    const ctor = this.constructor as typeof DetailsBase
-
-    ctor.polyfillConnectedCallback(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     const ctor = this.constructor as typeof DetailsBase
 
@@ -119,6 +107,18 @@ export abstract class DetailsBase extends HTMLDetailsElement {
     }
 
     ctor.polyfillAttributeChangedCallback([entry])
+  }
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof DetailsBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof DetailsBase
+
+    ctor.polyfillConnectedCallback(this)
   }
 }
 
@@ -128,18 +128,6 @@ export abstract class FormBase extends HTMLFormElement {
   static polyfillDisconnectedCallback(el: HTMLFormElement) {}
   static polyfillAttributeChangedCallback(entries: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {} //MutationRecord[]) {}
 
-  disconnectedCallback() {
-    const ctor = this.constructor as typeof FormBase
-
-    ctor.polyfillDisconnectedCallback(this)
-  }
-
-  connectedCallback() {
-    const ctor = this.constructor as typeof FormBase
-
-    ctor.polyfillConnectedCallback(this)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     const ctor = this.constructor as typeof FormBase
 
@@ -150,5 +138,17 @@ export abstract class FormBase extends HTMLFormElement {
     }
 
     ctor.polyfillAttributeChangedCallback([entry])
+  }
+
+  disconnectedCallback() {
+    const ctor = this.constructor as typeof FormBase
+
+    ctor.polyfillDisconnectedCallback(this)
+  }
+
+  connectedCallback() {
+    const ctor = this.constructor as typeof FormBase
+
+    ctor.polyfillConnectedCallback(this)
   }
 }

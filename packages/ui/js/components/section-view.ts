@@ -45,6 +45,31 @@ export class SectionView extends HTMLElement {
     // })
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    // Snapshot.waitReady.then(() => {
+    switch (name) {
+      case 'header':
+        let header = this.querySelector(':scope>[slot=header]')
+        if (newValue) {
+          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`, '>1'))
+          header.querySelector('label-view')?.setAttribute('title', newValue)
+        } else header?.remove()
+
+        break
+      case 'footer':
+        let footer = this.querySelector(':scope>[slot=footer]')
+        if (newValue) {
+          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`, '>1'))
+          footer.querySelector('label-view')?.setAttribute('title', newValue)
+        } else footer?.remove()
+
+        break
+    }
+    // })
+  }
+
   disconnectedCallback() {
     if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ disconnect`)
 
@@ -70,31 +95,6 @@ export class SectionView extends HTMLElement {
     // })
     // if (this.#sentinel) this.#observer.observe(this.#sentinel)
     // this.#observer.observe(this)
-    // })
-  }
-
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
-
-    // Snapshot.waitReady.then(() => {
-    switch (name) {
-      case 'header':
-        let header = this.querySelector(':scope>[slot=header]')
-        if (newValue) {
-          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`, '>1'))
-          header.querySelector('label-view')?.setAttribute('title', newValue)
-        } else header?.remove()
-
-        break
-      case 'footer':
-        let footer = this.querySelector(':scope>[slot=footer]')
-        if (newValue) {
-          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`, '>1'))
-          footer.querySelector('label-view')?.setAttribute('title', newValue)
-        } else footer?.remove()
-
-        break
-    }
     // })
   }
 

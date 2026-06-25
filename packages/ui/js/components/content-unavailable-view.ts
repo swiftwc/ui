@@ -57,14 +57,6 @@ export class ContentUnavailableView extends HTMLElement {
     } as const
   }
 
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ disconnect`)
-  }
-
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ connect`)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -90,6 +82,14 @@ export class ContentUnavailableView extends HTMLElement {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ disconnect`)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ connect`)
   }
 
   #renderSearch = (search: string | null) => {

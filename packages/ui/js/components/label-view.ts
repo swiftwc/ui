@@ -33,14 +33,6 @@ export class LabelView extends HTMLElement {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template, true))
   }
 
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ disconnect`)
-  }
-
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -62,5 +54,13 @@ export class LabelView extends HTMLElement {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ disconnect`)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
   }
 }

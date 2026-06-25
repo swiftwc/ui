@@ -9,18 +9,6 @@ export class NavigationStack extends NavigationView {
     super()
   }
 
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ disconnect`)
-
-    super.disconnectedCallback()
-  }
-
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ connect`)
-
-    super.connectedCallback()
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -33,5 +21,17 @@ export class NavigationStack extends NavigationView {
         break
     }
     // })
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ disconnect`)
+
+    super.disconnectedCallback()
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ connect`)
+
+    super.connectedCallback()
   }
 }

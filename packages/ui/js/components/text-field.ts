@@ -100,23 +100,6 @@ export class TextField extends FormAssociatedBase {
     )
   }
 
-  connectedCallback() {
-    super.connectedCallback()
-
-    // finally
-    if (!this.hasAttribute('text')) return
-
-    this.text = this.getAttribute('text') ?? '' // this.#input.value = this.getAttribute('text') ?? ''
-
-    this.#sendValueToForm(false)
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback()
-
-    this.#validityObservers.unobserveAll()
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -242,6 +225,23 @@ export class TextField extends FormAssociatedBase {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+
+    this.#validityObservers.unobserveAll()
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    // finally
+    if (!this.hasAttribute('text')) return
+
+    this.text = this.getAttribute('text') ?? '' // this.#input.value = this.getAttribute('text') ?? ''
+
+    this.#sendValueToForm(false)
   }
 
   get keyboardType(): KeyboardType {

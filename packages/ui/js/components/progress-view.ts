@@ -81,26 +81,6 @@ export class ProgressView extends HTMLElement {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
   }
 
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ disconnect`)
-
-    CleanupRegistry.unregister(this)
-  }
-
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ connect`)
-
-    this.inert = true
-
-    this.#cssStyleObserver = new CSSStyleObserver({
-      properties: ['--progress-view-style-index'],
-    })
-
-    this.#cssStyleObserver.observe(this, this.#handleStyleChange)
-
-    Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange))
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -123,6 +103,26 @@ export class ProgressView extends HTMLElement {
         break
       }
     }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ connect`)
+
+    this.inert = true
+
+    this.#cssStyleObserver = new CSSStyleObserver({
+      properties: ['--progress-view-style-index'],
+    })
+
+    this.#cssStyleObserver.observe(this, this.#handleStyleChange)
+
+    Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange))
   }
 
   #handleStyleChange = () => {

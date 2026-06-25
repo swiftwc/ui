@@ -90,39 +90,6 @@ export class DatePicker extends FormAssociatedBase {
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
   }
 
-  connectedCallback() {
-    super.connectedCallback()
-
-    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
-
-    this.#render()
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        'localechange',
-        () => {
-          this.#render()
-        },
-        I18n.on
-      ).on()
-    )
-
-    // finally
-    if (!this.hasAttribute('selection')) return
-
-    const [y = '', m = '', d = ''] = (this.getAttribute('selection') ?? '').split(/\D+/)
-    this.#selectedDate = { year: y, month: m, day: d }
-
-    this.#sendValueToForm(false)
-  }
-
-  disconnectedCallback() {
-    super.disconnectedCallback()
-
-    this.#validityObservers.unobserveAll()
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -166,6 +133,39 @@ export class DatePicker extends FormAssociatedBase {
 
         break
     }
+  }
+
+  disconnectedCallback() {
+    super.disconnectedCallback()
+
+    this.#validityObservers.unobserveAll()
+  }
+
+  connectedCallback() {
+    super.connectedCallback()
+
+    CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
+
+    this.#render()
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'localechange',
+        () => {
+          this.#render()
+        },
+        I18n.on
+      ).on()
+    )
+
+    // finally
+    if (!this.hasAttribute('selection')) return
+
+    const [y = '', m = '', d = ''] = (this.getAttribute('selection') ?? '').split(/\D+/)
+    this.#selectedDate = { year: y, month: m, day: d }
+
+    this.#sendValueToForm(false)
   }
 
   get datePickerStyle(): DatePickerStyle {

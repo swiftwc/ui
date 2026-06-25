@@ -29,18 +29,18 @@ export class NavigationTitle extends HTMLElement {
     super()
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    this.#render(this.getAttribute('value'), this.getAttribute('subtitle'))
+  }
+
   disconnectedCallback() {
     if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
     if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ connect`)
-  }
-
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
-
-    this.#render(this.getAttribute('value'), this.getAttribute('subtitle'))
   }
 
   #render = (title: string | null, subtitle: string | null) => {

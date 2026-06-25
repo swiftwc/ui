@@ -39,6 +39,53 @@ export class MenuView extends HTMLElement {
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template, true))
   }
 
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    switch (name) {
+      case 'open':
+        if (!this.#dialog) break
+
+        this.#dialog.inert = null === newValue
+
+        if (null === newValue && this.#dialog.open) {
+          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-close`)
+
+          this.setAttribute('closing', '')
+
+          Promise.allSettled(this.#dialog.getAnimations().map(({ finished }) => finished)).then(() => {
+            if (!this.hasAttribute('closing')) return
+
+            this.#dialog?.close()
+
+            this.removeAttribute('closing')
+          })
+        }
+
+        if ('' === newValue && !this.#dialog.open) {
+          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-open`)
+
+          this.removeAttribute('closing')
+
+          const form = this.#shadowRoot.querySelector<HTMLFormElement>('form')!
+
+          form.scrollTop = 0
+
+          this.#dialog.showModal()
+        }
+
+        break
+      case 'label':
+        let label = this.querySelector(':scope>[slot=label]')
+        if (newValue) {
+          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+          label.setAttribute('title', newValue)
+        } else label?.remove()
+
+        break
+    }
+  }
+
   disconnectedCallback() {
     if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ disconnect`)
 
@@ -107,53 +154,6 @@ export class MenuView extends HTMLElement {
 
     summaryPart?.style.setProperty('anchor-name', newAnchorName, 'important') // override unset:all // $.prop('anchor-name', newAnchorName, summaryPart, 'important') //
     dialogPart?.style.setProperty('position-anchor', newAnchorName) // $.prop('position-anchor', newAnchorName, dialogPart) //
-  }
-
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
-
-    switch (name) {
-      case 'open':
-        if (!this.#dialog) break
-
-        this.#dialog.inert = null === newValue
-
-        if (null === newValue && this.#dialog.open) {
-          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-close`)
-
-          this.setAttribute('closing', '')
-
-          Promise.allSettled(this.#dialog.getAnimations().map(({ finished }) => finished)).then(() => {
-            if (!this.hasAttribute('closing')) return
-
-            this.#dialog?.close()
-
-            this.removeAttribute('closing')
-          })
-        }
-
-        if ('' === newValue && !this.#dialog.open) {
-          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-open`)
-
-          this.removeAttribute('closing')
-
-          const form = this.#shadowRoot.querySelector<HTMLFormElement>('form')!
-
-          form.scrollTop = 0
-
-          this.#dialog.showModal()
-        }
-
-        break
-      case 'label':
-        let label = this.querySelector(':scope>[slot=label]')
-        if (newValue) {
-          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-          label.setAttribute('title', newValue)
-        } else label?.remove()
-
-        break
-    }
   }
 
   #handleDialogClick: EventListener = ({ type, target }: Event) => {

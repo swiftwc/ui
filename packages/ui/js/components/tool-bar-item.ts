@@ -15,36 +15,6 @@ export class ToolBarItem extends HTMLElement {
     super()
   }
 
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
-
-    this.#mutationObserver?.disconnect()
-
-    CleanupRegistry.unregister(this)
-  }
-
-  connectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ connect`)
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        touchGlass(
-          this,
-          (t) => t.closest('tool-bar-item-group') ?? t,
-          ({ target }: Event) => {
-            if (!(target instanceof HTMLElement)) return true
-
-            if (target.closest('menu-view[open]')) return false
-
-            return true
-          }
-        ),
-        this
-      ).on()
-    )
-  }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
@@ -73,5 +43,35 @@ export class ToolBarItem extends HTMLElement {
         break
       }
     }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
+
+    this.#mutationObserver?.disconnect()
+
+    CleanupRegistry.unregister(this)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ connect`)
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        touchGlass(
+          this,
+          (t) => t.closest('tool-bar-item-group') ?? t,
+          ({ target }: Event) => {
+            if (!(target instanceof HTMLElement)) return true
+
+            if (target.closest('menu-view[open]')) return false
+
+            return true
+          }
+        ),
+        this
+      ).on()
+    )
   }
 }

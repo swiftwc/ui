@@ -2,13 +2,6 @@ import { microtaskOnConnected } from '../internal/decorators'
 import { $, devFlags } from '../internal/utils'
 import type { ScrollView } from './scroll-view'
 
-// const _sync = Symbol('sync')
-// @microtaskOnConnected((el) => (el as NavigationTitle)[_sync]())
-// attributeChangedCallback fires
-//   → originalAttrChanged (your #render) runs synchronously  ✅
-//   → schedule() queues microtask
-//     → microtask flush: syncToScrollView runs with already-updated attrs ✅
-
 @microtaskOnConnected<NavigationTitle>((el) => {
   const sibling = el.closest<ScrollView>('scroll-view'),
     value = el.getAttribute('value'),

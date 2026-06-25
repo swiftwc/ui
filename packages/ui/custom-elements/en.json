@@ -858,7 +858,7 @@
           "customElement": true,
           "name": "NavigationTitle",
           "tagName": "navigation-title",
-          "description": "",
+          "description": "// const _sync = Symbol('sync')",
           "superclass": {
             "name": "HTMLElement"
           },

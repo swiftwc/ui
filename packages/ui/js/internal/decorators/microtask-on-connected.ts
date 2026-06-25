@@ -36,6 +36,12 @@ class() {
     this.#render(this.getAttribute('value'), this.getAttribute('subtitle'))
   }
  */
+// const _sync = Symbol('sync')
+// @microtaskOnConnected((el) => (el as NavigationTitle)[_sync]())
+// attributeChangedCallback fires
+//   → originalAttrChanged (your #render) runs synchronously  ✅
+//   → schedule() queues microtask
+//     → microtask flush: syncToScrollView runs with already-updated attrs ✅
 export default function <T extends HTMLElement>(fn: (el: T) => void) {
   return function <C extends CustomElementConstructor>(Base: C, _context?: ClassDecoratorContext<C>): void {
     const originalConnected = Base.prototype.connectedCallback,

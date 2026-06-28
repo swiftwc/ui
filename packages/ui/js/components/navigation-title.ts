@@ -37,19 +37,23 @@ export class NavigationTitle extends HTMLElement {
   }
 
   #render = (title: string | null, subtitle: string | null) => {
-    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`,
-      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"></label-view>`,
+    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
+      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`,
       vStactTemplate = `<v-stack spacing="0" alignment="fill">${titleTemplate}${subtitleTemplate}</v-stack>`
 
     const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
       vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
 
-    const titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)') ?? vStack.appendChild($(titleTemplate, '>1'))
-    if (title) titleLabel.setAttribute('title', title)
-    else titleLabel?.removeAttribute('title')
+    const titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)') ?? vStack.appendChild($(titleTemplate, '>1')),
+      titleSpan = titleLabel.querySelector(':scope>span') ?? titleLabel.appendChild($(`<span></span>`, '>1'))
+    if (title)
+      titleSpan.textContent = title //titleLabel.setAttribute('title', title)
+    else titleSpan.remove() //titleLabel?.removeAttribute('title')
 
-    const subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)') ?? vStack.appendChild($(subtitleTemplate, '>1'))
-    if (subtitle) subtitleLabel.setAttribute('title', subtitle)
-    else subtitleLabel?.removeAttribute('title')
+    const subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)') ?? vStack.appendChild($(subtitleTemplate, '>1')),
+      subtitleSpan = subtitleLabel.querySelector(':scope>span') ?? subtitleLabel.appendChild($(`<span></span>`, '>1'))
+    if (subtitle)
+      subtitleLabel.textContent = title //subtitleLabel.setAttribute('title', subtitle)
+    else subtitleSpan.remove() //subtitleLabel?.removeAttribute('title')
   }
 }

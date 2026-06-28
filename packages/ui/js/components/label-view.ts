@@ -36,6 +36,8 @@ export class LabelView extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
+    if (oldValue === newValue) return
+
     switch (name) {
       case 'system-image':
         let image = this.querySelector(':scope>[slot=icon]')

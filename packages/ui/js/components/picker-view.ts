@@ -731,8 +731,8 @@ export class PickerView extends FormAssociatedBase {
 
     // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
 
-    const label = $(`<label-view></label-view>`, '>1')
-    label.setAttribute('title', extractCurrentValueFromOption(node))
+    const label = $(`<label-view><span></span></label-view>`, '>1')
+    label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
 
     hStack?.appendChild(label)
 

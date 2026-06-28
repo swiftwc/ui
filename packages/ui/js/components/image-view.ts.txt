@@ -26,13 +26,15 @@ export class ImageView extends HTMLElement {
 
     switch (name) {
       case 'system-image':
-        if (oldValue === newValue) return
+        if (oldValue === newValue) break
 
-        let image = this.querySelector(':scope>:not([slot])')
-        if (newValue) {
-          image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
-          image.setAttribute('class', `ph ph-${newValue}`)
-        } else image?.remove()
+        this.innerHTML = `<i slot="icon" style="line-height: 1.05" class="ph ph-${newValue}"></i>`
+
+        // let image = this.querySelector(':scope>:not([slot])')
+        // if (newValue) {
+        //   image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
+        //   image.setAttribute('class', `ph ph-${newValue}`)
+        // } else image?.remove()
 
         break
     }

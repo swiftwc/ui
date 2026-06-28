@@ -792,13 +792,13 @@
     background-color: var(--quaternary);
     transform: translateY(-50%) translateX(120%);
   }
-  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image],
-  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=image]) {
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon], [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon], list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon],
+  list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) [is=disclosure-group] > :not([slot], section-view, [is=disclosure-group], picker-view, menu-view, menu-view *, whatever-name):is(label-view[list-item-tint])[list-item-tint] > [slot=icon]) {
     color: var(--accentColor);
   }
 }
@@ -2578,15 +2578,15 @@
       --safe-area-inset-bottom: 0px;
     }
   }
-  :where(tool-bar > [slot^=top-bar-] > button:has(> label-view > [slot=image]),
-  tool-bar > [slot=cancellation-action] > button:has(> label-view > [slot=image]),
-  tool-bar > [slot=primary-action] > button:has(> label-view > [slot=image]),
-  tool-bar > [slot=confirmation-action] > button:has(> label-view > [slot=image]),
-  tool-bar > [slot=destructive-action] > button:has(> label-view > [slot=image])) {
+  :where(tool-bar > [slot^=top-bar-] > button:has(> label-view > [slot=icon]),
+  tool-bar > [slot=cancellation-action] > button:has(> label-view > [slot=icon]),
+  tool-bar > [slot=primary-action] > button:has(> label-view > [slot=icon]),
+  tool-bar > [slot=confirmation-action] > button:has(> label-view > [slot=icon]),
+  tool-bar > [slot=destructive-action] > button:has(> label-view > [slot=icon])) {
     --label-style: icon-only;
   }
   @media (pointer: coarse) {
-    :where(tool-bar > [slot^=bottom-bar-] > button:has(> label-view > [slot=image])) {
+    :where(tool-bar > [slot^=bottom-bar-] > button:has(> label-view > [slot=icon])) {
       --label-style: icon-only;
     }
   }
@@ -2617,7 +2617,7 @@
     --label-imagestack-fontsize: calc(var(--label-image-size) * 1rem);
     white-space: var(--label--host-white-space, );
   }
-  :where(label-view:has(> [slot=image])) {
+  :where(label-view:has(> [slot=icon])) {
     --label--has-icon: yes;
   }
   :where(label-view:has(> :not([slot]))) {
@@ -2636,7 +2636,7 @@
     font-weight: var(--label--titlestack-font-weight, );
     display: var(--label--titlestack-display, none);
   }
-  label-view > [slot=image] {
+  label-view > [slot=icon] {
     aspect-ratio: 1/1;
     inline-size: var(--label-imagestack-fontsize);
     block-size: var(--label-imagestack-fontsize);
@@ -2724,7 +2724,7 @@
       --label--titlestack-display: grid;
     }
     @container not style(--label-style) {
-      :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
+      :where(label-view:not([label-style]):has(> [slot=icon]):has(> :not([slot]))) {
         --label-style: title-and-icon;
         --label--host-grid-template-columns: auto minmax(0, 1fr);
         --label--host-grid-template-rows: minmax(0, 1fr);
@@ -2733,13 +2733,13 @@
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
-      :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
+      :where(label-view:not([label-style]):has(> [slot=icon]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
         --label--host-align-items: center;
         --label--host-justify-items: normal;
         --label--iconstack-display: grid;
       }
-      :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
+      :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=icon]))) {
         --label-style: title-only;
         --label--host-align-items: center;
         --label--host-justify-items: normal;
@@ -2797,7 +2797,7 @@
       }
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
-      :where(label-view:not([label-style]):has(> [slot=image]):has(> :not([slot]))) {
+      :where(label-view:not([label-style]):has(> [slot=icon]):has(> :not([slot]))) {
         --label-style: title-and-icon;
         --label--host-grid-template-columns: minmax(0, 1fr);
         --label--host-grid-template-rows: auto minmax(0, 1fr);
@@ -2806,13 +2806,13 @@
         --label--iconstack-display: grid;
         --label--titlestack-display: grid;
       }
-      :where(label-view:not([label-style]):has(> [slot=image]):not(:has(> :not([slot])))) {
+      :where(label-view:not([label-style]):has(> [slot=icon]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
         --label--host-align-items: normal;
         --label--host-justify-items: center;
         --label--iconstack-display: grid;
       }
-      :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=image]))) {
+      :where(label-view:not([label-style]):has(> :not([slot])):not(:has(> [slot=icon]))) {
         --label-style: title-only;
         --label--host-align-items: normal;
         --label--host-justify-items: center;

@@ -10,7 +10,7 @@ export class LabelView extends HTMLElement {
   static get template() {
     return (this.#template ??= $(
       String.raw`
-    <slot name="image"></slot>
+    <slot name="icon"></slot>
     <slot></slot>
     `
       //     String.raw`
@@ -38,9 +38,9 @@ export class LabelView extends HTMLElement {
 
     switch (name) {
       case 'system-image':
-        let image = this.querySelector(':scope>[slot=image]')
+        let image = this.querySelector(':scope>[slot=icon]')
         if (newValue) {
-          image ??= this.appendChild($(`<i slot="image" style="line-height: 1.05"></i>`, '>1'))
+          image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
           image.setAttribute('class', `ph ph-${newValue}`)
         } else image?.remove()
 

@@ -9,9 +9,9 @@ import { $, devFlags, onoff } from '../internal/utils'
  *
  * @example <content-unavailable-view search="foo"></content-unavailable-view>
  *
- * @example <content-unavailable-view padding><label-view title="No Mail"><i class="ph ph-tray" slot="image" foreground="secondary"></i></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
+ * @example <content-unavailable-view padding><label-view title="No Mail"><i class="ph ph-tray" slot="icon" foreground="secondary"></i></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
  *
- * @example <content-unavailable-view padding><label-view title="No Mail"><svg slot="image" foreground="secondary" ...>...</svg></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
+ * @example <content-unavailable-view padding><label-view title="No Mail"><svg slot="icon" foreground="secondary" ...>...</svg></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
  *
  * @slot description
  * @slot actions
@@ -93,7 +93,7 @@ export class ContentUnavailableView extends HTMLElement {
   }
 
   #renderSearch = (search: string | null) => {
-    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<label-view><i class="ph ph-magnifying-glass" slot="image" foreground="secondary"></i></label-view>`, '>1')),
+    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<label-view><i class="ph ph-magnifying-glass" slot="icon" foreground="secondary"></i></label-view>`, '>1')),
       descText = this.querySelector(':scope>[slot=description]') ?? this.appendChild($(`<label-view foreground="secondary" slot="description"></label-view>`, '>1'))
 
     if (search) {

@@ -174,7 +174,7 @@ $label-line-ifs: (
       white-space: var(--label--host-white-space,);
     }
 
-    &:has(> [slot='image']) {
+    &:has(> [slot='icon']) {
       :where(&) {
         --label--has-icon: yes;
         // background-color: green;
@@ -213,7 +213,7 @@ $label-line-ifs: (
       }
     }
 
-    > [slot='image'] {
+    > [slot='icon'] {
       aspect-ratio: 1 / 1;
 
       inline-size: var(--label-imagestack-fontsize);
@@ -286,13 +286,13 @@ $label-line-ifs: (
       }
       @container not style(--label-style) {
         &:not([label-style]) {
-          :where(&:has(> [slot='image']):has(> :not([slot]))) {
+          :where(&:has(> [slot='icon']):has(> :not([slot]))) {
             @include set-label-style(h-title-and-icon);
           }
-          :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
+          :where(&:has(> [slot='icon']):not(:has(> :not([slot])))) {
             @include set-label-style(h-icon-only);
           }
-          :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
+          :where(&:has(> :not([slot])):not(:has(> [slot='icon']))) {
             @include set-label-style(h-title-only);
           }
         }
@@ -314,13 +314,13 @@ $label-line-ifs: (
       }
       @container (not style(--label-style)) and style(--label-flow: vertical) {
         &:not([label-style]) {
-          :where(&:has(> [slot='image']):has(> :not([slot]))) {
+          :where(&:has(> [slot='icon']):has(> :not([slot]))) {
             @include set-label-style(v-title-and-icon);
           }
-          :where(&:has(> [slot='image']):not(:has(> :not([slot])))) {
+          :where(&:has(> [slot='icon']):not(:has(> :not([slot])))) {
             @include set-label-style(v-icon-only);
           }
-          :where(&:has(> :not([slot])):not(:has(> [slot='image']))) {
+          :where(&:has(> :not([slot])):not(:has(> [slot='icon']))) {
             @include set-label-style(v-title-only);
           }
         }

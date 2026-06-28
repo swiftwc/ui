@@ -505,7 +505,7 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
       //   }
       // }
       &:is(label-view[list-item-tint]) {
-        :where(&[list-item-tint] > [slot='image']) {
+        :where(&[list-item-tint] > [slot='icon']) {
           color: var(--accentColor);
         }
       }

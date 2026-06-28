@@ -117,7 +117,7 @@
     > [slot='confirmation-action'],
     > [slot='destructive-action'] {
       // > label-view,
-      > button:has(> label-view > [slot='image']) {
+      > button:has(> label-view > [slot='icon']) {
         :where(&) {
           --label-style: icon-only;
         }
@@ -126,7 +126,7 @@
     // NOTE: By default bottom bar items with icons on iphone, prefer only icon to be shown, (except if they define/force w/ labelStyle)
     @media (pointer: coarse) {
       > [slot^='bottom-bar-'] {
-        > button:has(> label-view > [slot='image']) {
+        > button:has(> label-view > [slot='icon']) {
           :where(&) {
             --label-style: icon-only;
           }

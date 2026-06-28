@@ -1,0 +1,48 @@
+import { $, devFlags } from '../internal/utils'
+
+export class ImageView extends HTMLElement {
+  static get observedAttributes() {
+    return ['system-name']
+  }
+
+  static #template: DocumentFragment
+
+  static get template() {
+    return (this.#template ??= $(String.raw`<slot></slot>`))
+  }
+
+  #shadowRoot
+
+  constructor() {
+    super()
+
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ImageView).template, true))
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    switch (name) {
+      case 'system-image':
+        if (oldValue === newValue) return
+
+        let image = this.querySelector(':scope>:not([slot])')
+        if (newValue) {
+          image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
+          image.setAttribute('class', `ph ph-${newValue}`)
+        } else image?.remove()
+
+        break
+    }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ disconnect`)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ connect`)
+  }
+}

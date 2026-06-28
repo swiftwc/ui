@@ -585,6 +585,49 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/image-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ImageView",
+          "tagName": "image-view",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "system-name"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ImageView",
+          "declaration": {
+            "name": "ImageView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "image-view",
+          "declaration": {
+            "name": "ImageView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/label-view.ts",
       "declarations": [
         {

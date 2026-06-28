@@ -167,6 +167,14 @@
       ]
     },
     {
+      "name": "image-view",
+      "attributes": [
+        {
+          "name": "system-name"
+        }
+      ]
+    },
+    {
       "name": "label-view",
       "attributes": [
         {

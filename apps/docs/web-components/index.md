@@ -28,6 +28,8 @@
 
 #### [GlassProminentButton](/web-components/glass-prominent-button.md)
 
+#### [ImageView](/web-components/image-view.md)
+
 #### [LabelView](/web-components/label-view.md)
 
 #### [ListView](/web-components/list-view.md)

@@ -6,13 +6,15 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff, renderLabel, renderLabelIcon, renderLabelTitle } from '../internal/utils'
-import type { LabelView } from './label-view'
+import { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
+  if (devFlags.debug) console.debug(`PickerView: update`)
+
   if (!(path instanceof NavigationPath)) throw new Error('invalid view')
 
   const { component, page } = path
@@ -25,6 +27,8 @@ const update = (path: NavigationPath, node: Element, overwrite = true) => {
 }
 
 const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
+  if (devFlags.debug) console.debug(`PickerView: reflectSpawnedElement`)
+
   const { page: oldSv, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
     { page: newSv, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
 
@@ -76,10 +80,14 @@ const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
 }
 
 const extractTagFromOption = (node: HTMLOptionElement) => {
+  if (devFlags.debug) console.debug(`PickerView: extractTagFromOption`)
+
   return ((node.getAttribute('value') ?? node.textContent?.trim()) || node.getAttribute('label')) ?? ''
 }
 
 const extractCurrentValueFromOption = (node: HTMLOptionElement) => {
+  if (devFlags.debug) console.debug(`PickerView: extractCurrentValueFromOption`)
+
   return (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || ''
 }
 
@@ -104,6 +112,8 @@ export class PickerView extends FormAssociatedBase {
   #spawn?: HTMLElement
 
   #spawnPage = (tag: 'body-view' | 'sheet-view', searchable: boolean = false, title?: string | null, node?: Element) => {
+    if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
+
     const body = $<HTMLElement>(
         `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="caret-left"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
         '>1'
@@ -245,11 +255,13 @@ export class PickerView extends FormAssociatedBase {
       case 'sheet':
       case 'navigation-link': {
         // current value label only
-        const currentValueLabel = this.querySelector(':scope>label-view:not([slot])') ?? this.appendChild($(`<label-view></label-view>`, '>1'))
+        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? this.appendChild<LabelView>($(`<label-view></label-view>`, '>1'))
 
         // reset state
-        currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
+        if (currentValueLabel) {
+          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
+          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
+        }
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -289,10 +301,12 @@ export class PickerView extends FormAssociatedBase {
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (menu !== el) el.remove()
 
-        const currentValueLabel = menu.querySelector(':scope>label-view[slot=label]') ?? menu.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+        const currentValueLabel = menu.querySelector<LabelView>(':scope>label-view[slot=label]') ?? menu.appendChild<LabelView>($(`<label-view slot="label"></label-view>`, '>1'))
 
-        currentValueLabel.setAttribute('system-image', 'dots-three') // overwritten
-        currentValueLabel.setAttribute('title', this.#currentValueLabel) // overwritten
+        if (currentValueLabel) {
+          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
+          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
+        }
 
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
 
@@ -724,6 +738,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {
+    if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptionTag`)
+
     const btn = $(
         `<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check"><image-view slot="icon" system-name="check"></image-view></label-view></h-stack></button>`,
         '>1'
@@ -744,6 +760,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptgroupTag(node: HTMLOptGroupElement) {
+    if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptgroupTag`)
+
     const labelT = `<label-view></label-view>`,
       summaryT = `<summary>${labelT}</summary>`
 
@@ -759,6 +777,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #reflectButtons(nodes: Element[], container: Element) {
+    if (devFlags.debug) console.debug(`${PickerView.name} #reflectButtons`)
+
     for (const node of nodes)
       switch (node.tagName) {
         case 'DATALIST': {
@@ -794,6 +814,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectPlaceholder(value: string | null) {
+    if (devFlags.debug) console.debug(`#reflectPlaceholder`)
+
     const input = this.#shadowRoot.querySelector('input')
     if (input) {
       if (value) input.setAttribute('placeholder', value)
@@ -802,12 +824,16 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectLabel(value: string | null) {
+    if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
+
     renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, value)
 
     this.#renderSlotted([])
   }
 
   #reflectSelectionOnButtons() {
+    if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
+
     // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
     for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
       el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
@@ -833,6 +859,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectCurrentValueLabel() {
+    if (devFlags.debug) console.debug(`${PickerView.name} #reflectCurrentValueLabel`)
+
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {

@@ -567,7 +567,7 @@ document.body.addEventListener('click', async (event) => {
                         
                         
                         <picker-view picker-style="menu">
-                        <label-view slot="label" system-image="dots-three"><span>rtyty</span></label-view>
+                        <label-view slot="label"><image-view slot="icon" system-name="dots-three"></image-view><span>rtyty</span></label-view>
                         <option slot="list" value="rty0%"></option>
                         <option slot="list" value="rtyMinimum Tip"></option>
                         <option slot="list" value="rtyStandard"></option>
@@ -583,10 +583,10 @@ document.body.addEventListener('click', async (event) => {
                       <label-view slot="bottom-bar-principal"><span>ghjh${controller.querySelectorAll('scroll-view').length}</span></label-view>
                     </scroll-view>
                     <tool-bar>
-                      <tool-bar-item tint="red" slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="smiley"></label-view></button></tool-bar-item>
+                      <tool-bar-item tint="red" slot="top-bar-leading"><button type="button" tabindex="0"><label-view><image-view slot="icon" system-name="smiley"></image-view></label-view></button></tool-bar-item>
 
-                      <!--
-                      <tool-bar-item tint="red" slot="top-bar-leading"><picker-view picker-style="menu"><option value="0" label="00%" slot="list"></option><option value="10" label="0Minimum Tip" slot="list"></option><option value="20" label="0Standard" slot="list"></option><option value="30" label="0Generous" slot="list"></option><option value="50" label="0Very Generous" slot="list"></option></picker-view></tool-bar-item>
+                      
+                      <tool-bar-item tint="red" slot="top-bar-leading"><picker-view picker-style="menu"><option value="0" label="00%" slot="list"></option><option value="10" label="0Minimum Tip" slot="list"></option><option value="20" label="0Standard" slot="list"></option><option value="30" label="0Generous" slot="list"></option><option value="50" label="0Very Generous" slot="list"></option></picker-view></tool-bar-item><!---->
 
                       <tool-bar-item tint="red" slot="top-bar-leading">
                       <menu-view tabindex="0" tint="red"><label-view system-image="smiley" slot="label"></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button>
@@ -621,7 +621,7 @@ document.body.addEventListener('click', async (event) => {
                       <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item>
                       <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${controller.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
                       <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${controller.querySelectorAll('scroll-view').length}"></tool-bar-item>
-                      -->
+                      <!---->
                     </tool-bar>
                   </${tag}>
                   `

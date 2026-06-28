@@ -5,7 +5,8 @@ import { FormAssociatedBase, getInternals } from '../internal/class/form-associa
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
-import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import { $, devFlags, kebabCase, onoff, renderLabel, renderLabelIcon, renderLabelTitle } from '../internal/utils'
+import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
@@ -723,7 +724,10 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptionTag(node: HTMLOptionElement) {
-    const btn = $(`<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view system-image="check"></label-view></h-stack></button>`, '>1'),
+    const btn = $(
+        `<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check"><image-view slot="icon" system-name="check"></image-view></label-view></h-stack></button>`,
+        '>1'
+      ),
       hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
     // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
 
@@ -798,12 +802,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectLabel(value: string | null) {
-    let label = this.querySelector(':scope>label-view[slot=label]')
-    if (value) {
-      label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-      label.setAttribute('foreground', 'secondary')
-      label.setAttribute('title', value)
-    } else label?.remove()
+    renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, value)
 
     this.#renderSlotted([])
   }
@@ -811,12 +810,12 @@ export class PickerView extends FormAssociatedBase {
   #reflectSelectionOnButtons() {
     // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
     for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-      el.querySelector<HTMLElement>('label-view[system-image="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+      el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
     // also sync the spawn (sheet/navigation) if open
     if (this.#spawn)
       for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
-        el.querySelector<HTMLElement>('label-view[system-image="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+        el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
   }
 
   get #currentTag() {
@@ -837,18 +836,20 @@ export class PickerView extends FormAssociatedBase {
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {
-        const currentValueLabel = this.querySelector(':scope>label-view:not([slot])')
+        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])')
+        if (!currentValueLabel) break
 
-        currentValueLabel?.setAttribute('system-image', 'dots-three')
-        currentValueLabel?.setAttribute('title', this.#currentValueLabel)
+        renderLabelTitle(currentValueLabel, this.#currentValueLabel)
+        renderLabelIcon(currentValueLabel, 'dots-three')
 
         break
       }
       case 'menu': {
-        const currentValueLabel = this.querySelector<MenuView>(':scope>menu-view:not([slot])>label-view[slot=label]')
+        const currentValueLabel = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]')
+        if (!currentValueLabel) break
 
-        currentValueLabel?.setAttribute('system-image', 'dots-three')
-        currentValueLabel?.setAttribute('title', this.#currentValueLabel)
+        renderLabelTitle(currentValueLabel, this.#currentValueLabel)
+        renderLabelIcon(currentValueLabel, 'dots-three')
 
         break
       }

@@ -1,5 +1,5 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, devFlags, onoff, touchGlass } from '../internal/utils'
+import { $, devFlags, onoff, renderLabel, touchGlass } from '../internal/utils'
 
 /**
  * @summary A control for presenting a menu of actions.
@@ -76,11 +76,7 @@ export class MenuView extends HTMLElement {
 
         break
       case 'label':
-        let label = this.querySelector(':scope>[slot=label]')
-        if (newValue) {
-          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-          label.setAttribute('title', newValue)
-        } else label?.remove()
+        renderLabel(this, ':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, newValue)
 
         break
     }

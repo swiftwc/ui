@@ -25,16 +25,17 @@ export class ImageView extends HTMLElement {
     if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
-      case 'system-image':
+      case 'system-name':
         if (oldValue === newValue) break
 
-        this.innerHTML = `<i slot="icon" style="line-height: 1.05" class="ph ph-${newValue}"></i>`
+        // this.innerHTML = `<i style="line-height: 1.05" class="ph ph-${newValue}"></i>`
 
-        // let image = this.querySelector(':scope>:not([slot])')
-        // if (newValue) {
-        //   image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
-        //   image.setAttribute('class', `ph ph-${newValue}`)
-        // } else image?.remove()
+        //this.setAttribute('class', `ph ph-${newValue}`)
+        let image = this.querySelector(':scope>:not([slot])')
+        if (newValue) {
+          image ??= this.appendChild($(`<i style="line-height: 1.05"></i>`, '>1'))
+          image.setAttribute('class', `ph ph-${newValue}`)
+        } else image?.remove()
 
         break
     }

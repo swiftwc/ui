@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { $, devFlags } from '../internal/utils'
+import { $, devFlags, renderLabel } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 const progressViewStyles = ['circular', 'linear'] as const
@@ -94,11 +94,7 @@ export class ProgressView extends HTMLElement {
         break
       }
       case 'current-value-label': {
-        let label = this.querySelector(':scope>[slot=current-value]')
-        if (newValue) {
-          label ??= this.appendChild($(`<label-view slot="current-value" font="callout" foreground="secondary"></label-view>`, '>1'))
-          label.setAttribute('title', newValue)
-        } else label?.remove()
+        renderLabel(this, ':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, newValue)
 
         break
       }

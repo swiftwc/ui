@@ -1,4 +1,4 @@
-import { $, devFlags } from '../internal/utils'
+import { $, devFlags, renderLabel } from '../internal/utils'
 
 export class SectionView extends HTMLElement {
   static get observedAttributes() {
@@ -53,16 +53,18 @@ export class SectionView extends HTMLElement {
       case 'header':
         let header = this.querySelector(':scope>[slot=header]')
         if (newValue) {
-          header ??= this.appendChild($(`<header slot="header"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></header>`, '>1'))
-          header.querySelector('label-view')?.setAttribute('title', newValue)
+          const el = header ?? $(`<header slot="header"></header>`, '>1')
+          renderLabel(el, ':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, newValue)
+          header ??= this.appendChild(el)
         } else header?.remove()
 
         break
       case 'footer':
         let footer = this.querySelector(':scope>[slot=footer]')
         if (newValue) {
-          footer ??= this.appendChild($(`<footer slot="footer"><label-view line-limit="1" truncation-mode="tail" font="callout"></label-view></footer>`, '>1'))
-          footer.querySelector('label-view')?.setAttribute('title', newValue)
+          const el = footer ?? $(`<footer slot="footer"></footer>`, '>1')
+          renderLabel(el, ':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, newValue)
+          footer ??= this.appendChild(el)
         } else footer?.remove()
 
         break

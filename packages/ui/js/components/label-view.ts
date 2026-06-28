@@ -1,4 +1,4 @@
-import { $, devFlags } from '../internal/utils'
+import { $, devFlags, renderLabelIcon, renderLabelTitle } from '../internal/utils'
 
 export class LabelView extends HTMLElement {
   static get observedAttributes() {
@@ -40,19 +40,11 @@ export class LabelView extends HTMLElement {
 
     switch (name) {
       case 'system-image':
-        let image = this.querySelector(':scope>[slot=icon]')
-        if (newValue) {
-          image ??= this.appendChild($(`<i slot="icon" style="line-height: 1.05"></i>`, '>1'))
-          image.setAttribute('class', `ph ph-${newValue}`)
-        } else image?.remove()
+        renderLabelIcon(this, newValue)
 
         break
       case 'title':
-        let title = this.querySelector(':scope>:not([slot])')
-        if (newValue) {
-          title ??= this.appendChild($(`<span></span>`, '>1'))
-          title.textContent = newValue
-        } else title?.remove()
+        renderLabelTitle(this, newValue)
 
         break
     }

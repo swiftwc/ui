@@ -1062,6 +1062,7 @@
   scroll-view:not([hidden]),
   body-view:not([hidden]),
   tab-view:not([hidden]),
+  image-view:not([hidden]),
   [is=search-view]:not([hidden]),
   [is=sidebar-view]:not([hidden]),
   [is=tab-bar]:not([hidden]),

@@ -1,5 +1,5 @@
 import { microtaskOnConnected } from '../internal/decorators'
-import { $, devFlags } from '../internal/utils'
+import { $, devFlags, renderLabel } from '../internal/utils'
 import type { ScrollView } from './scroll-view'
 
 @microtaskOnConnected<NavigationTitle>((el) => {
@@ -44,16 +44,8 @@ export class NavigationTitle extends HTMLElement {
     const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
       vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
 
-    const titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)') ?? vStack.appendChild($(titleTemplate, '>1')),
-      titleSpan = titleLabel.querySelector(':scope>span') ?? titleLabel.appendChild($(`<span></span>`, '>1'))
-    if (title)
-      titleSpan.textContent = title //titleLabel.setAttribute('title', title)
-    else titleSpan.remove() //titleLabel?.removeAttribute('title')
+    renderLabel(vStack, ':scope>label-view:nth-child(1)', titleTemplate, title)
 
-    const subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)') ?? vStack.appendChild($(subtitleTemplate, '>1')),
-      subtitleSpan = subtitleLabel.querySelector(':scope>span') ?? subtitleLabel.appendChild($(`<span></span>`, '>1'))
-    if (subtitle)
-      subtitleLabel.textContent = title //subtitleLabel.setAttribute('title', subtitle)
-    else subtitleSpan.remove() //subtitleLabel?.removeAttribute('title')
+    renderLabel(vStack, ':scope>label-view:nth-child(2)', subtitleTemplate, subtitle)
   }
 }

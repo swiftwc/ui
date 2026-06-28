@@ -3,7 +3,7 @@ import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, clamp, devFlags, kebabCase, onoff, set } from '../internal/utils'
+import { $, clamp, devFlags, kebabCase, onoff, renderLabel, set } from '../internal/utils'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
 export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
@@ -118,12 +118,7 @@ export class DatePicker extends FormAssociatedBase {
 
         break
       case 'label':
-        let label = this.querySelector(':scope>label-view[slot=label]')
-        if (newValue) {
-          label ??= this.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-          label.setAttribute('foreground', 'secondary')
-          label.setAttribute('title', newValue)
-        } else label?.remove()
+        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, newValue)
 
         // this.#sendValueToForm()
 

@@ -2,7 +2,7 @@ import { lifecycleObserver } from '../buses'
 import type { PageShowHideDetail, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
+import { $, devFlags, frame, onoff, renderLabel, slowHideShow } from '../internal/utils'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -253,18 +253,14 @@ export class ScrollView extends HTMLElement {
   }
 
   #renderNavTitle = (title: string | null, subtitle: string | null) => {
-    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"></label-view>`,
-      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"></label-view>`
+    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
+      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`
 
     const vStack =
       this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">${titleTemplate}${subtitleTemplate}</v-stack>`, '>1'))
 
-    const titleLabel = vStack.querySelector(':scope>label-view:nth-child(1)') ?? vStack.appendChild($(titleTemplate, '>1'))
-    if (title) titleLabel.setAttribute('title', title)
-    else titleLabel?.removeAttribute('title')
+    renderLabel(vStack, ':scope>label-view:nth-child(1)', titleTemplate, title)
 
-    let subtitleLabel = vStack.querySelector(':scope>label-view:nth-child(2)') ?? vStack.appendChild($(subtitleTemplate, '>1'))
-    if (subtitle) subtitleLabel.setAttribute('title', subtitle)
-    else subtitleLabel?.removeAttribute('title')
+    renderLabel(vStack, ':scope>label-view:nth-child(2)', subtitleTemplate, subtitle)
   }
 }

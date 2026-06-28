@@ -52,4 +52,13 @@
       }
     }
   }
+
+  :is(navigation-stack, dialog, body-view):has(> body-view > body-view) {
+    > scroll-view,
+    > tool-bar {
+      :where(&) {
+        content-visibility: hidden;
+      }
+    }
+  }
 }

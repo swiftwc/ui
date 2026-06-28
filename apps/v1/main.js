@@ -566,7 +566,7 @@ document.body.addEventListener('click', async (event) => {
                         <p>...</p>
                         
                         
-                        <picker-view picker-style="menu">
+                        <picker-view picker-style="menu" help="click me!">
                         <label-view slot="label"><image-view slot="icon" system-name="dots-three"></image-view><span>rtyty</span></label-view>
                         <option slot="list" value="rty0%"></option>
                         <option slot="list" value="rtyMinimum Tip"></option>

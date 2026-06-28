@@ -17,6 +17,11 @@
         transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
         // will-change: block-size, inline-size, transform, overlay, display;
       }
+
+      :where(& > *) {
+        transition: transform var(--touchglass-transition-duration) allow-discrete ease-out;
+        will-change: transform;
+      }
     }
   }
 }

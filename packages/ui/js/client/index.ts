@@ -136,6 +136,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
 
     const trigger = target.closest<HTMLElement>('[help]')
     if (!trigger) return
+    if ('PICKER-VIEW' === trigger.tagName) return
 
     if (relatedTarget instanceof HTMLElement && trigger.contains(relatedTarget)) return
 
@@ -159,6 +160,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
 
     const trigger = target.closest<HTMLElement>('[help]')
     if (!trigger) return
+    if ('PICKER-VIEW' === trigger.tagName) return
 
     if (relatedTarget instanceof HTMLElement && trigger.contains(relatedTarget)) return
 

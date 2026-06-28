@@ -1054,6 +1054,10 @@
     --toolbar-cell-filter: blur(10px);
     --toolbar-cell-opacity: 0;
   }
+  :where(:is(navigation-stack, dialog, body-view):has(> body-view > body-view) > scroll-view,
+  :is(navigation-stack, dialog, body-view):has(> body-view > body-view) > tool-bar) {
+    content-visibility: hidden;
+  }
 }
 @layer sw-components {
   :where(navigation-stack:not([hidden]),
@@ -1348,6 +1352,7 @@
     }
   }
 }
+@layer sw-components {}
 @layer sw-components {
   :where(h-divider) {
     inline-size: 100%;
@@ -1760,6 +1765,14 @@
     gap: 1rem;
     --confirmation--dialog-scale: scale(0.7);
     --confirmation--dialog-opacity: 0.8;
+    --confirmation--inner-scale: scale3d(1, 1, 1);
+  }
+  :where([is=confirmation-dialog] > *) {
+    transform: var(--confirmation--inner-scale, );
+    transform-origin: top;
+  }
+  :where([is=confirmation-dialog] > :nth-child(1)) {
+    transform-origin: bottom;
   }
   :where([is=confirmation-dialog][open]) {
     --confirmation--dialog-inline-size: min(20rem, 80vw);
@@ -1769,11 +1782,13 @@
     --confirmation--dialog-margin-inline: max(env(safe-area-inset-left), var(--menu-spacing)) max(env(safe-area-inset-right), var(--menu-spacing));
     --confirmation--dialog-scale: scale(1);
     --confirmation--dialog-opacity: 1;
+    --confirmation--inner-scale: scale3d(1, 1, 1);
   }
   @starting-style {
     :where([is=confirmation-dialog][open]) {
       --confirmation--dialog-scale: scale(0.7);
       --confirmation--dialog-opacity: 0.8;
+      --confirmation--inner-scale: scale3d(0, 0, 1);
     }
   }
   :where([is=confirmation-dialog][closing]) {
@@ -1782,6 +1797,7 @@
     --confirmation--dialog-max-block-size: anchor-size();
     --confirmation--dialog-scale: scale(0.7);
     --confirmation--dialog-opacity: 0;
+    --confirmation--inner-scale: scale3d(0, 0, 1);
   }
 }
 @layer sw-components {
@@ -7151,6 +7167,10 @@
   @media (prefers-reduced-motion: no-preference) {
     :where([is=confirmation-dialog]) {
       transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+    :where([is=confirmation-dialog] > *) {
+      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform;
     }
   }
 }

@@ -45,6 +45,18 @@
       // finally
       --confirmation--dialog-scale: scale(0.7);
       --confirmation--dialog-opacity: 0.8;
+
+      --confirmation--inner-scale: scale3d(1, 1, 1);
+    }
+
+    :where(& > *) {
+      transform: var(--confirmation--inner-scale,);
+
+      transform-origin: top;
+    }
+
+    :where(& > :nth-child(1)) {
+      transform-origin: bottom;
     }
 
     &[open] {
@@ -61,9 +73,13 @@
         --confirmation--dialog-scale: scale(1);
         --confirmation--dialog-opacity: 1;
 
+        --confirmation--inner-scale: scale3d(1, 1, 1);
+
         @starting-style {
           --confirmation--dialog-scale: scale(0.7);
           --confirmation--dialog-opacity: 0.8;
+
+          --confirmation--inner-scale: scale3d(0, 0, 1);
         }
       }
     }
@@ -78,6 +94,8 @@
 
         --confirmation--dialog-scale: scale(0.7);
         --confirmation--dialog-opacity: 0;
+
+        --confirmation--inner-scale: scale3d(0, 0, 1);
       }
     }
   }

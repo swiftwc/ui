@@ -25,6 +25,8 @@ export class LabelView extends HTMLElement {
 
   #shadowRoot
 
+  #reflectScheduled = false
+
   constructor() {
     super()
 
@@ -38,16 +40,18 @@ export class LabelView extends HTMLElement {
 
     if (oldValue === newValue) return
 
-    switch (name) {
-      case 'system-image':
-        renderLabelIcon(this, newValue)
+    this.#scheduleReflect()
 
-        break
-      case 'title':
-        renderLabelTitle(this, newValue)
+    // switch (name) {
+    //   case 'system-image':
+    //     renderLabelIcon(this, newValue)
 
-        break
-    }
+    //     break
+    //   case 'title':
+    //     renderLabelTitle(this, newValue)
+
+    //     break
+    // }
   }
 
   disconnectedCallback() {
@@ -56,5 +60,20 @@ export class LabelView extends HTMLElement {
 
   connectedCallback() {
     if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
+  }
+
+  #scheduleReflect = () => {
+    if (this.#reflectScheduled) return
+    this.#reflectScheduled = true
+
+    self.queueMicrotask(() => {
+      this.#reflectScheduled = false
+      this.#reflectAll()
+    })
+  }
+
+  #reflectAll = () => {
+    renderLabelIcon(this, this.getAttribute('title'))
+    renderLabelTitle(this, this.getAttribute('system-image'))
   }
 }

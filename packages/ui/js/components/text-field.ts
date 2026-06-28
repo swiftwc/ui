@@ -577,13 +577,13 @@ export class TextField extends FormAssociatedBase {
       for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
-        const option = el as HTMLOptionElement
+        const { label, value } = el as HTMLOptionElement
 
-        if (`${kebabCase(key)}` === option.value) {
-          message = option.label
+        if (`${kebabCase(key)}` === value) {
+          message = label
           break
-        } else if (`${kebabCase(key)}:${message}` === option.value) {
-          message = option.label
+        } else if (`${kebabCase(key)}:${message}` === value) {
+          message = label
           break
         }
       }

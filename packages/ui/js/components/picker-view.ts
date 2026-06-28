@@ -100,6 +100,7 @@ export class PickerView extends FormAssociatedBase {
       SELECTION: 'selection',
       SEARCHABLE: 'searchable',
       CURRENT_VALUE_LABEL: 'current-value-label',
+      TRIGGER_HELP: 'help',
     }
   }
 
@@ -214,10 +215,13 @@ export class PickerView extends FormAssociatedBase {
           break
         }
         default: {
-          const btn = $<HTMLButtonElement>(`<button type="button" tabindex="0"><label-view></label-view></button>`, '>1'),
-            label = btn.querySelector(':scope>label-view')
+          const btn = $<HTMLButtonElement>(
+              `<button type="button" tabindex="0" is="navigation-link"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
+              '>1'
+            ),
+            label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
 
-          if (el.dataset.label) label?.setAttribute('title', el.dataset.label)
+          if (label && el.dataset.label) renderLabelTitle(label, el.dataset.label) //label?.setAttribute('title', el.dataset.label)
 
           btn.addEventListener('click', async (evt: Event) => {
             evt.stopImmediatePropagation()
@@ -308,6 +312,8 @@ export class PickerView extends FormAssociatedBase {
           renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
         }
 
+        if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
+
         PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
 
         break
@@ -327,9 +333,9 @@ export class PickerView extends FormAssociatedBase {
 
         const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
         if (value) {
-          const label = $(`<label-view></label-view>`, '>1')
+          const label = $<LabelView>(`<label-view><span></span></label-view>`, '>1')
 
-          label.setAttribute('title', value)
+          if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
 
           section.insertAdjacentElement('beforeend', label)
         }
@@ -539,6 +545,12 @@ export class PickerView extends FormAssociatedBase {
         // if (oldValue === newValue) break
 
         this.#reflectCurrentValueLabel()
+
+        break
+      case (this.constructor as typeof PickerView).ATTR.TRIGGER_HELP:
+        // if (oldValue === newValue) break
+
+        this.#reflectTriggerHelp()
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -751,8 +763,8 @@ export class PickerView extends FormAssociatedBase {
 
     // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
 
-    const label = $(`<label-view><span></span></label-view>`, '>1')
-    label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
+    const label = $<LabelView>(`<label-view><span></span></label-view>`, '>1')
+    renderLabelTitle(label, extractCurrentValueFromOption(node)) // label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
 
     hStack?.appendChild(label)
 
@@ -762,16 +774,16 @@ export class PickerView extends FormAssociatedBase {
   static #wrapOptgroupTag(node: HTMLOptGroupElement) {
     if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptgroupTag`)
 
-    const labelT = `<label-view></label-view>`,
-      summaryT = `<summary>${labelT}</summary>`
+    const labelT = `<label-view><span></span></label-view>`,
+      summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
 
     const group = $(`<details is="disclosure-group">${summaryT}</details>`, '>1'),
-      summary = group.querySelector(':scope>summary') ?? group.appendChild($(summaryT, '>1')),
-      summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
+      hStack = group.querySelector(':scope>summary>h-stack') // ?? group.appendChild($(summaryT, '>1'))
+    //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
+    // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
+    // if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
 
-    if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
-
-    if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+    if (hStack) renderLabel(hStack, ':scope>label-view:nth-child(2)', labelT, node.getAttribute('label'), node.getAttribute('data-system-image'))
 
     return group
   }
@@ -782,12 +794,12 @@ export class PickerView extends FormAssociatedBase {
     for (const node of nodes)
       switch (node.tagName) {
         case 'DATALIST': {
-          const group = $(`<menu-view tabindex="0"></menu-view>`, '>1'),
-            label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+          const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
+          // label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+          // if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
+          // if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
 
-          if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
-
-          if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+          renderLabel(group, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, node.getAttribute('data-label'), node.getAttribute('data-system-image'))
 
           PickerView.#reflectButtons([...node.children] as Element[], group)
 
@@ -890,6 +902,28 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
+  #reflectTriggerHelp() {
+    if (devFlags.debug) console.debug(`${PickerView.name} #reflectTriggerHelp`)
+
+    let trigger
+    switch (this.pickerStyle) {
+      case 'sheet':
+      case 'navigation-link': {
+        trigger = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? undefined
+      }
+      case 'menu': {
+        trigger = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]') ?? undefined
+      }
+      case 'inline':
+      default: {
+        //udnefined
+      }
+    }
+
+    if (this.hasAttribute('help')) trigger?.setAttribute('help', this.getAttribute('help') ?? '')
+    else trigger?.removeAttribute('help')
+  }
+
   // Optional: form participation properties
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
@@ -905,13 +939,13 @@ export class PickerView extends FormAssociatedBase {
       for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
-        const option = el as HTMLOptionElement
+        const { label, value } = el as HTMLOptionElement
 
-        if (`${kebabCase(key)}` === option.value) {
-          message = option.label
+        if (`${kebabCase(key)}` === value) {
+          message = label
           break
-        } else if (`${kebabCase(key)}:${message}` === option.value) {
-          message = option.label
+        } else if (`${kebabCase(key)}:${message}` === value) {
+          message = label
           break
         }
       }

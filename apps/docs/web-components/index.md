@@ -40,8 +40,6 @@
 
 #### [NavigationLargeTitle](/web-components/navigation-large-title.md)
 
-#### [NavigationLink](/web-components/navigation-link.md)
-
 #### [NavigationSplitView](/web-components/navigation-split-view.md)
 
 #### [NavigationStack](/web-components/navigation-stack.md)

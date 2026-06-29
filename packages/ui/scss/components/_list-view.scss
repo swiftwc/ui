@@ -181,7 +181,7 @@ $list-elses: (
             --itemhighlightface: var(--accentColor3);
             --itemactiveface: var(--accentColor3);
           }
-          &:not([is='navigation-link']) {
+          &:not([navigation-link]) {
             --itemtext: var(--accentColor);
             --itemhighlighttext: var(--accentColor);
             --itemactivetext: var(--accentColor);

@@ -236,10 +236,6 @@
       "name": "navigation-large-title"
     },
     {
-      "name": "navigation-link",
-      "description": "A button that controls a navigation presentation."
-    },
-    {
       "name": "navigation-split-view",
       "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section."
     },

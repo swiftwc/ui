@@ -216,7 +216,7 @@ export class PickerView extends FormAssociatedBase {
         }
         default: {
           const btn = $<HTMLButtonElement>(
-              `<button type="button" tabindex="0" is="navigation-link"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
+              `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
               '>1'
             ),
             label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')

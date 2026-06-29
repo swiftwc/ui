@@ -835,38 +835,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/navigation-link.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "NavigationLink",
-          "tagName": "navigation-link",
-          "description": "A button that controls a navigation presentation.",
-          "superclass": {
-            "name": "ButtonHTMLElement"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "NavigationLink",
-          "declaration": {
-            "name": "NavigationLink"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "navigation-link",
-          "declaration": {
-            "name": "NavigationLink"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "./generated/components/navigation-split-view.ts",
       "declarations": [
         {

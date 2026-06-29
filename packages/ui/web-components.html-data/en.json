@@ -342,7 +342,27 @@
     },
     {
       "name": "table-view",
-      "description": "Display selectable, sortable data arranged in rows and columns."
+      "description": "Display selectable, sortable data arranged in rows and columns.",
+      "attributes": [
+        {
+          "name": "preferred-compact-template",
+          "description": "Value Type: “title:trailing:subtitle” | “trailing:title:subtitle” | “title:subtitle:trailing” | “*”\n\nDescription: Sets the template areas when the table is in compact mode",
+          "values": [
+            {
+              "name": "title:trailing:subtitle"
+            },
+            {
+              "name": "trailing:title:subtitle"
+            },
+            {
+              "name": "title:subtitle:trailing"
+            },
+            {
+              "name": "*"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "text-field",

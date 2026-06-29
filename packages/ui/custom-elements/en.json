@@ -1584,6 +1584,11 @@
               "kind": "field",
               "name": "template"
             }
+          ],
+          "attributes": [
+            {
+              "name": "preferred-compact-template"
+            }
           ]
         }
       ],

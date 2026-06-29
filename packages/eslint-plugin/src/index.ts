@@ -8,11 +8,11 @@ export type TagNode = {
 }
 
 export const RULES: Record<string, string[]> = {
-  'v-keyboard': ['body'],
+  'v-keyboard': ['template', 'body'],
 
-  'scroll-view': ['body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
+  'scroll-view': ['template', 'body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
 
-  dialog: ['tab-view', 'template'],
+  dialog: ['template','tab-view'],
 }
 
 export function validate(

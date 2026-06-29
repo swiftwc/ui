@@ -170,7 +170,8 @@ $v-placement-map: (
     // }
   }
 
-  v-stack {
+  v-stack,
+  h-stack {
     // $spaces: 0, 1, 2, 3, 4;
     // @each $s in $spaces {
     @for $i from 0 through 50 {

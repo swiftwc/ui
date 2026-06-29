@@ -144,6 +144,16 @@ const vscode: VsHtmlDataV1 = {
   ],
   valueSets: [
     {
+      name: 'spacingSet',
+      values: [
+        { name: '0', description: '0rem' },
+        { name: '1', description: '0.1rem' },
+        { name: '2', description: '0.2rem' },
+        { name: '3', description: '0.3rem' },
+        { name: '4', description: '0.4rem' },
+      ],
+    },
+    {
       name: 'tintSet',
       values: [
         { name: 'gray', description: 'like secondary, like disabled' },
@@ -292,7 +302,7 @@ for (const sourceFile of project.getSourceFiles()) {
             }
 
             const i = tag.description.lastIndexOf('-'),
-              a = tag.description.slice(0, i).trim(),
+              a = tag.description.slice(0, i !== -1 ? i : undefined).trim(),
               b = i !== -1 ? tag.description.slice(i + 1).trim() : undefined
 
             if (b) attr.description = `\nDescription: ${b}`
@@ -308,7 +318,9 @@ for (const sourceFile of project.getSourceFiles()) {
               attr.name = lastIndex.trim()
 
               const types: string[] = (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
-              if (types) {
+              if (matches.at(0)?.startsWith('@')) {
+                attr.valueSet = matches.at(0)?.slice(1)
+              } else if (types) {
                 attr.description = `Value Type: “${types.join('” | “')}”${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= types.map((item) => ({ name: item }))
               }

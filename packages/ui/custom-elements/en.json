@@ -585,6 +585,43 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/hstack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "HStack",
+          "tagName": "hstack",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "spacing"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HStack",
+          "declaration": {
+            "name": "HStack"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "hstack",
+          "declaration": {
+            "name": "HStack"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/image-view.ts",
       "declarations": [
         {
@@ -1890,7 +1927,10 @@
               "name": "distribution"
             },
             {
-              "name": "templat"
+              "name": "template"
+            },
+            {
+              "name": "spacing"
             }
           ]
         }

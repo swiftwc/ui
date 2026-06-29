@@ -167,6 +167,17 @@
       ]
     },
     {
+      "name": "hstack",
+      "description": "",
+      "attributes": [
+        {
+          "name": "spacing",
+          "description": "\nDescription: The gap between the primary axis",
+          "valueSet": "spacingSet"
+        }
+      ]
+    },
+    {
       "name": "image-view",
       "attributes": [
         {
@@ -443,7 +454,7 @@
           ]
         },
         {
-          "name": "templat",
+          "name": "template",
           "description": "Value Type: “auto spacer” | “auto auto spacer” | “auto auto auto spacer”",
           "values": [
             {
@@ -456,6 +467,11 @@
               "name": "auto auto auto spacer"
             }
           ]
+        },
+        {
+          "name": "spacing",
+          "description": "\nDescription: The gap between the primary axis",
+          "valueSet": "spacingSet"
         }
       ]
     }
@@ -488,6 +504,31 @@
     }
   ],
   "valueSets": [
+    {
+      "name": "spacingSet",
+      "values": [
+        {
+          "name": "0",
+          "description": "0rem"
+        },
+        {
+          "name": "1",
+          "description": "0.1rem"
+        },
+        {
+          "name": "2",
+          "description": "0.2rem"
+        },
+        {
+          "name": "3",
+          "description": "0.3rem"
+        },
+        {
+          "name": "4",
+          "description": "0.4rem"
+        }
+      ]
+    },
     {
       "name": "tintSet",
       "values": [

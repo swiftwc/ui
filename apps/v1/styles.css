@@ -1706,6 +1706,11 @@
     place-items: center;
     text-align: center;
     row-gap: 1rem;
+    padding-inline: 1rem;
+    padding-block: 1rem;
+  }
+  :where(content-unavailable-view)::part(content-unavailable-actions-stack), :where(content-unavailable-view)::part(content-unavailable-title-stack), :where(content-unavailable-view)::part(content-unavailable-description-stack) {
+    max-inline-size: 20rem;
   }
   :where(content-unavailable-view)::part(content-unavailable-actions-stack) {
     row-gap: 0.2rem;
@@ -2538,6 +2543,8 @@
     box-shadow: var(--menu-popover-box-shadow, );
     border-radius: var(--pill-border-radius);
     padding-inline: 1rem;
+    appearance: none;
+    outline: none;
   }
 }
 @layer sw-components {
@@ -2647,7 +2654,6 @@
     -webkit-box-orient: var(--label--box-orient, );
     line-clamp: var(--label--line-clamp, );
     -webkit-line-clamp: var(--label--line-clamp, );
-    text-decoration: underline;
     font-size: var(--label--titlestack-font-size, );
     line-height: var(--label--titlestack-line-height, );
     font-weight: var(--label--titlestack-font-weight, );
@@ -8282,13 +8288,13 @@
   :where(tool-bar-item[tint]:not(tool-bar-item-group tool-bar-item),
   tool-bar-item-group[tint],
   tool-bar-item-group[tint] > tool-bar-item:not([tint])) > button {
-    --secondary: var(--btntext);
-    --blue: var(--btntext);
-    --red: var(--btntext);
-    --green: var(--btntext);
-    --orange: var(--btntext);
-    --accentColor: var(--btntext);
-    --accentColorEffective: var(--btntext);
+    --secondary: var(--toolbaritemtext);
+    --blue: var(--toolbaritemtext);
+    --red: var(--toolbaritemtext);
+    --green: var(--toolbaritemtext);
+    --orange: var(--toolbaritemtext);
+    --accentColor: var(--toolbaritemtext);
+    --accentColorEffective: var(--toolbaritemtext);
   }
   :where(sidebar-toggle) {
     --toolbaritemhighlightface: light-dark(var(--toolbar-cell-focus-bg), var(--toolbar-cell-focus-bg-dark));

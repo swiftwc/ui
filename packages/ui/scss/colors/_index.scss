@@ -636,7 +636,7 @@ $colors: map.merge(
       @include mixins.wire-tinted-glass(toolbaritem);
 
       > button {
-        @include mixins.takeover-color-vars(btn);
+        @include mixins.takeover-color-vars(toolbaritem);
         // --secondary: var(--btntext);
         // --blue: var(--btntext);
 

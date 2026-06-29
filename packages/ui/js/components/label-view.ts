@@ -25,7 +25,7 @@ export class LabelView extends HTMLElement {
 
   #shadowRoot
 
-  #reflectScheduled = false
+  // #reflectScheduled = false
 
   constructor() {
     super()
@@ -40,18 +40,18 @@ export class LabelView extends HTMLElement {
 
     if (oldValue === newValue) return
 
-    this.#scheduleReflect()
+    // this.#scheduleReflect()
 
-    // switch (name) {
-    //   case 'system-image':
-    //     renderLabelIcon(this, newValue)
+    switch (name) {
+      case 'system-image':
+        renderLabelIcon(this, newValue)
 
-    //     break
-    //   case 'title':
-    //     renderLabelTitle(this, newValue)
+        break
+      case 'title':
+        renderLabelTitle(this, newValue)
 
-    //     break
-    // }
+        break
+    }
   }
 
   disconnectedCallback() {
@@ -62,18 +62,18 @@ export class LabelView extends HTMLElement {
     if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
   }
 
-  #scheduleReflect = () => {
-    if (this.#reflectScheduled) return
-    this.#reflectScheduled = true
+  // #scheduleReflect = () => {
+  //   if (this.#reflectScheduled) return
+  //   this.#reflectScheduled = true
 
-    self.queueMicrotask(() => {
-      this.#reflectScheduled = false
-      this.#reflectAll()
-    })
-  }
+  //   self.queueMicrotask(() => {
+  //     this.#reflectScheduled = false
+  //     this.#reflectAll()
+  //   })
+  // }
 
-  #reflectAll = () => {
-    renderLabelIcon(this, this.getAttribute('title'))
-    renderLabelTitle(this, this.getAttribute('system-image'))
-  }
+  // #reflectAll = () => {
+  //   renderLabelIcon(this, this.getAttribute('title'))
+  //   renderLabelTitle(this, this.getAttribute('system-image'))
+  // }
 }

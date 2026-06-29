@@ -11,6 +11,15 @@
 
       row-gap: 1rem;
 
+      padding-inline: 1rem;
+      padding-block: 1rem;
+
+      &::part(content-unavailable-actions-stack),
+      &::part(content-unavailable-title-stack),
+      &::part(content-unavailable-description-stack) {
+        max-inline-size: 20rem;
+      }
+
       &::part(content-unavailable-actions-stack) {
         row-gap: 0.2rem;
       }

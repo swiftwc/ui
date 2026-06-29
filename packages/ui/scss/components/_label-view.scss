@@ -201,7 +201,7 @@ $label-line-ifs: (
         line-clamp: var(--label--line-clamp,);
         -webkit-line-clamp: var(--label--line-clamp,);
 
-        text-decoration: underline;
+        // text-decoration: underline;
 
         font-size: var(--label--titlestack-font-size,);
 

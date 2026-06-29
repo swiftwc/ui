@@ -168,14 +168,19 @@ $table-elses: (
       // SECTION: Columns counter
       :where(&) {
         --table--expanded-columns: 1;
-      }
 
-      :where(&:has(> [slot='column']:nth-of-type(2)):not(:has(> [slot='column']:nth-of-type(3)))) {
-        --table--expanded-columns: 2;
+        @for $i from 2 through 6 {
+          &:has(> [slot='column']:nth-child(#{$i} of [slot='column'])) {
+            --table--expanded-columns: #{$i};
+          }
+        }
       }
-      :where(&:has(> [slot='column']:nth-of-type(3)):not(:has(> [slot='column']:nth-of-type(4)))) {
-        --table--expanded-columns: 3;
-      }
+      // :where(&:has(> [slot='column']:nth-of-type(2)):not(:has(> [slot='column']:nth-of-type(3)))) {
+      //   --table--expanded-columns: 2;
+      // }
+      // :where(&:has(> [slot='column']:nth-of-type(3)):not(:has(> [slot='column']:nth-of-type(4)))) {
+      //   --table--expanded-columns: 3;
+      // }
 
       // // @include mixins.center-toolbar-elements('&');
       // :where(& > button[slot^='header'], & > button[slot^='footer']),

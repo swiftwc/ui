@@ -138,6 +138,42 @@
           }
         }
       }
+      table-view[preferred-compact-template='title:subtitle:trailing'] > & {
+        :where(&) {
+          grid-template-columns: 1fr 1fr;
+          grid-template-rows: repeat(2, auto);
+          grid-template-areas:
+            'title trailing'
+            'subtitle _';
+          // grid-template-rows: repeat(3, auto); /* 3 rows for first 6 items */
+          // grid-template-areas:
+          //   'a b'
+          //   'c d'
+          //   'e f';
+        }
+        > :nth-child(-n + 3) {
+          :where(&) {
+            display: grid;
+          }
+        }
+        > :nth-child(1) {
+          :where(&) {
+            grid-area: title;
+          }
+        }
+        > :nth-child(2) {
+          :where(&) {
+            grid-area: subtitle;
+          }
+        }
+        > :nth-child(3) {
+          :where(&) {
+            grid-area: trailing;
+            place-self: end;
+            grid-column: 1 / -1;
+          }
+        }
+      }
       table-view[preferred-compact-template='*'] > & {
         > :nth-child(n + 2) {
           :where(&) {

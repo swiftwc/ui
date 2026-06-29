@@ -1,11 +1,14 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, devFlags, listActive, onoff } from '../internal/utils'
+import { $, devFlags, listActive, onoff, renderLabelTitle } from '../internal/utils'
 import { Snapshot } from '../snapshot'
+import type { LabelView } from './label-view'
 
 /**
  * @summary Display selectable, sortable data arranged in rows and columns.
+ *
+ * @attr {title:trailing:subtitle|trailing:title:subtitle|title:subtitle:trailing|*} preferred-compact-template - Sets the template areas when the table is in compact mode
  */
 export class TableView extends HTMLElement {
   #styleObserver?: CSSStyleObserver
@@ -65,36 +68,6 @@ export class TableView extends HTMLElement {
     })
 
     this.#slots?.get('column')?.addEventListener('slotchange', this.#handleColumnSlotchange)
-
-    // this.append(
-    //   document.createRange().createContextualFragment(`<menu-view slot="header-trailing">
-    //               <label-view slot="label" title="Delete"></label-view>
-    //               <button type="button" tabindex="0">
-    //                 <label-view system-image="dots-three" title="Scan Documents"></label-view>
-    //               </button>
-    //               <button type="button" tabindex="0">
-    //                 <label-view system-image="dots-three" title="Connect to Server"></label-view>
-    //               </button>
-    //               <button type="button" tabindex="0">
-    //                 <label-view title="Edit Sidebar"></label-view>
-    //               </button>
-    //             </menu-view>
-    //             `)
-    // $(`<menu-view slot="header-trailing">
-    //             <label-view slot="label" title="Delete"></label-view>
-    //             <button type="button" tabindex="0">
-    //               <label-view system-image="dots-three" title="Scan Documents"></label-view>
-    //             </button>
-    //             <button type="button" tabindex="0">
-    //               <label-view system-image="dots-three" title="Connect to Server"></label-view>
-    //             </button>
-    //             <button type="button" tabindex="0">
-    //               <label-view title="Edit Sidebar"></label-view>
-    //             </button>
-    //           </menu-view>
-    //           <div slot="footer-leading">22</div>
-    //           <div slot="footer-trailing"><button>&lt;</button> <button>&gt;</button></div>`)
-    // )
   }
 
   disconnectedCallback() {
@@ -114,7 +87,6 @@ export class TableView extends HTMLElement {
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
-    // console.log(999, this.#shadowRoot.querySelector('[part*=table-column-stack]'))
     this.#styleObserver = new CSSStyleObserver({
       properties: ['--adaptable-table-style-index'],
     })
@@ -162,11 +134,11 @@ export class TableView extends HTMLElement {
       </button>`,
           '>1'
         ),
-        title = btn.querySelector('label-view:first-child'),
-        subTitle = btn.querySelector('label-view:last-child')
+        title = btn.querySelector<LabelView>('label-view:first-child'),
+        subTitle = btn.querySelector<LabelView>('label-view:last-child')
 
-      title?.setAttribute('title', node.textContent.trim())
-      subTitle?.setAttribute('title', node.ariaSort ?? '')
+      if (title) renderLabelTitle(title, node.textContent.trim()) //title?.setAttribute('title', node.textContent.trim())
+      if (subTitle) renderLabelTitle(subTitle, node.ariaSort ?? '') //subTitle?.setAttribute('title', node.ariaSort ?? '')
 
       this.#compactToolbarItem.appendChild(btn)
     }
@@ -186,17 +158,21 @@ export class TableView extends HTMLElement {
 
     switch (adaptableTableStyle) {
       case 'expanded':
-        if (!this.#compactToolbarItem?.isConnected) break
-
-        this.#compactToolbarItem?.remove()
+        if (this.#compactToolbarItem?.isConnected) this.#compactToolbarItem?.remove()
 
         break
       default:
         if (!this.#compactToolbarItem) break
 
-        if (this.#compactToolbarItem?.isConnected) break
+        if (
+          !this.#slots
+            ?.get('column')
+            ?.assignedElements()
+            .filter((el) => el.matches(':is(button[is=table-column])')).length
+        )
+          break
 
-        this.insertAdjacentElement('beforeend', this.#compactToolbarItem)
+        if (!this.#compactToolbarItem?.isConnected) this.insertAdjacentElement('beforeend', this.#compactToolbarItem)
 
         break
     }
@@ -208,8 +184,8 @@ export class TableView extends HTMLElement {
     const btn = target.closest('button')
     if (!btn) return
 
-    const siblings = [...(btn.parentNode?.querySelectorAll(':scope>button') ?? [])]
-    const index = siblings.indexOf(btn)
+    const siblings = [...(btn.parentNode?.querySelectorAll(':scope>button') ?? [])],
+      index = siblings.indexOf(btn)
 
     this.querySelector<HTMLElement>(`:scope>[slot=column]:nth-of-type(${index + 1})`)?.click()
   }

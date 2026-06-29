@@ -1039,6 +1039,37 @@
                 </button>
               </table-view>
             </details>
+            <details is="disclosure-group" disclosure-style="marker-trailing" open>
+              <summary padding>
+                <label-view system-image="smiley" title="INVOICES"></label-view>
+              </summary>
+              <table-view table-style="inset" preferred-compact-template="title:subtitle:trailing">
+                <label-view title="Given Name" slot="column"></label-view>
+                <label-view title="Family Name" slot="column"></label-view>
+                <label-view title="E-Mail Address" slot="column"></label-view>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice1">
+                  <label-view title="Juan"></label-view>
+                  <label-view title="Chavez"></label-view>
+                  <label-view title="juanchavez@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Mei"></label-view>
+                  <label-view title="Chen"></label-view>
+                  <label-view title="meichen@example.com"></label-view>
+                  <label-view title="other"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Tom"></label-view>
+                  <label-view title="Clark"></label-view>
+                  <label-view title="tomclark@example.com"></label-view>
+                </button>
+                <button is="table-row" type="button" tabindex="0" navigation-destination="invoice2">
+                  <label-view title="Gita"></label-view>
+                  <label-view title="Kumar"></label-view>
+                  <label-view title="gitakumar@example.com"></label-view>
+                </button>
+              </table-view>
+            </details>
           </v-stack>
         </scroll-view>
         <tool-bar>

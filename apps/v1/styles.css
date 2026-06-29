@@ -4248,7 +4248,8 @@
     column-gap: var(--table-col-gap);
     padding-inline: var(--list--host-padding-inline, 0px);
     padding-block: var(--table-row-gap);
-    color: var(--blue);
+    font-size: 0.875rem;
+    font-weight: 600;
     background-color: var(--separator);
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) > [slot^=header],
@@ -4484,6 +4485,25 @@
       grid-area: subtitle;
       grid-column: 1/-1;
     }
+    :where(table-view[preferred-compact-template="title:subtitle:trailing"] > [is=table-row]) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas: "title trailing" "subtitle _";
+    }
+    :where(table-view[preferred-compact-template="title:subtitle:trailing"] > [is=table-row] > :nth-child(-n+3)) {
+      display: grid;
+    }
+    :where(table-view[preferred-compact-template="title:subtitle:trailing"] > [is=table-row] > :nth-child(1)) {
+      grid-area: title;
+    }
+    :where(table-view[preferred-compact-template="title:subtitle:trailing"] > [is=table-row] > :nth-child(2)) {
+      grid-area: subtitle;
+    }
+    :where(table-view[preferred-compact-template="title:subtitle:trailing"] > [is=table-row] > :nth-child(3)) {
+      grid-area: trailing;
+      place-self: end;
+      grid-column: 1/-1;
+    }
     :where(table-view[preferred-compact-template="*"] > [is=table-row] > :nth-child(n+2)) {
       display: grid;
     }
@@ -4496,6 +4516,7 @@
     grid-template-columns: auto var(--table-accessory-size);
     place-content: start;
     place-items: center;
+    color: var(--blue);
   }
   :where([is=table-column][aria-sort])::after {
     pointer-events: none;
@@ -6171,160 +6192,212 @@
     justify-items: stretch  ;
     justify-content: stretch  ;
   }
-  :where(v-stack[spacing="0"]) {
+  :where(v-stack[spacing="0"],
+  h-stack[spacing="0"]) {
     gap: 0rem;
   }
-  :where(v-stack[spacing="1"]) {
+  :where(v-stack[spacing="1"],
+  h-stack[spacing="1"]) {
     gap: 0.1rem;
   }
-  :where(v-stack[spacing="2"]) {
+  :where(v-stack[spacing="2"],
+  h-stack[spacing="2"]) {
     gap: 0.2rem;
   }
-  :where(v-stack[spacing="3"]) {
+  :where(v-stack[spacing="3"],
+  h-stack[spacing="3"]) {
     gap: 0.3rem;
   }
-  :where(v-stack[spacing="4"]) {
+  :where(v-stack[spacing="4"],
+  h-stack[spacing="4"]) {
     gap: 0.4rem;
   }
-  :where(v-stack[spacing="5"]) {
+  :where(v-stack[spacing="5"],
+  h-stack[spacing="5"]) {
     gap: 0.5rem;
   }
-  :where(v-stack[spacing="6"]) {
+  :where(v-stack[spacing="6"],
+  h-stack[spacing="6"]) {
     gap: 0.6rem;
   }
-  :where(v-stack[spacing="7"]) {
+  :where(v-stack[spacing="7"],
+  h-stack[spacing="7"]) {
     gap: 0.7rem;
   }
-  :where(v-stack[spacing="8"]) {
+  :where(v-stack[spacing="8"],
+  h-stack[spacing="8"]) {
     gap: 0.8rem;
   }
-  :where(v-stack[spacing="9"]) {
+  :where(v-stack[spacing="9"],
+  h-stack[spacing="9"]) {
     gap: 0.9rem;
   }
-  :where(v-stack[spacing="10"]) {
+  :where(v-stack[spacing="10"],
+  h-stack[spacing="10"]) {
     gap: 1rem;
   }
-  :where(v-stack[spacing="11"]) {
+  :where(v-stack[spacing="11"],
+  h-stack[spacing="11"]) {
     gap: 1.1rem;
   }
-  :where(v-stack[spacing="12"]) {
+  :where(v-stack[spacing="12"],
+  h-stack[spacing="12"]) {
     gap: 1.2rem;
   }
-  :where(v-stack[spacing="13"]) {
+  :where(v-stack[spacing="13"],
+  h-stack[spacing="13"]) {
     gap: 1.3rem;
   }
-  :where(v-stack[spacing="14"]) {
+  :where(v-stack[spacing="14"],
+  h-stack[spacing="14"]) {
     gap: 1.4rem;
   }
-  :where(v-stack[spacing="15"]) {
+  :where(v-stack[spacing="15"],
+  h-stack[spacing="15"]) {
     gap: 1.5rem;
   }
-  :where(v-stack[spacing="16"]) {
+  :where(v-stack[spacing="16"],
+  h-stack[spacing="16"]) {
     gap: 1.6rem;
   }
-  :where(v-stack[spacing="17"]) {
+  :where(v-stack[spacing="17"],
+  h-stack[spacing="17"]) {
     gap: 1.7rem;
   }
-  :where(v-stack[spacing="18"]) {
+  :where(v-stack[spacing="18"],
+  h-stack[spacing="18"]) {
     gap: 1.8rem;
   }
-  :where(v-stack[spacing="19"]) {
+  :where(v-stack[spacing="19"],
+  h-stack[spacing="19"]) {
     gap: 1.9rem;
   }
-  :where(v-stack[spacing="20"]) {
+  :where(v-stack[spacing="20"],
+  h-stack[spacing="20"]) {
     gap: 2rem;
   }
-  :where(v-stack[spacing="21"]) {
+  :where(v-stack[spacing="21"],
+  h-stack[spacing="21"]) {
     gap: 2.1rem;
   }
-  :where(v-stack[spacing="22"]) {
+  :where(v-stack[spacing="22"],
+  h-stack[spacing="22"]) {
     gap: 2.2rem;
   }
-  :where(v-stack[spacing="23"]) {
+  :where(v-stack[spacing="23"],
+  h-stack[spacing="23"]) {
     gap: 2.3rem;
   }
-  :where(v-stack[spacing="24"]) {
+  :where(v-stack[spacing="24"],
+  h-stack[spacing="24"]) {
     gap: 2.4rem;
   }
-  :where(v-stack[spacing="25"]) {
+  :where(v-stack[spacing="25"],
+  h-stack[spacing="25"]) {
     gap: 2.5rem;
   }
-  :where(v-stack[spacing="26"]) {
+  :where(v-stack[spacing="26"],
+  h-stack[spacing="26"]) {
     gap: 2.6rem;
   }
-  :where(v-stack[spacing="27"]) {
+  :where(v-stack[spacing="27"],
+  h-stack[spacing="27"]) {
     gap: 2.7rem;
   }
-  :where(v-stack[spacing="28"]) {
+  :where(v-stack[spacing="28"],
+  h-stack[spacing="28"]) {
     gap: 2.8rem;
   }
-  :where(v-stack[spacing="29"]) {
+  :where(v-stack[spacing="29"],
+  h-stack[spacing="29"]) {
     gap: 2.9rem;
   }
-  :where(v-stack[spacing="30"]) {
+  :where(v-stack[spacing="30"],
+  h-stack[spacing="30"]) {
     gap: 3rem;
   }
-  :where(v-stack[spacing="31"]) {
+  :where(v-stack[spacing="31"],
+  h-stack[spacing="31"]) {
     gap: 3.1rem;
   }
-  :where(v-stack[spacing="32"]) {
+  :where(v-stack[spacing="32"],
+  h-stack[spacing="32"]) {
     gap: 3.2rem;
   }
-  :where(v-stack[spacing="33"]) {
+  :where(v-stack[spacing="33"],
+  h-stack[spacing="33"]) {
     gap: 3.3rem;
   }
-  :where(v-stack[spacing="34"]) {
+  :where(v-stack[spacing="34"],
+  h-stack[spacing="34"]) {
     gap: 3.4rem;
   }
-  :where(v-stack[spacing="35"]) {
+  :where(v-stack[spacing="35"],
+  h-stack[spacing="35"]) {
     gap: 3.5rem;
   }
-  :where(v-stack[spacing="36"]) {
+  :where(v-stack[spacing="36"],
+  h-stack[spacing="36"]) {
     gap: 3.6rem;
   }
-  :where(v-stack[spacing="37"]) {
+  :where(v-stack[spacing="37"],
+  h-stack[spacing="37"]) {
     gap: 3.7rem;
   }
-  :where(v-stack[spacing="38"]) {
+  :where(v-stack[spacing="38"],
+  h-stack[spacing="38"]) {
     gap: 3.8rem;
   }
-  :where(v-stack[spacing="39"]) {
+  :where(v-stack[spacing="39"],
+  h-stack[spacing="39"]) {
     gap: 3.9rem;
   }
-  :where(v-stack[spacing="40"]) {
+  :where(v-stack[spacing="40"],
+  h-stack[spacing="40"]) {
     gap: 4rem;
   }
-  :where(v-stack[spacing="41"]) {
+  :where(v-stack[spacing="41"],
+  h-stack[spacing="41"]) {
     gap: 4.1rem;
   }
-  :where(v-stack[spacing="42"]) {
+  :where(v-stack[spacing="42"],
+  h-stack[spacing="42"]) {
     gap: 4.2rem;
   }
-  :where(v-stack[spacing="43"]) {
+  :where(v-stack[spacing="43"],
+  h-stack[spacing="43"]) {
     gap: 4.3rem;
   }
-  :where(v-stack[spacing="44"]) {
+  :where(v-stack[spacing="44"],
+  h-stack[spacing="44"]) {
     gap: 4.4rem;
   }
-  :where(v-stack[spacing="45"]) {
+  :where(v-stack[spacing="45"],
+  h-stack[spacing="45"]) {
     gap: 4.5rem;
   }
-  :where(v-stack[spacing="46"]) {
+  :where(v-stack[spacing="46"],
+  h-stack[spacing="46"]) {
     gap: 4.6rem;
   }
-  :where(v-stack[spacing="47"]) {
+  :where(v-stack[spacing="47"],
+  h-stack[spacing="47"]) {
     gap: 4.7rem;
   }
-  :where(v-stack[spacing="48"]) {
+  :where(v-stack[spacing="48"],
+  h-stack[spacing="48"]) {
     gap: 4.8rem;
   }
-  :where(v-stack[spacing="49"]) {
+  :where(v-stack[spacing="49"],
+  h-stack[spacing="49"]) {
     gap: 4.9rem;
   }
-  :where(v-stack[spacing="50"]) {
+  :where(v-stack[spacing="50"],
+  h-stack[spacing="50"]) {
     gap: 5rem;
   }
-  :where(v-stack[frame\:alignment=center]) {
+  :where(v-stack[frame\:alignment=center],
+  h-stack[frame\:alignment=center]) {
     justify-self: center;
   }
   :where(v-stack[padding],

@@ -14,7 +14,7 @@ export const RULES: Record<string, string[]> = {
 
   dialog: ['template', 'tab-view', 'navigation-split-view'],
 
-  'tool-bar': ['template', 'body-view', 'navigation-split-view', 'navigation-stack'],
+  'tool-bar': ['template', 'dialog', 'body-view', 'navigation-split-view', 'navigation-stack'],
 
   'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
 }

@@ -6,7 +6,7 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff, renderLabel, renderLabelIcon, renderLabelTitle } from '../internal/utils'
-import { LabelView } from './label-view'
+import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const

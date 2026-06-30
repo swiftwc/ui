@@ -846,14 +846,48 @@ export class PickerView extends FormAssociatedBase {
   #reflectSelectionOnButtons() {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
 
-    // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
-    for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-      el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
-
-    // also sync the spawn (sheet/navigation) if open
-    if (this.#spawn)
-      for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
+    const syncButtons = (root: Element | HTMLElement) => {
+      // 1. Sync plain value buttons (existing behavior)
+      for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
         el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+
+      // 2. Sync `details` (optgroups) — open/mark if any descendant option matches selection
+      for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
+        const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+
+        // Show/hide the check on the summary's label-view
+        details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+      }
+
+      // 3. Sync nav-link buttons (those without `value` that spawn sub-pages)
+      //    These wrap <datalist> children — mark them if any descendant value matches
+      for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
+        // Find the matching datalist node by label
+        const btnLabel = btn.querySelector('label-view span')?.textContent?.trim()
+        const matchingDatalist = [...(this.#slots?.get('list')?.assignedElements() ?? [])]
+          .flatMap((el) => [...el.querySelectorAll<HTMLElement>('datalist'), ...(el.tagName === 'DATALIST' ? [el as HTMLElement] : [])])
+          .find((dl) => dl.getAttribute('data-label') === btnLabel)
+
+        const hasSelectedDescendant = matchingDatalist ? [...matchingDatalist.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection) : false
+
+        btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+      }
+    }
+
+    // Run on the host element (inline/menu styles)
+    syncButtons(this)
+
+    // Also sync the spawn if open (sheet/navigation-link styles)
+    if (this.#spawn) syncButtons(this.#spawn)
+
+    // // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
+    // for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+    //   el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+
+    // // also sync the spawn (sheet/navigation) if open
+    // if (this.#spawn)
+    //   for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
+    //     el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
   }
 
   get #currentTag() {

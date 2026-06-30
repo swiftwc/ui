@@ -4513,6 +4513,22 @@
       place-self: end;
       grid-column: 1/-1;
     }
+    :where(table-view[preferred-compact-template="title:trailing"] > [is=table-row]) {
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: repeat(2, auto);
+      grid-template-areas: "title trailing" "subtitle _";
+    }
+    :where(table-view[preferred-compact-template="title:trailing"] > [is=table-row] > :nth-child(-n+2)) {
+      display: grid;
+    }
+    :where(table-view[preferred-compact-template="title:trailing"] > [is=table-row] > :nth-child(1)) {
+      grid-area: title;
+    }
+    :where(table-view[preferred-compact-template="title:trailing"] > [is=table-row] > :nth-child(2)) {
+      grid-area: trailing;
+      place-self: end;
+      grid-column: 1/-1;
+    }
     :where(table-view[preferred-compact-template="*"] > [is=table-row] > :nth-child(n+2)) {
       display: grid;
     }

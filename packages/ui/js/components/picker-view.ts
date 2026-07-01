@@ -382,52 +382,77 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #renderDictionary = (dictionary: Dictionary) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
+  #renderButtons(input: { mode: 'dictionary'; source: Dictionary } | { mode: 'list'; source: Element[] }): void {
+    if (devFlags.debug) console.debug(`${PickerView.name} #renderButtons`)
 
-    const flattenDictionary = (tree: Dictionary): Record<string, string | undefined> => {
-      const out: Record<string, string | undefined> = {}
-      const stack: DictEntry[][] = [tree]
-      const idx: number[] = [0]
+    switch (input.mode) {
+      case 'dictionary': {
+        const flattenDictionary = (tree: Dictionary): Record<string, string | undefined> => {
+          const out: Record<string, string | undefined> = {}
+          const stack: DictEntry[][] = [tree]
+          const idx: number[] = [0]
 
-      while (stack.length) {
-        const frame = stack[stack.length - 1]
-        const i = idx[idx.length - 1]
+          while (stack.length) {
+            const frame = stack[stack.length - 1]
+            const i = idx[idx.length - 1]
 
-        if (i >= frame.length) {
-          stack.pop()
-          idx.pop()
-          continue
+            if (i >= frame.length) {
+              stack.pop()
+              idx.pop()
+              continue
+            }
+
+            idx[idx.length - 1]++
+            const { value, label, children } = frame[i]
+            out[value] = label
+
+            if (children.length) {
+              stack.push(children)
+              idx.push(0)
+            }
+          }
+
+          return out
         }
+        this.#lastRenderedLabelMap = flattenDictionary(input.source)
 
-        idx[idx.length - 1]++
-        const { value, label, children } = frame[i]
-        out[value] = label
+        // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+        // collectGroups = (nodes: DictEntry[]): string[][] => {
+        //   const groups: string[][] = []
+        //   const walk = (list: DictEntry[]) => {
+        //     for (const node of list) {
+        //       if (!node.children.length) continue
+        //       if (!allLeaves(node)) groups.push(collectLeafValues(node))
+        //       walk(node.children)
+        //     }
+        //   }
+        //   walk(nodes)
+        //   return groups
+        // }
+        this.#lastIndexedRoot = input.source //this.#lastRenderedGroupMap = collectGroups(dictionary)
 
-        if (children.length) {
-          stack.push(children)
-          idx.push(0)
-        }
+        break
       }
 
-      return out
-    }
-    this.#lastRenderedLabelMap = flattenDictionary(dictionary)
+      case 'list': {
+        this.#lastRenderedLabelMap = {}
 
-    // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
-    // collectGroups = (nodes: DictEntry[]): string[][] => {
-    //   const groups: string[][] = []
-    //   const walk = (list: DictEntry[]) => {
-    //     for (const node of list) {
-    //       if (!node.children.length) continue
-    //       if (!allLeaves(node)) groups.push(collectLeafValues(node))
-    //       walk(node.children)
-    //     }
-    //   }
-    //   walk(nodes)
-    //   return groups
-    // }
-    this.#lastIndexedRoot = dictionary //this.#lastRenderedGroupMap = collectGroups(dictionary)
+        for (const el of input.source)
+          if (el.matches('option')) {
+            const opt = el as HTMLOptionElement
+            this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
+          } else for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
+
+        this.#lastIndexedRoot = input.source
+        // this.#lastRenderedGroupMap = assigned.flatMap<string[]>((el) =>
+        //   [...(el.matches('datalist') ? [el as HTMLDataListElement] : []), ...el.querySelectorAll<HTMLDataListElement>('datalist')].map((dl) =>
+        //     Array.from(dl.options).map((opt) => extractTagFromOption(opt))
+        //   )
+        // )
+
+        break
+      }
+    }
 
     switch (this.pickerStyle) {
       case 'sheet':
@@ -451,9 +476,9 @@ export class PickerView extends FormAssociatedBase {
         if (!this.#spawn) break
 
         // rerender level 0
-        reflectSpawnedElement(this.#spawn, this.#spawnPage(dictionary, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
+        reflectSpawnedElement(this.#spawn, this.#spawnPage(input.source, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
 
-        this.#resyncSpawnedPages(dictionary)
+        this.#resyncSpawnedPages(input.source)
         // // FIXME:
         // for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
         //   const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
@@ -490,7 +515,7 @@ export class PickerView extends FormAssociatedBase {
 
         if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
 
-        PickerView.#reflectButtons(dictionary, menu)
+        PickerView.#reflectButtons(input.source, menu)
 
         break
       }
@@ -516,10 +541,16 @@ export class PickerView extends FormAssociatedBase {
           section.insertAdjacentElement('beforeend', label)
         }
 
-        PickerView.#reflectButtons(
-          dictionary.filter((el) => 0 === el.children.length),
-          section
-        )
+        if ('dictionary' === input.mode)
+          PickerView.#reflectButtons(
+            input.source.filter((el) => 0 === el.children.length),
+            section
+          )
+        else
+          PickerView.#reflectButtons(
+            input.source.filter((el) => el.matches('option')),
+            section
+          )
 
         break
       }
@@ -530,124 +561,16 @@ export class PickerView extends FormAssociatedBase {
     this.#reflectSelectionOnCurrentValueLabel()
   }
 
+  #renderDictionary = (dictionary: Dictionary) => {
+    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
+
+    this.#renderButtons({ mode: 'dictionary', source: dictionary })
+  }
+
   #renderSlotted = (entries: MutationRecord[]) => {
     if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
 
-    this.#lastRenderedLabelMap = {}
-    const assigned = this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? []
-    for (const el of assigned)
-      if (el.matches('option')) {
-        const opt = el as HTMLOptionElement
-        this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
-      } else for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
-
-    this.#lastIndexedRoot = this.#slots?.get('list')?.assignedElements() ?? []
-    // this.#lastRenderedGroupMap = assigned.flatMap<string[]>((el) =>
-    //   [...(el.matches('datalist') ? [el as HTMLDataListElement] : []), ...el.querySelectorAll<HTMLDataListElement>('datalist')].map((dl) =>
-    //     Array.from(dl.options).map((opt) => extractTagFromOption(opt))
-    //   )
-    // )
-
-    switch (this.pickerStyle) {
-      case 'sheet':
-      case 'navigation-link': {
-        // current value label only
-        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? this.appendChild<LabelView>($(`<label-view></label-view>`, '>1'))
-
-        // reset state
-        if (currentValueLabel) {
-          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
-        }
-
-        // clear all siblings
-        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
-
-        CleanupRegistry.unregister(this, 'trigger')
-        CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, currentValueLabel).on(), 'trigger')
-
-        // rebuild snapshot(tree)
-        if (!this.#spawn) break
-
-        const assigned = this.#slots?.get('list')?.assignedElements() ?? []
-
-        // rerender level 0
-        reflectSpawnedElement(this.#spawn, this.#spawnPage(assigned, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
-
-        this.#resyncSpawnedPages(assigned)
-        // for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-        //   const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
-        //   if (0 >= depth) continue
-
-        //   const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
-        //   if (!datalist) {
-        //     el.remove()
-
-        //     break
-        //   }
-
-        //   reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
-        // }
-
-        break
-      }
-      case 'menu': {
-        const menu = this.querySelector<MenuView>(':scope>menu-view:not([slot])') ?? this.appendChild<MenuView>($(`<menu-view></menu-view>`, '>1'))
-
-        // reset state
-        menu.innerHTML = ''
-        menu.tabIndex = 0
-
-        // clear all siblings
-        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (menu !== el) el.remove()
-
-        const currentValueLabel = menu.querySelector<LabelView>(':scope>label-view[slot=label]') ?? menu.appendChild<LabelView>($(`<label-view slot="label"></label-view>`, '>1'))
-
-        if (currentValueLabel) {
-          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
-        }
-
-        if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
-
-        PickerView.#reflectButtons([...(this.#slots?.get('list')?.assignedElements() ?? [])], menu)
-
-        break
-      }
-      case 'inline':
-      default: {
-        const sectionTpl = `<section-view></section-view>`
-
-        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view>${sectionTpl}</list-view>`, '>1')),
-          section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(sectionTpl, '>1'))
-
-        // reset state
-        section.innerHTML = ''
-
-        // clear all siblings
-        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (inlineList !== el) el.remove()
-
-        const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
-        if (value) {
-          const label = $<LabelView>(`<label-view><span></span></label-view>`, '>1')
-
-          if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
-
-          section.insertAdjacentElement('beforeend', label)
-        }
-
-        PickerView.#reflectButtons(
-          [...(this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [])].filter((el) => el.matches('option')),
-          section
-        )
-
-        break
-      }
-    }
-
-    this.#reflectSelectionOnButtons()
-
-    this.#reflectSelectionOnCurrentValueLabel()
+    this.#renderButtons({ mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] })
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
@@ -1133,8 +1056,8 @@ export class PickerView extends FormAssociatedBase {
     return group
   }
 
-  static #reflectButtons(nodes: Element[], container: Element): void
-  static #reflectButtons(nodes: Dictionary, container: Element): void
+  // static #reflectButtons(nodes: Element[], container: Element): void
+  // static #reflectButtons(nodes: Dictionary, container: Element): void
   static #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectButtons`)
 

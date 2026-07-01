@@ -971,6 +971,23 @@
               "kind": "field",
               "name": "name"
             }
+          ],
+          "attributes": [
+            {
+              "name": "picker"
+            },
+            {
+              "name": "help"
+            },
+            {
+              "name": "dictionary"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "list"
+            }
           ]
         }
       ],

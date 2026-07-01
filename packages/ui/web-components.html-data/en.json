@@ -255,7 +255,49 @@
       ]
     },
     {
-      "name": "picker-view"
+      "name": "picker-view",
+      "description": "",
+      "attributes": [
+        {
+          "name": "picker",
+          "description": "Value Type: “menu” | “inline” | “navigation-link” | “sheet” | “automatic”\n\nDescription: style",
+          "values": [
+            {
+              "name": "menu"
+            },
+            {
+              "name": "inline"
+            },
+            {
+              "name": "navigation-link"
+            },
+            {
+              "name": "sheet"
+            },
+            {
+              "name": "automatic"
+            }
+          ]
+        },
+        {
+          "name": "help",
+          "description": "Value Type: “string”\n\nDescription: Adds a help tooltip to the trigger of the picker, if style supports one",
+          "values": [
+            {
+              "name": "string"
+            }
+          ]
+        },
+        {
+          "name": "dictionary",
+          "description": "Value Type: “DictEntry[]”\n\nDescription: Renders all options using this array",
+          "values": [
+            {
+              "name": "DictEntry[]"
+            }
+          ]
+        }
+      ]
     },
     {
       "name": "plain-button"

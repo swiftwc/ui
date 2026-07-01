@@ -123,6 +123,23 @@ const parseDictionary = (value: string | null): Dictionary => {
   return dictionary
 }
 
+const indexGroups = (nodes: Element[] | Dictionary, parentPath = ''): Map<string, Element | DictEntry> => {
+  const map = new Map<string, Element | DictEntry>()
+
+  nodes.forEach((node, i) => {
+    const id = parentPath ? `${parentPath}.${i}` : `${i}`
+
+    map.set(id, node) // no DOM write — works identically for Element and DictEntry
+
+    const children = node instanceof Element ? Array.from(node.children) : node.children
+    for (const [cid, cnode] of indexGroups(children, id)) map.set(cid, cnode)
+  })
+
+  return map
+}
+
+const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+
 /**
  *
  * @attr {menu|inline|navigation-link|sheet|automatic} picker-style
@@ -155,7 +172,7 @@ export class PickerView extends FormAssociatedBase {
 
   #spawn?: HTMLElement
 
-  #makeGroupClickHandler(el: Element | DictEntry) {
+  #makeGroupClickHandler(el: Element | DictEntry, groupId: string) {
     return async (evt: Event) => {
       evt.stopImmediatePropagation()
       evt.preventDefault()
@@ -163,8 +180,16 @@ export class PickerView extends FormAssociatedBase {
       const { target } = evt
       if (!(target instanceof HTMLElement)) return
 
-      const newPage = this.#spawnPage(el instanceof Element ? Array.from(el.children) : el.children, 'body-view', this.hasAttribute('searchable'), extractLabelFromGroup(el as HTMLDataListElement))
+      const newPage = this.#spawnPage(
+        el instanceof Element ? Array.from(el.children) : el.children,
+        'body-view',
+        groupId,
+        this.hasAttribute('searchable'),
+        extractLabelFromGroup(el as HTMLDataListElement)
+      )
       if (!newPage) return
+
+      newPage.dataset.groupId = groupId // <-- tag the spawned page
 
       const path = new NavigationPath(target)?.hydrate()
 
@@ -176,10 +201,8 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #spawnPage = (elements: Element[] | DictEntry[], tag: 'body-view' | 'sheet-view', searchable: boolean = false, title?: string | null) => {
+  #spawnPage = (elements: Element[] | DictEntry[], tag: 'body-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
     if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
-
-    console.log(1111, elements)
 
     const body = $<HTMLElement>(
         `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="caret-left"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
@@ -254,7 +277,7 @@ export class PickerView extends FormAssociatedBase {
       })
     })
 
-    for (const el of elements) {
+    for (const [i, el] of elements.entries()) {
       if (el instanceof Element)
         switch (el.tagName) {
           case 'OPTGROUP': {
@@ -279,6 +302,8 @@ export class PickerView extends FormAssociatedBase {
           }
           default: {
             const btn = PickerView.#wrapOptionSpawnTag(el as HTMLDataListElement)
+
+            const groupId = parentGroupId ? `${parentGroupId}.${i}` : `${i}`
             // const btn = $<HTMLButtonElement>(
             //     `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
             //     '>1'
@@ -287,7 +312,9 @@ export class PickerView extends FormAssociatedBase {
             // const node = el as HTMLElement
             // if (label && node.dataset.label) renderLabelTitle(label, node.dataset.label) //label?.setAttribute('title', el.dataset.label)
 
-            btn.addEventListener('click', this.#makeGroupClickHandler(el))
+            btn.dataset.groupId = groupId
+
+            btn.addEventListener('click', this.#makeGroupClickHandler(el, groupId))
 
             list?.appendChild(btn)
 
@@ -295,7 +322,6 @@ export class PickerView extends FormAssociatedBase {
           }
         }
       else {
-        console.log(9999, el)
         if (el.children.length)
           if (allLeaves(el)) {
             const group = PickerView.#wrapOptgroupTag(el)
@@ -308,7 +334,11 @@ export class PickerView extends FormAssociatedBase {
           } else {
             const btn = PickerView.#wrapOptionSpawnTag(el)
 
-            btn.addEventListener('click', this.#makeGroupClickHandler(el))
+            const groupId = parentGroupId ? `${parentGroupId}.${i}` : `${i}`
+
+            btn.dataset.groupId = groupId
+
+            btn.addEventListener('click', this.#makeGroupClickHandler(el, groupId))
 
             list?.appendChild(btn)
           }
@@ -323,6 +353,33 @@ export class PickerView extends FormAssociatedBase {
     }
 
     return body
+  }
+
+  #resyncSpawnedPages = (freshRoot: Element[] | Dictionary) => {
+    if (!this.#spawn) return
+
+    const groupMap = indexGroups(freshRoot)
+
+    for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
+      const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+      if (0 >= depth) continue
+
+      const groupId = el.dataset.groupId
+      const source = groupId ? groupMap.get(groupId) : undefined
+
+      if (!source) {
+        el.remove()
+        continue
+      }
+
+      const children = source instanceof Element ? Array.from(source.children) : source.children
+      const title = source instanceof Element ? extractLabelFromGroup(source as HTMLDataListElement) : (source.label ?? null)
+
+      const newPage = this.#spawnPage(children, 'body-view', groupId, this.hasAttribute('searchable'), title)
+      newPage.dataset.groupId = groupId
+
+      reflectSpawnedElement(el, newPage)
+    }
   }
 
   #renderDictionary = (dictionary: Dictionary) => {
@@ -357,6 +414,21 @@ export class PickerView extends FormAssociatedBase {
     }
     this.#lastRenderedLabelMap = flattenDictionary(dictionary)
 
+    // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+    // collectGroups = (nodes: DictEntry[]): string[][] => {
+    //   const groups: string[][] = []
+    //   const walk = (list: DictEntry[]) => {
+    //     for (const node of list) {
+    //       if (!node.children.length) continue
+    //       if (!allLeaves(node)) groups.push(collectLeafValues(node))
+    //       walk(node.children)
+    //     }
+    //   }
+    //   walk(nodes)
+    //   return groups
+    // }
+    this.#lastIndexedRoot = dictionary //this.#lastRenderedGroupMap = collectGroups(dictionary)
+
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {
@@ -379,21 +451,23 @@ export class PickerView extends FormAssociatedBase {
         if (!this.#spawn) break
 
         // rerender level 0
-        reflectSpawnedElement(this.#spawn, this.#spawnPage(dictionary, 'body-view', this.hasAttribute('searchable'), this.getAttribute('label')))
+        reflectSpawnedElement(this.#spawn, this.#spawnPage(dictionary, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
 
-        for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-          const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
-          if (0 >= depth) continue
+        this.#resyncSpawnedPages(dictionary)
+        // // FIXME:
+        // for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
+        //   const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+        //   if (0 >= depth) continue
 
-          const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
-          if (!datalist) {
-            el.remove()
+        //   const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
+        //   if (!datalist) {
+        //     el.remove()
 
-            break
-          }
+        //     break
+        //   }
 
-          reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
-        }
+        //   reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
+        // }
 
         break
       }
@@ -467,6 +541,13 @@ export class PickerView extends FormAssociatedBase {
         this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
       } else for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
 
+    this.#lastIndexedRoot = this.#slots?.get('list')?.assignedElements() ?? []
+    // this.#lastRenderedGroupMap = assigned.flatMap<string[]>((el) =>
+    //   [...(el.matches('datalist') ? [el as HTMLDataListElement] : []), ...el.querySelectorAll<HTMLDataListElement>('datalist')].map((dl) =>
+    //     Array.from(dl.options).map((opt) => extractTagFromOption(opt))
+    //   )
+    // )
+
     switch (this.pickerStyle) {
       case 'sheet':
       case 'navigation-link': {
@@ -488,22 +569,25 @@ export class PickerView extends FormAssociatedBase {
         // rebuild snapshot(tree)
         if (!this.#spawn) break
 
+        const assigned = this.#slots?.get('list')?.assignedElements() ?? []
+
         // rerender level 0
-        reflectSpawnedElement(this.#spawn, this.#spawnPage(this.#slots?.get('list')?.assignedElements() ?? [], 'body-view', this.hasAttribute('searchable'), this.getAttribute('label')))
+        reflectSpawnedElement(this.#spawn, this.#spawnPage(assigned, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
 
-        for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-          const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
-          if (0 >= depth) continue
+        this.#resyncSpawnedPages(assigned)
+        // for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
+        //   const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+        //   if (0 >= depth) continue
 
-          const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
-          if (!datalist) {
-            el.remove()
+        //   const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
+        //   if (!datalist) {
+        //     el.remove()
 
-            break
-          }
+        //     break
+        //   }
 
-          reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
-        }
+        //   reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
+        // }
 
         break
       }
@@ -601,6 +685,8 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #lastRenderedLabelMap: Record<string, string | undefined> = {}
+
+  #lastIndexedRoot: Element[] | Dictionary = []
 
   get #currentValueLabel() {
     const cvl = this.#lastRenderedLabelMap[this.#selection]
@@ -888,6 +974,7 @@ export class PickerView extends FormAssociatedBase {
     const level0 = this.#spawnPage(
       this.hasAttribute((this.constructor as typeof PickerView).ATTR.DICTIONARY) ? parseDictionary(this.getAttribute('dictionary')) : (this.#slots?.get('list')?.assignedElements() ?? []),
       'sheet' === this.pickerStyle ? 'sheet-view' : 'body-view',
+      undefined,
       this.hasAttribute('searchable'),
       this.getAttribute('label')
     )
@@ -1132,50 +1219,80 @@ export class PickerView extends FormAssociatedBase {
   #reflectSelectionOnButtons() {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
 
+    const groupMap = indexGroups(this.#lastIndexedRoot)
+
+    const groupContainsSelection = (source: Element | DictEntry): boolean =>
+      source instanceof Element
+        ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection)
+        : collectLeafValues(source).includes(this.#selection)
+
     const syncButtons = (root: Element | HTMLElement) => {
-      // 1. Sync plain value buttons (existing behavior)
+      // 1. plain value buttons — unchanged
       for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
         el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
-      // 2. Sync `details` (optgroups) — open/mark if any descendant option matches selection
+      // 2. details/optgroups — unchanged
       for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
-        // console.log(9999, details.matches(':has(> button[value]:not([slot]) label-view[data-role="check"][style*=visible])'))
         const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
 
-        // Show/hide the check on the summary's label-view
         details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
       }
 
-      // 3. Sync nav-link buttons (those without `value` that spawn sub-pages)
-      //    These wrap <datalist> children — mark them if any descendant value matches
+      // 3. nav-link buttons — resolved by groupId, same map used for resync
       for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
-        // Find the matching datalist node by label
-        const btnLabel = btn.querySelector('label-view span')?.textContent?.trim()
-        const matchingDatalist = [...(this.#slots?.get('list')?.assignedElements() ?? [])]
-          .flatMap((el) => [...el.querySelectorAll<HTMLElement>('datalist'), ...(el.tagName === 'DATALIST' ? [el as HTMLElement] : [])])
-          .find((dl) => dl.getAttribute('data-label') === btnLabel)
-
-        const hasSelectedDescendant = matchingDatalist ? [...matchingDatalist.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection) : false
+        const source = btn.dataset.groupId ? groupMap.get(btn.dataset.groupId) : undefined
+        const hasSelectedDescendant = source ? groupContainsSelection(source) : false
 
         btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
       }
     }
 
-    // Run on the host element (inline/menu styles)
     syncButtons(this)
-
-    // Also sync the spawn if open (sheet/navigation-link styles)
     if (this.#spawn) syncButtons(this.#spawn)
-
-    // // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
-    // for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-    //   el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
-
-    // // also sync the spawn (sheet/navigation) if open
-    // if (this.#spawn)
-    //   for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
-    //     el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
   }
+  // #reflectSelectionOnButtons() {
+  //   if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
+
+  //   const syncButtons = (root: Element | HTMLElement) => {
+  //     // 1. Sync plain value buttons (existing behavior)
+  //     for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+  //       el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+
+  //     // 2. Sync `details` (optgroups) — open/mark if any descendant option matches selection
+  //     for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
+  //       // ORRR details.matches(':has(> button[value]:not([slot]) label-view[data-role="check"][style*=visible])'))
+  //       const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+
+  //       // Show/hide the check on the summary's label-view
+  //       details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+  //     }
+
+  //     // 3. Sync nav-link buttons (those without `value` that spawn sub-pages)
+  //     //    These wrap <datalist> children — mark them if any descendant value matches
+  //     const navLinkBtns = root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')
+
+  //     navLinkBtns.forEach((btn, i) => {
+  //       const hasSelectedDescendant = this.#lastRenderedGroupMap[i]?.includes(this.#selection) ?? false
+
+  //       btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+  //     })
+  //   }
+
+  //   // Run on the host element (inline/menu styles)
+  //   syncButtons(this)
+
+  //   // Also sync the spawn if open (sheet/navigation-link styles)
+  //   if (this.#spawn) syncButtons(this.#spawn)
+
+  //   // // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
+  //   // for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+  //   //   el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+
+  //   // // also sync the spawn (sheet/navigation) if open
+  //   // if (this.#spawn)
+  //   //   for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
+  //   //     el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+  // }
 
   /**
    * Overwrite cvlabel with the label prop of the current(find[value === #selection]) option/dictentry

@@ -6086,8 +6086,8 @@
   }
   h-stack[distribution=center],
   v-flex-stack[distribution=center] {
-    justify-items: safe center  ;
-    justify-content: safe center  ;
+    justify-items: center  ;
+    justify-content: center  ;
   }
   h-stack[distribution=trailing],
   v-flex-stack[distribution=trailing] {
@@ -6131,6 +6131,16 @@
   h-stack[alignment=space-between],
   v-flex-stack[alignment=space-between] {
     align-content: space-between  ;
+  }
+  h-stack[placement=fill],
+  v-flex-stack[placement=fill] {
+    place-items: stretch  ;
+    place-content: stretch  ;
+  }
+  h-stack[placement="leading fill"],
+  v-flex-stack[placement="leading fill"] {
+    place-items: stretch start  ;
+    place-content: stretch start  ;
   }
   h-stack[placement="fill leading"],
   v-flex-stack[placement="fill leading"] {
@@ -6184,8 +6194,8 @@
   }
   v-stack[alignment=center],
   h-flex-stack[alignment=center] {
-    justify-items: safe center  ;
-    justify-content: safe center  ;
+    justify-items: center  ;
+    justify-content: center  ;
   }
   v-stack[alignment=trailing],
   h-flex-stack[alignment=trailing] {
@@ -6210,6 +6220,11 @@
   h-flex-stack[placement="leading fill"] {
     place-items: start stretch  ;
     place-content: start stretch  ;
+  }
+  v-stack[placement="fill leading"],
+  h-flex-stack[placement="fill leading"] {
+    place-items: stretch start  ;
+    place-content: stretch start  ;
   }
   v-stack[placement="space-between fill"],
   h-flex-stack[placement="space-between fill"] {

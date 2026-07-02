@@ -12,6 +12,7 @@
     "@mdit/plugin-abbr": "^0.23.2",
     "@mdit/plugin-align": "^0.24.2",
     "@mdit/plugin-dl": "^0.23.2",
+    "@mdit/plugin-embed": "^1.0.1",
     "@mdit/plugin-icon": "^0.24.2",
     "@mdit/plugin-layout": "^0.2.2",
     "@swiftwc/ui": "*",

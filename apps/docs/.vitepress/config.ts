@@ -1,6 +1,7 @@
 import { abbr } from "@mdit/plugin-abbr";
 import { align } from "@mdit/plugin-align";
 import { dl } from "@mdit/plugin-dl";
+import { embed } from "@mdit/plugin-embed";
 import { icon } from "@mdit/plugin-icon";
 import { layout } from "@mdit/plugin-layout";
 import data from "@swiftwc/ui/customElements/en" with { type: "json" };
@@ -100,6 +101,19 @@ export default defineConfig({
       md.use(groupIconMdPlugin, {
         titleBar: { includeSnippet: true },
       });
+      md.use(embed, {
+        config: [
+          {
+            name: "youtube",
+            setup: (id: string) => `<iframe width="560" height="315" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`,
+          },
+          {
+            name: "icon",
+            allowInline: true,
+            setup: (name: string) => `<i class="ph ph-${name}"></i>`,
+          },
+        ],
+      });
       // md.use(field);
       // md.use(demo, {
       //   // your options, name is required
@@ -131,7 +145,11 @@ export default defineConfig({
     // },
   },
 
-  head: [["link", { rel: "icon", href: "/favicon.svg" }]],
+  head: [
+    ["link", { rel: "icon", href: "/favicon.svg" }],
+    ["script", { src: "https://unpkg.com/@phosphor-icons/web" }],
+    ["script", { src: "https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4" }],
+  ],
 
   title: "SwiftWC",
   description: "Elegant SwiftUI-inspired web components for standalone web apps and web extensions.",

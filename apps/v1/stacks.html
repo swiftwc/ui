@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>stacks</title>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <h-stack>
+            <v-stack id="v-stack"></v-stack>
+            <v-stack id="h-stack"></v-stack>
+          </h-stack>
+        </v-stack>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
+    <script type="module">
+      import '/main.js'
+
+      const getEmoji = (tag, key) => badgeMap[tag === 'v-stack' ? 'v' : 'h'][key] ?? ''
+
+      const badgeMap = {
+          v: {
+            placement: '↔️ ↕️',
+            alignment: '↔️',
+            distribution: '↔️',
+          },
+          h: {
+            placement: '↕️ ↔️',
+            alignment: '↕️',
+            distribution: '↕️',
+          },
+        },
+        all = [
+          [`v-stack`, {}, []],
+          [`v-stack`, {}, ['h-50']],
+          [`v-stack`, { distribution: 'center' }, ['h-50']],
+          [`v-stack`, { alignment: 'leading' }, []],
+          [`v-stack`, { alignment: 'trailing' }, []],
+          [`v-stack`, { alignment: 'fill' }, []],
+          [`v-stack`, { alignment: 'fill' }, ['w-max', `w-max`]],
+          [`v-stack`, { distribution: 'leading' }, []],
+          [`v-stack`, { distribution: 'trailing' }, []],
+          [`v-stack`, { distribution: 'fill' }, []],
+          [`v-stack`, { distribution: 'fill' }, ['w-max', 'w-max']],
+          [`v-stack`, { placement: 'fill' }, []],
+          [`v-stack`, { placement: 'leading fill' }, []],
+          [`h-stack`, {}, []],
+          [`h-stack`, {}, ['w-100']],
+          [`h-stack`, { distribution: 'center' }, ['w-100']],
+          [`h-stack`, { alignment: 'leading' }, []],
+          [`h-stack`, { alignment: 'trailing' }, []],
+          [`h-stack`, { alignment: 'fill' }, []],
+          [`h-stack`, { alignment: 'fill' }, ['h-max', 'h-max']],
+          [`h-stack`, { distribution: 'leading' }, []],
+          [`h-stack`, { distribution: 'trailing' }, []],
+          [`h-stack`, { distribution: 'fill' }, []],
+          [`h-stack`, { distribution: 'fill' }, ['h-max', 'h-max']],
+          [`h-stack`, { placement: 'fill' }, []],
+          [`h-stack`, { placement: 'leading fill' }, []],
+        ]
+
+      const renderAttrs = (tag, attrs) =>
+        Object.entries(attrs)
+          .map(([k, v]) => {
+            const emoji = getEmoji(tag, k)
+            return `${k} ${emoji} ${v}`
+          })
+          .join(' ')
+
+      for (const id of ['v-stack', 'h-stack']) {
+        for (const [tag, attrs, [c1, c2]] of all.filter(([tag]) => tag === id)) {
+          document.querySelector(`#${id}`).insertAdjacentHTML(
+            'beforeend',
+            `<details open>
+            <summary class="p-4"><code>${tag} ${renderAttrs(tag, attrs)} </code></summary>
+            <${tag} class="outline-offset-4 outline-yellow-500 outline-4 w-100 h-50" ${Object.entries(attrs)
+              .map(([k, v]) => `${k}="${String(v)}"`)
+              .join(' ')}>
+              <label-view font="title2" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-4px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-4px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-4px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
+              <label-view font="callout" foreground="secondary" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-4px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-4px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-4px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
+            </${tag}>
+          </details>`
+          )
+        }
+      }
+    </script>
+  </body>
+</html>

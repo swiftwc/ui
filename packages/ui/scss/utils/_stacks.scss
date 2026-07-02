@@ -13,8 +13,8 @@ $inline-map: (
     (justify-content (stretch)),
   ),
   center: (
-    (justify-items (safe center)),
-    (justify-content (safe center)),
+    (justify-items (center)),
+    (justify-content (center)),
   ),
   trailing: (
     (justify-items (end)),
@@ -56,6 +56,14 @@ $block-map: (
 );
 
 $h-placement-map: (
+  'fill': (
+    (place-items (stretch)),
+    (place-content (stretch)),
+  ),
+  'leading fill': (
+    (place-items (stretch start)),
+    (place-content (stretch start)),
+  ),
   'fill leading': (
     (place-items (start stretch)),
     (place-content (start stretch)),
@@ -75,6 +83,10 @@ $v-placement-map: (
   'leading fill': (
     (place-items (start stretch)),
     (place-content (start stretch)),
+  ),
+  'fill leading': (
+    (place-items (stretch start)),
+    (place-content (stretch start)),
   ),
   'space-between fill': (
     (align-content (space-between)),

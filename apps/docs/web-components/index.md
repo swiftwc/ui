@@ -12,6 +12,8 @@
 
 #### [BorderlessButton](/web-components/borderless-button.md)
 
+#### [ColorScheme](/web-components/color-scheme.md)
+
 #### [ConfirmationDialog](/web-components/confirmation-dialog.md)
 
 #### [ContentUnavailableView](/web-components/content-unavailable-view.md)

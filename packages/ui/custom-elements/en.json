@@ -206,6 +206,43 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/color-scheme.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ColorScheme",
+          "tagName": "color-scheme",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "dark"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ColorScheme",
+          "declaration": {
+            "name": "ColorScheme"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "color-scheme",
+          "declaration": {
+            "name": "ColorScheme"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/confirmation-dialog.ts",
       "declarations": [
         {

@@ -50,6 +50,14 @@
       ]
     },
     {
+      "name": "color-scheme",
+      "attributes": [
+        {
+          "name": "dark"
+        }
+      ]
+    },
+    {
       "name": "confirmation-dialog",
       "attributes": [
         {

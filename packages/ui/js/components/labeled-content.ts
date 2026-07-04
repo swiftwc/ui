@@ -1,0 +1,142 @@
+import { $, devFlags, renderLabel } from '../internal/utils'
+
+// curency:el-GR-u-cu-eur-cf-account
+interface ParsedFormat {
+  type: string
+  locale: string
+  options: Record<string, string>
+}
+
+export class LabeledContent extends HTMLElement {
+  static get observedAttributes() {
+    return ['value', 'label', 'header', 'footer', 'labeled-content-style', 'format']
+  }
+
+  static #template: DocumentFragment
+
+  static get template() {
+    return (this.#template ??= $(
+      String.raw`
+    <div part="root labeled-content-container">
+      <slot name="header"></slot>
+      <div part="root labeled-content-stack">
+        <div part="root labeled-content-label-stack">
+          <slot name="label"></slot>
+        </div>
+        <div part="root labeled-content-value-stack">
+          <slot></slot>
+        </div>
+      </div>
+      <slot name="footer"></slot>
+    </div>
+    `
+    ))
+  }
+
+  #shadowRoot
+
+  constructor() {
+    super()
+
+    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabeledContent).template, true))
+  }
+
+  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+
+    if (oldValue === newValue) return
+
+    switch (name) {
+      case 'header':
+        let header = this.querySelector(':scope>[slot=header]')
+        if (newValue) {
+          const el = header ?? $(`<header slot="header"></header>`, '>1')
+          renderLabel(el, ':scope>label-view', `<label-view font="callout"><span></span></label-view>`, newValue)
+          header ??= this.appendChild(el)
+        } else header?.remove()
+
+        break
+      case 'footer':
+        let footer = this.querySelector(':scope>[slot=footer]')
+        if (newValue) {
+          const el = footer ?? $(`<footer slot="footer"></footer>`, '>1')
+          renderLabel(el, ':scope>label-view', `<label-view font="callout"><span></span></label-view>`, newValue)
+          footer ??= this.appendChild(el)
+        } else footer?.remove()
+
+        break
+      case 'value':
+        renderLabel(this, ':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this.#fmt(newValue, this.getAttribute('format')))
+
+        break
+      case 'format':
+        renderLabel(this, ':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this.#fmt(this.getAttribute('value'), newValue))
+
+        break
+      case 'label':
+        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" line-limit="1" truncation-mode="tail"><span></span></label-view>`, newValue)
+
+        break
+    }
+  }
+
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ disconnect`)
+  }
+
+  connectedCallback() {
+    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ connect`)
+  }
+
+  // <type>:<locale>;<option>=<value>;<option>=<value>
+  #fmt = (value: string | null, format?: string | null) => {
+    const parseFormat = (format?: string | null): ParsedFormat => {
+      if (!format)
+        return {
+          type: 'text',
+          locale: navigator.language,
+          options: {},
+        }
+
+      const [type, locale = navigator.language, opts = {}] = format.split(':', 3),
+        loc = new Intl.Locale(locale),
+        options: Record<string, string> = Object.fromEntries(new URLSearchParams(opts))
+
+      return {
+        type,
+        locale: loc.toString(),
+        options,
+      }
+    }
+
+    const { type, locale, options } = parseFormat(format)
+
+    switch (type) {
+      case 'currency':
+        return new Intl.NumberFormat(locale, { style: 'currency', ...options }).format(Number(value)) // currency:en-US;currency=USD "$1,234.50"
+      case 'percent':
+        return new Intl.NumberFormat(locale, { style: 'percent' }).format(Number(value)) // percent:en-US "42%"
+      case 'unit':
+        return new Intl.NumberFormat(locale, { style: 'unit', ...options }).format(Number(value)) // percent:en-US:unit=kilometer-per-hour "50 km/h"
+      case 'number':
+        return new Intl.NumberFormat(locale, options).format(Number(value)) // number:en-US:notation=compact "1.2M"
+      case 'date':
+        return new Intl.DateTimeFormat(locale, options).format(new Date(value ?? '2000')) // { dateStyle: 'full', timeStyle: 'short' } "Saturday, July 4, 2026 at 2:30 PM"
+      case 'relative-time': {
+        const [number = 0, unit = 'day'] = value?.split('~') ?? []
+
+        return new Intl.RelativeTimeFormat(locale, options).format(Number(number), unit as Intl.RelativeTimeFormatUnit) // -1~day { numeric: 'auto' } "yesterday"
+      }
+      case 'list':
+        return new Intl.ListFormat(locale, options).format(value?.split('~') ?? []) // '' { style: 'long', type: 'conjunction' } "Foo, Bar, and Baz"
+      case 'region':
+        return value ? new Intl.DisplayNames(locale, { type: 'region' }).of(value) : '' // "Greece"
+      // "Foo, Bar, and Baz"
+
+      default:
+        return value
+    }
+  }
+}

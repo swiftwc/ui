@@ -1097,6 +1097,7 @@
   h-stack:not([hidden]),
   tool-bar:not([hidden]),
   label-view:not([hidden]),
+  labeled-content:not([hidden]),
   menu-view:not([hidden]),
   section-view:not([hidden]),
   text-field:not([hidden]),
@@ -1105,6 +1106,9 @@
   picker-view:not([hidden])) {
     display: grid;
   }
+  :where(labeled-content)::part(labeled-content-container),
+  :where(labeled-content)::part(labeled-content-label-stack),
+  :where(labeled-content)::part(labeled-content-value-stack),
   :where(progress-view)::part(progress-control),
   :where(content-unavailable-view)::part(content-unavailable-title-stack),
   :where(content-unavailable-view)::part(content-unavailable-description-stack),
@@ -3071,7 +3075,34 @@
 }
 @layer sw-components {
   :where(labeled-content) {
-    display: grid;
+    container: labeled-content/inline-size;
+  }
+  :where(labeled-content)::part(labeled-content-container) {
+    grid-template-columns: subgrid;
+    gap: 0.5rem;
+  }
+  :where(labeled-content)::part(labeled-content-stack) {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    row-gap: 0.5rem;
+    column-gap: 1rem;
+  }
+  :where(labeled-content)::part(labeled-content-value-stack) {
+    color: var(--secondary);
+    justify-items: flex-end;
+    word-break: break-all;
+  }
+  :where(labeled-content)[labeled-content-style]::part(labeled-content-stack) {
+    flex-flow: column;
+  }
+  :where(labeled-content)[labeled-content-style]::part(labeled-content-value-stack) {
+    justify-items: flex-start;
+  }
+  :where(labeled-content > :nth-child(n+2 of [slot=label]),
+  labeled-content > [slot=header],
+  labeled-content > [slot=footer]) {
+    color: var(--secondary);
   }
 }
 @layer sw-components {}

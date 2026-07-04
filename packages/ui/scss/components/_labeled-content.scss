@@ -3,7 +3,47 @@
 @layer #{vars.$components-layer} {
   labeled-content {
     :where(&) {
-      display: grid;
+      container: labeled-content / inline-size;
+
+      &::part(labeled-content-container) {
+        grid-template-columns: subgrid;
+
+        gap: 0.5rem;
+      }
+
+      &::part(labeled-content-stack) {
+        display: flex;
+
+        flex-wrap: wrap;
+
+        justify-content: space-between;
+
+        row-gap: 0.5rem;
+        column-gap: 1rem;
+      }
+
+      &::part(labeled-content-value-stack) {
+        color: var(--secondary);
+
+        justify-items: flex-end;
+
+        word-break: break-all;
+      }
+
+      &[labeled-content-style]::part(labeled-content-stack) {
+        flex-flow: column;
+      }
+      &[labeled-content-style]::part(labeled-content-value-stack) {
+        justify-items: flex-start;
+      }
+    }
+
+    > :nth-child(n + 2 of [slot='label']),
+    > [slot='header'],
+    > [slot='footer'] {
+      :where(&) {
+        color: var(--secondary);
+      }
     }
   }
 }

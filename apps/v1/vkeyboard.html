@@ -27,7 +27,20 @@
         <v-stack>
           ns1section0<button type="button" class="fw">→</button>
           <button type="button" class="fww dlg">deep</button>
-          <p>...</p>
+          <div
+            style="
+              border: red solid 2px;
+              width: 100px;
+              display: grid;
+              grid-template-columns: minmax(0, 1fr);
+              height: 150px;
+              overflow: hidden;
+              text-overflow: ellipsis;
+            "
+          >
+            <p>looooooooooooooooooooooooooooooooooooooooooooooong</p>
+            <p style="text-overflow: ellipsis; overflow: hidden">looooooooooooooooooooooooooooooooooooooooooooooong</p>
+          </div>
           <details is="disclosure-group">
             <summary>3 days ago</summary>
             <p>January 27th, 2020 January 27th, 2020 January 27th</p>

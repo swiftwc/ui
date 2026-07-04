@@ -41,6 +41,7 @@
   h-stack,
   tool-bar,
   label-view,
+  labeled-content,
   menu-view,
   section-view,
   text-field,
@@ -52,6 +53,9 @@
     }
   }
 
+  :where(labeled-content)::part(labeled-content-container),
+  :where(labeled-content)::part(labeled-content-label-stack),
+  :where(labeled-content)::part(labeled-content-value-stack),
   :where(progress-view)::part(progress-control),
   :where(content-unavailable-view)::part(content-unavailable-title-stack),
   :where(content-unavailable-view)::part(content-unavailable-description-stack),

@@ -19,10 +19,20 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <h-stack>
-            <v-stack id="v-stack"></v-stack>
-            <v-stack id="h-stack"></v-stack>
-          </h-stack>
+          <details class="rounded-xl p-3 bg-neutral-100" open>
+            <summary class="p-4">distribution</summary>
+            <h-stack>
+              <v-stack id="v-stack"></v-stack>
+              <v-stack id="h-stack"></v-stack>
+            </h-stack>
+          </details>
+          <details class="rounded-xl p-3 bg-neutral-100" open>
+            <summary class="p-4">spacing</summary>
+            <h-stack>
+              <v-stack id="spacing-v-stack"></v-stack>
+              <v-stack id="spacing-h-stack"></v-stack>
+            </h-stack>
+          </details>
         </v-stack>
       </scroll-view>
       <tool-bar>
@@ -48,12 +58,12 @@
 
       const badgeMap = {
           v: {
-            placement: '↔️ ↕️',
+            placement: '↕️ ↔️',
             alignment: '↔️',
             distribution: '↔️',
           },
           h: {
-            placement: '↕️ ↔️',
+            placement: '↔️ ↕️',
             alignment: '↕️',
             distribution: '↕️',
           },
@@ -72,6 +82,7 @@
           [`v-stack`, { distribution: 'fill' }, ['w-max', 'w-max']],
           [`v-stack`, { placement: 'fill' }, []],
           [`v-stack`, { placement: 'leading fill' }, []],
+          //
           [`h-stack`, {}, []],
           [`h-stack`, {}, ['w-100']],
           [`h-stack`, { distribution: 'center' }, ['w-100']],
@@ -85,6 +96,17 @@
           [`h-stack`, { distribution: 'fill' }, ['h-max', 'h-max']],
           [`h-stack`, { placement: 'fill' }, []],
           [`h-stack`, { placement: 'leading fill' }, []],
+        ],
+        spacing = [
+          [`v-stack`, {}, []],
+          [`v-stack`, { spacing: '0' }, []],
+          [`v-stack`, { spacing: '10' }, []],
+          [`v-stack`, { spacing: '20' }, []],
+          //
+          [`h-stack`, {}, []],
+          [`h-stack`, { spacing: '0' }, []],
+          [`h-stack`, { spacing: '10' }, []],
+          [`h-stack`, { spacing: '20' }, []],
         ]
 
       const renderAttrs = (tag, attrs) =>
@@ -99,17 +121,31 @@
         for (const [tag, attrs, [c1, c2]] of all.filter(([tag]) => tag === id)) {
           document.querySelector(`#${id}`).insertAdjacentHTML(
             'beforeend',
-            `<details open>
+            `<details class="rounded-xl py-12 px-18 bg-neutral-100" open>
             <summary class="p-4"><code>${tag} ${renderAttrs(tag, attrs)} </code></summary>
-            <${tag} class="outline-offset-4 outline-yellow-500 outline-4 w-100 h-50" ${Object.entries(attrs)
+            <${tag} class="outline-yellow-500 outline-4 w-100 h-50 *:border-dashed *:border-2 *:border-blue-500" ${Object.entries(attrs)
               .map(([k, v]) => `${k}="${String(v)}"`)
               .join(' ')}>
-              <label-view font="title2" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-4px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-4px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-4px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
-              <label-view font="callout" foreground="secondary" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-4px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-4px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-4px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-4px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
+              <label-view font="title2" class="outline-offset-2    relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
+              <label-view font="callout" foreground="secondary" class="outline-offset-2    relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
             </${tag}>
           </details>`
           )
         }
+
+        for (const [tag, attrs, [c1, c2]] of spacing.filter(([tag]) => tag === id))
+          document.querySelector(`#spacing-${id}`).insertAdjacentHTML(
+            'beforeend',
+            `<details class="rounded-xl py-12 px-18 bg-neutral-100" open>
+            <summary class="p-4"><code>${tag} ${renderAttrs(tag, attrs)} </code></summary>
+            <${tag} class="outline-yellow-500 outline-4 w-100 h-50 *:border-dashed *:border-2 *:border-blue-500" ${Object.entries(attrs)
+              .map(([k, v]) => `${k}="${String(v)}"`)
+              .join(' ')}>
+              <label-view font="title2" class="outline-offset-2    relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
+              <label-view font="callout" foreground="secondary" class="outline-offset-2    relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
+            </${tag}>
+          </details>`
+          )
       }
     </script>
   </body>

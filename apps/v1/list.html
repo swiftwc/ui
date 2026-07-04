@@ -26,6 +26,51 @@
           <label-view title="Sidebar"></label-view>
         </button>
       </h-stack>
+      <p>labeled-content</p>
+      <list-view>
+        <section-view header="Section 1" footer="All is required">
+          <labeled-content value="Bar" label="Foo"></labeled-content>
+          <labeled-content value="Bar" label="Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"></labeled-content>
+          <labeled-content value="Barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" label="Foo"></labeled-content>
+          <labeled-content
+            value="Barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr"
+            label="Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"
+          ></labeled-content>
+          <labeled-content>
+            <label-view slot="label" title="Foo"></label-view>
+            <label-view title="Bar"></label-view>
+          </labeled-content>
+          <labeled-content>
+            <label-view slot="label" title="Foo"></label-view>
+            <label-view slot="label" title="Fooooooo"></label-view>
+            <label-view title="Bar"></label-view>
+            <label-view title="Barrrrr"></label-view>
+          </labeled-content>
+          <labeled-content format="currency-u-code-EUR">
+            <label-view slot="label" title="Foo"></label-view>
+            <label-view title="Bar"></label-view>
+          </labeled-content>
+          <labeled-content labeled-content-style="vertical" value="Bar" label="Foo"></labeled-content>
+          <labeled-content>
+            <label-view slot="label" system-image="smiley" title="Foo"></label-view>
+            <label-view title="Bar"></label-view>
+          </labeled-content>
+          <labeled-content>
+            <label-view slot="label" system-image="smiley" title="Foo"></label-view>
+            <v-stack spacing="0" alignment="trailing">
+              <label-view title="Bar"></label-view>
+              <label-view title="Baz"></label-view>
+            </v-stack>
+          </labeled-content>
+          <labeled-content header="very long header note" footer="very long header noteeeeeeeeeeeeeeeeeeeeeeeeeeeeeeeee">
+            <label-view slot="label" system-image="smiley" title="Foo"></label-view>
+            <v-stack>
+              <label-view title="Bar"></label-view>
+              <text-view title="Baz"></text-view>
+            </v-stack>
+          </labeled-content>
+        </section-view>
+      </list-view>
       <p>w/ details [preferred-root-disclosure-style="sidebar"]</p>
       <list-view preferred-root-disclosure-style="sidebar">
         <details is="disclosure-group" open>

@@ -498,6 +498,10 @@
       </picker-view>
       <p>menu picker outside form</p>
       <picker-view placeholder="here" label="inline1" picker-style="menu">
+        <datalist slot="list" data-label="detailsss" data-system-image="smiley">
+          <option data-system-image="smiley" value="60" label="60"></option>
+          <option data-system-image="smiley" value="70" label="Minimum Tip70"></option>
+        </datalist>
         <optgroup slot="list" label="detailsss" data-system-image="smiley">
           <option data-system-image="smiley" value="60" label="60"></option>
           <option data-system-image="smiley" value="70" label="Minimum Tip70"></option>
@@ -739,7 +743,11 @@
             <option slot="list" value="30" label="Generous"></option>
             <option slot="list" value="50" label="Very Generous"></option>
           </picker-view>
-          <picker-view placeholder="here" label="navigation-listtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt" picker-style="navigation-link">
+          <picker-view
+            placeholder="here"
+            label="navigation-listtttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttttt"
+            picker-style="navigation-link"
+          >
             <option slot="list" value="0" label="0%"></option>
             <option slot="list" value="10" label="Minimum Tip"></option>
             <option slot="list" value="20" label="Standard"></option>

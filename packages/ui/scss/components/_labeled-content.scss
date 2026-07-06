@@ -14,7 +14,8 @@
       &::part(labeled-content-stack) {
         display: flex;
 
-        flex-wrap: wrap;
+        flex-flow: var(--labeled-content--value-stack-flex-flow, row wrap);
+        // flex-wrap: wrap;
 
         justify-content: space-between;
 
@@ -31,16 +32,27 @@
       &::part(labeled-content-value-stack) {
         color: var(--secondary);
 
-        justify-items: flex-end;
+        justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
 
         word-break: break-all;
       }
 
-      &[labeled-content-style]::part(labeled-content-stack) {
-        flex-flow: column;
+      @media (pointer: fine) {
+        --labeled-content--value-stack-flex-flow: column;
+
+        --labeled-content--value-stack-justify-items: flex-start;
       }
-      &[labeled-content-style]::part(labeled-content-value-stack) {
-        justify-items: flex-start;
+
+      &[labeled-content-style='vertical'] {
+        --labeled-content--value-stack-flex-flow: column;
+
+        --labeled-content--value-stack-justify-items: flex-start;
+      }
+
+      &[labeled-content-style='horizontal'] {
+        --labeled-content--value-stack-flex-flow: row wrap;
+
+        --labeled-content--value-stack-justify-items: flex-end;
       }
     }
 

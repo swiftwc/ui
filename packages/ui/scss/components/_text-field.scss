@@ -4,6 +4,7 @@
   text-field {
     :where(&) {
       grid-template-columns: minmax(0, 1fr);
+
       grid-template-rows: minmax(0, 1fr);
 
       // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
@@ -14,9 +15,10 @@
       // display: grid;
 
       grid-template-columns: auto minmax(0, 1fr);
+      
       grid-template-rows: minmax(0, 1fr);
 
-      column-gap: 1rem;
+      column-gap: var(--labeled-content-column-gap);
     }
 
     :where(&)::part(text-field-label-stack) {

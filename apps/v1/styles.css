@@ -297,10 +297,10 @@
     }
   }
   html:has(color-scheme[dark]) {
-    color-scheme: dark;
+    color-scheme: dark only;
   }
   html:has(color-scheme[light]) {
-    color-scheme: light;
+    color-scheme: light only;
   }
 }
 @layer sw-base, sw-components, sw-nav-components, sw-list-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
@@ -3093,7 +3093,7 @@
   }
   :where(labeled-content)::part(labeled-content-stack) {
     display: flex;
-    flex-wrap: wrap;
+    flex-flow: var(--labeled-content--value-stack-flex-flow, row wrap);
     justify-content: space-between;
     row-gap: var(--labeled-content-row-gap);
     column-gap: var(--labeled-content-column-gap);
@@ -3104,14 +3104,22 @@
   }
   :where(labeled-content)::part(labeled-content-value-stack) {
     color: var(--secondary);
-    justify-items: flex-end;
+    justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
     word-break: break-all;
   }
-  :where(labeled-content)[labeled-content-style]::part(labeled-content-stack) {
-    flex-flow: column;
+  @media (pointer: fine) {
+    :where(labeled-content) {
+      --labeled-content--value-stack-flex-flow: column;
+      --labeled-content--value-stack-justify-items: flex-start;
+    }
   }
-  :where(labeled-content)[labeled-content-style]::part(labeled-content-value-stack) {
-    justify-items: flex-start;
+  :where(labeled-content)[labeled-content-style=vertical] {
+    --labeled-content--value-stack-flex-flow: column;
+    --labeled-content--value-stack-justify-items: flex-start;
+  }
+  :where(labeled-content)[labeled-content-style=horizontal] {
+    --labeled-content--value-stack-flex-flow: row wrap;
+    --labeled-content--value-stack-justify-items: flex-end;
   }
   :where(labeled-content > :nth-child(n+2 of [slot=label]),
   labeled-content > [slot=header],
@@ -4625,7 +4633,7 @@
   :where(text-field)::part(text-field-stack) {
     grid-template-columns: auto minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    column-gap: 1rem;
+    column-gap: var(--labeled-content-column-gap);
   }
   :where(text-field)::part(text-field-input-stack) {
     place-items: stretch;
@@ -4663,6 +4671,12 @@
   :where(picker-view) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
+    padding-inline: var(--picker--stack-grid-padding-inline, );
+    padding-block: var(--picker--stack-grid-padding-block, );
+    background: var(--picker--stack-grid-background, );
+    border-radius: var(--picker--stack-grid-border-radius, );
+    border: var(--picker--stack-grid-border, );
+    color: var(--picker--stack-grid-color, );
   }
   :where(picker-view > :not([slot])) {
     place-self: var(--picker--input-stack-child-place-self, );
@@ -4673,12 +4687,6 @@
     justify-content: var(--picker--stack-justify-content, );
     row-gap: var(--picker--stack-row-gap, );
     column-gap: var(--picker--stack-column-gap, );
-    padding-inline: var(--picker--stack-grid-padding-inline, );
-    padding-block: var(--picker--stack-grid-padding-block, );
-    background: var(--picker--stack-grid-background, );
-    border-radius: var(--picker--stack-grid-border-radius, );
-    border: var(--picker--stack-grid-border, );
-    color: var(--picker--stack-grid-color, );
   }
   :where(picker-view)::part(picker-input-stack) {
     flex-shrink: var(--picker--input-stack-flex-shrink, );
@@ -4692,7 +4700,7 @@
   }
   @container style(--picker-style: menu) {
     :where(picker-view menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 2rem;
+      margin-inline-start: 3rem;
     }
   }
   @container not style(--picker-style) {
@@ -4820,7 +4828,7 @@
       --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=menu]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 2rem;
+      margin-inline-start: 3rem;
     }
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
@@ -4839,7 +4847,7 @@
       --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=navigation-link]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 2rem;
+      margin-inline-start: 3rem;
     }
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
@@ -4858,7 +4866,7 @@
       --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=sheet]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 2rem;
+      margin-inline-start: 3rem;
     }
   }
 }

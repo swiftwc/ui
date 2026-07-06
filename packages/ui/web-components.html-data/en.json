@@ -211,6 +211,29 @@
       ]
     },
     {
+      "name": "labeled-content",
+      "attributes": [
+        {
+          "name": "value"
+        },
+        {
+          "name": "label"
+        },
+        {
+          "name": "header"
+        },
+        {
+          "name": "footer"
+        },
+        {
+          "name": "labeled-content-style"
+        },
+        {
+          "name": "format"
+        }
+      ]
+    },
+    {
       "name": "list-view",
       "description": "",
       "attributes": [
@@ -302,6 +325,21 @@
           "values": [
             {
               "name": "DictEntry[]"
+            }
+          ]
+        },
+        {
+          "name": "label-value",
+          "description": "Value Type: “vertical” | “horizontal” | “auto”\n\nDescription: placement",
+          "values": [
+            {
+              "name": "vertical"
+            },
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "auto"
             }
           ]
         }

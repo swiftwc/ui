@@ -754,6 +754,64 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/labeled-content.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "LabeledContent",
+          "tagName": "labeled-content",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "value"
+            },
+            {
+              "name": "label"
+            },
+            {
+              "name": "header"
+            },
+            {
+              "name": "footer"
+            },
+            {
+              "name": "labeled-content-style"
+            },
+            {
+              "name": "format"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "LabeledContent",
+          "declaration": {
+            "name": "LabeledContent"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "labeled-content",
+          "declaration": {
+            "name": "LabeledContent"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/list-view.ts",
       "declarations": [
         {
@@ -1018,6 +1076,9 @@
             },
             {
               "name": "dictionary"
+            },
+            {
+              "name": "label-value"
             }
           ],
           "slots": [

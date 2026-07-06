@@ -36,6 +36,8 @@
 
 #### [LabelView](/web-components/label-view.md)
 
+#### [LabeledContent](/web-components/labeled-content.md)
+
 #### [ListView](/web-components/list-view.md)
 
 #### [MenuView](/web-components/menu-view.md)

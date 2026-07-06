@@ -222,6 +222,9 @@
 
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
 
+    --labeled-content-column-gap: 1rem;
+    --labeled-content-row-gap: 0.5rem;
+
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }
@@ -236,7 +239,8 @@
 
     // lists
 
-    --insetlist-item-border-radius: 1rem;
+    --insetlist-item-border-radius: 2rem;
+    --insetform-item-border-radius: 2rem;
 
     //
     --list-row-gap: 3rem;
@@ -244,11 +248,9 @@
 
     --form-extra-gap: 3rem;
 
-    --insetform-item-border-radius: 1rem;
-
     @each $v in list, form {
-      --#{$v}-item-padding-inline-start: 1rem;
-      --#{$v}-item-padding-inline-end: 1rem;
+      --#{$v}-item-padding-inline-start: 2rem;
+      --#{$v}-item-padding-inline-end: 2rem;
       --#{$v}-item-padding-block-start: 1rem;
       --#{$v}-item-padding-block-start: 1rem;
 
@@ -347,6 +349,14 @@
             --#{$size}-btn-#{$k}: #{$v};
           }
         }
+      }
+
+      --insetlist-item-border-radius: 1rem;
+      --insetform-item-border-radius: 1rem;
+
+      @each $v in list, form {
+        --#{$v}-item-padding-inline-start: 1rem;
+        --#{$v}-item-padding-inline-end: 1rem;
       }
 
       // --primary-bg: oklch(0.9761 0 0); // ✅

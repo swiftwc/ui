@@ -89,6 +89,11 @@ const extractTagFromOption = (node: HTMLOptionElement | DictEntry) => {
 
     return node instanceof HTMLOptionElement ? (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || '' : (node.label ?? node.value ?? '')
   },
+  extractIconFromOption = (node: HTMLOptionElement | DictEntry): string | null => {
+    if (devFlags.debug) console.debug(`PickerView: extractIconFromOption`)
+
+    return node instanceof HTMLOptionElement ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
+  },
   extractLabelFromGroup = (node: HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
     if (devFlags.debug) console.debug(`PickerView: extractLabelFromGroup`)
 
@@ -461,10 +466,10 @@ export class PickerView extends FormAssociatedBase {
         const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? this.appendChild<LabelView>($(`<label-view></label-view>`, '>1'))
 
         // reset state
-        if (currentValueLabel) {
-          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
-        }
+        // if (currentValueLabel) {
+        //   renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
+        //   renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
+        // }
 
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (currentValueLabel !== el) el.remove()
@@ -508,10 +513,10 @@ export class PickerView extends FormAssociatedBase {
 
         const currentValueLabel = menu.querySelector<LabelView>(':scope>label-view[slot=label]') ?? menu.appendChild<LabelView>($(`<label-view slot="label"></label-view>`, '>1'))
 
-        if (currentValueLabel) {
-          renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
-        }
+        // if (currentValueLabel) {
+        //   renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
+        //   renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
+        // }
 
         if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
 
@@ -532,13 +537,18 @@ export class PickerView extends FormAssociatedBase {
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (inlineList !== el) el.remove()
 
+        // add label as a plain element
         const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
         if (value) {
-          const label = $<LabelView>(`<label-view><span></span></label-view>`, '>1')
+          const hStack = $<LabelView>(
+            `<h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack>`,
+            '>1'
+          )
 
-          if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
+          if (hStack) renderLabel(hStack, ':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, value)
+          // if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
 
-          section.insertAdjacentElement('beforeend', label)
+          section.insertAdjacentElement('beforeend', hStack)
         }
 
         if ('dictionary' === input.mode)
@@ -614,7 +624,7 @@ export class PickerView extends FormAssociatedBase {
   get #currentValueLabel() {
     const cvl = this.#lastRenderedLabelMap[this.#selection]
 
-    return (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl || this.#selection
+    return (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl
   }
 
   get #internals(): ElementInternals {
@@ -1031,8 +1041,11 @@ export class PickerView extends FormAssociatedBase {
 
     // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
 
-    const label = $<LabelView>(`<label-view><span></span></label-view>`, '>1')
+    const label = $<LabelView>(`<label-view></label-view>`, '>1')
+
     renderLabelTitle(label, extractCurrentValueFromOption(node)) // label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
+
+    renderLabelIcon(label, extractIconFromOption(node))
 
     hStack?.appendChild(label)
 
@@ -1045,7 +1058,7 @@ export class PickerView extends FormAssociatedBase {
     const labelT = `<label-view><span></span></label-view>`,
       summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
 
-    const group = $(`<details is="disclosure-group">${summaryT}</details>`, '>1'),
+    const group = $(`<details is="disclosure-group" disclosure-style="marker-trailing">${summaryT}</details>`, '>1'), // NOTE: already applied, here it covers spawned sheets
       hStack = group.querySelector(':scope>summary>h-stack') // ?? group.appendChild($(summaryT, '>1'))
     //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
     // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
@@ -1134,7 +1147,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectLabel(value: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
 
-    renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, value)
+    renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, value)
 
     this.#renderSlotted([])
   }
@@ -1142,80 +1155,42 @@ export class PickerView extends FormAssociatedBase {
   #reflectSelectionOnButtons() {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
 
-    const groupMap = indexGroups(this.#lastIndexedRoot)
+    self.requestAnimationFrame(() => {
+      this.ariaCurrent = this.#selection
 
-    const groupContainsSelection = (source: Element | DictEntry): boolean =>
-      source instanceof Element
-        ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection)
-        : collectLeafValues(source).includes(this.#selection)
+      const groupMap = indexGroups(this.#lastIndexedRoot)
 
-    const syncButtons = (root: Element | HTMLElement) => {
-      // 1. plain value buttons — unchanged
-      for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-        el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+      const groupContainsSelection = (source: Element | DictEntry): boolean =>
+        source instanceof Element
+          ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection)
+          : collectLeafValues(source).includes(this.#selection)
 
-      // 2. details/optgroups — unchanged
-      for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
-        const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+      const syncButtons = (root: Element | HTMLElement) => {
+        // 1. plain value buttons — unchanged
+        for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+          // $.prop('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden', el.querySelector<HTMLElement>('label-view[data-role="check"]'))
+          el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
-        details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+        // 2. details/optgroups — unchanged
+        for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
+          const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+
+          details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+        }
+
+        // 3. nav-link buttons — resolved by groupId, same map used for resync
+        for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
+          const source = btn.dataset.groupId ? groupMap.get(btn.dataset.groupId) : undefined
+          const hasSelectedDescendant = source ? groupContainsSelection(source) : false
+
+          btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+        }
       }
 
-      // 3. nav-link buttons — resolved by groupId, same map used for resync
-      for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
-        const source = btn.dataset.groupId ? groupMap.get(btn.dataset.groupId) : undefined
-        const hasSelectedDescendant = source ? groupContainsSelection(source) : false
-
-        btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
-      }
-    }
-
-    syncButtons(this)
-    if (this.#spawn) syncButtons(this.#spawn)
+      syncButtons(this)
+      if (this.#spawn) syncButtons(this.#spawn)
+    })
   }
-  // #reflectSelectionOnButtons() {
-  //   if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
-
-  //   const syncButtons = (root: Element | HTMLElement) => {
-  //     // 1. Sync plain value buttons (existing behavior)
-  //     for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-  //       el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
-
-  //     // 2. Sync `details` (optgroups) — open/mark if any descendant option matches selection
-  //     for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
-  //       // ORRR details.matches(':has(> button[value]:not([slot]) label-view[data-role="check"][style*=visible])'))
-  //       const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
-
-  //       // Show/hide the check on the summary's label-view
-  //       details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
-  //     }
-
-  //     // 3. Sync nav-link buttons (those without `value` that spawn sub-pages)
-  //     //    These wrap <datalist> children — mark them if any descendant value matches
-  //     const navLinkBtns = root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')
-
-  //     navLinkBtns.forEach((btn, i) => {
-  //       const hasSelectedDescendant = this.#lastRenderedGroupMap[i]?.includes(this.#selection) ?? false
-
-  //       btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
-  //     })
-  //   }
-
-  //   // Run on the host element (inline/menu styles)
-  //   syncButtons(this)
-
-  //   // Also sync the spawn if open (sheet/navigation-link styles)
-  //   if (this.#spawn) syncButtons(this.#spawn)
-
-  //   // // walk all rendered buttons (inline has buttons in list, menu has buttons in menu-view)
-  //   // for (const el of this.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-  //   //   el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
-
-  //   // // also sync the spawn (sheet/navigation) if open
-  //   // if (this.#spawn)
-  //   //   for (const el of this.#spawn.querySelectorAll<HTMLButtonElement>('list-view button[value]:not([slot])'))
-  //   //     el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
-  // }
 
   /**
    * Overwrite cvlabel with the label prop of the current(find[value === #selection]) option/dictentry
@@ -1223,33 +1198,43 @@ export class PickerView extends FormAssociatedBase {
   #reflectSelectionOnCurrentValueLabel() {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnCurrentValueLabel`)
 
-    switch (this.pickerStyle) {
-      case 'sheet':
-      case 'navigation-link': {
-        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])')
-        if (!currentValueLabel) break
+    self.requestAnimationFrame(() => {
+      switch (this.pickerStyle) {
+        case 'sheet':
+        case 'navigation-link': {
+          const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])')
+          if (!currentValueLabel) break
 
-        renderLabelTitle(currentValueLabel, this.#currentValueLabel)
-        renderLabelIcon(currentValueLabel, 'dots-three')
+          const cvl = this.#currentValueLabel
+          if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
+          else currentValueLabel.removeAttribute('foreground')
 
-        break
+          renderLabelTitle(currentValueLabel, cvl || this.getAttribute('placeholder') || this.#selection)
+          renderLabelIcon(currentValueLabel, 'dots-three')
+
+          break
+        }
+        case 'menu': {
+          const currentValueLabel = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]')
+          if (!currentValueLabel) break
+
+          const cvl = this.#currentValueLabel
+          if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
+          else currentValueLabel.removeAttribute('foreground')
+
+          renderLabelTitle(currentValueLabel, cvl || this.getAttribute('placeholder') || this.#selection)
+          renderLabelIcon(currentValueLabel, 'dots-three')
+
+          break
+        }
+        case 'inline':
+        default: {
+          //
+
+          break
+        }
       }
-      case 'menu': {
-        const currentValueLabel = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]')
-        if (!currentValueLabel) break
-
-        renderLabelTitle(currentValueLabel, this.#currentValueLabel)
-        renderLabelIcon(currentValueLabel, 'dots-three')
-
-        break
-      }
-      case 'inline':
-      default: {
-        //
-
-        break
-      }
-    }
+    })
   }
 
   #reflectTriggerHelp() {

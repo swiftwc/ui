@@ -132,7 +132,11 @@
         }
       }
     }
+  }
+}
 
+@layer #{vars.$utils-layer} {
+  [is='disclosure-group'] {
     @supports (x: #{string.unquote('attr(x type(*))')}) {
       :where(&) {
         --disclosure-style: attr(disclosure-style type(<custom-ident>), inherit);

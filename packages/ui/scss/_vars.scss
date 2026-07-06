@@ -31,7 +31,7 @@ $ipad-landscape-bp: 68rem !default;
 $table-expanded-bp: 31rem !default;
 
 // SECTION: Defaults
-$picker-styles: menu;
+$picker-styles: menu, navigation-link, sheet;
 $label-styles: icon-only, title-only, title-and-icon;
 $list-styles: inset, inset-grouped, sidebar;
 $form-styles: inset, inset-grouped, sidebar;

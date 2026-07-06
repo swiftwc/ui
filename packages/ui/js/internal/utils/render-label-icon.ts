@@ -9,10 +9,10 @@ export default function (label: LabelView, systemImage: string | null) {
 
   if (systemImage) {
     if (!img) {
-      const newImg = $(`<i slot="icon" style="line-height: 1.05" class="ph ph-${systemImage}"></i>`, '>1')
-      // const newImg = $(`<image-view slot="icon"></image-view>`, '>1')
+      // const newImg = $(`<i slot="icon" style="line-height: 1.05" class="ph ph-${systemImage}"></i>`, '>1')
+      const newImg = $(`<image-view slot="icon"></image-view>`, '>1')
 
-      // newImg.setAttribute('system-name', systemImage)
+      newImg.setAttribute('system-name', systemImage)
 
       // DOM manipulation last
       label.appendChild(newImg)

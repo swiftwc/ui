@@ -27,6 +27,9 @@
         <v-stack>
           ns1section0<button type="button" class="fw">→</button>
           <button type="button" class="fww dlg">deep</button>
+          <text-view format="date:"></text-view>
+          <text-view verbatim="hello world"></text-view>
+          <text-view localized-string-key="" verbatim="hello world"></text-view>
           <div
             style="
               border: red solid 2px;
@@ -40,6 +43,14 @@
           >
             <p>looooooooooooooooooooooooooooooooooooooooooooooong</p>
             <p style="text-overflow: ellipsis; overflow: hidden">looooooooooooooooooooooooooooooooooooooooooooooong</p>
+            <label-view system-image="smiley" title="Fooooooooooooooooooooooo"></label-view>
+            <!-- <label-view system-image="smiley">
+              <v-stack>
+                <label-view system-image="smiley" title="Fooooooooooooooooooooooo" line-limit="1" truncation-mode="tail"></label-view>
+                <label-view system-image="smiley" title="Fooooooooooooooooooooooo" line-limit="1" truncation-mode="tail"></label-view>
+              </v-stack>
+            </label-view> -->
+            <label-view system-image="smiley" title="Foooooo ooooooooo oooooooo oooooooo oooooooo oooooooo" line-limit="2" truncation-mode="tail"></label-view>
           </div>
           <details is="disclosure-group">
             <summary>3 days ago</summary>

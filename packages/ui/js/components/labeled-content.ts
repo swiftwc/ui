@@ -76,7 +76,7 @@ export class LabeledContent extends HTMLElement {
 
         break
       case 'label':
-        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" line-limit="1" truncation-mode="tail"><span></span></label-view>`, newValue)
+        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, newValue)
 
         break
     }

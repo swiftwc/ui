@@ -33,7 +33,7 @@ export class ImageView extends HTMLElement {
         //this.setAttribute('class', `ph ph-${newValue}`)
         let image = this.querySelector(':scope>:not([slot])')
         if (newValue) {
-          const el = image ?? $(`<i style="line-height: 1.05"></i>`, '>1')
+          const el = image ?? $(`<i style="line-height: 1"></i>`, '>1')
           el.setAttribute('class', `ph ph-${newValue}`)
           image ??= this.appendChild(el)
           // image ??= this.appendChild($(`<i style="line-height: 1.05"></i>`, '>1'))

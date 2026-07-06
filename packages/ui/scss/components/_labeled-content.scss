@@ -8,7 +8,7 @@
       &::part(labeled-content-container) {
         grid-template-columns: subgrid;
 
-        gap: 0.5rem;
+        gap: var(--labeled-content-row-gap);
       }
 
       &::part(labeled-content-stack) {
@@ -18,8 +18,14 @@
 
         justify-content: space-between;
 
-        row-gap: 0.5rem;
-        column-gap: 1rem;
+        row-gap: var(--labeled-content-row-gap);
+        column-gap: var(--labeled-content-column-gap);
+      }
+
+      &::part(labeled-content-label-stack) {
+        --label-truncation-mode: tail;
+
+        --label-line-limit: 1;
       }
 
       &::part(labeled-content-value-stack) {

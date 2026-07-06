@@ -133,6 +133,10 @@
       --menuitemradiusbr: var(--menu-item-border-radius);
       --menuitemradiusbl: var(--menu-item-border-radius);
     }
+
+    :where(&) {
+      --disclosure-style: marker-trailing;
+    }
   }
 }
 

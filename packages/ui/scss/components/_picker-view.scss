@@ -8,7 +8,6 @@ $picker-ifs: (
     --picker--labelstack-display: grid,
     // copy from labeled-content
     --picker--stack-display: flex,
-    --picker--stack-flex-wrap: wrap,
     --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
@@ -20,12 +19,15 @@ $picker-ifs: (
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
     --picker--input-stack-child-place-self: flex-end,
+    //
+    // --picker--stack-flex-wrap: wrap,
+    --picker--input-stack-flex-shrink: 0,
+    --picker--input-stack-max-width: 70%,
   ),
   navigation-link: (
     --picker--labelstack-display: grid,
     // copy from labeled-content
     --picker--stack-display: flex,
-    --picker--stack-flex-wrap: wrap,
     --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
@@ -37,12 +39,15 @@ $picker-ifs: (
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
     --picker--input-stack-child-place-self: flex-end,
+    //
+    // --picker--stack-flex-wrap: wrap,
+    --picker--input-stack-flex-shrink: 0,
+    --picker--input-stack-max-width: 70%,
   ),
   sheet: (
     --picker--labelstack-display: grid,
     // copy from labeled-content
     --picker--stack-display: flex,
-    --picker--stack-flex-wrap: wrap,
     --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
@@ -54,6 +59,10 @@ $picker-ifs: (
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
     --picker--input-stack-child-place-self: flex-end,
+    //
+    // --picker--stack-flex-wrap: wrap,
+    --picker--input-stack-flex-shrink: 0,
+    --picker--input-stack-max-width: 70%,
   ),
 );
 
@@ -121,6 +130,12 @@ $picker-ifs: (
       color: var(--picker--stack-grid-color,);
     }
 
+    :where(&)::part(picker-input-stack) {
+      flex-shrink: var(--picker--input-stack-flex-shrink,); //none;
+
+      max-width: var(--picker--input-stack-max-width,); //70%;
+    }
+
     :where(&)::part(picker-label-stack) {
       display: var(--picker--labelstack-display, none); // display: none;
 
@@ -173,7 +188,6 @@ $picker-ifs: (
         // --picker--stack-grid-template-columns: if(style(--picker-style: menu): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;);
 
         --picker--stack-display: if(style(--picker-style: sheet): flex ; style(--picker-style: navigation-link): flex ; style(--picker-style: menu): flex ;);
-        --picker--stack-flex-wrap: if(style(--picker-style: sheet): wrap ; style(--picker-style: navigation-link): wrap ; style(--picker-style: menu): wrap ;);
         --picker--stack-justify-content: if(style(--picker-style: sheet): space-between ; style(--picker-style: navigation-link): space-between ; style(--picker-style: menu): space-between ;);
         --picker--stack-row-gap: if(
           style(--picker-style: sheet): var(--labeled-content-row-gap) ; style(--picker-style: navigation-link): var(--labeled-content-row-gap) ;
@@ -204,6 +218,27 @@ $picker-ifs: (
           style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
         );
         --picker--input-stack-child-place-self: if(style(--picker-style: sheet): flex-end ; style(--picker-style: navigation-link): flex-end ; style(--picker-style: menu): flex-end ;);
+
+        // SECTION
+        --picker--input-stack-flex-shrink: if(
+          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 1 ; else: 0 ;)
+        );
+        --picker--stack-flex-wrap: if(
+          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): wrap ;)
+        );
+        --picker--input-stack-max-width: if(
+          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 70% ;)
+        );
+        // --picker--input-stack-flex-shrink: if(
+        //   style(--label-value-placement: vertical) or
+        //     style(--label-value-placement: auto): if(style(--picker-style: sheet) or style(--picker-style: navigation-link) or style(--picker-style: menu): 1 ;) ; ;
+        //     else: if(style(--picker-style: sheet) or style(--picker-style: navigation-link) or style(--picker-style: menu): 0 ;) ; ;
+        // );
+        // --picker--input-stack-max-width: if(style(--picker-style: sheet): 70% ; style(--picker-style: navigation-link): 70% ; style(--picker-style: menu): 70% ;);
+        // --picker--stack-flex-wrap: if(style(--picker-style: sheet): wrap ; style(--picker-style: navigation-link): wrap ; style(--picker-style: menu): wrap ;);
       }
     }
 
@@ -231,11 +266,32 @@ $picker-ifs: (
         }
       }
     }
+  }
+}
+
+@layer #{vars.$final-layer} {
+  picker-view {
+    //--label-value-placement
+    @supports not (x: #{string.unquote('attr(x type(*))')}) {
+      :where(&:not([label-value-placement])) {
+        @each $v in vertical, horizontal, auto {
+          @container style(--label-value-placement: #{$v}) {
+            --label-value-placement: #{$v};
+          }
+        }
+      }
+      @each $v in vertical, horizontal, auto {
+        :where(&[label-value-placement='#{$v}']) {
+          --label-value-placement: #{$v};
+        }
+      }
+    }
 
     // SECTION: attrs finally
     @supports (x: #{string.unquote('attr(x type(*))')}) {
       :where(&) {
         --picker-style: attr(picker-style type(<custom-ident>), inherit);
+        --label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
       }
     }
   }

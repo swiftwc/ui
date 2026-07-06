@@ -153,6 +153,8 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
  *
  * @attr {DictEntry[]} dictionary - Renders all options using this array
  *
+ * @attr {vertical|horizontal|auto} label-value-placement
+ *
  * @slot list
  */
 export class PickerView extends FormAssociatedBase {

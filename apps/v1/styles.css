@@ -4680,6 +4680,10 @@
     border: var(--picker--stack-grid-border, );
     color: var(--picker--stack-grid-color, );
   }
+  :where(picker-view)::part(picker-input-stack) {
+    flex-shrink: var(--picker--input-stack-flex-shrink, );
+    max-width: var(--picker--input-stack-max-width, );
+  }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
     color: var(--secondary);
@@ -4701,7 +4705,6 @@
     :where(form picker-view) {
       --picker--labelstack-display: if(style(--picker-style: sheet): grid ; style(--picker-style: navigation-link): grid ; style(--picker-style: menu): grid ; else: none ;);
       --picker--stack-display: if(style(--picker-style: sheet): flex ; style(--picker-style: navigation-link): flex ; style(--picker-style: menu): flex ;);
-      --picker--stack-flex-wrap: if(style(--picker-style: sheet): wrap ; style(--picker-style: navigation-link): wrap ; style(--picker-style: menu): wrap ;);
       --picker--stack-justify-content: if(style(--picker-style: sheet): space-between ; style(--picker-style: navigation-link): space-between ; style(--picker-style: menu): space-between ;);
       --picker--stack-row-gap: if(
         style(--picker-style: sheet): var(--labeled-content-row-gap) ; style(--picker-style: navigation-link): var(--labeled-content-row-gap) ;
@@ -4731,6 +4734,18 @@
         style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
       );
       --picker--input-stack-child-place-self: if(style(--picker-style: sheet): flex-end ; style(--picker-style: navigation-link): flex-end ; style(--picker-style: menu): flex-end ;);
+      --picker--input-stack-flex-shrink: if(
+        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 1 ; else: 0 ;)
+      );
+      --picker--stack-flex-wrap: if(
+        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): wrap ;)
+      );
+      --picker--input-stack-max-width: if(
+        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 70% ;)
+      );
     }
   }
   @supports not (x: if(else:red)) {
@@ -4738,7 +4753,6 @@
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--stack-display: flex;
-        --picker--stack-flex-wrap: wrap;
         --picker--stack-justify-content: space-between;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4749,13 +4763,14 @@
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
         --picker--input-stack-child-place-self: flex-end;
+        --picker--input-stack-flex-shrink: 0;
+        --picker--input-stack-max-width: 70%;
       }
     }
     @container style(--picker-style: navigation-link) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--stack-display: flex;
-        --picker--stack-flex-wrap: wrap;
         --picker--stack-justify-content: space-between;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4766,13 +4781,14 @@
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
         --picker--input-stack-child-place-self: flex-end;
+        --picker--input-stack-flex-shrink: 0;
+        --picker--input-stack-max-width: 70%;
       }
     }
     @container style(--picker-style: sheet) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--stack-display: flex;
-        --picker--stack-flex-wrap: wrap;
         --picker--stack-justify-content: space-between;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4783,12 +4799,13 @@
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
         --picker--input-stack-child-place-self: flex-end;
+        --picker--input-stack-flex-shrink: 0;
+        --picker--input-stack-max-width: 70%;
       }
     }
     :where(form picker-view[picker-style=menu]) {
       --picker--labelstack-display: grid;
       --picker--stack-display: flex;
-      --picker--stack-flex-wrap: wrap;
       --picker--stack-justify-content: space-between;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4799,6 +4816,8 @@
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
       --picker--input-stack-child-place-self: flex-end;
+      --picker--input-stack-flex-shrink: 0;
+      --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=menu]) menu-view > menu-view > label-view[slot=label]) {
       margin-inline-start: 2rem;
@@ -4806,7 +4825,6 @@
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
       --picker--stack-display: flex;
-      --picker--stack-flex-wrap: wrap;
       --picker--stack-justify-content: space-between;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4817,6 +4835,8 @@
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
       --picker--input-stack-child-place-self: flex-end;
+      --picker--input-stack-flex-shrink: 0;
+      --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=navigation-link]) menu-view > menu-view > label-view[slot=label]) {
       margin-inline-start: 2rem;
@@ -4824,7 +4844,6 @@
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
       --picker--stack-display: flex;
-      --picker--stack-flex-wrap: wrap;
       --picker--stack-justify-content: space-between;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
@@ -4835,14 +4854,45 @@
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
       --picker--input-stack-child-place-self: flex-end;
+      --picker--input-stack-flex-shrink: 0;
+      --picker--input-stack-max-width: 70%;
     }
     :where(:where(picker-view[picker-style=sheet]) menu-view > menu-view > label-view[slot=label]) {
       margin-inline-start: 2rem;
     }
   }
+}
+@layer sw-final {
+  @supports not (x: attr(x type(*))) {
+    @container style(--label-value-placement: vertical) {
+      :where(picker-view:not([label-value-placement])) {
+        --label-value-placement: vertical;
+      }
+    }
+    @container style(--label-value-placement: horizontal) {
+      :where(picker-view:not([label-value-placement])) {
+        --label-value-placement: horizontal;
+      }
+    }
+    @container style(--label-value-placement: auto) {
+      :where(picker-view:not([label-value-placement])) {
+        --label-value-placement: auto;
+      }
+    }
+    :where(picker-view[label-value-placement=vertical]) {
+      --label-value-placement: vertical;
+    }
+    :where(picker-view[label-value-placement=horizontal]) {
+      --label-value-placement: horizontal;
+    }
+    :where(picker-view[label-value-placement=auto]) {
+      --label-value-placement: auto;
+    }
+  }
   @supports (x: attr(x type(*))) {
     :where(picker-view) {
       --picker-style: attr(picker-style type(<custom-ident>), inherit);
+      --label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
     }
   }
 }

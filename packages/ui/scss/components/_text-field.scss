@@ -15,7 +15,7 @@
       // display: grid;
 
       grid-template-columns: auto minmax(0, 1fr);
-      
+
       grid-template-rows: minmax(0, 1fr);
 
       column-gap: var(--labeled-content-column-gap);

@@ -63,6 +63,10 @@
         --label-flow: vertical;
         --label-line-limit: 2;
         --label-truncation-mode: tail;
+
+        --label--titlestack-font-size: var(--label-caption2-font-size);
+        --label--titlestack-line-height: var(--label-caption2-line-height);
+        --label--titlestack-font-weight: var(--label-caption2-font-weight);
       }
 
       :where(& button) {

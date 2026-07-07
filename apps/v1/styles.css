@@ -5407,6 +5407,9 @@
       --label-flow: vertical;
       --label-line-limit: 2;
       --label-truncation-mode: tail;
+      --label--titlestack-font-size: var(--label-caption2-font-size);
+      --label--titlestack-line-height: var(--label-caption2-line-height);
+      --label--titlestack-font-weight: var(--label-caption2-font-weight);
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
@@ -5478,6 +5481,9 @@
       --label-flow: vertical;
       --label-line-limit: 2;
       --label-truncation-mode: tail;
+      --label--titlestack-font-size: var(--label-caption2-font-size);
+      --label--titlestack-line-height: var(--label-caption2-line-height);
+      --label--titlestack-font-weight: var(--label-caption2-font-weight);
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);

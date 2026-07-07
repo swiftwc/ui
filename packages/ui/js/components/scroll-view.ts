@@ -259,8 +259,8 @@ export class ScrollView extends HTMLElement {
     const vStack =
       this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">${titleTemplate}${subtitleTemplate}</v-stack>`, '>1'))
 
-    renderLabel(vStack, ':scope>label-view:nth-child(1)', titleTemplate, title)
+    renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
 
-    renderLabel(vStack, ':scope>label-view:nth-child(2)', subtitleTemplate, subtitle)
+    renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
   }
 }

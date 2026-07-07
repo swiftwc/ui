@@ -4698,11 +4698,6 @@
     --label-truncation-mode: tail;
     --label-line-limit: 1;
   }
-  @container style(--picker-style: menu) {
-    :where(picker-view menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 3rem;
-    }
-  }
   @container not style(--picker-style) {
     :where(picker-view > list-view > section-view > :not(button):first-child) {
       color: var(--secondary);
@@ -4827,9 +4822,6 @@
       --picker--input-stack-flex-shrink: 0;
       --picker--input-stack-max-width: 70%;
     }
-    :where(:where(picker-view[picker-style=menu]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 3rem;
-    }
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
       --picker--stack-display: flex;
@@ -4846,9 +4838,6 @@
       --picker--input-stack-flex-shrink: 0;
       --picker--input-stack-max-width: 70%;
     }
-    :where(:where(picker-view[picker-style=navigation-link]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 3rem;
-    }
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
       --picker--stack-display: flex;
@@ -4864,9 +4853,6 @@
       --picker--input-stack-child-place-self: flex-end;
       --picker--input-stack-flex-shrink: 0;
       --picker--input-stack-max-width: 70%;
-    }
-    :where(:where(picker-view[picker-style=sheet]) menu-view > menu-view > label-view[slot=label]) {
-      margin-inline-start: 3rem;
     }
   }
 }

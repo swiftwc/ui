@@ -547,7 +547,7 @@ export class PickerView extends FormAssociatedBase {
             '>1'
           )
 
-          if (hStack) renderLabel(hStack, ':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, value)
+          renderLabel(':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, hStack, value)
           // if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
 
           section.insertAdjacentElement('beforeend', hStack)
@@ -1009,16 +1009,15 @@ export class PickerView extends FormAssociatedBase {
         `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
         '>1'
       ),
-      hStack = btn.querySelector<LabelView>(':scope>h-stack')
+      hStack = btn.querySelector<LabelView>(':scope>h-stack') ?? undefined
 
-    if (hStack)
-      renderLabel(
-        hStack,
-        ':scope>label-view:nth-child(2)',
-        `<label-view><span></span></label-view>`,
-        extractLabelFromGroup(node as HTMLDataListElement),
-        extractImgFromGroup(node as HTMLDataListElement)
-      )
+    renderLabel(
+      ':scope>label-view:nth-child(2)',
+      `<label-view><span></span></label-view>`,
+      hStack,
+      extractLabelFromGroup(node as HTMLDataListElement),
+      extractImgFromGroup(node as HTMLDataListElement)
+    )
     // label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
     // if (label) {
     // const lbl = extractLabelFromGroup(node as HTMLDataListElement),
@@ -1061,12 +1060,12 @@ export class PickerView extends FormAssociatedBase {
       summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
 
     const group = $(`<details is="disclosure-group" disclosure-style="marker-trailing">${summaryT}</details>`, '>1'), // NOTE: already applied, here it covers spawned sheets
-      hStack = group.querySelector(':scope>summary>h-stack') // ?? group.appendChild($(summaryT, '>1'))
+      hStack = group.querySelector(':scope>summary>h-stack') ?? undefined // ?? group.appendChild($(summaryT, '>1'))
     //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
     // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
     // if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
 
-    if (hStack) renderLabel(hStack, ':scope>label-view:nth-child(2)', labelT, extractLabelFromGroup(node), extractImgFromGroup(node))
+    renderLabel(':scope>label-view:nth-child(2)', labelT, hStack, extractLabelFromGroup(node), extractImgFromGroup(node))
 
     return group
   }
@@ -1080,15 +1079,19 @@ export class PickerView extends FormAssociatedBase {
       if (node instanceof Element)
         switch (node.tagName) {
           case 'DATALIST': {
-            const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
+            const group = $(
+                `<menu-view tabindex="0"><h-stack slot="label" distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></menu-view>`,
+                '>1'
+              ),
+              hStack = group.querySelector(':scope>h-stack[slot=label]') ?? undefined
             // label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
             // if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
             // if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
 
             renderLabel(
-              group,
-              ':scope>label-view[slot=label]',
-              `<label-view slot="label"><span></span></label-view>`,
+              ':scope>label-view:nth-child(2)',
+              `<label-view><span></span></label-view>`,
+              hStack,
               extractLabelFromGroup(node as HTMLDataListElement),
               extractImgFromGroup(node as HTMLDataListElement)
             )
@@ -1126,7 +1129,7 @@ export class PickerView extends FormAssociatedBase {
           } else {
             const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
 
-            renderLabel(group, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, extractLabelFromGroup(node), extractImgFromGroup(node))
+            renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, group, extractLabelFromGroup(node), extractImgFromGroup(node))
 
             PickerView.#reflectButtons(node.children, group)
 
@@ -1149,7 +1152,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectLabel(value: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
 
-    renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, value)
+    renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, value)
 
     this.#renderSlotted([])
   }

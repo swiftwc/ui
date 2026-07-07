@@ -53,7 +53,7 @@ export class LabeledContent extends HTMLElement {
         let header = this.querySelector(':scope>[slot=header]')
         if (newValue) {
           const el = header ?? $(`<header slot="header"></header>`, '>1')
-          renderLabel(el, ':scope>label-view', `<label-view font="callout"><span></span></label-view>`, newValue)
+          renderLabel(':scope>label-view', `<label-view font="callout"><span></span></label-view>`, el, newValue)
           header ??= this.appendChild(el)
         } else header?.remove()
 
@@ -62,21 +62,21 @@ export class LabeledContent extends HTMLElement {
         let footer = this.querySelector(':scope>[slot=footer]')
         if (newValue) {
           const el = footer ?? $(`<footer slot="footer"></footer>`, '>1')
-          renderLabel(el, ':scope>label-view', `<label-view font="callout"><span></span></label-view>`, newValue)
+          renderLabel(':scope>label-view', `<label-view font="callout"><span></span></label-view>`, el, newValue)
           footer ??= this.appendChild(el)
         } else footer?.remove()
 
         break
       case 'value':
-        renderLabel(this, ':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this.#fmt(newValue, this.getAttribute('format')))
+        renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(newValue, this.getAttribute('format')))
 
         break
       case 'format':
-        renderLabel(this, ':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this.#fmt(this.getAttribute('value'), newValue))
+        renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(this.getAttribute('value'), newValue))
 
         break
       case 'label':
-        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, newValue)
+        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
     }

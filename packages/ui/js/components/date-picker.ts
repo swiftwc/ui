@@ -118,7 +118,7 @@ export class DatePicker extends FormAssociatedBase {
 
         break
       case 'label':
-        renderLabel(this, ':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, newValue)
+        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, this, newValue)
 
         // this.#sendValueToForm()
 

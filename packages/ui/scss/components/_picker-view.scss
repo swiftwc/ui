@@ -170,11 +170,11 @@ $picker-ifs: (
     // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
     // }
 
-    :where(& menu-view > menu-view > label-view[slot='label']) {
-      @container style(--picker-style: menu) {
-        margin-inline-start: 3rem;
-      }
-    }
+    // :where(& menu-view > menu-view > label-view[slot='label']) {
+    //   @container style(--picker-style: menu) {
+    //     margin-inline-start: 3rem;
+    //   }
+    // }
     // NOTE: make first inline list item secondary
     :where(& > list-view > section-view > :not(button):first-child) {
       @container not style(--picker-style) {
@@ -265,9 +265,9 @@ $picker-ifs: (
           @include mixins.write-props(map.get($picker-ifs, $v)); //@include set-picker-style($v);
         }
         :where(&[picker-style='#{$v}']) {
-          :where(& menu-view > menu-view > label-view[slot='label']) {
-            margin-inline-start: 3rem;
-          }
+          // :where(& menu-view > menu-view > label-view[slot='label']) {
+          //   margin-inline-start: 3rem;
+          // }
 
           // :where(& menu-view > button, & menu-view > [is='disclosure-group'] > button, & menu-view > [is='disclosure-group'] > summary) {
           //   @include make-button-affordance;

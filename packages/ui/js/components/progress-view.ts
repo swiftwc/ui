@@ -94,7 +94,7 @@ export class ProgressView extends HTMLElement {
         break
       }
       case 'current-value-label': {
-        renderLabel(this, ':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, newValue)
+        renderLabel(':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, this, newValue)
 
         break
       }

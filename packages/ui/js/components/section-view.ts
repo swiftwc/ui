@@ -54,7 +54,7 @@ export class SectionView extends HTMLElement {
         let header = this.querySelector(':scope>[slot=header]')
         if (newValue) {
           const el = header ?? $(`<header slot="header"></header>`, '>1')
-          renderLabel(el, ':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, newValue)
+          renderLabel(':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, el, newValue)
           header ??= this.appendChild(el)
         } else header?.remove()
 
@@ -63,7 +63,7 @@ export class SectionView extends HTMLElement {
         let footer = this.querySelector(':scope>[slot=footer]')
         if (newValue) {
           const el = footer ?? $(`<footer slot="footer"></footer>`, '>1')
-          renderLabel(el, ':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, newValue)
+          renderLabel(':scope>label-view', `<label-view line-limit="1" truncation-mode="tail" font="callout"><span></span></label-view>`, el, newValue)
           footer ??= this.appendChild(el)
         } else footer?.remove()
 

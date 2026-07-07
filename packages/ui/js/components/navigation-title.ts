@@ -44,8 +44,8 @@ export class NavigationTitle extends HTMLElement {
     const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
       vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
 
-    renderLabel(vStack, ':scope>label-view:nth-child(1)', titleTemplate, title)
+    renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
 
-    renderLabel(vStack, ':scope>label-view:nth-child(2)', subtitleTemplate, subtitle)
+    renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
   }
 }

@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/ui",
-  "version": "0.0.0-dev.61",
+  "version": "0.0.0-dev.62",
   "description": "Elegant SwiftUI-inspired web components for standalone web apps and web extensions.",
   "publishConfig": {
     "access": "public"

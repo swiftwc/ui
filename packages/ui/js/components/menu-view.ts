@@ -76,7 +76,7 @@ export class MenuView extends HTMLElement {
 
         break
       case 'label':
-        renderLabel( ':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, this,newValue)
+        renderLabel(':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
     }

@@ -63,6 +63,8 @@
               <option slot="list" value="30" label="Generous"></option>
               <option slot="list" value="50" label="Very Generous"></option>
             </picker-view>
+
+            <picker-view prompt="here" picker-style="sheet"></picker-view>
           </form>
         </v-stack>
         <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
@@ -17454,7 +17456,36 @@
         },
       ]
 
+      const dict2 = [
+        {
+          value: 'gfgfgfg',
+          systemImage: 'dots-three',
+          children: [
+            {
+              value: 'Theropods',
+              children: [
+                {
+                  value: 'Tyrannosaurus23',
+                  children: [],
+                },
+                {
+                  value: 'Velociraptor',
+                  children: [],
+                },
+              ],
+            },
+          ],
+        },
+        {
+          value: '0',
+          label: '0%',
+          children: [],
+        },
+      ]
+
       document.querySelector('picker-view').setAttribute('dictionary', JSON.stringify(dict))
+
+      document.querySelector('picker-view:nth-child(3)').setAttribute('dictionary', JSON.stringify(dict2))
     </script>
   </body>
 </html>

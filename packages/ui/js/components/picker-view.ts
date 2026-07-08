@@ -12,7 +12,7 @@ import type { MenuView } from './menu-view'
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
-type DictEntry = {
+export type DictEntry = {
   value: string
   label?: string
   subtitle?: string // TODO
@@ -20,7 +20,7 @@ type DictEntry = {
   children: DictEntry[]
 }
 
-type Dictionary = DictEntry[]
+export type Dictionary = DictEntry[]
 
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
   if (devFlags.debug) console.debug(`PickerView: update`)

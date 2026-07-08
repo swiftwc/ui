@@ -34,7 +34,7 @@
 
         justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
 
-        word-break: break-all;
+        word-break: break-word;
       }
 
       @media (pointer: fine) {

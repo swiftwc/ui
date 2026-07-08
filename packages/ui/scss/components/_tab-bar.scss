@@ -40,6 +40,9 @@
       inset: auto 0 0 0;
 
       @include mixins.make-toolbar-pseudos(top);
+
+      --toolbaritempadistart: 1rem;
+      --toolbaritempadiend: 1rem;
     }
 
     > [is='form-view'] {
@@ -64,9 +67,7 @@
         --label-line-limit: 2;
         --label-truncation-mode: tail;
 
-        --label--titlestack-font-size: var(--label-caption2-font-size);
-        --label--titlestack-line-height: var(--label-caption2-line-height);
-        --label--titlestack-font-weight: var(--label-caption2-font-weight);
+        --label-font: caption2;
       }
 
       :where(& button) {
@@ -85,6 +86,9 @@
       --tab-bar-width: 100lvw;
 
       inset: 0 0 auto 0;
+
+      --toolbaritempadistart: 0.3rem;
+      --toolbaritempadiend: 0.3rem;
     }
 
     > [is='form-view'] {

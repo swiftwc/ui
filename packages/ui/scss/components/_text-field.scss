@@ -23,6 +23,8 @@
 
     :where(&)::part(text-field-label-stack) {
       // display: grid;
+
+      color: var(--secondary);
     }
 
     :where(&)::part(text-field-input-stack) {
@@ -43,9 +45,11 @@
 
       outline: 0;
 
-      padding-block: 0.1rem;
+      padding: 0;
 
-      padding-inline-start: 0.3rem;
+      // padding-block: 0.1rem;
+
+      // padding-inline: 0.3rem;
 
       background-color: transparent;
     }

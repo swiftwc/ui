@@ -3105,7 +3105,7 @@
   :where(labeled-content)::part(labeled-content-value-stack) {
     color: var(--secondary);
     justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
-    word-break: break-all;
+    word-break: break-word;
   }
   @media (pointer: fine) {
     :where(labeled-content) {
@@ -4635,6 +4635,9 @@
     grid-template-rows: minmax(0, 1fr);
     column-gap: var(--labeled-content-column-gap);
   }
+  :where(text-field)::part(text-field-label-stack) {
+    color: var(--secondary);
+  }
   :where(text-field)::part(text-field-input-stack) {
     place-items: stretch;
     place-content: stretch;
@@ -4644,8 +4647,7 @@
     appearance: none;
     border: 0;
     outline: 0;
-    padding-block: 0.1rem;
-    padding-inline-start: 0.3rem;
+    padding: 0;
     background-color: transparent;
   }
 }
@@ -4678,25 +4680,24 @@
     border: var(--picker--stack-grid-border, );
     color: var(--picker--stack-grid-color, );
   }
-  :where(picker-view > :not([slot])) {
-    place-self: var(--picker--input-stack-child-place-self, );
-  }
   :where(picker-view)::part(picker-stack) {
-    display: var(--picker--stack-display, );
-    flex-wrap: var(--picker--stack-flex-wrap, );
-    justify-content: var(--picker--stack-justify-content, );
+    grid-template-columns: var(--picker--stack-grid-template-columns, );
+    grid-template-rows: var(--picker--stack-grid-template-rows, );
     row-gap: var(--picker--stack-row-gap, );
     column-gap: var(--picker--stack-column-gap, );
   }
   :where(picker-view)::part(picker-input-stack) {
-    flex-shrink: var(--picker--input-stack-flex-shrink, );
-    max-width: var(--picker--input-stack-max-width, );
+    text-align: var(--picker--input-stack-text-align, );
   }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
     color: var(--secondary);
     --label-truncation-mode: tail;
     --label-line-limit: 1;
+  }
+  :where(picker-view) {
+    --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
+    --picker--stack-grid-template-rows: minmax(0, 1fr);
   }
   @container not style(--picker-style) {
     :where(picker-view > list-view > section-view > :not(button):first-child) {
@@ -4736,27 +4737,14 @@
       --picker--stack-grid-border: if(
         style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
       );
-      --picker--input-stack-child-place-self: if(style(--picker-style: sheet): flex-end ; style(--picker-style: navigation-link): flex-end ; style(--picker-style: menu): flex-end ;);
-      --picker--input-stack-flex-shrink: if(
-        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 1 ; else: 0 ;)
-      );
-      --picker--stack-flex-wrap: if(
-        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): wrap ;)
-      );
-      --picker--input-stack-max-width: if(
-        style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-          style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 70% ;)
-      );
+      --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
     }
   }
   @supports not (x: if(else:red)) {
     @container style(--picker-style: menu) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--stack-display: flex;
-        --picker--stack-justify-content: space-between;
+        --picker--input-stack-text-align: end;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
         --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4765,16 +4753,12 @@
         --picker--stack-grid-background: var(--itemface, );
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
-        --picker--input-stack-child-place-self: flex-end;
-        --picker--input-stack-flex-shrink: 0;
-        --picker--input-stack-max-width: 70%;
       }
     }
     @container style(--picker-style: navigation-link) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--stack-display: flex;
-        --picker--stack-justify-content: space-between;
+        --picker--input-stack-text-align: end;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
         --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4783,16 +4767,12 @@
         --picker--stack-grid-background: var(--itemface, );
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
-        --picker--input-stack-child-place-self: flex-end;
-        --picker--input-stack-flex-shrink: 0;
-        --picker--input-stack-max-width: 70%;
       }
     }
     @container style(--picker-style: sheet) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--stack-display: flex;
-        --picker--stack-justify-content: space-between;
+        --picker--input-stack-text-align: end;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
         --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4801,15 +4781,11 @@
         --picker--stack-grid-background: var(--itemface, );
         --picker--stack-grid-color: var(--itemtext, );
         --picker--stack-grid-border: var(--itemborder, );
-        --picker--input-stack-child-place-self: flex-end;
-        --picker--input-stack-flex-shrink: 0;
-        --picker--input-stack-max-width: 70%;
       }
     }
     :where(form picker-view[picker-style=menu]) {
       --picker--labelstack-display: grid;
-      --picker--stack-display: flex;
-      --picker--stack-justify-content: space-between;
+      --picker--input-stack-text-align: end;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
       --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4818,14 +4794,10 @@
       --picker--stack-grid-background: var(--itemface, );
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
-      --picker--input-stack-child-place-self: flex-end;
-      --picker--input-stack-flex-shrink: 0;
-      --picker--input-stack-max-width: 70%;
     }
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
-      --picker--stack-display: flex;
-      --picker--stack-justify-content: space-between;
+      --picker--input-stack-text-align: end;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
       --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4834,14 +4806,10 @@
       --picker--stack-grid-background: var(--itemface, );
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
-      --picker--input-stack-child-place-self: flex-end;
-      --picker--input-stack-flex-shrink: 0;
-      --picker--input-stack-max-width: 70%;
     }
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
-      --picker--stack-display: flex;
-      --picker--stack-justify-content: space-between;
+      --picker--input-stack-text-align: end;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
       --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -4850,43 +4818,32 @@
       --picker--stack-grid-background: var(--itemface, );
       --picker--stack-grid-color: var(--itemtext, );
       --picker--stack-grid-border: var(--itemborder, );
-      --picker--input-stack-child-place-self: flex-end;
-      --picker--input-stack-flex-shrink: 0;
-      --picker--input-stack-max-width: 70%;
     }
   }
 }
 @layer sw-final {
   @supports not (x: attr(x type(*))) {
-    @container style(--label-value-placement: vertical) {
+    @container style(--picker-label-value-placement: vertical) {
       :where(picker-view:not([label-value-placement])) {
-        --label-value-placement: vertical;
+        --picker-label-value-placement: vertical;
       }
     }
-    @container style(--label-value-placement: horizontal) {
+    @container style(--picker-label-value-placement: horizontal) {
       :where(picker-view:not([label-value-placement])) {
-        --label-value-placement: horizontal;
-      }
-    }
-    @container style(--label-value-placement: auto) {
-      :where(picker-view:not([label-value-placement])) {
-        --label-value-placement: auto;
+        --picker-label-value-placement: horizontal;
       }
     }
     :where(picker-view[label-value-placement=vertical]) {
-      --label-value-placement: vertical;
+      --picker-label-value-placement: vertical;
     }
     :where(picker-view[label-value-placement=horizontal]) {
-      --label-value-placement: horizontal;
-    }
-    :where(picker-view[label-value-placement=auto]) {
-      --label-value-placement: auto;
+      --picker-label-value-placement: horizontal;
     }
   }
   @supports (x: attr(x type(*))) {
     :where(picker-view) {
       --picker-style: attr(picker-style type(<custom-ident>), inherit);
-      --label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
+      --picker-label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
     }
   }
 }
@@ -5383,6 +5340,10 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]):after {
       background-image: linear-gradient(to top, var(--face) 0, oklch(0% 0 0deg / 0) 100%);
     }
+    :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
+      --toolbaritempadistart: 1rem;
+      --toolbaritempadiend: 1rem;
+    }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
       margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
       max-inline-size: var(--iphone-tabbar-max-inline-size);
@@ -5393,9 +5354,7 @@
       --label-flow: vertical;
       --label-line-limit: 2;
       --label-truncation-mode: tail;
-      --label--titlestack-font-size: var(--label-caption2-font-size);
-      --label--titlestack-line-height: var(--label-caption2-line-height);
-      --label--titlestack-font-weight: var(--label-caption2-font-weight);
+      --label-font: caption2;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
@@ -5408,6 +5367,8 @@
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar]) {
       --tab-bar-width: 100lvw;
       inset: 0 0 auto 0;
+      --toolbaritempadistart: 0.3rem;
+      --toolbaritempadiend: 0.3rem;
     }
     :where(tab-view[tab-view-style=tab-bar-only] [is=tab-bar] > [is=form-view]) {
       grid-auto-columns: minmax(max-content, 1fr);
@@ -5457,6 +5418,10 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]):after {
       background-image: linear-gradient(to top, var(--face) 0, oklch(0% 0 0deg / 0) 100%);
     }
+    :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
+      --toolbaritempadistart: 1rem;
+      --toolbaritempadiend: 1rem;
+    }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
       margin-block-end: max(var(--safe-area-inset-bottom), var(--sidebar-block-spacing));
       max-inline-size: var(--iphone-tabbar-max-inline-size);
@@ -5467,9 +5432,7 @@
       --label-flow: vertical;
       --label-line-limit: 2;
       --label-truncation-mode: tail;
-      --label--titlestack-font-size: var(--label-caption2-font-size);
-      --label--titlestack-line-height: var(--label-caption2-line-height);
-      --label--titlestack-font-weight: var(--label-caption2-font-weight);
+      --label-font: caption2;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view] button) {
       min-inline-size: calc(var(--iphone-tabbar-block-size) + 0.1rem);
@@ -5482,6 +5445,8 @@
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar]) {
       --tab-bar-width: 100lvw;
       inset: 0 0 auto 0;
+      --toolbaritempadistart: 0.3rem;
+      --toolbaritempadiend: 0.3rem;
     }
     :where(tab-view:not([tab-view-style=tab-bar-only]) [is=tab-bar] > [is=form-view]) {
       grid-auto-columns: minmax(max-content, 1fr);

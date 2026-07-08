@@ -12,6 +12,16 @@ import type { MenuView } from './menu-view'
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
+type DictEntry = {
+  value: string
+  label?: string
+  subtitle?: string // TODO
+  systemImage?: string
+  children: DictEntry[]
+}
+
+type Dictionary = DictEntry[]
+
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
   if (devFlags.debug) console.debug(`PickerView: update`)
 
@@ -105,15 +115,6 @@ const extractTagFromOption = (node: HTMLOptionElement | DictEntry) => {
     return node instanceof Element ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
   }
 
-type DictEntry = {
-  value: string
-  label?: string
-  systemImage?: string
-  children: DictEntry[]
-}
-
-type Dictionary = DictEntry[]
-
 const allLeaves = (node: DictEntry) => node.children.every((c) => 0 === c.children.length)
 
 const parseDictionary = (value: string | null): Dictionary => {
@@ -160,12 +161,14 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {
     return {
-      PLACEHOLDER: 'placeholder',
+      PLACEHOLDER: 'prompt',
+      PLACEHOLDER_ICON: 'prompt-icon',
       LABEL: 'label',
       PICKER_STYLE: 'picker-style',
       SELECTION: 'selection',
       SEARCHABLE: 'searchable',
       CURRENT_VALUE_LABEL: 'current-value-label',
+      CURRENT_VALUE_ICON: 'current-value-icon',
       TRIGGER_HELP: 'help',
       DICTIONARY: 'dictionary',
     }
@@ -212,7 +215,7 @@ export class PickerView extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
 
     const body = $<HTMLElement>(
-        `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="caret-left"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
+        `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="${'sheet-view' === tag ? 'x' : 'caret-left'}"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
         '>1'
       ),
       sv = body.querySelector<HTMLElement>('scroll-view'),
@@ -394,14 +397,15 @@ export class PickerView extends FormAssociatedBase {
 
     switch (input.mode) {
       case 'dictionary': {
-        const flattenDictionary = (tree: Dictionary): Record<string, string | undefined> => {
-          const out: Record<string, string | undefined> = {}
-          const stack: DictEntry[][] = [tree]
-          const idx: number[] = [0]
+        const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | undefined>; icons: Record<string, string | undefined> } => {
+          const out1: Record<string, string | undefined> = {},
+            out2: Record<string, string | undefined> = {},
+            stack: DictEntry[][] = [tree],
+            idx: number[] = [0]
 
           while (stack.length) {
-            const frame = stack[stack.length - 1]
-            const i = idx[idx.length - 1]
+            const frame = stack[stack.length - 1],
+              i = idx[idx.length - 1]
 
             if (i >= frame.length) {
               stack.pop()
@@ -410,8 +414,9 @@ export class PickerView extends FormAssociatedBase {
             }
 
             idx[idx.length - 1]++
-            const { value, label, children } = frame[i]
-            out[value] = label
+            const { value, label, systemImage, children } = frame[i]
+            out1[value] = label
+            out2[value] = systemImage
 
             if (children.length) {
               stack.push(children)
@@ -419,9 +424,10 @@ export class PickerView extends FormAssociatedBase {
             }
           }
 
-          return out
+          return { labels: out1, icons: out2 }
         }
-        this.#lastRenderedLabelMap = flattenDictionary(input.source)
+        this.#lastRenderedLabelMap = flattenDictionary(input.source).labels
+        this.#lastRenderedIconMap = flattenDictionary(input.source).icons
 
         // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
         // collectGroups = (nodes: DictEntry[]): string[][] => {
@@ -443,12 +449,20 @@ export class PickerView extends FormAssociatedBase {
 
       case 'list': {
         this.#lastRenderedLabelMap = {}
+        this.#lastRenderedIconMap = {}
 
         for (const el of input.source)
           if (el.matches('option')) {
-            const opt = el as HTMLOptionElement
-            this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
-          } else for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) this.#lastRenderedLabelMap[extractTagFromOption(opt)] = opt.getAttribute('label') ?? undefined
+            const k = extractTagFromOption(el as HTMLOptionElement)
+            this.#lastRenderedLabelMap[k] = (el as HTMLOptionElement).getAttribute('label') ?? undefined
+            this.#lastRenderedIconMap[k] = extractIconFromOption(el as HTMLOptionElement) ?? undefined
+          } else
+            for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) {
+              const k = extractTagFromOption(opt)
+
+              this.#lastRenderedLabelMap[k] = opt.getAttribute('label') ?? undefined
+              this.#lastRenderedIconMap[k] = extractIconFromOption(opt) ?? undefined
+            }
 
         this.#lastIndexedRoot = input.source
         // this.#lastRenderedGroupMap = assigned.flatMap<string[]>((el) =>
@@ -620,13 +634,23 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #lastRenderedLabelMap: Record<string, string | undefined> = {}
+  #lastRenderedIconMap: Record<string, string | undefined> = {}
 
   #lastIndexedRoot: Element[] | Dictionary = []
 
   get #currentValueLabel() {
     const cvl = this.#lastRenderedLabelMap[this.#selection]
 
-    return (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || cvl
+    return (
+      (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL) ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) ||
+      cvl
+    )
+  }
+
+  get #currentValueIcon() {
+    const cvl = this.#lastRenderedIconMap[this.#selection]
+
+    return (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON) ?? '') || cvl
   }
 
   get #internals(): ElementInternals {
@@ -761,7 +785,10 @@ export class PickerView extends FormAssociatedBase {
 
     switch (name) {
       case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
-        this.#reflectPlaceholder(newValue)
+      case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON:
+        if (oldValue === newValue) break
+
+        this.#reflectSelectionOnCurrentValueLabel() //this.#reflectPlaceholder(newValue)
 
         break
       case (this.constructor as typeof PickerView).ATTR.LABEL:
@@ -783,6 +810,7 @@ export class PickerView extends FormAssociatedBase {
 
         break
       case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL:
+      case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON:
         // if (oldValue === newValue) break
 
         this.#reflectSelectionOnCurrentValueLabel()
@@ -1139,15 +1167,14 @@ export class PickerView extends FormAssociatedBase {
       }
   }
 
-  #reflectPlaceholder(value: string | null) {
-    if (devFlags.debug) console.debug(`#reflectPlaceholder`)
-
-    const input = this.#shadowRoot.querySelector('input')
-    if (input) {
-      if (value) input.setAttribute('placeholder', value)
-      else input.removeAttribute('placeholder')
-    }
-  }
+  // #reflectPlaceholder(value: string | null) {
+  //   if (devFlags.debug) console.debug(`#reflectPlaceholder`)
+  // const input = this.#shadowRoot.querySelector('input')
+  // if (input) {
+  //   if (value) input.setAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER, value)
+  //   else input.removeAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER)
+  // }
+  // }
 
   #reflectLabel(value: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
@@ -1210,12 +1237,13 @@ export class PickerView extends FormAssociatedBase {
           const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])')
           if (!currentValueLabel) break
 
-          const cvl = this.#currentValueLabel
-          if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
-          else currentValueLabel.removeAttribute('foreground')
+          const cvl = this.#currentValueLabel,
+            cvi = this.#currentValueIcon
+          // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
+          // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, cvl || this.getAttribute('placeholder') || this.#selection)
-          renderLabelIcon(currentValueLabel, 'dots-three')
+          renderLabelTitle(currentValueLabel, cvl || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER) || this.#selection)
+          renderLabelIcon(currentValueLabel, cvi || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
           break
         }
@@ -1223,12 +1251,13 @@ export class PickerView extends FormAssociatedBase {
           const currentValueLabel = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]')
           if (!currentValueLabel) break
 
-          const cvl = this.#currentValueLabel
-          if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
-          else currentValueLabel.removeAttribute('foreground')
+          const cvl = this.#currentValueLabel,
+            cvi = this.#currentValueIcon
+          // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
+          // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, cvl || this.getAttribute('placeholder') || this.#selection)
-          renderLabelIcon(currentValueLabel, 'dots-three')
+          renderLabelTitle(currentValueLabel, cvl || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER) || this.#selection)
+          renderLabelIcon(currentValueLabel, cvi || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
           break
         }

@@ -6,9 +6,10 @@
 $picker-ifs: (
   menu: (
     --picker--labelstack-display: grid,
+    --picker--input-stack-text-align: end,
     // copy from labeled-content
-    --picker--stack-display: flex,
-    --picker--stack-justify-content: space-between,
+    // --picker--stack-display: flex,
+    // --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
     //
@@ -18,17 +19,18 @@ $picker-ifs: (
     --picker--stack-grid-background: var(--itemface,),
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
-    --picker--input-stack-child-place-self: flex-end,
+    // --picker--input-stack-child-place-self: end,
     //
     // --picker--stack-flex-wrap: wrap,
-    --picker--input-stack-flex-shrink: 0,
-    --picker--input-stack-max-width: 70%,
+    // --picker--input-stack-flex-shrink: 0,
+     // --picker--input-stack-max-width: 70%,
   ),
   navigation-link: (
     --picker--labelstack-display: grid,
+    --picker--input-stack-text-align: end,
     // copy from labeled-content
-    --picker--stack-display: flex,
-    --picker--stack-justify-content: space-between,
+    // --picker--stack-display: flex,
+    // --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
     //
@@ -38,17 +40,18 @@ $picker-ifs: (
     --picker--stack-grid-background: var(--itemface,),
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
-    --picker--input-stack-child-place-self: flex-end,
+    // --picker--input-stack-child-place-self: end,
     //
     // --picker--stack-flex-wrap: wrap,
-    --picker--input-stack-flex-shrink: 0,
-    --picker--input-stack-max-width: 70%,
+    // --picker--input-stack-flex-shrink: 0,
+     // --picker--input-stack-max-width: 70%,
   ),
   sheet: (
     --picker--labelstack-display: grid,
+    --picker--input-stack-text-align: end,
     // copy from labeled-content
-    --picker--stack-display: flex,
-    --picker--stack-justify-content: space-between,
+    // --picker--stack-display: flex,
+    // --picker--stack-justify-content: space-between,
     --picker--stack-row-gap: var(--labeled-content-row-gap),
     --picker--stack-column-gap: var(--labeled-content-column-gap),
     //
@@ -58,11 +61,11 @@ $picker-ifs: (
     --picker--stack-grid-background: var(--itemface,),
     --picker--stack-grid-color: var(--itemtext,),
     --picker--stack-grid-border: var(--itemborder,),
-    --picker--input-stack-child-place-self: flex-end,
+    // --picker--input-stack-child-place-self: end,
     //
     // --picker--stack-flex-wrap: wrap,
-    --picker--input-stack-flex-shrink: 0,
-    --picker--input-stack-max-width: 70%,
+    // --picker--input-stack-flex-shrink: 0,
+     // --picker--input-stack-max-width: 70%,
   ),
 );
 
@@ -109,21 +112,27 @@ $picker-ifs: (
       color: var(--picker--stack-grid-color,);
     }
 
-    > :not([slot]) {
-      :where(&) {
-        place-self: var(--picker--input-stack-child-place-self,);
-      }
-    }
+    // > :not([slot]) {
+    //   :where(&) {
+    //     place-self: var(--picker--input-stack-child-place-self,);
+    //   }
+    // }
 
     :where(&)::part(picker-stack) {
-      display: var(--picker--stack-display,);
+      // grid-auto-flow: column;
+      grid-template-columns: var(--picker--stack-grid-template-columns,); //minmax(30%, 1fr) auto;
 
-      flex-wrap: var(--picker--stack-flex-wrap,);
-
-      justify-content: var(--picker--stack-justify-content,);
-
+      grid-template-rows: var(--picker--stack-grid-template-rows,); //minmax(0, 1fr);
       row-gap: var(--picker--stack-row-gap,);
+
       column-gap: var(--picker--stack-column-gap,);
+
+      // display: var(--picker--stack-display,);
+
+      // flex-wrap: var(--picker--stack-flex-wrap,);
+
+      // justify-content: var(--picker--stack-justify-content,);
+
       // grid-template-columns: var(--picker--stack-grid-template-columns,);
 
       // grid-template-rows: minmax(0, 1fr);
@@ -140,9 +149,10 @@ $picker-ifs: (
     }
 
     :where(&)::part(picker-input-stack) {
-      flex-shrink: var(--picker--input-stack-flex-shrink,); //none;
+      text-align: var(--picker--input-stack-text-align,);
+      // flex-shrink: var(--picker--input-stack-flex-shrink,); //none;
 
-      max-width: var(--picker--input-stack-max-width,); //70%;
+      // max-width: var(--picker--input-stack-max-width,); //70%;
     }
 
     :where(&)::part(picker-label-stack) {
@@ -155,6 +165,11 @@ $picker-ifs: (
       --label-line-limit: 1;
     }
 
+    :where(&) {
+      --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
+
+      --picker--stack-grid-template-rows: minmax(0, 1fr);
+    }
     // :where(&) {
     // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
     // @include mixins.write-props($picker-elses); NOT Needed for now since all defaults/fallbacks are already the elses
@@ -226,24 +241,25 @@ $picker-ifs: (
         --picker--stack-grid-border: if(
           style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
         );
-        --picker--input-stack-child-place-self: if(style(--picker-style: sheet): flex-end ; style(--picker-style: navigation-link): flex-end ; style(--picker-style: menu): flex-end ;);
+        // --picker--input-stack-child-place-self: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
+        --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
 
         // SECTION experimental only in chrome
-        --picker--input-stack-flex-shrink: if(
-          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 1 ; else: 0 ;)
-        );
-        --picker--stack-flex-wrap: if(
-          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): wrap ;)
-        );
-        --picker--input-stack-max-width: if(
-          style(--picker-style: sheet) or style(--picker-style: navigation-link) or
-            style(--picker-style: menu): if(style(--label-value-placement: vertical) or style(--label-value-placement: auto): 70% ;)
-        );
         // --picker--input-stack-flex-shrink: if(
-        //   style(--label-value-placement: vertical) or
-        //     style(--label-value-placement: auto): if(style(--picker-style: sheet) or style(--picker-style: navigation-link) or style(--picker-style: menu): 1 ;) ; ;
+        //   style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+        //     style(--picker-style: menu): if(style(--picker-label-value-placement: vertical) or style(--picker-label-value-placement: auto): 1 ; else: 0 ;)
+        // );
+        // --picker--stack-flex-wrap: if(
+        //   style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+        //     style(--picker-style: menu): if(style(--picker-label-value-placement: vertical) or style(--picker-label-value-placement: auto): wrap ;)
+        // );
+        // --picker--input-stack-max-width: if(
+        //   style(--picker-style: sheet) or style(--picker-style: navigation-link) or
+        //     style(--picker-style: menu): if(style(--picker-label-value-placement: vertical) or style(--picker-label-value-placement: auto): 70% ;)
+        // );
+        // --picker--input-stack-flex-shrink: if(
+        //   style(--picker-label-value-placement: vertical) or
+        //     style(--picker-label-value-placement: auto): if(style(--picker-style: sheet) or style(--picker-style: navigation-link) or style(--picker-style: menu): 1 ;) ; ;
         //     else: if(style(--picker-style: sheet) or style(--picker-style: navigation-link) or style(--picker-style: menu): 0 ;) ; ;
         // );
         // --picker--input-stack-max-width: if(style(--picker-style: sheet): 70% ; style(--picker-style: navigation-link): 70% ; style(--picker-style: menu): 70% ;);
@@ -280,18 +296,18 @@ $picker-ifs: (
 
 @layer #{vars.$final-layer} {
   picker-view {
-    //--label-value-placement
+    //--picker-label-value-placement
     @supports not (x: #{string.unquote('attr(x type(*))')}) {
       :where(&:not([label-value-placement])) {
-        @each $v in vertical, horizontal, auto {
-          @container style(--label-value-placement: #{$v}) {
-            --label-value-placement: #{$v};
+        @each $v in vertical, horizontal {
+          @container style(--picker-label-value-placement: #{$v}) {
+            --picker-label-value-placement: #{$v};
           }
         }
       }
-      @each $v in vertical, horizontal, auto {
+      @each $v in vertical, horizontal {
         :where(&[label-value-placement='#{$v}']) {
-          --label-value-placement: #{$v};
+          --picker-label-value-placement: #{$v};
         }
       }
     }
@@ -300,7 +316,7 @@ $picker-ifs: (
     @supports (x: #{string.unquote('attr(x type(*))')}) {
       :where(&) {
         --picker-style: attr(picker-style type(<custom-ident>), inherit);
-        --label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
+        --picker-label-value-placement: attr(label-value-placement type(<custom-ident>), inherit);
       }
     }
   }

@@ -37,11 +37,11 @@
         <button type="submit">submit!</button>
         <date-picker placeholder="here" label="Date Selection" selection="2025.10.10" required></date-picker>
         <date-picker placeholder="here" label="Invalid Date Selection" selection="2025.19.81" minimum="2025-10-01" required></date-picker>
-        <text-field placeholder="here" label="Name" text="John Doe"></text-field>
-        <text-field placeholder="here" label="Disabled" text="John Doe" required disabled></text-field>
-        <text-field placeholder="here" label="Numberr" text="45" keyboard-type="decimal-pad" minimum="45" maximum="55"></text-field>
-        <text-field placeholder="here" label="Numberr" text="qwerty45" keyboard-type="decimal-pad" min-length="5" minimum="45"></text-field>
-        <text-field placeholder="here" label="Number" text="3443343434343434" required keyboard-type="decimal-pad" max-length="15" max-length="20">
+        <text-field prompt="here" label="Name" text="John Doe"></text-field>
+        <text-field prompt="here" label="Disabled" text="John Doe" required disabled></text-field>
+        <text-field prompt="here" label="Numberr" text="45" keyboard-type="decimal-pad" minimum="45" maximum="55"></text-field>
+        <text-field prompt="here" label="Numberr" text="qwerty45" keyboard-type="decimal-pad" min-length="5" minimum="45"></text-field>
+        <text-field prompt="here" label="Number" text="3443343434343434" required keyboard-type="decimal-pad" max-length="15" max-length="20">
           <!-- minimum="0"
           maximum="999" -->
           <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
@@ -49,10 +49,10 @@
           <option slot="validity-options" value="range-underflow" label="Minimum Tippps2323"></option>
           <option slot="validity-options" value="custom-error:range-underflow" label="Minimum Tippp"></option>
         </text-field>
-        <text-field placeholder="here" label="Name"></text-field>
+        <text-field prompt="here" label="Name"></text-field>
       </form>
       <form>
-        <text-field placeholder="here" label="Number" text="3443343434343434" required min-length="15" max-length="20">
+        <text-field prompt="here" label="Number" text="3443343434343434" required min-length="15" max-length="20">
           <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
           <option slot="validity-options" value="value-missing" label="Minimum Tip"></option>
           <option slot="validity-options" value="too-short" label="Minimum Tippppty"></option>
@@ -64,48 +64,48 @@
       <p>form w/ 2 sectioned Textfields</p>
       <form is="form-view">
         <section-view header="Personal Info">
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
         </section-view>
         <section-view>
           <details is="disclosure-group">
             <summary><label-view system-image="smiley" title="Item Group 4"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
           </details>
         </section-view>
         <section-view>
           <details is="disclosure-group">
             <summary><label-view system-image="smiley" title="Item Group 5"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
           </details>
           <details is="disclosure-group">
             <summary><label-view system-image="smiley" title="Item Group 6"></label-view></summary>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
-            <text-field placeholder="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
+            <text-field prompt="here" label="Name"></text-field>
           </details>
         </section-view>
       </form>
       <p>form w/ 1 sectioned Textfields</p>
       <form is="form-view">
         <section-view header="Personal Info" footer="All is required">
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
         </section-view>
       </form>
       <p>form w/ sectioned Textfields+Pickers</p>
       <form is="form-view">
         <section-view header="Personal Info" footer="All is required">
-          <text-field placeholder="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
         </section-view>
         <section-view header="Personal Info" footer="All is required">
-          <picker-view placeholder="here" label="inline1" picker-style="inline">
+          <picker-view prompt="here" label="inline1" picker-style="inline">
             <!-- <datalist slot="list"> -->
             <optgroup label="Theropods" slot="list">
               <option>Tyrannosaurus</option>
@@ -124,7 +124,7 @@
             <option slot="list" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
-          <picker-view placeholder="here" label="sheet1" picker-style="sheet">
+          <picker-view prompt="here" label="sheet1" picker-style="sheet">
             <optgroup label="Theropods" slot="list">
               <option>Tyrannosaurus</option>
               <option>Velociraptor</option>
@@ -141,7 +141,7 @@
             <option slot="list" value="30" label="Generous"></option>
             <option slot="list" value="50" label="Very Generous"></option>
           </picker-view>
-          <picker-view placeholder="here" picker-style="inline">
+          <picker-view prompt="here" picker-style="inline">
             <label-view slot="label" title="inline2"></label-view>
             <option slot="list" label="019%" data-system-image="smiley"></option>
             <option slot="list" label="Minimum Tip"></option>
@@ -149,7 +149,7 @@
             <option slot="list" label="Generous"></option>
             <option slot="list" label="Very Generous"></option>
           </picker-view>
-          <picker-view placeholder="here" label="menu/list" picker-style="menu" selection="10">
+          <picker-view prompt="here" label="menu/list" picker-style="menu" selection="10">
             <datalist data-system-image="dots-three" data-label="gfgfgfg" slot="list">
               <optgroup label="Theropods">
                 <option value="Tyrannosaurus23"></option>
@@ -192,7 +192,7 @@
             <option slot="list" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
-          <picker-view placeholder="here" label="pickk">
+          <picker-view prompt="here" label="pickk">
             <!-- <datalist slot="list"> -->
             <option slot="list" value="0" label="0%"></option>
             <option slot="list" value="10" label="Minimum Tip"></option>
@@ -215,9 +215,9 @@
             <option slot="list" value="50" label="Very Generous"></option>
             <!-- </datalist> -->
           </picker-view>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
-          <text-field placeholder="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
+          <text-field prompt="here" label="Name"></text-field>
         </section-view>
         <section-view header="Personal Info" footer="All is required">
           <select is="picker"></select>

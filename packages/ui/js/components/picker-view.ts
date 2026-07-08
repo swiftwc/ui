@@ -171,6 +171,7 @@ export class PickerView extends FormAssociatedBase {
       CURRENT_VALUE_ICON: 'current-value-icon',
       TRIGGER_HELP: 'help',
       DICTIONARY: 'dictionary',
+      REQUIRED: 'required',
     }
   }
 
@@ -493,6 +494,9 @@ export class PickerView extends FormAssociatedBase {
         CleanupRegistry.unregister(this, 'trigger')
         CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, currentValueLabel).on(), 'trigger')
 
+        if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
+          currentValueLabel?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
+
         // rebuild snapshot(tree)
         if (!this.#spawn) break
 
@@ -534,7 +538,8 @@ export class PickerView extends FormAssociatedBase {
         //   renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
         // }
 
-        if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
+        if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
+          currentValueLabel?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
 
         PickerView.#reflectButtons(input.source, menu)
 
@@ -826,6 +831,12 @@ export class PickerView extends FormAssociatedBase {
         if (oldValue === newValue) break
 
         this.#renderDictionary(parseDictionary(newValue))
+
+        break
+      case (this.constructor as typeof PickerView).ATTR.REQUIRED:
+        if (oldValue === newValue) break
+
+        this.#sendValueToForm(false)
 
         break
       case (this.constructor as typeof PickerView).ATTR.SELECTION:
@@ -1289,8 +1300,9 @@ export class PickerView extends FormAssociatedBase {
       }
     }
 
-    if (this.hasAttribute('help')) trigger?.setAttribute('help', this.getAttribute('help') ?? '')
-    else trigger?.removeAttribute('help')
+    if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
+      trigger?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
+    else trigger?.removeAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP)
   }
 
   // Optional: form participation properties

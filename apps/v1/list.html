@@ -489,7 +489,7 @@
         </details>
       </list-view>
       <p>inline picker outside form</p>
-      <picker-view prompt="here" label="inline1" picker-style="inline">
+      <picker-view prompt="here" label="inline1" required picker-style="inline">
         <option slot="list" value="0" label="0%"></option>
         <option slot="list" value="10" label="Minimum Tip"></option>
         <option slot="list" value="20" label="Standard"></option>
@@ -497,7 +497,7 @@
         <option slot="list" value="50" label="Very Generous"></option>
       </picker-view>
       <p>menu picker outside form</p>
-      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" picker-style="menu">
+      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" help="hereeee" required picker-style="menu">
         <datalist slot="list" data-label="detailsss" data-system-image="smiley">
           <option data-system-image="smiley" value="60" label="60"></option>
           <option data-system-image="smiley" value="70" label="Minimum Tip70"></option>
@@ -512,7 +512,7 @@
         <option data-system-image="smiley" slot="list" value="30" label="Generous"></option>
         <option data-system-image="smiley" slot="list" value="50" label="Very Generous"></option>
       </picker-view>
-      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" picker-style="navigation-link">
+      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" help="hereeee" picker-style="navigation-link">
         <optgroup slot="list" label="detailsss" data-system-image="smiley">
           <option data-system-image="smiley" value="60" label="60"></option>
           <option data-system-image="smiley" value="70" label="Minimum Tip70"></option>
@@ -523,7 +523,7 @@
         <option data-system-image="smiley" slot="list" value="30" label="Generous"></option>
         <option data-system-image="smiley" slot="list" value="50" label="Very Generous"></option>
       </picker-view>
-      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" picker-style="sheet">
+      <picker-view prompt="here" prompt-icon="dots-three" label="inline1" help="hereeee" picker-style="sheet">
         <optgroup slot="list" label="detailsss" data-system-image="smiley">
           <option data-system-image="smiley" value="60" label="60"></option>
           <option data-system-image="smiley" value="70" label="Minimum Tip70"></option>
@@ -668,7 +668,7 @@
       </list-view>
       <p>form w/ Textfields</p>
       <form is="form-view">
-        <text-field prompt="here" label="Name"></text-field>
+        <text-field prompt="here" label="Name" help="hereeee"></text-field>
         <text-field prompt="here" label="Name"></text-field>
         <text-field prompt="here" label="Name"></text-field>
       </form>

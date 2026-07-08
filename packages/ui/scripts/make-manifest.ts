@@ -161,6 +161,7 @@ const vscode: VsHtmlDataV1 = {
         { name: 'blue', description: 'system blue color' },
         { name: 'green', description: 'system green color' },
         { name: 'orange', description: 'system orange color' },
+        { name: 'purple', description: 'system purple color' },
       ],
     },
     {
@@ -169,6 +170,11 @@ const vscode: VsHtmlDataV1 = {
         { name: 'secondary', description: 'system secondary color' },
         { name: 'blue', description: 'system blue color' },
         { name: 'blue.secondary', description: 'system secondary blue color' },
+        { name: 'gray', description: 'system gray color' },
+        { name: 'red', description: 'system red color' },
+        { name: 'green', description: 'system green color' },
+        { name: 'orange', description: 'system orange color' },
+        { name: 'purple', description: 'system purple color' },
       ],
     },
     {

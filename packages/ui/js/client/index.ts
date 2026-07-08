@@ -132,7 +132,6 @@ document.addEventListener('touchstart', () => {}, { passive: true })
 // SECTION
 
 const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
-    console.log(999, target)
     if (!(target instanceof HTMLElement)) return
 
     const trigger = target.closest<HTMLElement>('[help]')

@@ -33,22 +33,27 @@
         red: --red,
         green: --green,
         orange: --orange,
+        purple: --purple,
         'blue.secondary': --blue2,
         'red.secondary': --red2,
         'green.secondary': --green2,
         'orange.secondary': --orange2,
+        'purple.secondary': --purple2,
         'blue.tertiary': --blue3,
         'red.tertiary': --red3,
         'green.tertiary': --green3,
         'orange.tertiary': --orange3,
+        'purple.tertiary': --purple3,
         'blue.quaternary': --blue4,
         'red.quaternary': --red4,
         'green.quaternary': --green4,
         'orange.quaternary': --orange4,
+        'purple.quaternary': --purple4,
         'blue.quinary': --blue5,
         'red.quinary': --red5,
         'green.quinary': --green5,
-        'orange.quinary': --orange5
+        'orange.quinary': --orange5,
+        'purple.quinary': --purple5
       )
   {
     :where([foreground='#{"" + $k}']) {

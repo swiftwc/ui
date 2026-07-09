@@ -144,6 +144,24 @@ const vscode: VsHtmlDataV1 = {
   ],
   valueSets: [
     {
+      name: 'fontSet',
+      values: [
+        { name: 'footnote', description: 'A font with the footnote text style' },
+        { name: 'caption2', description: 'Create a font with the alternate caption text style' },
+        { name: 'caption', description: 'A font with the caption text style' },
+        { name: 'callout', description: 'A font with the callout text style' },
+        { name: 'body', description: 'A font with the body text style' },
+        { name: 'subheadline', description: 'A font with the subheadline text style' },
+        { name: 'headline', description: 'A font with the headline text style' },
+        { name: 'title3', description: 'Create a font for third level hierarchical headings' },
+        { name: 'title2', description: 'Create a font for second level hierarchical headings' },
+        { name: 'title', description: 'A font with the title text style' },
+        { name: 'large-title', description: 'A font with the large title text style' },
+        { name: 'extra-large-title', description: 'Create a font with the extra large title text style' },
+        // { name: 'extra-large-title2', description: 'Create a font with the second level extra large title text style' },
+      ],
+    },
+    {
       name: 'spacingSet',
       values: [
         { name: '0', description: '0rem' },
@@ -175,6 +193,32 @@ const vscode: VsHtmlDataV1 = {
         { name: 'green', description: 'system green color' },
         { name: 'orange', description: 'system orange color' },
         { name: 'purple', description: 'system purple color' },
+      ],
+    },
+    {
+      name: 'alignmentSet',
+      values: [
+        { name: 'leading', description: 'start cross-axis alignment' },
+        { name: 'center', description: 'center cross-axis alignment' },
+        { name: 'trailing', description: 'end cross-axis alignment' },
+        { name: 'fill', description: 'stretch cross-axis alignment' },
+      ],
+    },
+    {
+      name: 'distributionSet',
+      values: [
+        { name: 'leading', description: 'start cross-axis distribution' },
+        { name: 'center', description: 'center cross-axis distribution' },
+        { name: 'trailing', description: 'end cross-axis distribution' },
+        { name: 'fill', description: 'stretch cross-axis distribution' },
+      ],
+    },
+    {
+      name: 'placementSet',
+      values: [
+        { name: 'fill', description: 'short cut for `distribution="fill" alignment="fill"`' },
+        { name: 'leading fill', description: 'short cut for `distribution="leading" alignment="fill"`' },
+        { name: 'fill leading', description: 'short cut for `distribution="fill" alignment="leading"`' },
       ],
     },
     {

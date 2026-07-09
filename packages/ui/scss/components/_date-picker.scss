@@ -5,26 +5,26 @@
     :where(&) {
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
-    }
 
-    :where(&)::part(date-picker-stack) {
-      grid-template-columns: auto minmax(0, 1fr);
-      grid-template-rows: minmax(0, 1fr);
-    }
+     &::part(date-picker-stack) {
+        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr);
+      }
 
-    :where(&)::part(date-picker-label-stack) {
-      // display: grid;
-    }
+      &::part(date-picker-label-stack) {
+        // display: grid;
+      }
 
-    :where(&)::part(date-picker-input-stack) {
-      place-items: stretch;
-      place-content: stretch;
+      &::part(date-picker-input-stack) {
+        place-items: stretch;
+        place-content: stretch;
 
-      grid-auto-flow: column;
-    }
+        grid-auto-flow: column;
+      }
 
-    :where(&)::part(date-picker-form-input) {
-      text-align: end;
+      &::part(date-picker-form-input) {
+        text-align: end;
+      }
     }
   }
 }

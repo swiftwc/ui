@@ -92,12 +92,12 @@ $table-elses: (
           border-top: 1px solid var(--separator);
         }
 
-        :where(&)::part(table-header-leading-stack),
-        :where(&)::part(table-header-principal-stack),
-        :where(&)::part(table-header-trailing-stack),
-        :where(&)::part(table-footer-leading-stack),
-        :where(&)::part(table-footer-principal-stack),
-        :where(&)::part(table-footer-trailing-stack) {
+        &::part(table-header-leading-stack),
+        &::part(table-header-principal-stack),
+        &::part(table-header-trailing-stack),
+        &::part(table-footer-leading-stack),
+        &::part(table-footer-principal-stack),
+        &::part(table-footer-trailing-stack) {
           grid-auto-flow: column;
           grid-template-columns: minmax(0, 1fr);
 

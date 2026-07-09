@@ -352,24 +352,26 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
 
     // SECTION: style section heders/footers
     section-view:not(section-view section-view, menu-view *) {
-      :where(&)::part(section-footer-stack),
-      :where(&)::part(section-header-stack) {
-        // outline: magenta 4px solid;
-        padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px)) calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
+      :where(&) {
+        &::part(section-footer-stack),
+        &::part(section-header-stack) {
+          // outline: magenta 4px solid;
+          padding-inline: calc(var(--list--root-padding-inline, 0px) + var(--itempadistart, 0px)) calc(var(--list--root-padding-inline, 0px) + var(--itempadiend, 0px));
 
-        margin-inline: calc(var(--list--root-padding-inline) * -1);
+          margin-inline: calc(var(--list--root-padding-inline) * -1);
 
-        padding-block: 1px;
-      }
+          padding-block: 1px;
+        }
 
-      :where(&)::part(section-header-stack) {
-        top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
+        &::part(section-header-stack) {
+          top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
 
-        position: sticky;
+          position: sticky;
 
-        // backdrop-filter: blur(20px);
+          // backdrop-filter: blur(20px);
 
-        // text-shadow: 0 0 5px var(--face);
+          // text-shadow: 0 0 5px var(--face);
+        }
       }
     }
 

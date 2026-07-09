@@ -111,9 +111,16 @@
   }
 }
 
-@mixin contain-overscroll() {
-  overscroll-behavior: contain;
+@mixin contain-overscroll($axis: both) {
   -webkit-overflow-scrolling: touch;
+
+  @if $axis == inline {
+    overscroll-behavior-inline: contain;
+  } @else if $axis == block {
+    overscroll-behavior-block: contain;
+  } @else {
+    overscroll-behavior: contain;
+  }
 }
 
 @mixin make-toolbar-pseudos($dir: bottom) {

@@ -1,0 +1,79 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  toggle-view {
+    :where(&) {
+      grid-template-columns: minmax(0, 1fr);
+
+      grid-template-rows: minmax(0, 1fr);
+
+      --toggle--trigger-bg: lightgray;
+
+      &::part(toggle-stack) {
+        grid-template-columns: auto minmax(0, 1fr);
+
+        grid-template-rows: minmax(0, 1fr);
+
+        column-gap: var(--labeled-content-column-gap);
+      }
+
+      &::part(toggle-label-stack) {
+        color: var(--secondary);
+      }
+
+      &::part(toggle-input-stack) {
+        place-items: stretch;
+
+        place-content: stretch;
+      }
+
+      &::part(toggle-form-input):focus {
+        outline: blue solid 5px;
+      }
+
+      &::part(toggle-form-input) {
+        text-align: end;
+
+        position: relative;
+
+        display: grid;
+        outline: red solid 3px;
+        border-radius: 2rem;
+        inline-size: 4rem;
+        block-size: 1rem;
+        background: var(--toggle--trigger-bg);
+
+        // appearance: none;
+
+        // border: 0;
+
+        // outline: 0;
+
+        // padding: 0;
+
+        // background-color: transparent;
+      }
+
+      &::part(toggle-form-input)::before {
+        content: '';
+
+        display: grid;
+
+        position: absolute;
+        inset: 0 auto auto 0;
+        inline-size: 1rem;
+        block-size: 1rem;
+        border-radius: 1rem;
+        // background: yellow;
+
+        backdrop-filter: var(--liquid-glass-backdrop-filter);
+
+        box-shadow: var(--liquid-glass-box-shadow);
+      }
+    }
+
+    &[aria-checked='true'] {
+      --toggle--trigger-bg: green;
+    }
+  }
+}

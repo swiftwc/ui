@@ -110,6 +110,57 @@ $picker-ifs: (
       border-radius: var(--picker--stack-grid-border-radius,);
       border: var(--picker--stack-grid-border,);
       color: var(--picker--stack-grid-color,);
+
+      &::part(picker-stack) {
+        // grid-auto-flow: column;
+        grid-template-columns: var(--picker--stack-grid-template-columns,); //minmax(30%, 1fr) auto;
+
+        grid-template-rows: var(--picker--stack-grid-template-rows,); //minmax(0, 1fr);
+        row-gap: var(--picker--stack-row-gap,);
+
+        column-gap: var(--picker--stack-column-gap,);
+
+        // display: var(--picker--stack-display,);
+
+        // flex-wrap: var(--picker--stack-flex-wrap,);
+
+        // justify-content: var(--picker--stack-justify-content,);
+
+        // grid-template-columns: var(--picker--stack-grid-template-columns,);
+
+        // grid-template-rows: minmax(0, 1fr);
+
+        // column-gap: 1rem;
+
+        // // wire these to mimic componentize
+        // padding-inline: var(--picker--stack-grid-padding-inline,);
+        // padding-block: var(--picker--stack-grid-padding-block,);
+        // background: var(--picker--stack-grid-background,);
+        // border-radius: var(--picker--stack-grid-border-radius,);
+        // border: var(--picker--stack-grid-border,);
+        // color: var(--picker--stack-grid-color,);
+      }
+
+      &::part(picker-input-stack) {
+        text-align: var(--picker--input-stack-text-align,);
+        // flex-shrink: var(--picker--input-stack-flex-shrink,); //none;
+
+        // max-width: var(--picker--input-stack-max-width,); //70%;
+      }
+
+      &::part(picker-label-stack) {
+        display: var(--picker--labelstack-display, none); // display: none;
+
+        color: var(--secondary);
+
+        --label-truncation-mode: tail;
+
+        --label-line-limit: 1;
+      }
+
+      --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
+
+      --picker--stack-grid-template-rows: minmax(0, 1fr);
     }
 
     // > :not([slot]) {
@@ -118,58 +169,6 @@ $picker-ifs: (
     //   }
     // }
 
-    :where(&)::part(picker-stack) {
-      // grid-auto-flow: column;
-      grid-template-columns: var(--picker--stack-grid-template-columns,); //minmax(30%, 1fr) auto;
-
-      grid-template-rows: var(--picker--stack-grid-template-rows,); //minmax(0, 1fr);
-      row-gap: var(--picker--stack-row-gap,);
-
-      column-gap: var(--picker--stack-column-gap,);
-
-      // display: var(--picker--stack-display,);
-
-      // flex-wrap: var(--picker--stack-flex-wrap,);
-
-      // justify-content: var(--picker--stack-justify-content,);
-
-      // grid-template-columns: var(--picker--stack-grid-template-columns,);
-
-      // grid-template-rows: minmax(0, 1fr);
-
-      // column-gap: 1rem;
-
-      // // wire these to mimic componentize
-      // padding-inline: var(--picker--stack-grid-padding-inline,);
-      // padding-block: var(--picker--stack-grid-padding-block,);
-      // background: var(--picker--stack-grid-background,);
-      // border-radius: var(--picker--stack-grid-border-radius,);
-      // border: var(--picker--stack-grid-border,);
-      // color: var(--picker--stack-grid-color,);
-    }
-
-    :where(&)::part(picker-input-stack) {
-      text-align: var(--picker--input-stack-text-align,);
-      // flex-shrink: var(--picker--input-stack-flex-shrink,); //none;
-
-      // max-width: var(--picker--input-stack-max-width,); //70%;
-    }
-
-    :where(&)::part(picker-label-stack) {
-      display: var(--picker--labelstack-display, none); // display: none;
-
-      color: var(--secondary);
-
-      --label-truncation-mode: tail;
-
-      --label-line-limit: 1;
-    }
-
-    :where(&) {
-      --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
-
-      --picker--stack-grid-template-rows: minmax(0, 1fr);
-    }
     // :where(&) {
     // --picker--stack-grid-template-columns: auto minmax(0, 1fr);
     // @include mixins.write-props($picker-elses); NOT Needed for now since all defaults/fallbacks are already the elses

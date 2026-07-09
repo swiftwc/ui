@@ -30,29 +30,19 @@
           <text-view format="date:"></text-view>
           <text-view verbatim="hello world"></text-view>
           <text-view localized-string-key="" verbatim="hello world"></text-view>
-
-          <div
-            style="
-              border: red solid 2px;
-              width: 100px;
-              display: grid;
-              grid-template-columns: minmax(0, 1fr);
-              height: 150px;
-              overflow: hidden;
-              text-overflow: ellipsis;
-            "
-          >
-            <p>looooooooooooooooooooooooooooooooooooooooooooooong</p>
-            <p style="text-overflow: ellipsis; overflow: hidden">looooooooooooooooooooooooooooooooooooooooooooooong</p>
-            <label-view system-image="smiley" title="Fooooooooooooooooooooooo"></label-view>
-            <!-- <label-view system-image="smiley">
-              <v-stack>
-                <label-view system-image="smiley" title="Fooooooooooooooooooooooo" line-limit="1" truncation-mode="tail"></label-view>
-                <label-view system-image="smiley" title="Fooooooooooooooooooooooo" line-limit="1" truncation-mode="tail"></label-view>
-              </v-stack>
-            </label-view> -->
-            <label-view system-image="smiley" title="Foooooo ooooooooo oooooooo oooooooo oooooooo oooooooo" line-limit="2" truncation-mode="tail"></label-view>
-          </div>
+          <form id="gg">
+            <input type="checkbox" checked id="gg1" name="newsletter" value="yes" />
+            <input type="checkbox" name="colors" value="red" />
+            <input type="checkbox" name="colors" value="green" />
+            <input type="checkbox" name="colors" value="blue" />
+            <button type="submit">send</button>
+            <button type="reset">reset</button>
+            <toggle-view label="newsletter2 required" is-on required id="gg2" name="newsletter2" value="yess"></toggle-view>
+            <toggle-view label="newsletter3" name="newsletter3" value="yess"></toggle-view>
+            <toggle-view label="here" name="colors2" value="red"></toggle-view>
+            <toggle-view label="here" name="colors2" value="green"></toggle-view>
+            <toggle-view label="here" name="colors2" value="blue"></toggle-view>
+          </form>
           <details is="disclosure-group">
             <summary>3 days ago</summary>
             <p>January 27th, 2020 January 27th, 2020 January 27th</p>
@@ -149,6 +139,40 @@
     </nav>
     <script type="module">
       document.querySelector('nav[popover]').showPopover()
+    </script>
+    <script>
+      document.querySelector('#gg1').addEventListener('input', (evt) => {
+        console.log(11, evt)
+      })
+      document.querySelector('#gg1').addEventListener('change', (evt) => {
+        console.log(11, evt)
+      })
+      document.querySelector('#gg').addEventListener('submit', (evt) => {
+        evt.preventDefault()
+
+        console.log(999, evt)
+
+        const form = event.currentTarget
+
+        const data = new FormData(form)
+
+        // Iterate
+
+        for (const [name, value] of data) {
+          console.log(name, value)
+        }
+
+        const values = Object.fromEntries(data)
+
+        console.log(values)
+
+        const colors = data.getAll('colors')
+
+        console.log(colors)
+
+        console.log(document.querySelector('#gg1').checked)
+        console.log(document.querySelector('#gg1').value)
+      })
     </script>
   </body>
 </html>

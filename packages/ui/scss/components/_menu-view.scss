@@ -5,74 +5,76 @@
 
 @layer #{vars.$components-layer} {
   menu-view {
-    :where(&)::part(menu-summary) {
-      transform: var(--menu--summary-scale,);
+    :where(&) {
+      &::part(menu-summary) {
+        transform: var(--menu--summary-scale,);
 
-      filter: var(--menu--summary-filter,);
-    }
+        filter: var(--menu--summary-filter,);
+      }
 
-    :where(&)::part(menu-scrollable) {
-      @include mixins.make-scrollable(true);
+      &::part(menu-scrollable) {
+        @include mixins.make-scrollable(true);
 
-      padding: var(--menu-padding);
-    }
+        padding: var(--menu-padding);
+      }
 
-    :where(&)::part(menu-form) {
-      // min-inline-size: 200px; // FIXME: del this
-      inline-size: max-content; //var(--menu-inline-size);
-      block-size: min-content;
+      &::part(menu-form) {
+        // min-inline-size: 200px; // FIXME: del this
+        inline-size: max-content; //var(--menu-inline-size);
+        block-size: min-content;
 
-      max-inline-size: var(--menu-max-inline-size,);
-      max-block-size: var(--menu-max-block-size,);
+        max-inline-size: var(--menu-max-inline-size,);
+        max-block-size: var(--menu-max-block-size,);
 
-      overflow: clip auto;
-      border-radius: inherit;
+        overflow: clip auto;
+        border-radius: inherit;
 
-      background-color: light-dark(var(--menu-bg), var(--menu-bg-dark));
-      // border: transparent solid 20px; //make sure bezel is not covered
+        background-color: light-dark(var(--menu-bg), var(--menu-bg-dark));
+        // border: transparent solid 20px; //make sure bezel is not covered
 
-      @include mixins.make-scrollable;
-      @include mixins.contain-overscroll;
+        @include mixins.make-scrollable;
+        @include mixins.contain-overscroll;
 
-      // touch-action: all;
+        // touch-action: all;
 
-      --menu--dialog-max-inline-size: anchor-size();
-      --menu--dialog-max-block-size: anchor-size();
-    }
+        --menu--dialog-max-inline-size: anchor-size();
+        --menu--dialog-max-block-size: anchor-size();
+      }
 
-    :where(&)::part(menu-dialog) {
-      @include mixins.reset-dialog;
+      &::part(menu-dialog) {
+        @include mixins.reset-dialog;
 
-      color: var(--text,);
+        color: var(--text,);
 
-      touch-action: none;
+        touch-action: none;
 
-      position: fixed;
+        position: fixed;
 
-      inline-size: fit-content;
-      block-size: fit-content;
-      height: auto; // safari
-      max-inline-size: var(--menu--dialog-max-inline-size,);
-      max-block-size: var(--menu--dialog-max-block-size,);
+        inline-size: fit-content;
+        block-size: fit-content;
+        height: auto; // safari
+        max-inline-size: var(--menu--dialog-max-inline-size,);
+        max-block-size: var(--menu--dialog-max-block-size,);
 
-      margin-block: var(--menu--dialog-margin-block,);
-      margin-inline: var(--menu--dialog-margin-inline,);
+        margin-block: var(--menu--dialog-margin-block,);
+        margin-inline: var(--menu--dialog-margin-inline,);
 
-      transform: var(--menu--dialog-scale,);
+        transform: var(--menu--dialog-scale,);
 
-      // position-anchor: --my-anchor; // overriden
-      position-area: center;
+        // position-anchor: --my-anchor; // overriden
+        position-area: center;
 
-      overflow: clip;
-      border-radius: calc(var(--menu-item-border-radius) + var(--menu-padding));
+        overflow: clip;
+        border-radius: calc(var(--menu-item-border-radius) + var(--menu-padding));
 
-      backdrop-filter: var(--liquid-glass-backdrop-filter,);
-      box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
+        backdrop-filter: var(--liquid-glass-backdrop-filter,);
+        box-shadow: var(--menu-popover-box-shadow,); //0 0 10px 10px black;
 
-      // finally
-      --menu--dialog-scale: scale(0);
-      --menu--summary-scale: ;
-      --menu--summary-filter: ;
+        // finally
+        --menu--dialog-scale: scale(0);
+        --menu--summary-scale: ;
+        --menu--summary-filter: ;
+      }
     }
 
     &[open] {
@@ -104,9 +106,11 @@
     // &[open] > &[open],
     // &[open]:not(tool-bar-item &) {
     &[open]:not(tool-bar-item > &) {
-      --menu--summary-scale: scale(0.01);
+      :where(&) {
+        --menu--summary-scale: scale(0.01);
 
-      --menu--summary-filter: blur(10px);
+        --menu--summary-filter: blur(10px);
+      }
     }
 
     // :where(& > *) {

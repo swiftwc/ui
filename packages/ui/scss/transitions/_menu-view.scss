@@ -4,22 +4,24 @@
 @layer #{vars.$transitions-layer} {
   @media (prefers-reduced-motion: no-preference) {
     menu-view {
-      :where(&)::part(menu-summary) {
-        transition:
-          transform var(--touchglass-transition-duration) allow-discrete ease-out,
-          filter var(--touchglass-transition-duration) allow-discrete ease-out;
-        will-change: transform;
-      }
+      :where(&) {
+        &::part(menu-summary) {
+          transition:
+            transform var(--touchglass-transition-duration) allow-discrete ease-out,
+            filter var(--touchglass-transition-duration) allow-discrete ease-out;
+          will-change: transform;
+        }
 
-      :where(&)::part(menu-dialog) {
-        // transition:
-        //   block-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
-        //   display var(--menu-animation-duration) allow-discrete ease-out,
-        //   overlay var(--menu-animation-duration) allow-discrete ease-out,
-        //   transform var(--menu-animation-duration) allow-discrete ease-out;
-        transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-        // will-change: block-size, inline-size, transform, overlay, display;
+        &::part(menu-dialog) {
+          // transition:
+          //   block-size var(--menu-animation-duration) allow-discrete ease-out,
+          //   inline-size var(--menu-animation-duration) allow-discrete ease-out,
+          //   display var(--menu-animation-duration) allow-discrete ease-out,
+          //   overlay var(--menu-animation-duration) allow-discrete ease-out,
+          //   transform var(--menu-animation-duration) allow-discrete ease-out;
+          transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+          // will-change: block-size, inline-size, transform, overlay, display;
+        }
       }
     }
   }

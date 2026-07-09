@@ -16,8 +16,6 @@
         :where(&) {
           position: relative;
 
-          @include mixins.contain-overscroll;
-
           scrollbar-width: thin;
 
           container: scroll-view-proxy / inline-size;
@@ -53,6 +51,8 @@
 
           scroll-snap-type: block mandatory;
 
+          @include mixins.contain-overscroll(block);
+
           // &::before {
           //   block-size: calc(100cqb + 1px); // creates overflow
           // }
@@ -64,6 +64,8 @@
           overflow: auto clip;
 
           scroll-snap-type: inline mandatory;
+
+          @include mixins.contain-overscroll(inline);
 
           // &::before {
           //   inline-size: calc(100cqi + 1px); // creates overflow

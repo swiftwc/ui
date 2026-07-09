@@ -16,6 +16,66 @@
         'top-bar'
         'spacer'
         'bottom-bar';
+
+      &::part(top-bar),
+      &::part(bottom-bar) {
+        position: relative; // SAFARI BUG
+
+        padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
+        pointer-events: none;
+
+        grid-template-columns: auto 1fr auto;
+        column-gap: var(--toolbar-col-gap);
+        // grid-auto-rows: 40px;
+
+        grid-template-rows: var(--toolbar-cell-min-size);
+
+        // place-items: center;
+        place-content: center; // middle of y axis
+      }
+
+      &::part(top-bar) {
+        // padding-inline: calc(
+        //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
+        //   )
+        //   calc(
+        //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
+        //   );
+
+        grid-area: top-bar;
+
+        block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
+
+        padding-block-start: var(--safe-area-inset-top);
+      }
+
+      &::part(bottom-bar) {
+        // padding-inline: calc(
+        //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
+        //   )
+        //   calc(
+        //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
+        //   );
+
+        grid-area: bottom-bar;
+
+        block-size: calc(var(--safe-area-inset-bottom) + var(--tool-bar-block-size));
+
+        padding-block-end: var(--safe-area-inset-bottom);
+      }
+
+      &::part(toolbar-leading-stack),
+      &::part(toolbar-principal-stack),
+      &::part(toolbar-trailing-stack) {
+        display: grid;
+
+        grid-auto-flow: column;
+        grid-template-columns: minmax(0, 1fr);
+
+        column-gap: var(--toolbar-col-gap);
+
+        padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
+      }
     }
 
     :where(& > *:not(sidebar-toggle), & > sidebar-toggle > tool-bar-item, tab-view > sidebar-toggle > tool-bar-item, navigation-split-view > sidebar-toggle > tool-bar-item) {
@@ -30,66 +90,6 @@
       opacity: var(--toolbar-cell-opacity,);
 
       // min-width: calc(var(--tool-bar-block-size) - var(--toolbar-cell-block-padding-start) - var(--toolbar-cell-block-padding-end));
-    }
-
-    :where(&)::part(top-bar),
-    :where(&)::part(bottom-bar) {
-      position: relative; // SAFARI BUG
-
-      padding-inline: var(--safe-area-inset-left, 0px) var(--safe-area-inset-right, 0px);
-      pointer-events: none;
-
-      grid-template-columns: auto 1fr auto;
-      column-gap: var(--toolbar-col-gap);
-      // grid-auto-rows: 40px;
-
-      grid-template-rows: var(--toolbar-cell-min-size);
-
-      // place-items: center;
-      place-content: center; // middle of y axis
-    }
-
-    :where(&)::part(top-bar) {
-      // padding-inline: calc(
-      //     var(--safe-area-inset-left, 0px) + var(--navbar-area-inset-left, 0px)
-      //   )
-      //   calc(
-      //     var(--safe-area-inset-right, 0px) + var(--navbar-area-inset-right, 0px)
-      //   );
-
-      grid-area: top-bar;
-
-      block-size: calc(var(--safe-area-inset-top) + var(--navigation-bar-block-size));
-
-      padding-block-start: var(--safe-area-inset-top);
-    }
-
-    :where(&)::part(bottom-bar) {
-      // padding-inline: calc(
-      //     var(--safe-area-inset-left, 0px) + var(--toolbar-area-inset-left, 0px)
-      //   )
-      //   calc(
-      //     var(--safe-area-inset-right, 0px) + var(--toolbar-area-inset-right, 0px)
-      //   );
-
-      grid-area: bottom-bar;
-
-      block-size: calc(var(--safe-area-inset-bottom) + var(--tool-bar-block-size));
-
-      padding-block-end: var(--safe-area-inset-bottom);
-    }
-
-    :where(&)::part(toolbar-leading-stack),
-    :where(&)::part(toolbar-principal-stack),
-    :where(&)::part(toolbar-trailing-stack) {
-      display: grid;
-
-      grid-auto-flow: column;
-      grid-template-columns: minmax(0, 1fr);
-
-      column-gap: var(--toolbar-col-gap);
-
-      padding-inline: var(--toolbar-col-gap) var(--toolbar-col-gap);
     }
 
     @include mixins.if-ipad-sheet-fits {

@@ -1,5 +1,10 @@
 import { $, devFlags, renderLabelIcon, renderLabelTitle } from '../internal/utils'
 
+/**
+ *
+ * @attr {@fontSet} font - Sets the default font for text in this view.
+ *
+ */
 export class LabelView extends HTMLElement {
   static get observedAttributes() {
     return ['system-image', 'title', 'line-limit', 'truncation-mode']

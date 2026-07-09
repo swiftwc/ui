@@ -9,49 +9,49 @@
 
       // padding-inline: var(--toolbaritempadistart,) var(--toolbaritempadiend,);
       // padding-block: var(--toolbaritempadbstart,) var(--toolbaritempadbend,);
-    }
 
-    :where(&)::part(text-field-stack) {
-      // display: grid;
+      &::part(text-field-stack) {
+        // display: grid;
 
-      grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns: auto minmax(0, 1fr);
 
-      grid-template-rows: minmax(0, 1fr);
+        grid-template-rows: minmax(0, 1fr);
 
-      column-gap: var(--labeled-content-column-gap);
-    }
+        column-gap: var(--labeled-content-column-gap);
+      }
 
-    :where(&)::part(text-field-label-stack) {
-      // display: grid;
+      &::part(text-field-label-stack) {
+        // display: grid;
 
-      color: var(--secondary);
-    }
+        color: var(--secondary);
+      }
 
-    :where(&)::part(text-field-input-stack) {
-      // display: grid;
+      &::part(text-field-input-stack) {
+        // display: grid;
 
-      place-items: stretch;
-      place-content: stretch;
-    }
+        place-items: stretch;
+        place-content: stretch;
+      }
 
-    :where(&)::part(text-field-form-input) {
-      // display: grid;
+      &::part(text-field-form-input) {
+        // display: grid;
 
-      text-align: end;
+        text-align: end;
 
-      appearance: none;
+        appearance: none;
 
-      border: 0;
+        border: 0;
 
-      outline: 0;
+        outline: 0;
 
-      padding: 0;
+        padding: 0;
 
-      // padding-block: 0.1rem;
+        // padding-block: 0.1rem;
 
-      // padding-inline: 0.3rem;
+        // padding-inline: 0.3rem;
 
-      background-color: transparent;
+        background-color: transparent;
+      }
     }
   }
 }

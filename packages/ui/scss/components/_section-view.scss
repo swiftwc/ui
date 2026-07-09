@@ -13,6 +13,29 @@
       // 'sentinel'
 
       gap: 0.5rem;
+
+      &::part(section-header-stack),
+      &::part(section-footer-stack) {
+        pointer-events: none;
+        //   outline: solid magenta 4px;
+        //   padding-block: 10px;
+      }
+
+      &::part(section-header-stack) {
+        grid-area: header;
+      }
+
+      &::part(section-main-stack) {
+        grid-area: main;
+      }
+
+      &::part(section-footer-stack) {
+        grid-area: footer;
+      }
+
+      &::part(section-header-stack) {
+        order: -1;
+      }
     }
 
     :where(&:has(> [slot='header']):not(:has(> [slot='footer']))) {
@@ -42,24 +65,6 @@
       display: none;
     }
 
-    :where(&)::part(section-header-stack),
-    :where(&)::part(section-footer-stack) {
-      pointer-events: none;
-      //   outline: solid magenta 4px;
-      //   padding-block: 10px;
-    }
-
-    :where(&)::part(section-header-stack) {
-      grid-area: header;
-    }
-
-    :where(&)::part(section-main-stack) {
-      grid-area: main;
-    }
-
-    :where(&)::part(section-footer-stack) {
-      grid-area: footer;
-    }
     // :where(& > *) {
     //   display: grid;
     // }
@@ -67,10 +72,6 @@
     // :where(&:has(~ :not([slot]))) {
     //   margin-bottom: 3rem;
     // }
-
-    :where(&)::part(section-header-stack) {
-      order: -1;
-    }
 
     // :where(&:not(& &))::part(section-header-stack) {
     // :where(&)::part(section-header-stack) {

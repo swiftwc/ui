@@ -6,7 +6,7 @@
       grid-template-columns: minmax(0, 1fr);
       grid-template-rows: minmax(0, 1fr);
 
-     &::part(date-picker-stack) {
+      &::part(date-picker-stack) {
         grid-template-columns: auto minmax(0, 1fr);
         grid-template-rows: minmax(0, 1fr);
       }

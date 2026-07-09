@@ -84,6 +84,8 @@
 
 #### [TextField](/web-components/text-field.md)
 
+#### [ToggleView](/web-components/toggle-view.md)
+
 #### [ToolBarItemGroup](/web-components/tool-bar-item-group.md)
 
 #### [ToolBarItem](/web-components/tool-bar-item.md)

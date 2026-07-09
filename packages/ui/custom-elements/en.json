@@ -636,6 +636,15 @@
           "attributes": [
             {
               "name": "spacing"
+            },
+            {
+              "name": "alignment - The cross"
+            },
+            {
+              "name": "distribution - The main"
+            },
+            {
+              "name": "placement - The main"
             }
           ]
         }
@@ -720,6 +729,9 @@
             }
           ],
           "attributes": [
+            {
+              "name": "font"
+            },
             {
               "name": "system-image"
             },
@@ -1807,6 +1819,93 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/toggle-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ToggleView",
+          "tagName": "toggle-view",
+          "description": "",
+          "superclass": {
+            "name": "FormHTMLElement"
+          },
+          "members": [
+            {
+              "kind": "field",
+              "name": "template"
+            },
+            {
+              "kind": "field",
+              "name": "toggleStyle"
+            },
+            {
+              "kind": "field",
+              "name": "isOn"
+            },
+            {
+              "kind": "field",
+              "name": "name"
+            },
+            {
+              "kind": "field",
+              "name": "value"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "label"
+            },
+            {
+              "name": "slot",
+              "description": "validity-options"
+            }
+          ],
+          "attributes": [
+            {
+              "name": "label"
+            },
+            {
+              "name": "name"
+            },
+            {
+              "name": "value"
+            },
+            {
+              "name": "is-on"
+            },
+            {
+              "name": "keyboard-type"
+            },
+            {
+              "name": "required"
+            },
+            {
+              "name": "disabled"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ToggleView",
+          "declaration": {
+            "name": "ToggleView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "toggle-view",
+          "declaration": {
+            "name": "ToggleView"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/tool-bar-item-group.ts",
       "declarations": [
         {
@@ -2019,6 +2118,15 @@
             },
             {
               "name": "spacing"
+            },
+            {
+              "name": "alignment - The cross"
+            },
+            {
+              "name": "distribution - The main"
+            },
+            {
+              "name": "placement - The main"
             }
           ]
         }

@@ -111,6 +111,23 @@ function createInstance(prepared: PreparedTemplate): { fragment: DocumentFragmen
 
 // --- Committing values into parts (the only thing that runs per update) -
 
+function isTemplateResult(v: unknown): v is TemplateResult {
+  return !!v && typeof v === 'object' && 'strings' in (v as any) && 'values' in (v as any)
+}
+
+function toNode(value: unknown): Node {
+  if (value instanceof Node) return value
+  if (isTemplateResult(value)) {
+    const { fragment, parts } = createInstance(prepare(value.strings))
+    parts.forEach((part, i) => {
+      const v = value.values[i]
+      part.type === 'child' ? commitChild(part, v) : commitAttr(part, v)
+    })
+    return fragment
+  }
+  return document.createTextNode(String(value))
+}
+
 function commitChild(part: ChildPart, value: unknown) {
   if (value === part.committed) return // dirty-check, skip untouched parts
 
@@ -122,10 +139,11 @@ function commitChild(part: ChildPart, value: unknown) {
     n = next
   }
 
-  if (value !== null && value !== undefined && value !== false) {
-    const text = document.createTextNode(String(value))
-    part.end.before(text)
+  for (const item of Array.isArray(value) ? value : [value]) {
+    if (item === null || item === undefined || item === false) continue
+    part.end.before(toNode(item))
   }
+
   part.committed = value
 }
 

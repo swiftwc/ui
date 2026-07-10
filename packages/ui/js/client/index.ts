@@ -7,6 +7,7 @@ import { type NavigationHost, queryInsertPosition, startViewTransition } from '.
 import { $, devFlags, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
+import { html, render } from '../tpl'
 
 //#region polyfills
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -211,74 +212,88 @@ if (mediaQueryList.matches)
     document.addEventListener(k, v, { passive: true })
 
 //#region fns
-export const alert = async (
+// const a = alert('Saving…', 'Please wait')
+// // later, e.g. save completed early
+// a.dismiss()          // silently resolves undefined, closes+removes dialog
+// // or
+// a.dismiss(new Error('cancelled')) // rejects instead
+// const result = await a // still works normally if not dismissed
+// const ac = new AbortController()
+// const a = alert('Uploading…', 'Please wait', undefined, { signal: ac.signal })
+// // elsewhere, e.g. upload finished before the user dismissed
+// ac.abort() // dialog closes silently, a rejects with AbortError
+// // or still works standalone
+// a.dismiss() // same effect, no signal needed
+export const alert = (
   title?: string,
   message?: string,
   actions?: {
     label?: string
     image?: string
     role?: string
-    // action?: () => void | Promise<void>
   }[],
-  options?: { titleVisibility?: boolean }
+  options?: { titleVisibility?: boolean; signal?: AbortSignal }
 ) => {
-  return await navigator.locks.request('alert:', async () => {
-    const dialog = $<HTMLDialogElement>(`<dialog is="alert-dialog"></dialog>`, '>1'),
-      vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
+  const { promise, resolve, reject } = Promise.withResolvers<string | undefined>()
 
-    if (title) {
-      const label = $(`<label-view font="headline"></label-view>`, '>1')
-      label.setAttribute('title', title)
-      vStack.insertAdjacentElement('beforeend', label)
-    }
+  let dialog: HTMLDialogElement | undefined
+  let off: (() => void) | undefined
 
-    if (message) {
-      const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
-      label.setAttribute('title', message)
-      vStack.insertAdjacentElement('beforeend', label)
-    }
+  const dismiss = (reason?: unknown) => {
+    off?.()
+    dialog?.close()
+    dialog?.remove()
+    reason === undefined ? resolve(undefined) : reject(reason instanceof Error ? reason : new DOMException('Alert dismissed', 'AbortError'))
+  }
 
-    for (const [index, action] of (
-      actions ?? [
-        {
-          role: 'close',
-        },
-      ]
-    ).entries()) {
-      const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
+  if (options?.signal)
+    if (options.signal.aborted)
+      dismiss(options.signal.reason) // already aborted before we even started — settle immediately, skip showing anything
+    else options.signal.addEventListener('abort', () => dismiss(options.signal!.reason), { once: true })
 
-      btn.setAttribute('value', `${index}`)
-      if (action?.role) btn.setAttribute('role', action.role)
+  navigator.locks
+    .request('alert:', async () => {
+      if (options?.signal?.aborted) return // in case it was aborted while queued behind another lock holder
 
-      if (action.label || action.image) {
-        const label = $(`<label-view></label-view>`, '>1')
-        if (action.label) label.setAttribute('title', action.label)
-        if (action.image) label.setAttribute('system-image', action.image)
-        btn.appendChild(label)
-      }
+      const mount = document.createElement('div')
+      render(
+        html`<dialog is="alert-dialog">
+          <v-stack spacing="1" alignment="fill">
+            ${title ? html`<label-view font="headline" title="${title}"></label-view>` : null}
+            ${message ? html`<label-view foreground="secondary" font="callout" title="${message}"></label-view>` : null}
+          </v-stack>
+          ${(actions ?? [{ role: 'close' }]).map(
+            (action, index) => html`
+              <button type="button" tabindex="0" is="bordered-button" value="${index}" role="${action.role ?? null}">
+                ${action.label || action.image ? html`<label-view title="${action.label ?? null}" system-image="${action.image ?? null}"></label-view>` : null}
+              </button>
+            `
+          )}
+        </dialog>`,
+        mount
+      )
 
-      dialog.insertAdjacentElement('beforeend', btn)
-    }
+      dialog = mount.firstElementChild as HTMLDialogElement
 
-    document.body.insertAdjacentElement('beforeend', dialog)
+      document.body.insertAdjacentElement('beforeend', dialog)
+      dialog.showModal()
 
-    dialog.showModal()
-
-    const { promise, resolve } = Promise.withResolvers<string>(),
       off = onoff(
         'alert:return',
         (evt: any) => {
           const { detail } = evt as CustomEvent<AlertReturnDetail>
-
-          off()
+          off?.()
           resolve(detail.returnValue)
         },
         alertDialog,
         { once: true }
       ).on()
 
-    return promise
-  })
+      return promise
+    })
+    .catch(() => {})
+
+  return Object.assign(promise, { dismiss })
 }
 
 export const confirmationDialog = async (

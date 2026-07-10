@@ -242,7 +242,7 @@ export const alert = (
   const dismiss = (reason?: unknown) => {
     off?.()
     dialog?.close()
-    dialog?.remove()
+    // dialog?.remove()
     reason === undefined ? resolve(undefined) : reject(reason instanceof Error ? reason : new DOMException('Alert dismissed', 'AbortError'))
   }
 

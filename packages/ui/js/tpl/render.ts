@@ -4,8 +4,8 @@ import type { TemplateResult } from './html'
 
 interface ChildPart {
   type: 'child'
-  start: Comment
-  end: Comment
+  anchor: Comment // was: start, end
+  nodes: ChildNode[] // tracks what's currently inserted, so we can remove exactly that
   committed: unknown
 }
 
@@ -87,10 +87,7 @@ function createInstance(prepared: PreparedTemplate): { fragment: DocumentFragmen
     if (descriptorIndex >= descriptors.length) break
 
     if (node.nodeType === Node.COMMENT_NODE && (node as Comment).data === MARKER) {
-      const start = node as Comment
-      const end = document.createComment(MARKER)
-      start.after(end)
-      parts.push({ type: 'child', start, end, committed: undefined })
+      parts.push({ type: 'child', anchor: node as Comment, nodes: [], committed: undefined })
       descriptorIndex++
     } else if (node.nodeType === Node.ELEMENT_NODE) {
       const el = node as Element
@@ -131,17 +128,15 @@ function toNode(value: unknown): Node {
 function commitChild(part: ChildPart, value: unknown) {
   if (value === part.committed) return // dirty-check, skip untouched parts
 
-  // clear everything between start/end
-  let n = part.start.nextSibling
-  while (n && n !== part.end) {
-    const next = n.nextSibling
-    n.remove()
-    n = next
-  }
+  for (const n of part.nodes) n.remove()
+  const nodes: Node[] = []
 
   for (const item of Array.isArray(value) ? value : [value]) {
     if (item === null || item === undefined || item === false) continue
-    part.end.before(toNode(item))
+    const node = toNode(item)
+    const inserted = node instanceof DocumentFragment ? Array.from(node.childNodes) : [node as ChildNode]
+    part.anchor.before(node)
+    nodes.push(...inserted)
   }
 
   part.committed = value

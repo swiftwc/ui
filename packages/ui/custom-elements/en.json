@@ -638,6 +638,9 @@
               "name": "spacing"
             },
             {
+              "name": "frame:alignment - The alignment of the stack on the cross"
+            },
+            {
               "name": "alignment - The cross"
             },
             {
@@ -2115,6 +2118,9 @@
             },
             {
               "name": "template"
+            },
+            {
+              "name": "frame:alignment - The alignment of the stack on the cross"
             },
             {
               "name": "spacing"

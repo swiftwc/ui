@@ -184,6 +184,21 @@
           "valueSet": "spacingSet"
         },
         {
+          "name": "frame:alignment - The alignment of the stack on the cross",
+          "description": "Value Type: “leading” | “center” | “trailing”\n\nDescription: axis",
+          "values": [
+            {
+              "name": "leading"
+            },
+            {
+              "name": "center"
+            },
+            {
+              "name": "trailing"
+            }
+          ]
+        },
+        {
           "name": "alignment - The cross",
           "description": "\nDescription: axis alignment",
           "valueSet": "alignmentSet"
@@ -617,6 +632,21 @@
             },
             {
               "name": "auto auto auto spacer"
+            }
+          ]
+        },
+        {
+          "name": "frame:alignment - The alignment of the stack on the cross",
+          "description": "Value Type: “leading” | “center” | “trailing”\n\nDescription: axis",
+          "values": [
+            {
+              "name": "leading"
+            },
+            {
+              "name": "center"
+            },
+            {
+              "name": "trailing"
             }
           ]
         },

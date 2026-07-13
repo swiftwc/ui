@@ -197,7 +197,7 @@ export class ToggleView extends FormAssociatedBase {
 
     this.#internals.setFormValue(entries)
 
-    if (dispatchEvent) this.dispatchEvent(new CustomEvent<ToggleChangeDetail>('picker:change', { detail: { value: this.value, isOn: this.isOn }, bubbles: true, composed: true }))
+    if (dispatchEvent) this.dispatchEvent(new CustomEvent<ToggleChangeDetail>('toggle:change', { detail: { value: this.value, isOn: this.isOn }, bubbles: true, composed: true }))
   }
 
   #handleInputKeydown = (evt: KeyboardEvent) => {

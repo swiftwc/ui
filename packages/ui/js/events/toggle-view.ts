@@ -3,12 +3,12 @@ export type ToggleChangeDetail = {
   value: string | null
 }
 
-export interface ToggleViewEventMap {
-  commit: CustomEvent<ToggleChangeDetail>
+declare global {
+  interface HTMLElementEventMap {
+    'picker:change': CustomEvent<ToggleChangeDetail>
+  }
 }
 
-// declare global {
-//   interface HTMLElementEventMap {
-//     commit: CustomEvent<ToggleChangeDetail>
-//   }
-// }
+export interface ToggleViewEventMap {
+  'picker:change': CustomEvent<ToggleChangeDetail>
+}

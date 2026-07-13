@@ -6749,6 +6749,10 @@
   h-stack[spacing="50"]) {
     gap: 5rem;
   }
+  :where(v-stack[frame\:alignment=leading],
+  h-stack[frame\:alignment=leading]) {
+    justify-self: start;
+  }
   :where(v-stack[frame\:alignment=center],
   h-stack[frame\:alignment=center]) {
     justify-self: center;

@@ -6,6 +6,7 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff, renderLabel, renderLabelIcon, renderLabelTitle } from '../internal/utils'
+import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
@@ -14,7 +15,7 @@ export type PickerStyle = (typeof pickerStyles)[number]
 
 export type DictEntry = {
   value: string
-  label?: string
+  title?: string
   subtitle?: string // TODO
   systemImage?: string
   children: DictEntry[]
@@ -36,8 +37,8 @@ const update = (path: NavigationPath, node: Element, overwrite = true) => {
   if (page) page.insertAdjacentElement(position, node)
 }
 
-const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
-  if (devFlags.debug) console.debug(`PickerView: reflectSpawnedElement`)
+const reflectSpawnedPage = (current?: HTMLElement, source?: HTMLElement) => {
+  if (devFlags.debug) console.debug(`PickerView: reflectSpawnedPage`)
 
   const { page: oldSv, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
     { page: newSv, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
@@ -61,7 +62,7 @@ const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
         break
       }
 
-  // replace backbtns (always exists)
+  // replace backbtns (always exist)
   if (oldBackBtn && newBackBtn) oldBackBtn.replaceWith(newBackBtn)
 
   // overwrite navtitle (always exists)
@@ -82,37 +83,41 @@ const reflectSpawnedElement = (current?: HTMLElement, source?: HTMLElement) => {
         `<sticky-container edge="navbar" style="order: -1" padding>
                 <v-stack spacing="0" alignment="fill">
                   <input is="search-view" placeholder="Search">
-                  <button type="button">Filters</button>
+                  <!--<button type="button">Filters</button>-->
                 </v-stack>
               </sticky-container>`
       )
   } else oldSearch?.remove()
 }
 
-const extractTagFromOption = (node: HTMLOptionElement | DictEntry) => {
-    if (devFlags.debug) console.debug(`PickerView: extractTagFromOption`)
+const extractTag = (node: HTMLOptionElement | DictEntry): string => {
+    if (devFlags.debug) console.debug(`PickerView: extractTag`)
 
     return node instanceof HTMLOptionElement ? (((node.getAttribute('value') ?? node.textContent?.trim()) || node.getAttribute('label')) ?? '') : (node.value ?? '')
   },
-  extractCurrentValueFromOption = (node: HTMLOptionElement | DictEntry) => {
-    if (devFlags.debug) console.debug(`PickerView: extractCurrentValueFromOption`)
-
-    return node instanceof HTMLOptionElement ? (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || '' : (node.label ?? node.value ?? '')
-  },
-  extractIconFromOption = (node: HTMLOptionElement | DictEntry): string | null => {
-    if (devFlags.debug) console.debug(`PickerView: extractIconFromOption`)
-
-    return node instanceof HTMLOptionElement ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
-  },
-  extractLabelFromGroup = (node: HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+  extractLabel = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
     if (devFlags.debug) console.debug(`PickerView: extractLabelFromGroup`)
 
-    return node instanceof Element ? node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label') : (node.label ?? node.value ?? null)
-  },
-  extractImgFromGroup = (node: HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
-    if (devFlags.debug) console.debug(`PickerView: extractImgFromGroup`)
+    if (node instanceof Element)
+      if (node instanceof HTMLOptionElement) return (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || null
+      else return node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label')
+    else return node.title ?? node.value ?? null
 
-    return node instanceof Element ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
+    // return node instanceof Element ? node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label') : (node.title ?? node.value ?? null)
+  },
+  extractIcon = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+    if (devFlags.debug) console.debug(`PickerView: extractIcon`)
+
+    // return node instanceof Element ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
+
+    if (node instanceof Element) return node.getAttribute('data-system-image')
+    else return node.systemImage ?? null
+  },
+  extractSubtitle = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+    if (devFlags.debug) console.debug(`PickerView: extractSubtitle`)
+
+    if (node instanceof Element) return node.getAttribute('data-subtitle')
+    else return node.subtitle ?? null
   }
 
 const allLeaves = (node: DictEntry) => node.children.every((c) => 0 === c.children.length)
@@ -191,13 +196,7 @@ export class PickerView extends FormAssociatedBase {
       const { target } = evt
       if (!(target instanceof HTMLElement)) return
 
-      const newPage = this.#spawnPage(
-        el instanceof Element ? Array.from(el.children) : el.children,
-        'body-view',
-        groupId,
-        this.hasAttribute('searchable'),
-        extractLabelFromGroup(el as HTMLDataListElement)
-      )
+      const newPage = this.#spawnPage(el instanceof Element ? Array.from(el.children) : el.children, 'body-view', groupId, this.hasAttribute('searchable'), extractLabel(el as HTMLDataListElement))
       if (!newPage) return
 
       newPage.dataset.groupId = groupId // <-- tag the spawned page
@@ -233,7 +232,7 @@ export class PickerView extends FormAssociatedBase {
         `<sticky-container edge="navbar" style="order: -1" padding>
                 <v-stack spacing="0" alignment="fill">
                   <input is="search-view" placeholder="Search">
-                  <button type="button">Filters</button>
+                  <!--<button type="button">Filters</button>-->
                 </v-stack>
               </sticky-container>`
       )
@@ -384,12 +383,12 @@ export class PickerView extends FormAssociatedBase {
       }
 
       const children = source instanceof Element ? Array.from(source.children) : source.children
-      const title = source instanceof Element ? extractLabelFromGroup(source as HTMLDataListElement) : (source.label ?? null)
+      const title = source instanceof Element ? extractLabel(source as HTMLDataListElement) : (source.title ?? null)
 
       const newPage = this.#spawnPage(children, 'body-view', groupId, this.hasAttribute('searchable'), title)
       newPage.dataset.groupId = groupId
 
-      reflectSpawnedElement(el, newPage)
+      reflectSpawnedPage(el, newPage)
     }
   }
 
@@ -415,8 +414,8 @@ export class PickerView extends FormAssociatedBase {
             }
 
             idx[idx.length - 1]++
-            const { value, label, systemImage, children } = frame[i]
-            out1[value] = label
+            const { value, title, systemImage, children } = frame[i]
+            out1[value] = title
             out2[value] = systemImage
 
             if (children.length) {
@@ -454,15 +453,15 @@ export class PickerView extends FormAssociatedBase {
 
         for (const el of input.source)
           if (el.matches('option')) {
-            const k = extractTagFromOption(el as HTMLOptionElement)
+            const k = extractTag(el as HTMLOptionElement)
             this.#lastRenderedLabelMap[k] = (el as HTMLOptionElement).getAttribute('label') ?? undefined
-            this.#lastRenderedIconMap[k] = extractIconFromOption(el as HTMLOptionElement) ?? undefined
+            this.#lastRenderedIconMap[k] = extractIcon(el as HTMLOptionElement) ?? undefined
           } else
             for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) {
-              const k = extractTagFromOption(opt)
+              const k = extractTag(opt)
 
               this.#lastRenderedLabelMap[k] = opt.getAttribute('label') ?? undefined
-              this.#lastRenderedIconMap[k] = extractIconFromOption(opt) ?? undefined
+              this.#lastRenderedIconMap[k] = extractIcon(opt) ?? undefined
             }
 
         this.#lastIndexedRoot = input.source
@@ -501,7 +500,10 @@ export class PickerView extends FormAssociatedBase {
         if (!this.#spawn) break
 
         // rerender level 0
-        reflectSpawnedElement(this.#spawn, this.#spawnPage(input.source, 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label')))
+        reflectSpawnedPage(
+          this.#spawn,
+          this.#spawnPage(input.source, 'DIALOG' === this.#spawn.tagName ? 'sheet-view' : 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label'))
+        )
 
         this.#resyncSpawnedPages(input.source)
         // // FIXME:
@@ -644,18 +646,14 @@ export class PickerView extends FormAssociatedBase {
   #lastIndexedRoot: Element[] | Dictionary = []
 
   get #currentValueLabel() {
-    const cvl = this.#lastRenderedLabelMap[this.#selection]
-
     return (
       (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL) ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) ||
-      cvl
+      this.#lastRenderedLabelMap[this.#selection]
     )
   }
 
   get #currentValueIcon() {
-    const cvl = this.#lastRenderedIconMap[this.#selection]
-
-    return (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON) ?? '') || cvl
+    return (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON) ?? '') || this.#lastRenderedIconMap[this.#selection]
   }
 
   get #internals(): ElementInternals {
@@ -1044,69 +1042,143 @@ export class PickerView extends FormAssociatedBase {
   static #wrapOptionSpawnTag(node: HTMLDataListElement | DictEntry) {
     if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptionSpawnTag`)
 
-    const btn = $<HTMLButtonElement>(
-        `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
-        '>1'
-      ),
-      hStack = btn.querySelector<LabelView>(':scope>h-stack') ?? undefined
+    const title = extractLabel(node as HTMLDataListElement),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node as HTMLDataListElement)
 
-    renderLabel(
-      ':scope>label-view:nth-child(2)',
-      `<label-view><span></span></label-view>`,
-      hStack,
-      extractLabelFromGroup(node as HTMLDataListElement),
-      extractImgFromGroup(node as HTMLDataListElement)
+    const mount = document.createElement('div')
+    render(
+      html`<button type="button" tabindex="0" navigation-link>
+        <h-stack distribution="leading" template="auto spacer">
+          <label-view data-role="check" style="visibility: hidden">
+            <image-view slot="icon" system-name="check"></image-view>
+          </label-view>
+          <h-stack distribution="fill" template="spacer auto">
+            ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+            <v-stack spacing="3" alignment="fill">
+              <label-view title="${title}"></label-view>
+              ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+            </v-stack>
+          </h-stack>
+        </h-stack>
+      </button>`,
+      mount
     )
-    // label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
-    // if (label) {
-    // const lbl = extractLabelFromGroup(node as HTMLDataListElement),
-    //         img =extractImgFromGroup(node as HTMLDataListElement)
-    //         if(lbl)  renderLabelTitle(label, node.dataset.label) //label?.setAttribute('title', el.dataset.label)
-    // }
 
-    return btn
+    // const btn = $<HTMLButtonElement>(
+    //     `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
+    //     '>1'
+    //   ),
+    //   hStack = btn.querySelector<LabelView>(':scope>h-stack') ?? undefined
+
+    // renderLabel(
+    //   ':scope>label-view:nth-child(2)',
+    //   `<label-view><span></span></label-view>`,
+    //   hStack,
+    //   extractLabelFromGroup(node as HTMLDataListElement),
+    //   extractImgFromGroup(node as HTMLDataListElement)
+    // )
+    // // label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
+    // // if (label) {
+    // // const lbl = extractLabelFromGroup(node as HTMLDataListElement),
+    // //         img =extractImgFromGroup(node as HTMLDataListElement)
+    // //         if(lbl)  renderLabelTitle(label, node.dataset.label) //label?.setAttribute('title', el.dataset.label)
+    // // }
+
+    return mount.firstElementChild as HTMLButtonElement //btn
   }
 
   static #wrapOptionTag(node: HTMLOptionElement | DictEntry) {
     if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptionTag`)
 
-    const btn = $(
-        `<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check"><image-view slot="icon" system-name="check"></image-view></label-view></h-stack></button>`,
-        '>1'
-      ),
-      hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
-    // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
+    const tag = extractTag(node),
+      title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
 
-    btn.setAttribute('value', extractTagFromOption(node))
+    const mount = document.createElement('div')
+    render(
+      html`<button type="button" tabindex="0" value="${tag}">
+        <h-stack distribution="leading" template="auto spacer">
+          <label-view data-role="check">
+            <image-view slot="icon" system-name="check"></image-view>
+          </label-view>
+          <h-stack distribution="fill" template="spacer auto">
+            ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+            <v-stack spacing="3" alignment="fill">
+              <label-view title="${title}"></label-view>
+              ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+            </v-stack>
+          </h-stack>
+        </h-stack>
+      </button>`,
+      mount
+    )
 
-    // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
+    // const btn = $(
+    //     `<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check"><image-view slot="icon" system-name="check"></image-view></label-view></h-stack></button>`,
+    //     '>1'
+    //   ),
+    //   hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
+    // // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
 
-    const label = $<LabelView>(`<label-view></label-view>`, '>1')
+    // btn.setAttribute('value', extractTagFromOption(node))
 
-    renderLabelTitle(label, extractCurrentValueFromOption(node)) // label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
+    // // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
 
-    renderLabelIcon(label, extractIconFromOption(node))
+    // const label = $<LabelView>(`<label-view></label-view>`, '>1')
 
-    hStack?.appendChild(label)
+    // renderLabelTitle(label, extractLabel(node)) // label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
 
-    return btn
+    // renderLabelIcon(label, extractIcon(node))
+
+    // hStack?.appendChild(label)
+
+    return mount.firstElementChild as HTMLButtonElement //btn
   }
 
   static #wrapOptgroupTag(node: HTMLOptGroupElement | DictEntry) {
     if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptgroupTag`)
 
-    const labelT = `<label-view><span></span></label-view>`,
-      summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
+    const title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
 
-    const group = $(`<details is="disclosure-group" disclosure-style="marker-trailing">${summaryT}</details>`, '>1'), // NOTE: already applied, here it covers spawned sheets
-      hStack = group.querySelector(':scope>summary>h-stack') ?? undefined // ?? group.appendChild($(summaryT, '>1'))
-    //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
-    // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
-    // if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+    const mount = document.createElement('div')
+    render(
+      html`<details is="disclosure-group" disclosure-style="marker-trailing">
+        <summary>
+          <h-stack distribution="leading" template="auto spacer">
+            <label-view data-role="check" style="visibility: hidden">
+              <image-view slot="icon" system-name="check"></image-view>
+            </label-view>
+            <h-stack distribution="fill" template="spacer auto">
+              ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+              <v-stack spacing="3" alignment="fill">
+                <label-view title="${title}"></label-view>
+                ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+              </v-stack>
+            </h-stack>
+          </h-stack>
+        </summary>
+      </details>`,
+      mount
+    )
 
-    renderLabel(':scope>label-view:nth-child(2)', labelT, hStack, extractLabelFromGroup(node), extractImgFromGroup(node))
+    return mount.firstElementChild as HTMLDetailsElement
 
-    return group
+    // const labelT = `<label-view><span></span></label-view>`,
+    //   summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
+
+    // const group = $(`<details is="disclosure-group" disclosure-style="marker-trailing">${summaryT}</details>`, '>1'), // NOTE: already applied, here it covers spawned sheets
+    //   hStack = group.querySelector(':scope>summary>h-stack') ?? undefined // ?? group.appendChild($(summaryT, '>1'))
+    // //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
+    // // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
+    // // if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+
+    // renderLabel(':scope>label-view:nth-child(2)', labelT, hStack, extractLabel(node), extractIcon(node))
+
+    // return group
   }
 
   // static #reflectButtons(nodes: Element[], container: Element): void
@@ -1118,22 +1190,41 @@ export class PickerView extends FormAssociatedBase {
       if (node instanceof Element)
         switch (node.tagName) {
           case 'DATALIST': {
-            const group = $(
-                `<menu-view tabindex="0"><h-stack slot="label" distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></menu-view>`,
-                '>1'
-              ),
-              hStack = group.querySelector(':scope>h-stack[slot=label]') ?? undefined
-            // label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-            // if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
-            // if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+            const title = extractLabel(node as HTMLDataListElement),
+              subtitle = extractSubtitle(node as HTMLDataListElement),
+              icon = extractIcon(node as HTMLDataListElement)
 
-            renderLabel(
-              ':scope>label-view:nth-child(2)',
-              `<label-view><span></span></label-view>`,
-              hStack,
-              extractLabelFromGroup(node as HTMLDataListElement),
-              extractImgFromGroup(node as HTMLDataListElement)
+            const mount = document.createElement('div')
+            render(
+              html`<menu-view tabindex="0">
+                <h-stack slot="label" distribution="leading" template="auto spacer">
+                  <label-view data-role="check" style="visibility: hidden">
+                    <image-view slot="icon" system-name="check"></image-view>
+                  </label-view>
+                  <h-stack distribution="fill" template="spacer auto">
+                    ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+                    <v-stack spacing="3" alignment="fill">
+                      <label-view title="${title}"></label-view>
+                      ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+                    </v-stack>
+                  </h-stack>
+                </h-stack>
+              </menu-view>`,
+              mount
             )
+
+            const group = mount.firstElementChild as HTMLMenuElement
+
+            // const group = $(
+            //     `<menu-view tabindex="0"><h-stack slot="label" distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></menu-view>`,
+            //     '>1'
+            //   ),
+            //   hStack = group.querySelector(':scope>h-stack[slot=label]') ?? undefined
+            // // label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
+            // // if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
+            // // if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
+
+            // renderLabel(':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, hStack, extractLabel(node as HTMLDataListElement), extractIcon(node as HTMLDataListElement))
 
             PickerView.#reflectButtons([...node.children] as Element[], group)
 
@@ -1166,9 +1257,32 @@ export class PickerView extends FormAssociatedBase {
 
             container.appendChild(group)
           } else {
-            const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
+            const title = extractLabel(node),
+              subtitle = extractSubtitle(node),
+              icon = extractIcon(node)
 
-            renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, group, extractLabelFromGroup(node), extractImgFromGroup(node))
+            const mount = document.createElement('div')
+            render(
+              html`<menu-view tabindex="0">
+                <h-stack slot="label" distribution="leading" template="auto spacer">
+                  <label-view data-role="check" style="visibility: hidden">
+                    <image-view slot="icon" system-name="check"></image-view>
+                  </label-view>
+                  <h-stack distribution="fill" template="spacer auto">
+                    ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+                    <v-stack spacing="3" alignment="fill">
+                      <label-view title="${title}"></label-view>
+                      ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+                    </v-stack>
+                  </h-stack>
+                </h-stack>
+              </menu-view>`,
+              mount
+            )
+
+            const group = mount.firstElementChild as HTMLMenuElement
+            // const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
+            // renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, group, extractLabel(node), extractIcon(node))
 
             PickerView.#reflectButtons(node.children, group)
 
@@ -1204,9 +1318,7 @@ export class PickerView extends FormAssociatedBase {
       const groupMap = indexGroups(this.#lastIndexedRoot)
 
       const groupContainsSelection = (source: Element | DictEntry): boolean =>
-        source instanceof Element
-          ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTagFromOption(opt) === this.#selection)
-          : collectLeafValues(source).includes(this.#selection)
+        source instanceof Element ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTag(opt) === this.#selection) : collectLeafValues(source).includes(this.#selection)
 
       const syncButtons = (root: Element | HTMLElement) => {
         // 1. plain value buttons — unchanged
@@ -1248,13 +1360,11 @@ export class PickerView extends FormAssociatedBase {
           const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])')
           if (!currentValueLabel) break
 
-          const cvl = this.#currentValueLabel,
-            cvi = this.#currentValueIcon
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, cvl || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER) || this.#selection)
-          renderLabelIcon(currentValueLabel, cvi || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+          renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
           break
         }
@@ -1262,13 +1372,11 @@ export class PickerView extends FormAssociatedBase {
           const currentValueLabel = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]')
           if (!currentValueLabel) break
 
-          const cvl = this.#currentValueLabel,
-            cvi = this.#currentValueIcon
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, cvl || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER) || this.#selection)
-          renderLabelIcon(currentValueLabel, cvi || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+          renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
           break
         }

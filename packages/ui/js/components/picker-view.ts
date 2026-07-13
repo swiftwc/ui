@@ -1053,7 +1053,7 @@ export class PickerView extends FormAssociatedBase {
           <label-view data-role="check" style="visibility: hidden">
             <image-view slot="icon" system-name="check"></image-view>
           </label-view>
-          <h-stack distribution="fill" template="spacer auto">
+          <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
             ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
             <v-stack spacing="3" alignment="fill">
               <label-view title="${title}"></label-view>
@@ -1103,7 +1103,7 @@ export class PickerView extends FormAssociatedBase {
           <label-view data-role="check">
             <image-view slot="icon" system-name="check"></image-view>
           </label-view>
-          <h-stack distribution="fill" template="spacer auto">
+          <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
             ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
             <v-stack spacing="3" alignment="fill">
               <label-view title="${title}"></label-view>
@@ -1152,7 +1152,7 @@ export class PickerView extends FormAssociatedBase {
             <label-view data-role="check" style="visibility: hidden">
               <image-view slot="icon" system-name="check"></image-view>
             </label-view>
-            <h-stack distribution="fill" template="spacer auto">
+            <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
               ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
               <v-stack spacing="3" alignment="fill">
                 <label-view title="${title}"></label-view>
@@ -1201,7 +1201,7 @@ export class PickerView extends FormAssociatedBase {
                   <label-view data-role="check" style="visibility: hidden">
                     <image-view slot="icon" system-name="check"></image-view>
                   </label-view>
-                  <h-stack distribution="fill" template="spacer auto">
+                  <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
                     ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
                     <v-stack spacing="3" alignment="fill">
                       <label-view title="${title}"></label-view>
@@ -1268,7 +1268,7 @@ export class PickerView extends FormAssociatedBase {
                   <label-view data-role="check" style="visibility: hidden">
                     <image-view slot="icon" system-name="check"></image-view>
                   </label-view>
-                  <h-stack distribution="fill" template="spacer auto">
+                  <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
                     ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
                     <v-stack spacing="3" alignment="fill">
                       <label-view title="${title}"></label-view>

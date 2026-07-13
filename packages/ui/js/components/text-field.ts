@@ -1,9 +1,10 @@
-import type { TextFieldCommitDetail } from '../events'
+import type { TextFieldCommitDetail, TextFieldEventMap } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, compareBigDecimals, devFlags, kebabCase, onoff, renderLabel, set } from '../internal/utils'
+import type { TypedEventTargetMethods } from '../namespace-browser/event'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
@@ -13,6 +14,9 @@ export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'nu
  * @slot validity-options
  */
 export class TextField extends FormAssociatedBase {
+  declare addEventListener: TypedEventTargetMethods<TextFieldEventMap>['addEventListener']
+  declare removeEventListener: TypedEventTargetMethods<TextFieldEventMap>['removeEventListener']
+
   static get observedAttributes() {
     return ['prompt', 'minimum', 'maximum', 'min-length', 'max-length', 'label', 'name', 'text', 'text-input-autocapitalization', 'disable-autocorrection', 'keyboard-type', 'required', 'disabled']
   }

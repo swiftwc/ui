@@ -1,8 +1,9 @@
-import type { ToggleChangeDetail } from '../events'
+import type { ToggleChangeDetail, ToggleViewEventMap } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, devFlags, kebabCase, onoff, renderLabel } from '../internal/utils'
+import type { TypedEventTargetMethods } from '../namespace-browser/event'
 
 const toggleStyles = ['switch', 'button'] as const
 
@@ -13,6 +14,9 @@ export type ToggleStyle = (typeof toggleStyles)[number] // 'decimal-pad' | 'numb
  * @slot validity-options
  */
 export class ToggleView extends FormAssociatedBase {
+  declare addEventListener: TypedEventTargetMethods<ToggleViewEventMap>['addEventListener']
+  declare removeEventListener: TypedEventTargetMethods<ToggleViewEventMap>['removeEventListener']
+
   static get observedAttributes() {
     return ['label', 'name', 'value', 'is-on', 'keyboard-type', 'required', 'disabled']
   }
@@ -115,7 +119,7 @@ export class ToggleView extends FormAssociatedBase {
 
         break
       case 'label':
-        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, this, newValue)
+        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
       case 'disabled':

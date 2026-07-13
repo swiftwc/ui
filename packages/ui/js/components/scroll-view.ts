@@ -1,13 +1,17 @@
 import { lifecycleObserver } from '../buses'
-import type { PageShowHideDetail, TabDetail } from '../events'
+import type { PageShowHideDetail, ScrollViewEventMap, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags, frame, onoff, renderLabel, slowHideShow } from '../internal/utils'
+import type { TypedEventTargetMethods } from '../namespace-browser/event'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
 
 export class ScrollView extends HTMLElement {
+  declare addEventListener: TypedEventTargetMethods<ScrollViewEventMap>['addEventListener']
+  declare removeEventListener: TypedEventTargetMethods<ScrollViewEventMap>['removeEventListener']
+
   static get observedAttributes() {
     return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
   }

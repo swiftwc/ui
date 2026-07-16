@@ -60,7 +60,7 @@ export class ImageView extends HTMLElement {
 
     const tokens = [`ph${weight ? `-${weight}` : ''}`, `ph-${icon}`]
 
-    const container = this.querySelector<HTMLElement>(':scope>:not([slot])') ?? this.appendChild<HTMLElement>(Object.assign(document.createElement('i'), { style: 'line-height: 1' }))
+    const container = this.querySelector<HTMLElement>(':scope>:not([slot])') ?? this.appendChild<HTMLElement>($(`<i style="line-height: 1"></i>`, '>1'))
 
     if ('1' !== container.style.getPropertyValue('line-height')) container.style.setProperty('line-height', '1')
 

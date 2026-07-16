@@ -4,6 +4,7 @@
 @layer #{vars.$components-layer} {
   image-view {
     :where(&) {
+      // --image--fontsize: var(--label-imagestack-fontsize, calc(var(--label-image-size) * 1rem));
       --image--fontsize: calc(var(--label-image-size) * 1rem);
     }
 

@@ -1,4 +1,5 @@
 import { $, devFlags, renderLabel } from '../internal/utils'
+import { html, render } from '../tpl'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -50,21 +51,35 @@ export class LabeledContent extends HTMLElement {
 
     switch (name) {
       case 'header':
-        let header = this.querySelector(':scope>[slot=header]')
-        if (newValue) {
-          const el = header ?? $(`<header slot="header"></header>`, '>1')
-          renderLabel(':scope>label-view', `<label-view font="callout"><span></span></label-view>`, el, newValue)
-          header ??= this.appendChild(el)
-        } else header?.remove()
+        if (!newValue) {
+          this.querySelector(':scope>[slot=header]')?.remove()
+          break
+        }
+
+        const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
+
+        render(
+          html`<label-view font="callout">
+            <span>${newValue}</span>
+          </label-view>`,
+          header
+        )
 
         break
       case 'footer':
-        let footer = this.querySelector(':scope>[slot=footer]')
-        if (newValue) {
-          const el = footer ?? $(`<footer slot="footer"></footer>`, '>1')
-          renderLabel(':scope>label-view', `<label-view font="callout"><span></span></label-view>`, el, newValue)
-          footer ??= this.appendChild(el)
-        } else footer?.remove()
+        if (!newValue) {
+          this.querySelector(':scope>[slot=footer]')?.remove()
+          break
+        }
+
+        const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
+
+        render(
+          html`<label-view font="callout">
+            <span>${newValue}</span>
+          </label-view>`,
+          footer
+        )
 
         break
       case 'value':

@@ -1,4 +1,6 @@
 @use '../vars';
+@use '../mixins';
+@use 'sass:string';
 
 @layer #{vars.$components-layer} {
   toggle-view {
@@ -17,12 +19,14 @@
         column-gap: var(--labeled-content-column-gap);
       }
 
-      &::part(toggle-label-stack) {
-        color: var(--secondary);
-      }
+      // &::part(toggle-label-stack) {
+      // color: var(--secondary);
+      // }
 
       &::part(toggle-input-stack) {
-        place-items: stretch;
+        // place-items: end;
+        align-items: center;
+        justify-items: end;
 
         place-content: stretch;
       }
@@ -72,8 +76,37 @@
       }
     }
 
+    form & {
+      :where(&)::part(toggle-label-stack) {
+        color: var(--secondary);
+      }
+    }
+
     &[aria-checked='true'] {
-      --toggle--trigger-bg: green;
+      :where(&) {
+        --toggle--trigger-bg: green;
+      }
+    }
+
+    > :nth-child(n + 2 of [slot='label']) {
+      :where(&) {
+        --label-font: callout;
+
+        @supports not (x: #{string.unquote('if(else:red)')}) {
+          @include mixins.set-label-font(callout);
+        }
+
+        // toggle-view:not(form toggle-view) & {
+        //   color: var(--secondary);
+        // }
+      }
+    }
+    &:not(form &) {
+      > :nth-child(n + 2 of [slot='label']) {
+        :where(&) {
+          color: var(--secondary);
+        }
+      }
     }
   }
 }

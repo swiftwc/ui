@@ -53,12 +53,14 @@
     }
   }
 
-  :is(navigation-stack, dialog, body-view):has(> body-view > body-view) {
-    > scroll-view,
-    > tool-bar {
-      :where(&) {
-        content-visibility: hidden;
-      }
-    }
-  }
+  // NOTE: Going all the way back from deeply nested views forces an empty landing page.
+  // NOTE: Refactor this to add a content-visibility:visible when bwd/fwd classes are present.
+  // :is(navigation-stack, dialog, body-view):has(> body-view > body-view) {
+  //   > scroll-view,
+  //   > tool-bar {
+  //     :where(&) {
+  //       content-visibility: hidden;
+  //     }
+  //   }
+  // }
 }

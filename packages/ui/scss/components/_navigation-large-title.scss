@@ -16,11 +16,28 @@
       // font-size 1ms step-start;
     }
 
+    :nth-child(1 of image-view),
+    :nth-child(1 of label-view) {
+      :where(&) {
+        --label-image-size: 5;
+      }
+    }
+
     scroll-view[navigation-bar-title-display-mode='inline']:has(&) &[navigation-bar-auto-hide] {
       :where(&) {
         opacity: 0;
 
         visibility: collapse;
+      }
+    }
+
+    &[background-style='grouped'] {
+      :where(&) {
+        background-color: var(--secondaryGroupedBackground);
+        border-radius: var(--insetlist-item-border-radius);
+
+        padding-inline: var(--list-item-padding-inline-start) var(--list-item-padding-inline-end);
+        padding-block: 1rem;
       }
     }
   }

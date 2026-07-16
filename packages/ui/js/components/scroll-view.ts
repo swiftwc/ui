@@ -2,7 +2,8 @@ import { lifecycleObserver } from '../buses'
 import type { PageShowHideDetail, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { $, devFlags, frame, onoff, renderLabel, slowHideShow } from '../internal/utils'
+import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
+import { html, render } from '../tpl'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -253,14 +254,25 @@ export class ScrollView extends HTMLElement {
   }
 
   #renderNavTitle = (title: string | null, subtitle: string | null) => {
-    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
-      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`
+    // const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
+    //   subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`
 
-    const vStack =
-      this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">${titleTemplate}${subtitleTemplate}</v-stack>`, '>1'))
+    // const vStack =
+    //   this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">${titleTemplate}${subtitleTemplate}</v-stack>`, '>1'))
 
-    renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
+    // renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
 
-    renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
+    // renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
+
+    const container =
+      this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild(Object.assign(document.createElement('v-stack'), { spacing: '0', alignment: 'fill', slot: 'top-bar-principal' }))
+
+    render(
+      html`
+        ${title ? html`<label-view line-limit="1" truncation-mode="tail" font="headline"><span>${title}</span></label-view>` : null}
+        ${subtitle ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span>${subtitle}</span></label-view>` : null}
+      `,
+      container
+    )
   }
 }

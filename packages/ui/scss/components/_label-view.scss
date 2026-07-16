@@ -123,12 +123,6 @@ $label-line-ifs: (
   }
 }
 
-@mixin set-label-font($value) {
-  --label--titlestack-font-size: var(--label-#{$value}-font-size);
-  --label--titlestack-line-height: var(--label-#{$value}-line-height);
-  --label--titlestack-font-weight: var(--label-#{$value}-font-weight);
-}
-
 @function if-chain($labels, $prop: null) {
   $if-chain: null;
 
@@ -214,14 +208,16 @@ $label-line-ifs: (
     }
 
     > [slot='icon'] {
-      aspect-ratio: 1 / 1;
+      :where(&) {
+        aspect-ratio: 1 / 1;
 
-      inline-size: var(--label-imagestack-fontsize);
-      block-size: var(--label-imagestack-fontsize);
+        inline-size: var(--label-imagestack-fontsize);
+        block-size: var(--label-imagestack-fontsize);
 
-      font-size: var(--label-imagestack-fontsize);
+        font-size: var(--label-imagestack-fontsize);
 
-      display: var(--label--iconstack-display, none);
+        display: var(--label--iconstack-display, none);
+      }
     }
 
     // vars
@@ -343,7 +339,7 @@ $label-line-ifs: (
       //
       @each $label, $size in vars.$label-fonts {
         @include if-chain(--label-font, font, $label) {
-          @include set-label-font($label);
+          @include mixins.set-label-font($label);
         }
       }
     }

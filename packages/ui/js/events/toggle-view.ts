@@ -9,6 +9,6 @@ declare global {
   }
 }
 
-export interface ToggleViewEventMap {
-  'toggle:change': CustomEvent<ToggleChangeDetail>
-}
+// export interface ToggleViewEventMap {
+//   'toggle:change': CustomEvent<ToggleChangeDetail>
+// }

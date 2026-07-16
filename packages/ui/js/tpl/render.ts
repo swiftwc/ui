@@ -129,7 +129,7 @@ function commitChild(part: ChildPart, value: unknown) {
   if (value === part.committed) return // dirty-check, skip untouched parts
 
   for (const n of part.nodes) n.remove()
-  const nodes: Node[] = []
+  const nodes: ChildNode[] = []
 
   for (const item of Array.isArray(value) ? value : [value]) {
     if (item === null || item === undefined || item === false) continue
@@ -139,6 +139,7 @@ function commitChild(part: ChildPart, value: unknown) {
     nodes.push(...inserted)
   }
 
+  part.nodes = nodes
   part.committed = value
 }
 

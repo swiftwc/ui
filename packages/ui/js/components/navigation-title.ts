@@ -1,5 +1,6 @@
 import { microtaskOnConnected } from '../internal/decorators'
-import { $, devFlags, renderLabel } from '../internal/utils'
+import { devFlags } from '../internal/utils'
+import { html, render } from '../tpl'
 import type { ScrollView } from './scroll-view'
 
 @microtaskOnConnected<NavigationTitle>((el) => {
@@ -15,7 +16,7 @@ import type { ScrollView } from './scroll-view'
 })
 export class NavigationTitle extends HTMLElement {
   static get observedAttributes() {
-    return ['value', 'subtitle']
+    return ['value', 'subtitle', 'system-image', 'system-image-weight']
   }
 
   constructor() {
@@ -25,7 +26,7 @@ export class NavigationTitle extends HTMLElement {
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
-    this.#render(this.getAttribute('value'), this.getAttribute('subtitle'))
+    this.#render(this.getAttribute('value'), this.getAttribute('subtitle'), this.getAttribute('system-image'), this.getAttribute('system-image-weight'))
   }
 
   disconnectedCallback() {
@@ -36,16 +37,31 @@ export class NavigationTitle extends HTMLElement {
     if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ connect`)
   }
 
-  #render = (title: string | null, subtitle: string | null) => {
-    const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
-      subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`,
-      vStactTemplate = `<v-stack spacing="0" alignment="fill">${titleTemplate}${subtitleTemplate}</v-stack>`
+  #render = (title: string | null, subtitle: string | null, systemImage: string | null, systemImageWeight: string | null) => {
+    const template = html`
+      <v-stack alignment="fill">
+        ${systemImage ? html`<image-view system-name="${systemImage}" system-weight="${systemImageWeight}" foreground="blue"></image-view>` : null}
+        <v-stack spacing="0" alignment="fill">
+          <label-view line-limit="1" truncation-mode="tail" font="headline">
+            <span>${title ?? ''}</span>
+          </label-view>
+          <label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout">
+            <span>${subtitle ?? ''}</span>
+          </label-view>
+        </v-stack>
+      </v-stack>
+    `
 
-    const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
-      vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
+    const container = this.querySelector(':scope>:not([slot])') ?? this.appendChild(document.createElement('navigation-large-title'))
 
-    renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
+    render(template, container)
 
-    renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
+    // const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
+    //   subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`,
+    //   vStactTemplate = `<v-stack spacing="0" alignment="fill">${titleTemplate}${subtitleTemplate}</v-stack>`
+    // const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
+    //   vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
+    // renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
+    // renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
   }
 }

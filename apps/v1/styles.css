@@ -1065,10 +1065,6 @@
     --toolbar-cell-filter: blur(10px);
     --toolbar-cell-opacity: 0;
   }
-  :where(:is(navigation-stack, dialog, body-view):has(> body-view > body-view) > scroll-view,
-  :is(navigation-stack, dialog, body-view):has(> body-view > body-view) > tool-bar) {
-    content-visibility: hidden;
-  }
 }
 @layer sw-components {
   :where(navigation-stack:not([hidden]),
@@ -1106,6 +1102,7 @@
   [is=form-view]:not([hidden]),
   v-stack:not([hidden]),
   h-stack:not([hidden]),
+  group-box:not([hidden]),
   tool-bar:not([hidden]),
   label-view:not([hidden]),
   labeled-content:not([hidden]),
@@ -1373,7 +1370,32 @@
     }
   }
 }
-@layer sw-components {}
+@layer sw-components {
+  :where(image-view) {
+    --image--fontsize: calc(var(--label-image-size) * 1rem);
+  }
+  :where(image-view > :not([slot])) {
+    inline-size: var(--image--fontsize);
+    block-size: var(--image--fontsize);
+    font-size: var(--image--fontsize);
+  }
+}
+@layer sw-components {
+  :where(group-box) {
+    background: var(--groupbox--background);
+    padding-inline: var(--groupbox--padding-inline);
+    padding-block: var(--groupbox--padding-block);
+    border-radius: var(--groupbox--border-radius);
+    --groupbox--background: var(--red);
+    --groupbox--padding-inline: 1rem;
+    --groupbox--padding-block: 1rem;
+    --groupbox--border-radius: 1rem;
+  }
+  :where(group-box :nth-child(1 of image-view),
+  group-box :nth-child(1 of label-view)) {
+    --label-image-size: 5;
+  }
+}
 @layer sw-components {
   :where(h-divider) {
     inline-size: 100%;
@@ -2710,7 +2732,7 @@
     font-weight: var(--label--titlestack-font-weight, );
     display: var(--label--titlestack-display, none);
   }
-  label-view > [slot=icon] {
+  :where(label-view > [slot=icon]) {
     aspect-ratio: 1/1;
     inline-size: var(--label-imagestack-fontsize);
     block-size: var(--label-imagestack-fontsize);
@@ -3132,11 +3154,9 @@
     grid-template-rows: minmax(0, 1fr);
     column-gap: var(--labeled-content-column-gap);
   }
-  :where(toggle-view)::part(toggle-label-stack) {
-    color: var(--secondary);
-  }
   :where(toggle-view)::part(toggle-input-stack) {
-    place-items: stretch;
+    align-items: center;
+    justify-items: end;
     place-content: stretch;
   }
   :where(toggle-view)::part(toggle-form-input):focus {
@@ -3163,8 +3183,24 @@
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--liquid-glass-box-shadow);
   }
-  toggle-view[aria-checked=true] {
+  :where(form toggle-view)::part(toggle-label-stack) {
+    color: var(--secondary);
+  }
+  :where(toggle-view[aria-checked=true]) {
     --toggle--trigger-bg: green;
+  }
+  :where(toggle-view > :nth-child(n+2 of [slot=label])) {
+    --label-font: callout;
+  }
+  @supports not (x: if(else:red)) {
+    :where(toggle-view > :nth-child(n+2 of [slot=label])) {
+      --label--titlestack-font-size: var(--label-callout-font-size);
+      --label--titlestack-line-height: var(--label-callout-line-height);
+      --label--titlestack-font-weight: var(--label-callout-font-weight);
+    }
+  }
+  :where(toggle-view:not(form toggle-view) > :nth-child(n+2 of [slot=label])) {
+    color: var(--secondary);
   }
 }
 @layer sw-components {
@@ -3216,9 +3252,19 @@
   :where(navigation-large-title) {
     transition: --navigation-bar-block-size 1ms step-start;
   }
+  :where(navigation-large-title :nth-child(1 of image-view),
+  navigation-large-title :nth-child(1 of label-view)) {
+    --label-image-size: 5;
+  }
   :where(scroll-view[navigation-bar-title-display-mode=inline]:has(navigation-large-title) navigation-large-title[navigation-bar-auto-hide]) {
     opacity: 0;
     visibility: collapse;
+  }
+  :where(navigation-large-title[background-style=grouped]) {
+    background-color: var(--secondaryGroupedBackground);
+    border-radius: var(--insetlist-item-border-radius);
+    padding-inline: var(--list-item-padding-inline-start) var(--list-item-padding-inline-end);
+    padding-block: 1rem;
   }
 }
 @layer sw-components {

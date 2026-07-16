@@ -252,6 +252,12 @@
   }
 }
 
+@mixin set-label-font($value) {
+  --label--titlestack-font-size: var(--label-#{$value}-font-size);
+  --label--titlestack-line-height: var(--label-#{$value}-line-height);
+  --label--titlestack-font-weight: var(--label-#{$value}-font-weight);
+}
+
 @mixin if-iphone-landscape {
   @media (max-width: #{vars.$ipad-landscape-bp-max}) and (orientation: landscape) {
     @content;

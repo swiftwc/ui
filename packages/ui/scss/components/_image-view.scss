@@ -2,8 +2,18 @@
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
-  // body-view {
-  //   :where(&) {
-  //   }
-  // }
+  image-view {
+    :where(&) {
+      --image--fontsize: calc(var(--label-image-size) * 1rem);
+    }
+
+    > :not([slot]) {
+      :where(&) {
+        inline-size: var(--image--fontsize);
+        block-size: var(--image--fontsize);
+
+        font-size: var(--image--fontsize);
+      }
+    }
+  }
 }

@@ -1,0 +1,27 @@
+@use '../vars';
+@use '../mixins';
+
+@layer #{vars.$components-layer} {
+  group-box {
+    :where(&) {
+      background: var(--groupbox--background);
+
+      padding-inline: var(--groupbox--padding-inline);
+      padding-block: var(--groupbox--padding-block);
+
+      border-radius: var(--groupbox--border-radius);
+
+      --groupbox--background: var(--red);
+      --groupbox--padding-inline: 1rem;
+      --groupbox--padding-block: 1rem;
+      --groupbox--border-radius: 1rem;
+    }
+
+    :nth-child(1 of image-view),
+    :nth-child(1 of label-view) {
+      :where(&) {
+        --label-image-size: 5;
+      }
+    }
+  }
+}

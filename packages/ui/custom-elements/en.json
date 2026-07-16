@@ -691,6 +691,9 @@
           "attributes": [
             {
               "name": "system-name"
+            },
+            {
+              "name": "system-weight"
             }
           ]
         }
@@ -1026,6 +1029,12 @@
             },
             {
               "name": "subtitle"
+            },
+            {
+              "name": "system-image"
+            },
+            {
+              "name": "system-image-weight"
             }
           ]
         }

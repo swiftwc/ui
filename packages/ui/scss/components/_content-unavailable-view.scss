@@ -32,11 +32,13 @@
     }
 
     > :not([slot]) {
-      --label-image-size: 5;
+      :where(&) {
+        --label-image-size: 5;
 
-      --label-gap: 1;
+        --label-gap: 1;
 
-      // --label-font: title3;
+        // --label-font: title3;
+      }
     }
 
     &:not(:has(> [slot='description'])) {

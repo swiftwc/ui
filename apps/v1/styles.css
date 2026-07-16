@@ -1762,7 +1762,7 @@
     --label-flow: vertical;
     --label-font: title3;
   }
-  content-unavailable-view > :not([slot]) {
+  :where(content-unavailable-view > :not([slot])) {
     --label-image-size: 5;
     --label-gap: 1;
   }

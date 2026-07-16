@@ -5,8 +5,6 @@ import { devFlags } from '../internal/utils'
  *
  * @attr {"auto spacer"|"auto auto spacer"|"auto auto auto spacer"} template
  *
- * @attr {leading|center|trailing} frame:alignment - The alignment of the stack on the cross-axis
- *
  * @attr {@spacingSet} spacing - The gap between the primary axis
  *
  * @attr {@alignmentSet} alignment - The cross-axis alignment

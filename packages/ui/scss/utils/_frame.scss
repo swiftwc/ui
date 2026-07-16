@@ -1,6 +1,13 @@
 @use '../vars';
 @use 'sass:math';
 
+$self-map: (
+  leading: start,
+  center: center,
+  trailing: end,
+  fill: stretch,
+);
+
 @layer #{vars.$utils-layer} {
   :where([frame\:width='infinity']) {
     inline-size: 100%;
@@ -17,12 +24,40 @@
     }
   }
 
-  :where([frame\:alignment='top']) {
-    align-self: top;
+  // per-child override — analogous to SwiftUI's .frame(alignment:) on one child.
+  // only direct children matter here since only direct children are grid items.
+
+  // v-stack/ALL: cross axis is inline (horizontal) -> justify-self (grid is by default auto-flow-row)
+  scroll-view,
+  v-stack {
+    @each $k, $v in $self-map {
+      :where(& > [frame\:alignment='#{$k}']) {
+        justify-self: #{$v};
+      }
+      :where(& > [frame\:anchor='#{$k}']) {
+        align-self: #{$v};
+      }
+    }
   }
-  :where([frame\:alignment='leading']) {
-    justify-self: start;
+
+  // // h-stack: cross axis is block (vertical) -> align-self
+  h-stack {
+    @each $k, $v in $self-map {
+      :where(& > [frame\:alignment='#{$k}']) {
+        align-self: #{$v};
+      }
+      :where(& > [frame\:anchor='#{$k}']) {
+        justify-self: #{$v};
+      }
+    }
   }
+
+  // :where([frame\:alignment='top']) {
+  //   align-self: start;
+  // }
+  // :where([frame\:alignment='leading']) {
+  //   justify-self: start;
+  // }
 
   // :where([frame-width='infinity']) {
   //   place-items: stretch; //justify-self: stretch;

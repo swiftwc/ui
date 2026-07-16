@@ -2738,6 +2738,7 @@
     block-size: var(--label-imagestack-fontsize);
     font-size: var(--label-imagestack-fontsize);
     display: var(--label--iconstack-display, none);
+    --image--fontsize: var(--label-imagestack-fontsize);
   }
   @supports (x: if(else:red)) {
     :where(label-view) {
@@ -6402,11 +6403,61 @@
   :where([frame\:max-width="100cqi"]) {
     max-inline-size: 100cqi;
   }
-  :where([frame\:alignment=top]) {
-    align-self: top;
-  }
-  :where([frame\:alignment=leading]) {
+  :where(scroll-view > [frame\:alignment=leading],
+  v-stack > [frame\:alignment=leading]) {
     justify-self: start;
+  }
+  :where(scroll-view > [frame\:anchor=leading],
+  v-stack > [frame\:anchor=leading]) {
+    align-self: start;
+  }
+  :where(scroll-view > [frame\:alignment=center],
+  v-stack > [frame\:alignment=center]) {
+    justify-self: center;
+  }
+  :where(scroll-view > [frame\:anchor=center],
+  v-stack > [frame\:anchor=center]) {
+    align-self: center;
+  }
+  :where(scroll-view > [frame\:alignment=trailing],
+  v-stack > [frame\:alignment=trailing]) {
+    justify-self: end;
+  }
+  :where(scroll-view > [frame\:anchor=trailing],
+  v-stack > [frame\:anchor=trailing]) {
+    align-self: end;
+  }
+  :where(scroll-view > [frame\:alignment=fill],
+  v-stack > [frame\:alignment=fill]) {
+    justify-self: stretch;
+  }
+  :where(scroll-view > [frame\:anchor=fill],
+  v-stack > [frame\:anchor=fill]) {
+    align-self: stretch;
+  }
+  :where(h-stack > [frame\:alignment=leading]) {
+    align-self: start;
+  }
+  :where(h-stack > [frame\:anchor=leading]) {
+    justify-self: start;
+  }
+  :where(h-stack > [frame\:alignment=center]) {
+    align-self: center;
+  }
+  :where(h-stack > [frame\:anchor=center]) {
+    justify-self: center;
+  }
+  :where(h-stack > [frame\:alignment=trailing]) {
+    align-self: end;
+  }
+  :where(h-stack > [frame\:anchor=trailing]) {
+    justify-self: end;
+  }
+  :where(h-stack > [frame\:alignment=fill]) {
+    align-self: stretch;
+  }
+  :where(h-stack > [frame\:anchor=fill]) {
+    justify-self: stretch;
   }
   @media (prefers-reduced-motion: no-preference) {
     :where([slow]) {
@@ -6794,14 +6845,6 @@
   :where(v-stack[spacing="50"],
   h-stack[spacing="50"]) {
     gap: 5rem;
-  }
-  :where(v-stack[frame\:alignment=leading],
-  h-stack[frame\:alignment=leading]) {
-    justify-self: start;
-  }
-  :where(v-stack[frame\:alignment=center],
-  h-stack[frame\:alignment=center]) {
-    justify-self: center;
   }
   :where(v-stack[padding],
   h-stack[padding],

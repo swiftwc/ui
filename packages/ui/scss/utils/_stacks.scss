@@ -192,12 +192,12 @@ $v-placement-map: (
       }
     }
 
-    :where(&[frame\:alignment='leading']) {
-      justify-self: start;
-    }
-    :where(&[frame\:alignment='center']) {
-      justify-self: center;
-    }
+    // :where(&[frame\:alignment='leading']) {
+    //   justify-self: start;
+    // }
+    // :where(&[frame\:alignment='center']) {
+    //   justify-self: center;
+    // }
   }
 
   // padding reserved word for stacks

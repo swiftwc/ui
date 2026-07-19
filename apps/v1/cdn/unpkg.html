@@ -11,6 +11,19 @@
     <!-- [!code focus] -->
     <!-- [!code ++] -->
     <script type="module" src="https://unpkg.com/@swiftwc/ui@dev/client"></script>
+    <script type="module">
+      import { alert } from 'https://unpkg.com/@swiftwc/ui@dev/client'
+
+      document.addEventListener('click', async (evt) => {
+        if (!(evt.target instanceof HTMLElement)) return
+
+        if (!evt.target.closest('button')) return
+
+        await self.customElements.whenDefined('borderless-button')
+
+        void alert('hello', 'world')
+      })
+    </script>
   </head>
   <body>
     <!-- [!code focus] -->
@@ -21,7 +34,7 @@
       <scroll-view>
         <v-stack>
           <button is="borderless-button" type="button">
-            <label-view title="Hello world"></label-view>
+            <label-view title="Hello world" system-image="hand-waving"></label-view>
           </button>
         </v-stack>
       </scroll-view>

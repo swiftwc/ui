@@ -10,14 +10,23 @@ How to install dependencies and structure your Vite app.
 
 ## 1. Create your project
 
-```bash
+::: code-group
+
+```bash [npm]
 npm create vite@latest my-project
 cd my-project
 ```
 
+```bash [bun]
+bun add --exact @swiftwc/ui@latest --dev
+cd my-project
+```
+
+:::
+
 ## 2. Install SwiftWC
 
-:::tabs key:install
+::::tabs key:install
 
 == latest
 
@@ -31,7 +40,19 @@ npm i -D @swiftwc/ui@latest
 bun add --exact @swiftwc/ui@latest --dev
 ```
 
-:::
+== dev
+
+::: code-group
+
+```bash [npm]
+npm i -D @swiftwc/ui@dev
+```
+
+```bash [bun]
+bun add --exact @swiftwc/ui@dev --dev
+```
+
+::::
 
 ## Import the CSS file
 

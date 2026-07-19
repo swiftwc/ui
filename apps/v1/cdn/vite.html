@@ -6,17 +6,12 @@
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <style>
+      @import '@swiftwc/ui/css';
+    </style>
     <title>hello-world</title>
-    <script type="module" src="/main.js"></script>
     <script type="module">
-      import { alert } from 'https://unpkg.com/@swiftwc/ui@dev/client'
+      import '@swiftwc/ui/js/client'
 
       document.addEventListener('click', async (evt) => {
         if (!(evt.target instanceof HTMLElement)) return

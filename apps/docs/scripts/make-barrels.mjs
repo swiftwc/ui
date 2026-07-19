@@ -38,5 +38,5 @@ for await (const [i, mod] of data.modules.entries()) {
 
 await writeFile(
   resolve(__dirname, `../web-components/index.md`),
-  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->\n\n<!--@include: ../partials/index.md-->\n\n@grids gap-x-12 gap-y-1 grid-cols-3\n\n${(await Promise.all(data.modules.map((item, index) => `#### [${item.declarations[0].name}](/web-components/${item.declarations[0].tagName}.md) {#no-anchor${index}}`))).join(`\n\n`)}\n\n@end\n`,
+  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->\n\n<!--@include: ../partials/index.md-->\n\n<div class="@container"><div class="grid gap-x-6 gap-y-3 grid-cols-2 @2xl:grid-cols-3 *:m-0!">\n\n${(await Promise.all(data.modules.map((item, index) => `#### [${item.declarations[0].name}](/web-components/${item.declarations[0].tagName}.md) {#no-anchor${index}}`))).join(`\n\n`)}\n\n</div></div>\n`,
 );

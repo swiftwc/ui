@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- [!code highlight] -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- [!code highlight] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@dev/client"></script>
+  </head>
+  <body>
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <button is="borderless-button" type="button">
+            <label-view title="Hello world"></label-view>
+          </button>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+  </body>
+</html>

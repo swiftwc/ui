@@ -1,4 +1,4 @@
-import { defineTranslations } from '../index'
+import { defineTranslations } from '../../internal/utils'
 
 export default defineTranslations(() => ({
   SearchUnavailableContent: {

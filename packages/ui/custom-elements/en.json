@@ -13,7 +13,7 @@
           "tagName": "alert-dialog",
           "description": "",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           }
         }
       ],
@@ -45,7 +45,7 @@
           "tagName": "body-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -77,7 +77,7 @@
           "tagName": "bordered-button",
           "description": "A button that applies standard border artwork based on the button’s context.",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           },
           "slots": [
             {
@@ -123,7 +123,7 @@
           "tagName": "bordered-prominent-button",
           "description": "A button that applies standard border prominent artwork based on the button’s context.",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           },
           "slots": [
             {
@@ -169,7 +169,7 @@
           "tagName": "borderless-button",
           "description": "A button that doesn’t apply a border.",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           },
           "slots": [
             {
@@ -215,7 +215,7 @@
           "tagName": "color-scheme",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -252,7 +252,7 @@
           "tagName": "confirmation-dialog",
           "description": "",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           },
           "attributes": [
             {
@@ -289,7 +289,7 @@
           "tagName": "content-unavailable-view",
           "description": "A message with a title and extra information that you show when part of your app can’t be used.",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -342,7 +342,7 @@
           "tagName": "date-picker",
           "description": "",
           "superclass": {
-            "name": "FormHTMLElement"
+            "name": "HTMLFormElement"
           },
           "members": [
             {
@@ -433,7 +433,7 @@
           "tagName": "disclosure-group",
           "description": "A view that shows or hides another content view, based on the state of a disclosure control.",
           "superclass": {
-            "name": "DetailsHTMLElement"
+            "name": "HTMLDetailsElement"
           },
           "attributes": [
             {
@@ -470,7 +470,7 @@
           "tagName": "fine-tooltip",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -502,7 +502,7 @@
           "tagName": "form-view",
           "description": "",
           "superclass": {
-            "name": "FormHTMLElement"
+            "name": "HTMLFormElement"
           },
           "attributes": [
             {
@@ -539,7 +539,7 @@
           "tagName": "glass-button",
           "description": "A button that applies glass border artwork based on the button’s context.",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           },
           "slots": [
             {
@@ -585,7 +585,7 @@
           "tagName": "glass-prominent-button",
           "description": "A button that applies prominent glass border artwork based on the button’s context.",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           },
           "slots": [
             {
@@ -631,7 +631,7 @@
           "tagName": "hstack",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -677,7 +677,7 @@
           "tagName": "image-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -723,7 +723,7 @@
           "tagName": "label-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -778,7 +778,7 @@
           "tagName": "labeled-content",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -836,7 +836,7 @@
           "tagName": "list-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -873,7 +873,7 @@
           "tagName": "menu-view",
           "description": "A control for presenting a menu of actions.",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -922,7 +922,7 @@
           "tagName": "navigation-large-title",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -954,7 +954,7 @@
           "tagName": "navigation-split-view",
           "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.",
           "superclass": {
-            "name": "NavigationView"
+            "name": "HTMLNavigationViewElement"
           }
         }
       ],
@@ -986,7 +986,7 @@
           "tagName": "navigation-stack",
           "description": "A view that shows a main screen and lets you open other screens on top of it.",
           "superclass": {
-            "name": "NavigationView"
+            "name": "HTMLNavigationViewElement"
           }
         }
       ],
@@ -1018,7 +1018,7 @@
           "tagName": "navigation-title",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -1064,7 +1064,7 @@
           "tagName": "picker-view",
           "description": "",
           "superclass": {
-            "name": "FormHTMLElement"
+            "name": "HTMLFormElement"
           },
           "members": [
             {
@@ -1138,7 +1138,7 @@
           "tagName": "plain-button",
           "description": "",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           }
         }
       ],
@@ -1170,7 +1170,7 @@
           "tagName": "progress-view",
           "description": "A view that shows the progress toward completion of a task.",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -1223,7 +1223,7 @@
           "tagName": "screen-view",
           "description": "",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           }
         }
       ],
@@ -1255,7 +1255,7 @@
           "tagName": "scroll-view-proxy",
           "description": "A wrapper to {hv}-stacks",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -1287,7 +1287,7 @@
           "tagName": "scroll-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -1339,7 +1339,7 @@
           "tagName": "search-view",
           "description": "",
           "superclass": {
-            "name": "InputHTMLElement"
+            "name": "HTMLInputElement"
           }
         }
       ],
@@ -1371,7 +1371,7 @@
           "tagName": "section-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -1417,7 +1417,7 @@
           "tagName": "sheet-view",
           "description": "",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           }
         }
       ],
@@ -1449,7 +1449,7 @@
           "tagName": "sidebar-toggle",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -1481,7 +1481,7 @@
           "tagName": "sidebar-view",
           "description": "",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           }
         }
       ],
@@ -1513,7 +1513,7 @@
           "tagName": "sticky-container",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -1545,7 +1545,7 @@
           "tagName": "tab-bar",
           "description": "A screen that lets users switch between different views using buttons, tabs, or other controls.",
           "superclass": {
-            "name": "DialogHTMLElement"
+            "name": "HTMLDialogElement"
           }
         }
       ],
@@ -1577,7 +1577,7 @@
           "tagName": "tab-item",
           "description": "",
           "superclass": {
-            "name": "ButtonHTMLElement"
+            "name": "HTMLButtonElement"
           }
         }
       ],
@@ -1609,7 +1609,7 @@
           "tagName": "tab-view",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -1681,7 +1681,7 @@
           "tagName": "table-view",
           "description": "Display selectable, sortable data arranged in rows and columns.",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -1724,7 +1724,7 @@
           "tagName": "text-field",
           "description": "",
           "superclass": {
-            "name": "FormHTMLElement"
+            "name": "HTMLFormElement"
           },
           "members": [
             {
@@ -1837,7 +1837,7 @@
           "tagName": "toggle-view",
           "description": "",
           "superclass": {
-            "name": "FormHTMLElement"
+            "name": "HTMLFormElement"
           },
           "members": [
             {
@@ -1924,7 +1924,7 @@
           "tagName": "tool-bar-item-group",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           }
         }
       ],
@@ -1956,7 +1956,7 @@
           "tagName": "tool-bar-item",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -1999,7 +1999,7 @@
           "tagName": "tool-bar",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "members": [
             {
@@ -2079,7 +2079,7 @@
           "tagName": "vkeyboard",
           "description": "Required component, used to handle the virtual keyboard on touch devices.",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {
@@ -2116,7 +2116,7 @@
           "tagName": "vstack",
           "description": "",
           "superclass": {
-            "name": "HTMLElement"
+            "name": "HTMLundefinedElement"
           },
           "attributes": [
             {

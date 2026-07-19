@@ -12,6 +12,6 @@ A button that applies standard border prominent artwork based on the button’s 
 
 ### Conforms To
 
-`ButtonHTMLElement`
+`HTMLButtonElement`
 
 <!-- #endregion post -->

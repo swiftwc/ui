@@ -12,6 +12,6 @@
 
 ### Conforms To
 
-`InputHTMLElement`
+`HTMLInputElement`
 
 <!-- #endregion post -->

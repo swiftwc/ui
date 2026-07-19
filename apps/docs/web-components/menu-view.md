@@ -12,6 +12,6 @@ A control for presenting a menu of actions.
 
 ### Conforms To
 
-`HTMLElement`
+`HTMLundefinedElement`
 
 <!-- #endregion post -->

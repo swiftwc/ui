@@ -12,6 +12,6 @@ A screen that lets users switch between different views using buttons, tabs, or 
 
 ### Conforms To
 
-`DialogHTMLElement`
+`HTMLDialogElement`
 
 <!-- #endregion post -->

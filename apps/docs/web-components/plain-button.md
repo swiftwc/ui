@@ -12,6 +12,6 @@
 
 ### Conforms To
 
-`ButtonHTMLElement`
+`HTMLButtonElement`
 
 <!-- #endregion post -->

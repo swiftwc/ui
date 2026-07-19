@@ -12,6 +12,6 @@
 
 ### Conforms To
 
-`FormHTMLElement`
+`HTMLFormElement`
 
 <!-- #endregion post -->

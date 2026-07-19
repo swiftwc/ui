@@ -18,6 +18,6 @@ next:
 
 ### Conforms To
 
-`HTMLElement`
+`HTMLundefinedElement`
 
 <!-- #endregion post -->

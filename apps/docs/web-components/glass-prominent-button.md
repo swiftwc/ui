@@ -12,6 +12,6 @@ A button that applies prominent glass border artwork based on the button’s con
 
 ### Conforms To
 
-`ButtonHTMLElement`
+`HTMLButtonElement`
 
 <!-- #endregion post -->

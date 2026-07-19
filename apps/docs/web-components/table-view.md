@@ -12,6 +12,6 @@ Display selectable, sortable data arranged in rows and columns.
 
 ### Conforms To
 
-`HTMLElement`
+`HTMLundefinedElement`
 
 <!-- #endregion post -->

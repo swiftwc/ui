@@ -12,6 +12,6 @@ A view that shows or hides another content view, based on the state of a disclos
 
 ### Conforms To
 
-`DetailsHTMLElement`
+`HTMLDetailsElement`
 
 <!-- #endregion post -->

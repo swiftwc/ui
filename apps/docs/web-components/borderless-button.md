@@ -12,6 +12,6 @@ A button that doesn’t apply a border.
 
 ### Conforms To
 
-`ButtonHTMLElement`
+`HTMLButtonElement`
 
 <!-- #endregion post -->

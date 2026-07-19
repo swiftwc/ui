@@ -265,7 +265,7 @@ for (const sourceFile of project.getSourceFiles()) {
           tagName: is,
           description: '',
           superclass: {
-            name: cls.getBaseClass()?.getName()?.replaceAll('Base', 'HTMLElement')?.replaceAll('Associated', '') ?? 'HTMLElement',
+            name: `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('Associated', '')}Element`,
           },
         },
       ],

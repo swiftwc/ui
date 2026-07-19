@@ -13,24 +13,33 @@ Instructions on how to add the SwiftWC Web Components to your app.
 
 ## Quick Start
 
-**Just add two lines into your HTML and you are ready-to-go:**
+**Just add a few lines into your HTML and you are ready-to-go:**
 
 :::tabs key:install
 
-== latest
+== latest version
 
 ::: code-group
 
 ```html [UNPKG]
 <!doctype html>
-<html>
+<html lang="en" dir="ltr">
   <head>
+    <!-- [!code highlight] -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- [!code highlight] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code focus] -->
     <!-- [!code ++] -->
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
-  </head>
-  <body>
+    <!-- [!code focus] -->
     <!-- [!code ++] -->
     <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
+  </head>
+  <body>
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <v-keyboard system-font="Inter"></v-keyboard>
   </body>
 </html>
 ```
@@ -39,9 +48,9 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <!doctype html>
 <html>
   <head>
-    <!-- [!code ++] -->
+    <!-- [!code highlight] -->
     <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web"></script>
-    <!-- [!code ++] -->
+    <!-- [!code highlight] -->
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->

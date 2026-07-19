@@ -12,6 +12,6 @@
 
 ### Conforms To
 
-`DialogHTMLElement`
+`HTMLDialogElement`
 
 <!-- #endregion post -->

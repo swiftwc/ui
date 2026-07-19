@@ -56,9 +56,6 @@ features:
   order: 2;
   margin-bottom: 3rem;
 }
-#no-anchor .header-anchor {
-  display: none;
-}
 </style>
 
 ::: center

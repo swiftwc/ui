@@ -2,15 +2,14 @@
 
 All SwiftWC apps require this minimal HTML structure:
 
-```html{3} [app.html]
+```html{3,7} [app.html]
 <!doctype html>
 <!-- [!code focus] -->
 <html lang="en" dir="ltr">
   <head></head>
   <body>
     <!-- [!code focus] -->
-    <!-- [!code ++] -->
-    <v-keyboard system-font="Inter"></v-keyboard>
+    <v-keyboard></v-keyboard>
   </body>
 </html>
 ```
@@ -18,7 +17,7 @@ All SwiftWC apps require this minimal HTML structure:
 ::: details `lang` and `dir` attributes are required on the HTML tag
 Use them to adapt component formatting preferences and view-transitions direction.
 
-```html{2}
+```html{1}
 <html lang="en" dir="ltr">
   <head></head>
   <body></body>

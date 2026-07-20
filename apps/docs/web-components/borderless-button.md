@@ -6,12 +6,18 @@ A button that doesn’t apply a border.
 
 <!-- #endregion pre -->
 
-## Overview
+## Example
 
-A view that arranges its subviews in a vertical line.
+:::: info Use the `is` attribute to style a `button` as a `borderless-button`.
 
-<iframe src="/examples/borderless-button.html" frameborder="0" loading="lazy" class="rounded-xl h-60 w-full pointer-events-none"></iframe>
-<!-- <demo html="../demos/borderless-button.html" htmlWriteWay="srcdoc" height="300" /> -->
+{% demo borderless-button %}
+
+::: details View code
+
+<<< @/public/examples/borderless-button.html{31-33}
+
+:::
+::::
 
 
 <!-- #region post -->

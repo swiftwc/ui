@@ -1,0 +1,11 @@
+import { alert } from "https://unpkg.com/@swiftwc/ui@dev/client";
+
+document.addEventListener("click", async (evt) => {
+  if (!(evt.target instanceof HTMLElement)) return;
+
+  if (!evt.target.closest(".hello")) return;
+
+  await self.customElements.whenDefined("borderless-button");
+
+  void alert("hello", "world");
+});

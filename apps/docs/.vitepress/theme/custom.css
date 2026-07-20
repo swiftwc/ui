@@ -2,6 +2,12 @@
   --vp-c-brand-1: #3b83f6;
   /* --vp-c-brand-2: #747bff; */
 }
+
 [id^="no-anchor"] .header-anchor {
   display: none;
+}
+
+.VPTeamMembers .avatar-img {
+  background: black;
+  padding: 0.5rem;
 }

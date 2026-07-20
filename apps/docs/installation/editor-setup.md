@@ -10,7 +10,7 @@ Tooling to improve the developer experience when working with SwictWC.
 
 ## IntelliSense for VS Code
 
-:::: info Modify `.vscode/settings.json` of your VSCode like this:
+**Modify `.vscode/settings.json` of your VSCode like this:**
 
 ::::tabs key:theme
 

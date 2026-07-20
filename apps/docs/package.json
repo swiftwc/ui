@@ -17,7 +17,7 @@
     "@mdit/plugin-layout": "^0.2.2",
     "@swiftwc/ui": "*",
     "@types/doctrine": "^0.0.9",
-    "vitepress": "^2.0.0-alpha.17",
+    "vitepress": "^2.0.0-alpha.18",
     "vitepress-plugin-group-icons": "^1.7.5",
     "vitepress-plugin-tabs": "^0.9.0"
   }

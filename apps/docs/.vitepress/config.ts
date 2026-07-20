@@ -44,8 +44,8 @@ const defaultSidebar: SidebarGroup[] = [
       { text: "Installation", link: "/installation/", items: [] },
       { text: "Editor Setup", link: "/installation/editor-setup" },
       { text: "App HTML Layout", link: "/installation/app-layout" },
-      { text: "Dark Mode", link: "/installation/dark-mode" },
-      { text: "JavaScript", link: "/installation/javascript" },
+      // { text: "Dark Mode", link: "/installation/dark-mode" },
+      // { text: "JavaScript", link: "/installation/javascript" },
       // {
       //   text: "Examples",
       //   items: [
@@ -75,8 +75,8 @@ if (!editorSetupItem) throw new Error("Sidebar: 'Editor Setup' item not found in
 
 (installationItem.items ??= []).push(
   { text: "for Vite", link: "/installation/frameworks/vite" },
-  { text: "for EmberJS", link: "/installation/frameworks/emberjs" },
-  { text: "Manual", link: "/installation/frameworks/manual" },
+  // { text: "for EmberJS", link: "/installation/frameworks/emberjs" },
+  // { text: "Manual", link: "/installation/frameworks/manual" },
 );
 
 (editorSetupItem.items ??= []).push(
@@ -109,6 +109,11 @@ export default defineConfig({
           {
             name: "youtube",
             setup: (id: string) => `<iframe width="560" height="315" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`,
+          },
+          {
+            name: "demo",
+            setup: (id: string, className: string) =>
+              `<iframe src="/examples/${id}.html" frameborder="0" loading="lazy" class="rounded-xl h-60 w-full ${className} mt-2"></iframe>`,
           },
           {
             name: "icon",

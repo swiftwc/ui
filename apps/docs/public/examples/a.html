@@ -23,16 +23,44 @@
     </script>
   </head>
   <body>
+    <div id="foo"></div>
+
+    <script type="module">
+      // be sure to specify the exact version
+      import { codeToHtml } from "https://esm.sh/shiki@3.0.0";
+      // or
+      // import { codeToHtml } from 'https://esm.run/shiki@3.0.0'
+
+      const foo = document.getElementById("foo");
+      foo.innerHTML = await codeToHtml(
+        `<body>
+    <!-- [!code ++] -->
     <v-keyboard system-font="Inter"></v-keyboard>
 
+    <!-- [!code ++] -->
     <navigation-stack>
+      <!-- [!code ++] -->
       <scroll-view>
+        <!-- [!code ++] -->
         <v-stack>
+          <!-- [!code ++] -->
           <button is="borderless-button" type="button">
-            <label-view title="Hello world!" system-image="hand-waving"></label-view>
+            <!-- [!code ++] -->
+            <label-view title="Hello world" system-image="hand-waving"></label-view>
+            <!-- [!code ++] -->
           </button>
+          <!-- [!code ++] -->
         </v-stack>
+        <!-- [!code ++] -->
       </scroll-view>
+      <!-- [!code ++] -->
     </navigation-stack>
+  </body>`,
+        {
+          lang: "html",
+          theme: "rose-pine",
+        },
+      );
+    </script>
   </body>
 </html>

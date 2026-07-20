@@ -180,7 +180,7 @@ npm run dev
 
 ::: code-group
 
-<<< @/snippets/installation/vite/index.html#tscss{}
+<<< @/snippets/installation/vite/tscss/index.html
 
 <<< @/snippets/installation/vite/app.css
 
@@ -204,7 +204,7 @@ declare module "@phosphor-icons/web/*";
 
 ::: code-group
 
-<<< @/snippets/installation/vite/index.html#tsscss{}
+<<< @/snippets/installation/vite/tsscss/index.html
 
 <<< @/snippets/installation/vite/app.scss
 
@@ -234,7 +234,7 @@ declare module "@phosphor-icons/web/*";
 
 ::: code-group
 
-<<< @/snippets/installation/vite/index.html#jscss{}
+<<< @/snippets/installation/vite/jscss/index.html
 
 <<< @/snippets/installation/vite/app.css
 
@@ -246,7 +246,7 @@ declare module "@phosphor-icons/web/*";
 
 ::: code-group
 
-<<< @/snippets/installation/vite/index.html#jsscss{}
+<<< @/snippets/installation/vite/jsscss/index.html
 
 <<< @/snippets/installation/vite/app.scss
 

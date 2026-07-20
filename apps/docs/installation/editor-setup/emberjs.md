@@ -24,7 +24,7 @@ bun add --exact @swiftwc/eslint-plugin@latest --dev
 
 **Add this to your ESLint configuration file:**
 
-:::: info Modify `eslint.config.js` like this:
+**Modify `eslint.config.js` like this:**
 
 ::::tabs key:theme
 

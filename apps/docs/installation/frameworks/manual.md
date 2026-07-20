@@ -4,7 +4,7 @@ Add dependencies to your project manually.
 
 **Run the following command to add SwiftWC to your project:**
 
-:::tabs key:install
+:::tabs key:channel
 
 == latest
 

@@ -1,6 +1,5 @@
 import { abbr } from "@mdit/plugin-abbr";
 import { align } from "@mdit/plugin-align";
-import { demo } from "@mdit/plugin-demo";
 import { dl } from "@mdit/plugin-dl";
 import { embed } from "@mdit/plugin-embed";
 import { icon } from "@mdit/plugin-icon";
@@ -98,7 +97,8 @@ export default defineConfig({
       md.use(dl);
       md.use(abbr);
       //
-      md.use(demo);
+      // md.use(vitepressDemoPlugin);
+      // md.use(demo);
       //
       md.use(tabsMarkdownPlugin);
       md.use(groupIconMdPlugin, {

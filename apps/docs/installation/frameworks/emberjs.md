@@ -11,7 +11,7 @@ cd my-project
 
 ## Install SwiftWC
 
-:::tabs key:install
+:::tabs key:channel
 
 == latest
 

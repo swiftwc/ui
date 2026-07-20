@@ -15,9 +15,9 @@ Instructions on how to add the SwiftWC Web Components to your app.
 
 **Just add a few lines into your HTML and you are ready-to-go:**
 
-::::tabs key:install
+::::tabs key:channel
 
-== latest channel
+== latest
 
 ::: code-group
 
@@ -88,7 +88,7 @@ Instructions on how to add the SwiftWC Web Components to your app.
 ```
 -->
 
-== dev channel
+== dev
 
 ::: code-group
 

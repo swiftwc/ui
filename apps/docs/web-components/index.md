@@ -2,8 +2,7 @@
 
 <!--@include: ../partials/index.md-->
 
-<div class="@container">
-<div class="grid gap-x-6 gap-y-3 grid-cols-2 @2xl:grid-cols-3 *:m-0!">
+<div class="@container"><div class="grid gap-x-6 gap-y-3 grid-cols-2 @2xl:grid-cols-3 *:m-0!">
 
 #### [AlertDialog](/web-components/alert-dialog.md) {#no-anchor0}
 
@@ -99,5 +98,4 @@
 
 #### [VStack](/web-components/vstack.md) {#no-anchor46}
 
-</div>
-</div>
+</div></div>

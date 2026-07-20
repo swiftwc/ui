@@ -1,8 +1,8 @@
+@use 'sass:string';
+@use 'sass:map';
 @use '../vars';
 @use '../mixins';
 @use '../placeholders';
-@use 'sass:string';
-@use 'sass:map';
 
 @layer #{vars.$components-layer} {
   [is='table-row'] {

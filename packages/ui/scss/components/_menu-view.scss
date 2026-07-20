@@ -1,7 +1,7 @@
+@use 'sass:string';
 @use '../vars';
 @use '../mixins';
 @use '../placeholders';
-@use 'sass:string';
 
 @layer #{vars.$components-layer} {
   menu-view {

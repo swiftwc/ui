@@ -1,6 +1,6 @@
 @use '../vars';
-@use '../placeholders';
 @use '../mixins';
+@use '../placeholders';
 
 @layer #{vars.$components-layer} {
   [is='glass-prominent-button'] {

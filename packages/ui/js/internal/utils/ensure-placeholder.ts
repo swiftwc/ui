@@ -4,7 +4,7 @@ import { default as $ } from './cash'
 
 type ButtonRole = keyof ReturnType<typeof I18n.t<'ButtonRole'>>
 
-function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole) {
+function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: ButtonRole, config?: Record<string, string>) {
   // if (!el.isConnected) return
 
   // self.requestAnimationFrame(() => {
@@ -15,7 +15,7 @@ function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
   switch (role) {
     case 'cancel':
       label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
-      label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
+      label.setAttribute('system-image', config!['cancel-button-icon'])
 
       break
     case 'close':
@@ -23,28 +23,28 @@ function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
         label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').OK)
       } else {
         label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Close)
-        label.setAttribute('system-image', Snapshot.config!['close-button-icon'])
+        label.setAttribute('system-image', config!['close-button-icon'])
       }
 
       break
     case 'confirm':
       label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
-      label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
+      label.setAttribute('system-image', config!['confirm-button-icon'])
 
       break
     case 'confirmation-action':
       label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Confirm)
-      label.setAttribute('system-image', Snapshot.config!['confirm-button-icon'])
+      label.setAttribute('system-image', config!['confirm-button-icon'])
 
       break
     case 'cancellation-action':
       label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Cancel)
-      label.setAttribute('system-image', Snapshot.config!['cancel-button-icon'])
+      label.setAttribute('system-image', config!['cancel-button-icon'])
 
       break
     case 'destructive':
       label.setAttribute('title', titleKey && titleKey in I18n.t('ButtonRole') ? I18n.t('ButtonRole')[titleKey] : I18n.t('ButtonRole').Destructive)
-      label.setAttribute('system-image', Snapshot.config!['delete-button-icon'])
+      label.setAttribute('system-image', config!['delete-button-icon'])
 
       break
     default:
@@ -59,7 +59,7 @@ function renderPlaceholder(el: HTMLElement, role: string | null, titleKey?: Butt
   // })
 }
 
-export default function (target: HTMLElement | null, role: string | null, titleKey?: string | null) {
+export default function (target: HTMLElement | null, role: string | null, titleKey?: string | null, config?: Record<string, string>) {
   if (!target) return
 
   const overiderTitle = typeof titleKey === 'string' && titleKey in I18n.t('ButtonRole') ? (titleKey as ButtonRole) : undefined

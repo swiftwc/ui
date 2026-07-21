@@ -1,4 +1,5 @@
 import { $, devFlags } from '../internal/utils'
+import { morphdom } from '../morphdom'
 
 export class ImageView extends HTMLElement {
   static get observedAttributes() {
@@ -62,11 +63,15 @@ export class ImageView extends HTMLElement {
 
     const container = this.querySelector<HTMLElement>(':scope>:not([slot])') ?? this.appendChild<HTMLElement>($(`<i style="line-height: 1"></i>`, '>1'))
 
-    if ('1' !== container.style.getPropertyValue('line-height')) container.style.setProperty('line-height', '1')
+    morphdom(container, `<i style="line-height: 1" class="${tokens.join(' ')}"></i>`, {
+      onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+    })
 
-    for (const token of container.classList) if (token.startsWith('ph') && !tokens.includes(token)) container.classList.remove(token)
+    // if ('1' !== container.style.getPropertyValue('line-height')) container.style.setProperty('line-height', '1')
 
-    container.classList.add(...tokens)
+    // for (const token of container.classList) if (token.startsWith('ph') && !tokens.includes(token)) container.classList.remove(token)
+
+    // container.classList.add(...tokens)
   }
 
   disconnectedCallback() {

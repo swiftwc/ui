@@ -34,11 +34,15 @@
 
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button"><label-view title="leading"></label-view></button>
+            <button type="button">
+              <label-view><span>leading</span></label-view>
+            </button>
           </tool-bar-item>
           <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="top-bar-trailing">
-            <button type="button"><label-view title="trailing"></label-view></button>
+            <button type="button">
+              <label-view><span>trailing</span></label-view>
+            </button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
@@ -93,18 +97,26 @@
 
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button"><label-view title="leading"></label-view></button>
+            <button type="button">
+              <label-view><span>leading</span></label-view>
+            </button>
           </tool-bar-item>
           <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="top-bar-trailing">
-            <button type="button"><label-view title="trailing"></label-view></button>
+            <button type="button">
+              <label-view><span>trailing</span></label-view>
+            </button>
           </tool-bar-item>
           <tool-bar-item slot="bottom-bar-leading">
-            <button type="button"><label-view title="leading"></label-view></button>
+            <button type="button">
+              <label-view><span>leading</span></label-view>
+            </button>
           </tool-bar-item>
           <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="bottom-bar-trailing">
-            <button type="button"><label-view title="trailing"></label-view></button>
+            <button type="button">
+              <label-view><span>trailing</span></label-view>
+            </button>
           </tool-bar-item>
         </tool-bar>
       </navigation-stack>
@@ -123,10 +135,10 @@
               </section-view>
               <section-view header="Inventory">
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Items"></label-view>
+                  <label-view><span>Items</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Inventory Adjustments"></label-view>
+                  <label-view><span>Inventory Adjustments</span></label-view>
                 </button>
               </section-view>
               <section-view header="Sales">
@@ -134,43 +146,43 @@
                   <label-view title="Customers" system-image="users"></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Sales Orders"></label-view>
+                  <label-view><span>Sales Orders</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Invoices"></label-view>
+                  <label-view><span>Invoices</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Recurring Invoices"></label-view>
+                  <label-view><span>Recurring Invoices</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Credit Notes"></label-view>
+                  <label-view><span>Credit Notes</span></label-view>
                 </button>
               </section-view>
               <section-view header="Purchases">
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Vendors"></label-view>
+                  <label-view><span>Vendors</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Expenses"></label-view>
+                  <label-view><span>Expenses</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Purchase Orders"></label-view>
+                  <label-view><span>Purchase Orders</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Bills"></label-view>
+                  <label-view><span>Bills</span></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Reports"></label-view>
+                  <label-view><span>Reports</span></label-view>
                 </button>
                 <button navigation-link type="button" class="fw" data-tag="ns3">
-                  <label-view title="Documents"></label-view>
+                  <label-view><span>Documents</span></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button navigation-link type="button" class="fw" data-tag="settings">
-                  <label-view system-image="gear" title="Settings"></label-view>
+                  <label-view system-image="gear"><span>Settings</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -184,7 +196,7 @@
                 <label-view title="Nothing Selected" foreground="secondary"></label-view>
               </content-unavailable-view>
               <!-- <v-stack>
-                <label-view title="Nothing Selected"></label-view>
+                <label-view><span>Nothing Selected</span></label-view>
               </v-stack> -->
             </scroll-view>
           </detail-placeholder>
@@ -196,22 +208,22 @@
               <list-view preferred-expanded-style="inset" frame:anchor="leading" style="--list--sticky-block-size: 70px">
                 <section-view header="A">
                   <button navigation-link type="button" navigation-destination="customer1" selected-when="customer1 editcustomer1">
-                    <label-view title="Katie Abeles"></label-view>
+                    <label-view><span>Katie Abeles</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="item2">
-                    <label-view title="Item 2"></label-view>
+                    <label-view><span>Item 2</span></label-view>
                   </button>
                   <details is="disclosure-group">
                     <summary navigation-destination="item3">
                       <v-stack spacing="3" placement="leading fill">
                         <h-stack distribution="fill" template="spacer auto">
-                          <label-view title="Andrew & Priyanka"></label-view>
-                          <label-view title="5/22/26"></label-view>
+                          <label-view><span>Andrew & Priyanka</span></label-view>
+                          <label-view><span>5/22/26</span></label-view>
                         </h-stack>
                         <h-stack distribution="fill" template="spacer auto">
-                          <label-view title="Trip Idea &mdash; AutoCamp Sequoia"></label-view>
+                          <label-view><span>Trip Idea &mdash; AutoCamp Sequoia</span></label-view>
                           <button type="button" tabindex="0">
-                            <label-view system-image="smiley" title="2"></label-view>
+                            <label-view system-image="smiley"><span>2</span></label-view>
                           </button>
                         </h-stack>
                         <div>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
@@ -220,67 +232,67 @@
                     <button navigation-link type="button" navigation-destination="item3b">
                       <v-stack spacing="3" placement="leading fill">
                         <h-stack distribution="fill" template="spacer auto">
-                          <label-view title="Andrew"></label-view>
-                          <label-view title="5/22/26"></label-view>
+                          <label-view><span>Andrew</span></label-view>
+                          <label-view><span>5/22/26</span></label-view>
                         </h-stack>
-                        <label-view title="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
+                        <label-view><span>Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</span></label-view>
                       </v-stack>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3c">
                       <v-stack spacing="3" placement="leading fill">
                         <h-stack distribution="fill" template="spacer auto">
-                          <label-view title="Priyanka"></label-view>
-                          <label-view title="5/21/26"></label-view>
+                          <label-view><span>Priyanka</span></label-view>
+                          <label-view><span>5/21/26</span></label-view>
                         </h-stack>
-                        <label-view title="Can we just go this time?"></label-view>
+                        <label-view><span>Can we just go this time?</span></label-view>
                       </v-stack>
                     </button>
                   </details>
                 </section-view>
                 <section-view header="B">
                   <button navigation-link type="button" navigation-destination="item2">
-                    <label-view title="Item 2"></label-view>
+                    <label-view><span>Item 2</span></label-view>
                   </button>
                   <details is="disclosure-group">
                     <summary>
-                      <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                      <label-view system-image="smiley"><span>Grouped Item 3</span></label-view>
                     </summary>
                     <button navigation-link type="button" navigation-destination="item3a">
-                      <label-view system-image="smiley" title="Item 3a"></label-view>
+                      <label-view system-image="smiley"><span>Item 3a</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3b">
-                      <label-view system-image="smiley" title="Item 3b"></label-view>
+                      <label-view system-image="smiley"><span>Item 3b</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3c">
-                      <label-view system-image="smiley" title="Item 3c"></label-view>
+                      <label-view system-image="smiley"><span>Item 3c</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3d">
-                      <label-view system-image="smiley" title="Item 3d"></label-view>
+                      <label-view system-image="smiley"><span>Item 3d</span></label-view>
                     </button>
                   </details>
                 </section-view>
                 <section-view header="C">
                   <details is="disclosure-group">
                     <summary>
-                      <label-view system-image="smiley" title="Grouped Item 3"></label-view>
+                      <label-view system-image="smiley"><span>Grouped Item 3</span></label-view>
                     </summary>
                     <button navigation-link type="button" navigation-destination="item3a">
-                      <label-view system-image="smiley" title="Item 3a"></label-view>
+                      <label-view system-image="smiley"><span>Item 3a</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3b">
-                      <label-view system-image="smiley" title="Item 3b"></label-view>
+                      <label-view system-image="smiley"><span>Item 3b</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3c">
-                      <label-view system-image="smiley" title="Item 3c"></label-view>
+                      <label-view system-image="smiley"><span>Item 3c</span></label-view>
                     </button>
                     <button navigation-link type="button" navigation-destination="item3d">
-                      <label-view system-image="smiley" title="Item 3d"></label-view>
+                      <label-view system-image="smiley"><span>Item 3d</span></label-view>
                     </button>
                   </details>
                 </section-view>
                 <section-view header="D">
                   <button navigation-link type="button" navigation-destination="item2">
-                    <label-view title="Item 2"></label-view>
+                    <label-view><span>Item 2</span></label-view>
                   </button>
                 </section-view>
               </list-view>
@@ -350,11 +362,15 @@
 
           <tool-bar>
             <tool-bar-item slot="top-bar-leading">
-              <button type="button"><label-view title="leading"></label-view></button>
+              <button type="button">
+                <label-view><span>leading</span></label-view>
+              </button>
             </tool-bar-item>
             <!-- <tool-bar-item>2</tool-bar-item> -->
             <tool-bar-item slot="top-bar-trailing">
-              <button type="button"><label-view title="trailing"></label-view></button>
+              <button type="button">
+                <label-view><span>trailing</span></label-view>
+              </button>
             </tool-bar-item>
           </tool-bar>
         </navigation-stack>
@@ -371,56 +387,56 @@
               <form is="form-view" form-style="inset-grouped">
                 <section-view>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="About"></label-view>
+                    <label-view><span>About</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="Software Update">
-                    <label-view title="Software Update"></label-view>
+                    <label-view><span>Software Update</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="Storage">
-                    <label-view title="Storage"></label-view>
+                    <label-view><span>Storage</span></label-view>
                   </button>
                 </section-view>
                 <section-view>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Warranty"></label-view>
+                    <label-view><span>Warranty</span></label-view>
                   </button>
                 </section-view>
                 <section-view>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Continuity"></label-view>
+                    <label-view><span>Continuity</span></label-view>
                   </button>
                 </section-view>
                 <section-view>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Autofill & Passwords"></label-view>
+                    <label-view><span>Autofill & Passwords</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Date & Time"></label-view>
+                    <label-view><span>Date & Time</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Language & Region"></label-view>
+                    <label-view><span>Language & Region</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Login Items & Extensions"></label-view>
+                    <label-view><span>Login Items & Extensions</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Sharing"></label-view>
+                    <label-view><span>Sharing</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Startup Disk"></label-view>
+                    <label-view><span>Startup Disk</span></label-view>
                   </button>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Time Machine"></label-view>
-                  </button>
-                </section-view>
-                <section-view>
-                  <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Device Management"></label-view>
+                    <label-view><span>Time Machine</span></label-view>
                   </button>
                 </section-view>
                 <section-view>
                   <button navigation-link type="button" navigation-destination="About">
-                    <label-view title="Transfer or Reset"></label-view>
+                    <label-view><span>Device Management</span></label-view>
+                  </button>
+                </section-view>
+                <section-view>
+                  <button navigation-link type="button" navigation-destination="About">
+                    <label-view><span>Transfer or Reset</span></label-view>
                   </button>
                 </section-view>
               </form>
@@ -480,7 +496,7 @@
 
         <tool-bar>
           <!-- <tool-bar-item slot="top-bar-leading">
-            <button type="button"><label-view title="leading"></label-view></button>
+            <button type="button"><label-view><span>leading</span></label-view></button>
           </tool-bar-item> -->
           <!-- <tool-bar-item>2</tool-bar-item> -->
           <tool-bar-item slot="top-bar-trailing">
@@ -518,7 +534,7 @@
                 <!-- Safari fix: add disclosure-style -->
                 <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
-                    <label-view title="Inventory"></label-view>
+                    <label-view><span>Inventory</span></label-view>
                   </summary>
                   <button is="tab-item" navigation-destination="reports">
                     <label-view system-image="smiley" title="Items"></label-view>
@@ -532,7 +548,7 @@
                 <!-- Safari fix: add disclosure-style -->
                 <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
-                    <label-view title="Sales"></label-view>
+                    <label-view><span>Sales</span></label-view>
                   </summary>
                   <button is="tab-item" value="customers">
                     <label-view system-image="users" title="Customers"></label-view>
@@ -552,7 +568,7 @@
                 <!-- Safari fix: add disclosure-style -->
                 <details is="disclosure-group" disclosure-style="marker-trailing" open>
                   <summary>
-                    <label-view title="Other"></label-view>
+                    <label-view><span>Other</span></label-view>
                   </summary>
                   <button is="tab-item" navigation-destination="reports">
                     <label-view system-image="smiley" title="Reports"></label-view>
@@ -588,7 +604,7 @@
           </sidebar-toggle>
           <!-- <tool-bar-item slot="top-bar-leading">
             <button type="button">
-              <label-view title="Edit"></label-view>
+              <label-view><span>Edit</span></label-view>
             </button>
           </tool-bar-item> -->
           <tool-bar-item slot="top-bar-trailing">
@@ -625,16 +641,16 @@
         <!-- add this for MORE fn on iPad -->
         <!-- <sidebar-toggle> -->
         <!-- <tab-item> -->
-        <!-- <button type="button"><label-view title="sss3"></label-view></button> -->
+        <!-- <button type="button"><label-view><span>sss3</span></label-view></button> -->
         <!-- </tab-item> -->
         <!-- </sidebar-toggle> -->
         <!-- <navigation-bar>
           <tool-bar-item slot="leading">
-            <button type="button"><label-view title="leading"></label-view></button>
+            <button type="button"><label-view><span>leading</span></label-view></button>
           </tool-bar-item>
 
           <tool-bar-item slot="trailing">
-            <button type="button"><label-view title="trailing"></label-view></button>
+            <button type="button"><label-view><span>trailing</span></label-view></button>
           </tool-bar-item>
         </navigation-bar> -->
       </dialog>
@@ -666,13 +682,13 @@
             <list-view list-style="inset-grouped">
               <section-view>
                 <button navigation-link type="button">
-                  <label-view title="About"></label-view>
+                  <label-view><span>About</span></label-view>
                 </button>
                 <button navigation-link type="button">
-                  <label-view title="Software Update"></label-view>
+                  <label-view><span>Software Update</span></label-view>
                 </button>
                 <button navigation-link type="button">
-                  <label-view title="Storage"></label-view>
+                  <label-view><span>Storage</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -713,19 +729,19 @@
             <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
               <list-view columns="2" list-style="inset-grouped">
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
                   <label-view title="Katie Abeles" slot="content" foreground="secondary"></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Email" slot="label"></label-view>
+                  <label-view slot="label"><span>Email</span></label-view>
                   <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Phone" slot="label"></label-view>
+                  <label-view slot="label"><span>Phone</span></label-view>
                   <label-view title="Customer 1" slot="content" foreground="secondary"></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Language" slot="label"></label-view>
+                  <label-view slot="label"><span>Language</span></label-view>
                   <label-view title="Language" slot="content" foreground="secondary"></label-view>
                 </labeled-content>
               </list-view>
@@ -740,7 +756,7 @@
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
             <button type="button" tabindex="0" class="inplace" navigation-destination="editcustomer1" help="Edit customer">
-              <label-view system-image="pencil-simple" title="Edit"></label-view>
+              <label-view system-image="pencil-simple"><span>Edit</span></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -760,32 +776,32 @@
                 </text-field>
                 <labeled-content>
                   <label-view title="Name" slot="label" foreground="secondary"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
                   <label-view title="Name" slot="label" foreground="secondary"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
                   <label-view title="Name" slot="label" foreground="secondary"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
               </section-view>
               <section-view>
                 <button type="button" list-item-tint="red" tabindex="0" id="gg" confirmation-dialog="makesure">
-                  <label-view title="Delete"></label-view>
+                  <label-view><span>Delete</span></label-view>
                 </button>
 
                 <!-- <menu-view>
                   <label-view slot="label" title="Delete"></label-view>
                   <button type="button" tabindex="0">
-                    <label-view system-image="dots-three" title="Scan Documents"></label-view>
+                    <label-view system-image="dots-three"><span>Scan Documents</span></label-view>
                   </button>
                   <button type="button" tabindex="0">
-                    <label-view system-image="dots-three" title="Connect to Server"></label-view>
+                    <label-view system-image="dots-three"><span>Connect to Server</span></label-view>
                   </button>
                   <button type="button" tabindex="0">
-                    <label-view title="Edit Sidebar"></label-view>
+                    <label-view><span>Edit Sidebar</span></label-view>
                   </button>
                 </menu-view> -->
               </section-view>
@@ -876,25 +892,25 @@
                   <option slot="list" value="50" label="Very Generous"></option>
                 </picker-view>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
               </section-view>
               <section-view>
                 <button type="button" tabindex="0" list-item-tint="red">
-                  <label-view title="Delete"></label-view>
+                  <label-view><span>Delete</span></label-view>
                 </button>
               </section-view>
             </form>
@@ -903,14 +919,14 @@
         <tool-bar>
           <tool-bar-item slot="cancellation-action">
             <button type="button" tabindex="0" class="back back-confirmation">
-              <label-view system-image="x" title="Cancel"></label-view>
+              <label-view system-image="x"><span>Cancel</span></label-view>
             </button>
           </tool-bar-item>
           <!-- <tool-bar-item slot="confirmation-action" tint="blue"> -->
           <tool-bar-item slot="confirmation-action" tint="blue" title-key="OK">
             <button type="button" tabindex="0" navigation-destination="createcustomerdone">
               <!-- <progress-view slot="overlay"></progress-view> -->
-              <!-- <label-view system-image="check" title="Create"></label-view> -->
+              <!-- <label-view system-image="check"><span>Create</span></label-view> -->
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -923,25 +939,25 @@
             <form is="form-view" form-style="inset-grouped">
               <section-view>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Name" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Name</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
               </section-view>
               <section-view>
                 <button type="button" tabindex="0" list-item-tint="red">
-                  <label-view title="Delete"></label-view>
+                  <label-view><span>Delete</span></label-view>
                 </button>
               </section-view>
               <button type="button" list-item-tint="blue">ffdf</button>
@@ -963,108 +979,108 @@
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
               <summary padding>
-                <label-view system-image="smiley" title="INVOICES"></label-view>
+                <label-view system-image="smiley"><span>INVOICES</span></label-view>
               </summary>
               <table-view table-style="inset" preferred-compact-template="title:trailing:subtitle">
                 <label-view title="22" foreground="secondary" slot="footer-leading"></label-view>
                 <h-stack slot="footer-trailing"><button tabindex="0">&lt;</button> <button tabindex="0">&gt;</button></h-stack>
                 <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
-                  <label-view title="Given Name"></label-view>
+                  <label-view><span>Given Name</span></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
-                  <label-view title="Family Name"></label-view>
+                  <label-view><span>Family Name</span></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
-                  <label-view title="E-Mail Address"></label-view>
+                  <label-view><span>E-Mail Address</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice1">
-                  <label-view title="Juan"></label-view>
-                  <label-view title="Chavez"></label-view>
-                  <label-view title="juanchavez@example.com"></label-view>
+                  <label-view><span>Juan</span></label-view>
+                  <label-view><span>Chavez</span></label-view>
+                  <label-view><span>juanchavez@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Mei"></label-view>
-                  <label-view title="Chen"></label-view>
-                  <label-view title="meichen@example.com"></label-view>
-                  <label-view title="other"></label-view>
+                  <label-view><span>Mei</span></label-view>
+                  <label-view><span>Chen</span></label-view>
+                  <label-view><span>meichen@example.com</span></label-view>
+                  <label-view><span>other</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Tom"></label-view>
-                  <label-view title="Clark"></label-view>
-                  <label-view title="tomclark@example.com"></label-view>
+                  <label-view><span>Tom</span></label-view>
+                  <label-view><span>Clark</span></label-view>
+                  <label-view><span>tomclark@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Gita"></label-view>
-                  <label-view title="Kumar"></label-view>
-                  <label-view title="gitakumar@example.com"></label-view>
+                  <label-view><span>Gita</span></label-view>
+                  <label-view><span>Kumar</span></label-view>
+                  <label-view><span>gitakumar@example.com</span></label-view>
                 </button>
               </table-view>
             </details>
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
               <summary padding>
-                <label-view system-image="smiley" title="INVOICES"></label-view>
+                <label-view system-image="smiley"><span>INVOICES</span></label-view>
               </summary>
               <table-view table-style="inset" preferred-compact-template="trailing:title:subtitle">
                 <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
-                  <label-view title="Given Name"></label-view>
+                  <label-view><span>Given Name</span></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
-                  <label-view title="Family Name"></label-view>
+                  <label-view><span>Family Name</span></label-view>
                 </button>
                 <button is="table-column" type="button" tabindex="0" slot="column">
-                  <label-view title="E-Mail Address"></label-view>
+                  <label-view><span>E-Mail Address</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice1">
-                  <label-view title="Juan"></label-view>
-                  <label-view title="Chavez"></label-view>
-                  <label-view title="juanchavez@example.com"></label-view>
+                  <label-view><span>Juan</span></label-view>
+                  <label-view><span>Chavez</span></label-view>
+                  <label-view><span>juanchavez@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Mei"></label-view>
-                  <label-view title="Chen"></label-view>
-                  <label-view title="meichen@example.com"></label-view>
-                  <label-view title="other"></label-view>
+                  <label-view><span>Mei</span></label-view>
+                  <label-view><span>Chen</span></label-view>
+                  <label-view><span>meichen@example.com</span></label-view>
+                  <label-view><span>other</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Tom"></label-view>
-                  <label-view title="Clark"></label-view>
-                  <label-view title="tomclark@example.com"></label-view>
+                  <label-view><span>Tom</span></label-view>
+                  <label-view><span>Clark</span></label-view>
+                  <label-view><span>tomclark@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Gita"></label-view>
-                  <label-view title="Kumar"></label-view>
-                  <label-view title="gitakumar@example.com"></label-view>
+                  <label-view><span>Gita</span></label-view>
+                  <label-view><span>Kumar</span></label-view>
+                  <label-view><span>gitakumar@example.com</span></label-view>
                 </button>
               </table-view>
             </details>
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
               <summary padding>
-                <label-view system-image="smiley" title="INVOICES"></label-view>
+                <label-view system-image="smiley"><span>INVOICES</span></label-view>
               </summary>
               <table-view table-style="inset" preferred-compact-template="title:subtitle:trailing">
-                <label-view title="Given Name" slot="column"></label-view>
-                <label-view title="Family Name" slot="column"></label-view>
-                <label-view title="E-Mail Address" slot="column"></label-view>
+                <label-view slot="column"><span>Given Name</span></label-view>
+                <label-view slot="column"><span>Family Name</span></label-view>
+                <label-view slot="column"><span>E-Mail Address</span></label-view>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice1">
-                  <label-view title="Juan"></label-view>
-                  <label-view title="Chavez"></label-view>
-                  <label-view title="juanchavez@example.com"></label-view>
+                  <label-view><span>Juan</span></label-view>
+                  <label-view><span>Chavez</span></label-view>
+                  <label-view><span>juanchavez@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Mei"></label-view>
-                  <label-view title="Chen"></label-view>
-                  <label-view title="meichen@example.com"></label-view>
-                  <label-view title="other"></label-view>
+                  <label-view><span>Mei</span></label-view>
+                  <label-view><span>Chen</span></label-view>
+                  <label-view><span>meichen@example.com</span></label-view>
+                  <label-view><span>other</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Tom"></label-view>
-                  <label-view title="Clark"></label-view>
-                  <label-view title="tomclark@example.com"></label-view>
+                  <label-view><span>Tom</span></label-view>
+                  <label-view><span>Clark</span></label-view>
+                  <label-view><span>tomclark@example.com</span></label-view>
                 </button>
                 <button is="table-row" navigation-link type="button" tabindex="0" navigation-destination="invoice2">
-                  <label-view title="Gita"></label-view>
-                  <label-view title="Kumar"></label-view>
-                  <label-view title="gitakumar@example.com"></label-view>
+                  <label-view><span>Gita</span></label-view>
+                  <label-view><span>Kumar</span></label-view>
+                  <label-view><span>gitakumar@example.com</span></label-view>
                 </button>
               </table-view>
             </details>
@@ -1085,23 +1101,23 @@
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view columns="2" list-style="inset-grouped">
               <labeled-content>
-                <label-view title="Invoice#" slot="label"></label-view>
-                <label-view title="Katie Abeles" slot="content"></label-view>
+                <label-view slot="label"><span>Invoice#</span></label-view>
+                <label-view slot="content"><span>Katie Abeles</span></label-view>
               </labeled-content>
               <labeled-content>
-                <label-view title="Invoice Date" slot="label"></label-view>
-                <label-view title="Customer 1" slot="content"></label-view>
+                <label-view slot="label"><span>Invoice Date</span></label-view>
+                <label-view slot="content"><span>Customer 1</span></label-view>
               </labeled-content>
             </list-view>
             <list-view list-style="inset-grouped">
               <section-view>
                 <labeled-content>
-                  <label-view title="Subject" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Subject</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Payment Terms" slot="label"></label-view>
-                  <label-view title="Language" slot="content"></label-view>
+                  <label-view slot="label"><span>Payment Terms</span></label-view>
+                  <label-view slot="content"><span>Language</span></label-view>
                 </labeled-content>
               </section-view>
             </list-view>
@@ -1115,7 +1131,7 @@
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
             <button type="button" tabindex="0" navigation-destination="editinvoice1" class="inplace">
-              <label-view system-image="pencil-simple" title="Edit"></label-view>
+              <label-view system-image="pencil-simple"><span>Edit</span></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -1134,21 +1150,21 @@
                   <option slot="validity-options" value="custom-error:range-underflow" label="Minimum Tippp"></option>
                 </text-field>
                 <labeled-content>
-                  <label-view title="Invoice Date" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Invoice Date</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Subject" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Subject</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
                 <labeled-content>
-                  <label-view title="Payment Terms" slot="label"></label-view>
-                  <label-view title="Customer 1" slot="content"></label-view>
+                  <label-view slot="label"><span>Payment Terms</span></label-view>
+                  <label-view slot="content"><span>Customer 1</span></label-view>
                 </labeled-content>
               </section-view>
               <section-view>
                 <button type="button" list-item-tint="red" tabindex="0" id="gg" confirmation-dialog="makesure">
-                  <label-view title="Delete"></label-view>
+                  <label-view><span>Delete</span></label-view>
                 </button>
               </section-view>
               <section-view>

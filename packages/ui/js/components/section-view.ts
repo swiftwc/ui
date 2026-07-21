@@ -1,5 +1,5 @@
 import { $, devFlags } from '../internal/utils'
-import { html, render } from '../tpl'
+import { html, morphdom } from '../morphdom'
 
 /**
  * @slot header
@@ -63,12 +63,23 @@ export class SectionView extends HTMLElement {
 
         const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
 
-        render(
-          html`<label-view line-limit="1" truncation-mode="tail" font="callout">
-            <span>${newValue}</span>
-          </label-view>`,
-          header
+        morphdom(
+          header,
+          html`<header slot="header">
+            <label-view line-limit="1" truncation-mode="tail" font="callout">
+              <span>${newValue}</span>
+            </label-view>
+          </header>`.toString(),
+          {
+            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+          }
         )
+        // render(
+        //   html`<label-view line-limit="1" truncation-mode="tail" font="callout">
+        //     <span>${newValue}</span>
+        //   </label-view>`,
+        //   header
+        // )
 
         break
       case 'footer':
@@ -79,12 +90,23 @@ export class SectionView extends HTMLElement {
 
         const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
 
-        render(
-          html`<label-view line-limit="1" truncation-mode="tail" font="callout">
-            <span>${newValue}</span>
-          </label-view>`,
-          footer
+        morphdom(
+          footer,
+          html`<footer slot="footer">
+            <label-view line-limit="1" truncation-mode="tail" font="callout">
+              <span>${newValue}</span>
+            </label-view>
+          </footer>`.toString(),
+          {
+            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+          }
         )
+        // render(
+        //   html`<label-view line-limit="1" truncation-mode="tail" font="callout">
+        //     <span>${newValue}</span>
+        //   </label-view>`,
+        //   footer
+        // )
 
         break
     }

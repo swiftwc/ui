@@ -1,5 +1,5 @@
 import { $, devFlags, renderLabel } from '../internal/utils'
-import { html, render } from '../tpl'
+import { html, morphdom } from '../morphdom'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -58,12 +58,23 @@ export class LabeledContent extends HTMLElement {
 
         const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
 
-        render(
-          html`<label-view font="callout">
-            <span>${newValue}</span>
-          </label-view>`,
-          header
+        morphdom(
+          header,
+          html`<header slot="header">
+            <label-view font="callout">
+              <span>${newValue}</span>
+            </label-view>
+          </header>`.toString(),
+          {
+            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+          }
         )
+        // render(
+        //   html`<label-view font="callout">
+        //     <span>${newValue}</span>
+        //   </label-view>`,
+        //   header
+        // )
 
         break
       case 'footer':
@@ -74,12 +85,23 @@ export class LabeledContent extends HTMLElement {
 
         const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
 
-        render(
-          html`<label-view font="callout">
-            <span>${newValue}</span>
-          </label-view>`,
-          footer
+        morphdom(
+          footer,
+          html`<footer slot="footer">
+            <label-view font="callout">
+              <span>${newValue}</span>
+            </label-view>
+          </footer>`.toString(),
+          {
+            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+          }
         )
+        // render(
+        //   html`<label-view font="callout">
+        //     <span>${newValue}</span>
+        //   </label-view>`,
+        //   footer
+        // )
 
         break
       case 'value':

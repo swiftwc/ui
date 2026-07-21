@@ -138,7 +138,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #render() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ render (${this.#progressViewStyle})`)
+    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
 
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle

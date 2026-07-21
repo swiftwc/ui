@@ -3,7 +3,7 @@ import type { PageShowHideDetail, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
-import { html, render } from '../tpl'
+import { html, morphdom } from '../morphdom'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -270,12 +270,23 @@ export class ScrollView extends HTMLElement {
 
     const container = this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal"></v-stack>`, '>1'))
 
-    render(
-      html`
+    morphdom(
+      container,
+      html`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">
         ${title ? html`<label-view line-limit="1" truncation-mode="tail" font="headline"><span>${title}</span></label-view>` : null}
         ${subtitle ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span>${subtitle}</span></label-view>` : null}
-      `,
-      container
+      </v-stack>`.toString(),
+      {
+        onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+      }
     )
+
+    // render(
+    //   html`
+    //     ${title ? html`<label-view line-limit="1" truncation-mode="tail" font="headline"><span>${title}</span></label-view>` : null}
+    //     ${subtitle ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span>${subtitle}</span></label-view>` : null}
+    //   `,
+    //   container
+    // )
   }
 }

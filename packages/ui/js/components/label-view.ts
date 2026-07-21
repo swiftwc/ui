@@ -1,5 +1,4 @@
-import { $, devFlags } from '../internal/utils'
-import { html, render } from '../tpl'
+import { $, devFlags, renderLabelIcon, renderLabelTitle } from '../internal/utils'
 
 /**
  *
@@ -51,24 +50,24 @@ export class LabelView extends HTMLElement {
     // this.#scheduleReflect()
 
     switch (name) {
+      // case 'system-image':
+      // case 'title':
+      //   render(
+      //     html`${this.getAttribute('title') ? html`<span>${this.getAttribute('title')}</span>` : null}${this.getAttribute('system-image')
+      //       ? html`<image-view slot="icon" system-name="${this.getAttribute('system-image')}"></image-view>`
+      //       : null}`,
+      //     this
+      //   )
+
+      //   break
       case 'system-image':
-      case 'title':
-        render(
-          html`${this.getAttribute('title') ? html`<span>${this.getAttribute('title')}</span>` : null}${this.getAttribute('system-image')
-            ? html`<image-view slot="icon" system-name="${this.getAttribute('system-image')}"></image-view>`
-            : null}`,
-          this
-        )
+        renderLabelIcon(this, newValue)
 
         break
-      // case 'system-image':
-      //   renderLabelIcon(this, newValue)
+      case 'title':
+        renderLabelTitle(this, newValue)
 
-      //   break
-      // case 'title':
-      //   renderLabelTitle(this, newValue)
-
-      //   break
+        break
     }
   }
 

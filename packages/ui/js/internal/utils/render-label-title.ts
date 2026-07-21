@@ -1,4 +1,5 @@
 import type { LabelView } from '../../components'
+import { html, morphdom } from '../../morphdom'
 import $ from './cash'
 
 export default function (label: LabelView, textContent: string | null) {
@@ -12,6 +13,9 @@ export default function (label: LabelView, textContent: string | null) {
 
       // DOM manipulation last
       label.appendChild(Object.assign($(`<span></span>`, '>1'), { textContent }))
-    } else if (textContent !== span.textContent) span.textContent = textContent
+    } else
+      morphdom(span, html`<span>${textContent}</span>`.toString(), {
+        onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+      }) //if (textContent !== span.textContent) span.textContent = textContent
   } else span?.remove()
 }

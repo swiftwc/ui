@@ -888,7 +888,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #render() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ render (${this.pickerStyle})`)
+    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ #render (${this.pickerStyle})`)
 
     // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
     if (this.#lastRenderedStyle === this.pickerStyle) return // skip if already applied

@@ -1,4 +1,5 @@
 import type { LabelView } from '../../components'
+import { html, morphdom } from '../../morphdom'
 import $ from './cash'
 
 export default function (label: LabelView, systemImage: string | null) {
@@ -16,6 +17,10 @@ export default function (label: LabelView, systemImage: string | null) {
 
       // DOM manipulation last
       label.appendChild(newImg)
-    } else if (systemImage !== img.getAttribute('system-name')) img.setAttribute('system-name', systemImage)
+    } else
+      morphdom(img, html`<image-view slot="icon" system-name="${systemImage}"></image-view>`.toString(), {
+        onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
+        onBeforeElChildrenUpdated: () => false, // NOTE: image-view will alter it's contents! This is required to not empty it up again!
+      }) //if (systemImage !== img.getAttribute('system-name')) img.setAttribute('system-name', systemImage)
   } else img?.remove()
 }

@@ -8,6 +8,10 @@ import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
 
+/**
+ * @slot top-bar-principal
+ * @slot bottom-bar-principal
+ */
 export class ScrollView extends HTMLElement {
   static get observedAttributes() {
     return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']

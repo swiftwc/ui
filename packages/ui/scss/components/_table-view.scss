@@ -1,6 +1,7 @@
 @use 'sass:string';
 @use 'sass:map';
 @use '../vars';
+@use '../maps';
 @use '../mixins';
 @use '../placeholders';
 
@@ -207,13 +208,13 @@ $table-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([table-style])) {
-          @each $v in vars.$table-styles {
+          @each $v in maps.$table-styles-names {
             @container style(--table-style: #{$v}) {
               @include mixins.write-props(map.get($table-ifs, $v));
             }
           }
         }
-        @each $v in vars.$table-styles {
+        @each $v in maps.$table-styles-names {
           :where(&[table-style='#{$v}']) {
             @include mixins.write-props(map.get($table-ifs, $v));
           }

@@ -8,7 +8,7 @@ next:
 
 # VStack
 
-
+A view that arranges its subviews in a vertical line.
 
 <!-- #endregion pre -->
 

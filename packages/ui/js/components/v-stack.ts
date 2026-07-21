@@ -1,15 +1,17 @@
 import { devFlags } from '../internal/utils'
 
 /**
+ * @summary A view that arranges its subviews in a vertical line.
+ *
  * @attr {leading|"leading fill"|center|trailing|fill|space-between} distribution - The distribution of cols
  *
- * @attr {"auto spacer"|"auto auto spacer"|"auto auto auto spacer"} template
+ * @attr {@templateSet} template - The main-axis grid template
  *
  * @attr {@spacingSet} spacing - The gap between the primary axis
  *
- * @attr {@alignmentSet} alignment - The cross-axis alignment
- * @attr {@distributionSet} distribution - The main-axis alignment
- * @attr {@placementSet} placement - The main-axis alignment
+ * @attr {@inlineSet} alignment - The cross-axis alignment
+ * @attr {@blockSet} distribution - The main-axis alignment
+ * @attr {@blockPlacementSet} placement - The main-axis alignment
  *
  */
 export class VStack extends HTMLElement {

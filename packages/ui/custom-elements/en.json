@@ -11,7 +11,7 @@
           "customElement": true,
           "name": "AlertDialog",
           "tagName": "alert-dialog",
-          "description": "",
+          "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`.",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -250,7 +250,7 @@
           "customElement": true,
           "name": "ConfirmationDialog",
           "tagName": "confirmation-dialog",
-          "description": "",
+          "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.",
           "superclass": {
             "name": "HTMLDialogElement"
           },
@@ -629,11 +629,14 @@
           "customElement": true,
           "name": "HStack",
           "tagName": "hstack",
-          "description": "",
+          "description": "A view that arranges its subviews in a horizontal line.",
           "superclass": {
             "name": "HTMLundefinedElement"
           },
           "attributes": [
+            {
+              "name": "template - The main"
+            },
             {
               "name": "spacing"
             },
@@ -746,6 +749,12 @@
             },
             {
               "name": "truncation-mode"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "icon"
             }
           ]
         }
@@ -879,6 +888,12 @@
             {
               "kind": "field",
               "name": "template"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "label"
             }
           ],
           "attributes": [
@@ -1105,7 +1120,15 @@
           "slots": [
             {
               "name": "slot",
+              "description": "label"
+            },
+            {
+              "name": "slot",
               "description": "list"
+            },
+            {
+              "name": "slot",
+              "description": "validity-options"
             }
           ]
         }
@@ -1180,6 +1203,12 @@
             {
               "kind": "field",
               "name": "template"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "current-value"
             }
           ],
           "attributes": [
@@ -1295,6 +1324,16 @@
               "name": "template"
             }
           ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "top-bar-principal"
+            },
+            {
+              "name": "slot",
+              "description": "bottom-bar-principal"
+            }
+          ],
           "attributes": [
             {
               "name": "navigation-title"
@@ -1377,6 +1416,16 @@
             {
               "kind": "field",
               "name": "template"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "header"
+            },
+            {
+              "name": "slot",
+              "description": "footer"
             }
           ],
           "attributes": [
@@ -1692,6 +1741,36 @@
           "attributes": [
             {
               "name": "preferred-compact-template"
+            }
+          ],
+          "slots": [
+            {
+              "name": "slot",
+              "description": "header-leading"
+            },
+            {
+              "name": "slot",
+              "description": "header-principal"
+            },
+            {
+              "name": "slot",
+              "description": "header-trailing"
+            },
+            {
+              "name": "slot",
+              "description": "column"
+            },
+            {
+              "name": "slot",
+              "description": "footer-leading"
+            },
+            {
+              "name": "slot",
+              "description": "footer-principal"
+            },
+            {
+              "name": "slot",
+              "description": "footer-trailing"
             }
           ]
         }
@@ -2114,7 +2193,7 @@
           "customElement": true,
           "name": "VStack",
           "tagName": "vstack",
-          "description": "",
+          "description": "A view that arranges its subviews in a vertical line.",
           "superclass": {
             "name": "HTMLundefinedElement"
           },
@@ -2123,7 +2202,7 @@
               "name": "distribution"
             },
             {
-              "name": "template"
+              "name": "template - The main"
             },
             {
               "name": "spacing"

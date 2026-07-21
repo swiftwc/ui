@@ -224,6 +224,9 @@ if (mediaQueryList.matches)
 // ac.abort() // dialog closes silently, a rejects with AbortError
 // // or still works standalone
 // a.dismiss() // same effect, no signal needed
+/**
+ * Presents an alert with a message using the given data to produce the alert’s content and a string variable as a title.
+ */
 export const alert = (
   title?: string,
   message?: string,

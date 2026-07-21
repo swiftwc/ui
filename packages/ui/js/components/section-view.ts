@@ -1,6 +1,10 @@
 import { $, devFlags } from '../internal/utils'
 import { html, render } from '../tpl'
 
+/**
+ * @slot header
+ * @slot footer
+ */
 export class SectionView extends HTMLElement {
   static get observedAttributes() {
     return ['header', 'footer']

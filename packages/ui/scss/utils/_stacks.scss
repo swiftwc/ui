@@ -1,106 +1,15 @@
-@use '../vars';
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
-
-$inline-map: (
-  leading: (
-    (justify-items (start)),
-    (justify-content (start)),
-  ),
-  'leading fill': (
-    (justify-items (start)),
-    (justify-content (stretch)),
-  ),
-  center: (
-    (justify-items (center)),
-    (justify-content (center)),
-  ),
-  trailing: (
-    (justify-items (end)),
-    (justify-content (end)),
-  ),
-  fill: (
-    (justify-items (stretch)),
-    (justify-content (stretch)),
-  ),
-  space-between: (
-    (justify-content (space-between)),
-  ),
-);
-
-$block-map: (
-  leading: (
-    (align-items (start)),
-    (align-content (start)),
-  ),
-  'leading fill': (
-    (align-items (start)),
-    (align-content (stretch)),
-  ),
-  center: (
-    (align-items (center)),
-    (align-content (center)),
-  ),
-  trailing: (
-    (align-items (end)),
-    (align-content (end)),
-  ),
-  fill: (
-    (align-items (stretch)),
-    (align-content (stretch)),
-  ),
-  space-between: (
-    (align-content (space-between)),
-  ),
-);
-
-$h-placement-map: (
-  'fill': (
-    (place-items (stretch)),
-    (place-content (stretch)),
-  ),
-  'leading fill': (
-    (place-items (stretch start)),
-    (place-content (stretch start)),
-  ),
-  'fill leading': (
-    (place-items (start stretch)),
-    (place-content (start stretch)),
-  ),
-  'fill space-between': (
-    (align-content (space-between)),
-    (justify-items (stretch)),
-    (justify-content (stretch)),
-  ),
-);
-
-$v-placement-map: (
-  'fill': (
-    (place-items (stretch)),
-    (place-content (stretch)),
-  ),
-  'leading fill': (
-    (place-items (start stretch)),
-    (place-content (start stretch)),
-  ),
-  'fill leading': (
-    (place-items (stretch start)),
-    (place-content (stretch start)),
-  ),
-  'space-between fill': (
-    (align-content (space-between)),
-    (justify-items (stretch)),
-    (justify-content (stretch)),
-  ),
-);
+@use '../vars';
+@use '../maps';
 
 @layer #{vars.$utils-layer} {
   // Vertical alignment becomes the common tweak
   h-stack,
   v-flex-stack {
     // main axis (horizontal/inline)
-    @each $k, $declarations in $inline-map {
+    @each $k, $declarations in maps.$inline-map {
       &[distribution='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
@@ -109,7 +18,7 @@ $v-placement-map: (
     }
 
     // cross axis (vertical/block)
-    @each $k, $declarations in $block-map {
+    @each $k, $declarations in maps.$block-map {
       &[alignment='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
@@ -118,7 +27,7 @@ $v-placement-map: (
     }
 
     // placement="fill leading" -> short cut for distribution="fill" alignment="leading"
-    @each $k, $declarations in $h-placement-map {
+    @each $k, $declarations in maps.$inline-placement-map {
       &[placement='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')};
@@ -143,7 +52,7 @@ $v-placement-map: (
   v-stack,
   h-flex-stack {
     // block dir for items+content
-    @each $k, $declarations in $block-map {
+    @each $k, $declarations in maps.$block-map {
       &[distribution='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
@@ -152,7 +61,7 @@ $v-placement-map: (
     }
 
     // inline dir for items+content
-    @each $k, $declarations in $inline-map {
+    @each $k, $declarations in maps.$inline-map {
       &[alignment='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
@@ -161,7 +70,7 @@ $v-placement-map: (
     }
 
     // placement="leading fill" -> shortcut for distribution="leading" alignment="fill"
-    @each $k, $declarations in $v-placement-map {
+    @each $k, $declarations in maps.$block-placement-map {
       &[placement='#{$k}'] {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')};

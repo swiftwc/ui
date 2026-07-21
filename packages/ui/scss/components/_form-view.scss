@@ -1,6 +1,7 @@
 @use 'sass:string';
 @use 'sass:map';
 @use '../vars';
+@use '../maps';
 @use '../mixins';
 @use '../placeholders';
 
@@ -132,7 +133,7 @@ $form-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([form-style])) {
-          @each $v in vars.$form-styles {
+          @each $v in maps.$form-styles-names {
             @container style(--form-style: #{$v}) {
               --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
 
@@ -140,7 +141,7 @@ $form-elses: (
             }
           }
         }
-        @each $v in vars.$form-styles {
+        @each $v in maps.$form-styles-names {
           :where(&[form-style='#{$v}']) {
             --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
 

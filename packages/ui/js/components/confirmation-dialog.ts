@@ -4,6 +4,10 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { devFlags, isInside, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
+/**
+ * A representation of a confirmation presentation.
+ * Use it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.
+ */
 export class ConfirmationDialog extends DialogBase {
   static get observedAttributes() {
     return ['anchor']

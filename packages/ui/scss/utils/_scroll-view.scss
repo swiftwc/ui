@@ -1,6 +1,6 @@
-@use '../vars';
 @use 'sass:math';
 @use 'sass:string';
+@use '../vars';
 
 @layer #{vars.$utils-layer} {
   scroll-view {

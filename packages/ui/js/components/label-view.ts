@@ -5,6 +5,8 @@ import { html, render } from '../tpl'
  *
  * @attr {@fontSet} font - Sets the default font for text in this view.
  *
+ * @slot icon
+ *
  */
 export class LabelView extends HTMLElement {
   static get observedAttributes() {

@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../maps';
 @use '../mixins';
 
 @layer #{vars.$components-layer} {
@@ -26,7 +27,7 @@
 
     @include mixins.takeover-button-slots;
 
-    @each $size, $media in vars.$button-sizes {
+    @each $size, $media in maps.$button-sizes-map {
       // @if (regular != $size) {
       &[control-size='#{$size}'] {
         :where(&) {

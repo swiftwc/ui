@@ -2,7 +2,7 @@
 
 # HStack
 
-
+A view that arranges its subviews in a horizontal line.
 
 <!-- #endregion pre -->
 

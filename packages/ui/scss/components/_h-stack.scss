@@ -1,25 +1,8 @@
-@use '../vars';
-@use '../mixins';
 @use 'sass:string';
 @use 'sass:list';
-
-$h-stack-templates: (
-  (auto minmax(0, 1fr)),
-  (minmax(0, 1fr) auto),
-  (auto minmax(0, 1fr) auto auto),
-  (auto minmax(0, 1fr) auto),
-  (repeat(1, minmax(0, 1fr))),
-  (repeat(2, minmax(0, 1fr))),
-  (repeat(3, minmax(0, 1fr))),
-  (repeat(4, minmax(0, 1fr))),
-  (repeat(5, minmax(0, 1fr))),
-  (repeat(6, minmax(0, 1fr))),
-  (repeat(7, minmax(0, 1fr))),
-  (repeat(8, minmax(0, 1fr))),
-  (repeat(9, minmax(0, 1fr))),
-  (repeat(10, minmax(0, 1fr))),
-  (repeat(2, minmax(0, 1fr)) auto)
-);
+@use '../vars';
+@use '../maps';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   h-stack {
@@ -40,6 +23,6 @@ $h-stack-templates: (
     //   }
     // }
 
-    @include mixins.make-template($h-stack-templates, grid-template-columns);
+    @include mixins.make-template(maps.$stack-templates-list-vals, grid-template-columns);
   }
 }

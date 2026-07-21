@@ -1,7 +1,7 @@
-@use '../vars';
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
+@use '../vars';
 
 @layer #{vars.$utils-layer} {
   // general utils

@@ -3,6 +3,8 @@ import { $, devFlags, onoff, renderLabel, touchGlass } from '../internal/utils'
 
 /**
  * @summary A control for presenting a menu of actions.
+ *
+ * @slot label
  */
 export class MenuView extends HTMLElement {
   static get observedAttributes() {

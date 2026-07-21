@@ -9,6 +9,14 @@ import type { LabelView } from './label-view'
  * @summary Display selectable, sortable data arranged in rows and columns.
  *
  * @attr {title:trailing:subtitle|trailing:title:subtitle|title:subtitle:trailing|*} preferred-compact-template - Sets the template areas when the table is in compact mode
+ *
+ * @slot header-leading
+ * @slot header-principal
+ * @slot header-trailing
+ * @slot column
+ * @slot footer-leading
+ * @slot footer-principal
+ * @slot footer-trailing
  */
 export class TableView extends HTMLElement {
   #styleObserver?: CSSStyleObserver

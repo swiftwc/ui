@@ -1,9 +1,9 @@
-@use '../vars';
-@use '../mixins';
 @use 'sass:math';
 @use 'sass:map';
 @use 'sass:list';
 @use 'sass:string';
+@use '../vars';
+@use '../mixins';
 
 $color-tokens: (
   // SECTION: grays

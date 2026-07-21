@@ -9,6 +9,8 @@ type ProgressViewStyle = (typeof progressViewStyles)[number]
 
 /**
  * @summary A view that shows the progress toward completion of a task.
+ *
+ * @slot current-value
  */
 export class ProgressView extends HTMLElement {
   static get observedAttributes() {

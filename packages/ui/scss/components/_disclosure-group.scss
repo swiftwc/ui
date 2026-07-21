@@ -1,6 +1,6 @@
+@use 'sass:string';
 @use '../vars';
 @use '../mixins';
-@use 'sass:string';
 
 @layer #{vars.$components-layer} {
   [is='disclosure-group'] {

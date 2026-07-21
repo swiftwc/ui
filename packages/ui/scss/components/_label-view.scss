@@ -1,7 +1,8 @@
-@use '../vars';
-@use '../mixins';
 @use 'sass:string';
 @use 'sass:map';
+@use '../vars';
+@use '../maps';
+@use '../mixins';
 
 // scalpel precision
 @property --label-gap {
@@ -225,9 +226,9 @@ $label-line-ifs: (
     // vars
     @supports (x: #{string.unquote('if(else:red)')}) {
       :where(&) {
-        --label--titlestack-font-size: if(#{if-chain(vars.$label-fonts, font-size)});
-        --label--titlestack-line-height: if(#{if-chain(vars.$label-fonts, line-height)});
-        --label--titlestack-font-weight: if(#{if-chain(vars.$label-fonts, font-weight)});
+        --label--titlestack-font-size: if(#{if-chain(maps.$label-fonts-map, font-size)});
+        --label--titlestack-line-height: if(#{if-chain(maps.$label-fonts-map, line-height)});
+        --label--titlestack-font-weight: if(#{if-chain(maps.$label-fonts-map, font-weight)});
         // if(
         //   style(--label-font: callout): 0.5rem ; style(--label-font: large-title): 3rem ; style(--label-font: large-title): 3rem ;
         // );
@@ -276,13 +277,13 @@ $label-line-ifs: (
 
     @supports not (x: #{string.unquote('if(else:red)')}) {
       :where(&:not([label-style])) {
-        @each $v in vars.$label-styles {
+        @each $v in maps.$label-styles-names {
           @container style(--label-style: #{$v}) {
             @include set-label-style(h-#{$v});
           }
         }
       }
-      @each $v in vars.$label-styles {
+      @each $v in maps.$label-styles-names {
         :where(&[label-style='#{$v}']) {
           @include set-label-style(h-#{$v});
         }
@@ -302,14 +303,14 @@ $label-line-ifs: (
       }
       // AGAIN
       :where(&:not([label-style])) {
-        @each $v in vars.$label-styles {
+        @each $v in maps.$label-styles-names {
           @container style(--label-style: #{$v}) and style(--label-flow: vertical) {
             @include set-label-style(v-#{$v});
           }
         }
       }
       @container style(--label-flow: vertical) {
-        @each $v in vars.$label-styles {
+        @each $v in maps.$label-styles-names {
           :where(&[label-style='#{$v}']) {
             @include set-label-style(v-#{$v});
           }
@@ -339,7 +340,7 @@ $label-line-ifs: (
         @include mixins.write-props(map.get($label-truncation-ifs, tail)); //@include set-label-truncation-mode(tail);
       }
       //
-      @each $label, $size in vars.$label-fonts {
+      @each $label, $size in maps.$label-fonts-map {
         @include if-chain(--label-font, font, $label) {
           @include mixins.set-label-font($label);
         }

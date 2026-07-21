@@ -1,6 +1,7 @@
 @use 'sass:string';
 @use 'sass:map';
 @use '../vars';
+@use '../maps';
 @use '../mixins';
 @use '../placeholders';
 
@@ -131,7 +132,7 @@ $list-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([list-style])) {
-          @each $v in vars.$list-styles {
+          @each $v in maps.$list-styles-names {
             @container style(--list-style: #{$v}) {
               --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
 
@@ -139,7 +140,7 @@ $list-elses: (
             }
           }
         }
-        @each $v in vars.$list-styles {
+        @each $v in maps.$list-styles-names {
           :where(&[list-style='#{$v}']) {
             --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
 

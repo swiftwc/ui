@@ -1,5 +1,7 @@
 import doctrine from 'doctrine'
-import { writeFileSync } from 'node:fs'
+import type { Node } from 'gonzales-pe'
+import gonzales from 'gonzales-pe'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ArrayLiteralExpression, Project, SyntaxKind } from 'ts-morph'
@@ -12,6 +14,82 @@ const kebabCase = (str: string) =>
     .toLowerCase()
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
+
+const ast = gonzales.parse(readFileSync(resolve(__dirname, '../scss/_maps.scss'), 'utf-8'), { syntax: 'scss' })
+
+const listVals = new Map<string, string[]>()
+
+ast.traverseByType('declaration', function (node: Node) {
+  const property = node.first('property')
+
+  if (!property?.toString().endsWith('-list-vals')) return
+
+  const value = node.first('value')
+
+  // console.dir(value?.toJson(), { depth: 50 })
+
+  const outer = value?.content.find((child: Node) => child.type === 'parentheses')
+
+  const entries = outer?.content.filter((child: Node) => child.type === 'parentheses').map((child: Node) => child.toString().trim())
+
+  listVals.set(
+    property?.toString(),
+    entries.map((item: string) => item.replace(/^\(|\)$/g, ''))
+  )
+})
+
+const maps = new Map<string, Map<string, string[]>>()
+
+ast.traverseByType('declaration', (node: Node) => {
+  const name = node.first('property')?.toString()
+
+  if (!name?.endsWith('-map')) return
+
+  const outer = node.first('value')?.first('parentheses')
+
+  if (!outer) return
+
+  const map = new Map<string, string[]>()
+
+  for (let i = 0; i < outer.content.length; i++) {
+    const keyNode = outer.content[i] as Node
+
+    if (!['ident', 'string'].includes(keyNode.type)) continue
+
+    const colon = outer.content[i + 1] as Node
+    const value = outer.content[i + 3] as Node
+
+    if (colon?.type !== 'operator' || colon.toString() !== ':') continue
+    if (value?.type !== 'parentheses') continue
+
+    const key = keyNode.toString().replace(/^['"]|['"]$/g, '')
+
+    const rules = value.content
+      .filter((child: Node) => child.type === 'parentheses')
+      .map((child: Node) => {
+        const [property, ...rest] = child
+          .toString()
+          .replace(/^\(|\)$/g, '')
+          .trim()
+          .split(/\s+/)
+
+        const val = rest.join(' ').replace(/^\(|\)$/g, '')
+
+        return `${property}: ${val};`
+      })
+
+    map.set(key, rules)
+
+    i += 3
+  }
+
+  maps.set(name, map)
+})
+
+// ast.traverseByType('variable', function (node: Node, index: number, parent: Node) {
+// if (node?.toString() !== '$stack-templates-list-vals') return
+// console.log(4444, node)
+// })
 
 const project = new Project({
   tsConfigFilePath: resolve(__dirname, '../tsconfig.json'),
@@ -163,13 +241,7 @@ const vscode: VsHtmlDataV1 = {
     },
     {
       name: 'spacingSet',
-      values: [
-        { name: '0', description: '0rem' },
-        { name: '1', description: '0.1rem' },
-        { name: '2', description: '0.2rem' },
-        { name: '3', description: '0.3rem' },
-        { name: '4', description: '0.4rem' },
-      ],
+      values: Array.from({ length: 51 }, (_, i) => ({ name: String(i), description: `${i / 10}rem` })),
     },
     {
       name: 'tintSet',
@@ -196,30 +268,44 @@ const vscode: VsHtmlDataV1 = {
       ],
     },
     {
-      name: 'alignmentSet',
-      values: [
-        { name: 'leading', description: 'start cross-axis alignment' },
-        { name: 'center', description: 'center cross-axis alignment' },
-        { name: 'trailing', description: 'end cross-axis alignment' },
-        { name: 'fill', description: 'stretch cross-axis alignment' },
-      ],
+      name: 'inlineSet',
+      values:
+        Array.from(maps.get('$inline-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `Applies \`${item[1].join(' ')}\` rules`,
+        })) ?? [],
     },
     {
-      name: 'distributionSet',
-      values: [
-        { name: 'leading', description: 'start cross-axis distribution' },
-        { name: 'center', description: 'center cross-axis distribution' },
-        { name: 'trailing', description: 'end cross-axis distribution' },
-        { name: 'fill', description: 'stretch cross-axis distribution' },
-      ],
+      name: 'blockSet',
+      values:
+        Array.from(maps.get('$block-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `Applies \`${item[1].join(' ')}\` rules`,
+        })) ?? [],
     },
     {
-      name: 'placementSet',
-      values: [
-        { name: 'fill', description: 'short cut for `distribution="fill" alignment="fill"`' },
-        { name: 'leading fill', description: 'short cut for `distribution="leading" alignment="fill"`' },
-        { name: 'fill leading', description: 'short cut for `distribution="fill" alignment="leading"`' },
-      ],
+      name: 'inlinePlacementSet',
+      values:
+        Array.from(maps.get('$inline-placement-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `Applies \`${item[1].join(' ')}\` rules`,
+        })) ?? [],
+    },
+    {
+      name: 'blockPlacementSet',
+      values:
+        Array.from(maps.get('$block-placement-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `Applies \`${item[1].join(' ')}\` rules`,
+        })) ?? [],
+    },
+    {
+      name: 'templateSet',
+      values:
+        listVals.get('$stack-templates-list-vals')?.map((item) => ({
+          name: item.replace('minmax(0, 1fr)', 'spacer').replace(/repeat\(([^)]*)\)/g, (_, inner) => `repeat(${inner.replace(/\s+/g, '')})`),
+          description: `Applies a \`${item}\` grid-template to the main-axis`,
+        })) ?? [],
     },
     {
       name: 'frameWidth',

@@ -161,7 +161,9 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
  *
  * @attr {vertical|horizontal|auto} label-value-placement
  *
+ * @slot label
  * @slot list
+ * @slot validity-options
  */
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {

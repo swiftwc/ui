@@ -2,7 +2,8 @@
   "version": 1.1,
   "tags": [
     {
-      "name": "alert-dialog"
+      "name": "alert-dialog",
+      "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`."
     },
     {
       "name": "body-view"
@@ -59,6 +60,7 @@
     },
     {
       "name": "confirmation-dialog",
+      "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.",
       "attributes": [
         {
           "name": "anchor"
@@ -176,8 +178,13 @@
     },
     {
       "name": "hstack",
-      "description": "",
+      "description": "A view that arranges its subviews in a horizontal line.",
       "attributes": [
+        {
+          "name": "template - The main",
+          "description": "\nDescription: axis grid template",
+          "valueSet": "templateSet"
+        },
         {
           "name": "spacing",
           "description": "\nDescription: The gap between the primary axis",
@@ -186,17 +193,17 @@
         {
           "name": "alignment - The cross",
           "description": "\nDescription: axis alignment",
-          "valueSet": "alignmentSet"
+          "valueSet": "blockSet"
         },
         {
           "name": "distribution - The main",
           "description": "\nDescription: axis alignment",
-          "valueSet": "distributionSet"
+          "valueSet": "inlineSet"
         },
         {
           "name": "placement - The main",
           "description": "\nDescription: axis alignment",
-          "valueSet": "placementSet"
+          "valueSet": "inlinePlacementSet"
         }
       ]
     },
@@ -402,6 +409,7 @@
     },
     {
       "name": "scroll-view",
+      "description": "",
       "attributes": [
         {
           "name": "navigation-title"
@@ -422,6 +430,7 @@
     },
     {
       "name": "section-view",
+      "description": "",
       "attributes": [
         {
           "name": "header"
@@ -588,7 +597,7 @@
     },
     {
       "name": "vstack",
-      "description": "",
+      "description": "A view that arranges its subviews in a vertical line.",
       "attributes": [
         {
           "name": "distribution",
@@ -615,19 +624,9 @@
           ]
         },
         {
-          "name": "template",
-          "description": "Value Type: “auto spacer” | “auto auto spacer” | “auto auto auto spacer”",
-          "values": [
-            {
-              "name": "auto spacer"
-            },
-            {
-              "name": "auto auto spacer"
-            },
-            {
-              "name": "auto auto auto spacer"
-            }
-          ]
+          "name": "template - The main",
+          "description": "\nDescription: axis grid template",
+          "valueSet": "templateSet"
         },
         {
           "name": "spacing",
@@ -637,17 +636,17 @@
         {
           "name": "alignment - The cross",
           "description": "\nDescription: axis alignment",
-          "valueSet": "alignmentSet"
+          "valueSet": "inlineSet"
         },
         {
           "name": "distribution - The main",
           "description": "\nDescription: axis alignment",
-          "valueSet": "distributionSet"
+          "valueSet": "blockSet"
         },
         {
           "name": "placement - The main",
           "description": "\nDescription: axis alignment",
-          "valueSet": "placementSet"
+          "valueSet": "blockPlacementSet"
         }
       ]
     }
@@ -755,6 +754,190 @@
         {
           "name": "4",
           "description": "0.4rem"
+        },
+        {
+          "name": "5",
+          "description": "0.5rem"
+        },
+        {
+          "name": "6",
+          "description": "0.6rem"
+        },
+        {
+          "name": "7",
+          "description": "0.7rem"
+        },
+        {
+          "name": "8",
+          "description": "0.8rem"
+        },
+        {
+          "name": "9",
+          "description": "0.9rem"
+        },
+        {
+          "name": "10",
+          "description": "1rem"
+        },
+        {
+          "name": "11",
+          "description": "1.1rem"
+        },
+        {
+          "name": "12",
+          "description": "1.2rem"
+        },
+        {
+          "name": "13",
+          "description": "1.3rem"
+        },
+        {
+          "name": "14",
+          "description": "1.4rem"
+        },
+        {
+          "name": "15",
+          "description": "1.5rem"
+        },
+        {
+          "name": "16",
+          "description": "1.6rem"
+        },
+        {
+          "name": "17",
+          "description": "1.7rem"
+        },
+        {
+          "name": "18",
+          "description": "1.8rem"
+        },
+        {
+          "name": "19",
+          "description": "1.9rem"
+        },
+        {
+          "name": "20",
+          "description": "2rem"
+        },
+        {
+          "name": "21",
+          "description": "2.1rem"
+        },
+        {
+          "name": "22",
+          "description": "2.2rem"
+        },
+        {
+          "name": "23",
+          "description": "2.3rem"
+        },
+        {
+          "name": "24",
+          "description": "2.4rem"
+        },
+        {
+          "name": "25",
+          "description": "2.5rem"
+        },
+        {
+          "name": "26",
+          "description": "2.6rem"
+        },
+        {
+          "name": "27",
+          "description": "2.7rem"
+        },
+        {
+          "name": "28",
+          "description": "2.8rem"
+        },
+        {
+          "name": "29",
+          "description": "2.9rem"
+        },
+        {
+          "name": "30",
+          "description": "3rem"
+        },
+        {
+          "name": "31",
+          "description": "3.1rem"
+        },
+        {
+          "name": "32",
+          "description": "3.2rem"
+        },
+        {
+          "name": "33",
+          "description": "3.3rem"
+        },
+        {
+          "name": "34",
+          "description": "3.4rem"
+        },
+        {
+          "name": "35",
+          "description": "3.5rem"
+        },
+        {
+          "name": "36",
+          "description": "3.6rem"
+        },
+        {
+          "name": "37",
+          "description": "3.7rem"
+        },
+        {
+          "name": "38",
+          "description": "3.8rem"
+        },
+        {
+          "name": "39",
+          "description": "3.9rem"
+        },
+        {
+          "name": "40",
+          "description": "4rem"
+        },
+        {
+          "name": "41",
+          "description": "4.1rem"
+        },
+        {
+          "name": "42",
+          "description": "4.2rem"
+        },
+        {
+          "name": "43",
+          "description": "4.3rem"
+        },
+        {
+          "name": "44",
+          "description": "4.4rem"
+        },
+        {
+          "name": "45",
+          "description": "4.5rem"
+        },
+        {
+          "name": "46",
+          "description": "4.6rem"
+        },
+        {
+          "name": "47",
+          "description": "4.7rem"
+        },
+        {
+          "name": "48",
+          "description": "4.8rem"
+        },
+        {
+          "name": "49",
+          "description": "4.9rem"
+        },
+        {
+          "name": "50",
+          "description": "5rem"
         }
       ]
     },
@@ -825,61 +1008,299 @@
       ]
     },
     {
-      "name": "alignmentSet",
+      "name": "inlineSet",
       "values": [
         {
           "name": "leading",
-          "description": "start cross-axis alignment"
-        },
-        {
-          "name": "center",
-          "description": "center cross-axis alignment"
-        },
-        {
-          "name": "trailing",
-          "description": "end cross-axis alignment"
-        },
-        {
-          "name": "fill",
-          "description": "stretch cross-axis alignment"
-        }
-      ]
-    },
-    {
-      "name": "distributionSet",
-      "values": [
-        {
-          "name": "leading",
-          "description": "start cross-axis distribution"
-        },
-        {
-          "name": "center",
-          "description": "center cross-axis distribution"
-        },
-        {
-          "name": "trailing",
-          "description": "end cross-axis distribution"
-        },
-        {
-          "name": "fill",
-          "description": "stretch cross-axis distribution"
-        }
-      ]
-    },
-    {
-      "name": "placementSet",
-      "values": [
-        {
-          "name": "fill",
-          "description": "short cut for `distribution=\"fill\" alignment=\"fill\"`"
+          "description": "Applies `justify-items: start; justify-content: start;` rules"
         },
         {
           "name": "leading fill",
-          "description": "short cut for `distribution=\"leading\" alignment=\"fill\"`"
+          "description": "Applies `justify-items: start; justify-content: stretch;` rules"
+        },
+        {
+          "name": "center",
+          "description": "Applies `justify-items: center; justify-content: center;` rules"
+        },
+        {
+          "name": "trailing",
+          "description": "Applies `justify-items: end; justify-content: end;` rules"
+        },
+        {
+          "name": "fill",
+          "description": "Applies `justify-items: stretch; justify-content: stretch;` rules"
+        },
+        {
+          "name": "space-between",
+          "description": "Applies `justify-content: space-between;` rules"
+        }
+      ]
+    },
+    {
+      "name": "blockSet",
+      "values": [
+        {
+          "name": "leading",
+          "description": "Applies `align-items: start; align-content: start;` rules"
+        },
+        {
+          "name": "leading fill",
+          "description": "Applies `align-items: start; align-content: stretch;` rules"
+        },
+        {
+          "name": "center",
+          "description": "Applies `align-items: center; align-content: center;` rules"
+        },
+        {
+          "name": "trailing",
+          "description": "Applies `align-items: end; align-content: end;` rules"
+        },
+        {
+          "name": "fill",
+          "description": "Applies `align-items: stretch; align-content: stretch;` rules"
+        },
+        {
+          "name": "space-between",
+          "description": "Applies `align-content: space-between;` rules"
+        }
+      ]
+    },
+    {
+      "name": "inlinePlacementSet",
+      "values": [
+        {
+          "name": "fill",
+          "description": "Applies `place-items: stretch; place-content: stretch;` rules"
+        },
+        {
+          "name": "leading fill",
+          "description": "Applies `place-items: stretch start; place-content: stretch start;` rules"
         },
         {
           "name": "fill leading",
-          "description": "short cut for `distribution=\"fill\" alignment=\"leading\"`"
+          "description": "Applies `place-items: start stretch; place-content: start stretch;` rules"
+        },
+        {
+          "name": "fill space-between",
+          "description": "Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules"
+        }
+      ]
+    },
+    {
+      "name": "blockPlacementSet",
+      "values": [
+        {
+          "name": "fill",
+          "description": "Applies `place-items: stretch; place-content: stretch;` rules"
+        },
+        {
+          "name": "leading fill",
+          "description": "Applies `place-items: start stretch; place-content: start stretch;` rules"
+        },
+        {
+          "name": "fill leading",
+          "description": "Applies `place-items: stretch start; place-content: stretch start;` rules"
+        },
+        {
+          "name": "space-between fill",
+          "description": "Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules"
+        }
+      ]
+    },
+    {
+      "name": "templateSet",
+      "values": [
+        {
+          "name": "spacer",
+          "description": "Applies a `minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,spacer)",
+          "description": "Applies a `repeat(1, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(2,spacer)",
+          "description": "Applies a `repeat(2, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(3,spacer)",
+          "description": "Applies a `repeat(3, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(4,spacer)",
+          "description": "Applies a `repeat(4, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(5,spacer)",
+          "description": "Applies a `repeat(5, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(6,spacer)",
+          "description": "Applies a `repeat(6, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(7,spacer)",
+          "description": "Applies a `repeat(7, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(8,spacer)",
+          "description": "Applies a `repeat(8, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(9,spacer)",
+          "description": "Applies a `repeat(9, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(10,spacer)",
+          "description": "Applies a `repeat(10, minmax(0, 1fr))` grid-template to the main-axis"
+        },
+        {
+          "name": "spacer auto",
+          "description": "Applies a `minmax(0, 1fr) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,spacer) auto",
+          "description": "Applies a `repeat(1, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(2,spacer) auto",
+          "description": "Applies a `repeat(2, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(3,spacer) auto",
+          "description": "Applies a `repeat(3, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(4,spacer) auto",
+          "description": "Applies a `repeat(4, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(5,spacer) auto",
+          "description": "Applies a `repeat(5, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(6,spacer) auto",
+          "description": "Applies a `repeat(6, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(7,spacer) auto",
+          "description": "Applies a `repeat(7, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(8,spacer) auto",
+          "description": "Applies a `repeat(8, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(9,spacer) auto",
+          "description": "Applies a `repeat(9, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(10,spacer) auto",
+          "description": "Applies a `repeat(10, minmax(0, 1fr)) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "auto spacer",
+          "description": "Applies a `auto minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(2,auto) spacer",
+          "description": "Applies a `repeat(2, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(3,auto) spacer",
+          "description": "Applies a `repeat(3, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(4,auto) spacer",
+          "description": "Applies a `repeat(4, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(5,auto) spacer",
+          "description": "Applies a `repeat(5, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(6,auto) spacer",
+          "description": "Applies a `repeat(6, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(7,auto) spacer",
+          "description": "Applies a `repeat(7, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(8,auto) spacer",
+          "description": "Applies a `repeat(8, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(9,auto) spacer",
+          "description": "Applies a `repeat(9, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(10,auto) spacer",
+          "description": "Applies a `repeat(10, auto) minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "auto auto spacer",
+          "description": "Applies a `auto auto minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "auto auto auto spacer",
+          "description": "Applies a `auto auto auto minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "auto auto auto auto spacer",
+          "description": "Applies a `auto auto auto auto minmax(0, 1fr)` grid-template to the main-axis"
+        },
+        {
+          "name": "auto spacer auto",
+          "description": "Applies a `auto minmax(0, 1fr) auto` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer repeat(1,auto)",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr) repeat(1, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer repeat(2,auto)",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr) repeat(2, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer repeat(3,auto)",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr) repeat(3, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer repeat(4,auto)",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr) repeat(4, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(1,auto) spacer repeat(5,auto)",
+          "description": "Applies a `repeat(1, auto) minmax(0, 1fr) repeat(5, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(2,auto) spacer repeat(1,auto)",
+          "description": "Applies a `repeat(2, auto) minmax(0, 1fr) repeat(1, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(3,auto) spacer repeat(1,auto)",
+          "description": "Applies a `repeat(3, auto) minmax(0, 1fr) repeat(1, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(4,auto) spacer repeat(1,auto)",
+          "description": "Applies a `repeat(4, auto) minmax(0, 1fr) repeat(1, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(5,auto) spacer repeat(1,auto)",
+          "description": "Applies a `repeat(5, auto) minmax(0, 1fr) repeat(1, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "repeat(2,auto) spacer repeat(2,auto)",
+          "description": "Applies a `repeat(2, auto) minmax(0, 1fr) repeat(2, auto)` grid-template to the main-axis"
+        },
+        {
+          "name": "auto spacer auto auto",
+          "description": "Applies a `auto minmax(0, 1fr) auto auto` grid-template to the main-axis"
         }
       ]
     },

@@ -1,8 +1,8 @@
-@use '../vars';
-@use '../functions';
 @use 'sass:string';
 @use 'sass:map';
 @use 'sass:list';
+@use '../vars';
+@use '../functions';
 
 @mixin span-all {
   grid-column: 1 / -1; // span all columns

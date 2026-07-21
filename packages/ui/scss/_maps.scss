@@ -1,0 +1,256 @@
+$picker-styles-names: menu, navigation-link, sheet;
+$label-styles-names: icon-only, title-only, title-and-icon;
+$list-styles-names: inset, inset-grouped, sidebar;
+$form-styles-names: inset, inset-grouped, sidebar;
+$table-styles-names: inset;
+// $labeled-content-styles: vertical, horizontal;
+
+$stack-templates-list-vals: (
+  (minmax(0, 1fr)),
+  (repeat(1, minmax(0, 1fr))),
+  (repeat(2, minmax(0, 1fr))),
+  (repeat(3, minmax(0, 1fr))),
+  (repeat(4, minmax(0, 1fr))),
+  (repeat(5, minmax(0, 1fr))),
+  (repeat(6, minmax(0, 1fr))),
+  (repeat(7, minmax(0, 1fr))),
+  (repeat(8, minmax(0, 1fr))),
+  (repeat(9, minmax(0, 1fr))),
+  (repeat(10, minmax(0, 1fr))),
+  (minmax(0, 1fr) auto),
+  (repeat(1, minmax(0, 1fr)) auto),
+  (repeat(2, minmax(0, 1fr)) auto),
+  (repeat(3, minmax(0, 1fr)) auto),
+  (repeat(4, minmax(0, 1fr)) auto),
+  (repeat(5, minmax(0, 1fr)) auto),
+  (repeat(6, minmax(0, 1fr)) auto),
+  (repeat(7, minmax(0, 1fr)) auto),
+  (repeat(8, minmax(0, 1fr)) auto),
+  (repeat(9, minmax(0, 1fr)) auto),
+  (repeat(10, minmax(0, 1fr)) auto),
+  (auto minmax(0, 1fr)),
+  (repeat(1, auto) minmax(0, 1fr)),
+  (repeat(2, auto) minmax(0, 1fr)),
+  (repeat(3, auto) minmax(0, 1fr)),
+  (repeat(4, auto) minmax(0, 1fr)),
+  (repeat(5, auto) minmax(0, 1fr)),
+  (repeat(6, auto) minmax(0, 1fr)),
+  (repeat(7, auto) minmax(0, 1fr)),
+  (repeat(8, auto) minmax(0, 1fr)),
+  (repeat(9, auto) minmax(0, 1fr)),
+  (repeat(10, auto) minmax(0, 1fr)),
+  (auto auto minmax(0, 1fr)),
+  (auto auto auto minmax(0, 1fr)),
+  (auto auto auto auto minmax(0, 1fr)),
+  (auto minmax(0, 1fr) auto),
+  (repeat(1, auto) minmax(0, 1fr) repeat(1, auto)),
+  (repeat(1, auto) minmax(0, 1fr) repeat(2, auto)),
+  (repeat(1, auto) minmax(0, 1fr) repeat(3, auto)),
+  (repeat(1, auto) minmax(0, 1fr) repeat(4, auto)),
+  (repeat(1, auto) minmax(0, 1fr) repeat(5, auto)),
+  (repeat(2, auto) minmax(0, 1fr) repeat(1, auto)),
+  (repeat(3, auto) minmax(0, 1fr) repeat(1, auto)),
+  (repeat(4, auto) minmax(0, 1fr) repeat(1, auto)),
+  (repeat(5, auto) minmax(0, 1fr) repeat(1, auto)),
+  (repeat(2, auto) minmax(0, 1fr) repeat(2, auto)),
+  (auto minmax(0, 1fr) auto auto)
+);
+
+$inline-map: (
+  leading: (
+    (justify-items (start)),
+    (justify-content (start)),
+  ),
+  'leading fill': (
+    (justify-items (start)),
+    (justify-content (stretch)),
+  ),
+  center: (
+    (justify-items (center)),
+    (justify-content (center)),
+  ),
+  trailing: (
+    (justify-items (end)),
+    (justify-content (end)),
+  ),
+  fill: (
+    (justify-items (stretch)),
+    (justify-content (stretch)),
+  ),
+  space-between: (
+    (justify-content (space-between)),
+  ),
+);
+
+$block-map: (
+  leading: (
+    (align-items (start)),
+    (align-content (start)),
+  ),
+  'leading fill': (
+    (align-items (start)),
+    (align-content (stretch)),
+  ),
+  center: (
+    (align-items (center)),
+    (align-content (center)),
+  ),
+  trailing: (
+    (align-items (end)),
+    (align-content (end)),
+  ),
+  fill: (
+    (align-items (stretch)),
+    (align-content (stretch)),
+  ),
+  space-between: (
+    (align-content (space-between)),
+  ),
+);
+
+$inline-placement-map: (
+  'fill': (
+    (place-items (stretch)),
+    (place-content (stretch)),
+  ),
+  'leading fill': (
+    (place-items (stretch start)),
+    (place-content (stretch start)),
+  ),
+  'fill leading': (
+    (place-items (start stretch)),
+    (place-content (start stretch)),
+  ),
+  'fill space-between': (
+    (align-content (space-between)),
+    (justify-items (stretch)),
+    (justify-content (stretch)),
+  ),
+);
+
+$block-placement-map: (
+  'fill': (
+    (place-items (stretch)),
+    (place-content (stretch)),
+  ),
+  'leading fill': (
+    (place-items (start stretch)),
+    (place-content (start stretch)),
+  ),
+  'fill leading': (
+    (place-items (stretch start)),
+    (place-content (stretch start)),
+  ),
+  'space-between fill': (
+    (align-content (space-between)),
+    (justify-items (stretch)),
+    (justify-content (stretch)),
+  ),
+);
+
+$label-fonts-map: (
+  footnote: (
+    size: 1rem,
+    line: 1rem,
+    weight: 400,
+  ),
+  caption2: (
+    size: 0.75rem,
+    line: calc(1 / 0.75),
+    weight: 400,
+  ),
+  caption: (
+    size: 0.875rem,
+    line: calc(1.25 / 0.875),
+    weight: 400,
+  ),
+  callout: (
+    size: 0.875rem,
+    line: 0.875rem,
+    weight: 400,
+  ),
+  body: (
+    size: 1rem,
+    line: calc(1.5 / 1),
+    weight: 400,
+  ),
+  subheadline: (
+    size: 1.125rem,
+    line: calc(1.75 / 1.125),
+    weight: 400,
+  ),
+  headline: (
+    size: 1.25rem,
+    line: calc(1.75 / 1.25),
+    weight: 500,
+  ),
+  title3: (
+    size: 1.5rem,
+    line: calc(2 / 1.5),
+    weight: 600,
+  ),
+  title2: (
+    size: 1.875rem,
+    line: calc(2.25 / 1.875),
+    weight: 600,
+  ),
+  title: (
+    size: 2.25rem,
+    line: calc(2.5 / 2.25),
+    weight: 600,
+  ),
+  large-title: (
+    size: 3rem,
+    line: 1,
+    weight: 700,
+  ),
+  extra-large-title: (
+    size: 3.75rem,
+    line: 1,
+    weight: 700,
+  ),
+);
+
+// button sizes
+$button-sizes-map: (
+  mini: (
+    default: (
+      padding: 0.2rem,
+      border-radius: 1rem,
+    ),
+    fine: (
+      padding: 0.2rem,
+      border-radius: 0.4rem,
+    ),
+  ),
+  regular: (
+    default: (
+      padding: 0.6rem,
+      border-radius: 1.2rem,
+    ),
+    fine: (
+      padding: 0.6rem,
+      border-radius: 0.8rem,
+    ),
+  ),
+  small: (
+    default: (
+      padding: 0.4rem,
+      border-radius: 1rem,
+    ),
+    fine: (
+      padding: 0.4rem,
+      border-radius: 0.6rem,
+    ),
+  ),
+  large: (
+    default: (
+      padding: 1.2rem,
+      border-radius: 2.4rem,
+    ),
+    fine: (
+      padding: 1.2rem,
+      border-radius: 1.4rem,
+    ),
+  ),
+);

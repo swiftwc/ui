@@ -1,9 +1,8 @@
-@use '../vars';
 @use 'sass:string';
 @use 'sass:list';
+@use '../vars';
+@use '../maps';
 @use '../mixins';
-
-$v-stack-templates: ((auto minmax(0, 1fr)), (auto auto minmax(0, 1fr)), (auto auto auto minmax(0, 1fr)), (auto auto auto auto minmax(0, 1fr)));
 
 @layer #{vars.$components-layer} {
   v-stack {
@@ -20,6 +19,6 @@ $v-stack-templates: ((auto minmax(0, 1fr)), (auto auto minmax(0, 1fr)), (auto au
     // max-width: 100%;
     // }
 
-    @include mixins.make-template($v-stack-templates, grid-template-rows);
+    @include mixins.make-template(maps.$stack-templates-list-vals, grid-template-rows);
   }
 }

@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../maps';
 @use '../mixins';
 @use '../placeholders';
 
@@ -19,7 +20,7 @@
       --btnpadbend: var(--regular-btn-padding);
     }
 
-    @each $size, $media in vars.$button-sizes {
+    @each $size, $media in maps.$button-sizes-map {
       :where(&[control-size='#{$size}']) {
         --btnpadistart: var(--#{$size}-btn-padding);
         --btnpadiend: var(--#{$size}-btn-padding);

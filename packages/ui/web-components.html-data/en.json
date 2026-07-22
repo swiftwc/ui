@@ -421,6 +421,9 @@
           "name": "navigation-inline-subtitle"
         },
         {
+          "name": "navigation-icon"
+        },
+        {
           "name": "navigation-bar-title-display-mode"
         }
       ]

@@ -1,5 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, devFlags, onoff, renderLabel, touchGlass } from '../internal/utils'
+import { $, devFlags, onoff, touchGlass } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 
 /**
  * @summary A control for presenting a menu of actions.
@@ -78,7 +79,7 @@ export class MenuView extends HTMLElement {
 
         break
       case 'label':
-        renderLabel(':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
     }

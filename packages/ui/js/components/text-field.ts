@@ -3,7 +3,8 @@ import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, compareBigDecimals, devFlags, kebabCase, onoff, renderLabel, set } from '../internal/utils'
+import { $, compareBigDecimals, devFlags, kebabCase, onoff, set } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
@@ -188,7 +189,7 @@ export class TextField extends FormAssociatedBase {
 
         break
       case 'label':
-        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, this, newValue)
 
         // this.#sendValueToForm()
 

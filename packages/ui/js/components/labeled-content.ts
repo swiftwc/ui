@@ -1,5 +1,5 @@
-import { $, devFlags, renderLabel } from '../internal/utils'
-import { html, morphdom } from '../morphdom'
+import { $, devFlags } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -51,23 +51,22 @@ export class LabeledContent extends HTMLElement {
 
     switch (name) {
       case 'header':
-        if (!newValue) {
-          this.querySelector(':scope>[slot=header]')?.remove()
-          break
-        }
+        // if (!newValue) {
+        //   this.querySelector(':scope>[slot=header]')?.remove()
+        //   break
+        // }
 
-        const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
+        // const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
 
-        morphdom(
-          header,
+        queryMorph(
+          '[slot=header]',
           html`<header slot="header">
             <label-view font="callout">
               <span>${newValue}</span>
             </label-view>
-          </header>`.toString(),
-          {
-            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-          }
+          </header>`,
+          this,
+          { removeIf: !newValue }
         )
         // render(
         //   html`<label-view font="callout">
@@ -78,23 +77,22 @@ export class LabeledContent extends HTMLElement {
 
         break
       case 'footer':
-        if (!newValue) {
-          this.querySelector(':scope>[slot=footer]')?.remove()
-          break
-        }
+        // if (!newValue) {
+        //   this.querySelector(':scope>[slot=footer]')?.remove()
+        //   break
+        // }
 
-        const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
+        // const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
 
-        morphdom(
-          footer,
+        queryMorph(
+          '[slot=footer]',
           html`<footer slot="footer">
             <label-view font="callout">
               <span>${newValue}</span>
             </label-view>
-          </footer>`.toString(),
-          {
-            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-          }
+          </footer>`,
+          this,
+          { removeIf: !newValue }
         )
         // render(
         //   html`<label-view font="callout">
@@ -104,16 +102,22 @@ export class LabeledContent extends HTMLElement {
         // )
 
         break
-      case 'value':
-        renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(newValue, this.getAttribute('format')))
+      case 'value': {
+        const val = this.#fmt(newValue, this.getAttribute('format'))
+
+        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(newValue, this.getAttribute('format')))
 
         break
-      case 'format':
-        renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(this.getAttribute('value'), newValue))
+      }
+      case 'format': {
+        const val = this.#fmt(this.getAttribute('value'), newValue)
+
+        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(this.getAttribute('value'), newValue))
 
         break
+      }
       case 'label':
-        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
     }

@@ -1,7 +1,8 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, devFlags, listActive, onoff, renderLabelTitle } from '../internal/utils'
+import { $, devFlags, listActive, onoff } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
 import type { LabelView } from './label-view'
 
@@ -142,11 +143,11 @@ export class TableView extends HTMLElement {
       </button>`,
           '>1'
         ),
-        title = btn.querySelector<LabelView>('label-view:first-child'),
-        subTitle = btn.querySelector<LabelView>('label-view:last-child')
+        title = btn.querySelector<LabelView>('label-view:first-child') ?? undefined,
+        subTitle = btn.querySelector<LabelView>('label-view:last-child') ?? undefined
 
-      if (title) renderLabelTitle(title, node.textContent.trim()) //title?.setAttribute('title', node.textContent.trim())
-      if (subTitle) renderLabelTitle(subTitle, node.ariaSort ?? '') //subTitle?.setAttribute('title', node.ariaSort ?? '')
+      queryMorph(':not([slot])', html`<span>${node.textContent.trim()}</span>`, title, { removeIf: !node.textContent.trim() }) //renderLabelTitle(title, node.textContent.trim()) //title?.setAttribute('title', node.textContent.trim())
+      queryMorph(':not([slot])', html`<span>${node.ariaSort ?? ''}</span>`, subTitle, { removeIf: !(node.ariaSort ?? '') }) //renderLabelTitle(subTitle, node.ariaSort ?? '') //subTitle?.setAttribute('title', node.ariaSort ?? '')
 
       this.#compactToolbarItem.appendChild(btn)
     }

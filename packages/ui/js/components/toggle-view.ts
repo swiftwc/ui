@@ -2,7 +2,8 @@ import type { ToggleChangeDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, devFlags, kebabCase, onoff, renderLabel } from '../internal/utils'
+import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 
 const toggleStyles = ['switch', 'button'] as const
 
@@ -118,7 +119,7 @@ export class ToggleView extends FormAssociatedBase {
 
         break
       case 'label':
-        renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
 
         break
       case 'disabled':

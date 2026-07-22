@@ -14,7 +14,7 @@ function escapeHtml(str: string): string {
 
 // values built via `raw` itself are trusted markup; wrap them so `stringify`
 // knows to skip escaping — same idea as lit-html's `unsafeHTML`
-class TrustedMarkup {
+export class TrustedMarkup {
   constructor(public readonly value: string) {}
   toString() {
     return this.value
@@ -28,7 +28,7 @@ function stringify(value: RawValue | TrustedMarkup): string {
   return escapeHtml(String(value))
 }
 
-export default function raw(strings: TemplateStringsArray, ...values: (RawValue | TrustedMarkup)[]): TrustedMarkup {
+export default function (strings: TemplateStringsArray, ...values: (RawValue | TrustedMarkup)[]): TrustedMarkup {
   let out = strings[0]
 
   for (let i = 0; i < values.length; i++) {

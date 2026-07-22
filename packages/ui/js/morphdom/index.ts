@@ -1,4 +1,6 @@
 export { default as html } from './html'
 export * from './html'
-export { default as morphdom } from './morphdom'
-export * from './morphdom'
+export { default as morph } from './morph'
+export * from './morph'
+export { default as queryMorph } from './query-morph'
+export * from './query-morph'

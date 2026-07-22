@@ -36,6 +36,6 @@ describe('prop', () => {
   test('[system-image] w/ dirty', () => {
     div.innerHTML = '<div>Bar</div><div slot="icon">Baz</div><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>'
     div.setAttribute('system-image', 'smiley')
-    expect(div.innerHTML).toBe('<div>Bar</div><image-view system-name="smiley" slot="icon"></image-view><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>')
+    expect(div.innerHTML).toBe('<div>Bar</div><image-view system-name="smiley" slot="icon">Baz</image-view><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>')
   })
 })

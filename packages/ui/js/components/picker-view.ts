@@ -5,7 +5,8 @@ import { FormAssociatedBase, getInternals } from '../internal/class/form-associa
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
-import { $, devFlags, kebabCase, onoff, renderLabel, renderLabelIcon, renderLabelTitle } from '../internal/utils'
+import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import { html as htmx, morph, queryMorph } from '../morphdom'
 import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
@@ -570,7 +571,7 @@ export class PickerView extends FormAssociatedBase {
             '>1'
           )
 
-          renderLabel(':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, hStack, value)
+          queryMorph('label-view:nth-child(2)', htmx`<label-view>${value ? htmx`<span>${value}</span>` : null}</label-view>`, hStack) //renderLabel(':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, hStack, value)
           // if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
 
           section.insertAdjacentElement('beforeend', hStack)
@@ -1306,7 +1307,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectLabel(value: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
 
-    renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, value)
+    queryMorph('[slot=label]', htmx`<label-view slot="label">${value ? htmx`<span>${value}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, value)
 
     this.#renderSlotted([])
   }
@@ -1365,8 +1366,17 @@ export class PickerView extends FormAssociatedBase {
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
-          renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
+            systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
+
+          // queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+
+          // queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+
+          morph(
+            htmx`<label-view>${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
+            currentValueLabel
+          )
 
           break
         }
@@ -1377,8 +1387,17 @@ export class PickerView extends FormAssociatedBase {
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
-          renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
+            systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
+
+          // queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+
+          // queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+
+          morph(
+            htmx`<label-view slot="label">${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
+            currentValueLabel
+          )
 
           break
         }

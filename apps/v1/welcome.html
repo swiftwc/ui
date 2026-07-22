@@ -19,8 +19,12 @@
 
     <navigation-stack>
       <scroll-view background-style="grouped">
-        <v-stack placement="leading fill">
-          <label-view padding system-image="globe"></label-view>
+        <v-stack placement="leading fill" class="py-12">
+          <navigation-large-title padding>
+            <v-stack alignment="fill">
+              <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>
+            </v-stack>
+          </navigation-large-title>
           <list-view list-style="inset-grouped">
             <button navigation-link type="button" navigation-destination="region">
               <label-view title="English"></label-view>
@@ -32,7 +36,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-path="region" id="gg" background-style="grouped">
+        <scroll-view navigation-path="region" id="gg" background-style="grouped" class="py-12">
           <v-stack placement="leading fill">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
             <list-view list-style="inset-grouped">
@@ -53,7 +57,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="appearance" background-style="grouped">
+        <scroll-view navigation-path="appearance" background-style="grouped" class="py-12">
           <v-stack placement="space-between fill" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>

@@ -3,7 +3,7 @@ import type { PageShowHideDetail, TabDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
-import { html, morphdom } from '../morphdom'
+import { html, queryMorph } from '../morphdom'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -14,7 +14,7 @@ const observers = new ResizeObserverSingleton()
  */
 export class ScrollView extends HTMLElement {
   static get observedAttributes() {
-    return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-bar-title-display-mode']
+    return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-icon', 'navigation-bar-title-display-mode']
   }
 
   static #template: DocumentFragment
@@ -73,10 +73,13 @@ export class ScrollView extends HTMLElement {
         this.#renderNavTitle(this.getAttribute('navigation-inline-title'), newValue)
 
         break
-      case 'navigation-title':
-        //
+      case 'navigation-title': {
+        if (oldValue === newValue) return
+
+        this.#renderNavTitleComponent(newValue, null, this.getAttribute('navigation-icon'))
 
         break
+      }
       case 'navigation-bar-title-display-mode':
         if (oldValue === newValue) break
 
@@ -268,17 +271,15 @@ export class ScrollView extends HTMLElement {
 
     // renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
 
-    const container = this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal"></v-stack>`, '>1'))
+    // const container = this.querySelector(':scope>[slot=top-bar-principal]') ?? this.appendChild($(`<v-stack spacing="0" alignment="fill" slot="top-bar-principal"></v-stack>`, '>1'))
 
-    morphdom(
-      container,
+    queryMorph(
+      '[slot=top-bar-principal]',
       html`<v-stack spacing="0" alignment="fill" slot="top-bar-principal">
         ${title ? html`<label-view line-limit="1" truncation-mode="tail" font="headline"><span>${title}</span></label-view>` : null}
         ${subtitle ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span>${subtitle}</span></label-view>` : null}
-      </v-stack>`.toString(),
-      {
-        onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-      }
+      </v-stack>`,
+      this
     )
 
     // render(
@@ -288,5 +289,16 @@ export class ScrollView extends HTMLElement {
     //   `,
     //   container
     // )
+  }
+
+  #renderNavTitleComponent = (title: string | null, subtitle: string | null, icon: string | null) => {
+    if (!title) return this.querySelector<HTMLElement>(':scope>v-stack>navigation-title:not([slot])')?.remove?.()
+
+    // const container = ((vs = this.querySelector<HTMLElement>(':scope>v-stack') ?? (this.appendChild($(`<v-stack></v-stack>`, '>1')) as HTMLElement)) =>
+    //   vs.querySelector<HTMLElement>(':scope>navigation-title:not([slot])') ??
+    //   vs.appendChild($(html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`.toString(), '>1')))()
+    const container = this.querySelector<HTMLElement>(':scope>v-stack') ?? this.appendChild($(`<v-stack></v-stack>`, '>1'))
+
+    queryMorph('navigation-title:not([slot])', html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`, container)
   }
 }

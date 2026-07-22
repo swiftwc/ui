@@ -1,0 +1,32 @@
+import { html, queryMorph } from '../../morphdom'
+
+export default function (selector: string, template: string, container?: Element, title?: string | null, systemImage?: string | null) {
+  // const containe = container?.querySelector<LabelView>(selector) ?? container?.appendChild($<LabelView>(template, '>1'))
+
+  // queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${systemImage ?? null}"></image-view>`, containe, { removeIf: !(systemImage ?? null) })
+
+  // queryMorph(':not([slot])', html`<span>${title ?? null}</span>`, containe, { removeIf: !(title ?? null) })
+
+  queryMorph(
+    selector,
+    html`<label-view>${systemImage ? html`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? html`<span>${title}</span>` : null}</label-view>`,
+    container
+  )
+
+  // const existing = container?.querySelector<LabelView>(selector)
+
+  // if (!existing) {
+  //   const newLabel = $<LabelView>(template, '>1')
+
+  //   queryMorph(newLabel, '[slot=icon]', html`<image-view slot="icon" system-name="${systemImage ?? null}"></image-view>`, { removeIf: !(systemImage ?? null) }) //renderLabelIcon(newLabel, systemImage ?? null)
+  //   queryMorph(newLabel, ':not([slot])', html`<span>${title ?? null}</span>`, { removeIf: !(title ?? null) }) //renderLabelTitle(newLabel, title ?? null)
+
+  //   container?.appendChild(newLabel)
+  // } else {
+  //   for (const { name, value } of $<LabelView>(template, '>1').attributes) if (!existing.hasAttribute(name)) existing.setAttribute(name, value)
+
+  //   queryMorph(existing, '[slot=icon]', html`<image-view slot="icon" system-name="${systemImage ?? null}"></image-view>`, { removeIf: !(systemImage ?? null) }) //renderLabelIcon(existing, systemImage ?? null)
+
+  //   queryMorph(existing, ':not([slot])', html`<span>${title ?? null}</span>`, { removeIf: !(title ?? null) }) //renderLabelTitle(existing, title ?? null)
+  // }
+}

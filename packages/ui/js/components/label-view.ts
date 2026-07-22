@@ -1,4 +1,5 @@
-import { $, devFlags, renderLabelIcon, renderLabelTitle } from '../internal/utils'
+import { $, devFlags } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 
 /**
  *
@@ -61,11 +62,11 @@ export class LabelView extends HTMLElement {
 
       //   break
       case 'system-image':
-        renderLabelIcon(this, newValue)
+        queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${newValue}"></image-view>`, this, { removeIf: !newValue }) //renderLabelIcon(this, newValue)
 
         break
       case 'title':
-        renderLabelTitle(this, newValue)
+        queryMorph(':not([slot])', html`<span>${newValue}</span>`, this, { removeIf: !newValue }) //renderLabelTitle(this, newValue)
 
         break
     }

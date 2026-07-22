@@ -1,6 +1,6 @@
 import { microtaskOnConnected } from '../internal/decorators'
 import { devFlags } from '../internal/utils'
-import { html, morphdom } from '../morphdom'
+import { html, queryMorph } from '../morphdom'
 import type { ScrollView } from './scroll-view'
 
 @microtaskOnConnected<NavigationTitle>((el) => {
@@ -38,33 +38,33 @@ export class NavigationTitle extends HTMLElement {
   }
 
   #render = (title: string | null, subtitle: string | null, systemImage: string | null, systemImageWeight: string | null) => {
-    const template = html`
-      <navigation-large-title>
-        <v-stack alignment="fill">
-          ${systemImage ? html`<image-view system-name="${systemImage}" system-weight="${systemImageWeight}" foreground="blue"></image-view>` : null}
-          <v-stack spacing="0" alignment="fill">
-            ${title
-              ? html`<label-view line-limit="1" truncation-mode="tail" font="headline">
-                  <span>${title}</span>
-                </label-view>`
-              : null}
-            ${subtitle
-              ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout">
-                  <span>${subtitle}</span>
-                </label-view>`
-              : null}
-          </v-stack>
-        </v-stack>
-      </navigation-large-title>
-    `
-
-    const container = this.querySelector(':scope>:not([slot])') ?? this.appendChild(document.createElement('navigation-large-title'))
+    // const container = this.querySelector(':scope>:not([slot])') ?? this.appendChild(document.createElement('navigation-large-title'))
 
     // render(template, container)
 
-    morphdom(container, template.toString(), {
-      onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-    })
+    queryMorph(
+      ':not([slot])',
+      html`
+        <navigation-large-title>
+          <v-stack alignment="fill">
+            ${systemImage ? html`<image-view system-name="${systemImage}" system-weight="${systemImageWeight}" foreground="blue"></image-view>` : null}
+            <v-stack spacing="0" alignment="fill">
+              ${title
+                ? html`<label-view line-limit="1" truncation-mode="tail" font="headline">
+                    <span>${title}</span>
+                  </label-view>`
+                : null}
+              ${subtitle
+                ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout">
+                    <span>${subtitle}</span>
+                  </label-view>`
+                : null}
+            </v-stack>
+          </v-stack>
+        </navigation-large-title>
+      `,
+      this
+    )
 
     // const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
     //   subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`,

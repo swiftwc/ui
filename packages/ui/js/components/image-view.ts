@@ -1,5 +1,5 @@
 import { $, devFlags } from '../internal/utils'
-import { morphdom } from '../morphdom'
+import { html, queryMorph } from '../morphdom'
 
 export class ImageView extends HTMLElement {
   static get observedAttributes() {
@@ -54,18 +54,16 @@ export class ImageView extends HTMLElement {
   }
 
   #render(icon: string | null, weight: string | null) {
-    if (!icon) {
-      this.querySelector(':scope>:not([slot])')?.remove()
-      return
-    }
+    // if (!icon) {
+    //   this.querySelector(':scope>:not([slot])')?.remove()
+    //   return
+    // }
 
     const tokens = [`ph${weight ? `-${weight}` : ''}`, `ph-${icon}`]
 
-    const container = this.querySelector<HTMLElement>(':scope>:not([slot])') ?? this.appendChild<HTMLElement>($(`<i style="line-height: 1"></i>`, '>1'))
+    // const container = this.querySelector<HTMLElement>(':scope>:not([slot])') ?? this.appendChild<HTMLElement>($(`<i style="line-height: 1"></i>`, '>1'))
 
-    morphdom(container, `<i style="line-height: 1" class="${tokens.join(' ')}"></i>`, {
-      onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-    })
+    queryMorph(':not([slot])', html`<i style="line-height: 1" class="${tokens.join(' ')}"></i>`, this, { removeIf: !icon })
 
     // if ('1' !== container.style.getPropertyValue('line-height')) container.style.setProperty('line-height', '1')
 

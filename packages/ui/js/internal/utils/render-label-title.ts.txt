@@ -1,0 +1,21 @@
+import type { LabelView } from '../../components'
+import { html, queryMorph } from '../../morphdom'
+
+export default function (label: LabelView, textContent: string | null) {
+  // if (!textContent) return label.querySelector(':scope>:not([slot])')?.remove()
+
+  queryMorph(label, ':not([slot])', html`<span>${textContent}</span>`, { removeIf: !textContent })
+
+  // const span = label.querySelector(':scope>:not([slot])')
+
+  // // if (textContent) {
+  // if (!span) {
+  //   // const newSpan = $(`<span></span>`, '>1')
+
+  //   // newSpan.textContent = title
+
+  //   // DOM manipulation last
+  //   label.appendChild(Object.assign($(`<span></span>`, '>1'), { textContent }))
+  // } else morph(span, html`<span>${textContent}</span>`) //if (textContent !== span.textContent) span.textContent = textContent
+  // // } else span?.remove()
+}

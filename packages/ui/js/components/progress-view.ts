@@ -1,6 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { $, devFlags, renderLabel } from '../internal/utils'
+import { $, devFlags } from '../internal/utils'
+import { html, queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
 
 const progressViewStyles = ['circular', 'linear'] as const
@@ -96,7 +97,7 @@ export class ProgressView extends HTMLElement {
         break
       }
       case 'current-value-label': {
-        renderLabel(':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=current-value]', html`<label-view slot="current-value" font="callout" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, this, newValue)
 
         break
       }

@@ -1,5 +1,5 @@
 import { $, devFlags } from '../internal/utils'
-import { html, morphdom } from '../morphdom'
+import { html, queryMorph } from '../morphdom'
 
 /**
  * @slot header
@@ -56,23 +56,22 @@ export class SectionView extends HTMLElement {
     // Snapshot.waitReady.then(() => {
     switch (name) {
       case 'header':
-        if (!newValue) {
-          this.querySelector(':scope>[slot=header]')?.remove()
-          break
-        }
+        // if (!newValue) {
+        //   this.querySelector(':scope>[slot=header]')?.remove()
+        //   break
+        // }
 
-        const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
+        // const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
 
-        morphdom(
-          header,
+        queryMorph(
+          '[slot=header]',
           html`<header slot="header">
             <label-view line-limit="1" truncation-mode="tail" font="callout">
               <span>${newValue}</span>
             </label-view>
-          </header>`.toString(),
-          {
-            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-          }
+          </header>`,
+          this,
+          { removeIf: !newValue }
         )
         // render(
         //   html`<label-view line-limit="1" truncation-mode="tail" font="callout">
@@ -83,23 +82,22 @@ export class SectionView extends HTMLElement {
 
         break
       case 'footer':
-        if (!newValue) {
-          this.querySelector(':scope>[slot=footer]')?.remove()
-          break
-        }
+        // if (!newValue) {
+        //   this.querySelector(':scope>[slot=footer]')?.remove()
+        //   break
+        // }
 
-        const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
+        // const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
 
-        morphdom(
-          footer,
+        queryMorph(
+          '[slot=footer]',
           html`<footer slot="footer">
             <label-view line-limit="1" truncation-mode="tail" font="callout">
               <span>${newValue}</span>
             </label-view>
-          </footer>`.toString(),
-          {
-            onBeforeElUpdated: (fromEl: Element, toEl: Element) => !fromEl.isEqualNode(toEl),
-          }
+          </footer>`,
+          this,
+          { removeIf: !newValue }
         )
         // render(
         //   html`<label-view line-limit="1" truncation-mode="tail" font="callout">

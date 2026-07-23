@@ -6,7 +6,7 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff } from '../internal/utils'
-import { html as htmx, morph, queryMorph } from '../morphdom'
+import { html as htmx, queryMorph } from '../morphdom'
 import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
@@ -1369,14 +1369,14 @@ export class PickerView extends FormAssociatedBase {
           const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
             systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
 
-          // queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+          queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
 
-          // queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
-          morph(
-            htmx`<label-view>${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
-            currentValueLabel
-          )
+          // morph(
+          //   htmx`<label-view>${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
+          //   currentValueLabel
+          // ) NOTE: not this bc/ help tooltip right now is added to trigger label and this mangles it
 
           break
         }
@@ -1390,14 +1390,14 @@ export class PickerView extends FormAssociatedBase {
           const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
             systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
 
-          // queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
+          queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title }) //renderLabelTitle(currentValueLabel, this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER))
 
-          // queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
+          queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage }) //renderLabelIcon(currentValueLabel, this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON))
 
-          morph(
-            htmx`<label-view slot="label">${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
-            currentValueLabel
-          )
+          // morph(
+          //   htmx`<label-view slot="label">${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
+          //   currentValueLabel
+          // ) NOTE: not this bc/ help tooltip right now is added to trigger label and this mangles it
 
           break
         }

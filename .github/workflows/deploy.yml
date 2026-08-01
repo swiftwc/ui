@@ -32,6 +32,7 @@ jobs:
           node-version: '24'
           cache: 'npm'
       - run: npm ci --include=optional
+      - run: npm install --no-save --include=optional
       - run: npm run build -w @swiftwc/docs
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3

@@ -31,8 +31,8 @@ jobs:
         with:
           node-version: '24'
           cache: 'npm'
-      - run: npm ci --include=optional
-      - run: npm install --no-save --include=optional
+      - run: npm ci
+      - run: npm i --no-save lightningcss-linux-x64-gnu@1.32.0
       - run: npm run build -w @swiftwc/docs
       - uses: actions/configure-pages@v6
       - uses: actions/upload-pages-artifact@v3

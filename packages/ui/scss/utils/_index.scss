@@ -1,4 +1,5 @@
 @use '../vars';
+@use '../maps';
 
 @layer #{vars.$utils-layer} {
   [background-style='grouped'] {
@@ -61,7 +62,7 @@
     }
   }
 
-  @each $tint in gray, blue, red, green, orange {
+  @each $tint in maps.$tint-names {
     [tint='#{"" + $tint}'],
     [list-item-tint='#{"" + $tint}'] {
       :where(&) {

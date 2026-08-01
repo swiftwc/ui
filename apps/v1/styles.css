@@ -6020,6 +6020,16 @@
     --accentColor4: var(--orange4);
     --accentColor5: var(--orange5);
   }
+  :where([tint=purple],
+  [list-item-tint=purple]) {
+    --accentColorEffective: var(--purple);
+    --accentColorEffective4: var(--purple4);
+    --accentColor: var(--purple);
+    --accentColor2: var(--purple2);
+    --accentColor3: var(--purple3);
+    --accentColor4: var(--purple4);
+    --accentColor5: var(--purple5);
+  }
 }
 @layer sw-utils {
   :where([frame\:width=infinity]) {

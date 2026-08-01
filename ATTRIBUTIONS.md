@@ -17,6 +17,7 @@
 - [tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 - [morphdom](https://github.com/patrick-steele-idem/morphdom)
 - [lit](https://github.com/lit/lit/)
+- [gonzales-pe](https://github.com/tonyganch/gonzales-pe)
 
 ## Special thanks
 

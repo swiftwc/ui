@@ -949,27 +949,27 @@
       "values": [
         {
           "name": "gray",
-          "description": "like secondary, like disabled"
-        },
-        {
-          "name": "red",
-          "description": "system red color"
+          "description": "Like secondary, like disabled"
         },
         {
           "name": "blue",
-          "description": "system blue color"
+          "description": "System `blue` color"
+        },
+        {
+          "name": "red",
+          "description": "System `red` color"
         },
         {
           "name": "green",
-          "description": "system green color"
+          "description": "System `green` color"
         },
         {
           "name": "orange",
-          "description": "system orange color"
+          "description": "System `orange` color"
         },
         {
           "name": "purple",
-          "description": "system purple color"
+          "description": "System `purple` color"
         }
       ]
     },
@@ -978,35 +978,107 @@
       "values": [
         {
           "name": "secondary",
-          "description": "system secondary color"
+          "description": "Applies the system secondary color (`--secondary`)"
         },
         {
           "name": "blue",
-          "description": "system blue color"
-        },
-        {
-          "name": "blue.secondary",
-          "description": "system secondary blue color"
-        },
-        {
-          "name": "gray",
-          "description": "system gray color"
+          "description": "Applies the system blue color (`--blue`)"
         },
         {
           "name": "red",
-          "description": "system red color"
+          "description": "Applies the system red color (`--red`)"
         },
         {
           "name": "green",
-          "description": "system green color"
+          "description": "Applies the system green color (`--green`)"
         },
         {
           "name": "orange",
-          "description": "system orange color"
+          "description": "Applies the system orange color (`--orange`)"
         },
         {
           "name": "purple",
-          "description": "system purple color"
+          "description": "Applies the system purple color (`--purple`)"
+        },
+        {
+          "name": "blue.secondary",
+          "description": "Applies the system secondary blue color (`--blue2`)"
+        },
+        {
+          "name": "red.secondary",
+          "description": "Applies the system secondary red color (`--red2`)"
+        },
+        {
+          "name": "green.secondary",
+          "description": "Applies the system secondary green color (`--green2`)"
+        },
+        {
+          "name": "orange.secondary",
+          "description": "Applies the system secondary orange color (`--orange2`)"
+        },
+        {
+          "name": "purple.secondary",
+          "description": "Applies the system secondary purple color (`--purple2`)"
+        },
+        {
+          "name": "blue.tertiary",
+          "description": "Applies the system tertiary blue color (`--blue3`)"
+        },
+        {
+          "name": "red.tertiary",
+          "description": "Applies the system tertiary red color (`--red3`)"
+        },
+        {
+          "name": "green.tertiary",
+          "description": "Applies the system tertiary green color (`--green3`)"
+        },
+        {
+          "name": "orange.tertiary",
+          "description": "Applies the system tertiary orange color (`--orange3`)"
+        },
+        {
+          "name": "purple.tertiary",
+          "description": "Applies the system tertiary purple color (`--purple3`)"
+        },
+        {
+          "name": "blue.quaternary",
+          "description": "Applies the system quaternary blue color (`--blue4`)"
+        },
+        {
+          "name": "red.quaternary",
+          "description": "Applies the system quaternary red color (`--red4`)"
+        },
+        {
+          "name": "green.quaternary",
+          "description": "Applies the system quaternary green color (`--green4`)"
+        },
+        {
+          "name": "orange.quaternary",
+          "description": "Applies the system quaternary orange color (`--orange4`)"
+        },
+        {
+          "name": "purple.quaternary",
+          "description": "Applies the system quaternary purple color (`--purple4`)"
+        },
+        {
+          "name": "blue.quinary",
+          "description": "Applies the system quinary blue color (`--blue5`)"
+        },
+        {
+          "name": "red.quinary",
+          "description": "Applies the system quinary red color (`--red5`)"
+        },
+        {
+          "name": "green.quinary",
+          "description": "Applies the system quinary green color (`--green5`)"
+        },
+        {
+          "name": "orange.quinary",
+          "description": "Applies the system quinary orange color (`--orange5`)"
+        },
+        {
+          "name": "purple.quinary",
+          "description": "Applies the system quinary purple color (`--purple5`)"
         }
       ]
     },

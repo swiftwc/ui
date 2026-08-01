@@ -34,18 +34,6 @@
         }
       }
     }
-
-    // @each $k, $v in $alignment-map {
-    //   &[align='#{$k}'] {
-    //     justify-items: $v;
-    //   }
-    // }
-
-    // @each $k, $v in $distribution-map {
-    //   &[distribute='#{$k}'] {
-    //     justify-content: $v;
-    //   }
-    // }
   }
 
   // Horizontal alignment becomes the common tweak
@@ -81,20 +69,11 @@
 
   v-stack,
   h-stack {
-    // $spaces: 0, 1, 2, 3, 4;
-    // @each $s in $spaces {
     @for $i from 0 through 50 {
       :where(&[spacing='#{$i}']) {
         gap: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;
       }
     }
-
-    // :where(&[frame\:alignment='leading']) {
-    //   justify-self: start;
-    // }
-    // :where(&[frame\:alignment='center']) {
-    //   justify-self: center;
-    // }
   }
 
   // padding reserved word for stacks

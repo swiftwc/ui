@@ -1,5 +1,7 @@
 import doctrine from 'doctrine'
+// @ts-expect-error no types available
 import type { Node } from 'gonzales-pe'
+// @ts-expect-error no types available
 import gonzales from 'gonzales-pe'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
@@ -37,6 +39,7 @@ ast.traverseByType('declaration', function (node: Node) {
     entries.map((item: string) => item.replace(/^\(|\)$/g, ''))
   )
 })
+console.debug(listVals)
 
 const maps = new Map<string, Map<string, string[]>>()
 
@@ -85,6 +88,65 @@ ast.traverseByType('declaration', (node: Node) => {
 
   maps.set(name, map)
 })
+console.debug(maps)
+
+const names = new Map<string, string[]>()
+
+ast.traverseByType('declaration', function (node: Node) {
+  const property = node.first('property')
+
+  if (!property?.toString().endsWith('-names')) return
+
+  const value = node.first('value')
+
+  const entries = value?.content.filter((child: Node) => child.type === 'ident').map((child: Node) => child.toString().trim())
+
+  names.set(property?.toString(), entries ?? [])
+})
+console.debug(names)
+
+const tintDescriptions = new Map([['gray', 'Like secondary, like disabled']])
+
+const tokens = new Map<string, Map<string, string>>()
+
+ast.traverseByType('declaration', (node: Node) => {
+  const name = node.first('property')?.toString()
+
+  if (!name?.endsWith('-tokens')) return
+
+  const outer = node.first('value')?.first('parentheses')
+
+  if (!outer) return
+
+  const map = new Map<string, string>()
+
+  for (let i = 0; i < outer.content.length; i++) {
+    const keyNode = outer.content[i] as Node
+
+    if (!['ident', 'string'].includes(keyNode.type)) continue
+
+    const colon = outer.content[i + 1] as Node
+
+    if (colon?.type !== 'operator' || colon.toString() !== ':') continue
+
+    const key = keyNode.toString().replace(/^['"]|['"]$/g, '')
+
+    let j = i + 2
+    let value = ''
+
+    while (outer.content[j] && outer.content[j].type !== 's' && !(outer.content[j].type === 'operator' && outer.content[j].toString() === ',')) {
+      value += outer.content[j].toString()
+      j++
+    }
+
+    map.set(key, value.trim())
+
+    i = j
+  }
+
+  tokens.set(name, map)
+})
+console.debug(tokens)
 
 // ast.traverseByType('variable', function (node: Node, index: number, parent: Node) {
 // if (node?.toString() !== '$stack-templates-list-vals') return
@@ -245,27 +307,18 @@ const vscode: VsHtmlDataV1 = {
     },
     {
       name: 'tintSet',
-      values: [
-        { name: 'gray', description: 'like secondary, like disabled' },
-        { name: 'red', description: 'system red color' },
-        { name: 'blue', description: 'system blue color' },
-        { name: 'green', description: 'system green color' },
-        { name: 'orange', description: 'system orange color' },
-        { name: 'purple', description: 'system purple color' },
-      ],
+      values:
+        names.get('$tint-names')?.map((item) => ({
+          name: item,
+          description: tintDescriptions.has(item) ? tintDescriptions.get(item) : `System \`${item}\` color`,
+        })) ?? [],
     },
     {
       name: 'foregroundSet',
-      values: [
-        { name: 'secondary', description: 'system secondary color' },
-        { name: 'blue', description: 'system blue color' },
-        { name: 'blue.secondary', description: 'system secondary blue color' },
-        { name: 'gray', description: 'system gray color' },
-        { name: 'red', description: 'system red color' },
-        { name: 'green', description: 'system green color' },
-        { name: 'orange', description: 'system orange color' },
-        { name: 'purple', description: 'system purple color' },
-      ],
+      values: Array.from(tokens.get('$foreground-tokens')?.entries() ?? []).map((item) => ({
+        name: item[0],
+        description: `Applies the system ${0 <= item[0].indexOf('.') ? `${item[0].split('.').pop()} ` : ''}${item[0].split('.').shift()} color (\`${item[1]}\`)`,
+      })),
     },
     {
       name: 'inlineSet',

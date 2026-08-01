@@ -1,7 +1,7 @@
 ---
 prev:
-  text: "Installation"
-  link: "/installation/"
+  text: 'Installation'
+  link: '/installation/'
 ---
 
 # Install SwiftWC with Vite
@@ -111,7 +111,7 @@ bun add --exact @swiftwc/ui@dev --dev
 ::: code-group
 
 ```css [app.css]
-@import "@swiftwc/ui/css";
+@import '@swiftwc/ui/css';
 ```
 
 :::
@@ -123,11 +123,11 @@ bun add --exact @swiftwc/ui@dev --dev
 ::: code-group
 
 ```scss [app.scss]
-@use "@swiftwc/ui/scss/vars" with (
+@use '@swiftwc/ui/scss/vars' with (
   $components-layer: web-components
 );
 
-@forward "@swiftwc/ui/scss";
+@forward '@swiftwc/ui/scss';
 ```
 
 :::
@@ -145,7 +145,7 @@ bun add --exact @swiftwc/ui@dev --dev
 ::: code-group
 
 ```ts [app.ts]
-import "@swiftwc/ui/client";
+import '@swiftwc/ui/client'
 ```
 
 :::
@@ -155,7 +155,7 @@ import "@swiftwc/ui/client";
 ::: code-group
 
 ```js [app.js]
-import "@swiftwc/ui/client";
+import '@swiftwc/ui/client'
 ```
 
 :::
@@ -195,7 +195,7 @@ npm run dev
 ```
 
 ```ts [types/phosphor-icons.d.ts]
-declare module "@phosphor-icons/web/*";
+declare module '@phosphor-icons/web/*'
 ```
 
 :::
@@ -219,7 +219,7 @@ declare module "@phosphor-icons/web/*";
 ```
 
 ```ts [types/phosphor-icons.d.ts]
-declare module "@phosphor-icons/web/*";
+declare module '@phosphor-icons/web/*'
 ```
 
 :::

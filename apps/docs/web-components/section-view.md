@@ -2,8 +2,6 @@
 
 # SectionView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

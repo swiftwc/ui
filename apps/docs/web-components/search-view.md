@@ -2,8 +2,6 @@
 
 # SearchView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

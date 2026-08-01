@@ -2,8 +2,6 @@
 
 # LabeledContent
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

@@ -3,8 +3,8 @@
 layout: home
 
 hero:
-  name: "Web Components"
-  text: "inspired by SwiftUI"
+  name: 'Web Components'
+  text: 'inspired by SwiftUI'
   tagline: A set of ready-to-use web components for building standalone web apps and web extensions.<br>Open Source. Open Code.
   actions:
     - theme: brand
@@ -24,19 +24,19 @@ features:
   - title: TabView <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
     icon:
       src: /red.avif
-      width: "100%"
+      width: '100%'
     details: Create tabed views
     link: /web-components/tab-view
   - title: NavigationSplitView <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
     icon:
       src: /red.avif
-      width: "100%"
+      width: '100%'
     details: Create tabed views
     link: /web-components/tab-view
   - title: NavigationStack <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
     icon:
       src: /red.avif
-      width: "100%"
+      width: '100%'
     details: Create tabed views
     link: /web-components/tab-view
 ---

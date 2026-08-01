@@ -2,8 +2,6 @@
 
 # ToggleView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

@@ -86,7 +86,6 @@ At narrow size classes, such as on iPhone or Apple Watch, a navigation split vie
 
 Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
 
-
 <!-- #region post -->
 
 ## Relationships

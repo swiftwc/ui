@@ -2,8 +2,6 @@
 
 # ColorScheme
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

@@ -87,17 +87,17 @@ import { pageTitle } from 'ember-page-title';
 ```
 
 ```ts [app/router.ts]
-import EmberRouter from "@embroider/router";
-import config from "my-project/config/environment";
+import EmberRouter from '@embroider/router'
+import config from 'my-project/config/environment'
 
 export default class Router extends EmberRouter {
-  location = config.locationType;
-  rootURL = config.rootURL;
+  location = config.locationType
+  rootURL = config.rootURL
 }
 
 Router.map(function () {
-  this.route("about"); // [!code focus]
-});
+  this.route('about') // [!code focus]
+})
 ```
 
 ```gts{2,5-7} [index.gts]

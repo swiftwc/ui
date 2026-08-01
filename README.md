@@ -28,6 +28,7 @@ SwiftWC uses a declarative syntax.
     />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>hello-world</title>
+    <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -39,8 +40,6 @@ SwiftWC uses a declarative syntax.
         </v-stack>
       </scroll-view>
     </navigation-stack>
-
-    <script type="module" src="https://unpkg.com/@swiftwc/ui/client"></script>
   </body>
 </html>
 ```

@@ -1,7 +1,7 @@
 ---
 next:
-  text: "Editor Setup"
-  link: "/installation/editor-setup"
+  text: 'Editor Setup'
+  link: '/installation/editor-setup'
 ---
 
 # Installation

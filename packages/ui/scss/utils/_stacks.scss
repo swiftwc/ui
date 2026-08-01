@@ -77,18 +77,6 @@
         }
       }
     }
-
-    // @each $k, $v in $alignment-map {
-    //   &[align='#{$k}'] {
-    //     align-items: $v;
-    //   }
-    // }
-
-    // @each $k, $v in $distribution-map {
-    //   &[distribute='#{$k}'] {
-    //     align-content: $v;
-    //   }
-    // }
   }
 
   v-stack,

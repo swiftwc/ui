@@ -1,7 +1,7 @@
 ---
 prev:
-  text: "Web Components"
-  link: "/web-components/"
+  text: 'Web Components'
+  link: '/web-components/'
 ---
 
 <!-- #region pre -->

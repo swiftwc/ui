@@ -1,7 +1,7 @@
 ---
 prev:
-  text: "Installation"
-  link: "/installation/"
+  text: 'Installation'
+  link: '/installation/'
 ---
 
 # Editor Setup

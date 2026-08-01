@@ -3,7 +3,7 @@
   /* --vp-c-brand-2: #747bff; */
 }
 
-[id^="no-anchor"] .header-anchor {
+[id^='no-anchor'] .header-anchor {
   display: none;
 }
 

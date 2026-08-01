@@ -2,8 +2,6 @@
 
 # LabelView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

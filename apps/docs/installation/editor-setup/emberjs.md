@@ -31,28 +31,28 @@ bun add --exact @swiftwc/eslint-plugin@latest --dev
 == 🇺🇸
 
 ```js [eslint.config.js]
-import globals from "globals";
-import js from "@eslint/js";
+import globals from 'globals'
+import js from '@eslint/js'
 
-import ts from "typescript-eslint";
+import ts from 'typescript-eslint'
 
-import ember from "eslint-plugin-ember/recommended";
+import ember from 'eslint-plugin-ember/recommended'
 
-import eslintConfigPrettier from "eslint-config-prettier";
-import qunit from "eslint-plugin-qunit";
-import n from "eslint-plugin-n";
+import eslintConfigPrettier from 'eslint-config-prettier'
+import qunit from 'eslint-plugin-qunit'
+import n from 'eslint-plugin-n'
 
-import babelParser from "@babel/eslint-parser";
+import babelParser from '@babel/eslint-parser'
 
 // [!code ++]
-import swiftwc from "@swiftwc/eslint-plugin/emberjs/en";
+import swiftwc from '@swiftwc/eslint-plugin/emberjs/en'
 
 export default [
   // 👇🏻 add this block at the bottom of the array
   // [!code ++]
   {
     // [!code ++]
-    files: ["**/*.{gjs,gts}"],
+    files: ['**/*.{gjs,gts}'],
     // [!code ++]
     languageOptions: {
       // [!code ++]
@@ -69,7 +69,7 @@ export default [
     extends: [...swiftwc.configs.recommended],
     // [!code ++]
   },
-];
+]
 ```
 
 ::::

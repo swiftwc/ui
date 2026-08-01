@@ -2,8 +2,6 @@
 
 # ListView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

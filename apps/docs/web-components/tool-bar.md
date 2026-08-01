@@ -2,8 +2,6 @@
 
 # ToolBar
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

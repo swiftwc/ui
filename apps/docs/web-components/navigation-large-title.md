@@ -2,8 +2,6 @@
 
 # NavigationLargeTitle
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

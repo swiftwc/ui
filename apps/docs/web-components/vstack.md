@@ -1,7 +1,7 @@
 ---
 next:
-  text: "Installation"
-  link: "/installation/"
+  text: 'Installation'
+  link: '/installation/'
 ---
 
 <!-- #region pre -->

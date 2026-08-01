@@ -2,8 +2,6 @@
 
 # ImageView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

@@ -27,14 +27,14 @@ bun add --exact eslint@latest @eslint/js@latest @swiftwc/eslint-plugin@latest --
 == 🇺🇸
 
 ```js [eslint.config.js]
-import html from "@html-eslint/eslint-plugin";
-import parser from "@html-eslint/parser";
+import html from '@html-eslint/eslint-plugin'
+import parser from '@html-eslint/parser'
 // [!code ++]
-import swiftwc from "@swiftwc/eslint-plugin/html/en";
+import swiftwc from '@swiftwc/eslint-plugin/html/en'
 
 export default [
   {
-    files: ["**/*.html"],
+    files: ['**/*.html'],
     languageOptions: {
       parser,
     },
@@ -43,14 +43,14 @@ export default [
       // [!code ++]
       swiftwc,
     },
-    language: "html/html",
+    language: 'html/html',
     rules: {
       // [!code ++]
       ...swiftwc.configs.recommended.rules,
       // 👇🏻 customize above rules here
     },
   },
-];
+]
 ```
 
 ::::

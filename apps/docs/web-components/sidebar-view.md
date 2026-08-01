@@ -2,8 +2,6 @@
 
 # SidebarView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

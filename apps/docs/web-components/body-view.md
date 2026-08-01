@@ -2,8 +2,6 @@
 
 # BodyView
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

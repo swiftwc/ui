@@ -3,10 +3,12 @@
   "name": "@swiftwc/docs",
   "type": "module",
   "scripts": {
-    "barrels": "node scripts/make-barrels.mjs",
+    "barrelize": "node scripts/make-barrels.mjs",
     "build": "vitepress build",
     "preview": "vitepress preview",
-    "start": "vitepress dev"
+    "start": "vitepress dev",
+    "format:check": "prettier . --check",
+    "format:write": "prettier . --write"
   },
   "devDependencies": {
     "@mdit/plugin-abbr": "^0.23.2",

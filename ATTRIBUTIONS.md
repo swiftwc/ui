@@ -16,6 +16,7 @@
 - [relative-time-element](https://github.com/github/relative-time-element)
 - [tailwindcss](https://github.com/tailwindlabs/tailwindcss)
 - [morphdom](https://github.com/patrick-steele-idem/morphdom)
+- [lit](https://github.com/lit/lit/)
 
 ## Special thanks
 

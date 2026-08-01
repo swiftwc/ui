@@ -1,30 +1,30 @@
-@use "inter-ui/default" with (
+@use 'inter-ui/default' with (
   $inter-font-display: swap,
-  $inter-font-path: "inter-ui/web"
+  $inter-font-path: 'inter-ui/web'
 );
 
-@use "inter-ui/variable" with (
+@use 'inter-ui/variable' with (
   $inter-font-display: swap,
-  $inter-font-path: "inter-ui/variable"
+  $inter-font-path: 'inter-ui/variable'
 );
 
 // [!code ++]
-@use "@swiftwc/ui/scss/vars" with (
+@use '@swiftwc/ui/scss/vars' with (
   // [!code ++]
   $components-layer: web-components
 ); // [!code ++]
 
-@forward "@swiftwc/ui/scss"; // [!code ++]
+@forward '@swiftwc/ui/scss'; // [!code ++]
 
 @include default.all;
 @include variable.all;
 
 html {
-  font-family: "Inter", "system-ui";
+  font-family: 'Inter', 'system-ui';
 }
 
 @supports (font-variation-settings: normal) {
   html {
-    font-family: "InterVariable", "system-ui";
+    font-family: 'InterVariable', 'system-ui';
   }
 }

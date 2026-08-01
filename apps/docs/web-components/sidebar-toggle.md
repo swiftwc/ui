@@ -2,8 +2,6 @@
 
 # SidebarToggle
 
-
-
 <!-- #endregion pre -->
 
 <!-- #region post -->

@@ -2,6 +2,8 @@
 
 # SectionView
 
+A container view that you can use to add hierarchy within certain views.
+
 <!-- #endregion pre -->
 
 <!-- #region post -->

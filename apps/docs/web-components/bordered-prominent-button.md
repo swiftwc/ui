@@ -2,7 +2,7 @@
 
 # BorderedProminentButton
 
-A button that applies standard border prominent artwork based on the button’s context.
+A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.
 
 <!-- #endregion pre -->
 

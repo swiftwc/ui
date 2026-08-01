@@ -2,11 +2,11 @@
 
 # BorderlessButton
 
-A button that doesn’t apply a border.
+A control that initiates an action. Styled without any borders.
 
 <!-- #endregion pre -->
 
-## Example
+## Usage
 
 :::: info Use the `is` attribute to style a `button` as a `borderless-button`.
 

@@ -75,7 +75,7 @@
           "customElement": true,
           "name": "BorderedButton",
           "tagName": "bordered-button",
-          "description": "A button that applies standard border artwork based on the button’s context.",
+          "description": "A control that initiates an action. Styled with standard border artwork based on the button’s context.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -121,7 +121,7 @@
           "customElement": true,
           "name": "BorderedProminentButton",
           "tagName": "bordered-prominent-button",
-          "description": "A button that applies standard border prominent artwork based on the button’s context.",
+          "description": "A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -167,7 +167,7 @@
           "customElement": true,
           "name": "BorderlessButton",
           "tagName": "borderless-button",
-          "description": "A button that doesn’t apply a border.",
+          "description": "A control that initiates an action. Styled without any borders.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -340,7 +340,7 @@
           "customElement": true,
           "name": "DatePicker",
           "tagName": "date-picker",
-          "description": "",
+          "description": "A control for selecting an absolute date.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -537,7 +537,7 @@
           "customElement": true,
           "name": "GlassButton",
           "tagName": "glass-button",
-          "description": "A button that applies glass border artwork based on the button’s context.",
+          "description": "A control that initiates an action. Styled with glass border artwork based on the button’s context.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -583,7 +583,7 @@
           "customElement": true,
           "name": "GlassProminentButton",
           "tagName": "glass-prominent-button",
-          "description": "A button that applies prominent glass border artwork based on the button’s context.",
+          "description": "A control that initiates an action. Styled with prominent glass border artwork based on the button’s context.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -1411,7 +1411,7 @@
           "customElement": true,
           "name": "SectionView",
           "tagName": "section-view",
-          "description": "",
+          "description": "A container view that you can use to add hierarchy within certain views.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -2004,7 +2004,7 @@
           "customElement": true,
           "name": "ToolBarItemGroup",
           "tagName": "tool-bar-item-group",
-          "description": "",
+          "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -2036,7 +2036,7 @@
           "customElement": true,
           "name": "ToolBarItem",
           "tagName": "tool-bar-item",
-          "description": "",
+          "description": "A model that represents an item which can be placed in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -2079,7 +2079,7 @@
           "customElement": true,
           "name": "ToolBar",
           "tagName": "tool-bar",
-          "description": "",
+          "description": "Populates the toolbar or navigation bar with the specified items.",
           "superclass": {
             "name": "HTMLElement"
           },

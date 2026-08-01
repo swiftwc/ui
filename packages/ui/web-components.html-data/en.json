@@ -10,7 +10,7 @@
     },
     {
       "name": "bordered-button",
-      "description": "A button that applies standard border artwork based on the button’s context.",
+      "description": "A control that initiates an action. Styled with standard border artwork based on the button’s context.",
       "attributes": [
         {
           "name": "role",
@@ -24,7 +24,7 @@
     },
     {
       "name": "bordered-prominent-button",
-      "description": "A button that applies standard border prominent artwork based on the button’s context.",
+      "description": "A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.",
       "attributes": [
         {
           "name": "role",
@@ -38,7 +38,7 @@
     },
     {
       "name": "borderless-button",
-      "description": "A button that doesn’t apply a border.",
+      "description": "A control that initiates an action. Styled without any borders.",
       "attributes": [
         {
           "name": "role",
@@ -78,6 +78,7 @@
     },
     {
       "name": "date-picker",
+      "description": "A control for selecting an absolute date.",
       "attributes": [
         {
           "name": "date-picker-style",
@@ -150,7 +151,7 @@
     },
     {
       "name": "glass-button",
-      "description": "A button that applies glass border artwork based on the button’s context.",
+      "description": "A control that initiates an action. Styled with glass border artwork based on the button’s context.",
       "attributes": [
         {
           "name": "role",
@@ -164,7 +165,7 @@
     },
     {
       "name": "glass-prominent-button",
-      "description": "A button that applies prominent glass border artwork based on the button’s context.",
+      "description": "A control that initiates an action. Styled with prominent glass border artwork based on the button’s context.",
       "attributes": [
         {
           "name": "role",
@@ -433,7 +434,7 @@
     },
     {
       "name": "section-view",
-      "description": "",
+      "description": "A container view that you can use to add hierarchy within certain views.",
       "attributes": [
         {
           "name": "header"
@@ -563,10 +564,12 @@
       ]
     },
     {
-      "name": "tool-bar-item-group"
+      "name": "tool-bar-item-group",
+      "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar."
     },
     {
       "name": "tool-bar-item",
+      "description": "A model that represents an item which can be placed in the toolbar or navigation bar.",
       "attributes": [
         {
           "name": "slot"
@@ -581,7 +584,7 @@
     },
     {
       "name": "tool-bar",
-      "description": ""
+      "description": "Populates the toolbar or navigation bar with the specified items."
     },
     {
       "name": "vkeyboard",

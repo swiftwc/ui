@@ -2,7 +2,7 @@
 
 # BorderedButton
 
-A button that applies standard border artwork based on the button’s context.
+A control that initiates an action. Styled with standard border artwork based on the button’s context.
 
 <!-- #endregion pre -->
 

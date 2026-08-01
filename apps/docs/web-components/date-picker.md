@@ -2,6 +2,8 @@
 
 # DatePicker
 
+A control for selecting an absolute date.
+
 <!-- #endregion pre -->
 
 <!-- #region post -->

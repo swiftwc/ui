@@ -71,14 +71,15 @@ const getStartedGroup2 = installationsSidebar2.find((g) => g.text === 'Get Start
 if (!getStartedGroup2) throw new Error("Sidebar: 'Get Started' group not found")
 
 const editorSetupItem = getStartedGroup2.items.find((i) => i.text === 'Editor Setup')
-if (!editorSetupItem) throw new Error("Sidebar: 'Editor Setup' item not found in 'Get Started'")
-
+if (!editorSetupItem)
+  throw new Error("Sidebar: 'Editor Setup' item not found in 'Get Started'")
+  //
 ;(installationItem.items ??= []).push(
-  { text: 'for Vite', link: '/installation/frameworks/vite' }
-  // { text: "for EmberJS", link: "/installation/frameworks/emberjs" },
+  { text: 'for Vite', link: '/installation/frameworks/vite' },
+  { text: 'for EmberJS', link: '/installation/frameworks/emberjs' }
   // { text: "Manual", link: "/installation/frameworks/manual" },
 )
-
+//
 ;(editorSetupItem.items ??= []).push(
   { text: 'for Typescript', link: '/installation/editor-setup/manual' },
   { text: 'for EmberJS', link: '/installation/editor-setup/emberjs' }

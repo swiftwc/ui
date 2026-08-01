@@ -120,11 +120,11 @@ const members = [
     org: 'Vite',
     orgLink: '/installation/frameworks/vite',
   },
-  // {
-  //   avatar: '/ember.svg',
-  //   org: 'Ember.js',
-  //   orgLink: '/installation/frameworks/emberjs',
-  // },
+  {
+    avatar: '/ember.svg',
+    org: 'Ember.js',
+    orgLink: '/installation/frameworks/emberjs',
+  },
   // {
   //   avatar: '/manual.svg',
   //   org: 'Manual',

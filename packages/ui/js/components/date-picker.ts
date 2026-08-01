@@ -12,6 +12,9 @@ export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePick
 type DateParts = 'year' | 'month' | 'day'
 type DateInput = HTMLInputElement & { name: DateParts }
 
+/**
+ * @summary A control for selecting an absolute date.
+ */
 export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {
     return [

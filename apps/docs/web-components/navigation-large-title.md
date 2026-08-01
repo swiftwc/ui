@@ -10,6 +10,6 @@
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

@@ -1,4 +1,4 @@
-## Example
+## Usage
 
 :::: info Use the `is` attribute to style a `button` as a `borderless-button`.
 
@@ -6,7 +6,7 @@
 
 ::: details View code
 
-<<< @/public/examples/borderless-button.html{31-33}
+<<< @/public/examples/borderless-button.html{30-32}
 
 :::
 ::::

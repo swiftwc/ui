@@ -3,6 +3,9 @@ import { adaptiveSlot } from '../internal/decorators'
 import { devFlags, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
+/**
+ * @summary A model that represents an item which can be placed in the toolbar or navigation bar.
+ */
 @adaptiveSlot((el) => !el.closest('tool-bar-item-group'))
 export class ToolBarItem extends HTMLElement {
   static get observedAttributes() {

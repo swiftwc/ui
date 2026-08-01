@@ -18,6 +18,6 @@ A view that arranges its subviews in a vertical line.
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

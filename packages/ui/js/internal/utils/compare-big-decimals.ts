@@ -1,19 +1,3 @@
-/**
- * @example
- * compareBigDecimals("1e3", "1000") // 0
- * compareBigDecimals("1e-3", "0.001") // 0
- * compareBigDecimals("-10", "-2") // -1 ✅
- * const arr = ["1.2","1.10","1.02","1e2","100","-0.5"]
- * arr.sort(compareBigDecimals)
- * console.log(arr)
- * function isInRange(value: string, min: string, max: string): boolean {return compareBigDecimals(value, min) >= 0 && compareBigDecimals(value, max) <= 0}
- * // examples
- * isInRange("-5", "-10", "-1")   // true
- * isInRange("-11", "-10", "-1")  // false
- * isInRange("0", "-10", "-1")    // false
- * isInRange("-Infinity", "-Infinity", "-1")  // true
- * isInRange("5", "-Infinity", "Infinity")    // true
- */
 const POSITIVE_INFINITY = 'Infinity',
   NEGATIVE_INFINITY = '-Infinity'
 
@@ -90,7 +74,12 @@ function parse(input: string) {
   if (exp > 0) {
     const move = Math.min(exp, f.length)
     i += f.slice(0, move)
-    f = f.slice(move) + '0'.repeat(exp - move)
+    f = f.slice(move)
+    const remaining = exp - move
+    if (remaining > 0) i += '0'.repeat(remaining)
+    // const move = Math.min(exp, f.length)
+    // i += f.slice(0, move)
+    // f = f.slice(move) + '0'.repeat(exp - move)
   } else if (exp < 0) {
     const move = Math.min(-exp, i.length)
     f = i.slice(i.length - move) + f

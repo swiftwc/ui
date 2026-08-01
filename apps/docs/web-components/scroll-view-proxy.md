@@ -12,6 +12,6 @@ A wrapper to {hv}-stacks.
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

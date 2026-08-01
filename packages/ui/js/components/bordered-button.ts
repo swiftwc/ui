@@ -4,7 +4,7 @@ import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 /**
- * @summary A button that applies standard border artwork based on the button’s context.
+ * @summary A control that initiates an action. Styled with standard border artwork based on the button’s context.
  *
  * @example <button is="bordered-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button>
  *

@@ -12,6 +12,6 @@ A message with a title and extra information that you show when part of your app
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

@@ -14,7 +14,7 @@ A button that doesn’t apply a border.
 
 ::: details View code
 
-<<< @/public/examples/borderless-button.html{31-33}
+<<< @/public/examples/borderless-button.html{30-32}
 
 :::
 ::::

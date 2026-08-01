@@ -45,7 +45,7 @@
           "tagName": "body-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -215,7 +215,7 @@
           "tagName": "color-scheme",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -289,7 +289,7 @@
           "tagName": "content-unavailable-view",
           "description": "A message with a title and extra information that you show when part of your app can’t be used.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -470,7 +470,7 @@
           "tagName": "fine-tooltip",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -631,7 +631,7 @@
           "tagName": "hstack",
           "description": "A view that arranges its subviews in a horizontal line.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -680,7 +680,7 @@
           "tagName": "image-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -726,7 +726,7 @@
           "tagName": "label-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -787,7 +787,7 @@
           "tagName": "labeled-content",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -845,7 +845,7 @@
           "tagName": "list-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -882,7 +882,7 @@
           "tagName": "menu-view",
           "description": "A control for presenting a menu of actions.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -937,7 +937,7 @@
           "tagName": "navigation-large-title",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -1033,7 +1033,7 @@
           "tagName": "navigation-title",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -1193,7 +1193,7 @@
           "tagName": "progress-view",
           "description": "A view that shows the progress toward completion of a task.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1284,7 +1284,7 @@
           "tagName": "scroll-view-proxy",
           "description": "A wrapper to {hv}-stacks",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -1316,7 +1316,7 @@
           "tagName": "scroll-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1413,7 +1413,7 @@
           "tagName": "section-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1501,7 +1501,7 @@
           "tagName": "sidebar-toggle",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -1565,7 +1565,7 @@
           "tagName": "sticky-container",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -1661,7 +1661,7 @@
           "tagName": "tab-view",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1733,7 +1733,7 @@
           "tagName": "table-view",
           "description": "Display selectable, sortable data arranged in rows and columns.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -2006,7 +2006,7 @@
           "tagName": "tool-bar-item-group",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -2038,7 +2038,7 @@
           "tagName": "tool-bar-item",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -2081,7 +2081,7 @@
           "tagName": "tool-bar",
           "description": "",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -2161,7 +2161,7 @@
           "tagName": "vkeyboard",
           "description": "Required component, used to handle the virtual keyboard on touch devices.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {
@@ -2198,7 +2198,7 @@
           "tagName": "vstack",
           "description": "A view that arranges its subviews in a vertical line.",
           "superclass": {
-            "name": "HTMLundefinedElement"
+            "name": "HTMLElement"
           },
           "attributes": [
             {

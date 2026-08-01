@@ -12,6 +12,6 @@ Required component, used to handle the virtual keyboard on touch devices.
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

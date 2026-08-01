@@ -12,6 +12,6 @@ A view that arranges its subviews in a horizontal line.
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

@@ -12,6 +12,6 @@ A view that shows the progress toward completion of a task.
 
 ### Conforms To
 
-`HTMLundefinedElement`
+`HTMLElement`
 
 <!-- #endregion post -->

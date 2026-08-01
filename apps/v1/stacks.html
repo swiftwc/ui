@@ -12,45 +12,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>stacks</title>
-  </head>
-  <body>
-    <v-keyboard></v-keyboard>
-
-    <navigation-stack>
-      <scroll-view>
-        <v-stack>
-          <details class="rounded-xl p-3 bg-neutral-100" open>
-            <summary class="p-4">distribution</summary>
-            <h-stack>
-              <v-stack id="v-stack"></v-stack>
-              <v-stack id="h-stack"></v-stack>
-            </h-stack>
-          </details>
-          <details class="rounded-xl p-3 bg-neutral-100" open>
-            <summary class="p-4">spacing</summary>
-            <h-stack>
-              <v-stack id="spacing-v-stack"></v-stack>
-              <v-stack id="spacing-h-stack"></v-stack>
-            </h-stack>
-          </details>
-        </v-stack>
-      </scroll-view>
-      <tool-bar>
-        <tool-bar-item slot="top-bar-leading">
-          <button type="button"><label-view title="leading"></label-view></button>
-        </tool-bar-item>
-        <tool-bar-item slot="top-bar-trailing">
-          <button type="button"><label-view title="trailing"></label-view></button>
-        </tool-bar-item>
-        <tool-bar-item slot="bottom-bar-leading">
-          <button type="button"><label-view title="leading"></label-view></button>
-        </tool-bar-item>
-        <tool-bar-item slot="bottom-bar-trailing">
-          <button type="button"><label-view title="trailing"></label-view></button>
-        </tool-bar-item>
-      </tool-bar>
-    </navigation-stack>
-
     <script type="module">
       import '/main.js'
 
@@ -148,5 +109,44 @@
           )
       }
     </script>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <details class="rounded-xl p-3 bg-neutral-100" open>
+            <summary class="p-4">distribution</summary>
+            <h-stack>
+              <v-stack id="v-stack"></v-stack>
+              <v-stack id="h-stack"></v-stack>
+            </h-stack>
+          </details>
+          <details class="rounded-xl p-3 bg-neutral-100" open>
+            <summary class="p-4">spacing</summary>
+            <h-stack>
+              <v-stack id="spacing-v-stack"></v-stack>
+              <v-stack id="spacing-h-stack"></v-stack>
+            </h-stack>
+          </details>
+        </v-stack>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button"><label-view title="leading"></label-view></button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button"><label-view title="trailing"></label-view></button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
   </body>
 </html>

@@ -64,6 +64,9 @@
       <input type="text" />
       <p>...</p>
     </template>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -688,8 +691,5 @@ and alert"
     <nav popover>
       <a href="/index.html">Back</a>
     </nav>
-    <script type="module">
-      document.querySelector('nav[popover]').showPopover()
-    </script>
   </body>
 </html>

@@ -11,6 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>living-standard</title>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
   </head>
   <body>
     <nav popover>
@@ -26,8 +29,5 @@
       <a href="/navigation-split-view/sidebar/preferred-compact-column.html">SidebarCp</a>
       <a href="/games.html">Games</a>
     </nav>
-    <script type="module">
-      document.querySelector('nav[popover]').showPopover()
-    </script>
   </body>
 </html>

@@ -12,6 +12,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent"></label-view>
     <link rel="manifest" href="/manifest.webmanifest"></label-view>
     <title>tab-view</title>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -445,8 +448,5 @@
     <nav popover>
       <a href="/index.html">Back</a>
     </nav>
-    <script type="module">
-      document.querySelector('nav[popover]').showPopover()
-    </script>
   </body>
 </html>

@@ -14,6 +14,115 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // lifecycleObserver.addEventListener('pageshow', navHandler)
+      // lifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // setTimeout(() => {
+      //   const el = document.querySelector('[is=sidebar-view] scroll-view')
+
+      //   const beforeStyles = getComputedStyle(el, '::before')
+      //   const beforeHeight = beforeStyles.height
+
+      //   alert(`${el.clientHeight}:${beforeHeight}`)
+      // }, 1400)
+
+      // const cl = new WeakSet()
+      // document.addEventListener('pointerdown', async (event) => {
+      //   cl.add(event.target)
+      // })
+      // document.addEventListener('pointerout', async (event) => {
+      //   cl.delete(event.target)
+
+      //   const navDest = event.target.closest('[navigation-destination]')
+      //   if (!navDest) return
+
+      //   alert(8)
+      // })
+      // document.addEventListener('gotpointercapture', async (event) => {
+      //   alert(1)
+      // })
+      // document.addEventListener('lostpointercapture', async (event) => {
+      //   alert(3)
+      // })
+      // document.addEventListener('pointerout', async (event) => {
+      //   const navDest = event.target.closest('[navigation-destination]')
+
+      //   if (!navDest) return
+      //   alert(8)
+      // })
+
+      // document.addEventListener('pointercancel', async (event) => {
+      //   const navDest = event.target.closest('[navigation-destination]')
+
+      //   if (!navDest) return
+      //   alert(7)
+      // })
+      // if (self.PointerEvent) {
+      //   document.addEventListener('pointermove', async (event) => {
+      //     const navDest = event.target.closest('[navigation-destination]')
+      //     if (!navDest) return
+
+      //     // navDest.removeAttribute('aria-selected') //ariaSelected = 'false'
+      //   })
+      //   document.addEventListener('pointerup', async (event) => {
+      //     const navDest = event.target.closest('[navigation-destination]')
+      //     if (!navDest) return
+
+      //     const { left, right, top, bottom } = navDest.getBoundingClientRect()
+      //     const x = event.clientX
+      //     const y = event.clientY
+      //     if (x >= left && x <= right && y >= top && y <= bottom) {
+      //       navDest.ariaSelected = 'true'
+      //     }
+
+      //     // event.target.classList.add('active')
+      //   })
+      //   // document.addEventListener('pointerleave', async (event) => {
+      //   //   const navDest = event.target.closest('[navigation-destination]')
+      //   //   if (!navDest) return
+
+      //   //   navDest.ariaSelected = 'false'
+      //   //   // event.target.classList.remove('active')
+      //   //   // alert(9)
+      //   // })
+      // }
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      // const navDest = event.target.closest('[navigation-destination]')
+
+      // if (event.target.closest('.back')) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   const parent = [...path.parents()].at(0)?.hydrate()
+
+      //   if (navDest && parent.body) parent.component.inert = true
+
+      //   await startViewTransition(event.target, 'backwards', async () => {
+      //     modifyDOMbackwards(path)
+      //   })
+
+      //   if (navDest && parent.body) {
+      //     await startViewTransition(parent.body, 'forwards', async () => {
+      //       modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //     })
+
+      //     parent.component.inert = false
+      //   }
+      // } else if (navDest) {
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
+      // }
+      // })
+    </script>
   </head>
   <body>
     <!-- style="--canvas: darkgray; --face: darkgray"> -->
@@ -233,114 +342,5 @@
       </body-view>
     </template>
 
-    <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
-
-      // lifecycleObserver.addEventListener('pageshow', navHandler)
-      // lifecycleObserver.addEventListener('pagehide', navHandler)
-
-      // setTimeout(() => {
-      //   const el = document.querySelector('[is=sidebar-view] scroll-view')
-
-      //   const beforeStyles = getComputedStyle(el, '::before')
-      //   const beforeHeight = beforeStyles.height
-
-      //   alert(`${el.clientHeight}:${beforeHeight}`)
-      // }, 1400)
-
-      // const cl = new WeakSet()
-      // document.addEventListener('pointerdown', async (event) => {
-      //   cl.add(event.target)
-      // })
-      // document.addEventListener('pointerout', async (event) => {
-      //   cl.delete(event.target)
-
-      //   const navDest = event.target.closest('[navigation-destination]')
-      //   if (!navDest) return
-
-      //   alert(8)
-      // })
-      // document.addEventListener('gotpointercapture', async (event) => {
-      //   alert(1)
-      // })
-      // document.addEventListener('lostpointercapture', async (event) => {
-      //   alert(3)
-      // })
-      // document.addEventListener('pointerout', async (event) => {
-      //   const navDest = event.target.closest('[navigation-destination]')
-
-      //   if (!navDest) return
-      //   alert(8)
-      // })
-
-      // document.addEventListener('pointercancel', async (event) => {
-      //   const navDest = event.target.closest('[navigation-destination]')
-
-      //   if (!navDest) return
-      //   alert(7)
-      // })
-      // if (self.PointerEvent) {
-      //   document.addEventListener('pointermove', async (event) => {
-      //     const navDest = event.target.closest('[navigation-destination]')
-      //     if (!navDest) return
-
-      //     // navDest.removeAttribute('aria-selected') //ariaSelected = 'false'
-      //   })
-      //   document.addEventListener('pointerup', async (event) => {
-      //     const navDest = event.target.closest('[navigation-destination]')
-      //     if (!navDest) return
-
-      //     const { left, right, top, bottom } = navDest.getBoundingClientRect()
-      //     const x = event.clientX
-      //     const y = event.clientY
-      //     if (x >= left && x <= right && y >= top && y <= bottom) {
-      //       navDest.ariaSelected = 'true'
-      //     }
-
-      //     // event.target.classList.add('active')
-      //   })
-      //   // document.addEventListener('pointerleave', async (event) => {
-      //   //   const navDest = event.target.closest('[navigation-destination]')
-      //   //   if (!navDest) return
-
-      //   //   navDest.ariaSelected = 'false'
-      //   //   // event.target.classList.remove('active')
-      //   //   // alert(9)
-      //   // })
-      // }
-
-      // document.addEventListener('click', async (event) => {
-      //   console.debug(`⚡️ ${event?.type}`)
-
-      // const navDest = event.target.closest('[navigation-destination]')
-
-      // if (event.target.closest('.back')) {
-      //   const path = new NavigationPath(event.target)?.hydrate()
-
-      //   const parent = [...path.parents()].at(0)?.hydrate()
-
-      //   if (navDest && parent.body) parent.component.inert = true
-
-      //   await startViewTransition(event.target, 'backwards', async () => {
-      //     modifyDOMbackwards(path)
-      //   })
-
-      //   if (navDest && parent.body) {
-      //     await startViewTransition(parent.body, 'forwards', async () => {
-      //       modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
-      //     })
-
-      //     parent.component.inert = false
-      //   }
-      // } else if (navDest) {
-      //   const path = new NavigationPath(event.target)?.hydrate()
-
-      //   await startViewTransition(event.target, 'forwards', async () => {
-      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-      //   })
-      // }
-      // })
-    </script>
   </body>
 </html>

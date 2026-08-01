@@ -790,6 +790,31 @@
         </section-view>
       </form>
     </template>
+    <script type="module">
+      import '/main.js'
+
+      for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
+        el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        const btn = event.target.closest('button'),
+          summary = event.target.closest('summary:has(button)')
+
+        if (summary) {
+          event.preventDefault()
+
+          if (btn) return summary.closest('details').toggleAttribute('open')
+
+          summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
+        } else if (btn) {
+          if (btn.closest('picker-view')) return
+
+          btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
+        }
+      })
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -844,31 +869,5 @@
         </tool-bar-item>
       </tool-bar>
     </navigation-stack>
-
-    <script type="module">
-      import '/main.js'
-
-      for (const [i, el] of Array.from(document.querySelectorAll('scroll-view > h-stack > v-stack')).entries())
-        el.querySelector(`h-stack > button:nth-child(${i + 1})`).click()
-
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
-
-        const btn = event.target.closest('button'),
-          summary = event.target.closest('summary:has(button)')
-
-        if (summary) {
-          event.preventDefault()
-
-          if (btn) return summary.closest('details').toggleAttribute('open')
-
-          summary.setAttribute('aria-selected', `${`true` !== summary.getAttribute('aria-selected')}`)
-        } else if (btn) {
-          if (btn.closest('picker-view')) return
-
-          btn.setAttribute('aria-selected', `${`true` !== btn.getAttribute('aria-selected')}`)
-        }
-      })
-    </script>
   </body>
 </html>

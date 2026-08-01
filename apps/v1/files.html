@@ -13,6 +13,47 @@
     <title>files</title>
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // lifecycleObserver.addEventListener('pageshow', navHandler)
+      // lifecycleObserver.addEventListener('pagehide', navHandler)
+
+      // document.addEventListener('pagehide', async (event) => {
+      //   console.debug(`⚡️ pagehide`)
+
+      //   if (event.detail.page.id === 'scloud_drive') alert(8)
+
+      //   document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = 'false'
+      // })
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+
+      // const navDest = event.target.closest('[navigation-destination]')
+
+      // if (navDest) {
+      //   // const sv = closestBody(event.target),
+      //   // root = getRootViewController(sv),
+      //   const path = new NavigationPath(event.target)?.hydrate()
+
+      //   // position = queryInsertPosition(host),
+      //   // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+      //   await startViewTransition(event.target, 'forwards', async () => {
+      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
+      //   })
+
+      //   // document.startViewTransition({
+      //   //   async update() {
+      //   //     startViewTransition(event, false)
+      //   //   },
+      //   //   types: ['forwards'],
+      //   // })
+      // }
+      // })
+    </script>
   </head>
   <body>
     <v-keyboard system-font="Inter"></v-keyboard>
@@ -191,46 +232,5 @@
       </body-view>
     </template>
 
-    <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
-
-      // lifecycleObserver.addEventListener('pageshow', navHandler)
-      // lifecycleObserver.addEventListener('pagehide', navHandler)
-
-      // document.addEventListener('pagehide', async (event) => {
-      //   console.debug(`⚡️ pagehide`)
-
-      //   if (event.detail.page.id === 'scloud_drive') alert(8)
-
-      //   document.querySelector('[navigation-destination=cloud_drive]').ariaSelected = 'false'
-      // })
-
-      // document.addEventListener('click', async (event) => {
-      //   console.debug(`⚡️ ${event?.type}`)
-
-      // const navDest = event.target.closest('[navigation-destination]')
-
-      // if (navDest) {
-      //   // const sv = closestBody(event.target),
-      //   // root = getRootViewController(sv),
-      //   const path = new NavigationPath(event.target)?.hydrate()
-
-      //   // position = queryInsertPosition(host),
-      //   // lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
-
-      //   await startViewTransition(event.target, 'forwards', async () => {
-      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-      //   })
-
-      //   // document.startViewTransition({
-      //   //   async update() {
-      //   //     startViewTransition(event, false)
-      //   //   },
-      //   //   types: ['forwards'],
-      //   // })
-      // }
-      // })
-    </script>
   </body>
 </html>

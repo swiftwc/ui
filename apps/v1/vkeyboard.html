@@ -11,6 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>vkeyboard</title>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -142,9 +145,6 @@
     <nav popover>
       <a href="/index.html">Back</a>
     </nav>
-    <script type="module">
-      document.querySelector('nav[popover]').showPopover()
-    </script>
     <script>
       document.querySelector('#gg1').addEventListener('input', (evt) => {
         console.log(11, evt)

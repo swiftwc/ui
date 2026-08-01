@@ -11,89 +11,6 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>list</title>
-  </head>
-  <body>
-    <v-keyboard></v-keyboard>
-
-    <navigation-stack>
-      <scroll-view>
-        <v-stack>
-          <p>form w/ sectioned Textfields+Pickers</p>
-          <form is="form-view">
-            <picker-view prompt="here" picker-style="sheet"></picker-view>
-
-            <picker-view searchable prompt="here" picker-style="sheet">
-              <datalist data-system-image="dots-three" data-label="gfgfgfg" data-subtitle="wswswswswsws" slot="list">
-                <optgroup label="Theropods" data-subtitle="qertyuuuuuu">
-                  <option value="Tyrannosaurus23" data-subtitle="Tyrannosaurus23456"></option>
-                  <option data-subtitle="Tyrannosaurus23456">Velociraptor</option>
-                  <option data-subtitle="Tyrannosaurus23456">Deinonychus</option>
-                </optgroup>
-                <optgroup label="Sauropods">
-                  <option>Diplodocus</option>
-                  <option>Saltasaurus</option>
-                  <option>Apatosaurus</option>
-                </optgroup>
-                <datalist data-label="gfgfgfg">
-                  <optgroup label="Theropods34">
-                    <option value="Tyrannosaurus45"></option>
-                    <option>Velociraptor</option>
-                    <option>Deinonychus</option>
-                  </optgroup>
-                  <optgroup label="Sauropods34">
-                    <option>Diplodocus</option>
-                    <option>Saltasaurus</option>
-                    <option>Apatosaurus</option>
-                  </optgroup>
-                </datalist>
-              </datalist>
-              <optgroup label="Theropods" slot="list">
-                <option>Tyrannosaurus</option>
-                <option>Velociraptor</option>
-                <option>Deinonychus</option>
-              </optgroup>
-              <optgroup label="Sauropods" slot="list">
-                <option>Diplodocus</option>
-                <option>Saltasaurus</option>
-                <option>Apatosaurus</option>
-              </optgroup>
-              <option slot="list" value="0" label="0%" data-subtitle="Tyrannosaurus23456"></option>
-              <option slot="list" value="10" label="Minimum Tip" data-subtitle="Tyrannosaurus23456"></option>
-              <option slot="list" value="20" label="Standard" data-subtitle="Tyrannosaurus23456"></option>
-              <option slot="list" value="30" label="Generous" data-subtitle="Tyrannosaurus23456"></option>
-              <option slot="list" value="50" label="Very Generous"></option>
-            </picker-view>
-
-            <picker-view prompt="here" picker-style="sheet"></picker-view>
-          </form>
-        </v-stack>
-        <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
-        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
-      </scroll-view>
-      <tool-bar>
-        <tool-bar-item slot="top-bar-leading">
-          <button type="button">
-            <label-view><span>leading</span></label-view>
-          </button>
-        </tool-bar-item>
-        <tool-bar-item slot="top-bar-trailing">
-          <button type="button">
-            <label-view><span>trailing</span></label-view>
-          </button>
-        </tool-bar-item>
-        <tool-bar-item slot="bottom-bar-leading">
-          <button type="button">
-            <label-view><span>leading</span></label-view>
-          </button>
-        </tool-bar-item>
-        <tool-bar-item slot="bottom-bar-trailing">
-          <button type="button">
-            <label-view><span>trailing</span></label-view>
-          </button>
-        </tool-bar-item>
-      </tool-bar>
-    </navigation-stack>
-
     <script type="module">
       import '/main.js'
 
@@ -17487,5 +17404,88 @@
 
       document.querySelector('picker-view:nth-child(3)').setAttribute('dictionary', JSON.stringify(dict2))
     </script>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <p>form w/ sectioned Textfields+Pickers</p>
+          <form is="form-view">
+            <picker-view prompt="here" picker-style="sheet"></picker-view>
+
+            <picker-view searchable prompt="here" picker-style="sheet">
+              <datalist data-system-image="dots-three" data-label="gfgfgfg" data-subtitle="wswswswswsws" slot="list">
+                <optgroup label="Theropods" data-subtitle="qertyuuuuuu">
+                  <option value="Tyrannosaurus23" data-subtitle="Tyrannosaurus23456"></option>
+                  <option data-subtitle="Tyrannosaurus23456">Velociraptor</option>
+                  <option data-subtitle="Tyrannosaurus23456">Deinonychus</option>
+                </optgroup>
+                <optgroup label="Sauropods">
+                  <option>Diplodocus</option>
+                  <option>Saltasaurus</option>
+                  <option>Apatosaurus</option>
+                </optgroup>
+                <datalist data-label="gfgfgfg">
+                  <optgroup label="Theropods34">
+                    <option value="Tyrannosaurus45"></option>
+                    <option>Velociraptor</option>
+                    <option>Deinonychus</option>
+                  </optgroup>
+                  <optgroup label="Sauropods34">
+                    <option>Diplodocus</option>
+                    <option>Saltasaurus</option>
+                    <option>Apatosaurus</option>
+                  </optgroup>
+                </datalist>
+              </datalist>
+              <optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>
+              <optgroup label="Sauropods" slot="list">
+                <option>Diplodocus</option>
+                <option>Saltasaurus</option>
+                <option>Apatosaurus</option>
+              </optgroup>
+              <option slot="list" value="0" label="0%" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="10" label="Minimum Tip" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="20" label="Standard" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="30" label="Generous" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="50" label="Very Generous"></option>
+            </picker-view>
+
+            <picker-view prompt="here" picker-style="sheet"></picker-view>
+          </form>
+        </v-stack>
+        <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button">
+            <label-view><span>leading</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button">
+            <label-view><span>trailing</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button">
+            <label-view><span>leading</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button">
+            <label-view><span>trailing</span></label-view>
+          </button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+
   </body>
 </html>

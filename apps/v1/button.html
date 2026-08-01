@@ -124,6 +124,44 @@
       </button>
       <button is="glass-prominent-button" role="destructive"></button>
     </template>
+    <script type="module">
+      import '/main.js'
+
+      document.addEventListener('click', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        const btn = event.target.closest('.make-btn')
+
+        if (btn) {
+          const vstack = btn.closest('v-stack')
+          for (const el of vstack.querySelectorAll('button'))
+            if (!el.hasAttribute('tint')) el.setAttribute('tint', vstack.getAttribute('tint'))
+            else el.removeAttribute('tint')
+        }
+      })
+
+      window.addEventListener('blur', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        document.documentElement.style.setProperty('--accentColor', 'var(--gray)', 'important')
+        // document.documentElement.style.setProperty('--blue', 'var(--gray)', 'important')
+        // document.documentElement.style.setProperty('--blue2', 'var(--gray2)', 'important')
+        // document.documentElement.style.setProperty('--blue3', 'var(--gray3)', 'important')
+        // document.documentElement.style.setProperty('--blue4', 'var(--gray4)', 'important')
+        // document.documentElement.style.setProperty('--red', 'var(--gray)', 'important')
+      })
+
+      window.addEventListener('focus', async (event) => {
+        console.debug(`⚡️ ${event?.type}`)
+
+        document.documentElement.style.removeProperty('--accentColor')
+        // document.documentElement.style.removeProperty('--blue')
+        // document.documentElement.style.removeProperty('--blue2')
+        // document.documentElement.style.removeProperty('--blue3')
+        // document.documentElement.style.removeProperty('--blue4')
+        // document.documentElement.style.removeProperty('--red')
+      })
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -171,43 +209,5 @@
       </tool-bar>
     </navigation-stack>
 
-    <script type="module">
-      import '/main.js'
-
-      document.addEventListener('click', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
-
-        const btn = event.target.closest('.make-btn')
-
-        if (btn) {
-          const vstack = btn.closest('v-stack')
-          for (const el of vstack.querySelectorAll('button'))
-            if (!el.hasAttribute('tint')) el.setAttribute('tint', vstack.getAttribute('tint'))
-            else el.removeAttribute('tint')
-        }
-      })
-
-      window.addEventListener('blur', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
-
-        document.documentElement.style.setProperty('--accentColor', 'var(--gray)', 'important')
-        // document.documentElement.style.setProperty('--blue', 'var(--gray)', 'important')
-        // document.documentElement.style.setProperty('--blue2', 'var(--gray2)', 'important')
-        // document.documentElement.style.setProperty('--blue3', 'var(--gray3)', 'important')
-        // document.documentElement.style.setProperty('--blue4', 'var(--gray4)', 'important')
-        // document.documentElement.style.setProperty('--red', 'var(--gray)', 'important')
-      })
-
-      window.addEventListener('focus', async (event) => {
-        console.debug(`⚡️ ${event?.type}`)
-
-        document.documentElement.style.removeProperty('--accentColor')
-        // document.documentElement.style.removeProperty('--blue')
-        // document.documentElement.style.removeProperty('--blue2')
-        // document.documentElement.style.removeProperty('--blue3')
-        // document.documentElement.style.removeProperty('--blue4')
-        // document.documentElement.style.removeProperty('--red')
-      })
-    </script>
   </body>
 </html>

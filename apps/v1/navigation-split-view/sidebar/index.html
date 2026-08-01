@@ -11,6 +11,9 @@
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
     <link rel="manifest" href="../../manifest.webmanifest" />
     <title>books</title>
+    <script type="module">
+      document.querySelector('nav[popover]').showPopover()
+    </script>
   </head>
   <body>
     <v-keyboard></v-keyboard>
@@ -98,8 +101,5 @@
     <nav popover>
       <a href="../index.html">Back</a>
     </nav>
-    <script type="module">
-      document.querySelector('nav[popover]').showPopover()
-    </script>
   </body>
 </html>

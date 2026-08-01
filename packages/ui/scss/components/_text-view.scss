@@ -1,0 +1,57 @@
+@use '../vars';
+
+@layer #{vars.$components-layer} {
+  text-view {
+    :where(&) {
+      //
+
+      // inline-size: min-content;
+    }
+
+    &[prose] {
+      :where(&) {
+        container: text-view / inline-size;
+
+        // font-size: clamp(1rem, var(--text-view--base-font-size) + 0.5rem, 3rem);
+
+        // --text-view--base-font-size: 1cqi;
+        // --text-view--h1-font-size: 5cqi;
+
+        --text-view--p-margin-block-start: 1rem;
+      }
+
+      p {
+        margin-block-start: var(--text-view--p-margin-block-start);
+      }
+
+      // @container text-view (width <= 576px) {
+      //   :where(&) {
+      //     --text-view--base-font-size: 1.3cqi;
+      //   }
+      // }
+      // @container text-view (width > 576px) {
+      //   :where(&) {
+      //     --text-view--base-font-size: 1.3cqi;
+      //   }
+      // }
+      // @container table (width > 768) {
+      //   --text-view--base-font-size: 100% * 16px;
+      // }
+      // @container table (width > 1024) {
+      //   --text-view--base-font-size: 100% * 16px;
+      // }
+      // @container table (width > 1280) {
+      //   --text-view--base-font-size: 100% * 16px;
+      // }
+      // @container table (width > 1536) {
+      //   --text-view--base-font-size: 100% * 16px;
+      // }
+
+      h1 {
+        :where(&) {
+          font-size: clamp(1rem, var(--text-view--h1-font-size) + 0.5rem, 3rem);
+        }
+      }
+    }
+  }
+}

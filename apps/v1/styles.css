@@ -1105,6 +1105,7 @@
   group-box:not([hidden]),
   tool-bar:not([hidden]),
   label-view:not([hidden]),
+  text-view:not([hidden]),
   labeled-content:not([hidden]),
   menu-view:not([hidden]),
   section-view:not([hidden]),
@@ -3373,6 +3374,18 @@
     :where(label-view[truncation-mode=tail]) {
       --label-truncation-mode: tail;
     }
+  }
+}
+@layer sw-components {
+  :where(text-view[prose]) {
+    container: text-view/inline-size;
+    --text-view--p-margin-block-start: 1rem;
+  }
+  text-view[prose] p {
+    margin-block-start: var(--text-view--p-margin-block-start);
+  }
+  :where(text-view[prose] h1) {
+    font-size: clamp(1rem, var(--text-view--h1-font-size) + 0.5rem, 3rem);
   }
 }
 @layer sw-components {

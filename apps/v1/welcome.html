@@ -4,7 +4,6 @@
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -19,7 +18,7 @@
 
     <navigation-stack>
       <scroll-view background-style="grouped">
-        <v-stack placement="leading fill" class="py-12">
+        <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" style="padding-block-start: 4rem">
           <navigation-large-title padding>
             <v-stack alignment="fill">
               <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>
@@ -36,8 +35,8 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-path="region" id="gg" background-style="grouped" class="py-12">
-          <v-stack placement="leading fill">
+        <scroll-view navigation-path="region" id="gg" background-style="grouped">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
             <list-view list-style="inset-grouped">
               <button navigation-link type="button" navigation-destination="appearance">
@@ -48,7 +47,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -57,8 +56,8 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="appearance" background-style="grouped" class="py-12">
-          <v-stack placement="space-between fill" padding>
+        <scroll-view navigation-path="appearance" background-style="grouped">
+          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
               <picker-view picker-style="inline">
@@ -77,7 +76,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -87,10 +86,43 @@
     <template>
       <body-view>
         <scroll-view navigation-path="data-privacy" background-style="grouped">
-          <v-stack placement="space-between fill" padding>
+          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
-              <text-view> lorem ipsum </text-view>
+              <article>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
+                  quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
+                  fringilla. Proin tempor sapien nec pretium iaculis. Pellentesque ipsum erat, suscipit eu enim sit amet, pellentesque ultrices nisi. Fusce eu
+                  sollicitudin metus, id mattis neque.
+                </p>
+                <p>
+                  Vivamus pulvinar ultricies ex, a bibendum lectus euismod non. Maecenas sed purus nunc. Mauris vitae nibh hendrerit, tempus ex ut, varius
+                  ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus et risus at massa vestibulum
+                  volutpat sit amet vitae purus. Donec at arcu non urna hendrerit gravida. Aliquam placerat venenatis augue eu sodales. Fusce aliquet mattis dui
+                  ut convallis. In in arcu semper, rhoncus metus non, sodales eros. Donec congue nisi dictum eros suscipit congue. Aliquam erat volutpat. Aenean
+                  quis enim nec justo aliquet pharetra quis in arcu.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet massa sed tellus lobortis viverra. Sed et bibendum eros. Pellentesque
+                  id risus tempus, auctor libero nec, fringilla mauris. Mauris id mi nunc. Sed ut scelerisque lectus. Duis maximus, odio vel condimentum
+                  gravida, velit urna pulvinar mi, quis egestas diam nisi id ante.
+                </p>
+                <p>
+                  dictum iaculis nisl eu vestibulum. Nunc laoreet quis sem id ultricies. Duis libero nisi, gravida quis justo sit amet, accumsan tempus lorem.
+                  Nunc mattis dictum tellus in sollicitudin. Nullam ullamcorper ac arcu non bibendum. Proin auctor et justo vitae laoreet. Fusce mollis
+                  tincidunt pulvinar. Maecenas auctor purus eget arcu semper, in dignissim magna pharetra. Nulla nec felis fringilla, mollis elit vitae,
+                  imperdiet lectus. Curabitur molestie sagittis massa, et ullamcorper arcu tempus ac. Suspendisse consectetur rutrum pharetra.
+                </p>
+                <p>
+                  Fusce tincidunt cursus venenatis. Nulla bibendum, lacus vehicula aliquet cursus, turpis elit pharetra orci, vitae sodales sem turpis rutrum
+                  nunc. Vestibulum sed dui vitae dui pharetra ultrices eu a lacus. Nullam lobortis consequat metus, eget placerat leo ullamcorper id. Aenean
+                  sollicitudin volutpat massa, quis pretium sapien imperdiet non. Donec eu turpis diam. Sed ornare, orci id dictum euismod, tortor magna rhoncus
+                  enim, ut interdum magna metus eget justo. Suspendisse bibendum neque ut enim pharetra, vel fermentum arcu tempus. Maecenas tempor nulla a
+                  sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
+                  quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
+                </p>
+              </article>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -102,7 +134,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -112,9 +144,9 @@
     <template>
       <body-view>
         <scroll-view navigation-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
-          <v-stack placement="leading fill">
-            <v-stack padding>
-              <navigation-title value="Data & Privacy"></navigation-title>
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <v-stack alignment="fill" padding>
+              <navigation-title value="Age Range"></navigation-title>
               <text-view> Select the age range </text-view>
             </v-stack>
 
@@ -133,7 +165,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -145,12 +177,45 @@
         <scroll-view navigation-path="terms">
           <v-stack placement="leading fill" padding>
             <navigation-title value="Terms and Conditions"></navigation-title>
-            <text-view> lorem ipsum </text-view>
+            <article>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
+                quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
+                fringilla. Proin tempor sapien nec pretium iaculis. Pellentesque ipsum erat, suscipit eu enim sit amet, pellentesque ultrices nisi. Fusce eu
+                sollicitudin metus, id mattis neque.
+              </p>
+              <p>
+                Vivamus pulvinar ultricies ex, a bibendum lectus euismod non. Maecenas sed purus nunc. Mauris vitae nibh hendrerit, tempus ex ut, varius ligula.
+                Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus et risus at massa vestibulum volutpat sit
+                amet vitae purus. Donec at arcu non urna hendrerit gravida. Aliquam placerat venenatis augue eu sodales. Fusce aliquet mattis dui ut convallis.
+                In in arcu semper, rhoncus metus non, sodales eros. Donec congue nisi dictum eros suscipit congue. Aliquam erat volutpat. Aenean quis enim nec
+                justo aliquet pharetra quis in arcu.
+              </p>
+              <p>
+                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet massa sed tellus lobortis viverra. Sed et bibendum eros. Pellentesque
+                id risus tempus, auctor libero nec, fringilla mauris. Mauris id mi nunc. Sed ut scelerisque lectus. Duis maximus, odio vel condimentum gravida,
+                velit urna pulvinar mi, quis egestas diam nisi id ante.
+              </p>
+              <p>
+                dictum iaculis nisl eu vestibulum. Nunc laoreet quis sem id ultricies. Duis libero nisi, gravida quis justo sit amet, accumsan tempus lorem.
+                Nunc mattis dictum tellus in sollicitudin. Nullam ullamcorper ac arcu non bibendum. Proin auctor et justo vitae laoreet. Fusce mollis tincidunt
+                pulvinar. Maecenas auctor purus eget arcu semper, in dignissim magna pharetra. Nulla nec felis fringilla, mollis elit vitae, imperdiet lectus.
+                Curabitur molestie sagittis massa, et ullamcorper arcu tempus ac. Suspendisse consectetur rutrum pharetra.
+              </p>
+              <p>
+                Fusce tincidunt cursus venenatis. Nulla bibendum, lacus vehicula aliquet cursus, turpis elit pharetra orci, vitae sodales sem turpis rutrum
+                nunc. Vestibulum sed dui vitae dui pharetra ultrices eu a lacus. Nullam lobortis consequat metus, eget placerat leo ullamcorper id. Aenean
+                sollicitudin volutpat massa, quis pretium sapien imperdiet non. Donec eu turpis diam. Sed ornare, orci id dictum euismod, tortor magna rhoncus
+                enim, ut interdum magna metus eget justo. Suspendisse bibendum neque ut enim pharetra, vel fermentum arcu tempus. Maecenas tempor nulla a sapien
+                blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum quis
+                neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
+              </p>
+            </article>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view title="Disagree"></label-view>
             </button>
           </tool-bar-item>
@@ -165,10 +230,43 @@
     <template>
       <body-view>
         <scroll-view navigation-path="location" background-style="grouped">
-          <v-stack placement="space-between fill" padding>
+          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
-              <text-view> lorem ipsum </text-view>
+              <article>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
+                  quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
+                  fringilla. Proin tempor sapien nec pretium iaculis. Pellentesque ipsum erat, suscipit eu enim sit amet, pellentesque ultrices nisi. Fusce eu
+                  sollicitudin metus, id mattis neque.
+                </p>
+                <p>
+                  Vivamus pulvinar ultricies ex, a bibendum lectus euismod non. Maecenas sed purus nunc. Mauris vitae nibh hendrerit, tempus ex ut, varius
+                  ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus et risus at massa vestibulum
+                  volutpat sit amet vitae purus. Donec at arcu non urna hendrerit gravida. Aliquam placerat venenatis augue eu sodales. Fusce aliquet mattis dui
+                  ut convallis. In in arcu semper, rhoncus metus non, sodales eros. Donec congue nisi dictum eros suscipit congue. Aliquam erat volutpat. Aenean
+                  quis enim nec justo aliquet pharetra quis in arcu.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet massa sed tellus lobortis viverra. Sed et bibendum eros. Pellentesque
+                  id risus tempus, auctor libero nec, fringilla mauris. Mauris id mi nunc. Sed ut scelerisque lectus. Duis maximus, odio vel condimentum
+                  gravida, velit urna pulvinar mi, quis egestas diam nisi id ante.
+                </p>
+                <p>
+                  dictum iaculis nisl eu vestibulum. Nunc laoreet quis sem id ultricies. Duis libero nisi, gravida quis justo sit amet, accumsan tempus lorem.
+                  Nunc mattis dictum tellus in sollicitudin. Nullam ullamcorper ac arcu non bibendum. Proin auctor et justo vitae laoreet. Fusce mollis
+                  tincidunt pulvinar. Maecenas auctor purus eget arcu semper, in dignissim magna pharetra. Nulla nec felis fringilla, mollis elit vitae,
+                  imperdiet lectus. Curabitur molestie sagittis massa, et ullamcorper arcu tempus ac. Suspendisse consectetur rutrum pharetra.
+                </p>
+                <p>
+                  Fusce tincidunt cursus venenatis. Nulla bibendum, lacus vehicula aliquet cursus, turpis elit pharetra orci, vitae sodales sem turpis rutrum
+                  nunc. Vestibulum sed dui vitae dui pharetra ultrices eu a lacus. Nullam lobortis consequat metus, eget placerat leo ullamcorper id. Aenean
+                  sollicitudin volutpat massa, quis pretium sapien imperdiet non. Donec eu turpis diam. Sed ornare, orci id dictum euismod, tortor magna rhoncus
+                  enim, ut interdum magna metus eget justo. Suspendisse bibendum neque ut enim pharetra, vel fermentum arcu tempus. Maecenas tempor nulla a
+                  sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
+                  quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
+                </p>
+              </article>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -180,7 +278,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -190,10 +288,43 @@
     <template>
       <body-view>
         <scroll-view navigation-path="analytics" background-style="grouped">
-          <v-stack placement="space-between fill" padding>
+          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
-              <text-view> lorem ipsum </text-view>
+              <article>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
+                  quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
+                  fringilla. Proin tempor sapien nec pretium iaculis. Pellentesque ipsum erat, suscipit eu enim sit amet, pellentesque ultrices nisi. Fusce eu
+                  sollicitudin metus, id mattis neque.
+                </p>
+                <p>
+                  Vivamus pulvinar ultricies ex, a bibendum lectus euismod non. Maecenas sed purus nunc. Mauris vitae nibh hendrerit, tempus ex ut, varius
+                  ligula. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Phasellus et risus at massa vestibulum
+                  volutpat sit amet vitae purus. Donec at arcu non urna hendrerit gravida. Aliquam placerat venenatis augue eu sodales. Fusce aliquet mattis dui
+                  ut convallis. In in arcu semper, rhoncus metus non, sodales eros. Donec congue nisi dictum eros suscipit congue. Aliquam erat volutpat. Aenean
+                  quis enim nec justo aliquet pharetra quis in arcu.
+                </p>
+                <p>
+                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Aenean sit amet massa sed tellus lobortis viverra. Sed et bibendum eros. Pellentesque
+                  id risus tempus, auctor libero nec, fringilla mauris. Mauris id mi nunc. Sed ut scelerisque lectus. Duis maximus, odio vel condimentum
+                  gravida, velit urna pulvinar mi, quis egestas diam nisi id ante.
+                </p>
+                <p>
+                  dictum iaculis nisl eu vestibulum. Nunc laoreet quis sem id ultricies. Duis libero nisi, gravida quis justo sit amet, accumsan tempus lorem.
+                  Nunc mattis dictum tellus in sollicitudin. Nullam ullamcorper ac arcu non bibendum. Proin auctor et justo vitae laoreet. Fusce mollis
+                  tincidunt pulvinar. Maecenas auctor purus eget arcu semper, in dignissim magna pharetra. Nulla nec felis fringilla, mollis elit vitae,
+                  imperdiet lectus. Curabitur molestie sagittis massa, et ullamcorper arcu tempus ac. Suspendisse consectetur rutrum pharetra.
+                </p>
+                <p>
+                  Fusce tincidunt cursus venenatis. Nulla bibendum, lacus vehicula aliquet cursus, turpis elit pharetra orci, vitae sodales sem turpis rutrum
+                  nunc. Vestibulum sed dui vitae dui pharetra ultrices eu a lacus. Nullam lobortis consequat metus, eget placerat leo ullamcorper id. Aenean
+                  sollicitudin volutpat massa, quis pretium sapien imperdiet non. Donec eu turpis diam. Sed ornare, orci id dictum euismod, tortor magna rhoncus
+                  enim, ut interdum magna metus eget justo. Suspendisse bibendum neque ut enim pharetra, vel fermentum arcu tempus. Maecenas tempor nulla a
+                  sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
+                  quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
+                </p>
+              </article>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -205,7 +336,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button type="button" tabindex="0" class="back" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -215,13 +346,15 @@
     <template>
       <body-view>
         <scroll-view navigation-path="welcome" background-style="grouped">
-          <v-flex-stack alignment="fill" padding>
+          <v-flex-stack alignment="fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack frame-height="infinity">
-              <text-view> Welcome to Swift WC </text-view>
+              <label-view font="extra-large-title">
+                <span>Welcome to Swift WC</span>
+              </label-view>
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent-button" control-size="mini" type="button" class="backtocontroller">
+              <button is="borderless-button" control-size="mini" type="button" class="backtocontroller">
                 <label-view title="Start Over"></label-view>
               </button>
             </v-stack>

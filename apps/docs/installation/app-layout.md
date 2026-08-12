@@ -36,3 +36,10 @@ It is used to handle the virtual keyboard on touch devices.
 ```
 
 :::
+
+<!--
+## Unlocking system fonts and icons
+
+SwiftWC works out-of-the-box with some font libraries and icons.
+
+## For PWA or installable web apps -->

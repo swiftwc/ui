@@ -1,3 +1,12 @@
+---
+prev:
+  text: 'Installation'
+  link: '/installation/'
+next:
+  text: 'Editor Setup'
+  link: '/installation/editor-setup'
+---
+
 # Install SwiftWC with Ember.js
 
 How to install dependencies and structure your Ember.js app.

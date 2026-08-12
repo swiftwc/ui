@@ -2,6 +2,9 @@
 prev:
   text: 'Installation'
   link: '/installation/'
+next:
+  text: 'Editor Setup'
+  link: '/installation/editor-setup'
 ---
 
 # Install SwiftWC with Vite

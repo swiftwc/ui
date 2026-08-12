@@ -26,6 +26,10 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <html>
   <head>
     <!-- [!code focus] -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- [!code focus] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code focus] -->
     <!-- [!code ++] -->
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui/css" />
     <!-- [!code focus] -->
@@ -40,6 +44,10 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <html>
   <head>
     <!-- [!code focus] -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web"></script>
+    <!-- [!code focus] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code focus] -->
     <!-- [!code ++] -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@0.0.0-dev.8/generated/css/index.css" />
     <!-- [!code focus] -->
@@ -49,15 +57,19 @@ Instructions on how to add the SwiftWC Web Components to your app.
 </html>
 ```
 
-```html [Skypack]
+<!-- ```html [Skypack]
 <!doctype html>
 <html>
   <head>
-    <!-- [!code focus] -->
-    <!-- [!code ++] -->
+    {{!-- [!code focus] --}}
+    <script src="https://cdn.skypack.dev/phosphor-icons"></script>
+    {{!-- [!code focus] --}}
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    {{!-- [!code focus] --}}
+    {{!-- [!code ++] --}}
     <link rel="stylesheet" href="https://cdn.skypack.dev/@swiftwc/ui/css" />
-    <!-- [!code focus] -->
-    <!-- [!code ++] -->
+    {{!-- [!code focus] --}}
+    {{!-- [!code ++] --}}
     <script type="module" src="https://cdn.skypack.dev/@swiftwc/ui/client"></script>
   </head>
 </html>
@@ -67,15 +79,19 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <!doctype html>
 <html>
   <head>
-    <!-- [!code focus] -->
-    <!-- [!code ++] -->
+    {{!-- [!code focus] --}}
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    {{!-- [!code focus] --}}
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    {{!-- [!code focus] --}}
+    {{!-- [!code ++] --}}
     <link rel="stylesheet" href="https://esm.sh/@swiftwc/ui/css" />
-    <!-- [!code focus] -->
-    <!-- [!code ++] -->
+    {{!-- [!code focus] --}}
+    {{!-- [!code ++] --}}
     <script type="module" src="https://esm.sh/@swiftwc/ui/client"></script>
   </head>
 </html>
-```
+``` -->
 
 <!--
 ```html [cloudflare]
@@ -93,6 +109,10 @@ Instructions on how to add the SwiftWC Web Components to your app.
 <!doctype html>
 <html>
   <head>
+    <!-- [!code focus] -->
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <!-- [!code focus] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />

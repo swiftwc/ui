@@ -171,7 +171,7 @@ export class TextField extends FormAssociatedBase {
       case 'name':
       case 'minimum':
       case 'maximum':
-        this.#sendValueToForm()
+        this.#sendValueToForm(false)
 
         break
       case 'prompt':
@@ -619,6 +619,6 @@ export class TextField extends FormAssociatedBase {
   formResetCallback = () => {
     this.text = ''
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(false)
   }
 }

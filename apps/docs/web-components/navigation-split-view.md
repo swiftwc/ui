@@ -92,6 +92,6 @@ Check out the documentation for the [full list of markdown extensions](https://v
 
 ### Conforms To
 
-`HTMLNavigationViewElement`
+`HTMLElement`
 
 <!-- #endregion post -->

@@ -12,6 +12,6 @@ A view that shows a main screen and lets you open other screens on top of it.
 
 ### Conforms To
 
-`HTMLNavigationViewElement`
+`HTMLElement`
 
 <!-- #endregion post -->

@@ -969,7 +969,7 @@
           "tagName": "navigation-split-view",
           "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.",
           "superclass": {
-            "name": "HTMLNavigationViewElement"
+            "name": "HTMLElement"
           }
         }
       ],
@@ -1001,7 +1001,7 @@
           "tagName": "navigation-stack",
           "description": "A view that shows a main screen and lets you open other screens on top of it.",
           "superclass": {
-            "name": "HTMLNavigationViewElement"
+            "name": "HTMLElement"
           }
         }
       ],

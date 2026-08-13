@@ -4,9 +4,9 @@ import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 /**
- * @summary A control that initiates an action. Styled without any borders.
+ * @summary A control that starts an action. Styled without any borders.
  *
- * @example <button is="borderless-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button>
+ * @example <button is="borderless-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button> — Creating a borderless button
  *
  * @slot overlay
  *

@@ -9,10 +9,16 @@
           "url": "https://swiftwc.github.io/ui/web-components/alert-dialog"
         }
       ],
-      "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`.\n---"
+      "description": ""
     },
     {
       "name": "body-view",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/body-view"
+        }
+      ],
       "description": ""
     },
     {
@@ -23,7 +29,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a menu from a configuration:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -50,7 +56,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent bordered button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -77,7 +83,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/borderless-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a borderless button:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -235,7 +241,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -262,7 +268,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -338,6 +344,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/label-view"
         }
       ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **icon**",
       "attributes": [
         {
           "name": "font",
@@ -356,8 +363,7 @@
         {
           "name": "truncation-mode"
         }
-      ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **icon**"
+      ]
     },
     {
       "name": "labeled-content",
@@ -475,6 +481,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/picker-view"
         }
       ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string Form participation property",
       "attributes": [
         {
           "name": "picker-style",
@@ -530,8 +537,7 @@
             }
           ]
         }
-      ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string Form participation property"
+      ]
     },
     {
       "name": "plain-button",
@@ -751,6 +757,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/toggle-view"
         }
       ],
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string Form participation property\n- **value** — string | null",
       "attributes": [
         {
           "name": "label"
@@ -773,8 +780,7 @@
         {
           "name": "disabled"
         }
-      ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string Form participation property\n- **value** — string | null"
+      ]
     },
     {
       "name": "tool-bar-item-group",

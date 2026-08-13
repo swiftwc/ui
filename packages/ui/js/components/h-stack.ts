@@ -1,7 +1,7 @@
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary A view that arranges its subviews in a horizontal line.
+ * @summary A view that arranges its children side by side.
  *
  * @attr {@templateSet} template — The main-axis grid template
  *

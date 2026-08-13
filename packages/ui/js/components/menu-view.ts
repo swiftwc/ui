@@ -3,7 +3,7 @@ import { $, devFlags, onoff, touchGlass } from '../internal/utils'
 import { html, queryMorph } from '../morphdom'
 
 /**
- * @summary A control for presenting a menu of actions.
+ * @summary A control that opens a menu of actions.
  *
  * @slot — The default slot.
  * @slot label

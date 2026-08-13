@@ -153,6 +153,7 @@ const indexGroups = (nodes: Element[] | Dictionary, parentPath = ''): Map<string
 const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
 
 /**
+ * @summary A control that selects one value from a set of options.
  *
  * @attr {menu|inline|navigation-link|sheet|automatic} picker-style
  *

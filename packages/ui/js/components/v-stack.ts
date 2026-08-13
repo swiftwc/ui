@@ -1,7 +1,7 @@
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary A view that arranges its subviews in a vertical line.
+ * @summary A view that arranges its children one on top of the other.
  *
  * @attr {leading|"leading fill"|center|trailing|fill|space-between} distribution — The distribution of cols
  *

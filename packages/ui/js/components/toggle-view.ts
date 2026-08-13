@@ -10,6 +10,8 @@ const toggleStyles = ['switch', 'button'] as const
 export type ToggleStyle = (typeof toggleStyles)[number] // 'decimal-pad' | 'number-pad' | 'default'
 
 /**
+ * @summary A control that switches between on and off states.
+ *
  * @slot label
  * @slot validity-options
  */

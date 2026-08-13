@@ -2,7 +2,8 @@ import { $, devFlags } from '../internal/utils'
 import { html, queryMorph } from '../morphdom'
 
 /**
- *
+ * @summary A view that labels items with an icon and a title.
+ * 
  * @attr {@fontSet} font — Sets the default font for text in this view.
  *
  * @slot — The default slot.

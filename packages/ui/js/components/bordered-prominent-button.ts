@@ -4,9 +4,9 @@ import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
 /**
- * @summary A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.
+ * @summary A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.
  *
- * @example <button is="bordered-prominent-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button>
+ * @example <button is="bordered-prominent-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button> — Creating a prominent bordered button
  *
  * @slot overlay
  *

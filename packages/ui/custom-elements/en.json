@@ -11,7 +11,7 @@
           "customElement": true,
           "name": "AlertDialog",
           "tagName": "alert-dialog",
-          "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`.",
+          "description": "A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -43,7 +43,7 @@
           "customElement": true,
           "name": "BodyView",
           "tagName": "body-view",
-          "description": "",
+          "description": "The content and behavior of the view.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -75,7 +75,7 @@
           "customElement": true,
           "name": "BorderedButton",
           "tagName": "bordered-button",
-          "description": "A control that initiates an action. Styled with standard border artwork based on the button’s context.",
+          "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -120,7 +120,7 @@
           "customElement": true,
           "name": "BorderedProminentButton",
           "tagName": "bordered-prominent-button",
-          "description": "A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.",
+          "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -165,7 +165,7 @@
           "customElement": true,
           "name": "BorderlessButton",
           "tagName": "borderless-button",
-          "description": "A control that initiates an action. Styled without any borders.",
+          "description": "A control that starts an action. Styled without any borders.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -333,7 +333,7 @@
           "customElement": true,
           "name": "DatePicker",
           "tagName": "date-picker",
-          "description": "A control for selecting an absolute date.",
+          "description": "A control that selects an absolute date.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -597,7 +597,7 @@
           "customElement": true,
           "name": "GlassButton",
           "tagName": "glass-button",
-          "description": "A control that initiates an action. Styled with glass border artwork based on the button’s context.",
+          "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -642,7 +642,7 @@
           "customElement": true,
           "name": "GlassProminentButton",
           "tagName": "glass-prominent-button",
-          "description": "A control that initiates an action. Styled with prominent glass border artwork based on the button’s context.",
+          "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.",
           "superclass": {
             "name": "HTMLButtonElement"
           },
@@ -687,7 +687,7 @@
           "customElement": true,
           "name": "HStack",
           "tagName": "hstack",
-          "description": "A view that arranges its subviews in a horizontal line.",
+          "description": "A view that arranges its children side by side.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -776,7 +776,7 @@
           "customElement": true,
           "name": "LabelView",
           "tagName": "label-view",
-          "description": "",
+          "description": "A view that labels items with an icon and a title.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -923,7 +923,7 @@
           "customElement": true,
           "name": "MenuView",
           "tagName": "menu-view",
-          "description": "A control for presenting a menu of actions.",
+          "description": "A control that opens a menu of actions.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1117,7 +1117,7 @@
           "customElement": true,
           "name": "PickerView",
           "tagName": "picker-view",
-          "description": "",
+          "description": "A control that selects one value from a set of options.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -1509,7 +1509,7 @@
           "customElement": true,
           "name": "SectionView",
           "tagName": "section-view",
-          "description": "A container view that you can use to add hierarchy within certain views.",
+          "description": "A container view that groups related content together.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1906,7 +1906,7 @@
           "customElement": true,
           "name": "TextField",
           "tagName": "text-field",
-          "description": "A control that displays an editable text interface.",
+          "description": "A control that displays an editable text area.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -2063,7 +2063,7 @@
           "customElement": true,
           "name": "ToggleView",
           "tagName": "toggle-view",
-          "description": "",
+          "description": "A control that switches between on and off states.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -2370,7 +2370,7 @@
           "customElement": true,
           "name": "VStack",
           "tagName": "vstack",
-          "description": "A view that arranges its subviews in a vertical line.",
+          "description": "A view that arranges its children one on top of the other.",
           "superclass": {
             "name": "HTMLElement"
           },

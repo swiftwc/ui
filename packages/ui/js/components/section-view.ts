@@ -2,7 +2,7 @@ import { $, devFlags } from '../internal/utils'
 import { html, queryMorph } from '../morphdom'
 
 /**
- * @summary A container view that you can use to add hierarchy within certain views.
+ * @summary A container view that groups related content together.
  *
  * @slot — The default slot.
  * @slot header

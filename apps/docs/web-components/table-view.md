@@ -6,7 +6,7 @@ Display selectable, sortable data arranged in rows and columns.
 
 ## Declaration
 
-`<table-view></table-view>>`
+`<table-view></table-view>`
 
 <!-- #endregion pre -->
 

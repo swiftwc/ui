@@ -7,7 +7,7 @@ Use it from the client module like `await confirmation(trigger, 'Permanently era
 
 ## Declaration
 
-`<dialog is="confirmation-dialog"></dialog>>`
+`<dialog is="confirmation-dialog"></dialog>`
 
 <!-- #endregion pre -->
 

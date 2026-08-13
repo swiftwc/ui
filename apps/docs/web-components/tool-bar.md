@@ -6,7 +6,7 @@ Populates the toolbar or navigation bar with the specified items.
 
 ## Declaration
 
-`<tool-bar></tool-bar>>`
+`<tool-bar></tool-bar>`
 
 <!-- #endregion pre -->
 

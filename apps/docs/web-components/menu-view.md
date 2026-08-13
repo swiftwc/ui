@@ -6,7 +6,7 @@ A control for presenting a menu of actions.
 
 ## Declaration
 
-`<menu-view></menu-view>>`
+`<menu-view></menu-view>`
 
 <!-- #endregion pre -->
 

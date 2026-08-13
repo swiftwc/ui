@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<tab-view></tab-view>>`
+`<tab-view></tab-view>`
 
 <!-- #endregion pre -->
 

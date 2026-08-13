@@ -6,7 +6,7 @@ A view with two or three side-by-side sections, where what you choose in the lef
 
 ## Declaration
 
-`<navigation-split-view></navigation-split-view>>`
+`<navigation-split-view></navigation-split-view>`
 
 <!-- #endregion pre -->
 

@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<button is="plain-button"></button>>`
+`<button is="plain-button"></button>`
 
 <!-- #endregion pre -->
 

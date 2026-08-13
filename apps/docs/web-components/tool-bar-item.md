@@ -6,7 +6,7 @@ A model that represents an item which can be placed in the toolbar or navigation
 
 ## Declaration
 
-`<tool-bar-item></tool-bar-item>>`
+`<tool-bar-item></tool-bar-item>`
 
 <!-- #endregion pre -->
 

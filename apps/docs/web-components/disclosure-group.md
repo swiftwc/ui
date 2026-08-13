@@ -6,7 +6,7 @@ A view that shows or hides another content view, based on the state of a disclos
 
 ## Declaration
 
-`<details is="disclosure-group"></details>>`
+`<details is="disclosure-group"></details>`
 
 <!-- #endregion pre -->
 

@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<sticky-container></sticky-container>>`
+`<sticky-container></sticky-container>`
 
 <!-- #endregion pre -->
 

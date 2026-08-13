@@ -6,7 +6,7 @@ Required component, used to handle the virtual keyboard on touch devices.
 
 ## Declaration
 
-`<vkeyboard></vkeyboard>>`
+`<vkeyboard></vkeyboard>`
 
 <!-- #endregion pre -->
 

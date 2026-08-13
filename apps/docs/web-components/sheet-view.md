@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<dialog is="sheet-view"></dialog>>`
+`<dialog is="sheet-view"></dialog>`
 
 <!-- #endregion pre -->
 

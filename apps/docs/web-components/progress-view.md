@@ -6,7 +6,7 @@ A view that shows the progress toward completion of a task.
 
 ## Declaration
 
-`<progress-view></progress-view>>`
+`<progress-view></progress-view>`
 
 <!-- #endregion pre -->
 

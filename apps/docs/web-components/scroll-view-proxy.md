@@ -6,7 +6,7 @@ A wrapper to {hv}-stacks.
 
 ## Declaration
 
-`<scroll-view-proxy></scroll-view-proxy>>`
+`<scroll-view-proxy></scroll-view-proxy>`
 
 <!-- #endregion pre -->
 

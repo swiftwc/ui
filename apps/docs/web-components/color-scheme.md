@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<color-scheme></color-scheme>>`
+`<color-scheme></color-scheme>`
 
 <!-- #endregion pre -->
 

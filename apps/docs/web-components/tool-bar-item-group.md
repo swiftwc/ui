@@ -6,7 +6,7 @@ A model that represents a group of `ToolbarItems` which can be placed in the too
 
 ## Declaration
 
-`<tool-bar-item-group></tool-bar-item-group>>`
+`<tool-bar-item-group></tool-bar-item-group>`
 
 <!-- #endregion pre -->
 

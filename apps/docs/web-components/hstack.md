@@ -6,7 +6,7 @@ A view that arranges its subviews in a horizontal line.
 
 ## Declaration
 
-`<hstack></hstack>>`
+`<hstack></hstack>`
 
 <!-- #endregion pre -->
 

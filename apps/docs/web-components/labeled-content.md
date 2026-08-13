@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<labeled-content></labeled-content>`
+`<labeled-content></labeled-content>>`
 
 <!-- #endregion pre -->
 

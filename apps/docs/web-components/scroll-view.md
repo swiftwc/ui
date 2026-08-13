@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<scroll-view></scroll-view>`
+`<scroll-view></scroll-view>>`
 
 <!-- #endregion pre -->
 

@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<form-view></form-view>`
+`<form is="form-view"></form>>`
 
 <!-- #endregion pre -->
 

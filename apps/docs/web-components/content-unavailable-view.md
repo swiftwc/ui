@@ -6,7 +6,7 @@ A message with a title and extra information that you show when part of your app
 
 ## Declaration
 
-`<content-unavailable-view></content-unavailable-view>`
+`<content-unavailable-view></content-unavailable-view>>`
 
 <!-- #endregion pre -->
 

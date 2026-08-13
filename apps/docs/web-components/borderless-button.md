@@ -6,7 +6,7 @@ A control that initiates an action. Styled without any borders.
 
 ## Declaration
 
-`<borderless-button></borderless-button>`
+`<button is="borderless-button"></button>>`
 
 <!-- #endregion pre -->
 

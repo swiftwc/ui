@@ -13,7 +13,7 @@ Use it from the client module like `void alert('Save failed.')`.
 
 ## Declaration
 
-`<alert-dialog></alert-dialog>`
+`<dialog is="alert-dialog"></dialog>>`
 
 <!-- #endregion pre -->
 

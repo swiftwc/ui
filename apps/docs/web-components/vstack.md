@@ -12,7 +12,7 @@ A view that arranges its subviews in a vertical line.
 
 ## Declaration
 
-`<vstack></vstack>`
+`<vstack></vstack>>`
 
 <!-- #endregion pre -->
 

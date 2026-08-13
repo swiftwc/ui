@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<picker-view></picker-view>`
+`<form is="picker-view"></form>>`
 
 <!-- #endregion pre -->
 

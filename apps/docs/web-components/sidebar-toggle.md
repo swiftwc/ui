@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<sidebar-toggle></sidebar-toggle>`
+`<sidebar-toggle></sidebar-toggle>>`
 
 <!-- #endregion pre -->
 

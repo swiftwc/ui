@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<list-view></list-view>`
+`<list-view></list-view>>`
 
 <!-- #endregion pre -->
 

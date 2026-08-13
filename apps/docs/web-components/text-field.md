@@ -6,7 +6,7 @@ A control that displays an editable text interface.
 
 ## Declaration
 
-`<text-field></text-field>`
+`<form is="text-field"></form>>`
 
 <!-- #endregion pre -->
 

@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<tab-item></tab-item>`
+`<button is="tab-item"></button>>`
 
 <!-- #endregion pre -->
 

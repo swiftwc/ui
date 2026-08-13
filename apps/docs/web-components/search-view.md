@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<search-view></search-view>`
+`<search-view></search-view>>`
 
 <!-- #endregion pre -->
 

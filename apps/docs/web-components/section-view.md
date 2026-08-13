@@ -6,7 +6,7 @@ A container view that you can use to add hierarchy within certain views.
 
 ## Declaration
 
-`<section-view></section-view>`
+`<section-view></section-view>>`
 
 <!-- #endregion pre -->
 

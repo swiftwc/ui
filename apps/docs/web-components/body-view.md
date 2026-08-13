@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<body-view></body-view>`
+`<body-view></body-view>>`
 
 <!-- #endregion pre -->
 

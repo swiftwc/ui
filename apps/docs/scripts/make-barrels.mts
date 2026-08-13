@@ -33,7 +33,7 @@ for await (const [i, mod] of data.modules.entries()) {
       //
     }
 
-    let declaration = dec.tagName
+    let declaration = `<${dec.tagName}></${dec.tagName}>`
     switch (dec.superclass.name) {
       case 'HTMLButtonElement':
         declaration = `<button is="${dec.tagName}"></button>`
@@ -55,7 +55,7 @@ for await (const [i, mod] of data.modules.entries()) {
 
 ## Declaration
 
-\`<${dec.tagName}></${dec.tagName}>\`
+\`${declaration}>\`
 
 <!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n${topicsMd}\n\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n## Reference
 

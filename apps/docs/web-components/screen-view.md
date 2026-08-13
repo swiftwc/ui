@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<screen-view></screen-view>`
+`<dialog is="screen-view"></dialog>>`
 
 <!-- #endregion pre -->
 

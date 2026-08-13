@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<navigation-title></navigation-title>`
+`<navigation-title></navigation-title>>`
 
 <!-- #endregion pre -->
 

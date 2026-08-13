@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<fine-tooltip></fine-tooltip>`
+`<fine-tooltip></fine-tooltip>>`
 
 <!-- #endregion pre -->
 

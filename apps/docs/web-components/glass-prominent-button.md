@@ -6,7 +6,7 @@ A control that initiates an action. Styled with prominent glass border artwork b
 
 ## Declaration
 
-`<glass-prominent-button></glass-prominent-button>`
+`<button is="glass-prominent-button"></button>>`
 
 <!-- #endregion pre -->
 

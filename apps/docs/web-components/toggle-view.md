@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<toggle-view></toggle-view>`
+`<form is="toggle-view"></form>>`
 
 <!-- #endregion pre -->
 

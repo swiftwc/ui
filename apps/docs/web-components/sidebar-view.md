@@ -4,7 +4,7 @@
 
 ## Declaration
 
-`<sidebar-view></sidebar-view>`
+`<dialog is="sidebar-view"></dialog>>`
 
 <!-- #endregion pre -->
 

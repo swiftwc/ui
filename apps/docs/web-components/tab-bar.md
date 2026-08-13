@@ -6,7 +6,7 @@ A screen that lets users switch between different views using buttons, tabs, or 
 
 ## Declaration
 
-`<tab-bar></tab-bar>`
+`<dialog is="tab-bar"></dialog>>`
 
 <!-- #endregion pre -->
 

@@ -6,7 +6,7 @@ A control for selecting an absolute date.
 
 ## Declaration
 
-`<date-picker></date-picker>`
+`<form is="date-picker"></form>>`
 
 <!-- #endregion pre -->
 

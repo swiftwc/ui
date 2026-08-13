@@ -8,7 +8,7 @@ next:
 
 # VStack
 
-A view that arranges its subviews in a vertical line.
+A view that arranges its children one on top of the other.
 
 ## Declaration
 

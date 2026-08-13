@@ -2,7 +2,7 @@
 
 # HStack
 
-A view that arranges its subviews in a horizontal line.
+A view that arranges its children side by side.
 
 ## Declaration
 

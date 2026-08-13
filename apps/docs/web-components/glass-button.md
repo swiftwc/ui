@@ -2,7 +2,7 @@
 
 # GlassButton
 
-A control that initiates an action. Styled with glass border artwork based on the button’s context.
+A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.
 
 ## Declaration
 
@@ -14,7 +14,7 @@ A control that initiates an action. Styled with glass border artwork based on th
 
 ## Topics
 
-**Example:**
+**Creating a glass button:**
 
 ```html
 <button is="glass-button">

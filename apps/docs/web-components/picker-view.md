@@ -2,6 +2,8 @@
 
 # PickerView
 
+A control that selects one value from a set of options.
+
 ## Declaration
 
 `<form is="picker-view"></form>`

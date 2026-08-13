@@ -2,7 +2,7 @@
 
 # MenuView
 
-A control for presenting a menu of actions.
+A control that opens a menu of actions.
 
 ## Declaration
 

@@ -1,15 +1,3 @@
-<!-- #region pre -->
-
-# LabelView
-
-A view that labels items with an icon and a title.
-
-## Declaration
-
-`<label-view></label-view>`
-
-<!-- #endregion pre -->
-
 ## Topics
 
 ### Creating a label
@@ -48,38 +36,3 @@ A view that labels items with an icon and a title.
 :::
 ::::
 :::::
-
-<!-- #region post -->
-
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
-## Reference
-
-### Slots
-
-<div>
-
-| Name       | Description       |
-| ---------- | ----------------- |
-| _default_  | The default slot. |
-| **`icon`** |                   |
-
-</div>
-
-### Events
-
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
-
-<!-- #endregion post -->

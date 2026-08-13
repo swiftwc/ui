@@ -2,7 +2,7 @@
 
 # DatePicker
 
-A control for selecting an absolute date.
+A control that selects an absolute date.
 
 ## Declaration
 

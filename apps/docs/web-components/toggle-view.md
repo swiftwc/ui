@@ -2,6 +2,8 @@
 
 # ToggleView
 
+A control that switches between on and off states.
+
 ## Declaration
 
 `<form is="toggle-view"></form>`

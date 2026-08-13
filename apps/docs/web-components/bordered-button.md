@@ -2,7 +2,7 @@
 
 # BorderedButton
 
-A control that initiates an action. Styled with standard border artwork based on the button’s context.
+A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.
 
 ## Declaration
 
@@ -14,7 +14,7 @@ A control that initiates an action. Styled with standard border artwork based on
 
 ## Topics
 
-**Creating a menu from a configuration:**
+**Creating a bordered button:**
 
 ```html
 <button is="bordered-button">

@@ -2,7 +2,7 @@
 
 # BorderedProminentButton
 
-A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.
+A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.
 
 ## Declaration
 
@@ -14,7 +14,7 @@ A control that initiates an action. Styled with standard border prominent artwor
 
 ## Topics
 
-**Example:**
+**Creating a prominent bordered button:**
 
 ```html
 <button is="bordered-prominent-button">

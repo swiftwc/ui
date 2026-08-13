@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@dev/client"></script>
+    <script type="module">
+      import { alert } from 'https://unpkg.com/@swiftwc/ui@dev/client'
+
+      document.addEventListener('click', async (evt) => {
+        if (!(evt.target instanceof HTMLElement)) return
+
+        if (!evt.target.closest('button')) return
+
+        await self.customElements.whenDefined('borderless-button')
+
+        void alert('hello', 'world')
+      })
+    </script>
+  </head>
+  <body>
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <button is="borderless-button" type="button">
+            <label-view title="Tap here" system-image="hand-tap"></label-view>
+          </button>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+  </body>
+</html>

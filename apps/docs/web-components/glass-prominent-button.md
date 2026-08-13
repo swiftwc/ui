@@ -2,7 +2,7 @@
 
 # GlassProminentButton
 
-A control that initiates an action. Styled with prominent glass border artwork based on the button’s context.
+A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.
 
 ## Declaration
 
@@ -14,7 +14,7 @@ A control that initiates an action. Styled with prominent glass border artwork b
 
 ## Topics
 
-**Example:**
+**Creating a prominent glass button:**
 
 ```html
 <button is="glass-prominent-button">

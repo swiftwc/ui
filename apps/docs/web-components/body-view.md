@@ -2,6 +2,8 @@
 
 # BodyView
 
+The content and behavior of the view.
+
 ## Declaration
 
 `<body-view></body-view>`

@@ -2,7 +2,7 @@
 
 # TextField
 
-A control that displays an editable text interface.
+A control that displays an editable text area.
 
 ## Declaration
 

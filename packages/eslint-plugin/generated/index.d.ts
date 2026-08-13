@@ -4,7 +4,7 @@ export type TagNode = {
     type: string;
     parent?: TagNode;
 };
-export declare const RULES: Record<string, string[]>;
+export declare const DIRECT_PARENT_RULES: Record<string, string[]>;
 export declare function validate(tag: string, getParentTag: (node: TagNode) => TagNode | undefined, allowedParents: string[], context: RuleContext<string, readonly unknown[]>, node: TagNode): void;
 export declare const swiftwc: {
     meta: {

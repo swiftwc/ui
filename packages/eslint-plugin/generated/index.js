@@ -1,10 +1,12 @@
 import { readFileSync } from 'fs';
-export const RULES = {
+export const DIRECT_PARENT_RULES = {
     'v-keyboard': ['template', 'body'],
     'scroll-view': ['template', 'body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
     dialog: ['template', 'tab-view', 'navigation-split-view'],
     'tool-bar': ['template', 'dialog', 'body-view', 'navigation-split-view', 'navigation-stack'],
     'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
+    'sidebar-toggle': ['template', 'tab-view', 'form', 'navigation-split-view'],
+    'body-view': ['template', 'dialog', 'body-view', 'navigation-stack', 'navigation-split-view'],
 };
 export function validate(tag, getParentTag, allowedParents, context, node) {
     const parentTag = getParentTag(node);
@@ -87,7 +89,7 @@ export const swiftwc = {
                 return {
                     Tag(node) {
                         const tag = node.name;
-                        const allowedParents = RULES[tag];
+                        const allowedParents = DIRECT_PARENT_RULES[tag];
                         if (!allowedParents)
                             return; // 👈 ignore unknown tags completely
                         validate(tag, (item) => item.parent, allowedParents, context, node);

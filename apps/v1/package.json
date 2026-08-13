@@ -7,7 +7,9 @@
     "start:scss": "sass ../../packages/ui/scss/index.scss:styles.css dev.scss:dev.css --watch",
     "start:tunnel": "ngrok http --config .config/ngrok.yml 5173",
     "preview:scss": "sass --no-source-map ../../packages/ui/scss/index.scss styles.css --watch",
-    "test:eslint": "npx eslint --debug books.html"
+    "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
+    "lint:test": "npx eslint --debug index.html"
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",

@@ -111,7 +111,7 @@ export class DatePicker extends FormAssociatedBase {
       case 'name':
       case 'minimum':
       case 'maximum':
-        this.#sendValueToForm()
+        this.#sendValueToForm(false)
 
         break
       case 'prompt':

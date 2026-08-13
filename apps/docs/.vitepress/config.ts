@@ -155,7 +155,7 @@ export default defineConfig({
   },
 
   head: [
-    ['link', { rel: 'icon', href: '/favicon.svg' }],
+    ['link', { rel: 'icon', href: '/assets/favicon.svg' }],
     ['script', { src: 'https://unpkg.com/@phosphor-icons/web' }],
     ['script', { src: 'https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4' }],
   ],
@@ -174,7 +174,7 @@ export default defineConfig({
     },
     externalLinkIcon: true,
     i18nRouting: true,
-    logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },
+    logo: { light: '/assets/logo-light.svg', dark: '/assets/logo-dark.svg' },
     // https://vitepress.dev/reference/default-theme-config
     nav: [
       { text: 'Home', link: '/' },

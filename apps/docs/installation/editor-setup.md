@@ -36,12 +36,12 @@ import { VPTeamMembers } from 'vitepress/theme'
 
 const members = [
   {
-    avatar: '/manual.svg',
+    avatar: '/assets/manual.svg',
     org: 'Manual',
     orgLink: '/installation/editor-setup/manual',
   },
   {
-    avatar: '/ember.svg',
+    avatar: '/assets/ember.svg',
     org: 'Ember.js',
     orgLink: '/installation/editor-setup/emberjs',
   },

@@ -136,17 +136,17 @@ import { VPTeamMembers } from 'vitepress/theme'
 
 const members = [
   {
-    avatar: '/vite.svg',
+    avatar: '/assets/vite.svg',
     org: 'Vite',
     orgLink: '/installation/frameworks/vite',
   },
   {
-    avatar: '/ember.svg',
+    avatar: '/assets/ember.svg',
     org: 'Ember.js',
     orgLink: '/installation/frameworks/emberjs',
   },
   // {
-  //   avatar: '/manual.svg',
+  //   avatar: '/assets/manual.svg',
   //   org: 'Manual',
   //   orgLink: '/installation/frameworks/manual',
   // }

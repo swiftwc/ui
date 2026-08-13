@@ -7,16 +7,19 @@ export const RULES = {
     'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
 };
 export function validate(tag, getParentTag, allowedParents, context, node) {
-    let parentTag = getParentTag(node), isValid = false;
-    while (parentTag) {
-        if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
-            isValid = true;
-            break;
-        }
-        parentTag = getParentTag(parentTag);
-    }
-    if (isValid)
+    const parentTag = getParentTag(node);
+    if (parentTag?.type === node.type && allowedParents.includes(parentTag.name))
         return;
+    // let parentTag = getParentTag(node),
+    //   isValid = false
+    // while (parentTag) {
+    //   if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
+    //     isValid = true
+    //     break
+    //   }
+    //   parentTag = getParentTag(parentTag)
+    // }
+    // if (isValid) return
     context.report({
         // @ts-expect-error
         node,

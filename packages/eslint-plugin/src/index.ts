@@ -7,7 +7,7 @@ export type TagNode = {
   parent?: TagNode
 }
 
-export const RULES: Record<string, string[]> = {
+export const DIRECT_PARENT_RULES: Record<string, string[]> = {
   'v-keyboard': ['template', 'body'],
 
   'scroll-view': ['template', 'body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
@@ -17,6 +17,10 @@ export const RULES: Record<string, string[]> = {
   'tool-bar': ['template', 'dialog', 'body-view', 'navigation-split-view', 'navigation-stack'],
 
   'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
+
+  'sidebar-toggle': ['template', 'tab-view', 'form', 'navigation-split-view'],
+
+  'body-view': ['template', 'dialog', 'body-view', 'navigation-stack', 'navigation-split-view'],
 }
 
 export function validate(
@@ -26,19 +30,21 @@ export function validate(
   context: RuleContext<string, readonly unknown[]>,
   node: TagNode
 ) {
-  let parentTag = getParentTag(node),
-    isValid = false
+  const parentTag = getParentTag(node)
 
-  while (parentTag) {
-    if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
-      isValid = true
-      break
-    }
+  if (parentTag?.type === node.type && allowedParents.includes(parentTag.name)) return
 
-    parentTag = getParentTag(parentTag)
-  }
+  // let parentTag = getParentTag(node),
+  //   isValid = false
+  // while (parentTag) {
+  //   if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
+  //     isValid = true
+  //     break
+  //   }
+  //   parentTag = getParentTag(parentTag)
+  // }
 
-  if (isValid) return
+  // if (isValid) return
 
   context.report({
     // @ts-expect-error
@@ -113,7 +119,7 @@ export const swiftwc = {
           Tag(node: TagNode) {
             const tag = node.name
 
-            const allowedParents = RULES[tag]
+            const allowedParents = DIRECT_PARENT_RULES[tag]
             if (!allowedParents) return // 👈 ignore unknown tags completely
 
             validate(tag, (item) => item.parent, allowedParents, context, node)

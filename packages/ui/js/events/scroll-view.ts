@@ -10,8 +10,3 @@ declare global {
     pageswap: CustomEvent<PageRevealSwapDetail>
   }
 }
-
-// export interface ScrollViewEventMap {
-//   pagereveal: CustomEvent<PageRevealSwapDetail>
-//   pageswap: CustomEvent<PageRevealSwapDetail>
-// }

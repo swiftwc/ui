@@ -121,7 +121,7 @@ export class ToggleView extends FormAssociatedBase {
 
         break
       case 'label':
-        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this)
 
         break
       case 'disabled':

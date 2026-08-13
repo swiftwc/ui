@@ -3,11 +3,13 @@ import { html, queryMorph } from '../morphdom'
 
 /**
  * @summary A view that labels items with an icon and a title.
- * 
+ *
+ * @example <label-view system-image="hand-tap"><span>Hello</span></label-view> — Creating a label with an icon image and a title
+ *
  * @attr {@fontSet} font — Sets the default font for text in this view.
  *
- * @slot — The default slot.
- * @slot icon
+ * @slot — Place children without a `slot` attribute inside the main block of the label.
+ * @slot icon — Place children with a `slot="icon"` attribute in the icon block of the label.
  *
  */
 export class LabelView extends HTMLElement {
@@ -64,11 +66,11 @@ export class LabelView extends HTMLElement {
 
       //   break
       case 'system-image':
-        queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${newValue}"></image-view>`, this, { removeIf: !newValue }) //renderLabelIcon(this, newValue)
+        queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${newValue}"></image-view>`, this, { removeIf: !newValue })
 
         break
       case 'title':
-        queryMorph(':not([slot])', html`<span>${newValue}</span>`, this, { removeIf: !newValue }) //renderLabelTitle(this, newValue)
+        queryMorph(':not([slot])', html`<span>${newValue}</span>`, this, { removeIf: !newValue })
 
         break
     }

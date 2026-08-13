@@ -8,7 +8,3 @@ declare global {
     'toggle:change': CustomEvent<ToggleChangeDetail>
   }
 }
-
-// export interface ToggleViewEventMap {
-//   'toggle:change': CustomEvent<ToggleChangeDetail>
-// }

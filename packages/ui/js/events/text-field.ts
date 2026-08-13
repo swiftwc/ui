@@ -7,7 +7,3 @@ declare global {
     commit: CustomEvent<TextFieldCommitDetail>
   }
 }
-
-// export interface TextFieldEventMap {
-//   commit: CustomEvent<TextFieldCommitDetail>
-// }

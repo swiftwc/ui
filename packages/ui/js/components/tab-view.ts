@@ -70,26 +70,6 @@ export class TabView extends HTMLElement {
 
     Snapshot.waitReady.then(() => self.requestAnimationFrame(this.#handleStyleChange)) // Snapshot.waitReady.then(this.#handleStyleChange)
 
-    // NOTE: wait for config
-    // Snapshot.waitReady.then(() => { // FIXME: Check this removed!
-    // for (const [or, w, handler] of [
-    //   ['portrait', `max-width:${Snapshot.config!['ipad-portrait-bp-max']}`, this.#handleMediaChange],
-    //   ['landscape', `max-width:${Snapshot.config!['ipad-landscape-bp-max']}`, this.#handleMediaChange],
-    //   ['portrait', `min-width:${Snapshot.config!['ipad-portrait-bp-min']}`, this.#handleMediaChange],
-    //   ['landscape', `min-width:${Snapshot.config!['ipad-landscape-bp-min']}`, this.#handleMediaChange],
-    // ]) {
-    //   const mediaQueryList = self.matchMedia(`(orientation:${or}) and (${w})`)
-
-    //   if (mediaQueryList.matches)
-    //     this.#handleMediaChange(
-    //       new MediaQueryListEvent('media-change', {
-    //         matches: mediaQueryList.matches,
-    //       })
-    //     ) // Initial check
-
-    //   CleanupRegistry.register(this, onoff('change', handler as EventListener, mediaQueryList).on())
-    // }
-
     CleanupRegistry.register(
       this,
       onoff(
@@ -106,7 +86,6 @@ export class TabView extends HTMLElement {
         this
       ).on()
     )
-    // })
   }
 
   #handleSummaryClick = ({ target }: Event) => {
@@ -159,75 +138,6 @@ export class TabView extends HTMLElement {
     }
   }
 
-  // #handleMediaChange: (evt: MediaQueryListEvent) => void = (evt) => {
-  //   if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
-
-  //   if (!evt.matches) return
-
-  //   this.#handleStyleChange()
-
-  //   // if (evt.matches) {
-  //   //   const placement = self.getComputedStyle(this).getPropertyValue('--adaptable-tab-bar-placement'), // or do it manually without any computedstyle
-  //   //     newValue = (TAB_BAR_PLACEMENTS as readonly string[]).includes(placement) ? (placement as (typeof TAB_BAR_PLACEMENTS)[number]) : 'bottom-bar'
-
-  //   //   if (newValue !== this.#cachedAdaptableTabBarPlacement) {
-  //   //     const oldValue = this.#cachedAdaptableTabBarPlacement
-
-  //   //     this.#cachedAdaptableTabBarPlacement = newValue
-
-  //   //     this.dispatchEvent(
-  //   //       new CustomEvent<TabViewAdaptableTabBarPlacementDetail>('tab-view:adaptable-tab-bar-placement-change', {
-  //   //         detail: { oldValue, newValue },
-  //   //         bubbles: true,
-  //   //         composed: true,
-  //   //       })
-  //   //     )
-  //   //   }
-  //   // }
-
-  //   // // trigger more-stack (dis)allowed event
-  //   // if (evt.matches !== this.#moreStackAllowed) {
-  //   //   this.#moreStackAllowed = evt.matches
-
-  //   //   const eventType = evt.matches ? 'tab-view:more-tab-allowed' : 'tab-view:more-tab-disallowed'
-
-  //   //   this.dispatchEvent(new CustomEvent<TabMoreStackAllowanceDetail>(eventType, { detail: { moreTab: this.moreTab }, bubbles: true, composed: true }))
-  //   // }
-
-  //   // if (evt.matches) return // no button triggers should happen, already on iphone portrait
-
-  //   // const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
-  //   // if (innerSelection) {
-  //   //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"][value="${CSS.escape(innerSelection)}"]`)
-
-  //   //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
-  //   //   if (btn) {
-  //   //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
-  //   //     if (newTab) {
-  //   //       this.selectedTab = TabView.gatherTab(newTab)
-
-  //   //       return
-  //   //     }
-  //   //   }
-  //   // }
-
-  //   // const outerSelection = this?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
-
-  //   // if (outerSelection && outerSelection === this.moreTab?.id) {
-  //   //   const btn = this.querySelector<HTMLButtonElement>(`[is="tab-item"]:not([value="${CSS.escape(outerSelection)}"])`)
-
-  //   //   // NOTE: simulate btn click BU WITHOUT tabroot functionality!
-  //   //   if (btn) {
-  //   //     const newTab = this.querySelector<NavigationStack | NavigationSplitView>(`#${btn.getAttribute('value')}`)
-  //   //     if (newTab) {
-  //   //       this.selectedTab = TabView.gatherTab(newTab)
-
-  //   //       return
-  //   //     }
-  //   //   }
-  //   // }
-  // }
-
   #handleAdaptableTabBarPlacementChange = (evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
     if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
@@ -266,7 +176,6 @@ export class TabView extends HTMLElement {
   }
 
   get selectedTab() {
-    // return this.querySelector<NavigationStack | NavigationSplitView>(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')
     return [...this.querySelectorAll<NavigationStack | NavigationSplitView>('navigation-stack:not([hidden]),navigation-split-view:not([hidden])')]
   }
 

@@ -38,7 +38,7 @@ export class SidebarView extends DialogBase {
     el.autofocus = true
   }
 
-  /** Autoclose on click outside. */
+  // Autoclose on click outside.
   static #handleClick = async ({ target, type }: Event) => {
     if (devFlags.debug) console.debug(`${SidebarView.name} ⚡️ ${type}`)
 

@@ -80,7 +80,7 @@ export class MenuView extends HTMLElement {
 
         break
       case 'label':
-        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this)
 
         break
     }
@@ -88,15 +88,6 @@ export class MenuView extends HTMLElement {
 
   disconnectedCallback() {
     if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ disconnect`)
-
-    // const dialog = this.#shadowRoot.querySelector('dialog'),
-    //   trigger = this.#shadowRoot.querySelector('button')
-
-    // trigger?.removeEventListener('click', this.#handleTriggerClick)
-
-    // dialog?.removeEventListener('click', this.#handleDialogClick)
-    // dialog?.removeEventListener('close', this.#handleDialogClose)
-    // dialog?.removeEventListener('cancel', this.#handleDialogCancel)
 
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')

@@ -49,7 +49,6 @@ export class ScrollView extends HTMLElement {
   #shadowRoot
 
   #slots?: Map<string, HTMLSlotElement> = new Map()
-  // #navbarPrincipalSlot?: HTMLSlotElement
 
   #isMidScroll?: boolean
 

@@ -105,19 +105,19 @@ export class LabeledContent extends HTMLElement {
       case 'value': {
         const val = this.#fmt(newValue, this.getAttribute('format'))
 
-        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(newValue, this.getAttribute('format')))
+        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this)
 
         break
       }
       case 'format': {
         const val = this.#fmt(this.getAttribute('value'), newValue)
 
-        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view:not([slot])', `<label-view><span></span></label-view>`, this, this.#fmt(this.getAttribute('value'), newValue))
+        queryMorph('label-view:not([slot])', html`<label-view>${val ? html`<span>${val}</span>` : null}</label-view>`, this)
 
         break
       }
       case 'label':
-        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this)
 
         break
     }

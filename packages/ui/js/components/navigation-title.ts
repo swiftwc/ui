@@ -38,10 +38,6 @@ export class NavigationTitle extends HTMLElement {
   }
 
   #render = (title: string | null, subtitle: string | null, systemImage: string | null, systemImageWeight: string | null) => {
-    // const container = this.querySelector(':scope>:not([slot])') ?? this.appendChild(document.createElement('navigation-large-title'))
-
-    // render(template, container)
-
     queryMorph(
       ':not([slot])',
       html`
@@ -65,13 +61,5 @@ export class NavigationTitle extends HTMLElement {
       `,
       this
     )
-
-    // const titleTemplate = `<label-view line-limit="1" truncation-mode="tail" font="headline"><span></span></label-view>`,
-    //   subtitleTemplate = `<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout"><span></span></label-view>`,
-    //   vStactTemplate = `<v-stack spacing="0" alignment="fill">${titleTemplate}${subtitleTemplate}</v-stack>`
-    // const el = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<navigation-large-title>${vStactTemplate}</navigation-large-title>`, '>1')),
-    //   vStack = el.querySelector(':scope>v-stack') ?? el.appendChild($(vStactTemplate, '>1'))
-    // renderLabel(':scope>label-view:nth-child(1)', titleTemplate, vStack, title)
-    // renderLabel(':scope>label-view:nth-child(2)', subtitleTemplate, vStack, subtitle)
   }
 }

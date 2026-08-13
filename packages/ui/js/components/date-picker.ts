@@ -122,7 +122,7 @@ export class DatePicker extends FormAssociatedBase {
 
         break
       case 'label':
-        queryMorph('[slot=label]', html`<label-view slot="label" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>label-view[slot=label]', `<label-view slot="label" foreground="secondary"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=label]', html`<label-view slot="label" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) 
 
         // this.#sendValueToForm()
 

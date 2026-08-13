@@ -23,9 +23,6 @@ export class TabBar extends DialogBase {
 
     el.autofocus = true
 
-    // Snapshot.waitReadyFor(el).then((r) => {
-    //   if (!r) return
-
     CleanupRegistry.register(el, onoff('click', TabBar.#handleClick, el).on())
 
     CleanupRegistry.register(
@@ -46,7 +43,6 @@ export class TabBar extends DialogBase {
         el
       ).on()
     )
-    // })
   }
 
   static #handleClick = async ({ target, type }: Event) => {

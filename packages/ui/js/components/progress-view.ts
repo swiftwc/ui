@@ -98,7 +98,7 @@ export class ProgressView extends HTMLElement {
         break
       }
       case 'current-value-label': {
-        queryMorph('[slot=current-value]', html`<label-view slot="current-value" font="callout" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this) //renderLabel(':scope>[slot=current-value]', `<label-view slot="current-value" font="callout" foreground="secondary"><span></span></label-view>`, this, newValue)
+        queryMorph('[slot=current-value]', html`<label-view slot="current-value" font="callout" foreground="secondary">${newValue ? html`<span>${newValue}</span>` : null}</label-view>`, this)
 
         break
       }

@@ -147,8 +147,8 @@ export class TableView extends HTMLElement {
         title = btn.querySelector<LabelView>('label-view:first-child') ?? undefined,
         subTitle = btn.querySelector<LabelView>('label-view:last-child') ?? undefined
 
-      queryMorph(':not([slot])', html`<span>${node.textContent.trim()}</span>`, title, { removeIf: !node.textContent.trim() }) //renderLabelTitle(title, node.textContent.trim()) //title?.setAttribute('title', node.textContent.trim())
-      queryMorph(':not([slot])', html`<span>${node.ariaSort ?? ''}</span>`, subTitle, { removeIf: !(node.ariaSort ?? '') }) //renderLabelTitle(subTitle, node.ariaSort ?? '') //subTitle?.setAttribute('title', node.ariaSort ?? '')
+      queryMorph(':not([slot])', html`<span>${node.textContent.trim()}</span>`, title, { removeIf: !node.textContent.trim() })
+      queryMorph(':not([slot])', html`<span>${node.ariaSort ?? ''}</span>`, subTitle, { removeIf: !(node.ariaSort ?? '') })
 
       this.#compactToolbarItem.appendChild(btn)
     }

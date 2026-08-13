@@ -81,8 +81,7 @@
           },
           "slots": [
             {
-              "name": "slot",
-              "description": "overlay"
+              "name": "overlay"
             }
           ],
           "attributes": [
@@ -127,8 +126,7 @@
           },
           "slots": [
             {
-              "name": "slot",
-              "description": "overlay"
+              "name": "overlay"
             }
           ],
           "attributes": [
@@ -173,8 +171,7 @@
           },
           "slots": [
             {
-              "name": "slot",
-              "description": "overlay"
+              "name": "overlay"
             }
           ],
           "attributes": [
@@ -291,20 +288,16 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "slots": [
             {
-              "name": "slot",
-              "description": "description"
+              "name": "",
+              "description": "The default slot."
             },
             {
-              "name": "slot",
-              "description": "actions"
+              "name": "description"
+            },
+            {
+              "name": "actions"
             }
           ],
           "attributes": [
@@ -506,7 +499,7 @@
           },
           "attributes": [
             {
-              "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow"
+              "name": "navigation-link-indicator-visibility"
             }
           ]
         }
@@ -543,8 +536,7 @@
           },
           "slots": [
             {
-              "name": "slot",
-              "description": "overlay"
+              "name": "overlay"
             }
           ],
           "attributes": [
@@ -589,8 +581,7 @@
           },
           "slots": [
             {
-              "name": "slot",
-              "description": "overlay"
+              "name": "overlay"
             }
           ],
           "attributes": [
@@ -635,19 +626,19 @@
           },
           "attributes": [
             {
-              "name": "template - The main"
+              "name": "template"
             },
             {
               "name": "spacing"
             },
             {
-              "name": "alignment - The cross"
+              "name": "alignment"
             },
             {
-              "name": "distribution - The main"
+              "name": "distribution"
             },
             {
-              "name": "placement - The main"
+              "name": "placement"
             }
           ]
         }
@@ -682,12 +673,6 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "attributes": [
             {
               "name": "system-name"
@@ -728,12 +713,6 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "attributes": [
             {
               "name": "font"
@@ -753,8 +732,11 @@
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "icon"
+              "name": "",
+              "description": "The default slot."
+            },
+            {
+              "name": "icon"
             }
           ]
         }
@@ -789,12 +771,6 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "attributes": [
             {
               "name": "value"
@@ -849,7 +825,7 @@
           },
           "attributes": [
             {
-              "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow"
+              "name": "navigation-link-indicator-visibility"
             }
           ]
         }
@@ -884,16 +860,13 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "slots": [
             {
-              "name": "slot",
-              "description": "label"
+              "name": "",
+              "description": "The default slot."
+            },
+            {
+              "name": "label"
             }
           ],
           "attributes": [
@@ -1084,10 +1057,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "ATTR"
-            },
-            {
-              "kind": "field",
               "name": "selection"
             },
             {
@@ -1105,7 +1074,7 @@
           ],
           "attributes": [
             {
-              "name": "picker"
+              "name": "picker-style"
             },
             {
               "name": "help"
@@ -1114,21 +1083,22 @@
               "name": "dictionary"
             },
             {
-              "name": "label-value"
+              "name": "label-value-placement"
             }
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "label"
+              "name": "",
+              "description": "The default slot."
             },
             {
-              "name": "slot",
-              "description": "list"
+              "name": "label"
             },
             {
-              "name": "slot",
-              "description": "validity-options"
+              "name": "list"
+            },
+            {
+              "name": "validity-options"
             }
           ]
         }
@@ -1207,8 +1177,11 @@
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "current-value"
+              "name": "",
+              "description": "The default slot."
+            },
+            {
+              "name": "current-value"
             }
           ],
           "attributes": [
@@ -1318,20 +1291,16 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "slots": [
             {
-              "name": "slot",
-              "description": "top-bar-principal"
+              "name": "",
+              "description": "The default slot."
             },
             {
-              "name": "slot",
-              "description": "bottom-bar-principal"
+              "name": "top-bar-principal"
+            },
+            {
+              "name": "bottom-bar-principal"
             }
           ],
           "attributes": [
@@ -1415,20 +1384,16 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "slots": [
             {
-              "name": "slot",
-              "description": "header"
+              "name": "",
+              "description": "The default slot."
             },
             {
-              "name": "slot",
-              "description": "footer"
+              "name": "header"
+            },
+            {
+              "name": "footer"
             }
           ],
           "attributes": [
@@ -1735,12 +1700,6 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "attributes": [
             {
               "name": "preferred-compact-template"
@@ -1748,32 +1707,29 @@
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "header-leading"
+              "name": "",
+              "description": "The default slot."
             },
             {
-              "name": "slot",
-              "description": "header-principal"
+              "name": "header-leading"
             },
             {
-              "name": "slot",
-              "description": "header-trailing"
+              "name": "header-principal"
             },
             {
-              "name": "slot",
-              "description": "column"
+              "name": "header-trailing"
             },
             {
-              "name": "slot",
-              "description": "footer-leading"
+              "name": "column"
             },
             {
-              "name": "slot",
-              "description": "footer-principal"
+              "name": "footer-leading"
             },
             {
-              "name": "slot",
-              "description": "footer-trailing"
+              "name": "footer-principal"
+            },
+            {
+              "name": "footer-trailing"
             }
           ]
         }
@@ -1811,10 +1767,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "template"
-            },
-            {
-              "kind": "field",
               "name": "keyboardType"
             },
             {
@@ -1840,12 +1792,10 @@
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "label"
+              "name": "label"
             },
             {
-              "name": "slot",
-              "description": "validity-options"
+              "name": "validity-options"
             }
           ],
           "attributes": [
@@ -1924,10 +1874,6 @@
           "members": [
             {
               "kind": "field",
-              "name": "template"
-            },
-            {
-              "kind": "field",
               "name": "toggleStyle"
             },
             {
@@ -1945,12 +1891,10 @@
           ],
           "slots": [
             {
-              "name": "slot",
-              "description": "label"
+              "name": "label"
             },
             {
-              "name": "slot",
-              "description": "validity-options"
+              "name": "validity-options"
             }
           ],
           "attributes": [
@@ -2083,52 +2027,46 @@
           "superclass": {
             "name": "HTMLElement"
           },
-          "members": [
-            {
-              "kind": "field",
-              "name": "template"
-            }
-          ],
           "slots": [
             {
-              "name": "slot",
-              "description": "cancellation-action - The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+              "name": "cancellation-action",
+              "description": "The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal"
             },
             {
-              "name": "slot",
-              "description": "primary-action - The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+              "name": "primary-action",
+              "description": "The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
             },
             {
-              "name": "slot",
-              "description": "confirmation-action - The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
+              "name": "confirmation-action",
+              "description": "The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal"
             },
             {
-              "name": "slot",
-              "description": "destructive-action - The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal"
+              "name": "destructive-action",
+              "description": "The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal"
             },
             {
-              "name": "slot",
-              "description": "top-bar-leading - Places the item in the leading edge of the top bar"
+              "name": "top-bar-leading",
+              "description": "Places the item in the leading edge of the top bar"
             },
             {
-              "name": "slot",
-              "description": "top-bar-principal - Places the item in the middle of the top bar"
+              "name": "top-bar-principal",
+              "description": "Places the item in the middle of the top bar"
             },
             {
-              "name": "slot",
-              "description": "top-bar-trailing - Places the item in the trailing edge of the top bar"
+              "name": "top-bar-trailing",
+              "description": "Places the item in the trailing edge of the top bar"
             },
             {
-              "name": "slot",
-              "description": "bottom-bar-leading - Places the item in the leading edge of the bottom bar"
+              "name": "bottom-bar-leading",
+              "description": "Places the item in the leading edge of the bottom bar"
             },
             {
-              "name": "slot",
-              "description": "bottom-bar-principal - Places the item in the middle of the bottom bar"
+              "name": "bottom-bar-principal",
+              "description": "Places the item in the middle of the bottom bar"
             },
             {
-              "name": "slot",
-              "description": "bottom-bar-trailing - Places the item in the trailing edge of the bottom bar"
+              "name": "bottom-bar-trailing",
+              "description": "Places the item in the trailing edge of the bottom bar"
             }
           ]
         }
@@ -2205,19 +2143,19 @@
               "name": "distribution"
             },
             {
-              "name": "template - The main"
+              "name": "template"
             },
             {
               "name": "spacing"
             },
             {
-              "name": "alignment - The cross"
+              "name": "alignment"
             },
             {
-              "name": "distribution - The main"
+              "name": "distribution"
             },
             {
-              "name": "placement - The main"
+              "name": "placement"
             }
           ]
         }

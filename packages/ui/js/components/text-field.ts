@@ -500,7 +500,10 @@ export class TextField extends FormAssociatedBase {
     this.#sendValueToForm()
   }
 
-  // Optional: form participation properties
+  /**
+   * Form participation property
+   * @type {string}
+   */
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }

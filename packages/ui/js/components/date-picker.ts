@@ -441,7 +441,10 @@ export class DatePicker extends FormAssociatedBase {
     this.#sendValueToForm()
   }
 
-  // Optional: form participation properties
+  /**
+   * Form participation property
+   * @type {string}
+   */
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }
@@ -459,6 +462,10 @@ export class DatePicker extends FormAssociatedBase {
     }
   }
 
+  /**
+   * Returns the value as a Date object.
+   * @type {Date|null}
+   */
   get valueAsDate() {
     try {
       const d = new Date(`${this.value.year}-${this.value.month}-${this.value.day}`)

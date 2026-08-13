@@ -9,12 +9,22 @@ import { type TabView } from './tab-view'
 const observers = new ResizeObserverSingleton()
 
 /**
+ * @slot — The default slot.
  * @slot top-bar-principal
  * @slot bottom-bar-principal
  */
 export class ScrollView extends HTMLElement {
   static get observedAttributes() {
-    return ['navigation-title', 'navigation-inline-title', 'navigation-inline-subtitle', 'navigation-icon', 'navigation-bar-title-display-mode']
+    return [
+      /**
+       * Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"><span>Navigation Title</span></label-view></v-stack>`
+       */
+      'navigation-title',
+      'navigation-inline-title',
+      'navigation-inline-subtitle',
+      'navigation-icon',
+      'navigation-bar-title-display-mode',
+    ]
   }
 
   static #template: DocumentFragment

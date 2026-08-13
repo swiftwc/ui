@@ -5,6 +5,7 @@ import { html, queryMorph } from '../morphdom'
 /**
  * @summary A control for presenting a menu of actions.
  *
+ * @slot — The default slot.
  * @slot label
  */
 export class MenuView extends HTMLElement {

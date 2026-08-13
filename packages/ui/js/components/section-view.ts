@@ -4,6 +4,7 @@ import { html, queryMorph } from '../morphdom'
 /**
  * @summary A container view that you can use to add hierarchy within certain views.
  *
+ * @slot — The default slot.
  * @slot header
  * @slot footer
  */

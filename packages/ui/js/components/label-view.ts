@@ -3,8 +3,9 @@ import { html, queryMorph } from '../morphdom'
 
 /**
  *
- * @attr {@fontSet} font - Sets the default font for text in this view.
+ * @attr {@fontSet} font — Sets the default font for text in this view.
  *
+ * @slot — The default slot.
  * @slot icon
  *
  */

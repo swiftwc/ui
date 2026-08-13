@@ -3,14 +3,27 @@
   "tags": [
     {
       "name": "alert-dialog",
-      "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`."
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/alert-dialog"
+        }
+      ],
+      "description": "A representation of an alert presentation.\nUse it from the client module like `void alert('Save failed.')`.\n---"
     },
     {
-      "name": "body-view"
+      "name": "body-view",
+      "description": ""
     },
     {
       "name": "bordered-button",
-      "description": "A control that initiates an action. Styled with standard border artwork based on the button’s context.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/bordered-button"
+        }
+      ],
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
       "attributes": [
         {
           "name": "role",
@@ -24,7 +37,13 @@
     },
     {
       "name": "bordered-prominent-button",
-      "description": "A control that initiates an action. Styled with standard border prominent artwork based on the button’s context.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/bordered-prominent-button"
+        }
+      ],
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-prominent-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
       "attributes": [
         {
           "name": "role",
@@ -38,7 +57,13 @@
     },
     {
       "name": "borderless-button",
-      "description": "A control that initiates an action. Styled without any borders.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/borderless-button"
+        }
+      ],
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"borderless-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
       "attributes": [
         {
           "name": "role",
@@ -56,20 +81,33 @@
         {
           "name": "dark"
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "confirmation-dialog",
-      "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/confirmation-dialog"
+        }
+      ],
       "attributes": [
         {
           "name": "anchor"
         }
-      ]
+      ],
+      "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.\n---"
     },
     {
       "name": "content-unavailable-view",
-      "description": "A message with a title and extra information that you show when part of your app can’t be used.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/content-unavailable-view"
+        }
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable-view search></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view search=\"foo\"></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view padding><label-view title=\"No Mail\"><i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i></label-view><label-view title=\"New mails you receive will appear here.\" foreground=\"secondary\" slot=\"description\"></label-view><button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\"><label-view title=\"Switch Account\"></label-view></button></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view padding><label-view title=\"No Mail\"><svg slot=\"icon\" foreground=\"secondary\" ...>...</svg></label-view><label-view title=\"New mails you receive will appear here.\" foreground=\"secondary\" slot=\"description\"></label-view><button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\"><label-view title=\"Switch Account\"></label-view></button></content-unavailable-view>\n```",
       "attributes": [
         {
           "name": "search"
@@ -78,7 +116,13 @@
     },
     {
       "name": "date-picker",
-      "description": "A control for selecting an absolute date.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/date-picker"
+        }
+      ],
+      "description": "### **Properties:**\n- get **template**()\n- get **datePickerStyle**()\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsDate**() — `Date` | `null` Returns the value as a Date object.\n- get **minimum**()\n- get **maximum**()",
       "attributes": [
         {
           "name": "date-picker-style",
@@ -123,35 +167,54 @@
     },
     {
       "name": "disclosure-group",
-      "description": "A view that shows or hides another content view, based on the state of a disclosure control.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/disclosure-group"
+        }
+      ],
+      "description": "### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\"><summary><label-view title=\"Items\"></label-view></summary><label-view title=\"Item 1\"></label-view><label-view title=\"Item 2\"></label-view><details is=\"disclosure-group\"><summary><label-view title=\"Sub-items\"></label-view></summary><label-view title=\"Sub-item 1\"></label-view></details></details>\n```",
       "attributes": [
         {
           "name": "open",
-          "description": "Description: The status of this element"
+          "description": "The status of this element"
         }
       ]
     },
     {
-      "name": "fine-tooltip"
+      "name": "fine-tooltip",
+      "description": ""
     },
     {
       "name": "form-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/form-view"
+        }
+      ],
       "attributes": [
         {
-          "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow",
-          "description": "Value Type: “hidden”\n\nDescription: chevron on NavigationLink buttons inside.",
+          "name": "navigation-link-indicator-visibility",
+          "description": "Value Type: “hidden”\n\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside.",
           "values": [
             {
               "name": "hidden"
             }
           ]
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "glass-button",
-      "description": "A control that initiates an action. Styled with glass border artwork based on the button’s context.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/glass-button"
+        }
+      ],
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
       "attributes": [
         {
           "name": "role",
@@ -165,7 +228,13 @@
     },
     {
       "name": "glass-prominent-button",
-      "description": "A control that initiates an action. Styled with prominent glass border artwork based on the button’s context.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/glass-prominent-button"
+        }
+      ],
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-prominent-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
       "attributes": [
         {
           "name": "role",
@@ -179,11 +248,17 @@
     },
     {
       "name": "hstack",
-      "description": "A view that arranges its subviews in a horizontal line.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/hstack"
+        }
+      ],
+      "description": "",
       "attributes": [
         {
-          "name": "template - The main",
-          "description": "\nDescription: axis grid template",
+          "name": "template",
+          "description": "\nDescription: The main-axis grid template",
           "valueSet": "templateSet"
         },
         {
@@ -192,18 +267,18 @@
           "valueSet": "spacingSet"
         },
         {
-          "name": "alignment - The cross",
-          "description": "\nDescription: axis alignment",
+          "name": "alignment",
+          "description": "\nDescription: The cross-axis alignment",
           "valueSet": "blockSet"
         },
         {
-          "name": "distribution - The main",
-          "description": "\nDescription: axis alignment",
+          "name": "distribution",
+          "description": "\nDescription: The main-axis alignment",
           "valueSet": "inlineSet"
         },
         {
-          "name": "placement - The main",
-          "description": "\nDescription: axis alignment",
+          "name": "placement",
+          "description": "\nDescription: The main-axis alignment",
           "valueSet": "inlinePlacementSet"
         }
       ]
@@ -217,11 +292,17 @@
         {
           "name": "system-weight"
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "label-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/label-view"
+        }
+      ],
       "attributes": [
         {
           "name": "font",
@@ -240,7 +321,8 @@
         {
           "name": "truncation-mode"
         }
-      ]
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **icon**"
     },
     {
       "name": "labeled-content",
@@ -263,26 +345,39 @@
         {
           "name": "format"
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "list-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/list-view"
+        }
+      ],
       "attributes": [
         {
-          "name": "navigation-link-indicator-visibility - Hides accessories like right-arrow",
-          "description": "Value Type: “hidden”\n\nDescription: chevron on NavigationLink buttons inside.",
+          "name": "navigation-link-indicator-visibility",
+          "description": "Value Type: “hidden”\n\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside.",
           "values": [
             {
               "name": "hidden"
             }
           ]
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "menu-view",
-      "description": "A control for presenting a menu of actions.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/menu-view"
+        }
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**",
       "attributes": [
         {
           "name": "open"
@@ -296,15 +391,28 @@
       ]
     },
     {
-      "name": "navigation-large-title"
+      "name": "navigation-large-title",
+      "description": ""
     },
     {
       "name": "navigation-split-view",
-      "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section."
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/navigation-split-view"
+        }
+      ],
+      "description": ""
     },
     {
       "name": "navigation-stack",
-      "description": "A view that shows a main screen and lets you open other screens on top of it."
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/navigation-stack"
+        }
+      ],
+      "description": ""
     },
     {
       "name": "navigation-title",
@@ -321,15 +429,21 @@
         {
           "name": "system-image-weight"
         }
-      ]
+      ],
+      "description": ""
     },
     {
       "name": "picker-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/picker-view"
+        }
+      ],
       "attributes": [
         {
-          "name": "picker",
-          "description": "Value Type: “menu” | “inline” | “navigation-link” | “sheet” | “automatic”\n\nDescription: style",
+          "name": "picker-style",
+          "description": "Value Type: “menu” | “inline” | “navigation-link” | “sheet” | “automatic”",
           "values": [
             {
               "name": "menu"
@@ -367,8 +481,8 @@
           ]
         },
         {
-          "name": "label-value",
-          "description": "Value Type: “vertical” | “horizontal” | “auto”\n\nDescription: placement",
+          "name": "label-value-placement",
+          "description": "Value Type: “vertical” | “horizontal” | “auto”",
           "values": [
             {
               "name": "vertical"
@@ -381,14 +495,22 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection**\n- get **template**()\n- get **pickerStyle**()\n- get **name**() — `string` Form participation property"
     },
     {
-      "name": "plain-button"
+      "name": "plain-button",
+      "description": ""
     },
     {
       "name": "progress-view",
-      "description": "A view that shows the progress toward completion of a task.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/progress-view"
+        }
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **current-value**\n\n### **Properties:**\n- get **progressViewStyle**()\n- get **template**()",
       "attributes": [
         {
           "name": "label"
@@ -402,18 +524,31 @@
       ]
     },
     {
-      "name": "screen-view"
+      "name": "screen-view",
+      "description": ""
     },
     {
       "name": "scroll-view-proxy",
-      "description": "A wrapper to {hv}-stacks"
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/scroll-view-proxy"
+        }
+      ],
+      "description": ""
     },
     {
       "name": "scroll-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/scroll-view"
+        }
+      ],
       "attributes": [
         {
-          "name": "navigation-title"
+          "name": "navigation-title",
+          "description": "Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing=\"0\" alignment=\"fill\" slot=\"top-bar-principal\"><label-view line-limit=\"1\" truncation-mode=\"tail\" font=\"headline\"><span>Navigation Title</span></label-view></v-stack>`"
         },
         {
           "name": "navigation-inline-title"
@@ -427,14 +562,22 @@
         {
           "name": "navigation-bar-title-display-mode"
         }
-      ]
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **top-bar-principal**\n- **bottom-bar-principal**"
     },
     {
-      "name": "search-view"
+      "name": "search-view",
+      "description": ""
     },
     {
       "name": "section-view",
-      "description": "A container view that you can use to add hierarchy within certain views.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/section-view"
+        }
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **header**\n- **footer**",
       "attributes": [
         {
           "name": "header"
@@ -445,31 +588,54 @@
       ]
     },
     {
-      "name": "sheet-view"
-    },
-    {
-      "name": "sidebar-toggle"
-    },
-    {
-      "name": "sidebar-view"
-    },
-    {
-      "name": "sticky-container"
-    },
-    {
-      "name": "tab-bar",
-      "description": "A screen that lets users switch between different views using buttons, tabs, or other controls."
-    },
-    {
-      "name": "tab-item"
-    },
-    {
-      "name": "tab-view",
+      "name": "sheet-view",
       "description": ""
     },
     {
+      "name": "sidebar-toggle",
+      "description": ""
+    },
+    {
+      "name": "sidebar-view",
+      "description": ""
+    },
+    {
+      "name": "sticky-container",
+      "description": ""
+    },
+    {
+      "name": "tab-bar",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/tab-bar"
+        }
+      ],
+      "description": ""
+    },
+    {
+      "name": "tab-item",
+      "description": ""
+    },
+    {
+      "name": "tab-view",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/tab-view"
+        }
+      ],
+      "description": "### **Properties:**\n- get **tabBarPlacement**()\n- get **moreTab**()\n- **selectedTab**\n\n### **Events:**\n- **tabshow** — A Tab is shown\n- **tabhide** — A Tab is hidden\n- **tab-view:toggle**\n- **tab-view:adaptable-tab-bar-placement-change**"
+    },
+    {
       "name": "table-view",
-      "description": "Display selectable, sortable data arranged in rows and columns.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/table-view"
+        }
+      ],
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **header-leading**\n- **header-principal**\n- **header-trailing**\n- **column**\n- **footer-leading**\n- **footer-principal**\n- **footer-trailing**",
       "attributes": [
         {
           "name": "preferred-compact-template",
@@ -493,7 +659,12 @@
     },
     {
       "name": "text-field",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/text-field"
+        }
+      ],
       "attributes": [
         {
           "name": "prompt"
@@ -534,11 +705,17 @@
         {
           "name": "disabled"
         }
-      ]
+      ],
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **keyboardType**()\n- **text**\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsNumber**()\n- get **negativeNumbersAllowed**()"
     },
     {
       "name": "toggle-view",
-      "description": "",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/toggle-view"
+        }
+      ],
       "attributes": [
         {
           "name": "label"
@@ -561,15 +738,28 @@
         {
           "name": "disabled"
         }
-      ]
+      ],
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **toggleStyle**()\n- **isOn**\n- get **name**() — `string` Form participation property\n- **value**"
     },
     {
       "name": "tool-bar-item-group",
-      "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar."
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item-group"
+        }
+      ],
+      "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.\n---"
     },
     {
       "name": "tool-bar-item",
-      "description": "A model that represents an item which can be placed in the toolbar or navigation bar.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item"
+        }
+      ],
+      "description": "",
       "attributes": [
         {
           "name": "slot"
@@ -584,11 +774,23 @@
     },
     {
       "name": "tool-bar",
-      "description": "Populates the toolbar or navigation bar with the specified items."
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/tool-bar"
+        }
+      ],
+      "description": "### **Slots:**\n- **cancellation-action** — The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **primary-action** — The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **confirmation-action** — The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **destructive-action** — The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n- **top-bar-leading** — Places the item in the leading edge of the top bar\n- **top-bar-principal** — Places the item in the middle of the top bar\n- **top-bar-trailing** — Places the item in the trailing edge of the top bar\n- **bottom-bar-leading** — Places the item in the leading edge of the bottom bar\n- **bottom-bar-principal** — Places the item in the middle of the bottom bar\n- **bottom-bar-trailing** — Places the item in the trailing edge of the bottom bar"
     },
     {
       "name": "vkeyboard",
-      "description": "Required component, used to handle the virtual keyboard on touch devices.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/vkeyboard"
+        }
+      ],
+      "description": "BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.\nSo we live with a pescy body-scrollbar that shows up on resize on desktops.\n---",
       "attributes": [
         {
           "name": "system-font",
@@ -603,7 +805,13 @@
     },
     {
       "name": "vstack",
-      "description": "A view that arranges its subviews in a vertical line.",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/vstack"
+        }
+      ],
+      "description": "",
       "attributes": [
         {
           "name": "distribution",
@@ -630,8 +838,8 @@
           ]
         },
         {
-          "name": "template - The main",
-          "description": "\nDescription: axis grid template",
+          "name": "template",
+          "description": "\nDescription: The main-axis grid template",
           "valueSet": "templateSet"
         },
         {
@@ -640,18 +848,18 @@
           "valueSet": "spacingSet"
         },
         {
-          "name": "alignment - The cross",
-          "description": "\nDescription: axis alignment",
+          "name": "alignment",
+          "description": "\nDescription: The cross-axis alignment",
           "valueSet": "inlineSet"
         },
         {
-          "name": "distribution - The main",
-          "description": "\nDescription: axis alignment",
+          "name": "distribution",
+          "description": "\nDescription: The main-axis alignment",
           "valueSet": "blockSet"
         },
         {
-          "name": "placement - The main",
-          "description": "\nDescription: axis alignment",
+          "name": "placement",
+          "description": "\nDescription: The main-axis alignment",
           "valueSet": "blockPlacementSet"
         }
       ]

@@ -156,12 +156,13 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
  *
  * @attr {menu|inline|navigation-link|sheet|automatic} picker-style
  *
- * @attr {string} help - Adds a help tooltip to the trigger of the picker, if style supports one
+ * @attr {string} help — Adds a help tooltip to the trigger of the picker, if style supports one
  *
- * @attr {DictEntry[]} dictionary - Renders all options using this array
+ * @attr {DictEntry[]} dictionary — Renders all options using this array
  *
  * @attr {vertical|horizontal|auto} label-value-placement
  *
+ * @slot — The default slot.
  * @slot label
  * @slot list
  * @slot validity-options
@@ -1434,7 +1435,10 @@ export class PickerView extends FormAssociatedBase {
     else trigger?.removeAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP)
   }
 
-  // Optional: form participation properties
+  /**
+   * Form participation property
+   * @type {string}
+   */
   get name() {
     return this.getAttribute('name') ?? this.getAttribute('label') ?? this.querySelector(':scope>[slot=label]')?.textContent ?? ''
   }

@@ -12,8 +12,11 @@ const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as c
 export type TabBarPlacement = (typeof TAB_BAR_PLACEMENTS)[number]
 
 /**
- * @fires tabshow A Tab is shown
- * @fires tabhide A Tab is hidden
+ *
+ * @cssprop --adaptable-tab-bar-placement
+ *
+ * @fires tabshow — A Tab is shown
+ * @fires tabhide — A Tab is hidden
  * @fires tab-view:toggle
  * @fires tab-view:adaptable-tab-bar-placement-change
  */

@@ -13,6 +13,7 @@ import { $, devFlags, onoff } from '../internal/utils'
  *
  * @example <content-unavailable-view padding><label-view title="No Mail"><svg slot="icon" foreground="secondary" ...>...</svg></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
  *
+ * @slot — The default slot.
  * @slot description
  * @slot actions
  *

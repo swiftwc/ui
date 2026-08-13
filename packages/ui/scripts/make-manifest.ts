@@ -1,19 +1,25 @@
 import doctrine from 'doctrine'
-// @ts-expect-error no types available
-import type { Node } from 'gonzales-pe'
-// @ts-expect-error no types available
-import gonzales from 'gonzales-pe'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
 import { ArrayLiteralExpression, Project, SyntaxKind } from 'ts-morph'
+// @ts-expect-error no types available
+import gonzales from 'gonzales-pe'
+// @ts-expect-error no types available
+import type { Node } from 'gonzales-pe'
 
 const kebabCase = (str: string) =>
-  str
-    .replace(/([a-z])([A-Z])/g, '$1-$2') // camelCase → camel-Case
-    .replace(/[\s_]+/g, '-') // spaces/underscores → -
-    .replace(/-+/g, '-') // collapse multiple -
-    .toLowerCase()
+    str
+      .replace(/([a-z])([A-Z])/g, '$1-$2') // camelCase → camel-Case
+      .replace(/[\s_]+/g, '-') // spaces/underscores → -
+      .replace(/-+/g, '-') // collapse multiple -
+      .toLowerCase(),
+  extractAb = (str: string) => {
+    const i = str.lastIndexOf('—'),
+      a = str.slice(0, i !== -1 ? i : undefined).trim(),
+      b = i !== -1 ? str.slice(i + 1).trim() : undefined
+    return [a.trim(), b?.trim()]
+  }
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -215,14 +221,20 @@ interface VsHtmlDataAttr {
   valueSet?: string
 }
 
+interface VsHtmlReferenceAttr {
+  name: string
+  url: string
+}
+
 interface VsHtmlDataTag {
   name: string
   description?: string
   attributes?: VsHtmlDataAttr[]
+  references?: VsHtmlReferenceAttr[]
 }
 
 // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.schema.json
-const vscode: VsHtmlDataV1 = {
+const htmlData: VsHtmlDataV1 = {
   version: 1.1,
   tags: [],
   globalAttributes: [
@@ -381,7 +393,7 @@ const vscode: VsHtmlDataV1 = {
   ],
 }
 
-const elements: CustomElementDataV2 = {
+const customElements: CustomElementDataV2 = {
   schemaVersion: '2.1.0',
   readme: 'README.md',
   modules: [],
@@ -426,24 +438,50 @@ for (const sourceFile of project.getSourceFiles()) {
       ],
     }
 
-    for (const m of cls.getGetAccessors().filter((m) => {
-      return (
-        !m.hasModifier?.('private') &&
-        !m.hasModifier?.('protected') &&
-        !m.hasModifier?.(SyntaxKind.PrivateKeyword) &&
-        !m.hasModifier?.(SyntaxKind.ProtectedKeyword) &&
-        !m.getName().startsWith('#') &&
-        m.getName() !== 'observedAttributes'
-      )
-    })) {
+    const getters = cls.getGetAccessors().filter((m) => {
+        return (
+          !m.isStatic() &&
+          !m.hasModifier?.('private') &&
+          !m.hasModifier?.('protected') &&
+          !m.hasModifier?.(SyntaxKind.PrivateKeyword) &&
+          !m.hasModifier?.(SyntaxKind.ProtectedKeyword) &&
+          !m.getName().startsWith('#') &&
+          m.getName() !== 'observedAttributes'
+        )
+      }),
+      setters = new Set(cls.getSetAccessors().map((s) => s.getName()))
+
+    for (const m of getters) {
       ;(module.declarations[0].members ??= []).push({
         kind: 'field',
         name: m.getName(),
       })
     }
 
-    const row: VsHtmlDataTag = {
-      name: is,
+    const htmlDataTag: VsHtmlDataTag = {
+        name: is,
+      },
+      htmlDataTagDescMap: Map<string, string[]> = new Map()
+
+    for (const m of getters) {
+      const isWritable = setters.has(m.getName())
+      const leading = m
+        .getLeadingCommentRanges()
+        .map((c) => c.getText().trim())
+        .at(0)
+
+      let b = ''
+
+      if (leading) {
+        const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
+
+        const typeTag = tags?.find((t) => t.title === 'type')
+        // console.log(99, typeTag?.type?.elements)
+        // @ts-expect-error
+        b = `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => `\`${item}\``).join(' | ')} ${description}`
+      }
+
+      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${isWritable ? '' : `get `}**${m.getName()}**${isWritable ? '' : `()`}${b ? ` — ${b}` : ''}`)
     }
 
     const leading = cls
@@ -454,20 +492,34 @@ for (const sourceFile of project.getSourceFiles()) {
     if (leading) {
       const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-      row.description = description
+      if (description) htmlDataTagDescMap.set('desc', [description])
+
+      htmlDataTag.references = [
+        {
+          name: 'Documentation',
+          url: `https://swiftwc.github.io/ui/web-components/${is}`,
+        },
+      ]
       module.declarations[0].description = description
 
       for (const tag of tags ?? []) {
         switch (tag.title) {
           case 'summary':
-            row.description = tag.description ?? undefined
+            htmlDataTag.description = tag.description ?? undefined
             module.declarations[0].description = tag.description ?? ''
 
             // TODO: override name with @element!
             continue
 
+          case 'example': {
+            const [a, b] = extractAb(tag.description ?? '')
+
+            ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(`**${b ?? 'Example'}:**`, `\`\`\`html\n${b ? b : a}\n\`\`\``)
+
+            continue
+          }
           case 'event':
-          case 'fires':
+          case 'fires': {
             ;(module.declarations[0].events ??= []).push({
               name: tag.title,
               type: {
@@ -475,24 +527,36 @@ for (const sourceFile of project.getSourceFiles()) {
               },
             })
 
-            continue
-          case 'slot':
-            ;(module.declarations[0].slots ??= []).push({
-              name: tag.title,
-              description: tag.description ?? undefined,
-            })
+            const [a, b] = extractAb(tag.description ?? '')
+
+            ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`- **${a}**${b ? ` — ${b}` : ''}`)
 
             continue
-          case 'attr':
+          }
+          case 'slot': {
+            const [a, b] = extractAb(tag.description ?? '')
+
+            ;(module.declarations[0].slots ??= []).push({
+              name: a ?? '',
+              description: b ?? undefined,
+            })
+            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`- ${a ? `**${a}**` : `_default_`}${b ? ` — ${b}` : ''}`)
+
+            continue
+          }
+          case 'attr': {
             if (!tag.description) continue
 
             const attr: VsHtmlDataAttr = {
               name: '',
             }
 
-            const i = tag.description.lastIndexOf('-'),
-              a = tag.description.slice(0, i !== -1 ? i : undefined).trim(),
-              b = i !== -1 ? tag.description.slice(i + 1).trim() : undefined
+            // const i = tag.description.lastIndexOf('-'),
+            //   a = tag.description.slice(0, i !== -1 ? i : undefined).trim(),
+            //   b = i !== -1 ? tag.description.slice(i + 1).trim() : undefined
+
+            const [a, b] = extractAb(tag.description)
+            if (!a) continue
 
             if (b) attr.description = `\nDescription: ${b}`
 
@@ -513,17 +577,18 @@ for (const sourceFile of project.getSourceFiles()) {
                 attr.description = `Value Type: “${types.join('” | “')}”${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= types.map((item) => ({ name: item }))
               }
-              ;(row.attributes ??= []).push(attr)
+              ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
               ;(module.declarations[0].attributes ??= []).push({
                 name: a.trim(),
               })
 
               attr.name = a.trim()
-              ;(row.attributes ??= []).push(attr)
+              ;(htmlDataTag.attributes ??= []).push(attr)
             }
 
             continue
+          }
         }
       }
     }
@@ -544,7 +609,7 @@ for (const sourceFile of project.getSourceFiles()) {
         if (leading) {
           const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-          attr.description = `Description: ${description}`
+          attr.description = description //`Description: ${description}`
 
           for (const tag of tags ?? []) {
             if ('type' === tag.title) {
@@ -553,25 +618,42 @@ for (const sourceFile of project.getSourceFiles()) {
               if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
 
               if (types) {
-                attr.description = `Value Type: “${types.join('” | “')}”${tag.description ? ` ${tag.description}` : ''}${attr.description ? `\n${attr.description}` : ''}`
-                attr.values ??= types.map((item) => ({ name: item }))
+                attr.description = `Value Type: “${types.join('” | “')}”${tag.description ? ` ${tag.description}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
+                attr.values ??= types.map((name) => ({ name }))
               }
             }
           }
         }
 
-        ;(row.attributes ??= []).push(attr)
+        ;(htmlDataTag.attributes ??= []).push(attr)
         //
         ;(module.declarations[0].attributes ??= []).push({ name: attr.name })
       }
     }
 
-    ;(vscode.tags ??= []).push(row)
+    if (htmlDataTagDescMap.has('desc')) htmlDataTagDescMap.get('desc')?.splice(1, 0, '---')
 
-    elements.modules.push(module)
+    // if (htmlDataTagDescMap.has('slots')) htmlDataTagDescMap.get('slots')?.splice(0, 0, '- _default_ — The default slot.')
+    if (htmlDataTagDescMap.has('slots')) htmlDataTagDescMap.get('slots')?.splice(0, 0, '### **Slots:**')
+
+    if (htmlDataTagDescMap.has('events')) htmlDataTagDescMap.get('events')?.splice(0, 0, '### **Events:**')
+
+    if (htmlDataTagDescMap.has('examples')) htmlDataTagDescMap.get('examples')?.splice(0, 0, '### **Examples:**')
+
+    if (htmlDataTagDescMap.has('props')) htmlDataTagDescMap.get('props')?.splice(0, 0, '### **Properties:**')
+
+    const order = ['desc', 'slots', 'props', 'methods', 'events', 'examples']
+
+    htmlDataTag.description = [...htmlDataTagDescMap.entries()]
+      .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
+      .map(([, values]) => values.join('\n'))
+      .join('\n\n')
+    ;(htmlData.tags ??= []).push(htmlDataTag)
+
+    customElements.modules.push(module)
   }
 }
 
-writeFileSync(resolve(__dirname, '../web-components.html-data/en.json'), JSON.stringify(vscode, null, 2))
+writeFileSync(resolve(__dirname, '../web-components.html-data/en.json'), JSON.stringify(htmlData, null, 2))
 
-writeFileSync(resolve(__dirname, '../custom-elements/en.json'), JSON.stringify(elements, null, 2))
+writeFileSync(resolve(__dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))

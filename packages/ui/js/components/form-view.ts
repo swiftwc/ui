@@ -3,7 +3,7 @@ import { devFlags, listActive, onoff } from '../internal/utils'
 import { FormBase } from '../namespace-browser/base'
 
 /**
- * @attr {hidden} navigation-link-indicator-visibility - Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+ * @attr {hidden} navigation-link-indicator-visibility — Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
  */
 export class FormView extends FormBase {
   constructor() {

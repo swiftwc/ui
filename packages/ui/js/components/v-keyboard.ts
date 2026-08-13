@@ -9,7 +9,7 @@ import { type ScrollView } from './scroll-view'
  *
  * @summary Required component, used to handle the virtual keyboard on touch devices.
  *
- * @attr {Inter} system-font - Prefers the "Inter" font family, if loaded.
+ * @attr {Inter} system-font — Prefers the "Inter" font family, if loaded.
  */
 export class VKeyboard extends HTMLElement {
   /**

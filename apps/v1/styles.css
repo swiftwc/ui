@@ -1070,6 +1070,7 @@
   :where(navigation-stack:not([hidden]),
   navigation-split-view:not([hidden]),
   navigation-large-title:not([hidden]),
+  navigation-title:not([hidden]),
   scroll-view:not([hidden]),
   body-view:not([hidden]),
   tab-view:not([hidden]),
@@ -3395,7 +3396,7 @@
     --toggle--trigger-bg: lightgray;
   }
   :where(toggle-view)::part(toggle-stack) {
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr) auto;
     grid-template-rows: minmax(0, 1fr);
     column-gap: var(--labeled-content-column-gap);
   }
@@ -3512,11 +3513,7 @@
     padding-block: 1rem;
   }
 }
-@layer sw-components {
-  :where(navigation-title) {
-    display: grid;
-  }
-}
+@layer sw-components {}
 @layer sw-components {
   :where(tab-view:not([tab-view-style=tab-bar-only]) > sidebar-toggle, navigation-split-view > sidebar-toggle) {
     position: fixed;

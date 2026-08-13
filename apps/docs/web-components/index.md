@@ -32,7 +32,7 @@
 
 #### [GlassProminentButton](/web-components/glass-prominent-button.md) {#no-anchor13}
 
-#### [HStack](/web-components/hstack.md) {#no-anchor14}
+#### [HStack](/web-components/h-stack.md) {#no-anchor14}
 
 #### [ImageView](/web-components/image-view.md) {#no-anchor15}
 
@@ -94,8 +94,8 @@
 
 #### [ToolBar](/web-components/tool-bar.md) {#no-anchor44}
 
-#### [VKeyboard](/web-components/vkeyboard.md) {#no-anchor45}
+#### [VKeyboard](/web-components/v-keyboard.md) {#no-anchor45}
 
-#### [VStack](/web-components/vstack.md) {#no-anchor46}
+#### [VStack](/web-components/v-stack.md) {#no-anchor46}
 
 </div></div>

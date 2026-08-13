@@ -51,6 +51,14 @@ A view that labels items with an icon and a title.
 
 <!-- #region post -->
 
+## Topics
+
+**Creating a label with an icon image and a title:**
+
+```html
+<label-view system-image="hand-tap"><span>Hello</span></label-view>
+```
+
 ## Relationships
 
 ### Conforms To
@@ -63,10 +71,10 @@ A view that labels items with an icon and a title.
 
 <div>
 
-| Name       | Description       |
-| ---------- | ----------------- |
-| _default_  | The default slot. |
-| **`icon`** |                   |
+| Name       | Description                                                                   |
+| ---------- | ----------------------------------------------------------------------------- |
+| _default_  | Place children without a `slot` attribute inside the main block of the label. |
+| **`icon`** | Place children with a `slot="icon"` attribute in the icon block of the label. |
 
 </div>
 

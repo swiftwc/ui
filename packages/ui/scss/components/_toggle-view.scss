@@ -12,7 +12,7 @@
       --toggle--trigger-bg: lightgray;
 
       &::part(toggle-stack) {
-        grid-template-columns: auto minmax(0, 1fr);
+        grid-template-columns: minmax(0, 1fr) auto;
 
         grid-template-rows: minmax(0, 1fr);
 

@@ -11,10 +11,14 @@ import type { Node } from 'gonzales-pe'
 
 const kebabCase = (str: string) =>
     str
-      .replace(/([a-z])([A-Z])/g, '$1-$2') // camelCase → camel-Case
-      .replace(/[\s_]+/g, '-') // spaces/underscores → -
-      .replace(/-+/g, '-') // collapse multiple -
-      .toLowerCase(),
+      // Replace uppercase letters with - + lowercase
+      .replace(/([A-Z])/g, '-$1')
+      // Replace spaces and underscores with -
+      .replace(/[\s_]+/g, '-')
+      // Convert to lowercase
+      .toLowerCase()
+      // Remove leading/trailing dashes
+      .replace(/^-+|-+$/g, ''),
   extractAb = (str: string) => {
     const i = str.lastIndexOf('—'),
       a = str.slice(0, i !== -1 ? i : undefined).trim(),

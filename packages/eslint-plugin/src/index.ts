@@ -18,7 +18,7 @@ export const DIRECT_PARENT_RULES: Record<string, string[]> = {
 
   'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
 
-  'sidebar-toggle': ['template', 'tab-view', 'form', 'navigation-split-view'],
+  'sidebar-toggle': ['template', 'tab-view', 'form', 'navigation-split-view', 'tool-bar'],
 
   'body-view': ['template', 'dialog', 'body-view', 'navigation-stack', 'navigation-split-view'],
 }

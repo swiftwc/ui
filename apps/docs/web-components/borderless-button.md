@@ -39,7 +39,7 @@ A control that starts an action. Styled without any borders.
 
 ## Topics
 
-**Creating a borderless button:**
+**Use the `is` attribute to style a `button` as a `borderless-button`:**
 
 ```html
 <button is="borderless-button">

@@ -680,13 +680,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/hstack.ts",
+      "path": "./generated/components/h-stack.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
           "name": "HStack",
-          "tagName": "hstack",
+          "tagName": "h-stack",
           "description": "A view that arranges its children side by side.",
           "superclass": {
             "name": "HTMLElement"
@@ -720,7 +720,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "hstack",
+          "name": "h-stack",
           "declaration": {
             "name": "HStack"
           }
@@ -800,10 +800,11 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "Place children without a `slot` attribute inside the main block of the label."
             },
             {
-              "name": "icon"
+              "name": "icon",
+              "description": "Place children with a `slot=\"icon\"` attribute in the icon block of the label."
             }
           ]
         }
@@ -2326,13 +2327,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/vkeyboard.ts",
+      "path": "./generated/components/v-keyboard.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
           "name": "VKeyboard",
-          "tagName": "vkeyboard",
+          "tagName": "v-keyboard",
           "description": "Required component, used to handle the virtual keyboard on touch devices.",
           "superclass": {
             "name": "HTMLElement"
@@ -2354,7 +2355,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "vkeyboard",
+          "name": "v-keyboard",
           "declaration": {
             "name": "VKeyboard"
           }
@@ -2363,13 +2364,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/vstack.ts",
+      "path": "./generated/components/v-stack.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
           "name": "VStack",
-          "tagName": "vstack",
+          "tagName": "v-stack",
           "description": "A view that arranges its children one on top of the other.",
           "superclass": {
             "name": "HTMLElement"
@@ -2406,7 +2407,7 @@
         },
         {
           "kind": "custom-element-definition",
-          "name": "vstack",
+          "name": "v-stack",
           "declaration": {
             "name": "VStack"
           }

@@ -83,7 +83,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/borderless-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a borderless button:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a `borderless-button`:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -288,11 +288,11 @@
       ]
     },
     {
-      "name": "hstack",
+      "name": "h-stack",
       "references": [
         {
           "name": "Documentation",
-          "url": "https://swiftwc.github.io/ui/web-components/hstack"
+          "url": "https://swiftwc.github.io/ui/web-components/h-stack"
         }
       ],
       "description": "",
@@ -344,7 +344,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/label-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **icon**",
+      "description": "### **Slots:**\n- _default_ — Place children without a `slot` attribute inside the main block of the label.\n- **icon** — Place children with a `slot=\"icon\"` attribute in the icon block of the label.\n\n### **Examples:**\n**Creating a label with an icon image and a title:**\n```html\n<label-view system-image=\"hand-tap\"><span>Hello</span></label-view>\n\n```",
       "attributes": [
         {
           "name": "font",
@@ -824,11 +824,11 @@
       "description": "### **Slots:**\n- **cancellation-action** — The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **primary-action** — The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **confirmation-action** — The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **destructive-action** — The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n- **top-bar-leading** — Places the item in the leading edge of the top bar\n- **top-bar-principal** — Places the item in the middle of the top bar\n- **top-bar-trailing** — Places the item in the trailing edge of the top bar\n- **bottom-bar-leading** — Places the item in the leading edge of the bottom bar\n- **bottom-bar-principal** — Places the item in the middle of the bottom bar\n- **bottom-bar-trailing** — Places the item in the trailing edge of the bottom bar"
     },
     {
-      "name": "vkeyboard",
+      "name": "v-keyboard",
       "references": [
         {
           "name": "Documentation",
-          "url": "https://swiftwc.github.io/ui/web-components/vkeyboard"
+          "url": "https://swiftwc.github.io/ui/web-components/v-keyboard"
         }
       ],
       "description": "BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.\nSo we live with a pescy body-scrollbar that shows up on resize on desktops.\n---",
@@ -845,11 +845,11 @@
       ]
     },
     {
-      "name": "vstack",
+      "name": "v-stack",
       "references": [
         {
           "name": "Documentation",
-          "url": "https://swiftwc.github.io/ui/web-components/vstack"
+          "url": "https://swiftwc.github.io/ui/web-components/v-stack"
         }
       ],
       "description": "",

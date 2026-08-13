@@ -1,12 +1,12 @@
 <!-- #region pre -->
 
-# VKeyboard
+# HStack
 
-Required component, used to handle the virtual keyboard on touch devices.
+A view that arranges its children side by side.
 
 ## Declaration
 
-`<vkeyboard></vkeyboard>`
+`<h-stack></h-stack>`
 
 <!-- #endregion pre -->
 

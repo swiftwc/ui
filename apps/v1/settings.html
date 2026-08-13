@@ -14,6 +14,220 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Energy" navigation-path="Energy">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]">
+              <section-view>
+                <toggle-view label="Low Power Mode"></toggle-view>
+              </section-view>
+              <section-view>
+                <toggle-view label="Prevent automatic sleeping when the display is off"></toggle-view>
+                <toggle-view>
+                  <label-view slot="label" title="Wake for network access"></label-view>
+                  <label-view
+                    slot="label"
+                    title="White sleeping, your device can receive incoming network traffic, such as messages and other updates."
+                  ></label-view>
+                </toggle-view>
+              </section-view>
+              <section-view>
+                <labeled-content>
+                  <label-view slot="label" title="Start up when power is connected"></label-view>
+                  <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
+                  <picker-view selection="Never" label="inline1" picker-style="menu">
+                    <option slot="list" value="Never"></option>
+                    <option slot="list" value="After power failure"></option>
+                    <option slot="list" value="Always"></option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="General" navigation-path="General">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <navigation-large-title background-style="grouped" padding>
+              <image-view system-name="gear-fine" foreground="blue"></image-view>
+              <v-stack spacing="3" alignment="fill">
+                <label-view title="General" font="title2"></label-view>
+                <label-view title="Manage yor overall setup and preferences." foreground="secondary" font="callout"></label-view>
+              </v-stack>
+            </navigation-large-title>
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]">
+              <section-view>
+                <button navigation-link type="button" navigation-destination="About">
+                  <label-view system-image="laptop" title="About"></label-view>
+                </button>
+                <button navigation-link type="button" navigation-destination="Software Update">
+                  <label-view system-image="gear-fine" title="Software Update"></label-view>
+                </button>
+                <button navigation-link type="button" navigation-destination="Storage">
+                  <label-view system-image="hard-drive" title="Storage"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link type="button">
+                  <label-view system-image="orange" title="Warranty"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link type="button">
+                  <label-view system-image="broadcast" title="Continuity"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link type="button">
+                  <label-view system-image="password" title="Autofill & Passwords"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="calendar-dots" title="Date & Time"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="globe" title="Language & Region"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="list-bullets" title="Login Items & Extensions"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="password" title="Sharing"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="person-simple-walk" title="Startup Disk"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view system-image="clock-counter-clockwise" title="Time Machine"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link type="button">
+                  <label-view system-image="seal-check" title="Device Management"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link type="button">
+                  <label-view system-image="arrow-counter-clockwise" title="Transfer or Reset"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="About" navigation-path="About">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <navigation-large-title background-style="grouped" padding>
+              <image-view system-name="laptop" foreground="secondary" class="place-self-center"></image-view>
+              <v-stack spacing="6">
+                <label-view title="Device" font="title"></label-view>
+                <label-view title="2026" foreground="secondary" font="callout"></label-view>
+              </v-stack>
+            </navigation-large-title>
+            <label-view font="large-title" value="Device" padding></label-view>
+            <list-view list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <labeled-content label="Name" value="Laptop"></labeled-content>
+                <labeled-content label="Chip" value="Orange M4"></labeled-content>
+                <labeled-content label="Memory" value="16 GB"></labeled-content>
+                <labeled-content label="Serial number" value="Foo"></labeled-content>
+              </section-view>
+              <section-view header="OS">
+                <labeled-content label="Operating System" value="Version 99.5.2"></labeled-content>
+              </section-view>
+              <section-view header="Displays">
+                <labeled-content label="Display 1" value="23,5-inch"></labeled-content>
+                <labeled-content label="Display 2" value="23,5-inch"></labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <label-view font="large-title" value="Accessibility" padding></label-view>
+            <list-view list-style="inset-grouped">
+              <section-view header="Vision">
+                <button navigation-link type="button">
+                  <label-view title="VoiceOver"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view title="Zoom"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view title="Hover Text"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped">
+              <section-view header="Vision">
+                <button navigation-link type="button">
+                  <label-view title="VoiceOver"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view title="Zoom"></label-view>
+                </button>
+                <button navigation-link type="button">
+                  <label-view title="Hover Text"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
@@ -148,13 +362,13 @@
                 <button navigation-link type="button">
                   <label-view system-image="smiley" title="Network"></label-view>
                 </button>
-                <button navigation-link type="button">
-                  <label-view system-image="smiley" title="Energy"></label-view>
+                <button navigation-link type="button" navigation-destination="Energy">
+                  <label-view system-image="lightning" title="Energy"></label-view>
                 </button>
               </section-view>
               <section-view>
                 <button navigation-link type="button" navigation-destination="General">
-                  <label-view system-image="smiley" title="General"></label-view>
+                  <label-view system-image="gear-fine" title="General"></label-view>
                 </button>
                 <button navigation-link type="button" navigation-destination="Accessibility">
                   <label-view system-image="smiley" title="Accessibility"></label-view>
@@ -177,170 +391,5 @@
         </tool-bar-item>
       </sidebar-toggle>
     </navigation-split-view>
-
-    <template>
-      <body-view>
-        <scroll-view navigation-inline-title="General" navigation-path="General">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <navigation-large-title background-style="grouped" padding>
-              <v-stack alignment="fill">
-                <label-view title="General" font="large-title"></label-view>
-                <label-view title="Manage yor overall setup and preferences." font="callout"></label-view>
-              </v-stack>
-            </navigation-large-title>
-            <form is="form-view" form-style="inset-grouped">
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="About"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="Software Update">
-                  <label-view title="Software Update"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="Storage">
-                  <label-view title="Storage"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Warranty"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Continuity"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Autofill & Passwords"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Date & Time"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Language & Region"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Login Items & Extensions"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Sharing"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Startup Disk"></label-view>
-                </button>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Time Machine"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Device Management"></label-view>
-                </button>
-              </section-view>
-              <section-view>
-                <button navigation-link type="button" navigation-destination="About">
-                  <label-view title="Transfer or Reset"></label-view>
-                </button>
-              </section-view>
-            </form>
-          </v-stack>
-        </scroll-view>
-        <tool-bar>
-          <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
-              <label-view system-image="caret-left"></label-view>
-            </button>
-          </tool-bar-item>
-        </tool-bar>
-      </body-view>
-    </template>
-    <template>
-      <body-view>
-        <scroll-view navigation-inline-title="About" navigation-path="About">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <label-view font="large-title" value="Device" padding></label-view>
-            <list-view list-style="inset-grouped">
-              <section-view>
-                <button navigation-link type="button">
-                  <label-view title="About"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Software Update"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Storage"></label-view>
-                </button>
-              </section-view>
-            </list-view>
-          </v-stack>
-        </scroll-view>
-        <tool-bar>
-          <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
-              <label-view system-image="caret-left"></label-view>
-            </button>
-          </tool-bar-item>
-        </tool-bar>
-      </body-view>
-    </template>
-    <template>
-      <body-view>
-        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <label-view font="large-title" value="Accessibility" padding></label-view>
-            <list-view list-style="inset-grouped">
-              <section-view header="Vision">
-                <button navigation-link type="button">
-                  <label-view title="VoiceOver"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Zoom"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Hover Text"></label-view>
-                </button>
-              </section-view>
-            </list-view>
-          </v-stack>
-        </scroll-view>
-        <tool-bar>
-          <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
-              <label-view system-image="caret-left"></label-view>
-            </button>
-          </tool-bar-item>
-        </tool-bar>
-      </body-view>
-    </template>
-    <template>
-      <body-view>
-        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <list-view list-style="inset-grouped">
-              <section-view header="Vision">
-                <button navigation-link type="button">
-                  <label-view title="VoiceOver"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Zoom"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Hover Text"></label-view>
-                </button>
-              </section-view>
-            </list-view>
-          </v-stack>
-        </scroll-view>
-        <tool-bar>
-          <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
-              <label-view system-image="caret-left"></label-view>
-            </button>
-          </tool-bar-item>
-        </tool-bar>
-      </body-view>
-    </template>
-
   </body>
 </html>

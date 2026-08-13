@@ -39,14 +39,25 @@ _This component does not implement any events._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                               |   Type   | Description                 |
-| ---------------------------------- | :------: | --------------------------- |
-| **get `keyboardType`()**           |          |                             |
-| **`text`**                         |          |                             |
-| **get `name`()**                   | `string` | Form participation property |
-| **get `value`()**                  |          |                             |
-| **get `valueAsNumber`()**          |          |                             |
-| **get `negativeNumbersAllowed`()** |          |                             |
+| Name                                    |                     Type                     | Description                 |
+| --------------------------------------- | :------------------------------------------: | --------------------------- |
+| **`keyboardType`** `readonly`           | `"decimal-pad" \| "number-pad" \| "default"` |                             |
+| **`text`**                              |                   `string`                   |                             |
+| **`name`** `readonly`                   |     `string Form participation property`     | Form participation property |
+| **`value`** `readonly`                  |                   `string`                   |                             |
+| **`valueAsNumber`** `readonly`          |                `number \| ""`                |                             |
+| **`negativeNumbersAllowed`** `readonly` |                  `boolean`                   |                             |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                    | Returns | Description |
+| ----------------------- | :-----: | ----------- |
+| **`setValidity`**       | `void`  |             |
+| **`setCustomValidity`** | `void`  |             |
 
 </div>
 

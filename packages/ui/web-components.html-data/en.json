@@ -23,12 +23,19 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a menu from a configuration:**\n```html\nCreating a menu from a configuration\n```",
       "attributes": [
         {
           "name": "role",
-          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
-          "values": []
+          "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
+          "values": [
+            {
+              "name": "destructive"
+            },
+            {
+              "name": "confirm"
+            }
+          ]
         },
         {
           "name": "title-key"
@@ -47,8 +54,15 @@
       "attributes": [
         {
           "name": "role",
-          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
-          "values": []
+          "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
+          "values": [
+            {
+              "name": "destructive"
+            },
+            {
+              "name": "confirm"
+            }
+          ]
         },
         {
           "name": "title-key"
@@ -67,8 +81,15 @@
       "attributes": [
         {
           "name": "role",
-          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
-          "values": []
+          "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
+          "values": [
+            {
+              "name": "destructive"
+            },
+            {
+              "name": "confirm"
+            }
+          ]
         },
         {
           "name": "title-key"
@@ -122,7 +143,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/date-picker"
         }
       ],
-      "description": "### **Properties:**\n- get **template**()\n- get **datePickerStyle**()\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsDate**() — `Date` | `null` Returns the value as a Date object.\n- get **minimum**()\n- get **maximum**()",
+      "description": "### **Properties:**\n- readonly **template** — DocumentFragment\n- readonly **datePickerStyle** — \"graphical\" | \"field\" | \"automatic\"\n- readonly **name** — string Form participation property\n- readonly **value** — { year: string; month: string; day: string; }\n- readonly **valueAsDate** — Date | null Returns the value as a Date object.\n- readonly **minimum** — { year: string; month: string; day: string; } | null\n- readonly **maximum** — { year: string; month: string; day: string; } | null",
       "attributes": [
         {
           "name": "date-picker-style",
@@ -218,8 +239,15 @@
       "attributes": [
         {
           "name": "role",
-          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
-          "values": []
+          "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
+          "values": [
+            {
+              "name": "destructive"
+            },
+            {
+              "name": "confirm"
+            }
+          ]
         },
         {
           "name": "title-key"
@@ -238,8 +266,15 @@
       "attributes": [
         {
           "name": "role",
-          "description": "Value Type: “”\nDescription: A value that describes the purpose of a button",
-          "values": []
+          "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
+          "values": [
+            {
+              "name": "destructive"
+            },
+            {
+              "name": "confirm"
+            }
+          ]
         },
         {
           "name": "title-key"
@@ -496,7 +531,7 @@
           ]
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection**\n- get **template**()\n- get **pickerStyle**()\n- get **name**() — `string` Form participation property"
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string Form participation property"
     },
     {
       "name": "plain-button",
@@ -510,7 +545,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/progress-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **current-value**\n\n### **Properties:**\n- get **progressViewStyle**()\n- get **template**()",
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **current-value**\n\n### **Properties:**\n- readonly **progressViewStyle** — \"circular\" | \"linear\"\n- readonly **template** — DocumentFragment",
       "attributes": [
         {
           "name": "label"
@@ -625,7 +660,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-view"
         }
       ],
-      "description": "### **Properties:**\n- get **tabBarPlacement**()\n- get **moreTab**()\n- **selectedTab**\n\n### **Events:**\n- **tabshow** — A Tab is shown\n- **tabhide** — A Tab is hidden\n- **tab-view:toggle**\n- **tab-view:adaptable-tab-bar-placement-change**"
+      "description": "### **Properties:**\n- readonly **tabBarPlacement** — \"bottom-bar\" | \"ornament\" | \"sidebar\" | \"top-bar\" | undefined\n- readonly **moreTab** — NavigationStack | null\n- **selectedTab** — (NavigationSplitView | NavigationStack)[]\n\n### **Events:**\n- **tabshow** — A Tab is shown\n- **tabhide** — A Tab is hidden\n- **tab-view:toggle**\n- **tab-view:adaptable-tab-bar-placement-change**"
     },
     {
       "name": "table-view",
@@ -665,7 +700,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/text-field"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **keyboardType**()\n- **text**\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsNumber**()\n- get **negativeNumbersAllowed**()",
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string Form participation property\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean",
       "attributes": [
         {
           "name": "prompt"
@@ -739,7 +774,7 @@
           "name": "disabled"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **toggleStyle**()\n- **isOn**\n- get **name**() — `string` Form participation property\n- **value**"
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string Form participation property\n- **value** — string | null"
     },
     {
       "name": "tool-bar-item-group",

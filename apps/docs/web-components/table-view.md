@@ -45,4 +45,8 @@ _This component does not implement any events._
 
 _This component does not implement any properties._
 
+### Methods
+
+_This component does not implement any properties._
+
 <!-- #endregion post -->

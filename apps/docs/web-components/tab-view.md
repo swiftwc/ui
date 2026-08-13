@@ -39,11 +39,20 @@ _This component does not implement any slotted content._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                        | Type | Description |
-| --------------------------- | :--: | ----------- |
-| **get `tabBarPlacement`()** |      |             |
-| **get `moreTab`()**         |      |             |
-| **`selectedTab`**           |      |             |
+| Name                             |                                Type                                 | Description |
+| -------------------------------- | :-----------------------------------------------------------------: | ----------- |
+| **`tabBarPlacement`** `readonly` | `"bottom-bar" \| "ornament" \| "sidebar" \| "top-bar" \| undefined` |             |
+| **`moreTab`** `readonly`         |                      `NavigationStack \| null`                      |             |
+| **`selectedTab`**                |            `(NavigationSplitView \| NavigationStack)[]`             |             |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name | Returns | Description |
+| ---- | :-----: | ----------- |
 
 </div>
 

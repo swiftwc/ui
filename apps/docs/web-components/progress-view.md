@@ -39,10 +39,19 @@ _This component does not implement any events._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                          | Type | Description |
-| ----------------------------- | :--: | ----------- |
-| **get `progressViewStyle`()** |      |             |
-| **get `template`()**          |      |             |
+| Name                               |           Type           | Description |
+| ---------------------------------- | :----------------------: | ----------- |
+| **`progressViewStyle`** `readonly` | `"circular" \| "linear"` |             |
+| **`template`** `readonly`          |    `DocumentFragment`    |             |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name | Returns | Description |
+| ---- | :-----: | ----------- |
 
 </div>
 

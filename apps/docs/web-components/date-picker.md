@@ -32,15 +32,26 @@ _This component does not implement any events._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                        |      Type      | Description                         |
-| --------------------------- | :------------: | ----------------------------------- |
-| **get `template`()**        |                |                                     |
-| **get `datePickerStyle`()** |                |                                     |
-| **get `name`()**            |    `string`    | Form participation property         |
-| **get `value`()**           |                |                                     |
-| **get `valueAsDate`()**     | `Date \| null` | Returns the value as a Date object. |
-| **get `minimum`()**         |                |                                     |
-| **get `maximum`()**         |                |                                     |
+| Name                             |                          Type                           | Description                         |
+| -------------------------------- | :-----------------------------------------------------: | ----------------------------------- |
+| **`template`** `readonly`        |                   `DocumentFragment`                    |                                     |
+| **`datePickerStyle`** `readonly` |         `"graphical" \| "field" \| "automatic"`         |                                     |
+| **`name`** `readonly`            |          `string Form participation property`           | Form participation property         |
+| **`value`** `readonly`           |     `{ year: string; month: string; day: string; }`     |                                     |
+| **`valueAsDate`** `readonly`     |   `Date \| null Returns the value as a Date object.`    | Returns the value as a Date object. |
+| **`minimum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
+| **`maximum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                    | Returns | Description |
+| ----------------------- | :-----: | ----------- |
+| **`setValidity`**       | `void`  |             |
+| **`setCustomValidity`** | `void`  |             |
 
 </div>
 

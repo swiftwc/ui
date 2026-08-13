@@ -89,9 +89,33 @@ ${
 | ------------- | :-----------: | ------------- |
 ${(
   await Promise.all(
-    dec.members.map((item, index) => {
-      return `| **${item.readonly ? 'get ' : ''}\`${item.name}\`${item.readonly ? '()' : ''}** | ${'type' in item ? `\`${item.type?.text.replaceAll('|', '\\|')}\`` : ''} | ${item?.description ?? ''} |`
-    })
+    dec.members
+      .filter((item) => 'field' === item.kind)
+      .map((item, index) => {
+        return `| **\`${item.name}\`**${'readonly' in item && item.readonly ? ` \`readonly\`` : ''} | ${'type' in item ? `\`${item.type?.text.replaceAll('|', '\\|')}\`` : ''} | ${item?.description ?? ''} |`
+      })
+  )
+).join(`\n`)}
+
+</div>`
+    : `_This component does not implement any properties._`
+}
+
+### Methods
+
+${
+  'members' in dec
+    ? `<div class="*:w-full *:table-fixed *:table!">
+
+| Name          |    Returns    |  Description  |
+| ------------- | :-----------: | ------------- |
+${(
+  await Promise.all(
+    dec.members
+      .filter((item) => 'method' === item.kind)
+      .map((item, index) => {
+        return `| **\`${item.name}\`** | ${'return' in item ? `\`${item.return?.type?.text.replaceAll('|', '\\|')}\`` : ''} | ${item?.description ?? ''} |`
+      })
   )
 ).join(`\n`)}
 

@@ -36,6 +36,21 @@ _This component does not implement any events._
 
 ### Properties
 
-_This component does not implement any properties._
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name | Type | Description |
+| ---- | :--: | ----------- |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                        | Returns | Description |
+| --------------------------- | :-----: | ----------- |
+| **`centerScrollToElement`** | `void`  |             |
+
+</div>
 
 <!-- #endregion post -->

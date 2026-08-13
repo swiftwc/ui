@@ -37,12 +37,23 @@ _This component does not implement any events._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                    |   Type   | Description                 |
-| ----------------------- | :------: | --------------------------- |
-| **get `toggleStyle`()** |          |                             |
-| **`isOn`**              |          |                             |
-| **get `name`()**        | `string` | Form participation property |
-| **`value`**             |          |                             |
+| Name                         |                 Type                 | Description                 |
+| ---------------------------- | :----------------------------------: | --------------------------- |
+| **`toggleStyle`** `readonly` |        `"button" \| "switch"`        |                             |
+| **`isOn`**                   |              `boolean`               |                             |
+| **`name`** `readonly`        | `string Form participation property` | Form participation property |
+| **`value`**                  |           `string \| null`           |                             |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                    | Returns | Description |
+| ----------------------- | :-----: | ----------- |
+| **`setValidity`**       | `void`  |             |
+| **`setCustomValidity`** | `void`  |             |
 
 </div>
 

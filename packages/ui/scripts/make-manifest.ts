@@ -2,7 +2,7 @@ import doctrine from 'doctrine'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ArrayLiteralExpression, Project, SyntaxKind, Node as TSMNode } from 'ts-morph'
+import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, PropertyDeclaration, SyntaxKind, Node as TSMNode, TypeFormatFlags } from 'ts-morph'
 // @ts-expect-error no types available
 import gonzales from 'gonzales-pe'
 // @ts-expect-error no types available
@@ -24,8 +24,23 @@ const kebabCase = (str: string) =>
     for (const tag of tags ?? []) {
       if ('type' === tag.title) {
         const types: string[] = []
-        // @ts-expect-error
-        if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
+        // console.debug(tag?.type?.elements)
+        if ('UnionType' === tag.type?.type)
+          for (const el of tag.type?.elements ?? [])
+            switch (el?.type as string | undefined) {
+              case 'StringLiteralType':
+                // @ts-expect-error
+                types.push(el.value)
+                break
+              case 'NameExpression':
+                // @ts-expect-error
+                types.push(el.name)
+                break
+              case 'NullLiteral':
+                types.push('null')
+                break
+            }
+        else if ('NameExpression' === tag.type?.type) types.push(tag.type.name)
 
         return { types, description: tag.description ?? undefined }
       }
@@ -58,7 +73,7 @@ ast.traverseByType('declaration', function (node: Node) {
     entries.map((item: string) => item.replace(/^\(|\)$/g, ''))
   )
 })
-console.debug(listVals)
+// console.debug(listVals)
 
 const maps = new Map<string, Map<string, string[]>>()
 
@@ -107,7 +122,7 @@ ast.traverseByType('declaration', (node: Node) => {
 
   maps.set(name, map)
 })
-console.debug(maps)
+// console.debug(maps)
 
 const names = new Map<string, string[]>()
 
@@ -122,7 +137,7 @@ ast.traverseByType('declaration', function (node: Node) {
 
   names.set(property?.toString(), entries ?? [])
 })
-console.debug(names)
+// console.debug(names)
 
 const tintDescriptions = new Map([['gray', 'Like secondary, like disabled']])
 
@@ -165,7 +180,7 @@ ast.traverseByType('declaration', (node: Node) => {
 
   tokens.set(name, map)
 })
-console.debug(tokens)
+// console.debug(tokens)
 
 // ast.traverseByType('variable', function (node: Node, index: number, parent: Node) {
 // if (node?.toString() !== '$stack-templates-list-vals') return
@@ -198,7 +213,7 @@ interface CustomElementDecl {
   name: string
   tagName: string
   description: string
-  members?: { name: string; kind: string; readonly?: boolean; description?: string }[]
+  members?: { name: string; kind: string; readonly?: boolean; description?: string; return?: { type: { text: string } }; type?: { text: string } }[]
   events?: {
     name: string
     description?: string
@@ -465,13 +480,13 @@ for (const sourceFile of project.getSourceFiles()) {
       }),
       setters = new Set(cls.getSetAccessors().map((s) => s.getName())),
       methods = cls.getInstanceMethods().filter((m) => !m.isStatic() && !m.getName().startsWith('#')),
-      arrowMethods = cls.getInstanceProperties().filter((p) => {
+      arrowMethods = cls.getInstanceProperties().filter((p): p is PropertyDeclaration => {
         if (!TSMNode.isPropertyDeclaration(p)) return false
 
         const initializer = p.getInitializer()
         if (!initializer) return false
 
-        if (!p.isStatic() && !p.getName().startsWith('#')) return false
+        if (p.isStatic() || p.getName().startsWith('#')) return false
 
         return TSMNode.isArrowFunction(initializer) || TSMNode.isFunctionExpression(initializer)
       })
@@ -482,72 +497,87 @@ for (const sourceFile of project.getSourceFiles()) {
       htmlDataTagDescMap: Map<string, string[]> = new Map()
 
     for (const m of getters) {
-      const isWritable = setters.has(m.getName())
+      const readonly = !setters.has(m.getName())
       const leading = m
         .getLeadingCommentRanges()
         .map((c) => c.getText().trim())
         .at(0)
 
-      let b = '',
-        c: { type?: { text: string } } = {},
+      const propTypeText = m?.getType().getText(m, TypeFormatFlags.NoTruncation)
+
+      let b = propTypeText,
+        // c: { type?: { text: string } } = {},
         d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        const typeTag = tags?.find((t) => t.title === 'type')
-        // console.log(99, typeTag?.type?.elements)
-        // @ts-expect-error
-        b = `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => `\`${item}\``).join(' | ')} ${description}`
+        // const { types, description: desc } = extractTypes(tags)
+
+        b += ` ${description}` //`${types.map((item) => `\`${item}\``).join(' | ')} ${description}`
 
         d = description
 
-        c.type = {
-          // @ts-expect-error
-          text: `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => item).join(' | ')}`,
-        }
+        // c.type = {
+        //   text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
+        // }
       }
       ;(module.declarations[0].members ??= []).push({
         kind: 'field',
         name: m.getName(),
-        readonly: !isWritable,
+        readonly,
         description: d,
-        ...c,
+        type: {
+          text: b, //`${types.map((item) => item).join(' | ')}`,
+        },
       })
-      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${isWritable ? '' : `get `}**${m.getName()}**${isWritable ? '' : `()`}${b ? ` — ${b}` : ''}`)
+      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${!readonly ? '' : `readonly `}**${m.getName()}**${b ? ` — ${b}` : ''}`)
     }
 
-    for (const m of methods) {
+    for (const m of [...methods, ...arrowMethods]) {
+      if (['attributeChangedCallback', 'disconnectedCallback', 'connectedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback'].includes(m.getName())) continue
+
       const leading = m
         .getLeadingCommentRanges()
         .map((c) => c.getText().trim())
         .at(0)
 
-      let b = '',
-        c: { type?: { text: string } } = {},
+      const callable = TSMNode.isPropertyDeclaration(m)
+        ? (m.getInitializer() as ArrowFunction | FunctionExpression) // arrow/fn expr
+        : m // MethodDeclaration
+
+      const returnTypeText = callable.getReturnType().getText(callable, TypeFormatFlags.NoTruncation)
+
+      let b = returnTypeText,
+        // c: { type?: { text: string } } = {},
         d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        const typeTag = tags?.find((t) => t.title === 'type')
-        // console.log(99, typeTag?.type?.elements)
-        // @ts-expect-error
-        b = `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => `\`${item}\``).join(' | ')} ${description}`
+        // const { types, description: desc } = extractTypes(tags)
+
+        b += ` ${description}`
 
         d = description
 
-        c.type = {
-          // @ts-expect-error
-          text: `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => item).join(' | ')}`,
-        }
+        // c.type = {
+        //   text: returnTypeText,
+        // }
+        // c.type = {
+        //   text: `${types.map((item) => item).join(' | ')}`,
+        // }
       }
-      console.log(999, m.getName())
+
       ;(module.declarations[0].members ??= []).push({
         kind: 'method',
         name: m.getName(),
         description: d,
-        ...c,
+        return: {
+          type: {
+            text: b,
+          },
+        },
       })
     }
 
@@ -678,18 +708,25 @@ for (const sourceFile of project.getSourceFiles()) {
 
           attr.description = description //`Description: ${description}`
 
-          for (const tag of tags ?? []) {
-            if ('type' === tag.title) {
-              const types: string[] = []
-              // @ts-expect-error
-              if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
+          const { types, description: desc } = extractTypes(tags)
 
-              if (types) {
-                attr.description = `Value Type: “${types.join('” | “')}”${tag.description ? ` ${tag.description}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
-                attr.values ??= types.map((name) => ({ name }))
-              }
-            }
+          if (0 < types.length) {
+            attr.description = `Value Type: “${types.join('” | “')}”${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
+            attr.values ??= types.map((name) => ({ name }))
           }
+
+          // for (const tag of tags ?? []) {
+          //   if ('type' === tag.title) {
+          //     const types: string[] = []
+          //     // @ts-expect-error
+          //     if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
+
+          //     if (types) {
+          //       attr.description = `Value Type: “${types.join('” | “')}”${tag.description ? ` ${tag.description}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
+          //       attr.values ??= types.map((name) => ({ name }))
+          //     }
+          //   }
+          // }
         }
 
         ;(htmlDataTag.attributes ??= []).push(attr)

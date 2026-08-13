@@ -39,12 +39,23 @@ _This component does not implement any events._
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                    |   Type   | Description                 |
-| ----------------------- | :------: | --------------------------- |
-| **`selection`**         |          |                             |
-| **get `template`()**    |          |                             |
-| **get `pickerStyle`()** |          |                             |
-| **get `name`()**        | `string` | Form participation property |
+| Name                         |                                Type                                 | Description                 |
+| ---------------------------- | :-----------------------------------------------------------------: | --------------------------- |
+| **`selection`**              |                              `string`                               |                             |
+| **`template`** `readonly`    |                         `DocumentFragment`                          |                             |
+| **`pickerStyle`** `readonly` | `"automatic" \| "menu" \| "inline" \| "navigation-link" \| "sheet"` |                             |
+| **`name`** `readonly`        |                `string Form participation property`                 | Form participation property |
+
+</div>
+
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                    | Returns | Description |
+| ----------------------- | :-----: | ----------- |
+| **`setValidity`**       | `void`  |             |
+| **`setCustomValidity`** | `void`  |             |
 
 </div>
 

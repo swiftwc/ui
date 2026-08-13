@@ -283,45 +283,21 @@ const htmlData: VsHtmlDataV1 = {
       name: 'list-item-tint',
       description: 'Sets accent color on list items',
       valueSet: 'tintSet',
-      // values: [
-      //   { name: 'infinity', description: '100%' },
-      //   { name: '0', description: '0rem' },
-      //   { name: '1', description: '1rem' },
-      //   { name: '2', description: '2rem' },
-      // ],
     },
     {
       name: 'foreground',
       description: 'Sets foreground color',
       valueSet: 'foregroundSet',
-      // values: [
-      //   { name: 'infinity', description: '100%' },
-      //   { name: '0', description: '0rem' },
-      //   { name: '1', description: '1rem' },
-      //   { name: '2', description: '2rem' },
-      // ],
     },
     {
       name: 'frame:width',
       description: 'Sets inline-size',
       valueSet: 'frameWidth',
-      // values: [
-      //   { name: 'infinity', description: '100%' },
-      //   { name: '0', description: '0rem' },
-      //   { name: '1', description: '1rem' },
-      //   { name: '2', description: '2rem' },
-      // ],
     },
     {
       name: 'frame:max-width',
       description: 'Sets max-inline-size',
       valueSet: 'frameMaxWidth',
-      // values: [
-      //   { name: 'infinity', description: '100%' },
-      //   { name: '0', description: '0cqi' },
-      //   { name: '1', description: '1cqi' },
-      //   { name: '2', description: '2cqi' },
-      // ],
     },
   ],
   valueSets: [
@@ -507,21 +483,14 @@ for (const sourceFile of project.getSourceFiles()) {
       const propTypeText = m?.getType().getText(m, TypeFormatFlags.NoTruncation)
 
       let b = propTypeText,
-        // c: { type?: { text: string } } = {},
         d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        // const { types, description: desc } = extractTypes(tags)
-
-        b += ` ${description}` //`${types.map((item) => `\`${item}\``).join(' | ')} ${description}`
+        b += ` ${description}`
 
         d = description
-
-        // c.type = {
-        //   text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
-        // }
       }
       ;(module.declarations[0].members ??= []).push({
         kind: 'field',
@@ -550,24 +519,14 @@ for (const sourceFile of project.getSourceFiles()) {
       const returnTypeText = callable.getReturnType().getText(callable, TypeFormatFlags.NoTruncation)
 
       let b = returnTypeText,
-        // c: { type?: { text: string } } = {},
         d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        // const { types, description: desc } = extractTypes(tags)
-
         b += ` ${description}`
 
         d = description
-
-        // c.type = {
-        //   text: returnTypeText,
-        // }
-        // c.type = {
-        //   text: `${types.map((item) => item).join(' | ')}`,
-        // }
       }
 
       ;(module.declarations[0].members ??= []).push({
@@ -652,10 +611,6 @@ for (const sourceFile of project.getSourceFiles()) {
               name: '',
             }
 
-            // const i = tag.description.lastIndexOf('-'),
-            //   a = tag.description.slice(0, i !== -1 ? i : undefined).trim(),
-            //   b = i !== -1 ? tag.description.slice(i + 1).trim() : undefined
-
             const [a, b] = extractAb(tag.description)
             if (!a) continue
 
@@ -718,19 +673,6 @@ for (const sourceFile of project.getSourceFiles()) {
             attr.description = `Value Type: “${types.join('” | “')}”${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
             attr.values ??= types.map((name) => ({ name }))
           }
-
-          // for (const tag of tags ?? []) {
-          //   if ('type' === tag.title) {
-          //     const types: string[] = []
-          //     // @ts-expect-error
-          //     if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
-
-          //     if (types) {
-          //       attr.description = `Value Type: “${types.join('” | “')}”${tag.description ? ` ${tag.description}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
-          //       attr.values ??= types.map((name) => ({ name }))
-          //     }
-          //   }
-          // }
         }
 
         ;(htmlDataTag.attributes ??= []).push(attr)

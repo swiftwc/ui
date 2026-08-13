@@ -33,6 +33,22 @@ for await (const [i, mod] of data.modules.entries()) {
       //
     }
 
+    let declaration = dec.tagName
+    switch (dec.superclass.name) {
+      case 'HTMLButtonElement':
+        declaration = `<button is="${dec.tagName}"></button>`
+        break
+      case 'HTMLDialogElement':
+        declaration = `<dialog is="${dec.tagName}"></dialog>`
+        break
+      case 'HTMLDetailsElement':
+        declaration = `<details is="${dec.tagName}"></details>`
+        break
+      case 'HTMLFormElement':
+        declaration = `<form is="${dec.tagName}"></form>`
+        break
+    }
+
     await writeFile(
       resolve(__dirname, `../web-components/${dec.tagName}.md`),
       `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ''}<!-- #region pre -->\n\n# ${dec.name}\n\n${dec.description}${dec.description && !dec.description.endsWith('.') ? '.' : ''}

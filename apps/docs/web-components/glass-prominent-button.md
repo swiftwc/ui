@@ -12,6 +12,16 @@ A control that initiates an action. Styled with prominent glass border artwork b
 
 <!-- #region post -->
 
+## Topics
+
+**Example:**
+
+```html
+<button is="glass-prominent-button">
+  <label-view system-image="hand-tap" title="Tap Me"></label-view>
+</button>
+```
+
 ## Relationships
 
 ### Conforms To

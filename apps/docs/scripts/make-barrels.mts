@@ -1,4 +1,5 @@
 import data from '@swiftwc/ui/customElements/en' with { type: 'json' }
+import webData from '@swiftwc/ui/webComponentsHTMLData/en' with { type: 'json' }
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -14,6 +15,9 @@ await mkdir(resolve(__dirname, `../web-components`), { recursive: true })
 for await (const [i, mod] of data.modules.entries()) {
   for await (const dec of mod.declarations) {
     let reflections = ''
+
+    const desc = webData.tags.find((item) => item?.name === dec.tagName)?.description ?? '',
+      topicsMd = -1 < desc.indexOf('### **Examples:**') ? desc.slice(desc.indexOf('### **Examples:**')).replaceAll('### **Examples:**', '## Topics') : ''
 
     // try {
     //   reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
@@ -37,7 +41,7 @@ for await (const [i, mod] of data.modules.entries()) {
 
 \`<${dec.tagName}></${dec.tagName}>\`
 
-<!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n## Reference
+<!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n${topicsMd}\n\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n## Reference
 
 ### Slots
 

@@ -50,7 +50,8 @@
     "./css": "./generated/css/index.css",
     "./scss": "./scss/index.scss",
     "./scss/*": "./scss/*.scss",
-    "./customElements/en": "./custom-elements/en.json"
+    "./customElements/en": "./custom-elements/en.json",
+    "./webComponentsHTMLData/en": "./web-components.html-data/en.json"
   },
   "bin": {
     "swiftwc": "./generated/index.js"

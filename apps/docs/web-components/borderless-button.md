@@ -25,6 +25,16 @@ A control that initiates an action. Styled without any borders.
 
 <!-- #region post -->
 
+## Topics
+
+**Example:**
+
+```html
+<button is="borderless-button">
+  <label-view system-image="hand-tap" title="Tap Me"></label-view>
+</button>
+```
+
 ## Relationships
 
 ### Conforms To

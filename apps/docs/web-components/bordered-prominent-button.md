@@ -12,6 +12,16 @@ A control that initiates an action. Styled with standard border prominent artwor
 
 <!-- #region post -->
 
+## Topics
+
+**Example:**
+
+```html
+<button is="bordered-prominent-button">
+  <label-view system-image="hand-tap" title="Tap Me"></label-view>
+</button>
+```
+
 ## Relationships
 
 ### Conforms To

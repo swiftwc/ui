@@ -23,7 +23,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a menu from a configuration:**\n```html\nCreating a menu from a configuration\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a menu from a configuration:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -50,7 +50,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-prominent-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -77,7 +77,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/borderless-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"borderless-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -128,7 +128,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/content-unavailable-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable-view search></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view search=\"foo\"></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view padding><label-view title=\"No Mail\"><i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i></label-view><label-view title=\"New mails you receive will appear here.\" foreground=\"secondary\" slot=\"description\"></label-view><button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\"><label-view title=\"Switch Account\"></label-view></button></content-unavailable-view>\n```\n**Example:**\n```html\n<content-unavailable-view padding><label-view title=\"No Mail\"><svg slot=\"icon\" foreground=\"secondary\" ...>...</svg></label-view><label-view title=\"New mails you receive will appear here.\" foreground=\"secondary\" slot=\"description\"></label-view><button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\"><label-view title=\"Switch Account\"></label-view></button></content-unavailable-view>\n```",
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable-view search></content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view search=\"foo\"></content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable-view>\n\n```",
       "attributes": [
         {
           "name": "search"
@@ -194,7 +194,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/disclosure-group"
         }
       ],
-      "description": "### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\"><summary><label-view title=\"Items\"></label-view></summary><label-view title=\"Item 1\"></label-view><label-view title=\"Item 2\"></label-view><details is=\"disclosure-group\"><summary><label-view title=\"Sub-items\"></label-view></summary><label-view title=\"Sub-item 1\"></label-view></details></details>\n```",
+      "description": "### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```",
       "attributes": [
         {
           "name": "open",
@@ -235,7 +235,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -262,7 +262,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-prominent-button\"><label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view></button>\n```",
+      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Example:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",

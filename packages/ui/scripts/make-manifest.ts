@@ -2,6 +2,7 @@ import doctrine from 'doctrine'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import * as prettier from 'prettier'
 import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, PropertyDeclaration, SyntaxKind, Node as TSMNode, TypeFormatFlags } from 'ts-morph'
 // @ts-expect-error no types available
 import gonzales from 'gonzales-pe'
@@ -611,7 +612,10 @@ for (const sourceFile of project.getSourceFiles()) {
           case 'example': {
             const [a, b] = extractAb(tag.description ?? '')
 
-            ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(`**${b ?? 'Example'}:**`, `\`\`\`html\n${b ? b : a}\n\`\`\``)
+            ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(
+              `**${b ?? 'Example'}:**`,
+              `\`\`\`html\n${await prettier.format(a ?? '', { parser: 'html', htmlWhitespaceSensitivity: 'ignore' })}\n\`\`\``
+            )
 
             continue
           }

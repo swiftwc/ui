@@ -2,7 +2,7 @@ import doctrine from 'doctrine'
 import { readFileSync, writeFileSync } from 'node:fs'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
-import { ArrayLiteralExpression, Project, SyntaxKind } from 'ts-morph'
+import { ArrayLiteralExpression, Project, SyntaxKind, Node as TSMNode } from 'ts-morph'
 // @ts-expect-error no types available
 import gonzales from 'gonzales-pe'
 // @ts-expect-error no types available
@@ -19,6 +19,19 @@ const kebabCase = (str: string) =>
       a = str.slice(0, i !== -1 ? i : undefined).trim(),
       b = i !== -1 ? str.slice(i + 1).trim() : undefined
     return [a.trim(), b?.trim()]
+  },
+  extractTypes = (tags: doctrine.Tag[]): { types: string[]; description?: string } => {
+    for (const tag of tags ?? []) {
+      if ('type' === tag.title) {
+        const types: string[] = []
+        // @ts-expect-error
+        if ('UnionType' === tag.type?.type) for (const el of tag.type?.elements ?? []) if ('StringLiteralType' === el?.type) types.push(el.value)
+
+        return { types, description: tag.description ?? undefined }
+      }
+    }
+
+    return { types: [], description: undefined }
   }
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -185,9 +198,10 @@ interface CustomElementDecl {
   name: string
   tagName: string
   description: string
-  members?: { name: string; kind: string }[]
+  members?: { name: string; kind: string; readonly?: boolean; description?: string }[]
   events?: {
     name: string
+    description?: string
     type: {
       text: string
     }
@@ -449,14 +463,18 @@ for (const sourceFile of project.getSourceFiles()) {
           m.getName() !== 'observedAttributes'
         )
       }),
-      setters = new Set(cls.getSetAccessors().map((s) => s.getName()))
+      setters = new Set(cls.getSetAccessors().map((s) => s.getName())),
+      methods = cls.getInstanceMethods().filter((m) => !m.isStatic() && !m.getName().startsWith('#')),
+      arrowMethods = cls.getInstanceProperties().filter((p) => {
+        if (!TSMNode.isPropertyDeclaration(p)) return false
 
-    for (const m of getters) {
-      ;(module.declarations[0].members ??= []).push({
-        kind: 'field',
-        name: m.getName(),
+        const initializer = p.getInitializer()
+        if (!initializer) return false
+
+        if (!p.isStatic() && !p.getName().startsWith('#')) return false
+
+        return TSMNode.isArrowFunction(initializer) || TSMNode.isFunctionExpression(initializer)
       })
-    }
 
     const htmlDataTag: VsHtmlDataTag = {
         name: is,
@@ -470,7 +488,9 @@ for (const sourceFile of project.getSourceFiles()) {
         .map((c) => c.getText().trim())
         .at(0)
 
-      let b = ''
+      let b = '',
+        c: { type?: { text: string } } = {},
+        d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
@@ -479,9 +499,56 @@ for (const sourceFile of project.getSourceFiles()) {
         // console.log(99, typeTag?.type?.elements)
         // @ts-expect-error
         b = `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => `\`${item}\``).join(' | ')} ${description}`
-      }
 
+        d = description
+
+        c.type = {
+          // @ts-expect-error
+          text: `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => item).join(' | ')}`,
+        }
+      }
+      ;(module.declarations[0].members ??= []).push({
+        kind: 'field',
+        name: m.getName(),
+        readonly: !isWritable,
+        description: d,
+        ...c,
+      })
       ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${isWritable ? '' : `get `}**${m.getName()}**${isWritable ? '' : `()`}${b ? ` — ${b}` : ''}`)
+    }
+
+    for (const m of methods) {
+      const leading = m
+        .getLeadingCommentRanges()
+        .map((c) => c.getText().trim())
+        .at(0)
+
+      let b = '',
+        c: { type?: { text: string } } = {},
+        d = ''
+
+      if (leading) {
+        const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
+
+        const typeTag = tags?.find((t) => t.title === 'type')
+        // console.log(99, typeTag?.type?.elements)
+        // @ts-expect-error
+        b = `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => `\`${item}\``).join(' | ')} ${description}`
+
+        d = description
+
+        c.type = {
+          // @ts-expect-error
+          text: `${(typeTag?.type?.elements?.map((item) => `${item.name ?? 'null'}`) ?? [typeTag?.type?.name]).map((item) => item).join(' | ')}`,
+        }
+      }
+      console.log(999, m.getName())
+      ;(module.declarations[0].members ??= []).push({
+        kind: 'method',
+        name: m.getName(),
+        description: d,
+        ...c,
+      })
     }
 
     const leading = cls
@@ -520,15 +587,15 @@ for (const sourceFile of project.getSourceFiles()) {
           }
           case 'event':
           case 'fires': {
+            const [a, b] = extractAb(tag.description ?? '')
+
             ;(module.declarations[0].events ??= []).push({
-              name: tag.title,
+              name: a ?? '',
+              description: b,
               type: {
                 text: 'Event',
               },
             })
-
-            const [a, b] = extractAb(tag.description ?? '')
-
             ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`- **${a}**${b ? ` — ${b}` : ''}`)
 
             continue

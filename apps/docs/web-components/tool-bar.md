@@ -4,6 +4,10 @@
 
 Populates the toolbar or navigation bar with the specified items.
 
+## Declaration
+
+`<tool-bar></tool-bar>`
+
 <!-- #endregion pre -->
 
 <!-- #region post -->
@@ -13,5 +17,34 @@ Populates the toolbar or navigation bar with the specified items.
 ### Conforms To
 
 `HTMLElement`
+
+## Reference
+
+### Slots
+
+<div>
+
+| Name                       | Description                                                                                                                                                                     |
+| -------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **`cancellation-action`**  | The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal  |
+| **`primary-action`**       | The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal                            |
+| **`confirmation-action`**  | The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal |
+| **`destructive-action`**   | The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal    |
+| **`top-bar-leading`**      | Places the item in the leading edge of the top bar                                                                                                                              |
+| **`top-bar-principal`**    | Places the item in the middle of the top bar                                                                                                                                    |
+| **`top-bar-trailing`**     | Places the item in the trailing edge of the top bar                                                                                                                             |
+| **`bottom-bar-leading`**   | Places the item in the leading edge of the bottom bar                                                                                                                           |
+| **`bottom-bar-principal`** | Places the item in the middle of the bottom bar                                                                                                                                 |
+| **`bottom-bar-trailing`**  | Places the item in the trailing edge of the bottom bar                                                                                                                          |
+
+</div>
+
+### Events
+
+_This component does not implement any events._
+
+### Properties
+
+_This component does not implement any properties._
 
 <!-- #endregion post -->

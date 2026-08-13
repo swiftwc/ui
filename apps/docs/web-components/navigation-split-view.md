@@ -4,6 +4,10 @@
 
 A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.
 
+## Declaration
+
+`<navigation-split-view></navigation-split-view>`
+
 <!-- #endregion pre -->
 
 ## Overview
@@ -93,5 +97,19 @@ Check out the documentation for the [full list of markdown extensions](https://v
 ### Conforms To
 
 `HTMLElement`
+
+## Reference
+
+### Slots
+
+_This component does not implement any slotted content._
+
+### Events
+
+_This component does not implement any events._
+
+### Properties
+
+_This component does not implement any properties._
 
 <!-- #endregion post -->

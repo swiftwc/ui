@@ -1,4 +1,4 @@
-import { At as onBeforeMount, Ft as onMounted, Jt as renderSlot, K as createCommentVNode, Kn as ref, M as Fragment, Ot as nextTick, Qn as toRef, U as computed, Ut as provide, Vt as openBlock, W as createBaseVNode, Wn as reactive, cn as useId, cr as toDisplayString, dn as useSlots, gn as watch, nr as unref, nt as defineComponent, q as createElementBlock, qt as renderList, xt as inject, zt as onUnmounted } from "./vue.runtime.esm-bundler-CXh0O1uh.js";
+import { At as onBeforeMount, Ft as onMounted, Jt as renderSlot, K as createCommentVNode, Kn as ref, M as Fragment, Ot as nextTick, Qn as toRef, U as computed, Ut as provide, Vt as openBlock, W as createBaseVNode, Wn as reactive, cn as useId, cr as toDisplayString, dn as useSlots, gn as watch, nr as unref, nt as defineComponent, q as createElementBlock, qt as renderList, xt as inject, zt as onUnmounted } from "./vue.runtime.esm-bundler-o-oWBqB7.js";
 import "/Users/panos/Developer/github/swiftwc/ui/node_modules/vitepress-plugin-tabs/dist/client/browser/style.css";
 //#region ../../node_modules/vitepress-plugin-tabs/dist/client/browser/index.js
 var useStabilizeScrollPosition = (targetEle) => {

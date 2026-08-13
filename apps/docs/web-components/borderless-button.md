@@ -4,6 +4,10 @@
 
 A control that initiates an action. Styled without any borders.
 
+## Declaration
+
+`<borderless-button></borderless-button>`
+
 <!-- #endregion pre -->
 
 ## Usage
@@ -26,5 +30,25 @@ A control that initiates an action. Styled without any borders.
 ### Conforms To
 
 `HTMLButtonElement`
+
+## Reference
+
+### Slots
+
+<div>
+
+| Name          | Description |
+| ------------- | ----------- |
+| **`overlay`** |             |
+
+</div>
+
+### Events
+
+_This component does not implement any events._
+
+### Properties
+
+_This component does not implement any properties._
 
 <!-- #endregion post -->

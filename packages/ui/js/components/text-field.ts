@@ -10,6 +10,8 @@ const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
 
 /**
+ * @summary A control that displays an editable text interface.
+ *
  * @slot label
  * @slot validity-options
  */

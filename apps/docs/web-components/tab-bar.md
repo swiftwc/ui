@@ -4,6 +4,10 @@
 
 A screen that lets users switch between different views using buttons, tabs, or other controls.
 
+## Declaration
+
+`<tab-bar></tab-bar>`
+
 <!-- #endregion pre -->
 
 <!-- #region post -->
@@ -13,5 +17,19 @@ A screen that lets users switch between different views using buttons, tabs, or 
 ### Conforms To
 
 `HTMLDialogElement`
+
+## Reference
+
+### Slots
+
+_This component does not implement any slotted content._
+
+### Events
+
+_This component does not implement any events._
+
+### Properties
+
+_This component does not implement any properties._
 
 <!-- #endregion post -->

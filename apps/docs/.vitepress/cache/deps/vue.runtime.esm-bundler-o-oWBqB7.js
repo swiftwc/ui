@@ -800,9 +800,7 @@ function trigger(target, type, key, newValue, oldValue, oldTarget) {
 						if (isMap(target)) run(depsMap.get(MAP_KEY_ITERATE_KEY));
 					}
 					break;
-				case "set":
-					if (isMap(target)) run(depsMap.get(ITERATE_KEY));
-					break;
+				case "set": if (isMap(target)) run(depsMap.get(ITERATE_KEY));
 			}
 		}
 	}

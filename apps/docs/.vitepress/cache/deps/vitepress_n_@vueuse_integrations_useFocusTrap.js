@@ -1,4 +1,4 @@
-import { U as computed, Yn as shallowRef, er as toValue, gn as watch } from "./vue.runtime.esm-bundler-CXh0O1uh.js";
+import { U as computed, Yn as shallowRef, er as toValue, gn as watch } from "./vue.runtime.esm-bundler-o-oWBqB7.js";
 import { notNullish, toArray, tryOnScopeDispose, unrefElement } from "./vitepress_n_@vueuse_core.js";
 //#region ../../node_modules/tabbable/dist/index.esm.js
 /*!
@@ -1144,16 +1144,13 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 					default:
 						if (el.inert || el.hasAttribute("inert")) state.alreadySilent.add(el);
 						el.setAttribute("inert", true);
-						break;
 				}
 				else if (state.alreadySilent.has(el));
 				else switch (config.isolateSubtrees) {
 					case "aria-hidden":
 						el.removeAttribute("aria-hidden");
 						break;
-					default:
-						el.removeAttribute("inert");
-						break;
+					default: el.removeAttribute("inert");
 				}
 			});
 		} }

@@ -46,7 +46,19 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -214,6 +226,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "dark"
@@ -288,6 +317,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "slots": [
             {
               "name": "",
@@ -340,31 +386,66 @@
           "members": [
             {
               "kind": "field",
-              "name": "template"
+              "name": "template",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "datePickerStyle"
+              "name": "datePickerStyle",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "name"
+              "name": "name",
+              "readonly": true,
+              "description": "Form participation property",
+              "type": {
+                "text": "string"
+              }
             },
             {
               "kind": "field",
-              "name": "value"
+              "name": "value",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "valueAsDate"
+              "name": "valueAsDate",
+              "readonly": true,
+              "description": "Returns the value as a Date object.",
+              "type": {
+                "text": "Date | null"
+              }
             },
             {
               "kind": "field",
-              "name": "minimum"
+              "name": "minimum",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "maximum"
+              "name": "maximum",
+              "readonly": true,
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "attributes": [
@@ -428,6 +509,13 @@
           "superclass": {
             "name": "HTMLDetailsElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "open"
@@ -464,7 +552,24 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "hidePopover",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -624,6 +729,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "template"
@@ -673,6 +790,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "system-name"
@@ -713,6 +847,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "font"
@@ -771,6 +922,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "value"
@@ -823,6 +991,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "navigation-link-indicator-visibility"
@@ -860,6 +1040,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "slots": [
             {
               "name": "",
@@ -911,7 +1108,19 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -943,7 +1152,24 @@
           "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -975,7 +1201,24 @@
           "description": "A view that shows a main screen and lets you open other screens on top of it.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1008,6 +1251,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "value"
@@ -1057,19 +1317,45 @@
           "members": [
             {
               "kind": "field",
-              "name": "selection"
+              "name": "selection",
+              "readonly": false,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "template"
+              "name": "template",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "pickerStyle"
+              "name": "pickerStyle",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "name"
+              "name": "name",
+              "readonly": true,
+              "description": "Form participation property",
+              "type": {
+                "text": "string"
+              }
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "attributes": [
@@ -1168,11 +1454,30 @@
           "members": [
             {
               "kind": "field",
-              "name": "progressViewStyle"
+              "name": "progressViewStyle",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "template"
+              "name": "template",
+              "readonly": true,
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "slots": [
@@ -1226,7 +1531,14 @@
           "description": "",
           "superclass": {
             "name": "HTMLDialogElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1258,7 +1570,19 @@
           "description": "A wrapper to {hv}-stacks",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1291,6 +1615,28 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "centerScrollToElement",
+              "description": ""
+            }
+          ],
           "slots": [
             {
               "name": "",
@@ -1384,6 +1730,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "slots": [
             {
               "name": "",
@@ -1467,7 +1830,19 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1531,7 +1906,19 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1631,38 +2018,56 @@
           "members": [
             {
               "kind": "field",
-              "name": "tabBarPlacement"
+              "name": "tabBarPlacement",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "moreTab"
+              "name": "moreTab",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "selectedTab"
+              "name": "selectedTab",
+              "readonly": false,
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "events": [
             {
-              "name": "fires",
+              "name": "tabshow",
+              "description": "A Tab is shown",
               "type": {
                 "text": "Event"
               }
             },
             {
-              "name": "fires",
+              "name": "tabhide",
+              "description": "A Tab is hidden",
               "type": {
                 "text": "Event"
               }
             },
             {
-              "name": "fires",
+              "name": "tab-view:toggle",
               "type": {
                 "text": "Event"
               }
             },
             {
-              "name": "fires",
+              "name": "tab-view:adaptable-tab-bar-placement-change",
               "type": {
                 "text": "Event"
               }
@@ -1700,6 +2105,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "preferred-compact-template"
@@ -1760,34 +2177,64 @@
           "customElement": true,
           "name": "TextField",
           "tagName": "text-field",
-          "description": "",
+          "description": "A control that displays an editable text interface.",
           "superclass": {
             "name": "HTMLFormElement"
           },
           "members": [
             {
               "kind": "field",
-              "name": "keyboardType"
+              "name": "keyboardType",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "text"
+              "name": "text",
+              "readonly": false,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "name"
+              "name": "name",
+              "readonly": true,
+              "description": "Form participation property",
+              "type": {
+                "text": "string"
+              }
             },
             {
               "kind": "field",
-              "name": "value"
+              "name": "value",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "valueAsNumber"
+              "name": "valueAsNumber",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "negativeNumbersAllowed"
+              "name": "negativeNumbersAllowed",
+              "readonly": true,
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "slots": [
@@ -1874,19 +2321,45 @@
           "members": [
             {
               "kind": "field",
-              "name": "toggleStyle"
+              "name": "toggleStyle",
+              "readonly": true,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "isOn"
+              "name": "isOn",
+              "readonly": false,
+              "description": ""
             },
             {
               "kind": "field",
-              "name": "name"
+              "name": "name",
+              "readonly": true,
+              "description": "Form participation property",
+              "type": {
+                "text": "string"
+              }
             },
             {
               "kind": "field",
-              "name": "value"
+              "name": "value",
+              "readonly": false,
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
             }
           ],
           "slots": [
@@ -1951,7 +2424,19 @@
           "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ]
         }
       ],
       "exports": [
@@ -1984,6 +2469,23 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "attributeChangedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "slot"
@@ -2027,6 +2529,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ],
           "slots": [
             {
               "name": "cancellation-action",
@@ -2101,6 +2615,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "system-font"
@@ -2138,6 +2664,18 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "members": [
+            {
+              "kind": "method",
+              "name": "connectedCallback",
+              "description": ""
+            },
+            {
+              "kind": "method",
+              "name": "disconnectedCallback",
+              "description": ""
+            }
+          ],
           "attributes": [
             {
               "name": "distribution"

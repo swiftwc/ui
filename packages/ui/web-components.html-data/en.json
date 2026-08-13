@@ -665,6 +665,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/text-field"
         }
       ],
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **keyboardType**()\n- **text**\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsNumber**()\n- get **negativeNumbersAllowed**()",
       "attributes": [
         {
           "name": "prompt"
@@ -705,8 +706,7 @@
         {
           "name": "disabled"
         }
-      ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- get **keyboardType**()\n- **text**\n- get **name**() — `string` Form participation property\n- get **value**()\n- get **valueAsNumber**()\n- get **negativeNumbersAllowed**()"
+      ]
     },
     {
       "name": "toggle-view",

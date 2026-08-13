@@ -1,4 +1,4 @@
-import { $n as toRefs$1, An as customRef, At as onBeforeMount, Bn as markRaw, Bt as onUpdated, Ft as onMounted, Gn as readonly, In as isReactive, Jn as shallowReadonly, Kn as ref, Ln as isReadonly, M as Fragment, Mn as effectScope, Mt as onBeforeUpdate, Nn as getCurrentScope, Ot as nextTick, Qn as toRef$1, Rn as isRef, U as computed, Ut as provide, Vn as onScopeDispose, Wn as reactive, Yn as shallowRef, Zn as toRaw, _n as watchEffect, er as toValue, gn as watch, ht as hasInjectionContext, jt as onBeforeUnmount, nr as unref, nt as defineComponent, pt as h, qn as shallowReactive, r as TransitionGroup, ut as getCurrentInstance, xt as inject, zt as onUnmounted } from "./vue.runtime.esm-bundler-CXh0O1uh.js";
+import { $n as toRefs$1, An as customRef, At as onBeforeMount, Bn as markRaw, Bt as onUpdated, Ft as onMounted, Gn as readonly, In as isReactive, Jn as shallowReadonly, Kn as ref, Ln as isReadonly, M as Fragment, Mn as effectScope, Mt as onBeforeUpdate, Nn as getCurrentScope, Ot as nextTick, Qn as toRef$1, Rn as isRef, U as computed, Ut as provide, Vn as onScopeDispose, Wn as reactive, Yn as shallowRef, Zn as toRaw, _n as watchEffect, er as toValue, gn as watch, ht as hasInjectionContext, jt as onBeforeUnmount, nr as unref, nt as defineComponent, pt as h, qn as shallowReactive, r as TransitionGroup, ut as getCurrentInstance, xt as inject, zt as onUnmounted } from "./vue.runtime.esm-bundler-o-oWBqB7.js";
 //#region ../../node_modules/@vueuse/shared/dist/index.js
 /**
 *
@@ -4770,7 +4770,6 @@ function useDropZone(target, options = {}) {
 						files.value = currentFiles;
 						(_options$onDrop = _options.onDrop) === null || _options$onDrop === void 0 || _options$onDrop.call(_options, currentFiles, event);
 					}
-					break;
 			}
 		};
 		useEventListener(target, "dragenter", (event) => handleDragEvent(event, "enter"));
@@ -9173,9 +9172,7 @@ function useUserMedia(options = {}) {
 			case "video":
 				if (constraints.value) return constraints.value.video || false;
 				break;
-			case "audio":
-				if (constraints.value) return constraints.value.audio || false;
-				break;
+			case "audio": if (constraints.value) return constraints.value.audio || false;
 		}
 	}
 	async function _start() {
@@ -9900,7 +9897,6 @@ function useWebWorkerFn(fn, options = {}) {
 				default:
 					reject(result);
 					workerTerminate("ERROR");
-					break;
 			}
 		};
 		newWorker.onerror = (e) => {

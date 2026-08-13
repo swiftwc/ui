@@ -169,6 +169,9 @@ export default defineConfig({
   },
 
   themeConfig: {
+    outline: {
+      level: [2, 4], // show h2 and h3
+    },
     externalLinkIcon: true,
     i18nRouting: true,
     logo: { light: '/logo-light.svg', dark: '/logo-dark.svg' },

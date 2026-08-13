@@ -23,7 +23,7 @@
                 <toggle-view label="Low Power Mode"></toggle-view>
               </section-view>
               <section-view>
-                <toggle-view label="Prevent automatic sleeping when the display is off"></toggle-view>
+                <toggle-view is-on label="Prevent automatic sleeping when the display is off"></toggle-view>
                 <toggle-view>
                   <label-view slot="label" title="Wake for network access"></label-view>
                   <label-view
@@ -33,10 +33,10 @@
                 </toggle-view>
               </section-view>
               <section-view>
-                <labeled-content>
+                <labeled-content labeled-content-style="horizontal">
                   <label-view slot="label" title="Start up when power is connected"></label-view>
                   <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
-                  <picker-view selection="Never" label="inline1" picker-style="menu">
+                  <picker-view selection="Never" picker-style="menu">
                     <option slot="list" value="Never"></option>
                     <option slot="list" value="After power failure"></option>
                     <option slot="list" value="Always"></option>
@@ -68,56 +68,56 @@
             </navigation-large-title>
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]">
               <section-view>
-                <button navigation-link type="button" navigation-destination="About">
+                <button navigation-link tabindex="0" type="button" navigation-destination="About">
                   <label-view system-image="laptop" title="About"></label-view>
                 </button>
-                <button navigation-link type="button" navigation-destination="Software Update">
+                <button navigation-link tabindex="0" type="button" navigation-destination="Software Update">
                   <label-view system-image="gear-fine" title="Software Update"></label-view>
                 </button>
-                <button navigation-link type="button" navigation-destination="Storage">
+                <button navigation-link tabindex="0" type="button" navigation-destination="Storage">
                   <label-view system-image="hard-drive" title="Storage"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="orange" title="Warranty"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="broadcast" title="Continuity"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="password" title="Autofill & Passwords"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="calendar-dots" title="Date & Time"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="globe" title="Language & Region"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="list-bullets" title="Login Items & Extensions"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="password" title="Sharing"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="person-simple-walk" title="Startup Disk"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="clock-counter-clockwise" title="Time Machine"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="seal-check" title="Device Management"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="arrow-counter-clockwise" title="Transfer or Reset"></label-view>
                 </button>
               </section-view>
@@ -144,20 +144,19 @@
                 <label-view title="2026" foreground="secondary" font="callout"></label-view>
               </v-stack>
             </navigation-large-title>
-            <label-view font="large-title" value="Device" padding></label-view>
             <list-view list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view>
-                <labeled-content label="Name" value="Laptop"></labeled-content>
-                <labeled-content label="Chip" value="Orange M4"></labeled-content>
-                <labeled-content label="Memory" value="16 GB"></labeled-content>
-                <labeled-content label="Serial number" value="Foo"></labeled-content>
+                <labeled-content label="Name" value="Laptop" labeled-content-style="horizontal"></labeled-content>
+                <labeled-content label="Chip" value="Orange M4" labeled-content-style="horizontal"></labeled-content>
+                <labeled-content label="Memory" value="16 GB" labeled-content-style="horizontal"></labeled-content>
+                <labeled-content label="Serial number" value="Foo" labeled-content-style="horizontal"></labeled-content>
               </section-view>
               <section-view header="OS">
                 <labeled-content label="Operating System" value="Version 99.5.2"></labeled-content>
               </section-view>
               <section-view header="Displays">
-                <labeled-content label="Display 1" value="23,5-inch"></labeled-content>
-                <labeled-content label="Display 2" value="23,5-inch"></labeled-content>
+                <labeled-content label="Display 1" value="23,5-inch" labeled-content-style="horizontal"></labeled-content>
+                <labeled-content label="Display 2" value="23,5-inch" labeled-content-style="horizontal"></labeled-content>
               </section-view>
             </list-view>
           </v-stack>
@@ -175,17 +174,29 @@
       <body-view>
         <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
           <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <label-view font="large-title" value="Accessibility" padding></label-view>
             <list-view list-style="inset-grouped">
+              <section-view>
+                <h-stack template="auto spacer">
+                  <image-view system-name="person-simple-circle" foreground="blue" class="[--label-image-size:3]!"></image-view>
+                  <v-stack spacing="3" alignment="fill">
+                    <label-view title="Accessibility"></label-view>
+                    <label-view
+                      title="Personalize this device in ways that word best for you with accessibility fetures for vision, hearing, motor, speech, and cognition."
+                      foreground="secondary"
+                      font="callout"
+                    ></label-view>
+                  </v-stack>
+                </h-stack>
+              </section-view>
               <section-view header="Vision">
-                <button navigation-link type="button">
-                  <label-view title="VoiceOver"></label-view>
+                <button navigation-link tabindex="0" type="button">
+                  <label-view system-image="person-arms-spread" title="VoiceOver"></label-view>
                 </button>
-                <button navigation-link type="button">
-                  <label-view title="Zoom"></label-view>
+                <button navigation-link tabindex="0" type="button">
+                  <label-view system-image="magnifying-glass-plus" title="Zoom"></label-view>
                 </button>
-                <button navigation-link type="button">
-                  <label-view title="Hover Text"></label-view>
+                <button navigation-link tabindex="0" type="button">
+                  <label-view system-image="translate" title="Hover Text"></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -205,16 +216,17 @@
         <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view list-style="inset-grouped">
-              <section-view header="Vision">
-                <button navigation-link type="button">
-                  <label-view title="VoiceOver"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Zoom"></label-view>
-                </button>
-                <button navigation-link type="button">
-                  <label-view title="Hover Text"></label-view>
-                </button>
+              <section-view header="Windows">
+                <labeled-content labeled-content-style="horizontal">
+                  <label-view slot="label" title="Start up when power is connected"></label-view>
+                  <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
+                  <picker-view selection="Small" picker-style="menu">
+                    <option slot="list" value="Small"></option>
+                    <option slot="list" value="Medium"></option>
+                    <option slot="list" value="Large"></option>
+                  </picker-view>
+                </labeled-content>
+                <toggle-view label="Tint window background with wallpaper color"></toggle-view>
               </section-view>
             </list-view>
           </v-stack>
@@ -348,35 +360,35 @@
           <v-stack placement="leading fill">
             <list-view list-style="inset-grouped" style="--list--media-inner-padding-inline-start: 2.3rem">
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Storage Full"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="WiFi"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Bluetooth"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Network"></label-view>
                 </button>
-                <button navigation-link type="button" navigation-destination="Energy">
+                <button navigation-link tabindex="0" type="button" navigation-destination="Energy">
                   <label-view system-image="lightning" title="Energy"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button" navigation-destination="General">
+                <button navigation-link tabindex="0" type="button" navigation-destination="General">
                   <label-view system-image="gear-fine" title="General"></label-view>
                 </button>
-                <button navigation-link type="button" navigation-destination="Accessibility">
+                <button navigation-link tabindex="0" type="button" navigation-destination="Accessibility">
                   <label-view system-image="smiley" title="Accessibility"></label-view>
                 </button>
-                <button navigation-link type="button" navigation-destination="Appearance">
+                <button navigation-link tabindex="0" type="button" navigation-destination="Appearance">
                   <label-view system-image="smiley" title="Appearance"></label-view>
                 </button>
-                <button navigation-link type="button">
+                <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="AI Intelligense"></label-view>
                 </button>
               </section-view>

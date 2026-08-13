@@ -3491,6 +3491,16 @@
   labeled-content > [slot=header],
   labeled-content > [slot=footer]) {
     color: var(--secondary);
+    --label-font: callout;
+  }
+  @supports not (x: if(else:red)) {
+    :where(labeled-content > :nth-child(n+2 of [slot=label]),
+    labeled-content > [slot=header],
+    labeled-content > [slot=footer]) {
+      --label--titlestack-font-size: var(--label-callout-font-size);
+      --label--titlestack-line-height: var(--label-callout-line-height);
+      --label--titlestack-font-weight: var(--label-callout-font-weight);
+    }
   }
 }
 @layer sw-components {}

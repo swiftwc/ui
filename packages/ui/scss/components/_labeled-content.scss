@@ -1,4 +1,6 @@
+@use 'sass:string';
 @use '../vars';
+@use '../mixins';
 
 @layer #{vars.$components-layer} {
   labeled-content {
@@ -61,6 +63,12 @@
     > [slot='footer'] {
       :where(&) {
         color: var(--secondary);
+
+        --label-font: callout;
+
+        @supports not (x: #{string.unquote('if(else:red)')}) {
+          @include mixins.set-label-font(callout);
+        }
       }
     }
   }

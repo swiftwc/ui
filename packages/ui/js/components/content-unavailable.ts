@@ -5,20 +5,20 @@ import { $, devFlags, onoff } from '../internal/utils'
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.
  *
- * @example <content-unavailable-view search></content-unavailable-view>
+ * @example <content-unavailable search></content-unavailable>
  *
- * @example <content-unavailable-view search="foo"></content-unavailable-view>
+ * @example <content-unavailable search="foo"></content-unavailable>
  *
- * @example <content-unavailable-view padding><label-view title="No Mail"><i class="ph ph-tray" slot="icon" foreground="secondary"></i></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
+ * @example <content-unavailable padding><label-view title="No Mail"><i class="ph ph-tray" slot="icon" foreground="secondary"></i></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable>
  *
- * @example <content-unavailable-view padding><label-view title="No Mail"><svg slot="icon" foreground="secondary" ...>...</svg></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable-view>
+ * @example <content-unavailable padding><label-view title="No Mail"><svg slot="icon" foreground="secondary" ...>...</svg></label-view><label-view title="New mails you receive will appear here." foreground="secondary" slot="description"></label-view><button is="borderless-button" type="button" tabindex="0" slot="actions"><label-view title="Switch Account"></label-view></button></content-unavailable>
  *
  * @slot — The default slot.
  * @slot description
  * @slot actions
  *
  */
-export class ContentUnavailableView extends HTMLElement {
+export class ContentUnavailable extends HTMLElement {
   static get observedAttributes() {
     return ['search']
   }
@@ -49,7 +49,7 @@ export class ContentUnavailableView extends HTMLElement {
 
     this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ContentUnavailableView).template, true))
+    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ContentUnavailable).template, true))
 
     this.#slots = {
       '': this.#shadowRoot.querySelector('slot:not([name])') ?? undefined,
@@ -59,7 +59,7 @@ export class ContentUnavailableView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'search':
@@ -86,11 +86,11 @@ export class ContentUnavailableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ disconnect`)
+    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailableView.name} ⚡️ connect`)
+    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ connect`)
   }
 
   #renderSearch = (search: string | null) => {

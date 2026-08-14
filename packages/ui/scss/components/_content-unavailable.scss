@@ -3,7 +3,7 @@
 @use '../placeholders';
 
 @layer #{vars.$components-layer} {
-  content-unavailable-view {
+  content-unavailable {
     :where(&) {
       place-content: center;
       place-items: center;

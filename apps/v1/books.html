@@ -930,9 +930,9 @@
         <navigation-split-view id="customers" hidden>
           <detail-placeholder>
             <scroll-view>
-              <content-unavailable-view>
+              <content-unavailable>
                 <label-view title="Nothing Selected" foreground="secondary"></label-view>
-              </content-unavailable-view>
+              </content-unavailable>
               <!-- <v-stack>
                 <label-view><span>Nothing Selected</span></label-view>
               </v-stack> -->
@@ -942,7 +942,7 @@
             <!-- style="--face: light-dark(var(--canvas), var(--primary-bg-dark))"> -->
             <v-stack placement="fill" template="repeat(2,auto) spacer">
               <navigation-title value="Customers" padding style="order: -2"></navigation-title>
-              <!-- <content-unavailable-view search padding></content-unavailable-view> -->
+              <!-- <content-unavailable search padding></content-unavailable> -->
               <list-view preferred-expanded-style="inset" frame:anchor="leading" style="--list--sticky-block-size: 70px">
                 <section-view header="A">
                   <button navigation-link type="button" navigation-destination="customer1" selected-when="customer1 editcustomer1">

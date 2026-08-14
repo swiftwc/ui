@@ -127,14 +127,14 @@
       "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.\n---"
     },
     {
-      "name": "content-unavailable-view",
+      "name": "content-unavailable",
       "references": [
         {
           "name": "Documentation",
-          "url": "https://swiftwc.github.io/ui/web-components/content-unavailable-view"
+          "url": "https://swiftwc.github.io/ui/web-components/content-unavailable"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable-view search></content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view search=\"foo\"></content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable-view>\n\n```\n**Example:**\n```html\n<content-unavailable-view padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable-view>\n\n```",
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```",
       "attributes": [
         {
           "name": "search"

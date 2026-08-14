@@ -18,7 +18,7 @@
 
 #### [ConfirmationDialog](/web-components/confirmation-dialog.md) {#no-anchor6}
 
-#### [ContentUnavailableView](/web-components/content-unavailable-view.md) {#no-anchor7}
+#### [ContentUnavailable](/web-components/content-unavailable.md) {#no-anchor7}
 
 #### [DatePicker](/web-components/date-picker.md) {#no-anchor8}
 

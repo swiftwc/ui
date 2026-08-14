@@ -1,12 +1,12 @@
 <!-- #region pre -->
 
-# ContentUnavailableView
+# ContentUnavailable
 
 A message with a title and extra information that you show when part of your app can’t be used.
 
 ## Declaration
 
-`<content-unavailable-view></content-unavailable-view>`
+`<content-unavailable></content-unavailable>`
 
 <!-- #endregion pre -->
 
@@ -17,19 +17,19 @@ A message with a title and extra information that you show when part of your app
 **Example:**
 
 ```html
-<content-unavailable-view search></content-unavailable-view>
+<content-unavailable search></content-unavailable>
 ```
 
 **Example:**
 
 ```html
-<content-unavailable-view search="foo"></content-unavailable-view>
+<content-unavailable search="foo"></content-unavailable>
 ```
 
 **Example:**
 
 ```html
-<content-unavailable-view padding>
+<content-unavailable padding>
   <label-view title="No Mail">
     <i class="ph ph-tray" slot="icon" foreground="secondary"></i>
   </label-view>
@@ -37,13 +37,13 @@ A message with a title and extra information that you show when part of your app
   <button is="borderless-button" type="button" tabindex="0" slot="actions">
     <label-view title="Switch Account"></label-view>
   </button>
-</content-unavailable-view>
+</content-unavailable>
 ```
 
 **Example:**
 
 ```html
-<content-unavailable-view padding>
+<content-unavailable padding>
   <label-view title="No Mail">
     <svg slot="icon" foreground="secondary" ...>...</svg>
   </label-view>
@@ -51,7 +51,7 @@ A message with a title and extra information that you show when part of your app
   <button is="borderless-button" type="button" tabindex="0" slot="actions">
     <label-view title="Switch Account"></label-view>
   </button>
-</content-unavailable-view>
+</content-unavailable>
 ```
 
 ## Relationships

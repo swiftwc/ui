@@ -277,13 +277,13 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/content-unavailable-view.ts",
+      "path": "./generated/components/content-unavailable.ts",
       "declarations": [
         {
           "kind": "class",
           "customElement": true,
-          "name": "ContentUnavailableView",
-          "tagName": "content-unavailable-view",
+          "name": "ContentUnavailable",
+          "tagName": "content-unavailable",
           "description": "A message with a title and extra information that you show when part of your app can’t be used.",
           "superclass": {
             "name": "HTMLElement"
@@ -310,16 +310,16 @@
       "exports": [
         {
           "kind": "js",
-          "name": "ContentUnavailableView",
+          "name": "ContentUnavailable",
           "declaration": {
-            "name": "ContentUnavailableView"
+            "name": "ContentUnavailable"
           }
         },
         {
           "kind": "custom-element-definition",
-          "name": "content-unavailable-view",
+          "name": "content-unavailable",
           "declaration": {
-            "name": "ContentUnavailableView"
+            "name": "ContentUnavailable"
           }
         }
       ]

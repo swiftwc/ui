@@ -17,7 +17,33 @@ export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'nu
  */
 export class TextField extends FormAssociatedBase {
   static get observedAttributes() {
-    return ['prompt', 'minimum', 'maximum', 'min-length', 'max-length', 'label', 'name', 'text', 'text-input-autocapitalization', 'disable-autocorrection', 'keyboard-type', 'required', 'disabled']
+    return [
+      'prompt',
+      'minimum',
+      'maximum',
+      'min-length',
+      'max-length',
+      'label',
+      'name',
+      'text',
+      'text-input-autocapitalization',
+      /**
+       * @type {""}
+       */
+      'disable-autocorrection',
+      /**
+       * @type {decimal-pad|number-pad|default}
+       */
+      'keyboard-type',
+      /**
+       * @type {required}
+       */
+      'required',
+      /**
+       * @type {disabled}
+       */
+      'disabled',
+    ]
   }
 
   static #template: DocumentFragment
@@ -622,7 +648,6 @@ export class TextField extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

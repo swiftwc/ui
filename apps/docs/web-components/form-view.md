@@ -18,6 +18,16 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                                       |    Type    | Description                                                                  |
+| ------------------------------------------ | :--------: | ---------------------------------------------------------------------------- |
+| **`navigation-link-indicator-visibility`** | `"hidden"` | Hides accessories like right-arrow-chevron on NavigationLink buttons inside. |
+
+</div>
+
 ### No Slots
 
 ### No Events

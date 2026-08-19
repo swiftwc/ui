@@ -81,6 +81,7 @@ if (!editorSetupItem)
 )
 //
 ;(editorSetupItem.items ??= []).push(
+  { text: 'html-data.json', link: '/installation/editor-setup/html-data.json' },
   { text: 'for Typescript', link: '/installation/editor-setup/manual' },
   { text: 'for EmberJS', link: '/installation/editor-setup/emberjs' }
 )

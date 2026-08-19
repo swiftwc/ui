@@ -18,6 +18,20 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                                    |   Type   | Description |
+| --------------------------------------- | :------: | ----------- |
+| **`navigation-title`**                  | `string` |             |
+| **`navigation-inline-title`**           | `string` |             |
+| **`navigation-inline-subtitle`**        | `string` |             |
+| **`navigation-icon`**                   | `string` |             |
+| **`navigation-bar-title-display-mode`** | `string` |             |
+
+</div>
+
 ### Slots
 
 <div>

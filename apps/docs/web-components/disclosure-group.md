@@ -34,6 +34,16 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name       |   Type   | Description |
+| ---------- | :------: | ----------- |
+| **`open`** | `string` |             |
+
+</div>
+
 ### No Slots
 
 ### No Events

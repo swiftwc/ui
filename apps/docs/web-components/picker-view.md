@@ -18,6 +18,19 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                        |                                Type                                 | Description                                                             |
+| --------------------------- | :-----------------------------------------------------------------: | ----------------------------------------------------------------------- |
+| **`picker-style`**          | `"menu" \| "inline" \| "navigation-link" \| "sheet" \| "automatic"` |                                                                         |
+| **`help`**                  |                             `"string"`                              | Adds a help tooltip to the trigger of the picker, if style supports one |
+| **`dictionary`**            |                           `"DictEntry[]"`                           | Renders all options using this array                                    |
+| **`label-value-placement`** |               `"vertical" \| "horizontal" \| "auto"`                |                                                                         |
+
+</div>
+
 ### Slots
 
 <div>

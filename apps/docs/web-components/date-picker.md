@@ -18,6 +18,24 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                    |                  Type                   | Description               |
+| ----------------------- | :-------------------------------------: | ------------------------- |
+| **`date-picker-style`** | `"graphical" \| "field" \| "automatic"` | The style of this element |
+| **`required`**          |              `"required"`               |                           |
+| **`prompt`**            |                `string`                 |                           |
+| **`label`**             |                `string`                 |                           |
+| **`name`**              |                `string`                 |                           |
+| **`selection`**         |                `string`                 |                           |
+| **`disabled`**          |              `"disabled"`               |                           |
+| **`minimum`**           |                `string`                 |                           |
+| **`maximum`**           |                `string`                 |                           |
+
+</div>
+
 ### No Slots
 
 ### No Events

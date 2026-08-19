@@ -18,6 +18,16 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                             |                                             Type                                             | Description                                               |
+| -------------------------------- | :------------------------------------------------------------------------------------------: | --------------------------------------------------------- |
+| **`preferred-compact-template`** | `"title:trailing:subtitle" \| "trailing:title:subtitle" \| "title:subtitle:trailing" \| "*"` | Sets the template areas when the table is in compact mode |
+
+</div>
+
 ### Slots
 
 <div>

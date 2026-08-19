@@ -98,6 +98,8 @@ Check out the documentation for the [full list of markdown extensions](https://v
 
 ## Reference
 
+### No Attributes
+
 ### No Slots
 
 ### No Events

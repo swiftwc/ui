@@ -18,6 +18,18 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                     |   Type   | Description |
+| ------------------------ | :------: | ----------- |
+| **`slot`**               | `string` |             |
+| **`data-previous-slot`** | `string` |             |
+| **`title-key`**          | `string` |             |
+
+</div>
+
 ### No Slots
 
 ### No Events

@@ -17,7 +17,15 @@ import { html, queryMorph } from '../morphdom'
  */
 export class LabelView extends HTMLElement {
   static get observedAttributes() {
-    return ['system-image', 'title', 'line-limit', 'truncation-mode']
+    return [
+      'system-image',
+      'title',
+      'line-limit',
+      /**
+       * @type {tail}
+       */
+      'truncation-mode',
+    ]
   }
 
   static #template: DocumentFragment

@@ -10,7 +10,17 @@ interface ParsedFormat {
 
 export class LabeledContent extends HTMLElement {
   static get observedAttributes() {
-    return ['value', 'label', 'header', 'footer', 'labeled-content-style', 'format']
+    return [
+      'value',
+      'label',
+      'header',
+      'footer',
+      /**
+       * @type {vertical|horizontal}
+       */
+      'labeled-content-style',
+      'format',
+    ]
   }
 
   static #template: DocumentFragment
@@ -181,7 +191,6 @@ export class LabeledContent extends HTMLElement {
     }
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

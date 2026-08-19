@@ -23,11 +23,17 @@ export class DatePicker extends FormAssociatedBase {
        * @type {"graphical"|"field"|"automatic"}
        */
       'date-picker-style',
+      /**
+       * @type {required}
+       */
       'required',
       'prompt',
       'label',
       'name',
       'selection',
+      /**
+       * @type {disabled}
+       */
       'disabled',
       'minimum',
       'maximum',
@@ -595,7 +601,6 @@ export class DatePicker extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

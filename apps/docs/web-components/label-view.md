@@ -67,6 +67,20 @@ One of the most familiar UI patterns is pairing an icon with a label.
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                  |                              Type                              | Description                                  |
+| --------------------- | :------------------------------------------------------------: | -------------------------------------------- |
+| **`font`**            | [`fontSet`](/installation/editor-setup/html-data.json#fontset) | Sets the default font for text in this view. |
+| **`system-image`**    |                            `string`                            |                                              |
+| **`title`**           |                            `string`                            |                                              |
+| **`line-limit`**      |                            `string`                            |                                              |
+| **`truncation-mode`** |                            `"tail"`                            |                                              |
+
+</div>
+
 ### Slots
 
 <div>

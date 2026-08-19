@@ -19,6 +19,8 @@ for await (const [i, mod] of data.modules.entries()) {
     const desc = webData.tags.find((item) => item?.name === dec.tagName)?.description ?? '',
       topicsMd = -1 < desc.indexOf('### **Examples:**') ? desc.slice(desc.indexOf('### **Examples:**')).replaceAll('### **Examples:**', '## Topics') : ''
 
+    const attrs = webData.tags.find((item) => item?.name === dec.tagName)?.attributes
+
     // try {
     //   reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
     // } catch {
@@ -69,6 +71,35 @@ ${topicsMd}
 
 \`${dec.superclass.name}\`
 ## Reference
+
+${
+  attrs?.length
+    ? `
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name          |      Type     |  Description  |
+| ------------- | :-----------: | ------------- |
+${(
+  await Promise.all(
+    attrs.map((item, index) => {
+      return `| **\`${item.name}\`** | ${
+        'valueSet' in item
+          ? `[\`${item.valueSet}\`](/installation/editor-setup/html-data.json#${item.valueSet?.toLowerCase()})`
+          : 'values' in item
+            ? `\`"${item.values?.map((item) => item.name)?.join('" \\| "')}"\``
+            : '`string`'
+      } | ${'description' in item ? (-1 < (item?.description?.indexOf('Description:') ?? -1) ? item?.description?.slice(item?.description?.lastIndexOf('Description:') + 12) : '') : ''} |`
+    })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Attributes
+`
+}
 
 ${
   'slots' in dec
@@ -183,5 +214,46 @@ await writeFile(
 ${(await Promise.all(data.modules.map((item, index) => `#### [${item.declarations[0].name}](/web-components/${item.declarations[0].tagName}.md) {#no-anchor${index}}`))).join(`\n\n`)}
 
 </div></div>
+`
+)
+
+// create barrel file from all the files
+await writeFile(
+  resolve(__dirname, `../partials/html-data-value-sets.md`),
+  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
+
+${(
+  await Promise.all(
+    webData.valueSets.map(
+      (item, index) => `### ${item.name}
+
+<div class="relative group">
+<input type="checkbox" id="show-more${index}" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
+
+| Name          |  Description  |
+| ------------- | ------------- |
+${item.values
+  .map((item, index) => {
+    return `| **\`${item.name}\`** | ${item?.description ?? ''} |`
+  })
+  .join(`\n`)}
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
+
+</div>
+
+<label for="show-more${index}" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
+
+<label for="show-more${index}" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
+
+</div>
+
+`
+    )
+  )
+).join(`\n\n`)}
+
 `
 )

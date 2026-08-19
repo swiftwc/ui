@@ -167,7 +167,13 @@
           ]
         },
         {
-          "name": "required"
+          "name": "required",
+          "description": "Value Type: “required”",
+          "values": [
+            {
+              "name": "required"
+            }
+          ]
         },
         {
           "name": "prompt"
@@ -182,7 +188,13 @@
           "name": "selection"
         },
         {
-          "name": "disabled"
+          "name": "disabled",
+          "description": "Value Type: “disabled”",
+          "values": [
+            {
+              "name": "disabled"
+            }
+          ]
         },
         {
           "name": "minimum"
@@ -361,7 +373,13 @@
           "name": "line-limit"
         },
         {
-          "name": "truncation-mode"
+          "name": "truncation-mode",
+          "description": "Value Type: “tail”",
+          "values": [
+            {
+              "name": "tail"
+            }
+          ]
         }
       ]
     },
@@ -381,7 +399,16 @@
           "name": "footer"
         },
         {
-          "name": "labeled-content-style"
+          "name": "labeled-content-style",
+          "description": "Value Type: “vertical” | “horizontal”",
+          "values": [
+            {
+              "name": "vertical"
+            },
+            {
+              "name": "horizontal"
+            }
+          ]
         },
         {
           "name": "format"
@@ -736,16 +763,41 @@
           "name": "text-input-autocapitalization"
         },
         {
-          "name": "disable-autocorrection"
+          "name": "disable-autocorrection",
+          "description": ""
         },
         {
-          "name": "keyboard-type"
+          "name": "keyboard-type",
+          "description": "Value Type: “decimal-pad” | “number-pad” | “default”",
+          "values": [
+            {
+              "name": "decimal-pad"
+            },
+            {
+              "name": "number-pad"
+            },
+            {
+              "name": "default"
+            }
+          ]
         },
         {
-          "name": "required"
+          "name": "required",
+          "description": "Value Type: “required”",
+          "values": [
+            {
+              "name": "required"
+            }
+          ]
         },
         {
-          "name": "disabled"
+          "name": "disabled",
+          "description": "Value Type: “disabled”",
+          "values": [
+            {
+              "name": "disabled"
+            }
+          ]
         }
       ]
     },

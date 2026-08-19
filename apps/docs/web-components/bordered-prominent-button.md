@@ -28,6 +28,17 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name            |             Type             | Description                                    |
+| --------------- | :--------------------------: | ---------------------------------------------- |
+| **`role`**      | `"destructive" \| "confirm"` | A value that describes the purpose of a button |
+| **`title-key`** |           `string`           |                                                |
+
+</div>
+
 ### Slots
 
 <div>

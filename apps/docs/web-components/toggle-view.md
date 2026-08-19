@@ -18,6 +18,22 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                |   Type   | Description |
+| ------------------- | :------: | ----------- |
+| **`label`**         | `string` |             |
+| **`name`**          | `string` |             |
+| **`value`**         | `string` |             |
+| **`is-on`**         | `string` |             |
+| **`keyboard-type`** | `string` |             |
+| **`required`**      | `string` |             |
+| **`disabled`**      | `string` |             |
+
+</div>
+
 ### Slots
 
 <div>

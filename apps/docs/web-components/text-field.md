@@ -18,6 +18,28 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                                |                     Type                     | Description |
+| ----------------------------------- | :------------------------------------------: | ----------- |
+| **`prompt`**                        |                   `string`                   |             |
+| **`minimum`**                       |                   `string`                   |             |
+| **`maximum`**                       |                   `string`                   |             |
+| **`min-length`**                    |                   `string`                   |             |
+| **`max-length`**                    |                   `string`                   |             |
+| **`label`**                         |                   `string`                   |             |
+| **`name`**                          |                   `string`                   |             |
+| **`text`**                          |                   `string`                   |             |
+| **`text-input-autocapitalization`** |                   `string`                   |             |
+| **`disable-autocorrection`**        |                   `string`                   |             |
+| **`keyboard-type`**                 | `"decimal-pad" \| "number-pad" \| "default"` |             |
+| **`required`**                      |                 `"required"`                 |             |
+| **`disabled`**                      |                 `"disabled"`                 |             |
+
+</div>
+
 ### Slots
 
 <div>

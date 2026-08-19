@@ -18,6 +18,16 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name              |   Type    | Description                                 |
+| ----------------- | :-------: | ------------------------------------------- |
+| **`system-font`** | `"Inter"` | Prefers the "Inter" font family, if loaded. |
+
+</div>
+
 ### No Slots
 
 ### No Events

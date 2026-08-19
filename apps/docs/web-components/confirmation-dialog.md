@@ -20,6 +20,16 @@ Use it from the client module like `await confirmation(trigger, 'Permanently era
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name         |   Type   | Description |
+| ------------ | :------: | ----------- |
+| **`anchor`** | `string` |             |
+
+</div>
+
 ### No Slots
 
 ### No Events

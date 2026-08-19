@@ -18,6 +18,18 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                      |   Type   | Description |
+| ------------------------- | :------: | ----------- |
+| **`label`**               | `string` |             |
+| **`current-value-label`** | `string` |             |
+| **`value`**               | `string` |             |
+
+</div>
+
 ### Slots
 
 <div>

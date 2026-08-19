@@ -60,6 +60,16 @@
 
 ## Reference
 
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name         |   Type   | Description |
+| ------------ | :------: | ----------- |
+| **`search`** | `string` |             |
+
+</div>
+
 ### Slots
 
 <div>

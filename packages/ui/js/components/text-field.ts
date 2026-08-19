@@ -615,13 +615,16 @@ export class TextField extends FormAssociatedBase {
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
     else this.#sendValueToForm(false)
   }
-  formAssociatedCallback = (form: HTMLFormElement) => {
-    this.#sendValueToForm()
+  formStateRestoreCallback(state: string, reason: string) {
+    this.text = state
   }
-  formDisabledCallback = (disabled: boolean) => {
+  formAssociatedCallback(form: HTMLFormElement) {
+    this.#sendValueToForm(false)
+  }
+  formDisabledCallback(disabled: boolean) {
     for (const el of this.#shadowRoot.querySelectorAll('input')) el.toggleAttribute('disabled', !disabled)
   }
-  formResetCallback = () => {
+  formResetCallback() {
     this.text = ''
 
     this.#sendValueToForm(false)

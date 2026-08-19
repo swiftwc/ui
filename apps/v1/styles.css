@@ -1094,7 +1094,7 @@
   [is=glass-prominent-button]:not([hidden]),
   list-view:not([hidden]),
   table-view:not([hidden]),
-  content-unavailable-view:not([hidden]),
+  content-unavailable:not([hidden]),
   progress-view:not([hidden]),
   tool-bar-item:not([hidden]),
   tool-bar-item-group:not([hidden]),
@@ -1120,9 +1120,9 @@
   :where(labeled-content)::part(labeled-content-label-stack),
   :where(labeled-content)::part(labeled-content-value-stack),
   :where(progress-view)::part(progress-control),
-  :where(content-unavailable-view)::part(content-unavailable-title-stack),
-  :where(content-unavailable-view)::part(content-unavailable-description-stack),
-  :where(content-unavailable-view)::part(content-unavailable-actions-stack),
+  :where(content-unavailable)::part(content-unavailable-title-stack),
+  :where(content-unavailable)::part(content-unavailable-description-stack),
+  :where(content-unavailable)::part(content-unavailable-actions-stack),
   :where(table-view)::part(table-container),
   :where(table-view)::part(table-column-stack),
   :where(table-view)::part(table-header-stack),
@@ -1746,7 +1746,7 @@
   }
 }
 @layer sw-components {
-  :where(content-unavailable-view) {
+  :where(content-unavailable) {
     place-content: center;
     place-items: center;
     text-align: center;
@@ -1754,24 +1754,24 @@
     padding-inline: 1rem;
     padding-block: 1rem;
   }
-  :where(content-unavailable-view)::part(content-unavailable-actions-stack), :where(content-unavailable-view)::part(content-unavailable-title-stack), :where(content-unavailable-view)::part(content-unavailable-description-stack) {
+  :where(content-unavailable)::part(content-unavailable-actions-stack), :where(content-unavailable)::part(content-unavailable-title-stack), :where(content-unavailable)::part(content-unavailable-description-stack) {
     max-inline-size: 20rem;
   }
-  :where(content-unavailable-view)::part(content-unavailable-actions-stack) {
+  :where(content-unavailable)::part(content-unavailable-actions-stack) {
     row-gap: 0.2rem;
   }
-  :where(content-unavailable-view)::part(content-unavailable-title-stack) {
+  :where(content-unavailable)::part(content-unavailable-title-stack) {
     --label-flow: vertical;
     --label-font: title3;
   }
-  :where(content-unavailable-view > :not([slot])) {
+  :where(content-unavailable > :not([slot])) {
     --label-image-size: 5;
     --label-gap: 1;
   }
-  :where(content-unavailable-view:not(:has(> [slot=description])))::part(content-unavailable-description-stack) {
+  :where(content-unavailable:not(:has(> [slot=description])))::part(content-unavailable-description-stack) {
     display: none;
   }
-  :where(content-unavailable-view:not(:has(> [slot=actions])))::part(content-unavailable-actions-stack) {
+  :where(content-unavailable:not(:has(> [slot=actions])))::part(content-unavailable-actions-stack) {
     display: none;
   }
 }

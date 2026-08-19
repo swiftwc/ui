@@ -1486,19 +1486,22 @@ export class PickerView extends FormAssociatedBase {
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
     else this.#sendValueToForm(false)
   }
-  formAssociatedCallback = (form: HTMLFormElement) => {
-    this.#sendValueToForm()
+  formStateRestoreCallback(state: string, reason: string) {
+    //
   }
-  formDisabledCallback = (disabled: boolean) => {
+  formAssociatedCallback(form: HTMLFormElement) {
+    this.#sendValueToForm(false)
+  }
+  formDisabledCallback(disabled: boolean) {
     for (const btn of this.#shadowRoot.querySelectorAll('button')) btn.toggleAttribute('disabled', !disabled)
   }
-  formResetCallback = () => {
+  formResetCallback() {
     this.#selection = ''
 
     this.#reflectSelectionOnButtons()
 
     this.#reflectSelectionOnCurrentValueLabel()
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(false)
   }
 }

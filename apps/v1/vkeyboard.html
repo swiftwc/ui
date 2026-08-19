@@ -152,6 +152,9 @@
       document.querySelector('#gg1').addEventListener('change', (evt) => {
         console.log(11, evt)
       })
+      document.querySelector('#gg2').addEventListener('toggle:change', (evt) => {
+        console.log(22, evt)
+      })
       document.querySelector('#gg').addEventListener('submit', (evt) => {
         evt.preventDefault()
 

@@ -577,19 +577,22 @@ export class DatePicker extends FormAssociatedBase {
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
     else this.#sendValueToForm(false)
   }
-  formAssociatedCallback = (form: HTMLFormElement) => {
-    this.#sendValueToForm()
+  formStateRestoreCallback(state: string, reason: string) {
+    //
   }
-  formDisabledCallback = (disabled: boolean) => {
+  formAssociatedCallback(form: HTMLFormElement) {
+    this.#sendValueToForm(false)
+  }
+  formDisabledCallback(disabled: boolean) {
     for (const input of this.#inputs) input.toggleAttribute('disabled', !disabled)
   }
-  formResetCallback = () => {
+  formResetCallback() {
     this.#selectedDate = {
       year: '',
       month: '',
       day: '',
     }
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(false)
   }
 }

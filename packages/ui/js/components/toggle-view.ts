@@ -7,18 +7,17 @@ import { html, queryMorph } from '../morphdom'
 
 const toggleStyles = ['switch', 'button'] as const
 
-export type ToggleStyle = (typeof toggleStyles)[number] // 'decimal-pad' | 'number-pad' | 'default'
+export type ToggleStyle = (typeof toggleStyles)[number]
 
 /**
  * @summary A control that switches between on and off states.
+ *
+ * @fires toggle:change — User toggled the control
  *
  * @slot label
  * @slot validity-options
  */
 export class ToggleView extends FormAssociatedBase {
-  // declare addEventListener: TypedEventTargetMethods<ToggleViewEventMap>['addEventListener']
-  // declare removeEventListener: TypedEventTargetMethods<ToggleViewEventMap>['removeEventListener']
-
   static get observedAttributes() {
     return ['label', 'name', 'value', 'is-on', 'keyboard-type', 'required', 'disabled']
   }
@@ -276,15 +275,18 @@ export class ToggleView extends FormAssociatedBase {
     if (this.#customValidity) this.#internals.setValidity({ ...this.#internals.validity, customError: true }, message)
     else this.#sendValueToForm(false)
   }
-  formAssociatedCallback = (form: HTMLFormElement) => {
-    this.#sendValueToForm()
+  formStateRestoreCallback(state: string, reason: string) {
+    this.value = state
   }
-  formDisabledCallback = (disabled: boolean) => {
+  formAssociatedCallback(form: HTMLFormElement) {
+    this.#sendValueToForm(false)
+  }
+  formDisabledCallback(disabled: boolean) {
     for (const el of this.#shadowRoot.querySelectorAll('input')) el.toggleAttribute('disabled', !disabled)
   }
-  formResetCallback = () => {
+  formResetCallback() {
     this.value = ''
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(false)
   }
 }

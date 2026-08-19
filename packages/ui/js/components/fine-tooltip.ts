@@ -137,7 +137,6 @@ export class FineTooltip extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'fine-tooltip': FineTooltip

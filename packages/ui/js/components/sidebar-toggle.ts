@@ -102,7 +102,6 @@ export class SidebarToggle extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'sidebar-toggle': SidebarToggle

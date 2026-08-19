@@ -28,7 +28,6 @@ export class NavigationSplitView extends NavigationView {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'navigation-split-view': NavigationSplitView

@@ -192,7 +192,6 @@ export class MenuView extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'menu-view': MenuView

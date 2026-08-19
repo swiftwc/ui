@@ -17,7 +17,6 @@ export class ScrollViewProxy extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'scroll-view-proxy': ScrollViewProxy

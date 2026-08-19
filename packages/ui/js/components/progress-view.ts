@@ -165,7 +165,6 @@ export class ProgressView extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'progress-view': ProgressView

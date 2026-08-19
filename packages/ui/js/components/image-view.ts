@@ -81,7 +81,6 @@ export class ImageView extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'image-view': ImageView

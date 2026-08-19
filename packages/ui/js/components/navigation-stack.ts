@@ -33,7 +33,6 @@ export class NavigationStack extends NavigationView {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'navigation-stack': NavigationStack

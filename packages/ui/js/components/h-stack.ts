@@ -26,7 +26,6 @@ export class HStack extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'h-stack': HStack

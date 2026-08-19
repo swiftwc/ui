@@ -30,7 +30,6 @@ export class StickyContainer extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'sticky-container': StickyContainer

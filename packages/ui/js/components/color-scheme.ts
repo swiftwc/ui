@@ -56,7 +56,6 @@ export class ColorScheme extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'color-scheme': ColorScheme

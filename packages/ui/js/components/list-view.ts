@@ -22,7 +22,6 @@ export class ListView extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'list-view': ListView

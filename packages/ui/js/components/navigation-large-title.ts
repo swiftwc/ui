@@ -230,7 +230,6 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'navigation-large-title': NavigationLargeTitle

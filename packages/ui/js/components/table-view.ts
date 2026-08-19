@@ -201,7 +201,6 @@ export class TableView extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'table-view': TableView

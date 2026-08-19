@@ -107,7 +107,6 @@ export class ContentUnavailable extends HTMLElement {
   }
 }
 
-
 declare global {
   interface HTMLElementTagNameMap {
     'content-unavailable': ContentUnavailable

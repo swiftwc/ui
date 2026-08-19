@@ -6,17 +6,17 @@ export class StickyContainer extends HTMLElement {
     super()
   }
 
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${StickyContainer.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
+  }
+
   connectedCallback() {
     if (devFlags.debug) console.debug(`${StickyContainer.name} ⚡️ connect`)
 
     // CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionrun as unknown as EventListener, this).on())
     CleanupRegistry.register(this, onoff('transitionrun', this.#handleTransitionrun as unknown as EventListener, this).on())
-  }
-
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${StickyContainer.name} ⚡️ disconnect`)
-
-    CleanupRegistry.unregister(this)
   }
 
   #handleTransitionrun = ({ target, propertyName, pseudoElement }: TransitionEvent) => {

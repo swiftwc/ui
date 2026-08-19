@@ -44,7 +44,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   constructor() {
     super()
 
-    internals.set(this, this.attachInternals())
+    internals.set(this, this.attachInternals?.())
 
     // trackedElements.set(this, new Set<Element>())
   }

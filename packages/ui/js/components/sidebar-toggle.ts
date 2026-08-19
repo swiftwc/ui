@@ -9,6 +9,14 @@ export class SidebarToggle extends HTMLElement {
     super()
   }
 
+  disconnectedCallback() {
+    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
+
+    observers.unobserve(this)
+
+    CleanupRegistry.unregister(this)
+  }
+
   connectedCallback() {
     if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ connect`)
 
@@ -22,14 +30,6 @@ export class SidebarToggle extends HTMLElement {
 
     // @ts-expect-error
     SidebarToggle.#handleMeasure([entry])
-  }
-
-  disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
-
-    observers.unobserve(this)
-
-    CleanupRegistry.unregister(this)
   }
 
   private static query(target?: HTMLElement) {

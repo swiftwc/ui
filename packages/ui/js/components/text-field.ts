@@ -559,17 +559,10 @@ export class TextField extends FormAssociatedBase {
   }
 
   get negativeNumbersAllowed(): boolean {
-    // switch (this.keyboardType) {
-    //   case 'decimal-pad':
-    //   case 'number-pad':
     const min = this.getAttribute('minimum') ?? '-Infinity',
       max = this.getAttribute('maximum') ?? 'Infinity'
 
     return compareBigDecimals('0', min) >= 0 && compareBigDecimals('0', max) <= 0
-
-    //   default:
-    //     return false
-    // }
   }
 
   setValidity = (flags?: ValidityStateFlags, message?: string, anchor?: HTMLElement) => {

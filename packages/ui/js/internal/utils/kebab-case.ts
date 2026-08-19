@@ -1,13 +1,8 @@
 export default function (str: string) {
-  return (
-    str
-      // Replace uppercase letters with - + lowercase
-      .replace(/([A-Z])/g, '-$1')
-      // Replace spaces and underscores with -
-      .replace(/[\s_]+/g, '-')
-      // Convert to lowercase
-      .toLowerCase()
-      // Remove leading/trailing dashes
-      .replace(/^-+|-+$/g, '')
-  )
+  return str
+    .replace(/([A-Z])/g, '-$1') // Replace uppercase letters with - + lowercase
+    .replace(/[\s_]+/g, '-') // Replace spaces and underscores with -
+    .replace(/-+/g, '-') // collapse any run of dashes into one
+    .toLowerCase() // Convert to lowercase
+    .replace(/^-+|-+$/g, '') // Remove leading/trailing dashes
 }

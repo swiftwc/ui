@@ -1,4 +1,4 @@
-import type { TabDetail, TabViewAdaptableTabBarPlacementDetail } from '../events'
+import type { TabDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { devFlags, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
@@ -46,7 +46,7 @@ export class TabItem extends ButtonBase {
     })
   }
 
-  static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
+  static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: TabViewAdaptableTabBarPlacementChangeEvent) => {
     if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
     const tv = btn.closest<TabView>('tab-view')

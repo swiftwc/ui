@@ -1,5 +1,5 @@
 import { lifecycleObserver } from '../buses'
-import type { PageShowHideDetail, TabDetail } from '../events'
+import type { BeforetabswapEvent, PageShowHideDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
@@ -243,7 +243,7 @@ export class ScrollView extends HTMLElement {
   //   // })
   // }
 
-  #handleTabBeforeswap = ({ type, target }: CustomEvent<TabDetail>) => {
+  #handleTabBeforeswap = ({ type, target }: BeforetabswapEvent) => {
     if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
@@ -311,7 +311,6 @@ export class ScrollView extends HTMLElement {
     queryMorph('navigation-title:not([slot])', html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`, container)
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

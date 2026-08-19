@@ -1,4 +1,4 @@
-import type { PageRevealSwapDetail, TabBeforeDetail, TabViewAdaptableTabBarPlacementDetail, TabViewDetail } from '../events'
+import type { PagerevealEvent, TabBeforeDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail, TabViewDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { NavigationPath } from '../internal/class/navigation-path'
@@ -109,7 +109,7 @@ export class TabView extends HTMLElement {
     )
   }
 
-  #handleTabViewPagereveal = (evt: CustomEvent<PageRevealSwapDetail>) => {
+  #handleTabViewPagereveal = (evt: PagerevealEvent) => {
     if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
     void this.#syncBodyFace()
@@ -138,7 +138,7 @@ export class TabView extends HTMLElement {
     }
   }
 
-  #handleAdaptableTabBarPlacementChange = (evt: CustomEvent<TabViewAdaptableTabBarPlacementDetail>) => {
+  #handleAdaptableTabBarPlacementChange = (evt: TabViewAdaptableTabBarPlacementChangeEvent) => {
     if (devFlags.debug) console.debug(`${TabView.name} ⚡️ ${evt?.type}`)
 
     if ('bottom-bar' !== evt.detail.oldValue) return // button triggers should happen, ONLY when going FROM bottom-bar TO anything else
@@ -266,7 +266,6 @@ export class TabView extends HTMLElement {
     // if (tab?.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
   }
 }
-
 
 declare global {
   interface HTMLElementTagNameMap {

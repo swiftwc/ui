@@ -1,6 +1,6 @@
 import { alertDialog, confirmationDialog as confirmationDialogBus, lifecycleObserver } from '../buses'
 import * as Components from '../components'
-import type { AlertReturnDetail, ConfirmationReturnDetail } from '../events'
+import type { AlertReturnEvent, ConfirmationReturnEvent } from '../events'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
@@ -284,7 +284,7 @@ export const alert = (
       off = onoff(
         'alert:return',
         (evt: any) => {
-          const { detail } = evt as CustomEvent<AlertReturnDetail>
+          const { detail } = evt as AlertReturnEvent
           off?.()
           resolve(detail.returnValue)
         },
@@ -353,7 +353,7 @@ export const confirmationDialog = async (
     off = onoff(
       'confirmation:return',
       (evt: any) => {
-        const { detail } = evt as CustomEvent<ConfirmationReturnDetail>
+        const { detail } = evt as ConfirmationReturnEvent
 
         off()
         resolve(detail.returnValue)

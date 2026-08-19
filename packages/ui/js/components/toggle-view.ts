@@ -290,3 +290,9 @@ export class ToggleView extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'toggle-view': ToggleView
+  }
+}

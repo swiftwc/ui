@@ -21,3 +21,10 @@ export class ListView extends HTMLElement {
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'list-view': ListView
+  }
+}

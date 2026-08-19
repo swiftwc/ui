@@ -27,3 +27,9 @@ export class VStack extends HTMLElement {
     if (devFlags.debug) console.debug(`${VStack.name} ⚡️ disconnect`)
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'v-stack': VStack
+  }
+}

@@ -101,3 +101,10 @@ export class SidebarToggle extends HTMLElement {
     else sideBar.close()
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sidebar-toggle': SidebarToggle
+  }
+}

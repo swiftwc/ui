@@ -86,3 +86,10 @@ export class SectionView extends HTMLElement {
     //
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'section-view': SectionView
+  }
+}

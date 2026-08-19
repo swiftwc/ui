@@ -200,3 +200,10 @@ export class TableView extends HTMLElement {
     this.querySelector<HTMLElement>(`:scope>[slot=column]:nth-of-type(${index + 1})`)?.click()
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'table-view': TableView
+  }
+}

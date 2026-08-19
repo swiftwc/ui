@@ -16,3 +16,10 @@ export class ScrollViewProxy extends HTMLElement {
     if (devFlags.debug) console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'scroll-view-proxy': ScrollViewProxy
+  }
+}

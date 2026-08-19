@@ -106,3 +106,10 @@ export class ContentUnavailable extends HTMLElement {
     descText.setAttribute('title', I18n.t('SearchUnavailableContent').Description)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'content-unavailable': ContentUnavailable
+  }
+}

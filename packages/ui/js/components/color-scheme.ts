@@ -55,3 +55,10 @@ export class ColorScheme extends HTMLElement {
     if (null !== newValue) self.CSS.registerProperty({ name: '--background', syntax: '<color>', inherits: false, initialValue: 'oklch(0% 0 0deg)' })
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'color-scheme': ColorScheme
+  }
+}

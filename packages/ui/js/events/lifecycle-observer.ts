@@ -4,9 +4,12 @@ export type PageShowHideDetail = {
   page: ScrollView
 }
 
+export interface PageShowEvent extends CustomEvent<PageShowHideDetail> {}
+export interface PageHideEvent extends CustomEvent<PageShowHideDetail> {}
+
 declare global {
   interface HTMLElementEventMap {
-    pageshow: CustomEvent<PageShowHideDetail>
-    pagehide: CustomEvent<PageShowHideDetail>
+    pageshow: PageShowEvent
+    pagehide: PageHideEvent
   }
 }

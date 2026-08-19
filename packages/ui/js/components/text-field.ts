@@ -623,3 +623,10 @@ export class TextField extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'text-field': TextField
+  }
+}

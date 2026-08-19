@@ -116,3 +116,9 @@ export class VKeyboard extends HTMLElement {
     this.#shouldKeyboardBeOpenCallback = fn
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'v-keyboard': VKeyboard
+  }
+}

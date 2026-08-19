@@ -1505,3 +1505,10 @@ export class PickerView extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'picker-view': PickerView
+  }
+}

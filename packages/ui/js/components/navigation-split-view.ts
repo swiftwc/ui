@@ -27,3 +27,10 @@ export class NavigationSplitView extends NavigationView {
     super.connectedCallback()
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-split-view': NavigationSplitView
+  }
+}

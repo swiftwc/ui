@@ -111,3 +111,9 @@ export class ToolBar extends HTMLElement {
     this.#scrollView?.style?.setProperty(prop, `${Math.round(width)}px`) // $.prop(prop, `${Math.round(width)}px`, this.#scrollView) //
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tool-bar': ToolBar
+  }
+}

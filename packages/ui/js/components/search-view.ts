@@ -40,3 +40,10 @@ export class SearchView extends InputBase {
     //
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'search-view': SearchView
+  }
+}

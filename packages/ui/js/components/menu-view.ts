@@ -191,3 +191,10 @@ export class MenuView extends HTMLElement {
     this.toggleAttribute('open', this.#shadowRoot.querySelector('dialog')?.open ?? false)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'menu-view': MenuView
+  }
+}

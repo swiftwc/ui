@@ -29,3 +29,10 @@ export class StickyContainer extends HTMLElement {
     this.toggleAttribute('stuck', '1' === stuck)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sticky-container': StickyContainer
+  }
+}

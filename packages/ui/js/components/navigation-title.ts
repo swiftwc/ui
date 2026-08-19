@@ -63,3 +63,10 @@ export class NavigationTitle extends HTMLElement {
     )
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-title': NavigationTitle
+  }
+}

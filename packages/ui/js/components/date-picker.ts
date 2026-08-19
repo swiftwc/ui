@@ -596,3 +596,10 @@ export class DatePicker extends FormAssociatedBase {
     this.#sendValueToForm(false)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'date-picker': DatePicker
+  }
+}

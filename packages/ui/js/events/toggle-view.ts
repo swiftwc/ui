@@ -3,8 +3,10 @@ export type ToggleChangeDetail = {
   value: string | null
 }
 
+export interface ToggleChangeEvent extends CustomEvent<ToggleChangeDetail> {}
+
 declare global {
   interface HTMLElementEventMap {
-    'toggle:change': CustomEvent<ToggleChangeDetail>
+    'toggle:change': ToggleChangeEvent
   }
 }

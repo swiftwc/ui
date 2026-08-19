@@ -21,3 +21,9 @@ export class ToolBarItemGroup extends HTMLElement {
     CleanupRegistry.unregister(this)
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tool-bar-item-group': ToolBarItemGroup
+  }
+}

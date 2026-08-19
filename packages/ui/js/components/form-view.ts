@@ -71,3 +71,10 @@ export class FormView extends FormBase {
       )
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'form-view': FormView
+  }
+}

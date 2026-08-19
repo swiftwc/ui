@@ -78,3 +78,9 @@ export class ToolBarItem extends HTMLElement {
     )
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tool-bar-item': ToolBarItem
+  }
+}

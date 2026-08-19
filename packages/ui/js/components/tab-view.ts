@@ -266,3 +266,10 @@ export class TabView extends HTMLElement {
     // if (tab?.matches('tab-view>:scope')) return document.body.style.setProperty('--face', style.getPropertyValue('--face'))
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tab-view': TabView
+  }
+}

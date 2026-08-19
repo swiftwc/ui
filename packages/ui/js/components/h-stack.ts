@@ -25,3 +25,10 @@ export class HStack extends HTMLElement {
     if (devFlags.debug) console.debug(`${HStack.name} ⚡️ disconnect`)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'h-stack': HStack
+  }
+}

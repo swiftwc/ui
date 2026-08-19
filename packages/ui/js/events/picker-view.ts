@@ -7,11 +7,16 @@ export type PickerSearchableDetail = {
   search: string //search term
 }
 
+export interface PickerSelectionEvent extends CustomEvent<PickerSelectionDetail> {}
+export interface PickerSearchfocusEvent extends CustomEvent<PickerSearchableDetail> {}
+export interface PickerSearchblurEvent extends CustomEvent<PickerSearchableDetail> {}
+export interface PickerSearchinputEvent extends CustomEvent<PickerSearchableDetail> {}
+
 declare global {
   interface HTMLElementEventMap {
-    selection: CustomEvent<PickerSelectionDetail>
-    'picker:searchfocus': CustomEvent<PickerSearchableDetail>
-    'picker:searchblur': CustomEvent<PickerSearchableDetail>
-    'picker:searchinput': CustomEvent<PickerSearchableDetail>
+    selection: PickerSelectionEvent
+    'picker:searchfocus': PickerSearchfocusEvent
+    'picker:searchblur': PickerSearchblurEvent
+    'picker:searchinput': PickerSearchinputEvent
   }
 }

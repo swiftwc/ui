@@ -311,3 +311,10 @@ export class ScrollView extends HTMLElement {
     queryMorph('navigation-title:not([slot])', html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`, container)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'scroll-view': ScrollView
+  }
+}

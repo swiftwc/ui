@@ -32,3 +32,10 @@ export class NavigationStack extends NavigationView {
     super.connectedCallback()
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-stack': NavigationStack
+  }
+}

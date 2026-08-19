@@ -229,3 +229,10 @@ export class NavigationLargeTitle extends HTMLElement {
     if (this.hasAttribute('navigation-bar-auto-hide')) slowHideShow(isIntersecting ? 'show' : 'hide', this)
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-large-title': NavigationLargeTitle
+  }
+}

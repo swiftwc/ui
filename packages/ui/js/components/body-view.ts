@@ -16,3 +16,9 @@ export class BodyView extends HTMLElement {
     if (devFlags.debug) console.debug(`${BodyView.name} ⚡️ connect`)
   }
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'body-view': BodyView
+  }
+}

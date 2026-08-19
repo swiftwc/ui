@@ -19,15 +19,24 @@ export type TabViewAdaptableTabBarPlacementDetail = {
   newValue?: TabBarPlacement
 }
 
+export interface TabshowEvent extends CustomEvent<TabDetail> {}
+export interface TabhideEvent extends CustomEvent<TabDetail> {}
+export interface TabrevealEvent extends CustomEvent<TabDetail> {}
+export interface TabswapEvent extends CustomEvent<TabDetail> {}
+export interface BeforetabrevealEvent extends CustomEvent<TabBeforeDetail> {}
+export interface BeforetabswapEvent extends CustomEvent<TabBeforeDetail> {}
+export interface TabViewToggleEvent extends CustomEvent<TabViewDetail> {}
+export interface TabViewAdaptableTabBarPlacementChangeEvent extends CustomEvent<TabViewAdaptableTabBarPlacementDetail> {}
+
 declare global {
   interface HTMLElementEventMap {
-    tabshow: CustomEvent<TabDetail>
-    tabhide: CustomEvent<TabDetail>
-    tabreveal: CustomEvent<TabDetail>
-    tabswap: CustomEvent<TabDetail>
-    beforetabreveal: CustomEvent<TabBeforeDetail>
-    beforetabswap: CustomEvent<TabBeforeDetail>
-    'tab-view:toggle': CustomEvent<TabViewDetail>
-    'tab-view:adaptable-tab-bar-placement-change': CustomEvent<TabViewAdaptableTabBarPlacementDetail>
+    tabshow: TabshowEvent
+    tabhide: TabhideEvent
+    tabreveal: TabrevealEvent
+    tabswap: TabswapEvent
+    beforetabreveal: BeforetabrevealEvent
+    beforetabswap: BeforetabswapEvent
+    'tab-view:toggle': TabViewToggleEvent
+    'tab-view:adaptable-tab-bar-placement-change': TabViewAdaptableTabBarPlacementChangeEvent
   }
 }

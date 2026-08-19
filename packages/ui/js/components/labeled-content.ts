@@ -181,3 +181,10 @@ export class LabeledContent extends HTMLElement {
     }
   }
 }
+
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'labeled-content': LabeledContent
+  }
+}

@@ -2,9 +2,7 @@
 
 # VKeyboard
 
-Required component, used to handle the virtual keyboard on touch devices.
-
-## Declaration
+###### Required component, used to handle the virtual keyboard on touch devices.
 
 `<v-keyboard></v-keyboard>`
 
@@ -20,20 +18,12 @@ Required component, used to handle the virtual keyboard on touch devices.
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

@@ -492,8 +492,6 @@ for (const sourceFile of project.getSourceFiles()) {
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        b += ` ${description}`
-
         d = description
       }
       ;(module.declarations[0].members ??= []).push({
@@ -509,7 +507,12 @@ for (const sourceFile of project.getSourceFiles()) {
     }
 
     for (const m of [...methods, ...arrowMethods]) {
-      if (['attributeChangedCallback', 'disconnectedCallback', 'connectedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback'].includes(m.getName())) continue
+      if (
+        ['attributeChangedCallback', 'disconnectedCallback', 'connectedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback', 'formStateRestoreCallback'].includes(
+          m.getName()
+        )
+      )
+        continue
 
       const leading = m
         .getLeadingCommentRanges()
@@ -528,7 +531,7 @@ for (const sourceFile of project.getSourceFiles()) {
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-        b += ` ${description}`
+        // b += ` ${description}`
 
         d = description
       }

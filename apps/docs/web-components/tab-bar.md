@@ -2,9 +2,7 @@
 
 # TabBar
 
-A screen that lets users switch between different views using buttons, tabs, or other controls.
-
-## Declaration
+###### A screen that lets users switch between different views using buttons, tabs, or other controls.
 
 `<dialog is="tab-bar"></dialog>`
 
@@ -20,20 +18,12 @@ A screen that lets users switch between different views using buttons, tabs, or 
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

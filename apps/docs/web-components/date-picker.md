@@ -2,9 +2,7 @@
 
 # DatePicker
 
-A control that selects an absolute date.
-
-## Declaration
+###### A control that selects an absolute date.
 
 `<form is="date-picker"></form>`
 
@@ -20,13 +18,9 @@ A control that selects an absolute date.
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
-
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 
@@ -36,9 +30,9 @@ _This component does not implement any events._
 | -------------------------------- | :-----------------------------------------------------: | ----------------------------------- |
 | **`template`** `readonly`        |                   `DocumentFragment`                    |                                     |
 | **`datePickerStyle`** `readonly` |         `"graphical" \| "field" \| "automatic"`         |                                     |
-| **`name`** `readonly`            |          `string Form participation property`           | Form participation property         |
+| **`name`** `readonly`            |                        `string`                         | Form participation property         |
 | **`value`** `readonly`           |     `{ year: string; month: string; day: string; }`     |                                     |
-| **`valueAsDate`** `readonly`     |   `Date \| null Returns the value as a Date object.`    | Returns the value as a Date object. |
+| **`valueAsDate`** `readonly`     |                     `Date \| null`                      | Returns the value as a Date object. |
 | **`minimum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
 | **`maximum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
 

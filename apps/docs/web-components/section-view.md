@@ -2,9 +2,7 @@
 
 # SectionView
 
-A container view that groups related content together.
-
-## Declaration
+###### A container view that groups related content together.
 
 `<section-view></section-view>`
 
@@ -32,16 +30,10 @@ A container view that groups related content together.
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

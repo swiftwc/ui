@@ -2,9 +2,7 @@
 
 # TextField
 
-A control that displays an editable text area.
-
-## Declaration
+###### A control that displays an editable text area.
 
 `<form is="text-field"></form>`
 
@@ -31,9 +29,7 @@ A control that displays an editable text area.
 
 </div>
 
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 
@@ -43,7 +39,7 @@ _This component does not implement any events._
 | --------------------------------------- | :------------------------------------------: | --------------------------- |
 | **`keyboardType`** `readonly`           | `"decimal-pad" \| "number-pad" \| "default"` |                             |
 | **`text`**                              |                   `string`                   |                             |
-| **`name`** `readonly`                   |     `string Form participation property`     | Form participation property |
+| **`name`** `readonly`                   |                   `string`                   | Form participation property |
 | **`value`** `readonly`                  |                   `string`                   |                             |
 | **`valueAsNumber`** `readonly`          |                `number \| ""`                |                             |
 | **`negativeNumbersAllowed`** `readonly` |                  `boolean`                   |                             |

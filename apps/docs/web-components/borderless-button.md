@@ -2,9 +2,7 @@
 
 # BorderlessButton
 
-A control that starts an action. Styled without any borders.
-
-## Declaration
+###### A control that starts an action. Styled without any borders.
 
 `<button is="borderless-button"></button>`
 
@@ -18,7 +16,7 @@ A control that starts an action. Styled without any borders.
 
 {% demo borderless-button/demo-full h-60 %}
 
-:::: details View code
+:::: details View code {open .mt-0! .rounded-t-none!}
 
 ::: code-group
 
@@ -65,16 +63,10 @@ A control that starts an action. Styled without any borders.
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

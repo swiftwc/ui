@@ -2,9 +2,7 @@
 
 # ScrollViewProxy
 
-A wrapper to {hv}-stacks.
-
-## Declaration
+###### A wrapper to {hv}-stacks.
 
 `<scroll-view-proxy></scroll-view-proxy>`
 
@@ -20,20 +18,12 @@ A wrapper to {hv}-stacks.
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

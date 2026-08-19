@@ -114,7 +114,7 @@ export default defineConfig({
           {
             name: 'demo',
             setup: (id: string, className: string) =>
-              `<iframe src="/examples/${id.split(' ').shift()}.html" frameborder="0" loading="lazy" class="rounded-xl w-full ${id.split(' ').pop()} mt-2"></iframe>`,
+              `<iframe src="/examples/${id.split(' ').shift()}.html" frameborder="0" loading="lazy" class="rounded-t-xl w-full ${id.split(' ').pop()} mt-2"></iframe>`,
           },
           {
             name: 'icon',

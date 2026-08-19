@@ -2,9 +2,7 @@
 
 # MenuView
 
-A control that opens a menu of actions.
-
-## Declaration
+###### A control that opens a menu of actions.
 
 `<menu-view></menu-view>`
 
@@ -31,16 +29,10 @@ A control that opens a menu of actions.
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

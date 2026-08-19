@@ -2,9 +2,7 @@
 
 # ToggleView
 
-A control that switches between on and off states.
-
-## Declaration
+###### A control that switches between on and off states.
 
 `<form is="toggle-view"></form>`
 
@@ -33,18 +31,24 @@ A control that switches between on and off states.
 
 ### Events
 
-_This component does not implement any events._
+<div>
+
+| Name                | Description              |
+| ------------------- | ------------------------ |
+| **`toggle:change`** | User toggled the control |
+
+</div>
 
 ### Properties
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                         |                 Type                 | Description                 |
-| ---------------------------- | :----------------------------------: | --------------------------- |
-| **`toggleStyle`** `readonly` |        `"button" \| "switch"`        |                             |
-| **`isOn`**                   |              `boolean`               |                             |
-| **`name`** `readonly`        | `string Form participation property` | Form participation property |
-| **`value`**                  |           `string \| null`           |                             |
+| Name                         |          Type          | Description                 |
+| ---------------------------- | :--------------------: | --------------------------- |
+| **`toggleStyle`** `readonly` | `"button" \| "switch"` |                             |
+| **`isOn`**                   |       `boolean`        |                             |
+| **`name`** `readonly`        |        `string`        | Form participation property |
+| **`value`**                  |    `string \| null`    |                             |
 
 </div>
 

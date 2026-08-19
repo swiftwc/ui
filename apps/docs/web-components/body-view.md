@@ -2,9 +2,7 @@
 
 # BodyView
 
-The content and behavior of the view.
-
-## Declaration
+###### The content and behavior of the view.
 
 `<body-view></body-view>`
 
@@ -20,20 +18,12 @@ The content and behavior of the view.
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

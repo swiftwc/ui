@@ -2,9 +2,7 @@
 
 # BorderedProminentButton
 
-A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.
-
-## Declaration
+###### A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.
 
 `<button is="bordered-prominent-button"></button>`
 
@@ -40,16 +38,10 @@ A control that starts an action. Styled with a prominent border, adapting to the
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

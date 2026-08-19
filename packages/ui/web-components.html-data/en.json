@@ -149,7 +149,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/date-picker"
         }
       ],
-      "description": "### **Properties:**\n- readonly **template** — DocumentFragment\n- readonly **datePickerStyle** — \"graphical\" | \"field\" | \"automatic\"\n- readonly **name** — string Form participation property\n- readonly **value** — { year: string; month: string; day: string; }\n- readonly **valueAsDate** — Date | null Returns the value as a Date object.\n- readonly **minimum** — { year: string; month: string; day: string; } | null\n- readonly **maximum** — { year: string; month: string; day: string; } | null",
+      "description": "### **Properties:**\n- readonly **template** — DocumentFragment\n- readonly **datePickerStyle** — \"graphical\" | \"field\" | \"automatic\"\n- readonly **name** — string\n- readonly **value** — { year: string; month: string; day: string; }\n- readonly **valueAsDate** — Date | null\n- readonly **minimum** — { year: string; month: string; day: string; } | null\n- readonly **maximum** — { year: string; month: string; day: string; } | null",
       "attributes": [
         {
           "name": "date-picker-style",
@@ -344,7 +344,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/label-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — Place children without a `slot` attribute inside the main block of the label.\n- **icon** — Place children with a `slot=\"icon\"` attribute in the icon block of the label.\n\n### **Examples:**\n**Creating a label with an icon image and a title:**\n```html\n<label-view system-image=\"hand-tap\"><span>Hello</span></label-view>\n\n```",
+      "description": "### **Slots:**\n- _default_ — Any children without a `slot` attribute are placed in the title block of the label.\n- **icon** — Use the `slot=\"icon\"` attribute to place childen in the icon block of the label.\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```",
       "attributes": [
         {
           "name": "font",
@@ -481,7 +481,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/picker-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string Form participation property",
+      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string",
       "attributes": [
         {
           "name": "picker-style",
@@ -706,7 +706,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/text-field"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string Form participation property\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean",
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean",
       "attributes": [
         {
           "name": "prompt"
@@ -757,7 +757,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/toggle-view"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string Form participation property\n- **value** — string | null",
+      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string\n- **value** — string | null\n\n### **Events:**\n- **toggle:change** — User toggled the control",
       "attributes": [
         {
           "name": "label"

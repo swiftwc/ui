@@ -51,39 +51,54 @@ for await (const [i, mod] of data.modules.entries()) {
 
     await writeFile(
       resolve(__dirname, `../web-components/${dec.tagName}.md`),
-      `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ''}<!-- #region pre -->\n\n# ${dec.name}\n\n${dec.description}${dec.description && !dec.description.endsWith('.') ? '.' : ''}
+      `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ''}<!-- #region pre -->
 
-## Declaration
+# ${dec.name}
+
+###### ${dec.description}${dec.description && !dec.description.endsWith('.') ? '.' : ''}
 
 \`${declaration}\`
 
-<!-- #endregion pre -->\n${partial}\n<!-- #region post -->\n${reflections}\n${topicsMd}\n\n## Relationships\n\n### Conforms To\n\n\`${dec.superclass.name}\`\n## Reference
+<!-- #endregion pre -->\n${partial}\n<!-- #region post -->
+${reflections}
+${topicsMd}
 
-### Slots
+## Relationships
+
+### Conforms To
+
+\`${dec.superclass.name}\`
+## Reference
 
 ${
   'slots' in dec
-    ? `<div>
+    ? `
+### Slots
+
+<div>
 
 | Name          |  Description  |
 | ------------- | ------------- |
 ${(
   await Promise.all(
     dec.slots.map((item, index) => {
-      return `| ${item.name ? `**\`${item.name}\`**` : '_default_'} | ${item?.description ?? ''} |`
+      return `| ${item.name ? `**\`${item.name}\`**` : '_default_'} | ${'description' in item ? (item?.description ?? '') : ''} |`
     })
   )
 ).join(`\n`)}
 
 </div>`
-    : `_This component does not implement any slotted content._`
+    : `
+### No Slots
+`
 }
-
-### Events
 
 ${
   'events' in dec
-    ? `<div>
+    ? `
+### Events
+
+<div>
 
 | Name          |  Description  |
 | ------------- | ------------- |
@@ -96,14 +111,17 @@ ${(
 ).join(`\n`)}
 
 </div>`
-    : `_This component does not implement any events._`
+    : `
+### No Events
+`
 }
-
-### Properties
 
 ${
   'members' in dec
-    ? `<div class="*:w-full *:table-fixed *:table!">
+    ? `
+### Properties
+
+<div class="*:w-full *:table-fixed *:table!">
 
 | Name          |      Type     |  Description  |
 | ------------- | :-----------: | ------------- |
@@ -118,14 +136,17 @@ ${(
 ).join(`\n`)}
 
 </div>`
-    : `_This component does not implement any properties._`
+    : `
+### No Properties
+`
 }
-
-### Methods
 
 ${
   'members' in dec
-    ? `<div class="*:w-full *:table-fixed *:table!">
+    ? `
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
 
 | Name          |    Returns    |  Description  |
 | ------------- | :-----------: | ------------- |
@@ -140,7 +161,9 @@ ${(
 ).join(`\n`)}
 
 </div>`
-    : `_This component does not implement any properties._`
+    : `
+### No Methods
+`
 }
 
 <!-- #endregion post -->`
@@ -151,5 +174,14 @@ ${(
 // create barrel file from all the files
 await writeFile(
   resolve(__dirname, `../web-components/index.md`),
-  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->\n\n<!--@include: ../partials/index.md-->\n\n<div class="@container"><div class="grid gap-x-6 gap-y-3 grid-cols-2 @2xl:grid-cols-3 *:m-0!">\n\n${(await Promise.all(data.modules.map((item, index) => `#### [${item.declarations[0].name}](/web-components/${item.declarations[0].tagName}.md) {#no-anchor${index}}`))).join(`\n\n`)}\n\n</div></div>\n`
+  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
+
+<!--@include: ../partials/index.md-->
+
+<div class="@container"><div class="grid gap-x-6 gap-y-3 grid-cols-2 @2xl:grid-cols-3 *:m-0!">
+
+${(await Promise.all(data.modules.map((item, index) => `#### [${item.declarations[0].name}](/web-components/${item.declarations[0].tagName}.md) {#no-anchor${index}}`))).join(`\n\n`)}
+
+</div></div>
+`
 )

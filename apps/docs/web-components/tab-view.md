@@ -2,7 +2,7 @@
 
 # TabView
 
-## Declaration
+######
 
 `<tab-view></tab-view>`
 
@@ -18,9 +18,7 @@
 
 ## Reference
 
-### Slots
-
-_This component does not implement any slotted content._
+### No Slots
 
 ### Events
 

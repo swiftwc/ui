@@ -4,12 +4,15 @@ import { html, queryMorph } from '../morphdom'
 /**
  * @summary A view that labels items with an icon and a title.
  *
- * @example <label-view system-image="hand-tap"><span>Hello</span></label-view> — Creating a label with an icon image and a title
+ * @example <label-view><span>Hello world!</span></label-view> — Creating a label using a `span` element
+ * @example <label-view title="Hello world!"></label-view> — Creating a label using the `title` attribute
+ * @example <label-view system-image="hand-waving"><span>Hello world!</span></label-view> — Creating a label with an icon and a title using the `system-image` attribute
+ * @example <label-view><i slot="icon" class="ph ph-duotone ph-hand-waving"></i><span>Hello world!</span></label-view> — Creating a label with an icon and a title using the `icon` slot
  *
  * @attr {@fontSet} font — Sets the default font for text in this view.
  *
- * @slot — Place children without a `slot` attribute inside the main block of the label.
- * @slot icon — Place children with a `slot="icon"` attribute in the icon block of the label.
+ * @slot — Any children without a `slot` attribute are placed in the title block of the label.
+ * @slot icon — Use the `slot="icon"` attribute to place childen in the icon block of the label.
  *
  */
 export class LabelView extends HTMLElement {

@@ -2,9 +2,7 @@
 
 # ProgressView
 
-A view that shows the progress toward completion of a task.
-
-## Declaration
+###### A view that shows the progress toward completion of a task.
 
 `<progress-view></progress-view>`
 
@@ -31,9 +29,7 @@ A view that shows the progress toward completion of a task.
 
 </div>
 
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 

@@ -2,7 +2,7 @@
 
 # FineTooltip
 
-## Declaration
+######
 
 `<fine-tooltip></fine-tooltip>`
 
@@ -18,13 +18,9 @@
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
-
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 

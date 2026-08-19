@@ -6,7 +6,7 @@
 
 {% demo borderless-button/demo-full h-60 %}
 
-:::: details View code
+:::: details View code {open .mt-0! .rounded-t-none!}
 
 ::: code-group
 

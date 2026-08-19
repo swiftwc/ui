@@ -2,9 +2,7 @@
 
 # ToolBarItem
 
-A model that represents an item which can be placed in the toolbar or navigation bar.
-
-## Declaration
+###### A model that represents an item which can be placed in the toolbar or navigation bar.
 
 `<tool-bar-item></tool-bar-item>`
 
@@ -20,20 +18,12 @@ A model that represents an item which can be placed in the toolbar or navigation
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

@@ -2,9 +2,7 @@
 
 # TableView
 
-Display selectable, sortable data arranged in rows and columns.
-
-## Declaration
+###### Display selectable, sortable data arranged in rows and columns.
 
 `<table-view></table-view>`
 
@@ -37,16 +35,10 @@ Display selectable, sortable data arranged in rows and columns.
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

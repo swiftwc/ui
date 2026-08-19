@@ -2,9 +2,7 @@
 
 # PickerView
 
-A control that selects one value from a set of options.
-
-## Declaration
+###### A control that selects one value from a set of options.
 
 `<form is="picker-view"></form>`
 
@@ -33,9 +31,7 @@ A control that selects one value from a set of options.
 
 </div>
 
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 
@@ -46,7 +42,7 @@ _This component does not implement any events._
 | **`selection`**              |                              `string`                               |                             |
 | **`template`** `readonly`    |                         `DocumentFragment`                          |                             |
 | **`pickerStyle`** `readonly` | `"automatic" \| "menu" \| "inline" \| "navigation-link" \| "sheet"` |                             |
-| **`name`** `readonly`        |                `string Form participation property`                 | Form participation property |
+| **`name`** `readonly`        |                              `string`                               | Form participation property |
 
 </div>
 

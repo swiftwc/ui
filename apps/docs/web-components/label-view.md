@@ -2,45 +2,24 @@
 
 # LabelView
 
-A view that labels items with an icon and a title.
-
-## Declaration
+###### A view that labels items with an icon and a title.
 
 `<label-view></label-view>`
 
 <!-- #endregion pre -->
 
-## Topics
+## Overview
 
-### Creating a label
+One of the most familiar UI patterns is pairing an icon with a label.
 
-::::: info Creating a label with a system icon image and a title:
+::::: info &nbsp;
 {% demo label-view/demo-full h-30 %}
-:::: details View code
+:::: details View code {open .mt-0! .rounded-t-none!}
 
 ::: code-group
 
 ```html [HTML]
-<label-view system-image="hand-waving"><span>Hello world!</span></label-view>
-```
-
-<<< @/public/examples/label-view/demo-full.html{17}
-
-:::
-::::
-:::::
-
-::::: info Creating a label with an image and a title:
-{% demo label-view/demo-full h-30 %}
-:::: details View code
-
-::: code-group
-
-```html [HTML]
-<label-view>
-  <i slot="icon" class="ph ph-duotone ph-hand-waving"></i>
-  <span>Hello world!</span>
-</label-view>
+<label-view><span>Hello world!</span></label-view>
 ```
 
 <<< @/public/examples/label-view/demo-full.html{17}
@@ -53,10 +32,31 @@ A view that labels items with an icon and a title.
 
 ## Topics
 
-**Creating a label with an icon image and a title:**
+**Creating a label using a `span` element:**
 
 ```html
-<label-view system-image="hand-tap"><span>Hello</span></label-view>
+<label-view><span>Hello world!</span></label-view>
+```
+
+**Creating a label using the `title` attribute:**
+
+```html
+<label-view title="Hello world!"></label-view>
+```
+
+**Creating a label with an icon and a title using the `system-image` attribute:**
+
+```html
+<label-view system-image="hand-waving"><span>Hello world!</span></label-view>
+```
+
+**Creating a label with an icon and a title using the `icon` slot:**
+
+```html
+<label-view>
+  <i slot="icon" class="ph ph-duotone ph-hand-waving"></i>
+  <span>Hello world!</span>
+</label-view>
 ```
 
 ## Relationships
@@ -71,23 +71,17 @@ A view that labels items with an icon and a title.
 
 <div>
 
-| Name       | Description                                                                   |
-| ---------- | ----------------------------------------------------------------------------- |
-| _default_  | Place children without a `slot` attribute inside the main block of the label. |
-| **`icon`** | Place children with a `slot="icon"` attribute in the icon block of the label. |
+| Name       | Description                                                                         |
+| ---------- | ----------------------------------------------------------------------------------- |
+| _default_  | Any children without a `slot` attribute are placed in the title block of the label. |
+| **`icon`** | Use the `slot="icon"` attribute to place childen in the icon block of the label.    |
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

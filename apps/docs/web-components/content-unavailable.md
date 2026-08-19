@@ -2,9 +2,7 @@
 
 # ContentUnavailable
 
-A message with a title and extra information that you show when part of your app can’t be used.
-
-## Declaration
+###### A message with a title and extra information that you show when part of your app can’t be used.
 
 `<content-unavailable></content-unavailable>`
 
@@ -74,16 +72,10 @@ A message with a title and extra information that you show when part of your app
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

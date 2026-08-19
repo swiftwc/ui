@@ -2,10 +2,9 @@
 
 # ConfirmationDialog
 
-A representation of a confirmation presentation.
-Use it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.
+###### A representation of a confirmation presentation.
 
-## Declaration
+Use it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.
 
 `<dialog is="confirmation-dialog"></dialog>`
 
@@ -21,20 +20,12 @@ Use it from the client module like `await confirmation(trigger, 'Permanently era
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

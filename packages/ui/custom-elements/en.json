@@ -362,7 +362,7 @@
               "readonly": true,
               "description": "Form participation property",
               "type": {
-                "text": "string Form participation property"
+                "text": "string"
               }
             },
             {
@@ -380,7 +380,7 @@
               "readonly": true,
               "description": "Returns the value as a Date object.",
               "type": {
-                "text": "Date | null Returns the value as a Date object."
+                "text": "Date | null"
               }
             },
             {
@@ -800,11 +800,11 @@
           "slots": [
             {
               "name": "",
-              "description": "Place children without a `slot` attribute inside the main block of the label."
+              "description": "Any children without a `slot` attribute are placed in the title block of the label."
             },
             {
               "name": "icon",
-              "description": "Place children with a `slot=\"icon\"` attribute in the icon block of the label."
+              "description": "Use the `slot=\"icon\"` attribute to place childen in the icon block of the label."
             }
           ]
         }
@@ -1156,7 +1156,7 @@
               "readonly": true,
               "description": "Form participation property",
               "type": {
-                "text": "string Form participation property"
+                "text": "string"
               }
             },
             {
@@ -1936,7 +1936,7 @@
               "readonly": true,
               "description": "Form participation property",
               "type": {
-                "text": "string Form participation property"
+                "text": "string"
               }
             },
             {
@@ -2093,7 +2093,7 @@
               "readonly": true,
               "description": "Form participation property",
               "type": {
-                "text": "string Form participation property"
+                "text": "string"
               }
             },
             {
@@ -2123,6 +2123,15 @@
                 "type": {
                   "text": "void"
                 }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "toggle:change",
+              "description": "User toggled the control",
+              "type": {
+                "text": "Event"
               }
             }
           ],

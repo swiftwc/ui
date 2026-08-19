@@ -2,7 +2,7 @@
 
 # ScrollView
 
-## Declaration
+######
 
 `<scroll-view></scroll-view>`
 
@@ -30,9 +30,7 @@
 
 </div>
 
-### Events
-
-_This component does not implement any events._
+### No Events
 
 ### Properties
 

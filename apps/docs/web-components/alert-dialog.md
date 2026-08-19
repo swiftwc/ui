@@ -8,9 +8,7 @@ prev:
 
 # AlertDialog
 
-A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.
-
-## Declaration
+###### A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.
 
 `<dialog is="alert-dialog"></dialog>`
 
@@ -26,20 +24,12 @@ A representation of an alert presentation. Use it from the client module like `v
 
 ## Reference
 
-### Slots
+### No Slots
 
-_This component does not implement any slotted content._
+### No Events
 
-### Events
+### No Properties
 
-_This component does not implement any events._
-
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

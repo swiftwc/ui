@@ -2,9 +2,7 @@
 
 # ToolBar
 
-Populates the toolbar or navigation bar with the specified items.
-
-## Declaration
+###### Populates the toolbar or navigation bar with the specified items.
 
 `<tool-bar></tool-bar>`
 
@@ -39,16 +37,10 @@ Populates the toolbar or navigation bar with the specified items.
 
 </div>
 
-### Events
+### No Events
 
-_This component does not implement any events._
+### No Properties
 
-### Properties
-
-_This component does not implement any properties._
-
-### Methods
-
-_This component does not implement any properties._
+### No Methods
 
 <!-- #endregion post -->

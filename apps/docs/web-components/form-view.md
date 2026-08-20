@@ -2,7 +2,7 @@
 
 # FormView
 
-######
+###### A container view that groups controls together for entering data, like a settings screen.
 
 `<form is="form-view"></form>`
 

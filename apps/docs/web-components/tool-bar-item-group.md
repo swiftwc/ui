@@ -2,7 +2,7 @@
 
 # ToolBarItemGroup
 
-###### A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.
+###### A container view that groups items together in the toolbar or navigation bar.
 
 `<tool-bar-item-group></tool-bar-item-group>`
 

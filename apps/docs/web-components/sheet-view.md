@@ -2,7 +2,7 @@
 
 # SheetView
 
-######
+###### A dialog that slides up over the current screen.
 
 `<dialog is="sheet-view"></dialog>`
 

@@ -2,7 +2,7 @@
 
 # DisclosureGroup
 
-###### A view that shows or hides another content view, based on the state of a disclosure control.
+###### A view that shows or hides another view when the user opens or closes it.
 
 `<details is="disclosure-group"></details>`
 
@@ -38,15 +38,24 @@
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name       |   Type   | Description |
-| ---------- | :------: | ----------- |
-| **`open`** | `string` |             |
+| Name       |    Type     | Description                |
+| ---------- | :---------: | -------------------------- |
+| **`open`** | `"boolean"` | The status of this element |
 
 </div>
 
 ### No Slots
 
-### No Events
+### Events
+
+<div>
+
+| Name               | Description |
+| ------------------ | ----------- |
+| **`is-expanded`**  |             |
+| **`is-collapsed`** |             |
+
+</div>
 
 ### No Properties
 

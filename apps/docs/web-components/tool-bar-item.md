@@ -2,7 +2,7 @@
 
 # ToolBarItem
 
-###### A model that represents an item which can be placed in the toolbar or navigation bar.
+###### A view placed in the toolbar or navigation bar.
 
 `<tool-bar-item></tool-bar-item>`
 

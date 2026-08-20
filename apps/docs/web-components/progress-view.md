@@ -2,7 +2,7 @@
 
 # ProgressView
 
-###### A view that shows the progress toward completion of a task.
+###### A view that shows how far along a task is.
 
 `<progress-view></progress-view>`
 

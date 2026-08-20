@@ -18,7 +18,17 @@
 
 ## Reference
 
-### No Attributes
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name                           |    Type     | Description |
+| ------------------------------ | :---------: | ----------- |
+| **`background-style`**         | `"grouped"` |             |
+| **`padding`**                  | `"boolean"` |             |
+| **`navigation-bar-auto-hide`** | `"boolean"` |             |
+
+</div>
 
 ### No Slots
 

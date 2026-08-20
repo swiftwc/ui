@@ -2,7 +2,7 @@
 
 # NavigationSplitView
 
-###### A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.
+###### A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
 
 `<navigation-split-view></navigation-split-view>`
 

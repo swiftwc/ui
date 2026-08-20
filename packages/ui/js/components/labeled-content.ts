@@ -10,7 +10,7 @@ interface ParsedFormat {
 
 /**
  * @summary A container view that pairs a label with a value.
- * 
+ *
  * @slot — The default slot.
  * @slot label — Use the `slot="label"` attribute to place childen in the label block.
  * @slot header

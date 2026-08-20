@@ -11,7 +11,7 @@
           "customElement": true,
           "name": "AlertDialog",
           "tagName": "alert-dialog",
-          "description": "A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.",
+          "description": "",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -43,7 +43,7 @@
           "customElement": true,
           "name": "BodyView",
           "tagName": "body-view",
-          "description": "The content and behavior of the view.",
+          "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -247,7 +247,7 @@
           "customElement": true,
           "name": "ConfirmationDialog",
           "tagName": "confirmation-dialog",
-          "description": "",
+          "description": "A dialog that asks the user to confirm an action. Use it from the client module like `await confirmationDialog(trigger, 'Permanently erase the items in the Trash?')`.",
           "superclass": {
             "name": "HTMLDialogElement"
           },
@@ -479,10 +479,24 @@
           "customElement": true,
           "name": "DisclosureGroup",
           "tagName": "disclosure-group",
-          "description": "A view that shows or hides another content view, based on the state of a disclosure control.",
+          "description": "A view that shows or hides another view when the user opens or closes it.",
           "superclass": {
             "name": "HTMLDetailsElement"
           },
+          "events": [
+            {
+              "name": "is-expanded",
+              "type": {
+                "text": "Event"
+              }
+            },
+            {
+              "name": "is-collapsed",
+              "type": {
+                "text": "Event"
+              }
+            }
+          ],
           "attributes": [
             {
               "name": "open"
@@ -560,7 +574,7 @@
           "customElement": true,
           "name": "FormView",
           "tagName": "form-view",
-          "description": "",
+          "description": "A container view that groups controls together for entering data, like a settings screen.",
           "superclass": {
             "name": "HTMLFormElement"
           },
@@ -736,7 +750,7 @@
           "customElement": true,
           "name": "ImageView",
           "tagName": "image-view",
-          "description": "",
+          "description": "A view that displays an image.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -800,11 +814,11 @@
           "slots": [
             {
               "name": "",
-              "description": "Any children without a `slot` attribute are placed in the title block of the label."
+              "description": "Any children without a `slot` attribute are placed in the title block."
             },
             {
               "name": "icon",
-              "description": "Use the `slot=\"icon\"` attribute to place childen in the icon block of the label."
+              "description": "Use the `slot=\"icon\"` attribute to place childen in the icon block."
             }
           ]
         }
@@ -835,10 +849,26 @@
           "customElement": true,
           "name": "LabeledContent",
           "tagName": "labeled-content",
-          "description": "",
+          "description": "A container view that pairs a label with a value.",
           "superclass": {
             "name": "HTMLElement"
           },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot."
+            },
+            {
+              "name": "label",
+              "description": "Use the `slot=\"label\"` attribute to place childen in the label block."
+            },
+            {
+              "name": "header"
+            },
+            {
+              "name": "footer"
+            }
+          ],
           "attributes": [
             {
               "name": "value"
@@ -887,7 +917,7 @@
           "customElement": true,
           "name": "ListView",
           "tagName": "list-view",
-          "description": "",
+          "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -979,7 +1009,18 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "attributes": [
+            {
+              "name": "background-style"
+            },
+            {
+              "name": "padding"
+            },
+            {
+              "name": "navigation-bar-auto-hide"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1008,7 +1049,7 @@
           "customElement": true,
           "name": "NavigationSplitView",
           "tagName": "navigation-split-view",
-          "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.",
+          "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1040,7 +1081,7 @@
           "customElement": true,
           "name": "NavigationStack",
           "tagName": "navigation-stack",
-          "description": "A view that shows a main screen and lets you open other screens on top of it.",
+          "description": "A container view that shows a main screen and lets the user open other screens on top of it.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1072,11 +1113,14 @@
           "customElement": true,
           "name": "NavigationTitle",
           "tagName": "navigation-title",
-          "description": "",
+          "description": "A container view.",
           "superclass": {
             "name": "HTMLElement"
           },
           "attributes": [
+            {
+              "name": "padding"
+            },
             {
               "name": "value"
             },
@@ -1269,7 +1313,7 @@
           "customElement": true,
           "name": "ProgressView",
           "tagName": "progress-view",
-          "description": "A view that shows the progress toward completion of a task.",
+          "description": "A view that shows how far along a task is.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1373,7 +1417,7 @@
           "customElement": true,
           "name": "ScrollViewProxy",
           "tagName": "scroll-view-proxy",
-          "description": "A wrapper to {hv}-stacks",
+          "description": "A wrapper for {hv}-stacks",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1405,7 +1449,7 @@
           "customElement": true,
           "name": "ScrollView",
           "tagName": "scroll-view",
-          "description": "",
+          "description": "A view that scrolls its content when it doesn’t fit the screen.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1562,7 +1606,7 @@
           "customElement": true,
           "name": "SheetView",
           "tagName": "sheet-view",
-          "description": "",
+          "description": "A dialog that slides up over the current screen.",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -1594,7 +1638,7 @@
           "customElement": true,
           "name": "SidebarToggle",
           "tagName": "sidebar-toggle",
-          "description": "",
+          "description": "A control that shows or hides the sidebar view.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -1626,7 +1670,7 @@
           "customElement": true,
           "name": "SidebarView",
           "tagName": "sidebar-view",
-          "description": "",
+          "description": "A container view that arranges navigation destinations in a single column.",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -1690,7 +1734,7 @@
           "customElement": true,
           "name": "TabBar",
           "tagName": "tab-bar",
-          "description": "A screen that lets users switch between different views using buttons, tabs, or other controls.",
+          "description": "A container view that groups tab-items together along the top or bottom of the screen.",
           "superclass": {
             "name": "HTMLDialogElement"
           }
@@ -1722,7 +1766,7 @@
           "customElement": true,
           "name": "TabItem",
           "tagName": "tab-item",
-          "description": "",
+          "description": "A control that switches the tab view to this tab.",
           "superclass": {
             "name": "HTMLButtonElement"
           }
@@ -1754,7 +1798,7 @@
           "customElement": true,
           "name": "TabView",
           "tagName": "tab-view",
-          "description": "",
+          "description": "A container view that switches between screens using tabs.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -1843,7 +1887,7 @@
           "customElement": true,
           "name": "TableView",
           "tagName": "table-view",
-          "description": "Display selectable, sortable data arranged in rows and columns.",
+          "description": "A container view that arranges data in rows and columns, optionally letting the user select one or more of them.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -2194,7 +2238,7 @@
           "customElement": true,
           "name": "ToolBarItemGroup",
           "tagName": "tool-bar-item-group",
-          "description": "",
+          "description": "A container view that groups items together in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
           }
@@ -2226,7 +2270,7 @@
           "customElement": true,
           "name": "ToolBarItem",
           "tagName": "tool-bar-item",
-          "description": "A model that represents an item which can be placed in the toolbar or navigation bar.",
+          "description": "A view placed in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
           },
@@ -2269,7 +2313,7 @@
           "customElement": true,
           "name": "ToolBar",
           "tagName": "tool-bar",
-          "description": "Populates the toolbar or navigation bar with the specified items.",
+          "description": "A list of items placed into the toolbar or navigation bar around your content.",
           "superclass": {
             "name": "HTMLElement"
           },

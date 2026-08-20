@@ -2,7 +2,7 @@
 
 # TableView
 
-###### Display selectable, sortable data arranged in rows and columns.
+###### A container view that arranges data in rows and columns, optionally letting the user select one or more of them.
 
 `<table-view></table-view>`
 

@@ -2,7 +2,7 @@
 
 # TabItem
 
-######
+###### A control that switches the tab view to this tab.
 
 `<button is="tab-item"></button>`
 

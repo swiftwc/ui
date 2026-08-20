@@ -2,7 +2,7 @@
 
 # NavigationStack
 
-###### A view that shows a main screen and lets you open other screens on top of it.
+###### A container view that shows a main screen and lets the user open other screens on top of it.
 
 `<navigation-stack></navigation-stack>`
 

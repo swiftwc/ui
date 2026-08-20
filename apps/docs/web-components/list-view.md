@@ -2,7 +2,7 @@
 
 # ListView
 
-######
+###### A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.
 
 `<list-view></list-view>`
 

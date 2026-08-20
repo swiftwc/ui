@@ -2,7 +2,7 @@
 
 # TabBar
 
-###### A screen that lets users switch between different views using buttons, tabs, or other controls.
+###### A container view that groups tab-items together along the top or bottom of the screen.
 
 `<dialog is="tab-bar"></dialog>`
 

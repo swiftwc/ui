@@ -2,7 +2,7 @@
 
 # SidebarView
 
-######
+###### A container view that arranges navigation destinations in a single column.
 
 `<dialog is="sidebar-view"></dialog>`
 

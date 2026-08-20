@@ -2,7 +2,7 @@
 
 # TabView
 
-######
+###### A container view that switches between screens using tabs.
 
 `<tab-view></tab-view>`
 

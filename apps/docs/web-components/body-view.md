@@ -2,7 +2,7 @@
 
 # BodyView
 
-###### The content and behavior of the view.
+###### A container view that wraps a scroll view, marking it as a screen your app can navigate to.
 
 `<body-view></body-view>`
 

@@ -2,7 +2,7 @@
 
 # ImageView
 
-######
+###### A view that displays an image.
 
 `<image-view></image-view>`
 

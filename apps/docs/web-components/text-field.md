@@ -33,10 +33,10 @@
 | **`name`**                          |                   `string`                   |             |
 | **`text`**                          |                   `string`                   |             |
 | **`text-input-autocapitalization`** |                   `string`                   |             |
-| **`disable-autocorrection`**        |                   `string`                   |             |
+| **`disable-autocorrection`**        |                 `"boolean"`                  |             |
 | **`keyboard-type`**                 | `"decimal-pad" \| "number-pad" \| "default"` |             |
-| **`required`**                      |                 `"required"`                 |             |
-| **`disabled`**                      |                 `"disabled"`                 |             |
+| **`required`**                      |                 `"boolean"`                  |             |
+| **`disabled`**                      |                 `"boolean"`                  |             |
 
 </div>
 

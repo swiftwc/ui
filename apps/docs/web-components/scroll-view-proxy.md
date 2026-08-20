@@ -2,7 +2,7 @@
 
 # ScrollViewProxy
 
-###### A wrapper to {hv}-stacks.
+###### A wrapper for {hv}-stacks.
 
 `<scroll-view-proxy></scroll-view-proxy>`
 

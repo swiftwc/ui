@@ -2,7 +2,7 @@
 
 # ScrollView
 
-######
+###### A view that scrolls its content when it doesn’t fit the screen.
 
 `<scroll-view></scroll-view>`
 

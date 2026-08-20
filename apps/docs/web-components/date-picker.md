@@ -25,12 +25,12 @@
 | Name                    |                  Type                   | Description               |
 | ----------------------- | :-------------------------------------: | ------------------------- |
 | **`date-picker-style`** | `"graphical" \| "field" \| "automatic"` | The style of this element |
-| **`required`**          |              `"required"`               |                           |
+| **`required`**          |               `"boolean"`               |                           |
 | **`prompt`**            |                `string`                 |                           |
 | **`label`**             |                `string`                 |                           |
 | **`name`**              |                `string`                 |                           |
 | **`selection`**         |                `string`                 |                           |
-| **`disabled`**          |              `"disabled"`               |                           |
+| **`disabled`**          |               `"boolean"`               |                           |
 | **`minimum`**           |                `string`                 |                           |
 | **`maximum`**           |                `string`                 |                           |
 

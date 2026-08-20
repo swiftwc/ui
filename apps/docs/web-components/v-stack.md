@@ -58,8 +58,8 @@ Check out the documentation for the [full list of markdown extensions](https://v
 | Name               |                                         Type                                         | Description                      |
 | ------------------ | :----------------------------------------------------------------------------------: | -------------------------------- |
 | **`distribution`** | `"leading" \| "leading fill" \| "center" \| "trailing" \| "fill" \| "space-between"` | The distribution of cols         |
-| **`template`**     |        [`templateSet`](/installation/editor-setup/html-data.json#templateset)        | The main-axis grid template      |
-| **`spacing`**      |         [`spacingSet`](/installation/editor-setup/html-data.json#spacingset)         | The gap between the primary axis |
+| **`template`**     |           [`Template`](/installation/editor-setup/html-data.json#template)           | The main-axis grid template      |
+| **`spacing`**      |            [`Spacing`](/installation/editor-setup/html-data.json#spacing)            | The gap between the primary axis |
 | **`alignment`**    |          [`inlineSet`](/installation/editor-setup/html-data.json#inlineset)          | The cross-axis alignment         |
 | **`distribution`** |           [`blockSet`](/installation/editor-setup/html-data.json#blockset)           | The main-axis alignment          |
 | **`placement`**    |  [`blockPlacementSet`](/installation/editor-setup/html-data.json#blockplacementset)  | The main-axis alignment          |

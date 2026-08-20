@@ -2,7 +2,7 @@
 
 # LabeledContent
 
-######
+###### A container view that pairs a label with a value.
 
 `<labeled-content></labeled-content>`
 
@@ -33,7 +33,18 @@
 
 </div>
 
-### No Slots
+### Slots
+
+<div>
+
+| Name         | Description                                                           |
+| ------------ | --------------------------------------------------------------------- |
+| _default_    | The default slot.                                                     |
+| **`label`**  | Use the `slot="label"` attribute to place childen in the label block. |
+| **`header`** |                                                                       |
+| **`footer`** |                                                                       |
+
+</div>
 
 ### No Events
 

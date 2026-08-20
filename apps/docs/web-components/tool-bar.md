@@ -2,7 +2,7 @@
 
 # ToolBar
 
-###### Populates the toolbar or navigation bar with the specified items.
+###### A list of items placed into the toolbar or navigation bar around your content.
 
 `<tool-bar></tool-bar>`
 

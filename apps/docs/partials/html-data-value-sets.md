@@ -1,6 +1,6 @@
 <!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
-### fontSet
+### Font
 
 <div class="relative group">
 <input type="checkbox" id="show-more0" class="peer hidden">
@@ -34,7 +34,7 @@
 
 
 
-### spacingSet
+### Spacing
 
 <div class="relative group">
 <input type="checkbox" id="show-more1" class="peer hidden">
@@ -107,7 +107,7 @@
 
 
 
-### tintSet
+### Tint
 
 <div class="relative group">
 <input type="checkbox" id="show-more2" class="peer hidden">
@@ -135,7 +135,7 @@
 
 
 
-### foregroundSet
+### Foreground
 
 <div class="relative group">
 <input type="checkbox" id="show-more3" class="peer hidden">
@@ -291,7 +291,7 @@
 
 
 
-### templateSet
+### Template
 
 <div class="relative group">
 <input type="checkbox" id="show-more8" class="peer hidden">

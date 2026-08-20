@@ -3,7 +3,7 @@ import { html, queryMorph } from '../morphdom'
 
 /**
  * @summary A view that displays an image.
- * 
+ *
  */
 export class ImageView extends HTMLElement {
   static get observedAttributes() {

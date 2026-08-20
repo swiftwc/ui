@@ -2,7 +2,7 @@ import { NavigationView } from '../internal/class/navigation-view'
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.
+ * @summary A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
  */
 export class NavigationSplitView extends NavigationView {
   constructor() {

@@ -7,7 +7,7 @@ import { Snapshot } from '../snapshot'
 import type { LabelView } from './label-view'
 
 /**
- * @summary Display selectable, sortable data arranged in rows and columns.
+ * @summary A container view that arranges data in rows and columns, optionally letting the user select one or more of them.
  *
  * @attr {title:trailing:subtitle|trailing:title:subtitle|title:subtitle:trailing|*} preferred-compact-template — Sets the template areas when the table is in compact mode
  *

@@ -5,8 +5,7 @@ import { devFlags, isInside, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
- * A representation of a confirmation presentation.
- * Use it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.
+ * @summary A dialog that asks the user to confirm an action. Use it from the client module like `await confirmationDialog(trigger, 'Permanently erase the items in the Trash?')`.
  */
 export class ConfirmationDialog extends DialogBase {
   static get observedAttributes() {

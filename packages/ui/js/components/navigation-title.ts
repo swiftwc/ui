@@ -3,6 +3,11 @@ import { devFlags } from '../internal/utils'
 import { html, queryMorph } from '../morphdom'
 import type { ScrollView } from './scroll-view'
 
+/**
+ * @summary A container view.
+ *
+ * @attr {boolean} padding
+ */
 @microtaskOnConnected<NavigationTitle>((el) => {
   const sibling = el.closest<ScrollView>('scroll-view'),
     value = el.getAttribute('value'),

@@ -28,7 +28,7 @@ export class TextField extends FormAssociatedBase {
       'text',
       'text-input-autocapitalization',
       /**
-       * @type {""}
+       * @type {boolean}
        */
       'disable-autocorrection',
       /**
@@ -36,11 +36,11 @@ export class TextField extends FormAssociatedBase {
        */
       'keyboard-type',
       /**
-       * @type {required}
+       * @type {boolean}
        */
       'required',
       /**
-       * @type {disabled}
+       * @type {boolean}
        */
       'disabled',
     ]

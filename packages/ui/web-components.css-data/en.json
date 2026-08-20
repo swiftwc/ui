@@ -1,0 +1,28 @@
+{
+  "version": 1.1,
+  "properties": [
+    {
+      "name": "--accentColor",
+      "description": {
+        "kind": "markdown",
+        "value": "Sets the accent color used by interactive elements.\n\nRegistered via `@property` with `syntax: '<color>'`, `inherits: true`."
+      },
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/tokens/tint"
+        }
+      ],
+      "values": [
+        {
+          "name": "blue",
+          "description": "System blue"
+        },
+        {
+          "name": "red",
+          "description": "System red"
+        }
+      ]
+    }
+  ]
+}

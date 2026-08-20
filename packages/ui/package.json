@@ -21,7 +21,8 @@
   "files": [
     "generated",
     "scss",
-    "web-components.html-data"
+    "web-components.html-data",
+    "web-components.css-data"
   ],
   "sass": "scss/index.scss",
   "keywords": [
@@ -51,7 +52,8 @@
     "./scss": "./scss/index.scss",
     "./scss/*": "./scss/*.scss",
     "./customElements/en": "./custom-elements/en.json",
-    "./webComponentsHTMLData/en": "./web-components.html-data/en.json"
+    "./webComponentsHTMLData/en": "./web-components.html-data/en.json",
+    "./webComponentsCSSData/en": "./web-components.css-data/en.json"
   },
   "bin": {
     "swiftwc": "./generated/index.js"
@@ -63,7 +65,7 @@
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "build:ts": "tsc",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
-    "build:manifest": "tsx scripts/make-manifest.ts && prettier ./web-components.html-data/en.json --write",
+    "build:manifest": "tsx scripts/make-manifest.ts && prettier ./web-components.html-data/en.json && prettier ./web-components.css-data/en.json --write",
     "build:barrels": "npm run build:barrels:components && npm run build:barrels:events && npm run build:barrels:buses && npm run build:barrels:tpl && npm run build:barrels:morphdom && npm run build:barrels:i18n",
     "build:barrels:components": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --directory ./js/components --exclude \".\\.test\\.ts\"",
     "build:barrels:events": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --directory ./js/events --exclude \".\\.test\\.ts\"",

@@ -4,6 +4,9 @@ import { debounce, devFlags, onoff } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
+/**
+ * @summary A control that shows or hides the sidebar view.
+ */
 export class SidebarToggle extends HTMLElement {
   constructor() {
     super()

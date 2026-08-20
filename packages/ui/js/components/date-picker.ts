@@ -24,7 +24,7 @@ export class DatePicker extends FormAssociatedBase {
        */
       'date-picker-style',
       /**
-       * @type {required}
+       * @type {boolean}
        */
       'required',
       'prompt',
@@ -32,7 +32,7 @@ export class DatePicker extends FormAssociatedBase {
       'name',
       'selection',
       /**
-       * @type {disabled}
+       * @type {boolean}
        */
       'disabled',
       'minimum',

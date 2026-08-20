@@ -9,7 +9,7 @@ const progressViewStyles = ['circular', 'linear'] as const
 type ProgressViewStyle = (typeof progressViewStyles)[number]
 
 /**
- * @summary A view that shows the progress toward completion of a task.
+ * @summary A view that shows how far along a task is.
  *
  * @slot — The default slot.
  * @slot current-value

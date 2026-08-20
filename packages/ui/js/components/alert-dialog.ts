@@ -5,7 +5,7 @@ import { devFlags, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
- * @summary A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.
+ * @summaryA dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.
  */
 export class AlertDialog extends DialogBase {
   constructor() {

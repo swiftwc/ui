@@ -253,6 +253,7 @@ interface VsHtmlDataAttr {
   description?: string
   values?: { name?: string; description?: string }[]
   valueSet?: string
+  references?: VsHtmlReferenceAttr[]
 }
 
 interface VsHtmlReferenceAttr {
@@ -275,7 +276,7 @@ const htmlData: VsHtmlDataV1 = {
     {
       name: 'tint',
       description: 'Sets accent color',
-      valueSet: 'tintSet',
+      valueSet: 'Tint',
       // values: [
       //   { name: 'infinity', description: '100%' },
       //   { name: '0', description: '0rem' },
@@ -286,12 +287,12 @@ const htmlData: VsHtmlDataV1 = {
     {
       name: 'list-item-tint',
       description: 'Sets accent color on list items',
-      valueSet: 'tintSet',
+      valueSet: 'Tint',
     },
     {
       name: 'foreground',
       description: 'Sets foreground color',
-      valueSet: 'foregroundSet',
+      valueSet: 'Foreground',
     },
     {
       name: 'frame:width',
@@ -306,7 +307,7 @@ const htmlData: VsHtmlDataV1 = {
   ],
   valueSets: [
     {
-      name: 'fontSet',
+      name: 'Font',
       values: [
         { name: 'footnote', description: 'A font with the footnote text style' },
         { name: 'caption2', description: 'Create a font with the alternate caption text style' },
@@ -324,11 +325,11 @@ const htmlData: VsHtmlDataV1 = {
       ],
     },
     {
-      name: 'spacingSet',
+      name: 'Spacing',
       values: Array.from({ length: 51 }, (_, i) => ({ name: String(i), description: `${i / 10}rem` })),
     },
     {
-      name: 'tintSet',
+      name: 'Tint',
       values:
         names.get('$tint-names')?.map((item) => ({
           name: item,
@@ -336,7 +337,7 @@ const htmlData: VsHtmlDataV1 = {
         })) ?? [],
     },
     {
-      name: 'foregroundSet',
+      name: 'Foreground',
       values: Array.from(tokens.get('$foreground-tokens')?.entries() ?? []).map((item) => ({
         name: item[0],
         description: `Applies the system ${0 <= item[0].indexOf('.') ? `${item[0].split('.').pop()} ` : ''}${item[0].split('.').shift()} color (\`${item[1]}\`)`,
@@ -375,7 +376,7 @@ const htmlData: VsHtmlDataV1 = {
         })) ?? [],
     },
     {
-      name: 'templateSet',
+      name: 'Template',
       values:
         listVals.get('$stack-templates-list-vals')?.map((item) => ({
           name: item.replace('minmax(0, 1fr)', 'spacer').replace(/repeat\(([^)]*)\)/g, (_, inner) => `repeat(${inner.replace(/\s+/g, '')})`),
@@ -398,6 +399,24 @@ const htmlData: VsHtmlDataV1 = {
         { name: '0', description: '0rem' },
         { name: '1', description: '1rem' },
         { name: '2', description: '2rem' },
+      ],
+    },
+  ],
+}
+
+const cssData = {
+  version: 1.1,
+  properties: [
+    {
+      name: '--accentColor',
+      description: {
+        kind: 'markdown',
+        value: "Sets the accent color used by interactive elements.\n\nRegistered via `@property` with `syntax: '<color>'`, `inherits: true`.",
+      },
+      references: [{ name: 'Documentation', url: 'https://swiftwc.github.io/ui/tokens/tint' }],
+      values: [
+        { name: 'blue', description: 'System blue' },
+        { name: 'red', description: 'System red' },
       ],
     },
   ],
@@ -556,7 +575,7 @@ for (const sourceFile of project.getSourceFiles()) {
     if (leading) {
       const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
-      if (description) htmlDataTagDescMap.set('desc', [description])
+      // if (description) htmlDataTagDescMap.set('desc', [description])
 
       htmlDataTag.references = [
         {
@@ -564,12 +583,15 @@ for (const sourceFile of project.getSourceFiles()) {
           url: `https://swiftwc.github.io/ui/web-components/${is}`,
         },
       ]
-      module.declarations[0].description = description
+      // module.declarations[0].description = description
 
       for (const tag of tags ?? []) {
         switch (tag.title) {
           case 'summary':
-            htmlDataTag.description = tag.description ?? undefined
+            module.declarations[0].description = tag.description ?? ''
+
+            if (tag.description) htmlDataTagDescMap.set('desc', [tag.description]) //htmlDataTag.description = tag.description ?? undefined
+
             module.declarations[0].description = tag.description ?? ''
 
             // TODO: override name with @element!
@@ -664,6 +686,18 @@ for (const sourceFile of project.getSourceFiles()) {
           name: prop.getText().replace(/['"`]/g, ''),
         }
 
+        switch (attr.name) {
+          case 'disabled': {
+            attr.references = [
+              {
+                name: 'MDN — disabled',
+                url: 'https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled',
+              },
+            ]
+            break
+          }
+        }
+
         const leading = prop
           .getLeadingCommentRanges()
           .map((c) => c.getText().trim())
@@ -712,5 +746,7 @@ for (const sourceFile of project.getSourceFiles()) {
 }
 
 writeFileSync(resolve(__dirname, '../web-components.html-data/en.json'), JSON.stringify(htmlData, null, 2))
+
+writeFileSync(resolve(__dirname, '../web-components.css-data/en.json'), JSON.stringify(cssData, null, 2))
 
 writeFileSync(resolve(__dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))

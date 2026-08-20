@@ -3,7 +3,7 @@ import { devFlags, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
- * @summary A screen that lets users switch between different views using buttons, tabs, or other controls.
+ * @summary A container view that groups tab-items together along the top or bottom of the screen.
  */
 export class TabBar extends DialogBase {
   constructor() {

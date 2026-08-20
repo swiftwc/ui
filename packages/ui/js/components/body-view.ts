@@ -1,7 +1,7 @@
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary The content and behavior of the view.
+ * @summary A container view that wraps a scroll view, marking it as a screen your app can navigate to.
  */
 export class BodyView extends HTMLElement {
   constructor() {

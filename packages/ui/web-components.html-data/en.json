@@ -9,7 +9,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/alert-dialog"
         }
       ],
-      "description": ""
+      "description": "A representation of an alert presentation. Use it from the client module like `void alert('Save failed.')`.\n---"
     },
     {
       "name": "body-view",
@@ -19,7 +19,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/body-view"
         }
       ],
-      "description": ""
+      "description": "The content and behavior of the view.\n---"
     },
     {
       "name": "bordered-button",
@@ -29,7 +29,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -46,7 +45,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.\n---\n\n### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```"
     },
     {
       "name": "bordered-prominent-button",
@@ -56,7 +56,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/bordered-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent bordered button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -73,7 +72,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.\n---\n\n### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent bordered button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```"
     },
     {
       "name": "borderless-button",
@@ -83,7 +83,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/borderless-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a `borderless-button`:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -100,7 +99,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A control that starts an action. Styled without any borders.\n---\n\n### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a `borderless-button`:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```"
     },
     {
       "name": "color-scheme",
@@ -124,7 +124,7 @@
           "name": "anchor"
         }
       ],
-      "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.\n---"
+      "description": ""
     },
     {
       "name": "content-unavailable",
@@ -134,12 +134,12 @@
           "url": "https://swiftwc.github.io/ui/web-components/content-unavailable"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```",
       "attributes": [
         {
           "name": "search"
         }
-      ]
+      ],
+      "description": "A message with a title and extra information that you show when part of your app can’t be used.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **description**\n- **actions**\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```"
     },
     {
       "name": "date-picker",
@@ -149,7 +149,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/date-picker"
         }
       ],
-      "description": "### **Properties:**\n- readonly **template** — DocumentFragment\n- readonly **datePickerStyle** — \"graphical\" | \"field\" | \"automatic\"\n- readonly **name** — string\n- readonly **value** — { year: string; month: string; day: string; }\n- readonly **valueAsDate** — Date | null\n- readonly **minimum** — { year: string; month: string; day: string; } | null\n- readonly **maximum** — { year: string; month: string; day: string; } | null",
       "attributes": [
         {
           "name": "date-picker-style",
@@ -168,10 +167,10 @@
         },
         {
           "name": "required",
-          "description": "Value Type: “required”",
+          "description": "Value Type: “boolean”",
           "values": [
             {
-              "name": "required"
+              "name": "boolean"
             }
           ]
         },
@@ -189,10 +188,16 @@
         },
         {
           "name": "disabled",
-          "description": "Value Type: “disabled”",
+          "references": [
+            {
+              "name": "MDN — disabled",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
+            }
+          ],
+          "description": "Value Type: “boolean”",
           "values": [
             {
-              "name": "disabled"
+              "name": "boolean"
             }
           ]
         },
@@ -202,7 +207,8 @@
         {
           "name": "maximum"
         }
-      ]
+      ],
+      "description": "A control that selects an absolute date.\n---\n\n### **Properties:**\n- readonly **template** — DocumentFragment\n- readonly **datePickerStyle** — \"graphical\" | \"field\" | \"automatic\"\n- readonly **name** — string\n- readonly **value** — { year: string; month: string; day: string; }\n- readonly **valueAsDate** — Date | null\n- readonly **minimum** — { year: string; month: string; day: string; } | null\n- readonly **maximum** — { year: string; month: string; day: string; } | null"
     },
     {
       "name": "disclosure-group",
@@ -212,13 +218,13 @@
           "url": "https://swiftwc.github.io/ui/web-components/disclosure-group"
         }
       ],
-      "description": "### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```",
       "attributes": [
         {
           "name": "open",
           "description": "The status of this element"
         }
-      ]
+      ],
+      "description": "A view that shows or hides another content view, based on the state of a disclosure control.\n---\n\n### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```"
     },
     {
       "name": "fine-tooltip",
@@ -253,7 +259,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -270,7 +275,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.\n---\n\n### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```"
     },
     {
       "name": "glass-prominent-button",
@@ -280,7 +286,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/glass-prominent-button"
         }
       ],
-      "description": "### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```",
       "attributes": [
         {
           "name": "role",
@@ -297,7 +302,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n### **Slots:**\n- **overlay**\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```"
     },
     {
       "name": "h-stack",
@@ -307,17 +313,16 @@
           "url": "https://swiftwc.github.io/ui/web-components/h-stack"
         }
       ],
-      "description": "",
       "attributes": [
         {
           "name": "template",
           "description": "\nDescription: The main-axis grid template",
-          "valueSet": "templateSet"
+          "valueSet": "Template"
         },
         {
           "name": "spacing",
           "description": "\nDescription: The gap between the primary axis",
-          "valueSet": "spacingSet"
+          "valueSet": "Spacing"
         },
         {
           "name": "alignment",
@@ -334,7 +339,8 @@
           "description": "\nDescription: The main-axis alignment",
           "valueSet": "inlinePlacementSet"
         }
-      ]
+      ],
+      "description": "A view that arranges its children side by side.\n---"
     },
     {
       "name": "image-view",
@@ -356,12 +362,11 @@
           "url": "https://swiftwc.github.io/ui/web-components/label-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — Any children without a `slot` attribute are placed in the title block of the label.\n- **icon** — Use the `slot=\"icon\"` attribute to place childen in the icon block of the label.\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```",
       "attributes": [
         {
           "name": "font",
           "description": "\nDescription: Sets the default font for text in this view.",
-          "valueSet": "fontSet"
+          "valueSet": "Font"
         },
         {
           "name": "system-image"
@@ -381,7 +386,8 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "A view that labels items with an icon and a title.\n---\n\n### **Slots:**\n- _default_ — Any children without a `slot` attribute are placed in the title block of the label.\n- **icon** — Use the `slot=\"icon\"` attribute to place childen in the icon block of the label.\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```"
     },
     {
       "name": "labeled-content",
@@ -445,7 +451,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/menu-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**",
       "attributes": [
         {
           "name": "open"
@@ -456,7 +461,8 @@
         {
           "name": "label"
         }
-      ]
+      ],
+      "description": "A control that opens a menu of actions.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **label**"
     },
     {
       "name": "navigation-large-title",
@@ -470,7 +476,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-split-view"
         }
       ],
-      "description": ""
+      "description": "A view with two or three side-by-side sections, where what you choose in the left section changes what appears in the next section.\n---"
     },
     {
       "name": "navigation-stack",
@@ -480,7 +486,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-stack"
         }
       ],
-      "description": ""
+      "description": "A view that shows a main screen and lets you open other screens on top of it.\n---"
     },
     {
       "name": "navigation-title",
@@ -508,7 +514,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/picker-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string",
       "attributes": [
         {
           "name": "picker-style",
@@ -564,7 +569,8 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "A control that selects one value from a set of options.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **label**\n- **list**\n- **validity-options**\n\n### **Properties:**\n- **selection** — string\n- readonly **template** — DocumentFragment\n- readonly **pickerStyle** — \"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\"\n- readonly **name** — string"
     },
     {
       "name": "plain-button",
@@ -578,7 +584,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/progress-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **current-value**\n\n### **Properties:**\n- readonly **progressViewStyle** — \"circular\" | \"linear\"\n- readonly **template** — DocumentFragment",
       "attributes": [
         {
           "name": "label"
@@ -589,7 +594,8 @@
         {
           "name": "value"
         }
-      ]
+      ],
+      "description": "A view that shows the progress toward completion of a task.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **current-value**\n\n### **Properties:**\n- readonly **progressViewStyle** — \"circular\" | \"linear\"\n- readonly **template** — DocumentFragment"
     },
     {
       "name": "screen-view",
@@ -603,7 +609,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/scroll-view-proxy"
         }
       ],
-      "description": ""
+      "description": "A wrapper to {hv}-stacks\n---"
     },
     {
       "name": "scroll-view",
@@ -645,7 +651,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/section-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **header**\n- **footer**",
       "attributes": [
         {
           "name": "header"
@@ -653,7 +658,8 @@
         {
           "name": "footer"
         }
-      ]
+      ],
+      "description": "A container view that groups related content together.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **header**\n- **footer**"
     },
     {
       "name": "sheet-view",
@@ -679,7 +685,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-bar"
         }
       ],
-      "description": ""
+      "description": "A screen that lets users switch between different views using buttons, tabs, or other controls.\n---"
     },
     {
       "name": "tab-item",
@@ -703,7 +709,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/table-view"
         }
       ],
-      "description": "### **Slots:**\n- _default_ — The default slot.\n- **header-leading**\n- **header-principal**\n- **header-trailing**\n- **column**\n- **footer-leading**\n- **footer-principal**\n- **footer-trailing**",
       "attributes": [
         {
           "name": "preferred-compact-template",
@@ -723,7 +728,8 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "Display selectable, sortable data arranged in rows and columns.\n---\n\n### **Slots:**\n- _default_ — The default slot.\n- **header-leading**\n- **header-principal**\n- **header-trailing**\n- **column**\n- **footer-leading**\n- **footer-principal**\n- **footer-trailing**"
     },
     {
       "name": "text-field",
@@ -733,7 +739,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/text-field"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean",
       "attributes": [
         {
           "name": "prompt"
@@ -764,7 +769,12 @@
         },
         {
           "name": "disable-autocorrection",
-          "description": ""
+          "description": "Value Type: “boolean”",
+          "values": [
+            {
+              "name": "boolean"
+            }
+          ]
         },
         {
           "name": "keyboard-type",
@@ -783,23 +793,30 @@
         },
         {
           "name": "required",
-          "description": "Value Type: “required”",
+          "description": "Value Type: “boolean”",
           "values": [
             {
-              "name": "required"
+              "name": "boolean"
             }
           ]
         },
         {
           "name": "disabled",
-          "description": "Value Type: “disabled”",
+          "references": [
+            {
+              "name": "MDN — disabled",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
+            }
+          ],
+          "description": "Value Type: “boolean”",
           "values": [
             {
-              "name": "disabled"
+              "name": "boolean"
             }
           ]
         }
-      ]
+      ],
+      "description": "A control that displays an editable text area.\n---\n\n### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean"
     },
     {
       "name": "toggle-view",
@@ -809,7 +826,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/toggle-view"
         }
       ],
-      "description": "### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string\n- **value** — string | null\n\n### **Events:**\n- **toggle:change** — User toggled the control",
       "attributes": [
         {
           "name": "label"
@@ -830,9 +846,16 @@
           "name": "required"
         },
         {
-          "name": "disabled"
+          "name": "disabled",
+          "references": [
+            {
+              "name": "MDN — disabled",
+              "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
+            }
+          ]
         }
-      ]
+      ],
+      "description": "A control that switches between on and off states.\n---\n\n### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string\n- **value** — string | null\n\n### **Events:**\n- **toggle:change** — User toggled the control"
     },
     {
       "name": "tool-bar-item-group",
@@ -842,7 +865,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item-group"
         }
       ],
-      "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.\n---"
+      "description": ""
     },
     {
       "name": "tool-bar-item",
@@ -852,7 +875,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item"
         }
       ],
-      "description": "",
       "attributes": [
         {
           "name": "slot"
@@ -863,7 +885,8 @@
         {
           "name": "title-key"
         }
-      ]
+      ],
+      "description": "A model that represents an item which can be placed in the toolbar or navigation bar.\n---"
     },
     {
       "name": "tool-bar",
@@ -873,7 +896,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar"
         }
       ],
-      "description": "### **Slots:**\n- **cancellation-action** — The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **primary-action** — The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **confirmation-action** — The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **destructive-action** — The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n- **top-bar-leading** — Places the item in the leading edge of the top bar\n- **top-bar-principal** — Places the item in the middle of the top bar\n- **top-bar-trailing** — Places the item in the trailing edge of the top bar\n- **bottom-bar-leading** — Places the item in the leading edge of the bottom bar\n- **bottom-bar-principal** — Places the item in the middle of the bottom bar\n- **bottom-bar-trailing** — Places the item in the trailing edge of the bottom bar"
+      "description": "Populates the toolbar or navigation bar with the specified items.\n---\n\n### **Slots:**\n- **cancellation-action** — The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **primary-action** — The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **confirmation-action** — The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n- **destructive-action** — The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n- **top-bar-leading** — Places the item in the leading edge of the top bar\n- **top-bar-principal** — Places the item in the middle of the top bar\n- **top-bar-trailing** — Places the item in the trailing edge of the top bar\n- **bottom-bar-leading** — Places the item in the leading edge of the bottom bar\n- **bottom-bar-principal** — Places the item in the middle of the bottom bar\n- **bottom-bar-trailing** — Places the item in the trailing edge of the bottom bar"
     },
     {
       "name": "v-keyboard",
@@ -883,7 +906,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/v-keyboard"
         }
       ],
-      "description": "BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.\nSo we live with a pescy body-scrollbar that shows up on resize on desktops.\n---",
       "attributes": [
         {
           "name": "system-font",
@@ -894,7 +916,8 @@
             }
           ]
         }
-      ]
+      ],
+      "description": "Required component, used to handle the virtual keyboard on touch devices.\n---"
     },
     {
       "name": "v-stack",
@@ -904,7 +927,6 @@
           "url": "https://swiftwc.github.io/ui/web-components/v-stack"
         }
       ],
-      "description": "",
       "attributes": [
         {
           "name": "distribution",
@@ -933,12 +955,12 @@
         {
           "name": "template",
           "description": "\nDescription: The main-axis grid template",
-          "valueSet": "templateSet"
+          "valueSet": "Template"
         },
         {
           "name": "spacing",
           "description": "\nDescription: The gap between the primary axis",
-          "valueSet": "spacingSet"
+          "valueSet": "Spacing"
         },
         {
           "name": "alignment",
@@ -955,24 +977,25 @@
           "description": "\nDescription: The main-axis alignment",
           "valueSet": "blockPlacementSet"
         }
-      ]
+      ],
+      "description": "A view that arranges its children one on top of the other.\n---"
     }
   ],
   "globalAttributes": [
     {
       "name": "tint",
       "description": "Sets accent color",
-      "valueSet": "tintSet"
+      "valueSet": "Tint"
     },
     {
       "name": "list-item-tint",
       "description": "Sets accent color on list items",
-      "valueSet": "tintSet"
+      "valueSet": "Tint"
     },
     {
       "name": "foreground",
       "description": "Sets foreground color",
-      "valueSet": "foregroundSet"
+      "valueSet": "Foreground"
     },
     {
       "name": "frame:width",
@@ -987,7 +1010,7 @@
   ],
   "valueSets": [
     {
-      "name": "fontSet",
+      "name": "Font",
       "values": [
         {
           "name": "footnote",
@@ -1040,7 +1063,7 @@
       ]
     },
     {
-      "name": "spacingSet",
+      "name": "Spacing",
       "values": [
         {
           "name": "0",
@@ -1249,7 +1272,7 @@
       ]
     },
     {
-      "name": "tintSet",
+      "name": "Tint",
       "values": [
         {
           "name": "gray",
@@ -1278,7 +1301,7 @@
       ]
     },
     {
-      "name": "foregroundSet",
+      "name": "Foreground",
       "values": [
         {
           "name": "secondary",
@@ -1487,7 +1510,7 @@
       ]
     },
     {
-      "name": "templateSet",
+      "name": "Template",
       "values": [
         {
           "name": "spacer",

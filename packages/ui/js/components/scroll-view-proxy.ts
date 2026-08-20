@@ -1,7 +1,7 @@
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary A wrapper to {hv}-stacks
+ * @summary A wrapper for {hv}-stacks
  */
 export class ScrollViewProxy extends HTMLElement {
   constructor() {

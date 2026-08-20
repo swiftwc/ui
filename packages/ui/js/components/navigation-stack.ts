@@ -2,7 +2,7 @@ import { NavigationView } from '../internal/class/navigation-view'
 import { devFlags } from '../internal/utils'
 
 /**
- * @summary A view that shows a main screen and lets you open other screens on top of it.
+ * @summary A container view that shows a main screen and lets the user open other screens on top of it.
  */
 export class NavigationStack extends NavigationView {
   constructor() {

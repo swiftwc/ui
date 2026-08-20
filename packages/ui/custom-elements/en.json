@@ -247,7 +247,7 @@
           "customElement": true,
           "name": "ConfirmationDialog",
           "tagName": "confirmation-dialog",
-          "description": "A representation of a confirmation presentation.\nUse it from the client module like `await confirmation(trigger, 'Permanently erase the items in the Trash?')`.",
+          "description": "",
           "superclass": {
             "name": "HTMLDialogElement"
           },
@@ -2194,7 +2194,7 @@
           "customElement": true,
           "name": "ToolBarItemGroup",
           "tagName": "tool-bar-item-group",
-          "description": "A model that represents a group of `ToolbarItems` which can be placed in the toolbar or navigation bar.",
+          "description": "",
           "superclass": {
             "name": "HTMLElement"
           }

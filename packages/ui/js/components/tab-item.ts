@@ -6,6 +6,9 @@ import { type NavigationSplitView } from './navigation-split-view'
 import { type NavigationStack } from './navigation-stack'
 import { TabView } from './tab-view'
 
+/**
+ * @summary A control that switches the tab view to this tab.
+ */
 export class TabItem extends ButtonBase {
   constructor() {
     super()

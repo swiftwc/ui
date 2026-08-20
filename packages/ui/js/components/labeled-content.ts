@@ -8,6 +8,14 @@ interface ParsedFormat {
   options: Record<string, string>
 }
 
+/**
+ * @summary A container view that pairs a label with a value.
+ * 
+ * @slot — The default slot.
+ * @slot label — Use the `slot="label"` attribute to place childen in the label block.
+ * @slot header
+ * @slot footer
+ */
 export class LabeledContent extends HTMLElement {
   static get observedAttributes() {
     return [

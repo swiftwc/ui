@@ -2,6 +2,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { devFlags, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
+/**
+ * @summary A container view that arranges navigation destinations in a single column.
+ */
 export class SidebarView extends DialogBase {
   constructor() {
     super()

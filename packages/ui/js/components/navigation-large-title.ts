@@ -79,6 +79,13 @@ function isIntersectingWithContainer(el: HTMLElement, container: HTMLElement, ro
   return !(elRect.bottom < marginRect.top || elRect.top > marginRect.bottom || elRect.right < marginRect.left || elRect.left > marginRect.right)
 }
 
+/**
+ *
+ * @attr {grouped} background-style
+ * @attr {boolean} padding
+ * @attr {boolean} navigation-bar-auto-hide
+ *
+ */
 export class NavigationLargeTitle extends HTMLElement {
   #styleObserver?: CSSStyleObserver
   #scrollObserver?: IntersectionObserver

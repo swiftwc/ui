@@ -2,6 +2,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { devFlags, onoff } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
+/**
+ * @summary A dialog that slides up over the current screen.
+ */
 export class SheetView extends DialogBase {
   constructor() {
     super()

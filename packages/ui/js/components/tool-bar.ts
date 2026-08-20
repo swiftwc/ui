@@ -4,7 +4,7 @@ import { $, devFlags } from '../internal/utils'
 const observers = new ResizeObserverSingleton()
 
 /**
- * @summary Populates the toolbar or navigation bar with the specified items.
+ * @summary A list of items placed into the toolbar or navigation bar around your content.
  *
  * @slot cancellation-action — The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal
  * @slot primary-action — The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal

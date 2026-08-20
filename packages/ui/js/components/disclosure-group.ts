@@ -5,15 +5,19 @@ import { DetailsBase } from '../namespace-browser/base'
 const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>()
 
 /**
- * @summary A view that shows or hides another content view, based on the state of a disclosure control.
+ * @summary A view that shows or hides another view when the user opens or closes it.
  *
  * @example <details is="disclosure-group"><summary><label-view title="Items"></label-view></summary><label-view title="Item 1"></label-view><label-view title="Item 2"></label-view><details is="disclosure-group"><summary><label-view title="Sub-items"></label-view></summary><label-view title="Sub-item 1"></label-view></details></details>
+ *
+ * @fires is-expanded
+ * @fires is-collapsed
  */
 export class DisclosureGroup extends DetailsBase {
   static get observedAttributes() {
     return [
       /**
        * The status of this element
+       * @type {boolean}
        */
       'open',
     ]

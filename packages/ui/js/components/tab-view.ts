@@ -12,6 +12,7 @@ const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as c
 export type TabBarPlacement = (typeof TAB_BAR_PLACEMENTS)[number]
 
 /**
+ * @summary A container view that switches between screens using tabs.
  *
  * @cssprop --adaptable-tab-bar-placement
  *

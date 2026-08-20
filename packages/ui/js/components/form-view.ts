@@ -3,6 +3,8 @@ import { devFlags, listActive, onoff } from '../internal/utils'
 import { FormBase } from '../namespace-browser/base'
 
 /**
+ * @summary A container view that groups controls together for entering data, like a settings screen.
+ *
  * @attr {hidden} navigation-link-indicator-visibility — Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
  */
 export class FormView extends FormBase {

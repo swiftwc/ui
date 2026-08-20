@@ -4,7 +4,7 @@ import { devFlags, ensurePlaceholder, onoff, touchGlass } from '../internal/util
 import { Snapshot } from '../snapshot'
 
 /**
- * @summary A model that represents an item which can be placed in the toolbar or navigation bar.
+ * @summary A view placed in the toolbar or navigation bar.
  */
 @adaptiveSlot((el) => !el.closest('tool-bar-item-group'))
 export class ToolBarItem extends HTMLElement {

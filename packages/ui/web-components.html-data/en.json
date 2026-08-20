@@ -873,13 +873,15 @@
           "name": "value"
         },
         {
-          "name": "is-on"
+          "name": "is-on",
+          "description": "Value Type: boolean"
         },
         {
           "name": "keyboard-type"
         },
         {
-          "name": "required"
+          "name": "required",
+          "description": "Value Type: boolean"
         },
         {
           "name": "disabled",
@@ -888,7 +890,8 @@
               "name": "MDN — disabled",
               "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
             }
-          ]
+          ],
+          "description": "Value Type: boolean"
         }
       ],
       "description": "A control that switches between on and off states.\n---\n\n### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **toggleStyle** — \"button\" | \"switch\"\n- **isOn** — boolean\n- readonly **name** — string\n- **value** — string | null\n\n### **Events:**\n- **toggle:change** — User toggled the control"

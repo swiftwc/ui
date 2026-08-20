@@ -22,15 +22,15 @@
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                |   Type   | Description |
-| ------------------- | :------: | ----------- |
-| **`label`**         | `string` |             |
-| **`name`**          | `string` |             |
-| **`value`**         | `string` |             |
-| **`is-on`**         | `string` |             |
-| **`keyboard-type`** | `string` |             |
-| **`required`**      | `string` |             |
-| **`disabled`**      | `string` |             |
+| Name                |   Type    | Description |
+| ------------------- | :-------: | ----------- |
+| **`label`**         | `string`  |             |
+| **`name`**          | `string`  |             |
+| **`value`**         | `string`  |             |
+| **`is-on`**         | `boolean` |             |
+| **`keyboard-type`** | `string`  |             |
+| **`required`**      | `boolean` |             |
+| **`disabled`**      | `boolean` |             |
 
 </div>
 

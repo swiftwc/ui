@@ -19,7 +19,24 @@ export type ToggleStyle = (typeof toggleStyles)[number]
  */
 export class ToggleView extends FormAssociatedBase {
   static get observedAttributes() {
-    return ['label', 'name', 'value', 'is-on', 'keyboard-type', 'required', 'disabled']
+    return [
+      'label',
+      'name',
+      'value',
+      /**
+       * @type {boolean}
+       */
+      'is-on',
+      'keyboard-type',
+      /**
+       * @type {boolean}
+       */
+      'required',
+      /**
+       * @type {boolean}
+       */
+      'disabled',
+    ]
   }
 
   static #template: DocumentFragment

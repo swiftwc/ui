@@ -4,7 +4,13 @@
 
 ###### A container view that groups tab-items together along the top or bottom of the screen.
 
-`<dialog is="tab-bar"></dialog>`
+```ts
+interface TabBarSignature {
+  Declaration: '<dialog is="tab-bar"></dialog>'
+}
+
+class TabBar extends HTMLDialogElement<TabBarSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLDialogElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

@@ -4,7 +4,35 @@
 
 ###### A container view that pairs a label with a value.
 
-`<labeled-content></labeled-content>`
+```ts
+interface LabeledContentSignature {
+  Declaration: '<labeled-content></labeled-content>'
+
+  Attributes: {
+    value: string
+    label: string
+    header: string
+    footer: string
+    'labeled-content-style': 'vertical' | 'horizontal'
+    format: string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    label: [] // Use the `slot="label"` attribute to place childen in the label block.
+    header: []
+    footer: []
+  }
+}
+
+class LabeledContent extends HTMLElement<LabeledContentSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'labeled-content': LabeledContent
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,41 +43,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                        |             Type             | Description |
-| --------------------------- | :--------------------------: | ----------- |
-| **`value`**                 |           `string`           |             |
-| **`label`**                 |           `string`           |             |
-| **`header`**                |           `string`           |             |
-| **`footer`**                |           `string`           |             |
-| **`labeled-content-style`** | `"vertical" \| "horizontal"` |             |
-| **`format`**                |           `string`           |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name         | Description                                                           |
-| ------------ | --------------------------------------------------------------------- |
-| _default_    | The default slot.                                                     |
-| **`label`**  | Use the `slot="label"` attribute to place childen in the label block. |
-| **`header`** |                                                                       |
-| **`footer`** |                                                                       |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

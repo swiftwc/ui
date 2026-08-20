@@ -4,7 +4,13 @@
 
 ###### A control that switches the tab view to this tab.
 
-`<button is="tab-item"></button>`
+```ts
+interface TabItemSignature {
+  Declaration: '<button is="tab-item"></button>'
+}
+
+class TabItem extends HTMLButtonElement<TabItemSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLButtonElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

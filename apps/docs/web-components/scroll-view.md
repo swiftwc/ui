@@ -4,7 +4,35 @@
 
 ###### A view that scrolls its content when it doesn’t fit the screen.
 
-`<scroll-view></scroll-view>`
+```ts
+interface ScrollViewSignature {
+  Declaration: '<scroll-view></scroll-view>'
+
+  Attributes: {
+    'navigation-title': string // Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"><span>Navigation Title</span></label-view></v-stack>`
+    'navigation-inline-title': string
+    'navigation-inline-subtitle': string
+    'navigation-icon': string
+    'navigation-bar-title-display-mode': string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    'top-bar-principal': []
+    'bottom-bar-principal': []
+  }
+}
+
+class ScrollView extends HTMLElement<ScrollViewSignature> {
+  centerScrollToElement(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'scroll-view': ScrollView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,54 +43,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                                    |   Type   | Description |
-| --------------------------------------- | :------: | ----------- |
-| **`navigation-title`**                  | `string` |             |
-| **`navigation-inline-title`**           | `string` |             |
-| **`navigation-inline-subtitle`**        | `string` |             |
-| **`navigation-icon`**                   | `string` |             |
-| **`navigation-bar-title-display-mode`** | `string` |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name                       | Description       |
-| -------------------------- | ----------------- |
-| _default_                  | The default slot. |
-| **`top-bar-principal`**    |                   |
-| **`bottom-bar-principal`** |                   |
-
-</div>
-
-### No Events
-
-### Properties
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name | Type | Description |
-| ---- | :--: | ----------- |
-
-</div>
-
-### Methods
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                        | Returns | Description |
-| --------------------------- | :-----: | ----------- |
-| **`centerScrollToElement`** | `void`  |             |
-
-</div>
 
 <!-- #endregion post -->

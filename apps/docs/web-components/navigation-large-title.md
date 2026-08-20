@@ -4,7 +4,25 @@
 
 ######
 
-`<navigation-large-title></navigation-large-title>`
+```ts
+interface NavigationLargeTitleSignature {
+  Declaration: '<navigation-large-title></navigation-large-title>'
+
+  Attributes: {
+    'background-style': 'grouped'
+    padding: boolean
+    'navigation-bar-auto-hide': boolean
+  }
+}
+
+class NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-large-title': NavigationLargeTitle
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,27 +33,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                           |    Type     | Description |
-| ------------------------------ | :---------: | ----------- |
-| **`background-style`**         | `"grouped"` |             |
-| **`padding`**                  |  `boolean`  |             |
-| **`navigation-bar-auto-hide`** |  `boolean`  |             |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

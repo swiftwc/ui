@@ -4,7 +4,19 @@
 
 ###### A control that shows or hides the sidebar view.
 
-`<sidebar-toggle></sidebar-toggle>`
+```ts
+interface SidebarToggleSignature {
+  Declaration: '<sidebar-toggle></sidebar-toggle>'
+}
+
+class SidebarToggle extends HTMLElement<SidebarToggleSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'sidebar-toggle': SidebarToggle
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +27,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

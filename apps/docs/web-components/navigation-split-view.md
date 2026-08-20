@@ -4,7 +4,19 @@
 
 ###### A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
 
-`<navigation-split-view></navigation-split-view>`
+```ts
+interface NavigationSplitViewSignature {
+  Declaration: '<navigation-split-view></navigation-split-view>'
+}
+
+class NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-split-view': NavigationSplitView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -95,17 +107,5 @@ Check out the documentation for the [full list of markdown extensions](https://v
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

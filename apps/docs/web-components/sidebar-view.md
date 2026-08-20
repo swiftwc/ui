@@ -4,7 +4,13 @@
 
 ###### A container view that arranges navigation destinations in a single column.
 
-`<dialog is="sidebar-view"></dialog>`
+```ts
+interface SidebarViewSignature {
+  Declaration: '<dialog is="sidebar-view"></dialog>'
+}
+
+class SidebarView extends HTMLDialogElement<SidebarViewSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLDialogElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

@@ -4,7 +4,22 @@
 
 ###### A view that shows or hides another view when the user opens or closes it.
 
-`<details is="disclosure-group"></details>`
+```ts
+interface DisclosureGroupSignature {
+  Declaration: '<details is="disclosure-group"></details>'
+
+  Attributes: {
+    open: boolean // The status of this element
+  }
+
+  Events: {
+    'is-expanded': CustomEvent<{ value: string }>
+    'is-collapsed': CustomEvent<{ value: string }>
+  }
+}
+
+class DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -31,34 +46,5 @@
 ### Conforms To
 
 `HTMLDetailsElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name       |   Type    | Description                |
-| ---------- | :-------: | -------------------------- |
-| **`open`** | `boolean` | The status of this element |
-
-</div>
-
-### No Slots
-
-### Events
-
-<div>
-
-| Name               | Description |
-| ------------------ | ----------- |
-| **`is-expanded`**  |             |
-| **`is-collapsed`** |             |
-
-</div>
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

@@ -4,7 +4,25 @@
 
 ###### A view placed in the toolbar or navigation bar.
 
-`<tool-bar-item></tool-bar-item>`
+```ts
+interface ToolBarItemSignature {
+  Declaration: '<tool-bar-item></tool-bar-item>'
+
+  Attributes: {
+    slot: string
+    'data-previous-slot': string
+    'title-key': string
+  }
+}
+
+class ToolBarItem extends HTMLElement<ToolBarItemSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tool-bar-item': ToolBarItem
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,27 +33,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                     |   Type   | Description |
-| ------------------------ | :------: | ----------- |
-| **`slot`**               | `string` |             |
-| **`data-previous-slot`** | `string` |             |
-| **`title-key`**          | `string` |             |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

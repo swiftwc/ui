@@ -10,7 +10,13 @@ prev:
 
 ###### A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.
 
-`<dialog is="alert-dialog"></dialog>`
+```ts
+interface AlertDialogSignature {
+  Declaration: '<dialog is="alert-dialog"></dialog>'
+}
+
+class AlertDialog extends HTMLDialogElement<AlertDialogSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -21,17 +27,5 @@ prev:
 ### Conforms To
 
 `HTMLDialogElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

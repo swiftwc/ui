@@ -4,7 +4,27 @@
 
 ###### A container view.
 
-`<navigation-title></navigation-title>`
+```ts
+interface NavigationTitleSignature {
+  Declaration: '<navigation-title></navigation-title>'
+
+  Attributes: {
+    padding: boolean
+    value: string
+    subtitle: string
+    'system-image': string
+    'system-image-weight': string
+  }
+}
+
+class NavigationTitle extends HTMLElement<NavigationTitleSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-title': NavigationTitle
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,29 +35,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                      |   Type    | Description |
-| ------------------------- | :-------: | ----------- |
-| **`padding`**             | `boolean` |             |
-| **`value`**               | `string`  |             |
-| **`subtitle`**            | `string`  |             |
-| **`system-image`**        | `string`  |             |
-| **`system-image-weight`** | `string`  |             |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

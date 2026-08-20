@@ -4,7 +4,21 @@
 
 ######
 
-`<fine-tooltip></fine-tooltip>`
+```ts
+interface FineTooltipSignature {
+  Declaration: '<fine-tooltip></fine-tooltip>'
+}
+
+class FineTooltip extends HTMLElement<FineTooltipSignature> {
+  hidePopover(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'fine-tooltip': FineTooltip
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,32 +29,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### Properties
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name | Type | Description |
-| ---- | :--: | ----------- |
-
-</div>
-
-### Methods
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name              | Returns | Description |
-| ----------------- | :-----: | ----------- |
-| **`hidePopover`** | `void`  |             |
-
-</div>
 
 <!-- #endregion post -->

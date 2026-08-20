@@ -438,7 +438,29 @@ for (const sourceFile of project.getSourceFiles()) {
   const classes = sourceFile.getClasses()
 
   for (const cls of classes) {
-    const is = kebabCase(`${cls.getName()}`)
+    const is = kebabCase(`${cls.getName()}`),
+      superclass = `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('Associated', '')?.replaceAll('NavigationView', '') ?? ''}Element`
+
+    let gdeclartion = is,
+      declaration = `<${is}></${is}>`
+    switch (superclass) {
+      case 'HTMLButtonElement':
+        gdeclartion = ''
+        declaration = `<button is="${is}"></button>`
+        break
+      case 'HTMLDialogElement':
+        gdeclartion = ''
+        declaration = `<dialog is="${is}"></dialog>`
+        break
+      case 'HTMLDetailsElement':
+        gdeclartion = ''
+        declaration = `<details is="${is}"></details>`
+        break
+      case 'HTMLFormElement':
+        gdeclartion = ''
+        declaration = `<form is="${is}"></form>`
+        break
+    }
 
     const module: CustomElementModule = {
       kind: 'javascript-module',
@@ -451,7 +473,7 @@ for (const sourceFile of project.getSourceFiles()) {
           tagName: is,
           description: '',
           superclass: {
-            name: `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('Associated', '')?.replaceAll('NavigationView', '') ?? ''}Element`,
+            name: superclass,
           },
         },
       ],
@@ -527,7 +549,9 @@ for (const sourceFile of project.getSourceFiles()) {
           text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
         },
       })
-      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${!readonly ? '' : `readonly `}**${m.getName()}**${propTypeText ? ` — ${propTypeText}` : ''}`)
+      ;(htmlDataTagDescMap.get('props1') ?? htmlDataTagDescMap.set('props1', []).get('props1'))?.push(
+        `  ${!readonly ? '' : `readonly `}${/^[A-Za-z_$][\w$]*$/.test(m.getName()) ? m.getName() : `'${m.getName()}'`}: ${propTypeText}${d ? ` // ${d}` : ''}`
+      )
     }
 
     for (const m of [...methods, ...arrowMethods]) {
@@ -549,8 +573,7 @@ for (const sourceFile of project.getSourceFiles()) {
 
       const returnTypeText = callable.getReturnType().getText(callable, TypeFormatFlags.NoTruncation)
 
-      let b = returnTypeText,
-        d = ''
+      let d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
@@ -566,10 +589,13 @@ for (const sourceFile of project.getSourceFiles()) {
         description: d,
         return: {
           type: {
-            text: b,
+            text: returnTypeText,
           },
         },
       })
+      ;(htmlDataTagDescMap.get('fns1') ?? htmlDataTagDescMap.set('fns1', []).get('fns1'))?.push(
+        `  ${/^[A-Za-z_$][\w$]*$/.test(m.getName()) ? m.getName() : `'${m.getName()}'`}(): ${returnTypeText}${d ? ` // ${d}` : ''}`
+      )
     }
 
     const leading = cls
@@ -623,7 +649,11 @@ for (const sourceFile of project.getSourceFiles()) {
                 text: 'Event',
               },
             })
-            ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`- **${a}**${b ? ` — ${b}` : ''}`)
+
+            const eventName = a || ''
+            ;(htmlDataTagDescMap.get('events1') ?? htmlDataTagDescMap.set('events1', []).get('events1'))?.push(
+              `    ${/^[A-Za-z_$][\w$]*$/.test(eventName) ? eventName : `'${eventName}'`}: CustomEvent<{ value: string }>${b ? ` // ${b}` : ''}`
+            )
 
             continue
           }
@@ -634,7 +664,11 @@ for (const sourceFile of project.getSourceFiles()) {
               name: a ?? '',
               description: b ?? undefined,
             })
-            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`- ${a ? `**${a}**` : `_default_`}${b ? ` — ${b}` : ''}`)
+
+            const slotName = a || 'default'
+            ;(htmlDataTagDescMap.get('slots1') ?? htmlDataTagDescMap.set('slots1', []).get('slots1'))?.push(
+              `    ${/^[A-Za-z_$][\w$]*$/.test(slotName) ? slotName : `'${slotName}'`}: []${b ? ` // ${b}` : ''}`
+            )
 
             continue
           }
@@ -663,9 +697,15 @@ for (const sourceFile of project.getSourceFiles()) {
               const types: string | string[] = ['boolean'].includes(matches.at(0) ?? '') ? 'boolean' : (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
               if (matches.at(0)?.startsWith('@')) {
                 attr.valueSet = matches.at(0)?.slice(1)
+                ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
+                  `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${matches.at(0)?.slice(1)}${b ? ` // ${b}` : ''}`
+                )
               } else if (types) {
                 attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
+                ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
+                  `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`
+                )
               }
               ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
@@ -708,10 +748,15 @@ for (const sourceFile of project.getSourceFiles()) {
           .map((c) => c.getText().trim())
           ?.at(0)
 
+        let d = '',
+          t = 'string'
+
         if (leading) {
           const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
 
           attr.description = description //`Description: ${description}`
+
+          d = description
 
           const { type, description: desc } = extractTypes(tags)
 
@@ -721,9 +766,14 @@ for (const sourceFile of project.getSourceFiles()) {
 
             attr.description = `Value Type: ${0 < parts.length ? `“${parts.join('” | “')}”` : type}${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
             if (0 < parts.length) attr.values ??= parts.map((name) => ({ name })) //types.map((name) => ({ name }))
+
+            t = 0 < parts.length ? `"${parts.join('" | "')}"` : type
           }
         }
 
+        ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
+          `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${t}${d ? ` // ${d}` : ''}`
+        )
         ;(htmlDataTag.attributes ??= []).push(attr)
         //
         ;(module.declarations[0].attributes ??= []).push({ name: attr.name })
@@ -732,21 +782,41 @@ for (const sourceFile of project.getSourceFiles()) {
 
     if (htmlDataTagDescMap.has('desc')) htmlDataTagDescMap.get('desc')?.splice(1, 0, '---')
 
-    // if (htmlDataTagDescMap.has('slots')) htmlDataTagDescMap.get('slots')?.splice(0, 0, '- _default_ — The default slot.')
-    if (htmlDataTagDescMap.has('slots')) htmlDataTagDescMap.get('slots')?.splice(0, 0, '### **Slots:**')
+    htmlDataTagDescMap.set('element', [`  Declaration: '${declaration}'`])
 
-    if (htmlDataTagDescMap.has('events')) htmlDataTagDescMap.get('events')?.splice(0, 0, '### **Events:**')
+    if (htmlDataTagDescMap.has('slots1')) (htmlDataTagDescMap.get('slots1')?.splice(0, 0, '  Slots: {'), htmlDataTagDescMap.get('slots1')?.push('  }'))
+
+    if (htmlDataTagDescMap.has('events1')) (htmlDataTagDescMap.get('events1')?.splice(0, 0, '  Events: {'), htmlDataTagDescMap.get('events1')?.push('  }'))
+
+    if (htmlDataTagDescMap.has('attrs1')) (htmlDataTagDescMap.get('attrs1')?.splice(0, 0, '  Attributes: {'), htmlDataTagDescMap.get('attrs1')?.push('  }'))
 
     if (htmlDataTagDescMap.has('examples')) htmlDataTagDescMap.get('examples')?.splice(0, 0, '### **Examples:**')
 
-    if (htmlDataTagDescMap.has('props')) htmlDataTagDescMap.get('props')?.splice(0, 0, '### **Properties:**')
+    htmlDataTagDescMap.set('interface1', [`interface ${cls.getName()}Signature {`])
+    htmlDataTagDescMap.set('interface2', [`}`])
+    htmlDataTagDescMap.set('class1', [`class ${cls.getName()} extends ${superclass}<${cls.getName()}Signature> {`])
+    htmlDataTagDescMap.set('class2', [`}`])
+    if (gdeclartion)
+      htmlDataTagDescMap.set('decl', [
+        `declare global {
+  interface HTMLElementTagNameMap {
+    ${/^[A-Za-z_$][\w$]*$/.test(is) ? is : `'${is}'`}: ${cls.getName()}
+  }
+}`,
+      ])
 
-    const order = ['desc', 'slots', 'props', 'methods', 'events', 'examples']
+    const order = ['interface1', 'element', 'attrs1', 'slots1', 'events1', 'interface2', 'class1', 'props1', 'fns1', 'class2', 'decl']
 
-    htmlDataTag.description = [...htmlDataTagDescMap.entries()]
-      .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
-      .map(([, values]) => values.join('\n'))
-      .join('\n\n')
+    htmlDataTag.description = `${htmlDataTagDescMap.get('desc')?.join('\n')}\n\n\`\`\`ts\n${await prettier.format(
+      [...htmlDataTagDescMap.entries()]
+        .filter((item) => {
+          return ['slots1', 'interface1', 'element', 'interface2', 'events1', 'decl', 'class1', 'class2', 'props1', 'fns1', 'attrs1'].includes(item[0])
+        })
+        .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
+        .map(([, values]) => values.join('\n'))
+        .join('\n\n'),
+      { parser: 'typescript', singleQuote: true, semi: false }
+    )}\n\`\`\`${htmlDataTagDescMap.has('examples') ? `\n\n${htmlDataTagDescMap.get('examples')?.join('\n')}` : ''}\n`
     ;(htmlData.tags ??= []).push(htmlDataTag)
 
     customElements.modules.push(module)

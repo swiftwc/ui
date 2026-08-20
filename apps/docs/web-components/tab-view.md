@@ -4,7 +4,32 @@
 
 ###### A container view that switches between screens using tabs.
 
-`<tab-view></tab-view>`
+```ts
+interface TabViewSignature {
+  Declaration: '<tab-view></tab-view>'
+
+  Events: {
+    tabshow: CustomEvent<{ value: string }> // A Tab is shown
+    tabhide: CustomEvent<{ value: string }> // A Tab is hidden
+    'tab-view:toggle': CustomEvent<{ value: string }>
+    'tab-view:adaptable-tab-bar-placement-change': CustomEvent<{
+      value: string
+    }>
+  }
+}
+
+class TabView extends HTMLElement<TabViewSignature> {
+  readonly tabBarPlacement: 'bottom-bar' | 'ornament' | 'sidebar' | 'top-bar' | undefined
+  readonly moreTab: NavigationStack | null
+  selectedTab: (NavigationSplitView | NavigationStack)[]
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'tab-view': TabView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,45 +40,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### Events
-
-<div>
-
-| Name                                              | Description     |
-| ------------------------------------------------- | --------------- |
-| **`tabshow`**                                     | A Tab is shown  |
-| **`tabhide`**                                     | A Tab is hidden |
-| **`tab-view:toggle`**                             |                 |
-| **`tab-view:adaptable-tab-bar-placement-change`** |                 |
-
-</div>
-
-### Properties
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                             |                                Type                                 | Description |
-| -------------------------------- | :-----------------------------------------------------------------: | ----------- |
-| **`tabBarPlacement`** `readonly` | `"bottom-bar" \| "ornament" \| "sidebar" \| "top-bar" \| undefined` |             |
-| **`moreTab`** `readonly`         |                      `NavigationStack \| null`                      |             |
-| **`selectedTab`**                |            `(NavigationSplitView \| NavigationStack)[]`             |             |
-
-</div>
-
-### Methods
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name | Returns | Description |
-| ---- | :-----: | ----------- |
-
-</div>
 
 <!-- #endregion post -->

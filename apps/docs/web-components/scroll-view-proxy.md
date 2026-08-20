@@ -4,7 +4,19 @@
 
 ###### A wrapper for {hv}-stacks.
 
-`<scroll-view-proxy></scroll-view-proxy>`
+```ts
+interface ScrollViewProxySignature {
+  Declaration: '<scroll-view-proxy></scroll-view-proxy>'
+}
+
+class ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'scroll-view-proxy': ScrollViewProxy
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +27,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

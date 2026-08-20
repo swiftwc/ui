@@ -4,7 +4,13 @@
 
 ###### A dialog that slides up over the current screen.
 
-`<dialog is="sheet-view"></dialog>`
+```ts
+interface SheetViewSignature {
+  Declaration: '<dialog is="sheet-view"></dialog>'
+}
+
+class SheetView extends HTMLDialogElement<SheetViewSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLDialogElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

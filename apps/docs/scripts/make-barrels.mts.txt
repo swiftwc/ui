@@ -37,6 +37,22 @@ for await (const [i, mod] of data.modules.entries()) {
 
     const declaration = webData.tags.find((item) => item?.name === dec.tagName)?.description?.match(/```ts([\s\S]*?)```/)?.[1]
 
+    // let declaration = `<${dec.tagName}></${dec.tagName}>`
+    // switch (dec.superclass.name) {
+    //   case 'HTMLButtonElement':
+    //     declaration = `<button is="${dec.tagName}"></button>`
+    //     break
+    //   case 'HTMLDialogElement':
+    //     declaration = `<dialog is="${dec.tagName}"></dialog>`
+    //     break
+    //   case 'HTMLDetailsElement':
+    //     declaration = `<details is="${dec.tagName}"></details>`
+    //     break
+    //   case 'HTMLFormElement':
+    //     declaration = `<form is="${dec.tagName}"></form>`
+    //     break
+    // }
+
     await writeFile(
       resolve(__dirname, `../web-components/${dec.tagName}.md`),
       `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ''}<!-- #region pre -->
@@ -58,6 +74,134 @@ ${topicsMd}
 ### Conforms To
 
 \`${dec.superclass.name}\`
+## Reference
+
+${
+  attrs?.length
+    ? `
+### Attributes
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name          |      Type     |  Description  |
+| ------------- | :-----------: | ------------- |
+${(
+  await Promise.all(
+    attrs.map((item, index) => {
+      return `| **\`${item.name}\`** | ${
+        'valueSet' in item
+          ? `[\`${item.valueSet}\`](/installation/editor-setup/html-data.json#${item.valueSet?.toLowerCase()})`
+          : 'values' in item
+            ? `\`"${item.values?.map((item) => item.name)?.join('" \\| "')}"\``
+            : 'description' in item
+              ? `\`${(item?.description ?? '').match(/Value Type: ([^\r\n]*)/)?.[1] ?? '`string`'}\``
+              : '`string`'
+      } | ${'description' in item ? (-1 < (item?.description?.indexOf('Description:') ?? -1) ? item?.description?.slice(item?.description?.lastIndexOf('Description:') + 12) : '') : ''} |`
+    })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Attributes
+`
+}
+
+${
+  'slots' in dec
+    ? `
+### Slots
+
+<div>
+
+| Name          |  Description  |
+| ------------- | ------------- |
+${(
+  await Promise.all(
+    dec.slots.map((item, index) => {
+      return `| ${item.name ? `**\`${item.name}\`**` : '_default_'} | ${'description' in item ? (item?.description ?? '') : ''} |`
+    })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Slots
+`
+}
+
+${
+  'events' in dec
+    ? `
+### Events
+
+<div>
+
+| Name          |  Description  |
+| ------------- | ------------- |
+${(
+  await Promise.all(
+    dec.events.map((item, index) => {
+      return `| **\`${item.name}\`** | ${'description' in item ? (item?.description ?? '') : ''} |`
+    })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Events
+`
+}
+
+${
+  'members' in dec
+    ? `
+### Properties
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name          |      Type     |  Description  |
+| ------------- | :-----------: | ------------- |
+${(
+  await Promise.all(
+    dec.members
+      .filter((item) => 'field' === item.kind)
+      .map((item, index) => {
+        return `| **\`${item.name}\`**${'readonly' in item && item.readonly ? ` \`readonly\`` : ''} | ${'type' in item ? `\`${item.type?.text.replaceAll('|', '\\|')}\`` : ''} | ${item?.description ?? ''} |`
+      })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Properties
+`
+}
+
+${
+  'members' in dec
+    ? `
+### Methods
+
+<div class="*:w-full *:table-fixed *:table!">
+
+| Name          |    Returns    |  Description  |
+| ------------- | :-----------: | ------------- |
+${(
+  await Promise.all(
+    dec.members
+      .filter((item) => 'method' === item.kind)
+      .map((item, index) => {
+        return `| **\`${item.name}\`** | ${'return' in item ? `\`${item.return?.type?.text.replaceAll('|', '\\|')}\`` : ''} | ${item?.description ?? ''} |`
+      })
+  )
+).join(`\n`)}
+
+</div>`
+    : `
+### No Methods
+`
+}
 
 <!-- #endregion post -->`
     )

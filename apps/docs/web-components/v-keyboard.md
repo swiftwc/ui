@@ -4,7 +4,23 @@
 
 ###### Required component, used to handle the virtual keyboard on touch devices.
 
-`<v-keyboard></v-keyboard>`
+```ts
+interface VKeyboardSignature {
+  Declaration: '<v-keyboard></v-keyboard>'
+
+  Attributes: {
+    'system-font': 'Inter' // Prefers the "Inter" font family, if loaded.
+  }
+}
+
+class VKeyboard extends HTMLElement<VKeyboardSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'v-keyboard': VKeyboard
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,25 +31,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name              |   Type    | Description                                 |
-| ----------------- | :-------: | ------------------------------------------- |
-| **`system-font`** | `"Inter"` | Prefers the "Inter" font family, if loaded. |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

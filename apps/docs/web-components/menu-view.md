@@ -4,7 +4,30 @@
 
 ###### A control that opens a menu of actions.
 
-`<menu-view></menu-view>`
+```ts
+interface MenuViewSignature {
+  Declaration: '<menu-view></menu-view>'
+
+  Attributes: {
+    open: string
+    closing: string
+    label: string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    label: []
+  }
+}
+
+class MenuView extends HTMLElement<MenuViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'menu-view': MenuView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,36 +38,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name          |   Type   | Description |
-| ------------- | :------: | ----------- |
-| **`open`**    | `string` |             |
-| **`closing`** | `string` |             |
-| **`label`**   | `string` |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name        | Description       |
-| ----------- | ----------------- |
-| _default_   | The default slot. |
-| **`label`** |                   |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

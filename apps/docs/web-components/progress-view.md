@@ -4,7 +4,33 @@
 
 ###### A view that shows how far along a task is.
 
-`<progress-view></progress-view>`
+```ts
+interface ProgressViewSignature {
+  Declaration: '<progress-view></progress-view>'
+
+  Attributes: {
+    label: string
+    'current-value-label': string
+    value: string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    'current-value': []
+  }
+}
+
+class ProgressView extends HTMLElement<ProgressViewSignature> {
+  readonly progressViewStyle: 'circular' | 'linear'
+  readonly template: DocumentFragment
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'progress-view': ProgressView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,52 +41,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                      |   Type   | Description |
-| ------------------------- | :------: | ----------- |
-| **`label`**               | `string` |             |
-| **`current-value-label`** | `string` |             |
-| **`value`**               | `string` |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name                | Description       |
-| ------------------- | ----------------- |
-| _default_           | The default slot. |
-| **`current-value`** |                   |
-
-</div>
-
-### No Events
-
-### Properties
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                               |           Type           | Description |
-| ---------------------------------- | :----------------------: | ----------- |
-| **`progressViewStyle`** `readonly` | `"circular" \| "linear"` |             |
-| **`template`** `readonly`          |    `DocumentFragment`    |             |
-
-</div>
-
-### Methods
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name | Returns | Description |
-| ---- | :-----: | ----------- |
-
-</div>
 
 <!-- #endregion post -->

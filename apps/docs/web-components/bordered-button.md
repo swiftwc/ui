@@ -4,7 +4,22 @@
 
 ###### A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.
 
-`<button is="bordered-button"></button>`
+```ts
+interface BorderedButtonSignature {
+  Declaration: '<button is="bordered-button"></button>'
+
+  Attributes: {
+    role: 'destructive' | 'confirm' // A value that describes the purpose of a button
+    'title-key': string
+  }
+
+  Slots: {
+    overlay: []
+  }
+}
+
+class BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -25,34 +40,5 @@
 ### Conforms To
 
 `HTMLButtonElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name            |             Type             | Description                                    |
-| --------------- | :--------------------------: | ---------------------------------------------- |
-| **`role`**      | `"destructive" \| "confirm"` | A value that describes the purpose of a button |
-| **`title-key`** |           `string`           |                                                |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name          | Description |
-| ------------- | ----------- |
-| **`overlay`** |             |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

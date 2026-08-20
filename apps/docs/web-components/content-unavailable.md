@@ -4,7 +4,29 @@
 
 ###### A message with a title and extra information that you show when part of your app can’t be used.
 
-`<content-unavailable></content-unavailable>`
+```ts
+interface ContentUnavailableSignature {
+  Declaration: '<content-unavailable></content-unavailable>'
+
+  Attributes: {
+    search: string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    description: []
+    actions: []
+  }
+}
+
+class ContentUnavailable extends HTMLElement<ContentUnavailableSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'content-unavailable': ContentUnavailable
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -57,35 +79,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name         |   Type   | Description |
-| ------------ | :------: | ----------- |
-| **`search`** | `string` |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name              | Description       |
-| ----------------- | ----------------- |
-| _default_         | The default slot. |
-| **`description`** |                   |
-| **`actions`**     |                   |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

@@ -4,7 +4,17 @@
 
 ###### A container view that groups controls together for entering data, like a settings screen.
 
-`<form is="form-view"></form>`
+```ts
+interface FormViewSignature {
+  Declaration: '<form is="form-view"></form>'
+
+  Attributes: {
+    'navigation-link-indicator-visibility': 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+  }
+}
+
+class FormView extends HTMLFormElement<FormViewSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,25 +25,5 @@
 ### Conforms To
 
 `HTMLFormElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                                       |    Type    | Description                                                                  |
-| ------------------------------------------ | :--------: | ---------------------------------------------------------------------------- |
-| **`navigation-link-indicator-visibility`** | `"hidden"` | Hides accessories like right-arrow-chevron on NavigationLink buttons inside. |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

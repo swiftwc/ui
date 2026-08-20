@@ -4,7 +4,34 @@
 
 ###### A container view that arranges data in rows and columns, optionally letting the user select one or more of them.
 
-`<table-view></table-view>`
+```ts
+interface TableViewSignature {
+  Declaration: '<table-view></table-view>'
+
+  Attributes: {
+    'preferred-compact-template': 'title:trailing:subtitle' | 'trailing:title:subtitle' | 'title:subtitle:trailing' | '*' // Sets the template areas when the table is in compact mode
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    'header-leading': []
+    'header-principal': []
+    'header-trailing': []
+    column: []
+    'footer-leading': []
+    'footer-principal': []
+    'footer-trailing': []
+  }
+}
+
+class TableView extends HTMLElement<TableViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'table-view': TableView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,40 +42,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                             |                                             Type                                             | Description                                               |
-| -------------------------------- | :------------------------------------------------------------------------------------------: | --------------------------------------------------------- |
-| **`preferred-compact-template`** | `"title:trailing:subtitle" \| "trailing:title:subtitle" \| "title:subtitle:trailing" \| "*"` | Sets the template areas when the table is in compact mode |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name                   | Description       |
-| ---------------------- | ----------------- |
-| _default_              | The default slot. |
-| **`header-leading`**   |                   |
-| **`header-principal`** |                   |
-| **`header-trailing`**  |                   |
-| **`column`**           |                   |
-| **`footer-leading`**   |                   |
-| **`footer-principal`** |                   |
-| **`footer-trailing`**  |                   |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

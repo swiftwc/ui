@@ -4,7 +4,19 @@
 
 ######
 
-`<search-view></search-view>`
+```ts
+interface SearchViewSignature {
+  Declaration: '<search-view></search-view>'
+}
+
+class SearchView extends HTMLInputElement<SearchViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'search-view': SearchView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +27,5 @@
 ### Conforms To
 
 `HTMLInputElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

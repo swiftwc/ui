@@ -10,7 +10,28 @@ next:
 
 ###### A view that arranges its children one on top of the other.
 
-`<v-stack></v-stack>`
+```ts
+interface VStackSignature {
+  Declaration: '<v-stack></v-stack>'
+
+  Attributes: {
+    distribution: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
+    template: Template // The main-axis grid template
+    spacing: Spacing // The gap between the primary axis
+    alignment: inlineSet // The cross-axis alignment
+    distribution: blockSet // The main-axis alignment
+    placement: blockPlacementSet // The main-axis alignment
+  }
+}
+
+class VStack extends HTMLElement<VStackSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'v-stack': VStack
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -48,30 +69,5 @@ Check out the documentation for the [full list of markdown extensions](https://v
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name               |                                         Type                                         | Description                      |
-| ------------------ | :----------------------------------------------------------------------------------: | -------------------------------- |
-| **`distribution`** | `"leading" \| "leading fill" \| "center" \| "trailing" \| "fill" \| "space-between"` | The distribution of cols         |
-| **`template`**     |           [`Template`](/installation/editor-setup/html-data.json#template)           | The main-axis grid template      |
-| **`spacing`**      |            [`Spacing`](/installation/editor-setup/html-data.json#spacing)            | The gap between the primary axis |
-| **`alignment`**    |          [`inlineSet`](/installation/editor-setup/html-data.json#inlineset)          | The cross-axis alignment         |
-| **`distribution`** |           [`blockSet`](/installation/editor-setup/html-data.json#blockset)           | The main-axis alignment          |
-| **`placement`**    |  [`blockPlacementSet`](/installation/editor-setup/html-data.json#blockplacementset)  | The main-axis alignment          |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

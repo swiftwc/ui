@@ -4,7 +4,24 @@
 
 ###### A view that displays an image.
 
-`<image-view></image-view>`
+```ts
+interface ImageViewSignature {
+  Declaration: '<image-view></image-view>'
+
+  Attributes: {
+    'system-name': string
+    'system-weight': string
+  }
+}
+
+class ImageView extends HTMLElement<ImageViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'image-view': ImageView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,26 +32,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                |   Type   | Description |
-| ------------------- | :------: | ----------- |
-| **`system-name`**   | `string` |             |
-| **`system-weight`** | `string` |             |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

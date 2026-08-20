@@ -4,7 +4,13 @@
 
 ######
 
-`<dialog is="screen-view"></dialog>`
+```ts
+interface ScreenViewSignature {
+  Declaration: '<dialog is="screen-view"></dialog>'
+}
+
+class ScreenView extends HTMLDialogElement<ScreenViewSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLDialogElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

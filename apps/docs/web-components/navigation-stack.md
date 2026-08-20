@@ -4,7 +4,19 @@
 
 ###### A container view that shows a main screen and lets the user open other screens on top of it.
 
-`<navigation-stack></navigation-stack>`
+```ts
+interface NavigationStackSignature {
+  Declaration: '<navigation-stack></navigation-stack>'
+}
+
+class NavigationStack extends HTMLElement<NavigationStackSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'navigation-stack': NavigationStack
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +27,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

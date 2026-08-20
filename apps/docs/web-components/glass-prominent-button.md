@@ -4,7 +4,22 @@
 
 ###### A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.
 
-`<button is="glass-prominent-button"></button>`
+```ts
+interface GlassProminentButtonSignature {
+  Declaration: '<button is="glass-prominent-button"></button>'
+
+  Attributes: {
+    role: 'destructive' | 'confirm' // A value that describes the purpose of a button
+    'title-key': string
+  }
+
+  Slots: {
+    overlay: []
+  }
+}
+
+class GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -25,34 +40,5 @@
 ### Conforms To
 
 `HTMLButtonElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name            |             Type             | Description                                    |
-| --------------- | :--------------------------: | ---------------------------------------------- |
-| **`role`**      | `"destructive" \| "confirm"` | A value that describes the purpose of a button |
-| **`title-key`** |           `string`           |                                                |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name          | Description |
-| ------------- | ----------- |
-| **`overlay`** |             |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

@@ -4,7 +4,36 @@
 
 ###### A control that selects an absolute date.
 
-`<form is="date-picker"></form>`
+```ts
+interface DatePickerSignature {
+  Declaration: '<form is="date-picker"></form>'
+
+  Attributes: {
+    'date-picker-style': 'graphical' | 'field' | 'automatic' // The style of this element
+    required: boolean
+    prompt: string
+    label: string
+    name: string
+    selection: string
+    disabled: boolean
+    minimum: string
+    maximum: string
+  }
+}
+
+class DatePicker extends HTMLFormElement<DatePickerSignature> {
+  readonly template: DocumentFragment
+  readonly datePickerStyle: 'graphical' | 'field' | 'automatic'
+  readonly name: string // Form participation property
+  readonly value: { year: string; month: string; day: string }
+  readonly valueAsDate: Date | null // Returns the value as a Date object.
+  readonly minimum: { year: string; month: string; day: string } | null
+  readonly maximum: { year: string; month: string; day: string } | null
+
+  setValidity(): void
+  setCustomValidity(): void
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,56 +44,5 @@
 ### Conforms To
 
 `HTMLFormElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                    |                  Type                   | Description               |
-| ----------------------- | :-------------------------------------: | ------------------------- |
-| **`date-picker-style`** | `"graphical" \| "field" \| "automatic"` | The style of this element |
-| **`required`**          |                `boolean`                |                           |
-| **`prompt`**            |                `string`                 |                           |
-| **`label`**             |                `string`                 |                           |
-| **`name`**              |                `string`                 |                           |
-| **`selection`**         |                `string`                 |                           |
-| **`disabled`**          |                `boolean`                |                           |
-| **`minimum`**           |                `string`                 |                           |
-| **`maximum`**           |                `string`                 |                           |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### Properties
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                             |                          Type                           | Description                         |
-| -------------------------------- | :-----------------------------------------------------: | ----------------------------------- |
-| **`template`** `readonly`        |                   `DocumentFragment`                    |                                     |
-| **`datePickerStyle`** `readonly` |         `"graphical" \| "field" \| "automatic"`         |                                     |
-| **`name`** `readonly`            |                        `string`                         | Form participation property         |
-| **`value`** `readonly`           |     `{ year: string; month: string; day: string; }`     |                                     |
-| **`valueAsDate`** `readonly`     |                     `Date \| null`                      | Returns the value as a Date object. |
-| **`minimum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
-| **`maximum`** `readonly`         | `{ year: string; month: string; day: string; } \| null` |                                     |
-
-</div>
-
-### Methods
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name                    | Returns | Description |
-| ----------------------- | :-----: | ----------- |
-| **`setValidity`**       | `void`  |             |
-| **`setCustomValidity`** | `void`  |             |
-
-</div>
 
 <!-- #endregion post -->

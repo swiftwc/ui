@@ -4,7 +4,13 @@
 
 ######
 
-`<button is="plain-button"></button>`
+```ts
+interface PlainButtonSignature {
+  Declaration: '<button is="plain-button"></button>'
+}
+
+class PlainButton extends HTMLButtonElement<PlainButtonSignature> {}
+```
 
 <!-- #endregion pre -->
 
@@ -15,17 +21,5 @@
 ### Conforms To
 
 `HTMLButtonElement`
-
-## Reference
-
-### No Attributes
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

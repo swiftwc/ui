@@ -4,7 +4,23 @@
 
 ######
 
-`<color-scheme></color-scheme>`
+```ts
+interface ColorSchemeSignature {
+  Declaration: '<color-scheme></color-scheme>'
+
+  Attributes: {
+    dark: string
+  }
+}
+
+class ColorScheme extends HTMLElement<ColorSchemeSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'color-scheme': ColorScheme
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,25 +31,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name       |   Type   | Description |
-| ---------- | :------: | ----------- |
-| **`dark`** | `string` |             |
-
-</div>
-
-### No Slots
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

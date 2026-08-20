@@ -4,7 +4,30 @@
 
 ###### A container view that groups related content together.
 
-`<section-view></section-view>`
+```ts
+interface SectionViewSignature {
+  Declaration: '<section-view></section-view>'
+
+  Attributes: {
+    header: string
+    footer: string
+  }
+
+  Slots: {
+    default: [] // The default slot.
+    header: []
+    footer: []
+  }
+}
+
+class SectionView extends HTMLElement<SectionViewSignature> {}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'section-view': SectionView
+  }
+}
+```
 
 <!-- #endregion pre -->
 
@@ -15,36 +38,5 @@
 ### Conforms To
 
 `HTMLElement`
-
-## Reference
-
-### Attributes
-
-<div class="*:w-full *:table-fixed *:table!">
-
-| Name         |   Type   | Description |
-| ------------ | :------: | ----------- |
-| **`header`** | `string` |             |
-| **`footer`** | `string` |             |
-
-</div>
-
-### Slots
-
-<div>
-
-| Name         | Description       |
-| ------------ | ----------------- |
-| _default_    | The default slot. |
-| **`header`** |                   |
-| **`footer`** |                   |
-
-</div>
-
-### No Events
-
-### No Properties
-
-### No Methods
 
 <!-- #endregion post -->

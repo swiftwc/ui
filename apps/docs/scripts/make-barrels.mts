@@ -90,7 +90,7 @@ ${(
           : 'values' in item
             ? `\`"${item.values?.map((item) => item.name)?.join('" \\| "')}"\``
             : 'description' in item
-              ? `\`${(item?.description ?? '').match(/Value Type: ([^\r\n]*)/)?.[1]}\``
+              ? `\`${(item?.description ?? '').match(/Value Type: ([^\r\n]*)/)?.[1] ?? '`string`'}\``
               : '`string`'
       } | ${'description' in item ? (-1 < (item?.description?.indexOf('Description:') ?? -1) ? item?.description?.slice(item?.description?.lastIndexOf('Description:') + 12) : '') : ''} |`
     })

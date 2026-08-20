@@ -11,7 +11,7 @@
           "customElement": true,
           "name": "AlertDialog",
           "tagName": "alert-dialog",
-          "description": "",
+          "description": "A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.",
           "superclass": {
             "name": "HTMLDialogElement"
           }

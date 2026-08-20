@@ -89,7 +89,9 @@ ${(
           ? `[\`${item.valueSet}\`](/installation/editor-setup/html-data.json#${item.valueSet?.toLowerCase()})`
           : 'values' in item
             ? `\`"${item.values?.map((item) => item.name)?.join('" \\| "')}"\``
-            : '`string`'
+            : 'description' in item
+              ? `\`${(item?.description ?? '').match(/Value Type: ([^\r\n]*)/)?.[1]}\``
+              : '`string`'
       } | ${'description' in item ? (-1 < (item?.description?.indexOf('Description:') ?? -1) ? item?.description?.slice(item?.description?.lastIndexOf('Description:') + 12) : '') : ''} |`
     })
   )
@@ -136,7 +138,7 @@ ${
 ${(
   await Promise.all(
     dec.events.map((item, index) => {
-      return `| **\`${item.name}\`** | ${item?.description ?? ''} |`
+      return `| **\`${item.name}\`** | ${'description' in item ? (item?.description ?? '') : ''} |`
     })
   )
 ).join(`\n`)}

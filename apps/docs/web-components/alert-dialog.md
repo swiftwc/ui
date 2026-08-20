@@ -8,7 +8,7 @@ prev:
 
 # AlertDialog
 
-######
+###### A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.
 
 `<dialog is="alert-dialog"></dialog>`
 

@@ -157,7 +157,7 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
  *
  * @attr {menu|inline|navigation-link|sheet|automatic} picker-style
  *
- * @attr {string} help — Adds a help tooltip to the trigger of the picker, if style supports one
+ * @attr help — Adds a help tooltip to the trigger of the picker, if style supports one
  *
  * @attr {DictEntry[]} dictionary — Renders all options using this array
  *

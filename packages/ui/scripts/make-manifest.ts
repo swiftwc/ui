@@ -25,33 +25,39 @@ const kebabCase = (str: string) =>
       b = i !== -1 ? str.slice(i + 1).trim() : undefined
     return [a.trim(), b?.trim()]
   },
-  extractTypes = (tags: doctrine.Tag[]): { types: string[]; description?: string } => {
-    for (const tag of tags ?? []) {
-      if ('type' === tag.title) {
-        const types: string[] = []
-        // console.debug(tag?.type?.elements)
-        if ('UnionType' === tag.type?.type)
-          for (const el of tag.type?.elements ?? [])
-            switch (el?.type as string | undefined) {
-              case 'StringLiteralType':
-                // @ts-expect-error
-                types.push(el.value)
-                break
-              case 'NameExpression':
-                // @ts-expect-error
-                types.push(el.name)
-                break
-              case 'NullLiteral':
-                types.push('null')
-                break
-            }
-        else if ('NameExpression' === tag.type?.type) types.push(tag.type.name)
+  extractTypes = (tags: doctrine.Tag[]): { type: string; description?: string } => {
+    const tag = tags?.find(({ title }) => title === 'type')
 
-        return { types, description: tag.description ?? undefined }
-      }
+    return {
+      type: tag?.type ? doctrine.type.stringify(tag.type) : '',
+      description: tag?.description ?? undefined,
     }
+    // for (const tag of tags ?? []) {
+    //   if ('type' === tag.title) {
+    //     const types: string[] = []
+    //     // console.debug(tag?.type?.elements)
+    //     if ('UnionType' === tag.type?.type)
+    //       for (const el of tag.type?.elements ?? [])
+    //         switch (el?.type as string | undefined) {
+    //           case 'StringLiteralType':
+    //             // @ts-expect-error
+    //             types.push(el.value)
+    //             break
+    //           case 'NameExpression':
+    //             // @ts-expect-error
+    //             types.push(el.name)
+    //             break
+    //           case 'NullLiteral':
+    //             types.push('null')
+    //             break
+    //         }
+    //     else if ('NameExpression' === tag.type?.type) types.push(tag.type.name)
 
-    return { types: [], description: undefined }
+    //     return { types, description: tag.description ?? undefined }
+    //   }
+    // }
+
+    // return { types: [], description: undefined }
   }
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
@@ -505,8 +511,7 @@ for (const sourceFile of project.getSourceFiles()) {
 
       const propTypeText = m?.getType().getText(m, TypeFormatFlags.NoTruncation)
 
-      let b = propTypeText,
-        d = ''
+      let d = ''
 
       if (leading) {
         const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
@@ -519,10 +524,10 @@ for (const sourceFile of project.getSourceFiles()) {
         readonly,
         description: d,
         type: {
-          text: b, //`${types.map((item) => item).join(' | ')}`,
+          text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
         },
       })
-      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${!readonly ? '' : `readonly `}**${m.getName()}**${b ? ` — ${b}` : ''}`)
+      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`- ${!readonly ? '' : `readonly `}**${m.getName()}**${propTypeText ? ` — ${propTypeText}` : ''}`)
     }
 
     for (const m of [...methods, ...arrowMethods]) {
@@ -655,12 +660,12 @@ for (const sourceFile of project.getSourceFiles()) {
 
               attr.name = lastIndex.trim()
 
-              const types: string[] = (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
+              const types: string | string[] = ['boolean'].includes(matches.at(0) ?? '') ? 'boolean' : (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
               if (matches.at(0)?.startsWith('@')) {
                 attr.valueSet = matches.at(0)?.slice(1)
               } else if (types) {
-                attr.description = `Value Type: “${types.join('” | “')}”${attr.description ? `\n${attr.description}` : ''}`
-                attr.values ??= types.map((item) => ({ name: item }))
+                attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
+                attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
               }
               ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
@@ -708,11 +713,14 @@ for (const sourceFile of project.getSourceFiles()) {
 
           attr.description = description //`Description: ${description}`
 
-          const { types, description: desc } = extractTypes(tags)
+          const { type, description: desc } = extractTypes(tags)
 
-          if (0 < types.length) {
-            attr.description = `Value Type: “${types.join('” | “')}”${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
-            attr.values ??= types.map((name) => ({ name }))
+          if (0 < type.length) {
+            const match = type.match(/\(([^()]*\|[^()]*)\)/),
+              parts = match?.[1].split('|').map((s) => s.trim().replaceAll('"', '')) ?? []
+
+            attr.description = `Value Type: ${0 < parts.length ? `“${parts.join('” | “')}”` : type}${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
+            if (0 < parts.length) attr.values ??= parts.map((name) => ({ name })) //types.map((name) => ({ name }))
           }
         }
 

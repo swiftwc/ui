@@ -38,9 +38,9 @@
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name       |    Type     | Description                |
-| ---------- | :---------: | -------------------------- |
-| **`open`** | `"boolean"` | The status of this element |
+| Name       |   Type    | Description                |
+| ---------- | :-------: | -------------------------- |
+| **`open`** | `boolean` | The status of this element |
 
 </div>
 

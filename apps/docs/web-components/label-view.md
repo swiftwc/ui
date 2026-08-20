@@ -77,7 +77,7 @@ One of the most familiar UI patterns is pairing an icon with a label.
 | **`system-image`**    |                         `string`                         |                                              |
 | **`title`**           |                         `string`                         |                                              |
 | **`line-limit`**      |                         `string`                         |                                              |
-| **`truncation-mode`** |                         `"tail"`                         |                                              |
+| **`truncation-mode`** |                          `tail`                          |                                              |
 
 </div>
 

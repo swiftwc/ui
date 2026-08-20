@@ -9,7 +9,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/alert-dialog"
         }
       ],
-      "description": ""
+      "description": "A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.\n---"
     },
     {
       "name": "body-view",
@@ -167,12 +167,7 @@
         },
         {
           "name": "required",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "prompt"
@@ -194,12 +189,7 @@
               "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
             }
           ],
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "minimum"
@@ -221,12 +211,7 @@
       "attributes": [
         {
           "name": "open",
-          "description": "Value Type: “boolean”\nDescription: The status of this element",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean\nDescription: The status of this element"
         }
       ],
       "description": "A view that shows or hides another view when the user opens or closes it.\n---\n\n### **Events:**\n- **is-expanded**\n- **is-collapsed**\n\n### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```"
@@ -390,12 +375,7 @@
         },
         {
           "name": "truncation-mode",
-          "description": "Value Type: “tail”",
-          "values": [
-            {
-              "name": "tail"
-            }
-          ]
+          "description": "Value Type: tail"
         }
       ],
       "description": "A view that labels items with an icon and a title.\n---\n\n### **Slots:**\n- _default_ — Any children without a `slot` attribute are placed in the title block.\n- **icon** — Use the `slot=\"icon\"` attribute to place childen in the icon block.\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```"
@@ -501,21 +481,11 @@
         },
         {
           "name": "padding",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "navigation-bar-auto-hide",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         }
       ],
       "description": ""
@@ -551,12 +521,7 @@
       "attributes": [
         {
           "name": "padding",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "value"
@@ -605,12 +570,7 @@
         },
         {
           "name": "help",
-          "description": "Value Type: “string”\n\nDescription: Adds a help tooltip to the trigger of the picker, if style supports one",
-          "values": [
-            {
-              "name": "string"
-            }
-          ]
+          "description": "\nDescription: Adds a help tooltip to the trigger of the picker, if style supports one"
         },
         {
           "name": "dictionary",
@@ -860,12 +820,7 @@
         },
         {
           "name": "disable-autocorrection",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "keyboard-type",
@@ -884,12 +839,7 @@
         },
         {
           "name": "required",
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         },
         {
           "name": "disabled",
@@ -899,12 +849,7 @@
               "url": "https://developer.mozilla.org/en-US/docs/Web/HTML/Attributes/disabled"
             }
           ],
-          "description": "Value Type: “boolean”",
-          "values": [
-            {
-              "name": "boolean"
-            }
-          ]
+          "description": "Value Type: boolean"
         }
       ],
       "description": "A control that displays an editable text area.\n---\n\n### **Slots:**\n- **label**\n- **validity-options**\n\n### **Properties:**\n- readonly **keyboardType** — \"decimal-pad\" | \"number-pad\" | \"default\"\n- **text** — string\n- readonly **name** — string\n- readonly **value** — string\n- readonly **valueAsNumber** — number | \"\"\n- readonly **negativeNumbersAllowed** — boolean"

@@ -22,13 +22,13 @@
 
 <div class="*:w-full *:table-fixed *:table!">
 
-| Name                      |    Type     | Description |
-| ------------------------- | :---------: | ----------- |
-| **`padding`**             | `"boolean"` |             |
-| **`value`**               |  `string`   |             |
-| **`subtitle`**            |  `string`   |             |
-| **`system-image`**        |  `string`   |             |
-| **`system-image-weight`** |  `string`   |             |
+| Name                      |   Type    | Description |
+| ------------------------- | :-------: | ----------- |
+| **`padding`**             | `boolean` |             |
+| **`value`**               | `string`  |             |
+| **`subtitle`**            | `string`  |             |
+| **`system-image`**        | `string`  |             |
+| **`system-image-weight`** | `string`  |             |
 
 </div>
 

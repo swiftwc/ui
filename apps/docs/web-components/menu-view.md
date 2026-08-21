@@ -9,9 +9,9 @@ interface MenuViewSignature {
   Declaration: '<menu-view></menu-view>'
 
   Attributes: {
-    open: string
-    closing: string
-    label: string
+    open?: string
+    closing?: string
+    label?: string
   }
 
   Slots: {

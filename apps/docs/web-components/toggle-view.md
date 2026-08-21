@@ -9,13 +9,13 @@ interface ToggleViewSignature {
   Declaration: '<toggle-view></toggle-view>'
 
   Attributes: {
-    label: string
-    name: string
-    value: string
-    'is-on': boolean
-    'keyboard-type': string
-    required: boolean
-    disabled: boolean
+    label?: string
+    name?: string
+    value?: string
+    'is-on'?: boolean
+    'keyboard-type'?: string
+    required?: boolean
+    disabled?: boolean
   }
 
   Slots: {

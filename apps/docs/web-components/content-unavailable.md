@@ -9,7 +9,7 @@ interface ContentUnavailableSignature {
   Declaration: '<content-unavailable></content-unavailable>'
 
   Attributes: {
-    search: string
+    search?: string
   }
 
   Slots: {

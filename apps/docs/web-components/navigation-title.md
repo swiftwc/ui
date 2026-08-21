@@ -10,10 +10,10 @@ interface NavigationTitleSignature {
 
   Attributes: {
     padding?: boolean
-    value: string
-    subtitle: string
-    'system-image': string
-    'system-image-weight': string
+    value?: string
+    subtitle?: string
+    'system-image'?: string
+    'system-image-weight'?: string
   }
 }
 

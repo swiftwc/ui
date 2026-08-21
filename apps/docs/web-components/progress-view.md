@@ -9,9 +9,9 @@ interface ProgressViewSignature {
   Declaration: '<progress-view></progress-view>'
 
   Attributes: {
-    label: string
-    'current-value-label': string
-    value: string
+    label?: string
+    'current-value-label'?: string
+    value?: string
   }
 
   Slots: {

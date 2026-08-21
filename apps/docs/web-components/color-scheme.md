@@ -9,7 +9,7 @@ interface ColorSchemeSignature {
   Declaration: '<color-scheme></color-scheme>'
 
   Attributes: {
-    dark: string
+    dark?: string
   }
 }
 

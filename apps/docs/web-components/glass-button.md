@@ -9,8 +9,8 @@ interface GlassButtonSignature {
   Declaration: '<button is="glass-button"></button>'
 
   Attributes: {
-    role: 'destructive' | 'confirm' // A value that describes the purpose of a button
-    'title-key': string
+    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
+    'title-key'?: string
   }
 
   Slots: {

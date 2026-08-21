@@ -9,19 +9,19 @@ interface TextFieldSignature {
   Declaration: '<text-field></text-field>'
 
   Attributes: {
-    prompt: string
-    minimum: string
-    maximum: string
-    'min-length': string
-    'max-length': string
-    label: string
-    name: string
-    text: string
-    'text-input-autocapitalization': string
-    'disable-autocorrection': boolean
-    'keyboard-type': 'decimal-pad' | 'number-pad' | 'default'
-    required: boolean
-    disabled: boolean
+    prompt?: string
+    minimum?: string
+    maximum?: string
+    'min-length'?: string
+    'max-length'?: string
+    label?: string
+    name?: string
+    text?: string
+    'text-input-autocapitalization'?: string
+    'disable-autocorrection'?: boolean
+    'keyboard-type'?: 'decimal-pad' | 'number-pad' | 'default'
+    required?: boolean
+    disabled?: boolean
   }
 
   Slots: {

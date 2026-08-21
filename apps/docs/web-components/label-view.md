@@ -10,10 +10,10 @@ interface LabelViewSignature {
 
   Attributes: {
     font?: Font // Sets the default font for text in this view.
-    'system-image': string
-    title: string
-    'line-limit': string
-    'truncation-mode': 'tail'
+    'system-image'?: string
+    title?: string
+    'line-limit'?: string
+    'truncation-mode'?: 'tail'
   }
 
   Slots: {

@@ -9,9 +9,9 @@ interface ToolBarItemSignature {
   Declaration: '<tool-bar-item></tool-bar-item>'
 
   Attributes: {
-    slot: string
-    'data-previous-slot': string
-    'title-key': string
+    slot?: string
+    'data-previous-slot'?: string
+    'title-key'?: string
   }
 }
 

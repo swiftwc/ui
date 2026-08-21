@@ -9,15 +9,15 @@ interface DatePickerSignature {
   Declaration: '<date-picker></date-picker>'
 
   Attributes: {
-    'date-picker-style': 'graphical' | 'field' | 'automatic' // The style of this element
-    required: boolean
-    prompt: string
-    label: string
-    name: string
-    selection: string
-    disabled: boolean
-    minimum: string
-    maximum: string
+    'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element
+    required?: boolean
+    prompt?: string
+    label?: string
+    name?: string
+    selection?: string
+    disabled?: boolean
+    minimum?: string
+    maximum?: string
   }
 }
 

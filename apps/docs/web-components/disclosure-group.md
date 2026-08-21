@@ -9,7 +9,7 @@ interface DisclosureGroupSignature {
   Declaration: '<details is="disclosure-group"></details>'
 
   Attributes: {
-    open: boolean // The status of this element
+    open?: boolean // The status of this element
   }
 
   Events: {

@@ -9,7 +9,7 @@ interface ConfirmationDialogSignature {
   Declaration: '<dialog is="confirmation-dialog"></dialog>'
 
   Attributes: {
-    anchor: string
+    anchor?: string
   }
 }
 

@@ -796,7 +796,7 @@ for (const sourceFile of project.getSourceFiles()) {
           }
         }
 
-        ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}: ${t}${d ? ` // ${d}` : ''}`)
+        ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
         ;(htmlDataTag.attributes ??= []).push(attr)
         //
         ;(module.declarations[0].attributes ??= []).push({ name: attr.name })

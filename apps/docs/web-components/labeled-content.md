@@ -9,12 +9,12 @@ interface LabeledContentSignature {
   Declaration: '<labeled-content></labeled-content>'
 
   Attributes: {
-    value: string
-    label: string
-    header: string
-    footer: string
-    'labeled-content-style': 'vertical' | 'horizontal'
-    format: string
+    value?: string
+    label?: string
+    header?: string
+    footer?: string
+    'labeled-content-style'?: 'vertical' | 'horizontal'
+    format?: string
   }
 
   Slots: {

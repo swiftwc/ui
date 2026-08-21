@@ -9,8 +9,8 @@ interface BorderedButtonSignature {
   Declaration: '<button is="bordered-button"></button>'
 
   Attributes: {
-    role: 'destructive' | 'confirm' // A value that describes the purpose of a button
-    'title-key': string
+    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
+    'title-key'?: string
   }
 
   Slots: {

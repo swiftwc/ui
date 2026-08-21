@@ -9,8 +9,8 @@ interface ImageViewSignature {
   Declaration: '<image-view></image-view>'
 
   Attributes: {
-    'system-name': string
-    'system-weight': string
+    'system-name'?: string
+    'system-weight'?: string
   }
 }
 

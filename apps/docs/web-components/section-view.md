@@ -9,8 +9,8 @@ interface SectionViewSignature {
   Declaration: '<section-view></section-view>'
 
   Attributes: {
-    header: string
-    footer: string
+    header?: string
+    footer?: string
   }
 
   Slots: {

@@ -1,6 +1,7 @@
 import { microtaskOnConnected } from '../internal/decorators'
 import { devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 import type { ScrollView } from './scroll-view'
 
 /**

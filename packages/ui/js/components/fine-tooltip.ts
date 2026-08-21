@@ -1,5 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff } from '../internal/utils'
+import { html } from '../tpl'
 
 export class FineTooltip extends HTMLElement {
   constructor() {
@@ -54,7 +55,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   #render = (str: string | null) => {
-    const label = this.querySelector(':scope>label-view') ?? this.appendChild($(`<label-view></label-view>`, '>1'))
+    const label = this.querySelector(':scope>label-view') ?? this.appendChild($(html`<label-view></label-view>`, '>1'))
 
     if (str) label.setAttribute('title', str)
     else label.removeAttribute('title')

@@ -4,7 +4,8 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, clamp, devFlags, kebabCase, onoff, set } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 const datePickerStyles = ['graphical', 'field', 'automatic'] as const
 export type DatePickerStyle = (typeof datePickerStyles)[number] // type DatePickerStyle = 'decimal-pad' | 'number-pad' | 'automatic'
@@ -83,7 +84,7 @@ export class DatePicker extends FormAssociatedBase {
                   <input type="text" name="year" inputmode="numeric" pattern="d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input" />
                 </div>
                 <slot name="validity-options" hidden></slot>
-              </label>`.toString()
+              </label>`
             )
           )
 

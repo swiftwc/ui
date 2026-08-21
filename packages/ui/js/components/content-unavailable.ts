@@ -1,7 +1,7 @@
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff } from '../internal/utils'
-import { html } from '../morphdom'
+import { html } from '../tpl'
 
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.
@@ -36,7 +36,7 @@ export class ContentUnavailable extends HTMLElement {
         </div>
         <div part="root content-unavailable-actions-stack">
           <slot name="actions"></slot>
-        </div>`.toString()
+        </div>`
     ))
   }
 
@@ -94,8 +94,8 @@ export class ContentUnavailable extends HTMLElement {
   }
 
   #renderSearch = (search: string | null) => {
-    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(`<label-view><i class="ph ph-magnifying-glass" slot="icon" foreground="secondary"></i></label-view>`, '>1')),
-      descText = this.querySelector(':scope>[slot=description]') ?? this.appendChild($(`<label-view foreground="secondary" slot="description"></label-view>`, '>1'))
+    const titleLabel = this.querySelector(':scope>:not([slot])') ?? this.appendChild($(html`<label-view><i class="ph ph-magnifying-glass" slot="icon" foreground="secondary"></i></label-view>`, '>1')),
+      descText = this.querySelector(':scope>[slot=description]') ?? this.appendChild($(html`<label-view foreground="secondary" slot="description"></label-view>`, '>1'))
 
     if (search) {
       const interpolate = (text: string, vars: Record<string, string>) => text.replaceAll(/\{(\w+)\}/g, (_, key: string) => vars[key] ?? '')

@@ -1,5 +1,6 @@
 import { $, devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 /**
  * @summary A container view that groups related content together.
@@ -25,7 +26,7 @@ export class SectionView extends HTMLElement {
         </div>
         <div part="root section-footer-stack">
           <slot name="footer"></slot>
-        </div>`.toString()
+        </div>`
     ))
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }

@@ -25,7 +25,7 @@ for (const [k, Ctor] of Object.entries(Components)) {
     // const testEl = document.createElement('template')
     // testEl.innerHTML = `<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`
     // const testNode = testEl.content.firstElementChild,
-    if (!($(`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`, '>1') instanceof Ctor)) polyfills.set(is, Ctor)
+    if (!($(html`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`, '>1') instanceof Ctor)) polyfills.set(is, Ctor)
 
     continue
   }
@@ -143,7 +143,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
 
     const newAnchorName = `--help-${self.crypto.randomUUID()}`
 
-    const tooltip = $<HTMLElement>(`<fine-tooltip></fine-tooltip>`, '>1')
+    const tooltip = $<HTMLElement>(html`<fine-tooltip></fine-tooltip>`, '>1')
 
     trigger.style.setProperty('anchor-name', newAnchorName)
 
@@ -313,32 +313,32 @@ export const confirmationDialog = async (
 ) => {
   const newAnchorName = `--confirmation-dialog-${self.crypto.randomUUID()}`
 
-  const dialog = $<HTMLDialogElement>(`<dialog is="confirmation-dialog"></dialog>`, '>1'),
-    vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
+  const dialog = $<HTMLDialogElement>(html`<dialog is="confirmation-dialog"></dialog>`, '>1'),
+    vStack = dialog.querySelector(':scope>v-stack') ?? dialog.appendChild($(html`<v-stack spacing="1" alignment="fill"></v-stack>`, '>1'))
 
   trigger.style.setProperty('anchor-name', newAnchorName, 'important') //$.prop('anchor-name', newAnchorName, trigger, 'important')
   dialog.style.setProperty('position-anchor', newAnchorName) //$.prop('position-anchor', newAnchorName, dialog)
 
   if (title && false !== options?.titleVisibility) {
-    const label = $(`<label-view font="headline"></label-view>`, '>1')
+    const label = $(html`<label-view font="headline"></label-view>`, '>1')
     label.setAttribute('title', title)
     vStack.insertAdjacentElement('beforeend', label)
   }
 
   if (message && false !== options?.titleVisibility) {
-    const label = $(`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
+    const label = $(html`<label-view foreground="secondary" font="callout"></label-view>`, '>1')
     label.setAttribute('title', message)
     vStack.insertAdjacentElement('beforeend', label)
   }
 
   for (const [index, action] of (actions ?? []).entries()) {
-    const btn = $(`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
+    const btn = $(html`<button type="button" tabindex="0" is="bordered-button"></button>`, '>1')
 
     btn.setAttribute('value', `${index}`)
     if (action?.role) btn.setAttribute('role', action.role)
 
     if (action.label || action.image) {
-      const label = $(`<label-view></label-view>`, '>1')
+      const label = $(html`<label-view></label-view>`, '>1')
       if (action.label) label.setAttribute('title', action.label)
       if (action.image) label.setAttribute('system-image', action.image)
       btn.appendChild(label)

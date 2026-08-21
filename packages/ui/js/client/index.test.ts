@@ -1,6 +1,7 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { ScrollView } from '../components'
 import { $ } from '../internal/utils'
+import { html } from '../tpl'
 import { NavigationPath } from './index'
 
 describe('prop', () => {
@@ -18,11 +19,12 @@ describe('prop', () => {
   test('queryBodyAll', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack>
-        <scroll-view id="sv1"></scroll-view>
-        <body-view><scroll-view id="sv2"></scroll-view>
-        <body-view><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`,
+          html`<navigation-stack>
+            <scroll-view id="sv1"></scroll-view>
+            <body-view
+              ><scroll-view id="sv2"></scroll-view> <body-view><scroll-view id="sv3"></scroll-view></body-view
+            ></body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -34,17 +36,19 @@ describe('prop', () => {
   test('queryBodyAll 2', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack>
-        <scroll-view id="sv1"></scroll-view>
-        <navigation-stack hidden>
-        <body-view><scroll-view id="sv2"></scroll-view>
-        <body-view><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>
-        <navigation-stack>
-        <body-view><scroll-view id="sv4"></scroll-view>
-        <body-view><scroll-view id="sv5"></scroll-view></body-view></body-view>
-        </navigation-stack>
-        </navigation-stack>`,
+          html`<navigation-stack>
+            <scroll-view id="sv1"></scroll-view>
+            <navigation-stack hidden>
+              <body-view
+                ><scroll-view id="sv2"></scroll-view> <body-view><scroll-view id="sv3"></scroll-view></body-view
+              ></body-view>
+            </navigation-stack>
+            <navigation-stack>
+              <body-view
+                ><scroll-view id="sv4"></scroll-view> <body-view><scroll-view id="sv5"></scroll-view></body-view
+              ></body-view>
+            </navigation-stack>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -56,23 +60,26 @@ describe('prop', () => {
   test('queryBodyAll 3', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack>
-        <scroll-view id="sv1"></scroll-view>
-        <navigation-stack hidden>
-          <scroll-view id="sv1a"></scroll-view>
-          <body-view><scroll-view id="sv2"></scroll-view>
-            <body-view><scroll-view id="sv3"></scroll-view></body-view>
-          </body-view>
-        </navigation-stack>
-        <navigation-split-view>
-          <body-view><scroll-view id="sv5"></scroll-view>
-            <body-view><scroll-view id="sv6"></scroll-view>
-              <body-view><scroll-view id="sv7"></scroll-view></body-view>
-            </body-view>
-          </body-view>
-          <scroll-view id="sv4"></scroll-view>
-        </navigation-split-view>
-        </navigation-stack>`,
+          html`<navigation-stack>
+            <scroll-view id="sv1"></scroll-view>
+            <navigation-stack hidden>
+              <scroll-view id="sv1a"></scroll-view>
+              <body-view
+                ><scroll-view id="sv2"></scroll-view>
+                <body-view><scroll-view id="sv3"></scroll-view></body-view>
+              </body-view>
+            </navigation-stack>
+            <navigation-split-view>
+              <body-view
+                ><scroll-view id="sv5"></scroll-view>
+                <body-view
+                  ><scroll-view id="sv6"></scroll-view>
+                  <body-view><scroll-view id="sv7"></scroll-view></body-view>
+                </body-view>
+              </body-view>
+              <scroll-view id="sv4"></scroll-view>
+            </navigation-split-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -84,29 +91,33 @@ describe('prop', () => {
   test('queryToolbarConfigAll 3', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack>
-          <scroll-view id="sv1"></scroll-view>
-          <tool-bar><tool-bar-item id="sv0"></tool-bar-item></tool-bar>
-          <navigation-stack hidden>
-            <scroll-view></scroll-view>
-            <tool-bar><tool-bar-item id="sv1a"></tool-bar-item></tool-bar>
-            <body-view>
-              <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv2"></tool-bar-item></tool-bar>
+          html`<navigation-stack>
+            <scroll-view id="sv1"></scroll-view>
+            <tool-bar><tool-bar-item id="sv0"></tool-bar-item></tool-bar>
+            <navigation-stack hidden>
+              <scroll-view></scroll-view>
+              <tool-bar><tool-bar-item id="sv1a"></tool-bar-item></tool-bar>
               <body-view>
-                <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv3"></tool-bar-item></tool-bar>
+                <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv2"></tool-bar-item></tool-bar>
+                <body-view>
+                  <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv3"></tool-bar-item></tool-bar>
+                </body-view>
               </body-view>
-            </body-view>
-          </navigation-stack>
-          <navigation-split-view>
-            <body-view><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv5"></tool-bar-item></tool-bar>
-              <body-view><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv6"></tool-bar-item></tool-bar>
-                <body-view><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv7"></tool-bar-item></tool-bar></body-view>
+            </navigation-stack>
+            <navigation-split-view>
+              <body-view
+                ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv5"></tool-bar-item></tool-bar>
+                <body-view
+                  ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv6"></tool-bar-item></tool-bar>
+                  <body-view
+                    ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv7"></tool-bar-item></tool-bar
+                  ></body-view>
+                </body-view>
               </body-view>
-            </body-view>
-            <scroll-view></scroll-view>
-            <tool-bar><tool-bar-item id="sv4"></tool-bar-item></tool-bar>
-          </navigation-split-view>
-        </navigation-stack>`,
+              <scroll-view></scroll-view>
+              <tool-bar><tool-bar-item id="sv4"></tool-bar-item></tool-bar>
+            </navigation-split-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -124,25 +135,28 @@ describe('prop', () => {
   test('queryHostAll', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack>
-        <scroll-view id="sv1"></scroll-view>
-        <navigation-stack hidden>
-          <body-view id="sv2"><scroll-view></scroll-view>
-            <body-view id="sv3"><scroll-view></scroll-view></body-view>
-          </body-view>
-        </navigation-stack>
-        <navigation-split-view>
-          <body-view id="sv4">
-            <body-view id="sv5"><scroll-view></scroll-view>
-              <body-view id="sv6"><scroll-view></scroll-view>
-                <body-view id="sv7"><scroll-view></scroll-view></body-view>
+          html`<navigation-stack>
+            <scroll-view id="sv1"></scroll-view>
+            <navigation-stack hidden>
+              <body-view id="sv2"
+                ><scroll-view></scroll-view>
+                <body-view id="sv3"><scroll-view></scroll-view></body-view>
               </body-view>
-            </body-view>
-            <scroll-view></scroll-view>
-          </body-view>
-          <scroll-view></scroll-view>
-        </navigation-split-view>
-        </navigation-stack>`,
+            </navigation-stack>
+            <navigation-split-view>
+              <body-view id="sv4">
+                <body-view id="sv5"
+                  ><scroll-view></scroll-view>
+                  <body-view id="sv6"
+                    ><scroll-view></scroll-view>
+                    <body-view id="sv7"><scroll-view></scroll-view></body-view>
+                  </body-view>
+                </body-view>
+                <scroll-view></scroll-view>
+              </body-view>
+              <scroll-view></scroll-view>
+            </navigation-split-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -154,11 +168,12 @@ describe('prop', () => {
   test('closestHost', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1"><scroll-view id="sv2"></scroll-view>
-        <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
+            ></body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -169,13 +184,13 @@ describe('prop', () => {
   test('closestHost 2', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1">
-          <scroll-view id="sv2"></scroll-view>
-          <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-        </body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1">
+              <scroll-view id="sv2"></scroll-view>
+              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
+            </body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -187,11 +202,12 @@ describe('prop', () => {
   test('queryHost', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1"><scroll-view id="sv2"></scroll-view>
-        <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
+            ></body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -202,13 +218,13 @@ describe('prop', () => {
   test('queryHost 2', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1">
-          <scroll-view id="sv2"></scroll-view>
-          <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-        </body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1">
+              <scroll-view id="sv2"></scroll-view>
+              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
+            </body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -219,11 +235,12 @@ describe('prop', () => {
   test('queryHost 3', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1"><scroll-view id="sv2"></scroll-view>
-        <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view></body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
+            ></body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),
@@ -234,13 +251,13 @@ describe('prop', () => {
   test('queryHost 4', () => {
     const el = div.appendChild(
         $(
-          `<navigation-stack id="n0">
-        <scroll-view id="sv1"></scroll-view>
-        <body-view id="b1">
-          <scroll-view id="sv2"></scroll-view>
-          <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-        </body-view>
-        </navigation-stack>`,
+          html`<navigation-stack id="n0">
+            <scroll-view id="sv1"></scroll-view>
+            <body-view id="b1">
+              <scroll-view id="sv2"></scroll-view>
+              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
+            </body-view>
+          </navigation-stack>`,
           '>1'
         )
       ),

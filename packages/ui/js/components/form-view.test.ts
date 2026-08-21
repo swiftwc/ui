@@ -1,5 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest'
 import { $ } from '../internal/utils'
+import { html } from '../tpl'
 import { FormView } from './form-view'
 import { SidebarView } from './sidebar-view'
 import { TabBar } from './tab-bar'
@@ -19,9 +20,9 @@ describe('prop', () => {
   test('[method]', () => {
     const el = div.appendChild(
         $(
-          `<dialog is="sidebar-view">
-        <form-view></form-view>
-        </dialog>`,
+          html`<dialog is="sidebar-view">
+            <form-view></form-view>
+          </dialog>`,
           '>1'
         )
       ),

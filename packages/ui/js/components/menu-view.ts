@@ -1,6 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff, touchGlass } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 /**
  * @summary A control that opens a menu of actions.
@@ -26,7 +27,7 @@ export class MenuView extends HTMLElement {
               <slot></slot>
             </div>
           </form>
-        </dialog>`.toString()
+        </dialog>`
     ))
   }
 

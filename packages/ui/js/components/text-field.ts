@@ -4,7 +4,8 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, compareBigDecimals, devFlags, kebabCase, onoff, set } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 const keyboardTypes = ['decimal-pad', 'number-pad', 'default'] as const
 export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'number-pad' | 'default'
@@ -60,7 +61,7 @@ export class TextField extends FormAssociatedBase {
           <input type="text" part="root input text-field-form-input" />
         </div>
         <slot name="validity-options" hidden></slot>
-      </label>`.toString()
+      </label>`
     ))
   }
 

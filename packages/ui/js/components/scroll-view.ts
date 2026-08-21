@@ -3,7 +3,8 @@ import type { BeforetabswapEvent, PageShowHideDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags, frame, onoff, slowHideShow } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 import { type TabView } from './tab-view'
 
 const observers = new ResizeObserverSingleton()
@@ -43,7 +44,7 @@ export class ScrollView extends HTMLElement {
           <div part="root scroll-view-toolbar-stack">
             <slot name="bottom-bar-principal"></slot>
           </div>
-        </div>`.toString()
+        </div>`
     ))
   }
 
@@ -307,7 +308,7 @@ export class ScrollView extends HTMLElement {
     // const container = ((vs = this.querySelector<HTMLElement>(':scope>v-stack') ?? (this.appendChild($(`<v-stack></v-stack>`, '>1')) as HTMLElement)) =>
     //   vs.querySelector<HTMLElement>(':scope>navigation-title:not([slot])') ??
     //   vs.appendChild($(html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`.toString(), '>1')))()
-    const container = this.querySelector<HTMLElement>(':scope>v-stack') ?? this.appendChild($(`<v-stack></v-stack>`, '>1'))
+    const container = this.querySelector<HTMLElement>(':scope>v-stack') ?? this.appendChild($(html`<v-stack></v-stack>`, '>1'))
 
     queryMorph('navigation-title:not([slot])', html`<navigation-title value="${title}" subtitle="${subtitle}" system-image="${icon}" padding></navigation-title>`, container)
   }

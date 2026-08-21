@@ -1,3 +1,5 @@
+import { renderToString } from '../../../morphdom'
+import { type TemplateResult } from '../../../tpl'
 import ancestors from './ancestors'
 import next from './next'
 import nextAll from './next-all'
@@ -9,9 +11,9 @@ import siblings from './siblings'
 const DEFAULT = '>1' as const
 
 interface CashFn {
-  (innerHTML: string): DocumentFragment
-  <T extends Element = Element>(innerHTML: string, selector: typeof DEFAULT): T
-  <T extends Element = Element>(innerHTML: string, selector: string): T
+  (markup: TemplateResult): DocumentFragment
+  <T extends Element = Element>(markup: TemplateResult, selector: typeof DEFAULT): T
+  <T extends Element = Element>(markup: TemplateResult, selector: string): T
   prop: typeof prop
   nextAll: typeof nextAll
   prevAll: typeof prevAll
@@ -21,8 +23,9 @@ interface CashFn {
   ancestors: typeof ancestors
 }
 
-const cash: CashFn = (<T extends Element = Element>(innerHTML: string, selector?: string): T | DocumentFragment => {
-  const template = Object.assign(document.createElement('template'), { innerHTML })
+const cash: CashFn = (<T extends Element = Element>(markup: TemplateResult, selector?: string): T | DocumentFragment => {
+  // NOTE: Use also runtime check isTemplateResult()??
+  const template = Object.assign(document.createElement('template'), { innerHTML: renderToString(markup).toString() })
 
   if (!selector) return template.content
 

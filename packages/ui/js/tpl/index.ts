@@ -1,4 +1,6 @@
 export { default as html } from './html'
 export * from './html'
+export { default as isTemplateResult } from './is-template-result'
+export * from './is-template-result'
 export { default as render } from './render'
 export * from './render'

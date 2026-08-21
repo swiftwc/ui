@@ -1,5 +1,6 @@
 import { I18n } from '../../i18n'
-import { html, queryMorph } from '../../morphdom'
+import { queryMorph } from '../../morphdom'
+import { html } from '../../tpl'
 
 export default function (target: HTMLElement | null, role: string | null, titleKey?: string | null, config?: Record<string, string>) {
   if (!target) return

@@ -6,7 +6,7 @@ import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, devFlags, kebabCase, onoff } from '../internal/utils'
-import { html as htmx, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
 import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
@@ -220,7 +220,7 @@ export class PickerView extends FormAssociatedBase {
     if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
 
     const body = $<HTMLElement>(
-        `<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="${'sheet-view' === tag ? 'x' : 'caret-left'}"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
+        html`<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="${'sheet-view' === tag ? 'x' : 'caret-left'}"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
         '>1'
       ),
       sv = body.querySelector<HTMLElement>('scroll-view'),
@@ -484,7 +484,7 @@ export class PickerView extends FormAssociatedBase {
       case 'sheet':
       case 'navigation-link': {
         // current value label only
-        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? this.appendChild<LabelView>($(`<label-view></label-view>`, '>1'))
+        const currentValueLabel = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? this.appendChild<LabelView>($(html`<label-view></label-view>`, '>1'))
 
         // reset state
         // if (currentValueLabel) {
@@ -529,7 +529,7 @@ export class PickerView extends FormAssociatedBase {
         break
       }
       case 'menu': {
-        const menu = this.querySelector<MenuView>(':scope>menu-view:not([slot])') ?? this.appendChild<MenuView>($(`<menu-view></menu-view>`, '>1'))
+        const menu = this.querySelector<MenuView>(':scope>menu-view:not([slot])') ?? this.appendChild<MenuView>($(html`<menu-view></menu-view>`, '>1'))
 
         // reset state
         menu.innerHTML = ''
@@ -538,7 +538,7 @@ export class PickerView extends FormAssociatedBase {
         // clear all siblings
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (menu !== el) el.remove()
 
-        const currentValueLabel = menu.querySelector<LabelView>(':scope>label-view[slot=label]') ?? menu.appendChild<LabelView>($(`<label-view slot="label"></label-view>`, '>1'))
+        const currentValueLabel = menu.querySelector<LabelView>(':scope>label-view[slot=label]') ?? menu.appendChild<LabelView>($(html`<label-view slot="label"></label-view>`, '>1'))
 
         // if (currentValueLabel) {
         //   renderLabelIcon(currentValueLabel, 'dots-three') // overwritten
@@ -554,9 +554,9 @@ export class PickerView extends FormAssociatedBase {
       }
       case 'inline':
       default: {
-        const sectionTpl = `<section-view></section-view>`
+        const sectionTpl = html`<section-view></section-view>`
 
-        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(`<list-view>${sectionTpl}</list-view>`, '>1')),
+        const inlineList = this.querySelector(':scope>list-view:not([slot])') ?? this.appendChild($(html`<list-view>${sectionTpl}</list-view>`, '>1')),
           section = inlineList.querySelector(':scope>section-view') ?? inlineList.appendChild($(sectionTpl, '>1'))
 
         // reset state
@@ -569,11 +569,13 @@ export class PickerView extends FormAssociatedBase {
         const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
         if (value) {
           const hStack = $<LabelView>(
-            `<h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack>`,
+            html`<h-stack distribution="leading" template="auto spacer"
+              ><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view
+            ></h-stack>`,
             '>1'
           )
 
-          queryMorph('label-view:nth-child(2)', htmx`<label-view>${value ? htmx`<span>${value}</span>` : null}</label-view>`, hStack)
+          queryMorph('label-view:nth-child(2)', html`<label-view>${value ? html`<span>${value}</span>` : null}</label-view>`, hStack)
           // if (label) renderLabelTitle(label, value) //label.setAttribute('title', value)
 
           section.insertAdjacentElement('beforeend', hStack)
@@ -672,40 +674,36 @@ export class PickerView extends FormAssociatedBase {
         case 'navigation-link':
           PickerView.#templates.set(
             this.pickerStyle,
-            $(
-              String.raw`
-                <label part="root picker-stack">
-            <div part="root picker-label-stack">
-              <slot name="label"></slot>
-            </div>
-            <div part="root picker-input-stack">
-              <slot></slot>
-            </div>
-            <slot name="list" hidden></slot>
-            <slot name="validity-options" hidden></slot>
-          </label>
-                `
-            )
+            $(html`
+              <label part="root picker-stack">
+                <div part="root picker-label-stack">
+                  <slot name="label"></slot>
+                </div>
+                <div part="root picker-input-stack">
+                  <slot></slot>
+                </div>
+                <slot name="list" hidden></slot>
+                <slot name="validity-options" hidden></slot>
+              </label>
+            `)
           )
 
           break
         case 'menu':
           PickerView.#templates.set(
             this.pickerStyle,
-            $(
-              String.raw`
-                <label part="root picker-stack">
-            <div part="root picker-label-stack">
-              <slot name="label"></slot>
-            </div>
-            <div part="root picker-input-stack">
-              <slot></slot>
-            </div>
-            <slot name="list" hidden></slot>
-            <slot name="validity-options" hidden></slot>
-          </label>
-                `
-            )
+            $(html`
+              <label part="root picker-stack">
+                <div part="root picker-label-stack">
+                  <slot name="label"></slot>
+                </div>
+                <div part="root picker-input-stack">
+                  <slot></slot>
+                </div>
+                <slot name="list" hidden></slot>
+                <slot name="validity-options" hidden></slot>
+              </label>
+            `)
           )
 
           //   break
@@ -762,17 +760,16 @@ export class PickerView extends FormAssociatedBase {
           PickerView.#templates.set(
             this.pickerStyle,
             $(
-              String.raw`
-          <label part="root picker-stack">
-          <div part="root picker-label-stack">
-            <slot name="label"></slot>
-          </div>
-          <div part="root picker-input-stack">
-            <slot></slot>
-          </div>
-          <slot name="list" hidden></slot>
-          <slot name="validity-options" hidden></slot>
-        </label>`
+              html` <label part="root picker-stack">
+                <div part="root picker-label-stack">
+                  <slot name="label"></slot>
+                </div>
+                <div part="root picker-input-stack">
+                  <slot></slot>
+                </div>
+                <slot name="list" hidden></slot>
+                <slot name="validity-options" hidden></slot>
+              </label>`
             )
           )
 
@@ -1309,7 +1306,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectLabel(value: string | null) {
     if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
 
-    queryMorph('[slot=label]', htmx`<label-view slot="label">${value ? htmx`<span>${value}</span>` : null}</label-view>`, this)
+    queryMorph('[slot=label]', html`<label-view slot="label">${value ? html`<span>${value}</span>` : null}</label-view>`, this)
 
     this.#renderSlotted([])
   }
@@ -1371,9 +1368,9 @@ export class PickerView extends FormAssociatedBase {
           const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
             systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
 
-          queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
+          queryMorph(':not([slot])', html`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
 
-          queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage })
+          queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage })
 
           // morph(
           //   htmx`<label-view>${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,
@@ -1392,9 +1389,9 @@ export class PickerView extends FormAssociatedBase {
           const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
             systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
 
-          queryMorph(':not([slot])', htmx`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
+          queryMorph(':not([slot])', html`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
 
-          queryMorph('[slot=icon]', htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage })
+          queryMorph('[slot=icon]', html`<image-view slot="icon" system-name="${systemImage}"></image-view>`, currentValueLabel, { removeIf: !systemImage })
 
           // morph(
           //   htmx`<label-view slot="label">${systemImage ? htmx`<image-view slot="icon" system-name="${systemImage}"></image-view>` : null}${title ? htmx`<span>${title}</span>` : null}</label-view>`,

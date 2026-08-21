@@ -1,5 +1,6 @@
 import { $, devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 /**
  * @summary A view that labels items with an icon and a title.
@@ -35,19 +36,17 @@ export class LabelView extends HTMLElement {
   static #template: DocumentFragment
 
   static get template() {
-    return (this.#template ??= $(
-      html`
-        <slot name="icon"></slot>
-        <slot></slot>
-      `.toString()
-      //     String.raw`
-      // <div part="root label-image-stack">
-      //   <slot name="image"></slot>
-      // </div>
-      // <div part="root label-title-stack">
-      //   <slot></slot>
-      // </div>`
-    ))
+    return (this.#template ??= $(html`
+      <slot name="icon"></slot>
+      <slot></slot>
+    `))
+    //     String.raw`
+    // <div part="root label-image-stack">
+    //   <slot name="image"></slot>
+    // </div>
+    // <div part="root label-title-stack">
+    //   <slot></slot>
+    // </div>`
   }
 
   #shadowRoot

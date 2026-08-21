@@ -1,8 +1,9 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { $, devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
+import { html } from '../tpl'
 
 const progressViewStyles = ['circular', 'linear'] as const
 
@@ -41,13 +42,11 @@ export class ProgressView extends HTMLElement {
         case 'linear':
           ProgressView.#templates.set(
             this.progressViewStyle,
-            $(
-              html`
-                <slot></slot>
-                <div part="root progress-control progress-line-control"></div>
-                <slot name="current-value"></slot>
-              `.toString()
-            )
+            $(html`
+              <slot></slot>
+              <div part="root progress-control progress-line-control"></div>
+              <slot name="current-value"></slot>
+            `)
           )
 
           break
@@ -55,22 +54,20 @@ export class ProgressView extends HTMLElement {
         default:
           ProgressView.#templates.set(
             this.progressViewStyle,
-            $(
-              html`
-                <div part="root progress-control progress-circular-control">
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
-                  <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
-                </div>
-                <slot></slot>
-                <slot name="current-value"></slot>
-              `.toString()
-            )
+            $(html`
+              <div part="root progress-control progress-circular-control">
+                <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
+                <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
+              </div>
+              <slot></slot>
+              <slot name="current-value"></slot>
+            `)
           )
 
           break
@@ -90,7 +87,7 @@ export class ProgressView extends HTMLElement {
 
     switch (name) {
       case 'label': {
-        const label = this.querySelector(':scope>label-view:not([slot])') ?? this.appendChild($(`<label-view foreground="secondary"></label-view>`, '>1'))
+        const label = this.querySelector(':scope>label-view:not([slot])') ?? this.appendChild($(html`<label-view foreground="secondary"></label-view>`, '>1'))
         if (newValue) {
           label.setAttribute('title', newValue)
         } else label.removeAttribute('title')

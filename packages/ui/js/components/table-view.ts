@@ -2,8 +2,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { $, devFlags, listActive, onoff } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
+import { html } from '../tpl'
 import type { LabelView } from './label-view'
 
 /**
@@ -56,7 +57,7 @@ export class TableView extends HTMLElement {
             <slot name="footer-trailing"></slot>
           </div>
         </div>
-      </div>`.toString()
+      </div>`
     ))
   }
 
@@ -123,7 +124,7 @@ export class TableView extends HTMLElement {
     if (devFlags.debug) console.debug(`${TableView.name} ⚡️ mutation`)
 
     if (!this.#compactToolbarItem) {
-      this.#compactToolbarItem = $(`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
+      this.#compactToolbarItem = $(html`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
 
       CleanupRegistry.unregister(this, 'compact_toolbar')
       CleanupRegistry.register(this, onoff('click', this.#handleMenuClick, this.#compactToolbarItem).on(), 'compact_toolbar')
@@ -135,12 +136,12 @@ export class TableView extends HTMLElement {
       if (!node.matches('[is=table-column]')) continue
 
       const btn = $(
-          `<button type="button" tabindex="0">
-        <v-stack spacing="0" alignment="leading">
-          <label-view></label-view>
-          <label-view font="callout" foreground="secondary"></label-view>
-        </v-stack>
-      </button>`,
+          html`<button type="button" tabindex="0">
+            <v-stack spacing="0" alignment="leading">
+              <label-view></label-view>
+              <label-view font="callout" foreground="secondary"></label-view>
+            </v-stack>
+          </button>`,
           '>1'
         ),
         title = btn.querySelector<LabelView>('label-view:first-child') ?? undefined,

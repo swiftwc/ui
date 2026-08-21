@@ -1,5 +1,6 @@
 import { $, devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -39,22 +40,20 @@ export class LabeledContent extends HTMLElement {
   static #template: DocumentFragment
 
   static get template() {
-    return (this.#template ??= $(
-      html`
-        <div part="root labeled-content-container">
-          <slot name="header"></slot>
-          <div part="root labeled-content-stack">
-            <div part="root labeled-content-label-stack">
-              <slot name="label"></slot>
-            </div>
-            <div part="root labeled-content-value-stack">
-              <slot></slot>
-            </div>
+    return (this.#template ??= $(html`
+      <div part="root labeled-content-container">
+        <slot name="header"></slot>
+        <div part="root labeled-content-stack">
+          <div part="root labeled-content-label-stack">
+            <slot name="label"></slot>
           </div>
-          <slot name="footer"></slot>
+          <div part="root labeled-content-value-stack">
+            <slot></slot>
+          </div>
         </div>
-      `.toString()
-    ))
+        <slot name="footer"></slot>
+      </div>
+    `))
   }
 
   #shadowRoot
@@ -83,6 +82,7 @@ export class LabeledContent extends HTMLElement {
 
         queryMorph(
           '[slot=header]',
+
           html`<header slot="header">
             <label-view font="callout">
               <span>${newValue}</span>
@@ -109,6 +109,7 @@ export class LabeledContent extends HTMLElement {
 
         queryMorph(
           '[slot=footer]',
+
           html`<footer slot="footer">
             <label-view font="callout">
               <span>${newValue}</span>

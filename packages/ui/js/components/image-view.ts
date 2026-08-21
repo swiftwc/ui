@@ -1,5 +1,6 @@
 import { $, devFlags } from '../internal/utils'
-import { html, queryMorph } from '../morphdom'
+import { queryMorph } from '../morphdom'
+import { html } from '../tpl'
 
 /**
  * @summary A view that displays an image.
@@ -13,7 +14,7 @@ export class ImageView extends HTMLElement {
   static #template: DocumentFragment
 
   static get template() {
-    return (this.#template ??= $(html`<slot></slot>`.toString()))
+    return (this.#template ??= $(html`<slot></slot>`))
   }
 
   #shadowRoot

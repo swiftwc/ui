@@ -2,6 +2,9 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff } from '../internal/utils'
 import { html } from '../tpl'
 
+/**
+ * @summary A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.
+ */
 export class FineTooltip extends HTMLElement {
   constructor() {
     super()

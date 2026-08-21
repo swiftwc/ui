@@ -13,6 +13,8 @@ Instructions on how to add the SwiftWC Web Components to your app.
 
 ## Quick Start
 
+If you are building an always online app, the easiest way to add SwiftWC is by using a CDN.
+
 **Just add a few lines into your HTML and you are ready-to-go:**
 
 ::::tabs key:channel
@@ -144,6 +146,11 @@ const members = [
     avatar: '/assets/ember.svg',
     org: 'Ember.js',
     orgLink: '/installation/frameworks/emberjs',
+  },
+  {
+    avatar: '/assets/angular.svg',
+    org: 'Angular',
+    orgLink: '/installation/frameworks/angular',
   },
   // {
   //   avatar: '/assets/manual.svg',

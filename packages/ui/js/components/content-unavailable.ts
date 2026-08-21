@@ -1,6 +1,7 @@
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, devFlags, onoff } from '../internal/utils'
+import { html } from '../morphdom'
 
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.
@@ -27,16 +28,15 @@ export class ContentUnavailable extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-      <div part="root content-unavailable-title-stack">
-        <slot></slot>
-      </div>
-      <div part="root content-unavailable-description-stack">
-        <slot name="description"></slot>
-      </div>
-      <div part="root content-unavailable-actions-stack">
-        <slot name="actions"></slot>
-      </div>`
+      html`<div part="root content-unavailable-title-stack">
+          <slot></slot>
+        </div>
+        <div part="root content-unavailable-description-stack">
+          <slot name="description"></slot>
+        </div>
+        <div part="root content-unavailable-actions-stack">
+          <slot name="actions"></slot>
+        </div>`.toString()
     ))
   }
 

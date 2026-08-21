@@ -42,11 +42,11 @@ export class ProgressView extends HTMLElement {
           ProgressView.#templates.set(
             this.progressViewStyle,
             $(
-              String.raw`
-            <slot></slot>
-            <div part="root progress-control progress-line-control"></div>
-            <slot name="current-value"></slot>
-            `
+              html`
+                <slot></slot>
+                <div part="root progress-control progress-line-control"></div>
+                <slot name="current-value"></slot>
+              `.toString()
             )
           )
 
@@ -56,20 +56,20 @@ export class ProgressView extends HTMLElement {
           ProgressView.#templates.set(
             this.progressViewStyle,
             $(
-              String.raw`
-            <div part="root progress-control progress-circular-control">
-              <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
-            </div>
-            <slot></slot>
-            <slot name="current-value"></slot>
-            `
+              html`
+                <div part="root progress-control progress-circular-control">
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
+                  <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
+                </div>
+                <slot></slot>
+                <slot name="current-value"></slot>
+              `.toString()
             )
           )
 

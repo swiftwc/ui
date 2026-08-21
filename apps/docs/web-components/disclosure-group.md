@@ -13,8 +13,8 @@ interface DisclosureGroupSignature {
   }
 
   Events: {
-    'is-expanded': CustomEvent<{ value: string }>
-    'is-collapsed': CustomEvent<{ value: string }>
+    'is-expanded': CustomEvent
+    'is-collapsed': CustomEvent
   }
 }
 

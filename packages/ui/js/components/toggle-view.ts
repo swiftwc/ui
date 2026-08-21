@@ -43,17 +43,16 @@ export class ToggleView extends FormAssociatedBase {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-    <label part="root toggle-stack">
-    <div part="root toggle-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root toggle-input-stack">
-      <!--<input type="checkbox" part="root input toggle-form-input">-->
-      <div part="root toggle-form-input" tabindex="0"></div>
-    </div>
-    <slot name="validity-options" hidden></slot>
-  </label>`
+      html`<label part="root toggle-stack">
+        <div part="root toggle-label-stack">
+          <slot name="label"></slot>
+        </div>
+        <div part="root toggle-input-stack">
+          <!--<input type="checkbox" part="root input toggle-form-input">-->
+          <div part="root toggle-form-input" tabindex="0"></div>
+        </div>
+        <slot name="validity-options" hidden></slot>
+      </label>`.toString()
     ))
   }
 

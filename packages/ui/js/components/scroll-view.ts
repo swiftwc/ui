@@ -33,18 +33,17 @@ export class ScrollView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-  <slot></slot>
-  <div part="root scroll-view-navbar">
-    <div part="root scroll-view-navbar-stack">
-      <slot name="top-bar-principal"></slot>
-    </div>
-  </div>
-  <div part="root scroll-view-toolbar">
-    <div part="root scroll-view-toolbar-stack">
-      <slot name="bottom-bar-principal"></slot>
-    </div>
-  </div>`
+      html`<slot></slot>
+        <div part="root scroll-view-navbar">
+          <div part="root scroll-view-navbar-stack">
+            <slot name="top-bar-principal"></slot>
+          </div>
+        </div>
+        <div part="root scroll-view-toolbar">
+          <div part="root scroll-view-toolbar-stack">
+            <slot name="bottom-bar-principal"></slot>
+          </div>
+        </div>`.toString()
     ))
   }
 

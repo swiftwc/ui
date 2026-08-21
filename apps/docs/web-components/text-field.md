@@ -6,7 +6,7 @@
 
 ```ts
 interface TextFieldSignature {
-  Declaration: '<form is="text-field"></form>'
+  Declaration: '<text-field></text-field>'
 
   Attributes: {
     prompt: string
@@ -25,12 +25,18 @@ interface TextFieldSignature {
   }
 
   Slots: {
-    label: []
-    'validity-options': []
+    label: HTMLElement[]
+    'validity-options': HTMLElement[]
+  }
+
+  Events: {
+    commit: CustomEvent<{ detail: { text: string } }> // Triggered when user interacts with the input area
   }
 }
 
-class TextField extends HTMLFormElement<TextFieldSignature> {
+class TextField extends HTMLElement<TextFieldSignature> {
+  static formAssociated = true
+
   readonly keyboardType: 'decimal-pad' | 'number-pad' | 'default'
   text: string
   readonly name: string // Form participation property
@@ -40,6 +46,12 @@ class TextField extends HTMLFormElement<TextFieldSignature> {
 
   setValidity(): void
   setCustomValidity(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'text-field': TextField
+  }
 }
 ```
 
@@ -51,6 +63,6 @@ class TextField extends HTMLFormElement<TextFieldSignature> {
 
 ### Conforms To
 
-`HTMLFormElement`
+`HTMLElement`
 
 <!-- #endregion post -->

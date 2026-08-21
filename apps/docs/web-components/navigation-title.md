@@ -9,7 +9,7 @@ interface NavigationTitleSignature {
   Declaration: '<navigation-title></navigation-title>'
 
   Attributes: {
-    padding: boolean
+    padding?: boolean
     value: string
     subtitle: string
     'system-image': string

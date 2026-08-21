@@ -14,7 +14,7 @@ interface BorderedButtonSignature {
   }
 
   Slots: {
-    overlay: []
+    overlay: HTMLElement[]
   }
 }
 

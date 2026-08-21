@@ -15,6 +15,11 @@ interface ParsedFormat {
  * @slot label — Use the `slot="label"` attribute to place childen in the label block.
  * @slot header
  * @slot footer
+ *
+ * @csspart labeled-content-container
+ * @csspart labeled-content-stack
+ * @csspart labeled-content-label-stack
+ * @csspart labeled-content-value-stack
  */
 export class LabeledContent extends HTMLElement {
   static get observedAttributes() {
@@ -35,20 +40,20 @@ export class LabeledContent extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-    <div part="root labeled-content-container">
-      <slot name="header"></slot>
-      <div part="root labeled-content-stack">
-        <div part="root labeled-content-label-stack">
-          <slot name="label"></slot>
+      html`
+        <div part="root labeled-content-container">
+          <slot name="header"></slot>
+          <div part="root labeled-content-stack">
+            <div part="root labeled-content-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root labeled-content-value-stack">
+              <slot></slot>
+            </div>
+          </div>
+          <slot name="footer"></slot>
         </div>
-        <div part="root labeled-content-value-stack">
-          <slot></slot>
-        </div>
-      </div>
-      <slot name="footer"></slot>
-    </div>
-    `
+      `.toString()
     ))
   }
 

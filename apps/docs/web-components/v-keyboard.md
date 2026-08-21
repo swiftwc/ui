@@ -9,7 +9,7 @@ interface VKeyboardSignature {
   Declaration: '<v-keyboard></v-keyboard>'
 
   Attributes: {
-    'system-font': 'Inter' // Prefers the "Inter" font family, if loaded.
+    'system-font'?: 'Inter' // Prefers the "Inter" font family, if loaded.
   }
 }
 

@@ -9,7 +9,7 @@ interface ListViewSignature {
   Declaration: '<list-view></list-view>'
 
   Attributes: {
-    'navigation-link-indicator-visibility': 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
   }
 }
 

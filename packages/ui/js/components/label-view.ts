@@ -14,6 +14,10 @@ import { html, queryMorph } from '../morphdom'
  * @slot — Any children without a `slot` attribute are placed in the title block.
  * @slot icon — Use the `slot="icon"` attribute to place childen in the icon block.
  *
+ * @cssprop --label-gap — The gap between the icon and the title.
+ * @cssprop --label-image-size — The size of the icon.
+ * @cssprop --label-padding-inline — The padding inline of the label.
+ *
  */
 export class LabelView extends HTMLElement {
   static get observedAttributes() {
@@ -22,7 +26,7 @@ export class LabelView extends HTMLElement {
       'title',
       'line-limit',
       /**
-       * @type {tail}
+       * @type {"tail"}
        */
       'truncation-mode',
     ]
@@ -32,10 +36,10 @@ export class LabelView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-    <slot name="icon"></slot>
-    <slot></slot>
-    `
+      html`
+        <slot name="icon"></slot>
+        <slot></slot>
+      `.toString()
       //     String.raw`
       // <div part="root label-image-stack">
       //   <slot name="image"></slot>

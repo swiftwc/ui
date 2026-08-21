@@ -14,7 +14,7 @@ interface GlassButtonSignature {
   }
 
   Slots: {
-    overlay: []
+    overlay: HTMLElement[]
   }
 }
 

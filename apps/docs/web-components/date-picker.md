@@ -6,7 +6,7 @@
 
 ```ts
 interface DatePickerSignature {
-  Declaration: '<form is="date-picker"></form>'
+  Declaration: '<date-picker></date-picker>'
 
   Attributes: {
     'date-picker-style': 'graphical' | 'field' | 'automatic' // The style of this element
@@ -21,7 +21,9 @@ interface DatePickerSignature {
   }
 }
 
-class DatePicker extends HTMLFormElement<DatePickerSignature> {
+class DatePicker extends HTMLElement<DatePickerSignature> {
+  static formAssociated = true
+
   readonly template: DocumentFragment
   readonly datePickerStyle: 'graphical' | 'field' | 'automatic'
   readonly name: string // Form participation property
@@ -33,6 +35,12 @@ class DatePicker extends HTMLFormElement<DatePickerSignature> {
   setValidity(): void
   setCustomValidity(): void
 }
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'date-picker': DatePicker
+  }
+}
 ```
 
 <!-- #endregion pre -->
@@ -43,6 +51,6 @@ class DatePicker extends HTMLFormElement<DatePickerSignature> {
 
 ### Conforms To
 
-`HTMLFormElement`
+`HTMLElement`
 
 <!-- #endregion post -->

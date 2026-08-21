@@ -12,6 +12,8 @@ export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'nu
 /**
  * @summary A control that displays an editable text area.
  *
+ * @fires {{ detail: { text: string } }} commit — Triggered when user interacts with the input area
+ *
  * @slot label
  * @slot validity-options
  */
@@ -50,16 +52,15 @@ export class TextField extends FormAssociatedBase {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-    <label part="root text-field-stack">
-    <div part="root text-field-label-stack">
-      <slot name="label"></slot>
-    </div>
-    <div part="root text-field-input-stack">
-      <input type="text" part="root input text-field-form-input">
-    </div>
-    <slot name="validity-options" hidden></slot>
-  </label>`
+      html`<label part="root text-field-stack">
+        <div part="root text-field-label-stack">
+          <slot name="label"></slot>
+        </div>
+        <div part="root text-field-input-stack">
+          <input type="text" part="root input text-field-form-input" />
+        </div>
+        <slot name="validity-options" hidden></slot>
+      </label>`.toString()
     ))
   }
 

@@ -9,18 +9,18 @@ interface TableViewSignature {
   Declaration: '<table-view></table-view>'
 
   Attributes: {
-    'preferred-compact-template': 'title:trailing:subtitle' | 'trailing:title:subtitle' | 'title:subtitle:trailing' | '*' // Sets the template areas when the table is in compact mode
+    'preferred-compact-template'?: 'title:trailing:subtitle' | 'trailing:title:subtitle' | 'title:subtitle:trailing' | '*' // Sets the template areas when the table is in compact mode
   }
 
   Slots: {
-    default: [] // The default slot.
-    'header-leading': []
-    'header-principal': []
-    'header-trailing': []
-    column: []
-    'footer-leading': []
-    'footer-principal': []
-    'footer-trailing': []
+    default: HTMLElement[] // The default slot.
+    'header-leading': HTMLElement[]
+    'header-principal': HTMLElement[]
+    'header-trailing': HTMLElement[]
+    column: HTMLElement[]
+    'footer-leading': HTMLElement[]
+    'footer-principal': HTMLElement[]
+    'footer-trailing': HTMLElement[]
   }
 }
 

@@ -14,9 +14,9 @@ interface SectionViewSignature {
   }
 
   Slots: {
-    default: [] // The default slot.
-    header: []
-    footer: []
+    default: HTMLElement[] // The default slot.
+    header: HTMLElement[]
+    footer: HTMLElement[]
   }
 }
 

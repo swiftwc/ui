@@ -18,10 +18,17 @@ interface LabeledContentSignature {
   }
 
   Slots: {
-    default: [] // The default slot.
-    label: [] // Use the `slot="label"` attribute to place childen in the label block.
-    header: []
-    footer: []
+    default: HTMLElement[] // The default slot.
+    label: HTMLElement[] // Use the `slot="label"` attribute to place childen in the label block.
+    header: HTMLElement[]
+    footer: HTMLElement[]
+  }
+
+  Parts: {
+    'labeled-content-container': never
+    'labeled-content-stack': never
+    'labeled-content-label-stack': never
+    'labeled-content-value-stack': never
   }
 }
 

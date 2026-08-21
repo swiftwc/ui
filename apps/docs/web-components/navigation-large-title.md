@@ -9,9 +9,9 @@ interface NavigationLargeTitleSignature {
   Declaration: '<navigation-large-title></navigation-large-title>'
 
   Attributes: {
-    'background-style': 'grouped'
-    padding: boolean
-    'navigation-bar-auto-hide': boolean
+    'background-style'?: 'grouped'
+    padding?: boolean
+    'navigation-bar-auto-hide'?: boolean
   }
 }
 

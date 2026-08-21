@@ -15,12 +15,12 @@ interface VStackSignature {
   Declaration: '<v-stack></v-stack>'
 
   Attributes: {
-    distribution: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
-    template: Template // The main-axis grid template
-    spacing: Spacing // The gap between the primary axis
-    alignment: inlineSet // The cross-axis alignment
-    distribution: blockSet // The main-axis alignment
-    placement: blockPlacementSet // The main-axis alignment
+    distribution?: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
+    template?: Template // The main-axis grid template
+    spacing?: Spacing // The gap between the primary axis
+    alignment?: inlineSet // The cross-axis alignment
+    distribution?: blockSet // The main-axis alignment
+    placement?: blockPlacementSet // The main-axis alignment
   }
 }
 

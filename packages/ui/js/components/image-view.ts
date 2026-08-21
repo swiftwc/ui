@@ -13,7 +13,7 @@ export class ImageView extends HTMLElement {
   static #template: DocumentFragment
 
   static get template() {
-    return (this.#template ??= $(String.raw`<slot></slot>`))
+    return (this.#template ??= $(html`<slot></slot>`.toString()))
   }
 
   #shadowRoot

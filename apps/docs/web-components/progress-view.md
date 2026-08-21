@@ -15,8 +15,8 @@ interface ProgressViewSignature {
   }
 
   Slots: {
-    default: [] // The default slot.
-    'current-value': []
+    default: HTMLElement[] // The default slot.
+    'current-value': HTMLElement[]
   }
 }
 

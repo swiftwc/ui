@@ -9,11 +9,11 @@ interface HStackSignature {
   Declaration: '<h-stack></h-stack>'
 
   Attributes: {
-    template: Template // The main-axis grid template
-    spacing: Spacing // The gap between the primary axis
-    alignment: blockSet // The cross-axis alignment
-    distribution: inlineSet // The main-axis alignment
-    placement: inlinePlacementSet // The main-axis alignment
+    template?: Template // The main-axis grid template
+    spacing?: Spacing // The gap between the primary axis
+    alignment?: blockSet // The cross-axis alignment
+    distribution?: inlineSet // The main-axis alignment
+    placement?: inlinePlacementSet // The main-axis alignment
   }
 }
 

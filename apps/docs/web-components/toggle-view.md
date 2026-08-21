@@ -6,7 +6,7 @@
 
 ```ts
 interface ToggleViewSignature {
-  Declaration: '<form is="toggle-view"></form>'
+  Declaration: '<toggle-view></toggle-view>'
 
   Attributes: {
     label: string
@@ -19,16 +19,18 @@ interface ToggleViewSignature {
   }
 
   Slots: {
-    label: []
-    'validity-options': []
+    label: HTMLElement[]
+    'validity-options': HTMLElement[]
   }
 
   Events: {
-    'toggle:change': CustomEvent<{ value: string }> // User toggled the control
+    'toggle:change': CustomEvent // User toggled the control
   }
 }
 
-class ToggleView extends HTMLFormElement<ToggleViewSignature> {
+class ToggleView extends HTMLElement<ToggleViewSignature> {
+  static formAssociated = true
+
   readonly toggleStyle: 'button' | 'switch'
   isOn: boolean
   readonly name: string // Form participation property
@@ -36,6 +38,12 @@ class ToggleView extends HTMLFormElement<ToggleViewSignature> {
 
   setValidity(): void
   setCustomValidity(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'toggle-view': ToggleView
+  }
 }
 ```
 
@@ -47,6 +55,6 @@ class ToggleView extends HTMLFormElement<ToggleViewSignature> {
 
 ### Conforms To
 
-`HTMLFormElement`
+`HTMLElement`
 
 <!-- #endregion post -->

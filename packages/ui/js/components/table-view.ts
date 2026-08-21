@@ -29,35 +29,34 @@ export class TableView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-    <div part="root table-container">
-      <div part="root table-header-stack">
-        <div part="root table-header-leading-stack">
-          <slot name="header-leading"></slot>
+      html`<div part="root table-container">
+        <div part="root table-header-stack">
+          <div part="root table-header-leading-stack">
+            <slot name="header-leading"></slot>
+          </div>
+          <div part="root table-header-principal-stack">
+            <slot name="header-principal"></slot>
+          </div>
+          <div part="root table-header-trailing-stack">
+            <slot name="header-trailing"></slot>
+          </div>
         </div>
-        <div part="root table-header-principal-stack">
-          <slot name="header-principal"></slot>
+        <div part="root table-column-stack">
+          <slot name="column"></slot>
         </div>
-        <div part="root table-header-trailing-stack">
-          <slot name="header-trailing"></slot>
+        <slot><p>empty</p></slot>
+        <div part="root table-footer-stack">
+          <div part="root table-footer-leading-stack">
+            <slot name="footer-leading"></slot>
+          </div>
+          <div part="root table-footer-principal-stack">
+            <slot name="footer-principal"></slot>
+          </div>
+          <div part="root table-footer-trailing-stack">
+            <slot name="footer-trailing"></slot>
+          </div>
         </div>
-      </div>
-      <div part="root table-column-stack">
-        <slot name="column"></slot>
-      </div>
-      <slot><p>empty</p></slot>
-      <div part="root table-footer-stack">
-        <div part="root table-footer-leading-stack">
-          <slot name="footer-leading"></slot>
-        </div>
-        <div part="root table-footer-principal-stack">
-          <slot name="footer-principal"></slot>
-        </div>
-        <div part="root table-footer-trailing-stack">
-          <slot name="footer-trailing"></slot>
-        </div>
-      </div>
-    </div>`
+      </div>`.toString()
     ))
   }
 

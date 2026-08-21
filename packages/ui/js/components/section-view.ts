@@ -17,16 +17,15 @@ export class SectionView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-  <div part="root section-main-stack">
-    <slot></slot>
-  </div>
-  <div part="root section-header-stack">
-    <slot name="header"></slot>
-  </div>
-  <div part="root section-footer-stack">
-    <slot name="footer"></slot>
-  </div>`
+      html`<div part="root section-main-stack">
+          <slot></slot>
+        </div>
+        <div part="root section-header-stack">
+          <slot name="header"></slot>
+        </div>
+        <div part="root section-footer-stack">
+          <slot name="footer"></slot>
+        </div>`.toString()
     ))
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }

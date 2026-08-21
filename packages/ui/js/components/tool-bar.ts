@@ -1,5 +1,6 @@
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
 import { $, devFlags } from '../internal/utils'
+import { html } from '../morphdom'
 
 const observers = new ResizeObserverSingleton()
 
@@ -23,33 +24,32 @@ export class ToolBar extends HTMLElement {
   static get template() {
     // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
     return (this.#template ??= $(
-      String.raw`
-    <div part="root top-bar">
-    <div part="root toolbar-leading-stack">
-      <slot name="cancellation-action"></slot>
-      <slot name="destructive-action"></slot>
-      <slot name="top-bar-leading"></slot>
-    </div>
-    <div part="root toolbar-principal-stack">
-      <slot name="top-bar-principal"></slot>
-    </div>
-    <div part="root toolbar-trailing-stack">
-      <slot name="top-bar-trailing"></slot>
-      <slot name="primary-action"></slot>
-      <slot name="confirmation-action"></slot>
-    </div>
-  </div>
-  <div part="root bottom-bar">
-    <div part="root toolbar-leading-stack">
-      <slot name="bottom-bar-leading"></slot>
-    </div>
-    <div part="root toolbar-principal-stack">
-      <slot name="bottom-bar-principal"></slot>
-    </div>
-    <div part="root toolbar-trailing-stack">
-      <slot name="bottom-bar-trailing"></slot>
-    </div>
-  </div>`
+      html`<div part="root top-bar">
+          <div part="root toolbar-leading-stack">
+            <slot name="cancellation-action"></slot>
+            <slot name="destructive-action"></slot>
+            <slot name="top-bar-leading"></slot>
+          </div>
+          <div part="root toolbar-principal-stack">
+            <slot name="top-bar-principal"></slot>
+          </div>
+          <div part="root toolbar-trailing-stack">
+            <slot name="top-bar-trailing"></slot>
+            <slot name="primary-action"></slot>
+            <slot name="confirmation-action"></slot>
+          </div>
+        </div>
+        <div part="root bottom-bar">
+          <div part="root toolbar-leading-stack">
+            <slot name="bottom-bar-leading"></slot>
+          </div>
+          <div part="root toolbar-principal-stack">
+            <slot name="bottom-bar-principal"></slot>
+          </div>
+          <div part="root toolbar-trailing-stack">
+            <slot name="bottom-bar-trailing"></slot>
+          </div>
+        </div>`.toString()
     ))
   }
 

@@ -6,23 +6,25 @@
 
 ```ts
 interface PickerViewSignature {
-  Declaration: '<form is="picker-view"></form>'
+  Declaration: '<picker-view></picker-view>'
 
   Attributes: {
-    'picker-style': 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
-    dictionary: 'DictEntry[]' // Renders all options using this array
-    'label-value-placement': 'vertical' | 'horizontal' | 'auto'
+    'picker-style'?: 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
+    dictionary?: 'DictEntry[]' // Renders all options using this array
+    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'
   }
 
   Slots: {
-    default: [] // The default slot.
-    label: []
-    list: []
-    'validity-options': []
+    default: HTMLElement[] // The default slot.
+    label: HTMLElement[]
+    list: HTMLElement[]
+    'validity-options': HTMLElement[]
   }
 }
 
-class PickerView extends HTMLFormElement<PickerViewSignature> {
+class PickerView extends HTMLElement<PickerViewSignature> {
+  static formAssociated = true
+
   selection: string
   readonly template: DocumentFragment
   readonly pickerStyle: 'automatic' | 'menu' | 'inline' | 'navigation-link' | 'sheet'
@@ -30,6 +32,12 @@ class PickerView extends HTMLFormElement<PickerViewSignature> {
 
   setValidity(): void
   setCustomValidity(): void
+}
+
+declare global {
+  interface HTMLElementTagNameMap {
+    'picker-view': PickerView
+  }
 }
 ```
 
@@ -41,6 +49,6 @@ class PickerView extends HTMLFormElement<PickerViewSignature> {
 
 ### Conforms To
 
-`HTMLFormElement`
+`HTMLElement`
 
 <!-- #endregion post -->

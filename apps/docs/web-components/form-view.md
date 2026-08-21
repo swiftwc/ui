@@ -9,7 +9,7 @@ interface FormViewSignature {
   Declaration: '<form is="form-view"></form>'
 
   Attributes: {
-    'navigation-link-indicator-visibility': 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
   }
 }
 

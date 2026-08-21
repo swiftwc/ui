@@ -19,12 +19,34 @@ const kebabCase = (str: string) =>
       .toLowerCase()
       // Remove leading/trailing dashes
       .replace(/^-+|-+$/g, ''),
-  extractAb = (str: string) => {
-    const i = str.lastIndexOf('—'),
-      a = str.slice(0, i !== -1 ? i : undefined).trim(),
-      b = i !== -1 ? str.slice(i + 1).trim() : undefined
-    return [a.trim(), b?.trim()]
+  extractTag = (str: string) => {
+    let depth = 0,
+      start = -1,
+      end = -1
+
+    for (let i = 0; i < str.length; i++) {
+      if (str[i] === '{') {
+        if (depth === 0) start = i + 1
+        depth++
+      } else if (str[i] === '}') {
+        depth--
+        if (depth === 0 && start !== -1) {
+          end = i
+          break
+        }
+      }
+    }
+
+    const type = start !== -1 && end !== -1 ? str.slice(start, end) : undefined
+    const rest = type !== undefined ? str.slice(0, start - 1) + str.slice(end + 1) : str
+
+    const i = rest.lastIndexOf('—')
+    const title = (i !== -1 ? rest.slice(0, i) : rest).trim()
+    const description = i !== -1 ? rest.slice(i + 1).trim() || undefined : undefined
+
+    return { title, description, type }
   },
+  formatProp = (prop: string) => (/^[A-Za-z_$][\w$]*$/.test(prop) ? prop : `'${prop}'`),
   extractTypes = (tags: doctrine.Tag[]): { type: string; description?: string } => {
     const tag = tags?.find(({ title }) => title === 'type')
 
@@ -439,7 +461,7 @@ for (const sourceFile of project.getSourceFiles()) {
 
   for (const cls of classes) {
     const is = kebabCase(`${cls.getName()}`),
-      superclass = `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('Associated', '')?.replaceAll('NavigationView', '') ?? ''}Element`
+      superclass = `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('FormAssociated', '')?.replaceAll('NavigationView', '') ?? ''}Element`
 
     let gdeclartion = is,
       declaration = `<${is}></${is}>`
@@ -549,9 +571,7 @@ for (const sourceFile of project.getSourceFiles()) {
           text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
         },
       })
-      ;(htmlDataTagDescMap.get('props1') ?? htmlDataTagDescMap.set('props1', []).get('props1'))?.push(
-        `  ${!readonly ? '' : `readonly `}${/^[A-Za-z_$][\w$]*$/.test(m.getName()) ? m.getName() : `'${m.getName()}'`}: ${propTypeText}${d ? ` // ${d}` : ''}`
-      )
+      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
     }
 
     for (const m of [...methods, ...arrowMethods]) {
@@ -593,9 +613,7 @@ for (const sourceFile of project.getSourceFiles()) {
           },
         },
       })
-      ;(htmlDataTagDescMap.get('fns1') ?? htmlDataTagDescMap.set('fns1', []).get('fns1'))?.push(
-        `  ${/^[A-Za-z_$][\w$]*$/.test(m.getName()) ? m.getName() : `'${m.getName()}'`}(): ${returnTypeText}${d ? ` // ${d}` : ''}`
-      )
+      ;(htmlDataTagDescMap.get('fns') ?? htmlDataTagDescMap.set('fns', []).get('fns'))?.push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
     }
 
     const leading = cls
@@ -629,7 +647,7 @@ for (const sourceFile of project.getSourceFiles()) {
             continue
 
           case 'example': {
-            const [a, b] = extractAb(tag.description ?? '')
+            const { title: a, description: b } = extractTag(tag.description ?? '')
 
             ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(
               `**${b ?? 'Example'}:**`,
@@ -640,7 +658,7 @@ for (const sourceFile of project.getSourceFiles()) {
           }
           case 'event':
           case 'fires': {
-            const [a, b] = extractAb(tag.description ?? '')
+            const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
             ;(module.declarations[0].events ??= []).push({
               name: a ?? '',
@@ -650,15 +668,14 @@ for (const sourceFile of project.getSourceFiles()) {
               },
             })
 
-            const eventName = a || ''
-            ;(htmlDataTagDescMap.get('events1') ?? htmlDataTagDescMap.set('events1', []).get('events1'))?.push(
-              `    ${/^[A-Za-z_$][\w$]*$/.test(eventName) ? eventName : `'${eventName}'`}: CustomEvent<{ value: string }>${b ? ` // ${b}` : ''}`
-            )
+            if (a) {
+              ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
+            }
 
             continue
           }
           case 'slot': {
-            const [a, b] = extractAb(tag.description ?? '')
+            const { title: a, description: b } = extractTag(tag.description ?? '')
 
             ;(module.declarations[0].slots ??= []).push({
               name: a ?? '',
@@ -666,9 +683,21 @@ for (const sourceFile of project.getSourceFiles()) {
             })
 
             const slotName = a || 'default'
-            ;(htmlDataTagDescMap.get('slots1') ?? htmlDataTagDescMap.set('slots1', []).get('slots1'))?.push(
-              `    ${/^[A-Za-z_$][\w$]*$/.test(slotName) ? slotName : `'${slotName}'`}: []${b ? ` // ${b}` : ''}`
-            )
+            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: HTMLElement[]${b ? ` // ${b}` : ''}`)
+
+            continue
+          }
+          case 'cssprop': {
+            const { title: a, description: b } = extractTag(tag.description ?? '')
+
+            if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: string${b ? ` // ${b}` : ''}`)
+
+            continue
+          }
+          case 'csspart': {
+            const { title: a, description: b } = extractTag(tag.description ?? '')
+
+            if (a) (htmlDataTagDescMap.get('parts') ?? htmlDataTagDescMap.set('parts', []).get('parts'))?.push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -679,14 +708,12 @@ for (const sourceFile of project.getSourceFiles()) {
               name: '',
             }
 
-            const [a, b] = extractAb(tag.description)
+            const { title: a, description: b, type: c } = extractTag(tag.description)
             if (!a) continue
 
             if (b) attr.description = `\nDescription: ${b}`
 
-            const matches = [...a.matchAll(/\{([^}]+)\}/g)].map((m) => m[1])
-
-            if (0 < matches.length) {
+            if (c) {
               const lastIndex = a.slice(a.lastIndexOf('}') + 1)
               ;(module.declarations[0].attributes ??= []).push({
                 name: lastIndex.trim(),
@@ -694,17 +721,15 @@ for (const sourceFile of project.getSourceFiles()) {
 
               attr.name = lastIndex.trim()
 
-              const types: string | string[] = ['boolean'].includes(matches.at(0) ?? '') ? 'boolean' : (matches.at(0) ?? '').split('|').map((item) => item.trim().replace(/['"`]/g, ''))
-              if (matches.at(0)?.startsWith('@')) {
-                attr.valueSet = matches.at(0)?.slice(1)
-                ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
-                  `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${matches.at(0)?.slice(1)}${b ? ` // ${b}` : ''}`
-                )
+              const types: string | string[] = ['boolean'].includes(c) ? 'boolean' : c.split('|').map((item) => item.trim().replace(/['"`]/g, ''))
+              if (c.startsWith('@')) {
+                attr.valueSet = c.slice(1)
+                ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
               } else if (types) {
                 attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
-                ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
-                  `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`
+                ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(
+                  `    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`
                 )
               }
               ;(htmlDataTag.attributes ??= []).push(attr)
@@ -771,9 +796,7 @@ for (const sourceFile of project.getSourceFiles()) {
           }
         }
 
-        ;(htmlDataTagDescMap.get('attrs1') ?? htmlDataTagDescMap.set('attrs1', []).get('attrs1'))?.push(
-          `    ${/^[A-Za-z_$][\w$]*$/.test(attr.name) ? attr.name : `'${attr.name}'`}: ${t}${d ? ` // ${d}` : ''}`
-        )
+        ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}: ${t}${d ? ` // ${d}` : ''}`)
         ;(htmlDataTag.attributes ??= []).push(attr)
         //
         ;(module.declarations[0].attributes ??= []).push({ name: attr.name })
@@ -784,11 +807,15 @@ for (const sourceFile of project.getSourceFiles()) {
 
     htmlDataTagDescMap.set('element', [`  Declaration: '${declaration}'`])
 
-    if (htmlDataTagDescMap.has('slots1')) (htmlDataTagDescMap.get('slots1')?.splice(0, 0, '  Slots: {'), htmlDataTagDescMap.get('slots1')?.push('  }'))
+    if (htmlDataTagDescMap.has('slots')) (htmlDataTagDescMap.get('slots')?.splice(0, 0, '  Slots: {'), htmlDataTagDescMap.get('slots')?.push('  }'))
 
-    if (htmlDataTagDescMap.has('events1')) (htmlDataTagDescMap.get('events1')?.splice(0, 0, '  Events: {'), htmlDataTagDescMap.get('events1')?.push('  }'))
+    if (htmlDataTagDescMap.has('events')) (htmlDataTagDescMap.get('events')?.splice(0, 0, '  Events: {'), htmlDataTagDescMap.get('events')?.push('  }'))
 
-    if (htmlDataTagDescMap.has('attrs1')) (htmlDataTagDescMap.get('attrs1')?.splice(0, 0, '  Attributes: {'), htmlDataTagDescMap.get('attrs1')?.push('  }'))
+    if (htmlDataTagDescMap.has('attrs')) (htmlDataTagDescMap.get('attrs')?.splice(0, 0, '  Attributes: {'), htmlDataTagDescMap.get('attrs')?.push('  }'))
+
+    if (htmlDataTagDescMap.has('cssprops')) (htmlDataTagDescMap.get('cssprops')?.splice(0, 0, '  CSSProperties: {'), htmlDataTagDescMap.get('cssprops')?.push('  }'))
+
+    if (htmlDataTagDescMap.has('parts')) (htmlDataTagDescMap.get('parts')?.splice(0, 0, '  Parts: {'), htmlDataTagDescMap.get('parts')?.push('  }'))
 
     if (htmlDataTagDescMap.has('examples')) htmlDataTagDescMap.get('examples')?.splice(0, 0, '### **Examples:**')
 
@@ -800,17 +827,19 @@ for (const sourceFile of project.getSourceFiles()) {
       htmlDataTagDescMap.set('decl', [
         `declare global {
   interface HTMLElementTagNameMap {
-    ${/^[A-Za-z_$][\w$]*$/.test(is) ? is : `'${is}'`}: ${cls.getName()}
+    ${formatProp(is)}: ${cls.getName()}
   }
 }`,
       ])
 
-    const order = ['interface1', 'element', 'attrs1', 'slots1', 'events1', 'interface2', 'class1', 'props1', 'fns1', 'class2', 'decl']
+    if (cls.getBaseClass()?.getName()?.startsWith('FormAssociated')) htmlDataTagDescMap.set('static', [`  static formAssociated = true;`])
+
+    const order = ['interface1', 'element', 'attrs', 'slots', 'events', 'cssprops', 'parts', 'interface2', 'class1', 'static', 'props', 'fns', 'class2', 'decl']
 
     htmlDataTag.description = `${htmlDataTagDescMap.get('desc')?.join('\n')}\n\n\`\`\`ts\n${await prettier.format(
       [...htmlDataTagDescMap.entries()]
         .filter((item) => {
-          return ['slots1', 'interface1', 'element', 'interface2', 'events1', 'decl', 'class1', 'class2', 'props1', 'fns1', 'attrs1'].includes(item[0])
+          return ['slots', 'interface1', 'element', 'interface2', 'static', 'events', 'decl', 'class1', 'class2', 'props', 'fns', 'attrs', 'cssprops', 'parts'].includes(item[0])
         })
         .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
         .map(([, values]) => values.join('\n'))

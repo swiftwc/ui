@@ -335,7 +335,7 @@
           "tagName": "date-picker",
           "description": "A control that selects an absolute date.",
           "superclass": {
-            "name": "HTMLFormElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1164,7 +1164,7 @@
           "tagName": "picker-view",
           "description": "A control that selects one value from a set of options.",
           "superclass": {
-            "name": "HTMLFormElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -1953,7 +1953,7 @@
           "tagName": "text-field",
           "description": "A control that displays an editable text area.",
           "superclass": {
-            "name": "HTMLFormElement"
+            "name": "HTMLElement"
           },
           "members": [
             {
@@ -2028,6 +2028,15 @@
                 "type": {
                   "text": "void"
                 }
+              }
+            }
+          ],
+          "events": [
+            {
+              "name": "commit",
+              "description": "Triggered when user interacts with the input area",
+              "type": {
+                "text": "Event"
               }
             }
           ],
@@ -2110,7 +2119,7 @@
           "tagName": "toggle-view",
           "description": "A control that switches between on and off states.",
           "superclass": {
-            "name": "HTMLFormElement"
+            "name": "HTMLElement"
           },
           "members": [
             {

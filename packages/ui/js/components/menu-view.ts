@@ -17,17 +17,16 @@ export class MenuView extends HTMLElement {
 
   static get template() {
     return (this.#template ??= $(
-      String.raw`
-  <button type="button" part="root button menu-summary">
-    <slot name="label"></slot>
-  </button>
-  <dialog part="root menu-dialog" autofocus inert>
-    <form part="root menu-form" method="dialog" novalidate>
-      <div part="root menu-scrollable">
-        <slot></slot>
-      </div>
-    </form>
-  </dialog>`
+      html`<button type="button" part="root button menu-summary">
+          <slot name="label"></slot>
+        </button>
+        <dialog part="root menu-dialog" autofocus inert>
+          <form part="root menu-form" method="dialog" novalidate>
+            <div part="root menu-scrollable">
+              <slot></slot>
+            </div>
+          </form>
+        </dialog>`.toString()
     ))
   }
 

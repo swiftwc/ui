@@ -17,9 +17,9 @@ interface ScrollViewSignature {
   }
 
   Slots: {
-    default: [] // The default slot.
-    'top-bar-principal': []
-    'bottom-bar-principal': []
+    default: HTMLElement[] // The default slot.
+    'top-bar-principal': HTMLElement[]
+    'bottom-bar-principal': HTMLElement[]
   }
 }
 

@@ -9,12 +9,14 @@ interface TabViewSignature {
   Declaration: '<tab-view></tab-view>'
 
   Events: {
-    tabshow: CustomEvent<{ value: string }> // A Tab is shown
-    tabhide: CustomEvent<{ value: string }> // A Tab is hidden
-    'tab-view:toggle': CustomEvent<{ value: string }>
-    'tab-view:adaptable-tab-bar-placement-change': CustomEvent<{
-      value: string
-    }>
+    tabshow: CustomEvent // A Tab is shown
+    tabhide: CustomEvent // A Tab is hidden
+    'tab-view:toggle': CustomEvent
+    'tab-view:adaptable-tab-bar-placement-change': CustomEvent
+  }
+
+  CSSProperties: {
+    '--adaptable-tab-bar-placement'?: string
   }
 }
 

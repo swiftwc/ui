@@ -9,16 +9,22 @@ interface LabelViewSignature {
   Declaration: '<label-view></label-view>'
 
   Attributes: {
-    font: Font // Sets the default font for text in this view.
+    font?: Font // Sets the default font for text in this view.
     'system-image': string
     title: string
     'line-limit': string
-    'truncation-mode': tail
+    'truncation-mode': 'tail'
   }
 
   Slots: {
-    default: [] // Any children without a `slot` attribute are placed in the title block.
-    icon: [] // Use the `slot="icon"` attribute to place childen in the icon block.
+    default: HTMLElement[] // Any children without a `slot` attribute are placed in the title block.
+    icon: HTMLElement[] // Use the `slot="icon"` attribute to place childen in the icon block.
+  }
+
+  CSSProperties: {
+    '--label-gap'?: string // The gap between the icon and the title.
+    '--label-image-size'?: string // The size of the icon.
+    '--label-padding-inline'?: string // The padding inline of the label.
   }
 }
 

@@ -14,7 +14,7 @@ interface GlassProminentButtonSignature {
   }
 
   Slots: {
-    overlay: []
+    overlay: HTMLElement[]
   }
 }
 

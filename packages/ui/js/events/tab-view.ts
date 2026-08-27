@@ -39,4 +39,14 @@ declare global {
     'tab-view:toggle': TabViewToggleEvent
     'tab-view:adaptable-tab-bar-placement-change': TabViewAdaptableTabBarPlacementChangeEvent
   }
+  interface DocumentEventMap {
+    tabshow: TabshowEvent
+    tabhide: TabhideEvent
+    tabreveal: TabrevealEvent
+    tabswap: TabswapEvent
+    beforetabreveal: BeforetabrevealEvent
+    beforetabswap: BeforetabswapEvent
+    'tab-view:toggle': TabViewToggleEvent
+    'tab-view:adaptable-tab-bar-placement-change': TabViewAdaptableTabBarPlacementChangeEvent
+  }
 }

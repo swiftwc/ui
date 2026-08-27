@@ -1,63 +1,67 @@
 import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from '../../packages/ui/js/client'
 
-document.addEventListener('commit', async (event) => {
-  console.log('commit!!!', event.detail, event.target)
+document.addEventListener('commit', async (evt) => {
+  console.log('commit!!!', evt.detail, evt.target)
 
   // alert(event.detail)
 })
-document.addEventListener('selection', async (event) => {
-  console.log('selection!!!', event.detail, event.target)
+document.addEventListener('selection', async (evt) => {
+  console.log('selection!!!', evt.detail, evt.target)
 
-  if (event.detail.selection) console.log(event.detail.selection)
+  if (evt.detail.selection) console.log(evt.detail.selection)
 })
 
-const toggleHandler = async (event) => {
-  console.debug(`⚡️ ${event?.type}`)
+const toggleHandler = async (evt: ToggleEvent) => {
+  console.debug(`⚡️ ${evt?.type}`)
 
-  if ('closed' !== event.newState) return
+  if (!(evt.target instanceof HTMLElement)) return
 
-  if (!event.target.querySelector('[aria-selected=true]:not(summary)')) return
+  if ('closed' !== evt.newState) return
 
-  const path = new NavigationPath(event.target)?.hydrate()
+  if (!evt.target?.querySelector('[aria-selected=true]:not(summary)')) return
+
+  const path = new NavigationPath(evt.target)?.hydrate()
 
   const from1 = [...path.children()].at(0)
 
-  await startViewTransition(from1.body, 'backwards', async () => {
-    modifyDOMbackwards(from1)
-  })
+  if (from1?.body)
+    await startViewTransition(from1.body, 'backwards', async () => {
+      modifyDOMbackwards(from1)
+    })
 }
 
 const addBindings = () => {
   for (const el of document.querySelectorAll('details.rootonclose')) {
-    el.removeEventListener('toggle', toggleHandler)
-    el.addEventListener('toggle', toggleHandler)
+    el.removeEventListener('toggle', toggleHandler as unknown as EventListener)
+    el.addEventListener('toggle', toggleHandler as unknown as EventListener)
   }
 }
 
-document.body.addEventListener('submit', async (event) => {
-  console.debug(`⚡️ ${event?.type}`)
+document.body.addEventListener('submit', async (evt: SubmitEvent) => {
+  console.debug(`⚡️ ${evt?.type}`)
 
-  const form = event.target.closest('[is=form-view]:not([is="tab-bar"] [is=form-view],[is="sidebar-view"] [is=form-view])')
+  if (!(evt.target instanceof HTMLElement)) return
+
+  const form = evt.target.closest('[is=form-view]:not([is="tab-bar"] [is=form-view],[is="sidebar-view"] [is=form-view])')
 
   if (!form) return
 
-  event.preventDefault()
+  evt.preventDefault()
 
-  const navDest = event.submitter.closest('button[data-nav-destination]')
+  const navDest = evt.submitter?.closest<HTMLElement>('button[data-nav-destination]')
   if (navDest) {
     const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
-    const path = new NavigationPath(event.submitter)?.hydrate()
+    const path = new NavigationPath(evt.submitter ?? undefined)?.hydrate()
 
-    if (event.submitter.closest('.inplace')) {
+    if (evt.submitter?.closest('.inplace')) {
       const parent = [...path.parents()].at(0)?.hydrate()
 
-      modifyDOMforwards(undefined, parent, template)
-    } else {
-      await startViewTransition(event.submitter, 'forwards', async () => {
+      if (parent) modifyDOMforwards(undefined, parent, template)
+    } else if (evt.submitter)
+      await startViewTransition(evt.submitter, 'forwards', async () => {
         modifyDOMforwards(undefined, path, template)
       })
-    }
   }
 
   addBindings()
@@ -105,15 +109,17 @@ document.body.addEventListener('submit', async (event) => {
 //   // itm.style.setProperty('--label--host-gap', 'var(--label-gap)')
 //   // })
 // })
-document.body.addEventListener('click', async (event) => {
-  console.debug(`⚡️ ${event?.type}`)
+document.body.addEventListener('click', async (evt) => {
+  console.debug(`⚡️ ${evt?.type}`)
 
-  const navDest = event.target.closest('button[type="button"][data-nav-destination],summary[data-nav-destination]')
+  if (!(evt.target instanceof HTMLElement)) return
 
-  if (event.target.closest('.back')) {
-    if (event.target.closest('.back-confirmation')) {
+  const navDest = evt.target.closest<HTMLElement>('button[type="button"][data-nav-destination],summary[data-nav-destination]')
+
+  if (evt.target.closest('.back')) {
+    if (evt.target.closest('.back-confirmation')) {
       const confirm = await confirmationDialog(
-        event.target,
+        evt.target,
         'Are you sure?',
         'Are you very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very very sure?',
         [
@@ -125,17 +131,17 @@ document.body.addEventListener('click', async (event) => {
 
       if ('0' === confirm) return
     }
-    const path = new NavigationPath(event.target)?.hydrate()
+    const path = new NavigationPath(evt.target)?.hydrate()
 
     const parent = [...path.parents()].at(0)?.hydrate()
 
-    if (navDest && parent.body) parent.component.inert = true
+    if (navDest && parent?.body) parent.component.inert = true
 
-    await startViewTransition(event.target, 'backwards', async () => {
+    await startViewTransition(evt.target, 'backwards', async () => {
       modifyDOMbackwards(path)
     })
 
-    if (navDest && parent.body) {
+    if (navDest && parent?.body) {
       await startViewTransition(parent.body, 'forwards', async () => {
         modifyDOMforwards(undefined, parent, queryTemplate(navDest.dataset.navDestination))
       })
@@ -147,22 +153,22 @@ document.body.addEventListener('click', async (event) => {
   } else if (navDest) {
     const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
-    const path = new NavigationPath(event.target)?.hydrate()
+    const path = new NavigationPath(evt.target)?.hydrate()
 
-    if (event.target.closest('.inplace')) {
+    if (evt.target.closest('.inplace')) {
       const parent = [...path.parents()].at(0)?.hydrate()
 
       modifyDOMforwards(undefined, parent, template)
     } else {
-      const summary = event.target.closest('summary:has(button)')
+      const summary = evt.target.closest('summary:has(button)')
 
       if (summary) {
-        event.preventDefault()
+        evt.preventDefault()
 
-        if (event.target.closest('button')) return summary.closest('details').toggleAttribute('open')
+        if (evt.target.closest('button')) return summary.closest('details')?.toggleAttribute('open')
       }
 
-      await startViewTransition(event.target, 'forwards', async () => {
+      await startViewTransition(evt.target, 'forwards', async () => {
         modifyDOMforwards(undefined, path, template)
       })
     }
@@ -170,8 +176,8 @@ document.body.addEventListener('click', async (event) => {
     addBindings()
   }
 
-  if (event.target.closest('button')) {
-    if (event.target.closest('.alert')) {
+  if (evt.target.closest('button')) {
+    if (evt.target.closest('.alert')) {
       void alert(
         'Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail Cannot Get Mail',
         'The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed. The connection to the server failed.',
@@ -186,33 +192,34 @@ document.body.addEventListener('click', async (event) => {
           },
         ]
       )
-    } else if (event.target.closest('.alert2')) {
+    } else if (evt.target.closest('.alert2')) {
       void alert()
     }
-    if (event.target.closest('.backtocontroller')) {
-      const path = new NavigationPath(event.target)?.hydrate()
+    if (evt.target.closest('.backtocontroller')) {
+      const path = new NavigationPath(evt.target)?.hydrate()
 
       const parent = [...path.parents()].at(-2)?.hydrate()
 
-      await startViewTransition(parent.body, 'backwards', async () => {
-        modifyDOMbackwards(parent)
-      })
+      if (parent?.body)
+        await startViewTransition(parent.body, 'backwards', async () => {
+          modifyDOMbackwards(parent)
+        })
 
       return
     }
 
-    if (event.target.closest('.make-list')) {
-      const btn = event.target.closest('.make-list')
-      for (const el of btn.closest('v-stack').querySelectorAll('list-view'))
-        if (btn.getAttribute('list')) el.setAttribute('list-style', btn.getAttribute('list'))
+    if (evt.target.closest('.make-list')) {
+      const btn = evt.target.closest('.make-list')
+      for (const el of btn?.closest('v-stack')?.querySelectorAll('list-view') ?? [])
+        if (btn?.getAttribute('list')) el.setAttribute('list-style', btn.getAttribute('list')!)
         else el.removeAttribute('list-style')
-      for (const el of btn.closest('v-stack').querySelectorAll('[is=form-view]'))
-        if (btn.getAttribute('list')) el.setAttribute('form-style', btn.getAttribute('list'))
+      for (const el of btn?.closest('v-stack')?.querySelectorAll('[is=form-view]') ?? [])
+        if (btn?.getAttribute('list')) el.setAttribute('form-style', btn.getAttribute('list')!)
         else el.removeAttribute('form-style')
     }
 
-    if (event.target.closest('.bww')) {
-      const path = new NavigationPath(event.target)?.hydrate()
+    if (evt.target.closest('.bww')) {
+      const path = new NavigationPath(evt.target)?.hydrate()
 
       const parent = [...path.parents()].at(-2)
 
@@ -222,27 +229,29 @@ document.body.addEventListener('click', async (event) => {
       //   //   ),
       //   host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
-      await startViewTransition(parent.body, 'backwards', async () => {
-        modifyDOMbackwards(parent)
-      })
-    } else if (event.target.closest('.bww2')) {
+      if (parent?.body)
+        await startViewTransition(parent.body, 'backwards', async () => {
+          modifyDOMbackwards(parent)
+        })
+    } else if (evt.target.closest('.bww2')) {
       // const sv = queryBodyAll(event.target.closest('dialog')).at(1), //[...event.target.closest('dialog').querySelectorAll('scroll-view')][1],
       //   host = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement
 
-      const path = new NavigationPath(event.target)?.hydrate()
+      const path = new NavigationPath(evt.target)?.hydrate()
 
       const parent = [...path.parents()]
-        .filter((item) => item.component.matches('dialog>:scope'))
+        .filter((item) => item.component?.matches('dialog>:scope'))
         .at(0)
         ?.hydrate()
 
-      await startViewTransition(parent.body, 'backwards', async () => {
-        modifyDOMbackwards(parent)
-      })
+      if (parent?.body)
+        await startViewTransition(parent.body, 'backwards', async () => {
+          modifyDOMbackwards(parent)
+        })
     }
 
-    if (event.target.closest('.fww')) {
-      const path = new NavigationPath(event.target)?.hydrate()
+    if (evt.target.closest('.fww')) {
+      const path = new NavigationPath(evt.target)?.hydrate()
 
       const root = [path, ...path.parents()]
         .map((item) => item.component)
@@ -255,11 +264,14 @@ document.body.addEventListener('click', async (event) => {
       // { page, host } = getComputedView(sv) //{ scene, frame } = queryFrameToolbars(sv),
       // position = queryInsertPosition(host)
 
-      await startViewTransition(path.body, 'forwards', async () => {
-        modifyDOMforwards(
-          event.target.closest('button'),
-          path,
-          `
+      if (path.body)
+        await startViewTransition(path.body, 'forwards', async () => {
+          const svCount = root?.querySelectorAll('scroll-view').length
+
+          modifyDOMforwards(
+            evt.target?.closest('button'),
+            path,
+            `
                   <body-view>
                     <scroll-view>
                       <v-stack padding placement="leading fill">
@@ -296,7 +308,7 @@ document.body.addEventListener('click', async (event) => {
                               </v-stack>
                             </scroll-view>
                             ${
-                              event.target.closest('.dlg')
+                              evt.target.closest('.dlg')
                                 ? `<dialog is="sheet-view">
                               <scroll-view>
                                 <v-stack padding placement="leading fill">
@@ -361,11 +373,11 @@ document.body.addEventListener('click', async (event) => {
 
                                           <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                           
-                                          <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                          <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                           
-                                          <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                          <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                           
-                                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                         </tool-bar>
                                       </dialog>
                                       <tool-bar>
@@ -375,11 +387,11 @@ document.body.addEventListener('click', async (event) => {
 
                                         <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                         
-                                        <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                        <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                         
-                                        <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                        <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                         
-                                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                       </tool-bar>
                                     </dialog>
                                     <tool-bar>
@@ -389,11 +401,11 @@ document.body.addEventListener('click', async (event) => {
 
                                       <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                       
-                                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                       
-                                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                       
-                                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                     </tool-bar>
                                   </body-view>
                                   <tool-bar>
@@ -403,11 +415,11 @@ document.body.addEventListener('click', async (event) => {
 
                                     <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                     
-                                    <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                    <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                     
-                                    <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                    <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                     
-                                    <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                    <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                   </tool-bar>
                                 </body-view>
                                 <tool-bar>
@@ -417,11 +429,11 @@ document.body.addEventListener('click', async (event) => {
 
                                   <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                   
-                                  <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                  <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                   
-                                  <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                  <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                   
-                                  <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                  <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                 </tool-bar>
                               </body-view>
                               <tool-bar>
@@ -431,11 +443,11 @@ document.body.addEventListener('click', async (event) => {
 
                                 <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                                 
-                                <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                                <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                                 
-                                <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                                <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                                 
-                                <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                                <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                               </tool-bar>
                             </dialog>`
                                 : ''
@@ -447,11 +459,11 @@ document.body.addEventListener('click', async (event) => {
 
                               <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                               
-                              <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                              <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                               
-                              <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                              <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                               
-                              <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                              <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                             </tool-bar>
                           </body-view>
                           <tool-bar>
@@ -461,11 +473,11 @@ document.body.addEventListener('click', async (event) => {
 
                             <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                             
-                            <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                            <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                             
-                            <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                            <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                             
-                            <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                            <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                           </tool-bar>
                         </body-view>
                         <tool-bar>
@@ -475,11 +487,11 @@ document.body.addEventListener('click', async (event) => {
 
                           <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                           
-                          <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                          <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                           
-                          <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                          <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                           
-                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                          <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                         </tool-bar>
                       </body-view>
                       <tool-bar>
@@ -489,11 +501,11 @@ document.body.addEventListener('click', async (event) => {
 
                         <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                         
-                        <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                        <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                         
-                        <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                        <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                         
-                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                        <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                       </tool-bar>
                     </body-view>
                     <tool-bar>
@@ -503,34 +515,34 @@ document.body.addEventListener('click', async (event) => {
 
                       <tool-bar-item-group slot="top-bar-leading"><tool-bar-item><menu-view tabindex="0"><label-view slot="label"><i slot="icon" class="ph ph-smiley"></i></label-view><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button><button tabindex="0"><label-view><span>ddd</span></label-view></button></menu-view></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item></tool-bar-item-group>
                       
-                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-leading"><button type="button" tabindex="0" disabled>d${svCount}</button></tool-bar-item>
                       
-                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${root.querySelectorAll('scroll-view').length}</button></tool-bar-item></tool-bar-item-group>
+                      <tool-bar-item-group slot="bottom-bar-leading"><tool-bar-item><button type="button" tabindex="0"><label-view><svg slot="icon" xmlns="http://www.w3.org/2000/svg" fill="currentColor" viewBox="0 0 256 256"><path d="M128,24A104,104,0,1,0,232,128,104.11,104.11,0,0,0,128,24Zm0,192a88,88,0,1,1,88-88A88.1,88.1,0,0,1,128,216ZM80,108a12,12,0,1,1,12,12A12,12,0,0,1,80,108Zm96,0a12,12,0,1,1-12-12A12,12,0,0,1,176,108Zm-1.07,48c-10.29,17.79-27.4,28-46.93,28s-36.63-10.2-46.92-28a8,8,0,1,1,13.84-8c7.47,12.91,19.21,20,33.08,20s25.61-7.1,33.07-20a8,8,0,0,1,13.86,8Z"></path></svg></label-view></button></tool-bar-item><tool-bar-item><button type="button" tabindex="0">d${svCount}</button></tool-bar-item></tool-bar-item-group>
                       
-                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${root.querySelectorAll('scroll-view').length}"></tool-bar-item>
+                      <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                     </tool-bar>
                   </body-view>
                   `
-        )
-      })
+          )
+        })
     }
 
-    if (event.target.closest('.bw')) {
+    if (evt.target.closest('.bw')) {
       // const sv = closestBody(event.target), //event.target.closest('scroll-view') ?? event.target.closest('tool-bar')?.previousElementSibling,
       //   pr = closestHost(sv) //queryFrameToolbars(sv).scene.parentElement //sv.parentElement
 
       // const { host } = getComputedView(closestBody(event.target))
-      const path = new NavigationPath(event.target)?.hydrate()
+      const path = new NavigationPath(evt.target)?.hydrate()
 
-      await startViewTransition(event.target, 'backwards', async () => {
+      await startViewTransition(evt.target, 'backwards', async () => {
         modifyDOMbackwards(path)
       })
     }
 
-    const fwBtn = event.target.closest('.fw')
+    const fwBtn = evt.target.closest<HTMLElement>('.fw')
 
     if (fwBtn) {
-      const path = new NavigationPath(event.target)?.hydrate()
+      const path = new NavigationPath(evt.target)?.hydrate()
 
       const controller = [path, ...path.parents()]
         .map((item) => item.component)
@@ -545,9 +557,13 @@ document.body.addEventListener('click', async (event) => {
       // scene = sv.parentElement?.matches('dialog[is=sidebar-view]') ? sv.parentElement : sv,
       // frame = scene.parentElement
       // console.log(99, lm, frame, queryFrameToolbars(sv).scene)
-      await startViewTransition(event.target, 'forwards', async () => {
+      await startViewTransition(evt.target, 'forwards', async () => {
         const tag =
-          6 === controller.querySelectorAll('scroll-view').length ? 'dialog' : 10 <= controller.querySelectorAll('scroll-view').length ? 'dialog' : 'body-view'
+          6 === controller?.querySelectorAll('scroll-view').length
+            ? 'dialog'
+            : 10 <= (controller?.querySelectorAll('scroll-view').length ?? 0)
+              ? 'dialog'
+              : 'body-view'
 
         modifyDOMforwards(
           fwBtn,
@@ -645,9 +661,9 @@ document.body.addEventListener('click', async (event) => {
 
   // console.log(999, getComputedStyle(event.target.closest('navigation-stack,body-view')).display)
 
-  if (event.target.id === 'btn2') {
+  if (evt.target.id === 'btn2') {
     // alert(99)
-    event.target.closest('body-view').remove()
+    evt.target.closest('body-view')?.remove()
   }
 
   // alert(event.target.hidden)
@@ -690,11 +706,34 @@ window.addEventListener('appinstalled', () => {
   console.debug('⚡️ installed')
 })
 
-export function queryTemplate(navPath: string) {
-  return Array.from(document.querySelectorAll('template')).find((t) => t.innerHTML.includes(`data-nav-path="${navPath}"`)) ?? document.getElementById(navPath)
+// Build once at module load (or lazily on first call + cache)
+const templateIndex = new Map<string, HTMLTemplateElement>()
+
+function buildTemplateIndex() {
+  for (const tpl of document.querySelectorAll('template')) {
+    // data-nav-path lives on an element *inside* the template content,
+    // not on the <template> itself
+    const marked = tpl.content.querySelectorAll('[data-nav-path]')
+    for (const el of marked) {
+      const path = el.getAttribute('data-nav-path')
+      if (path) templateIndex.set(path, tpl)
+    }
+  }
 }
 
-export function modifyDOMbackwards(host) {
+buildTemplateIndex()
+
+export function queryTemplate(navPath?: string) {
+  if (!navPath) return document.getElementById('')
+
+  return templateIndex.get(navPath) ?? document.getElementById(navPath)
+
+  // return (
+  //   Array.from(document.querySelectorAll('template')).find((t) => t.innerHTML.includes(`data-nav-path="${navPath}"`)) ?? document.getElementById(navPath ?? '')
+  // )
+}
+
+export function modifyDOMbackwards(host: NavigationPath) {
   const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
 
   if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.component.tagName)) {
@@ -702,72 +741,60 @@ export function modifyDOMbackwards(host) {
 
     child?.component?.remove()
   } else {
-    host.component.remove()
+    host.component?.remove()
   }
 }
 
-export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
+const scratchTpl = document.createElement('template')
+
+export function modifyDOMforwards(trigger: HTMLElement | undefined, path: NavigationPath, htmlorTpl: HTMLTemplateElement | string, overwrite: boolean = true) {
   if (!(path instanceof NavigationPath)) throw new Error('invalid view')
-  // const root = getRootViewController(body), //sv.closest('navigation-stack,navigation-split-view'),
-  // const view = getComputedView(body) //{ scene, frame } = queryFrameToolbars(sv),
-  // const { page, component } = path
-  // const escapeHTMLPolicy = trustedTypes.createPolicy('myEscapePolicy', {
-  //   createHTML: (string) => string.replace(/</g, '&lt;'),
-  // })
+
   if (trigger?.hasAttribute('data-tag')) {
-    document.querySelector(`#${trigger.getAttribute('data-tag')}`).hidden = false
-  } else {
-    // if (frame.tagName === 'NAVIGATION-SPLIT-VIEW') {
-    //   position = 'beforebegin'
-    //   lookFor = 'previousElementSibling'
-    // } else if (
-    //   frame.parentElement.tagName === 'NAVIGATION-SPLIT-VIEW' &&
-    //   frame.parentElement.querySelector(':scope > [is=sidebar-view]') &&
-    //   frame.tagName === 'BODY-VIEW'
-    // ) {
-    //   position = 'beforebegin'
-    //   lookFor = 'previousElementSibling'
-    // }
-    const position = queryInsertPosition(path.component) //'afterend'
-    const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
-
-    if (overwrite) if (['BODY-VIEW', 'DIALOG'].includes(path.page[lookFor]?.tagName)) path.page[lookFor].remove()
-
-    // if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
-    let node
-
-    if (htmlorTpl instanceof HTMLTemplateElement) {
-      node = htmlorTpl.content.cloneNode(true).firstElementChild
-    } else {
-      const tpl = document.createElement('template')
-      tpl.innerHTML = htmlorTpl
-      node = tpl.content.firstElementChild
-    }
-
-    path.page.insertAdjacentElement(position, node)
-    // if ('DIALOG' === scene[lookFor]?.tagName) scene[lookFor].showModal()
-    // console.log(99, node.tagName, scene[lookFor]?.tagName)
-    // lm.insertAdjacentHTML(position, ``)
-    // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
-    // }
+    const tag = document.querySelector<HTMLElement>(`#${trigger.dataset.tag}`)
+    if (tag) tag.hidden = false
+    return
   }
+
+  const position = queryInsertPosition(path.component) //'afterend'
+  const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
+
+  if (overwrite && ['BODY-VIEW', 'DIALOG'].includes(path.page[lookFor]?.tagName)) path.page[lookFor].remove()
+
+  // if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
+  let node
+
+  if (htmlorTpl instanceof HTMLTemplateElement) {
+    node = htmlorTpl.content.cloneNode(true).firstElementChild
+  } else {
+    scratchTpl.innerHTML = htmlorTpl // reused element, still parses the string once
+    node = scratchTpl.content.firstElementChild
+    scratchTpl.innerHTML = '' // release refs so cloned subtree isn't shared
+  }
+
+  path.page?.insertAdjacentElement(position, node)
+  // if ('DIALOG' === scene[lookFor]?.tagName) scene[lookFor].showModal()
+  // console.log(99, node.tagName, scene[lookFor]?.tagName)
+  // lm.insertAdjacentHTML(position, ``)
+  // if ('DIALOG' === lm[lookFor]?.tagName) lm[lookFor].showModal()
+  // }
 }
 
-export const navHandler = async (event) => {
-  console.debug(`⚡️ ${event?.type}`)
+export const navHandler = async (evt: Event) => {
+  console.debug(`⚡️ ${evt?.type}`)
 
-  for (const el of document.querySelectorAll('[data-nav-destination]')) {
+  for (const el of document.querySelectorAll<HTMLElement>('[data-nav-destination]')) {
     if (el.hasAttribute('selected-when'))
-      el.ariaSelected = el
+      el.ariaSelected = `${el
         .getAttribute('selected-when')
-        .split(' ')
+        ?.split(' ')
         .map((item) => Boolean(document.querySelector(`[data-nav-path="${CSS.escape(item)}"]`)))
-        .some(Boolean)
-    else el.ariaSelected = `${Boolean(document.querySelector(`[data-nav-path="${CSS.escape(el.dataset.navDestination)}"]`))}`
+        .some(Boolean)}`
+    else el.ariaSelected = `${Boolean(document.querySelector(`[data-nav-path="${CSS.escape(el.dataset.navDestination ?? '')}"]`))}`
   }
 
-  for (const el of document.querySelectorAll('button[data-tag]'))
-    el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.getAttribute('data-tag'))}"]:not([hidden])`))}`
+  for (const el of document.querySelectorAll<HTMLButtonElement>('button[data-tag]'))
+    el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.dataset.tag ?? '')}"]:not([hidden])`))}`
 }
 
 lifecycleObserver.addEventListener('tabshow', navHandler)

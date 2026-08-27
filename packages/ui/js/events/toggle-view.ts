@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementEventMap {
     'toggle:change': ToggleChangeEvent
   }
+  interface DocumentEventMap {
+    'toggle:change': ToggleChangeEvent
+  }
 }

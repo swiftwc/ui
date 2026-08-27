@@ -8,4 +8,7 @@ declare global {
   interface HTMLElementEventMap {
     'alert:return': AlertReturnEvent
   }
+  interface DocumentEventMap {
+    'alert:return': AlertReturnEvent
+  }
 }

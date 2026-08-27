@@ -653,8 +653,26 @@
     padding-block: 1px;
   }
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view, menu-view *), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view, menu-view *), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view, menu-view *))::part(section-header-stack) {
-    top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
+    top: var(--list--sticky-block-size, 0px);
     position: sticky;
+  }
+  :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view) section-view:not(section-view section-view, menu-view *):is(scroll-view:has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]) section-view,
+  scroll-view:has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]) section-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]) section-view:not(section-view section-view, menu-view *):is(scroll-view:has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]) section-view,
+  scroll-view:has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]) section-view), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view) section-view:not(section-view section-view, menu-view *):is(scroll-view:has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]) section-view,
+  scroll-view:has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]) section-view))::part(section-header-stack) {
+    top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
   }
   :where(table-view[columns="2"]:not(menu-view *):not(table-view table-view, list-view table-view, [is=form-view] table-view), [columns="2"][is=form-view]:not(menu-view *):not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view[columns="2"]:not(menu-view *):not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     --list--host-grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1476,7 +1494,11 @@
   :where(detail-placeholder > scroll-view) > *:not([slot]) {
     grid-area: main;
   }
-  :where(detail-placeholder > scroll-view):has(~ tool-bar > [slot^=top-bar]), :where(detail-placeholder > scroll-view):has(> [slot^=top-bar]) {
+  :where(detail-placeholder > scroll-view):has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]), :where(detail-placeholder > scroll-view):has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]) {
     grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
   }
   :where(detail-placeholder > scroll-view)::before {
@@ -1973,7 +1995,11 @@
   :where(navigation-stack > scroll-view, navigation-split-view > scroll-view, [is=sidebar-view] > scroll-view, body-view > scroll-view, [is=full-screen] > scroll-view, [is=sheet-view] > scroll-view) > *:not([slot]) {
     grid-area: main;
   }
-  :where(navigation-stack > scroll-view, navigation-split-view > scroll-view, [is=sidebar-view] > scroll-view, body-view > scroll-view, [is=full-screen] > scroll-view, [is=sheet-view] > scroll-view):has(~ tool-bar > [slot^=top-bar]), :where(navigation-stack > scroll-view, navigation-split-view > scroll-view, [is=sidebar-view] > scroll-view, body-view > scroll-view, [is=full-screen] > scroll-view, [is=sheet-view] > scroll-view):has(> [slot^=top-bar]) {
+  :where(navigation-stack > scroll-view, navigation-split-view > scroll-view, [is=sidebar-view] > scroll-view, body-view > scroll-view, [is=full-screen] > scroll-view, [is=sheet-view] > scroll-view):has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]), :where(navigation-stack > scroll-view, navigation-split-view > scroll-view, [is=sidebar-view] > scroll-view, body-view > scroll-view, [is=full-screen] > scroll-view, [is=sheet-view] > scroll-view):has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]) {
     grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
   }
   :where(navigation-stack > scroll-view[navigation-bar-title-display-mode=large], navigation-split-view > scroll-view[navigation-bar-title-display-mode=large], [is=sidebar-view] > scroll-view[navigation-bar-title-display-mode=large], body-view > scroll-view[navigation-bar-title-display-mode=large], [is=full-screen] > scroll-view[navigation-bar-title-display-mode=large], [is=sheet-view] > scroll-view[navigation-bar-title-display-mode=large]) > [slot=top-bar-principal] {
@@ -2396,8 +2422,12 @@
     pointer-events: none;
     visibility: collapse;
   }
-  :where(scroll-view:has(~ tool-bar > [slot^=top-bar]),
-  scroll-view:has(> [slot^=top-bar]))::part(scroll-view-navbar) {
+  :where(scroll-view:has(~ tool-bar > [slot^=top-bar],
+  ~ tool-bar > [slot=cancellation-action],
+  ~ tool-bar > [slot=primary-action],
+  ~ tool-bar > [slot=confirmation-action],
+  ~ tool-bar > [slot=destructive-action]),
+  scroll-view:has(> [slot^=top-bar], > [slot=cancellation-action], > [slot=primary-action], > [slot=confirmation-action], > [slot=destructive-action]))::part(scroll-view-navbar) {
     visibility: visible;
   }
   :where(scroll-view:has(~ tool-bar > [slot^=bottom-bar]),

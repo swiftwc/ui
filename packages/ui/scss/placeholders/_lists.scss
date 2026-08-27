@@ -364,13 +364,39 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
         }
 
         &::part(section-header-stack) {
-          top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
+          top: var(--list--sticky-block-size, 0px); // + var(--navigation-bar-block-size));
 
           position: sticky;
 
           // backdrop-filter: blur(20px);
 
           // text-shadow: 0 0 5px var(--face);
+        }
+      }
+
+      // &:is([list-style*='inset'] section-view, [form-style*='inset'] section-view) {
+      //   :where(&) {
+      //     &::part(section-header-stack) {
+      //       top: calc(var(--list--sticky-block-size, 0px) + 1rem);
+      //     }
+      //   }
+      // }
+
+      &:is(
+        scroll-view:has(
+            ~ tool-bar > [slot^='top-bar'],
+            ~ tool-bar > [slot='cancellation-action'],
+            ~ tool-bar > [slot='primary-action'],
+            ~ tool-bar > [slot='confirmation-action'],
+            ~ tool-bar > [slot='destructive-action']
+          )
+          section-view,
+        scroll-view:has(> [slot^='top-bar'], > [slot='cancellation-action'], > [slot='primary-action'], > [slot='confirmation-action'], > [slot='destructive-action']) section-view
+      ) {
+        :where(&) {
+          &::part(section-header-stack) {
+            top: calc(var(--list--sticky-block-size, 0px) + var(--navigation-bar-block-size));
+          }
         }
       }
     }

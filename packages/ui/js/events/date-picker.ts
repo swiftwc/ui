@@ -8,4 +8,7 @@ declare global {
   interface HTMLElementEventMap {
     selection: DatePickerSelectionEvent
   }
+  interface DocumentEventMap {
+    selection: DatePickerSelectionEvent
+  }
 }

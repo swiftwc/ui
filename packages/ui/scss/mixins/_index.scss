@@ -80,8 +80,14 @@
     grid-area: main;
   }
 
-  &:has(~ tool-bar > [slot^='top-bar']),
-  &:has(> [slot^='top-bar']) {
+  &:has(
+    ~ tool-bar > [slot^='top-bar'],
+    ~ tool-bar > [slot='cancellation-action'],
+    ~ tool-bar > [slot='primary-action'],
+    ~ tool-bar > [slot='confirmation-action'],
+    ~ tool-bar > [slot='destructive-action']
+  ),
+  &:has(> [slot^='top-bar'], > [slot='cancellation-action'], > [slot='primary-action'], > [slot='confirmation-action'], > [slot='destructive-action']) {
     grid-template-rows: var(--navigation-bar-block-size) minmax(max-content, 1fr);
   }
 }

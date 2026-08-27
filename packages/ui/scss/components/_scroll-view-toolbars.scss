@@ -25,8 +25,14 @@
     }
   }
 
-  scroll-view:has(~ tool-bar > [slot^='top-bar']),
-  scroll-view:has(> [slot^='top-bar']) {
+  scroll-view:has(
+    ~ tool-bar > [slot^='top-bar'],
+    ~ tool-bar > [slot='cancellation-action'],
+    ~ tool-bar > [slot='primary-action'],
+    ~ tool-bar > [slot='confirmation-action'],
+    ~ tool-bar > [slot='destructive-action']
+  ),
+  scroll-view:has(> [slot^='top-bar'], > [slot='cancellation-action'], > [slot='primary-action'], > [slot='confirmation-action'], > [slot='destructive-action']) {
     :where(&)::part(scroll-view-navbar) {
       visibility: visible;
     }

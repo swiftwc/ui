@@ -19,4 +19,10 @@ declare global {
     'picker:searchblur': PickerSearchblurEvent
     'picker:searchinput': PickerSearchinputEvent
   }
+  interface DocumentEventMap {
+    selection: PickerSelectionEvent
+    'picker:searchfocus': PickerSearchfocusEvent
+    'picker:searchblur': PickerSearchblurEvent
+    'picker:searchinput': PickerSearchinputEvent
+  }
 }

@@ -9,4 +9,7 @@ declare global {
   interface HTMLElementEventMap {
     'confirmation:return': ConfirmationReturnEvent
   }
+  interface DocumentEventMap {
+    'confirmation:return': ConfirmationReturnEvent
+  }
 }

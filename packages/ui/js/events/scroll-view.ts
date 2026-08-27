@@ -12,4 +12,8 @@ declare global {
     pagereveal: PagerevealEvent
     pageswap: PageswapEvent
   }
+  interface DocumentEventMap {
+    pagereveal: PagerevealEvent
+    pageswap: PageswapEvent
+  }
 }

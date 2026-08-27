@@ -12,4 +12,8 @@ declare global {
     pageshow: PageShowEvent
     pagehide: PageHideEvent
   }
+  interface DocumentEventMap {
+    pageshow: PageShowEvent
+    pagehide: PageHideEvent
+  }
 }

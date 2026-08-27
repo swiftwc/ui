@@ -8,4 +8,7 @@ declare global {
   interface HTMLElementEventMap {
     commit: TextFieldCommitEvent
   }
+  interface DocumentEventMap {
+    commit: TextFieldCommitEvent
+  }
 }

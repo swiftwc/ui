@@ -273,16 +273,14 @@
                   <label-view slot="label" title="Double-tap three fingers and drag to change zoom"></label-view>
                 </toggle-view>
                 <toggle-view label="Use scroll gesture with modifier keys to zoom"></toggle-view>
-                <labeled-content labeled-content-style="horizontal">
-                  <label-view slot="label" title="Modifier key for scroll gesture"></label-view>
+                <labeled-content label="Modifier key for scroll gesture" labeled-content-style="horizontal">
                   <picker-view selection="⌃ Control" picker-style="menu" foreground="primary">
                     <option slot="list" value="⌃ Control"></option>
                     <option slot="list" value="⌥ Option"></option>
                     <option slot="list" value="&#8984; Command"></option>
                   </picker-view>
                 </labeled-content>
-                <labeled-content labeled-content-style="horizontal">
-                  <label-view slot="label" title="Zoom style"></label-view>
+                <labeled-content label="Zoom style" labeled-content-style="horizontal">
                   <h-stack>
                     <picker-view selection="Small" picker-style="menu" foreground="primary">
                       <option slot="list" value="Small"></option>
@@ -332,7 +330,7 @@
                     <label-view slot="label" title="Hover Color"></label-view>
                     <label-view slot="label" title="Press ⌃ to describe the color under the pointer."></label-view>
                   </toggle-view>
-                  <button is="borderless-button" tint="gray">
+                  <button is="borderless-button" type="button" tint="gray" data-nav-destination="Hover Color Panel">
                     <label-view system-image="info" class="[--label-image-size:1.5]"></label-view>
                   </button>
                 </h-stack>
@@ -340,7 +338,7 @@
               <section-view>
                 <h-stack distribution="fill" template="spacer auto">
                   <toggle-view label="Hover Typing"></toggle-view>
-                  <button is="borderless-button" tint="gray">
+                  <button is="borderless-button" type="button" tint="gray" data-nav-destination="Hover Typing Panel">
                     <label-view system-image="info" class="[--label-image-size:1.5]"></label-view>
                   </button>
                 </h-stack>
@@ -363,8 +361,7 @@
           <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Text Settings">
-                <labeled-content labeled-content-style="horizontal">
-                  <label-view slot="label" title="Activation modifier"></label-view>
+                <labeled-content label="Activation modifier" labeled-content-style="horizontal">
                   <picker-view selection="&#8984; Command" picker-style="menu" foreground="primary">
                     <option slot="list" value="⌃ Control"></option>
                     <option slot="list" value="⌥ Option"></option>
@@ -376,8 +373,7 @@
               <section-view>
                 <label-view slot="header" title="Appearance" font="callout"></label-view>
                 <label-view slot="header" title="Shares appearance settings with Hover Color" font="caption2"></label-view>
-                <labeled-content labeled-content-style="horizontal">
-                  <label-view slot="label" title="Text size"></label-view>
+                <labeled-content label="Text size" labeled-content-style="horizontal">
                   <picker-view selection="Default" picker-style="menu" foreground="primary">
                     <option slot="list" value="Default"></option>
                   </picker-view>
@@ -394,10 +390,115 @@
       </dialog>
     </template>
     <template>
+      <dialog is="sheet-view">
+        <scroll-view data-nav-path="Hover Color Panel" background-style="grouped">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view header="Hover Color Settings">
+                <labeled-content label="Activation modifier" labeled-content-style="horizontal">
+                  <picker-view selection="⌃ Control" picker-style="menu" foreground="primary">
+                    <option slot="list" value="⌃ Control"></option>
+                    <option slot="list" value="⌥ Option"></option>
+                    <option slot="list" value="&#8984; Command"></option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+              <section-view>
+                <label-view slot="header" title="Appearance" font="callout"></label-view>
+                <label-view slot="header" title="Shares appearance settings with Hover Color" font="caption2"></label-view>
+                <labeled-content label="Text size" labeled-content-style="horizontal">
+                  <picker-view selection="Default" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Default"></option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="confirmation-action" tint="blue" title-key="OK">
+            <button type="button" tabindex="0" class="back"></button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template>
+      <dialog is="sheet-view">
+        <scroll-view data-nav-path="Hover Typing Panel" background-style="grouped">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view header="Hover Typing Settings">
+                <labeled-content label="Text entry location" labeled-content-style="horizontal">
+                  <picker-view selection="Custom" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Near Current Line"></option>
+                    <option slot="list" value="Top Left"></option>
+                    <option slot="list" value="Top Right"></option>
+                    <option slot="list" value="Bottom Left"></option>
+                    <option slot="list" value="Bottom Right"></option>
+                    <option slot="list" value="Custom"></option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+              <section-view header="Colors">
+                <labeled-content label="Text color" labeled-content-style="horizontal">
+                  <menu-view tabindex="0" foreground="primary" class="custom-picker-menu">
+                    <label-view slot="label" title="Default"></label-view>
+                    <button type="button" tabindex="0" value="Default">
+                      <h-stack distribution="leading" template="auto spacer">
+                        <label-view data-role="check">
+                          <image-view slot="icon" system-name="check"></image-view>
+                        </label-view>
+                        <label-view title="Default"></label-view>
+                      </h-stack>
+                    </button>
+                    <button type="button" tabindex="0" value="Black">
+                      <h-stack distribution="leading" template="auto spacer">
+                        <label-view data-role="check" class="invisible">
+                          <image-view slot="icon" system-name="check"></image-view>
+                        </label-view>
+                        <h-stack spacing="5" distribution="fill" template="auto spacer">
+                          <label-view class="[--label-image-size:1.5]">
+                            <image-view slot="icon" system-name="circle" system-weight="fill" class="text-black"></image-view>
+                          </label-view>
+                          <v-stack spacing="3" alignment="fill">
+                            <label-view title="Black"></label-view>
+                          </v-stack>
+                        </h-stack>
+                      </h-stack>
+                    </button>
+                    <button type="button" tabindex="0" value="Blue">
+                      <h-stack distribution="leading" template="auto spacer">
+                        <label-view data-role="check" class="invisible">
+                          <image-view slot="icon" system-name="check"></image-view>
+                        </label-view>
+                        <h-stack spacing="5" distribution="fill" template="auto spacer">
+                          <label-view class="[--label-image-size:1.5]">
+                            <image-view slot="icon" system-name="circle" system-weight="fill" class="text-blue-500"></image-view>
+                          </label-view>
+                          <v-stack spacing="3" alignment="fill">
+                            <label-view title="Blue"></label-view>
+                          </v-stack>
+                        </h-stack>
+                      </h-stack>
+                    </button>
+                  </menu-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="confirmation-action" tint="blue" title-key="OK">
+            <button type="button" tabindex="0" class="back"></button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template>
       <body-view>
         <scroll-view navigation-inline-title="Appearance" data-nav-path="Appearance">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <list-view list-style="inset-grouped"> ... </list-view>
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden"> ... </list-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
@@ -409,10 +510,205 @@
         </tool-bar>
       </body-view>
     </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Keyboard" data-nav-path="Keyboard">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <h-stack distribution="fill">
+                  <v-stack spacing="5" alignment="fill">
+                    <label-view title="Key repeat rate"></label-view>
+                    <input type="range" value="100" step="10" list="Key_repeat_rate" class="w-full m-0" />
+                    <datalist id="Key_repeat_rate">
+                      <option value="0"></option>
+                      <option value="25"></option>
+                      <option value="50"></option>
+                      <option value="75"></option>
+                      <option value="100"></option>
+                    </datalist>
+                    <div class="flex justify-between w-full text-sm">
+                      <label-view font="caption2" title="Off"></label-view>
+                      <label-view font="caption2" title="Slow" class="me-auto ms-1"></label-view>
+                      <label-view font="caption2" title="Fast"></label-view>
+                    </div>
+                  </v-stack>
+                  <v-stack spacing="5" alignment="fill">
+                    <label-view title="Delay until repeat"></label-view>
+                    <input type="range" value="100" step="10" list="Key_repeat_rate" class="w-full m-0" />
+                    <datalist id="Key_repeat_rate">
+                      <option value="0"></option>
+                      <option value="25"></option>
+                      <option value="50"></option>
+                      <option value="75"></option>
+                      <option value="100"></option>
+                    </datalist>
+                    <div class="flex justify-between w-full text-sm">
+                      <label-view font="caption2" title="Long"></label-view>
+                      <label-view font="caption2" title="Short"></label-view>
+                    </div>
+                  </v-stack>
+                </h-stack>
+              </section-view>
+              <section-view>
+                <labeled-content label="Press fn key to" labeled-content-style="horizontal">
+                  <picker-view selection="Do Nothing" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Change Input Source"></option>
+                    <option slot="list" value="Show Emoji & Symbols"></option>
+                    <option slot="list" value="Start Dictation (Press fn Twice)"></option>
+                    <option slot="list" value="Do Nothing"></option>
+                  </picker-view>
+                </labeled-content>
+                <toggle-view>
+                  <label-view slot="label" title="Keyboard navigation"></label-view>
+                  <label-view slot="label" title="Use keyboard navigaation to move focus between controls."></label-view>
+                </toggle-view>
+                <h-stack distribution="trailing">
+                  <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Keyboard Panel">
+                    <label-view title="Keyboard Shortcuts…" font="body"></label-view>
+                  </button>
+                </h-stack>
+              </section-view>
+            </list-view>
+            <h-stack distribution="trailing" padding>
+              <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Keyboard Panel">
+                <label-view title="Advanced…" font="body"></label-view>
+              </button>
+            </h-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Mouse" data-nav-path="Mouse">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <labeled-content label="Tracking speed" labeled-content-style="horizontal">
+                  <input type="range" value="75" list="Tracking_speed" class="inline-[200px] m-0" />
+                  <datalist id="Tracking_speed">
+                    <option value="0"></option>
+                    <option value="25"></option>
+                    <option value="50"></option>
+                    <option value="75"></option>
+                    <option value="100"></option>
+                  </datalist>
+                  <div class="flex justify-between inline-[200px] text-sm">
+                    <label-view font="caption2" title="Slow"></label-view>
+                    <label-view font="caption2" title="Fast"></label-view>
+                  </div>
+                </labeled-content>
+                <toggle-view>
+                  <label-view slot="label" title="Natural scrolling"></label-view>
+                  <label-view slot="label" title="Content tracks finger movement"></label-view>
+                </toggle-view>
+                <labeled-content label="Secondary click" labeled-content-style="horizontal">
+                  <picker-view selection="Click Right Side" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Click Right Side"></option>
+                    <option slot="list" value="Click Left Side"></option>
+                  </picker-view>
+                </labeled-content>
+                <labeled-content label="Double-Click speed" labeled-content-style="horizontal">
+                  <input type="range" value="75" list="Double_click_speed" class="inline-[200px] m-0" />
+                  <datalist id="Double_click_speed">
+                    <option value="0"></option>
+                    <option value="25"></option>
+                    <option value="50"></option>
+                    <option value="75"></option>
+                    <option value="100"></option>
+                  </datalist>
+                  <div class="flex justify-between inline-[200px] text-sm">
+                    <label-view font="caption2" title="Slow"></label-view>
+                    <label-view font="caption2" title="Fast"></label-view>
+                  </div>
+                </labeled-content>
+                <labeled-content label="Scrolling speed" labeled-content-style="horizontal">
+                  <input type="range" value="50" list="Scrolling_speed" class="inline-[200px] m-0" />
+                  <datalist id="Scrolling_speed">
+                    <option value="0"></option>
+                    <option value="25"></option>
+                    <option value="50"></option>
+                    <option value="75"></option>
+                    <option value="100"></option>
+                  </datalist>
+                  <div class="flex justify-between inline-[200px] text-sm">
+                    <label-view font="caption2" title="Slow"></label-view>
+                    <label-view font="caption2" title="Fast"></label-view>
+                  </div>
+                </labeled-content>
+              </section-view>
+            </list-view>
+            <h-stack distribution="trailing" padding>
+              <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Mouse Panel">
+                <label-view title="Advanced…" font="body"></label-view>
+              </button>
+            </h-stack>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <dialog is="sheet-view">
+        <scroll-view data-nav-path="Advanced Mouse Panel" background-style="grouped">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <toggle-view is-on>
+                  <label-view slot="label" title="Pointer acceleration"></label-view>
+                  <label-view
+                    slot="label"
+                    title="When enabled, the pointer willmove more quickly for fast mouse movements and more precisely for slow mouse movements."
+                  ></label-view>
+                </toggle-view>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="confirmation-action" tint="blue" title-key="OK">
+            <button type="button" tabindex="0" class="back"></button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
+      document.addEventListener('click', async (evt) => {
+        const menu = evt.target.closest('.custom-picker-menu')
+        if (menu) {
+          const slotted = menu.querySelector(':scope>[slot=label]')
+          if (!slotted) return
+
+          const btn = evt.target.closest('button[value]')
+          if (!btn) return
+
+          const clone = btn.querySelector('[data-role="check"]').nextElementSibling.cloneNode(true)
+          clone.slot = 'label'
+          clone.dataset.selection = btn.value
+
+          slotted.replaceWith(clone)
+
+          for (const el of menu.querySelectorAll(':scope>button[value]:not([slot])'))
+            el.querySelector('[data-role="check"]')?.classList.toggle('invisible', el.value !== btn.value)
+        }
+      })
       // document.addEventListener('click', async (event) => {
       //   const actionable = event.target.closest('[data-action]')
       //   if (!actionable) return
@@ -444,7 +740,7 @@
       <dialog is="sidebar-view">
         <scroll-view>
           <v-stack placement="leading fill">
-            <list-view list-style="inset-grouped" class="[--list--media-inner-padding-inline-start:2.3rem]">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem] [--list--media-inner-padding-inline-start:2.3rem]">
               <section-view>
                 <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Storage Full"></label-view>
@@ -476,6 +772,14 @@
                 </button>
                 <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="AI Intelligense"></label-view>
+                </button>
+              </section-view>
+              <section-view>
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Keyboard">
+                  <label-view system-image="keyboard" title="Keyboard"></label-view>
+                </button>
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Mouse">
+                  <label-view system-image="mouse" title="Mouse"></label-view>
                 </button>
               </section-view>
             </list-view>

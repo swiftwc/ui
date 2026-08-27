@@ -2,7 +2,7 @@
 
 # FineTooltip
 
-######
+###### A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.
 
 ```ts
 interface FineTooltipSignature {

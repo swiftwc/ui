@@ -9,18 +9,19 @@
 
 | Name          |  Description  |
 | ------------- | ------------- |
-| **`footnote`** | A font with the footnote text style |
-| **`caption2`** | Create a font with the alternate caption text style |
-| **`caption`** | A font with the caption text style |
-| **`callout`** | A font with the callout text style |
-| **`body`** | A font with the body text style |
-| **`subheadline`** | A font with the subheadline text style |
-| **`headline`** | A font with the headline text style |
-| **`title3`** | Create a font for third level hierarchical headings |
-| **`title2`** | Create a font for second level hierarchical headings |
-| **`title`** | A font with the title text style |
-| **`large-title`** | A font with the large title text style |
-| **`extra-large-title`** | Create a font with the extra large title text style |
+| **`footnote`** | The font used in footnotes |
+| **`caption2`** | The font used the caption2 size |
+| **`caption`** | The font used for standard captions |
+| **`callout`** | The font used for callouts |
+| **`body`** | The font used body text |
+| **`subheadline`** | The font used subheadings |
+| **`headline`** | The font used headings |
+| **`title3`** | The font used third level hierarchical headings |
+| **`title2`** | The font used second level hierarchical headings |
+| **`title`** | The font used first level hierarchical headings |
+| **`large-title`** | The font used large titles |
+| **`extra-large-title`** | The font used extra large titles |
+| **`extra-large-title2`** | The font used second level extra large titles |
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
 
@@ -144,6 +145,7 @@
 
 | Name          |  Description  |
 | ------------- | ------------- |
+| **`primary`** | Applies the system primary color (`--primary`) |
 | **`secondary`** | Applies the system secondary color (`--secondary`) |
 | **`blue`** | Applies the system blue color (`--blue`) |
 | **`red`** | Applies the system red color (`--red`) |
@@ -291,10 +293,36 @@
 
 
 
-### Template
+### ControlSize
 
 <div class="relative group">
 <input type="checkbox" id="show-more8" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
+
+| Name          |  Description  |
+| ------------- | ------------- |
+| **`mini`** | A control version that is minimally sized |
+| **`regular`** | A control version that is the regular size |
+| **`small`** | A control version that is proportionally smaller size for space-constrained views |
+| **`large`** | A control version that is prominently sized |
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
+
+</div>
+
+<label for="show-more8" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
+
+<label for="show-more8" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
+
+</div>
+
+
+
+### Template
+
+<div class="relative group">
+<input type="checkbox" id="show-more9" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
 
@@ -353,32 +381,6 @@
 
 </div>
 
-<label for="show-more8" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
-
-<label for="show-more8" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
-
-</div>
-
-
-
-### frameWidth
-
-<div class="relative group">
-<input type="checkbox" id="show-more9" class="peer hidden">
-
-<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
-
-| Name          |  Description  |
-| ------------- | ------------- |
-| **`infinity`** | 100% |
-| **`0`** | 0rem |
-| **`1`** | 1rem |
-| **`2`** | 2rem |
-
-<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
-
-</div>
-
 <label for="show-more9" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
 
 <label for="show-more9" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
@@ -387,7 +389,7 @@
 
 
 
-### frameMaxWidth
+### frameWidth
 
 <div class="relative group">
 <input type="checkbox" id="show-more10" class="peer hidden">
@@ -408,6 +410,32 @@
 <label for="show-more10" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
 
 <label for="show-more10" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
+
+</div>
+
+
+
+### frameMaxWidth
+
+<div class="relative group">
+<input type="checkbox" id="show-more11" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
+
+| Name          |  Description  |
+| ------------- | ------------- |
+| **`infinity`** | 100% |
+| **`0`** | 0rem |
+| **`1`** | 1rem |
+| **`2`** | 2rem |
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
+
+</div>
+
+<label for="show-more11" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
+
+<label for="show-more11" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
 
 </div>
 

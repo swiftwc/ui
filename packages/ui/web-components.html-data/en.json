@@ -1353,6 +1353,10 @@
       "name": "Foreground",
       "values": [
         {
+          "name": "primary",
+          "description": "Applies the system primary color (`--primary`)"
+        },
+        {
           "name": "secondary",
           "description": "Applies the system secondary color (`--secondary`)"
         },

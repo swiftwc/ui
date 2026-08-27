@@ -14,7 +14,7 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
       // lifecycleObserver.addEventListener('pageshow', navHandler)
@@ -126,7 +126,7 @@
           <scroll-view navigation-inline-title="Browse">
             <v-stack placement="leading fill">
               <list-view>
-                <button navigation-link type="button" navigation-destination="cloud_drive">
+                <button navigation-link type="button" data-nav-destination="cloud_drive">
                   <label-view system-image="smiley" title="Cloud Drive"></label-view>
                 </button>
               </list-view>
@@ -182,7 +182,7 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Cloud Drive" navigation-path="cloud_drive">
+        <scroll-view navigation-inline-title="Cloud Drive" data-nav-path="cloud_drive">
           <v-stack placement="leading fill">
             browsesection1<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
             <p>...</p>

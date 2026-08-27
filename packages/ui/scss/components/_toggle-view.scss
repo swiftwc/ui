@@ -20,7 +20,8 @@
       }
 
       // &::part(toggle-label-stack) {
-      // color: var(--secondary);
+      //   // color: var(--secondary);
+      //   padding-inline-start: var(--toggle-padding-inline-start,);
       // }
 
       &::part(toggle-input-stack) {

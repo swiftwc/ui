@@ -151,62 +151,67 @@ $block-placement-map: (
 $label-fonts-map: (
   footnote: (
     size: 1rem,
-    line: 1rem,
+    leading: calc(1.1875 / 1),
     weight: 400,
   ),
   caption2: (
     size: 0.75rem,
-    line: calc(1 / 0.75),
+    leading: calc(1.0625 / 0.75),
     weight: 400,
   ),
   caption: (
-    size: 0.875rem,
-    line: calc(1.25 / 0.875),
+    size: 0.8125rem,
+    leading: calc(1.25 / 0.8125),
     weight: 400,
   ),
   callout: (
     size: 0.875rem,
-    line: 0.875rem,
+    leading: calc(1.1875 / 0.875),
     weight: 400,
   ),
   body: (
     size: 1rem,
-    line: calc(1.5 / 1),
+    leading: calc(1.5 / 1),
     weight: 400,
   ),
   subheadline: (
     size: 1.125rem,
-    line: calc(1.75 / 1.125),
+    leading: calc(1.6875 / 1.125),
     weight: 400,
   ),
   headline: (
     size: 1.25rem,
-    line: calc(1.75 / 1.25),
+    leading: calc(1.75 / 1.25),
     weight: 500,
   ),
   title3: (
     size: 1.5rem,
-    line: calc(2 / 1.5),
+    leading: calc(2 / 1.5),
     weight: 600,
   ),
   title2: (
     size: 1.875rem,
-    line: calc(2.25 / 1.875),
+    leading: calc(2.25 / 1.875),
     weight: 600,
   ),
   title: (
     size: 2.25rem,
-    line: calc(2.5 / 2.25),
+    leading: calc(2.5 / 2.25),
     weight: 600,
   ),
   large-title: (
     size: 3rem,
-    line: 1,
+    leading: 1,
     weight: 700,
   ),
   extra-large-title: (
     size: 3.75rem,
-    line: 1,
+    leading: 1,
+    weight: 700,
+  ),
+  extra-large-title2: (
+    size: 4.5rem,
+    leading: 1,
     weight: 700,
   ),
 );
@@ -258,6 +263,7 @@ $button-sizes-map: (
 $tint-names: gray, blue, red, green, orange, purple;
 
 $foreground-tokens: (
+  primary: --primary,
   secondary: --secondary,
   blue: --blue,
   red: --red,

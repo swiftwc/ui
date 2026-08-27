@@ -116,22 +116,22 @@
     --labeled-content-column-gap: 1rem;
     --labeled-content-row-gap: 0.5rem;
     --label-footnote-font-size: 1rem;
-    --label-footnote-line-height: 1rem;
+    --label-footnote-line-height: 1.1875;
     --label-footnote-font-weight: 400;
     --label-caption2-font-size: 0.75rem;
-    --label-caption2-line-height: 1.3333333333;
+    --label-caption2-line-height: 1.4166666667;
     --label-caption2-font-weight: 400;
-    --label-caption-font-size: 0.875rem;
-    --label-caption-line-height: 1.4285714286;
+    --label-caption-font-size: 0.8125rem;
+    --label-caption-line-height: 1.5384615385;
     --label-caption-font-weight: 400;
     --label-callout-font-size: 0.875rem;
-    --label-callout-line-height: 0.875rem;
+    --label-callout-line-height: 1.3571428571;
     --label-callout-font-weight: 400;
     --label-body-font-size: 1rem;
     --label-body-line-height: 1.5;
     --label-body-font-weight: 400;
     --label-subheadline-font-size: 1.125rem;
-    --label-subheadline-line-height: 1.5555555556;
+    --label-subheadline-line-height: 1.5;
     --label-subheadline-font-weight: 400;
     --label-headline-font-size: 1.25rem;
     --label-headline-line-height: 1.4;
@@ -151,6 +151,9 @@
     --label-extra-large-title-font-size: 3.75rem;
     --label-extra-large-title-line-height: 1;
     --label-extra-large-title-font-weight: 700;
+    --label-extra-large-title2-font-size: 4.5rem;
+    --label-extra-large-title2-line-height: 1;
+    --label-extra-large-title2-font-weight: 700;
     --insetlist-item-border-radius: 2rem;
     --insetform-item-border-radius: 2rem;
     --list-row-gap: 3rem;
@@ -2975,9 +2978,9 @@
   }
   @supports (x: if(else:red)) {
     :where(label-view) {
-      --label--titlestack-font-size: if(style(--label-font: footnote): var(--label-footnote-font-size) ; style(--label-font: caption2): var(--label-caption2-font-size) ; style(--label-font: caption): var(--label-caption-font-size) ; style(--label-font: callout): var(--label-callout-font-size) ; style(--label-font: body): var(--label-body-font-size) ; style(--label-font: subheadline): var(--label-subheadline-font-size) ; style(--label-font: headline): var(--label-headline-font-size) ; style(--label-font: title3): var(--label-title3-font-size) ; style(--label-font: title2): var(--label-title2-font-size) ; style(--label-font: title): var(--label-title-font-size) ; style(--label-font: large-title): var(--label-large-title-font-size) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-size) ;);
-      --label--titlestack-line-height: if(style(--label-font: footnote): var(--label-footnote-line-height) ; style(--label-font: caption2): var(--label-caption2-line-height) ; style(--label-font: caption): var(--label-caption-line-height) ; style(--label-font: callout): var(--label-callout-line-height) ; style(--label-font: body): var(--label-body-line-height) ; style(--label-font: subheadline): var(--label-subheadline-line-height) ; style(--label-font: headline): var(--label-headline-line-height) ; style(--label-font: title3): var(--label-title3-line-height) ; style(--label-font: title2): var(--label-title2-line-height) ; style(--label-font: title): var(--label-title-line-height) ; style(--label-font: large-title): var(--label-large-title-line-height) ; style(--label-font: extra-large-title): var(--label-extra-large-title-line-height) ;);
-      --label--titlestack-font-weight: if(style(--label-font: footnote): var(--label-footnote-font-weight) ; style(--label-font: caption2): var(--label-caption2-font-weight) ; style(--label-font: caption): var(--label-caption-font-weight) ; style(--label-font: callout): var(--label-callout-font-weight) ; style(--label-font: body): var(--label-body-font-weight) ; style(--label-font: subheadline): var(--label-subheadline-font-weight) ; style(--label-font: headline): var(--label-headline-font-weight) ; style(--label-font: title3): var(--label-title3-font-weight) ; style(--label-font: title2): var(--label-title2-font-weight) ; style(--label-font: title): var(--label-title-font-weight) ; style(--label-font: large-title): var(--label-large-title-font-weight) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-weight) ;);
+      --label--titlestack-font-size: if(style(--label-font: footnote): var(--label-footnote-font-size) ; style(--label-font: caption2): var(--label-caption2-font-size) ; style(--label-font: caption): var(--label-caption-font-size) ; style(--label-font: callout): var(--label-callout-font-size) ; style(--label-font: body): var(--label-body-font-size) ; style(--label-font: subheadline): var(--label-subheadline-font-size) ; style(--label-font: headline): var(--label-headline-font-size) ; style(--label-font: title3): var(--label-title3-font-size) ; style(--label-font: title2): var(--label-title2-font-size) ; style(--label-font: title): var(--label-title-font-size) ; style(--label-font: large-title): var(--label-large-title-font-size) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-size) ; style(--label-font: extra-large-title2): var(--label-extra-large-title2-font-size) ;);
+      --label--titlestack-line-height: if(style(--label-font: footnote): var(--label-footnote-line-height) ; style(--label-font: caption2): var(--label-caption2-line-height) ; style(--label-font: caption): var(--label-caption-line-height) ; style(--label-font: callout): var(--label-callout-line-height) ; style(--label-font: body): var(--label-body-line-height) ; style(--label-font: subheadline): var(--label-subheadline-line-height) ; style(--label-font: headline): var(--label-headline-line-height) ; style(--label-font: title3): var(--label-title3-line-height) ; style(--label-font: title2): var(--label-title2-line-height) ; style(--label-font: title): var(--label-title-line-height) ; style(--label-font: large-title): var(--label-large-title-line-height) ; style(--label-font: extra-large-title): var(--label-extra-large-title-line-height) ; style(--label-font: extra-large-title2): var(--label-extra-large-title2-line-height) ;);
+      --label--titlestack-font-weight: if(style(--label-font: footnote): var(--label-footnote-font-weight) ; style(--label-font: caption2): var(--label-caption2-font-weight) ; style(--label-font: caption): var(--label-caption-font-weight) ; style(--label-font: callout): var(--label-callout-font-weight) ; style(--label-font: body): var(--label-body-font-weight) ; style(--label-font: subheadline): var(--label-subheadline-font-weight) ; style(--label-font: headline): var(--label-headline-font-weight) ; style(--label-font: title3): var(--label-title3-font-weight) ; style(--label-font: title2): var(--label-title2-font-weight) ; style(--label-font: title): var(--label-title-font-weight) ; style(--label-font: large-title): var(--label-large-title-font-weight) ; style(--label-font: extra-large-title): var(--label-extra-large-title-font-weight) ; style(--label-font: extra-large-title2): var(--label-extra-large-title2-font-weight) ;);
       --label--overflow: if(style(--label-truncation-mode: tail): hidden; );
       --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis; );
       --label--host-white-space: if(style(--label-line-limit: 1): nowrap; style(--label-line-limit: 2): normal; );
@@ -3354,6 +3357,20 @@
         --label--titlestack-font-size: var(--label-extra-large-title-font-size);
         --label--titlestack-line-height: var(--label-extra-large-title-line-height);
         --label--titlestack-font-weight: var(--label-extra-large-title-font-weight);
+      }
+    }
+    @container style(--label-font: extra-large-title2) {
+      :where(label-view) {
+        --label--titlestack-font-size: var(--label-extra-large-title2-font-size);
+        --label--titlestack-line-height: var(--label-extra-large-title2-line-height);
+        --label--titlestack-font-weight: var(--label-extra-large-title2-font-weight);
+      }
+    }
+    @container not style(--label-font: extra-large-title2) {
+      :where(label-view[font=extra-large-title2]) {
+        --label--titlestack-font-size: var(--label-extra-large-title2-font-size);
+        --label--titlestack-line-height: var(--label-extra-large-title2-line-height);
+        --label--titlestack-font-weight: var(--label-extra-large-title2-font-weight);
       }
     }
   }
@@ -5077,9 +5094,11 @@
   }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
-    color: var(--secondary);
     --label-truncation-mode: tail;
     --label-line-limit: 1;
+  }
+  :where(form :where(picker-view))::part(picker-label-stack) {
+    color: var(--secondary);
   }
   :where(picker-view) {
     --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
@@ -5911,6 +5930,9 @@
     --secondaryBackground: var(--secondaryGroupedBackground);
     --tertiaryBackground: var(--tertiaryGroupedBackground);
     --face: var(--background);
+  }
+  :where([foreground=primary]) {
+    color: var(--primary);
   }
   :where([foreground=secondary]) {
     color: var(--secondary);

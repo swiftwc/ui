@@ -156,6 +156,7 @@ ast.traverseByType('declaration', (node: Node) => {
   maps.set(name, map)
 })
 // console.debug(maps)
+// process.exit(1)
 
 const names = new Map<string, string[]>()
 
@@ -336,21 +337,40 @@ const htmlData: VsHtmlDataV1 = {
   valueSets: [
     {
       name: 'Font',
-      values: [
-        { name: 'footnote', description: 'A font with the footnote text style' },
-        { name: 'caption2', description: 'Create a font with the alternate caption text style' },
-        { name: 'caption', description: 'A font with the caption text style' },
-        { name: 'callout', description: 'A font with the callout text style' },
-        { name: 'body', description: 'A font with the body text style' },
-        { name: 'subheadline', description: 'A font with the subheadline text style' },
-        { name: 'headline', description: 'A font with the headline text style' },
-        { name: 'title3', description: 'Create a font for third level hierarchical headings' },
-        { name: 'title2', description: 'Create a font for second level hierarchical headings' },
-        { name: 'title', description: 'A font with the title text style' },
-        { name: 'large-title', description: 'A font with the large title text style' },
-        { name: 'extra-large-title', description: 'Create a font with the extra large title text style' },
-        // { name: 'extra-large-title2', description: 'Create a font with the second level extra large title text style' },
-      ],
+      values:
+        Array.from(maps.get('$label-fonts-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `The font used ${(() => {
+            switch (item[0]) {
+              case 'extra-large-title2':
+                return 'second level extra large titles'
+              case 'extra-large-title':
+                return 'extra large titles'
+              case 'large-title':
+                return 'large titles'
+              case 'title':
+                return 'first level hierarchical headings'
+              case 'title2':
+                return 'second level hierarchical headings'
+              case 'title3':
+                return 'third level hierarchical headings'
+              case 'headline':
+                return 'headings'
+              case 'subheadline':
+                return 'subheadings'
+              case 'body':
+                return 'body text'
+              case 'callout':
+                return 'for callouts'
+              case 'caption':
+                return 'for standard captions'
+              case 'footnote':
+                return 'in footnotes'
+              default:
+                return `the ${item[0]} size`
+            }
+          })()}`,
+        })) ?? [],
     },
     {
       name: 'Spacing',
@@ -401,6 +421,27 @@ const htmlData: VsHtmlDataV1 = {
         Array.from(maps.get('$block-placement-map')?.entries() ?? [])?.map((item) => ({
           name: item[0],
           description: `Applies \`${item[1].join(' ')}\` rules`,
+        })) ?? [],
+    },
+    {
+      name: 'ControlSize',
+      values:
+        Array.from(maps.get('$button-sizes-map')?.entries() ?? [])?.map((item) => ({
+          name: item[0],
+          description: `A control version that is ${(() => {
+            switch (item[0]) {
+              case 'mini':
+                return 'minimally sized'
+              case 'small':
+                return 'proportionally smaller size for space-constrained views'
+              case 'large':
+                return 'prominently sized'
+              case 'extra-large':
+                return 'substantially sized. The largest control size'
+              default:
+                return `the ${item[0]} size`
+            }
+          })()}`,
         })) ?? [],
     },
     {

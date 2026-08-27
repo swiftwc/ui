@@ -218,7 +218,13 @@
     },
     {
       "name": "fine-tooltip",
-      "description": "undefined\n\n```ts\ninterface FineTooltipSignature {\n  Declaration: '<fine-tooltip></fine-tooltip>'\n}\n\nclass FineTooltip extends HTMLElement<FineTooltipSignature> {\n  hidePopover(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'fine-tooltip': FineTooltip\n  }\n}\n\n```\n"
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/fine-tooltip"
+        }
+      ],
+      "description": "A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.\n---\n\n```ts\ninterface FineTooltipSignature {\n  Declaration: '<fine-tooltip></fine-tooltip>'\n}\n\nclass FineTooltip extends HTMLElement<FineTooltipSignature> {\n  hidePopover(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'fine-tooltip': FineTooltip\n  }\n}\n\n```\n"
     },
     {
       "name": "form-view",
@@ -1053,51 +1059,55 @@
       "values": [
         {
           "name": "footnote",
-          "description": "A font with the footnote text style"
+          "description": "The font used in footnotes"
         },
         {
           "name": "caption2",
-          "description": "Create a font with the alternate caption text style"
+          "description": "The font used the caption2 size"
         },
         {
           "name": "caption",
-          "description": "A font with the caption text style"
+          "description": "The font used for standard captions"
         },
         {
           "name": "callout",
-          "description": "A font with the callout text style"
+          "description": "The font used for callouts"
         },
         {
           "name": "body",
-          "description": "A font with the body text style"
+          "description": "The font used body text"
         },
         {
           "name": "subheadline",
-          "description": "A font with the subheadline text style"
+          "description": "The font used subheadings"
         },
         {
           "name": "headline",
-          "description": "A font with the headline text style"
+          "description": "The font used headings"
         },
         {
           "name": "title3",
-          "description": "Create a font for third level hierarchical headings"
+          "description": "The font used third level hierarchical headings"
         },
         {
           "name": "title2",
-          "description": "Create a font for second level hierarchical headings"
+          "description": "The font used second level hierarchical headings"
         },
         {
           "name": "title",
-          "description": "A font with the title text style"
+          "description": "The font used first level hierarchical headings"
         },
         {
           "name": "large-title",
-          "description": "A font with the large title text style"
+          "description": "The font used large titles"
         },
         {
           "name": "extra-large-title",
-          "description": "Create a font with the extra large title text style"
+          "description": "The font used extra large titles"
+        },
+        {
+          "name": "extra-large-title2",
+          "description": "The font used second level extra large titles"
         }
       ]
     },
@@ -1545,6 +1555,27 @@
         {
           "name": "space-between fill",
           "description": "Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules"
+        }
+      ]
+    },
+    {
+      "name": "ControlSize",
+      "values": [
+        {
+          "name": "mini",
+          "description": "A control version that is minimally sized"
+        },
+        {
+          "name": "regular",
+          "description": "A control version that is the regular size"
+        },
+        {
+          "name": "small",
+          "description": "A control version that is proportionally smaller size for space-constrained views"
+        },
+        {
+          "name": "large",
+          "description": "A control version that is prominently sized"
         }
       ]
     },

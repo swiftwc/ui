@@ -43,9 +43,9 @@ document.body.addEventListener('submit', async (event) => {
 
   event.preventDefault()
 
-  const navDest = event.submitter.closest('button[navigation-destination]')
+  const navDest = event.submitter.closest('button[data-nav-destination]')
   if (navDest) {
-    const template = queryTemplate(navDest.getAttribute('navigation-destination')) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
+    const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
     const path = new NavigationPath(event.submitter)?.hydrate()
 
@@ -108,7 +108,7 @@ document.body.addEventListener('submit', async (event) => {
 document.body.addEventListener('click', async (event) => {
   console.debug(`⚡️ ${event?.type}`)
 
-  const navDest = event.target.closest('button[type="button"][navigation-destination],summary[navigation-destination]')
+  const navDest = event.target.closest('button[type="button"][data-nav-destination],summary[data-nav-destination]')
 
   if (event.target.closest('.back')) {
     if (event.target.closest('.back-confirmation')) {
@@ -137,7 +137,7 @@ document.body.addEventListener('click', async (event) => {
 
     if (navDest && parent.body) {
       await startViewTransition(parent.body, 'forwards', async () => {
-        modifyDOMforwards(undefined, parent, queryTemplate(navDest.getAttribute('navigation-destination')))
+        modifyDOMforwards(undefined, parent, queryTemplate(navDest.dataset.navDestination))
       })
 
       addBindings()
@@ -145,7 +145,7 @@ document.body.addEventListener('click', async (event) => {
       parent.component.inert = false
     }
   } else if (navDest) {
-    const template = queryTemplate(navDest.getAttribute('navigation-destination')) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
+    const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
     const path = new NavigationPath(event.target)?.hydrate()
 
@@ -690,11 +690,8 @@ window.addEventListener('appinstalled', () => {
   console.debug('⚡️ installed')
 })
 
-export function queryTemplate(navPath) {
-  return (
-    Array.from(document.querySelectorAll('template')).find((t) => t.innerHTML.includes(`navigation-path="${CSS.escape(navPath)}"`)) ??
-    document.getElementById(navPath)
-  )
+export function queryTemplate(navPath: string) {
+  return Array.from(document.querySelectorAll('template')).find((t) => t.innerHTML.includes(`data-nav-path="${navPath}"`)) ?? document.getElementById(navPath)
 }
 
 export function modifyDOMbackwards(host) {
@@ -759,14 +756,14 @@ export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
 export const navHandler = async (event) => {
   console.debug(`⚡️ ${event?.type}`)
 
-  for (const el of document.querySelectorAll('[navigation-destination]')) {
+  for (const el of document.querySelectorAll('[data-nav-destination]')) {
     if (el.hasAttribute('selected-when'))
       el.ariaSelected = el
         .getAttribute('selected-when')
         .split(' ')
-        .map((item) => Boolean(document.querySelector(`[navigation-path="${CSS.escape(item)}"]`)))
+        .map((item) => Boolean(document.querySelector(`[data-nav-path="${CSS.escape(item)}"]`)))
         .some(Boolean)
-    else el.ariaSelected = `${Boolean(document.querySelector(`[navigation-path="${CSS.escape(el.getAttribute('navigation-destination'))}"]`))}`
+    else el.ariaSelected = `${Boolean(document.querySelector(`[data-nav-path="${CSS.escape(el.dataset.navDestination)}"]`))}`
   }
 
   for (const el of document.querySelectorAll('button[data-tag]'))

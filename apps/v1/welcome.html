@@ -13,7 +13,7 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
       // document.addEventListener('click', async (event) => {
@@ -33,7 +33,7 @@
             </v-stack>
           </navigation-large-title>
           <list-view list-style="inset-grouped">
-            <button navigation-link type="button" tabindex="0" navigation-destination="region">
+            <button navigation-link type="button" tabindex="0" data-nav-destination="region">
               <label-view title="English"></label-view>
             </button>
           </list-view>
@@ -43,11 +43,11 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-path="region" id="gg" background-style="grouped">
+        <scroll-view data-nav-path="region" id="gg" background-style="grouped">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
             <list-view list-style="inset-grouped">
-              <button navigation-link type="button" tabindex="0" navigation-destination="appearance">
+              <button navigation-link type="button" tabindex="0" data-nav-destination="appearance">
                 <label-view title="USA"></label-view>
               </button>
             </list-view>
@@ -64,7 +64,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="appearance" background-style="grouped">
+        <scroll-view data-nav-path="appearance" background-style="grouped">
           <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
@@ -76,7 +76,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="data-privacy">
+              <button is="bordered-prominent-button" control-size="large" type="button" data-nav-destination="data-privacy">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -93,7 +93,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="data-privacy" background-style="grouped">
+        <scroll-view data-nav-path="data-privacy" background-style="grouped">
           <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
@@ -134,7 +134,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="age-range">
+              <button is="bordered-prominent-button" control-size="large" type="button" data-nav-destination="age-range">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -151,7 +151,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
+        <scroll-view data-nav-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <v-stack alignment="fill" padding>
               <navigation-title value="Age Range"></navigation-title>
@@ -159,13 +159,13 @@
             </v-stack>
 
             <list-view list-style="inset-grouped">
-              <button navigation-link type="button" tabindex="0" navigation-destination="terms">
+              <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
                 <label-view title="Child"></label-view>
               </button>
-              <button navigation-link type="button" tabindex="0" navigation-destination="terms">
+              <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
                 <label-view title="Teen"></label-view>
               </button>
-              <button navigation-link type="button" tabindex="0" navigation-destination="terms">
+              <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
                 <label-view title="Adult"></label-view>
               </button>
             </list-view>
@@ -182,7 +182,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view navigation-path="terms">
+        <scroll-view data-nav-path="terms">
           <v-stack placement="leading fill" padding>
             <navigation-title value="Terms and Conditions"></navigation-title>
             <article>
@@ -228,7 +228,7 @@
             </button>
           </tool-bar-item>
           <tool-bar-item slot="confirmation-action">
-            <button type="button" navigation-destination="location" class="back">
+            <button type="button" data-nav-destination="location" class="back">
               <label-view title="Agree"></label-view>
             </button>
           </tool-bar-item>
@@ -237,7 +237,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="location" background-style="grouped">
+        <scroll-view data-nav-path="location" background-style="grouped">
           <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
@@ -278,7 +278,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="analytics">
+              <button is="bordered-prominent-button" control-size="large" type="button" data-nav-destination="analytics">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -295,7 +295,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="analytics" background-style="grouped">
+        <scroll-view data-nav-path="analytics" background-style="grouped">
           <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
@@ -336,7 +336,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="bordered-prominent-button" control-size="large" type="button" navigation-destination="welcome">
+              <button is="bordered-prominent-button" control-size="large" type="button" data-nav-destination="welcome">
                 <label-view title="Continue"></label-view>
               </button>
             </v-stack>
@@ -353,7 +353,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-path="welcome" background-style="grouped">
+        <scroll-view data-nav-path="welcome" background-style="grouped">
           <v-flex-stack alignment="fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack frame-height="infinity">
               <label-view font="extra-large-title">

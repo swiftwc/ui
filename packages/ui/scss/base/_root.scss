@@ -234,7 +234,7 @@
 
     @each $label, $props in maps.$label-fonts-map {
       --label-#{$label}-font-size: #{map.get($props, size)};
-      --label-#{$label}-line-height: #{map.get($props, line)};
+      --label-#{$label}-line-height: #{map.get($props, leading)};
       --label-#{$label}-font-weight: #{map.get($props, weight)};
     }
 

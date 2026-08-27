@@ -152,11 +152,17 @@ $picker-ifs: (
       &::part(picker-label-stack) {
         display: var(--picker--labelstack-display, none); // display: none;
 
-        color: var(--secondary);
+        // color: var(--secondary);
 
         --label-truncation-mode: tail;
 
         --label-line-limit: 1;
+      }
+
+      form & {
+        :where(&)::part(picker-label-stack) {
+          color: var(--secondary);
+        }
       }
 
       --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;

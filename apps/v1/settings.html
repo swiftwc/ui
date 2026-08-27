@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- Order matters MUST come first -->
+    <style>
+      @layer base, sw-base, sw-components, sw-list-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-ui, sw-transitions, sw-final, components, utilities, theme;
+    </style>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -16,9 +20,9 @@
     <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Energy" navigation-path="Energy">
+        <scroll-view navigation-inline-title="Energy" data-nav-path="Energy">
           <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <toggle-view label="Low Power Mode"></toggle-view>
               </section-view>
@@ -36,7 +40,7 @@
                 <labeled-content labeled-content-style="horizontal">
                   <label-view slot="label" title="Start up when power is connected"></label-view>
                   <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
-                  <picker-view selection="Never" picker-style="menu">
+                  <picker-view selection="Never" picker-style="menu" foreground="primary">
                     <option slot="list" value="Never"></option>
                     <option slot="list" value="After power failure"></option>
                     <option slot="list" value="Always"></option>
@@ -57,7 +61,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="General" navigation-path="General">
+        <scroll-view navigation-inline-title="General" data-nav-path="General">
           <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-large-title background-style="grouped" padding>
               <image-view system-name="gear-fine" foreground="blue"></image-view>
@@ -68,13 +72,13 @@
             </navigation-large-title>
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]">
               <section-view>
-                <button navigation-link tabindex="0" type="button" navigation-destination="About">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="About">
                   <label-view system-image="laptop" title="About"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button" navigation-destination="Software Update">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Software Update">
                   <label-view system-image="gear-fine" title="Software Update"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button" navigation-destination="Storage">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Storage">
                   <label-view system-image="hard-drive" title="Storage"></label-view>
                 </button>
               </section-view>
@@ -135,7 +139,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="About" navigation-path="About">
+        <scroll-view navigation-inline-title="About" data-nav-path="About">
           <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <navigation-large-title background-style="grouped" padding>
               <image-view system-name="laptop" foreground="secondary" class="place-self-center"></image-view>
@@ -152,7 +156,7 @@
                 <labeled-content label="Serial number" value="Foo" labeled-content-style="horizontal"></labeled-content>
               </section-view>
               <section-view header="OS">
-                <labeled-content label="Operating System" value="Version 99.5.2"></labeled-content>
+                <labeled-content label="Operating System" value="Version 99.5.2" labeled-content-style="horizontal"></labeled-content>
               </section-view>
               <section-view header="Displays">
                 <labeled-content label="Display 1" value="23,5-inch" labeled-content-style="horizontal"></labeled-content>
@@ -172,12 +176,12 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Accessibility" navigation-path="Accessibility">
+        <scroll-view navigation-inline-title="Accessibility" data-nav-path="Accessibility">
           <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
             <list-view list-style="inset-grouped">
               <section-view>
                 <h-stack template="auto spacer">
-                  <image-view system-name="person-simple-circle" foreground="blue" class="[--label-image-size:3]!"></image-view>
+                  <image-view system-name="person-simple-circle" foreground="blue" class="[--label-image-size:3]"></image-view>
                   <v-stack spacing="3" alignment="fill">
                     <label-view title="Accessibility"></label-view>
                     <label-view
@@ -189,13 +193,13 @@
                 </h-stack>
               </section-view>
               <section-view header="Vision">
-                <button navigation-link tabindex="0" type="button">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="VoiceOver">
                   <label-view system-image="person-arms-spread" title="VoiceOver"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Zoom">
                   <label-view system-image="magnifying-glass-plus" title="Zoom"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Hover Text">
                   <label-view system-image="translate" title="Hover Text"></label-view>
                 </button>
               </section-view>
@@ -213,20 +217,31 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Appearance" navigation-path="Appearance">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
-            <list-view list-style="inset-grouped">
-              <section-view header="Windows">
-                <labeled-content labeled-content-style="horizontal">
-                  <label-view slot="label" title="Start up when power is connected"></label-view>
-                  <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
-                  <picker-view selection="Small" picker-style="menu">
-                    <option slot="list" value="Small"></option>
-                    <option slot="list" value="Medium"></option>
-                    <option slot="list" value="Large"></option>
-                  </picker-view>
-                </labeled-content>
-                <toggle-view label="Tint window background with wallpaper color"></toggle-view>
+        <scroll-view navigation-inline-title="VoiceOver" data-nav-path="VoiceOver">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view
+              list-style="inset-grouped"
+              class="[--list-row-gap:1rem] [--list--media-inner-padding-inline-start:2.3rem]"
+              navigation-link-indicator-visibility="hidden"
+            >
+              <section-view>
+                <toggle-view>
+                  <label-view slot="label" title="VoiceOver" system-image="person-arms-spread"></label-view>
+                  <label-view
+                    slot="label"
+                    title="VoiceOver provides spoken and brailled descriptions of items on the computer screen."
+                    class="ps-[2.3rem]"
+                  ></label-view>
+                  <label-view slot="label" title="Toggle VoiceOver: &#8984;F5" class="ps-[2.3rem]"></label-view>
+                </toggle-view>
+              </section-view>
+              <section-view>
+                <button tabindex="0" list-item-tint="blue">
+                  <label-view class="ps-[2.3rem]" title="Open VoiceOver Tutorial…"></label-view>
+                </button>
+                <button tabindex="0" list-item-tint="blue">
+                  <label-view class="ps-[2.3rem]" title="Open VoiceOver Utility…"></label-view>
+                </button>
               </section-view>
             </list-view>
           </v-stack>
@@ -240,113 +255,184 @@
         </tool-bar>
       </body-view>
     </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Zoom" data-nav-path="Zoom">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <toggle-view>
+                  <label-view slot="label" title="Use keyboard shortcuts to zoom"></label-view>
+                  <label-view slot="label" title="Toggle zoom: ⌥&#8984;8"></label-view>
+                  <label-view slot="label" title="Toggle zoom: ⌥&#8984;="></label-view>
+                  <label-view slot="label" title="Toggle zoom: ⌥&#8984;-"></label-view>
+                </toggle-view>
+                <toggle-view>
+                  <label-view slot="label" title="Use trackpad gesture to zoom"></label-view>
+                  <label-view slot="label" title="Double-tap three fingers to toggle zoom"></label-view>
+                  <label-view slot="label" title="Double-tap three fingers and drag to change zoom"></label-view>
+                </toggle-view>
+                <toggle-view label="Use scroll gesture with modifier keys to zoom"></toggle-view>
+                <labeled-content labeled-content-style="horizontal">
+                  <label-view slot="label" title="Modifier key for scroll gesture"></label-view>
+                  <picker-view selection="⌃ Control" picker-style="menu" foreground="primary">
+                    <option slot="list" value="⌃ Control"></option>
+                    <option slot="list" value="⌥ Option"></option>
+                    <option slot="list" value="&#8984; Command"></option>
+                  </picker-view>
+                </labeled-content>
+                <labeled-content labeled-content-style="horizontal">
+                  <label-view slot="label" title="Zoom style"></label-view>
+                  <h-stack>
+                    <picker-view selection="Small" picker-style="menu" foreground="primary">
+                      <option slot="list" value="Small"></option>
+                      <option slot="list" value="Medium"></option>
+                      <option slot="list" value="Large"></option>
+                    </picker-view>
+                    <button is="bordered-button" control-size="small">
+                      <label-view title="Choose Display…" font="body"></label-view>
+                    </button>
+                  </h-stack>
+                </labeled-content>
+                <button tabindex="0" list-item-tint="blue">
+                  <label-view title="Advanced…"></label-view>
+                </button>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Hover Text" data-nav-path="Hover Text">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <h-stack distribution="fill" template="spacer auto">
+                  <toggle-view>
+                    <label-view slot="label" title="Hover Text"></label-view>
+                    <label-view slot="label" title="Press &#8984; to display large-text view of the item under the pointer."></label-view>
+                  </toggle-view>
+                  <button is="borderless-button" type="button" tint="gray" data-nav-destination="Hover Text Panel">
+                    <label-view system-image="info" class="[--label-image-size:1.5]"></label-view>
+                  </button>
+                </h-stack>
+              </section-view>
+              <section-view>
+                <h-stack distribution="fill" template="spacer auto">
+                  <toggle-view>
+                    <label-view slot="label" title="Hover Color"></label-view>
+                    <label-view slot="label" title="Press ⌃ to describe the color under the pointer."></label-view>
+                  </toggle-view>
+                  <button is="borderless-button" tint="gray">
+                    <label-view system-image="info" class="[--label-image-size:1.5]"></label-view>
+                  </button>
+                </h-stack>
+              </section-view>
+              <section-view>
+                <h-stack distribution="fill" template="spacer auto">
+                  <toggle-view label="Hover Typing"></toggle-view>
+                  <button is="borderless-button" tint="gray">
+                    <label-view system-image="info" class="[--label-image-size:1.5]"></label-view>
+                  </button>
+                </h-stack>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
+    <template>
+      <dialog is="sheet-view">
+        <scroll-view data-nav-path="Hover Text Panel" background-style="grouped">
+          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
+              <section-view header="Hover Text Settings">
+                <labeled-content labeled-content-style="horizontal">
+                  <label-view slot="label" title="Activation modifier"></label-view>
+                  <picker-view selection="&#8984; Command" picker-style="menu" foreground="primary">
+                    <option slot="list" value="⌃ Control"></option>
+                    <option slot="list" value="⌥ Option"></option>
+                    <option slot="list" value="&#8984; Command"></option>
+                  </picker-view>
+                </labeled-content>
+                <toggle-view label="Triple-press modifier to set activation lock"></toggle-view>
+              </section-view>
+              <section-view>
+                <label-view slot="header" title="Appearance" font="callout"></label-view>
+                <label-view slot="header" title="Shares appearance settings with Hover Color" font="caption2"></label-view>
+                <labeled-content labeled-content-style="horizontal">
+                  <label-view slot="label" title="Text size"></label-view>
+                  <picker-view selection="Default" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Default"></option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="confirmation-action" tint="blue" title-key="OK">
+            <button type="button" tabindex="0" class="back"></button>
+          </tool-bar-item>
+        </tool-bar>
+      </dialog>
+    </template>
+    <template>
+      <body-view>
+        <scroll-view navigation-inline-title="Appearance" data-nav-path="Appearance">
+          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <list-view list-style="inset-grouped"> ... </list-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0" class="back">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </body-view>
+    </template>
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      // lifecycleObserver.addEventListener('pageshow', navHandler)
-      // lifecycleObserver.addEventListener('pagehide', navHandler)
-
-      // setTimeout(() => {
-      //   const el = document.querySelector('[is=sidebar-view] scroll-view')
-
-      //   const beforeStyles = getComputedStyle(el, '::before')
-      //   const beforeHeight = beforeStyles.height
-
-      //   alert(`${el.clientHeight}:${beforeHeight}`)
-      // }, 1400)
-
-      // const cl = new WeakSet()
-      // document.addEventListener('pointerdown', async (event) => {
-      //   cl.add(event.target)
-      // })
-      // document.addEventListener('pointerout', async (event) => {
-      //   cl.delete(event.target)
-
-      //   const navDest = event.target.closest('[navigation-destination]')
-      //   if (!navDest) return
-
-      //   alert(8)
-      // })
-      // document.addEventListener('gotpointercapture', async (event) => {
-      //   alert(1)
-      // })
-      // document.addEventListener('lostpointercapture', async (event) => {
-      //   alert(3)
-      // })
-      // document.addEventListener('pointerout', async (event) => {
-      //   const navDest = event.target.closest('[navigation-destination]')
-
-      //   if (!navDest) return
-      //   alert(8)
-      // })
-
-      // document.addEventListener('pointercancel', async (event) => {
-      //   const navDest = event.target.closest('[navigation-destination]')
-
-      //   if (!navDest) return
-      //   alert(7)
-      // })
-      // if (self.PointerEvent) {
-      //   document.addEventListener('pointermove', async (event) => {
-      //     const navDest = event.target.closest('[navigation-destination]')
-      //     if (!navDest) return
-
-      //     // navDest.removeAttribute('aria-selected') //ariaSelected = 'false'
-      //   })
-      //   document.addEventListener('pointerup', async (event) => {
-      //     const navDest = event.target.closest('[navigation-destination]')
-      //     if (!navDest) return
-
-      //     const { left, right, top, bottom } = navDest.getBoundingClientRect()
-      //     const x = event.clientX
-      //     const y = event.clientY
-      //     if (x >= left && x <= right && y >= top && y <= bottom) {
-      //       navDest.ariaSelected = 'true'
-      //     }
-
-      //     // event.target.classList.add('active')
-      //   })
-      //   // document.addEventListener('pointerleave', async (event) => {
-      //   //   const navDest = event.target.closest('[navigation-destination]')
-      //   //   if (!navDest) return
-
-      //   //   navDest.ariaSelected = 'false'
-      //   //   // event.target.classList.remove('active')
-      //   //   // alert(9)
-      //   // })
-      // }
-
       // document.addEventListener('click', async (event) => {
-      //   console.debug(`⚡️ ${event?.type}`)
+      //   const actionable = event.target.closest('[data-action]')
+      //   if (!actionable) return
 
-      // const navDest = event.target.closest('[navigation-destination]')
+      //   const sv = actionable.closest('[data-nav-path]')
 
-      // if (event.target.closest('.back')) {
-      //   const path = new NavigationPath(event.target)?.hydrate()
+      //   switch (actionable.dataset.action) {
+      //     case 'show-hover-text-panel': {
+      //       const from = new NavigationPath(sv)
 
-      //   const parent = [...path.parents()].at(0)?.hydrate()
-
-      //   if (navDest && parent.body) parent.component.inert = true
-
-      //   await startViewTransition(event.target, 'backwards', async () => {
-      //     modifyDOMbackwards(path)
-      //   })
-
-      //   if (navDest && parent.body) {
-      //     await startViewTransition(parent.body, 'forwards', async () => {
-      //       modifyDOMforwards(undefined, parent, document.getElementById(navDest.getAttribute('navigation-destination')))
-      //     })
-
-      //     parent.component.inert = false
+      //       await startViewTransition(event.target, 'forwards', {
+      //         async updateCallback() {
+      //           modifyDOMforwards(undefined, from, queryTemplate(`Hover Text Panel`), false)
+      //         },
+      //         tos() {
+      //           return [new NavigationPath(sv.nextElementSibling).hydrate()]
+      //         },
+      //       })
+      //     }
       //   }
-      // } else if (navDest) {
-      //   const path = new NavigationPath(event.target)?.hydrate()
-
-      //   await startViewTransition(event.target, 'forwards', async () => {
-      //     modifyDOMforwards(undefined, path, document.getElementById(navDest.getAttribute('navigation-destination')))
-      //   })
-      // }
       // })
     </script>
   </head>
@@ -358,7 +444,7 @@
       <dialog is="sidebar-view">
         <scroll-view>
           <v-stack placement="leading fill">
-            <list-view list-style="inset-grouped" style="--list--media-inner-padding-inline-start: 2.3rem">
+            <list-view list-style="inset-grouped" class="[--list--media-inner-padding-inline-start:2.3rem]">
               <section-view>
                 <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Storage Full"></label-view>
@@ -374,18 +460,18 @@
                 <button navigation-link tabindex="0" type="button">
                   <label-view system-image="smiley" title="Network"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button" navigation-destination="Energy">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Energy">
                   <label-view system-image="lightning" title="Energy"></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link tabindex="0" type="button" navigation-destination="General">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="General">
                   <label-view system-image="gear-fine" title="General"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button" navigation-destination="Accessibility">
-                  <label-view system-image="smiley" title="Accessibility"></label-view>
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Accessibility">
+                  <label-view system-image="person-simple-circle" title="Accessibility"></label-view>
                 </button>
-                <button navigation-link tabindex="0" type="button" navigation-destination="Appearance">
+                <button navigation-link tabindex="0" type="button" data-nav-destination="Appearance">
                   <label-view system-image="smiley" title="Appearance"></label-view>
                 </button>
                 <button navigation-link tabindex="0" type="button">

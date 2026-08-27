@@ -14,7 +14,7 @@
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.js'
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
       // lifecycleObserver.addEventListener('pageshow', navHandler)
@@ -117,8 +117,8 @@
                   <summary>
                     <label-view title="Personal"></label-view>
                   </summary>
-                  <button navigation-link type="button" navigation-destination="inbox"><label-view system-image="smiley" title="Inbox"></label-view></button>
-                  <button navigation-link type="button" navigation-destination="sent" value="more"><label-view system-image="smiley" title="Sent"></label-view></button>
+                  <button navigation-link type="button" data-nav-destination="inbox"><label-view system-image="smiley" title="Inbox"></label-view></button>
+                  <button navigation-link type="button" data-nav-destination="sent" value="more"><label-view system-image="smiley" title="Sent"></label-view></button>
                   <button navigation-link value="more"><label-view system-image="smiley" title="Trash"></label-view></button>
                   <button navigation-link value="more"><label-view system-image="smiley" title="Archive"></label-view></button>
                 </details>
@@ -149,17 +149,17 @@
 
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Inbox" navigation-path="inbox">
+        <scroll-view navigation-inline-title="Inbox" data-nav-path="inbox">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
-              <button navigation-link type="button" navigation-destination="item1">
+              <button navigation-link type="button" data-nav-destination="item1">
                 <label-view title="Item 1"></label-view>
               </button>
-              <button navigation-link type="button" navigation-destination="item2">
+              <button navigation-link type="button" data-nav-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
               <details is="disclosure-group" class="rootonclose">
-                <summary navigation-destination="item3">
+                <summary data-nav-destination="item3">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" template="spacer auto">
                       <label-view title="Andrew & Priyanka"></label-view>
@@ -174,7 +174,7 @@
                     <div foreground="secondary">Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July</div>
                   </v-stack>
                 </summary>
-                <button navigation-link type="button" navigation-destination="item3b">
+                <button navigation-link type="button" data-nav-destination="item3b">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" template="spacer auto">
                       <label-view title="Andrew"></label-view>
@@ -183,7 +183,7 @@
                     <label-view title="Yes please!! I'm overdue for some nature (and s'mores). For dates &bull; July"></label-view>
                   </v-stack>
                 </button>
-                <button navigation-link type="button" navigation-destination="item3c">
+                <button navigation-link type="button" data-nav-destination="item3c">
                   <v-stack spacing="3" placement="leading fill">
                     <h-stack distribution="fill" template="spacer auto">
                       <label-view title="Priyanka"></label-view>
@@ -193,28 +193,28 @@
                   </v-stack>
                 </button>
               </details>
-              <button navigation-link type="button" navigation-destination="item2">
+              <button navigation-link type="button" data-nav-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
               <details is="disclosure-group" class="rootonclose">
                 <summary>
                   <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
-                <button navigation-link type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
               </details>
               <details is="disclosure-group" class="rootonclose">
                 <summary>
                   <label-view system-image="smiley" title="Grouped Item 3"></label-view>
                 </summary>
-                <button navigation-link type="button" navigation-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
-                <button navigation-link type="button" navigation-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3a"><label-view system-image="smiley" title="Item 3a"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3b"><label-view system-image="smiley" title="Item 3b"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3c"><label-view system-image="smiley" title="Item 3c"></label-view></button>
+                <button navigation-link type="button" data-nav-destination="item3d"><label-view system-image="smiley" title="Item 3d"></label-view></button>
               </details>
-              <button navigation-link type="button" navigation-destination="item2">
+              <button navigation-link type="button" data-nav-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
             </list-view>
@@ -231,19 +231,19 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Sent" navigation-path="sent">
+        <scroll-view navigation-inline-title="Sent" data-nav-path="sent">
           <v-stack placement="leading fill">
             <list-view preferred-expanded-style="inset">
-              <button navigation-link type="button" navigation-destination="item1">
+              <button navigation-link type="button" data-nav-destination="item1">
                 <label-view title="Item 1"></label-view>
               </button>
-              <button navigation-link type="button" navigation-destination="item2">
+              <button navigation-link type="button" data-nav-destination="item2">
                 <label-view title="Item 2"></label-view>
               </button>
-              <button navigation-link type="button" navigation-destination="item1">
+              <button navigation-link type="button" data-nav-destination="item1">
                 <label-view title="Item 3"></label-view>
               </button>
-              <button navigation-link type="button" navigation-destination="item2">
+              <button navigation-link type="button" data-nav-destination="item2">
                 <label-view title="Item 4"></label-view>
               </button>
             </list-view>
@@ -260,7 +260,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Item 1" navigation-path="item1">
+        <scroll-view navigation-inline-title="Item 1" data-nav-path="item1">
           <v-stack placement="leading fill" padding> Item 1 </v-stack>
         </scroll-view>
         <tool-bar>
@@ -274,7 +274,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Item 2" navigation-path="item2">
+        <scroll-view navigation-inline-title="Item 2" data-nav-path="item2">
           <v-stack placement="leading fill" padding> Item 2 </v-stack>
         </scroll-view>
         <tool-bar>
@@ -288,7 +288,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Trip Idea - AutoCamp Sequoia" navigation-path="item3">
+        <scroll-view navigation-inline-title="Trip Idea - AutoCamp Sequoia" data-nav-path="item3">
           <v-stack placement="leading fill" padding> Trip Idea - AutoCamp Sequoia </v-stack>
         </scroll-view>
         <tool-bar>
@@ -302,7 +302,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Item 3a" navigation-path="item3a">
+        <scroll-view navigation-inline-title="Item 3a" data-nav-path="item3a">
           <v-stack placement="leading fill" padding> Item 3a </v-stack>
         </scroll-view>
         <tool-bar>
@@ -316,7 +316,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Item b" navigation-path="item3b">
+        <scroll-view navigation-inline-title="Item b" data-nav-path="item3b">
           <v-stack placement="leading fill" padding> Item 3b </v-stack>
         </scroll-view>
         <tool-bar>

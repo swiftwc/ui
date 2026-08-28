@@ -1,6 +1,6 @@
 import { $ } from '../internal/utils'
-import morph from './morph'
 import type { TemplateResult } from '../tpl'
+import morph from './morph'
 
 export default function (scopedSelector: string, template: TemplateResult, container?: Element, options?: { cb?: () => boolean; removeIf?: boolean }): void {
   if (false === options?.cb?.()) return

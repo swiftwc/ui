@@ -32,10 +32,11 @@ export class ToolBarItem extends HTMLElement {
 
         if (['confirmation-action', 'cancellation-action'].includes(role))
           Snapshot.waitReady.then(() => {
-            ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey, Snapshot.config)
+            ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button:not(:has(> :not([slot])))'), role, tKey, Snapshot.config)
 
             this.#mutationObserver = new MutationObserver((mutations: MutationRecord[]) => {
-              for (const { target } of mutations) if (target instanceof HTMLElement) ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button'), role, tKey, Snapshot.config)
+              for (const { target } of mutations)
+                if (target instanceof HTMLElement) ensurePlaceholder(this.querySelector<HTMLElement>(':scope>button:not(:has(> :not([slot])))'), role, tKey, Snapshot.config)
             })
 
             this.#mutationObserver.observe(this, {

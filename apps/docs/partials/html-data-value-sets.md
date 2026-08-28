@@ -438,36 +438,6 @@ enum Template {
 
 
 ```ts
-enum frameWidth {
-  'infinity', // 100%
-  '0', // 0rem
-  '1', // 1rem
-  '2', // 2rem
-}
-
-```
-
-<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
-
-</div>
-
-<label for="show-more10" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
-
-<label for="show-more10" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
-
-</div>
-
-
-
-
-<div class="relative group">
-<input type="checkbox" id="show-more11" class="peer hidden">
-
-<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
-
-```ts
 enum FrameInlineLength {
   'infinity', // 100%
   '0', // 0rem
@@ -680,9 +650,9 @@ enum FrameInlineLength {
 
 </div>
 
-<label for="show-more11" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+<label for="show-more10" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
 
-<label for="show-more11" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+<label for="show-more10" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
 

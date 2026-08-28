@@ -975,7 +975,7 @@
       "attributes": [
         {
           "name": "readable",
-          "description": "\nDescription: Shortcut for `placement=\"leading fill\" frame:width=\"infinity\" frame:max-width=\"40\" frame:alignment=\"center\"`",
+          "description": "\nDescription: Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`",
           "valueSet": "FrameInlineLength"
         },
         {
@@ -1028,7 +1028,7 @@
           "valueSet": "blockPlacementSet"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:width=\"infinity\" frame:max-width=\"40\" frame:alignment=\"center\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
     }
   ],
   "globalAttributes": [
@@ -1050,7 +1050,7 @@
     {
       "name": "frame:width",
       "description": "Sets inline-size",
-      "valueSet": "frameWidth"
+      "valueSet": "FrameInlineLength"
     },
     {
       "name": "frame:max-width",
@@ -1782,27 +1782,6 @@
         {
           "name": "auto spacer auto auto",
           "description": "Applies a `auto minmax(0, 1fr) auto auto` grid-template to the main-axis"
-        }
-      ]
-    },
-    {
-      "name": "frameWidth",
-      "values": [
-        {
-          "name": "infinity",
-          "description": "100%"
-        },
-        {
-          "name": "0",
-          "description": "0rem"
-        },
-        {
-          "name": "1",
-          "description": "1rem"
-        },
-        {
-          "name": "2",
-          "description": "2rem"
         }
       ]
     },

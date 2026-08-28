@@ -13,7 +13,7 @@ next:
 ```ts
 interface VStackSignature {
   Attributes: {
-    readable?: FrameInlineLength // Shortcut for `placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center"`
+    readable?: FrameInlineLength // Shortcut for `placement="leading fill" frame:alignment="center" frame:width="infinity" frame:max-width="{length}"`
     distribution?: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
     template?: Template // The main-axis grid template
     spacing?: Spacing // The gap between the primary axis

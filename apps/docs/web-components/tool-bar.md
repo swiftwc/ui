@@ -6,8 +6,6 @@
 
 ```ts
 interface ToolBarSignature {
-  Declaration: '<tool-bar></tool-bar>'
-
   Slots: {
     'cancellation-action': HTMLElement[] // The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal
     'primary-action': HTMLElement[] // The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal
@@ -26,7 +24,7 @@ class ToolBar extends HTMLElement<ToolBarSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'tool-bar': ToolBar
+    'tool-bar': ToolBar // <tool-bar></tool-bar>
   }
 }
 ```

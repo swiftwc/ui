@@ -6,8 +6,6 @@
 
 ```ts
 interface ScrollViewSignature {
-  Declaration: '<scroll-view></scroll-view>'
-
   Attributes: {
     'navigation-title'?: string // Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing="0" alignment="fill" slot="top-bar-principal"><label-view line-limit="1" truncation-mode="tail" font="headline"><span>Navigation Title</span></label-view></v-stack>`
     'navigation-inline-title'?: string
@@ -29,7 +27,7 @@ class ScrollView extends HTMLElement<ScrollViewSignature> {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'scroll-view': ScrollView
+    'scroll-view': ScrollView // <scroll-view></scroll-view>
   }
 }
 ```

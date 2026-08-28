@@ -6,8 +6,6 @@
 
 ```ts
 interface MenuViewSignature {
-  Declaration: '<menu-view></menu-view>'
-
   Attributes: {
     open?: string
     closing?: string
@@ -24,7 +22,7 @@ class MenuView extends HTMLElement<MenuViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'menu-view': MenuView
+    'menu-view': MenuView // <menu-view></menu-view>
   }
 }
 ```

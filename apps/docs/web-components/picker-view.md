@@ -6,8 +6,6 @@
 
 ```ts
 interface PickerViewSignature {
-  Declaration: '<picker-view></picker-view>'
-
   Attributes: {
     'picker-style'?: 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
     dictionary?: 'DictEntry[]' // Renders all options using this array
@@ -18,7 +16,7 @@ interface PickerViewSignature {
     default: HTMLElement[] // The default slot.
     label: HTMLElement[]
     list: HTMLElement[]
-    'validity-options': HTMLElement[]
+    'validity-options': HTMLOptionElement[]
   }
 }
 
@@ -36,7 +34,7 @@ class PickerView extends HTMLElement<PickerViewSignature> {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'picker-view': PickerView
+    'picker-view': PickerView // <picker-view></picker-view>
   }
 }
 ```

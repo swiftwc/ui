@@ -6,8 +6,6 @@
 
 ```ts
 interface LabeledContentSignature {
-  Declaration: '<labeled-content></labeled-content>'
-
   Attributes: {
     value?: string
     label?: string
@@ -36,7 +34,7 @@ class LabeledContent extends HTMLElement<LabeledContentSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'labeled-content': LabeledContent
+    'labeled-content': LabeledContent // <labeled-content></labeled-content>
   }
 }
 ```

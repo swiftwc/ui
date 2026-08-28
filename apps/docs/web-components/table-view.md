@@ -6,8 +6,6 @@
 
 ```ts
 interface TableViewSignature {
-  Declaration: '<table-view></table-view>'
-
   Attributes: {
     'preferred-compact-template'?: 'title:trailing:subtitle' | 'trailing:title:subtitle' | 'title:subtitle:trailing' | '*' // Sets the template areas when the table is in compact mode
   }
@@ -28,7 +26,7 @@ class TableView extends HTMLElement<TableViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'table-view': TableView
+    'table-view': TableView // <table-view></table-view>
   }
 }
 ```

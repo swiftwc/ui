@@ -6,8 +6,6 @@
 
 ```ts
 interface BorderedProminentButtonSignature {
-  Declaration: '<button is="bordered-prominent-button"></button>'
-
   Attributes: {
     role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
     'title-key'?: string
@@ -19,6 +17,12 @@ interface BorderedProminentButtonSignature {
 }
 
 class BorderedProminentButton extends HTMLButtonElement<BorderedProminentButtonSignature> {}
+
+declare global {
+  interface HTMLButtonElement {
+    is: 'bordered-prominent-button' // <button is="bordered-prominent-button"></button>
+  }
+}
 ```
 
 <!-- #endregion pre -->

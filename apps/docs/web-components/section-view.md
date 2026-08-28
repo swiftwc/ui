@@ -6,8 +6,6 @@
 
 ```ts
 interface SectionViewSignature {
-  Declaration: '<section-view></section-view>'
-
   Attributes: {
     header?: string
     footer?: string
@@ -24,7 +22,7 @@ class SectionView extends HTMLElement<SectionViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'section-view': SectionView
+    'section-view': SectionView // <section-view></section-view>
   }
 }
 ```

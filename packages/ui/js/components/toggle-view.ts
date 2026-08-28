@@ -16,7 +16,7 @@ export type ToggleStyle = (typeof toggleStyles)[number]
  * @fires toggle:change — User toggled the control
  *
  * @slot label
- * @slot validity-options
+ * @slot {HTMLOptionElement[]} validity-options
  */
 export class ToggleView extends FormAssociatedBase {
   static get observedAttributes() {

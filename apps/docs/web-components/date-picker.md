@@ -6,8 +6,6 @@
 
 ```ts
 interface DatePickerSignature {
-  Declaration: '<date-picker></date-picker>'
-
   Attributes: {
     'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element
     required?: boolean
@@ -38,7 +36,7 @@ class DatePicker extends HTMLElement<DatePickerSignature> {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'date-picker': DatePicker
+    'date-picker': DatePicker // <date-picker></date-picker>
   }
 }
 ```

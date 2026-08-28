@@ -5,9 +5,7 @@
 ###### A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.
 
 ```ts
-interface FineTooltipSignature {
-  Declaration: '<fine-tooltip></fine-tooltip>'
-}
+interface FineTooltipSignature {}
 
 class FineTooltip extends HTMLElement<FineTooltipSignature> {
   hidePopover(): void
@@ -15,7 +13,7 @@ class FineTooltip extends HTMLElement<FineTooltipSignature> {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'fine-tooltip': FineTooltip
+    'fine-tooltip': FineTooltip // <fine-tooltip></fine-tooltip>
   }
 }
 ```

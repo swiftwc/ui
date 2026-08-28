@@ -6,14 +6,18 @@
 
 ```ts
 interface FormViewSignature {
-  Declaration: '<form is="form-view"></form>'
-
   Attributes: {
     'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
   }
 }
 
 class FormView extends HTMLFormElement<FormViewSignature> {}
+
+declare global {
+  interface HTMLFormElement {
+    is: 'form-view' // <form is="form-view"></form>
+  }
+}
 ```
 
 <!-- #endregion pre -->

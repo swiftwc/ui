@@ -5,11 +5,15 @@
 ###### A dialog that slides up over the current screen.
 
 ```ts
-interface SheetViewSignature {
-  Declaration: '<dialog is="sheet-view"></dialog>'
-}
+interface SheetViewSignature {}
 
 class SheetView extends HTMLDialogElement<SheetViewSignature> {}
+
+declare global {
+  interface HTMLDialogElement {
+    is: 'sheet-view' // <dialog is="sheet-view"></dialog>
+  }
+}
 ```
 
 <!-- #endregion pre -->

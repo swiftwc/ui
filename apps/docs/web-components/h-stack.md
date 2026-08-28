@@ -6,8 +6,6 @@
 
 ```ts
 interface HStackSignature {
-  Declaration: '<h-stack></h-stack>'
-
   Attributes: {
     template?: Template // The main-axis grid template
     spacing?: Spacing // The gap between the primary axis
@@ -21,7 +19,7 @@ class HStack extends HTMLElement<HStackSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'h-stack': HStack
+    'h-stack': HStack // <h-stack></h-stack>
   }
 }
 ```

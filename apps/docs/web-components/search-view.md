@@ -5,15 +5,13 @@
 ######
 
 ```ts
-interface SearchViewSignature {
-  Declaration: '<search-view></search-view>'
-}
+interface SearchViewSignature {}
 
 class SearchView extends HTMLInputElement<SearchViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'search-view': SearchView
+    'search-view': SearchView // <search-view></search-view>
   }
 }
 ```

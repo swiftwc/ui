@@ -6,15 +6,6 @@
 
 ```ts
 interface TabViewSignature {
-  Declaration: '<tab-view></tab-view>'
-
-  Events: {
-    tabshow: CustomEvent // A Tab is shown
-    tabhide: CustomEvent // A Tab is hidden
-    'tab-view:toggle': CustomEvent
-    'tab-view:adaptable-tab-bar-placement-change': CustomEvent
-  }
-
   CSSProperties: {
     '--adaptable-tab-bar-placement'?: string
   }
@@ -26,9 +17,16 @@ class TabView extends HTMLElement<TabViewSignature> {
   selectedTab: (NavigationSplitView | NavigationStack)[]
 }
 
+interface GlobalEventMap<Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap> {
+  tabshow: CustomEvent // A Tab is shown
+  tabhide: CustomEvent // A Tab is hidden
+  'tab-view:toggle': CustomEvent
+  'tab-view:adaptable-tab-bar-placement-change': CustomEvent
+}
+
 declare global {
   interface HTMLElementTagNameMap {
-    'tab-view': TabView
+    'tab-view': TabView // <tab-view></tab-view>
   }
 }
 ```

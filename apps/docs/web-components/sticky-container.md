@@ -5,15 +5,13 @@
 ######
 
 ```ts
-interface StickyContainerSignature {
-  Declaration: '<sticky-container></sticky-container>'
-}
+interface StickyContainerSignature {}
 
 class StickyContainer extends HTMLElement<StickyContainerSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'sticky-container': StickyContainer
+    'sticky-container': StickyContainer // <sticky-container></sticky-container>
   }
 }
 ```

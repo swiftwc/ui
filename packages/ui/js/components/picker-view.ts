@@ -166,7 +166,7 @@ const collectLeafValues = (node: DictEntry): string[] => (node.children.length ?
  * @slot — The default slot.
  * @slot label
  * @slot list
- * @slot validity-options
+ * @slot {HTMLOptionElement[]} validity-options
  */
 export class PickerView extends FormAssociatedBase {
   static get ATTR() {

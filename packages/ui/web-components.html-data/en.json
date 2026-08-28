@@ -9,7 +9,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/alert-dialog"
         }
       ],
-      "description": "A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.\n---\n\n```ts\ninterface AlertDialogSignature {\n  Declaration: '<dialog is=\"alert-dialog\"></dialog>'\n}\n\nclass AlertDialog extends HTMLDialogElement<AlertDialogSignature> {}\n\n```\n"
+      "description": "A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.\n---\n\n```ts\ninterface AlertDialogSignature {}\n\nclass AlertDialog extends HTMLDialogElement<AlertDialogSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'alert-dialog' // <dialog is=\"alert-dialog\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "body-view",
@@ -19,7 +19,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/body-view"
         }
       ],
-      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface BodyViewSignature {\n  Declaration: '<body-view></body-view>'\n}\n\nclass BodyView extends HTMLElement<BodyViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'body-view': BodyView\n  }\n}\n\n```\n"
+      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface BodyViewSignature {}\n\nclass BodyView extends HTMLElement<BodyViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'body-view': BodyView // <body-view></body-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "bordered-button",
@@ -46,7 +46,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedButtonSignature {\n  Declaration: '<button is=\"bordered-button\"></button>'\n\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}\n\n```\n\n### **Examples:**\n**Creating a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-button' // <button is=\"bordered-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "bordered-prominent-button",
@@ -73,7 +73,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedProminentButtonSignature {\n  Declaration: '<button is=\"bordered-prominent-button\"></button>'\n\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedProminentButton extends HTMLButtonElement<BorderedProminentButtonSignature> {}\n\n```\n\n### **Examples:**\n**Creating a prominent bordered button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedProminentButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedProminentButton extends HTMLButtonElement<BorderedProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-prominent-button' // <button is=\"bordered-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a prominent bordered button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "borderless-button",
@@ -100,7 +100,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled without any borders.\n---\n\n```ts\ninterface BorderlessButtonSignature {\n  Declaration: '<button is=\"borderless-button\"></button>'\n\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderlessButton extends HTMLButtonElement<BorderlessButtonSignature> {}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a `borderless-button`:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled without any borders.\n---\n\n```ts\ninterface BorderlessButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderlessButton extends HTMLButtonElement<BorderlessButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'borderless-button' // <button is=\"borderless-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a `borderless-button`:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "color-scheme",
@@ -109,7 +109,7 @@
           "name": "dark"
         }
       ],
-      "description": "undefined\n\n```ts\ninterface ColorSchemeSignature {\n  Declaration: '<color-scheme></color-scheme>'\n\n  Attributes: {\n    dark?: string\n  }\n}\n\nclass ColorScheme extends HTMLElement<ColorSchemeSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'color-scheme': ColorScheme\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface ColorSchemeSignature {\n  Attributes: {\n    dark?: string\n  }\n}\n\nclass ColorScheme extends HTMLElement<ColorSchemeSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'color-scheme': ColorScheme // <color-scheme></color-scheme>\n  }\n}\n\n```\n"
     },
     {
       "name": "confirmation-dialog",
@@ -124,7 +124,7 @@
           "name": "anchor"
         }
       ],
-      "description": "A dialog that asks the user to confirm an action. Use it from the client module like `await confirmationDialog(trigger, 'Permanently erase the items in the Trash?')`.\n---\n\n```ts\ninterface ConfirmationDialogSignature {\n  Declaration: '<dialog is=\"confirmation-dialog\"></dialog>'\n\n  Attributes: {\n    anchor?: string\n  }\n}\n\nclass ConfirmationDialog extends HTMLDialogElement<ConfirmationDialogSignature> {}\n\n```\n"
+      "description": "A dialog that asks the user to confirm an action. Use it from the client module like `await confirmationDialog(trigger, 'Permanently erase the items in the Trash?')`.\n---\n\n```ts\ninterface ConfirmationDialogSignature {\n  Attributes: {\n    anchor?: string\n  }\n}\n\nclass ConfirmationDialog extends HTMLDialogElement<ConfirmationDialogSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'confirmation-dialog' // <dialog is=\"confirmation-dialog\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "content-unavailable",
@@ -139,7 +139,7 @@
           "name": "search"
         }
       ],
-      "description": "A message with a title and extra information that you show when part of your app can’t be used.\n---\n\n```ts\ninterface ContentUnavailableSignature {\n  Declaration: '<content-unavailable></content-unavailable>'\n\n  Attributes: {\n    search?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    description: HTMLElement[]\n    actions: HTMLElement[]\n  }\n}\n\nclass ContentUnavailable extends HTMLElement<ContentUnavailableSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-unavailable': ContentUnavailable\n  }\n}\n\n```\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n"
+      "description": "A message with a title and extra information that you show when part of your app can’t be used.\n---\n\n```ts\ninterface ContentUnavailableSignature {\n  Attributes: {\n    search?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    description: HTMLElement[]\n    actions: HTMLElement[]\n  }\n}\n\nclass ContentUnavailable extends HTMLElement<ContentUnavailableSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-unavailable': ContentUnavailable // <content-unavailable></content-unavailable>\n  }\n}\n\n```\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n"
     },
     {
       "name": "date-picker",
@@ -198,7 +198,7 @@
           "name": "maximum"
         }
       ],
-      "description": "A control that selects an absolute date.\n---\n\n```ts\ninterface DatePickerSignature {\n  Declaration: '<date-picker></date-picker>'\n\n  Attributes: {\n    'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element\n    required?: boolean\n    prompt?: string\n    label?: string\n    name?: string\n    selection?: string\n    disabled?: boolean\n    minimum?: string\n    maximum?: string\n  }\n}\n\nclass DatePicker extends HTMLElement<DatePickerSignature> {\n  static formAssociated = true\n\n  readonly template: DocumentFragment\n  readonly datePickerStyle: 'graphical' | 'field' | 'automatic'\n  readonly name: string // Form participation property\n  readonly value: { year: string; month: string; day: string }\n  readonly valueAsDate: Date | null // Returns the value as a Date object.\n  readonly minimum: { year: string; month: string; day: string } | null\n  readonly maximum: { year: string; month: string; day: string } | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'date-picker': DatePicker\n  }\n}\n\n```\n"
+      "description": "A control that selects an absolute date.\n---\n\n```ts\ninterface DatePickerSignature {\n  Attributes: {\n    'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element\n    required?: boolean\n    prompt?: string\n    label?: string\n    name?: string\n    selection?: string\n    disabled?: boolean\n    minimum?: string\n    maximum?: string\n  }\n}\n\nclass DatePicker extends HTMLElement<DatePickerSignature> {\n  static formAssociated = true\n\n  readonly template: DocumentFragment\n  readonly datePickerStyle: 'graphical' | 'field' | 'automatic'\n  readonly name: string // Form participation property\n  readonly value: { year: string; month: string; day: string }\n  readonly valueAsDate: Date | null // Returns the value as a Date object.\n  readonly minimum: { year: string; month: string; day: string } | null\n  readonly maximum: { year: string; month: string; day: string } | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'date-picker': DatePicker // <date-picker></date-picker>\n  }\n}\n\n```\n"
     },
     {
       "name": "disclosure-group",
@@ -214,7 +214,7 @@
           "description": "Value Type: boolean\nDescription: The status of this element"
         }
       ],
-      "description": "A view that shows or hides another view when the user opens or closes it.\n---\n\n```ts\ninterface DisclosureGroupSignature {\n  Declaration: '<details is=\"disclosure-group\"></details>'\n\n  Attributes: {\n    open?: boolean // The status of this element\n  }\n\n  Events: {\n    'is-expanded': CustomEvent\n    'is-collapsed': CustomEvent\n  }\n}\n\nclass DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}\n\n```\n\n### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```\n"
+      "description": "A view that shows or hides another view when the user opens or closes it.\n---\n\n```ts\ninterface DisclosureGroupSignature {\n  Attributes: {\n    open?: boolean // The status of this element\n  }\n}\n\nclass DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'is-expanded': CustomEvent\n  'is-collapsed': CustomEvent\n}\n\ndeclare global {\n  interface HTMLDetailsElement {\n    is: 'disclosure-group' // <details is=\"disclosure-group\"></details>\n  }\n}\n\n```\n\n### **Examples:**\n**Example:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```\n"
     },
     {
       "name": "fine-tooltip",
@@ -224,7 +224,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/fine-tooltip"
         }
       ],
-      "description": "A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.\n---\n\n```ts\ninterface FineTooltipSignature {\n  Declaration: '<fine-tooltip></fine-tooltip>'\n}\n\nclass FineTooltip extends HTMLElement<FineTooltipSignature> {\n  hidePopover(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'fine-tooltip': FineTooltip\n  }\n}\n\n```\n"
+      "description": "A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.\n---\n\n```ts\ninterface FineTooltipSignature {}\n\nclass FineTooltip extends HTMLElement<FineTooltipSignature> {\n  hidePopover(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'fine-tooltip': FineTooltip // <fine-tooltip></fine-tooltip>\n  }\n}\n\n```\n"
     },
     {
       "name": "form-view",
@@ -245,7 +245,7 @@
           ]
         }
       ],
-      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Declaration: '<form is=\"form-view\"></form>'\n\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\n```\n"
+      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\ndeclare global {\n  interface HTMLFormElement {\n    is: 'form-view' // <form is=\"form-view\"></form>\n  }\n}\n\n```\n"
     },
     {
       "name": "glass-button",
@@ -272,7 +272,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassButtonSignature {\n  Declaration: '<button is=\"glass-button\"></button>'\n\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassButton extends HTMLButtonElement<GlassButtonSignature> {}\n\n```\n\n### **Examples:**\n**Creating a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassButton extends HTMLButtonElement<GlassButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-button' // <button is=\"glass-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "glass-prominent-button",
@@ -299,7 +299,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassProminentButtonSignature {\n  Declaration: '<button is=\"glass-prominent-button\"></button>'\n\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}\n\n```\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassProminentButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-prominent-button' // <button is=\"glass-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "h-stack",
@@ -336,7 +336,7 @@
           "valueSet": "inlinePlacementSet"
         }
       ],
-      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Declaration: '<h-stack></h-stack>'\n\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: blockSet // The cross-axis alignment\n    distribution?: inlineSet // The main-axis alignment\n    placement?: inlinePlacementSet // The main-axis alignment\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: blockSet // The cross-axis alignment\n    distribution?: inlineSet // The main-axis alignment\n    placement?: inlinePlacementSet // The main-axis alignment\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack // <h-stack></h-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "image-view",
@@ -354,7 +354,7 @@
           "name": "system-weight"
         }
       ],
-      "description": "A view that displays an image.\n---\n\n```ts\ninterface ImageViewSignature {\n  Declaration: '<image-view></image-view>'\n\n  Attributes: {\n    'system-name'?: string\n    'system-weight'?: string\n  }\n}\n\nclass ImageView extends HTMLElement<ImageViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'image-view': ImageView\n  }\n}\n\n```\n"
+      "description": "A view that displays an image.\n---\n\n```ts\ninterface ImageViewSignature {\n  Attributes: {\n    'system-name'?: string\n    'system-weight'?: string\n  }\n}\n\nclass ImageView extends HTMLElement<ImageViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'image-view': ImageView // <image-view></image-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "label-view",
@@ -384,7 +384,7 @@
           "description": "Value Type: \"tail\""
         }
       ],
-      "description": "A view that labels items with an icon and a title.\n---\n\n```ts\ninterface LabelViewSignature {\n  Declaration: '<label-view></label-view>'\n\n  Attributes: {\n    font?: Font // Sets the default font for text in this view.\n    'system-image'?: string\n    title?: string\n    'line-limit'?: string\n    'truncation-mode'?: 'tail'\n  }\n\n  Slots: {\n    default: HTMLElement[] // Any children without a `slot` attribute are placed in the title block.\n    icon: HTMLElement[] // Use the `slot=\"icon\"` attribute to place childen in the icon block.\n  }\n\n  CSSProperties: {\n    '--label-gap'?: string // The gap between the icon and the title.\n    '--label-image-size'?: string // The size of the icon.\n    '--label-padding-inline'?: string // The padding inline of the label.\n  }\n}\n\nclass LabelView extends HTMLElement<LabelViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'label-view': LabelView\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```\n"
+      "description": "A view that labels items with an icon and a title.\n---\n\n```ts\ninterface LabelViewSignature {\n  Attributes: {\n    font?: Font // Sets the default font for text in this view.\n    'system-image'?: string\n    title?: string\n    'line-limit'?: string\n    'truncation-mode'?: 'tail'\n  }\n\n  Slots: {\n    default: HTMLElement[] // Any children without a `slot` attribute are placed in the title block.\n    icon: HTMLElement[] // Use the `slot=\"icon\"` attribute to place childen in the icon block.\n  }\n\n  CSSProperties: {\n    '--label-gap'?: string // The gap between the icon and the title.\n    '--label-image-size'?: number // The size of the icon.\n    '--label-padding-inline'?: string // The padding inline of the label.\n  }\n}\n\nclass LabelView extends HTMLElement<LabelViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'label-view': LabelView // <label-view></label-view>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```\n"
     },
     {
       "name": "labeled-content",
@@ -423,7 +423,7 @@
           "name": "format"
         }
       ],
-      "description": "A container view that pairs a label with a value.\n---\n\n```ts\ninterface LabeledContentSignature {\n  Declaration: '<labeled-content></labeled-content>'\n\n  Attributes: {\n    value?: string\n    label?: string\n    header?: string\n    footer?: string\n    'labeled-content-style'?: 'vertical' | 'horizontal'\n    format?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[] // Use the `slot=\"label\"` attribute to place childen in the label block.\n    header: HTMLElement[]\n    footer: HTMLElement[]\n  }\n\n  Parts: {\n    'labeled-content-container': never\n    'labeled-content-stack': never\n    'labeled-content-label-stack': never\n    'labeled-content-value-stack': never\n  }\n}\n\nclass LabeledContent extends HTMLElement<LabeledContentSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'labeled-content': LabeledContent\n  }\n}\n\n```\n"
+      "description": "A container view that pairs a label with a value.\n---\n\n```ts\ninterface LabeledContentSignature {\n  Attributes: {\n    value?: string\n    label?: string\n    header?: string\n    footer?: string\n    'labeled-content-style'?: 'vertical' | 'horizontal'\n    format?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[] // Use the `slot=\"label\"` attribute to place childen in the label block.\n    header: HTMLElement[]\n    footer: HTMLElement[]\n  }\n\n  Parts: {\n    'labeled-content-container': never\n    'labeled-content-stack': never\n    'labeled-content-label-stack': never\n    'labeled-content-value-stack': never\n  }\n}\n\nclass LabeledContent extends HTMLElement<LabeledContentSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'labeled-content': LabeledContent // <labeled-content></labeled-content>\n  }\n}\n\n```\n"
     },
     {
       "name": "list-view",
@@ -444,7 +444,7 @@
           ]
         }
       ],
-      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Declaration: '<list-view></list-view>'\n\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView\n  }\n}\n\n```\n"
+      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "menu-view",
@@ -465,7 +465,7 @@
           "name": "label"
         }
       ],
-      "description": "A control that opens a menu of actions.\n---\n\n```ts\ninterface MenuViewSignature {\n  Declaration: '<menu-view></menu-view>'\n\n  Attributes: {\n    open?: string\n    closing?: string\n    label?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n  }\n}\n\nclass MenuView extends HTMLElement<MenuViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'menu-view': MenuView\n  }\n}\n\n```\n"
+      "description": "A control that opens a menu of actions.\n---\n\n```ts\ninterface MenuViewSignature {\n  Attributes: {\n    open?: string\n    closing?: string\n    label?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n  }\n}\n\nclass MenuView extends HTMLElement<MenuViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'menu-view': MenuView // <menu-view></menu-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-large-title",
@@ -494,7 +494,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Declaration: '<navigation-large-title></navigation-large-title>'\n\n  Attributes: {\n    'background-style'?: 'grouped'\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Attributes: {\n    'background-style'?: 'grouped'\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-split-view",
@@ -504,7 +504,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-split-view"
         }
       ],
-      "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.\n---\n\n```ts\ninterface NavigationSplitViewSignature {\n  Declaration: '<navigation-split-view></navigation-split-view>'\n}\n\nclass NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-split-view': NavigationSplitView\n  }\n}\n\n```\n"
+      "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.\n---\n\n```ts\ninterface NavigationSplitViewSignature {}\n\nclass NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-split-view': NavigationSplitView // <navigation-split-view></navigation-split-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-stack",
@@ -514,7 +514,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-stack"
         }
       ],
-      "description": "A container view that shows a main screen and lets the user open other screens on top of it.\n---\n\n```ts\ninterface NavigationStackSignature {\n  Declaration: '<navigation-stack></navigation-stack>'\n}\n\nclass NavigationStack extends HTMLElement<NavigationStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-stack': NavigationStack\n  }\n}\n\n```\n"
+      "description": "A container view that shows a main screen and lets the user open other screens on top of it.\n---\n\n```ts\ninterface NavigationStackSignature {}\n\nclass NavigationStack extends HTMLElement<NavigationStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-stack': NavigationStack // <navigation-stack></navigation-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-title",
@@ -542,7 +542,7 @@
           "name": "system-image-weight"
         }
       ],
-      "description": "A container view.\n---\n\n```ts\ninterface NavigationTitleSignature {\n  Declaration: '<navigation-title></navigation-title>'\n\n  Attributes: {\n    padding?: boolean\n    value?: string\n    subtitle?: string\n    'system-image'?: string\n    'system-image-weight'?: string\n  }\n}\n\nclass NavigationTitle extends HTMLElement<NavigationTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-title': NavigationTitle\n  }\n}\n\n```\n"
+      "description": "A container view.\n---\n\n```ts\ninterface NavigationTitleSignature {\n  Attributes: {\n    padding?: boolean\n    value?: string\n    subtitle?: string\n    'system-image'?: string\n    'system-image-weight'?: string\n  }\n}\n\nclass NavigationTitle extends HTMLElement<NavigationTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-title': NavigationTitle // <navigation-title></navigation-title>\n  }\n}\n\n```\n"
     },
     {
       "name": "picker-view",
@@ -603,11 +603,11 @@
           ]
         }
       ],
-      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Declaration: '<picker-view></picker-view>'\n\n  Attributes: {\n    'picker-style'?:\n      | 'menu'\n      | 'inline'\n      | 'navigation-link'\n      | 'sheet'\n      | 'automatic'\n    dictionary?: 'DictEntry[]' // Renders all options using this array\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView\n  }\n}\n\n```\n"
+      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Attributes: {\n    'picker-style'?:\n      | 'menu'\n      | 'inline'\n      | 'navigation-link'\n      | 'sheet'\n      | 'automatic'\n    dictionary?: 'DictEntry[]' // Renders all options using this array\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView // <picker-view></picker-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "plain-button",
-      "description": "undefined\n\n```ts\ninterface PlainButtonSignature {\n  Declaration: '<button is=\"plain-button\"></button>'\n}\n\nclass PlainButton extends HTMLButtonElement<PlainButtonSignature> {}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface PlainButtonSignature {}\n\nclass PlainButton extends HTMLButtonElement<PlainButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'plain-button' // <button is=\"plain-button\"></button>\n  }\n}\n\n```\n"
     },
     {
       "name": "progress-view",
@@ -628,11 +628,11 @@
           "name": "value"
         }
       ],
-      "description": "A view that shows how far along a task is.\n---\n\n```ts\ninterface ProgressViewSignature {\n  Declaration: '<progress-view></progress-view>'\n\n  Attributes: {\n    label?: string\n    'current-value-label'?: string\n    value?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'current-value': HTMLElement[]\n  }\n}\n\nclass ProgressView extends HTMLElement<ProgressViewSignature> {\n  readonly progressViewStyle: 'circular' | 'linear'\n  readonly template: DocumentFragment\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'progress-view': ProgressView\n  }\n}\n\n```\n"
+      "description": "A view that shows how far along a task is.\n---\n\n```ts\ninterface ProgressViewSignature {\n  Attributes: {\n    label?: string\n    'current-value-label'?: string\n    value?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'current-value': HTMLElement[]\n  }\n}\n\nclass ProgressView extends HTMLElement<ProgressViewSignature> {\n  readonly progressViewStyle: 'circular' | 'linear'\n  readonly template: DocumentFragment\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'progress-view': ProgressView // <progress-view></progress-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "screen-view",
-      "description": "undefined\n\n```ts\ninterface ScreenViewSignature {\n  Declaration: '<dialog is=\"screen-view\"></dialog>'\n}\n\nclass ScreenView extends HTMLDialogElement<ScreenViewSignature> {}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface ScreenViewSignature {}\n\nclass ScreenView extends HTMLDialogElement<ScreenViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'screen-view' // <dialog is=\"screen-view\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "scroll-view-proxy",
@@ -642,7 +642,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/scroll-view-proxy"
         }
       ],
-      "description": "A wrapper for {hv}-stacks\n---\n\n```ts\ninterface ScrollViewProxySignature {\n  Declaration: '<scroll-view-proxy></scroll-view-proxy>'\n}\n\nclass ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view-proxy': ScrollViewProxy\n  }\n}\n\n```\n"
+      "description": "A wrapper for {hv}-stacks\n---\n\n```ts\ninterface ScrollViewProxySignature {}\n\nclass ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view-proxy': ScrollViewProxy // <scroll-view-proxy></scroll-view-proxy>\n  }\n}\n\n```\n"
     },
     {
       "name": "scroll-view",
@@ -670,11 +670,11 @@
           "name": "navigation-bar-title-display-mode"
         }
       ],
-      "description": "A view that scrolls its content when it doesn’t fit the screen.\n---\n\n```ts\ninterface ScrollViewSignature {\n  Declaration: '<scroll-view></scroll-view>'\n\n  Attributes: {\n    'navigation-title'?: string // Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing=\"0\" alignment=\"fill\" slot=\"top-bar-principal\"><label-view line-limit=\"1\" truncation-mode=\"tail\" font=\"headline\"><span>Navigation Title</span></label-view></v-stack>`\n    'navigation-inline-title'?: string\n    'navigation-inline-subtitle'?: string\n    'navigation-icon'?: string\n    'navigation-bar-title-display-mode'?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'top-bar-principal': HTMLElement[]\n    'bottom-bar-principal': HTMLElement[]\n  }\n}\n\nclass ScrollView extends HTMLElement<ScrollViewSignature> {\n  centerScrollToElement(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view': ScrollView\n  }\n}\n\n```\n"
+      "description": "A view that scrolls its content when it doesn’t fit the screen.\n---\n\n```ts\ninterface ScrollViewSignature {\n  Attributes: {\n    'navigation-title'?: string // Configures the view’s title for purposes of navigation. Shorthand for `<v-stack spacing=\"0\" alignment=\"fill\" slot=\"top-bar-principal\"><label-view line-limit=\"1\" truncation-mode=\"tail\" font=\"headline\"><span>Navigation Title</span></label-view></v-stack>`\n    'navigation-inline-title'?: string\n    'navigation-inline-subtitle'?: string\n    'navigation-icon'?: string\n    'navigation-bar-title-display-mode'?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'top-bar-principal': HTMLElement[]\n    'bottom-bar-principal': HTMLElement[]\n  }\n}\n\nclass ScrollView extends HTMLElement<ScrollViewSignature> {\n  centerScrollToElement(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view': ScrollView // <scroll-view></scroll-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "search-view",
-      "description": "undefined\n\n```ts\ninterface SearchViewSignature {\n  Declaration: '<search-view></search-view>'\n}\n\nclass SearchView extends HTMLInputElement<SearchViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'search-view': SearchView\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface SearchViewSignature {}\n\nclass SearchView extends HTMLInputElement<SearchViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'search-view': SearchView // <search-view></search-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "section-view",
@@ -692,7 +692,7 @@
           "name": "footer"
         }
       ],
-      "description": "A container view that groups related content together.\n---\n\n```ts\ninterface SectionViewSignature {\n  Declaration: '<section-view></section-view>'\n\n  Attributes: {\n    header?: string\n    footer?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    header: HTMLElement[]\n    footer: HTMLElement[]\n  }\n}\n\nclass SectionView extends HTMLElement<SectionViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'section-view': SectionView\n  }\n}\n\n```\n"
+      "description": "A container view that groups related content together.\n---\n\n```ts\ninterface SectionViewSignature {\n  Attributes: {\n    header?: string\n    footer?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    header: HTMLElement[]\n    footer: HTMLElement[]\n  }\n}\n\nclass SectionView extends HTMLElement<SectionViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'section-view': SectionView // <section-view></section-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "sheet-view",
@@ -702,7 +702,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/sheet-view"
         }
       ],
-      "description": "A dialog that slides up over the current screen.\n---\n\n```ts\ninterface SheetViewSignature {\n  Declaration: '<dialog is=\"sheet-view\"></dialog>'\n}\n\nclass SheetView extends HTMLDialogElement<SheetViewSignature> {}\n\n```\n"
+      "description": "A dialog that slides up over the current screen.\n---\n\n```ts\ninterface SheetViewSignature {}\n\nclass SheetView extends HTMLDialogElement<SheetViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sheet-view' // <dialog is=\"sheet-view\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "sidebar-toggle",
@@ -712,7 +712,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/sidebar-toggle"
         }
       ],
-      "description": "A control that shows or hides the sidebar view.\n---\n\n```ts\ninterface SidebarToggleSignature {\n  Declaration: '<sidebar-toggle></sidebar-toggle>'\n}\n\nclass SidebarToggle extends HTMLElement<SidebarToggleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sidebar-toggle': SidebarToggle\n  }\n}\n\n```\n"
+      "description": "A control that shows or hides the sidebar view.\n---\n\n```ts\ninterface SidebarToggleSignature {}\n\nclass SidebarToggle extends HTMLElement<SidebarToggleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sidebar-toggle': SidebarToggle // <sidebar-toggle></sidebar-toggle>\n  }\n}\n\n```\n"
     },
     {
       "name": "sidebar-view",
@@ -722,11 +722,11 @@
           "url": "https://swiftwc.github.io/ui/web-components/sidebar-view"
         }
       ],
-      "description": "A container view that arranges navigation destinations in a single column.\n---\n\n```ts\ninterface SidebarViewSignature {\n  Declaration: '<dialog is=\"sidebar-view\"></dialog>'\n}\n\nclass SidebarView extends HTMLDialogElement<SidebarViewSignature> {}\n\n```\n"
+      "description": "A container view that arranges navigation destinations in a single column.\n---\n\n```ts\ninterface SidebarViewSignature {}\n\nclass SidebarView extends HTMLDialogElement<SidebarViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sidebar-view' // <dialog is=\"sidebar-view\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "sticky-container",
-      "description": "undefined\n\n```ts\ninterface StickyContainerSignature {\n  Declaration: '<sticky-container></sticky-container>'\n}\n\nclass StickyContainer extends HTMLElement<StickyContainerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sticky-container': StickyContainer\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface StickyContainerSignature {}\n\nclass StickyContainer extends HTMLElement<StickyContainerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sticky-container': StickyContainer // <sticky-container></sticky-container>\n  }\n}\n\n```\n"
     },
     {
       "name": "tab-bar",
@@ -736,7 +736,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-bar"
         }
       ],
-      "description": "A container view that groups tab-items together along the top or bottom of the screen.\n---\n\n```ts\ninterface TabBarSignature {\n  Declaration: '<dialog is=\"tab-bar\"></dialog>'\n}\n\nclass TabBar extends HTMLDialogElement<TabBarSignature> {}\n\n```\n"
+      "description": "A container view that groups tab-items together along the top or bottom of the screen.\n---\n\n```ts\ninterface TabBarSignature {}\n\nclass TabBar extends HTMLDialogElement<TabBarSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'tab-bar' // <dialog is=\"tab-bar\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "tab-item",
@@ -746,7 +746,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-item"
         }
       ],
-      "description": "A control that switches the tab view to this tab.\n---\n\n```ts\ninterface TabItemSignature {\n  Declaration: '<button is=\"tab-item\"></button>'\n}\n\nclass TabItem extends HTMLButtonElement<TabItemSignature> {}\n\n```\n"
+      "description": "A control that switches the tab view to this tab.\n---\n\n```ts\ninterface TabItemSignature {}\n\nclass TabItem extends HTMLButtonElement<TabItemSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'tab-item' // <button is=\"tab-item\"></button>\n  }\n}\n\n```\n"
     },
     {
       "name": "tab-view",
@@ -756,7 +756,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-view"
         }
       ],
-      "description": "A container view that switches between screens using tabs.\n---\n\n```ts\ninterface TabViewSignature {\n  Declaration: '<tab-view></tab-view>'\n\n  Events: {\n    tabshow: CustomEvent // A Tab is shown\n    tabhide: CustomEvent // A Tab is hidden\n    'tab-view:toggle': CustomEvent\n    'tab-view:adaptable-tab-bar-placement-change': CustomEvent\n  }\n\n  CSSProperties: {\n    '--adaptable-tab-bar-placement'?: string\n  }\n}\n\nclass TabView extends HTMLElement<TabViewSignature> {\n  readonly tabBarPlacement:\n    | 'bottom-bar'\n    | 'ornament'\n    | 'sidebar'\n    | 'top-bar'\n    | undefined\n  readonly moreTab: NavigationStack | null\n  selectedTab: (NavigationSplitView | NavigationStack)[]\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tab-view': TabView\n  }\n}\n\n```\n"
+      "description": "A container view that switches between screens using tabs.\n---\n\n```ts\ninterface TabViewSignature {\n  CSSProperties: {\n    '--adaptable-tab-bar-placement'?: string\n  }\n}\n\nclass TabView extends HTMLElement<TabViewSignature> {\n  readonly tabBarPlacement:\n    | 'bottom-bar'\n    | 'ornament'\n    | 'sidebar'\n    | 'top-bar'\n    | undefined\n  readonly moreTab: NavigationStack | null\n  selectedTab: (NavigationSplitView | NavigationStack)[]\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  tabshow: CustomEvent // A Tab is shown\n  tabhide: CustomEvent // A Tab is hidden\n  'tab-view:toggle': CustomEvent\n  'tab-view:adaptable-tab-bar-placement-change': CustomEvent\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tab-view': TabView // <tab-view></tab-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "table-view",
@@ -786,7 +786,7 @@
           ]
         }
       ],
-      "description": "A container view that arranges data in rows and columns, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface TableViewSignature {\n  Declaration: '<table-view></table-view>'\n\n  Attributes: {\n    'preferred-compact-template'?:\n      | 'title:trailing:subtitle'\n      | 'trailing:title:subtitle'\n      | 'title:subtitle:trailing'\n      | '*' // Sets the template areas when the table is in compact mode\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'header-leading': HTMLElement[]\n    'header-principal': HTMLElement[]\n    'header-trailing': HTMLElement[]\n    column: HTMLElement[]\n    'footer-leading': HTMLElement[]\n    'footer-principal': HTMLElement[]\n    'footer-trailing': HTMLElement[]\n  }\n}\n\nclass TableView extends HTMLElement<TableViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'table-view': TableView\n  }\n}\n\n```\n"
+      "description": "A container view that arranges data in rows and columns, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface TableViewSignature {\n  Attributes: {\n    'preferred-compact-template'?:\n      | 'title:trailing:subtitle'\n      | 'trailing:title:subtitle'\n      | 'title:subtitle:trailing'\n      | '*' // Sets the template areas when the table is in compact mode\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'header-leading': HTMLElement[]\n    'header-principal': HTMLElement[]\n    'header-trailing': HTMLElement[]\n    column: HTMLElement[]\n    'footer-leading': HTMLElement[]\n    'footer-principal': HTMLElement[]\n    'footer-trailing': HTMLElement[]\n  }\n}\n\nclass TableView extends HTMLElement<TableViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'table-view': TableView // <table-view></table-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "text-field",
@@ -858,7 +858,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "A control that displays an editable text area.\n---\n\n```ts\ninterface TextFieldSignature {\n  Declaration: '<text-field></text-field>'\n\n  Attributes: {\n    prompt?: string\n    minimum?: string\n    maximum?: string\n    'min-length'?: string\n    'max-length'?: string\n    label?: string\n    name?: string\n    text?: string\n    'text-input-autocapitalization'?: string\n    'disable-autocorrection'?: boolean\n    'keyboard-type'?: 'decimal-pad' | 'number-pad' | 'default'\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLElement[]\n  }\n\n  Events: {\n    commit: CustomEvent<{ detail: { text: string } }> // Triggered when user interacts with the input area\n  }\n}\n\nclass TextField extends HTMLElement<TextFieldSignature> {\n  static formAssociated = true\n\n  readonly keyboardType: 'decimal-pad' | 'number-pad' | 'default'\n  text: string\n  readonly name: string // Form participation property\n  readonly value: string\n  readonly valueAsNumber: number | ''\n  readonly negativeNumbersAllowed: boolean\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'text-field': TextField\n  }\n}\n\n```\n"
+      "description": "A control that displays an editable text area.\n---\n\n```ts\ninterface TextFieldSignature {\n  Attributes: {\n    prompt?: string\n    minimum?: string\n    maximum?: string\n    'min-length'?: string\n    'max-length'?: string\n    label?: string\n    name?: string\n    text?: string\n    'text-input-autocapitalization'?: string\n    'disable-autocorrection'?: boolean\n    'keyboard-type'?: 'decimal-pad' | 'number-pad' | 'default'\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass TextField extends HTMLElement<TextFieldSignature> {\n  static formAssociated = true\n\n  readonly keyboardType: 'decimal-pad' | 'number-pad' | 'default'\n  text: string\n  readonly name: string // Form participation property\n  readonly value: string\n  readonly valueAsNumber: number | ''\n  readonly negativeNumbersAllowed: boolean\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  commit: CustomEvent<{ detail: { text: string } }> // Triggered when user interacts with the input area\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'text-field': TextField // <text-field></text-field>\n  }\n}\n\n```\n"
     },
     {
       "name": "toggle-view",
@@ -900,7 +900,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "A control that switches between on and off states.\n---\n\n```ts\ninterface ToggleViewSignature {\n  Declaration: '<toggle-view></toggle-view>'\n\n  Attributes: {\n    label?: string\n    name?: string\n    value?: string\n    'is-on'?: boolean\n    'keyboard-type'?: string\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLElement[]\n  }\n\n  Events: {\n    'toggle:change': CustomEvent // User toggled the control\n  }\n}\n\nclass ToggleView extends HTMLElement<ToggleViewSignature> {\n  static formAssociated = true\n\n  readonly toggleStyle: 'button' | 'switch'\n  isOn: boolean\n  readonly name: string // Form participation property\n  value: string | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'toggle-view': ToggleView\n  }\n}\n\n```\n"
+      "description": "A control that switches between on and off states.\n---\n\n```ts\ninterface ToggleViewSignature {\n  Attributes: {\n    label?: string\n    name?: string\n    value?: string\n    'is-on'?: boolean\n    'keyboard-type'?: string\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass ToggleView extends HTMLElement<ToggleViewSignature> {\n  static formAssociated = true\n\n  readonly toggleStyle: 'button' | 'switch'\n  isOn: boolean\n  readonly name: string // Form participation property\n  value: string | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'toggle:change': CustomEvent // User toggled the control\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'toggle-view': ToggleView // <toggle-view></toggle-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar-item-group",
@@ -910,7 +910,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item-group"
         }
       ],
-      "description": "A container view that groups items together in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemGroupSignature {\n  Declaration: '<tool-bar-item-group></tool-bar-item-group>'\n}\n\nclass ToolBarItemGroup extends HTMLElement<ToolBarItemGroupSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item-group': ToolBarItemGroup\n  }\n}\n\n```\n"
+      "description": "A container view that groups items together in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemGroupSignature {}\n\nclass ToolBarItemGroup extends HTMLElement<ToolBarItemGroupSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item-group': ToolBarItemGroup // <tool-bar-item-group></tool-bar-item-group>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar-item",
@@ -931,7 +931,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A view placed in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemSignature {\n  Declaration: '<tool-bar-item></tool-bar-item>'\n\n  Attributes: {\n    slot?: string\n    'data-previous-slot'?: string\n    'title-key'?: string\n  }\n}\n\nclass ToolBarItem extends HTMLElement<ToolBarItemSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item': ToolBarItem\n  }\n}\n\n```\n"
+      "description": "A view placed in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemSignature {\n  Attributes: {\n    slot?: string\n    'data-previous-slot'?: string\n    'title-key'?: string\n  }\n}\n\nclass ToolBarItem extends HTMLElement<ToolBarItemSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item': ToolBarItem // <tool-bar-item></tool-bar-item>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar",
@@ -941,7 +941,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar"
         }
       ],
-      "description": "A list of items placed into the toolbar or navigation bar around your content.\n---\n\n```ts\ninterface ToolBarSignature {\n  Declaration: '<tool-bar></tool-bar>'\n\n  Slots: {\n    'cancellation-action': HTMLElement[] // The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'primary-action': HTMLElement[] // The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'confirmation-action': HTMLElement[] // The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'destructive-action': HTMLElement[] // The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n    'top-bar-leading': HTMLElement[] // Places the item in the leading edge of the top bar\n    'top-bar-principal': HTMLElement[] // Places the item in the middle of the top bar\n    'top-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the top bar\n    'bottom-bar-leading': HTMLElement[] // Places the item in the leading edge of the bottom bar\n    'bottom-bar-principal': HTMLElement[] // Places the item in the middle of the bottom bar\n    'bottom-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the bottom bar\n  }\n}\n\nclass ToolBar extends HTMLElement<ToolBarSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar': ToolBar\n  }\n}\n\n```\n"
+      "description": "A list of items placed into the toolbar or navigation bar around your content.\n---\n\n```ts\ninterface ToolBarSignature {\n  Slots: {\n    'cancellation-action': HTMLElement[] // The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'primary-action': HTMLElement[] // The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'confirmation-action': HTMLElement[] // The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'destructive-action': HTMLElement[] // The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n    'top-bar-leading': HTMLElement[] // Places the item in the leading edge of the top bar\n    'top-bar-principal': HTMLElement[] // Places the item in the middle of the top bar\n    'top-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the top bar\n    'bottom-bar-leading': HTMLElement[] // Places the item in the leading edge of the bottom bar\n    'bottom-bar-principal': HTMLElement[] // Places the item in the middle of the bottom bar\n    'bottom-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the bottom bar\n  }\n}\n\nclass ToolBar extends HTMLElement<ToolBarSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar': ToolBar // <tool-bar></tool-bar>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-keyboard",
@@ -962,7 +962,7 @@
           ]
         }
       ],
-      "description": "Required component, used to handle the virtual keyboard on touch devices.\n---\n\n```ts\ninterface VKeyboardSignature {\n  Declaration: '<v-keyboard></v-keyboard>'\n\n  Attributes: {\n    'system-font'?: 'Inter' // Prefers the \"Inter\" font family, if loaded.\n  }\n}\n\nclass VKeyboard extends HTMLElement<VKeyboardSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-keyboard': VKeyboard\n  }\n}\n\n```\n"
+      "description": "Required component, used to handle the virtual keyboard on touch devices.\n---\n\n```ts\ninterface VKeyboardSignature {\n  Attributes: {\n    'system-font'?: 'Inter' // Prefers the \"Inter\" font family, if loaded.\n  }\n}\n\nclass VKeyboard extends HTMLElement<VKeyboardSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-keyboard': VKeyboard // <v-keyboard></v-keyboard>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-stack",
@@ -1023,7 +1023,7 @@
           "valueSet": "blockPlacementSet"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Declaration: '<v-stack></v-stack>'\n\n  Attributes: {\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
     }
   ],
   "globalAttributes": [

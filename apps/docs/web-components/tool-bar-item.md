@@ -6,8 +6,6 @@
 
 ```ts
 interface ToolBarItemSignature {
-  Declaration: '<tool-bar-item></tool-bar-item>'
-
   Attributes: {
     slot?: string
     'data-previous-slot'?: string
@@ -19,7 +17,7 @@ class ToolBarItem extends HTMLElement<ToolBarItemSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'tool-bar-item': ToolBarItem
+    'tool-bar-item': ToolBarItem // <tool-bar-item></tool-bar-item>
   }
 }
 ```

@@ -6,8 +6,6 @@
 
 ```ts
 interface LabelViewSignature {
-  Declaration: '<label-view></label-view>'
-
   Attributes: {
     font?: Font // Sets the default font for text in this view.
     'system-image'?: string
@@ -23,7 +21,7 @@ interface LabelViewSignature {
 
   CSSProperties: {
     '--label-gap'?: string // The gap between the icon and the title.
-    '--label-image-size'?: string // The size of the icon.
+    '--label-image-size'?: number // The size of the icon.
     '--label-padding-inline'?: string // The padding inline of the label.
   }
 }
@@ -32,7 +30,7 @@ class LabelView extends HTMLElement<LabelViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'label-view': LabelView
+    'label-view': LabelView // <label-view></label-view>
   }
 }
 ```

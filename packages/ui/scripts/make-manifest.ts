@@ -504,24 +504,24 @@ for (const sourceFile of project.getSourceFiles()) {
     const is = kebabCase(`${cls.getName()}`),
       superclass = `HTML${cls.getBaseClass()?.getName()?.replaceAll('Base', '')?.replaceAll('FormAssociated', '')?.replaceAll('NavigationView', '') ?? ''}Element`
 
-    let gdeclartion = is,
-      declaration = `<${is}></${is}>`
+    const htmlDataTagDescMap: Map<string, string[]> = new Map()
+
     switch (superclass) {
       case 'HTMLButtonElement':
-        gdeclartion = ''
-        declaration = `<button is="${is}"></button>`
+        htmlDataTagDescMap.set('htmlbtns', [`    is: ${formatProp(is)} // <button is="${is}"></button>`])
         break
       case 'HTMLDialogElement':
-        gdeclartion = ''
-        declaration = `<dialog is="${is}"></dialog>`
+        htmlDataTagDescMap.set('htmldlgs', [`    is: ${formatProp(is)} // <dialog is="${is}"></dialog>`])
         break
       case 'HTMLDetailsElement':
-        gdeclartion = ''
-        declaration = `<details is="${is}"></details>`
+        htmlDataTagDescMap.set('htmldets', [`    is: ${formatProp(is)} // <details is="${is}"></details>`])
         break
       case 'HTMLFormElement':
-        gdeclartion = ''
-        declaration = `<form is="${is}"></form>`
+        htmlDataTagDescMap.set('htmlforms', [`    is: ${formatProp(is)} // <form is="${is}"></form>`])
+        break
+      default:
+        htmlDataTagDescMap.set('htmltagnames', [`    ${formatProp(is)}: ${cls.getName()} // <${is}></${is}>`])
+
         break
     }
 
@@ -583,9 +583,8 @@ for (const sourceFile of project.getSourceFiles()) {
       })
 
     const htmlDataTag: VsHtmlDataTag = {
-        name: is,
-      },
-      htmlDataTagDescMap: Map<string, string[]> = new Map()
+      name: is,
+    }
 
     for (const m of getters) {
       const readonly = !setters.has(m.getName())
@@ -716,7 +715,7 @@ for (const sourceFile of project.getSourceFiles()) {
             continue
           }
           case 'slot': {
-            const { title: a, description: b } = extractTag(tag.description ?? '')
+            const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
             ;(module.declarations[0].slots ??= []).push({
               name: a ?? '',
@@ -724,14 +723,14 @@ for (const sourceFile of project.getSourceFiles()) {
             })
 
             const slotName = a || 'default'
-            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: HTMLElement[]${b ? ` // ${b}` : ''}`)
+            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
           case 'cssprop': {
-            const { title: a, description: b } = extractTag(tag.description ?? '')
+            const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
-            if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: string${b ? ` // ${b}` : ''}`)
+            if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -846,11 +845,21 @@ for (const sourceFile of project.getSourceFiles()) {
 
     if (htmlDataTagDescMap.has('desc')) htmlDataTagDescMap.get('desc')?.splice(1, 0, '---')
 
-    htmlDataTagDescMap.set('element', [`  Declaration: '${declaration}'`])
+    // htmlDataTagDescMap.set('element', [`  Declaration: '${declaration}'`])
+    htmlDataTagDescMap.set('decl1', [`declare global {`])
+    htmlDataTagDescMap.set('decl2', [`}`])
 
     if (htmlDataTagDescMap.has('slots')) (htmlDataTagDescMap.get('slots')?.splice(0, 0, '  Slots: {'), htmlDataTagDescMap.get('slots')?.push('  }'))
 
-    if (htmlDataTagDescMap.has('events')) (htmlDataTagDescMap.get('events')?.splice(0, 0, '  Events: {'), htmlDataTagDescMap.get('events')?.push('  }'))
+    if (htmlDataTagDescMap.has('events')) {
+      ;(htmlDataTagDescMap.get('events')?.splice(0, 0, 'interface GlobalEventMap<Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap> {'), htmlDataTagDescMap.get('events')?.push('}'))
+
+      htmlDataTagDescMap.set('htmlevs', [
+        `  interface HTMLElementEventMap extends GlobalEventMap {}`,
+        `  interface DocumentEventMap extends GlobalEventMap {}`,
+        `  interface WindowEventMap extends GlobalEventMap {}`,
+      ])
+    }
 
     if (htmlDataTagDescMap.has('attrs')) (htmlDataTagDescMap.get('attrs')?.splice(0, 0, '  Attributes: {'), htmlDataTagDescMap.get('attrs')?.push('  }'))
 
@@ -858,29 +867,70 @@ for (const sourceFile of project.getSourceFiles()) {
 
     if (htmlDataTagDescMap.has('parts')) (htmlDataTagDescMap.get('parts')?.splice(0, 0, '  Parts: {'), htmlDataTagDescMap.get('parts')?.push('  }'))
 
+    if (htmlDataTagDescMap.has('htmltagnames')) (htmlDataTagDescMap.get('htmltagnames')?.splice(0, 0, '  interface HTMLElementTagNameMap {'), htmlDataTagDescMap.get('htmltagnames')?.push('  }'))
+
+    if (htmlDataTagDescMap.has('htmlbtns')) (htmlDataTagDescMap.get('htmlbtns')?.splice(0, 0, '  interface HTMLButtonElement {'), htmlDataTagDescMap.get('htmlbtns')?.push('  }'))
+    if (htmlDataTagDescMap.has('htmldlgs')) (htmlDataTagDescMap.get('htmldlgs')?.splice(0, 0, '  interface HTMLDialogElement {'), htmlDataTagDescMap.get('htmldlgs')?.push('  }'))
+    if (htmlDataTagDescMap.has('htmldets')) (htmlDataTagDescMap.get('htmldets')?.splice(0, 0, '  interface HTMLDetailsElement {'), htmlDataTagDescMap.get('htmldets')?.push('  }'))
+    if (htmlDataTagDescMap.has('htmlforms')) (htmlDataTagDescMap.get('htmlforms')?.splice(0, 0, '  interface HTMLFormElement {'), htmlDataTagDescMap.get('htmlforms')?.push('  }'))
+
     if (htmlDataTagDescMap.has('examples')) htmlDataTagDescMap.get('examples')?.splice(0, 0, '### **Examples:**')
 
     htmlDataTagDescMap.set('interface1', [`interface ${cls.getName()}Signature {`])
     htmlDataTagDescMap.set('interface2', [`}`])
     htmlDataTagDescMap.set('class1', [`class ${cls.getName()} extends ${superclass}<${cls.getName()}Signature> {`])
     htmlDataTagDescMap.set('class2', [`}`])
-    if (gdeclartion)
-      htmlDataTagDescMap.set('decl', [
-        `declare global {
-  interface HTMLElementTagNameMap {
-    ${formatProp(is)}: ${cls.getName()}
-  }
-}`,
-      ])
 
     if (cls.getBaseClass()?.getName()?.startsWith('FormAssociated')) htmlDataTagDescMap.set('static', [`  static formAssociated = true;`])
 
-    const order = ['interface1', 'element', 'attrs', 'slots', 'events', 'cssprops', 'parts', 'interface2', 'class1', 'static', 'props', 'fns', 'class2', 'decl']
+    const order = [
+      'interface1',
+      'attrs',
+      'slots',
+      'cssprops',
+      'parts',
+      'interface2',
+      'class1',
+      'static',
+      'props',
+      'fns',
+      'class2',
+      'events',
+      'decl1',
+      'htmltagnames',
+      'htmlbtns',
+      'htmldlgs',
+      'htmldets',
+      'htmlforms',
+      'htmlevs',
+      'decl2',
+    ]
 
     htmlDataTag.description = `${htmlDataTagDescMap.get('desc')?.join('\n')}\n\n\`\`\`ts\n${await prettier.format(
       [...htmlDataTagDescMap.entries()]
         .filter((item) => {
-          return ['slots', 'interface1', 'element', 'interface2', 'static', 'events', 'decl', 'class1', 'class2', 'props', 'fns', 'attrs', 'cssprops', 'parts'].includes(item[0])
+          return [
+            'slots',
+            'interface1',
+            'interface2',
+            'static',
+            'events',
+            'htmltagnames',
+            'class1',
+            'class2',
+            'props',
+            'fns',
+            'attrs',
+            'cssprops',
+            'parts',
+            'decl1',
+            'decl2',
+            'htmlbtns',
+            'htmldlgs',
+            'htmldets',
+            'htmlforms',
+            // 'htmlevs',
+          ].includes(item[0])
         })
         .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
         .map(([, values]) => values.join('\n'))

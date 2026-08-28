@@ -6,8 +6,6 @@
 
 ```ts
 interface BorderedButtonSignature {
-  Declaration: '<button is="bordered-button"></button>'
-
   Attributes: {
     role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
     'title-key'?: string
@@ -19,6 +17,12 @@ interface BorderedButtonSignature {
 }
 
 class BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}
+
+declare global {
+  interface HTMLButtonElement {
+    is: 'bordered-button' // <button is="bordered-button"></button>
+  }
+}
 ```
 
 <!-- #endregion pre -->

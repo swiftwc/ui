@@ -5,15 +5,13 @@
 ###### A container view that wraps a scroll view, marking it as a screen your app can navigate to.
 
 ```ts
-interface BodyViewSignature {
-  Declaration: '<body-view></body-view>'
-}
+interface BodyViewSignature {}
 
 class BodyView extends HTMLElement<BodyViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'body-view': BodyView
+    'body-view': BodyView // <body-view></body-view>
   }
 }
 ```

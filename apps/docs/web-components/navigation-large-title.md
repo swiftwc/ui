@@ -6,8 +6,6 @@
 
 ```ts
 interface NavigationLargeTitleSignature {
-  Declaration: '<navigation-large-title></navigation-large-title>'
-
   Attributes: {
     'background-style'?: 'grouped'
     padding?: boolean
@@ -19,7 +17,7 @@ class NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'navigation-large-title': NavigationLargeTitle
+    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>
   }
 }
 ```

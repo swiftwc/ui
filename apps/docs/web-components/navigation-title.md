@@ -6,8 +6,6 @@
 
 ```ts
 interface NavigationTitleSignature {
-  Declaration: '<navigation-title></navigation-title>'
-
   Attributes: {
     padding?: boolean
     value?: string
@@ -21,7 +19,7 @@ class NavigationTitle extends HTMLElement<NavigationTitleSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'navigation-title': NavigationTitle
+    'navigation-title': NavigationTitle // <navigation-title></navigation-title>
   }
 }
 ```

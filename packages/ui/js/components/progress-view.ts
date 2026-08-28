@@ -36,7 +36,7 @@ export class ProgressView extends HTMLElement {
     return this.#progressViewStyle ?? 'circular'
   }
 
-  get template(): DocumentFragment {
+  get #template(): DocumentFragment {
     if (!ProgressView.#templates.has(this.progressViewStyle))
       switch (this.progressViewStyle) {
         case 'linear':
@@ -142,7 +142,7 @@ export class ProgressView extends HTMLElement {
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle
 
-    this.#shadowRoot.replaceChildren(document.importNode(this.template, true)) // clear shadow DOM
+    this.#shadowRoot.replaceChildren(document.importNode(this.#template, true)) // clear shadow DOM
 
     CleanupRegistry.unregister(this, 'slots')
     for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)

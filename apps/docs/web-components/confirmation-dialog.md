@@ -6,14 +6,18 @@
 
 ```ts
 interface ConfirmationDialogSignature {
-  Declaration: '<dialog is="confirmation-dialog"></dialog>'
-
   Attributes: {
     anchor?: string
   }
 }
 
 class ConfirmationDialog extends HTMLDialogElement<ConfirmationDialogSignature> {}
+
+declare global {
+  interface HTMLDialogElement {
+    is: 'confirmation-dialog' // <dialog is="confirmation-dialog"></dialog>
+  }
+}
 ```
 
 <!-- #endregion pre -->

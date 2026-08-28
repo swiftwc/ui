@@ -6,8 +6,6 @@
 
 ```ts
 interface ProgressViewSignature {
-  Declaration: '<progress-view></progress-view>'
-
   Attributes: {
     label?: string
     'current-value-label'?: string
@@ -27,7 +25,7 @@ class ProgressView extends HTMLElement<ProgressViewSignature> {
 
 declare global {
   interface HTMLElementTagNameMap {
-    'progress-view': ProgressView
+    'progress-view': ProgressView // <progress-view></progress-view>
   }
 }
 ```

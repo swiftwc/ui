@@ -1,8 +1,8 @@
-## Topics
+## Overview
 
-### Creating a borderless button
+You create a button by providing an action and a label.
 
-::::: info Use the `is` attribute to style a `button` as a `borderless-button`:
+::::: info &nbsp;
 
 {% demo borderless-button/demo-full h-60 %}
 

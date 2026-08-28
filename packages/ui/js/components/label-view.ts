@@ -16,7 +16,7 @@ import { html } from '../tpl'
  * @slot icon — Use the `slot="icon"` attribute to place childen in the icon block.
  *
  * @cssprop --label-gap — The gap between the icon and the title.
- * @cssprop --label-image-size — The size of the icon.
+ * @cssprop {number} --label-image-size — The size of the icon.
  * @cssprop --label-padding-inline — The padding inline of the label.
  *
  */

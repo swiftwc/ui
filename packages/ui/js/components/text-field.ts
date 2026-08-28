@@ -16,7 +16,7 @@ export type KeyboardType = (typeof keyboardTypes)[number] // 'decimal-pad' | 'nu
  * @fires {{ detail: { text: string } }} commit — Triggered when user interacts with the input area
  *
  * @slot label
- * @slot validity-options
+ * @slot {HTMLOptionElement[]} validity-options
  */
 export class TextField extends FormAssociatedBase {
   static get observedAttributes() {

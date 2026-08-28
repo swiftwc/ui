@@ -11,11 +11,15 @@ prev:
 ###### A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.
 
 ```ts
-interface AlertDialogSignature {
-  Declaration: '<dialog is="alert-dialog"></dialog>'
-}
+interface AlertDialogSignature {}
 
 class AlertDialog extends HTMLDialogElement<AlertDialogSignature> {}
+
+declare global {
+  interface HTMLDialogElement {
+    is: 'alert-dialog' // <dialog is="alert-dialog"></dialog>
+  }
+}
 ```
 
 <!-- #endregion pre -->

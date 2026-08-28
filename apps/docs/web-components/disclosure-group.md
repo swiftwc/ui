@@ -6,19 +6,23 @@
 
 ```ts
 interface DisclosureGroupSignature {
-  Declaration: '<details is="disclosure-group"></details>'
-
   Attributes: {
     open?: boolean // The status of this element
-  }
-
-  Events: {
-    'is-expanded': CustomEvent
-    'is-collapsed': CustomEvent
   }
 }
 
 class DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}
+
+interface GlobalEventMap<Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap> {
+  'is-expanded': CustomEvent
+  'is-collapsed': CustomEvent
+}
+
+declare global {
+  interface HTMLDetailsElement {
+    is: 'disclosure-group' // <details is="disclosure-group"></details>
+  }
+}
 ```
 
 <!-- #endregion pre -->

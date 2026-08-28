@@ -3,6 +3,7 @@ import webData from '@swiftwc/ui/webComponentsHTMLData/en' with { type: 'json' }
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { dirname, resolve } from 'node:path'
 import { fileURLToPath } from 'node:url'
+import * as prettier from 'prettier'
 
 const __dirname = dirname(fileURLToPath(import.meta.url))
 
@@ -19,7 +20,7 @@ for await (const [i, mod] of data.modules.entries()) {
     const desc = webData.tags.find((item) => item?.name === dec.tagName)?.description ?? '',
       topicsMd = -1 < desc.indexOf('### **Examples:**') ? desc.slice(desc.indexOf('### **Examples:**')).replaceAll('### **Examples:**', '## Topics') : ''
 
-    const attrs = webData.tags.find((item) => item?.name === dec.tagName)?.attributes
+    // const attrs = webData.tags.find((item) => item?.name === dec.tagName)?.attributes
 
     // try {
     //   reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
@@ -87,28 +88,30 @@ await writeFile(
 ${(
   await Promise.all(
     webData.valueSets.map(
-      (item, index) => `### ${item.name}
-
+      async (item, index) => `
 <div class="relative group">
 <input type="checkbox" id="show-more${index}" class="peer hidden">
 
-<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none rounded-lg border border-gray-200 p-4">
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
-| Name          |  Description  |
-| ------------- | ------------- |
+\n\n\`\`\`ts\n${await prettier.format(
+        `enum ${item.name} {
 ${item.values
   .map((item, index) => {
-    return `| **\`${item.name}\`** | ${item?.description ?? ''} |`
+    return `  '${item.name}\', // ${item?.description ?? ''}`
   })
   .join(`\n`)}
+}`,
+        { parser: 'typescript', singleQuote: true, semi: false }
+      )}\n\`\`\`
 
-<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent peer-checked:hidden"></div>
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
 
 </div>
 
-<label for="show-more${index}" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show more</label>
+<label for="show-more${index}" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
 
-<label for="show-more${index}" class="hidden group-has-checked:block absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none">Show less</label>
+<label for="show-more${index}" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
 

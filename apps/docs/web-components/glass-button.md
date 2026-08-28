@@ -6,8 +6,6 @@
 
 ```ts
 interface GlassButtonSignature {
-  Declaration: '<button is="glass-button"></button>'
-
   Attributes: {
     role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
     'title-key'?: string
@@ -19,6 +17,12 @@ interface GlassButtonSignature {
 }
 
 class GlassButton extends HTMLButtonElement<GlassButtonSignature> {}
+
+declare global {
+  interface HTMLButtonElement {
+    is: 'glass-button' // <button is="glass-button"></button>
+  }
+}
 ```
 
 <!-- #endregion pre -->

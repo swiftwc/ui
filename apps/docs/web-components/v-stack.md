@@ -12,8 +12,6 @@ next:
 
 ```ts
 interface VStackSignature {
-  Declaration: '<v-stack></v-stack>'
-
   Attributes: {
     distribution?: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
     template?: Template // The main-axis grid template
@@ -28,7 +26,7 @@ class VStack extends HTMLElement<VStackSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'v-stack': VStack
+    'v-stack': VStack // <v-stack></v-stack>
   }
 }
 ```

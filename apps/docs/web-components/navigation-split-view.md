@@ -5,15 +5,13 @@
 ###### A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
 
 ```ts
-interface NavigationSplitViewSignature {
-  Declaration: '<navigation-split-view></navigation-split-view>'
-}
+interface NavigationSplitViewSignature {}
 
 class NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'navigation-split-view': NavigationSplitView
+    'navigation-split-view': NavigationSplitView // <navigation-split-view></navigation-split-view>
   }
 }
 ```

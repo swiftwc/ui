@@ -6,8 +6,6 @@
 
 ```ts
 interface TextFieldSignature {
-  Declaration: '<text-field></text-field>'
-
   Attributes: {
     prompt?: string
     minimum?: string
@@ -26,11 +24,7 @@ interface TextFieldSignature {
 
   Slots: {
     label: HTMLElement[]
-    'validity-options': HTMLElement[]
-  }
-
-  Events: {
-    commit: CustomEvent<{ detail: { text: string } }> // Triggered when user interacts with the input area
+    'validity-options': HTMLOptionElement[]
   }
 }
 
@@ -48,9 +42,13 @@ class TextField extends HTMLElement<TextFieldSignature> {
   setCustomValidity(): void
 }
 
+interface GlobalEventMap<Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap> {
+  commit: CustomEvent<{ detail: { text: string } }> // Triggered when user interacts with the input area
+}
+
 declare global {
   interface HTMLElementTagNameMap {
-    'text-field': TextField
+    'text-field': TextField // <text-field></text-field>
   }
 }
 ```

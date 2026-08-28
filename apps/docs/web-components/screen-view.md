@@ -5,11 +5,15 @@
 ######
 
 ```ts
-interface ScreenViewSignature {
-  Declaration: '<dialog is="screen-view"></dialog>'
-}
+interface ScreenViewSignature {}
 
 class ScreenView extends HTMLDialogElement<ScreenViewSignature> {}
+
+declare global {
+  interface HTMLDialogElement {
+    is: 'screen-view' // <dialog is="screen-view"></dialog>
+  }
+}
 ```
 
 <!-- #endregion pre -->

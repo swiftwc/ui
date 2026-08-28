@@ -6,8 +6,6 @@
 
 ```ts
 interface ColorSchemeSignature {
-  Declaration: '<color-scheme></color-scheme>'
-
   Attributes: {
     dark?: string
   }
@@ -17,7 +15,7 @@ class ColorScheme extends HTMLElement<ColorSchemeSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'color-scheme': ColorScheme
+    'color-scheme': ColorScheme // <color-scheme></color-scheme>
   }
 }
 ```

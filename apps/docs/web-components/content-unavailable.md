@@ -6,8 +6,6 @@
 
 ```ts
 interface ContentUnavailableSignature {
-  Declaration: '<content-unavailable></content-unavailable>'
-
   Attributes: {
     search?: string
   }
@@ -23,7 +21,7 @@ class ContentUnavailable extends HTMLElement<ContentUnavailableSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'content-unavailable': ContentUnavailable
+    'content-unavailable': ContentUnavailable // <content-unavailable></content-unavailable>
   }
 }
 ```

@@ -6,8 +6,6 @@
 
 ```ts
 interface ToggleViewSignature {
-  Declaration: '<toggle-view></toggle-view>'
-
   Attributes: {
     label?: string
     name?: string
@@ -20,11 +18,7 @@ interface ToggleViewSignature {
 
   Slots: {
     label: HTMLElement[]
-    'validity-options': HTMLElement[]
-  }
-
-  Events: {
-    'toggle:change': CustomEvent // User toggled the control
+    'validity-options': HTMLOptionElement[]
   }
 }
 
@@ -40,9 +34,13 @@ class ToggleView extends HTMLElement<ToggleViewSignature> {
   setCustomValidity(): void
 }
 
+interface GlobalEventMap<Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap> {
+  'toggle:change': CustomEvent // User toggled the control
+}
+
 declare global {
   interface HTMLElementTagNameMap {
-    'toggle-view': ToggleView
+    'toggle-view': ToggleView // <toggle-view></toggle-view>
   }
 }
 ```

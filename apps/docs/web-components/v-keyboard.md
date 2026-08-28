@@ -6,8 +6,6 @@
 
 ```ts
 interface VKeyboardSignature {
-  Declaration: '<v-keyboard></v-keyboard>'
-
   Attributes: {
     'system-font'?: 'Inter' // Prefers the "Inter" font family, if loaded.
   }
@@ -17,7 +15,7 @@ class VKeyboard extends HTMLElement<VKeyboardSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'v-keyboard': VKeyboard
+    'v-keyboard': VKeyboard // <v-keyboard></v-keyboard>
   }
 }
 ```

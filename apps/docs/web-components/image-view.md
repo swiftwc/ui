@@ -6,8 +6,6 @@
 
 ```ts
 interface ImageViewSignature {
-  Declaration: '<image-view></image-view>'
-
   Attributes: {
     'system-name'?: string
     'system-weight'?: string
@@ -18,7 +16,7 @@ class ImageView extends HTMLElement<ImageViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'image-view': ImageView
+    'image-view': ImageView // <image-view></image-view>
   }
 }
 ```

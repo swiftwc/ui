@@ -5,11 +5,15 @@
 ######
 
 ```ts
-interface PlainButtonSignature {
-  Declaration: '<button is="plain-button"></button>'
-}
+interface PlainButtonSignature {}
 
 class PlainButton extends HTMLButtonElement<PlainButtonSignature> {}
+
+declare global {
+  interface HTMLButtonElement {
+    is: 'plain-button' // <button is="plain-button"></button>
+  }
+}
 ```
 
 <!-- #endregion pre -->

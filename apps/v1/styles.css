@@ -6110,608 +6110,1214 @@
   :where([frame\:max-width=infinity]) {
     max-inline-size: 100%;
   }
+  :where([frame\:width="0"]) {
+    max-inline-size: 0rem;
+  }
   :where([frame\:max-width="0"]) {
     max-inline-size: 0rem;
+  }
+  :where([frame\:width="0cqi"]) {
+    max-inline-size: 0cqi;
   }
   :where([frame\:max-width="0cqi"]) {
     max-inline-size: 0cqi;
   }
+  :where([frame\:width="1"]) {
+    max-inline-size: 1rem;
+  }
   :where([frame\:max-width="1"]) {
     max-inline-size: 1rem;
+  }
+  :where([frame\:width="1cqi"]) {
+    max-inline-size: 1cqi;
   }
   :where([frame\:max-width="1cqi"]) {
     max-inline-size: 1cqi;
   }
+  :where([frame\:width="2"]) {
+    max-inline-size: 2rem;
+  }
   :where([frame\:max-width="2"]) {
     max-inline-size: 2rem;
+  }
+  :where([frame\:width="2cqi"]) {
+    max-inline-size: 2cqi;
   }
   :where([frame\:max-width="2cqi"]) {
     max-inline-size: 2cqi;
   }
+  :where([frame\:width="3"]) {
+    max-inline-size: 3rem;
+  }
   :where([frame\:max-width="3"]) {
     max-inline-size: 3rem;
+  }
+  :where([frame\:width="3cqi"]) {
+    max-inline-size: 3cqi;
   }
   :where([frame\:max-width="3cqi"]) {
     max-inline-size: 3cqi;
   }
+  :where([frame\:width="4"]) {
+    max-inline-size: 4rem;
+  }
   :where([frame\:max-width="4"]) {
     max-inline-size: 4rem;
+  }
+  :where([frame\:width="4cqi"]) {
+    max-inline-size: 4cqi;
   }
   :where([frame\:max-width="4cqi"]) {
     max-inline-size: 4cqi;
   }
+  :where([frame\:width="5"]) {
+    max-inline-size: 5rem;
+  }
   :where([frame\:max-width="5"]) {
     max-inline-size: 5rem;
+  }
+  :where([frame\:width="5cqi"]) {
+    max-inline-size: 5cqi;
   }
   :where([frame\:max-width="5cqi"]) {
     max-inline-size: 5cqi;
   }
+  :where([frame\:width="6"]) {
+    max-inline-size: 6rem;
+  }
   :where([frame\:max-width="6"]) {
     max-inline-size: 6rem;
+  }
+  :where([frame\:width="6cqi"]) {
+    max-inline-size: 6cqi;
   }
   :where([frame\:max-width="6cqi"]) {
     max-inline-size: 6cqi;
   }
+  :where([frame\:width="7"]) {
+    max-inline-size: 7rem;
+  }
   :where([frame\:max-width="7"]) {
     max-inline-size: 7rem;
+  }
+  :where([frame\:width="7cqi"]) {
+    max-inline-size: 7cqi;
   }
   :where([frame\:max-width="7cqi"]) {
     max-inline-size: 7cqi;
   }
+  :where([frame\:width="8"]) {
+    max-inline-size: 8rem;
+  }
   :where([frame\:max-width="8"]) {
     max-inline-size: 8rem;
+  }
+  :where([frame\:width="8cqi"]) {
+    max-inline-size: 8cqi;
   }
   :where([frame\:max-width="8cqi"]) {
     max-inline-size: 8cqi;
   }
+  :where([frame\:width="9"]) {
+    max-inline-size: 9rem;
+  }
   :where([frame\:max-width="9"]) {
     max-inline-size: 9rem;
+  }
+  :where([frame\:width="9cqi"]) {
+    max-inline-size: 9cqi;
   }
   :where([frame\:max-width="9cqi"]) {
     max-inline-size: 9cqi;
   }
+  :where([frame\:width="10"]) {
+    max-inline-size: 10rem;
+  }
   :where([frame\:max-width="10"]) {
     max-inline-size: 10rem;
+  }
+  :where([frame\:width="10cqi"]) {
+    max-inline-size: 10cqi;
   }
   :where([frame\:max-width="10cqi"]) {
     max-inline-size: 10cqi;
   }
+  :where([frame\:width="11"]) {
+    max-inline-size: 11rem;
+  }
   :where([frame\:max-width="11"]) {
     max-inline-size: 11rem;
+  }
+  :where([frame\:width="11cqi"]) {
+    max-inline-size: 11cqi;
   }
   :where([frame\:max-width="11cqi"]) {
     max-inline-size: 11cqi;
   }
+  :where([frame\:width="12"]) {
+    max-inline-size: 12rem;
+  }
   :where([frame\:max-width="12"]) {
     max-inline-size: 12rem;
+  }
+  :where([frame\:width="12cqi"]) {
+    max-inline-size: 12cqi;
   }
   :where([frame\:max-width="12cqi"]) {
     max-inline-size: 12cqi;
   }
+  :where([frame\:width="13"]) {
+    max-inline-size: 13rem;
+  }
   :where([frame\:max-width="13"]) {
     max-inline-size: 13rem;
+  }
+  :where([frame\:width="13cqi"]) {
+    max-inline-size: 13cqi;
   }
   :where([frame\:max-width="13cqi"]) {
     max-inline-size: 13cqi;
   }
+  :where([frame\:width="14"]) {
+    max-inline-size: 14rem;
+  }
   :where([frame\:max-width="14"]) {
     max-inline-size: 14rem;
+  }
+  :where([frame\:width="14cqi"]) {
+    max-inline-size: 14cqi;
   }
   :where([frame\:max-width="14cqi"]) {
     max-inline-size: 14cqi;
   }
+  :where([frame\:width="15"]) {
+    max-inline-size: 15rem;
+  }
   :where([frame\:max-width="15"]) {
     max-inline-size: 15rem;
+  }
+  :where([frame\:width="15cqi"]) {
+    max-inline-size: 15cqi;
   }
   :where([frame\:max-width="15cqi"]) {
     max-inline-size: 15cqi;
   }
+  :where([frame\:width="16"]) {
+    max-inline-size: 16rem;
+  }
   :where([frame\:max-width="16"]) {
     max-inline-size: 16rem;
+  }
+  :where([frame\:width="16cqi"]) {
+    max-inline-size: 16cqi;
   }
   :where([frame\:max-width="16cqi"]) {
     max-inline-size: 16cqi;
   }
+  :where([frame\:width="17"]) {
+    max-inline-size: 17rem;
+  }
   :where([frame\:max-width="17"]) {
     max-inline-size: 17rem;
+  }
+  :where([frame\:width="17cqi"]) {
+    max-inline-size: 17cqi;
   }
   :where([frame\:max-width="17cqi"]) {
     max-inline-size: 17cqi;
   }
+  :where([frame\:width="18"]) {
+    max-inline-size: 18rem;
+  }
   :where([frame\:max-width="18"]) {
     max-inline-size: 18rem;
+  }
+  :where([frame\:width="18cqi"]) {
+    max-inline-size: 18cqi;
   }
   :where([frame\:max-width="18cqi"]) {
     max-inline-size: 18cqi;
   }
+  :where([frame\:width="19"]) {
+    max-inline-size: 19rem;
+  }
   :where([frame\:max-width="19"]) {
     max-inline-size: 19rem;
+  }
+  :where([frame\:width="19cqi"]) {
+    max-inline-size: 19cqi;
   }
   :where([frame\:max-width="19cqi"]) {
     max-inline-size: 19cqi;
   }
+  :where([frame\:width="20"]) {
+    max-inline-size: 20rem;
+  }
   :where([frame\:max-width="20"]) {
     max-inline-size: 20rem;
+  }
+  :where([frame\:width="20cqi"]) {
+    max-inline-size: 20cqi;
   }
   :where([frame\:max-width="20cqi"]) {
     max-inline-size: 20cqi;
   }
+  :where([frame\:width="21"]) {
+    max-inline-size: 21rem;
+  }
   :where([frame\:max-width="21"]) {
     max-inline-size: 21rem;
+  }
+  :where([frame\:width="21cqi"]) {
+    max-inline-size: 21cqi;
   }
   :where([frame\:max-width="21cqi"]) {
     max-inline-size: 21cqi;
   }
+  :where([frame\:width="22"]) {
+    max-inline-size: 22rem;
+  }
   :where([frame\:max-width="22"]) {
     max-inline-size: 22rem;
+  }
+  :where([frame\:width="22cqi"]) {
+    max-inline-size: 22cqi;
   }
   :where([frame\:max-width="22cqi"]) {
     max-inline-size: 22cqi;
   }
+  :where([frame\:width="23"]) {
+    max-inline-size: 23rem;
+  }
   :where([frame\:max-width="23"]) {
     max-inline-size: 23rem;
+  }
+  :where([frame\:width="23cqi"]) {
+    max-inline-size: 23cqi;
   }
   :where([frame\:max-width="23cqi"]) {
     max-inline-size: 23cqi;
   }
+  :where([frame\:width="24"]) {
+    max-inline-size: 24rem;
+  }
   :where([frame\:max-width="24"]) {
     max-inline-size: 24rem;
+  }
+  :where([frame\:width="24cqi"]) {
+    max-inline-size: 24cqi;
   }
   :where([frame\:max-width="24cqi"]) {
     max-inline-size: 24cqi;
   }
+  :where([frame\:width="25"]) {
+    max-inline-size: 25rem;
+  }
   :where([frame\:max-width="25"]) {
     max-inline-size: 25rem;
+  }
+  :where([frame\:width="25cqi"]) {
+    max-inline-size: 25cqi;
   }
   :where([frame\:max-width="25cqi"]) {
     max-inline-size: 25cqi;
   }
+  :where([frame\:width="26"]) {
+    max-inline-size: 26rem;
+  }
   :where([frame\:max-width="26"]) {
     max-inline-size: 26rem;
+  }
+  :where([frame\:width="26cqi"]) {
+    max-inline-size: 26cqi;
   }
   :where([frame\:max-width="26cqi"]) {
     max-inline-size: 26cqi;
   }
+  :where([frame\:width="27"]) {
+    max-inline-size: 27rem;
+  }
   :where([frame\:max-width="27"]) {
     max-inline-size: 27rem;
+  }
+  :where([frame\:width="27cqi"]) {
+    max-inline-size: 27cqi;
   }
   :where([frame\:max-width="27cqi"]) {
     max-inline-size: 27cqi;
   }
+  :where([frame\:width="28"]) {
+    max-inline-size: 28rem;
+  }
   :where([frame\:max-width="28"]) {
     max-inline-size: 28rem;
+  }
+  :where([frame\:width="28cqi"]) {
+    max-inline-size: 28cqi;
   }
   :where([frame\:max-width="28cqi"]) {
     max-inline-size: 28cqi;
   }
+  :where([frame\:width="29"]) {
+    max-inline-size: 29rem;
+  }
   :where([frame\:max-width="29"]) {
     max-inline-size: 29rem;
+  }
+  :where([frame\:width="29cqi"]) {
+    max-inline-size: 29cqi;
   }
   :where([frame\:max-width="29cqi"]) {
     max-inline-size: 29cqi;
   }
+  :where([frame\:width="30"]) {
+    max-inline-size: 30rem;
+  }
   :where([frame\:max-width="30"]) {
     max-inline-size: 30rem;
+  }
+  :where([frame\:width="30cqi"]) {
+    max-inline-size: 30cqi;
   }
   :where([frame\:max-width="30cqi"]) {
     max-inline-size: 30cqi;
   }
+  :where([frame\:width="31"]) {
+    max-inline-size: 31rem;
+  }
   :where([frame\:max-width="31"]) {
     max-inline-size: 31rem;
+  }
+  :where([frame\:width="31cqi"]) {
+    max-inline-size: 31cqi;
   }
   :where([frame\:max-width="31cqi"]) {
     max-inline-size: 31cqi;
   }
+  :where([frame\:width="32"]) {
+    max-inline-size: 32rem;
+  }
   :where([frame\:max-width="32"]) {
     max-inline-size: 32rem;
+  }
+  :where([frame\:width="32cqi"]) {
+    max-inline-size: 32cqi;
   }
   :where([frame\:max-width="32cqi"]) {
     max-inline-size: 32cqi;
   }
+  :where([frame\:width="33"]) {
+    max-inline-size: 33rem;
+  }
   :where([frame\:max-width="33"]) {
     max-inline-size: 33rem;
+  }
+  :where([frame\:width="33cqi"]) {
+    max-inline-size: 33cqi;
   }
   :where([frame\:max-width="33cqi"]) {
     max-inline-size: 33cqi;
   }
+  :where([frame\:width="34"]) {
+    max-inline-size: 34rem;
+  }
   :where([frame\:max-width="34"]) {
     max-inline-size: 34rem;
+  }
+  :where([frame\:width="34cqi"]) {
+    max-inline-size: 34cqi;
   }
   :where([frame\:max-width="34cqi"]) {
     max-inline-size: 34cqi;
   }
+  :where([frame\:width="35"]) {
+    max-inline-size: 35rem;
+  }
   :where([frame\:max-width="35"]) {
     max-inline-size: 35rem;
+  }
+  :where([frame\:width="35cqi"]) {
+    max-inline-size: 35cqi;
   }
   :where([frame\:max-width="35cqi"]) {
     max-inline-size: 35cqi;
   }
+  :where([frame\:width="36"]) {
+    max-inline-size: 36rem;
+  }
   :where([frame\:max-width="36"]) {
     max-inline-size: 36rem;
+  }
+  :where([frame\:width="36cqi"]) {
+    max-inline-size: 36cqi;
   }
   :where([frame\:max-width="36cqi"]) {
     max-inline-size: 36cqi;
   }
+  :where([frame\:width="37"]) {
+    max-inline-size: 37rem;
+  }
   :where([frame\:max-width="37"]) {
     max-inline-size: 37rem;
+  }
+  :where([frame\:width="37cqi"]) {
+    max-inline-size: 37cqi;
   }
   :where([frame\:max-width="37cqi"]) {
     max-inline-size: 37cqi;
   }
+  :where([frame\:width="38"]) {
+    max-inline-size: 38rem;
+  }
   :where([frame\:max-width="38"]) {
     max-inline-size: 38rem;
+  }
+  :where([frame\:width="38cqi"]) {
+    max-inline-size: 38cqi;
   }
   :where([frame\:max-width="38cqi"]) {
     max-inline-size: 38cqi;
   }
+  :where([frame\:width="39"]) {
+    max-inline-size: 39rem;
+  }
   :where([frame\:max-width="39"]) {
     max-inline-size: 39rem;
+  }
+  :where([frame\:width="39cqi"]) {
+    max-inline-size: 39cqi;
   }
   :where([frame\:max-width="39cqi"]) {
     max-inline-size: 39cqi;
   }
+  :where([frame\:width="40"]) {
+    max-inline-size: 40rem;
+  }
   :where([frame\:max-width="40"]) {
     max-inline-size: 40rem;
+  }
+  :where([frame\:width="40cqi"]) {
+    max-inline-size: 40cqi;
   }
   :where([frame\:max-width="40cqi"]) {
     max-inline-size: 40cqi;
   }
+  :where([frame\:width="41"]) {
+    max-inline-size: 41rem;
+  }
   :where([frame\:max-width="41"]) {
     max-inline-size: 41rem;
+  }
+  :where([frame\:width="41cqi"]) {
+    max-inline-size: 41cqi;
   }
   :where([frame\:max-width="41cqi"]) {
     max-inline-size: 41cqi;
   }
+  :where([frame\:width="42"]) {
+    max-inline-size: 42rem;
+  }
   :where([frame\:max-width="42"]) {
     max-inline-size: 42rem;
+  }
+  :where([frame\:width="42cqi"]) {
+    max-inline-size: 42cqi;
   }
   :where([frame\:max-width="42cqi"]) {
     max-inline-size: 42cqi;
   }
+  :where([frame\:width="43"]) {
+    max-inline-size: 43rem;
+  }
   :where([frame\:max-width="43"]) {
     max-inline-size: 43rem;
+  }
+  :where([frame\:width="43cqi"]) {
+    max-inline-size: 43cqi;
   }
   :where([frame\:max-width="43cqi"]) {
     max-inline-size: 43cqi;
   }
+  :where([frame\:width="44"]) {
+    max-inline-size: 44rem;
+  }
   :where([frame\:max-width="44"]) {
     max-inline-size: 44rem;
+  }
+  :where([frame\:width="44cqi"]) {
+    max-inline-size: 44cqi;
   }
   :where([frame\:max-width="44cqi"]) {
     max-inline-size: 44cqi;
   }
+  :where([frame\:width="45"]) {
+    max-inline-size: 45rem;
+  }
   :where([frame\:max-width="45"]) {
     max-inline-size: 45rem;
+  }
+  :where([frame\:width="45cqi"]) {
+    max-inline-size: 45cqi;
   }
   :where([frame\:max-width="45cqi"]) {
     max-inline-size: 45cqi;
   }
+  :where([frame\:width="46"]) {
+    max-inline-size: 46rem;
+  }
   :where([frame\:max-width="46"]) {
     max-inline-size: 46rem;
+  }
+  :where([frame\:width="46cqi"]) {
+    max-inline-size: 46cqi;
   }
   :where([frame\:max-width="46cqi"]) {
     max-inline-size: 46cqi;
   }
+  :where([frame\:width="47"]) {
+    max-inline-size: 47rem;
+  }
   :where([frame\:max-width="47"]) {
     max-inline-size: 47rem;
+  }
+  :where([frame\:width="47cqi"]) {
+    max-inline-size: 47cqi;
   }
   :where([frame\:max-width="47cqi"]) {
     max-inline-size: 47cqi;
   }
+  :where([frame\:width="48"]) {
+    max-inline-size: 48rem;
+  }
   :where([frame\:max-width="48"]) {
     max-inline-size: 48rem;
+  }
+  :where([frame\:width="48cqi"]) {
+    max-inline-size: 48cqi;
   }
   :where([frame\:max-width="48cqi"]) {
     max-inline-size: 48cqi;
   }
+  :where([frame\:width="49"]) {
+    max-inline-size: 49rem;
+  }
   :where([frame\:max-width="49"]) {
     max-inline-size: 49rem;
+  }
+  :where([frame\:width="49cqi"]) {
+    max-inline-size: 49cqi;
   }
   :where([frame\:max-width="49cqi"]) {
     max-inline-size: 49cqi;
   }
+  :where([frame\:width="50"]) {
+    max-inline-size: 50rem;
+  }
   :where([frame\:max-width="50"]) {
     max-inline-size: 50rem;
+  }
+  :where([frame\:width="50cqi"]) {
+    max-inline-size: 50cqi;
   }
   :where([frame\:max-width="50cqi"]) {
     max-inline-size: 50cqi;
   }
+  :where([frame\:width="51"]) {
+    max-inline-size: 51rem;
+  }
   :where([frame\:max-width="51"]) {
     max-inline-size: 51rem;
+  }
+  :where([frame\:width="51cqi"]) {
+    max-inline-size: 51cqi;
   }
   :where([frame\:max-width="51cqi"]) {
     max-inline-size: 51cqi;
   }
+  :where([frame\:width="52"]) {
+    max-inline-size: 52rem;
+  }
   :where([frame\:max-width="52"]) {
     max-inline-size: 52rem;
+  }
+  :where([frame\:width="52cqi"]) {
+    max-inline-size: 52cqi;
   }
   :where([frame\:max-width="52cqi"]) {
     max-inline-size: 52cqi;
   }
+  :where([frame\:width="53"]) {
+    max-inline-size: 53rem;
+  }
   :where([frame\:max-width="53"]) {
     max-inline-size: 53rem;
+  }
+  :where([frame\:width="53cqi"]) {
+    max-inline-size: 53cqi;
   }
   :where([frame\:max-width="53cqi"]) {
     max-inline-size: 53cqi;
   }
+  :where([frame\:width="54"]) {
+    max-inline-size: 54rem;
+  }
   :where([frame\:max-width="54"]) {
     max-inline-size: 54rem;
+  }
+  :where([frame\:width="54cqi"]) {
+    max-inline-size: 54cqi;
   }
   :where([frame\:max-width="54cqi"]) {
     max-inline-size: 54cqi;
   }
+  :where([frame\:width="55"]) {
+    max-inline-size: 55rem;
+  }
   :where([frame\:max-width="55"]) {
     max-inline-size: 55rem;
+  }
+  :where([frame\:width="55cqi"]) {
+    max-inline-size: 55cqi;
   }
   :where([frame\:max-width="55cqi"]) {
     max-inline-size: 55cqi;
   }
+  :where([frame\:width="56"]) {
+    max-inline-size: 56rem;
+  }
   :where([frame\:max-width="56"]) {
     max-inline-size: 56rem;
+  }
+  :where([frame\:width="56cqi"]) {
+    max-inline-size: 56cqi;
   }
   :where([frame\:max-width="56cqi"]) {
     max-inline-size: 56cqi;
   }
+  :where([frame\:width="57"]) {
+    max-inline-size: 57rem;
+  }
   :where([frame\:max-width="57"]) {
     max-inline-size: 57rem;
+  }
+  :where([frame\:width="57cqi"]) {
+    max-inline-size: 57cqi;
   }
   :where([frame\:max-width="57cqi"]) {
     max-inline-size: 57cqi;
   }
+  :where([frame\:width="58"]) {
+    max-inline-size: 58rem;
+  }
   :where([frame\:max-width="58"]) {
     max-inline-size: 58rem;
+  }
+  :where([frame\:width="58cqi"]) {
+    max-inline-size: 58cqi;
   }
   :where([frame\:max-width="58cqi"]) {
     max-inline-size: 58cqi;
   }
+  :where([frame\:width="59"]) {
+    max-inline-size: 59rem;
+  }
   :where([frame\:max-width="59"]) {
     max-inline-size: 59rem;
+  }
+  :where([frame\:width="59cqi"]) {
+    max-inline-size: 59cqi;
   }
   :where([frame\:max-width="59cqi"]) {
     max-inline-size: 59cqi;
   }
+  :where([frame\:width="60"]) {
+    max-inline-size: 60rem;
+  }
   :where([frame\:max-width="60"]) {
     max-inline-size: 60rem;
+  }
+  :where([frame\:width="60cqi"]) {
+    max-inline-size: 60cqi;
   }
   :where([frame\:max-width="60cqi"]) {
     max-inline-size: 60cqi;
   }
+  :where([frame\:width="61"]) {
+    max-inline-size: 61rem;
+  }
   :where([frame\:max-width="61"]) {
     max-inline-size: 61rem;
+  }
+  :where([frame\:width="61cqi"]) {
+    max-inline-size: 61cqi;
   }
   :where([frame\:max-width="61cqi"]) {
     max-inline-size: 61cqi;
   }
+  :where([frame\:width="62"]) {
+    max-inline-size: 62rem;
+  }
   :where([frame\:max-width="62"]) {
     max-inline-size: 62rem;
+  }
+  :where([frame\:width="62cqi"]) {
+    max-inline-size: 62cqi;
   }
   :where([frame\:max-width="62cqi"]) {
     max-inline-size: 62cqi;
   }
+  :where([frame\:width="63"]) {
+    max-inline-size: 63rem;
+  }
   :where([frame\:max-width="63"]) {
     max-inline-size: 63rem;
+  }
+  :where([frame\:width="63cqi"]) {
+    max-inline-size: 63cqi;
   }
   :where([frame\:max-width="63cqi"]) {
     max-inline-size: 63cqi;
   }
+  :where([frame\:width="64"]) {
+    max-inline-size: 64rem;
+  }
   :where([frame\:max-width="64"]) {
     max-inline-size: 64rem;
+  }
+  :where([frame\:width="64cqi"]) {
+    max-inline-size: 64cqi;
   }
   :where([frame\:max-width="64cqi"]) {
     max-inline-size: 64cqi;
   }
+  :where([frame\:width="65"]) {
+    max-inline-size: 65rem;
+  }
   :where([frame\:max-width="65"]) {
     max-inline-size: 65rem;
+  }
+  :where([frame\:width="65cqi"]) {
+    max-inline-size: 65cqi;
   }
   :where([frame\:max-width="65cqi"]) {
     max-inline-size: 65cqi;
   }
+  :where([frame\:width="66"]) {
+    max-inline-size: 66rem;
+  }
   :where([frame\:max-width="66"]) {
     max-inline-size: 66rem;
+  }
+  :where([frame\:width="66cqi"]) {
+    max-inline-size: 66cqi;
   }
   :where([frame\:max-width="66cqi"]) {
     max-inline-size: 66cqi;
   }
+  :where([frame\:width="67"]) {
+    max-inline-size: 67rem;
+  }
   :where([frame\:max-width="67"]) {
     max-inline-size: 67rem;
+  }
+  :where([frame\:width="67cqi"]) {
+    max-inline-size: 67cqi;
   }
   :where([frame\:max-width="67cqi"]) {
     max-inline-size: 67cqi;
   }
+  :where([frame\:width="68"]) {
+    max-inline-size: 68rem;
+  }
   :where([frame\:max-width="68"]) {
     max-inline-size: 68rem;
+  }
+  :where([frame\:width="68cqi"]) {
+    max-inline-size: 68cqi;
   }
   :where([frame\:max-width="68cqi"]) {
     max-inline-size: 68cqi;
   }
+  :where([frame\:width="69"]) {
+    max-inline-size: 69rem;
+  }
   :where([frame\:max-width="69"]) {
     max-inline-size: 69rem;
+  }
+  :where([frame\:width="69cqi"]) {
+    max-inline-size: 69cqi;
   }
   :where([frame\:max-width="69cqi"]) {
     max-inline-size: 69cqi;
   }
+  :where([frame\:width="70"]) {
+    max-inline-size: 70rem;
+  }
   :where([frame\:max-width="70"]) {
     max-inline-size: 70rem;
+  }
+  :where([frame\:width="70cqi"]) {
+    max-inline-size: 70cqi;
   }
   :where([frame\:max-width="70cqi"]) {
     max-inline-size: 70cqi;
   }
+  :where([frame\:width="71"]) {
+    max-inline-size: 71rem;
+  }
   :where([frame\:max-width="71"]) {
     max-inline-size: 71rem;
+  }
+  :where([frame\:width="71cqi"]) {
+    max-inline-size: 71cqi;
   }
   :where([frame\:max-width="71cqi"]) {
     max-inline-size: 71cqi;
   }
+  :where([frame\:width="72"]) {
+    max-inline-size: 72rem;
+  }
   :where([frame\:max-width="72"]) {
     max-inline-size: 72rem;
+  }
+  :where([frame\:width="72cqi"]) {
+    max-inline-size: 72cqi;
   }
   :where([frame\:max-width="72cqi"]) {
     max-inline-size: 72cqi;
   }
+  :where([frame\:width="73"]) {
+    max-inline-size: 73rem;
+  }
   :where([frame\:max-width="73"]) {
     max-inline-size: 73rem;
+  }
+  :where([frame\:width="73cqi"]) {
+    max-inline-size: 73cqi;
   }
   :where([frame\:max-width="73cqi"]) {
     max-inline-size: 73cqi;
   }
+  :where([frame\:width="74"]) {
+    max-inline-size: 74rem;
+  }
   :where([frame\:max-width="74"]) {
     max-inline-size: 74rem;
+  }
+  :where([frame\:width="74cqi"]) {
+    max-inline-size: 74cqi;
   }
   :where([frame\:max-width="74cqi"]) {
     max-inline-size: 74cqi;
   }
+  :where([frame\:width="75"]) {
+    max-inline-size: 75rem;
+  }
   :where([frame\:max-width="75"]) {
     max-inline-size: 75rem;
+  }
+  :where([frame\:width="75cqi"]) {
+    max-inline-size: 75cqi;
   }
   :where([frame\:max-width="75cqi"]) {
     max-inline-size: 75cqi;
   }
+  :where([frame\:width="76"]) {
+    max-inline-size: 76rem;
+  }
   :where([frame\:max-width="76"]) {
     max-inline-size: 76rem;
+  }
+  :where([frame\:width="76cqi"]) {
+    max-inline-size: 76cqi;
   }
   :where([frame\:max-width="76cqi"]) {
     max-inline-size: 76cqi;
   }
+  :where([frame\:width="77"]) {
+    max-inline-size: 77rem;
+  }
   :where([frame\:max-width="77"]) {
     max-inline-size: 77rem;
+  }
+  :where([frame\:width="77cqi"]) {
+    max-inline-size: 77cqi;
   }
   :where([frame\:max-width="77cqi"]) {
     max-inline-size: 77cqi;
   }
+  :where([frame\:width="78"]) {
+    max-inline-size: 78rem;
+  }
   :where([frame\:max-width="78"]) {
     max-inline-size: 78rem;
+  }
+  :where([frame\:width="78cqi"]) {
+    max-inline-size: 78cqi;
   }
   :where([frame\:max-width="78cqi"]) {
     max-inline-size: 78cqi;
   }
+  :where([frame\:width="79"]) {
+    max-inline-size: 79rem;
+  }
   :where([frame\:max-width="79"]) {
     max-inline-size: 79rem;
+  }
+  :where([frame\:width="79cqi"]) {
+    max-inline-size: 79cqi;
   }
   :where([frame\:max-width="79cqi"]) {
     max-inline-size: 79cqi;
   }
+  :where([frame\:width="80"]) {
+    max-inline-size: 80rem;
+  }
   :where([frame\:max-width="80"]) {
     max-inline-size: 80rem;
+  }
+  :where([frame\:width="80cqi"]) {
+    max-inline-size: 80cqi;
   }
   :where([frame\:max-width="80cqi"]) {
     max-inline-size: 80cqi;
   }
+  :where([frame\:width="81"]) {
+    max-inline-size: 81rem;
+  }
   :where([frame\:max-width="81"]) {
     max-inline-size: 81rem;
+  }
+  :where([frame\:width="81cqi"]) {
+    max-inline-size: 81cqi;
   }
   :where([frame\:max-width="81cqi"]) {
     max-inline-size: 81cqi;
   }
+  :where([frame\:width="82"]) {
+    max-inline-size: 82rem;
+  }
   :where([frame\:max-width="82"]) {
     max-inline-size: 82rem;
+  }
+  :where([frame\:width="82cqi"]) {
+    max-inline-size: 82cqi;
   }
   :where([frame\:max-width="82cqi"]) {
     max-inline-size: 82cqi;
   }
+  :where([frame\:width="83"]) {
+    max-inline-size: 83rem;
+  }
   :where([frame\:max-width="83"]) {
     max-inline-size: 83rem;
+  }
+  :where([frame\:width="83cqi"]) {
+    max-inline-size: 83cqi;
   }
   :where([frame\:max-width="83cqi"]) {
     max-inline-size: 83cqi;
   }
+  :where([frame\:width="84"]) {
+    max-inline-size: 84rem;
+  }
   :where([frame\:max-width="84"]) {
     max-inline-size: 84rem;
+  }
+  :where([frame\:width="84cqi"]) {
+    max-inline-size: 84cqi;
   }
   :where([frame\:max-width="84cqi"]) {
     max-inline-size: 84cqi;
   }
+  :where([frame\:width="85"]) {
+    max-inline-size: 85rem;
+  }
   :where([frame\:max-width="85"]) {
     max-inline-size: 85rem;
+  }
+  :where([frame\:width="85cqi"]) {
+    max-inline-size: 85cqi;
   }
   :where([frame\:max-width="85cqi"]) {
     max-inline-size: 85cqi;
   }
+  :where([frame\:width="86"]) {
+    max-inline-size: 86rem;
+  }
   :where([frame\:max-width="86"]) {
     max-inline-size: 86rem;
+  }
+  :where([frame\:width="86cqi"]) {
+    max-inline-size: 86cqi;
   }
   :where([frame\:max-width="86cqi"]) {
     max-inline-size: 86cqi;
   }
+  :where([frame\:width="87"]) {
+    max-inline-size: 87rem;
+  }
   :where([frame\:max-width="87"]) {
     max-inline-size: 87rem;
+  }
+  :where([frame\:width="87cqi"]) {
+    max-inline-size: 87cqi;
   }
   :where([frame\:max-width="87cqi"]) {
     max-inline-size: 87cqi;
   }
+  :where([frame\:width="88"]) {
+    max-inline-size: 88rem;
+  }
   :where([frame\:max-width="88"]) {
     max-inline-size: 88rem;
+  }
+  :where([frame\:width="88cqi"]) {
+    max-inline-size: 88cqi;
   }
   :where([frame\:max-width="88cqi"]) {
     max-inline-size: 88cqi;
   }
+  :where([frame\:width="89"]) {
+    max-inline-size: 89rem;
+  }
   :where([frame\:max-width="89"]) {
     max-inline-size: 89rem;
+  }
+  :where([frame\:width="89cqi"]) {
+    max-inline-size: 89cqi;
   }
   :where([frame\:max-width="89cqi"]) {
     max-inline-size: 89cqi;
   }
+  :where([frame\:width="90"]) {
+    max-inline-size: 90rem;
+  }
   :where([frame\:max-width="90"]) {
     max-inline-size: 90rem;
+  }
+  :where([frame\:width="90cqi"]) {
+    max-inline-size: 90cqi;
   }
   :where([frame\:max-width="90cqi"]) {
     max-inline-size: 90cqi;
   }
+  :where([frame\:width="91"]) {
+    max-inline-size: 91rem;
+  }
   :where([frame\:max-width="91"]) {
     max-inline-size: 91rem;
+  }
+  :where([frame\:width="91cqi"]) {
+    max-inline-size: 91cqi;
   }
   :where([frame\:max-width="91cqi"]) {
     max-inline-size: 91cqi;
   }
+  :where([frame\:width="92"]) {
+    max-inline-size: 92rem;
+  }
   :where([frame\:max-width="92"]) {
     max-inline-size: 92rem;
+  }
+  :where([frame\:width="92cqi"]) {
+    max-inline-size: 92cqi;
   }
   :where([frame\:max-width="92cqi"]) {
     max-inline-size: 92cqi;
   }
+  :where([frame\:width="93"]) {
+    max-inline-size: 93rem;
+  }
   :where([frame\:max-width="93"]) {
     max-inline-size: 93rem;
+  }
+  :where([frame\:width="93cqi"]) {
+    max-inline-size: 93cqi;
   }
   :where([frame\:max-width="93cqi"]) {
     max-inline-size: 93cqi;
   }
+  :where([frame\:width="94"]) {
+    max-inline-size: 94rem;
+  }
   :where([frame\:max-width="94"]) {
     max-inline-size: 94rem;
+  }
+  :where([frame\:width="94cqi"]) {
+    max-inline-size: 94cqi;
   }
   :where([frame\:max-width="94cqi"]) {
     max-inline-size: 94cqi;
   }
+  :where([frame\:width="95"]) {
+    max-inline-size: 95rem;
+  }
   :where([frame\:max-width="95"]) {
     max-inline-size: 95rem;
+  }
+  :where([frame\:width="95cqi"]) {
+    max-inline-size: 95cqi;
   }
   :where([frame\:max-width="95cqi"]) {
     max-inline-size: 95cqi;
   }
+  :where([frame\:width="96"]) {
+    max-inline-size: 96rem;
+  }
   :where([frame\:max-width="96"]) {
     max-inline-size: 96rem;
+  }
+  :where([frame\:width="96cqi"]) {
+    max-inline-size: 96cqi;
   }
   :where([frame\:max-width="96cqi"]) {
     max-inline-size: 96cqi;
   }
+  :where([frame\:width="97"]) {
+    max-inline-size: 97rem;
+  }
   :where([frame\:max-width="97"]) {
     max-inline-size: 97rem;
+  }
+  :where([frame\:width="97cqi"]) {
+    max-inline-size: 97cqi;
   }
   :where([frame\:max-width="97cqi"]) {
     max-inline-size: 97cqi;
   }
+  :where([frame\:width="98"]) {
+    max-inline-size: 98rem;
+  }
   :where([frame\:max-width="98"]) {
     max-inline-size: 98rem;
+  }
+  :where([frame\:width="98cqi"]) {
+    max-inline-size: 98cqi;
   }
   :where([frame\:max-width="98cqi"]) {
     max-inline-size: 98cqi;
   }
+  :where([frame\:width="99"]) {
+    max-inline-size: 99rem;
+  }
   :where([frame\:max-width="99"]) {
     max-inline-size: 99rem;
+  }
+  :where([frame\:width="99cqi"]) {
+    max-inline-size: 99cqi;
   }
   :where([frame\:max-width="99cqi"]) {
     max-inline-size: 99cqi;
   }
+  :where([frame\:width="100"]) {
+    max-inline-size: 100rem;
+  }
   :where([frame\:max-width="100"]) {
     max-inline-size: 100rem;
+  }
+  :where([frame\:width="100cqi"]) {
+    max-inline-size: 100cqi;
   }
   :where([frame\:max-width="100cqi"]) {
     max-inline-size: 100cqi;
@@ -6796,6 +7402,618 @@
     }
   }
 }
+@layer sw-components {
+  :where(v-stack[readable]) {
+    inline-size: 100%;
+    justify-self: center;
+  }
+  :where(v-stack[readable="0"]) {
+    max-inline-size: 0rem;
+  }
+  :where(v-stack[readable="0cqi"]) {
+    max-inline-size: 0cqi;
+  }
+  :where(v-stack[readable="1"]) {
+    max-inline-size: 1rem;
+  }
+  :where(v-stack[readable="1cqi"]) {
+    max-inline-size: 1cqi;
+  }
+  :where(v-stack[readable="2"]) {
+    max-inline-size: 2rem;
+  }
+  :where(v-stack[readable="2cqi"]) {
+    max-inline-size: 2cqi;
+  }
+  :where(v-stack[readable="3"]) {
+    max-inline-size: 3rem;
+  }
+  :where(v-stack[readable="3cqi"]) {
+    max-inline-size: 3cqi;
+  }
+  :where(v-stack[readable="4"]) {
+    max-inline-size: 4rem;
+  }
+  :where(v-stack[readable="4cqi"]) {
+    max-inline-size: 4cqi;
+  }
+  :where(v-stack[readable="5"]) {
+    max-inline-size: 5rem;
+  }
+  :where(v-stack[readable="5cqi"]) {
+    max-inline-size: 5cqi;
+  }
+  :where(v-stack[readable="6"]) {
+    max-inline-size: 6rem;
+  }
+  :where(v-stack[readable="6cqi"]) {
+    max-inline-size: 6cqi;
+  }
+  :where(v-stack[readable="7"]) {
+    max-inline-size: 7rem;
+  }
+  :where(v-stack[readable="7cqi"]) {
+    max-inline-size: 7cqi;
+  }
+  :where(v-stack[readable="8"]) {
+    max-inline-size: 8rem;
+  }
+  :where(v-stack[readable="8cqi"]) {
+    max-inline-size: 8cqi;
+  }
+  :where(v-stack[readable="9"]) {
+    max-inline-size: 9rem;
+  }
+  :where(v-stack[readable="9cqi"]) {
+    max-inline-size: 9cqi;
+  }
+  :where(v-stack[readable="10"]) {
+    max-inline-size: 10rem;
+  }
+  :where(v-stack[readable="10cqi"]) {
+    max-inline-size: 10cqi;
+  }
+  :where(v-stack[readable="11"]) {
+    max-inline-size: 11rem;
+  }
+  :where(v-stack[readable="11cqi"]) {
+    max-inline-size: 11cqi;
+  }
+  :where(v-stack[readable="12"]) {
+    max-inline-size: 12rem;
+  }
+  :where(v-stack[readable="12cqi"]) {
+    max-inline-size: 12cqi;
+  }
+  :where(v-stack[readable="13"]) {
+    max-inline-size: 13rem;
+  }
+  :where(v-stack[readable="13cqi"]) {
+    max-inline-size: 13cqi;
+  }
+  :where(v-stack[readable="14"]) {
+    max-inline-size: 14rem;
+  }
+  :where(v-stack[readable="14cqi"]) {
+    max-inline-size: 14cqi;
+  }
+  :where(v-stack[readable="15"]) {
+    max-inline-size: 15rem;
+  }
+  :where(v-stack[readable="15cqi"]) {
+    max-inline-size: 15cqi;
+  }
+  :where(v-stack[readable="16"]) {
+    max-inline-size: 16rem;
+  }
+  :where(v-stack[readable="16cqi"]) {
+    max-inline-size: 16cqi;
+  }
+  :where(v-stack[readable="17"]) {
+    max-inline-size: 17rem;
+  }
+  :where(v-stack[readable="17cqi"]) {
+    max-inline-size: 17cqi;
+  }
+  :where(v-stack[readable="18"]) {
+    max-inline-size: 18rem;
+  }
+  :where(v-stack[readable="18cqi"]) {
+    max-inline-size: 18cqi;
+  }
+  :where(v-stack[readable="19"]) {
+    max-inline-size: 19rem;
+  }
+  :where(v-stack[readable="19cqi"]) {
+    max-inline-size: 19cqi;
+  }
+  :where(v-stack[readable="20"]) {
+    max-inline-size: 20rem;
+  }
+  :where(v-stack[readable="20cqi"]) {
+    max-inline-size: 20cqi;
+  }
+  :where(v-stack[readable="21"]) {
+    max-inline-size: 21rem;
+  }
+  :where(v-stack[readable="21cqi"]) {
+    max-inline-size: 21cqi;
+  }
+  :where(v-stack[readable="22"]) {
+    max-inline-size: 22rem;
+  }
+  :where(v-stack[readable="22cqi"]) {
+    max-inline-size: 22cqi;
+  }
+  :where(v-stack[readable="23"]) {
+    max-inline-size: 23rem;
+  }
+  :where(v-stack[readable="23cqi"]) {
+    max-inline-size: 23cqi;
+  }
+  :where(v-stack[readable="24"]) {
+    max-inline-size: 24rem;
+  }
+  :where(v-stack[readable="24cqi"]) {
+    max-inline-size: 24cqi;
+  }
+  :where(v-stack[readable="25"]) {
+    max-inline-size: 25rem;
+  }
+  :where(v-stack[readable="25cqi"]) {
+    max-inline-size: 25cqi;
+  }
+  :where(v-stack[readable="26"]) {
+    max-inline-size: 26rem;
+  }
+  :where(v-stack[readable="26cqi"]) {
+    max-inline-size: 26cqi;
+  }
+  :where(v-stack[readable="27"]) {
+    max-inline-size: 27rem;
+  }
+  :where(v-stack[readable="27cqi"]) {
+    max-inline-size: 27cqi;
+  }
+  :where(v-stack[readable="28"]) {
+    max-inline-size: 28rem;
+  }
+  :where(v-stack[readable="28cqi"]) {
+    max-inline-size: 28cqi;
+  }
+  :where(v-stack[readable="29"]) {
+    max-inline-size: 29rem;
+  }
+  :where(v-stack[readable="29cqi"]) {
+    max-inline-size: 29cqi;
+  }
+  :where(v-stack[readable="30"]) {
+    max-inline-size: 30rem;
+  }
+  :where(v-stack[readable="30cqi"]) {
+    max-inline-size: 30cqi;
+  }
+  :where(v-stack[readable="31"]) {
+    max-inline-size: 31rem;
+  }
+  :where(v-stack[readable="31cqi"]) {
+    max-inline-size: 31cqi;
+  }
+  :where(v-stack[readable="32"]) {
+    max-inline-size: 32rem;
+  }
+  :where(v-stack[readable="32cqi"]) {
+    max-inline-size: 32cqi;
+  }
+  :where(v-stack[readable="33"]) {
+    max-inline-size: 33rem;
+  }
+  :where(v-stack[readable="33cqi"]) {
+    max-inline-size: 33cqi;
+  }
+  :where(v-stack[readable="34"]) {
+    max-inline-size: 34rem;
+  }
+  :where(v-stack[readable="34cqi"]) {
+    max-inline-size: 34cqi;
+  }
+  :where(v-stack[readable="35"]) {
+    max-inline-size: 35rem;
+  }
+  :where(v-stack[readable="35cqi"]) {
+    max-inline-size: 35cqi;
+  }
+  :where(v-stack[readable="36"]) {
+    max-inline-size: 36rem;
+  }
+  :where(v-stack[readable="36cqi"]) {
+    max-inline-size: 36cqi;
+  }
+  :where(v-stack[readable="37"]) {
+    max-inline-size: 37rem;
+  }
+  :where(v-stack[readable="37cqi"]) {
+    max-inline-size: 37cqi;
+  }
+  :where(v-stack[readable="38"]) {
+    max-inline-size: 38rem;
+  }
+  :where(v-stack[readable="38cqi"]) {
+    max-inline-size: 38cqi;
+  }
+  :where(v-stack[readable="39"]) {
+    max-inline-size: 39rem;
+  }
+  :where(v-stack[readable="39cqi"]) {
+    max-inline-size: 39cqi;
+  }
+  :where(v-stack[readable="40"]) {
+    max-inline-size: 40rem;
+  }
+  :where(v-stack[readable="40cqi"]) {
+    max-inline-size: 40cqi;
+  }
+  :where(v-stack[readable="41"]) {
+    max-inline-size: 41rem;
+  }
+  :where(v-stack[readable="41cqi"]) {
+    max-inline-size: 41cqi;
+  }
+  :where(v-stack[readable="42"]) {
+    max-inline-size: 42rem;
+  }
+  :where(v-stack[readable="42cqi"]) {
+    max-inline-size: 42cqi;
+  }
+  :where(v-stack[readable="43"]) {
+    max-inline-size: 43rem;
+  }
+  :where(v-stack[readable="43cqi"]) {
+    max-inline-size: 43cqi;
+  }
+  :where(v-stack[readable="44"]) {
+    max-inline-size: 44rem;
+  }
+  :where(v-stack[readable="44cqi"]) {
+    max-inline-size: 44cqi;
+  }
+  :where(v-stack[readable="45"]) {
+    max-inline-size: 45rem;
+  }
+  :where(v-stack[readable="45cqi"]) {
+    max-inline-size: 45cqi;
+  }
+  :where(v-stack[readable="46"]) {
+    max-inline-size: 46rem;
+  }
+  :where(v-stack[readable="46cqi"]) {
+    max-inline-size: 46cqi;
+  }
+  :where(v-stack[readable="47"]) {
+    max-inline-size: 47rem;
+  }
+  :where(v-stack[readable="47cqi"]) {
+    max-inline-size: 47cqi;
+  }
+  :where(v-stack[readable="48"]) {
+    max-inline-size: 48rem;
+  }
+  :where(v-stack[readable="48cqi"]) {
+    max-inline-size: 48cqi;
+  }
+  :where(v-stack[readable="49"]) {
+    max-inline-size: 49rem;
+  }
+  :where(v-stack[readable="49cqi"]) {
+    max-inline-size: 49cqi;
+  }
+  :where(v-stack[readable="50"]) {
+    max-inline-size: 50rem;
+  }
+  :where(v-stack[readable="50cqi"]) {
+    max-inline-size: 50cqi;
+  }
+  :where(v-stack[readable="51"]) {
+    max-inline-size: 51rem;
+  }
+  :where(v-stack[readable="51cqi"]) {
+    max-inline-size: 51cqi;
+  }
+  :where(v-stack[readable="52"]) {
+    max-inline-size: 52rem;
+  }
+  :where(v-stack[readable="52cqi"]) {
+    max-inline-size: 52cqi;
+  }
+  :where(v-stack[readable="53"]) {
+    max-inline-size: 53rem;
+  }
+  :where(v-stack[readable="53cqi"]) {
+    max-inline-size: 53cqi;
+  }
+  :where(v-stack[readable="54"]) {
+    max-inline-size: 54rem;
+  }
+  :where(v-stack[readable="54cqi"]) {
+    max-inline-size: 54cqi;
+  }
+  :where(v-stack[readable="55"]) {
+    max-inline-size: 55rem;
+  }
+  :where(v-stack[readable="55cqi"]) {
+    max-inline-size: 55cqi;
+  }
+  :where(v-stack[readable="56"]) {
+    max-inline-size: 56rem;
+  }
+  :where(v-stack[readable="56cqi"]) {
+    max-inline-size: 56cqi;
+  }
+  :where(v-stack[readable="57"]) {
+    max-inline-size: 57rem;
+  }
+  :where(v-stack[readable="57cqi"]) {
+    max-inline-size: 57cqi;
+  }
+  :where(v-stack[readable="58"]) {
+    max-inline-size: 58rem;
+  }
+  :where(v-stack[readable="58cqi"]) {
+    max-inline-size: 58cqi;
+  }
+  :where(v-stack[readable="59"]) {
+    max-inline-size: 59rem;
+  }
+  :where(v-stack[readable="59cqi"]) {
+    max-inline-size: 59cqi;
+  }
+  :where(v-stack[readable="60"]) {
+    max-inline-size: 60rem;
+  }
+  :where(v-stack[readable="60cqi"]) {
+    max-inline-size: 60cqi;
+  }
+  :where(v-stack[readable="61"]) {
+    max-inline-size: 61rem;
+  }
+  :where(v-stack[readable="61cqi"]) {
+    max-inline-size: 61cqi;
+  }
+  :where(v-stack[readable="62"]) {
+    max-inline-size: 62rem;
+  }
+  :where(v-stack[readable="62cqi"]) {
+    max-inline-size: 62cqi;
+  }
+  :where(v-stack[readable="63"]) {
+    max-inline-size: 63rem;
+  }
+  :where(v-stack[readable="63cqi"]) {
+    max-inline-size: 63cqi;
+  }
+  :where(v-stack[readable="64"]) {
+    max-inline-size: 64rem;
+  }
+  :where(v-stack[readable="64cqi"]) {
+    max-inline-size: 64cqi;
+  }
+  :where(v-stack[readable="65"]) {
+    max-inline-size: 65rem;
+  }
+  :where(v-stack[readable="65cqi"]) {
+    max-inline-size: 65cqi;
+  }
+  :where(v-stack[readable="66"]) {
+    max-inline-size: 66rem;
+  }
+  :where(v-stack[readable="66cqi"]) {
+    max-inline-size: 66cqi;
+  }
+  :where(v-stack[readable="67"]) {
+    max-inline-size: 67rem;
+  }
+  :where(v-stack[readable="67cqi"]) {
+    max-inline-size: 67cqi;
+  }
+  :where(v-stack[readable="68"]) {
+    max-inline-size: 68rem;
+  }
+  :where(v-stack[readable="68cqi"]) {
+    max-inline-size: 68cqi;
+  }
+  :where(v-stack[readable="69"]) {
+    max-inline-size: 69rem;
+  }
+  :where(v-stack[readable="69cqi"]) {
+    max-inline-size: 69cqi;
+  }
+  :where(v-stack[readable="70"]) {
+    max-inline-size: 70rem;
+  }
+  :where(v-stack[readable="70cqi"]) {
+    max-inline-size: 70cqi;
+  }
+  :where(v-stack[readable="71"]) {
+    max-inline-size: 71rem;
+  }
+  :where(v-stack[readable="71cqi"]) {
+    max-inline-size: 71cqi;
+  }
+  :where(v-stack[readable="72"]) {
+    max-inline-size: 72rem;
+  }
+  :where(v-stack[readable="72cqi"]) {
+    max-inline-size: 72cqi;
+  }
+  :where(v-stack[readable="73"]) {
+    max-inline-size: 73rem;
+  }
+  :where(v-stack[readable="73cqi"]) {
+    max-inline-size: 73cqi;
+  }
+  :where(v-stack[readable="74"]) {
+    max-inline-size: 74rem;
+  }
+  :where(v-stack[readable="74cqi"]) {
+    max-inline-size: 74cqi;
+  }
+  :where(v-stack[readable="75"]) {
+    max-inline-size: 75rem;
+  }
+  :where(v-stack[readable="75cqi"]) {
+    max-inline-size: 75cqi;
+  }
+  :where(v-stack[readable="76"]) {
+    max-inline-size: 76rem;
+  }
+  :where(v-stack[readable="76cqi"]) {
+    max-inline-size: 76cqi;
+  }
+  :where(v-stack[readable="77"]) {
+    max-inline-size: 77rem;
+  }
+  :where(v-stack[readable="77cqi"]) {
+    max-inline-size: 77cqi;
+  }
+  :where(v-stack[readable="78"]) {
+    max-inline-size: 78rem;
+  }
+  :where(v-stack[readable="78cqi"]) {
+    max-inline-size: 78cqi;
+  }
+  :where(v-stack[readable="79"]) {
+    max-inline-size: 79rem;
+  }
+  :where(v-stack[readable="79cqi"]) {
+    max-inline-size: 79cqi;
+  }
+  :where(v-stack[readable="80"]) {
+    max-inline-size: 80rem;
+  }
+  :where(v-stack[readable="80cqi"]) {
+    max-inline-size: 80cqi;
+  }
+  :where(v-stack[readable="81"]) {
+    max-inline-size: 81rem;
+  }
+  :where(v-stack[readable="81cqi"]) {
+    max-inline-size: 81cqi;
+  }
+  :where(v-stack[readable="82"]) {
+    max-inline-size: 82rem;
+  }
+  :where(v-stack[readable="82cqi"]) {
+    max-inline-size: 82cqi;
+  }
+  :where(v-stack[readable="83"]) {
+    max-inline-size: 83rem;
+  }
+  :where(v-stack[readable="83cqi"]) {
+    max-inline-size: 83cqi;
+  }
+  :where(v-stack[readable="84"]) {
+    max-inline-size: 84rem;
+  }
+  :where(v-stack[readable="84cqi"]) {
+    max-inline-size: 84cqi;
+  }
+  :where(v-stack[readable="85"]) {
+    max-inline-size: 85rem;
+  }
+  :where(v-stack[readable="85cqi"]) {
+    max-inline-size: 85cqi;
+  }
+  :where(v-stack[readable="86"]) {
+    max-inline-size: 86rem;
+  }
+  :where(v-stack[readable="86cqi"]) {
+    max-inline-size: 86cqi;
+  }
+  :where(v-stack[readable="87"]) {
+    max-inline-size: 87rem;
+  }
+  :where(v-stack[readable="87cqi"]) {
+    max-inline-size: 87cqi;
+  }
+  :where(v-stack[readable="88"]) {
+    max-inline-size: 88rem;
+  }
+  :where(v-stack[readable="88cqi"]) {
+    max-inline-size: 88cqi;
+  }
+  :where(v-stack[readable="89"]) {
+    max-inline-size: 89rem;
+  }
+  :where(v-stack[readable="89cqi"]) {
+    max-inline-size: 89cqi;
+  }
+  :where(v-stack[readable="90"]) {
+    max-inline-size: 90rem;
+  }
+  :where(v-stack[readable="90cqi"]) {
+    max-inline-size: 90cqi;
+  }
+  :where(v-stack[readable="91"]) {
+    max-inline-size: 91rem;
+  }
+  :where(v-stack[readable="91cqi"]) {
+    max-inline-size: 91cqi;
+  }
+  :where(v-stack[readable="92"]) {
+    max-inline-size: 92rem;
+  }
+  :where(v-stack[readable="92cqi"]) {
+    max-inline-size: 92cqi;
+  }
+  :where(v-stack[readable="93"]) {
+    max-inline-size: 93rem;
+  }
+  :where(v-stack[readable="93cqi"]) {
+    max-inline-size: 93cqi;
+  }
+  :where(v-stack[readable="94"]) {
+    max-inline-size: 94rem;
+  }
+  :where(v-stack[readable="94cqi"]) {
+    max-inline-size: 94cqi;
+  }
+  :where(v-stack[readable="95"]) {
+    max-inline-size: 95rem;
+  }
+  :where(v-stack[readable="95cqi"]) {
+    max-inline-size: 95cqi;
+  }
+  :where(v-stack[readable="96"]) {
+    max-inline-size: 96rem;
+  }
+  :where(v-stack[readable="96cqi"]) {
+    max-inline-size: 96cqi;
+  }
+  :where(v-stack[readable="97"]) {
+    max-inline-size: 97rem;
+  }
+  :where(v-stack[readable="97cqi"]) {
+    max-inline-size: 97cqi;
+  }
+  :where(v-stack[readable="98"]) {
+    max-inline-size: 98rem;
+  }
+  :where(v-stack[readable="98cqi"]) {
+    max-inline-size: 98cqi;
+  }
+  :where(v-stack[readable="99"]) {
+    max-inline-size: 99rem;
+  }
+  :where(v-stack[readable="99cqi"]) {
+    max-inline-size: 99cqi;
+  }
+  :where(v-stack[readable="100"]) {
+    max-inline-size: 100rem;
+  }
+  :where(v-stack[readable="100cqi"]) {
+    max-inline-size: 100cqi;
+  }
+}
 @layer sw-utils {
   h-stack[distribution=leading],
   v-flex-stack[distribution=leading] {
@@ -6876,81 +8094,81 @@
     justify-items: stretch  ;
     justify-content: stretch  ;
   }
-  v-stack[distribution=leading],
-  h-flex-stack[distribution=leading] {
+  :where(v-stack[distribution=leading],
+  h-flex-stack[distribution=leading]) {
     align-items: start  ;
     align-content: start  ;
   }
-  v-stack[distribution="leading fill"],
-  h-flex-stack[distribution="leading fill"] {
+  :where(v-stack[distribution="leading fill"],
+  h-flex-stack[distribution="leading fill"]) {
     align-items: start  ;
     align-content: stretch  ;
   }
-  v-stack[distribution=center],
-  h-flex-stack[distribution=center] {
+  :where(v-stack[distribution=center],
+  h-flex-stack[distribution=center]) {
     align-items: center  ;
     align-content: center  ;
   }
-  v-stack[distribution=trailing],
-  h-flex-stack[distribution=trailing] {
+  :where(v-stack[distribution=trailing],
+  h-flex-stack[distribution=trailing]) {
     align-items: end  ;
     align-content: end  ;
   }
-  v-stack[distribution=fill],
-  h-flex-stack[distribution=fill] {
+  :where(v-stack[distribution=fill],
+  h-flex-stack[distribution=fill]) {
     align-items: stretch  ;
     align-content: stretch  ;
   }
-  v-stack[distribution=space-between],
-  h-flex-stack[distribution=space-between] {
+  :where(v-stack[distribution=space-between],
+  h-flex-stack[distribution=space-between]) {
     align-content: space-between  ;
   }
-  v-stack[alignment=leading],
-  h-flex-stack[alignment=leading] {
+  :where(v-stack[alignment=leading],
+  h-flex-stack[alignment=leading]) {
     justify-items: start  ;
     justify-content: start  ;
   }
-  v-stack[alignment="leading fill"],
-  h-flex-stack[alignment="leading fill"] {
+  :where(v-stack[alignment="leading fill"],
+  h-flex-stack[alignment="leading fill"]) {
     justify-items: start  ;
     justify-content: stretch  ;
   }
-  v-stack[alignment=center],
-  h-flex-stack[alignment=center] {
+  :where(v-stack[alignment=center],
+  h-flex-stack[alignment=center]) {
     justify-items: center  ;
     justify-content: center  ;
   }
-  v-stack[alignment=trailing],
-  h-flex-stack[alignment=trailing] {
+  :where(v-stack[alignment=trailing],
+  h-flex-stack[alignment=trailing]) {
     justify-items: end  ;
     justify-content: end  ;
   }
-  v-stack[alignment=fill],
-  h-flex-stack[alignment=fill] {
+  :where(v-stack[alignment=fill],
+  h-flex-stack[alignment=fill]) {
     justify-items: stretch  ;
     justify-content: stretch  ;
   }
-  v-stack[alignment=space-between],
-  h-flex-stack[alignment=space-between] {
+  :where(v-stack[alignment=space-between],
+  h-flex-stack[alignment=space-between]) {
     justify-content: space-between  ;
   }
-  v-stack[placement=fill],
-  h-flex-stack[placement=fill] {
+  :where(v-stack[placement=fill],
+  h-flex-stack[placement=fill]) {
     place-items: stretch  ;
     place-content: stretch  ;
   }
-  v-stack[placement="leading fill"],
-  h-flex-stack[placement="leading fill"] {
+  :where(v-stack[placement="leading fill"],
+  h-flex-stack[placement="leading fill"]) {
     place-items: start stretch  ;
     place-content: start stretch  ;
   }
-  v-stack[placement="fill leading"],
-  h-flex-stack[placement="fill leading"] {
+  :where(v-stack[placement="fill leading"],
+  h-flex-stack[placement="fill leading"]) {
     place-items: stretch start  ;
     place-content: stretch start  ;
   }
-  v-stack[placement="space-between fill"],
-  h-flex-stack[placement="space-between fill"] {
+  :where(v-stack[placement="space-between fill"],
+  h-flex-stack[placement="space-between fill"]) {
     align-content: space-between  ;
     justify-items: stretch  ;
     justify-content: stretch  ;
@@ -7197,6 +8415,12 @@
   h-flex-stack > sticky-container,
   v-flex-stack > sticky-container) {
     padding-inline: 1rem;
+  }
+}
+@layer sw-components {
+  :where(v-stack[readable]) {
+    place-items: start stretch  ;
+    place-content: start stretch  ;
   }
 }
 @layer sw-utils {

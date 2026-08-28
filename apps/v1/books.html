@@ -1,6 +1,9 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
+    <style>
+      @layer base, sw-base, sw-components, sw-list-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-ui, sw-transitions, sw-final, components, utilities, theme;
+    </style>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
@@ -34,7 +37,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="About" data-nav-path="About">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <label-view font="large-title" value="Device" padding></label-view>
             <list-view list-style="inset-grouped">
               <section-view>
@@ -63,7 +66,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="customer1" background-style="grouped" navigation-title="ff">
-          <!-- <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center"> -->
+          <!-- <v-stack readable="40"> -->
           <v-stack placement="leading fill">
             <scroll-view-proxy>
               <!-- <h-stack distribution="leading" padding tint="gray"> -->
@@ -83,7 +86,7 @@
                 <button type="button" is="bordered-prominent-button" data-nav-destination="customertransactions1">Transactions</button>
               </h-stack>
             </scroll-view-proxy>
-            <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <v-stack readable="40">
               <list-view columns="2" list-style="inset-grouped">
                 <labeled-content>
                   <label-view slot="label"><span>Name</span></label-view>
@@ -122,7 +125,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="editcustomer1" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped" id="editcustomerform">
               <section-view>
                 <text-field label="Name" text="Katie Abeles" required max-length="255">
@@ -192,7 +195,7 @@
     <template>
       <dialog is="sheet-view">
         <scroll-view navigation-inline-title="new customer" data-nav-path="createcustomer" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
                 <picker-view label="Foo Bar" picker-style="sheet" searchable>
@@ -292,7 +295,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="customer created" data-nav-path="createcustomerdone" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
                 <labeled-content>
@@ -333,7 +336,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Transactions with Katie Abeles" data-nav-path="customertransactions1" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
               <summary padding>
                 <label-view system-image="smiley"><span>INVOICES</span></label-view>
@@ -455,7 +458,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="invoice1" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <list-view columns="2" list-style="inset-grouped">
               <labeled-content>
                 <label-view slot="label"><span>Invoice#</span></label-view>
@@ -497,7 +500,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="editinvoice1" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped" id="editinvoiceform">
               <section-view>
                 <text-field label="Invoice#" text="0001" required max-length="255">
@@ -1115,7 +1118,7 @@
 
         <navigation-split-view id="settings" background-style="grouped" hidden>
           <scroll-view navigation-inline-title="Settings">
-            <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+            <v-stack readable="40">
               <navigation-large-title padding>
                 <v-stack alignment="fill">
                   <label-view title="Settings" font="large-title"></label-view>

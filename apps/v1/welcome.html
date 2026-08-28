@@ -1,9 +1,13 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
+    <style>
+      @layer base, sw-base, sw-components, sw-list-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-ui, sw-transitions, sw-final, components, utilities, theme;
+    </style>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -12,39 +16,11 @@
     <title>welcome</title>
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
-    <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
-
-      // document.addEventListener('click', async (event) => {
-      //   console.debug(`⚡️ ${event?.type}`)
-      // })
-    </script>
-  </head>
-  <body>
-    <v-keyboard system-font="Inter"></v-keyboard>
-
-    <navigation-stack>
-      <scroll-view background-style="grouped">
-        <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" style="padding-block-start: 4rem">
-          <navigation-large-title padding>
-            <v-stack alignment="fill">
-              <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>
-            </v-stack>
-          </navigation-large-title>
-          <list-view list-style="inset-grouped">
-            <button navigation-link type="button" tabindex="0" data-nav-destination="region">
-              <label-view title="English"></label-view>
-            </button>
-          </list-view>
-        </v-stack>
-      </scroll-view>
-    </navigation-stack>
 
     <template>
       <body-view>
         <scroll-view data-nav-path="region" id="gg" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
             <list-view list-style="inset-grouped">
               <button navigation-link type="button" tabindex="0" data-nav-destination="appearance">
@@ -65,7 +41,7 @@
     <template>
       <body-view>
         <scroll-view data-nav-path="appearance" background-style="grouped">
-          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
+          <v-stack placement="space-between fill" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
               <picker-view picker-style="inline">
@@ -94,7 +70,7 @@
     <template>
       <body-view>
         <scroll-view data-nav-path="data-privacy" background-style="grouped">
-          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
+          <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Data & Privacy"></navigation-title>
               <article>
@@ -152,7 +128,7 @@
     <template>
       <body-view>
         <scroll-view data-nav-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <v-stack alignment="fill" padding>
               <navigation-title value="Age Range"></navigation-title>
               <text-view> Select the age range </text-view>
@@ -238,7 +214,7 @@
     <template>
       <body-view>
         <scroll-view data-nav-path="location" background-style="grouped">
-          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
+          <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
               <article>
@@ -296,7 +272,7 @@
     <template>
       <body-view>
         <scroll-view data-nav-path="analytics" background-style="grouped">
-          <v-stack placement="space-between fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
+          <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
               <article>
@@ -357,11 +333,11 @@
           <v-flex-stack alignment="fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack frame-height="infinity">
               <label-view font="extra-large-title">
-                <span>Welcome to Swift WC</span>
+                <span class="text-center">Welcome to Swift WC</span>
               </label-view>
               <a href="https://swiftwc.github.io/ui/" target="_blank">
                 <label-view font="headline">
-                  <span>Learn more at swiftwc.dev</span>
+                  <span class="text-center">Learn more at swiftwc.dev</span>
                 </label-view>
               </a>
             </v-stack>
@@ -375,5 +351,33 @@
         </scroll-view>
       </body-view>
     </template>
+    <script type="module">
+      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
+      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+
+      // document.addEventListener('click', async (event) => {
+      //   console.debug(`⚡️ ${event?.type}`)
+      // })
+    </script>
+  </head>
+  <body>
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view background-style="grouped">
+        <v-stack readable="40" class="[padding-block-start:4rem]">
+          <navigation-large-title padding>
+            <v-stack alignment="fill">
+              <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>
+            </v-stack>
+          </navigation-large-title>
+          <list-view list-style="inset-grouped">
+            <button navigation-link type="button" tabindex="0" data-nav-destination="region">
+              <label-view title="English"></label-view>
+            </button>
+          </list-view>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
   </body>
 </html>

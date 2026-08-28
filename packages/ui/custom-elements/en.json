@@ -1326,15 +1326,6 @@
               "type": {
                 "text": "\"circular\" | \"linear\""
               }
-            },
-            {
-              "kind": "field",
-              "name": "template",
-              "readonly": true,
-              "description": "",
-              "type": {
-                "text": "DocumentFragment"
-              }
             }
           ],
           "slots": [
@@ -2438,6 +2429,9 @@
             "name": "HTMLElement"
           },
           "attributes": [
+            {
+              "name": "readable"
+            },
             {
               "name": "distribution"
             },

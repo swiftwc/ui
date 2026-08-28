@@ -628,7 +628,7 @@
           "name": "value"
         }
       ],
-      "description": "A view that shows how far along a task is.\n---\n\n```ts\ninterface ProgressViewSignature {\n  Attributes: {\n    label?: string\n    'current-value-label'?: string\n    value?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'current-value': HTMLElement[]\n  }\n}\n\nclass ProgressView extends HTMLElement<ProgressViewSignature> {\n  readonly progressViewStyle: 'circular' | 'linear'\n  readonly template: DocumentFragment\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'progress-view': ProgressView // <progress-view></progress-view>\n  }\n}\n\n```\n"
+      "description": "A view that shows how far along a task is.\n---\n\n```ts\ninterface ProgressViewSignature {\n  Attributes: {\n    label?: string\n    'current-value-label'?: string\n    value?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    'current-value': HTMLElement[]\n  }\n}\n\nclass ProgressView extends HTMLElement<ProgressViewSignature> {\n  readonly progressViewStyle: 'circular' | 'linear'\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'progress-view': ProgressView // <progress-view></progress-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "screen-view",
@@ -974,6 +974,11 @@
       ],
       "attributes": [
         {
+          "name": "readable",
+          "description": "\nDescription: Shortcut for `placement=\"leading fill\" frame:width=\"infinity\" frame:max-width=\"40\" frame:alignment=\"center\"`",
+          "valueSet": "FrameInlineLength"
+        },
+        {
           "name": "distribution",
           "description": "Value Type: “leading” | “leading fill” | “center” | “trailing” | “fill” | “space-between”\n\nDescription: The distribution of cols",
           "values": [
@@ -1023,7 +1028,7 @@
           "valueSet": "blockPlacementSet"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:width=\"infinity\" frame:max-width=\"40\" frame:alignment=\"center\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
     }
   ],
   "globalAttributes": [
@@ -1050,7 +1055,7 @@
     {
       "name": "frame:max-width",
       "description": "Sets max-inline-size",
-      "valueSet": "frameMaxWidth"
+      "valueSet": "FrameInlineLength"
     }
   ],
   "valueSets": [
@@ -1802,7 +1807,7 @@
       ]
     },
     {
-      "name": "frameMaxWidth",
+      "name": "FrameInlineLength",
       "values": [
         {
           "name": "infinity",
@@ -1819,6 +1824,802 @@
         {
           "name": "2",
           "description": "2rem"
+        },
+        {
+          "name": "3",
+          "description": "3rem"
+        },
+        {
+          "name": "4",
+          "description": "4rem"
+        },
+        {
+          "name": "5",
+          "description": "5rem"
+        },
+        {
+          "name": "6",
+          "description": "6rem"
+        },
+        {
+          "name": "7",
+          "description": "7rem"
+        },
+        {
+          "name": "8",
+          "description": "8rem"
+        },
+        {
+          "name": "9",
+          "description": "9rem"
+        },
+        {
+          "name": "10",
+          "description": "10rem"
+        },
+        {
+          "name": "11",
+          "description": "11rem"
+        },
+        {
+          "name": "12",
+          "description": "12rem"
+        },
+        {
+          "name": "13",
+          "description": "13rem"
+        },
+        {
+          "name": "14",
+          "description": "14rem"
+        },
+        {
+          "name": "15",
+          "description": "15rem"
+        },
+        {
+          "name": "16",
+          "description": "16rem"
+        },
+        {
+          "name": "17",
+          "description": "17rem"
+        },
+        {
+          "name": "18",
+          "description": "18rem"
+        },
+        {
+          "name": "19",
+          "description": "19rem"
+        },
+        {
+          "name": "20",
+          "description": "20rem"
+        },
+        {
+          "name": "21",
+          "description": "21rem"
+        },
+        {
+          "name": "22",
+          "description": "22rem"
+        },
+        {
+          "name": "23",
+          "description": "23rem"
+        },
+        {
+          "name": "24",
+          "description": "24rem"
+        },
+        {
+          "name": "25",
+          "description": "25rem"
+        },
+        {
+          "name": "26",
+          "description": "26rem"
+        },
+        {
+          "name": "27",
+          "description": "27rem"
+        },
+        {
+          "name": "28",
+          "description": "28rem"
+        },
+        {
+          "name": "29",
+          "description": "29rem"
+        },
+        {
+          "name": "30",
+          "description": "30rem"
+        },
+        {
+          "name": "31",
+          "description": "31rem"
+        },
+        {
+          "name": "32",
+          "description": "32rem"
+        },
+        {
+          "name": "33",
+          "description": "33rem"
+        },
+        {
+          "name": "34",
+          "description": "34rem"
+        },
+        {
+          "name": "35",
+          "description": "35rem"
+        },
+        {
+          "name": "36",
+          "description": "36rem"
+        },
+        {
+          "name": "37",
+          "description": "37rem"
+        },
+        {
+          "name": "38",
+          "description": "38rem"
+        },
+        {
+          "name": "39",
+          "description": "39rem"
+        },
+        {
+          "name": "40",
+          "description": "40rem"
+        },
+        {
+          "name": "41",
+          "description": "41rem"
+        },
+        {
+          "name": "42",
+          "description": "42rem"
+        },
+        {
+          "name": "43",
+          "description": "43rem"
+        },
+        {
+          "name": "44",
+          "description": "44rem"
+        },
+        {
+          "name": "45",
+          "description": "45rem"
+        },
+        {
+          "name": "46",
+          "description": "46rem"
+        },
+        {
+          "name": "47",
+          "description": "47rem"
+        },
+        {
+          "name": "48",
+          "description": "48rem"
+        },
+        {
+          "name": "49",
+          "description": "49rem"
+        },
+        {
+          "name": "50",
+          "description": "50rem"
+        },
+        {
+          "name": "51",
+          "description": "51rem"
+        },
+        {
+          "name": "52",
+          "description": "52rem"
+        },
+        {
+          "name": "53",
+          "description": "53rem"
+        },
+        {
+          "name": "54",
+          "description": "54rem"
+        },
+        {
+          "name": "55",
+          "description": "55rem"
+        },
+        {
+          "name": "56",
+          "description": "56rem"
+        },
+        {
+          "name": "57",
+          "description": "57rem"
+        },
+        {
+          "name": "58",
+          "description": "58rem"
+        },
+        {
+          "name": "59",
+          "description": "59rem"
+        },
+        {
+          "name": "60",
+          "description": "60rem"
+        },
+        {
+          "name": "61",
+          "description": "61rem"
+        },
+        {
+          "name": "62",
+          "description": "62rem"
+        },
+        {
+          "name": "63",
+          "description": "63rem"
+        },
+        {
+          "name": "64",
+          "description": "64rem"
+        },
+        {
+          "name": "65",
+          "description": "65rem"
+        },
+        {
+          "name": "66",
+          "description": "66rem"
+        },
+        {
+          "name": "67",
+          "description": "67rem"
+        },
+        {
+          "name": "68",
+          "description": "68rem"
+        },
+        {
+          "name": "69",
+          "description": "69rem"
+        },
+        {
+          "name": "70",
+          "description": "70rem"
+        },
+        {
+          "name": "71",
+          "description": "71rem"
+        },
+        {
+          "name": "72",
+          "description": "72rem"
+        },
+        {
+          "name": "73",
+          "description": "73rem"
+        },
+        {
+          "name": "74",
+          "description": "74rem"
+        },
+        {
+          "name": "75",
+          "description": "75rem"
+        },
+        {
+          "name": "76",
+          "description": "76rem"
+        },
+        {
+          "name": "77",
+          "description": "77rem"
+        },
+        {
+          "name": "78",
+          "description": "78rem"
+        },
+        {
+          "name": "79",
+          "description": "79rem"
+        },
+        {
+          "name": "80",
+          "description": "80rem"
+        },
+        {
+          "name": "81",
+          "description": "81rem"
+        },
+        {
+          "name": "82",
+          "description": "82rem"
+        },
+        {
+          "name": "83",
+          "description": "83rem"
+        },
+        {
+          "name": "84",
+          "description": "84rem"
+        },
+        {
+          "name": "85",
+          "description": "85rem"
+        },
+        {
+          "name": "86",
+          "description": "86rem"
+        },
+        {
+          "name": "87",
+          "description": "87rem"
+        },
+        {
+          "name": "88",
+          "description": "88rem"
+        },
+        {
+          "name": "89",
+          "description": "89rem"
+        },
+        {
+          "name": "90",
+          "description": "90rem"
+        },
+        {
+          "name": "91",
+          "description": "91rem"
+        },
+        {
+          "name": "92",
+          "description": "92rem"
+        },
+        {
+          "name": "93",
+          "description": "93rem"
+        },
+        {
+          "name": "94",
+          "description": "94rem"
+        },
+        {
+          "name": "95",
+          "description": "95rem"
+        },
+        {
+          "name": "96",
+          "description": "96rem"
+        },
+        {
+          "name": "97",
+          "description": "97rem"
+        },
+        {
+          "name": "98",
+          "description": "98rem"
+        },
+        {
+          "name": "99",
+          "description": "99rem"
+        },
+        {
+          "name": "100",
+          "description": "100rem"
+        },
+        {
+          "name": "0cqi",
+          "description": "0cqi"
+        },
+        {
+          "name": "1cqi",
+          "description": "1cqi"
+        },
+        {
+          "name": "2cqi",
+          "description": "2cqi"
+        },
+        {
+          "name": "3cqi",
+          "description": "3cqi"
+        },
+        {
+          "name": "4cqi",
+          "description": "4cqi"
+        },
+        {
+          "name": "5cqi",
+          "description": "5cqi"
+        },
+        {
+          "name": "6cqi",
+          "description": "6cqi"
+        },
+        {
+          "name": "7cqi",
+          "description": "7cqi"
+        },
+        {
+          "name": "8cqi",
+          "description": "8cqi"
+        },
+        {
+          "name": "9cqi",
+          "description": "9cqi"
+        },
+        {
+          "name": "10cqi",
+          "description": "10cqi"
+        },
+        {
+          "name": "11cqi",
+          "description": "11cqi"
+        },
+        {
+          "name": "12cqi",
+          "description": "12cqi"
+        },
+        {
+          "name": "13cqi",
+          "description": "13cqi"
+        },
+        {
+          "name": "14cqi",
+          "description": "14cqi"
+        },
+        {
+          "name": "15cqi",
+          "description": "15cqi"
+        },
+        {
+          "name": "16cqi",
+          "description": "16cqi"
+        },
+        {
+          "name": "17cqi",
+          "description": "17cqi"
+        },
+        {
+          "name": "18cqi",
+          "description": "18cqi"
+        },
+        {
+          "name": "19cqi",
+          "description": "19cqi"
+        },
+        {
+          "name": "20cqi",
+          "description": "20cqi"
+        },
+        {
+          "name": "21cqi",
+          "description": "21cqi"
+        },
+        {
+          "name": "22cqi",
+          "description": "22cqi"
+        },
+        {
+          "name": "23cqi",
+          "description": "23cqi"
+        },
+        {
+          "name": "24cqi",
+          "description": "24cqi"
+        },
+        {
+          "name": "25cqi",
+          "description": "25cqi"
+        },
+        {
+          "name": "26cqi",
+          "description": "26cqi"
+        },
+        {
+          "name": "27cqi",
+          "description": "27cqi"
+        },
+        {
+          "name": "28cqi",
+          "description": "28cqi"
+        },
+        {
+          "name": "29cqi",
+          "description": "29cqi"
+        },
+        {
+          "name": "30cqi",
+          "description": "30cqi"
+        },
+        {
+          "name": "31cqi",
+          "description": "31cqi"
+        },
+        {
+          "name": "32cqi",
+          "description": "32cqi"
+        },
+        {
+          "name": "33cqi",
+          "description": "33cqi"
+        },
+        {
+          "name": "34cqi",
+          "description": "34cqi"
+        },
+        {
+          "name": "35cqi",
+          "description": "35cqi"
+        },
+        {
+          "name": "36cqi",
+          "description": "36cqi"
+        },
+        {
+          "name": "37cqi",
+          "description": "37cqi"
+        },
+        {
+          "name": "38cqi",
+          "description": "38cqi"
+        },
+        {
+          "name": "39cqi",
+          "description": "39cqi"
+        },
+        {
+          "name": "40cqi",
+          "description": "40cqi"
+        },
+        {
+          "name": "41cqi",
+          "description": "41cqi"
+        },
+        {
+          "name": "42cqi",
+          "description": "42cqi"
+        },
+        {
+          "name": "43cqi",
+          "description": "43cqi"
+        },
+        {
+          "name": "44cqi",
+          "description": "44cqi"
+        },
+        {
+          "name": "45cqi",
+          "description": "45cqi"
+        },
+        {
+          "name": "46cqi",
+          "description": "46cqi"
+        },
+        {
+          "name": "47cqi",
+          "description": "47cqi"
+        },
+        {
+          "name": "48cqi",
+          "description": "48cqi"
+        },
+        {
+          "name": "49cqi",
+          "description": "49cqi"
+        },
+        {
+          "name": "50cqi",
+          "description": "50cqi"
+        },
+        {
+          "name": "51cqi",
+          "description": "51cqi"
+        },
+        {
+          "name": "52cqi",
+          "description": "52cqi"
+        },
+        {
+          "name": "53cqi",
+          "description": "53cqi"
+        },
+        {
+          "name": "54cqi",
+          "description": "54cqi"
+        },
+        {
+          "name": "55cqi",
+          "description": "55cqi"
+        },
+        {
+          "name": "56cqi",
+          "description": "56cqi"
+        },
+        {
+          "name": "57cqi",
+          "description": "57cqi"
+        },
+        {
+          "name": "58cqi",
+          "description": "58cqi"
+        },
+        {
+          "name": "59cqi",
+          "description": "59cqi"
+        },
+        {
+          "name": "60cqi",
+          "description": "60cqi"
+        },
+        {
+          "name": "61cqi",
+          "description": "61cqi"
+        },
+        {
+          "name": "62cqi",
+          "description": "62cqi"
+        },
+        {
+          "name": "63cqi",
+          "description": "63cqi"
+        },
+        {
+          "name": "64cqi",
+          "description": "64cqi"
+        },
+        {
+          "name": "65cqi",
+          "description": "65cqi"
+        },
+        {
+          "name": "66cqi",
+          "description": "66cqi"
+        },
+        {
+          "name": "67cqi",
+          "description": "67cqi"
+        },
+        {
+          "name": "68cqi",
+          "description": "68cqi"
+        },
+        {
+          "name": "69cqi",
+          "description": "69cqi"
+        },
+        {
+          "name": "70cqi",
+          "description": "70cqi"
+        },
+        {
+          "name": "71cqi",
+          "description": "71cqi"
+        },
+        {
+          "name": "72cqi",
+          "description": "72cqi"
+        },
+        {
+          "name": "73cqi",
+          "description": "73cqi"
+        },
+        {
+          "name": "74cqi",
+          "description": "74cqi"
+        },
+        {
+          "name": "75cqi",
+          "description": "75cqi"
+        },
+        {
+          "name": "76cqi",
+          "description": "76cqi"
+        },
+        {
+          "name": "77cqi",
+          "description": "77cqi"
+        },
+        {
+          "name": "78cqi",
+          "description": "78cqi"
+        },
+        {
+          "name": "79cqi",
+          "description": "79cqi"
+        },
+        {
+          "name": "80cqi",
+          "description": "80cqi"
+        },
+        {
+          "name": "81cqi",
+          "description": "81cqi"
+        },
+        {
+          "name": "82cqi",
+          "description": "82cqi"
+        },
+        {
+          "name": "83cqi",
+          "description": "83cqi"
+        },
+        {
+          "name": "84cqi",
+          "description": "84cqi"
+        },
+        {
+          "name": "85cqi",
+          "description": "85cqi"
+        },
+        {
+          "name": "86cqi",
+          "description": "86cqi"
+        },
+        {
+          "name": "87cqi",
+          "description": "87cqi"
+        },
+        {
+          "name": "88cqi",
+          "description": "88cqi"
+        },
+        {
+          "name": "89cqi",
+          "description": "89cqi"
+        },
+        {
+          "name": "90cqi",
+          "description": "90cqi"
+        },
+        {
+          "name": "91cqi",
+          "description": "91cqi"
+        },
+        {
+          "name": "92cqi",
+          "description": "92cqi"
+        },
+        {
+          "name": "93cqi",
+          "description": "93cqi"
+        },
+        {
+          "name": "94cqi",
+          "description": "94cqi"
+        },
+        {
+          "name": "95cqi",
+          "description": "95cqi"
+        },
+        {
+          "name": "96cqi",
+          "description": "96cqi"
+        },
+        {
+          "name": "97cqi",
+          "description": "97cqi"
+        },
+        {
+          "name": "98cqi",
+          "description": "98cqi"
+        },
+        {
+          "name": "99cqi",
+          "description": "99cqi"
+        },
+        {
+          "name": "100cqi",
+          "description": "100cqi"
         }
       ]
     }

@@ -326,12 +326,12 @@ const htmlData: VsHtmlDataV1 = {
     {
       name: 'frame:width',
       description: 'Sets inline-size',
-      valueSet: 'frameWidth',
+      valueSet: 'FrameInlineLength',
     },
     {
       name: 'frame:max-width',
       description: 'Sets max-inline-size',
-      valueSet: 'frameMaxWidth',
+      valueSet: 'FrameInlineLength',
     },
   ],
   valueSets: [
@@ -453,21 +453,11 @@ const htmlData: VsHtmlDataV1 = {
         })) ?? [],
     },
     {
-      name: 'frameWidth',
+      name: 'FrameInlineLength',
       values: [
         { name: 'infinity', description: '100%' },
-        { name: '0', description: '0rem' },
-        { name: '1', description: '1rem' },
-        { name: '2', description: '2rem' },
-      ],
-    },
-    {
-      name: 'frameMaxWidth',
-      values: [
-        { name: 'infinity', description: '100%' },
-        { name: '0', description: '0rem' },
-        { name: '1', description: '1rem' },
-        { name: '2', description: '2rem' },
+        ...Array.from({ length: 101 }, (_, i) => ({ name: String(i), description: `${i}rem` })),
+        ...Array.from({ length: 101 }, (_, i) => ({ name: `${String(i)}cqi`, description: `${i}cqi` })),
       ],
     },
   ],

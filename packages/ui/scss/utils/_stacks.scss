@@ -41,7 +41,7 @@
   h-flex-stack {
     // block dir for items+content
     @each $k, $declarations in maps.$block-map {
-      &[distribution='#{$k}'] {
+      :where(&[distribution='#{$k}']) {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
@@ -50,7 +50,7 @@
 
     // inline dir for items+content
     @each $k, $declarations in maps.$inline-map {
-      &[alignment='#{$k}'] {
+      :where(&[alignment='#{$k}']) {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
@@ -59,7 +59,7 @@
 
     // placement="leading fill" -> shortcut for distribution="leading" alignment="fill"
     @each $k, $declarations in maps.$block-placement-map {
-      &[placement='#{$k}'] {
+      :where(&[placement='#{$k}']) {
         @each $decl in $declarations {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')};
         }
@@ -96,6 +96,17 @@
 
     :where(& > sticky-container) {
       padding-inline: 1rem;
+    }
+  }
+}
+
+@layer #{vars.$components-layer} {
+  // readable 1/2
+  v-stack {
+    :where(&[readable]) {
+      @each $decl in map.get(maps.$block-placement-map, 'leading fill') {
+        #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //->[placement='leading fill']->[distribution='leading'][alignment='fill']
+      }
     }
   }
 }

@@ -20,7 +20,6 @@ interface ProgressViewSignature {
 
 class ProgressView extends HTMLElement<ProgressViewSignature> {
   readonly progressViewStyle: 'circular' | 'linear'
-  readonly template: DocumentFragment
 }
 
 declare global {

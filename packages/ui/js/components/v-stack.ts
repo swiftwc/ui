@@ -3,6 +3,7 @@ import { devFlags } from '../internal/utils'
 /**
  * @summary A view that arranges its children one on top of the other.
  *
+ * @attr {@FrameInlineLength} readable — Shortcut for `placement="leading fill" frame:alignment="center" frame:width="infinity" frame:max-width="{length}"`
  * @attr {leading|"leading fill"|center|trailing|fill|space-between} distribution — The distribution of cols
  *
  * @attr {@Template} template — The main-axis grid template

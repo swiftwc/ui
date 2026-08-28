@@ -1,4 +1,5 @@
 <!doctype html>
+<!-- These attributes are required -->
 <html lang="en" dir="ltr">
   <head>
     <!-- Order matters MUST come first -->
@@ -21,22 +22,20 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Energy" data-nav-path="Energy">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <toggle-view label="Low Power Mode"></toggle-view>
               </section-view>
               <section-view>
-                <toggle-view is-on label="Prevent automatic sleeping when the display is off"></toggle-view>
-                <toggle-view>
+                <toggle-view label="Prevent automatic sleeping when the display is off"></toggle-view>
+                <toggle-view is-on>
                   <label-view slot="label" title="Wake for network access"></label-view>
                   <label-view
                     slot="label"
                     title="White sleeping, your device can receive incoming network traffic, such as messages and other updates."
                   ></label-view>
                 </toggle-view>
-              </section-view>
-              <section-view>
                 <labeled-content labeled-content-style="horizontal">
                   <label-view slot="label" title="Start up when power is connected"></label-view>
                   <label-view slot="label" title="Stay off until the power button is pressed."></label-view>
@@ -62,7 +61,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="General" data-nav-path="General">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <navigation-large-title background-style="grouped" padding>
               <image-view system-name="gear-fine" foreground="blue"></image-view>
               <v-stack spacing="3" alignment="fill">
@@ -140,7 +139,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="About" data-nav-path="About">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <navigation-large-title background-style="grouped" padding>
               <image-view system-name="laptop" foreground="secondary" class="place-self-center"></image-view>
               <v-stack spacing="6">
@@ -177,7 +176,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Accessibility" data-nav-path="Accessibility">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped">
               <section-view>
                 <h-stack template="auto spacer">
@@ -218,7 +217,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="VoiceOver" data-nav-path="VoiceOver">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view
               list-style="inset-grouped"
               class="[--list-row-gap:1rem] [--list--media-inner-padding-inline-start:2.3rem]"
@@ -258,7 +257,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Zoom" data-nav-path="Zoom">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <toggle-view>
@@ -311,7 +310,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Hover Text" data-nav-path="Hover Text">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <h-stack distribution="fill" template="spacer auto">
@@ -358,7 +357,7 @@
     <template>
       <dialog is="sheet-view">
         <scroll-view data-nav-path="Hover Text Panel" background-style="grouped">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Text Settings">
                 <labeled-content label="Activation modifier" labeled-content-style="horizontal">
@@ -392,7 +391,7 @@
     <template>
       <dialog is="sheet-view">
         <scroll-view data-nav-path="Hover Color Panel" background-style="grouped">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Color Settings">
                 <labeled-content label="Activation modifier" labeled-content-style="horizontal">
@@ -425,7 +424,7 @@
     <template>
       <dialog is="sheet-view">
         <scroll-view data-nav-path="Hover Typing Panel" background-style="grouped">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Typing Settings">
                 <labeled-content label="Text entry location" labeled-content-style="horizontal">
@@ -497,7 +496,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Appearance" data-nav-path="Appearance">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden"> ... </list-view>
           </v-stack>
         </scroll-view>
@@ -513,7 +512,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Keyboard" data-nav-path="Keyboard">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <h-stack distribution="fill">
@@ -589,7 +588,7 @@
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Mouse" data-nav-path="Mouse">
-          <v-stack placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <labeled-content label="Tracking speed" labeled-content-style="horizontal">
@@ -665,7 +664,7 @@
     <template>
       <dialog is="sheet-view">
         <scroll-view data-nav-path="Advanced Mouse Panel" background-style="grouped">
-          <v-stack spacing="0" placement="leading fill" frame:width="infinity" frame:max-width="40" frame:alignment="center">
+          <v-stack spacing="0" readable="40">
             <list-view list-style="inset-grouped" class="[--list-row-gap:1rem]" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <toggle-view is-on>
@@ -733,7 +732,7 @@
     </script>
   </head>
   <body>
-    <!-- style="--canvas: darkgray; --face: darkgray"> -->
+    <!-- This component is required -->
     <v-keyboard system-font="Inter"></v-keyboard>
 
     <navigation-split-view column-visibility="double-column" background-style="grouped">

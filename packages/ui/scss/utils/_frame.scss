@@ -16,8 +16,14 @@ $self-map: (
     max-inline-size: 100%;
   }
   @for $i from 0 through 100 {
+    :where([frame\:width='#{$i}']) {
+      max-inline-size: #{$i}rem;
+    }
     :where([frame\:max-width='#{$i}']) {
       max-inline-size: #{$i}rem;
+    }
+    :where([frame\:width='#{$i}cqi']) {
+      max-inline-size: #{$i}cqi;
     }
     :where([frame\:max-width='#{$i}cqi']) {
       max-inline-size: #{$i}cqi;
@@ -52,53 +58,6 @@ $self-map: (
     }
   }
 
-  // :where([frame\:alignment='top']) {
-  //   align-self: start;
-  // }
-  // :where([frame\:alignment='leading']) {
-  //   justify-self: start;
-  // }
-
-  // :where([frame-width='infinity']) {
-  //   place-items: stretch; //justify-self: stretch;
-  // }
-  // :where([frame-alignment='leading']) {
-  //   align-self: start;
-  // }
-  // :where([frame-alignment='center']) {
-  //   align-self: center;
-  // }
-  // :where([frame-alignment='trailing']) {
-  //   align-self: end;
-  // }
-  // :where([alignment='start']) {
-  //   place-items: start;
-  // }
-  // :where([alignment='fill']) {
-  //   place-items: stretch;
-  // }
-  // :where([content='start']) {
-  //   place-content: start;
-  // }
-  // :where([justify-content='start']) {
-  //   justify-content: start;
-  // }
-  // :where([justify-content='start']) {
-  //   justify-content: start;
-  // }
-  // :where([spacer='top']) {
-  //   margin-top: auto;
-  // }
-  // :where([distribution='start']) {
-  //   place-content: start;
-  // }
-  // :where([distribution='space-between']) {
-  //   place-content: space-between;
-  // }
-  // :where(spacer) {
-  //   margin: auto;
-  // }
-
   @media (prefers-reduced-motion: no-preference) {
     :where([slow]) {
       visibility: visible;
@@ -120,6 +79,24 @@ $self-map: (
 
       @starting-style {
         opacity: 0;
+      }
+    }
+  }
+}
+
+@layer #{vars.$components-layer} {
+  // readable 2/2
+  v-stack {
+    :where(&[readable]) {
+      inline-size: 100%; //->[frame\:width='infinity']
+      justify-self: center; //->[frame\:alignment='center'];
+    }
+    @for $i from 0 through 100 {
+      :where(&[readable='#{$i}']) {
+        max-inline-size: #{$i}rem; //->[frame:max-width='{length}'`]
+      }
+      :where(&[readable='#{$i}cqi']) {
+        max-inline-size: #{$i}cqi; //->[frame:max-width='{length}'`]
       }
     }
   }

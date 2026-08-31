@@ -4,7 +4,7 @@
 @layer #{vars.$final-layer} {
   toggle-view {
     :where(&[touch-glass]) {
-      --toggle--dot-scale: 1.12;
+      --toggle--dot-scale: 1.22;
       --toggle--dot-press-duration: 100ms;
     }
   }

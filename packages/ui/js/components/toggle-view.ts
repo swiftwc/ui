@@ -368,8 +368,8 @@ export class ToggleView extends FormAssociatedBase {
     if (!this.#track || nextIsOn === this.isOn) return
 
     // capture current visual position under the OLD base, before flipping state
-    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
-    const oldAbsoluteX = this.#baseX + deltaX
+    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0,
+      oldAbsoluteX = this.#baseX + deltaX
 
     this.isOn = nextIsOn // changes --toggle--dot-inset-inline-start/-end via aria-checked
 

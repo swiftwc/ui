@@ -17,7 +17,6 @@
       --toggle--dot-inset-inline-start: 0;
       --toggle--dot-inset-inline-end: 100%;
 
-      // --toggle--dot-x: calc(var(--toggle--dot-size) / 2);
       --toggle--dot-x: 0px;
       --toggle--dot-transition-duration: 200ms;
       --toggle--dot-scale: scale(1);
@@ -69,23 +68,13 @@
         border-radius: var(--pill-border-radius);
         inline-size: 4rem;
         block-size: var(--toggle--dot-size);
-        background: var(--toggle--track-bg);
+        // background: var(--toggle--track-bg);
 
         filter: var(--toogle--track-brightness,);
 
         transition: background-color var(--toggle--dot-transition-duration) ease-out;
 
         touch-action: none; // prevent scrolling while dragging
-
-        // appearance: none;
-
-        // border: 0;
-
-        // outline: 0;
-
-        // padding: 0;
-
-        // background-color: transparent;
 
         &:focus {
           // outline: blue solid 5px;
@@ -104,19 +93,16 @@
           inline-size: var(--toggle--dot-size);
           block-size: var(--toggle--dot-size);
           border-radius: var(--pill-border-radius);
-          // background: yellow;
 
           backdrop-filter: var(--liquid-glass-backdrop-filter);
 
           box-shadow: var(--liquid-glass-box-shadow);
 
-          // inset-inline-start: var(--toggle--dot-x, calc(var(--toggle--dot-size) / 2));
-
           transition:
             inset-inline-start var(--toggle--dot-transition-duration) ease-out,
             inset-inline-end var(--toggle--dot-transition-duration) ease-out,
             transform var(--toggle--dot-transition-duration) ease-out,
-            scale var(--toggle--dot-press-duration, 200ms) ease-out;
+            scale var(--toggle--dot-press-duration) ease-out;
 
           transform: translateX(var(--toggle--dot-x));
           scale: var(--toggle--dot-scale,);
@@ -138,8 +124,6 @@
 
         --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
         --toggle--dot-inset-inline-end: 0;
-        // --toggle--dot-translate: translateX(calc(100cqi - var(--toggle--dot-size)));
-        // --toggle--dot-x: calc(100% - var(--toggle--dot-size) / 2);
       }
     }
 

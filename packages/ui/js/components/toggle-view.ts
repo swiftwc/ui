@@ -28,7 +28,6 @@ export class ToggleView extends FormAssociatedBase {
        * @type {boolean}
        */
       'is-on',
-      'keyboard-type',
       /**
        * @type {boolean}
        */
@@ -49,8 +48,7 @@ export class ToggleView extends FormAssociatedBase {
           <slot name="label"></slot>
         </div>
         <div part="root toggle-input-stack">
-          <!--<input type="checkbox" part="root input toggle-form-input">-->
-          <div part="root toggle-form-input" tabindex="0"></div>
+          <div part="root toggle-track" tabindex="0"></div>
         </div>
         <slot name="validity-options" hidden></slot>
       </label>`
@@ -70,11 +68,31 @@ export class ToggleView extends FormAssociatedBase {
   #slots?: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
 
-  #input?: HTMLInputElement
+  #track?: HTMLElement
 
   #value: string | null = 'on'
   #isOn: boolean = false
   #connected: boolean = false
+
+  #didDrag: boolean = false
+  #trackWidth: number = 0
+  #dotSize: number = 0
+  get #trackMinX(): number {
+    return this.#dotSize / 2
+  }
+  get #trackMaxX(): number {
+    return this.#trackWidth - this.#dotSize / 2
+  }
+  #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ measure`)
+
+    if (!(target instanceof HTMLElement)) return
+
+    this.#trackWidth = borderBoxSize.at(0)?.inlineSize ?? 0
+
+    this.#dotSize = borderBoxSize.at(0)?.blockSize ?? 0
+  }
+  #resizeObserver = new ResizeObserver(this.#handleMeasure)
 
   get #internals(): ElementInternals {
     return getInternals(this)
@@ -95,19 +113,27 @@ export class ToggleView extends FormAssociatedBase {
     CleanupRegistry.unregister(this, 'validities')
     CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
 
-    this.#input = this.#shadowRoot.querySelector('[part*=toggle-form-input]') ?? undefined
-
-    this.#input?.addEventListener('click', () => {
-      this.isOn = !this.isOn
-
-      this.#sendValueToForm(this.#connected)
-    })
+    this.#track = this.#shadowRoot.querySelector('[part*=toggle-track]') ?? undefined
 
     CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
 
-    CleanupRegistry.register(this, onoff([{ types: 'keydown', listener: this.#handleInputKeydown as EventListener }], this.#input).on())
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'keydown', listener: this.#handleTrackKeydown as EventListener },
+          { types: 'click', listener: this.#handleTrackClick as EventListener },
+          { types: 'pointerdown', listener: this.#handleTrackPointerdown as EventListener },
+          { types: 'pointerup', listener: this.#handleTrackPointerup as EventListener },
+          { types: 'pointercancel', listener: this.#handleTrackPointercancel as EventListener },
+          { types: 'pointermove', listener: this.#handleTrackPointermove as EventListener },
+          { types: 'lostpointercapture', listener: this.#handleTrackPointercancel as EventListener },
+        ],
+        this.#track
+      ).on()
+    )
 
-    // CleanupRegistry.register(this, onoff([{ types: 'input', listener: this.#handleInputInput }], this.#input).on())
+    CleanupRegistry.register(this, onoff([{ types: 'blur', listener: this.#handleWindowBlur }], self).on())
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -150,6 +176,8 @@ export class ToggleView extends FormAssociatedBase {
   disconnectedCallback() {
     super.disconnectedCallback()
 
+    if (this.#track) this.#resizeObserver.unobserve(this.#track)
+
     this.#validityObservers.unobserveAll()
   }
 
@@ -164,6 +192,8 @@ export class ToggleView extends FormAssociatedBase {
     this.#sendValueToForm(false)
 
     this.#connected = true
+
+    if (this.#track) this.#resizeObserver.observe(this.#track)
   }
 
   get toggleStyle(): ToggleStyle {
@@ -197,7 +227,113 @@ export class ToggleView extends FormAssociatedBase {
   #handleFocusin = ({ type, target }: Event) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
-    if (target === this) this.#input?.focus()
+    if (target === this) this.#track?.focus()
+  }
+
+  #handleTrackClick = ({ type }: Event) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+
+    if (this.#didDrag) {
+      this.#didDrag = false
+      return
+    }
+
+    this.isOn = !this.isOn
+
+    this.#sendValueToForm(this.#connected)
+  }
+
+  #handleTrackPointerdown = ({ type, pointerId, clientX, clientY }: PointerEvent) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+
+    if (!this.#track) return
+
+    const { left, top, height } = this.#track.getBoundingClientRect()
+
+    const dotCenterX = left + parseFloat(self.getComputedStyle(this.#track, '::before').left), // already the center, don't add width/2 again
+      dotCenterY = top + height / 2
+
+    const isOverDot = Math.hypot(clientX - dotCenterX, clientY - dotCenterY) <= this.#dotSize / 2
+
+    if (!isOverDot) return // ignore taps elsewhere on the track
+
+    this.#didDrag = false
+
+    this.#track.style.setProperty('--toggle--dot-transition-duration', '0ms')
+
+    this.#track.setPointerCapture(pointerId)
+
+    this.#updateFromEvent(clientX)
+  }
+
+  #handleTrackPointermove = ({ type, clientX }: PointerEvent) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+
+    if ('0ms' !== this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return
+
+    this.#didDrag = true
+
+    this.#updateFromEvent(clientX)
+  }
+
+  #handleTrackPointerup = ({ type, pointerId }: PointerEvent) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+
+    if ('' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return // pointerdown never engaged (missed the dot) — plain click, nothing to settle
+
+    this.#track?.style.removeProperty('--toggle--dot-transition-duration')
+
+    this.#track?.releasePointerCapture(pointerId)
+
+    this.#settle()
+  }
+
+  #handleTrackPointercancel = ({ type }: PointerEvent) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+
+    if ('' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return // already settled via pointerup, or nothing to settle
+
+    this.#track?.style.removeProperty('--toggle--dot-transition-duration')
+
+    this.#settle()
+  }
+
+  #handleWindowBlur = () => {
+    if ('0ms' !== this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return
+
+    this.#track?.style.removeProperty('--toggle--dot-transition-duration')
+
+    this.#settle()
+  }
+
+  #updateFromEvent = (clientX: number) => {
+    if (!this.#track) return
+
+    const { left } = this.#track.getBoundingClientRect()
+
+    this.#track.style.setProperty('--toggle--dot-x', `${Math.min(Math.max(clientX - left, this.#trackMinX), this.#trackMaxX)}px`)
+  }
+
+  #settle = () => {
+    if (!this.#track) return
+
+    const nextIsOn = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) > this.#trackMaxX / 2
+
+    this.#track?.style.removeProperty('--toggle--dot-x')
+
+    if (nextIsOn === this.isOn) return
+
+    this.isOn = nextIsOn
+
+    this.#sendValueToForm(this.#connected)
+  }
+
+  #handleTrackKeydown = (evt: KeyboardEvent) => {
+    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
+
+    this.isOn = !this.isOn
+
+    this.#sendValueToForm()
   }
 
   #sendValueToForm = (dispatchEvent: boolean = true) => {
@@ -206,9 +342,7 @@ export class ToggleView extends FormAssociatedBase {
 
     if (this.hasAttribute('required') && !this.isOn) {
       this.setValidity({ valueMissing: true })
-    } else {
-      this.setValidity({})
-    }
+    } else this.setValidity({})
 
     const entries = new FormData()
 
@@ -217,20 +351,6 @@ export class ToggleView extends FormAssociatedBase {
     this.#internals.setFormValue(entries)
 
     if (dispatchEvent) this.dispatchEvent(new CustomEvent<ToggleChangeDetail>('toggle:change', { detail: { value: this.value, isOn: this.isOn }, bubbles: true, composed: true }))
-  }
-
-  #handleInputKeydown = (evt: KeyboardEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
-
-    this.isOn = !this.isOn
-
-    this.#sendValueToForm()
-  }
-
-  #handleInputInput = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
-
-    this.#sendValueToForm()
   }
 
   /**
@@ -283,7 +403,7 @@ export class ToggleView extends FormAssociatedBase {
 
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ validity-change`)
 
-    return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#input)
+    return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#track)
   }
   setCustomValidity = (message: string) => {
     this.#customValidity = message

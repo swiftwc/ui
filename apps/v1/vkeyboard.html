@@ -13,6 +13,42 @@
     <title>vkeyboard</title>
     <script type="module">
       document.querySelector('nav[popover]').showPopover()
+
+      document.querySelector('#gg1').addEventListener('input', (evt) => {
+        console.log(11, evt)
+      })
+      document.querySelector('#gg1').addEventListener('change', (evt) => {
+        console.log(11, evt)
+      })
+      document.querySelector('#gg2').addEventListener('toggle:change', (evt) => {
+        console.log(22, evt)
+      })
+      document.querySelector('#gg').addEventListener('submit', (evt) => {
+        evt.preventDefault()
+
+        console.log(999, evt)
+
+        const form = event.currentTarget
+
+        const data = new FormData(form)
+
+        // Iterate
+
+        for (const [name, value] of data) {
+          console.log(name, value)
+        }
+
+        const values = Object.fromEntries(data)
+
+        console.log(values)
+
+        const colors = data.getAll('colors')
+
+        console.log(colors)
+
+        console.log(document.querySelector('#gg1').checked)
+        console.log(document.querySelector('#gg1').value)
+      })
     </script>
   </head>
   <body>
@@ -28,19 +64,19 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          ns1section0<button type="button" class="fw">→</button>
-          <button type="button" class="fww dlg">deep</button>
+          ns1section0<button class="fw" type="button">→</button>
+          <button class="fww dlg" type="button">deep</button>
           <text-view format="date:"></text-view>
           <text-view verbatim="hello world"></text-view>
           <text-view localized-string-key="" verbatim="hello world"></text-view>
           <form id="gg">
-            <input type="checkbox" checked id="gg1" name="newsletter" value="yes" />
+            <input id="gg1" type="checkbox" checked name="newsletter" value="yes" />
             <input type="checkbox" name="colors" value="red" />
             <input type="checkbox" name="colors" value="green" />
             <input type="checkbox" name="colors" value="blue" />
             <button type="submit">send</button>
             <button type="reset">reset</button>
-            <toggle-view label="newsletter2 required" is-on required id="gg2" name="newsletter2" value="yess"></toggle-view>
+            <toggle-view id="gg2" label="newsletter2 required" is-on required name="newsletter2" value="yess"></toggle-view>
             <toggle-view label="newsletter3" name="newsletter3" value="yess"></toggle-view>
             <toggle-view label="here" name="colors2" value="red"></toggle-view>
             <toggle-view label="here" name="colors2" value="green"></toggle-view>
@@ -145,42 +181,5 @@
     <nav popover>
       <a href="/index.html">Back</a>
     </nav>
-    <script>
-      document.querySelector('#gg1').addEventListener('input', (evt) => {
-        console.log(11, evt)
-      })
-      document.querySelector('#gg1').addEventListener('change', (evt) => {
-        console.log(11, evt)
-      })
-      document.querySelector('#gg2').addEventListener('toggle:change', (evt) => {
-        console.log(22, evt)
-      })
-      document.querySelector('#gg').addEventListener('submit', (evt) => {
-        evt.preventDefault()
-
-        console.log(999, evt)
-
-        const form = event.currentTarget
-
-        const data = new FormData(form)
-
-        // Iterate
-
-        for (const [name, value] of data) {
-          console.log(name, value)
-        }
-
-        const values = Object.fromEntries(data)
-
-        console.log(values)
-
-        const colors = data.getAll('colors')
-
-        console.log(colors)
-
-        console.log(document.querySelector('#gg1').checked)
-        console.log(document.querySelector('#gg1').value)
-      })
-    </script>
   </body>
 </html>

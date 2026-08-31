@@ -11,6 +11,11 @@
 
       --toggle--trigger-bg: lightgray;
 
+      --toggle--dot-size: 1rem;
+
+      --toggle--dot-x: calc(var(--toggle--dot-size) / 2);
+      --toggle--dot-transition-duration: 200ms;
+
       &::part(toggle-stack) {
         grid-template-columns: minmax(0, 1fr) auto;
 
@@ -32,11 +37,7 @@
         place-content: stretch;
       }
 
-      &::part(toggle-form-input):focus {
-        outline: blue solid 5px;
-      }
-
-      &::part(toggle-form-input) {
+      &::part(toggle-track) {
         text-align: end;
 
         position: relative;
@@ -48,6 +49,10 @@
         block-size: 1rem;
         background: var(--toggle--trigger-bg);
 
+        transition: background-color var(--toggle--dot-transition-duration) ease-out;
+
+        touch-action: none; /* prevent scrolling while dragging */
+
         // appearance: none;
 
         // border: 0;
@@ -57,23 +62,33 @@
         // padding: 0;
 
         // background-color: transparent;
-      }
 
-      &::part(toggle-form-input)::before {
-        content: '';
+        &:focus {
+          outline: blue solid 5px;
+        }
 
-        display: grid;
+        &::before {
+          content: '';
 
-        position: absolute;
-        inset: 0 auto auto 0;
-        inline-size: 1rem;
-        block-size: 1rem;
-        border-radius: 1rem;
-        // background: yellow;
+          display: grid;
 
-        backdrop-filter: var(--liquid-glass-backdrop-filter);
+          position: absolute;
+          inset: 0 auto auto 0;
+          inline-size: 1rem;
+          block-size: 1rem;
+          border-radius: 1rem;
+          // background: yellow;
 
-        box-shadow: var(--liquid-glass-box-shadow);
+          backdrop-filter: var(--liquid-glass-backdrop-filter);
+
+          box-shadow: var(--liquid-glass-box-shadow);
+
+          inset-inline-start: var(--toggle--dot-x, calc(var(--toggle--dot-size) / 2));
+
+          transition: inset-inline var(--toggle--dot-transition-duration) ease-out;
+
+          transform: translate(-50%, 0);
+        }
       }
     }
 
@@ -86,6 +101,8 @@
     &[aria-checked='true'] {
       :where(&) {
         --toggle--trigger-bg: green;
+
+        --toggle--dot-x: calc(100% - var(--toggle--dot-size) / 2);
       }
     }
 

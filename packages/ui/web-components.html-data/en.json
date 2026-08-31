@@ -883,9 +883,6 @@
           "description": "Value Type: boolean"
         },
         {
-          "name": "keyboard-type"
-        },
-        {
           "name": "required",
           "description": "Value Type: boolean"
         },
@@ -900,7 +897,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "A control that switches between on and off states.\n---\n\n```ts\ninterface ToggleViewSignature {\n  Attributes: {\n    label?: string\n    name?: string\n    value?: string\n    'is-on'?: boolean\n    'keyboard-type'?: string\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass ToggleView extends HTMLElement<ToggleViewSignature> {\n  static formAssociated = true\n\n  readonly toggleStyle: 'button' | 'switch'\n  isOn: boolean\n  readonly name: string // Form participation property\n  value: string | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'toggle:change': CustomEvent // User toggled the control\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'toggle-view': ToggleView // <toggle-view></toggle-view>\n  }\n}\n\n```\n"
+      "description": "A control that switches between on and off states.\n---\n\n```ts\ninterface ToggleViewSignature {\n  Attributes: {\n    label?: string\n    name?: string\n    value?: string\n    'is-on'?: boolean\n    required?: boolean\n    disabled?: boolean\n  }\n\n  Slots: {\n    label: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass ToggleView extends HTMLElement<ToggleViewSignature> {\n  static formAssociated = true\n\n  readonly toggleStyle: 'button' | 'switch'\n  isOn: boolean\n  readonly name: string // Form participation property\n  value: string | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'toggle:change': CustomEvent // User toggled the control\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'toggle-view': ToggleView // <toggle-view></toggle-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar-item-group",

@@ -11,7 +11,6 @@ interface ToggleViewSignature {
     name?: string
     value?: string
     'is-on'?: boolean
-    'keyboard-type'?: string
     required?: boolean
     disabled?: boolean
   }

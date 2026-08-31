@@ -245,7 +245,7 @@ export class ToggleView extends FormAssociatedBase {
 
     if (this.#didDrag) return (this.#didDrag = false)
 
-    this.isOn = !this.isOn
+    this.#applyIsOnWithFlip(!this.isOn)
 
     this.#sendValueToForm(true)
   }
@@ -345,11 +345,9 @@ export class ToggleView extends FormAssociatedBase {
 
     const nextIsOn = absoluteX > this.#trackMaxX / 2
 
-    this.#track.style.removeProperty('--toggle--dot-x')
+    if (nextIsOn === this.isOn) return this.#track.style.removeProperty('--toggle--dot-x') // pure transform animation back to rest, inset untouched
 
-    if (nextIsOn === this.isOn) return
-
-    this.isOn = nextIsOn
+    this.#applyIsOnWithFlip(nextIsOn)
 
     this.#sendValueToForm(true)
   }
@@ -361,9 +359,33 @@ export class ToggleView extends FormAssociatedBase {
 
     evt.preventDefault()
 
-    this.isOn = !this.isOn
+    this.#applyIsOnWithFlip(!this.isOn)
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(true)
+  }
+
+  #applyIsOnWithFlip = (nextIsOn: boolean) => {
+    if (!this.#track || nextIsOn === this.isOn) return
+
+    // capture current visual position under the OLD base, before flipping state
+    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
+    const oldAbsoluteX = this.#baseX + deltaX
+
+    this.isOn = nextIsOn // changes --toggle--dot-inset-inline-start/-end via aria-checked
+
+    const compensationX = oldAbsoluteX - this.#baseX // baseX now reflects the NEW state
+
+    // make inset + transform jump together, instantly, so nothing is visibly out of sync
+    this.#track.style.setProperty('--toggle--dot-transition-duration', '0ms')
+    this.#track.style.setProperty('--toggle--dot-x', `${Math.round(compensationX)}px`)
+
+    void this.#track.offsetWidth // force reflow so the instant jump is committed before re-enabling transitions
+
+    this.#track.style.removeProperty('--toggle--dot-transition-duration')
+
+    self.requestAnimationFrame(() => {
+      this.#track?.style.removeProperty('--toggle--dot-x') // only transform animates from here — single source of motion
+    })
   }
 
   #sendValueToForm = (dispatchEvent: boolean = true) => {

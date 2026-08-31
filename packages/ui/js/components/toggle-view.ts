@@ -2,7 +2,7 @@ import type { ToggleChangeDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import { $, devFlags, kebabCase, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -72,16 +72,15 @@ export class ToggleView extends FormAssociatedBase {
 
   #value: string | null = 'on'
   #isOn: boolean = false
-  #connected: boolean = false
 
   #didDrag: boolean = false
   #trackWidth: number = 0
   #dotSize: number = 0
   get #trackMinX(): number {
-    return this.#dotSize / 2
+    return 0
   }
   get #trackMaxX(): number {
-    return this.#trackWidth - this.#dotSize / 2
+    return this.#trackWidth - this.#dotSize
   }
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ measure`)
@@ -93,6 +92,10 @@ export class ToggleView extends FormAssociatedBase {
     this.#dotSize = borderBoxSize.at(0)?.blockSize ?? 0
   }
   #resizeObserver = new ResizeObserver(this.#handleMeasure)
+
+  get #isDragging(): boolean {
+    return '0ms' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')
+  }
 
   get #internals(): ElementInternals {
     return getInternals(this)
@@ -143,23 +146,23 @@ export class ToggleView extends FormAssociatedBase {
       case 'value':
         this.value = String(newValue) // this.#input?.setAttribute('checked', newValue ?? '')
 
-        this.#sendValueToForm(this.#connected)
+        this.#sendValueToForm(false)
 
         break
       case 'is-on':
         this.isOn = newValue !== null // this.#input?.setAttribute('checked', newValue ?? '')
 
-        this.#sendValueToForm(this.#connected)
+        this.#sendValueToForm(false)
 
         break
       case 'required':
         // this.#input?.setAttribute(name, newValue ?? '')
 
-        this.#sendValueToForm(this.#connected)
+        this.#sendValueToForm(false)
 
         break
       case 'name':
-        this.#sendValueToForm(this.#connected)
+        this.#sendValueToForm(false)
 
         break
       case 'label':
@@ -184,16 +187,23 @@ export class ToggleView extends FormAssociatedBase {
   connectedCallback() {
     super.connectedCallback()
 
-    // finally
-    // if (this.hasAttribute('value')) this.value = this.getAttribute('value') ?? ''
-
     if (this.hasAttribute('is-on')) this.isOn = this.hasAttribute('is-on')
 
     this.#sendValueToForm(false)
 
-    this.#connected = true
-
     if (this.#track) this.#resizeObserver.observe(this.#track)
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        touchGlass(
+          this,
+          (t) => t,
+          ({ clientX, clientY }) => this.#measurePointerIsOverDot(clientX, clientY) ?? false
+        ),
+        this
+      ).on()
+    )
   }
 
   get toggleStyle(): ToggleStyle {
@@ -233,14 +243,29 @@ export class ToggleView extends FormAssociatedBase {
   #handleTrackClick = ({ type }: Event) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
-    if (this.#didDrag) {
-      this.#didDrag = false
-      return
-    }
+    if (this.#didDrag) return (this.#didDrag = false)
 
     this.isOn = !this.isOn
 
-    this.#sendValueToForm(this.#connected)
+    this.#sendValueToForm(true)
+  }
+
+  #measurePointerIsOverDot = (clientX: number, clientY: number) => {
+    if (!this.#track) return
+
+    const { left, top, height } = this.#track.getBoundingClientRect()
+
+    const dotLeft = left + parseFloat(self.getComputedStyle(this.#track, '::before').left)
+    const dotCenterX = dotLeft + this.#dotSize / 2
+    const dotCenterY = top + height / 2
+
+    return Math.hypot(clientX - dotCenterX, clientY - dotCenterY) <= this.#dotSize / 2
+  }
+
+  #dragOffsetX: number = 0
+
+  get #baseX(): number {
+    return this.isOn ? this.#trackMaxX : this.#trackMinX
   }
 
   #handleTrackPointerdown = ({ type, pointerId, clientX, clientY }: PointerEvent) => {
@@ -248,30 +273,26 @@ export class ToggleView extends FormAssociatedBase {
 
     if (!this.#track) return
 
-    const { left, top, height } = this.#track.getBoundingClientRect()
+    if (!this.#measurePointerIsOverDot(clientX, clientY)) return // ignore taps elsewhere on the track
 
-    const dotCenterX = left + parseFloat(self.getComputedStyle(this.#track, '::before').left), // already the center, don't add width/2 again
-      dotCenterY = top + height / 2
+    this.#didDrag = true // dot was engaged — settle() will own the outcome, click must be swallowed
 
-    const isOverDot = Math.hypot(clientX - dotCenterX, clientY - dotCenterY) <= this.#dotSize / 2
+    const currentDelta = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
+    const currentAbsoluteX = this.#baseX + currentDelta
 
-    if (!isOverDot) return // ignore taps elsewhere on the track
-
-    this.#didDrag = false
+    this.#dragOffsetX = clientX - this.#track.getBoundingClientRect().left - currentAbsoluteX
 
     this.#track.style.setProperty('--toggle--dot-transition-duration', '0ms')
 
     this.#track.setPointerCapture(pointerId)
 
-    this.#updateFromEvent(clientX)
+    // this.#updateFromEvent(clientX)
   }
 
   #handleTrackPointermove = ({ type, clientX }: PointerEvent) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
-    if ('0ms' !== this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return
-
-    this.#didDrag = true
+    if (!this.#isDragging) return
 
     this.#updateFromEvent(clientX)
   }
@@ -279,7 +300,7 @@ export class ToggleView extends FormAssociatedBase {
   #handleTrackPointerup = ({ type, pointerId }: PointerEvent) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
-    if ('' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return // pointerdown never engaged (missed the dot) — plain click, nothing to settle
+    if (!this.#isDragging) return // pointerdown never engaged (missed the dot) — plain click, nothing to settle
 
     this.#track?.style.removeProperty('--toggle--dot-transition-duration')
 
@@ -291,7 +312,7 @@ export class ToggleView extends FormAssociatedBase {
   #handleTrackPointercancel = ({ type }: PointerEvent) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
-    if ('' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return // already settled via pointerup, or nothing to settle
+    if (!this.#isDragging) return // already settled via pointerup, or nothing to settle
 
     this.#track?.style.removeProperty('--toggle--dot-transition-duration')
 
@@ -299,7 +320,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleWindowBlur = () => {
-    if ('0ms' !== this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')) return
+    if (!this.#isDragging) return
 
     this.#track?.style.removeProperty('--toggle--dot-transition-duration')
 
@@ -311,25 +332,34 @@ export class ToggleView extends FormAssociatedBase {
 
     const { left } = this.#track.getBoundingClientRect()
 
-    this.#track.style.setProperty('--toggle--dot-x', `${Math.min(Math.max(clientX - left, this.#trackMinX), this.#trackMaxX)}px`)
+    const absoluteX = Math.min(Math.max(clientX - left - this.#dragOffsetX, this.#trackMinX), this.#trackMaxX)
+
+    this.#track.style.setProperty('--toggle--dot-x', `${Math.round(absoluteX - this.#baseX)}px`)
   }
 
   #settle = () => {
     if (!this.#track) return
 
-    const nextIsOn = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) > this.#trackMaxX / 2
+    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
+    const absoluteX = this.#baseX + deltaX
 
-    this.#track?.style.removeProperty('--toggle--dot-x')
+    const nextIsOn = absoluteX > this.#trackMaxX / 2
+
+    this.#track.style.removeProperty('--toggle--dot-x')
 
     if (nextIsOn === this.isOn) return
 
     this.isOn = nextIsOn
 
-    this.#sendValueToForm(this.#connected)
+    this.#sendValueToForm(true)
   }
 
   #handleTrackKeydown = (evt: KeyboardEvent) => {
     if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
+
+    if (' ' !== evt.key) return
+
+    evt.preventDefault()
 
     this.isOn = !this.isOn
 

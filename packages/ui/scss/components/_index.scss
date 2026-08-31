@@ -57,6 +57,7 @@
   }
 
   :where(labeled-content)::part(labeled-content-container),
+  :where(labeled-content)::part(labeled-content-container),
   :where(labeled-content)::part(labeled-content-label-stack),
   :where(labeled-content)::part(labeled-content-value-stack),
   :where(progress-view)::part(progress-control),

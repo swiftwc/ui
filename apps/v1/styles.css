@@ -1138,6 +1138,7 @@
     display: grid;
   }
   :where(labeled-content)::part(labeled-content-container),
+  :where(labeled-content)::part(labeled-content-container),
   :where(labeled-content)::part(labeled-content-label-stack),
   :where(labeled-content)::part(labeled-content-value-stack),
   :where(progress-view)::part(progress-control),
@@ -3440,10 +3441,15 @@
   :where(toggle-view) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    --toggle--trigger-bg: lightgray;
-    --toggle--dot-size: 1rem;
-    --toggle--dot-x: calc(var(--toggle--dot-size) / 2);
+    --toggle--track-padding: 0.2rem;
+    --toggle--track-bg: lightgray;
+    --toggle--dot-size: 1.4rem;
+    --toggle--dot-inset-inline-start: 0;
+    --toggle--dot-inset-inline-end: 100%;
+    --toggle--dot-x: 0px;
     --toggle--dot-transition-duration: 200ms;
+    --toggle--dot-scale: scale(1);
+    --toogle--track-brightness: brightness(1);
   }
   :where(toggle-view)::part(toggle-stack) {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -3454,42 +3460,52 @@
     align-items: center;
     justify-items: end;
     place-content: stretch;
+    align-self: flex-start;
+    cursor: pointer;
+    padding-inline: var(--toggle--track-padding);
+    padding-block: var(--toggle--track-padding);
+    border-radius: var(--pill-border-radius);
+    background: var(--toggle--track-bg);
+    transition: background-color var(--toggle--dot-transition-duration) ease-out;
   }
   :where(toggle-view)::part(toggle-track) {
+    container: toggle-track/size;
     text-align: end;
     position: relative;
-    display: grid;
-    outline: red solid 3px;
-    border-radius: 2rem;
+    outline: none;
+    border-radius: var(--pill-border-radius);
     inline-size: 4rem;
-    block-size: 1rem;
-    background: var(--toggle--trigger-bg);
+    block-size: var(--toggle--dot-size);
+    background: var(--toggle--track-bg);
+    filter: var(--toogle--track-brightness, );
     transition: background-color var(--toggle--dot-transition-duration) ease-out;
-    touch-action: none; /* prevent scrolling while dragging */
+    touch-action: none;
   }
   :where(toggle-view)::part(toggle-track):focus {
-    outline: blue solid 5px;
+    --toogle--track-brightness: brightness(0.9);
   }
   :where(toggle-view)::part(toggle-track)::before {
     content: "";
     display: grid;
     position: absolute;
-    inset: 0 auto auto 0;
-    inline-size: 1rem;
-    block-size: 1rem;
-    border-radius: 1rem;
+    inset: 0 var(--toggle--dot-inset-inline-end) auto var(--toggle--dot-inset-inline-start);
+    inline-size: var(--toggle--dot-size);
+    block-size: var(--toggle--dot-size);
+    border-radius: var(--pill-border-radius);
     backdrop-filter: var(--liquid-glass-backdrop-filter);
     box-shadow: var(--liquid-glass-box-shadow);
-    inset-inline-start: var(--toggle--dot-x, calc(var(--toggle--dot-size) / 2));
-    transition: inset-inline var(--toggle--dot-transition-duration) ease-out;
-    transform: translate(-50%, 0);
+    transition: inset-inline-start var(--toggle--dot-transition-duration) ease-out, inset-inline-end var(--toggle--dot-transition-duration) ease-out, transform var(--toggle--dot-transition-duration) ease-out, scale var(--toggle--dot-press-duration, 200ms) ease-out;
+    transform: translateX(var(--toggle--dot-x));
+    scale: var(--toggle--dot-scale, );
+    transform-origin: center;
   }
   :where(form toggle-view)::part(toggle-label-stack) {
     color: var(--secondary);
   }
   :where(toggle-view[aria-checked=true]) {
-    --toggle--trigger-bg: green;
-    --toggle--dot-x: calc(100% - var(--toggle--dot-size) / 2);
+    --toggle--track-bg: green;
+    --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
+    --toggle--dot-inset-inline-end: 0;
   }
   :where(toggle-view > :nth-child(n+2 of [slot=label])) {
     --label-font: callout;
@@ -10537,6 +10553,10 @@
   } */
 }
 @layer sw-final {
+  :where(toggle-view[touch-glass]) {
+    --toggle--dot-scale: 1.12;
+    --toggle--dot-press-duration: 100ms;
+  }
   @media (pointer: coarse) {
     :where([is=glass-button][touch-glass],
     [is=glass-prominent-button][touch-glass]) {

@@ -30,6 +30,7 @@
       <list-view>
         <section-view header="Section 1" footer="All is required">
           <labeled-content value="Bar" label="Foo"></labeled-content>
+          <labeled-content value="Bar" label="100" format="number::"></labeled-content>
           <labeled-content value="Bar" label="Foooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo"></labeled-content>
           <labeled-content value="Barrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrrr" label="Foo"></labeled-content>
           <labeled-content
@@ -46,10 +47,11 @@
             <label-view title="Bar"></label-view>
             <label-view title="Barrrrr"></label-view>
           </labeled-content>
-          <labeled-content format="currency-u-code-EUR">
-            <label-view slot="label" title="Foo"></label-view>
+          <labeled-content format="currency::currency=EUR">
+            <label-view slot="label" title="Foo EUR"></label-view>
             <label-view title="Bar"></label-view>
           </labeled-content>
+          <labeled-content format="currency::currency=USD" label="Foo EUR" value="5.7"></labeled-content>
           <labeled-content labeled-content-style="vertical" value="Bar" label="Foo"></labeled-content>
           <labeled-content>
             <label-view slot="label" system-image="smiley" title="Foo"></label-view>
@@ -76,41 +78,41 @@
         <details is="disclosure-group" open>
           <summary>
             <h-stack distribution="fill">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               <button type="button" tabindex="0">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               </button>
             </h-stack>
           </summary>
           <details is="disclosure-group">
             <summary>
               <h-stack distribution="fill">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
                 <button type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
                 </button>
               </h-stack>
             </summary>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
             </button>
             <whatever-name>
               <list-view>
                 <section-view>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                   </button>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                   </button>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                   </button>
                 </section-view>
               </list-view>
@@ -120,32 +122,32 @@
         <details is="disclosure-group">
           <summary>
             <h-stack distribution="fill">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               <button type="button" tabindex="0">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               </button>
             </h-stack>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
           </button>
           <whatever-name>
             <list-view>
               <section-view>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -153,28 +155,28 @@
         </details>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 2</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
           </button>
           <whatever-name>
             <list-view>
               <section-view>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -186,41 +188,41 @@
         <details is="disclosure-group" open>
           <summary>
             <h-stack distribution="fill">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               <button type="button" tabindex="0">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               </button>
             </h-stack>
           </summary>
           <details is="disclosure-group">
             <summary>
               <h-stack distribution="fill">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
                 <button type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
                 </button>
               </h-stack>
             </summary>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
             </button>
             <whatever-name>
               <list-view>
                 <section-view>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                   </button>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                   </button>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                   </button>
                 </section-view>
               </list-view>
@@ -230,32 +232,32 @@
         <details is="disclosure-group">
           <summary>
             <h-stack distribution="fill">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               <button type="button" tabindex="0">
-                <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 1</span></label-view>
+                <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 1</span></label-view>
               </button>
             </h-stack>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
           </button>
           <whatever-name>
             <list-view>
               <section-view>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -263,28 +265,28 @@
         </details>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 2</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4</span></label-view>
           </button>
           <whatever-name>
             <list-view>
               <section-view>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 5</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 5</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 6</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 6</span></label-view>
                 </button>
                 <button navigation-link type="button" tabindex="0">
-                  <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 7</span></label-view>
+                  <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 7</span></label-view>
                 </button>
               </section-view>
             </list-view>
@@ -294,26 +296,26 @@
       <p>sections next to buttons</p>
       <list-view>
         <button navigation-link type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 1</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 1</span></label-view>
         </button>
         <button navigation-link type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
         </button>
         <button navigation-link type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
         </button>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
           </button>
         </details>
         <section-view header="Personal Info">
@@ -324,7 +326,7 @@
         <section-view>
           <details is="disclosure-group">
             <summary>
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
             </summary>
             <text-field prompt="here" label="Name"></text-field>
             <text-field prompt="here" label="Name"></text-field>
@@ -381,7 +383,7 @@
         </h-stack>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
           </summary>
           <h-stack template="auto spacer auto auto">
             <button type="button">
@@ -458,16 +460,16 @@
         </button>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
           </button>
         </details>
         <button navigation-link type="button">
@@ -475,16 +477,16 @@
         </button>
         <details is="disclosure-group">
           <summary aria-selected="true">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0" aria-selected="true">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
           </button>
         </details>
       </list-view>
@@ -555,10 +557,10 @@
       <form is="form-view">
         <section-view>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
         </section-view>
         <section-view>
@@ -568,10 +570,10 @@
               <list-view>
                 <section-view>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
                   </button>
                   <button navigation-link type="button" tabindex="0">
-                    <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+                    <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
                   </button>
                 </section-view>
               </list-view>
@@ -581,23 +583,23 @@
         </section-view>
         <section-view>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
         </section-view>
       </form>
       <p>list w/ buttons</p>
       <list-view>
         <button type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 1</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 1</span></label-view>
         </button>
         <button navigation-link type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 2</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 2</span></label-view>
         </button>
         <button navigation-link type="button">
-          <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 3</span></label-view>
+          <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 3</span></label-view>
         </button>
         <label-view system-image="smiley" title="Red Label" list-item-tint="red"></label-view>
         <button type="button" list-item-tint="red" role="destructive">
@@ -605,16 +607,16 @@
         </button>
         <details is="disclosure-group">
           <summary>
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
           </summary>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
           </button>
           <button navigation-link type="button" tabindex="0">
-            <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+            <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
           </button>
         </details>
       </list-view>
@@ -632,16 +634,16 @@
           </button>
           <details is="disclosure-group">
             <summary>
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
             </summary>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
             </button>
           </details>
         </section-view>
@@ -657,16 +659,16 @@
           </button>
           <details is="disclosure-group">
             <summary>
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
             </summary>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4a</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4a</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4b</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4b</span></label-view>
             </button>
             <button navigation-link type="button" tabindex="0">
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item 4c</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item 4c</span></label-view>
             </button>
           </details>
         </section-view>
@@ -687,7 +689,7 @@
         <section-view>
           <details is="disclosure-group">
             <summary>
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 4</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 4</span></label-view>
             </summary>
             <text-field prompt="here" label="Name"></text-field>
             <text-field prompt="here" label="Name"></text-field>
@@ -697,7 +699,7 @@
         <section-view>
           <details is="disclosure-group">
             <summary>
-              <label-view><i slot="icon" class="ph ph-smiley"></i><span>Item Group 5</span></label-view>
+              <label-view><i class="ph ph-smiley" slot="icon"></i><span>Item Group 5</span></label-view>
             </summary>
             <text-field prompt="here" label="Name"></text-field>
             <text-field prompt="here" label="Name"></text-field>

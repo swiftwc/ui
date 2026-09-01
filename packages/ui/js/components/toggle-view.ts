@@ -13,6 +13,8 @@ export type ToggleStyle = (typeof toggleStyles)[number]
 /**
  * @summary A control that switches between on and off states.
  *
+ * @example <toggle-view label="Custom Label"></toggle-view> — Creates a toggle that displays a custom label
+ *
  * @fires toggle:change — User toggled the control
  *
  * @slot label
@@ -92,6 +94,7 @@ export class ToggleView extends FormAssociatedBase {
     this.#dotSize = borderBoxSize.at(0)?.blockSize ?? 0
   }
   #resizeObserver = new ResizeObserver(this.#handleMeasure)
+  #dragOffsetX: number = 0
 
   get #isDragging(): boolean {
     return '0ms' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')
@@ -262,8 +265,6 @@ export class ToggleView extends FormAssociatedBase {
     return Math.hypot(clientX - dotCenterX, clientY - dotCenterY) <= this.#dotSize / 2
   }
 
-  #dragOffsetX: number = 0
-
   get #baseX(): number {
     return this.isOn ? this.#trackMaxX : this.#trackMinX
   }
@@ -277,16 +278,14 @@ export class ToggleView extends FormAssociatedBase {
 
     this.#didDrag = true // dot was engaged — settle() will own the outcome, click must be swallowed
 
-    const currentDelta = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
-    const currentAbsoluteX = this.#baseX + currentDelta
+    const currentDelta = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-translate-x')) || 0,
+      currentAbsoluteX = this.#baseX + currentDelta
 
     this.#dragOffsetX = clientX - this.#track.getBoundingClientRect().left - currentAbsoluteX
 
     this.#track.style.setProperty('--toggle--dot-transition-duration', '0ms')
 
     this.#track.setPointerCapture(pointerId)
-
-    // this.#updateFromEvent(clientX)
   }
 
   #handleTrackPointermove = ({ type, clientX }: PointerEvent) => {
@@ -332,20 +331,23 @@ export class ToggleView extends FormAssociatedBase {
 
     const { left } = this.#track.getBoundingClientRect()
 
-    const absoluteX = Math.min(Math.max(clientX - left - this.#dragOffsetX, this.#trackMinX), this.#trackMaxX)
+    const scaleShiftStart = this.#isOn ? 5 : 0,
+      scaleShiftEnd = this.#isOn ? 0 : 4
 
-    this.#track.style.setProperty('--toggle--dot-x', `${Math.round(absoluteX - this.#baseX)}px`)
+    const absoluteX = Math.min(Math.max(clientX - left - this.#dragOffsetX, this.#trackMinX + scaleShiftStart), this.#trackMaxX - scaleShiftEnd)
+
+    this.#track.style.setProperty('--toggle--dot-translate-x', `${Math.round(absoluteX - this.#baseX)}px`)
   }
 
   #settle = () => {
     if (!this.#track) return
 
-    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0
+    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-translate-x')) || 0
     const absoluteX = this.#baseX + deltaX
 
     const nextIsOn = absoluteX > this.#trackMaxX / 2
 
-    if (nextIsOn === this.isOn) return this.#track.style.removeProperty('--toggle--dot-x') // pure transform animation back to rest, inset untouched
+    if (nextIsOn === this.isOn) return this.#track.style.removeProperty('--toggle--dot-translate-x') // pure transform animation back to rest, inset untouched
 
     this.#applyIsOnWithFlip(nextIsOn)
 
@@ -368,7 +370,7 @@ export class ToggleView extends FormAssociatedBase {
     if (!this.#track || nextIsOn === this.isOn) return
 
     // capture current visual position under the OLD base, before flipping state
-    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-x')) || 0,
+    const deltaX = parseFloat(self.getComputedStyle(this.#track).getPropertyValue('--toggle--dot-translate-x')) || 0,
       oldAbsoluteX = this.#baseX + deltaX
 
     this.isOn = nextIsOn // changes --toggle--dot-inset-inline-start/-end via aria-checked
@@ -377,14 +379,14 @@ export class ToggleView extends FormAssociatedBase {
 
     // make inset + transform jump together, instantly, so nothing is visibly out of sync
     this.#track.style.setProperty('--toggle--dot-transition-duration', '0ms')
-    this.#track.style.setProperty('--toggle--dot-x', `${Math.round(compensationX)}px`)
+    this.#track.style.setProperty('--toggle--dot-translate-x', `${Math.round(compensationX)}px`)
 
     void this.#track.offsetWidth // force reflow so the instant jump is committed before re-enabling transitions
 
     this.#track.style.removeProperty('--toggle--dot-transition-duration')
 
     self.requestAnimationFrame(() => {
-      this.#track?.style.removeProperty('--toggle--dot-x') // only transform animates from here — single source of motion
+      this.#track?.style.removeProperty('--toggle--dot-translate-x') // only transform animates from here — single source of motion
     })
   }
 

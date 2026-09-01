@@ -12,6 +12,12 @@ interface ParsedFormat {
 /**
  * @summary A container view that pairs a label with a value.
  *
+ * @example <labeled-content label="Label" value="Content"></labeled-content> — Creates a standard labeled element, with a view that conveys the value of the element and a label
+ *
+ * @example <labeled-content label="Height" value="6" format="unit::unit=foot"></labeled-content> — Creates a labeled element from a formatted value
+ *
+ * @example <labeled-content value="Content"><label-view slot="label" title="Custom Value"></label-view><label-view slot="label" title="Custom Subtitle Value"></label-view></labeled-content> — Creates a labeled element that displays a custom label and a custom subtitle to the label
+ *
  * @slot — The default slot.
  * @slot label — Use the `slot="label"` attribute to place childen in the label block.
  * @slot header
@@ -33,6 +39,11 @@ export class LabeledContent extends HTMLElement {
        * @type {vertical|horizontal}
        */
       'labeled-content-style',
+      /**
+       * Use this to format the text inside the value attribute. For example `format="currency::currency=USD" value="1234.5"` produces a value of `$1,234.50`.
+       *
+       * @type {"<format-type>:<locale?>:<format-options?>"}
+       */
       'format',
     ]
   }
@@ -73,13 +84,6 @@ export class LabeledContent extends HTMLElement {
 
     switch (name) {
       case 'header':
-        // if (!newValue) {
-        //   this.querySelector(':scope>[slot=header]')?.remove()
-        //   break
-        // }
-
-        // const header = this.querySelector(':scope>[slot=header]') ?? this.appendChild(Object.assign(document.createElement('header'), { slot: 'header' }))
-
         queryMorph(
           '[slot=header]',
 
@@ -91,22 +95,9 @@ export class LabeledContent extends HTMLElement {
           this,
           { removeIf: !newValue }
         )
-        // render(
-        //   html`<label-view font="callout">
-        //     <span>${newValue}</span>
-        //   </label-view>`,
-        //   header
-        // )
 
         break
       case 'footer':
-        // if (!newValue) {
-        //   this.querySelector(':scope>[slot=footer]')?.remove()
-        //   break
-        // }
-
-        // const footer = this.querySelector(':scope>[slot=footer]') ?? this.appendChild(Object.assign(document.createElement('footer'), { slot: 'footer' }))
-
         queryMorph(
           '[slot=footer]',
 
@@ -118,12 +109,6 @@ export class LabeledContent extends HTMLElement {
           this,
           { removeIf: !newValue }
         )
-        // render(
-        //   html`<label-view font="callout">
-        //     <span>${newValue}</span>
-        //   </label-view>`,
-        //   footer
-        // )
 
         break
       case 'value': {
@@ -165,8 +150,8 @@ export class LabeledContent extends HTMLElement {
           options: {},
         }
 
-      const [type, locale = navigator.language, opts = {}] = format.split(':', 3),
-        loc = new Intl.Locale(locale),
+      const [type, locale, opts = {}] = format.split(':', 3),
+        loc = new Intl.Locale(locale || navigator.language),
         options: Record<string, string> = Object.fromEntries(new URLSearchParams(opts))
 
       return {
@@ -198,8 +183,21 @@ export class LabeledContent extends HTMLElement {
         return new Intl.ListFormat(locale, options).format(value?.split('~') ?? []) // '' { style: 'long', type: 'conjunction' } "Foo, Bar, and Baz"
       case 'region':
         return value ? new Intl.DisplayNames(locale, { type: 'region' }).of(value) : '' // "Greece"
-      // "Foo, Bar, and Baz"
+      case 'byte-count': {
+        const bytes = Number(value)
 
+        if (!Number.isFinite(bytes)) return value
+
+        const units = ['byte', 'kilobyte', 'megabyte', 'gigabyte', 'terabyte', 'petabyte', 'exabyte']
+        const index = Math.min(Math.floor(Math.log(Math.abs(bytes)) / Math.log(1024)), units.length - 1)
+
+        return new Intl.NumberFormat(locale, {
+          style: 'unit',
+          unit: units[Math.max(0, index)],
+          unitDisplay: 'short',
+          ...options,
+        }).format(bytes / 1024 ** Math.max(0, index))
+      }
       default:
         return value
     }

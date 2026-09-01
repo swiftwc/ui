@@ -40,14 +40,17 @@
 
         const values = Object.fromEntries(data)
 
-        console.log(values)
+        console.log('formvalues:', values)
 
         const colors = data.getAll('colors')
+        const colors2 = data.getAll('colors2')
 
-        console.log(colors)
+        console.log(colors, colors2)
 
         console.log(document.querySelector('#gg1').checked)
         console.log(document.querySelector('#gg1').value)
+        console.log(document.querySelector('#gg2').isOn)
+        console.log(document.querySelector('#gg2').value)
       })
     </script>
   </head>
@@ -71,16 +74,16 @@
           <text-view localized-string-key="" verbatim="hello world"></text-view>
           <form id="gg">
             <input id="gg1" type="checkbox" checked name="newsletter" value="yes" />
-            <input type="checkbox" name="colors" value="red" />
-            <input type="checkbox" name="colors" value="green" />
-            <input type="checkbox" name="colors" value="blue" />
+            <label>red:<input type="checkbox" name="colors" value="red" /></label>
+            <label>green:<input type="checkbox" name="colors" value="green" /></label>
+            <label>blue:<input type="checkbox" name="colors" value="blue" /></label>
             <button type="submit">send</button>
             <button type="reset">reset</button>
             <toggle-view id="gg2" label="newsletter2 required" is-on required name="newsletter2" value="yess"></toggle-view>
             <toggle-view label="newsletter3" name="newsletter3" value="yess"></toggle-view>
-            <toggle-view label="here" name="colors2" value="red"></toggle-view>
-            <toggle-view label="here" name="colors2" value="green"></toggle-view>
-            <toggle-view label="here" name="colors2" value="blue"></toggle-view>
+            <toggle-view label="red" name="colors2" value="red"></toggle-view>
+            <toggle-view label="green" name="colors2" value="green"></toggle-view>
+            <toggle-view label="blue" name="colors2" value="blue"></toggle-view>
             <toggle-view name="colors2" value="blue">
               <label-view slot="label" title="Foo"></label-view>
               <label-view slot="label" title="Bar"></label-view>

@@ -851,6 +851,15 @@ $colors: map.merge(
     @include mixins.wire-tinted-glass(btn);
   }
 
+  toggle-view {
+    :where(&) {
+      --toggle--track-off-bg: light-dark(var(--toggle-track-off-bg), var(--toggle-track-off-bg-dark));
+      --toggle--track-on-bg: light-dark(var(--toggle-track-on-bg), var(--toggle-track-on-bg-dark));
+
+      --toggle--dot-bg: light-dark(var(--toggle-dot-bg), var(--toggle-dot-bg-dark));
+    }
+  }
+
   /* list-view {
     :where(&) {
       // --toolbaritemface: ;

@@ -226,6 +226,24 @@
     --labeled-content-column-gap: 1rem;
     --labeled-content-row-gap: 0.5rem;
 
+    --toggle-inline-size: 3.4rem;
+    --toggle-block-size: 1.5rem;
+    --toggle-border-radius: var(--pill-border-radius);
+
+    --toggle-track-off-bg: var(--gray2);
+    --toggle-track-off-bg-dark: var(--gray2);
+    --toggle-track-on-bg: var(--green);
+    --toggle-track-on-bg-dark: var(--green);
+
+    --toggle-dot-bg: var(--control-clear-glass-bg);
+    --toggle-dot-bg-dark: var(--control-clear-glass-bg-dark);
+    --toggle-dot-focus-bg: var(--control-clear-glass-focus-bg);
+    --toggle-dot-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
+    --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
+    --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
+
+    --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
+
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }
@@ -360,14 +378,8 @@
         --#{$v}-item-padding-inline-end: 1rem;
       }
 
-      // --primary-bg: oklch(0.9761 0 0); // ✅
-      // --primary-bg-dark: oklch(0.2666 0.0071 67.52); // ✅
-
-      // --divider: oklch(0.9249 0 0); // ✅
-      // --divider-dark: oklch(0.3452 0.0074 84.59); // ✅
-
-      // --secondary-label: oklch(0.5999 0 0); // ✅
-      // --secondary-label-dark: oklch(0.69 0.0019 67.79); // ✅
+      --toggle-inline-size: 3.4rem;
+      --toggle-block-size: 1.3rem;
 
       // SECTION Glass
 

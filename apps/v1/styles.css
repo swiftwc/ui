@@ -115,6 +115,20 @@
     --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
     --labeled-content-column-gap: 1rem;
     --labeled-content-row-gap: 0.5rem;
+    --toggle-inline-size: 3.4rem;
+    --toggle-block-size: 1.5rem;
+    --toggle-border-radius: var(--pill-border-radius);
+    --toggle-track-off-bg: var(--gray2);
+    --toggle-track-off-bg-dark: var(--gray2);
+    --toggle-track-on-bg: var(--green);
+    --toggle-track-on-bg-dark: var(--green);
+    --toggle-dot-bg: var(--control-clear-glass-bg);
+    --toggle-dot-bg-dark: var(--control-clear-glass-bg-dark);
+    --toggle-dot-focus-bg: var(--control-clear-glass-focus-bg);
+    --toggle-dot-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
+    --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
+    --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
+    --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
     --label-footnote-font-size: 1rem;
     --label-footnote-line-height: 1.1875;
     --label-footnote-font-weight: 400;
@@ -290,6 +304,8 @@
       --list-item-padding-inline-end: 1rem;
       --form-item-padding-inline-start: 1rem;
       --form-item-padding-inline-end: 1rem;
+      --toggle-inline-size: 3.4rem;
+      --toggle-block-size: 1.3rem;
       --control-clear-glass-bg: var(--white);
       --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
       --control-clear-glass-focus-bg: var(--gray5);
@@ -3442,14 +3458,14 @@
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
     --toggle--track-padding: 0.2rem;
-    --toggle--track-bg: lightgray;
-    --toggle--dot-size: 1.4rem;
+    --toggle--track-bg: var(--toggle--track-off-bg);
+    --toggle--track-inline-size: var(--toggle-inline-size);
+    --toggle--dot-size: var(--toggle-block-size);
     --toggle--dot-inset-inline-start: 0;
     --toggle--dot-inset-inline-end: 100%;
-    --toggle--dot-x: 0px;
+    --toggle--dot-translate-x: 0px;
     --toggle--dot-transition-duration: 200ms;
     --toggle--dot-scale: scale(1);
-    --toogle--track-brightness: brightness(1);
   }
   :where(toggle-view)::part(toggle-stack) {
     grid-template-columns: minmax(0, 1fr) auto;
@@ -3464,7 +3480,7 @@
     cursor: pointer;
     padding-inline: var(--toggle--track-padding);
     padding-block: var(--toggle--track-padding);
-    border-radius: var(--pill-border-radius);
+    border-radius: var(--toggle-border-radius);
     background: var(--toggle--track-bg);
     transition: background-color var(--toggle--dot-transition-duration) ease-out;
   }
@@ -3474,14 +3490,16 @@
     position: relative;
     outline: none;
     border-radius: var(--pill-border-radius);
-    inline-size: 4rem;
+    inline-size: var(--toggle--track-inline-size);
     block-size: var(--toggle--dot-size);
-    filter: var(--toogle--track-brightness, );
-    transition: background-color var(--toggle--dot-transition-duration) ease-out;
     touch-action: none;
+    transition: background-color var(--toggle--dot-transition-duration) ease-out;
   }
   :where(toggle-view)::part(toggle-track):focus {
-    --toogle--track-brightness: brightness(0.9);
+    --toggle--dot-bg: light-dark(var(--toggle-dot-focus-bg), var(--toggle-dot-focus-bg-dark));
+  }
+  :where(toggle-view)::part(toggle-track):active {
+    --toggle--dot-bg: light-dark(var(--toggle-dot-active-bg), var(--toggle-dot-active-bg-dark));
   }
   :where(toggle-view)::part(toggle-track)::before {
     content: "";
@@ -3490,11 +3508,12 @@
     inset: 0 var(--toggle--dot-inset-inline-end) auto var(--toggle--dot-inset-inline-start);
     inline-size: var(--toggle--dot-size);
     block-size: var(--toggle--dot-size);
-    border-radius: var(--pill-border-radius);
+    border-radius: var(--toggle-border-radius);
     backdrop-filter: var(--liquid-glass-backdrop-filter);
-    box-shadow: var(--liquid-glass-box-shadow);
-    transition: inset-inline-start var(--toggle--dot-transition-duration) ease-out, inset-inline-end var(--toggle--dot-transition-duration) ease-out, transform var(--toggle--dot-transition-duration) ease-out, scale var(--toggle--dot-press-duration) ease-out;
-    transform: translateX(var(--toggle--dot-x));
+    box-shadow: var(--toggle-dot-box-shadow);
+    background: var(--toggle--dot-bg);
+    transition: inset-inline-start var(--toggle--dot-transition-duration) ease-out, inset-inline-end var(--toggle--dot-transition-duration) ease-out, transform var(--toggle--dot-transition-duration) ease-out, scale var(--toggle--dot-press-duration, 200ms) ease-out;
+    transform: translateX(var(--toggle--dot-translate-x));
     scale: var(--toggle--dot-scale, );
     transform-origin: center;
   }
@@ -3502,7 +3521,7 @@
     color: var(--secondary);
   }
   :where(toggle-view[aria-checked=true]) {
-    --toggle--track-bg: green;
+    --toggle--track-bg: var(--toggle--track-on-bg);
     --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
     --toggle--dot-inset-inline-end: 0;
   }
@@ -10532,6 +10551,11 @@
     --btnactiveface: light-dark(oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h), oklch(from var(--accentColor) min(calc(l * 1.2), 1) min(calc(c * 1.1), c) h));
     --btnactivetext: light-dark(oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none), oklch(from var(--accentColor) clamp(0, (0.7 - l) * 999, 1) none none));
   }
+  :where(toggle-view) {
+    --toggle--track-off-bg: light-dark(var(--toggle-track-off-bg), var(--toggle-track-off-bg-dark));
+    --toggle--track-on-bg: light-dark(var(--toggle-track-on-bg), var(--toggle-track-on-bg-dark));
+    --toggle--dot-bg: light-dark(var(--toggle-dot-bg), var(--toggle-dot-bg-dark));
+  }
   /* list-view {
     :where(&) {
       // --toolbaritemface: ;
@@ -10552,7 +10576,7 @@
   } */
 }
 @layer sw-final {
-  :where(toggle-view[touch-glass]) {
+  :where(toggle-view[touch-glass])::part(toggle-track) {
     --toggle--dot-scale: 1.22;
     --toggle--dot-press-duration: 100ms;
   }

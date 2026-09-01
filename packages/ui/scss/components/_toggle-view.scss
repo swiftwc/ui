@@ -10,18 +10,21 @@
       grid-template-rows: minmax(0, 1fr);
 
       --toggle--track-padding: 0.2rem;
-      --toggle--track-bg: lightgray;
+      --toggle--track-bg: var(--toggle--track-off-bg);
 
-      --toggle--dot-size: 1.4rem;
+      --toggle--track-inline-size: var(--toggle-inline-size);
+
+      --toggle--dot-size: var(--toggle-block-size);
 
       --toggle--dot-inset-inline-start: 0;
       --toggle--dot-inset-inline-end: 100%;
 
-      --toggle--dot-x: 0px;
+      --toggle--dot-translate-x: 0px;
+
       --toggle--dot-transition-duration: 200ms;
       --toggle--dot-scale: scale(1);
 
-      --toogle--track-brightness: brightness(1);
+      // --toggle--track-brightness: brightness(1);
 
       &::part(toggle-stack) {
         grid-template-columns: minmax(0, 1fr) auto;
@@ -48,7 +51,7 @@
 
         padding-inline: var(--toggle--track-padding);
         padding-block: var(--toggle--track-padding);
-        border-radius: var(--pill-border-radius);
+        border-radius: var(--toggle-border-radius);
         background: var(--toggle--track-bg);
 
         transition: background-color var(--toggle--dot-transition-duration) ease-out;
@@ -63,24 +66,25 @@
 
         outline: none;
 
-        // display: grid;
-        // outline: red solid 3px;
         border-radius: var(--pill-border-radius);
-        inline-size: 4rem;
+
+        inline-size: var(--toggle--track-inline-size);
         block-size: var(--toggle--dot-size);
-        // background: var(--toggle--track-bg);
-
-        filter: var(--toogle--track-brightness,);
-
-        transition: background-color var(--toggle--dot-transition-duration) ease-out;
 
         touch-action: none; // prevent scrolling while dragging
 
-        &:focus {
-          // outline: blue solid 5px;
-          // --toggle--track-bg: gray;
+        transition: background-color var(--toggle--dot-transition-duration) ease-out;
 
-          --toogle--track-brightness: brightness(0.9);
+        &:focus {
+          --toggle--dot-bg: light-dark(var(--toggle-dot-focus-bg), var(--toggle-dot-focus-bg-dark));
+
+          // outline: black solid 2px;
+          // outline-offset: 4px;
+          // --toggle--track-bg: gray;
+          // --toggle--track-brightness: brightness(0.9);
+        }
+        &:active {
+          --toggle--dot-bg: light-dark(var(--toggle-dot-active-bg), var(--toggle-dot-active-bg-dark));
         }
 
         &::before {
@@ -89,22 +93,27 @@
           display: grid;
 
           position: absolute;
+
           inset: 0 var(--toggle--dot-inset-inline-end) auto var(--toggle--dot-inset-inline-start);
+
           inline-size: var(--toggle--dot-size);
           block-size: var(--toggle--dot-size);
-          border-radius: var(--pill-border-radius);
+
+          border-radius: var(--toggle-border-radius);
 
           backdrop-filter: var(--liquid-glass-backdrop-filter);
 
-          box-shadow: var(--liquid-glass-box-shadow);
+          box-shadow: var(--toggle-dot-box-shadow);
+
+          background: var(--toggle--dot-bg);
 
           transition:
             inset-inline-start var(--toggle--dot-transition-duration) ease-out,
             inset-inline-end var(--toggle--dot-transition-duration) ease-out,
             transform var(--toggle--dot-transition-duration) ease-out,
-            scale var(--toggle--dot-press-duration) ease-out;
+            scale var(--toggle--dot-press-duration, 200ms) ease-out;
 
-          transform: translateX(var(--toggle--dot-x));
+          transform: translateX(var(--toggle--dot-translate-x));
           scale: var(--toggle--dot-scale,);
 
           transform-origin: center;
@@ -120,7 +129,7 @@
 
     &[aria-checked='true'] {
       :where(&) {
-        --toggle--track-bg: green;
+        --toggle--track-bg: var(--toggle--track-on-bg);
 
         --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
         --toggle--dot-inset-inline-end: 0;
@@ -140,6 +149,7 @@
         // }
       }
     }
+
     &:not(form &) {
       > :nth-child(n + 2 of [slot='label']) {
         :where(&) {

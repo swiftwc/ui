@@ -1,0 +1,25 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@dev/client"></script>
+  </head>
+  <body>
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <toggle-view is-on>
+            <label-view slot="label" title="Vibrate on Ring" system-image="vibrate"></label-view>
+            <label-view slot="label" title="Enable vibration when the phone rings"></label-view>
+          </toggle-view>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+  </body>
+</html>

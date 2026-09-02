@@ -15,9 +15,9 @@ import { html } from '../tpl'
  * @slot — Any children without a `slot` attribute are placed in the title block.
  * @slot icon — Use the `slot="icon"` attribute to place childen in the icon block.
  *
- * @cssprop --label-gap — The gap between the icon and the title.
+ * @cssprop {length} --label-gap — The gap between the icon and the title.
  * @cssprop {number} --label-image-size — The size of the icon.
- * @cssprop --label-padding-inline — The padding inline of the label.
+ * @cssprop {length}--label-padding-inline — The padding inline of the label.
  *
  */
 export class LabelView extends HTMLElement {

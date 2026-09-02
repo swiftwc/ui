@@ -21,7 +21,7 @@
 
     <template id="sink_template">
       <p>...</p>
-      ns1section0<button type="button" class="fw">→</button>
+      ns1section0<button class="fw" type="button">→</button>
       <p>...</p>
       <p>...</p>
       <p>...</p>
@@ -82,7 +82,7 @@
 
     <tab-view>
       <!-- Prefer compact col = make sidebar retractable on compact layouts ONLY on 3col layouts (no double-cols) -->
-      <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1">
+      <navigation-split-view id="ns1" preferred-compact-column="content" column-visibility="double-column">
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol" navigation-inline-subtitle="subtitleeeee">
             <v-stack placement="leading fill">
@@ -95,14 +95,14 @@
               >
               <p>...</p>
               <button
-                type="button"
                 class="alert"
+                type="button"
                 help="show
 and alert"
               >
                 alert!
               </button>
-              <button type="button" class="alert2">alert!!</button>
+              <button class="alert2" type="button">alert!!</button>
               <picker-view label="Foo Baz" picker-style="navigation-link" selection="50">
                 <option slot="list" value="0" label="000%"></option>
                 <option slot="list" value="10" label="Minimum Tip"></option>
@@ -116,7 +116,7 @@ and alert"
                   ><label-view title="calloutttttttttttttttttttttttttt" font="callout"></label-view
                 ></v-stack>
               </navigation-large-title>
-              <button type="button" class="fw">→</button>
+              <button class="fw" type="button">→</button>
               <button is="bordered-prominent-button">
                 <progress-view label="Fooooo" frame:width="infinity"></progress-view>
               </button>
@@ -230,7 +230,7 @@ and alert"
         <scroll-view navigation-inline-title="ns -sbar -cmpct -dbcol">
           <v-stack placement="leading fill">
             <p>...</p>
-            ns1section0<button type="button" class="fw">→</button>
+            ns1section0<button class="fw" type="button">→</button>
             <!-- <script>
               document.currentScript.replaceWith(document.querySelector('#lists_sink').content.cloneNode(true))
             </script> -->
@@ -269,7 +269,7 @@ and alert"
           <scroll-view navigation-inline-title="ns +sbar -cmpct -dbcol">
             <v-stack placement="leading fill" padding>
               <p>...</p>
-              ns1section0<button type="button" class="fw">→</button>
+              ns1section0<button class="fw" type="button">→</button>
               <script>
                 document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
               </script>
@@ -292,12 +292,12 @@ and alert"
         </sidebar-toggle>
       </navigation-split-view>
 
-      <navigation-split-view column-visibility="double-column" id="ns1c" hidden>
+      <navigation-split-view id="ns1c" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar -cmpct +dbcol">
             <v-stack placement="leading fill" padding>
               <p>...</p>
-              ns1section0<button type="button" class="fw">→</button>
+              ns1section0<button class="fw" type="button">→</button>
               <script>
                 document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
               </script>
@@ -323,12 +323,12 @@ and alert"
         </sidebar-toggle>
       </navigation-split-view>
 
-      <navigation-split-view preferred-compact-column="content" id="ns1d" hidden>
+      <navigation-split-view id="ns1d" preferred-compact-column="content" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct -dbcol">
             <v-stack placement="leading fill" padding>
               <p>...</p>
-              ns1section0<button type="button" class="fw">→</button>
+              ns1section0<button class="fw" type="button">→</button>
               <script>
                 document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
               </script>
@@ -351,12 +351,12 @@ and alert"
         </sidebar-toggle>
       </navigation-split-view>
 
-      <navigation-split-view preferred-compact-column="content" column-visibility="double-column" id="ns1e" hidden>
+      <navigation-split-view id="ns1e" preferred-compact-column="content" column-visibility="double-column" hidden>
         <dialog is="sidebar-view">
           <scroll-view navigation-inline-title="ns +sbar +cmpct +dbcol">
             <v-stack placement="leading fill" padding>
               <p>...</p>
-              ns1section0<button type="button" class="fw">→</button>
+              ns1section0<button class="fw" type="button">→</button>
               <script>
                 document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
               </script>
@@ -382,7 +382,7 @@ and alert"
       <navigation-stack id="ns2" hidden>
         <scroll-view>
           <v-stack placement="leading fill" padding>
-            ns2section0<button type="button" class="fw">→</button>
+            ns2section0<button class="fw" type="button">→</button>
             <script>
               document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
             </script>
@@ -408,7 +408,7 @@ and alert"
       <navigation-stack id="more" hidden>
         <scroll-view navigation-inline-title="More">
           <v-stack placement="leading fill" padding>
-            MOREsection0<button type="button" class="fw" data-tag="ns3">→</button>
+            MOREsection0<button class="fw" type="button" data-tag="ns3">→</button>
             <script>
               document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
             </script>
@@ -419,7 +419,7 @@ and alert"
           <scroll-view>
             <v-stack placement="leading fill" padding>
               <p>...</p>
-              ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
+              ns3section0<button class="bw" type="button">🔙</button><button class="fw" type="button">→</button>
               <script>
                 document.currentScript.replaceWith(document.querySelector('#sink_template').content.cloneNode(true))
               </script>

@@ -36,6 +36,8 @@ export class LabeledContent extends HTMLElement {
       'header',
       'footer',
       /**
+       * Use this to force a specific style.
+       *
        * @type {vertical|horizontal}
        */
       'labeled-content-style',

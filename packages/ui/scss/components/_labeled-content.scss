@@ -52,7 +52,7 @@
       }
 
       &[labeled-content-style='horizontal'] {
-        --labeled-content--value-stack-flex-flow: row wrap;
+        --labeled-content--value-stack-flex-flow: row no-wrap;
 
         --labeled-content--value-stack-justify-items: flex-end;
       }

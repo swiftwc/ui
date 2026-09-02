@@ -12,6 +12,36 @@
   body-view,
   tab-view,
   image-view,
+  list-view,
+  table-view,
+  content-unavailable,
+  progress-view,
+  tool-bar-item,
+  tool-bar-item-group,
+  fine-tooltip,
+  sidebar-toggle,
+  v-stack,
+  h-stack,
+  group-box,
+  tool-bar,
+  label-view,
+  text-view,
+  labeled-content,
+  menu-view,
+  section-view,
+  text-field,
+  detail-placeholder,
+  sticky-container,
+  picker-view {
+    :where(&:not([hidden])) {
+      display: grid;
+    }
+
+    :where(tab-view:has(&:not(:defined)), navigation-split-view:has(&:not(:defined)), navigation-stack:has(&:not(:defined))) {
+      visibility: hidden;
+    }
+  }
+
   [is='search-view'],
   [is='sidebar-view'],
   [is='tab-bar'],
@@ -28,29 +58,7 @@
   [is='bordered-prominent-button'],
   [is='plain-button'],
   [is='glass-button'],
-  [is='glass-prominent-button'],
-  list-view,
-  table-view,
-  content-unavailable,
-  progress-view,
-  tool-bar-item,
-  tool-bar-item-group,
-  fine-tooltip,
-  sidebar-toggle,
-  [is='form-view'],
-  v-stack,
-  h-stack,
-  group-box,
-  tool-bar,
-  label-view,
-  text-view,
-  labeled-content,
-  menu-view,
-  section-view,
-  text-field,
-  detail-placeholder,
-  sticky-container,
-  picker-view {
+  [is='glass-prominent-button'] {
     :where(&:not([hidden])) {
       display: grid;
     }

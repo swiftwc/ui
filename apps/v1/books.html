@@ -16,18 +16,29 @@
     <title>books</title>
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="/styles.css" />
+    <!-- <script>
+      document.addEventListener('DOMContentLoaded', () => {
+        console.log(111)
+      })
+      window.addEventListener('load', () => {
+        console.log(222)
+
+        document.body.classList.remove('invisible')
+        document.body.classList.add('starting:opacity-0', 'starting:blur-sm', 'duration-400', 'ease-out')
+      })
+    </script> -->
     <template>
       <body-view>
         <scroll-view navigation-inline-title="Setting" data-nav-path="setting">
           <v-stack placement="leading fill" padding>
             Item 3b setting
-            <button type="button" class="fw">→</button>
-            <button type="button" class="bw">🔙</button>
+            <button class="fw" type="button">→</button>
+            <button class="bw" type="button">🔙</button>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -56,7 +67,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -110,12 +121,12 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
-            <button type="button" tabindex="0" class="inplace" data-nav-destination="editcustomer1" help="Edit customer">
+            <button class="inplace" type="button" tabindex="0" data-nav-destination="editcustomer1" help="Edit customer">
               <label-view system-image="pencil-simple"><span>Edit</span></label-view>
             </button>
           </tool-bar-item>
@@ -126,7 +137,7 @@
       <body-view>
         <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="editcustomer1" background-style="grouped">
           <v-stack readable="40">
-            <form is="form-view" form-style="inset-grouped" id="editcustomerform">
+            <form id="editcustomerform" is="form-view" form-style="inset-grouped">
               <section-view>
                 <text-field label="Name" text="Katie Abeles" required max-length="255">
                   <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
@@ -148,22 +159,22 @@
                 </labeled-content>
               </section-view>
               <section-view>
-                <button type="button" list-item-tint="red" tabindex="0" id="gg" confirmation-dialog="makesure">
+                <button id="gg" type="button" list-item-tint="red" tabindex="0" confirmation-dialog="makesure">
                   <label-view><span>Delete</span></label-view>
                 </button>
 
                 <!-- <menu-view>
-                  <label-view slot="label" title="Delete"></label-view>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="dots-three"><span>Scan Documents</span></label-view>
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view system-image="dots-three"><span>Connect to Server</span></label-view>
-                  </button>
-                  <button type="button" tabindex="0">
-                    <label-view><span>Edit Sidebar</span></label-view>
-                  </button>
-                </menu-view> -->
+                    <label-view slot="label" title="Delete"></label-view>
+                    <button type="button" tabindex="0">
+                      <label-view system-image="dots-three"><span>Scan Documents</span></label-view>
+                    </button>
+                    <button type="button" tabindex="0">
+                      <label-view system-image="dots-three"><span>Connect to Server</span></label-view>
+                    </button>
+                    <button type="button" tabindex="0">
+                      <label-view><span>Edit Sidebar</span></label-view>
+                    </button>
+                  </menu-view> -->
               </section-view>
               <section-view>
                 <button type="button" list-item-tint="blue" data-nav-destination="createcustomer">ffdf</button>
@@ -180,12 +191,12 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" data-nav-destination="customer1" class="inplace">
+            <button class="inplace" type="button" data-nav-destination="customer1">
               <label-view system-image="x"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
-            <button type="submit" tabindex="0" form="editcustomerform" data-nav-destination="customer1" class="inplace" value="done" help="Save changes">
+            <button class="inplace" type="submit" tabindex="0" form="editcustomerform" data-nav-destination="customer1" value="done" help="Save changes">
               <label-view system-image="check"></label-view>
             </button>
           </tool-bar-item>
@@ -278,7 +289,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="cancellation-action">
-            <button type="button" tabindex="0" class="back back-confirmation">
+            <button class="back back-confirmation" type="button" tabindex="0">
               <label-view system-image="x"><span>Cancel</span></label-view>
             </button>
           </tool-bar-item>
@@ -326,7 +337,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-trailing">
-            <button type="button" tabindex="0" id="done">
+            <button id="done" type="button" tabindex="0">
               <label-view system-image="check"></label-view>
             </button>
           </tool-bar-item>
@@ -448,7 +459,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -485,12 +496,12 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
-            <button type="button" tabindex="0" data-nav-destination="editinvoice1" class="inplace">
+            <button class="inplace" type="button" tabindex="0" data-nav-destination="editinvoice1">
               <label-view system-image="pencil-simple"><span>Edit</span></label-view>
             </button>
           </tool-bar-item>
@@ -501,7 +512,7 @@
       <body-view>
         <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="editinvoice1" background-style="grouped">
           <v-stack readable="40">
-            <form is="form-view" form-style="inset-grouped" id="editinvoiceform">
+            <form id="editinvoiceform" is="form-view" form-style="inset-grouped">
               <section-view>
                 <text-field label="Invoice#" text="0001" required max-length="255">
                   <option slot="validity-options" value="custom-error:bad-input" label="0%"></option>
@@ -523,7 +534,7 @@
                 </labeled-content>
               </section-view>
               <section-view>
-                <button type="button" list-item-tint="red" tabindex="0" id="gg" confirmation-dialog="makesure">
+                <button id="gg" type="button" list-item-tint="red" tabindex="0" confirmation-dialog="makesure">
                   <label-view><span>Delete</span></label-view>
                 </button>
               </section-view>
@@ -542,12 +553,12 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" data-nav-destination="invoice1" class="inplace">
+            <button class="inplace" type="button" data-nav-destination="invoice1">
               <label-view system-image="x"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="top-bar-trailing">
-            <button type="submit" tabindex="0" form="editinvoiceform" data-nav-destination="invoice1" class="inplace" value="done">
+            <button class="inplace" type="submit" tabindex="0" form="editinvoiceform" data-nav-destination="invoice1" value="done">
               <label-view system-image="check"></label-view>
             </button>
           </tool-bar-item>
@@ -649,12 +660,12 @@
         console.debug(`⚡️ ${event?.type}`)
 
         event.target.innerHTML = `<option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>
-                  <option slot="list" value="50" label="Very Generous"></option>`
+                    <option slot="list" value="50" label="Very Generous"></option>
+                    <option slot="list" value="50" label="Very Generous"></option>
+                    <option slot="list" value="50" label="Very Generous"></option>
+                    <option slot="list" value="50" label="Very Generous"></option>
+                    <option slot="list" value="50" label="Very Generous"></option>
+                    <option slot="list" value="50" label="Very Generous"></option>`
 
         event.detail.element.querySelector('input[type=search]').focus()
       })
@@ -755,7 +766,9 @@
       })
     </script>
   </head>
-  <body>
+  <body
+    class="opacity-0 blur-sm starting:opacity-0 starting:blur-sm duration-250 ease-out not-has-[tab-view:not(:defined)]:opacity-100 not-has-[tab-view:not(:defined)]:blur-none"
+  >
     <v-keyboard system-font="Inter"></v-keyboard>
 
     <tab-view>
@@ -763,8 +776,8 @@
         <scroll-view navigation-inline-title="Home">
           <v-stack>
             <p>...</p>
-            ns1section0<button type="button" class="fw">→</button>
-            <button type="button" class="bw">🔙</button>
+            ns1section0<button class="fw" type="button">→</button>
+            <button class="bw" type="button">🔙</button>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -791,7 +804,7 @@
       <navigation-stack id="search" hidden>
         <scroll-view navigation-inline-title="Search">
           <v-stack>
-            ns2section0<button type="button" class="fw">→</button>
+            ns2section0<button class="fw" type="button">→</button>
             <p>...</p>
             <p>...</p>
             <p>...</p>
@@ -867,62 +880,62 @@
           <v-stack placement="leading fill">
             <list-view list-style="inset-grouped">
               <section-view>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view title="Home" system-image="house"></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view title="Search" system-image="magnifying-glass"></label-view>
                 </button>
               </section-view>
               <section-view header="Inventory">
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Items</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Inventory Adjustments</span></label-view>
                 </button>
               </section-view>
               <section-view header="Sales">
-                <button navigation-link type="button" class="fw" data-tag="customers">
+                <button class="fw" navigation-link type="button" data-tag="customers">
                   <label-view title="Customers" system-image="users"></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Sales Orders</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Invoices</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Recurring Invoices</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Credit Notes</span></label-view>
                 </button>
               </section-view>
               <section-view header="Purchases">
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Vendors</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Expenses</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Purchase Orders</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Bills</span></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Reports</span></label-view>
                 </button>
-                <button navigation-link type="button" class="fw" data-tag="ns3">
+                <button class="fw" navigation-link type="button" data-tag="ns3">
                   <label-view><span>Documents</span></label-view>
                 </button>
               </section-view>
               <section-view>
-                <button navigation-link type="button" class="fw" data-tag="settings">
+                <button class="fw" navigation-link type="button" data-tag="settings">
                   <label-view system-image="gear"><span>Settings</span></label-view>
                 </button>
               </section-view>
@@ -936,9 +949,6 @@
               <content-unavailable>
                 <label-view title="Nothing Selected" foreground="secondary"></label-view>
               </content-unavailable>
-              <!-- <v-stack>
-                <label-view><span>Nothing Selected</span></label-view>
-              </v-stack> -->
             </scroll-view>
           </detail-placeholder>
           <scroll-view data-nav-path="customers">
@@ -1047,7 +1057,7 @@
           </scroll-view>
           <tool-bar>
             <tool-bar-item slot="top-bar-trailing">
-              <button type="button" tabindex="0" id="newcustomer"><label-view system-image="plus"></label-view></button>
+              <button id="newcustomer" type="button" tabindex="0"><label-view system-image="plus"></label-view></button>
             </tool-bar-item>
           </tool-bar>
         </navigation-split-view>
@@ -1056,7 +1066,7 @@
           <scroll-view>
             <v-stack>
               <p>...</p>
-              ns3section0<button type="button" class="bw">🔙</button><button type="button" class="fw">→</button>
+              ns3section0<button class="bw" type="button">🔙</button><button class="fw" type="button">→</button>
               <p>...</p>
               <p>...</p>
               <p>...</p>
@@ -1228,7 +1238,7 @@
           </scroll-view>
           <tool-bar>
             <tool-bar-item slot="top-bar-leading">
-              <button type="button" tabindex="0" class="back">
+              <button class="back" type="button" tabindex="0">
                 <label-view system-image="caret-left"></label-view>
               </button>
             </tool-bar-item>
@@ -1394,6 +1404,19 @@
             <button type="button"><label-view><span>trailing</span></label-view></button>
           </tool-bar-item>
         </navigation-bar> -->
+        <!-- <script>
+          const undefinedTags = new Set([...document.querySelectorAll(':not(:defined)')].map((el) => el.tagName.toLowerCase()))
+          console.log(444, undefinedTags)
+          const reveal = () => {
+            self.alert(9)
+          }
+
+          Promise.all([...undefinedTags].map((t) => customElements.whenDefined(t))).then(() => {
+            console.log(555)
+            clearTimeout(timer)
+            reveal()
+          })
+        </script> -->
       </dialog>
     </tab-view>
   </body>

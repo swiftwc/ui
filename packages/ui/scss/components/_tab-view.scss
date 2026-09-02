@@ -90,6 +90,14 @@
     //   }
     // }
 
+    // &:not(:defined),
+    // &:has(label-view:not(:defined)) {
+    //   :where(&) {
+    //     visibility: hidden;
+    //     // background-color: green;
+    //   }
+    // }
+
     :where(&) {
       grid-template-columns: subgrid; // inherits columns from container
       grid-template-rows: subgrid; // inherits rows if needed

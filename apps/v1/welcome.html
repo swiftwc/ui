@@ -19,7 +19,7 @@
 
     <template>
       <body-view>
-        <scroll-view data-nav-path="region" id="gg" background-style="grouped">
+        <scroll-view id="gg" data-nav-path="region" background-style="grouped">
           <v-stack readable="40">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
             <list-view list-style="inset-grouped">
@@ -31,7 +31,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -60,7 +60,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -118,7 +118,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -149,7 +149,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -199,12 +199,12 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="destructive-action">
-            <button type="button" tabindex="0" class="back">
+            <button class="back" type="button" tabindex="0">
               <label-view title="Disagree"></label-view>
             </button>
           </tool-bar-item>
           <tool-bar-item slot="confirmation-action">
-            <button type="button" tabindex="0" data-nav-destination="location" class="back">
+            <button class="back" type="button" tabindex="0" data-nav-destination="location">
               <label-view title="Agree"></label-view>
             </button>
           </tool-bar-item>
@@ -262,7 +262,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -320,7 +320,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0" class="back" help="Back">
+            <button class="back" type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left" title="Back"></label-view>
             </button>
           </tool-bar-item>
@@ -343,7 +343,7 @@
             </v-stack>
 
             <v-stack alignment="fill">
-              <button is="borderless-button" control-size="mini" type="button" class="backtocontroller">
+              <button class="backtocontroller" is="borderless-button" control-size="mini" type="button">
                 <label-view title="Start Over"></label-view>
               </button>
             </v-stack>
@@ -365,7 +365,7 @@
 
     <navigation-stack>
       <scroll-view background-style="grouped">
-        <v-stack readable="40" class="[padding-block-start:4rem]">
+        <v-stack class="[padding-block-start:4rem]" readable="40">
           <navigation-large-title padding>
             <v-stack alignment="fill">
               <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>

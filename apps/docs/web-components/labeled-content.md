@@ -11,7 +11,7 @@ interface LabeledContentSignature {
     label?: string
     header?: string
     footer?: string
-    'labeled-content-style'?: 'vertical' | 'horizontal'
+    'labeled-content-style'?: 'vertical' | 'horizontal' // Use this to force a specific style.
     format?: '<format-type>:<locale?>:<format-options?>' // Use this to format the text inside the value attribute. For example `format="currency::currency=USD" value="1234.5"` produces a value of `$1,234.50`.
   }
 

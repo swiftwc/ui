@@ -20,9 +20,9 @@ interface LabelViewSignature {
   }
 
   CSSProperties: {
-    '--label-gap'?: string // The gap between the icon and the title.
+    '--label-gap'?: length // The gap between the icon and the title.
     '--label-image-size'?: number // The size of the icon.
-    '--label-padding-inline'?: string // The padding inline of the label.
+    '--label-padding-inline'?: length // The padding inline of the label.
   }
 }
 

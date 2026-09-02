@@ -472,6 +472,38 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/detail-placeholder.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "DetailPlaceholder",
+          "tagName": "detail-placeholder",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "DetailPlaceholder",
+          "declaration": {
+            "name": "DetailPlaceholder"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "detail-placeholder",
+          "declaration": {
+            "name": "DetailPlaceholder"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/disclosure-group.ts",
       "declarations": [
         {
@@ -2095,6 +2127,38 @@
           "name": "text-field",
           "declaration": {
             "name": "TextField"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/text-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "TextView",
+          "tagName": "text-view",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "TextView",
+          "declaration": {
+            "name": "TextView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "text-view",
+          "declaration": {
+            "name": "TextView"
           }
         }
       ]

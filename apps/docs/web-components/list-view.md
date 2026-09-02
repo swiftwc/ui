@@ -7,7 +7,12 @@
 ```ts
 interface ListViewSignature {
   Attributes: {
-    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside
+  }
+
+  CSSProperties: {
+    '--list-row-gap'?: length // The gap between rows
+    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row
   }
 }
 

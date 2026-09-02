@@ -219,10 +219,42 @@ export class PickerView extends FormAssociatedBase {
   #spawnPage = (elements: Element[] | DictEntry[], tag: 'body-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
     if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
 
-    const body = $<HTMLElement>(
-        html`<${'sheet-view' === tag ? 'dialog is="sheet-view"' : 'body-view'}><scroll-view><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view system-image="${'sheet-view' === tag ? 'x' : 'caret-left'}"></label-view></button></tool-bar-item></tool-bar></${'sheet-view' === tag ? 'dialog' : 'body-view'}>`,
-        '>1'
-      ),
+    const body =
+        tag === 'sheet-view'
+          ? $<HTMLElement>(
+              html`<dialog is="sheet-view">
+                <scroll-view>
+                  <v-stack placement="leading fill">
+                    <list-view preferred-expanded-style="inset"></list-view>
+                  </v-stack>
+                </scroll-view>
+                <tool-bar>
+                  <tool-bar-item slot="top-bar-leading">
+                    <button type="button" tabindex="0">
+                      <label-view system-image="x"></label-view>
+                    </button>
+                  </tool-bar-item>
+                </tool-bar>
+              </dialog>`,
+              '>1'
+            )
+          : $<HTMLElement>(
+              html`<body-view>
+                <scroll-view>
+                  <v-stack placement="leading fill">
+                    <list-view preferred-expanded-style="inset"></list-view>
+                  </v-stack>
+                </scroll-view>
+                <tool-bar>
+                  <tool-bar-item slot="top-bar-leading">
+                    <button type="button" tabindex="0">
+                      <label-view system-image="caret-left"></label-view>
+                    </button>
+                  </tool-bar-item>
+                </tool-bar>
+              </body-view>`,
+              '>1'
+            ),
       sv = body.querySelector<HTMLElement>('scroll-view'),
       list = body.querySelector<HTMLElement>('list-view'),
       backBtn = body.querySelector<HTMLButtonElement>('button')

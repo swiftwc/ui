@@ -306,6 +306,10 @@
       "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassProminentButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-prominent-button' // <button is=\"glass-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
+      "name": "h-divider",
+      "description": "undefined\n\n```ts\ninterface HDividerSignature {}\n\nclass HDivider extends HTMLElement<HDividerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-divider': HDivider // <h-divider></h-divider>\n  }\n}\n\n```\n"
+    },
+    {
       "name": "h-stack",
       "references": [
         {
@@ -948,6 +952,10 @@
         }
       ],
       "description": "A list of items placed into the toolbar or navigation bar around your content.\n---\n\n```ts\ninterface ToolBarSignature {\n  Slots: {\n    'cancellation-action': HTMLElement[] // The item represents a cancellation action for a modal interface. Places the item in the leading edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'primary-action': HTMLElement[] // The item represents a primary action. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'confirmation-action': HTMLElement[] // The item represents a confirmation action for a modal interface. Places the item in the trailing edge of the top bar and on the trailing edge of the bottom bar when fine modal\n    'destructive-action': HTMLElement[] // The item represents a destructive action for a modal interface. Places the item in the leading edge of the top bar and on the leading edge of the bottom bar when fine modal\n    'top-bar-leading': HTMLElement[] // Places the item in the leading edge of the top bar\n    'top-bar-principal': HTMLElement[] // Places the item in the middle of the top bar\n    'top-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the top bar\n    'bottom-bar-leading': HTMLElement[] // Places the item in the leading edge of the bottom bar\n    'bottom-bar-principal': HTMLElement[] // Places the item in the middle of the bottom bar\n    'bottom-bar-trailing': HTMLElement[] // Places the item in the trailing edge of the bottom bar\n  }\n}\n\nclass ToolBar extends HTMLElement<ToolBarSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar': ToolBar // <tool-bar></tool-bar>\n  }\n}\n\n```\n"
+    },
+    {
+      "name": "v-divider",
+      "description": "undefined\n\n```ts\ninterface VDividerSignature {}\n\nclass VDivider extends HTMLElement<VDividerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-divider': VDivider // <v-divider></v-divider>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-keyboard",

@@ -726,6 +726,38 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/h-divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "HDivider",
+          "tagName": "h-divider",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HDivider",
+          "declaration": {
+            "name": "HDivider"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "h-divider",
+          "declaration": {
+            "name": "HDivider"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/h-stack.ts",
       "declarations": [
         {
@@ -2435,6 +2467,38 @@
           "name": "tool-bar",
           "declaration": {
             "name": "ToolBar"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/v-divider.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "VDivider",
+          "tagName": "v-divider",
+          "description": "",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VDivider",
+          "declaration": {
+            "name": "VDivider"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "v-divider",
+          "declaration": {
+            "name": "VDivider"
           }
         }
       ]

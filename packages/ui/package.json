@@ -74,7 +74,7 @@
     "build:barrels:tpl": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/tpl --exclude \".\\.test\\.ts\"",
     "build:barrels:morphdom": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/morphdom --exclude \".\\.test\\.ts\"",
     "build:barrels:decorators": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/decorators --exclude \".\\.test\\.ts\"",
-    "build:barrels:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --structure filesystem --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
+    "build:barrels:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write",
     "lint:scripts": "tsc -p tsconfig.scripts.json --noEmit",

@@ -5,7 +5,7 @@ import { FormAssociatedBase, getInternals } from '../internal/class/form-associa
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
-import { $, devFlags, kebabCase, onoff } from '../internal/utils'
+import { $, ancestors, devFlags, kebabCase, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
@@ -408,7 +408,7 @@ export class PickerView extends FormAssociatedBase {
     const groupMap = indexGroups(freshRoot)
 
     for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-      const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+      const depth = ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
       if (0 >= depth) continue
 
       const groupId = el.dataset.groupId

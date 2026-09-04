@@ -2,7 +2,7 @@ import type { PagerevealEvent, TabBeforeDetail, TabViewAdaptableTabBarPlacementC
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { $, cssTime, debounce, devFlags, frame, onoff, timeout } from '../internal/utils'
+import { cssTime, debounce, devFlags, frame, onoff, siblings, timeout } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { type NavigationSplitView } from './navigation-split-view'
 import { type NavigationStack } from './navigation-stack'
@@ -95,7 +95,7 @@ export class TabView extends HTMLElement {
     const summary = target.closest('summary')
     if (!summary) return
 
-    if (0 === $.siblings('[aria-selected=true]', summary).length) return
+    if (0 === siblings('[aria-selected=true]', summary).length) return
 
     if (!summary.closest('scroll-view')?.matches('tab-view > [is=sidebar-view] > scroll-view')) return
 

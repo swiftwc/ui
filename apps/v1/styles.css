@@ -3662,7 +3662,7 @@
     --labeled-content--value-stack-justify-items: flex-start;
   }
   :where(labeled-content)[labeled-content-style=horizontal] {
-    --labeled-content--value-stack-flex-flow: row no-wrap;
+    --labeled-content--value-stack-flex-flow: row wrap;
     --labeled-content--value-stack-justify-items: flex-end;
   }
   :where(labeled-content > :nth-child(n+2 of [slot=label]),
@@ -5303,14 +5303,14 @@
       --picker--stack-grid-border: if(
         style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
       );
-      --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
+      --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): start ;);
     }
   }
   @supports not (x: if(else:red)) {
     @container style(--picker-style: menu) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--input-stack-text-align: end;
+        --picker--input-stack-text-align: start;
         --picker--stack-row-gap: var(--labeled-content-row-gap);
         --picker--stack-column-gap: var(--labeled-content-column-gap);
         --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -5351,7 +5351,7 @@
     }
     :where(form picker-view[picker-style=menu]) {
       --picker--labelstack-display: grid;
-      --picker--input-stack-text-align: end;
+      --picker--input-stack-text-align: start;
       --picker--stack-row-gap: var(--labeled-content-row-gap);
       --picker--stack-column-gap: var(--labeled-content-column-gap);
       --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );

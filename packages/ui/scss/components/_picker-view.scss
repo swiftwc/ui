@@ -248,7 +248,7 @@ $picker-ifs: (
           style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
         );
         // --picker--input-stack-child-place-self: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
-        --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): end ;);
+        --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): start ;);
 
         // SECTION experimental only in chrome
         // --picker--input-stack-flex-shrink: if(

@@ -15,8 +15,6 @@ export class DetailPlaceholder extends HTMLElement {
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     if (devFlags.debug) console.debug(`${DetailPlaceholder.name} ⚡️ attr-change [${name}]`)
-
-    //
   }
 }
 

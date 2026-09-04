@@ -32,7 +32,9 @@
   text-field,
   detail-placeholder,
   sticky-container,
-  picker-view {
+  picker-view,
+  h-divider,
+  v-divider {
     :where(&:not([hidden])) {
       display: grid;
     }

@@ -28,7 +28,7 @@ export class ImageView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -78,11 +78,11 @@ export class ImageView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ImageView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ImageView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ImageView.name} ⚡️ connect`)
   }
 }
 

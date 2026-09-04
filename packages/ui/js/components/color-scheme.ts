@@ -10,7 +10,7 @@ export class ColorScheme extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ColorScheme.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ColorScheme.name} ⚡️ connect`)
 
     this.hidden = true
 
@@ -18,11 +18,11 @@ export class ColorScheme extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ColorScheme.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ColorScheme.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ColorScheme.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${ColorScheme.name} ⚡️ attr-change [${name}]`)
 
     // self.CSS.registerProperty({ name: '--canvas', syntax: '<color>', inherits: false, initialValue: 'oklch(100% 0 0deg)' })
     if (newValue) self.CSS.registerProperty({ name: '--canvas', syntax: '<color>', inherits: false, initialValue: 'oklch(0% 0 0deg)' })

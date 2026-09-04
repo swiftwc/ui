@@ -73,7 +73,7 @@ export class ScrollView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'navigation-inline-title':
@@ -101,7 +101,7 @@ export class ScrollView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -111,7 +111,7 @@ export class ScrollView extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,
@@ -168,7 +168,7 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleScroll: EventListener = ({ target, type }: Event) => {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
     if (!this.#isMidScroll) this.#isMidScroll = true
 
@@ -180,13 +180,13 @@ export class ScrollView extends HTMLElement {
   }
 
   #handleScrollend: EventListener = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ ${evt?.type}`)
 
     if (this.#isMidScroll) this.#isMidScroll = false
   }
 
   #handleMeasure = (entry: ResizeObserverEntry) => {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ measure`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ measure`)
 
     if (0 === entry.contentRect.width + entry.contentRect.height) return
 
@@ -206,7 +206,7 @@ export class ScrollView extends HTMLElement {
   }
 
   // #handleTabReveal = ({ type, target }: CustomEvent<TabDetail>) => {
-  //   if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
+  //   devFlags.debug && console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
   //   if (!(target instanceof HTMLElement)) return
 
@@ -246,7 +246,7 @@ export class ScrollView extends HTMLElement {
   // }
 
   #handleTabBeforeswap = ({ type, target }: BeforetabswapEvent) => {
-    if (devFlags.debug) console.debug(`${ScrollView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ScrollView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

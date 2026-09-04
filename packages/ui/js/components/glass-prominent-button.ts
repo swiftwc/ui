@@ -28,13 +28,13 @@ export class GlassProminentButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: ButtonBase) {
-    if (devFlags.debug) console.debug(`${GlassProminentButton.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${GlassProminentButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: ButtonBase) {
-    if (devFlags.debug) console.debug(`${GlassProminentButton.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${GlassProminentButton.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -52,7 +52,7 @@ export class GlassProminentButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    if (devFlags.debug) console.debug(`${GlassProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    devFlags.debug && console.debug(`${GlassProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement
     if (!node) return

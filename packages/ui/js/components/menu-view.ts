@@ -44,7 +44,7 @@ export class MenuView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'open':
@@ -53,7 +53,7 @@ export class MenuView extends HTMLElement {
         this.#dialog.inert = null === newValue
 
         if (null === newValue && this.#dialog.open) {
-          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-close`)
+          devFlags.debug && console.debug(`${MenuView.name} ⚡️ will-close`)
 
           this.setAttribute('closing', '')
 
@@ -67,7 +67,7 @@ export class MenuView extends HTMLElement {
         }
 
         if ('' === newValue && !this.#dialog.open) {
-          if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ will-open`)
+          devFlags.debug && console.debug(`${MenuView.name} ⚡️ will-open`)
 
           this.removeAttribute('closing')
 
@@ -87,7 +87,7 @@ export class MenuView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ disconnect`)
 
     const summaryPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-summary]'),
       dialogPart = this.#shadowRoot.querySelector<HTMLElement>('[part*=menu-dialog]')
@@ -99,7 +99,7 @@ export class MenuView extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ connect`)
 
     this.#dialog = this.#shadowRoot.querySelector<HTMLDialogElement>('dialog') ?? undefined
 
@@ -148,7 +148,7 @@ export class MenuView extends HTMLElement {
   }
 
   #handleDialogClick: EventListener = ({ type, target }: Event) => {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 
@@ -169,14 +169,14 @@ export class MenuView extends HTMLElement {
   }
 
   #handleTriggerClick = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
     this.toggleAttribute('open', true)
   }
 
   // intercept to modify open attr
   #handleDialogCancel: EventListener = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
     if (!evt.cancelable) return
 
@@ -186,7 +186,7 @@ export class MenuView extends HTMLElement {
   }
 
   #handleDialogClose: EventListener = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${MenuView.name} ⚡️ ${evt?.type}`)
 
     this.toggleAttribute('open', this.#shadowRoot.querySelector('dialog')?.open ?? false)
   }

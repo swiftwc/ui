@@ -6,15 +6,15 @@ export class DetailPlaceholder extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${DetailPlaceholder.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${DetailPlaceholder.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${DetailPlaceholder.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ attr-change [${name}]`)
   }
 }
 

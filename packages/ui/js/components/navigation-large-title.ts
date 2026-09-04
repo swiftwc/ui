@@ -99,7 +99,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationLargeTitle.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${NavigationLargeTitle.name} ⚡️ disconnect`)
 
     this.#clearScrollState()
 
@@ -109,7 +109,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationLargeTitle.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${NavigationLargeTitle.name} ⚡️ connect`)
 
     const root = this.closest<ScrollView>('scroll-view') ?? undefined
 
@@ -147,7 +147,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    if (devFlags.debug) console.debug(`${NavigationLargeTitle.name} ⚡️ style`)
+    devFlags.debug && console.debug(`${NavigationLargeTitle.name} ⚡️ style`)
 
     const root = this.closest<ScrollView>('scroll-view') ?? undefined
     if (!root) return
@@ -206,7 +206,7 @@ export class NavigationLargeTitle extends HTMLElement {
   // }
 
   #handleIntersect = (entries: IntersectionObserverEntry[], { root }: IntersectionObserver) => {
-    if (devFlags.debug) console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.at(0)?.isIntersecting})`)
+    devFlags.debug && console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.at(0)?.isIntersecting})`)
 
     if (!(root instanceof HTMLElement)) return
 

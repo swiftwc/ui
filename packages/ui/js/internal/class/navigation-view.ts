@@ -39,7 +39,7 @@ export class NavigationView extends HTMLElement {
           this.#recentBefore = undefined
         }
 
-        if (devFlags.debug) console.debug(`${NavigationView.name} 💡 ${eventType}`)
+        devFlags.debug && console.debug(`${NavigationView.name} 💡 ${eventType}`)
 
         frame(this).then(() => target.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true })))
 
@@ -71,7 +71,7 @@ export class NavigationView extends HTMLElement {
   }
 
   #handleBeforeTabRevealOrSwap = ({ type, detail }: CustomEvent<TabBeforeDetail>) => {
-    if (devFlags.debug) console.debug(`${NavigationView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${NavigationView.name} ⚡️ ${type}`)
 
     if (this.id !== detail?.tag) return
 
@@ -86,7 +86,7 @@ export class NavigationView extends HTMLElement {
   }
 
   // #handleTabReveal = (event: CustomEvent<TabDetail>) => {
-  //   if (devFlags.debug) console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
+  //   devFlags.debug && console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
 
   //   if (this === event.target) return
 

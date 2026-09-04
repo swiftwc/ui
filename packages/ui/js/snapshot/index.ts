@@ -63,11 +63,11 @@ export class Snapshot {
 
     this.#listeners.add(onoff('change', (evt: Event) => this.#handleMediaChange(evt as MediaQueryListEvent, 'fine_dialog_sheet:change') as unknown as EventListener, mediaQueryList).on())
 
-    if (devFlags.debug) console.debug(this.#config)
+    devFlags.debug && console.debug(this.#config)
   }
 
   static #handleMediaChange = ({ type, matches, media }: MediaQueryListEvent, kind: string) => {
-    if (devFlags.debug) console.debug(`${Snapshot.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${Snapshot.name} ⚡️ ${type}`)
 
     this.#breakpoints?.set('fine_dialog_sheet', matches)
 

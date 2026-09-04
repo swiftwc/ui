@@ -83,7 +83,7 @@ export class ProgressView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'label': {
@@ -103,13 +103,13 @@ export class ProgressView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ connect`)
 
     this.inert = true
 
@@ -123,7 +123,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ style`)
+    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ style`)
 
     const raw = self.getComputedStyle(this).getPropertyValue('--progress-view-style-index').trim()
 
@@ -137,7 +137,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #render() {
-    if (devFlags.debug) console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
+    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
 
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle

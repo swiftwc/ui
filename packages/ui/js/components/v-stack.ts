@@ -21,11 +21,11 @@ export class VStack extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${VStack.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${VStack.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${VStack.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${VStack.name} ⚡️ disconnect`)
   }
 }
 

@@ -80,7 +80,7 @@ export class LabeledContent extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -135,11 +135,11 @@ export class LabeledContent extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${LabeledContent.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ connect`)
   }
 
   // <type>:<locale>;<option>=<value>;<option>=<value>

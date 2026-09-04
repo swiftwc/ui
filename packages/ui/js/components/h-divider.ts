@@ -6,15 +6,15 @@ export class HDivider extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${HDivider.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${HDivider.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${HDivider.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${HDivider.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${HDivider.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${HDivider.name} ⚡️ attr-change [${name}]`)
   }
 }
 

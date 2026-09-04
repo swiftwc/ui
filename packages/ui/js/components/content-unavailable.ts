@@ -59,7 +59,7 @@ export class ContentUnavailable extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'search':
@@ -86,11 +86,11 @@ export class ContentUnavailable extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ContentUnavailable.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ connect`)
   }
 
   #renderSearch = (search: string | null) => {

@@ -19,7 +19,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'slot':
@@ -50,7 +50,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
 
     this.#mutationObserver?.disconnect()
 
@@ -58,7 +58,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItem.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,

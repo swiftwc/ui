@@ -4,7 +4,7 @@ import { devFlags, onoff } from '../utils'
 
 export default function (filter?: (el: HTMLElement) => boolean) {
   const handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, { type, matches }) => {
-    if (devFlags.debug) console.debug(`${el.localName} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${el.localName} ⚡️ ${type}`)
 
     if (matches) {
       if (!el.matches(`[slot="cancellation-action"],[slot="primary-action"],[slot="confirmation-action"],[slot="destructive-action"]`)) return
@@ -28,7 +28,7 @@ export default function (filter?: (el: HTMLElement) => boolean) {
       originalDisconnected = Base.prototype.disconnectedCallback
 
     Base.prototype.connectedCallback = function (this: HTMLElement) {
-      if (devFlags.debug) console.debug(`decorator:[${this.localName}] ⚡️ connect`)
+      devFlags.debug && console.debug(`decorator:[${this.localName}] ⚡️ connect`)
 
       originalConnected?.call(this)
 
@@ -51,7 +51,7 @@ export default function (filter?: (el: HTMLElement) => boolean) {
     }
 
     Base.prototype.disconnectedCallback = function (this: HTMLElement) {
-      if (devFlags.debug) console.debug(`decorator:[${this.localName}] ⚡️ disconnect`)
+      devFlags.debug && console.debug(`decorator:[${this.localName}] ⚡️ disconnect`)
 
       originalDisconnected?.call(this)
 

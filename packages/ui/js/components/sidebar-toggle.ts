@@ -13,7 +13,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
 
     observers.unobserve(this)
 
@@ -21,7 +21,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${SidebarToggle.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
@@ -44,7 +44,7 @@ export class SidebarToggle extends HTMLElement {
 
   // This triggers on show/hide of any of sidebar-toggle elements
   static #handleMeasure(entry?: ResizeObserverEntry) {
-    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ measure`)
+    devFlags.debug && console.debug(`${SidebarToggle.name} ⚡️ measure`)
 
     const { target } = entry ?? {}
     if (!(target instanceof HTMLElement)) return
@@ -92,7 +92,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   #handleClick({ target, type }: Event) {
-    if (devFlags.debug) console.debug(`${SidebarToggle.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${SidebarToggle.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

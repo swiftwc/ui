@@ -68,7 +68,7 @@ export class ToolBar extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBar.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ToolBar.name} ⚡️ connect`)
 
     // NOTE: wait for config
     // Snapshot.waitReady.then(() => {
@@ -77,13 +77,13 @@ export class ToolBar extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBar.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ToolBar.name} ⚡️ disconnect`)
 
     observers.unobserve(this)
   }
 
   #measureStacks(entry: ResizeObserverEntry) {
-    if (devFlags.debug) console.debug(`${ToolBar.name} ⚡️ measure`)
+    devFlags.debug && console.debug(`${ToolBar.name} ⚡️ measure`)
 
     if (this.closest('[hidden]')) return
 

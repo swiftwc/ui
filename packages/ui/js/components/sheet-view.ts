@@ -11,13 +11,13 @@ export class SheetView extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: SheetView) {
-    if (devFlags.debug) console.debug(`${SheetView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${SheetView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: SheetView) {
-    if (devFlags.debug) console.debug(`${SheetView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${SheetView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -34,11 +34,11 @@ export class SheetView extends DialogBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    if (devFlags.debug) console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    devFlags.debug && console.debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
   }
 
   static #handleKeydown = (evt: KeyboardEvent) => {
-    if (devFlags.debug) console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.key})`)
+    devFlags.debug && console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.key})`)
 
     if ('Escape' !== evt.key) return
 
@@ -48,7 +48,7 @@ export class SheetView extends DialogBase {
   }
 
   static #handleCancel = (evt: Event) => {
-    if (devFlags.debug) console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.cancelable})`)
+    devFlags.debug && console.debug(`${SheetView.name} ⚡️ ${evt?.type} (${evt.cancelable})`)
 
     if (!evt.cancelable) return
 

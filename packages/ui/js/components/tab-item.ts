@@ -15,13 +15,13 @@ export class TabItem extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(btn: HTMLButtonElement) {
-    if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${TabItem.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(btn)
   }
 
   static polyfillConnectedCallback(btn: TabItem) {
-    if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${TabItem.name} ⚡️ connect`)
 
     Object.assign(btn, {
       tabIndex: 0,
@@ -50,7 +50,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: TabViewAdaptableTabBarPlacementChangeEvent) => {
-    if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
     const tv = btn.closest<TabView>('tab-view')
     if (!tv) return
@@ -61,7 +61,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
-    if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
     const tv = btn?.closest<TabView>('tab-view')
     if (!tv) return
@@ -88,7 +88,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleClick = async ({ type, currentTarget: btn }: Event) => {
-    if (devFlags.debug) console.debug(`${TabItem.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${TabItem.name} ⚡️ ${type}`)
 
     if (!(btn instanceof HTMLElement)) return
 
@@ -149,7 +149,7 @@ export class TabItem extends ButtonBase {
       for (const tab of tabs.reverse())
         if (tv.selectedTab.includes(tab)) {
           const eventType = 'tabroot'
-          if (devFlags.debug) console.debug(`${TabItem.name} 💡 ${eventType}`)
+          devFlags.debug && console.debug(`${TabItem.name} 💡 ${eventType}`)
 
           tab?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
 
@@ -157,7 +157,7 @@ export class TabItem extends ButtonBase {
         }
     } else if ('->' === dir) {
       const eventType = 'tabroot'
-      if (devFlags.debug) console.debug(`${TabItem.name} 💡 ${eventType}`)
+      devFlags.debug && console.debug(`${TabItem.name} 💡 ${eventType}`)
 
       tabs.at(0)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
     }

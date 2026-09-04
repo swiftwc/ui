@@ -58,7 +58,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ mutation`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
@@ -85,7 +85,7 @@ export class ToggleView extends FormAssociatedBase {
     return this.#trackWidth - this.#dotSize
   }
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ measure`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ measure`)
 
     if (!(target instanceof HTMLElement)) return
 
@@ -143,7 +143,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'value':
@@ -226,7 +226,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -238,13 +238,13 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleFocusin = ({ type, target }: Event) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (target === this) this.#track?.focus()
   }
 
   #handleTrackClick = ({ type }: Event) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (this.#didDrag) return (this.#didDrag = false)
 
@@ -270,7 +270,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointerdown = ({ type, pointerId, clientX, clientY }: PointerEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#track) return
 
@@ -289,7 +289,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointermove = ({ type, clientX }: PointerEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return
 
@@ -297,7 +297,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointerup = ({ type, pointerId }: PointerEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return // pointerdown never engaged (missed the dot) — plain click, nothing to settle
 
@@ -309,7 +309,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointercancel = ({ type }: PointerEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return // already settled via pointerup, or nothing to settle
 
@@ -355,7 +355,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackKeydown = (evt: KeyboardEvent) => {
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
 
     if (' ' !== evt.key) return
 
@@ -455,7 +455,7 @@ export class ToggleView extends FormAssociatedBase {
         break
       }
 
-    if (devFlags.debug) console.debug(`${ToggleView.name} ⚡️ validity-change`)
+    devFlags.debug && console.debug(`${ToggleView.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#track)
   }

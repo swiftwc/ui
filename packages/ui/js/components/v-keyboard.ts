@@ -25,13 +25,13 @@ export class VKeyboard extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${VKeyboard.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${VKeyboard.name} ⚡️ connect`)
 
     this.inert = true
 
@@ -85,7 +85,7 @@ export class VKeyboard extends HTMLElement {
   }
 
   #handleWindowOrientationchange = async () => {
-    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ orientationchange`)
+    devFlags.debug && console.debug(`${VKeyboard.name} ⚡️ orientationchange`)
 
     if (!(await frame(this))) return //self.requestAnimationFrame(this.#ifKeyboardScrollIntoActiveElement)
 
@@ -93,7 +93,7 @@ export class VKeyboard extends HTMLElement {
   }
 
   #handleBodyFocusin = async () => {
-    if (devFlags.debug) console.debug(`${VKeyboard.name} ⚡️ focusin`)
+    devFlags.debug && console.debug(`${VKeyboard.name} ⚡️ focusin`)
 
     await sleep(100) // self.setTimeout(this.#ifKeyboardScrollIntoActiveElement, 100)
 

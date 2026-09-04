@@ -13,7 +13,7 @@ export class FormView extends FormBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLFormElement) {
-    if (devFlags.debug) console.debug(`${FormView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${FormView.name} ⚡️ disconnect`)
 
     // finally
 
@@ -21,7 +21,7 @@ export class FormView extends FormBase {
   }
 
   static polyfillConnectedCallback(el: HTMLFormElement) {
-    if (devFlags.debug) console.debug(`${FormView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${FormView.name} ⚡️ connect`)
 
     if (el.closest('[is=sidebar-view],[is=tab-bar]')) {
       el.method = 'dialog'

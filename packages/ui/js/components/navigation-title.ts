@@ -30,17 +30,17 @@ export class NavigationTitle extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     this.#render(this.getAttribute('value'), this.getAttribute('subtitle'), this.getAttribute('system-image'), this.getAttribute('system-image-weight'))
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${NavigationTitle.name} ⚡️ connect`)
   }
 
   #render = (title: string | null, subtitle: string | null, systemImage: string | null, systemImageWeight: string | null) => {

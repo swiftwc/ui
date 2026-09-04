@@ -25,7 +25,7 @@ export type DictEntry = {
 export type Dictionary = DictEntry[]
 
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
-  if (devFlags.debug) console.debug(`PickerView: update`)
+  devFlags.debug && console.debug(`PickerView: update`)
 
   if (!(path instanceof NavigationPath)) throw new Error('invalid view')
 
@@ -39,7 +39,7 @@ const update = (path: NavigationPath, node: Element, overwrite = true) => {
 }
 
 const reflectSpawnedPage = (current?: HTMLElement, source?: HTMLElement) => {
-  if (devFlags.debug) console.debug(`PickerView: reflectSpawnedPage`)
+  devFlags.debug && console.debug(`PickerView: reflectSpawnedPage`)
 
   const { page: oldSv, toolBarConfig: oldToolbar } = new NavigationPath(current).hydrate(),
     { page: newSv, toolBarConfig: newToolbar } = new NavigationPath(source).hydrate()
@@ -92,12 +92,12 @@ const reflectSpawnedPage = (current?: HTMLElement, source?: HTMLElement) => {
 }
 
 const extractTag = (node: HTMLOptionElement | DictEntry): string => {
-    if (devFlags.debug) console.debug(`PickerView: extractTag`)
+    devFlags.debug && console.debug(`PickerView: extractTag`)
 
     return node instanceof HTMLOptionElement ? (((node.getAttribute('value') ?? node.textContent?.trim()) || node.getAttribute('label')) ?? '') : (node.value ?? '')
   },
   extractLabel = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
-    if (devFlags.debug) console.debug(`PickerView: extractLabelFromGroup`)
+    devFlags.debug && console.debug(`PickerView: extractLabelFromGroup`)
 
     if (node instanceof Element)
       if (node instanceof HTMLOptionElement) return (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || null
@@ -107,7 +107,7 @@ const extractTag = (node: HTMLOptionElement | DictEntry): string => {
     // return node instanceof Element ? node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label') : (node.title ?? node.value ?? null)
   },
   extractIcon = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
-    if (devFlags.debug) console.debug(`PickerView: extractIcon`)
+    devFlags.debug && console.debug(`PickerView: extractIcon`)
 
     // return node instanceof Element ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
 
@@ -115,7 +115,7 @@ const extractTag = (node: HTMLOptionElement | DictEntry): string => {
     else return node.systemImage ?? null
   },
   extractSubtitle = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
-    if (devFlags.debug) console.debug(`PickerView: extractSubtitle`)
+    devFlags.debug && console.debug(`PickerView: extractSubtitle`)
 
     if (node instanceof Element) return node.getAttribute('data-subtitle')
     else return node.subtitle ?? null
@@ -217,7 +217,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #spawnPage = (elements: Element[] | DictEntry[], tag: 'body-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} #spawnPage`)
+    devFlags.debug && console.debug(`${PickerView.name} #spawnPage`)
 
     const body =
         tag === 'sheet-view'
@@ -430,7 +430,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #renderButtons(input: { mode: 'dictionary'; source: Dictionary } | { mode: 'list'; source: Element[] }): void {
-    if (devFlags.debug) console.debug(`${PickerView.name} #renderButtons`)
+    devFlags.debug && console.debug(`${PickerView.name} #renderButtons`)
 
     switch (input.mode) {
       case 'dictionary': {
@@ -634,19 +634,19 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #renderDictionary = (dictionary: Dictionary) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ mutation`)
 
     this.#renderButtons({ mode: 'dictionary', source: dictionary })
   }
 
   #renderSlotted = (entries: MutationRecord[]) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ mutation`)
 
     this.#renderButtons({ mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] })
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ mutation`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
@@ -818,7 +818,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
@@ -879,7 +879,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -888,7 +888,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,
@@ -920,7 +920,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #render() {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ #render (${this.pickerStyle})`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ #render (${this.pickerStyle})`)
 
     // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
     if (this.#lastRenderedStyle === this.pickerStyle) return // skip if already applied
@@ -971,7 +971,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleTriggerClick = async ({ type, target }: Event) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 
@@ -998,7 +998,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handlePageBtnClick = async (evt: Event) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ ${evt?.type}`)
 
     evt.stopImmediatePropagation()
     evt.preventDefault()
@@ -1031,7 +1031,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleClick({ type, target }: Event) {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 
@@ -1048,7 +1048,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -1061,7 +1061,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleListSlotchange = ({ type, target: slot }: Event) => {
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -1074,7 +1074,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptionSpawnTag(node: HTMLDataListElement | DictEntry) {
-    if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptionSpawnTag`)
+    devFlags.debug && console.debug(`${PickerView.name} #wrapOptionSpawnTag`)
 
     const title = extractLabel(node as HTMLDataListElement),
       subtitle = extractSubtitle(node),
@@ -1123,7 +1123,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptionTag(node: HTMLOptionElement | DictEntry) {
-    if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptionTag`)
+    devFlags.debug && console.debug(`${PickerView.name} #wrapOptionTag`)
 
     const tag = extractTag(node),
       title = extractLabel(node),
@@ -1172,7 +1172,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   static #wrapOptgroupTag(node: HTMLOptGroupElement | DictEntry) {
-    if (devFlags.debug) console.debug(`${PickerView.name} #wrapOptgroupTag`)
+    devFlags.debug && console.debug(`${PickerView.name} #wrapOptgroupTag`)
 
     const title = extractLabel(node),
       subtitle = extractSubtitle(node),
@@ -1218,7 +1218,7 @@ export class PickerView extends FormAssociatedBase {
   // static #reflectButtons(nodes: Element[], container: Element): void
   // static #reflectButtons(nodes: Dictionary, container: Element): void
   static #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
-    if (devFlags.debug) console.debug(`${PickerView.name} #reflectButtons`)
+    devFlags.debug && console.debug(`${PickerView.name} #reflectButtons`)
 
     for (const node of nodes)
       if (node instanceof Element)
@@ -1327,7 +1327,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   // #reflectPlaceholder(value: string | null) {
-  //   if (devFlags.debug) console.debug(`#reflectPlaceholder`)
+  //   devFlags.debug && console.debug(`#reflectPlaceholder`)
   // const input = this.#shadowRoot.querySelector('input')
   // if (input) {
   //   if (value) input.setAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER, value)
@@ -1336,7 +1336,7 @@ export class PickerView extends FormAssociatedBase {
   // }
 
   #reflectLabel(value: string | null) {
-    if (devFlags.debug) console.debug(`${PickerView.name} #reflectLabel`)
+    devFlags.debug && console.debug(`${PickerView.name} #reflectLabel`)
 
     queryMorph('[slot=label]', html`<label-view slot="label">${value ? html`<span>${value}</span>` : null}</label-view>`, this)
 
@@ -1344,7 +1344,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectSelectionOnButtons() {
-    if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
+    devFlags.debug && console.debug(`${PickerView.name} #reflectSelectionOnButtons`)
 
     self.requestAnimationFrame(() => {
       this.ariaCurrent = this.#selection
@@ -1385,7 +1385,7 @@ export class PickerView extends FormAssociatedBase {
    * Overwrite cvlabel with the label prop of the current(find[value === #selection]) option/dictentry
    */
   #reflectSelectionOnCurrentValueLabel() {
-    if (devFlags.debug) console.debug(`${PickerView.name} #reflectSelectionOnCurrentValueLabel`)
+    devFlags.debug && console.debug(`${PickerView.name} #reflectSelectionOnCurrentValueLabel`)
 
     self.requestAnimationFrame(() => {
       switch (this.pickerStyle) {
@@ -1443,7 +1443,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #reflectTriggerHelp() {
-    if (devFlags.debug) console.debug(`${PickerView.name} #reflectTriggerHelp`)
+    devFlags.debug && console.debug(`${PickerView.name} #reflectTriggerHelp`)
 
     let trigger
     switch (this.pickerStyle) {
@@ -1504,7 +1504,7 @@ export class PickerView extends FormAssociatedBase {
         break
       }
 
-    if (devFlags.debug) console.debug(`${PickerView.name} ⚡️ validity-change`)
+    devFlags.debug && console.debug(`${PickerView.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor)
   }

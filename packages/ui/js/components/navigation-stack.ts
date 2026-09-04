@@ -10,7 +10,7 @@ export class NavigationStack extends NavigationView {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
 
@@ -21,13 +21,13 @@ export class NavigationStack extends NavigationView {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${NavigationStack.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationStack.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${NavigationStack.name} ⚡️ connect`)
 
     super.connectedCallback()
   }

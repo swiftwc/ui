@@ -12,11 +12,11 @@ export class ToolBarItemGroup extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItemGroup.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ToolBarItemGroup.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }

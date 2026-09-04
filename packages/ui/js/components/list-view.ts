@@ -15,13 +15,13 @@ export class ListView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ListView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ListView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ListView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ListView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
   }

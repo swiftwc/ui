@@ -9,11 +9,11 @@ export class ScrollViewProxy extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
   }
 }
 

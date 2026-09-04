@@ -33,7 +33,7 @@ for (const [k, Ctor] of Object.entries(Components)) {
   if (!customElements.get(is)) customElements.define(is, Ctor)
 }
 
-if (devFlags.debug) console.debug(polyfills)
+devFlags.debug && console.debug(polyfills)
 
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
@@ -72,7 +72,7 @@ if (0 < polyfills.size) {
     polyfillTagNamesCacheSelector = [...polyfillTagNamesCache.values()].map((v) => `${v}`.toLowerCase()).join(','),
     flatten = (node: HTMLElement) => [node, ...(node.querySelectorAll?.(polyfillTagNamesCacheSelector) ?? [])]
 
-  if (devFlags.debug) console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
+  devFlags.debug && console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${CSS.escape(is)}"]`)) {

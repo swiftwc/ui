@@ -42,7 +42,7 @@ export class SectionView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'header':
@@ -75,13 +75,13 @@ export class SectionView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${SectionView.name} ⚡️ disconnect`)
 
     //
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${SectionView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${SectionView.name} ⚡️ connect`)
 
     //
   }

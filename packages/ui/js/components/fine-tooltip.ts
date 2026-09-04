@@ -21,7 +21,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
-    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ measure`)
+    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ measure`)
 
     if (target.hasAttribute('closing')) return
 
@@ -65,7 +65,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ connect`)
 
     this.removeAttribute('closing')
 
@@ -81,7 +81,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${FineTooltip.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ disconnect`)
 
     this.#resizeObserver.unobserve(this)
 

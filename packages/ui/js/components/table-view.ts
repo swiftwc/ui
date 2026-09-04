@@ -81,7 +81,7 @@ export class TableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${TableView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -93,7 +93,7 @@ export class TableView extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${TableView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
@@ -108,7 +108,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleColumnSlotchange = ({ type, target: slot }: Event) => {
-    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${TableView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -121,7 +121,7 @@ export class TableView extends HTMLElement {
   }
 
   #renderColumns = (entries: MutationRecord[]) => {
-    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ mutation`)
+    devFlags.debug && console.debug(`${TableView.name} ⚡️ mutation`)
 
     if (!this.#compactToolbarItem) {
       this.#compactToolbarItem = $(html`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
@@ -157,7 +157,7 @@ export class TableView extends HTMLElement {
   #observers = new MutationObserverSet(this.#renderColumns)
 
   #handleStyleChange = () => {
-    if (devFlags.debug) console.debug(`${TableView.name} ⚡️ style`)
+    devFlags.debug && console.debug(`${TableView.name} ⚡️ style`)
 
     const target = this.#shadowRoot.querySelector('[part*=table-container]') ?? undefined
     if (!target) return

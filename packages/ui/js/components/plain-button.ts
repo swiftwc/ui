@@ -8,13 +8,13 @@ export class PlainButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: PlainButton) {
-    if (devFlags.debug) console.debug(`${PlainButton.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${PlainButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: PlainButton) {
-    if (devFlags.debug) console.debug(`${PlainButton.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${PlainButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
 

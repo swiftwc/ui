@@ -9,11 +9,11 @@ export class BodyView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${BodyView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${BodyView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${BodyView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${BodyView.name} ⚡️ connect`)
   }
 }
 

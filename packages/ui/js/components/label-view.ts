@@ -62,7 +62,7 @@ export class LabelView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -91,11 +91,11 @@ export class LabelView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${LabelView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${LabelView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${LabelView.name} ⚡️ connect`)
   }
 
   // #scheduleReflect = () => {

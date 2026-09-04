@@ -11,7 +11,7 @@ export class TabBar extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
-    if (devFlags.debug) console.debug(`${TabBar.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${TabBar.name} ⚡️ disconnect`)
 
     el.removeEventListener('click', TabBar.#handleClick)
 
@@ -19,7 +19,7 @@ export class TabBar extends DialogBase {
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
-    if (devFlags.debug) console.debug(`${TabBar.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${TabBar.name} ⚡️ connect`)
 
     el.autofocus = true
 
@@ -46,7 +46,7 @@ export class TabBar extends DialogBase {
   }
 
   static #handleClick = async ({ target, type }: Event) => {
-    if (devFlags.debug) console.debug(`${TabBar.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${TabBar.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

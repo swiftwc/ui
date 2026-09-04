@@ -7,6 +7,6 @@ export class ScreenView extends DialogBase {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${ScreenView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${ScreenView.name} ⚡️ disconnect`)
   }
 }

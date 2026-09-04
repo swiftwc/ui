@@ -6,15 +6,15 @@ export class TextView extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${TextView.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${TextView.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${TextView.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${TextView.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${TextView.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${TextView.name} ⚡️ attr-change [${name}]`)
 
     //
   }

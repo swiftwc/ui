@@ -6,15 +6,15 @@ export class VDivider extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${VDivider.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${VDivider.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${VDivider.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${VDivider.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${VDivider.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${VDivider.name} ⚡️ attr-change [${name}]`)
   }
 }
 

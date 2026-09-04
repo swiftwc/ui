@@ -15,7 +15,7 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 
 // export function makeSlotchangeHandler(t: FormAssociatedBase) {
 //   const handleSlotchange = ({ type, target: slot }: Event) => {
-//       if (devFlags.debug) console.debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
+//       devFlags.debug && console.debug(`${makeSlotchangeHandler.name} ⚡️ ${type}`)
 
 //       if (!(slot instanceof HTMLSlotElement && slot)) return
 
@@ -26,7 +26,7 @@ export function getInternals(instance: FormAssociatedBase): ElementInternals {
 //       if (0 < assigned.length) handleTagMutation()
 //     },
 //     handleTagMutation = (entry?: MutationRecord) => {
-//       if (devFlags.debug) console.debug(`${handleTagMutation.name} ⚡️ mutation`)
+//       devFlags.debug && console.debug(`${handleTagMutation.name} ⚡️ mutation`)
 
 //       t.setValidity(t.validity, t.validationMessage)
 //     }
@@ -50,7 +50,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -58,7 +58,7 @@ export abstract class FormAssociatedBase extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${FormAssociatedBase.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${FormAssociatedBase.name} ⚡️ connect`)
   }
 
   get type() {

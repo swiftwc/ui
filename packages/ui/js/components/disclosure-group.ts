@@ -28,19 +28,19 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
+    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
-    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
-    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ connect`)
 
     const newValue = el.open ? 'open' : 'closed'
 
@@ -55,7 +55,7 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   static #handleToggle = async ({ type, currentTarget: details }: Event) => {
-    if (devFlags.debug) console.debug(`${DisclosureGroup.name} ⚡️ ${type}`)
+    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ ${type}`)
 
     if (!(details instanceof HTMLDetailsElement)) return
 

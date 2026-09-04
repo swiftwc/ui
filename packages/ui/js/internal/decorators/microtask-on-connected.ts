@@ -23,13 +23,13 @@ class() {
   }
 }
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${NavigationTitle.name} ⚡️ connect`)
 
     this.#scheduleSync()
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    if (devFlags.debug) console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    devFlags.debug && console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     this.#scheduleSync()
 

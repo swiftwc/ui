@@ -18,11 +18,11 @@ export class HStack extends HTMLElement {
   }
 
   connectedCallback() {
-    if (devFlags.debug) console.debug(`${HStack.name} ⚡️ connect`)
+    devFlags.debug && console.debug(`${HStack.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    if (devFlags.debug) console.debug(`${HStack.name} ⚡️ disconnect`)
+    devFlags.debug && console.debug(`${HStack.name} ⚡️ disconnect`)
   }
 }
 

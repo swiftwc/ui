@@ -23,11 +23,10 @@ for (const [k, Ctor] of Object.entries(Components)) {
 
     customElements.define(is, Ctor, { extends: Ctor.polyfillExtends })
 
+    // NOTE: Test via the imperative creation path
     if (!(document.createElement(Ctor.polyfillExtends, { is }) instanceof Ctor)) polyfills.set(is, Ctor)
 
-    // const testEl = document.createElement('template')
-    // testEl.innerHTML = `<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`
-    // const testNode = testEl.content.firstElementChild,
+    // NOTE: Defensive, test again via the HTML-parsing path
     if (!($(html`<${Ctor.polyfillExtends} is="${is}"></${Ctor.polyfillExtends}>`, '>1') instanceof Ctor)) polyfills.set(is, Ctor)
 
     continue

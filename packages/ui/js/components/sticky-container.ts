@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { devFlags, onoff } from '../internal/utils'
+import { onoff } from '../internal/utils'
 
 export class StickyContainer extends HTMLElement {
   constructor() {
@@ -7,13 +8,13 @@ export class StickyContainer extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${StickyContainer.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${StickyContainer.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${StickyContainer.name} ⚡️ connect`)
+    DEBUG && console.debug(`${StickyContainer.name} ⚡️ connect`)
 
     // CleanupRegistry.register(this, onoff('transitionend transitionstart transitioncancel', this.#handleTransitionrun as unknown as EventListener, this).on())
     CleanupRegistry.register(this, onoff('transitionrun', this.#handleTransitionrun as unknown as EventListener, this).on())

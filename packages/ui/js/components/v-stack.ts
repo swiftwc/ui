@@ -1,4 +1,4 @@
-import { devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 
 /**
  * @summary A view that arranges its children one on top of the other.
@@ -21,11 +21,11 @@ export class VStack extends HTMLElement {
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${VStack.name} ⚡️ connect`)
+    DEBUG && console.debug(`${VStack.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${VStack.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${VStack.name} ⚡️ disconnect`)
   }
 }
 

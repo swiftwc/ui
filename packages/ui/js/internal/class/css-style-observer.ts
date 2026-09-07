@@ -1,4 +1,5 @@
-import { devFlags, onoff } from '../../internal/utils'
+import { DEBUG } from '../../internal/flags.json' with { type: 'json' }
+import { onoff } from '../../internal/utils'
 
 export class CSSStyleObserver {
   #cleanups?: () => void
@@ -24,7 +25,7 @@ export class CSSStyleObserver {
   }
 
   #handleTransitionrun = (callback: (evt: TransitionEvent) => void, evt: TransitionEvent) => {
-    devFlags.debug && console.debug(`${CSSStyleObserver.name} ⚡️ ${evt?.type} (${evt.propertyName})`)
+    DEBUG && console.debug(`${CSSStyleObserver.name} ⚡️ ${evt?.type} (${evt.propertyName})`)
 
     if (!this.#options?.properties.some((prop) => evt.propertyName.startsWith(prop))) return
 

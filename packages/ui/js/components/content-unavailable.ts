@@ -1,6 +1,7 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, devFlags, onoff } from '../internal/utils'
+import { $, onoff } from '../internal/utils'
 import { html } from '../tpl'
 
 /**
@@ -59,7 +60,7 @@ export class ContentUnavailable extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'search':
@@ -86,11 +87,11 @@ export class ContentUnavailable extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${ContentUnavailable.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${ContentUnavailable.name} ⚡️ connect`)
+    DEBUG && console.debug(`${ContentUnavailable.name} ⚡️ connect`)
   }
 
   #renderSearch = (search: string | null) => {

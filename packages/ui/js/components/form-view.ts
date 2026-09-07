@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { devFlags, listActive, onoff } from '../internal/utils'
+import { listActive, onoff } from '../internal/utils'
 import { FormBase } from '../namespace-browser/base'
 
 /**
@@ -13,7 +14,7 @@ export class FormView extends FormBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLFormElement) {
-    devFlags.debug && console.debug(`${FormView.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${FormView.name} ⚡️ disconnect`)
 
     // finally
 
@@ -21,7 +22,7 @@ export class FormView extends FormBase {
   }
 
   static polyfillConnectedCallback(el: HTMLFormElement) {
-    devFlags.debug && console.debug(`${FormView.name} ⚡️ connect`)
+    DEBUG && console.debug(`${FormView.name} ⚡️ connect`)
 
     if (el.closest('[is=sidebar-view],[is=tab-bar]')) {
       el.method = 'dialog'

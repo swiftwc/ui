@@ -1,4 +1,5 @@
-import { devFlags, onoff } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { onoff } from '../internal/utils'
 
 export class Snapshot {
   static #readyCalled = false
@@ -63,11 +64,11 @@ export class Snapshot {
 
     this.#listeners.add(onoff('change', (evt: Event) => this.#handleMediaChange(evt as MediaQueryListEvent, 'fine_dialog_sheet:change') as unknown as EventListener, mediaQueryList).on())
 
-    devFlags.debug && console.debug(this.#config)
+    DEBUG && console.debug(this.#config)
   }
 
   static #handleMediaChange = ({ type, matches, media }: MediaQueryListEvent, kind: string) => {
-    devFlags.debug && console.debug(`${Snapshot.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${Snapshot.name} ⚡️ ${type}`)
 
     this.#breakpoints?.set('fine_dialog_sheet', matches)
 

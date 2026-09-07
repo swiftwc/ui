@@ -1,9 +1,10 @@
 import type { DatePickerSelectionDetail } from '../events'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, clamp, devFlags, kebabCase, onoff, set } from '../internal/utils'
+import { $, clamp, kebabCase, onoff, set } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -46,7 +47,7 @@ export class DatePicker extends FormAssociatedBase {
   // #lastRenderedStyle?: DatePickerStyle //string | null
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ mutation`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
@@ -101,7 +102,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'selection':
@@ -178,7 +179,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #render() {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ #render (${this.datePickerStyle})`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ #render (${this.datePickerStyle})`)
 
     // if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
     // this.#lastRenderedStyle = this.datePickerStyle
@@ -245,7 +246,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -283,7 +284,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleClick = (evt: Event) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target } = evt
     if (!(target instanceof HTMLElement)) return
@@ -332,7 +333,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
     if (!(input instanceof HTMLInputElement)) return
@@ -363,7 +364,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleInputBeforeinput = (evt: InputEvent) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
     if (!(input instanceof HTMLInputElement)) return
@@ -397,7 +398,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleInputKeydown = ({ type, target, key }: KeyboardEvent) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLInputElement)) return
 
@@ -418,13 +419,13 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleInputFocus = (evt: Event) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     for (const input of this.#inputs) input.classList.toggle('focus', input === evt.target)
   }
 
   #handleInputBlur = ({ target, type }: Event) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLInputElement)) return
 
@@ -442,7 +443,7 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   #handleInputInput = (evt: Event) => {
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ ${evt?.type}`)
 
     this.#sendValueToForm()
   }
@@ -572,7 +573,7 @@ export class DatePicker extends FormAssociatedBase {
         break
       }
 
-    devFlags.debug && console.debug(`${DatePicker.name} ⚡️ validity-change`)
+    DEBUG && console.debug(`${DatePicker.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#inputs.at(0))
   }

@@ -81,6 +81,10 @@
     "test": "vitest --dom",
     "prepackage": "rm -rf generated",
     "package": "npm run build:ts && npm run build:scss",
+    "debug:on": "jq '.DEBUG = true' ./js/internal/flags.json > ./js/internal/flags.tmp.json && mv ./js/internal/flags.tmp.json ./js/internal/flags.json",
+    "debug:off": "jq '.DEBUG = false' ./js/internal/flags.json > ./js/internal/flags.tmp.json && mv ./js/internal/flags.tmp.json ./js/internal/flags.json",
+    "preversion": "node -e \"const fs=require('node:fs');const f='./js/internal/flags.json';const j=JSON.parse(fs.readFileSync(f));j.PREID=process.env.npm_config_preid||null;fs.writeFileSync(f,JSON.stringify(j,null,2)+'\\n')\"",
+    "postversion": "npm run debug:on",
     "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },
   "devDependencies": {

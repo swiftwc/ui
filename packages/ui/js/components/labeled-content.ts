@@ -1,4 +1,5 @@
-import { $, devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { $ } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -80,7 +81,7 @@ export class LabeledContent extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -135,11 +136,11 @@ export class LabeledContent extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${LabeledContent.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${LabeledContent.name} ⚡️ connect`)
+    DEBUG && console.debug(`${LabeledContent.name} ⚡️ connect`)
   }
 
   // <type>:<locale>;<option>=<value>;<option>=<value>

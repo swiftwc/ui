@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, devFlags, onoff } from '../internal/utils'
+import { $, onoff } from '../internal/utils'
 import { html } from '../tpl'
 
 /**
@@ -21,7 +22,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
-    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ measure`)
+    DEBUG && console.debug(`${FineTooltip.name} ⚡️ measure`)
 
     if (target.hasAttribute('closing')) return
 
@@ -65,7 +66,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ connect`)
+    DEBUG && console.debug(`${FineTooltip.name} ⚡️ connect`)
 
     this.removeAttribute('closing')
 
@@ -81,7 +82,7 @@ export class FineTooltip extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${FineTooltip.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${FineTooltip.name} ⚡️ disconnect`)
 
     this.#resizeObserver.unobserve(this)
 

@@ -1,4 +1,4 @@
-import { devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 
 /**
  * @summary A container view that wraps a scroll view, marking it as a screen your app can navigate to.
@@ -9,11 +9,11 @@ export class BodyView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${BodyView.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${BodyView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${BodyView.name} ⚡️ connect`)
+    DEBUG && console.debug(`${BodyView.name} ⚡️ connect`)
   }
 }
 

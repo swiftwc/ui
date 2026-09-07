@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { devFlags, onoff, touchGlass } from '../internal/utils'
+import { onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
@@ -43,7 +44,7 @@ export class SidebarView extends DialogBase {
 
   // Autoclose on click outside.
   static #handleClick = async ({ target, type }: Event) => {
-    devFlags.debug && console.debug(`${SidebarView.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${SidebarView.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

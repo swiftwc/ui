@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { devFlags, ensurePlaceholder, onoff } from '../internal/utils'
+import { ensurePlaceholder, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -28,13 +29,13 @@ export class BorderedProminentButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: BorderedProminentButton) {
-    devFlags.debug && console.debug(`${BorderedProminentButton.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${BorderedProminentButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: BorderedProminentButton) {
-    devFlags.debug && console.debug(`${BorderedProminentButton.name} ⚡️ connect`)
+    DEBUG && console.debug(`${BorderedProminentButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
 
@@ -42,7 +43,7 @@ export class BorderedProminentButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    devFlags.debug && console.debug(`${BorderedProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    DEBUG && console.debug(`${BorderedProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement
     if (!node) return

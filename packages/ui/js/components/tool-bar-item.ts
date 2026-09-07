@@ -1,6 +1,7 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { adaptiveSlot } from '../internal/decorators'
-import { devFlags, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
+import { ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 
 /**
@@ -19,7 +20,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${ToolBarItem.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'slot':
@@ -50,7 +51,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${ToolBarItem.name} ⚡️ disconnect`)
 
     this.#mutationObserver?.disconnect()
 
@@ -58,7 +59,7 @@ export class ToolBarItem extends HTMLElement {
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${ToolBarItem.name} ⚡️ connect`)
+    DEBUG && console.debug(`${ToolBarItem.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       this,

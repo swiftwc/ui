@@ -1,4 +1,4 @@
-import { devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 
 export class HDivider extends HTMLElement {
   constructor() {
@@ -6,15 +6,15 @@ export class HDivider extends HTMLElement {
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${HDivider.name} ⚡️ connect`)
+    DEBUG && console.debug(`${HDivider.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${HDivider.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${HDivider.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${HDivider.name} ⚡️ attr-change [${name}]`)
+    DEBUG && console.debug(`${HDivider.name} ⚡️ attr-change [${name}]`)
   }
 }
 

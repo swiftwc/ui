@@ -1,4 +1,5 @@
-import { $, devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { $ } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -28,7 +29,7 @@ export class ImageView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -78,11 +79,11 @@ export class ImageView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${ImageView.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${ImageView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${ImageView.name} ⚡️ connect`)
+    DEBUG && console.debug(`${ImageView.name} ⚡️ connect`)
   }
 }
 

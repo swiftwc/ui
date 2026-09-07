@@ -1,6 +1,7 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { $, devFlags } from '../internal/utils'
+import { $ } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
 import { html } from '../tpl'
@@ -83,7 +84,7 @@ export class ProgressView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'label': {
@@ -103,13 +104,13 @@ export class ProgressView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ connect`)
+    DEBUG && console.debug(`${ProgressView.name} ⚡️ connect`)
 
     this.inert = true
 
@@ -123,7 +124,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ style`)
+    DEBUG && console.debug(`${ProgressView.name} ⚡️ style`)
 
     const raw = self.getComputedStyle(this).getPropertyValue('--progress-view-style-index').trim()
 
@@ -137,7 +138,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #render() {
-    devFlags.debug && console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
+    DEBUG && console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
 
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle

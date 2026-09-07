@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { cssTime, devFlags, onoff, timeout } from '../internal/utils'
+import { cssTime, onoff, timeout } from '../internal/utils'
 import { DetailsBase } from '../namespace-browser/base'
 
 const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>()
@@ -28,19 +29,19 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
+    DEBUG && console.debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
   static polyfillDisconnectedCallback(el: DisclosureGroup) {
-    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: DisclosureGroup) {
-    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ connect`)
+    DEBUG && console.debug(`${DisclosureGroup.name} ⚡️ connect`)
 
     const newValue = el.open ? 'open' : 'closed'
 
@@ -55,7 +56,7 @@ export class DisclosureGroup extends DetailsBase {
   }
 
   static #handleToggle = async ({ type, currentTarget: details }: Event) => {
-    devFlags.debug && console.debug(`${DisclosureGroup.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${DisclosureGroup.name} ⚡️ ${type}`)
 
     if (!(details instanceof HTMLDetailsElement)) return
 

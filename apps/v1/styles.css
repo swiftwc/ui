@@ -1132,7 +1132,9 @@
   text-field:not([hidden]),
   detail-placeholder:not([hidden]),
   sticky-container:not([hidden]),
-  picker-view:not([hidden])) {
+  picker-view:not([hidden]),
+  h-divider:not([hidden]),
+  v-divider:not([hidden])) {
     display: grid;
   }
   :where(tab-view:has(navigation-stack:not(:defined),
@@ -1163,7 +1165,9 @@
   text-field:not(:defined),
   detail-placeholder:not(:defined),
   sticky-container:not(:defined),
-  picker-view:not(:defined)), navigation-split-view:has(navigation-stack:not(:defined),
+  picker-view:not(:defined),
+  h-divider:not(:defined),
+  v-divider:not(:defined)), navigation-split-view:has(navigation-stack:not(:defined),
   navigation-split-view:not(:defined),
   navigation-large-title:not(:defined),
   navigation-title:not(:defined),
@@ -1191,7 +1195,9 @@
   text-field:not(:defined),
   detail-placeholder:not(:defined),
   sticky-container:not(:defined),
-  picker-view:not(:defined)), navigation-stack:has(navigation-stack:not(:defined),
+  picker-view:not(:defined),
+  h-divider:not(:defined),
+  v-divider:not(:defined)), navigation-stack:has(navigation-stack:not(:defined),
   navigation-split-view:not(:defined),
   navigation-large-title:not(:defined),
   navigation-title:not(:defined),
@@ -1219,7 +1225,9 @@
   text-field:not(:defined),
   detail-placeholder:not(:defined),
   sticky-container:not(:defined),
-  picker-view:not(:defined))) {
+  picker-view:not(:defined),
+  h-divider:not(:defined),
+  v-divider:not(:defined))) {
     visibility: hidden;
   }
   :where([is=search-view]:not([hidden]),

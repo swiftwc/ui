@@ -1,4 +1,4 @@
-import { devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 
 export class DetailPlaceholder extends HTMLElement {
   constructor() {
@@ -6,15 +6,15 @@ export class DetailPlaceholder extends HTMLElement {
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ connect`)
+    DEBUG && console.debug(`${DetailPlaceholder.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${DetailPlaceholder.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${DetailPlaceholder.name} ⚡️ attr-change [${name}]`)
+    DEBUG && console.debug(`${DetailPlaceholder.name} ⚡️ attr-change [${name}]`)
   }
 }
 

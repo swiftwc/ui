@@ -1,4 +1,4 @@
-import { devFlags } from '../internal/utils'
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 
 /**
  * @summary A wrapper for {hv}-stacks
@@ -9,11 +9,11 @@ export class ScrollViewProxy extends HTMLElement {
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${ScrollViewProxy.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
+    DEBUG && console.debug(`${ScrollViewProxy.name} ⚡️ connect`)
   }
 }
 

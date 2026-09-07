@@ -1,5 +1,6 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { devFlags, onoff, touchGlass } from '../internal/utils'
+import { onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
@@ -11,7 +12,7 @@ export class TabBar extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: HTMLDialogElement) {
-    devFlags.debug && console.debug(`${TabBar.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${TabBar.name} ⚡️ disconnect`)
 
     el.removeEventListener('click', TabBar.#handleClick)
 
@@ -19,7 +20,7 @@ export class TabBar extends DialogBase {
   }
 
   static polyfillConnectedCallback(el: HTMLDialogElement) {
-    devFlags.debug && console.debug(`${TabBar.name} ⚡️ connect`)
+    DEBUG && console.debug(`${TabBar.name} ⚡️ connect`)
 
     el.autofocus = true
 
@@ -46,7 +47,7 @@ export class TabBar extends DialogBase {
   }
 
   static #handleClick = async ({ target, type }: Event) => {
-    devFlags.debug && console.debug(`${TabBar.name} ⚡️ ${type}`)
+    DEBUG && console.debug(`${TabBar.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

@@ -1,5 +1,5 @@
+import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { NavigationView } from '../internal/class/navigation-view'
-import { devFlags } from '../internal/utils'
 
 /**
  * @summary A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
@@ -10,19 +10,19 @@ export class NavigationSplitView extends NavigationView {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    devFlags.debug && console.debug(`${NavigationSplitView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    DEBUG && console.debug(`${NavigationSplitView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
   }
 
   disconnectedCallback() {
-    devFlags.debug && console.debug(`${NavigationSplitView.name} ⚡️ disconnect`)
+    DEBUG && console.debug(`${NavigationSplitView.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
   connectedCallback() {
-    devFlags.debug && console.debug(`${NavigationSplitView.name} ⚡️ connect`)
+    DEBUG && console.debug(`${NavigationSplitView.name} ⚡️ connect`)
 
     super.connectedCallback()
   }

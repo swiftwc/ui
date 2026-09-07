@@ -1,8 +1,7 @@
 import { lifecycleObserver } from '../../buses'
 import type { TabBeforeDetail, TabDetail } from '../../events'
-import { DEBUG } from '../../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../../internal/class/cleanup-registry'
-import { frame, onoff } from '../utils'
+import { debug, frame, onoff } from '../utils'
 
 export class NavigationView extends HTMLElement {
   static get observedAttributes() {
@@ -40,7 +39,7 @@ export class NavigationView extends HTMLElement {
           this.#recentBefore = undefined
         }
 
-        DEBUG && console.debug(`${NavigationView.name} 💡 ${eventType}`)
+        debug(`${NavigationView.name} 💡 ${eventType}`)
 
         frame(this).then(() => target.dispatchEvent(new CustomEvent<TabDetail>(eventType, { detail: { tag: this.id }, bubbles: true, composed: true })))
 
@@ -72,7 +71,7 @@ export class NavigationView extends HTMLElement {
   }
 
   #handleBeforeTabRevealOrSwap = ({ type, detail }: CustomEvent<TabBeforeDetail>) => {
-    DEBUG && console.debug(`${NavigationView.name} ⚡️ ${type}`)
+    debug(`${NavigationView.name} ⚡️ ${type}`)
 
     if (this.id !== detail?.tag) return
 
@@ -87,7 +86,7 @@ export class NavigationView extends HTMLElement {
   }
 
   // #handleTabReveal = (event: CustomEvent<TabDetail>) => {
-  //   DEBUG && console.debug(`${NavigationView.name} ⚡️ ${event?.type}`)
+  //   debug(`${NavigationView.name} ⚡️ ${event?.type}`)
 
   //   if (this === event.target) return
 

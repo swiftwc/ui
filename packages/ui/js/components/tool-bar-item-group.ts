@@ -1,6 +1,6 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { adaptiveSlot } from '../internal/decorators'
+import { debug } from '../internal/utils'
 
 /**
  * @summary A container view that groups items together in the toolbar or navigation bar.
@@ -12,11 +12,11 @@ export class ToolBarItemGroup extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${ToolBarItemGroup.name} ⚡️ connect`)
+    debug(`${ToolBarItemGroup.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
+    debug(`${ToolBarItemGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }

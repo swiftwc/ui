@@ -1,7 +1,6 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { add, frame, onoff, slowHideShow, timeout } from '../internal/utils'
+import { add, debug, frame, onoff, slowHideShow, timeout } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { type ScrollView } from './scroll-view'
 
@@ -100,7 +99,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${NavigationLargeTitle.name} ⚡️ disconnect`)
+    debug(`${NavigationLargeTitle.name} ⚡️ disconnect`)
 
     this.#clearScrollState()
 
@@ -110,7 +109,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${NavigationLargeTitle.name} ⚡️ connect`)
+    debug(`${NavigationLargeTitle.name} ⚡️ connect`)
 
     const root = this.closest<ScrollView>('scroll-view') ?? undefined
 
@@ -148,7 +147,7 @@ export class NavigationLargeTitle extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    DEBUG && console.debug(`${NavigationLargeTitle.name} ⚡️ style`)
+    debug(`${NavigationLargeTitle.name} ⚡️ style`)
 
     const root = this.closest<ScrollView>('scroll-view') ?? undefined
     if (!root) return
@@ -207,7 +206,7 @@ export class NavigationLargeTitle extends HTMLElement {
   // }
 
   #handleIntersect = (entries: IntersectionObserverEntry[], { root }: IntersectionObserver) => {
-    DEBUG && console.debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.at(0)?.isIntersecting})`)
+    debug(`${NavigationLargeTitle.name} ⚡️ intersect (${entries?.at(0)?.isIntersecting})`)
 
     if (!(root instanceof HTMLElement)) return
 

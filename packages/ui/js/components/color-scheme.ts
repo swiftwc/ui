@@ -1,4 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { debug } from '../internal/utils'
 
 export class ColorScheme extends HTMLElement {
   static get observedAttributes() {
@@ -10,7 +10,7 @@ export class ColorScheme extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${ColorScheme.name} ⚡️ connect`)
+    debug(`${ColorScheme.name} ⚡️ connect`)
 
     this.hidden = true
 
@@ -18,11 +18,11 @@ export class ColorScheme extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ColorScheme.name} ⚡️ disconnect`)
+    debug(`${ColorScheme.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${ColorScheme.name} ⚡️ attr-change [${name}]`)
+    debug(`${ColorScheme.name} ⚡️ attr-change [${name}]`)
 
     // self.CSS.registerProperty({ name: '--canvas', syntax: '<color>', inherits: false, initialValue: 'oklch(100% 0 0deg)' })
     if (newValue) self.CSS.registerProperty({ name: '--canvas', syntax: '<color>', inherits: false, initialValue: 'oklch(0% 0 0deg)' })

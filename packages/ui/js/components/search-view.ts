@@ -1,6 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff, touchGlass } from '../internal/utils'
+import { debug, onoff, touchGlass } from '../internal/utils'
 import { InputBase } from '../namespace-browser/base'
 
 export class SearchView extends InputBase {
@@ -9,13 +8,13 @@ export class SearchView extends InputBase {
   }
 
   static polyfillDisconnectedCallback(el: InputBase) {
-    DEBUG && console.debug(`${SearchView.name} ⚡️ disconnect`)
+    debug(`${SearchView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: InputBase) {
-    DEBUG && console.debug(`${SearchView.name} ⚡️ connect`)
+    debug(`${SearchView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -33,7 +32,7 @@ export class SearchView extends InputBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    DEBUG && console.debug(`${SearchView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${SearchView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLInputElement
     if (!node) return

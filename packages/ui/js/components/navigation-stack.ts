@@ -1,5 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { NavigationView } from '../internal/class/navigation-view'
+import { debug } from '../internal/utils'
 
 /**
  * @summary A container view that shows a main screen and lets the user open other screens on top of it.
@@ -10,7 +10,7 @@ export class NavigationStack extends NavigationView {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
 
@@ -21,13 +21,13 @@ export class NavigationStack extends NavigationView {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${NavigationStack.name} ⚡️ disconnect`)
+    debug(`${NavigationStack.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${NavigationStack.name} ⚡️ connect`)
+    debug(`${NavigationStack.name} ⚡️ connect`)
 
     super.connectedCallback()
   }

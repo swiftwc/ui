@@ -5,12 +5,12 @@ import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
 import flags from '../internal/flags.json' with { type: 'json' }
 import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
-import { $, kebabCase, onoff } from '../internal/utils'
+import { $, debug, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
 import { html, render } from '../tpl'
 
-flags.DEBUG && console.debug(flags)
+debug(flags)
 
 //#region polyfills
 export const polyfills: Map<string, WebComponentCtor> = new Map()
@@ -36,7 +36,7 @@ for (const [k, Ctor] of Object.entries(Components)) {
   if (!customElements.get(is)) customElements.define(is, Ctor)
 }
 
-flags.DEBUG && console.debug(polyfills)
+debug(polyfills)
 
 if (0 < polyfills.size) {
   const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
@@ -75,7 +75,7 @@ if (0 < polyfills.size) {
     polyfillTagNamesCacheSelector = [...polyfillTagNamesCache.values()].map((v) => `${v}`.toLowerCase()).join(','),
     flatten = (node: HTMLElement) => [node, ...(node.querySelectorAll?.(polyfillTagNamesCacheSelector) ?? [])]
 
-  flags.DEBUG && console.debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
+  debug(polyfillTagNamesCache, polyfillTagNamesCacheSelector)
 
   for (const [is, polyfill] of polyfills)
     for (const el of document.querySelectorAll<HTMLElement>(`${polyfill.polyfillExtends}[is="${CSS.escape(is)}"]`)) {

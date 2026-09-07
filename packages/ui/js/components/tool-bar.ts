@@ -1,6 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 import { html } from '../tpl'
 
 const observers = new ResizeObserverSingleton()
@@ -69,7 +68,7 @@ export class ToolBar extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${ToolBar.name} ⚡️ connect`)
+    debug(`${ToolBar.name} ⚡️ connect`)
 
     // NOTE: wait for config
     // Snapshot.waitReady.then(() => {
@@ -78,13 +77,13 @@ export class ToolBar extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ToolBar.name} ⚡️ disconnect`)
+    debug(`${ToolBar.name} ⚡️ disconnect`)
 
     observers.unobserve(this)
   }
 
   #measureStacks(entry: ResizeObserverEntry) {
-    DEBUG && console.debug(`${ToolBar.name} ⚡️ measure`)
+    debug(`${ToolBar.name} ⚡️ measure`)
 
     if (this.closest('[hidden]')) return
 

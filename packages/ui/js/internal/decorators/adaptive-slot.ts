@@ -1,11 +1,10 @@
-import { DEBUG } from '../../internal/flags.json' with { type: 'json' }
 import { Snapshot } from '../../snapshot'
 import { CleanupRegistry } from '../class/cleanup-registry'
-import { onoff } from '../utils'
+import { debug, onoff } from '../utils'
 
 export default function (filter?: (el: HTMLElement) => boolean) {
   const handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, { type, matches }) => {
-    DEBUG && console.debug(`${el.localName} ⚡️ ${type}`)
+    debug(`${el.localName} ⚡️ ${type}`)
 
     if (matches) {
       if (!el.matches(`[slot="cancellation-action"],[slot="primary-action"],[slot="confirmation-action"],[slot="destructive-action"]`)) return
@@ -29,7 +28,7 @@ export default function (filter?: (el: HTMLElement) => boolean) {
       originalDisconnected = Base.prototype.disconnectedCallback
 
     Base.prototype.connectedCallback = function (this: HTMLElement) {
-      DEBUG && console.debug(`decorator:[${this.localName}] ⚡️ connect`)
+      debug(`decorator:[${this.localName}] ⚡️ connect`)
 
       originalConnected?.call(this)
 
@@ -52,7 +51,7 @@ export default function (filter?: (el: HTMLElement) => boolean) {
     }
 
     Base.prototype.disconnectedCallback = function (this: HTMLElement) {
-      DEBUG && console.debug(`decorator:[${this.localName}] ⚡️ disconnect`)
+      debug(`decorator:[${this.localName}] ⚡️ disconnect`)
 
       originalDisconnected?.call(this)
 

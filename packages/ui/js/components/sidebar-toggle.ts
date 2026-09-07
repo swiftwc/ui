@@ -1,7 +1,6 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { debounce, onoff } from '../internal/utils'
+import { debounce, debug, onoff } from '../internal/utils'
 
 const observers = new ResizeObserverSingleton()
 
@@ -14,7 +13,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${SidebarToggle.name} ⚡️ disconnect`)
+    debug(`${SidebarToggle.name} ⚡️ disconnect`)
 
     observers.unobserve(this)
 
@@ -22,7 +21,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${SidebarToggle.name} ⚡️ connect`)
+    debug(`${SidebarToggle.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
@@ -45,7 +44,7 @@ export class SidebarToggle extends HTMLElement {
 
   // This triggers on show/hide of any of sidebar-toggle elements
   static #handleMeasure(entry?: ResizeObserverEntry) {
-    DEBUG && console.debug(`${SidebarToggle.name} ⚡️ measure`)
+    debug(`${SidebarToggle.name} ⚡️ measure`)
 
     const { target } = entry ?? {}
     if (!(target instanceof HTMLElement)) return
@@ -93,7 +92,7 @@ export class SidebarToggle extends HTMLElement {
   }
 
   #handleClick({ target, type }: Event) {
-    DEBUG && console.debug(`${SidebarToggle.name} ⚡️ ${type}`)
+    debug(`${SidebarToggle.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

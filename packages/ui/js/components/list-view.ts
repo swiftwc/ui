@@ -1,6 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { listActive, onoff } from '../internal/utils'
+import { debug, listActive, onoff } from '../internal/utils'
 
 /**
  * @summary A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.
@@ -16,13 +15,13 @@ export class ListView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ListView.name} ⚡️ disconnect`)
+    debug(`${ListView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${ListView.name} ⚡️ connect`)
+    debug(`${ListView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
   }

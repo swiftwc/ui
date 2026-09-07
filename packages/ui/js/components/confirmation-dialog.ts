@@ -1,8 +1,7 @@
 import { confirmationDialog } from '../buses'
 import { type ConfirmationReturnDetail } from '../events'
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { isInside, onoff, touchGlass } from '../internal/utils'
+import { debug, isInside, onoff, touchGlass } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 /**
@@ -18,7 +17,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static polyfillDisconnectedCallback(el: ConfirmationDialog) {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ disconnect`)
+    debug(`${ConfirmationDialog.name} ⚡️ disconnect`)
 
     const positionAnchor = el.style.getPropertyValue('position-anchor')
 
@@ -37,7 +36,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static polyfillConnectedCallback(el: ConfirmationDialog) {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ connect`)
+    debug(`${ConfirmationDialog.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -70,7 +69,7 @@ export class ConfirmationDialog extends DialogBase {
       ).on()
     )
 
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ will-open`)
+    debug(`${ConfirmationDialog.name} ⚡️ will-open`)
 
     el.removeAttribute('closing')
 
@@ -84,7 +83,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${ConfirmationDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     // const newValue = (target as HTMLElement).getAttribute(attributeName ?? '')
 
@@ -101,7 +100,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static #handleDialogClick = (evt: PointerEvent) => {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+    debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
     const { target, currentTarget: dialog } = evt
 
@@ -129,7 +128,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static #handleDialogCancel: EventListener = (evt: Event) => {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
+    debug(`${ConfirmationDialog.name} ⚡️ ${evt?.type}`)
 
     if (!evt.cancelable) return
 
@@ -140,7 +139,7 @@ export class ConfirmationDialog extends DialogBase {
 
     target.inert = true
 
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ will-close`)
+    debug(`${ConfirmationDialog.name} ⚡️ will-close`)
 
     target.setAttribute('closing', '')
 
@@ -154,7 +153,7 @@ export class ConfirmationDialog extends DialogBase {
   }
 
   static #handleDialogClose: EventListener = ({ type, target }: Event) => {
-    DEBUG && console.debug(`${ConfirmationDialog.name} ⚡️ ${type}`)
+    debug(`${ConfirmationDialog.name} ⚡️ ${type}`)
 
     if (!(target instanceof HTMLDialogElement)) return
 

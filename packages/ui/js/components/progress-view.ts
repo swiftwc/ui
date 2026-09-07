@@ -1,7 +1,6 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
 import { html } from '../tpl'
@@ -84,7 +83,7 @@ export class ProgressView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'label': {
@@ -104,13 +103,13 @@ export class ProgressView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ProgressView.name} ⚡️ disconnect`)
+    debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${ProgressView.name} ⚡️ connect`)
+    debug(`${ProgressView.name} ⚡️ connect`)
 
     this.inert = true
 
@@ -124,7 +123,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #handleStyleChange = () => {
-    DEBUG && console.debug(`${ProgressView.name} ⚡️ style`)
+    debug(`${ProgressView.name} ⚡️ style`)
 
     const raw = self.getComputedStyle(this).getPropertyValue('--progress-view-style-index').trim()
 
@@ -138,7 +137,7 @@ export class ProgressView extends HTMLElement {
   }
 
   #render() {
-    DEBUG && console.debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
+    debug(`${ProgressView.name} ⚡️ #render (${this.#progressViewStyle})`)
 
     if (this.#lastRenderedStyle === this.#progressViewStyle) return // skip if already applied
     this.#lastRenderedStyle = this.#progressViewStyle

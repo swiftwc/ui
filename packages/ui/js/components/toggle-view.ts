@@ -1,9 +1,8 @@
 import type { ToggleChangeDetail } from '../events'
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, kebabCase, onoff, touchGlass } from '../internal/utils'
+import { $, debug, kebabCase, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -59,7 +58,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ mutation`)
+    debug(`${ToggleView.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
@@ -86,7 +85,7 @@ export class ToggleView extends FormAssociatedBase {
     return this.#trackWidth - this.#dotSize
   }
   #handleMeasure = ([{ target, borderBoxSize }]: ResizeObserverEntry[]) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ measure`)
+    debug(`${ToggleView.name} ⚡️ measure`)
 
     if (!(target instanceof HTMLElement)) return
 
@@ -144,7 +143,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${ToggleView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'value':
@@ -227,7 +226,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -239,13 +238,13 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleFocusin = ({ type, target }: Event) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (target === this) this.#track?.focus()
   }
 
   #handleTrackClick = ({ type }: Event) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (this.#didDrag) return (this.#didDrag = false)
 
@@ -271,7 +270,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointerdown = ({ type, pointerId, clientX, clientY }: PointerEvent) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#track) return
 
@@ -290,7 +289,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointermove = ({ type, clientX }: PointerEvent) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return
 
@@ -298,7 +297,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointerup = ({ type, pointerId }: PointerEvent) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return // pointerdown never engaged (missed the dot) — plain click, nothing to settle
 
@@ -310,7 +309,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackPointercancel = ({ type }: PointerEvent) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${type}`)
+    debug(`${ToggleView.name} ⚡️ ${type}`)
 
     if (!this.#isDragging) return // already settled via pointerup, or nothing to settle
 
@@ -356,7 +355,7 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleTrackKeydown = (evt: KeyboardEvent) => {
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
+    debug(`${ToggleView.name} ⚡️ ${evt?.type}`)
 
     if (' ' !== evt.key) return
 
@@ -456,7 +455,7 @@ export class ToggleView extends FormAssociatedBase {
         break
       }
 
-    DEBUG && console.debug(`${ToggleView.name} ⚡️ validity-change`)
+    debug(`${ToggleView.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#track)
   }

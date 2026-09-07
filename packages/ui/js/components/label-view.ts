@@ -1,5 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -63,7 +62,7 @@ export class LabelView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     if (oldValue === newValue) return
 
@@ -92,11 +91,11 @@ export class LabelView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${LabelView.name} ⚡️ disconnect`)
+    debug(`${LabelView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${LabelView.name} ⚡️ connect`)
+    debug(`${LabelView.name} ⚡️ connect`)
   }
 
   // #scheduleReflect = () => {

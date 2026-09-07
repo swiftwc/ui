@@ -1,10 +1,9 @@
 import type { TextFieldCommitDetail } from '../events'
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, compareBigDecimals, kebabCase, onoff, set } from '../internal/utils'
+import { $, compareBigDecimals, debug, kebabCase, onoff, set } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -67,7 +66,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ mutation`)
+    debug(`${TextField.name} ⚡️ mutation`)
 
     this.setValidity(this.validity, this.validationMessage)
   }
@@ -133,7 +132,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${TextField.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'keyboard-type':
@@ -296,7 +295,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${type}`)
+    debug(`${TextField.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -309,7 +308,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleFocusin = (evt: Event) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     if (evt.target === this) this.#input?.focus()
   }
@@ -342,7 +341,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputPaste = (evt: ClipboardEvent) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
     if (!(input instanceof HTMLInputElement)) return
@@ -461,7 +460,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputBeforeinput = (evt: InputEvent) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     const { target: input } = evt
     if (!(input instanceof HTMLInputElement)) return
@@ -512,7 +511,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputBlur = ({ type, target: input }: Event) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${type}`)
+    debug(`${TextField.name} ⚡️ ${type}`)
 
     if (!(input instanceof HTMLInputElement)) return
 
@@ -526,7 +525,7 @@ export class TextField extends FormAssociatedBase {
   }
 
   #handleInputInput = (evt: Event) => {
-    DEBUG && console.debug(`${TextField.name} ⚡️ ${evt?.type}`)
+    debug(`${TextField.name} ⚡️ ${evt?.type}`)
 
     this.#sendValueToForm()
   }
@@ -626,7 +625,7 @@ export class TextField extends FormAssociatedBase {
         break
       }
 
-    DEBUG && console.debug(`${TextField.name} ⚡️ validity-change`)
+    debug(`${TextField.name} ⚡️ validity-change`)
 
     return this.#internals.setValidity(flags, this.#customValidity || message, anchor ?? this.#input)
   }

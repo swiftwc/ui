@@ -1,4 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { debug } from '../internal/utils'
 
 export class TextView extends HTMLElement {
   constructor() {
@@ -6,15 +6,15 @@ export class TextView extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${TextView.name} ⚡️ connect`)
+    debug(`${TextView.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${TextView.name} ⚡️ disconnect`)
+    debug(`${TextView.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${TextView.name} ⚡️ attr-change [${name}]`)
+    debug(`${TextView.name} ⚡️ attr-change [${name}]`)
 
     //
   }

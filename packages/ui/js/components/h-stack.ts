@@ -1,4 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { debug } from '../internal/utils'
 
 /**
  * @summary A view that arranges its children side by side.
@@ -18,11 +18,11 @@ export class HStack extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${HStack.name} ⚡️ connect`)
+    debug(`${HStack.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${HStack.name} ⚡️ disconnect`)
+    debug(`${HStack.name} ⚡️ disconnect`)
   }
 }
 

@@ -1,6 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
+import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { Snapshot } from '../snapshot'
 
@@ -29,13 +28,13 @@ export class GlassProminentButton extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(el: ButtonBase) {
-    DEBUG && console.debug(`${GlassProminentButton.name} ⚡️ disconnect`)
+    debug(`${GlassProminentButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
   static polyfillConnectedCallback(el: ButtonBase) {
-    DEBUG && console.debug(`${GlassProminentButton.name} ⚡️ connect`)
+    debug(`${GlassProminentButton.name} ⚡️ connect`)
 
     CleanupRegistry.register(
       el,
@@ -53,7 +52,7 @@ export class GlassProminentButton extends ButtonBase {
   }
 
   static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
-    DEBUG && console.debug(`${GlassProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
+    debug(`${GlassProminentButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement
     if (!node) return

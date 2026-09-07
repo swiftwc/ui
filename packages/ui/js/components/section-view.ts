@@ -1,5 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
-import { $ } from '../internal/utils'
+import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 
@@ -43,7 +42,7 @@ export class SectionView extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
       case 'header':
@@ -76,13 +75,13 @@ export class SectionView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${SectionView.name} ⚡️ disconnect`)
+    debug(`${SectionView.name} ⚡️ disconnect`)
 
     //
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${SectionView.name} ⚡️ connect`)
+    debug(`${SectionView.name} ⚡️ connect`)
 
     //
   }

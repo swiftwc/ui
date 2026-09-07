@@ -1,4 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { debug } from '../internal/utils'
 
 export class VDivider extends HTMLElement {
   constructor() {
@@ -6,15 +6,15 @@ export class VDivider extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${VDivider.name} ⚡️ connect`)
+    debug(`${VDivider.name} ⚡️ connect`)
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${VDivider.name} ⚡️ disconnect`)
+    debug(`${VDivider.name} ⚡️ disconnect`)
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${VDivider.name} ⚡️ attr-change [${name}]`)
+    debug(`${VDivider.name} ⚡️ attr-change [${name}]`)
   }
 }
 

@@ -1,4 +1,4 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
+import { debug } from '../internal/utils'
 import { DialogBase } from '../namespace-browser/base'
 
 export class ScreenView extends DialogBase {
@@ -7,6 +7,6 @@ export class ScreenView extends DialogBase {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${ScreenView.name} ⚡️ disconnect`)
+    debug(`${ScreenView.name} ⚡️ disconnect`)
   }
 }

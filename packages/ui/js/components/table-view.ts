@@ -1,8 +1,7 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { $, listActive, onoff } from '../internal/utils'
+import { $, debug, listActive, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
 import { html } from '../tpl'
@@ -82,7 +81,7 @@ export class TableView extends HTMLElement {
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${TableView.name} ⚡️ disconnect`)
+    debug(`${TableView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
 
@@ -94,7 +93,7 @@ export class TableView extends HTMLElement {
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${TableView.name} ⚡️ connect`)
+    debug(`${TableView.name} ⚡️ connect`)
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
@@ -109,7 +108,7 @@ export class TableView extends HTMLElement {
   }
 
   #handleColumnSlotchange = ({ type, target: slot }: Event) => {
-    DEBUG && console.debug(`${TableView.name} ⚡️ ${type}`)
+    debug(`${TableView.name} ⚡️ ${type}`)
 
     if (!(slot instanceof HTMLSlotElement)) return
 
@@ -122,7 +121,7 @@ export class TableView extends HTMLElement {
   }
 
   #renderColumns = (entries: MutationRecord[]) => {
-    DEBUG && console.debug(`${TableView.name} ⚡️ mutation`)
+    debug(`${TableView.name} ⚡️ mutation`)
 
     if (!this.#compactToolbarItem) {
       this.#compactToolbarItem = $(html`<menu-view tabindex="0" slot="header-trailing"></menu-view>`, '>1')
@@ -158,7 +157,7 @@ export class TableView extends HTMLElement {
   #observers = new MutationObserverSet(this.#renderColumns)
 
   #handleStyleChange = () => {
-    DEBUG && console.debug(`${TableView.name} ⚡️ style`)
+    debug(`${TableView.name} ⚡️ style`)
 
     const target = this.#shadowRoot.querySelector('[part*=table-container]') ?? undefined
     if (!target) return

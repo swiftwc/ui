@@ -1,7 +1,6 @@
 import type { TabDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail } from '../events'
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { onoff } from '../internal/utils'
+import { debug, onoff } from '../internal/utils'
 import { ButtonBase } from '../namespace-browser/base'
 import { type NavigationSplitView } from './navigation-split-view'
 import { type NavigationStack } from './navigation-stack'
@@ -16,13 +15,13 @@ export class TabItem extends ButtonBase {
   }
 
   static polyfillDisconnectedCallback(btn: HTMLButtonElement) {
-    DEBUG && console.debug(`${TabItem.name} ⚡️ disconnect`)
+    debug(`${TabItem.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(btn)
   }
 
   static polyfillConnectedCallback(btn: TabItem) {
-    DEBUG && console.debug(`${TabItem.name} ⚡️ connect`)
+    debug(`${TabItem.name} ⚡️ connect`)
 
     Object.assign(btn, {
       tabIndex: 0,
@@ -51,7 +50,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleTabMoreStackAllowance = async (btn: HTMLButtonElement, evt: TabViewAdaptableTabBarPlacementChangeEvent) => {
-    DEBUG && console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
+    debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
     const tv = btn.closest<TabView>('tab-view')
     if (!tv) return
@@ -62,7 +61,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleTabRevealOrSwap = async (btn: HTMLButtonElement, evt: CustomEvent<TabDetail>) => {
-    DEBUG && console.debug(`${TabItem.name} ⚡️ ${evt?.type}`)
+    debug(`${TabItem.name} ⚡️ ${evt?.type}`)
 
     const tv = btn?.closest<TabView>('tab-view')
     if (!tv) return
@@ -89,7 +88,7 @@ export class TabItem extends ButtonBase {
   }
 
   static #handleClick = async ({ type, currentTarget: btn }: Event) => {
-    DEBUG && console.debug(`${TabItem.name} ⚡️ ${type}`)
+    debug(`${TabItem.name} ⚡️ ${type}`)
 
     if (!(btn instanceof HTMLElement)) return
 
@@ -150,7 +149,7 @@ export class TabItem extends ButtonBase {
       for (const tab of tabs.reverse())
         if (tv.selectedTab.includes(tab)) {
           const eventType = 'tabroot'
-          DEBUG && console.debug(`${TabItem.name} 💡 ${eventType}`)
+          debug(`${TabItem.name} 💡 ${eventType}`)
 
           tab?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
 
@@ -158,7 +157,7 @@ export class TabItem extends ButtonBase {
         }
     } else if ('->' === dir) {
       const eventType = 'tabroot'
-      DEBUG && console.debug(`${TabItem.name} 💡 ${eventType}`)
+      debug(`${TabItem.name} 💡 ${eventType}`)
 
       tabs.at(0)?.dispatchEvent(new CustomEvent(eventType, { bubbles: true, composed: true }))
     }

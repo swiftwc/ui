@@ -1,5 +1,5 @@
-import { DEBUG } from '../internal/flags.json' with { type: 'json' }
 import { microtaskOnConnected } from '../internal/decorators'
+import { debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
 import type { ScrollView } from './scroll-view'
@@ -30,17 +30,17 @@ export class NavigationTitle extends HTMLElement {
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
-    DEBUG && console.debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
+    debug(`${NavigationTitle.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     this.#render(this.getAttribute('value'), this.getAttribute('subtitle'), this.getAttribute('system-image'), this.getAttribute('system-image-weight'))
   }
 
   disconnectedCallback() {
-    DEBUG && console.debug(`${NavigationTitle.name} ⚡️ disconnect`)
+    debug(`${NavigationTitle.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    DEBUG && console.debug(`${NavigationTitle.name} ⚡️ connect`)
+    debug(`${NavigationTitle.name} ⚡️ connect`)
   }
 
   #render = (title: string | null, subtitle: string | null, systemImage: string | null, systemImageWeight: string | null) => {

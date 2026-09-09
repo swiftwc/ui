@@ -621,7 +621,8 @@ $colors: map.merge(
   //   --canvastext: light-dark(var(--primary-label), var(--primary-label-dark));
   // }
 
-  :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog'], [is='alert-dialog']) {
+  // NOTE: NO color diffs for dialogs/popups
+  /* :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog'], [is='alert-dialog']) {
     // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
     // ANCHOR: level 1
     --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
@@ -633,7 +634,7 @@ $colors: map.merge(
     // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
 
     // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
-  }
+  } */
 
   :where(navigation-split-view > [is='sidebar-view']) {
     // --canvas: light-dark(oklch(var(--primary-bg)), var(--primary-bg-dark));

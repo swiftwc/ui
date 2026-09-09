@@ -10568,10 +10568,19 @@
     --face: var(--background);
     --text: var(--primary);
   }
-  :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog], [is=alert-dialog]) {
-    --face: var(--background);
-    --background: var(--secondaryBackground);
-  }
+  /* :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog'], [is='alert-dialog']) {
+    // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
+    // ANCHOR: level 1
+    --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+    // --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
+
+    // FIXME: feat-sheet 1/3
+    --background: var(--secondaryBackground); //light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+    // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
+
+    // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
+  } */
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
       --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));

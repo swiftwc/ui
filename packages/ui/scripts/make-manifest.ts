@@ -1,7 +1,6 @@
 import doctrine from 'doctrine'
 import { readFileSync, writeFileSync } from 'node:fs'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import * as prettier from 'prettier'
 import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, PropertyDeclaration, SyntaxKind, Node as TSMNode, TypeFormatFlags } from 'ts-morph'
 // @ts-expect-error no types available
@@ -82,9 +81,7 @@ const kebabCase = (str: string) =>
     // return { types: [], description: undefined }
   }
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
-
-const ast = gonzales.parse(readFileSync(resolve(__dirname, '../scss/_maps.scss'), 'utf-8'), { syntax: 'scss' })
+const ast = gonzales.parse(readFileSync(resolve(import.meta.dirname, '../scss/_maps.scss'), 'utf-8'), { syntax: 'scss' })
 
 const listVals = new Map<string, string[]>()
 
@@ -222,7 +219,7 @@ ast.traverseByType('declaration', (node: Node) => {
 // })
 
 const project = new Project({
-  tsConfigFilePath: resolve(__dirname, '../tsconfig.json'),
+  tsConfigFilePath: resolve(import.meta.dirname, '../tsconfig.json'),
   skipAddingFilesFromTsConfig: true,
 })
 
@@ -933,8 +930,8 @@ for (const sourceFile of project.getSourceFiles()) {
   }
 }
 
-writeFileSync(resolve(__dirname, '../web-components.html-data/en.json'), JSON.stringify(htmlData, null, 2))
+writeFileSync(resolve(import.meta.dirname, '../web-components.html-data/en.json'), JSON.stringify(htmlData, null, 2))
 
-writeFileSync(resolve(__dirname, '../web-components.css-data/en.json'), JSON.stringify(cssData, null, 2))
+writeFileSync(resolve(import.meta.dirname, '../web-components.css-data/en.json'), JSON.stringify(cssData, null, 2))
 
-writeFileSync(resolve(__dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))
+writeFileSync(resolve(import.meta.dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))

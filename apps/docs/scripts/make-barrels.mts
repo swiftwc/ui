@@ -1,17 +1,14 @@
 import data from '@swiftwc/ui/customElements/en' with { type: 'json' }
 import webData from '@swiftwc/ui/webComponentsHTMLData/en' with { type: 'json' }
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
-import { dirname, resolve } from 'node:path'
-import { fileURLToPath } from 'node:url'
+import { resolve } from 'node:path'
 import * as prettier from 'prettier'
 
-const __dirname = dirname(fileURLToPath(import.meta.url))
+await rm(resolve(import.meta.dirname, `../generated`), { recursive: true, force: true })
+await mkdir(resolve(import.meta.dirname, `../generated`), { recursive: true })
 
-await rm(resolve(__dirname, `../generated`), { recursive: true, force: true })
-await mkdir(resolve(__dirname, `../generated`), { recursive: true })
-
-await rm(resolve(__dirname, `../web-components`), { recursive: true, force: true })
-await mkdir(resolve(__dirname, `../web-components`), { recursive: true })
+await rm(resolve(import.meta.dirname, `../web-components`), { recursive: true, force: true })
+await mkdir(resolve(import.meta.dirname, `../web-components`), { recursive: true })
 
 for await (const [i, mod] of data.modules.entries()) {
   for await (const dec of mod.declarations) {
@@ -23,7 +20,7 @@ for await (const [i, mod] of data.modules.entries()) {
     // const attrs = webData.tags.find((item) => item?.name === dec.tagName)?.attributes
 
     // try {
-    //   reflections = `\n## Parameters\n\n${await readFile(resolve(__dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
+    //   reflections = `\n## Parameters\n\n${await readFile(resolve(import.meta.dirname, `../reflections/${dec.tagName}.md`), "utf8")}\n`;
     // } catch {
     //   //
     // }
@@ -31,7 +28,7 @@ for await (const [i, mod] of data.modules.entries()) {
     let partial = ''
 
     try {
-      partial = `\n${await readFile(resolve(__dirname, `../partials/${dec.tagName}.md`), 'utf8')}\n`
+      partial = `\n${await readFile(resolve(import.meta.dirname, `../partials/${dec.tagName}.md`), 'utf8')}\n`
     } catch {
       //
     }
@@ -39,7 +36,7 @@ for await (const [i, mod] of data.modules.entries()) {
     const declaration = webData.tags.find((item) => item?.name === dec.tagName)?.description?.match(/```ts([\s\S]*?)```/)?.[1]
 
     await writeFile(
-      resolve(__dirname, `../web-components/${dec.tagName}.md`),
+      resolve(import.meta.dirname, `../web-components/${dec.tagName}.md`),
       `${0 === i ? `---\nprev:\n  text: "Web Components"\n  link: "/web-components/"\n---\n\n` : data.modules.length - 1 === i ? `---\nnext:\n  text: "Installation"\n  link: "/installation/"\n---\n\n` : ''}<!-- #region pre -->
 
 # ${dec.name}
@@ -67,7 +64,7 @@ ${topicsMd}
 
 // create barrel file from all the files
 await writeFile(
-  resolve(__dirname, `../web-components/index.md`),
+  resolve(import.meta.dirname, `../web-components/index.md`),
   `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
 <!--@include: ../partials/index.md-->
@@ -82,7 +79,7 @@ ${(await Promise.all(data.modules.map((item, index) => `#### [${item.declaration
 
 // create barrel file from all the files
 await writeFile(
-  resolve(__dirname, `../partials/html-data-value-sets.md`),
+  resolve(import.meta.dirname, `../partials/html-data-value-sets.md`),
   `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
 ${(

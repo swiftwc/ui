@@ -8,6 +8,7 @@
 interface ListViewSignature {
   Attributes: {
     'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside
+    'preferred-root-disclosure-style'?: 'sidebar'
   }
 
   CSSProperties: {

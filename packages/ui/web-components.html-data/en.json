@@ -451,9 +451,18 @@
               "name": "hidden"
             }
           ]
+        },
+        {
+          "name": "preferred-root-disclosure-style",
+          "description": "Value Type: “sidebar”",
+          "values": [
+            {
+              "name": "sidebar"
+            }
+          ]
         }
       ],
-      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
+      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n    'preferred-root-disclosure-style'?: 'sidebar'\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "menu-view",
@@ -486,15 +495,6 @@
       ],
       "attributes": [
         {
-          "name": "background-style",
-          "description": "Value Type: “grouped”",
-          "values": [
-            {
-              "name": "grouped"
-            }
-          ]
-        },
-        {
           "name": "padding",
           "description": "Value Type: boolean"
         },
@@ -503,7 +503,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Attributes: {\n    'background-style'?: 'grouped'\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Attributes: {\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-split-view",

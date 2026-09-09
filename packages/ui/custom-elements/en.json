@@ -988,6 +988,9 @@
           "attributes": [
             {
               "name": "navigation-link-indicator-visibility"
+            },
+            {
+              "name": "preferred-root-disclosure-style"
             }
           ]
         }
@@ -1075,9 +1078,6 @@
             "name": "HTMLElement"
           },
           "attributes": [
-            {
-              "name": "background-style"
-            },
             {
               "name": "padding"
             },

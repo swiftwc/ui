@@ -7,7 +7,6 @@
 ```ts
 interface NavigationLargeTitleSignature {
   Attributes: {
-    'background-style'?: 'grouped'
     padding?: boolean
     'navigation-bar-auto-hide'?: boolean
   }

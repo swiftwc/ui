@@ -930,8 +930,8 @@ for (const sourceFile of project.getSourceFiles()) {
   }
 }
 
-writeFileSync(resolve(import.meta.dirname, '../web-components.html-data/en.json'), JSON.stringify(htmlData, null, 2))
+writeFileSync(resolve(import.meta.dirname, '../html-data/en.json'), JSON.stringify(htmlData, null, 2))
 
-writeFileSync(resolve(import.meta.dirname, '../web-components.css-data/en.json'), JSON.stringify(cssData, null, 2))
+writeFileSync(resolve(import.meta.dirname, '../css-data/en.json'), JSON.stringify(cssData, null, 2))
 
 writeFileSync(resolve(import.meta.dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))

@@ -31,7 +31,8 @@ packages
 │   │   └── components
 │   ├── scss
 │   │   └── components
-│   └── web-components.html-data
+│   ├── html-data
+│   └── css-data
 └── eslint-plugin
 ```
 

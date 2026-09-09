@@ -1,5 +1,5 @@
 import data from '@swiftwc/ui/customElements/en' with { type: 'json' }
-import webData from '@swiftwc/ui/webComponentsHTMLData/en' with { type: 'json' }
+import webData from '@swiftwc/ui/HTMLData/en' with { type: 'json' }
 import { mkdir, readFile, rm, writeFile } from 'node:fs/promises'
 import { resolve } from 'node:path'
 import * as prettier from 'prettier'

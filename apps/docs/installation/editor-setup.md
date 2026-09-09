@@ -19,7 +19,7 @@ Tooling to improve the developer experience when working with SwictWC.
 ```json [settings.json]
 {
   // [!code ++]
-  "html.customData": ["./node_modules/@swiftwc/ui/web-components.html-data/en.json"]
+  "html.customData": ["./node_modules/@swiftwc/ui/html-data/en.json"]
 }
 ```
 

@@ -302,8 +302,12 @@
       --insetform-item-border-radius: 1rem;
       --list-item-padding-inline-start: 1rem;
       --list-item-padding-inline-end: 1rem;
+      --insetgroupedlist-background-color: var(--background);
+      --insetgroupedlist-item-background-color: var(--quaternaryGroupedBackground);
       --form-item-padding-inline-start: 1rem;
       --form-item-padding-inline-end: 1rem;
+      --insetgroupedform-background-color: var(--background);
+      --insetgroupedform-item-background-color: var(--quaternaryGroupedBackground);
       --toggle-inline-size: 3.4rem;
       --toggle-block-size: 1.3rem;
       --control-clear-glass-bg: var(--white);
@@ -3621,6 +3625,12 @@
     --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
     --toggle--dot-inset-inline-end: 0;
   }
+  :where(toggle-view[aria-checked=true]):window-inactive {
+    --toggle--track-bg: var(--toggle--track-off-bg);
+  }
+  :where(toggle-view[aria-checked=true][js-window-inactive]) {
+    --toggle--track-bg: var(--toggle--track-off-bg);
+  }
   :where(toggle-view > :nth-child(n+2 of [slot=label])) {
     --label-font: callout;
   }
@@ -3698,15 +3708,12 @@
   navigation-large-title :nth-child(1 of label-view)) {
     --label-image-size: 5;
   }
+  :where(navigation-large-title :nth-child(1 of image-view)) {
+    color: var(--accentColor);
+  }
   :where(scroll-view[navigation-bar-title-display-mode=inline]:has(navigation-large-title) navigation-large-title[navigation-bar-auto-hide]) {
     opacity: 0;
     visibility: collapse;
-  }
-  :where(navigation-large-title[background-style=grouped]) {
-    background-color: var(--secondaryGroupedBackground);
-    border-radius: var(--insetlist-item-border-radius);
-    padding-inline: var(--list-item-padding-inline-start) var(--list-item-padding-inline-end);
-    padding-block: 1rem;
   }
 }
 @layer sw-components {}
@@ -6094,11 +6101,13 @@
   }
 }
 @layer sw-utils {
-  :where([background-style=grouped]) {
-    --background: var(--groupedBackground);
-    --secondaryBackground: var(--secondaryGroupedBackground);
-    --tertiaryBackground: var(--tertiaryGroupedBackground);
-    --face: var(--background);
+  @media (pointer: coarse) {
+    :where([background-style=grouped]) {
+      --background: var(--groupedBackground);
+      --secondaryBackground: var(--secondaryGroupedBackground);
+      --tertiaryBackground: var(--tertiaryGroupedBackground);
+      --face: var(--background);
+    }
   }
   :where([foreground=primary]) {
     color: var(--primary);
@@ -9177,6 +9186,50 @@
   }
 }
 @layer sw-utils {}
+@layer sw-utils {
+  :where(list-view[background=system-background],
+  [is=form-view][background=system-background]) {
+    --list--host-background-color: var(--background);
+  }
+  :where(list-view[list-row-background=system-tertiary-grouped-background],
+  [is=form-view][list-row-background=system-tertiary-grouped-background]) {
+    --list--item-background-color: var(--tertiaryGroupedBackground);
+  }
+  :where(list-view[list-row-background=system-quaternary-grouped-background],
+  [is=form-view][list-row-background=system-quaternary-grouped-background]) {
+    --list--item-background-color: var(--quaternaryGroupedBackground);
+  }
+  :where([is=sheet-view] list-view[background=system-background],
+  [is=sheet-view] [is=form-view][background=system-background],
+  [is=full-screen] list-view[background=system-background],
+  [is=full-screen] [is=form-view][background=system-background],
+  [is=confirmation-dialog] list-view[background=system-background],
+  [is=confirmation-dialog] [is=form-view][background=system-background],
+  [is=alert-dialog] list-view[background=system-background],
+  [is=alert-dialog] [is=form-view][background=system-background]) {
+    --list--host-background-color: var(--secondaryBackground);
+  }
+  :where([is=sheet-view] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=sheet-view] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=full-screen] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=full-screen] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=confirmation-dialog] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=confirmation-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=alert-dialog] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=alert-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background]) {
+    --list--item-background-color: var(--quaternaryGroupedBackground);
+  }
+  :where([is=sheet-view] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=sheet-view] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=full-screen] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=full-screen] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=confirmation-dialog] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=confirmation-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=alert-dialog] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=alert-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background]) {
+    --list--item-background-color: var(--quaintaryGroupedBackground);
+  }
+}
 @layer sw-transitions {
   @media (prefers-reduced-motion: no-preference) {
     scroll-view.fwd, scroll-view.fwdd, scroll-view.bwd, scroll-view.bwdd {
@@ -10178,6 +10231,18 @@
   @property --tertiaryGroupedBackground {
     syntax: "<color>";
     initial-value: oklch(27.35% 0.0036 286.16deg);
+    inherits: true;
+  }
+}
+@property --quaternaryGroupedBackground {
+  syntax: "<color>";
+  initial-value: oklch(97.61% 0 0deg);
+  inherits: true;
+}
+@media (prefers-color-scheme: dark) {
+  @property --quaternaryGroupedBackground {
+    syntax: "<color>";
+    initial-value: oklch(27.51% 0.0039 128.62deg);
     inherits: true;
   }
 }

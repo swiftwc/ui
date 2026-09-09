@@ -148,7 +148,7 @@ document.body.addEventListener('click', async (evt) => {
 
       addBindings()
 
-      parent.component.inert = false
+      if (parent.component) parent.component.inert = false
     }
   } else if (navDest) {
     const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
@@ -158,7 +158,7 @@ document.body.addEventListener('click', async (evt) => {
     if (evt.target.closest('.inplace')) {
       const parent = [...path.parents()].at(0)?.hydrate()
 
-      modifyDOMforwards(undefined, parent, template)
+      if (parent) modifyDOMforwards(undefined, parent, template)
     } else {
       const summary = evt.target.closest('summary:has(button)')
 
@@ -682,25 +682,38 @@ if ('serviceWorker' in navigator) {
     .catch(console.error)
 }
 
-let deferredPrompt
+let deferredPrompt: BeforeInstallPromptEvent | null
 
-window.addEventListener('beforeinstallprompt', (e) => {
+interface BeforeInstallPromptEvent extends Event {
+  readonly platforms: string[]
+  readonly userChoice: Promise<{
+    outcome: 'accepted' | 'dismissed'
+    platform: string
+  }>
+  prompt(): Promise<void>
+}
+
+window.addEventListener('beforeinstallprompt', ((evt: BeforeInstallPromptEvent) => {
   // Prevent Chrome from showing the default prompt
-  e.preventDefault()
-  deferredPrompt = e
+  evt.preventDefault()
+
+  // stash
+  deferredPrompt = evt
 
   // Show your custom install UI
-  const btn = document.querySelector('#installBtn')
+  const btn = document.querySelector<HTMLElement>('#installBtn')
+  if (!btn) return
+
   btn.style.display = 'block'
 
   btn.addEventListener('click', async () => {
     btn.style.display = 'none'
-    deferredPrompt.prompt() // Show native prompt
-    const choice = await deferredPrompt.userChoice
-    console.log('User choice:', choice.outcome)
+    deferredPrompt?.prompt() // Show native prompt
+    const choice = await deferredPrompt?.userChoice
+    console.log('User choice:', choice?.outcome)
     deferredPrompt = null
   })
-})
+}) as EventListener)
 
 window.addEventListener('appinstalled', () => {
   console.debug('⚡️ installed')
@@ -736,7 +749,7 @@ export function queryTemplate(navPath?: string) {
 export function modifyDOMbackwards(host: NavigationPath) {
   const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
 
-  if (['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.component.tagName)) {
+  if (host.component && ['NAVIGATION-STACK', 'NAVIGATION-SPLIT-VIEW'].includes(host.component.tagName)) {
     host.component.hidden = true
 
     child?.component?.remove()
@@ -759,7 +772,7 @@ export function modifyDOMforwards(trigger: HTMLElement | undefined, path: Naviga
   const position = queryInsertPosition(path.component) //'afterend'
   const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
-  if (overwrite && ['BODY-VIEW', 'DIALOG'].includes(path.page[lookFor]?.tagName)) path.page[lookFor].remove()
+  if (overwrite && ['BODY-VIEW', 'DIALOG'].includes(path.page?.[lookFor]?.tagName ?? '')) path.page?.[lookFor]?.remove()
 
   // if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
   let node

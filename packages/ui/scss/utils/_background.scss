@@ -1,0 +1,52 @@
+@use 'sass:math';
+@use 'sass:string';
+@use '../vars';
+
+@layer #{vars.$utils-layer} {
+  list-view,
+  [is='form-view'] {
+    :where(&[background='system-background']) {
+      --list--host-background-color: var(--background);
+    }
+
+    :where(&[list-row-background='system-tertiary-grouped-background']) {
+      --list--item-background-color: var(--tertiaryGroupedBackground);
+    }
+
+    :where(&[list-row-background='system-quaternary-grouped-background']) {
+      --list--item-background-color: var(--quaternaryGroupedBackground);
+    }
+  }
+
+  // naviation-stack,
+  // navigation-split-view,
+  // scroll-view {
+  //   :where(&[background='system-grouped-background']) {
+  //     --face: var(--groupedBackground);
+  //   }
+  // }
+
+  [is='sheet-view'],
+  [is='full-screen'],
+  [is='confirmation-dialog'],
+  [is='alert-dialog'] {
+    list-view,
+    [is='form-view'] {
+      :where(&[background='system-background']) {
+        --list--host-background-color: var(--secondaryBackground);
+      }
+
+      :where(&[list-row-background='system-tertiary-grouped-background']) {
+        --list--item-background-color: var(--quaternaryGroupedBackground);
+      }
+
+      :where(&[list-row-background='system-quaternary-grouped-background']) {
+        --list--item-background-color: var(--quaintaryGroupedBackground);
+      }
+    }
+
+    // :where(& scroll-view[background='system-grouped-background']) {
+    //   --face: var(--groupedBackground);
+    // }
+  }
+}

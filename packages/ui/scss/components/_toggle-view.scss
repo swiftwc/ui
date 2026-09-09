@@ -133,6 +133,16 @@
 
         --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
         --toggle--dot-inset-inline-end: 0;
+
+        &:window-inactive {
+          --toggle--track-bg: var(--toggle--track-off-bg);
+        }
+      }
+
+      &[js-window-inactive] {
+        :where(&) {
+          --toggle--track-bg: var(--toggle--track-off-bg);
+        }
       }
     }
 

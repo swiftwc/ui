@@ -81,7 +81,6 @@ function isIntersectingWithContainer(el: HTMLElement, container: HTMLElement, ro
 
 /**
  *
- * @attr {grouped} background-style
  * @attr {boolean} padding
  * @attr {boolean} navigation-bar-auto-hide
  *

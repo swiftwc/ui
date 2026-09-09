@@ -116,6 +116,18 @@
           }
         }
       }
+
+      // &:has(list-view[list-style='inset-grouped']:not([background]), [is='form-view'][form-style='inset-grouped']:not([background])) {
+      //   :where(&) {
+      //     outline: red solid 4px;
+
+      //     // --background: var(--groupedBackground);
+      //     // --secondaryBackground: var(--secondaryGroupedBackground);
+      //     // --tertiaryBackground: var(--tertiaryGroupedBackground);
+
+      //     // --face: var(--background);
+      //   }
+      // }
     }
   }
 

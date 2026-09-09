@@ -19,10 +19,10 @@
 
     <template>
       <body-view>
-        <scroll-view id="gg" data-nav-path="region" background-style="grouped">
+        <scroll-view data-nav-path="region">
           <v-stack readable="40">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
-            <list-view list-style="inset-grouped">
+            <list-view background="system-background" list-row-background="system-quaternary-grouped-background" list-style="inset-grouped">
               <button navigation-link type="button" tabindex="0" data-nav-destination="appearance">
                 <label-view title="USA"></label-view>
               </button>
@@ -31,7 +31,7 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button class="back" type="button" tabindex="0" help="Back">
+            <button class="back" type="button" tabindex="0">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -40,7 +40,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view data-nav-path="appearance" background-style="grouped">
+        <scroll-view data-nav-path="appearance">
           <v-stack placement="space-between fill" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Appearance"></navigation-title>
@@ -60,8 +60,8 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button class="back" type="button" tabindex="0" help="Back">
-              <label-view system-image="caret-left" title="Back"></label-view>
+            <button class="back" type="button" tabindex="0">
+              <label-view system-image="caret-left" title="Back" label-style="title-and-icon"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -69,11 +69,11 @@
     </template>
     <template>
       <body-view>
-        <scroll-view data-nav-path="data-privacy" background-style="grouped">
+        <scroll-view data-nav-path="data-privacy">
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
-              <navigation-title value="Data & Privacy"></navigation-title>
-              <article>
+              <navigation-title value="Data & Privacy" system-image="handshake"></navigation-title>
+              <text-view prose>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
                   quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
@@ -106,7 +106,7 @@
                   sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
                   quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
                 </p>
-              </article>
+              </text-view>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -118,8 +118,8 @@
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button class="back" type="button" tabindex="0" help="Back">
-              <label-view system-image="caret-left" title="Back"></label-view>
+            <button class="back" type="button" tabindex="0">
+              <label-view system-image="caret-left" title="Back" label-style="title-and-icon"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -127,30 +127,33 @@
     </template>
     <template>
       <body-view>
-        <scroll-view data-nav-path="age-range" navigation-inline-title="Age Range" background-style="grouped">
+        <scroll-view data-nav-path="age-range" navigation-inline-title="Age Range">
           <v-stack readable="40">
             <v-stack alignment="fill" padding>
-              <navigation-title value="Age Range"></navigation-title>
-              <text-view> Select the age range </text-view>
+              <navigation-title value="Age Range" system-image="person"></navigation-title>
+              <label-view title="Select the age range of the person that will use this device."></label-view>
             </v-stack>
 
-            <list-view list-style="inset-grouped">
+            <list-view background="system-background" list-row-background="system-quaternary-grouped-background" list-style="inset-grouped">
               <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
-                <label-view title="Child"></label-view>
+                <label-view title="Child" system-image="baby"></label-view>
+                <label-view title="15 or younger" font="callout" foreground="secondary"></label-view>
               </button>
               <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
                 <label-view title="Teen"></label-view>
+                <label-view title="16 to 17" font="callout" foreground="secondary"></label-view>
               </button>
               <button navigation-link type="button" tabindex="0" data-nav-destination="terms">
                 <label-view title="Adult"></label-view>
+                <label-view title="18 or older" font="callout" foreground="secondary"></label-view>
               </button>
             </list-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button class="back" type="button" tabindex="0" help="Back">
-              <label-view system-image="caret-left" title="Back"></label-view>
+            <button class="back" type="button" tabindex="0">
+              <label-view system-image="caret-left" title="Back" label-style="title-and-icon"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -161,7 +164,7 @@
         <scroll-view data-nav-path="terms">
           <v-stack placement="leading fill" padding>
             <navigation-title value="Terms and Conditions"></navigation-title>
-            <article>
+            <text-view prose>
               <p>
                 Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
                 quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
@@ -194,7 +197,7 @@
                 blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum quis
                 neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
               </p>
-            </article>
+            </text-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
@@ -217,7 +220,7 @@
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Location Services"></navigation-title>
-              <article>
+              <text-view prose>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
                   quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
@@ -250,7 +253,7 @@
                   sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
                   quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
                 </p>
-              </article>
+              </text-view>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -275,7 +278,7 @@
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
               <navigation-title value="Analytics"></navigation-title>
-              <article>
+              <text-view prose>
                 <p>
                   Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam cursus placerat pretium. Praesent feugiat luctus consectetur. Quisque imperdiet
                   quam eu ullamcorper pretium. Proin ante diam, pellentesque et iaculis et, convallis tempor odio. Vivamus condimentum dui id ligula rhoncus
@@ -308,7 +311,7 @@
                   sapien blandit, vitae ultrices eros ultricies. Nullam ac rhoncus neque. In tortor nulla, imperdiet a leo in, gravida commodo nulla. Vestibulum
                   quis neque ut quam efficitur fringilla. Pellentesque mi elit, tempus vitae mollis at, viverra in arcu.
                 </p>
-              </article>
+              </text-view>
             </v-stack>
 
             <v-stack alignment="fill">
@@ -355,23 +358,21 @@
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
       import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
 
-      // document.addEventListener('click', async (event) => {
-      //   console.debug(`⚡️ ${event?.type}`)
-      // })
+      import lottie from 'https://cdn.jsdelivr.net/npm/lottie-web@5/+esm'
+      import { defineElement } from 'https://cdn.jsdelivr.net/npm/@lordicon/element@1/+esm'
+      defineElement(lottie.loadAnimation)
     </script>
   </head>
   <body>
     <v-keyboard system-font="Inter"></v-keyboard>
 
     <navigation-stack>
-      <scroll-view background-style="grouped">
+      <scroll-view>
         <v-stack class="[padding-block-start:4rem]" readable="40">
           <navigation-large-title padding>
-            <v-stack alignment="fill">
-              <image-view system-name="globe" system-weight="thin" foreground="blue"></image-view>
-            </v-stack>
+            <lord-icon class="current-color size-20" trigger="in" src="https://cdn.lordicon.com/lbjtvqiv.json" foreground="blue"></lord-icon>
           </navigation-large-title>
-          <list-view list-style="inset-grouped">
+          <list-view background="system-background" list-row-background="system-quaternary-grouped-background" list-style="inset-grouped">
             <button navigation-link type="button" tabindex="0" data-nav-destination="region">
               <label-view title="English"></label-view>
             </button>

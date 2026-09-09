@@ -12,7 +12,7 @@ export type NavigationToolbarConfiguration = Components.ToolBarItem | Components
 
 export type NavigationPage = Components.SidebarView | Components.ScrollView // this is a body wrapper!
 
-export function queryInsertPosition(frame: NavigationHost) {
+export function queryInsertPosition(frame?: NavigationHost) {
   if ('NAVIGATION-SPLIT-VIEW' === frame?.tagName)
     return 'beforebegin' // lookFor = 'previousElementSibling'
   else if ('NAVIGATION-SPLIT-VIEW' === frame?.parentElement?.tagName && frame?.parentElement.querySelector(':scope>[is=sidebar-view]') && 'BODY-VIEW' === frame?.tagName) return 'beforebegin' // lookFor = 'previousElementSibling'

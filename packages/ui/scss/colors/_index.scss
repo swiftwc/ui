@@ -526,6 +526,17 @@ $color-tokens: (
       ),
     ),
   ),
+  quaternaryGroupedBackground: (
+    props: (
+      inherits: true,
+    ),
+    media: (
+      base: (
+        light: oklch(0.9761 0 0),
+        dark: oklch(0.2751 0.0039 128.62),
+      ),
+    ),
+  ),
   // SECTION: semantic colors
   separator: (
       props: (

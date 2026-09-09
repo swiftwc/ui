@@ -23,6 +23,12 @@
       }
     }
 
+    :nth-child(1 of image-view) {
+      :where(&) {
+        color: var(--accentColor);
+      }
+    }
+
     scroll-view[navigation-bar-title-display-mode='inline']:has(&) &[navigation-bar-auto-hide] {
       :where(&) {
         opacity: 0;
@@ -31,14 +37,14 @@
       }
     }
 
-    &[background-style='grouped'] {
-      :where(&) {
-        background-color: var(--secondaryGroupedBackground);
-        border-radius: var(--insetlist-item-border-radius);
+    // &[background-style='grouped'] {
+    //   :where(&) {
+    //     background-color: var(--secondaryGroupedBackground);
+    //     border-radius: var(--insetlist-item-border-radius);
 
-        padding-inline: var(--list-item-padding-inline-start) var(--list-item-padding-inline-end);
-        padding-block: 1rem;
-      }
-    }
+    //     padding-inline: var(--list-item-padding-inline-start) var(--list-item-padding-inline-end);
+    //     padding-block: 1rem;
+    //   }
+    // }
   }
 }

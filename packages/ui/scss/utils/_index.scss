@@ -3,25 +3,28 @@
 
 @layer #{vars.$utils-layer} {
   [background-style='grouped'] {
-    :where(&) {
-      --background: var(--groupedBackground);
-      --secondaryBackground: var(--secondaryGroupedBackground);
-      --tertiaryBackground: var(--tertiaryGroupedBackground);
-
-      --face: var(--background);
-      // --face2: var(--secondaryBackground);
-      // --face3: var(--tertiaryBackground);
-    }
-
-    // FIXME: feat-sheet 2/3
-    [is='sheet-view'] &,
-    [is='full-screen'] &,
-    [is='confirmation-dialog'] &,
-    [is='alert-dialog'] & {
+    @media (pointer: coarse) {
       :where(&) {
-        // --background: var(--secondaryGroupedBackground);
-        // --secondaryBackground: var(--secondaryGroupedBackground);
-        // --tertiaryBackground: var(--tertiaryGroupedBackground);
+        // --face: var(--groupedBackground);
+        --background: var(--groupedBackground);
+        --secondaryBackground: var(--secondaryGroupedBackground);
+        --tertiaryBackground: var(--tertiaryGroupedBackground);
+
+        --face: var(--background);
+        // --face2: var(--secondaryBackground);
+        // --face3: var(--tertiaryBackground);
+      }
+
+      // FIXME: feat-sheet 2/3
+      [is='sheet-view'] &,
+      [is='full-screen'] &,
+      [is='confirmation-dialog'] &,
+      [is='alert-dialog'] & {
+        :where(&) {
+          // --background: var(--secondaryGroupedBackground);
+          // --secondaryBackground: var(--tertiaryGroupedBackground);
+          // --tertiaryBackground: var(--quaternaryGroupedBackground);
+        }
       }
     }
   }

@@ -139,7 +139,16 @@ export class ToggleView extends FormAssociatedBase {
       ).on()
     )
 
-    CleanupRegistry.register(this, onoff([{ types: 'blur', listener: this.#handleWindowBlur }], self).on())
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'blur', listener: this.#handleWindowBlur },
+          { types: 'focus', listener: this.#handleWindowFocus },
+        ],
+        self
+      ).on()
+    )
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -319,11 +328,17 @@ export class ToggleView extends FormAssociatedBase {
   }
 
   #handleWindowBlur = () => {
+    this.toggleAttribute('js-window-inactive', true)
+
     if (!this.#isDragging) return
 
     this.#track?.style.removeProperty('--toggle--dot-transition-duration')
 
     this.#settle()
+  }
+
+  #handleWindowFocus = async () => {
+    this.toggleAttribute('js-window-inactive', false)
   }
 
   #updateFromEvent = (clientX: number) => {

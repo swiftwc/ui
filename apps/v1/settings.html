@@ -62,14 +62,21 @@
       <body-view>
         <scroll-view navigation-inline-title="General" data-nav-path="General">
           <v-stack spacing="0" readable="40">
-            <navigation-large-title background-style="grouped" padding>
+            <!-- <navigation-large-title background-style="grouped" padding>
               <image-view system-name="gear-fine" foreground="blue"></image-view>
               <v-stack spacing="3" alignment="fill">
                 <label-view title="General" font="title2"></label-view>
                 <label-view title="Manage yor overall setup and preferences." foreground="secondary" font="callout"></label-view>
               </v-stack>
-            </navigation-large-title>
+            </navigation-large-title> -->
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped">
+              <navigation-large-title>
+                <image-view system-name="gear-fine" foreground="blue"></image-view>
+                <v-stack spacing="3" alignment="fill">
+                  <label-view title="General" font="title2"></label-view>
+                  <label-view title="Manage yor overall setup and preferences." foreground="secondary" font="callout"></label-view>
+                </v-stack>
+              </navigation-large-title>
               <section-view>
                 <button navigation-link tabindex="0" type="button" data-nav-destination="About">
                   <label-view system-image="laptop" title="About"></label-view>
@@ -140,14 +147,21 @@
       <body-view>
         <scroll-view navigation-inline-title="About" data-nav-path="About">
           <v-stack spacing="0" readable="40">
-            <navigation-large-title background-style="grouped" padding>
+            <!-- <navigation-large-title background-style="grouped" padding>
               <image-view class="place-self-center" system-name="laptop" foreground="secondary"></image-view>
               <v-stack spacing="6">
                 <label-view title="Device" font="title"></label-view>
                 <label-view title="2026" foreground="secondary" font="callout"></label-view>
               </v-stack>
-            </navigation-large-title>
+            </navigation-large-title> -->
             <list-view list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
+              <navigation-large-title>
+                <image-view class="place-self-center" system-name="laptop" foreground="secondary"></image-view>
+                <v-stack spacing="6">
+                  <label-view title="Device" font="title"></label-view>
+                  <label-view title="2026" foreground="secondary" font="callout"></label-view>
+                </v-stack>
+              </navigation-large-title>
               <section-view>
                 <labeled-content label="Name" value="Laptop" labeled-content-style="horizontal"></labeled-content>
                 <labeled-content label="Chip" value="Orange M4" labeled-content-style="horizontal"></labeled-content>
@@ -534,7 +548,7 @@
                   </v-stack>
                   <v-stack spacing="5" alignment="fill">
                     <label-view title="Delay until repeat"></label-view>
-                    <input class="w-full m-0" type="range" value="100" step="10" list="Key_repeat_rate" />
+                    <input class="w-full m-0" type="range" value="80" step="10" list="Key_repeat_rate" />
                     <datalist id="Key_repeat_rate">
                       <option value="0"></option>
                       <option value="25"></option>
@@ -560,7 +574,7 @@
                 </labeled-content>
                 <toggle-view>
                   <label-view slot="label" title="Keyboard navigation"></label-view>
-                  <label-view slot="label" title="Use keyboard navigaation to move focus between controls."></label-view>
+                  <label-view slot="label" title="Use keyboard navigation to move focus between controls."></label-view>
                 </toggle-view>
                 <h-stack distribution="trailing">
                   <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Keyboard Panel">
@@ -697,13 +711,13 @@
         </section-view>
         <section-view>
           <button navigation-link tabindex="0" type="button">
-            <label-view system-image="smiley" title="WiFi"></label-view>
+            <label-view system-image="wifi-medium" title="WiFi"></label-view>
           </button>
           <button navigation-link tabindex="0" type="button">
-            <label-view system-image="smiley" title="Bluetooth"></label-view>
+            <label-view system-image="bluetooth" title="Bluetooth"></label-view>
           </button>
           <button navigation-link tabindex="0" type="button">
-            <label-view system-image="smiley" title="Network"></label-view>
+            <label-view system-image="sphere" title="Network"></label-view>
           </button>
           <button navigation-link tabindex="0" type="button" data-nav-destination="Energy">
             <label-view system-image="lightning" title="Energy"></label-view>
@@ -717,10 +731,7 @@
             <label-view system-image="person-simple-circle" title="Accessibility"></label-view>
           </button>
           <button navigation-link tabindex="0" type="button" data-nav-destination="Appearance">
-            <label-view system-image="smiley" title="Appearance"></label-view>
-          </button>
-          <button navigation-link tabindex="0" type="button">
-            <label-view system-image="smiley" title="AI Intelligense"></label-view>
+            <label-view system-image="circle-half" title="Appearance"></label-view>
           </button>
         </section-view>
         <section-view>

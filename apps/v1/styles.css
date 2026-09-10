@@ -302,12 +302,8 @@
       --insetform-item-border-radius: 1rem;
       --list-item-padding-inline-start: 1rem;
       --list-item-padding-inline-end: 1rem;
-      --insetgroupedlist-background-color: var(--background);
-      --insetgroupedlist-item-background-color: var(--quaternaryGroupedBackground);
       --form-item-padding-inline-start: 1rem;
       --form-item-padding-inline-end: 1rem;
-      --insetgroupedform-background-color: var(--background);
-      --insetgroupedform-item-background-color: var(--quaternaryGroupedBackground);
       --toggle-inline-size: 3.4rem;
       --toggle-block-size: 1.3rem;
       --control-clear-glass-bg: var(--white);
@@ -6101,10 +6097,10 @@
   }
 }
 @layer sw-utils {
-  :where([background-style=grouped]) {
-    --background: var(--groupedBackground);
-    --secondaryBackground: var(--secondaryGroupedBackground);
-    --tertiaryBackground: var(--tertiaryGroupedBackground);
+  :where([background-style=initial]) {
+    --background: initial;
+    --secondaryBackground: initial;
+    --tertiaryBackground: initial;
     --face: var(--background);
   }
   :where([foreground=primary]) {
@@ -10568,6 +10564,46 @@
   :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog], [is=alert-dialog]) {
     --face: var(--background);
     --background: var(--secondaryBackground);
+  }
+  :where([is=sheet-view]:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  [is=full-screen]:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  [is=confirmation-dialog]:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  [is=alert-dialog]:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  body-view:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  navigation-split-view:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  navigation-split-view > [is=sidebar-view]:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])),
+  navigation-stack:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background]))) {
+    --background: var(--groupedBackground);
+    --secondaryBackground: var(--secondaryGroupedBackground);
+    --tertiaryBackground: var(--tertiaryGroupedBackground);
+    --face: var(--background);
+  }
+  :where(navigation-stack > navigation-stack:not(:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background]))),
+  navigation-stack > navigation-split-view:not(:has(> scroll-view list-view[list-style=inset-grouped]:not([slot], [background]),
+  > scroll-view [is=form-view][form-style=inset-grouped]:not([slot], [background]),
+  > scroll-view table-view[table-style=inset]:not([slot], [background])))) {
+    --background: initial;
+    --secondaryBackground: initial;
+    --tertiaryBackground: initial;
+    --face: var(--background);
   }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {

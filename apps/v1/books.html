@@ -76,7 +76,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="customer1" background-style="grouped" navigation-title="ff">
+        <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="customer1" data-background-style="grouped" navigation-title="ff">
           <!-- <v-stack readable="40"> -->
           <v-stack placement="leading fill">
             <scroll-view-proxy>
@@ -135,7 +135,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="editcustomer1" background-style="grouped">
+        <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="editcustomer1" data-background-style="grouped">
           <v-stack readable="40">
             <form id="editcustomerform" is="form-view" form-style="inset-grouped">
               <section-view>
@@ -205,7 +205,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view navigation-inline-title="new customer" data-nav-path="createcustomer" background-style="grouped">
+        <scroll-view navigation-inline-title="new customer" data-nav-path="createcustomer" data-background-style="grouped">
           <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
@@ -305,7 +305,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="customer created" data-nav-path="createcustomerdone" background-style="grouped">
+        <scroll-view navigation-inline-title="customer created" data-nav-path="createcustomerdone" data-background-style="grouped">
           <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped">
               <section-view>
@@ -346,7 +346,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Transactions with Katie Abeles" data-nav-path="customertransactions1" background-style="grouped">
+        <scroll-view navigation-inline-title="Transactions with Katie Abeles" data-nav-path="customertransactions1" data-background-style="grouped">
           <v-stack readable="40">
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
               <summary padding>
@@ -468,7 +468,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="invoice1" background-style="grouped">
+        <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="invoice1" data-background-style="grouped">
           <v-stack readable="40">
             <list-view columns="2" list-style="inset-grouped">
               <labeled-content>
@@ -510,7 +510,7 @@
     </template>
     <template>
       <body-view>
-        <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="editinvoice1" background-style="grouped">
+        <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="editinvoice1" data-background-style="grouped">
           <v-stack readable="40">
             <form id="editinvoiceform" is="form-view" form-style="inset-grouped">
               <section-view>
@@ -876,7 +876,7 @@
       </navigation-stack>
 
       <navigation-stack id="more" hidden>
-        <scroll-view navigation-inline-title="More" background-style="grouped">
+        <scroll-view navigation-inline-title="More" data-background-style="grouped">
           <v-stack placement="leading fill">
             <list-view list-style="inset-grouped">
               <section-view>
@@ -1126,7 +1126,7 @@
           </tool-bar>
         </navigation-stack>
 
-        <navigation-split-view id="settings" background-style="grouped" hidden>
+        <navigation-split-view id="settings" data-background-style="grouped" hidden>
           <scroll-view navigation-inline-title="Settings">
             <v-stack readable="40">
               <navigation-large-title padding>

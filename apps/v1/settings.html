@@ -370,7 +370,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view data-nav-path="Hover Text Panel" background-style="grouped">
+        <scroll-view data-nav-path="Hover Text Panel" data-background-style="grouped">
           <v-stack spacing="0" readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Text Settings">
@@ -404,7 +404,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view data-nav-path="Hover Color Panel" background-style="grouped">
+        <scroll-view data-nav-path="Hover Color Panel" data-background-style="grouped">
           <v-stack spacing="0" readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Color Settings">
@@ -437,7 +437,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view data-nav-path="Hover Typing Panel" background-style="grouped">
+        <scroll-view data-nav-path="Hover Typing Panel" data-background-style="grouped">
           <v-stack spacing="0" readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view header="Hover Typing Settings">
@@ -677,7 +677,7 @@
     </template>
     <template>
       <dialog is="sheet-view">
-        <scroll-view data-nav-path="Advanced Mouse Panel" background-style="grouped">
+        <scroll-view data-nav-path="Advanced Mouse Panel" data-background-style="grouped">
           <v-stack spacing="0" readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view>
@@ -787,7 +787,7 @@
     <!-- This component is required -->
     <v-keyboard system-font="Inter"></v-keyboard>
 
-    <navigation-split-view column-visibility="double-column" background-style="grouped">
+    <navigation-split-view column-visibility="double-column" data-background-style="grouped">
       <dialog is="sidebar-view">
         <scroll-view>
           <v-stack id="sidebar_stack" readable="40"></v-stack>

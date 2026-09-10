@@ -330,6 +330,11 @@ const htmlData: VsHtmlDataV1 = {
       description: 'Sets max-inline-size',
       valueSet: 'FrameInlineLength',
     },
+    {
+      name: 'background-style',
+      description: 'Overrides the context-aware styles for background colors',
+      valueSet: 'BackgroundStyle',
+    },
   ],
   valueSets: [
     {
@@ -455,6 +460,16 @@ const htmlData: VsHtmlDataV1 = {
         { name: 'infinity', description: '100%' },
         ...Array.from({ length: 101 }, (_, i) => ({ name: String(i), description: `${i}rem` })),
         ...Array.from({ length: 101 }, (_, i) => ({ name: `${String(i)}cqi`, description: `${i}cqi` })),
+      ],
+    },
+    {
+      name: 'BackgroundStyle',
+      values: [
+        {
+          name: 'initial',
+          description:
+            'Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view',
+        },
       ],
     },
   ],

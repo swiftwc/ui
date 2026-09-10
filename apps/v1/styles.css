@@ -3625,7 +3625,7 @@
     --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
     --toggle--dot-inset-inline-end: 0;
   }
-  :where(toggle-view[aria-checked=true]):window-inactive {
+  :where(toggle-view[aria-checked=true])::window-inactive {
     --toggle--track-bg: var(--toggle--track-off-bg);
   }
   :where(toggle-view[aria-checked=true][js-window-inactive]) {
@@ -6101,13 +6101,11 @@
   }
 }
 @layer sw-utils {
-  @media (pointer: coarse) {
-    :where([background-style=grouped]) {
-      --background: var(--groupedBackground);
-      --secondaryBackground: var(--secondaryGroupedBackground);
-      --tertiaryBackground: var(--tertiaryGroupedBackground);
-      --face: var(--background);
-    }
+  :where([background-style=grouped]) {
+    --background: var(--groupedBackground);
+    --secondaryBackground: var(--secondaryGroupedBackground);
+    --tertiaryBackground: var(--tertiaryGroupedBackground);
+    --face: var(--background);
   }
   :where([foreground=primary]) {
     color: var(--primary);
@@ -9185,7 +9183,6 @@
     margin-block: 5rem;
   }
 }
-@layer sw-utils {}
 @layer sw-utils {
   :where(list-view[background=system-background],
   [is=form-view][background=system-background]) {
@@ -10568,19 +10565,10 @@
     --face: var(--background);
     --text: var(--primary);
   }
-  /* :where([is='sheet-view'], [is='full-screen'], [is='confirmation-dialog'], [is='alert-dialog']) {
-    // modify background/secondarybg/tertiarybg etc for ELEVATED STYLES!!
-    // ANCHOR: level 1
-    --face: var(--background); // IMPORTANT: redeclare references scope or it WONT pick up!
-    // --face2: var(--secondaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
-    // --face3: var(--tertiaryBackground); // IMPORTANT: redeclare references scope or it WONT pick up!
-
-    // FIXME: feat-sheet 1/3
-    --background: var(--secondaryBackground); //light-dark(var(--secondary-bg), var(--secondary-bg-dark));
-    // --face: light-dark(var(--secondary-bg), var(--secondary-bg-dark));
-
-    // --text: light-dark(var(--secondary-text), var(--secondary-text-dark));
-  } */
+  :where([is=sheet-view], [is=full-screen], [is=confirmation-dialog], [is=alert-dialog]) {
+    --face: var(--background);
+    --background: var(--secondaryBackground);
+  }
   @media (min-width: 43rem) {
     :where(navigation-split-view > [is=sidebar-view]) {
       --face: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));

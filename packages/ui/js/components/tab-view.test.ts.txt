@@ -1,0 +1,63 @@
+import { beforeEach, describe, expect, test } from 'vitest'
+import { TabBar } from './tab-bar'
+import { TabItem } from './tab-item'
+import { TabView } from './tab-view'
+
+describe('prop', () => {
+  let div: HTMLElement
+
+  customElements.define('tab-view', TabView)
+  customElements.define('tab-item', TabItem, { extends: TabItem.polyfillExtends })
+  customElements.define('tab-bar', TabBar, { extends: TabBar.polyfillExtends })
+
+  beforeEach(() => {
+    div = document.createElement('tab-view')
+    document.body.appendChild(div)
+  })
+
+  test('syncBodyFace', () => {
+    for (const [i, id] of ['home', 'search', 'more'].entries()) {
+      div.appendChild(Object.assign(document.createElement('navigation-stack'), { id, innerHTML: '<scroll-view></scroll-view>', hidden: i }))
+    }
+
+    const tb = document.createElement('dialog', { is: 'tab-bar' })
+
+    div.appendChild(tb)
+
+    for (const value of ['home', 'search', 'more']) {
+      tb.appendChild(Object.assign(document.createElement('button', { is: 'tab-item' }), { value, innerHTML: `<label-view title="${value}"></label-view>` }))
+    }
+
+    console.log(99, document.body.outerHTML)
+    // document.createElement('button', { is: 'tab-item' })
+    // div.innerHTML = `<navigation-stack id="home"><scroll-view></scroll-view></navigation-stack>
+    // <navigation-stack id="search" hidden><scroll-view></scroll-view></navigation-stack>
+    // <navigation-stack id="more" hidden><scroll-view style="--face:red;"></scroll-view></navigation-stack>
+
+    // `
+
+    // <dialog is="tab-bar">
+    //     <form is="form-view" method="dialog" novalidate>
+    //       <button is="tab-item" value="home">
+    //         <label-view title="Home"></label-view>
+    //       </button>
+    //       <button is="tab-item" value="search">
+    //         <label-view title="Search"></label-view>
+    //       </button>
+    //       <button is="tab-item" value="more">
+    //         <label-view title="More"></label-view>
+    //       </button>
+    //     </form>
+    //   </dialog>
+
+    document.querySelector<HTMLButtonElement>('#more > scroll-view')?.style.setProperty('--face', 'red')
+
+    const btn = document.querySelector<HTMLButtonElement>('[value="more"]')
+
+    // console.log(999, btn)
+    TabItem.polyfillConnectedCallback(btn as TabItem)
+
+    document.querySelector<HTMLButtonElement>('[value="more"]')?.click()
+    expect(document.body.outerHTML).toBe(0)
+  })
+})

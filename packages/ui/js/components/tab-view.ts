@@ -58,6 +58,7 @@ export class TabView extends HTMLElement {
 
   get moreTab() {
     return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack,> navigation-split-view)')
+    // return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack)') ?? this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-split-view)')
   }
 
   connectedCallback() {
@@ -139,10 +140,10 @@ export class TabView extends HTMLElement {
     }
   }
 
-  #handleAdaptableTabBarPlacementChange = (evt: TabViewAdaptableTabBarPlacementChangeEvent) => {
-    debug(`${TabView.name} ⚡️ ${evt?.type}`)
+  #handleAdaptableTabBarPlacementChange = ({ type, detail }: TabViewAdaptableTabBarPlacementChangeEvent) => {
+    debug(`${TabView.name} ⚡️ ${type}`)
 
-    if ('bottom-bar' !== evt.detail.oldValue) return // button triggers should happen, ONLY when going FROM bottom-bar TO anything else
+    if ('bottom-bar' !== detail.oldValue) return // button triggers should happen, ONLY when going FROM bottom-bar TO anything else
 
     const innerSelection = this.moreTab?.querySelector(':scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])')?.id
     if (innerSelection) {
@@ -215,14 +216,14 @@ export class TabView extends HTMLElement {
       }
   }
 
-  #addAnimations = (evt: CustomEvent<TabBeforeDetail>) => {
+  #addAnimations = ({ detail }: CustomEvent<TabBeforeDetail>) => {
     this.setAttribute('js-aftertabreveal', '')
 
     // const ms = cssTime(`${this.computedStyleMap().get(`--tabbar-after-tabreveal-duration`)}`)
 
     this.#afterTabRevealDelay.next(() => {
       this.removeAttribute('js-aftertabreveal')
-    }, evt.detail.ms)
+    }, detail.ms)
   }
 
   #handleSelectionChange = (evt: Event) => {

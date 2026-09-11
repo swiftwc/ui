@@ -187,6 +187,8 @@ const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | 
  *
  * @attr {vertical|horizontal|auto} label-value-placement
  *
+ * @attr {boolean} horizontal-radio-group-layout
+ *
  * @slot — The default slot.
  * @slot label
  * @slot list
@@ -223,10 +225,6 @@ export class PickerView extends FormAssociatedBase {
        * @type {boolean}
        */
       'required',
-      /**
-       * @type {boolean}
-       */
-      'horizontal-radio-group-layout',
     ]
   }
 
@@ -871,11 +869,10 @@ export class PickerView extends FormAssociatedBase {
     debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
-      case 'horizontal-radio-group-layout':
-        if (oldValue === newValue) break
-
-        this.#renderSlotted([])
-
+      // case 'horizontal-radio-group-layout':
+      //   if (oldValue === newValue) break
+      //   this.#renderSlotted([])
+      // break
       case 'prompt':
       case 'prompt-icon':
         if (oldValue === newValue) break

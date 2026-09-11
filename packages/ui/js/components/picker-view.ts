@@ -11,7 +11,7 @@ import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
-const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
 export type DictEntry = {
@@ -151,6 +151,36 @@ const indexGroups = (nodes: Element[] | Dictionary, parentPath = ''): Map<string
 }
 
 const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+
+const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | undefined>; icons: Record<string, string | undefined> } => {
+  const out1: Record<string, string | undefined> = {},
+    out2: Record<string, string | undefined> = {},
+    stack: DictEntry[][] = [tree],
+    idx: number[] = [0]
+
+  while (stack.length) {
+    const frame = stack[stack.length - 1],
+      i = idx[idx.length - 1]
+
+    if (i >= frame.length) {
+      stack.pop()
+      idx.pop()
+      continue
+    }
+
+    idx[idx.length - 1]++
+    const { value, title, systemImage, children } = frame[i]
+    out1[value] = title
+    out2[value] = systemImage
+
+    if (children.length) {
+      stack.push(children)
+      idx.push(0)
+    }
+  }
+
+  return { labels: out1, icons: out2 }
+}
 
 /**
  * @summary A control that selects one value from a set of options.
@@ -434,35 +464,6 @@ export class PickerView extends FormAssociatedBase {
 
     switch (input.mode) {
       case 'dictionary': {
-        const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | undefined>; icons: Record<string, string | undefined> } => {
-          const out1: Record<string, string | undefined> = {},
-            out2: Record<string, string | undefined> = {},
-            stack: DictEntry[][] = [tree],
-            idx: number[] = [0]
-
-          while (stack.length) {
-            const frame = stack[stack.length - 1],
-              i = idx[idx.length - 1]
-
-            if (i >= frame.length) {
-              stack.pop()
-              idx.pop()
-              continue
-            }
-
-            idx[idx.length - 1]++
-            const { value, title, systemImage, children } = frame[i]
-            out1[value] = title
-            out2[value] = systemImage
-
-            if (children.length) {
-              stack.push(children)
-              idx.push(0)
-            }
-          }
-
-          return { labels: out1, icons: out2 }
-        }
         this.#lastRenderedLabelMap = flattenDictionary(input.source).labels
         this.#lastRenderedIconMap = flattenDictionary(input.source).icons
 
@@ -581,6 +582,22 @@ export class PickerView extends FormAssociatedBase {
           currentValueLabel?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
 
         PickerView.#reflectButtons(input.source, menu)
+
+        break
+      }
+      case 'radio-group': {
+        // capture
+        const stack = this.querySelector<HTMLElement>(':scope>v-stack:not([slot])') ?? this.appendChild<HTMLElement>($(html`<v-stack></v-stack>`, '>1'))
+
+        // reset state
+        stack.innerHTML = ''
+
+        // clear all siblings
+        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (stack !== el) el.remove()
+
+        // add buttons
+        console.log(99, stack)
+        PickerView.#reflectButtons(input.source, stack)
 
         break
       }
@@ -738,34 +755,52 @@ export class PickerView extends FormAssociatedBase {
             `)
           )
 
-          //   break
-          // case 'compact':
-          //   PickerView.#templates.set(
-          //     style,
-          //     Object.assign(document.createElement('template'), {
-          //       innerHTML: String.raw`
-          //     <label part="compact-picker">
-          //       <input type="text" part="compact-input">
-          //     </label>
-          //   `,
-          //     })
-          //   )
-
-          //   break
-          // case 'fancy':
-          //   PickerView.#templates.set(
-          //     style,
-          //     Object.assign(document.createElement('template'), {
-          //       innerHTML: String.raw`
-          //     <div part="fancy-picker">
-          //       <span>Fancy Picker</span>
-          //       <input type="text" part="fancy-input">
-          //     </div>
-          //   `,
-          //     })
-          //   )
+          break
+        case 'radio-group':
+          PickerView.#templates.set(
+            this.pickerStyle,
+            $(html`
+              <label part="root picker-stack">
+                <div part="root picker-label-stack">
+                  <slot name="label"></slot>
+                </div>
+                <div part="root picker-input-stack">
+                  <slot></slot>
+                </div>
+                <slot name="list" hidden></slot>
+                <slot name="validity-options" hidden></slot>
+              </label>
+            `)
+          )
 
           break
+        //   break
+        // case 'compact':
+        //   PickerView.#templates.set(
+        //     style,
+        //     Object.assign(document.createElement('template'), {
+        //       innerHTML: String.raw`
+        //     <label part="compact-picker">
+        //       <input type="text" part="compact-input">
+        //     </label>
+        //   `,
+        //     })
+        //   )
+
+        //   break
+        // case 'fancy':
+        //   PickerView.#templates.set(
+        //     style,
+        //     Object.assign(document.createElement('template'), {
+        //       innerHTML: String.raw`
+        //     <div part="fancy-picker">
+        //       <span>Fancy Picker</span>
+        //       <input type="text" part="fancy-input">
+        //     </div>
+        //   `,
+        //     })
+        //   )
+
         //   case 'gg':
         //     PickerView.#templates.set(
         //       style,
@@ -1099,26 +1134,6 @@ export class PickerView extends FormAssociatedBase {
       mount
     )
 
-    // const btn = $<HTMLButtonElement>(
-    //     `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
-    //     '>1'
-    //   ),
-    //   hStack = btn.querySelector<LabelView>(':scope>h-stack') ?? undefined
-
-    // renderLabel(
-    //   ':scope>label-view:nth-child(2)',
-    //   `<label-view><span></span></label-view>`,
-    //   hStack,
-    //   extractLabelFromGroup(node as HTMLDataListElement),
-    //   extractImgFromGroup(node as HTMLDataListElement)
-    // )
-    // // label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
-    // // if (label) {
-    // // const lbl = extractLabelFromGroup(node as HTMLDataListElement),
-    // //         img =extractImgFromGroup(node as HTMLDataListElement)
-    // //         if(lbl)  renderLabelTitle(label, node.dataset.label) //label?.setAttribute('title', el.dataset.label)
-    // // }
-
     return mount.firstElementChild as HTMLButtonElement //btn
   }
 
@@ -1148,25 +1163,6 @@ export class PickerView extends FormAssociatedBase {
       </button>`,
       mount
     )
-
-    // const btn = $(
-    //     `<button type="button" tabindex="0"><h-stack distribution="leading" template="auto spacer"><label-view data-role="check"><image-view slot="icon" system-name="check"></image-view></label-view></h-stack></button>`,
-    //     '>1'
-    //   ),
-    //   hStack = btn.querySelector<HTMLElement>(':scope>h-stack')
-    // // chevron = hStack?.querySelector<HTMLElement>(':scope>label-view')
-
-    // btn.setAttribute('value', extractTagFromOption(node))
-
-    // // if (selection !== btn.getAttribute('value')) chevron?.style.setProperty('visibility', 'hidden')
-
-    // const label = $<LabelView>(`<label-view></label-view>`, '>1')
-
-    // renderLabelTitle(label, extractLabel(node)) // label.querySelector('span')!.textContent = extractCurrentValueFromOption(node) //label.setAttribute('title', extractCurrentValueFromOption(node))
-
-    // renderLabelIcon(label, extractIcon(node))
-
-    // hStack?.appendChild(label)
 
     return mount.firstElementChild as HTMLButtonElement //btn
   }
@@ -1200,23 +1196,8 @@ export class PickerView extends FormAssociatedBase {
     )
 
     return mount.firstElementChild as HTMLDetailsElement
-
-    // const labelT = `<label-view><span></span></label-view>`,
-    //   summaryT = `<summary><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view>${labelT}</h-stack></summary>`
-
-    // const group = $(`<details is="disclosure-group" disclosure-style="marker-trailing">${summaryT}</details>`, '>1'), // NOTE: already applied, here it covers spawned sheets
-    //   hStack = group.querySelector(':scope>summary>h-stack') ?? undefined // ?? group.appendChild($(summaryT, '>1'))
-    // //   summaryLabel = summary.querySelector(':scope>label-view') ?? summary.appendChild($(labelT, '>1'))
-    // // if (node.hasAttribute('label')) summaryLabel.setAttribute('title', node.getAttribute('label') ?? '')
-    // // if (node.hasAttribute('data-system-image')) summaryLabel.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
-
-    // renderLabel(':scope>label-view:nth-child(2)', labelT, hStack, extractLabel(node), extractIcon(node))
-
-    // return group
   }
 
-  // static #reflectButtons(nodes: Element[], container: Element): void
-  // static #reflectButtons(nodes: Dictionary, container: Element): void
   static #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
 
@@ -1248,17 +1229,6 @@ export class PickerView extends FormAssociatedBase {
             )
 
             const group = mount.firstElementChild as HTMLMenuElement
-
-            // const group = $(
-            //     `<menu-view tabindex="0"><h-stack slot="label" distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></menu-view>`,
-            //     '>1'
-            //   ),
-            //   hStack = group.querySelector(':scope>h-stack[slot=label]') ?? undefined
-            // // label = group.querySelector(':scope>label-view[slot=label]') ?? group.appendChild($(`<label-view slot="label"></label-view>`, '>1'))
-            // // if (node.hasAttribute('data-label')) label.setAttribute('title', node.getAttribute('data-label') ?? '')
-            // // if (node.hasAttribute('data-system-image')) label.setAttribute('system-image', node.getAttribute('data-system-image') ?? '')
-
-            // renderLabel(':scope>label-view:nth-child(2)', `<label-view><span></span></label-view>`, hStack, extractLabel(node as HTMLDataListElement), extractIcon(node as HTMLDataListElement))
 
             PickerView.#reflectButtons([...node.children] as Element[], group)
 
@@ -1315,8 +1285,6 @@ export class PickerView extends FormAssociatedBase {
             )
 
             const group = mount.firstElementChild as HTMLMenuElement
-            // const group = $(`<menu-view tabindex="0"></menu-view>`, '>1')
-            // renderLabel(':scope>label-view[slot=label]', `<label-view slot="label"><span></span></label-view>`, group, extractLabel(node), extractIcon(node))
 
             PickerView.#reflectButtons(node.children, group)
 

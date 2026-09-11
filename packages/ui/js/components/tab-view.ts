@@ -58,7 +58,6 @@ export class TabView extends HTMLElement {
 
   get moreTab() {
     return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack,> navigation-split-view)')
-    // return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack)') ?? this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-split-view)')
   }
 
   connectedCallback() {
@@ -80,10 +79,7 @@ export class TabView extends HTMLElement {
           { types: 'beforetabreveal beforetabswap', listener: this.#addAnimations as EventListener },
           { types: 'tab-view:adaptable-tab-bar-placement-change', listener: this.#handleAdaptableTabBarPlacementChange as EventListener },
           { types: 'pagereveal', listener: this.#handleTabViewPagereveal as EventListener },
-          {
-            types: 'click',
-            listener: this.#handleSummaryClick,
-          },
+          { types: 'click', listener: this.#handleSummaryClick },
         ],
         this
       ).on()

@@ -8,6 +8,8 @@
 
       place-items: safe center;
       place-content: safe center;
+
+      gap: 1rem;
     }
 
     :where(& > *) {

@@ -1286,7 +1286,6 @@
   :where(menu-view)::part(menu-scrollable),
   :where(picker-view)::part(picker-stack),
   :where(picker-view)::part(picker-label-stack),
-  :where(picker-view)::part(picker-input-stack),
   :where(tool-bar)::part(top-bar),
   :where(tool-bar)::part(bottom-bar),
   :where(label-view)::part(label-image-stack),
@@ -2502,6 +2501,7 @@
     flex-flow: row nowrap;
     place-items: safe center;
     place-content: safe center;
+    gap: 1rem;
   }
   :where(h-flex-stack > *) {
     max-block-size: 100%;
@@ -2516,6 +2516,7 @@
     flex-flow: column nowrap;
     place-items: center;
     place-content: center;
+    gap: 1rem;
   }
   :where(v-flex-stack > *) {
     max-inline-size: 100%;
@@ -5248,21 +5249,24 @@
   :where(picker-view) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    padding-inline: var(--picker--stack-grid-padding-inline, );
-    padding-block: var(--picker--stack-grid-padding-block, );
-    background: var(--picker--stack-grid-background, );
-    border-radius: var(--picker--stack-grid-border-radius, );
-    border: var(--picker--stack-grid-border, );
-    color: var(--picker--stack-grid-color, );
+    padding-inline: var(--picker--host-grid-padding-inline, );
+    padding-block: var(--picker--host-grid-padding-block, );
+    background: var(--picker--host-grid-background, );
+    border-radius: var(--picker--host-grid-border-radius, );
+    border: var(--picker--host-grid-border, );
+    color: var(--picker--host-grid-color, );
   }
   :where(picker-view)::part(picker-stack) {
-    grid-template-columns: var(--picker--stack-grid-template-columns, );
-    grid-template-rows: var(--picker--stack-grid-template-rows, );
-    row-gap: var(--picker--stack-row-gap, );
-    column-gap: var(--picker--stack-column-gap, );
+    grid-template-columns: var(--picker--host-grid-template-columns, );
+    grid-template-rows: var(--picker--host-grid-template-rows, );
+    row-gap: var(--picker--host-row-gap, );
+    column-gap: var(--picker--host-column-gap, );
   }
   :where(picker-view)::part(picker-input-stack) {
-    text-align: var(--picker--input-stack-text-align, );
+    display: var(--picker--inputstack-display, grid);
+    text-align: var(--picker--inputstack-text-align, );
+    gap: var(--picker--inputstack-gap, );
+    flex-flow: var(--picker--inputstack-flex-flow, );
   }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
@@ -5273,8 +5277,8 @@
     color: var(--secondary);
   }
   :where(picker-view) {
-    --picker--stack-grid-template-columns: minmax(30%, 1fr) auto;
-    --picker--stack-grid-template-rows: minmax(0, 1fr);
+    --picker--host-grid-template-columns: minmax(30%, 1fr) auto;
+    --picker--host-grid-template-rows: minmax(0, 1fr);
   }
   @container not style(--picker-style) {
     :where(picker-view > list-view > section-view > :not(button):first-child) {
@@ -5284,118 +5288,130 @@
   }
   @supports (x: if(else:red)) {
     :where(form picker-view) {
-      --picker--labelstack-display: if(style(--picker-style: sheet): grid ; style(--picker-style: navigation-link): grid ; style(--picker-style: menu): grid ; else: none ;);
-      --picker--stack-display: if(style(--picker-style: sheet): flex ; style(--picker-style: navigation-link): flex ; style(--picker-style: menu): flex ;);
-      --picker--stack-justify-content: if(style(--picker-style: sheet): space-between ; style(--picker-style: navigation-link): space-between ; style(--picker-style: menu): space-between ;);
-      --picker--stack-row-gap: if(
-        style(--picker-style: sheet): var(--labeled-content-row-gap) ; style(--picker-style: navigation-link): var(--labeled-content-row-gap) ;
-          style(--picker-style: menu): var(--labeled-content-row-gap) ;
-      );
-      --picker--stack-column-gap: if(
-        style(--picker-style: sheet): var(--labeled-content-column-gap) ; style(--picker-style: navigation-link): var(--labeled-content-column-gap) ;
-          style(--picker-style: menu): var(--labeled-content-column-gap) ;
-      );
-      --picker--stack-grid-padding-inline: if(
-        style(--picker-style: sheet): var(--itempadistart,) var(--itempadiend,) ; style(--picker-style: navigation-link): var(--itempadistart,) var(--itempadiend,) ;
-          style(--picker-style: menu): var(--itempadistart,) var(--itempadiend,) ;
-      );
-      --picker--stack-grid-padding-block: if(
-        style(--picker-style: sheet): var(--itempadbstart,) var(--itempadbend,) ; style(--picker-style: navigation-link): var(--itempadbstart,) var(--itempadbend,) ;
-          style(--picker-style: menu): var(--itempadbstart,) var(--itempadbend,) ;
-      );
-      --picker--stack-grid-border-radius: if(
-        style(--picker-style: sheet): var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,) ; style(--picker-style: navigation-link): var(--itemradiustl,)
-          var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,) ; style(--picker-style: menu): var(--itemradiustl,) var(--itemradiustr,) var(--itemradiusbr,) var(--itemradiusbl,) ;
-      );
-      --picker--stack-grid-background: if(
-        style(--picker-style: sheet): var(--itemface,) ; style(--picker-style: navigation-link): var(--itemface,) ; style(--picker-style: menu): var(--itemface,) ;
-      );
-      --picker--stack-grid-color: if(style(--picker-style: sheet): var(--itemtext,) ; style(--picker-style: navigation-link): var(--itemtext,) ; style(--picker-style: menu): var(--itemtext,) ;);
-      --picker--stack-grid-border: if(
-        style(--picker-style: sheet): var(--itemborder,) ; style(--picker-style: navigation-link): var(--itemborder,) ; style(--picker-style: menu): var(--itemborder,) ;
-      );
-      --picker--input-stack-text-align: if(style(--picker-style: sheet): end ; style(--picker-style: navigation-link): end ; style(--picker-style: menu): start ;);
+      --picker--labelstack-display: if(style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
+      --picker--inputstack-text-align: if(style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
+      --picker--inputstack-gap: if(style(--picker-style: radio-group): 1rem; );
+      --picker--host-row-gap: if(style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
+      --picker--host-column-gap: if(style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
+      --picker--host-grid-padding-inline: if(style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
+      --picker--host-grid-padding-block: if(style(--picker-style: radio-group): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: menu): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: navigation-link): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: sheet): var(--itempadbstart, ) var(--itempadbend, ); );
+      --picker--host-grid-border-radius: if(style(--picker-style: radio-group): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: menu): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: navigation-link): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: sheet): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); );
+      --picker--host-grid-background: if(style(--picker-style: radio-group): var(--itemface, ); style(--picker-style: menu): var(--itemface, ); style(--picker-style: navigation-link): var(--itemface, ); style(--picker-style: sheet): var(--itemface, ); );
+      --picker--host-grid-color: if(style(--picker-style: radio-group): var(--itemtext, ); style(--picker-style: menu): var(--itemtext, ); style(--picker-style: navigation-link): var(--itemtext, ); style(--picker-style: sheet): var(--itemtext, ); );
+      --picker--host-grid-border: if(style(--picker-style: radio-group): var(--itemborder, ); style(--picker-style: menu): var(--itemborder, ); style(--picker-style: navigation-link): var(--itemborder, ); style(--picker-style: sheet): var(--itemborder, ); );
     }
   }
   @supports not (x: if(else:red)) {
     @container style(--picker-style: menu) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--input-stack-text-align: start;
-        --picker--stack-row-gap: var(--labeled-content-row-gap);
-        --picker--stack-column-gap: var(--labeled-content-column-gap);
-        --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--stack-grid-background: var(--itemface, );
-        --picker--stack-grid-color: var(--itemtext, );
-        --picker--stack-grid-border: var(--itemborder, );
+        --picker--inputstack-text-align: start;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-grid-background: var(--itemface, );
+        --picker--host-grid-color: var(--itemtext, );
+        --picker--host-grid-border: var(--itemborder, );
       }
     }
     @container style(--picker-style: navigation-link) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--input-stack-text-align: end;
-        --picker--stack-row-gap: var(--labeled-content-row-gap);
-        --picker--stack-column-gap: var(--labeled-content-column-gap);
-        --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--stack-grid-background: var(--itemface, );
-        --picker--stack-grid-color: var(--itemtext, );
-        --picker--stack-grid-border: var(--itemborder, );
+        --picker--inputstack-text-align: end;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-grid-background: var(--itemface, );
+        --picker--host-grid-color: var(--itemtext, );
+        --picker--host-grid-border: var(--itemborder, );
       }
     }
     @container style(--picker-style: sheet) {
       :where(picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
-        --picker--input-stack-text-align: end;
-        --picker--stack-row-gap: var(--labeled-content-row-gap);
-        --picker--stack-column-gap: var(--labeled-content-column-gap);
-        --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--stack-grid-background: var(--itemface, );
-        --picker--stack-grid-color: var(--itemtext, );
-        --picker--stack-grid-border: var(--itemborder, );
+        --picker--inputstack-text-align: end;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-grid-background: var(--itemface, );
+        --picker--host-grid-color: var(--itemtext, );
+        --picker--host-grid-border: var(--itemborder, );
+      }
+    }
+    @container style(--picker-style: radio-group) {
+      :where(picker-view:not([picker-style])) {
+        --picker--labelstack-display: grid;
+        --picker--inputstack-text-align: start;
+        --picker--inputstack-gap: 1rem;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-grid-background: var(--itemface, );
+        --picker--host-grid-color: var(--itemtext, );
+        --picker--host-grid-border: var(--itemborder, );
       }
     }
     :where(form picker-view[picker-style=menu]) {
       --picker--labelstack-display: grid;
-      --picker--input-stack-text-align: start;
-      --picker--stack-row-gap: var(--labeled-content-row-gap);
-      --picker--stack-column-gap: var(--labeled-content-column-gap);
-      --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--stack-grid-background: var(--itemface, );
-      --picker--stack-grid-color: var(--itemtext, );
-      --picker--stack-grid-border: var(--itemborder, );
+      --picker--inputstack-text-align: start;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-grid-background: var(--itemface, );
+      --picker--host-grid-color: var(--itemtext, );
+      --picker--host-grid-border: var(--itemborder, );
     }
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
-      --picker--input-stack-text-align: end;
-      --picker--stack-row-gap: var(--labeled-content-row-gap);
-      --picker--stack-column-gap: var(--labeled-content-column-gap);
-      --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--stack-grid-background: var(--itemface, );
-      --picker--stack-grid-color: var(--itemtext, );
-      --picker--stack-grid-border: var(--itemborder, );
+      --picker--inputstack-text-align: end;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-grid-background: var(--itemface, );
+      --picker--host-grid-color: var(--itemtext, );
+      --picker--host-grid-border: var(--itemborder, );
     }
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
-      --picker--input-stack-text-align: end;
-      --picker--stack-row-gap: var(--labeled-content-row-gap);
-      --picker--stack-column-gap: var(--labeled-content-column-gap);
-      --picker--stack-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--stack-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--stack-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--stack-grid-background: var(--itemface, );
-      --picker--stack-grid-color: var(--itemtext, );
-      --picker--stack-grid-border: var(--itemborder, );
+      --picker--inputstack-text-align: end;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-grid-background: var(--itemface, );
+      --picker--host-grid-color: var(--itemtext, );
+      --picker--host-grid-border: var(--itemborder, );
     }
+    :where(form picker-view[picker-style=radio-group]) {
+      --picker--labelstack-display: grid;
+      --picker--inputstack-text-align: start;
+      --picker--inputstack-gap: 1rem;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-grid-background: var(--itemface, );
+      --picker--host-grid-color: var(--itemtext, );
+      --picker--host-grid-border: var(--itemborder, );
+    }
+  }
+  :where(picker-view[horizontal-radio-group-layout]) {
+    --picker--inputstack-display: flex;
+    --picker--inputstack-flex-flow: row wrap;
   }
 }
 @layer sw-final {
@@ -8316,207 +8332,309 @@
     justify-content: stretch  ;
   }
   :where(v-stack[spacing="0"],
-  h-stack[spacing="0"]) {
+  h-stack[spacing="0"],
+  h-flex-stack[spacing="0"],
+  v-flex-stack[spacing="0"]) {
     gap: 0rem;
   }
   :where(v-stack[spacing="1"],
-  h-stack[spacing="1"]) {
+  h-stack[spacing="1"],
+  h-flex-stack[spacing="1"],
+  v-flex-stack[spacing="1"]) {
     gap: 0.1rem;
   }
   :where(v-stack[spacing="2"],
-  h-stack[spacing="2"]) {
+  h-stack[spacing="2"],
+  h-flex-stack[spacing="2"],
+  v-flex-stack[spacing="2"]) {
     gap: 0.2rem;
   }
   :where(v-stack[spacing="3"],
-  h-stack[spacing="3"]) {
+  h-stack[spacing="3"],
+  h-flex-stack[spacing="3"],
+  v-flex-stack[spacing="3"]) {
     gap: 0.3rem;
   }
   :where(v-stack[spacing="4"],
-  h-stack[spacing="4"]) {
+  h-stack[spacing="4"],
+  h-flex-stack[spacing="4"],
+  v-flex-stack[spacing="4"]) {
     gap: 0.4rem;
   }
   :where(v-stack[spacing="5"],
-  h-stack[spacing="5"]) {
+  h-stack[spacing="5"],
+  h-flex-stack[spacing="5"],
+  v-flex-stack[spacing="5"]) {
     gap: 0.5rem;
   }
   :where(v-stack[spacing="6"],
-  h-stack[spacing="6"]) {
+  h-stack[spacing="6"],
+  h-flex-stack[spacing="6"],
+  v-flex-stack[spacing="6"]) {
     gap: 0.6rem;
   }
   :where(v-stack[spacing="7"],
-  h-stack[spacing="7"]) {
+  h-stack[spacing="7"],
+  h-flex-stack[spacing="7"],
+  v-flex-stack[spacing="7"]) {
     gap: 0.7rem;
   }
   :where(v-stack[spacing="8"],
-  h-stack[spacing="8"]) {
+  h-stack[spacing="8"],
+  h-flex-stack[spacing="8"],
+  v-flex-stack[spacing="8"]) {
     gap: 0.8rem;
   }
   :where(v-stack[spacing="9"],
-  h-stack[spacing="9"]) {
+  h-stack[spacing="9"],
+  h-flex-stack[spacing="9"],
+  v-flex-stack[spacing="9"]) {
     gap: 0.9rem;
   }
   :where(v-stack[spacing="10"],
-  h-stack[spacing="10"]) {
+  h-stack[spacing="10"],
+  h-flex-stack[spacing="10"],
+  v-flex-stack[spacing="10"]) {
     gap: 1rem;
   }
   :where(v-stack[spacing="11"],
-  h-stack[spacing="11"]) {
+  h-stack[spacing="11"],
+  h-flex-stack[spacing="11"],
+  v-flex-stack[spacing="11"]) {
     gap: 1.1rem;
   }
   :where(v-stack[spacing="12"],
-  h-stack[spacing="12"]) {
+  h-stack[spacing="12"],
+  h-flex-stack[spacing="12"],
+  v-flex-stack[spacing="12"]) {
     gap: 1.2rem;
   }
   :where(v-stack[spacing="13"],
-  h-stack[spacing="13"]) {
+  h-stack[spacing="13"],
+  h-flex-stack[spacing="13"],
+  v-flex-stack[spacing="13"]) {
     gap: 1.3rem;
   }
   :where(v-stack[spacing="14"],
-  h-stack[spacing="14"]) {
+  h-stack[spacing="14"],
+  h-flex-stack[spacing="14"],
+  v-flex-stack[spacing="14"]) {
     gap: 1.4rem;
   }
   :where(v-stack[spacing="15"],
-  h-stack[spacing="15"]) {
+  h-stack[spacing="15"],
+  h-flex-stack[spacing="15"],
+  v-flex-stack[spacing="15"]) {
     gap: 1.5rem;
   }
   :where(v-stack[spacing="16"],
-  h-stack[spacing="16"]) {
+  h-stack[spacing="16"],
+  h-flex-stack[spacing="16"],
+  v-flex-stack[spacing="16"]) {
     gap: 1.6rem;
   }
   :where(v-stack[spacing="17"],
-  h-stack[spacing="17"]) {
+  h-stack[spacing="17"],
+  h-flex-stack[spacing="17"],
+  v-flex-stack[spacing="17"]) {
     gap: 1.7rem;
   }
   :where(v-stack[spacing="18"],
-  h-stack[spacing="18"]) {
+  h-stack[spacing="18"],
+  h-flex-stack[spacing="18"],
+  v-flex-stack[spacing="18"]) {
     gap: 1.8rem;
   }
   :where(v-stack[spacing="19"],
-  h-stack[spacing="19"]) {
+  h-stack[spacing="19"],
+  h-flex-stack[spacing="19"],
+  v-flex-stack[spacing="19"]) {
     gap: 1.9rem;
   }
   :where(v-stack[spacing="20"],
-  h-stack[spacing="20"]) {
+  h-stack[spacing="20"],
+  h-flex-stack[spacing="20"],
+  v-flex-stack[spacing="20"]) {
     gap: 2rem;
   }
   :where(v-stack[spacing="21"],
-  h-stack[spacing="21"]) {
+  h-stack[spacing="21"],
+  h-flex-stack[spacing="21"],
+  v-flex-stack[spacing="21"]) {
     gap: 2.1rem;
   }
   :where(v-stack[spacing="22"],
-  h-stack[spacing="22"]) {
+  h-stack[spacing="22"],
+  h-flex-stack[spacing="22"],
+  v-flex-stack[spacing="22"]) {
     gap: 2.2rem;
   }
   :where(v-stack[spacing="23"],
-  h-stack[spacing="23"]) {
+  h-stack[spacing="23"],
+  h-flex-stack[spacing="23"],
+  v-flex-stack[spacing="23"]) {
     gap: 2.3rem;
   }
   :where(v-stack[spacing="24"],
-  h-stack[spacing="24"]) {
+  h-stack[spacing="24"],
+  h-flex-stack[spacing="24"],
+  v-flex-stack[spacing="24"]) {
     gap: 2.4rem;
   }
   :where(v-stack[spacing="25"],
-  h-stack[spacing="25"]) {
+  h-stack[spacing="25"],
+  h-flex-stack[spacing="25"],
+  v-flex-stack[spacing="25"]) {
     gap: 2.5rem;
   }
   :where(v-stack[spacing="26"],
-  h-stack[spacing="26"]) {
+  h-stack[spacing="26"],
+  h-flex-stack[spacing="26"],
+  v-flex-stack[spacing="26"]) {
     gap: 2.6rem;
   }
   :where(v-stack[spacing="27"],
-  h-stack[spacing="27"]) {
+  h-stack[spacing="27"],
+  h-flex-stack[spacing="27"],
+  v-flex-stack[spacing="27"]) {
     gap: 2.7rem;
   }
   :where(v-stack[spacing="28"],
-  h-stack[spacing="28"]) {
+  h-stack[spacing="28"],
+  h-flex-stack[spacing="28"],
+  v-flex-stack[spacing="28"]) {
     gap: 2.8rem;
   }
   :where(v-stack[spacing="29"],
-  h-stack[spacing="29"]) {
+  h-stack[spacing="29"],
+  h-flex-stack[spacing="29"],
+  v-flex-stack[spacing="29"]) {
     gap: 2.9rem;
   }
   :where(v-stack[spacing="30"],
-  h-stack[spacing="30"]) {
+  h-stack[spacing="30"],
+  h-flex-stack[spacing="30"],
+  v-flex-stack[spacing="30"]) {
     gap: 3rem;
   }
   :where(v-stack[spacing="31"],
-  h-stack[spacing="31"]) {
+  h-stack[spacing="31"],
+  h-flex-stack[spacing="31"],
+  v-flex-stack[spacing="31"]) {
     gap: 3.1rem;
   }
   :where(v-stack[spacing="32"],
-  h-stack[spacing="32"]) {
+  h-stack[spacing="32"],
+  h-flex-stack[spacing="32"],
+  v-flex-stack[spacing="32"]) {
     gap: 3.2rem;
   }
   :where(v-stack[spacing="33"],
-  h-stack[spacing="33"]) {
+  h-stack[spacing="33"],
+  h-flex-stack[spacing="33"],
+  v-flex-stack[spacing="33"]) {
     gap: 3.3rem;
   }
   :where(v-stack[spacing="34"],
-  h-stack[spacing="34"]) {
+  h-stack[spacing="34"],
+  h-flex-stack[spacing="34"],
+  v-flex-stack[spacing="34"]) {
     gap: 3.4rem;
   }
   :where(v-stack[spacing="35"],
-  h-stack[spacing="35"]) {
+  h-stack[spacing="35"],
+  h-flex-stack[spacing="35"],
+  v-flex-stack[spacing="35"]) {
     gap: 3.5rem;
   }
   :where(v-stack[spacing="36"],
-  h-stack[spacing="36"]) {
+  h-stack[spacing="36"],
+  h-flex-stack[spacing="36"],
+  v-flex-stack[spacing="36"]) {
     gap: 3.6rem;
   }
   :where(v-stack[spacing="37"],
-  h-stack[spacing="37"]) {
+  h-stack[spacing="37"],
+  h-flex-stack[spacing="37"],
+  v-flex-stack[spacing="37"]) {
     gap: 3.7rem;
   }
   :where(v-stack[spacing="38"],
-  h-stack[spacing="38"]) {
+  h-stack[spacing="38"],
+  h-flex-stack[spacing="38"],
+  v-flex-stack[spacing="38"]) {
     gap: 3.8rem;
   }
   :where(v-stack[spacing="39"],
-  h-stack[spacing="39"]) {
+  h-stack[spacing="39"],
+  h-flex-stack[spacing="39"],
+  v-flex-stack[spacing="39"]) {
     gap: 3.9rem;
   }
   :where(v-stack[spacing="40"],
-  h-stack[spacing="40"]) {
+  h-stack[spacing="40"],
+  h-flex-stack[spacing="40"],
+  v-flex-stack[spacing="40"]) {
     gap: 4rem;
   }
   :where(v-stack[spacing="41"],
-  h-stack[spacing="41"]) {
+  h-stack[spacing="41"],
+  h-flex-stack[spacing="41"],
+  v-flex-stack[spacing="41"]) {
     gap: 4.1rem;
   }
   :where(v-stack[spacing="42"],
-  h-stack[spacing="42"]) {
+  h-stack[spacing="42"],
+  h-flex-stack[spacing="42"],
+  v-flex-stack[spacing="42"]) {
     gap: 4.2rem;
   }
   :where(v-stack[spacing="43"],
-  h-stack[spacing="43"]) {
+  h-stack[spacing="43"],
+  h-flex-stack[spacing="43"],
+  v-flex-stack[spacing="43"]) {
     gap: 4.3rem;
   }
   :where(v-stack[spacing="44"],
-  h-stack[spacing="44"]) {
+  h-stack[spacing="44"],
+  h-flex-stack[spacing="44"],
+  v-flex-stack[spacing="44"]) {
     gap: 4.4rem;
   }
   :where(v-stack[spacing="45"],
-  h-stack[spacing="45"]) {
+  h-stack[spacing="45"],
+  h-flex-stack[spacing="45"],
+  v-flex-stack[spacing="45"]) {
     gap: 4.5rem;
   }
   :where(v-stack[spacing="46"],
-  h-stack[spacing="46"]) {
+  h-stack[spacing="46"],
+  h-flex-stack[spacing="46"],
+  v-flex-stack[spacing="46"]) {
     gap: 4.6rem;
   }
   :where(v-stack[spacing="47"],
-  h-stack[spacing="47"]) {
+  h-stack[spacing="47"],
+  h-flex-stack[spacing="47"],
+  v-flex-stack[spacing="47"]) {
     gap: 4.7rem;
   }
   :where(v-stack[spacing="48"],
-  h-stack[spacing="48"]) {
+  h-stack[spacing="48"],
+  h-flex-stack[spacing="48"],
+  v-flex-stack[spacing="48"]) {
     gap: 4.8rem;
   }
   :where(v-stack[spacing="49"],
-  h-stack[spacing="49"]) {
+  h-stack[spacing="49"],
+  h-flex-stack[spacing="49"],
+  v-flex-stack[spacing="49"]) {
     gap: 4.9rem;
   }
   :where(v-stack[spacing="50"],
-  h-stack[spacing="50"]) {
+  h-stack[spacing="50"],
+  h-flex-stack[spacing="50"],
+  v-flex-stack[spacing="50"]) {
     gap: 5rem;
   }
   :where(v-stack[padding],

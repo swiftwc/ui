@@ -185,12 +185,6 @@ const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | 
 /**
  * @summary A control that selects one value from a set of options.
  *
- * @attr {menu|inline|navigation-link|sheet|automatic} picker-style
- *
- * @attr help — Adds a help tooltip to the trigger of the picker, if style supports one
- *
- * @attr {DictEntry[]} dictionary — Renders all options using this array
- *
  * @attr {vertical|horizontal|auto} label-value-placement
  *
  * @slot — The default slot.
@@ -199,27 +193,46 @@ const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | 
  * @slot {HTMLOptionElement[]} validity-options
  */
 export class PickerView extends FormAssociatedBase {
-  static get ATTR() {
-    return {
-      PLACEHOLDER: 'prompt',
-      PLACEHOLDER_ICON: 'prompt-icon',
-      LABEL: 'label',
-      PICKER_STYLE: 'picker-style',
-      SELECTION: 'selection',
-      SEARCHABLE: 'searchable',
-      CURRENT_VALUE_LABEL: 'current-value-label',
-      CURRENT_VALUE_ICON: 'current-value-icon',
-      TRIGGER_HELP: 'help',
-      DICTIONARY: 'dictionary',
-      REQUIRED: 'required',
-    }
-  }
-
   static get observedAttributes() {
-    return Object.values(this.ATTR)
+    return [
+      'prompt',
+      'prompt-icon',
+      'label',
+      'name',
+      /**
+       * @type {menu|inline|navigation-link|sheet|automatic}
+       */
+      'picker-style',
+      'selection',
+      /**
+       * @type {boolean}
+       */
+      'searchable',
+      'current-value-label',
+      'current-value-icon',
+      /**
+       * Adds a help tooltip to the trigger of the picker, if style supports one
+       */
+      'help',
+      /**
+       * Renders all options using this array
+       * @type {DictEntry[]}
+       */
+      'dictionary',
+      /**
+       * @type {boolean}
+       */
+      'required',
+      /**
+       * @type {boolean}
+       */
+      'horizontal-radio-group-layout',
+    ]
   }
 
   static #templates: Map<string, DocumentFragment> = new Map()
+
+  #guuid = self.crypto.randomUUID()
 
   #spawn?: HTMLElement
 
@@ -358,9 +371,9 @@ export class PickerView extends FormAssociatedBase {
       if (el instanceof Element)
         switch (el.tagName) {
           case 'OPTGROUP': {
-            const group = PickerView.#wrapOptgroupTag(el as HTMLOptGroupElement)
+            const group = this.#wrapOptgroupTag(el as HTMLOptGroupElement)
 
-            PickerView.#reflectButtons([...el.children] as Element[], group)
+            this.#reflectButtons([...el.children] as Element[], group)
 
             for (const btn of group.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
 
@@ -369,7 +382,7 @@ export class PickerView extends FormAssociatedBase {
             break
           }
           case 'OPTION': {
-            const btn = PickerView.#wrapOptionTag(el as HTMLOptionElement)
+            const btn = this.#wrapOptionTag(el as HTMLOptionElement)
 
             btn.addEventListener('click', this.#handlePageBtnClick)
 
@@ -401,9 +414,9 @@ export class PickerView extends FormAssociatedBase {
       else {
         if (el.children.length)
           if (allLeaves(el)) {
-            const group = PickerView.#wrapOptgroupTag(el)
+            const group = this.#wrapOptgroupTag(el)
 
-            PickerView.#reflectButtons(el.children, group)
+            this.#reflectButtons(el.children, group)
 
             for (const btn of group.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
 
@@ -420,7 +433,7 @@ export class PickerView extends FormAssociatedBase {
             list?.appendChild(btn)
           }
         else {
-          const btn = PickerView.#wrapOptionTag(el)
+          const btn = this.#wrapOptionTag(el)
 
           btn.addEventListener('click', this.#handlePageBtnClick)
 
@@ -464,8 +477,11 @@ export class PickerView extends FormAssociatedBase {
 
     switch (input.mode) {
       case 'dictionary': {
-        this.#lastRenderedLabelMap = flattenDictionary(input.source).labels
-        this.#lastRenderedIconMap = flattenDictionary(input.source).icons
+        const { labels, icons } = flattenDictionary(input.source)
+
+        this.#lastRenderedLabelMap = labels
+
+        this.#lastRenderedIconMap = icons
 
         // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
         // collectGroups = (nodes: DictEntry[]): string[][] => {
@@ -531,8 +547,7 @@ export class PickerView extends FormAssociatedBase {
         CleanupRegistry.unregister(this, 'trigger')
         CleanupRegistry.register(this, onoff('click', this.#handleTriggerClick, currentValueLabel).on(), 'trigger')
 
-        if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
-          currentValueLabel?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
+        if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
 
         // rebuild snapshot(tree)
         if (!this.#spawn) break
@@ -578,26 +593,24 @@ export class PickerView extends FormAssociatedBase {
         //   renderLabelTitle(currentValueLabel, this.#currentValueLabel) // overwritten
         // }
 
-        if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
-          currentValueLabel?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
+        if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
 
-        PickerView.#reflectButtons(input.source, menu)
+        this.#reflectButtons(input.source, menu)
 
         break
       }
       case 'radio-group': {
         // capture
-        const stack = this.querySelector<HTMLElement>(':scope>v-stack:not([slot])') ?? this.appendChild<HTMLElement>($(html`<v-stack></v-stack>`, '>1'))
+        // const stack = this.querySelector<HTMLElement>(':scope>v-stack:not([slot])') ?? this.appendChild<HTMLElement>($(html`<v-stack></v-stack>`, '>1'))
 
         // reset state
-        stack.innerHTML = ''
+        // stack.innerHTML = ''
 
         // clear all siblings
-        for (const el of this.querySelectorAll(':scope>:not([slot])')) if (stack !== el) el.remove()
+        for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
 
         // add buttons
-        console.log(99, stack)
-        PickerView.#reflectButtons(input.source, stack)
+        this.#reflectButtons(input.source, this)
 
         break
       }
@@ -615,12 +628,15 @@ export class PickerView extends FormAssociatedBase {
         for (const el of this.querySelectorAll(':scope>:not([slot])')) if (inlineList !== el) el.remove()
 
         // add label as a plain element
-        const value = this.getAttribute((this.constructor as typeof PickerView).ATTR.LABEL)
+        const value = this.getAttribute('label')
         if (value) {
           const hStack = $<LabelView>(
-            html`<h-stack distribution="leading" template="auto spacer"
-              ><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view
-            ></h-stack>`,
+            html`<h-stack distribution="leading" template="auto spacer">
+              <label-view data-role="check" style="visibility: hidden">
+                <image-view slot="icon" system-name="check"></image-view>
+              </label-view>
+              <label-view><span></span></label-view>
+            </h-stack>`,
             '>1'
           )
 
@@ -631,12 +647,12 @@ export class PickerView extends FormAssociatedBase {
         }
 
         if ('dictionary' === input.mode)
-          PickerView.#reflectButtons(
+          this.#reflectButtons(
             input.source.filter((el) => 0 === el.children.length),
             section
           )
         else
-          PickerView.#reflectButtons(
+          this.#reflectButtons(
             input.source.filter((el) => el.matches('option')),
             section
           )
@@ -650,16 +666,16 @@ export class PickerView extends FormAssociatedBase {
     this.#reflectSelectionOnCurrentValueLabel()
   }
 
-  #renderDictionary = (dictionary: Dictionary) => {
-    debug(`${PickerView.name} ⚡️ mutation`)
+  // #renderDictionary = (dictionary: Dictionary) => {
+  //   debug(`${PickerView.name} ⚡️ mutation`)
 
-    this.#renderButtons({ mode: 'dictionary', source: dictionary })
-  }
+  //   this.#renderButtons({ mode: 'dictionary', source: dictionary })
+  // }
 
   #renderSlotted = (entries: MutationRecord[]) => {
     debug(`${PickerView.name} ⚡️ mutation`)
 
-    this.#renderButtons({ mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] })
+    this.#renderButtons(this.#resolveSource()) //this.#renderButtons({ mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] })
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
@@ -703,13 +719,12 @@ export class PickerView extends FormAssociatedBase {
 
   get #currentValueLabel() {
     return (
-      (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL) ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) ||
-      this.#lastRenderedLabelMap[this.#selection]
+      (this.getAttribute('current-value-label') ?? '').replaceAll('{{selection}}', this.#selection).replaceAll('{{currentValueLabel}}', this.#selection) || this.#lastRenderedLabelMap[this.#selection]
     )
   }
 
   get #currentValueIcon() {
-    return (this.getAttribute((this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON) ?? '') || this.#lastRenderedIconMap[this.#selection]
+    return (this.getAttribute('current-value-icon') ?? '') || this.#lastRenderedIconMap[this.#selection]
   }
 
   get #internals(): ElementInternals {
@@ -856,58 +871,70 @@ export class PickerView extends FormAssociatedBase {
     debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     switch (name) {
-      case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER:
-      case (this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON:
+      case 'horizontal-radio-group-layout':
+        if (oldValue === newValue) break
+
+        this.#renderSlotted([])
+
+      case 'prompt':
+      case 'prompt-icon':
         if (oldValue === newValue) break
 
         this.#reflectSelectionOnCurrentValueLabel() //this.#reflectPlaceholder(newValue)
 
         break
-      case (this.constructor as typeof PickerView).ATTR.LABEL:
+      case 'label':
         this.#reflectLabel(newValue)
 
         // this.#sendValueToForm()
 
         break
-      case (this.constructor as typeof PickerView).ATTR.PICKER_STYLE:
+      case 'picker-style':
         if (oldValue === newValue) break
 
         this.#render()
 
         break
-      case (this.constructor as typeof PickerView).ATTR.SEARCHABLE:
+      case 'searchable':
         if (oldValue === newValue) break
 
         this.#renderSlotted([])
 
         break
-      case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_LABEL:
-      case (this.constructor as typeof PickerView).ATTR.CURRENT_VALUE_ICON:
+      case 'current-value-label':
+      case 'current-value-icon':
         // if (oldValue === newValue) break
 
         this.#reflectSelectionOnCurrentValueLabel()
 
         break
-      case (this.constructor as typeof PickerView).ATTR.TRIGGER_HELP:
+      case 'help':
         // if (oldValue === newValue) break
 
         this.#reflectTriggerHelp()
 
         break
-      case (this.constructor as typeof PickerView).ATTR.DICTIONARY:
+      case 'dictionary':
         if (oldValue === newValue) break
 
-        this.#renderDictionary(parseDictionary(newValue))
+        this.#renderSlotted([]) // re-resolve: dictionary present → wins; removed → falls back to slotted //this.#renderDictionary(parseDictionary(newValue))
 
         break
-      case (this.constructor as typeof PickerView).ATTR.REQUIRED:
+      case 'name':
+      case 'required':
         if (oldValue === newValue) break
 
         this.#sendValueToForm(false)
 
         break
-      case (this.constructor as typeof PickerView).ATTR.SELECTION:
-        // nothing happens
+      case 'selection':
+        if (oldValue === newValue) break
+
+        this.#selection = newValue ?? ''
+
+        // FIXME: What about other callbacks from this.#selection=???? Somehow they run correctly
+
+        this.#sendValueToForm(false)
 
         break
     }
@@ -938,7 +965,9 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())
 
-    if (!this.hasAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)) this.#render() // skip if already rendered by attr-change during upgrade!
+    CleanupRegistry.register(this, onoff('input', this.#handleInput, this).on())
+
+    if (!this.hasAttribute('picker-style')) this.#render() // skip if already rendered by attr-change during upgrade!
 
     // finally
     if (!this.hasAttribute('selection')) return
@@ -949,15 +978,21 @@ export class PickerView extends FormAssociatedBase {
   }
 
   get pickerStyle(): PickerStyle {
-    const attr = (this.constructor as typeof PickerView).ATTR.PICKER_STYLE
+    const attr = 'picker-style'
 
     return (pickerStyles as readonly string[]).includes(this.getAttribute(attr) ?? '') ? (this.getAttribute(attr) as (typeof pickerStyles)[number]) : 'automatic'
+  }
+
+  #resolveSource(): { mode: 'dictionary'; source: Dictionary } | { mode: 'list'; source: Element[] } {
+    if (this.hasAttribute('dictionary')) return { mode: 'dictionary', source: parseDictionary(this.getAttribute('dictionary')) }
+
+    return { mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] }
   }
 
   #render() {
     debug(`${PickerView.name} ⚡️ #render (${this.pickerStyle})`)
 
-    // const style = this.getAttribute((this.constructor as typeof PickerView).ATTR.PICKER_STYLE)
+    // const style = this.getAttribute('picker-style')
     if (this.#lastRenderedStyle === this.pickerStyle) return // skip if already applied
     this.#lastRenderedStyle = this.pickerStyle
 
@@ -1012,8 +1047,10 @@ export class PickerView extends FormAssociatedBase {
 
     this.#spawn?.remove?.()
 
+    const { source } = this.#resolveSource()
+
     const level0 = this.#spawnPage(
-      this.hasAttribute((this.constructor as typeof PickerView).ATTR.DICTIONARY) ? parseDictionary(this.getAttribute('dictionary')) : (this.#slots?.get('list')?.assignedElements() ?? []),
+      source, // this.hasAttribute('dictionary') ? parseDictionary(this.getAttribute('dictionary')) : (this.#slots?.get('list')?.assignedElements() ?? []),
       'sheet' === this.pickerStyle ? 'sheet-view' : 'body-view',
       undefined,
       this.hasAttribute('searchable'),
@@ -1082,6 +1119,28 @@ export class PickerView extends FormAssociatedBase {
     this.#sendValueToForm()
   }
 
+  #handleInput({ type, target }: Event) {
+    debug(`${PickerView.name} ⚡️ ${type}`)
+
+    if (!(target instanceof HTMLElement)) return
+
+    switch (this.pickerStyle) {
+      case 'radio-group':
+        const radio = target.closest<HTMLInputElement>('input[type="radio"]')
+        if (!radio) return
+
+        this.#selection = radio.getAttribute('value') ?? ''
+
+        this.#reflectSelectionOnButtons()
+
+        this.#reflectSelectionOnCurrentValueLabel()
+
+        this.#sendValueToForm()
+
+        break
+    }
+  }
+
   #handleValiditiesSlotchange = ({ type, target: slot }: Event) => {
     debug(`${PickerView.name} ⚡️ ${type}`)
 
@@ -1122,13 +1181,7 @@ export class PickerView extends FormAssociatedBase {
           <label-view data-role="check" style="visibility: hidden">
             <image-view slot="icon" system-name="check"></image-view>
           </label-view>
-          <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
-            ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
-            <v-stack spacing="3" alignment="fill">
-              <label-view title="${title}"></label-view>
-              ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
-            </v-stack>
-          </h-stack>
+          ${PickerView.#morphITSLabel({ title, subtitle, icon })}
         </h-stack>
       </button>`,
       mount
@@ -1137,7 +1190,7 @@ export class PickerView extends FormAssociatedBase {
     return mount.firstElementChild as HTMLButtonElement //btn
   }
 
-  static #wrapOptionTag(node: HTMLOptionElement | DictEntry) {
+  #wrapOptionTag(node: HTMLOptionElement | DictEntry) {
     debug(`${PickerView.name} #wrapOptionTag`)
 
     const tag = extractTag(node),
@@ -1146,28 +1199,59 @@ export class PickerView extends FormAssociatedBase {
       icon = extractIcon(node)
 
     const mount = document.createElement('div')
-    render(
-      html`<button type="button" tabindex="0" value="${tag}">
-        <h-stack distribution="leading" template="auto spacer">
-          <label-view data-role="check">
-            <image-view slot="icon" system-name="check"></image-view>
-          </label-view>
-          <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
-            ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
-            <v-stack spacing="3" alignment="fill">
-              <label-view title="${title}"></label-view>
-              ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
-            </v-stack>
-          </h-stack>
-        </h-stack>
-      </button>`,
-      mount
-    )
 
-    return mount.firstElementChild as HTMLButtonElement //btn
+    switch (this.pickerStyle) {
+      case 'radio-group':
+        render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, title, subtitle, icon, tag }), mount)
+
+        return mount.firstElementChild as HTMLLabelElement //btn
+
+      default:
+        render(
+          html`<button type="button" tabindex="0" value="${tag}">
+            <h-stack distribution="leading" template="auto spacer">
+              <label-view data-role="check">
+                <image-view slot="icon" system-name="check"></image-view>
+              </label-view>
+              ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+            </h-stack>
+          </button>`,
+          mount
+        )
+
+        return mount.firstElementChild as HTMLButtonElement //btn
+    }
   }
 
-  static #wrapOptgroupTag(node: HTMLOptGroupElement | DictEntry) {
+  static #morphRadioGroupGroup({ name, title, subtitle, icon }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null }) {
+    return html`<label>
+      <h-stack distribution="fill" template="auto spacer" spacing="5">
+        <input type="radio" name="${name}" style="min-inline-size: 20px; margin: 0" disabled />
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+      </h-stack>
+    </label>`
+  }
+
+  static #morphRadioGroupBtn({ name, title, subtitle, icon, tag }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null; tag: string }) {
+    return html`<label>
+      <h-stack distribution="fill" template="auto spacer" spacing="5">
+        <input type="radio" name="${name}" value="${tag}" style="min-inline-size: 20px; margin: 0" />
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+      </h-stack>
+    </label>`
+  }
+
+  static #morphITSLabel({ title, subtitle, icon }: { title: string | null; subtitle: string | null; icon: string | null }) {
+    return html`<h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
+      ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="${title}"></label-view>
+        ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
+      </v-stack>
+    </h-stack>`
+  }
+
+  #wrapOptgroupTag(node: HTMLOptGroupElement | DictEntry) {
     debug(`${PickerView.name} #wrapOptgroupTag`)
 
     const title = extractLabel(node),
@@ -1175,71 +1259,106 @@ export class PickerView extends FormAssociatedBase {
       icon = extractIcon(node)
 
     const mount = document.createElement('div')
-    render(
-      html`<details is="disclosure-group" disclosure-style="marker-trailing">
-        <summary>
-          <h-stack distribution="leading" template="auto spacer">
-            <label-view data-role="check" style="visibility: hidden">
-              <image-view slot="icon" system-name="check"></image-view>
-            </label-view>
-            <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
-              ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
-              <v-stack spacing="3" alignment="fill">
-                <label-view title="${title}"></label-view>
-                ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
-              </v-stack>
-            </h-stack>
-          </h-stack>
-        </summary>
-      </details>`,
-      mount
-    )
 
-    return mount.firstElementChild as HTMLDetailsElement
+    switch (this.pickerStyle) {
+      case 'radio-group':
+        render(
+          PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }),
+          // this.hasAttribute('horizontal-radio-group-layout')
+          //   ? html`<h-flex-stack style="flex-wrap: wrap">${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</h-flex-stack>`
+          //   : html`<v-stack>${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</v-stack>`,
+          mount
+        )
+
+        return mount.firstElementChild as HTMLLabelElement
+      default:
+        render(
+          html`<details is="disclosure-group" disclosure-style="marker-trailing">
+            <summary>
+              <h-stack distribution="leading" template="auto spacer">
+                <label-view data-role="check" style="visibility: hidden">
+                  <image-view slot="icon" system-name="check"></image-view>
+                </label-view>
+                ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+              </h-stack>
+            </summary>
+          </details>`,
+          mount
+        )
+
+        return mount.firstElementChild as HTMLDetailsElement
+    }
   }
 
-  static #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
+  #wrapDatalistTag(node: HTMLDataListElement | DictEntry) {
+    const title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
+
+    const mount = document.createElement('div')
+
+    switch (this.pickerStyle) {
+      case 'radio-group':
+        render(
+          PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }),
+          // this.hasAttribute('horizontal-radio-group-layout')
+          //   ? html`<h-flex-stack style="flex-wrap: wrap">${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</h-flex-stack>`
+          //   : html`<v-stack>${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</v-stack>`,
+          mount
+        )
+
+        return mount.firstElementChild as HTMLElement
+
+      default:
+        render(
+          html`<menu-view tabindex="0">
+            <h-stack slot="label" distribution="leading" template="auto spacer">
+              <label-view data-role="check" style="visibility: hidden">
+                <image-view slot="icon" system-name="check"></image-view>
+              </label-view>
+              ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+            </h-stack>
+          </menu-view>`,
+          mount
+        )
+
+        return mount.firstElementChild as HTMLMenuElement
+    }
+  }
+
+  #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
+
+    const flatten = 'radio-group' === this.pickerStyle
 
     for (const node of nodes)
       if (node instanceof Element)
         switch (node.tagName) {
           case 'DATALIST': {
-            const title = extractLabel(node as HTMLDataListElement),
-              subtitle = extractSubtitle(node as HTMLDataListElement),
-              icon = extractIcon(node as HTMLDataListElement)
+            if (flatten) {
+              this.#reflectButtons([...node.children] as Element[], container)
 
-            const mount = document.createElement('div')
-            render(
-              html`<menu-view tabindex="0">
-                <h-stack slot="label" distribution="leading" template="auto spacer">
-                  <label-view data-role="check" style="visibility: hidden">
-                    <image-view slot="icon" system-name="check"></image-view>
-                  </label-view>
-                  <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
-                    ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
-                    <v-stack spacing="3" alignment="fill">
-                      <label-view title="${title}"></label-view>
-                      ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
-                    </v-stack>
-                  </h-stack>
-                </h-stack>
-              </menu-view>`,
-              mount
-            )
+              break
+            }
 
-            const group = mount.firstElementChild as HTMLMenuElement
+            const group = this.#wrapDatalistTag(node as HTMLDataListElement)
 
-            PickerView.#reflectButtons([...node.children] as Element[], group)
+            this.#reflectButtons([...node.children] as Element[], group)
 
             container.appendChild(group)
 
             break
           }
           case 'OPTGROUP': {
-            const group = PickerView.#wrapOptgroupTag(node as HTMLOptGroupElement)
+            if (flatten) {
+              this.#reflectButtons([...node.children] as Element[], container)
 
-            PickerView.#reflectButtons([...node.children] as Element[], group)
+              break
+            }
+
+            const group = this.#wrapOptgroupTag(node as HTMLOptGroupElement)
+
+            this.#reflectButtons([...node.children] as Element[], group)
 
             container.appendChild(group)
 
@@ -1247,50 +1366,28 @@ export class PickerView extends FormAssociatedBase {
           }
           case 'OPTION':
           default: {
-            container.appendChild(PickerView.#wrapOptionTag(node as HTMLOptionElement))
+            container.appendChild(this.#wrapOptionTag(node as HTMLOptionElement))
 
             break
           }
         }
       else {
         if (node.children.length)
-          if (allLeaves(node)) {
-            const group = PickerView.#wrapOptgroupTag(node)
+          if (flatten) this.#reflectButtons(node.children, container)
+          else if (allLeaves(node)) {
+            const group = this.#wrapOptgroupTag(node)
 
-            PickerView.#reflectButtons(node.children, group)
+            this.#reflectButtons(node.children, group)
 
             container.appendChild(group)
           } else {
-            const title = extractLabel(node),
-              subtitle = extractSubtitle(node),
-              icon = extractIcon(node)
+            const group = this.#wrapDatalistTag(node)
 
-            const mount = document.createElement('div')
-            render(
-              html`<menu-view tabindex="0">
-                <h-stack slot="label" distribution="leading" template="auto spacer">
-                  <label-view data-role="check" style="visibility: hidden">
-                    <image-view slot="icon" system-name="check"></image-view>
-                  </label-view>
-                  <h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
-                    ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
-                    <v-stack spacing="3" alignment="fill">
-                      <label-view title="${title}"></label-view>
-                      ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
-                    </v-stack>
-                  </h-stack>
-                </h-stack>
-              </menu-view>`,
-              mount
-            )
-
-            const group = mount.firstElementChild as HTMLMenuElement
-
-            PickerView.#reflectButtons(node.children, group)
+            this.#reflectButtons(node.children, group)
 
             container.appendChild(group)
           }
-        else container.appendChild(PickerView.#wrapOptionTag(node))
+        else container.appendChild(this.#wrapOptionTag(node))
       }
   }
 
@@ -1298,8 +1395,8 @@ export class PickerView extends FormAssociatedBase {
   //   debug(`#reflectPlaceholder`)
   // const input = this.#shadowRoot.querySelector('input')
   // if (input) {
-  //   if (value) input.setAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER, value)
-  //   else input.removeAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER)
+  //   if (value) input.setAttribute('prompt', value)
+  //   else input.removeAttribute('prompt')
   // }
   // }
 
@@ -1323,12 +1420,12 @@ export class PickerView extends FormAssociatedBase {
         source instanceof Element ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTag(opt) === this.#selection) : collectLeafValues(source).includes(this.#selection)
 
       const syncButtons = (root: Element | HTMLElement) => {
-        // 1. plain value buttons — unchanged
+        // 1. plain value buttons
         for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
           // $.prop('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden', el.querySelector<HTMLElement>('label-view[data-role="check"]'))
           el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
-        // 2. details/optgroups — unchanged
+        // 2. details/optgroups
         for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
           const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
 
@@ -1342,6 +1439,9 @@ export class PickerView extends FormAssociatedBase {
 
           btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
         }
+
+        // 4. radio inputs
+        for (const el of root.querySelectorAll<HTMLInputElement>('input[type=radio][value]')) el.checked = el.getAttribute('value') === this.#selection
       }
 
       syncButtons(this)
@@ -1365,8 +1465,8 @@ export class PickerView extends FormAssociatedBase {
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
-            systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
+          const title = this.#currentValueLabel || this.#selection || this.getAttribute('prompt'),
+            systemImage = this.#currentValueIcon || this.getAttribute('prompt-icon')
 
           queryMorph(':not([slot])', html`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
 
@@ -1386,8 +1486,8 @@ export class PickerView extends FormAssociatedBase {
           // if (!cvl) currentValueLabel.setAttribute('foreground', 'secondary')
           // else currentValueLabel.removeAttribute('foreground')
 
-          const title = this.#currentValueLabel || this.#selection || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER),
-            systemImage = this.#currentValueIcon || this.getAttribute((this.constructor as typeof PickerView).ATTR.PLACEHOLDER_ICON)
+          const title = this.#currentValueLabel || this.#selection || this.getAttribute('prompt'),
+            systemImage = this.#currentValueIcon || this.getAttribute('prompt-icon')
 
           queryMorph(':not([slot])', html`<span>${title}</span>`, currentValueLabel, { removeIf: !title })
 
@@ -1428,9 +1528,8 @@ export class PickerView extends FormAssociatedBase {
       }
     }
 
-    if (this.hasAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP))
-      trigger?.setAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP, this.getAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP) ?? '')
-    else trigger?.removeAttribute((this.constructor as typeof PickerView).ATTR.TRIGGER_HELP)
+    if (this.hasAttribute('help')) trigger?.setAttribute('help', this.getAttribute('help') ?? '')
+    else trigger?.removeAttribute('help')
   }
 
   /**

@@ -68,7 +68,9 @@
   }
 
   v-stack,
-  h-stack {
+  h-stack,
+  h-flex-stack,
+  v-flex-stack {
     @for $i from 0 through 50 {
       :where(&[spacing='#{$i}']) {
         gap: #{math.div(math.round(math.div($i, 10) * 10), 10)}rem;

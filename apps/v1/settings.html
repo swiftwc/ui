@@ -511,7 +511,23 @@
       <body-view>
         <scroll-view navigation-inline-title="Appearance" data-nav-path="Appearance">
           <v-stack readable="40">
-            <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden"> ... </list-view>
+            <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <labeled-content label="Show scroll bars">
+                  <picker-view selection="When scrolling" picker-style="radio-group" foreground="primary">
+                    <option slot="list">Automatically based on mouse or trackpad</option>
+                    <option slot="list">When scrolling</option>
+                    <option slot="list">Always</option>
+                  </picker-view>
+                </labeled-content>
+                <labeled-content label="Click in the scrollbar to">
+                  <picker-view selection="Jump to the next page" picker-style="radio-group" foreground="primary">
+                    <option slot="list">Jump to the next page</option>
+                    <option slot="list">Jump to the spot that's clicked</option>
+                  </picker-view>
+                </labeled-content>
+              </section-view>
+            </list-view>
           </v-stack>
         </scroll-view>
         <tool-bar>

@@ -89,12 +89,77 @@
               <label-view slot="label" title="Bar"></label-view>
               <label-view slot="label" title="Baz"></label-view>
             </toggle-view>
-            <picker-view picker-style="radio-group">
+            <select name="foo">
+              <option>Tyrannosaurus</option>
+            </select>
+            <picker-view name="foo" selection="Tyrannosaurus" picker-style="menu">
               <optgroup label="Theropods" slot="list">
                 <option>Tyrannosaurus</option>
                 <option>Velociraptor</option>
                 <option>Deinonychus</option>
               </optgroup>
+            </picker-view>
+            <picker-view name="bbar" selection="Tyrannosaurus" picker-style="radio-group">
+              <optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>
+              <datalist data-system-image="dots-three" data-label="gfgfgfg" slot="list">
+                <optgroup label="Theropods">
+                  <option value="Tyrannosaurus23"></option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+                <optgroup label="Sauropods">
+                  <option>Diplodocus</option>
+                  <option>Saltasaurus</option>
+                  <option>Apatosaurus</option>
+                </optgroup>
+                <datalist data-label="gfgfgfg">
+                  <optgroup label="Theropods34">
+                    <option value="Tyrannosaurus45"></option>
+                    <option>Velociraptor</option>
+                    <option>Deinonychus</option>
+                  </optgroup>
+                  <optgroup label="Sauropods34">
+                    <option>Diplodocus</option>
+                    <option>Saltasaurus</option>
+                    <option>Apatosaurus</option>
+                  </optgroup>
+                </datalist>
+              </datalist>
+            </picker-view>
+            <picker-view picker-style="radio-group" horizontal-radio-group-layout>
+              <optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>
+              <datalist data-system-image="dots-three" data-label="gfgfgfg" slot="list">
+                <optgroup label="Theropods">
+                  <option value="Tyrannosaurus23"></option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+                <optgroup label="Sauropods">
+                  <option>Diplodocus</option>
+                  <option>Saltasaurus</option>
+                  <option>Apatosaurus</option>
+                </optgroup>
+                <datalist data-label="gfgfgfg">
+                  <optgroup label="Theropods34">
+                    <option value="Tyrannosaurus45"></option>
+                    <option>Velociraptor</option>
+                    <option>Deinonychus</option>
+                  </optgroup>
+                  <optgroup label="Sauropods34">
+                    <option>Diplodocus</option>
+                    <option>Saltasaurus</option>
+                    <option>Apatosaurus</option>
+                  </optgroup>
+                </datalist>
+              </datalist>
             </picker-view>
           </form>
           <details is="disclosure-group">

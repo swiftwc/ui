@@ -7,9 +7,20 @@
 ```ts
 interface PickerViewSignature {
   Attributes: {
-    'picker-style'?: 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
-    dictionary?: 'DictEntry[]' // Renders all options using this array
     'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'
+    'horizontal-radio-group-layout'?: boolean
+    prompt?: string
+    'prompt-icon'?: string
+    label?: string
+    name?: string
+    'picker-style'?: 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
+    selection?: string
+    searchable?: boolean
+    'current-value-label'?: string
+    'current-value-icon'?: string
+    help?: string // Adds a help tooltip to the trigger of the picker, if style supports one
+    dictionary?: Array<DictEntry> // Renders all options using this array
+    required?: boolean
   }
 
   Slots: {
@@ -25,7 +36,7 @@ class PickerView extends HTMLElement<PickerViewSignature> {
 
   selection: string
   readonly template: DocumentFragment
-  readonly pickerStyle: 'automatic' | 'menu' | 'inline' | 'navigation-link' | 'sheet'
+  readonly pickerStyle: 'automatic' | 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'radio-group'
   readonly name: string // Form participation property
 
   setValidity(): void

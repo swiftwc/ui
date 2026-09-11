@@ -36,74 +36,78 @@
 
 #### [HDivider](/web-components/h-divider.md) {#no-anchor15}
 
-#### [HStack](/web-components/h-stack.md) {#no-anchor16}
+#### [HFlexStack](/web-components/h-flex-stack.md) {#no-anchor16}
 
-#### [ImageView](/web-components/image-view.md) {#no-anchor17}
+#### [HStack](/web-components/h-stack.md) {#no-anchor17}
 
-#### [LabelView](/web-components/label-view.md) {#no-anchor18}
+#### [ImageView](/web-components/image-view.md) {#no-anchor18}
 
-#### [LabeledContent](/web-components/labeled-content.md) {#no-anchor19}
+#### [LabelView](/web-components/label-view.md) {#no-anchor19}
 
-#### [ListView](/web-components/list-view.md) {#no-anchor20}
+#### [LabeledContent](/web-components/labeled-content.md) {#no-anchor20}
 
-#### [MenuView](/web-components/menu-view.md) {#no-anchor21}
+#### [ListView](/web-components/list-view.md) {#no-anchor21}
 
-#### [NavigationLargeTitle](/web-components/navigation-large-title.md) {#no-anchor22}
+#### [MenuView](/web-components/menu-view.md) {#no-anchor22}
 
-#### [NavigationSplitView](/web-components/navigation-split-view.md) {#no-anchor23}
+#### [NavigationLargeTitle](/web-components/navigation-large-title.md) {#no-anchor23}
 
-#### [NavigationStack](/web-components/navigation-stack.md) {#no-anchor24}
+#### [NavigationSplitView](/web-components/navigation-split-view.md) {#no-anchor24}
 
-#### [NavigationTitle](/web-components/navigation-title.md) {#no-anchor25}
+#### [NavigationStack](/web-components/navigation-stack.md) {#no-anchor25}
 
-#### [PickerView](/web-components/picker-view.md) {#no-anchor26}
+#### [NavigationTitle](/web-components/navigation-title.md) {#no-anchor26}
 
-#### [PlainButton](/web-components/plain-button.md) {#no-anchor27}
+#### [PickerView](/web-components/picker-view.md) {#no-anchor27}
 
-#### [ProgressView](/web-components/progress-view.md) {#no-anchor28}
+#### [PlainButton](/web-components/plain-button.md) {#no-anchor28}
 
-#### [ScreenView](/web-components/screen-view.md) {#no-anchor29}
+#### [ProgressView](/web-components/progress-view.md) {#no-anchor29}
 
-#### [ScrollViewProxy](/web-components/scroll-view-proxy.md) {#no-anchor30}
+#### [ScreenView](/web-components/screen-view.md) {#no-anchor30}
 
-#### [ScrollView](/web-components/scroll-view.md) {#no-anchor31}
+#### [ScrollViewProxy](/web-components/scroll-view-proxy.md) {#no-anchor31}
 
-#### [SearchView](/web-components/search-view.md) {#no-anchor32}
+#### [ScrollView](/web-components/scroll-view.md) {#no-anchor32}
 
-#### [SectionView](/web-components/section-view.md) {#no-anchor33}
+#### [SearchView](/web-components/search-view.md) {#no-anchor33}
 
-#### [SheetView](/web-components/sheet-view.md) {#no-anchor34}
+#### [SectionView](/web-components/section-view.md) {#no-anchor34}
 
-#### [SidebarToggle](/web-components/sidebar-toggle.md) {#no-anchor35}
+#### [SheetView](/web-components/sheet-view.md) {#no-anchor35}
 
-#### [SidebarView](/web-components/sidebar-view.md) {#no-anchor36}
+#### [SidebarToggle](/web-components/sidebar-toggle.md) {#no-anchor36}
 
-#### [StickyContainer](/web-components/sticky-container.md) {#no-anchor37}
+#### [SidebarView](/web-components/sidebar-view.md) {#no-anchor37}
 
-#### [TabBar](/web-components/tab-bar.md) {#no-anchor38}
+#### [StickyContainer](/web-components/sticky-container.md) {#no-anchor38}
 
-#### [TabItem](/web-components/tab-item.md) {#no-anchor39}
+#### [TabBar](/web-components/tab-bar.md) {#no-anchor39}
 
-#### [TabView](/web-components/tab-view.md) {#no-anchor40}
+#### [TabItem](/web-components/tab-item.md) {#no-anchor40}
 
-#### [TableView](/web-components/table-view.md) {#no-anchor41}
+#### [TabView](/web-components/tab-view.md) {#no-anchor41}
 
-#### [TextField](/web-components/text-field.md) {#no-anchor42}
+#### [TableView](/web-components/table-view.md) {#no-anchor42}
 
-#### [TextView](/web-components/text-view.md) {#no-anchor43}
+#### [TextField](/web-components/text-field.md) {#no-anchor43}
 
-#### [ToggleView](/web-components/toggle-view.md) {#no-anchor44}
+#### [TextView](/web-components/text-view.md) {#no-anchor44}
 
-#### [ToolBarItemGroup](/web-components/tool-bar-item-group.md) {#no-anchor45}
+#### [ToggleView](/web-components/toggle-view.md) {#no-anchor45}
 
-#### [ToolBarItem](/web-components/tool-bar-item.md) {#no-anchor46}
+#### [ToolBarItemGroup](/web-components/tool-bar-item-group.md) {#no-anchor46}
 
-#### [ToolBar](/web-components/tool-bar.md) {#no-anchor47}
+#### [ToolBarItem](/web-components/tool-bar-item.md) {#no-anchor47}
 
-#### [VDivider](/web-components/v-divider.md) {#no-anchor48}
+#### [ToolBar](/web-components/tool-bar.md) {#no-anchor48}
 
-#### [VKeyboard](/web-components/v-keyboard.md) {#no-anchor49}
+#### [VDivider](/web-components/v-divider.md) {#no-anchor49}
 
-#### [VStack](/web-components/v-stack.md) {#no-anchor50}
+#### [VFlexStack](/web-components/v-flex-stack.md) {#no-anchor50}
+
+#### [VKeyboard](/web-components/v-keyboard.md) {#no-anchor51}
+
+#### [VStack](/web-components/v-stack.md) {#no-anchor52}
 
 </div></div>

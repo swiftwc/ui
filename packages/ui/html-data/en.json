@@ -310,6 +310,23 @@
       "description": "undefined\n\n```ts\ninterface HDividerSignature {}\n\nclass HDivider extends HTMLElement<HDividerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-divider': HDivider // <h-divider></h-divider>\n  }\n}\n\n```\n"
     },
     {
+      "name": "h-flex-stack",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/h-flex-stack"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "spacing",
+          "description": "\nDescription: The gap between the primary axis",
+          "valueSet": "Spacing"
+        }
+      ],
+      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HFlexStackSignature {\n  Attributes: {\n    spacing?: Spacing // The gap between the primary axis\n  }\n}\n\nclass HFlexStack extends HTMLElement<HFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-flex-stack': HFlexStack // <h-flex-stack></h-flex-stack>\n  }\n}\n\n```\n"
+    },
+    {
       "name": "h-stack",
       "references": [
         {
@@ -563,6 +580,37 @@
       ],
       "attributes": [
         {
+          "name": "label-value-placement",
+          "description": "Value Type: “vertical” | “horizontal” | “auto”",
+          "values": [
+            {
+              "name": "vertical"
+            },
+            {
+              "name": "horizontal"
+            },
+            {
+              "name": "auto"
+            }
+          ]
+        },
+        {
+          "name": "horizontal-radio-group-layout",
+          "description": "Value Type: boolean"
+        },
+        {
+          "name": "prompt"
+        },
+        {
+          "name": "prompt-icon"
+        },
+        {
+          "name": "label"
+        },
+        {
+          "name": "name"
+        },
+        {
           "name": "picker-style",
           "description": "Value Type: “menu” | “inline” | “navigation-link” | “sheet” | “automatic”",
           "values": [
@@ -584,35 +632,32 @@
           ]
         },
         {
+          "name": "selection"
+        },
+        {
+          "name": "searchable",
+          "description": "Value Type: boolean"
+        },
+        {
+          "name": "current-value-label"
+        },
+        {
+          "name": "current-value-icon"
+        },
+        {
           "name": "help",
-          "description": "\nDescription: Adds a help tooltip to the trigger of the picker, if style supports one"
+          "description": "Adds a help tooltip to the trigger of the picker, if style supports one"
         },
         {
           "name": "dictionary",
-          "description": "Value Type: “DictEntry[]”\n\nDescription: Renders all options using this array",
-          "values": [
-            {
-              "name": "DictEntry[]"
-            }
-          ]
+          "description": "Value Type: Array.<DictEntry>\nDescription: Renders all options using this array"
         },
         {
-          "name": "label-value-placement",
-          "description": "Value Type: “vertical” | “horizontal” | “auto”",
-          "values": [
-            {
-              "name": "vertical"
-            },
-            {
-              "name": "horizontal"
-            },
-            {
-              "name": "auto"
-            }
-          ]
+          "name": "required",
+          "description": "Value Type: boolean"
         }
       ],
-      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Attributes: {\n    'picker-style'?:\n      | 'menu'\n      | 'inline'\n      | 'navigation-link'\n      | 'sheet'\n      | 'automatic'\n    dictionary?: 'DictEntry[]' // Renders all options using this array\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView // <picker-view></picker-view>\n  }\n}\n\n```\n"
+      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Attributes: {\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n    'horizontal-radio-group-layout'?: boolean\n    prompt?: string\n    'prompt-icon'?: string\n    label?: string\n    name?: string\n    'picker-style'?:\n      | 'menu'\n      | 'inline'\n      | 'navigation-link'\n      | 'sheet'\n      | 'automatic'\n    selection?: string\n    searchable?: boolean\n    'current-value-label'?: string\n    'current-value-icon'?: string\n    help?: string // Adds a help tooltip to the trigger of the picker, if style supports one\n    dictionary?: Array<DictEntry> // Renders all options using this array\n    required?: boolean\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n    | 'radio-group'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView // <picker-view></picker-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "plain-button",
@@ -956,6 +1001,23 @@
     {
       "name": "v-divider",
       "description": "undefined\n\n```ts\ninterface VDividerSignature {}\n\nclass VDivider extends HTMLElement<VDividerSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-divider': VDivider // <v-divider></v-divider>\n  }\n}\n\n```\n"
+    },
+    {
+      "name": "v-flex-stack",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/v-flex-stack"
+        }
+      ],
+      "attributes": [
+        {
+          "name": "template",
+          "description": "\nDescription: The main-axis grid template",
+          "valueSet": "Template"
+        }
+      ],
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VFlexStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n  }\n}\n\nclass VFlexStack extends HTMLElement<VFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-flex-stack': VFlexStack // <v-flex-stack></v-flex-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-keyboard",

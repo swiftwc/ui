@@ -758,6 +758,43 @@
     },
     {
       "kind": "javascript-module",
+      "path": "./generated/components/h-flex-stack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "HFlexStack",
+          "tagName": "h-flex-stack",
+          "description": "A view that arranges its children side by side.",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "spacing"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "HFlexStack",
+          "declaration": {
+            "name": "HFlexStack"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "h-flex-stack",
+          "declaration": {
+            "name": "HFlexStack"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
       "path": "./generated/components/h-stack.ts",
       "declarations": [
         {
@@ -1255,7 +1292,7 @@
               "readonly": true,
               "description": "",
               "type": {
-                "text": "\"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\""
+                "text": "\"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\" | \"radio-group\""
               }
             },
             {
@@ -1290,7 +1327,37 @@
           ],
           "attributes": [
             {
+              "name": "label-value-placement"
+            },
+            {
+              "name": "horizontal-radio-group-layout"
+            },
+            {
+              "name": "prompt"
+            },
+            {
+              "name": "prompt-icon"
+            },
+            {
+              "name": "label"
+            },
+            {
+              "name": "name"
+            },
+            {
               "name": "picker-style"
+            },
+            {
+              "name": "selection"
+            },
+            {
+              "name": "searchable"
+            },
+            {
+              "name": "current-value-label"
+            },
+            {
+              "name": "current-value-icon"
             },
             {
               "name": "help"
@@ -1299,7 +1366,7 @@
               "name": "dictionary"
             },
             {
-              "name": "label-value-placement"
+              "name": "required"
             }
           ],
           "slots": [
@@ -2499,6 +2566,43 @@
           "name": "v-divider",
           "declaration": {
             "name": "VDivider"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/v-flex-stack.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "VFlexStack",
+          "tagName": "v-flex-stack",
+          "description": "A view that arranges its children one on top of the other.",
+          "superclass": {
+            "name": "HTMLElement"
+          },
+          "attributes": [
+            {
+              "name": "template"
+            }
+          ]
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "VFlexStack",
+          "declaration": {
+            "name": "VFlexStack"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "v-flex-stack",
+          "declaration": {
+            "name": "VFlexStack"
           }
         }
       ]

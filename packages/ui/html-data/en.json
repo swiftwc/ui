@@ -1439,6 +1439,14 @@
       "name": "Foreground",
       "values": [
         {
+          "name": "black",
+          "description": "Applies the system black color (`--black`)"
+        },
+        {
+          "name": "white",
+          "description": "Applies the system white color (`--white`)"
+        },
+        {
           "name": "primary",
           "description": "Applies the system primary color (`--primary`)"
         },

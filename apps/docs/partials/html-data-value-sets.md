@@ -158,6 +158,8 @@ enum Tint {
 
 ```ts
 enum Foreground {
+  'black', // Applies the system black color (`--black`)
+  'white', // Applies the system white color (`--white`)
   'primary', // Applies the system primary color (`--primary`)
   'secondary', // Applies the system secondary color (`--secondary`)
   'blue', // Applies the system blue color (`--blue`)

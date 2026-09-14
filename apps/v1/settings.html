@@ -512,6 +512,64 @@
         <scroll-view navigation-inline-title="Appearance" data-nav-path="Appearance">
           <v-stack readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
+              <section-view header="Theme">
+                <labeled-content label="Folder color" labeled-content-style="horizontal">
+                  <menu-view class="custom-picker-menu" tabindex="0" foreground="primary">
+                    <h-stack spacing="5" distribution="fill" template="auto spacer" slot="label" data-selection="Automatic">
+                      <label-view class="[--label-image-size:1.5]">
+                        <image-view class="text-blue-500" slot="icon" system-name="circle" system-weight="fill">
+                          <i class="ph-fill ph-circle" style="line-height: 1"></i>
+                        </image-view>
+                      </label-view>
+                      <v-stack spacing="3" alignment="fill">
+                        <label-view title="Automatic">
+                          <span>Automatic</span>
+                        </label-view>
+                      </v-stack>
+                    </h-stack>
+                    <button type="button" tabindex="0" value="Automatic">
+                      <h-stack distribution="leading" template="auto spacer">
+                        <label-view data-role="check">
+                          <image-view slot="icon" system-name="check"></image-view>
+                        </label-view>
+                        <h-stack spacing="5" distribution="fill" template="auto spacer">
+                          <label-view class="[--label-image-size:1.5]">
+                            <image-view class="text-blue-500" slot="icon" system-name="circle" system-weight="fill"></image-view>
+                          </label-view>
+                          <v-stack spacing="3" alignment="fill">
+                            <label-view title="Automatic"></label-view>
+                          </v-stack>
+                        </h-stack>
+                      </h-stack>
+                    </button>
+                    <button type="button" tabindex="0" value="Red">
+                      <h-stack distribution="leading" template="auto spacer">
+                        <label-view class="invisible" data-role="check">
+                          <image-view slot="icon" system-name="check"></image-view>
+                        </label-view>
+                        <h-stack spacing="5" distribution="fill" template="auto spacer">
+                          <label-view class="[--label-image-size:1.5]">
+                            <image-view class="text-red-500" slot="icon" system-name="circle" system-weight="fill"></image-view>
+                          </label-view>
+                          <v-stack spacing="3" alignment="fill">
+                            <label-view title="Red"></label-view>
+                          </v-stack>
+                        </h-stack>
+                      </h-stack>
+                    </button>
+                  </menu-view>
+                </labeled-content>
+              </section-view>
+              <section-view header="Windows">
+                <labeled-content label="Sidebar icon size" labeled-content-style="horizontal">
+                  <picker-view selection="Medium" picker-style="menu" foreground="primary">
+                    <option slot="list">Small</option>
+                    <option slot="list">Medium</option>
+                    <option slot="list">Large</option>
+                  </picker-view>
+                </labeled-content>
+                <toggle-view label="Tint window background with wallpaper color"></toggle-view>
+              </section-view>
               <section-view>
                 <labeled-content label="Show scroll bars">
                   <picker-view selection="When scrolling" picker-style="radio-group" foreground="primary">

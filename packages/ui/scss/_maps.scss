@@ -263,6 +263,8 @@ $button-sizes-map: (
 $tint-names: gray, blue, red, green, orange, purple;
 
 $foreground-tokens: (
+  black: --black,
+  white: --white,
   primary: --primary,
   secondary: --secondary,
   blue: --blue,

@@ -36,7 +36,7 @@ jobs:
         run: |
           if [ -n "${{ github.event.inputs.package }}" ]; then
             PKG="${{ github.event.inputs.package }}"
-            FILES=$(node -p "require.resolve('$PKG/package.json').replace(process.cwd()+'/', '')")
+            FILES=$(grep -rl "\"name\": *\"$PKG\"" --include=package.json . --exclude-dir=node_modules | sed 's|^\./||' | head -n1)
           else
             FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- '**/package.json')
           fi

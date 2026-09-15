@@ -105,7 +105,7 @@
     @include mixins.if-2col-split-view-fits {
       // also hide when in 2col mode with detail view
       &:not(:has(> [is='sidebar-view'])) {
-        &:has(> body-view) {
+        &:has(> content-view) {
           detail-placeholder {
             :where(&) {
               --nav-split-view--detail-placeholder-visibility: collapse;
@@ -117,7 +117,7 @@
         &:not([column-visibility='double-column']) {
           // hide when no content view
           &[preferred-compact-column='content'] {
-            &:not(:has(> body-view)) {
+            &:not(:has(> content-view)) {
               detail-placeholder {
                 :where(&) {
                   --nav-split-view--detail-placeholder-visibility: collapse;
@@ -127,7 +127,7 @@
           }
           // also hide when in 3col mode with detail view
           @include mixins.if-3col-split-view-fits {
-            &:has(> body-view > body-view) {
+            &:has(> content-view > content-view) {
               detail-placeholder {
                 :where(&) {
                   --nav-split-view--detail-placeholder-visibility: collapse;
@@ -139,7 +139,7 @@
 
         // also hide when in 2col mode with detail view
         &[column-visibility='double-column'] {
-          &:has(> body-view) {
+          &:has(> content-view) {
             detail-placeholder {
               :where(&) {
                 --nav-split-view--detail-placeholder-visibility: collapse;

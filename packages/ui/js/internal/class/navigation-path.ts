@@ -5,7 +5,7 @@ import { type NavigationHost, type NavigationPage, type NavigationToolbarConfigu
  * Gets current host (closest)
  */
 function closestHost(any?: HTMLElement) {
-  return any?.closest<NavigationHost>('body-view,[is=sheet-view],navigation-stack,navigation-split-view') ?? undefined
+  return any?.closest<NavigationHost>('content-view,[is=sheet-view],navigation-stack,navigation-split-view') ?? undefined
 }
 
 export class NavigationPath {
@@ -70,7 +70,7 @@ export class NavigationPath {
   #querySlot() {
     this.#slot =
       this.#component?.querySelector<NavigationHost>(
-        ':scope>body-view:not([hidden]),:scope>[is=sheet-view]:not([hidden]),:scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'
+        ':scope>content-view:not([hidden]),:scope>[is=sheet-view]:not([hidden]),:scope>navigation-stack:not([hidden]),:scope>navigation-split-view:not([hidden])'
       ) ?? null
   }
 

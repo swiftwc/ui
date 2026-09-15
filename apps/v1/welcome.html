@@ -18,7 +18,7 @@
     <link rel="stylesheet" href="/styles.css" />
 
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="region">
           <v-stack readable="40">
             <navigation-title value="Select Your Country or Region" system-image="globe" system-image-weight="thin" padding></navigation-title>
@@ -36,10 +36,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="appearance">
           <v-stack placement="space-between fill" readable="40" padding>
             <v-stack alignment="fill">
@@ -65,10 +65,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="data-privacy">
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
@@ -123,10 +123,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="age-range" navigation-inline-title="Age Range">
           <v-stack readable="40">
             <v-stack alignment="fill" padding>
@@ -157,7 +157,7 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
       <dialog is="sheet-view">
@@ -215,7 +215,7 @@
       </dialog>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="location" data-background-style="grouped">
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
@@ -270,10 +270,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="analytics" data-background-style="grouped">
           <v-stack distribution="space-between" readable="40" padding>
             <v-stack alignment="fill">
@@ -328,10 +328,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view data-nav-path="welcome" data-background-style="grouped">
           <v-flex-stack alignment="fill" frame:width="infinity" frame:max-width="40" frame:alignment="center" padding>
             <v-stack frame-height="infinity">
@@ -352,7 +352,7 @@
             </v-stack>
           </v-flex-stack>
         </scroll-view>
-      </body-view>
+      </content-view>
     </template>
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'

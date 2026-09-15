@@ -9,7 +9,7 @@ describe('prop', () => {
 
   // customElements.define('navigation-stack', NavigationStack)
   // customElements.define('scroll-stack', ScrollView)
-  // customElements.define('body-view', BodyView)
+  // customElements.define('content-view', BodyView)
 
   beforeEach(() => {
     div = document.createElement('div')
@@ -21,9 +21,9 @@ describe('prop', () => {
         $(
           html`<navigation-stack>
             <scroll-view id="sv1"></scroll-view>
-            <body-view
-              ><scroll-view id="sv2"></scroll-view> <body-view><scroll-view id="sv3"></scroll-view></body-view
-            ></body-view>
+            <content-view
+              ><scroll-view id="sv2"></scroll-view> <content-view><scroll-view id="sv3"></scroll-view></content-view
+            ></content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -39,14 +39,14 @@ describe('prop', () => {
           html`<navigation-stack>
             <scroll-view id="sv1"></scroll-view>
             <navigation-stack hidden>
-              <body-view
-                ><scroll-view id="sv2"></scroll-view> <body-view><scroll-view id="sv3"></scroll-view></body-view
-              ></body-view>
+              <content-view
+                ><scroll-view id="sv2"></scroll-view> <content-view><scroll-view id="sv3"></scroll-view></content-view
+              ></content-view>
             </navigation-stack>
             <navigation-stack>
-              <body-view
-                ><scroll-view id="sv4"></scroll-view> <body-view><scroll-view id="sv5"></scroll-view></body-view
-              ></body-view>
+              <content-view
+                ><scroll-view id="sv4"></scroll-view> <content-view><scroll-view id="sv5"></scroll-view></content-view
+              ></content-view>
             </navigation-stack>
           </navigation-stack>`,
           '>1'
@@ -64,19 +64,19 @@ describe('prop', () => {
             <scroll-view id="sv1"></scroll-view>
             <navigation-stack hidden>
               <scroll-view id="sv1a"></scroll-view>
-              <body-view
+              <content-view
                 ><scroll-view id="sv2"></scroll-view>
-                <body-view><scroll-view id="sv3"></scroll-view></body-view>
-              </body-view>
+                <content-view><scroll-view id="sv3"></scroll-view></content-view>
+              </content-view>
             </navigation-stack>
             <navigation-split-view>
-              <body-view
+              <content-view
                 ><scroll-view id="sv5"></scroll-view>
-                <body-view
+                <content-view
                   ><scroll-view id="sv6"></scroll-view>
-                  <body-view><scroll-view id="sv7"></scroll-view></body-view>
-                </body-view>
-              </body-view>
+                  <content-view><scroll-view id="sv7"></scroll-view></content-view>
+                </content-view>
+              </content-view>
               <scroll-view id="sv4"></scroll-view>
             </navigation-split-view>
           </navigation-stack>`,
@@ -97,23 +97,23 @@ describe('prop', () => {
             <navigation-stack hidden>
               <scroll-view></scroll-view>
               <tool-bar><tool-bar-item id="sv1a"></tool-bar-item></tool-bar>
-              <body-view>
+              <content-view>
                 <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv2"></tool-bar-item></tool-bar>
-                <body-view>
+                <content-view>
                   <scroll-view></scroll-view><tool-bar><tool-bar-item id="sv3"></tool-bar-item></tool-bar>
-                </body-view>
-              </body-view>
+                </content-view>
+              </content-view>
             </navigation-stack>
             <navigation-split-view>
-              <body-view
+              <content-view
                 ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv5"></tool-bar-item></tool-bar>
-                <body-view
+                <content-view
                   ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv6"></tool-bar-item></tool-bar>
-                  <body-view
+                  <content-view
                     ><scroll-view></scroll-view><tool-bar><tool-bar-item id="sv7"></tool-bar-item></tool-bar
-                  ></body-view>
-                </body-view>
-              </body-view>
+                  ></content-view>
+                </content-view>
+              </content-view>
               <scroll-view></scroll-view>
               <tool-bar><tool-bar-item id="sv4"></tool-bar-item></tool-bar>
             </navigation-split-view>
@@ -138,22 +138,22 @@ describe('prop', () => {
           html`<navigation-stack>
             <scroll-view id="sv1"></scroll-view>
             <navigation-stack hidden>
-              <body-view id="sv2"
+              <content-view id="sv2"
                 ><scroll-view></scroll-view>
-                <body-view id="sv3"><scroll-view></scroll-view></body-view>
-              </body-view>
+                <content-view id="sv3"><scroll-view></scroll-view></content-view>
+              </content-view>
             </navigation-stack>
             <navigation-split-view>
-              <body-view id="sv4">
-                <body-view id="sv5"
+              <content-view id="sv4">
+                <content-view id="sv5"
                   ><scroll-view></scroll-view>
-                  <body-view id="sv6"
+                  <content-view id="sv6"
                     ><scroll-view></scroll-view>
-                    <body-view id="sv7"><scroll-view></scroll-view></body-view>
-                  </body-view>
-                </body-view>
+                    <content-view id="sv7"><scroll-view></scroll-view></content-view>
+                  </content-view>
+                </content-view>
                 <scroll-view></scroll-view>
-              </body-view>
+              </content-view>
               <scroll-view></scroll-view>
             </navigation-split-view>
           </navigation-stack>`,
@@ -170,9 +170,9 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1"
-              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
-            ></body-view>
+            <content-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view
+            ></content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -186,10 +186,10 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1">
+            <content-view id="b1">
               <scroll-view id="sv2"></scroll-view>
-              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-            </body-view>
+              <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view>
+            </content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -204,9 +204,9 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1"
-              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
-            ></body-view>
+            <content-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view
+            ></content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -220,10 +220,10 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1">
+            <content-view id="b1">
               <scroll-view id="sv2"></scroll-view>
-              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-            </body-view>
+              <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view>
+            </content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -237,9 +237,9 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1"
-              ><scroll-view id="sv2"></scroll-view> <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view
-            ></body-view>
+            <content-view id="b1"
+              ><scroll-view id="sv2"></scroll-view> <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view
+            ></content-view>
           </navigation-stack>`,
           '>1'
         )
@@ -253,10 +253,10 @@ describe('prop', () => {
         $(
           html`<navigation-stack id="n0">
             <scroll-view id="sv1"></scroll-view>
-            <body-view id="b1">
+            <content-view id="b1">
               <scroll-view id="sv2"></scroll-view>
-              <body-view id="b2"><scroll-view id="sv3"></scroll-view></body-view>
-            </body-view>
+              <content-view id="b2"><scroll-view id="sv3"></scroll-view></content-view>
+            </content-view>
           </navigation-stack>`,
           '>1'
         )

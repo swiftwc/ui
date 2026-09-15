@@ -13,7 +13,7 @@
 
       // Inert nested landmarks of destination so that destination can be interacted with
       // Make sure old/outgoing elements can NOT be interacted with (new elements are stacked lower)
-      ~ body-view,
+      ~ content-view,
       ~ navigation-stack,
       ~ navigation-split-view {
         pointer-events: none;
@@ -32,7 +32,7 @@
   // navigation-split-view > .bwdd {
   //   z-index: 0;
   // }
-  navigation-split-view > body-view:has(~ .bwdd) {
+  navigation-split-view > content-view:has(~ .bwdd) {
     pointer-events: none;
     // z-index: 1;
   }

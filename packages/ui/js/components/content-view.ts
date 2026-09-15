@@ -3,22 +3,22 @@ import { debug } from '../internal/utils'
 /**
  * @summary A container view that wraps a scroll view, marking it as a screen your app can navigate to.
  */
-export class BodyView extends HTMLElement {
+export class ContentView extends HTMLElement {
   constructor() {
     super()
   }
 
   disconnectedCallback() {
-    debug(`${BodyView.name} ⚡️ disconnect`)
+    debug(`${ContentView.name} ⚡️ disconnect`)
   }
 
   connectedCallback() {
-    debug(`${BodyView.name} ⚡️ connect`)
+    debug(`${ContentView.name} ⚡️ connect`)
   }
 }
 
 declare global {
   interface HTMLElementTagNameMap {
-    'body-view': BodyView
+    'content-view': ContentView
   }
 }

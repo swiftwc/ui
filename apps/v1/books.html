@@ -28,7 +28,7 @@
       })
     </script> -->
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Setting" data-nav-path="setting">
           <v-stack placement="leading fill" padding>
             Item 3b setting
@@ -43,10 +43,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="About" data-nav-path="About">
           <v-stack readable="40">
             <label-view font="large-title" value="Device" padding></label-view>
@@ -72,10 +72,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="customer1" data-background-style="grouped" navigation-title="ff">
           <!-- <v-stack readable="40"> -->
           <v-stack placement="leading fill">
@@ -131,10 +131,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Katie Abeles" data-nav-path="editcustomer1" data-background-style="grouped">
           <v-stack readable="40">
             <form id="editcustomerform" is="form-view" form-style="inset-grouped">
@@ -201,7 +201,7 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
       <dialog is="sheet-view">
@@ -304,7 +304,7 @@
       </dialog>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="customer created" data-nav-path="createcustomerdone" data-background-style="grouped">
           <v-stack readable="40">
             <form is="form-view" form-style="inset-grouped">
@@ -342,10 +342,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Transactions with Katie Abeles" data-nav-path="customertransactions1" data-background-style="grouped">
           <v-stack readable="40">
             <details is="disclosure-group" disclosure-style="marker-trailing" open>
@@ -464,10 +464,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="invoice1" data-background-style="grouped">
           <v-stack readable="40">
             <list-view columns="2" list-style="inset-grouped">
@@ -506,10 +506,10 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <template>
-      <body-view>
+      <content-view>
         <scroll-view navigation-inline-title="Invoice #0001" data-nav-path="editinvoice1" data-background-style="grouped">
           <v-stack readable="40">
             <form id="editinvoiceform" is="form-view" form-style="inset-grouped">
@@ -563,7 +563,7 @@
             </button>
           </tool-bar-item>
         </tool-bar>
-      </body-view>
+      </content-view>
     </template>
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.mts'
@@ -629,7 +629,7 @@
         // special case going <-> to more tab on small screens, must purge all deep views so that when clicks goes just to direct child
         if (evt.target.closest('tab-view').moreTab !== evt.target) return
 
-        for (const el of evt.target.querySelectorAll(':scope>body-view,:scope>[is=sheet-view],:scope>navigation-stack,:scope>navigation-split-view')) {
+        for (const el of evt.target.querySelectorAll(':scope>content-view,:scope>[is=sheet-view],:scope>navigation-stack,:scope>navigation-split-view')) {
           const path = new NavigationPath(el).hydrate()
 
           if (path.slot) path.slot.remove()

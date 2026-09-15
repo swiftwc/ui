@@ -325,13 +325,13 @@
       @content;
     }
     // is content-view!
-    navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > body-view > scroll-view & {
+    navigation-split-view:has(> [is='sidebar-view'])[preferred-compact-column='content']:not([column-visibility='double-column']) > content-view > scroll-view & {
       @content;
     }
   }
   // is content-view!
   @include if-3col-split-view-fits {
-    navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > body-view > scroll-view & {
+    navigation-split-view:has(> [is='sidebar-view']):not([column-visibility='double-column']) > content-view > scroll-view & {
       @content;
     }
   }

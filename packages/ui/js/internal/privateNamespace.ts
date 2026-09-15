@@ -6,7 +6,7 @@ import { Snapshot } from '../snapshot'
 
 type TransitionType = 'forwards' | 'backwards' | 'reload'
 
-export type NavigationHost = Components.BodyView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
+export type NavigationHost = Components.ContentView | Components.SheetView | Components.NavigationStack | Components.NavigationSplitView
 
 export type NavigationToolbarConfiguration = Components.ToolBarItem | Components.ToolBarItemGroup
 
@@ -15,7 +15,7 @@ export type NavigationPage = Components.SidebarView | Components.ScrollView // t
 export function queryInsertPosition(frame?: NavigationHost) {
   if ('NAVIGATION-SPLIT-VIEW' === frame?.tagName)
     return 'beforebegin' // lookFor = 'previousElementSibling'
-  else if ('NAVIGATION-SPLIT-VIEW' === frame?.parentElement?.tagName && frame?.parentElement.querySelector(':scope>[is=sidebar-view]') && 'BODY-VIEW' === frame?.tagName) return 'beforebegin' // lookFor = 'previousElementSibling'
+  else if ('NAVIGATION-SPLIT-VIEW' === frame?.parentElement?.tagName && frame?.parentElement.querySelector(':scope>[is=sidebar-view]') && 'CONTENT-VIEW' === frame?.tagName) return 'beforebegin' // lookFor = 'previousElementSibling'
 
   return 'afterend' // lookFor = 'nextElementSibling'
 }
@@ -106,8 +106,8 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
     // prepare new
     const toolbarExclusion =
         0 < modalViews.length
-          ? (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar,body-view ~ tool-bar)')
-          : (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(body-view ~ tool-bar)'),
+          ? (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(dialog tool-bar,content-view ~ tool-bar)')
+          : (value: NavigationToolbarConfiguration, index: number, array: NavigationToolbarConfiguration[]) => value.parentElement?.matches('tool-bar:not(content-view ~ tool-bar)'),
       bodyExclusion =
         0 < modalViews.length ? (item: NavigationPath) => item.body?.matches('scroll-view:not(dialog scroll-view)') : (value: NavigationPath, index: number, array: NavigationPath[]) => value
 

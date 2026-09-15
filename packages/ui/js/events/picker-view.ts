@@ -3,7 +3,7 @@ export type PickerSelectionDetail = {
 }
 
 export type PickerSearchableDetail = {
-  element: HTMLElement // dialog or body-view
+  element: HTMLElement // dialog or content-view
   search: string //search term
 }
 

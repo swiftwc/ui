@@ -187,7 +187,7 @@ import { Router } from '@angular/router'
 import { startViewTransition } from '@swiftwc/ui/client'
 
 @Component({
-  selector: 'body-view',
+  selector: 'content-view',
   standalone: true,
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   template: `

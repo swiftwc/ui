@@ -242,7 +242,7 @@ export class PickerView extends FormAssociatedBase {
       const { target } = evt
       if (!(target instanceof HTMLElement)) return
 
-      const newPage = this.#spawnPage(el instanceof Element ? Array.from(el.children) : el.children, 'body-view', groupId, this.hasAttribute('searchable'), extractLabel(el as HTMLDataListElement))
+      const newPage = this.#spawnPage(el instanceof Element ? Array.from(el.children) : el.children, 'content-view', groupId, this.hasAttribute('searchable'), extractLabel(el as HTMLDataListElement))
       if (!newPage) return
 
       newPage.dataset.groupId = groupId // <-- tag the spawned page
@@ -257,7 +257,7 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #spawnPage = (elements: Element[] | DictEntry[], tag: 'body-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
+  #spawnPage = (elements: Element[] | DictEntry[], tag: 'content-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
     debug(`${PickerView.name} #spawnPage`)
 
     const body =
@@ -280,7 +280,7 @@ export class PickerView extends FormAssociatedBase {
               '>1'
             )
           : $<HTMLElement>(
-              html`<body-view>
+              html`<content-view>
                 <scroll-view>
                   <v-stack placement="leading fill">
                     <list-view preferred-expanded-style="inset"></list-view>
@@ -293,7 +293,7 @@ export class PickerView extends FormAssociatedBase {
                     </button>
                   </tool-bar-item>
                 </tool-bar>
-              </body-view>`,
+              </content-view>`,
               '>1'
             ),
       sv = body.querySelector<HTMLElement>('scroll-view'),
@@ -448,8 +448,8 @@ export class PickerView extends FormAssociatedBase {
 
     const groupMap = indexGroups(freshRoot)
 
-    for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-      const depth = ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+    for (const el of this.#spawn.querySelectorAll<HTMLElement>('content-view')) {
+      const depth = ancestors('content-view,[is=sheet-view]', el).indexOf(this.#spawn)
       if (0 >= depth) continue
 
       const groupId = el.dataset.groupId
@@ -463,7 +463,7 @@ export class PickerView extends FormAssociatedBase {
       const children = source instanceof Element ? Array.from(source.children) : source.children
       const title = source instanceof Element ? extractLabel(source as HTMLDataListElement) : (source.title ?? null)
 
-      const newPage = this.#spawnPage(children, 'body-view', groupId, this.hasAttribute('searchable'), title)
+      const newPage = this.#spawnPage(children, 'content-view', groupId, this.hasAttribute('searchable'), title)
       newPage.dataset.groupId = groupId
 
       reflectSpawnedPage(el, newPage)
@@ -553,13 +553,13 @@ export class PickerView extends FormAssociatedBase {
         // rerender level 0
         reflectSpawnedPage(
           this.#spawn,
-          this.#spawnPage(input.source, 'DIALOG' === this.#spawn.tagName ? 'sheet-view' : 'body-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label'))
+          this.#spawnPage(input.source, 'DIALOG' === this.#spawn.tagName ? 'sheet-view' : 'content-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label'))
         )
 
         this.#resyncSpawnedPages(input.source)
         // // FIXME:
-        // for (const el of this.#spawn.querySelectorAll<HTMLElement>('body-view')) {
-        //   const depth = $.ancestors('body-view,[is=sheet-view]', el).indexOf(this.#spawn)
+        // for (const el of this.#spawn.querySelectorAll<HTMLElement>('content-view')) {
+        //   const depth = $.ancestors('content-view,[is=sheet-view]', el).indexOf(this.#spawn)
         //   if (0 >= depth) continue
 
         //   const datalist = this.querySelector<HTMLElement>(`:scope>${Array.from({ length: depth }, () => 'datalist').join('>')}`)
@@ -569,7 +569,7 @@ export class PickerView extends FormAssociatedBase {
         //     break
         //   }
 
-        //   reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'body-view', this.hasAttribute('searchable'), datalist.dataset.label))
+        //   reflectSpawnedElement(el, this.#spawnPage(Array.from(datalist.children), 'content-view', this.hasAttribute('searchable'), datalist.dataset.label))
         // }
 
         break
@@ -1048,7 +1048,7 @@ export class PickerView extends FormAssociatedBase {
 
     const level0 = this.#spawnPage(
       source, // this.hasAttribute('dictionary') ? parseDictionary(this.getAttribute('dictionary')) : (this.#slots?.get('list')?.assignedElements() ?? []),
-      'sheet' === this.pickerStyle ? 'sheet-view' : 'body-view',
+      'sheet' === this.pickerStyle ? 'sheet-view' : 'content-view',
       undefined,
       this.hasAttribute('searchable'),
       this.getAttribute('label')

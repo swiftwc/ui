@@ -279,35 +279,35 @@ document.body.addEventListener('click', async (evt) => {
             evt.target?.closest('button'),
             path,
             `
-                  <body-view>
+                  <content-view>
                     <scroll-view>
                       <v-stack padding placement="leading fill">
                         <button type="button" class="bw">🔙</button>
                         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
                     </scroll-view>
-                    <body-view>
+                    <content-view>
                       <scroll-view>
                         <v-stack padding placement="leading fill">
                           <button type="button" class="bw">🔙</button>
                           <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                         </v-stack>
                       </scroll-view>
-                      <body-view>
+                      <content-view>
                         <scroll-view>
                           <v-stack padding placement="leading fill">
                             <button type="button" class="bw">🔙</button>
                             <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                           </v-stack>
                         </scroll-view>
-                        <body-view>
+                        <content-view>
                           <scroll-view>
                             <v-stack padding placement="leading fill">
                               <button type="button" class="bw">🔙</button>
                               <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                             </v-stack>
                           </scroll-view>
-                          <body-view>
+                          <content-view>
                             <scroll-view>
                               <v-stack padding placement="leading fill">
                                 <button type="button" class="bw">🔙</button>
@@ -325,7 +325,7 @@ document.body.addEventListener('click', async (evt) => {
                                   <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                                 </v-stack>
                               </scroll-view>
-                              <body-view>
+                              <content-view>
                                 <scroll-view>
                                   <v-stack padding placement="leading fill">
                                     <button type="button" class="bw">🔙</button>
@@ -334,7 +334,7 @@ document.body.addEventListener('click', async (evt) => {
                                     <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                                   </v-stack>
                                 </scroll-view>
-                                <body-view>
+                                <content-view>
                                   <scroll-view>
                                     <v-stack padding placement="leading fill">
                                       <button type="button" class="bw">🔙</button>
@@ -343,7 +343,7 @@ document.body.addEventListener('click', async (evt) => {
                                       <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                                     </v-stack>
                                   </scroll-view>
-                                  <body-view>
+                                  <content-view>
                                     <scroll-view>
                                       <v-stack padding placement="leading fill">
                                         <button type="button" class="bw">🔙</button>
@@ -414,7 +414,7 @@ document.body.addEventListener('click', async (evt) => {
                                       
                                       <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                     </tool-bar>
-                                  </body-view>
+                                  </content-view>
                                   <tool-bar>
                                     <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -428,7 +428,7 @@ document.body.addEventListener('click', async (evt) => {
                                     
                                     <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                   </tool-bar>
-                                </body-view>
+                                </content-view>
                                 <tool-bar>
                                   <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -442,7 +442,7 @@ document.body.addEventListener('click', async (evt) => {
                                   
                                   <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                                 </tool-bar>
-                              </body-view>
+                              </content-view>
                               <tool-bar>
                                 <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -472,7 +472,7 @@ document.body.addEventListener('click', async (evt) => {
                               
                               <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                             </tool-bar>
-                          </body-view>
+                          </content-view>
                           <tool-bar>
                             <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -486,7 +486,7 @@ document.body.addEventListener('click', async (evt) => {
                             
                             <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                           </tool-bar>
-                        </body-view>
+                        </content-view>
                         <tool-bar>
                           <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -500,7 +500,7 @@ document.body.addEventListener('click', async (evt) => {
                           
                           <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                         </tool-bar>
-                      </body-view>
+                      </content-view>
                       <tool-bar>
                         <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -514,7 +514,7 @@ document.body.addEventListener('click', async (evt) => {
                         
                         <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                       </tool-bar>
-                    </body-view>
+                    </content-view>
                     <tool-bar>
                       <tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0"><label-view><i slot="icon" class="ph ph-smiley"></i></label-view></button></tool-bar-item>
 
@@ -528,7 +528,7 @@ document.body.addEventListener('click', async (evt) => {
                       
                       <tool-bar-item slot="bottom-bar-trailing"><input is="search-view" value="ssssss${svCount}"></tool-bar-item>
                     </tool-bar>
-                  </body-view>
+                  </content-view>
                   `
           )
         })
@@ -570,7 +570,7 @@ document.body.addEventListener('click', async (evt) => {
             ? 'dialog'
             : 10 <= (controller?.querySelectorAll('scroll-view').length ?? 0)
               ? 'dialog'
-              : 'body-view'
+              : 'content-view'
 
         modifyDOMforwards(
           fwBtn,
@@ -661,16 +661,16 @@ document.body.addEventListener('click', async (evt) => {
 
   // safari-only polyfill
   // for(const el of [...document.querySelectorAll('scroll-view')]) el.hidden = el.matches(
-  //     `navigation-stack:has(> body-view) > scroll-view,
-  //      dialog:has(> body-view) > scroll-view,
-  //      body-view:has(> body-view) > scroll-view`
+  //     `navigation-stack:has(> content-view) > scroll-view,
+  //      dialog:has(> content-view) > scroll-view,
+  //      content-view:has(> content-view) > scroll-view`
   //   );
 
-  // console.log(999, getComputedStyle(event.target.closest('navigation-stack,body-view')).display)
+  // console.log(999, getComputedStyle(event.target.closest('navigation-stack,content-view')).display)
 
   if (evt.target.id === 'btn2') {
     // alert(99)
-    evt.target.closest('body-view')?.remove()
+    evt.target.closest('content-view')?.remove()
   }
 
   // alert(event.target.hidden)
@@ -770,9 +770,9 @@ export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
   const position = queryInsertPosition(path.component) //'afterend'
   const lookFor = 'beforebegin' === position ? 'previousElementSibling' : 'nextElementSibling'
 
-  if (overwrite && ['BODY-VIEW', 'DIALOG'].includes(path.page?.[lookFor]?.tagName ?? '')) path.page?.[lookFor]?.remove()
+  if (overwrite && ['CONTENT-VIEW', 'DIALOG'].includes(path.page?.[lookFor]?.tagName ?? '')) path.page?.[lookFor]?.remove()
 
-  // if (!['BODY-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
+  // if (!['CONTENT-VIEW', 'DIALOG'].includes(page[lookFor]?.tagName)) {
   let node
 
   if (htmlorTpl instanceof HTMLTemplateElement) {

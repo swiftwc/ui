@@ -10,17 +10,17 @@ export type TagNode = {
 export const DIRECT_PARENT_RULES: Record<string, string[]> = {
   'v-keyboard': ['template', 'body'],
 
-  'scroll-view': ['template', 'body-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
+  'scroll-view': ['template', 'content-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
 
   dialog: ['template', 'tab-view', 'navigation-split-view'],
 
-  'tool-bar': ['template', 'dialog', 'body-view', 'navigation-split-view', 'navigation-stack'],
+  'tool-bar': ['template', 'dialog', 'content-view', 'navigation-split-view', 'navigation-stack'],
 
   'tool-bar-item': ['template', 'tool-bar', 'tool-bar-item-group', 'sidebar-toggle'],
 
   'sidebar-toggle': ['template', 'tab-view', 'form', 'navigation-split-view', 'tool-bar'],
 
-  'body-view': ['template', 'dialog', 'body-view', 'navigation-stack', 'navigation-split-view'],
+  'content-view': ['template', 'dialog', 'content-view', 'navigation-stack', 'navigation-split-view'],
 }
 
 export function validate(

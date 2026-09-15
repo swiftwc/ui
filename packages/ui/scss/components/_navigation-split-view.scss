@@ -49,16 +49,16 @@
         z-index: -1;
       }
 
-      :where(& > body-view ~ scroll-view, & > body-view ~ [is='sidebar-view']) {
+      :where(& > content-view ~ scroll-view, & > content-view ~ [is='sidebar-view']) {
         z-index: -1;
       }
 
       &:has(> [is='sidebar-view']) {
-        :where(& > body-view ~ [is='sidebar-view']) {
+        :where(& > content-view ~ [is='sidebar-view']) {
           z-index: -2;
         }
 
-        :where(& > body-view > body-view ~ scroll-view) {
+        :where(& > content-view > content-view ~ scroll-view) {
           z-index: -1;
         }
       }
@@ -67,12 +67,12 @@
     &:has(> [is='sidebar-view']) {
       @include mixins.ifnot-3col-split-view-fits {
         &:not([preferred-compact-column='content']) {
-          :where(& > body-view > body-view ~ scroll-view) {
+          :where(& > content-view > content-view ~ scroll-view) {
             z-index: -1;
           }
         }
 
-        // body-view > body-view {
+        // content-view > content-view {
         // clip-path: inset(
         //   0 0 0 var(--nav-split-view-content-inline-size)
         // ); // force clipping because it is now a floating element unable to hide bg = overflow: clip;
@@ -82,7 +82,7 @@
 
       @include mixins.if-2col-split-view-fits {
         &[column-visibility='double-column'] {
-          :where(& > body-view > body-view ~ scroll-view) {
+          :where(& > content-view > content-view ~ scroll-view) {
             z-index: -1;
           }
         }
@@ -143,7 +143,7 @@
         }
       }
 
-      > body-view {
+      > content-view {
         scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
           &,
           & ~ tool-bar {
@@ -215,7 +215,7 @@
           // }
         }
 
-        > body-view {
+        > content-view {
           scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
             &,
             & ~ tool-bar {
@@ -250,7 +250,7 @@
               }
 
               // move descendants to left edge of screen
-              > body-view {
+              > content-view {
                 scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
                   &,
                   & ~ tool-bar {
@@ -309,7 +309,7 @@
             // &:has(> dialog[is='sidebar-view']) {
             // &:not([column-visibility='double-column']) {
             // container of content col (principal)
-            > body-view {
+            > content-view {
               // cancel animations
               > scroll-view {
                 ~ tool-bar {
@@ -343,7 +343,7 @@
               }
 
               // container of details col (trailing)
-              > body-view {
+              > content-view {
                 scroll-view:not(dialog scroll-view):not(scroll-view scroll-view) {
                   &,
                   & ~ tool-bar {
@@ -377,7 +377,7 @@
         --scroll-view-translate: translateX(var(--view-transition-principal-x)); //!important
       }
 
-      > body-view {
+      > content-view {
         @include force-disable-col-view-transitions;
       }
 
@@ -389,12 +389,12 @@
           @include mixins.ifnot-3col-split-view-fits {
             &[preferred-compact-column='content'] {
               // move descendants to right
-              > body-view {
+              > content-view {
                 > scroll-view {
                   --scroll-view-translate: translateX(var(--view-transition-principal-x)); //!important;
                 }
 
-                > body-view {
+                > content-view {
                   @include force-disable-col-view-transitions;
                 }
               }
@@ -406,13 +406,13 @@
           // SIDEBAR | COMPACT | EXPANDED
           @include mixins.if-3col-split-view-fits {
             // container of compact col (middle)
-            > body-view {
+            > content-view {
               // Fix position as compact col in the middle
               > scroll-view {
                 --scroll-view-translate: translateX(var(--view-transition-principal-x)); // !important;
               }
 
-              > body-view {
+              > content-view {
                 @include force-disable-col-view-transitions;
               }
             }

@@ -142,14 +142,14 @@ const handleClick = async (event) => {
 }
 
 <template>
-  <body-view>
+  <content-view>
     <scroll-view>
       <v-stack>
         <button is="borderless-button" type="button" {{on "click" handleClick}}>Back</button>
       </v-stack>
     </scroll-view>
     {{outlet}}
-  </body-view>
+  </content-view>
 </template>
 ```
 

@@ -3,7 +3,7 @@
 @use '../placeholders';
 
 @layer #{vars.$components-layer} {
-  body-view,
+  content-view,
   navigation-stack,
   navigation-split-view,
   [is='full-screen'],
@@ -23,11 +23,11 @@
   }
 
   navigation-stack:has(> navigation-stack:not([hidden]),> navigation-split-view:not([hidden])),
-  navigation-stack:has(> body-view),
-  navigation-split-view:has(> body-view),
-  dialog:has(> body-view),
-  // body-view:has(> dialog),
-  body-view:has(> body-view) {
+  navigation-stack:has(> content-view),
+  navigation-split-view:has(> content-view),
+  dialog:has(> content-view),
+  // content-view:has(> dialog),
+  content-view:has(> content-view) {
     > scroll-view,
     > [is='sidebar-view'] > scroll-view {
       :where(&) {
@@ -55,7 +55,7 @@
 
   // NOTE: Going all the way back from deeply nested views forces an empty landing page.
   // NOTE: Refactor this to add a content-visibility:visible when bwd/fwd classes are present.
-  // :is(navigation-stack, dialog, body-view):has(> body-view > body-view) {
+  // :is(navigation-stack, dialog, content-view):has(> content-view > content-view) {
   //   > scroll-view,
   //   > tool-bar {
   //     :where(&) {

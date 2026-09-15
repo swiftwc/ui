@@ -152,7 +152,7 @@ $form-elses: (
           :where(navigation-split-view [is='sidebar-view'] &[form-style]) {
             @include mixins.write-props(map.get($form-ifs, sidebar));
           }
-          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > content-view > scroll-view &[preferred-expanded-style]) {
             @include mixins.write-props(map.get($form-ifs, inset));
           }
         }
@@ -167,7 +167,7 @@ $form-elses: (
           :where(navigation-split-view:has(> [is='sidebar-view']) > [is='sidebar-view'] &[list-style]) {
             --form-style: sidebar;
           }
-          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > body-view > scroll-view &[preferred-expanded-style]) {
+          :where(navigation-split-view > scroll-view &[preferred-expanded-style], navigation-split-view > content-view > scroll-view &[preferred-expanded-style]) {
             --form-style: inset;
           }
         }

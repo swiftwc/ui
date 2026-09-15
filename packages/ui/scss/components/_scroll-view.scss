@@ -6,7 +6,7 @@
     navigation-stack > &,
     navigation-split-view > &,
     [is='sidebar-view'] > &,
-    body-view > &,
+    content-view > &,
     [is='full-screen'] > &,
     [is='sheet-view'] > & {
       &:has(~ tool-bar > [slot^='top-bar']),

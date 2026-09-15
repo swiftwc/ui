@@ -639,7 +639,7 @@ $colors: map.merge(
   [is='full-screen'],
   [is='confirmation-dialog'],
   [is='alert-dialog'],
-  body-view,
+  content-view,
   navigation-split-view,
   navigation-split-view > [is='sidebar-view'],
   navigation-stack {

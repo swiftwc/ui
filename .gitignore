@@ -26,5 +26,6 @@ npm-debug.log*
 
 release.sh.txt
 release.sh
+promote.sh
 
 tsconfig.tsbuildinfo

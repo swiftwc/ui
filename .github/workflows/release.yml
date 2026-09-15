@@ -42,16 +42,25 @@ jobs:
 
             NAME=$(node -p "require('./$FILE').name")
             VERSION=$(node -p "require('./$FILE').version")
-            TAG="${NAME}@${VERSION}"
 
-            if git rev-parse "$TAG" >/dev/null 2>&1; then
-              echo "Tag $TAG already exists, skipping $NAME"
+            # idempotency: skip if this exact version is already on the registry
+            if npm view "${NAME}@${VERSION}" version >/dev/null 2>&1; then
+              echo "$NAME@$VERSION already published, skipping"
               continue
             fi
 
-            echo "Publishing $NAME@$VERSION"
-            npm publish -w "$NAME" --tag canary --access public --provenance
+            if [[ "$VERSION" == *-* ]]; then
+              DIST_TAG="canary"
+            else
+              DIST_TAG="latest"
+            fi
 
-            git tag -a "$TAG" -m "$TAG"
-            git push origin "$TAG"
+            echo "Publishing $NAME@$VERSION as dist-tag $DIST_TAG"
+            npm publish -w "$NAME" --tag "$DIST_TAG" --access public --provenance
+
+            if [ "$DIST_TAG" = "latest" ]; then
+              TAG="${NAME}@${VERSION}"
+              git tag -a "$TAG" -m "$TAG"
+              git push origin "$TAG"
+            fi
           done <<< "${{ steps.changed.outputs.files }}"

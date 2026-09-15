@@ -23,7 +23,8 @@ npm-debug.log*
 
 .notes
 .trash
-.release.sh
+
+release.sh.txt
 release.sh
 
 tsconfig.tsbuildinfo

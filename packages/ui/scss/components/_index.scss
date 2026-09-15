@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   // SECTION: all is grid
 
   navigation-stack,
@@ -198,7 +198,7 @@
 }
 
 // SECTION: componentize
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   sidebar-toggle > button,
   tool-bar-item > button,
   tool-bar-item > input,
@@ -240,7 +240,7 @@
 }
 
 // SECTION: componentize
-@layer #{vars.$ui-layer} {
+@layer #{vars.$framework-layer}.#{vars.$ui-layer} {
   sidebar-toggle > button,
   tool-bar-item > button,
   tool-bar-item > input,

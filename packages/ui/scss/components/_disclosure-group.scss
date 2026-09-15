@@ -2,7 +2,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='disclosure-group'] {
     :where(&) {
       overflow: clip;
@@ -135,7 +135,7 @@
   }
 }
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   [is='disclosure-group'] {
     @supports (x: #{string.unquote('attr(x type(*))')}) {
       :where(&) {

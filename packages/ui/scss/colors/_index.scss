@@ -599,7 +599,7 @@ $colors: map.merge(
   inherits: true;
 }
 
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   :root {
     // --background: light-dark(oklch(1 0 0), oklch(0 0 0)); // ✅
 

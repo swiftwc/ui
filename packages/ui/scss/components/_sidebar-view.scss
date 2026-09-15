@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='sidebar-view'] {
     :where(&) {
       @include mixins.reset-dialog;
@@ -44,7 +44,7 @@
   }
 }
 
-@layer #{vars.$final-layer} {
+@layer #{vars.$framework-layer}.#{vars.$final-layer} {
   [is='sidebar-view'] {
     :where(&[open]) {
       margin-inline-start: max(env(safe-area-inset-left), var(--sidebar-inline-spacing));

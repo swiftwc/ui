@@ -3,7 +3,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   menu-view {
     :where(&) {
       &::part(menu-summary) {
@@ -145,7 +145,7 @@
 }
 
 // componentize
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   menu-view {
     @include mixins.add-focus-visible-state('::part(menu-summary)') {
       --menusummaryface: var(--menusummaryhighlightface,);
@@ -198,7 +198,7 @@
 }
 
 // componentize
-@layer #{vars.$ui-layer} {
+@layer #{vars.$framework-layer}.#{vars.$ui-layer} {
   menu-view {
     @include mixins.add-active-state('::part(menu-summary)') {
       --menusummaryface: var(--menusummaryactiveface,);

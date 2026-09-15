@@ -151,7 +151,7 @@ $label-line-ifs: (
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   label-view {
     :where(&) {
       padding-inline: var(--label-padding-inline);

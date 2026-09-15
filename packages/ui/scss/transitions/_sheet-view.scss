@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   [is='sheet-view'] {
     &:not([open]) {
       z-index: var(--top-layer-polyfill-z-index);

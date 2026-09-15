@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='alert-dialog'] {
     :where(&) {
       @include mixins.reset-dialog;
@@ -86,7 +86,7 @@
   }
 }
 
-// @layer #{vars.$colors-layer} {
+// @layer #{vars.$framework-layer}.#{vars.$colors-layer} {
 //   // SECTION: componentize
 //   [is='alert-dialog'] {
 //     > button {
@@ -98,7 +98,7 @@
 //   }
 // }
 
-// @layer #{vars.$ui-layer} {
+// @layer #{vars.$framework-layer}.#{vars.$ui-layer} {
 //   // SECTION: componentize
 //   [is='alert-dialog'] {
 //     > button {

@@ -4,7 +4,7 @@
 @use '../vars';
 @use '../maps';
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   // Vertical alignment becomes the common tweak
   h-stack,
   v-flex-stack {
@@ -102,7 +102,7 @@
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   // readable 1/2
   v-stack {
     :where(&[readable]) {

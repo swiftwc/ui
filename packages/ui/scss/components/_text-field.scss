@@ -1,6 +1,6 @@
 @use '../vars';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   text-field {
     :where(&) {
       grid-template-columns: minmax(0, 1fr);

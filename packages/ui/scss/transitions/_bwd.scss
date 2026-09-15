@@ -1,6 +1,6 @@
 @use '../vars';
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   scroll-view {
     &.bwd {
       --scroll-view-translate: translateX(var(--view-transition-trailing-x));

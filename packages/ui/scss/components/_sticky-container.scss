@@ -6,7 +6,7 @@
   initial-value: 0;
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   sticky-container {
     :where(&) {
       container-type: scroll-state;

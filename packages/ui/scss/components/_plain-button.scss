@@ -2,7 +2,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='plain-button'] {
     @extend %button;
 
@@ -10,7 +10,7 @@
     }
   }
 }
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   [is='plain-button'] {
     :where(&) {
       text-align: center;

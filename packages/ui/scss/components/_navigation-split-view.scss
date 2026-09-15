@@ -12,7 +12,7 @@
   }
 }
 
-@layer #{vars.$nav-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$nav-components-layer} {
   navigation-split-view {
     :where(&) {
       touch-action: none;
@@ -363,7 +363,7 @@
   }
 }
 
-@layer #{vars.$final-layer} {
+@layer #{vars.$framework-layer}.#{vars.$final-layer} {
   navigation-split-view {
     // ANCHOR transitions
 

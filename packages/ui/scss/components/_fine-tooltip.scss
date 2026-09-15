@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$tab-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$tab-components-layer} {
   fine-tooltip {
     :where(&) {
       color: var(--text,);

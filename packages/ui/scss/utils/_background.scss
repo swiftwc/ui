@@ -2,7 +2,7 @@
 @use 'sass:string';
 @use '../vars';
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   list-view,
   [is='form-view'] {
     :where(&[background='system-background']) {

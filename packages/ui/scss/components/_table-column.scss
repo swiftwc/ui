@@ -4,7 +4,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='table-column'] {
     :where(&) {
       column-gap: var(--table-accessory-gap);

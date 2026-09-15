@@ -124,7 +124,7 @@ $picker-elses: (
 //   }
 // }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   picker-view {
     :where(&) {
       grid-template-columns: minmax(0, 1fr);
@@ -340,7 +340,7 @@ $picker-elses: (
   }
 }
 
-@layer #{vars.$final-layer} {
+@layer #{vars.$framework-layer}.#{vars.$final-layer} {
   picker-view {
     //--picker-label-value-placement
     @supports not (x: #{string.unquote('attr(x type(*))')}) {

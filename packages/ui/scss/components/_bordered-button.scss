@@ -3,7 +3,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='bordered-button'] {
     @extend %button;
 
@@ -50,7 +50,7 @@
   }
 }
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   [is='bordered-button'] {
     :where(&) {
       text-align: center;

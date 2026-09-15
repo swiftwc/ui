@@ -52,7 +52,7 @@ $table-elses: (
   --list--accessories-display: grid,
 );
 
-@layer #{vars.$list-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$list-components-layer} {
   table-view {
     &:not(& &, list-view &, [is='form-view'] &) {
       @extend %list;

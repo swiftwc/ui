@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$final-layer} {
+@layer #{vars.$framework-layer}.#{vars.$final-layer} {
   toggle-view {
     :where(&[touch-glass])::part(toggle-track) {
       --toggle--dot-scale: 1.22;

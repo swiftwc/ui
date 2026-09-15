@@ -3,7 +3,7 @@
 @use 'sass:list';
 @use '../vars';
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   // general utils
   @for $i from 0 through 50 {
     :where([padding-horizontal='#{$i}']) {

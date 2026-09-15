@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   // principal-stack > tool-bar-item {
   //   position: absolute;
   //   transition: transform 2s ease-out;

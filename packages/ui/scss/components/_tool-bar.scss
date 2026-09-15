@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   tool-bar {
     :where(&) {
       pointer-events: none;
@@ -136,7 +136,7 @@
   }
 }
 
-// @layer #{vars.$final-layer} {
+// @layer #{vars.$framework-layer}.#{vars.$final-layer} {
 //   tool-bar-item[slot^='top-bar'],
 //   tool-bar-item-group[slot^='top-bar'] {
 //     :where(& menu-view, & tool-bar-item-group[slot^='top-bar'] menu-view)::part(menu-dialog) {

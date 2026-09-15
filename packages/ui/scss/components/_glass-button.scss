@@ -3,7 +3,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='glass-button'] {
     @extend %button;
 
@@ -52,7 +52,7 @@
   }
 }
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   [is='glass-button'] {
     :where(&) {
       text-align: center;

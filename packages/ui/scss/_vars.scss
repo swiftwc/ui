@@ -1,6 +1,7 @@
 @use 'sass:math';
 @use 'functions';
 
+$framework-layer: sw !default;
 $base-layer: sw-base !default;
 $components-layer: sw-components !default;
 $list-components-layer: sw-list-components !default;

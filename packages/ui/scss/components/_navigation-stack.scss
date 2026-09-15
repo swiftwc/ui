@@ -1,6 +1,6 @@
 @use '../vars';
 
-@layer #{vars.$nav-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$nav-components-layer} {
   navigation-stack {
     :where(&) {
       touch-action: none;

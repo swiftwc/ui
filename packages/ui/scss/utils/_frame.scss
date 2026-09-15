@@ -8,7 +8,7 @@ $self-map: (
   fill: stretch,
 );
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   :where([frame\:width='infinity']) {
     inline-size: 100%;
   }
@@ -84,7 +84,7 @@ $self-map: (
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   // readable 2/2
   v-stack {
     :where(&[readable]) {

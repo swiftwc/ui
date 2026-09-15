@@ -2,7 +2,7 @@
 @use '../maps';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   %button {
     :where(&) {
       place-items: center;
@@ -55,7 +55,7 @@
   }
 }
 
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   // SECTION: componentize
   %button {
     @include mixins.add-focus-visible-state {
@@ -69,7 +69,7 @@
   }
 }
 
-// @layer #{vars.$utils-layer} {
+// @layer #{vars.$framework-layer}.#{vars.$utils-layer} {
 //   %button {
 //     > [slot] {
 //       :where(&) {
@@ -89,7 +89,7 @@
 //   }
 // }
 
-@layer #{vars.$ui-layer} {
+@layer #{vars.$framework-layer}.#{vars.$ui-layer} {
   // SECTION: componentize
   %button {
     @include mixins.add-active-state {
@@ -99,7 +99,7 @@
   }
 }
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   @media (prefers-reduced-motion: no-preference) {
     %button {
       :where(&) {

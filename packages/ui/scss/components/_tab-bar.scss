@@ -139,7 +139,7 @@
   }
 }
 
-@layer #{vars.$tab-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$tab-components-layer} {
   [is='tab-bar'] {
     :where(&) {
       @include mixins.reset-dialog;

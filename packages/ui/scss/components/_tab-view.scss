@@ -78,7 +78,7 @@
   }
 }
 
-@layer #{vars.$tab-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$tab-components-layer} {
   tab-view {
     // // more navstack is only for portrait mobile!
     // & > navigation-stack > scroll-view:has(~ navigation-split-view) {
@@ -309,7 +309,7 @@
   }
 }
 
-@layer #{vars.$final-layer} {
+@layer #{vars.$framework-layer}.#{vars.$final-layer} {
   @media (pointer: fine) {
     @include make-ipad-tabview("tab-view[tab-view-style='tab-bar-only']");
   }

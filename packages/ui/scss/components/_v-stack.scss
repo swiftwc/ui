@@ -4,7 +4,7 @@
 @use '../maps';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   v-stack {
     :where(&) {
       grid-template-columns: minmax(0, 1fr);

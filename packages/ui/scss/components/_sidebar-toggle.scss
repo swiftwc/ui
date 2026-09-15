@@ -19,7 +19,7 @@
   }
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   sidebar-toggle {
     tab-view:not([tab-view-style='tab-bar-only']) > &, // this is landscape toggle
     navigation-split-view > & {

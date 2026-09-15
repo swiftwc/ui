@@ -3,7 +3,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   [is='bordered-prominent-button'] {
     @extend %button;
 
@@ -46,7 +46,7 @@
   }
 }
 
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   [is='bordered-prominent-button'] > * {
     :where(&) {
       @include mixins.takeover-color-vars(btn);
@@ -56,7 +56,7 @@
   }
 }
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   [is='bordered-prominent-button'] {
     :where(&) {
       text-align: center;

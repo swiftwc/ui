@@ -3,7 +3,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   // NOTE: A wrapper to {hv}-stack
   scroll-view-proxy {
     :where(&) {

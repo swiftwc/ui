@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../maps';
 
-@layer #{vars.$utils-layer} {
+@layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   // [background-style='grouped'] {
   //   // @media (pointer: coarse) {
   //   :where(&) {

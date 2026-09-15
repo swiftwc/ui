@@ -1,6 +1,6 @@
 @use '../vars';
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   scroll-view {
     // Make sure old/outgoing elements can NOT be interacted with (new elements are already stacked higher)
     &.#{vars.$vt-fwd-class-name} {

@@ -2,7 +2,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   labeled-content {
     :where(&) {
       container: labeled-content / inline-size;

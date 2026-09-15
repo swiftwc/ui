@@ -2,7 +2,7 @@
 @use '../mixins';
 @use '../placeholders';
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   content-view,
   navigation-stack,
   navigation-split-view,

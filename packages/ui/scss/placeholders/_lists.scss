@@ -3,7 +3,7 @@
 
 $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker-view, menu-view, menu-view *, whatever-name)';
 
-@layer #{vars.$list-components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$list-components-layer} {
   %list {
     :where(&) {
       background-color: var(--list--host-background-color,);
@@ -560,7 +560,7 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
   }
 }
 
-@layer #{vars.$colors-layer} {
+@layer #{vars.$framework-layer}.#{vars.$colors-layer} {
   // componentize
   %list {
     > #{$list-item-selector},
@@ -582,7 +582,7 @@ $list-item-selector: ':not([slot], section-view, [is="disclosure-group"], picker
   }
 }
 
-@layer #{vars.$ui-layer} {
+@layer #{vars.$framework-layer}.#{vars.$ui-layer} {
   // componentize
   %list {
     > #{$list-item-selector},

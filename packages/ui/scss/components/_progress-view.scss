@@ -11,7 +11,7 @@
   initial-value: 0;
 }
 
-@layer #{vars.$components-layer} {
+@layer #{vars.$framework-layer}.#{vars.$components-layer} {
   progress-view {
     :where(&) {
       transition: --progress-view-style-index 1ms step-start;

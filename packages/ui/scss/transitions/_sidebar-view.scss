@@ -1,7 +1,7 @@
 @use '../vars';
 @use '../mixins';
 
-@layer #{vars.$transitions-layer} {
+@layer #{vars.$framework-layer}.#{vars.$transitions-layer} {
   @media (prefers-reduced-motion: no-preference) {
     [is='sidebar-view'] {
       // Between 2col and 3col AND preferred-compact-column rule ON, apply transitions

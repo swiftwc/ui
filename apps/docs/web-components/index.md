@@ -6,19 +6,19 @@
 
 #### [AlertDialog](/web-components/alert-dialog.md) {#no-anchor0}
 
-#### [BodyView](/web-components/body-view.md) {#no-anchor1}
+#### [BorderedButton](/web-components/bordered-button.md) {#no-anchor1}
 
-#### [BorderedButton](/web-components/bordered-button.md) {#no-anchor2}
+#### [BorderedProminentButton](/web-components/bordered-prominent-button.md) {#no-anchor2}
 
-#### [BorderedProminentButton](/web-components/bordered-prominent-button.md) {#no-anchor3}
+#### [BorderlessButton](/web-components/borderless-button.md) {#no-anchor3}
 
-#### [BorderlessButton](/web-components/borderless-button.md) {#no-anchor4}
+#### [ColorScheme](/web-components/color-scheme.md) {#no-anchor4}
 
-#### [ColorScheme](/web-components/color-scheme.md) {#no-anchor5}
+#### [ConfirmationDialog](/web-components/confirmation-dialog.md) {#no-anchor5}
 
-#### [ConfirmationDialog](/web-components/confirmation-dialog.md) {#no-anchor6}
+#### [ContentUnavailable](/web-components/content-unavailable.md) {#no-anchor6}
 
-#### [ContentUnavailable](/web-components/content-unavailable.md) {#no-anchor7}
+#### [ContentView](/web-components/content-view.md) {#no-anchor7}
 
 #### [DatePicker](/web-components/date-picker.md) {#no-anchor8}
 

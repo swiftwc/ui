@@ -36,38 +36,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/body-view.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "BodyView",
-          "tagName": "body-view",
-          "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.",
-          "superclass": {
-            "name": "HTMLElement"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "BodyView",
-          "declaration": {
-            "name": "BodyView"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "body-view",
-          "declaration": {
-            "name": "BodyView"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "./generated/components/bordered-button.ts",
       "declarations": [
         {
@@ -320,6 +288,38 @@
           "name": "content-unavailable",
           "declaration": {
             "name": "ContentUnavailable"
+          }
+        }
+      ]
+    },
+    {
+      "kind": "javascript-module",
+      "path": "./generated/components/content-view.ts",
+      "declarations": [
+        {
+          "kind": "class",
+          "customElement": true,
+          "name": "ContentView",
+          "tagName": "content-view",
+          "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.",
+          "superclass": {
+            "name": "HTMLElement"
+          }
+        }
+      ],
+      "exports": [
+        {
+          "kind": "js",
+          "name": "ContentView",
+          "declaration": {
+            "name": "ContentView"
+          }
+        },
+        {
+          "kind": "custom-element-definition",
+          "name": "content-view",
+          "declaration": {
+            "name": "ContentView"
           }
         }
       ]

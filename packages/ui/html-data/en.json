@@ -12,16 +12,6 @@
       "description": "A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.\n---\n\n```ts\ninterface AlertDialogSignature {}\n\nclass AlertDialog extends HTMLDialogElement<AlertDialogSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'alert-dialog' // <dialog is=\"alert-dialog\"></dialog>\n  }\n}\n\n```\n"
     },
     {
-      "name": "body-view",
-      "references": [
-        {
-          "name": "Documentation",
-          "url": "https://swiftwc.github.io/ui/web-components/body-view"
-        }
-      ],
-      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface BodyViewSignature {}\n\nclass BodyView extends HTMLElement<BodyViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'body-view': BodyView // <body-view></body-view>\n  }\n}\n\n```\n"
-    },
-    {
       "name": "bordered-button",
       "references": [
         {
@@ -140,6 +130,16 @@
         }
       ],
       "description": "A message with a title and extra information that you show when part of your app can’t be used.\n---\n\n```ts\ninterface ContentUnavailableSignature {\n  Attributes: {\n    search?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot.\n    description: HTMLElement[]\n    actions: HTMLElement[]\n  }\n}\n\nclass ContentUnavailable extends HTMLElement<ContentUnavailableSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-unavailable': ContentUnavailable // <content-unavailable></content-unavailable>\n  }\n}\n\n```\n\n### **Examples:**\n**Example:**\n```html\n<content-unavailable search></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable search=\"foo\"></content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <i class=\"ph ph-tray\" slot=\"icon\" foreground=\"secondary\"></i>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n**Example:**\n```html\n<content-unavailable padding>\n  <label-view title=\"No Mail\">\n    <svg slot=\"icon\" foreground=\"secondary\" ...>...</svg>\n  </label-view>\n  <label-view\n    title=\"New mails you receive will appear here.\"\n    foreground=\"secondary\"\n    slot=\"description\"\n  ></label-view>\n  <button is=\"borderless-button\" type=\"button\" tabindex=\"0\" slot=\"actions\">\n    <label-view title=\"Switch Account\"></label-view>\n  </button>\n</content-unavailable>\n\n```\n"
+    },
+    {
+      "name": "content-view",
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/content-view"
+        }
+      ],
+      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface ContentViewSignature {}\n\nclass ContentView extends HTMLElement<ContentViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-view': ContentView // <content-view></content-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "date-picker",

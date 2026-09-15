@@ -1,17 +1,17 @@
 <!-- #region pre -->
 
-# BodyView
+# ContentView
 
 ###### A container view that wraps a scroll view, marking it as a screen your app can navigate to.
 
 ```ts
-interface BodyViewSignature {}
+interface ContentViewSignature {}
 
-class BodyView extends HTMLElement<BodyViewSignature> {}
+class ContentView extends HTMLElement<ContentViewSignature> {}
 
 declare global {
   interface HTMLElementTagNameMap {
-    'body-view': BodyView // <body-view></body-view>
+    'content-view': ContentView // <content-view></content-view>
   }
 }
 ```

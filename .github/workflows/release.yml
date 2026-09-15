@@ -35,7 +35,7 @@ jobs:
         id: changed
         run: |
           if [ -n "${{ github.event.inputs.package }}" ]; then
-            WORKSPACE_DIR=$(npm ls -w "${{ github.event.inputs.package }}" --parseable --depth=0 | head -n1)
+            WORKSPACE_DIR=$(npm ls -w "${{ github.event.inputs.package }}" --parseable --depth=0 | tail -n1)
             FILES="${WORKSPACE_DIR#$PWD/}/package.json"
           else
             FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- '**/package.json')

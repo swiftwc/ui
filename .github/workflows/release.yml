@@ -1,0 +1,78 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+      id-token: write
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Find changed workspace package.json files
+        id: changed
+        run: |
+          FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- '**/package.json')
+          echo "$FILES"
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$FILES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Publish + tag each changed package
+        env:
+          GH_TOKEN: ${{ github.token }}
+        run: |
+          while IFS= read -r FILE; do
+            [ -z "$FILE" ] && continue
+
+            NAME=$(node -p "require('./$FILE').name")
+            VERSION=$(node -p "require('./$FILE').version")
+
+            # idempotency: skip if this exact version is already on the registry
+            if npm view "${NAME}@${VERSION}" version >/dev/null 2>&1; then
+              echo "$NAME@$VERSION already published, skipping"
+              continue
+            fi
+
+            if [[ "$VERSION" == *-canary.* ]]; then
+              DIST_TAG="canary"
+            elif [[ "$VERSION" == *-beta.* ]]; then
+              DIST_TAG="beta"
+            else
+              DIST_TAG="latest"
+            fi
+
+            echo "Publishing $NAME@$VERSION as dist-tag $DIST_TAG"
+            npm publish -w "$NAME" --tag "$DIST_TAG" --access public --provenance
+
+            if [ "$DIST_TAG" != "canary" ]; then
+              TAG="${NAME}@${VERSION}"
+              git tag -a "$TAG" -m "$TAG"
+              git push origin "$TAG"
+
+              PRERELEASE_FLAG=""
+              [ "$DIST_TAG" = "beta" ] && PRERELEASE_FLAG="--prerelease"
+
+              gh release create "$TAG" \
+                --title "$TAG" \
+                --generate-notes \
+                $PRERELEASE_FLAG
+            fi
+          done <<< "${{ steps.changed.outputs.files }}"

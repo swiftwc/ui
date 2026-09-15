@@ -259,7 +259,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "description"
@@ -957,7 +957,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "label",
@@ -1065,7 +1065,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "label"
@@ -1372,7 +1372,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "label"
@@ -1462,7 +1462,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "current-value"
@@ -1590,7 +1590,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "top-bar-principal"
@@ -1683,7 +1683,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "header"
@@ -2021,7 +2021,7 @@
           "slots": [
             {
               "name": "",
-              "description": "The default slot."
+              "description": "The default slot"
             },
             {
               "name": "header-leading"

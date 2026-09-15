@@ -13,7 +13,7 @@ interface MenuViewSignature {
   }
 
   Slots: {
-    default: HTMLElement[] // The default slot.
+    default: HTMLElement[] // The default slot
     label: HTMLElement[]
   }
 }

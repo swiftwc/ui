@@ -12,7 +12,7 @@ const observers = new ResizeObserverSingleton()
 /**
  * @summary A view that scrolls its content when it doesn’t fit the screen.
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot top-bar-principal
  * @slot bottom-bar-principal
  */

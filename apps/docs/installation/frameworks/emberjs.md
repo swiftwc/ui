@@ -70,7 +70,7 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 @import 'tailwindcss';
 
 // [!code ++]
-@layer base, sw-base, sw-components, sw-list-components, sw-nav-components, sw-tab-components, sw-utils, sw-colors, sw-ui, sw-transitions, sw-final, components, utilities, theme;
+@layer base, sw, components, utilities, theme;
 ```
 
 ## Start your build process

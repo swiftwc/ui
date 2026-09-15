@@ -6,7 +6,7 @@ import { html } from '../tpl'
 /**
  * @summary A control that opens a menu of actions.
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot label
  */
 export class MenuView extends HTMLElement {

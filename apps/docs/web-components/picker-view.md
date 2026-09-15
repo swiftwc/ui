@@ -24,7 +24,7 @@ interface PickerViewSignature {
   }
 
   Slots: {
-    default: HTMLElement[] // The default slot.
+    default: HTMLElement[] // The default slot
     label: HTMLElement[]
     list: HTMLElement[]
     'validity-options': HTMLOptionElement[]

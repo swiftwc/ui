@@ -11,7 +11,7 @@ interface ContentUnavailableSignature {
   }
 
   Slots: {
-    default: HTMLElement[] // The default slot.
+    default: HTMLElement[] // The default slot
     description: HTMLElement[]
     actions: HTMLElement[]
   }

@@ -5,7 +5,7 @@ import { html } from '../tpl'
 /**
  * @summary A container view that groups related content together.
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot header
  * @slot footer
  */

@@ -18,7 +18,7 @@ interface ParsedFormat {
  *
  * @example <labeled-content value="Content"><label-view slot="label" title="Custom Value"></label-view><label-view slot="label" title="Custom Subtitle Value"></label-view></labeled-content> — Creates a labeled element that displays a custom label and a custom subtitle to the label
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot label — Use the `slot="label"` attribute to place childen in the label block.
  * @slot header
  * @slot footer

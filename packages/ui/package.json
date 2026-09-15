@@ -80,10 +80,8 @@
     "lint:scripts": "tsc -p tsconfig.scripts.json --noEmit",
     "test": "vitest --dom",
     "prepackage": "rm -rf generated && npm run debug:off",
-    "package": "npm run build:ts && npm run build:scss ; npm run debug:reset",
-    "postpublish": "git checkout dev",
-    "debug:off": "node -e \"const fs=require('node:fs');const f='./js/internal/flags.ts';const s=fs.readFileSync(f,'utf8');fs.writeFileSync(f,s.replace(/DEBUG:\\s*(true|false)/, 'DEBUG: false'))\"",
-    "debug:reset": "git checkout -- ./js/internal/flags.ts",
+    "package": "npm run build:ts && npm run build:scss && npm run debug:off",
+    "debug:off": "node -e \"const fs=require('node:fs');const f='./generated/internal/dev-flags.js';const s=fs.readFileSync(f,'utf8');fs.writeFileSync(f,s.replace(/DEBUG:\\s*(true|false)/, 'DEBUG: false'))\"",
     "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },
   "devDependencies": {

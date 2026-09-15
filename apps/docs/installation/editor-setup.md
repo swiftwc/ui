@@ -6,7 +6,7 @@ prev:
 
 # Editor Setup
 
-Tooling to improve the developer experience when working with SwictWC.
+Tooling to improve the developer experience when working with SwiftWC.
 
 ## IntelliSense for VS Code
 
@@ -19,7 +19,9 @@ Tooling to improve the developer experience when working with SwictWC.
 ```json [settings.json]
 {
   // [!code ++]
-  "html.customData": ["./node_modules/@swiftwc/ui/html-data/en.json"]
+  "html.customData": ["./node_modules/@swiftwc/ui/html-data/en.json"],
+  // [!code ++]
+  "css.customData": ["./node_modules/@swiftwc/ui/css-data/en.json"]
 }
 ```
 

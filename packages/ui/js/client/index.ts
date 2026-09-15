@@ -3,14 +3,14 @@ import * as Components from '../components'
 import type { AlertReturnEvent, ConfirmationReturnEvent } from '../events'
 import { I18n } from '../i18n'
 import { NavigationPath } from '../internal/class/navigation-path'
-import flags from '../internal/flags'
+import devFlags from '../internal/dev-flags'
 import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, debug, kebabCase, onoff } from '../internal/utils'
 import { type WebComponentCtor } from '../namespace-browser'
 import { Snapshot } from '../snapshot'
 import { html, render } from '../tpl'
 
-debug(flags)
+debug(devFlags)
 
 //#region polyfills
 export const polyfills: Map<string, WebComponentCtor> = new Map()

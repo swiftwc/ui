@@ -11,7 +11,7 @@ interface TableViewSignature {
   }
 
   Slots: {
-    default: HTMLElement[] // The default slot.
+    default: HTMLElement[] // The default slot
     'header-leading': HTMLElement[]
     'header-principal': HTMLElement[]
     'header-trailing': HTMLElement[]

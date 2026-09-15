@@ -16,7 +16,7 @@ interface LabeledContentSignature {
   }
 
   Slots: {
-    default: HTMLElement[] // The default slot.
+    default: HTMLElement[] // The default slot
     label: HTMLElement[] // Use the `slot="label"` attribute to place childen in the label block.
     header: HTMLElement[]
     footer: HTMLElement[]

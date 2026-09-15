@@ -57,7 +57,11 @@ export class TabView extends HTMLElement {
   }
 
   get moreTab() {
-    return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack,> navigation-split-view)')
+    try {
+      return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack,> navigation-split-view)')
+    } catch {
+      return this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-stack)') ?? this.querySelector<NavigationStack>(':scope>navigation-stack:has(> navigation-split-view)')
+    }
   }
 
   connectedCallback() {

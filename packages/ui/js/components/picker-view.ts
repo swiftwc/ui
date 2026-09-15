@@ -189,7 +189,7 @@ const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | 
  *
  * @attr {boolean} horizontal-radio-group-layout
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot label
  * @slot list
  * @slot {HTMLOptionElement[]} validity-options

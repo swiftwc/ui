@@ -12,7 +12,7 @@ type ProgressViewStyle = (typeof progressViewStyles)[number]
 /**
  * @summary A view that shows how far along a task is.
  *
- * @slot — The default slot.
+ * @slot — The default slot
  * @slot current-value
  */
 export class ProgressView extends HTMLElement {

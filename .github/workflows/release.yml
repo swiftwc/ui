@@ -1,0 +1,57 @@
+name: Release
+
+on:
+  push:
+    branches: [main]
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write   # to push tags
+      id-token: write   # required for OIDC / trusted publishing
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          registry-url: https://registry.npmjs.org
+
+      - name: Ensure npm supports trusted publishing
+        run: npm install -g npm@latest   # need npm ≥ 11.5.1
+
+      - name: Install deps
+        run: npm ci
+
+      - name: Find changed workspace package.json files
+        id: changed
+        run: |
+          FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- '**/package.json')
+          echo "$FILES"
+          echo "files<<EOF" >> "$GITHUB_OUTPUT"
+          echo "$FILES" >> "$GITHUB_OUTPUT"
+          echo "EOF" >> "$GITHUB_OUTPUT"
+
+      - name: Publish + tag each changed package
+        run: |
+          while IFS= read -r FILE; do
+            [ -z "$FILE" ] && continue
+
+            NAME=$(node -p "require('./$FILE').name")
+            VERSION=$(node -p "require('./$FILE').version")
+            TAG="${NAME}@${VERSION}"
+
+            if git rev-parse "$TAG" >/dev/null 2>&1; then
+              echo "Tag $TAG already exists, skipping $NAME"
+              continue
+            fi
+
+            echo "Publishing $NAME@$VERSION"
+            npm publish -w "$NAME" --tag dev --access public --provenance
+
+            git tag -a "$TAG" -m "$TAG"
+            git push origin "$TAG"
+          done <<< "${{ steps.changed.outputs.files }}"

@@ -103,7 +103,7 @@ If you are building an always online app, the easiest way to add SwiftWC is by u
 ```
 -->
 
-== dev
+== canary
 
 ::: code-group
 
@@ -117,10 +117,10 @@ If you are building an always online app, the easiest way to add SwiftWC is by u
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->
-    <script type="module" src="https://unpkg.com/@swiftwc/ui@dev/client"></script>
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@canary/client"></script>
   </head>
 </html>
 ```

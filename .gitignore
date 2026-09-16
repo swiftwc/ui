@@ -24,8 +24,4 @@ npm-debug.log*
 .notes
 .trash
 
-release.sh.txt
-release.sh
-promote.sh
-
 tsconfig.tsbuildinfo

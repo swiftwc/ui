@@ -30,10 +30,12 @@
     "./emberjs/en": "./generated/emberjs/en.js"
   },
   "scripts": {
+    "typecheck": "tsc --noEmit",
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts",
     "build:ts": "tsc",
-    "start": "npm run prebuild && tsc --watch",
+    "build:ts:watch": "npm run prebuild && tsc --watch",
+    "prepublishOnly": "npm run build",
     "format:check": "prettier . --check",
     "format:write": "prettier . --write"
   },

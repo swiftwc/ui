@@ -52,16 +52,24 @@ jobs:
           while IFS= read -r FILE; do
             [ -z "$FILE" ] && continue
 
+            IS_PRIVATE=$(node -p "require('./$FILE').private === true")
+            if [ "$IS_PRIVATE" = "true" ]; then
+              echo "Skipping $FILE (private package)"
+              continue
+            fi
+
             NAME=$(node -p "require('./$FILE').name")
-            VERSION=$(node -p "require('./$FILE').version")
+            VERSION=$(node -p "require('./$FILE').version || ''")
+
+            if [ -z "$VERSION" ]; then
+              echo "Skipping $NAME (no version field)"
+              continue
+            fi
 
             if npm view "${NAME}@${VERSION}" version >/dev/null 2>&1; then
               echo "$NAME@$VERSION already published, skipping"
               continue
             fi
-
-            #echo "Building $NAME"
-            #npm run build -w "$NAME"
 
             if [[ "$VERSION" == *-canary.* ]]; then
               DIST_TAG="canary"
@@ -71,7 +79,7 @@ jobs:
               DIST_TAG="latest"
             fi
 
-            echo "Building & publishing $NAME@$VERSION as dist-tag $DIST_TAG"
+            echo "Publishing $NAME@$VERSION as dist-tag $DIST_TAG"
             npm publish -w "$NAME" --tag "$DIST_TAG" --access public --provenance
 
             if [ "$DIST_TAG" != "canary" ]; then

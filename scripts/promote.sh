@@ -24,7 +24,13 @@ else
   npm version patch --no-git-tag-version -w "$PKG"
 fi
 
-WORKSPACE_DIR=$(npm ls -w "$PKG" --parseable --depth=0 | head -n1)
+WORKSPACE_DIR=$(npm query ".workspace" --json | node -e "
+  const workspaces = JSON.parse(require('fs').readFileSync(0, 'utf8'));
+  const match = workspaces.find(w => w.name === process.argv[1]);
+  if (!match) { console.error('Workspace not found: ' + process.argv[1]); process.exit(1); }
+  console.log(match.location);
+" "$PKG")
+WORKSPACE_DIR="$(git rev-parse --show-toplevel)/$WORKSPACE_DIR"
 NAME=$(node -p "require('$WORKSPACE_DIR/package.json').name")
 VERSION=$(node -p "require('$WORKSPACE_DIR/package.json').version")
 

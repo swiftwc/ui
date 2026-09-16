@@ -17,15 +17,16 @@ git pull
 # e.g. 1.2.4-canary.7 -> 1.2.4-canary.8   |   1.2.4 -> 1.2.5-canary.0
 
 if [ "$CHANNEL" = "beta" ]; then
-  # any prerelease identifier -> beta.0, or 1.2.4 -> 1.2.5-beta.0 if starting fresh
+  # any other prerelease identifier -> beta.0, or 1.2.4 -> 1.2.5-beta.0 if starting fresh
   npm version prerelease --no-git-tag-version --preid=beta -w "$PKG"
 else
   # strips whatever prerelease suffix is present, keeping the same x.y.z
   npm version patch --no-git-tag-version -w "$PKG"
 fi
 
-NAME=$(npm pkg get name -w "$PKG" | tr -d '"')
-VERSION=$(npm pkg get version -w "$PKG" | tr -d '"')
+WORKSPACE_DIR=$(npm ls -w "$PKG" --parseable --depth=0 | head -n1)
+NAME=$(node -p "require('$WORKSPACE_DIR/package.json').name")
+VERSION=$(node -p "require('$WORKSPACE_DIR/package.json').version")
 
 git add -A
 git commit -m "chore(release): ${CHANNEL} ${NAME}@${VERSION}"

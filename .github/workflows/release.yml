@@ -60,6 +60,9 @@ jobs:
               continue
             fi
 
+            #echo "Building $NAME"
+            #npm run build -w "$NAME"
+
             if [[ "$VERSION" == *-canary.* ]]; then
               DIST_TAG="canary"
             elif [[ "$VERSION" == *-beta.* ]]; then
@@ -68,7 +71,7 @@ jobs:
               DIST_TAG="latest"
             fi
 
-            echo "Publishing $NAME@$VERSION as dist-tag $DIST_TAG"
+            echo "Building & publishing $NAME@$VERSION as dist-tag $DIST_TAG"
             npm publish -w "$NAME" --tag "$DIST_TAG" --access public --provenance
 
             if [ "$DIST_TAG" != "canary" ]; then

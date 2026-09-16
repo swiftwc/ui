@@ -78,8 +78,8 @@ npm install -w @swiftwc/ui
 1. To run the `v1` website:
 
 ```bash
-npm run dev -w @swiftwc/v1
-npm run dev:scss -w @swiftwc/v1
+npm run start -w @swiftwc/v1
+npm run start:scss -w @swiftwc/v1
 ```
 
 2. To run the `ui` package:
@@ -115,7 +115,7 @@ When adding or modifying components, please ensure that:
 
 1. You make the changes for every style.
 2. You update the documentation.
-3. You run `npm run build:registry -w @swiftwc/ui` to update the registry.
+3. You run `npm run codegen:barrelize -w @swiftwc/ui` to update the registry.
 
 ## Commit Convention
 

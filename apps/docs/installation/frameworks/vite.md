@@ -67,7 +67,7 @@ bun add --exact @swiftwc/ui@latest --dev
 
 ::::
 
-== dev
+== canary
 
 ::::tabs key:script
 
@@ -76,11 +76,11 @@ bun add --exact @swiftwc/ui@latest --dev
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@dev @phosphor-icons/web inter-ui typescript
+npm i -D @swiftwc/ui@canary @phosphor-icons/web inter-ui typescript
 ```
 
 ```bash [bun]
-bun add --exact @swiftwc/ui@dev --dev
+bun add --exact @swiftwc/ui@canary --dev
 ```
 
 :::
@@ -90,11 +90,11 @@ bun add --exact @swiftwc/ui@dev --dev
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@dev @phosphor-icons/web inter-ui
+npm i -D @swiftwc/ui@canary @phosphor-icons/web inter-ui
 ```
 
 ```bash [bun]
-bun add --exact @swiftwc/ui@dev --dev
+bun add --exact @swiftwc/ui@canary --dev
 ```
 
 :::

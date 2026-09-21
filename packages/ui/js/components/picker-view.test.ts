@@ -1,13 +1,17350 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { Snapshot } from '../client'
 import { PickerView } from './picker-view'
+
+const dict = [
+  {
+    value: 'goods',
+    children: [
+      {
+        value: 'goods~adult_sex_shop_products',
+        children: [
+          {
+            value: 'goods~adult_sex_shop_products~anal_toys',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~bdsm_fetish',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~clitoral_and_nipple_suction_devices',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~cock_rings',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~dildos',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~men_s_sexy_underwear',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~penis_enlargement_products',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~role_playing_wigs',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sex_dolls',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sex_essentials',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_bras_and_nipple_covers',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_gifts',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_panties',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~sexy_socks_and_tights',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~strap_ons',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~vaginal_balls',
+            children: [],
+          },
+          {
+            value: 'goods~adult_sex_shop_products~vibrators',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~appliances_accessories_and_spare_parts',
+        children: [
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~air_conditioner_remote_controls',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~air_quality_devices_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~baking_plates',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~central_heating_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~cleaning_appliances_filters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~cleaning_appliances_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~coffee_maker_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~cooker_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~cooking_appliances_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~cooking_appliances_parts',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~dishwashers_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~fan_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~food_processors_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~gas_grill_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~gas_hoses_and_regulators',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~grill_covers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~grooming_devices_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~heating_elements',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~heating_replacement_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~home_appliances',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~hot_water_valves',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~ironing_appliances_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~kitchen_appliances_stands',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~misc_air_conditioner_parts',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~oven_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~radiator_switches',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~refrigerator_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~robot_vacuum_cleaners_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~snack_and_breakfast_makers_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~soda_maker_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~soda_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~solar_water_heater_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~solenoid_valves',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~thermostatic_radiator_valves',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~vacuum_cleaner_bags',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~vent_hoods_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_accessories_and_spare_parts~washing_machines_and_tumble_dryers_accessories',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~appliances_home_medical_appliances',
+        children: [
+          {
+            value: 'goods~appliances_home_medical_appliances~alcohol_testers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~baby_bottle_warmers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~baby_scales',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~bath_thermometers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~blood_glucose_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~blood_pressure_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~breast_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~breathing_trainers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~cpap_and_bipap_apnea_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~electric_foot_files',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~electric_hair_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~electric_massagers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~electric_shavers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~epilators',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~face_care_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~facial_care_tools',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~hair_clippers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~hair_curling_irons',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~hair_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~hair_straighteners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~hearing_aids',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~medical_oxygen_cylinders',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~nail_drill_pen_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~nail_drills',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~nail_polish_curing_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~nebulizers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~oximeters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~oxygen_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~spacer_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~suction_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~travel_hair_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~trimmers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~various_manicure_pedicure_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_home_medical_appliances~wax_warmers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~appliances_small_domestic_appliances',
+        children: [
+          {
+            value: 'goods~appliances_small_domestic_appliances~air_fryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~all_in_one_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~ash_vacuums',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~baby_bottle_sterilizers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~baby_milk_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~barbecue_heat_guns',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~bathroom_scales',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~blenders',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~bread_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~candy_floss_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~car_handheld_vacuums',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~chocolate_fountains',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~coffee_frothers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~countertop_burners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~countertop_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~crepe_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~deep_fryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~donut_and_muffin_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~egg_cookers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~electric_blankets_and_mattress_pads',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~electric_coffee_grinders',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~electric_grills',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~electric_juicers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~espresso_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~fabric_shavers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~filter_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~food_dehydrators',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~food_steamers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~garment_steamers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~greek_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~grinders_and_mincers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~halogen_oven_cookers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~hand_blenders',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~handheld_vacuums',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~heating_pads',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~ice_cream_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~ironing_presses',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~juicers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~kettles',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~kitchen_scales',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~microwave_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~milk_frothers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~mini_choppers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~misc_breakfast_and_snack_appliances',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~misc_cleaning_devices',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~misc_cooking_appliances',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~mixers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~multifunctional_food_processors',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~pod_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~popcorn_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~robot_vacuum_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~rotisserie_motors',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~sandwich_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~sewing_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~stand_mixers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~steam_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~steam_ironing_stations',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~steam_irons',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~stick_vacuums',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~teppanyaki_grills',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~toasters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~travel_irons',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~ultrasonic_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~vacuum_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~vacuum_sealers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~waffle_makers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~water_filtration_systems',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~wet_dry_vacuums',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~window_vacuum_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_domestic_appliances~yogurt_makers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~appliances_small_heating_cooling_devices',
+        children: [
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~ceiling_fans',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~convector_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~dehumidifiers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~electric_towel_rails',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~fan_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~fans',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~halogen_and_radiant_quartz_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~humidifiers_ionizers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~indoor_gas_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~infrared_heating_panels',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_small_heating_cooling_devices~oil_filled_radiators',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~appliances_white_goods_and_large_home_appliances',
+        children: [
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~air_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~air_curtains',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~cookers_and_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~cooktops',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~dishwashers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~fireplace_inserts',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~freezers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~gas_grills',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~home_appliances_sets',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~industrial_fans',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~industrial_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~industrial_ventilators',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~kitchenettes',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~oil_and_kerosene_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~pellet_stoves',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~portable_air_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~refrigerators',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~robotic_pool_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~stoves_outdoor_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~tumble_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~vent_hoods',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~washer_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~washing_machines',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~wine_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~appliances_white_goods_and_large_home_appliances~wood_stoves',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~auto_moto_accessories_and_spare_parts',
+        children: [
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~4x4_car_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~anchors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~antitheft_locking_devices',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_balloons',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_canopies',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_canopy_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_chains',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_deck_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_engine_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_flags_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_float_switches',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_fuses_and_fuse_cases',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_hatches',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_holders_and_cases',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_ladders',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_navigation_instruments_and_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_paddles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_plumbing_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_rudders_and_controls',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_seats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_switches_and_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_trailer_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_ventilation_fittings',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~boat_washing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_airbag_spiral_cable',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_alarms',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_alternators',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_angel_eyes_rings',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_antennas',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_armrest_console',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_audio_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_audio_iso_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_audio_system_upgrade_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_audio_tweeter',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_ballast',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bars_and_racks_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_battery_terminal_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bike_racks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_blowoff_valves',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bodywork_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bonnet_dampers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_brake_pads_and_rotors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bulbs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_bumpers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_cigarette_lighter_and_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_digital_video_recorders',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_door_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_door_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_electronic_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_belts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_radiators',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_sensor',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_engine_valves',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_exhaust_systems',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_exterior_mirror_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_front_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_fuel_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_fuses',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_gaskets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_handbrake_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_headlights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_hitch_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_horns',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_hubcaps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_ignition_coils',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_instruments_and_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_interior_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_interior_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_jumper_cables',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_key_shells',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_key_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_lambda_sensor',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_license_plate_frames_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_lug_nuts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_mobile_and_tablet_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_mudguards',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_multimedia_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_paint_materials',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_pedals',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_power_inverters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_quick_connect_connectors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_radiators_fan',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_rear_spoiler',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_relays',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_replacement_toggle_switches',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_reservoir_and_fuel_caps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_reverse_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_roof_bars',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_roof_bars_legs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_roof_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_roof_racks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_seat_adaptors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_seat_belts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_shift_knobs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_side_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_silicone_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_ski_bars_and_racks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_space_organizers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_spark_plug_wires',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_spark_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_speaker_mounting_brackets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_steering_wheel_cones',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_steering_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_stereo_frame_kits',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_strut_bars',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_suspensions',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_thermostats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_tire_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_towing_and_trailer_lights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_transformers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_transmission_system_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_valve_caps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_warning_canceller',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_water_pump',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_water_reservoirs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_wheel_adapters_and_spacers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_wheel_center_caps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_windbreakers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_windshield_wiper_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~car_xenon_kit',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~emergency_car_lights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~engine_tuning',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~exterior_decorative_car_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~fuel_portable_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~gps_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~gps_and_mobile_moto_mount_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~gps_and_mobile_moto_mount_bars',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~headlight_bulb_holder',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~interior_decorative_car_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~kart_chains_and_sprockets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~kart_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~machine_intercoms',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~marine_antennas_and_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~marine_bilge_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~marine_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~misc_marine_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~misc_motorcycle_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~mobile_cases_for_motorcycle_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_alarms',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_bearings',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_brake_discs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_brake_pads',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_brake_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_camshafts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_carburetors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_cellphone_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_chains_and_sprockets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_clutch_kits_and_components',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_connecting_rods',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_countershaft_seal_kits',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_crankshaft',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_crankshafts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_cylinder_heads',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_apron',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_crankcase',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_radiators',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_engine_valves',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_exhaust_systems',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fairing_bolts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_filler_caps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fuel_and_brake_lines',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fuel_injectors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fuel_level_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fuel_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_fuel_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_gaskets',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_gear_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_gear_shift_shaft',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_handguards',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_handlebar_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_handlebars',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_handlebars_and_bar_end_weights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_headlights_and_lights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_ignition_units',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_inner_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_intercom_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_levers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_license_plate_holders_and_frames',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_locks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_luggage_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_luggage_racks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_oil_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_peripheral_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_pistons_and_cylinders',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_protective_bars',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_protective_gear',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_protective_sliders',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_regulator_rectifiers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_saddles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_shock_absorbers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_side_cases_and_bags',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_soft_bags',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_spark_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_speedometers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_starter_coils',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_starter_motors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_swing_arms',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_switches',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_tank_bags',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_thermostats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_throttle_cables',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_top_cases',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_transmission',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_transmission_belts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_valve_shims',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_water_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~motorcycle_wheel_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~oil_seals',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~parking_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~plastic_motorcycle_parts',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~plugs_and_sockets_for_car_trailers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~propellers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~snow_chains',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~spoilers_and_bumpers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~towing_systems',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~truck_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~truck_volume_lights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_accessories_and_spare_parts~wire_ropes',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~auto_moto_bikes',
+        children: [
+          {
+            value: 'goods~auto_moto_bikes~bicycle_frames',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_bikes~bicycles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_bikes~electric_bicycles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_bikes~kids_bicycles',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment',
+        children: [
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~automotive_urea_solutions',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~baby_on_board',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~boat_cleaning_products',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~boat_deck_maintenance',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~boat_emergency_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~boat_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~boat_tarpaulins_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~brake_fluid',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_air_condition_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_air_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_air_fresheners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_body_protection_waxes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_brand_logos',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_cabin_air_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_ceramic_coatings',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_cleaning_and_care_products',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_cleaning_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_cleaning_leathers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_cup_holders',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_dashboard_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_dashboard_polishes_and_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_decorative_bonnet',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_decorative_grills',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_decorative_masks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_emergency_hammers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_emergency_kit',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_engine_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_engine_coolant',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_fuel_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_gasoline_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_gear_oils',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_headlight_eyebrows',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_headlight_polishes_and_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_ice_scrapers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_intake_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_interior_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_interior_decoration',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_interior_decorative_door_sill',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_key_cover_cases',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_leather_surface_care',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_luggage_straps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_mats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_microfiber_cloths',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_oil_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_paint_polishing_compounds',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_plastic_clips',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_protection_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_repair_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_seat_belt_pads',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_seat_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_shampoo',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_silicone_blades',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_sponges',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_spray_paints',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_steering_wheel_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_stickers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_sun_shades',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_tow_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_towing_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_transfer_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_upholstery_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_warning_lights',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_warning_triangles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_wash_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_wash_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_washing_set',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_wheel_polishes_and_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_window_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_window_decorative',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_window_wipers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~car_wiper_blades',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~exterior_car_decorative_handles',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~flares_and_emergency_smokers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~fuel_and_oil_additives',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~helmet_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~helmet_visors',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~marine_fabrics',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~marine_paints_and_coatings',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_air_filter_cleaners_and_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_air_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_bagster_tank_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_chain_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_cleaning_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_cleaning_products',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_exhaust_washing_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_hand_rain_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_leg_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_oil_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_seat_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_stickers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_tire_repair_kit',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_wheel_stands',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~motorcycle_windshields_and_windscreens',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~rider_equipment_care_and_cleaning',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~riding_protection',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~spare_tires',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~synthetic_car_fabrics',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~thermal_insulation_exhaust_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~vehicle_spray_booths_and_filters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~vehicle_workshop_protective_covers',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_consumables_decoratives_and_protection_equipment~workshop_mats',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~auto_moto_vehicles_and_boats',
+        children: [
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~aluminum_car_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~atv_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~car_keys',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~car_remote_control_replacements',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~car_seats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~car_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~electric_scooters',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~gps_maps',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~marine_outboard_engines',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~motorcycle_engines',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~motorcycle_rims',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~motorcycle_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~scooter_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~speed_boats',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~truck_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~underbone_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~auto_moto_vehicles_and_boats~used_cars',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_beauty_salon_equipment',
+        children: [
+          {
+            value: 'goods~b2b_beauty_salon_equipment~cosmetic_cases',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~foot_files',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~hair_cutting_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~hair_salon_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~hairdressing_capes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~misc_nail_care_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~nail_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~nail_drill_bits',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~nail_nippers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~spray_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_beauty_salon_equipment~tattoo_studio',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_horeca_consumables',
+        children: [
+          {
+            value: 'goods~b2b_horeca_consumables~acrylic_nails_powders_and_liquids',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~aluminum_food_containers_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~banknote_and_coin_cases',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bar_organizers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bar_spirit_measures',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bar_strainers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~barista_thermometers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~barista_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bartender_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bedside_tables_and_nightstands',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~beverage_dispensers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~beverage_equipment_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bitter_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~blood_collection_tourniquets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bottles_and_caps_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~bread_and_serving_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~buffet_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~buffet_display_stands',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~buffet_organization',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~butcher_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~butchery_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cafe_bar_stirrers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cash_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cash_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~catheters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cereal_distributors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~chiffon',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~clinic_equipment_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_grind_bins_knock_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_grounds_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_machine_and_grinder_cleaning_products',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_machine_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_tampers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~coffee_tea_filters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cold_brew_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_air_fresheners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_baking_pans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_baking_trays',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_cooking_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_cooking_equipment_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_cookware_lids_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_food_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_food_scoops',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_hand_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_kitchen_utensils',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_pans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_paper_towel_dispenser',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_pots',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_refrigeration_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_serveware_and_dinnerware_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_serving_boards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_serving_jugs_and_carafes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_serving_plate_covers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_snack_machines_parts',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_soap_dispenser',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~commercial_table_setting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~counterfeit_banknote_detectors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~cup_saucers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~delivery_boxes_for_motorcycles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~dental_towels',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~dermatoscope',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~diagnostic_torches',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_bowls_and_cups_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_cup_holders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_cup_lids',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_cutlery_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_drink_stirrers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_drinkware',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_food_containers_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_food_packaging_lids',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_plastic_tableware_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_plates_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~disposable_table_covers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~donat_buns',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~echocardiography_papers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~electric_doner_kebab_slicers_and_knives',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~ent_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~examination_table_rolls',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~false_nail_forms',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~false_nail_gel',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~false_nail_glue',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~false_nail_tips',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~flow_caps',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~food_packaging_bags',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~food_processing_machinery_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~food_wrapping_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~foodservice_disposables',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~gastronorm_lids',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~gastronorm_pans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~gel_nail_polish',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hair_extensions',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hair_extensions_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hair_perm_products',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hair_rollers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hair_salon_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hdpe_cutting_boards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hot_stones',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hotel_amenities',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hotel_bathroom_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~hotel_trays',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~ice_storage_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~janitor_and_housekeeping_carts',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~jars_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~lab_microscope_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~latte_art',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~laundry_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~magnifying_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~manicure_and_pedicure_lotion',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~manual_coffee_grinders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_and_surgical_forceps',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_consumables_by_specialty',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_electrodes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_equipment_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_scalpels_and_blades',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_stools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_stretchers_and_transport_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_tables_on_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~medical_training_manikins',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~milk_pitchers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~misc_medical_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~misc_nail_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~mixing_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~mixing_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~moving_lights_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~muddlers_and_bar_pestlers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~nail_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~nail_design',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~nail_polish_remover',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~nurse_watches',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~order_holders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~pastry_supplies_and_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~pizza_shovels',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~placemats_and_napkins',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~plastic_and_paper_straws_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~plastic_bags_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~pool_drinkware',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~pos_peripherals_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~pour_over_coffee_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~professional_cleaning_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~role_playing_wigs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~room_service',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~sand_coffee_maker',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~scoops_for_bars',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~shakers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~siphon_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~special_commercial_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~squeeze_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~stationery_wholesale',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~stethoscopes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~surgical_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~surgical_sutures',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~syringes_and_needles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~tagging_guns',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~tamper_stations',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~top_base_coats',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~ultrasound_gels',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~vacuum_sealer_bags',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~vein_finders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~venous_catheters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~ventilation_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~white_blackboard_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_horeca_consumables~wine_cooler',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_machinery_and_appliances',
+        children: [
+          {
+            value: 'goods~b2b_machinery_and_appliances~all_in_one_pos',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~anti_theft_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~bakery_water_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~barcode_scanners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~bench_saws',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~beverage_refrigerators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~blast_chillers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~bookbinders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~bratt_pans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~buffet_kettles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~burger_making_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~call_centers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~cash_registers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~charcoal_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~chip_scuttles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_bag_sealers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_bain_marie',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_bakery_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_blenders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_bread_slicers_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_cheese_graters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_chocolate_fountains',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_coffee_frothers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_coffee_grinders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_cooking_boiler',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_cotton_candy_machine',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_countertop_burners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_crepe_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_cup_and_plate_holders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_dishwashers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_doughnut_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_espresso_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_extractor_hoods',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_filter_coffee_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_flat_top_griddles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_food_dryers_and_dehydrators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_freezers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_fryers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_grade_bain_marie',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_grade_soup_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_grills',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_hand_blenders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_hot_dog_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_ice_cream_freezers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_ice_cream_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_inverter_air_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_ironing_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_laundry_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_meat_and_bone_saws',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_meat_grinders_and_choppers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_meat_mixers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_microwave_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_mixers_and_kneaders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_oil_and_fat_collectors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_peelers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_pizza_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_popcorn_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_ranges',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_refrigerator_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_rotisserie_ovens_and_grills',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_salamander_ovens_and_grills',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_sandwich_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_scales',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_schnitzel_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_steel_workbenches',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_stoves',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_toasters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_vegetable_washer',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_waffle_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_waste_pulpers_and_extractors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_water_filter_systems',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_whipped_cream_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~commercial_wine_refrigerators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~conservation_and_freezing_chambers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~cutlery_polishers_and_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~doner_kebab_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~dough_processing_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~dry_aging_fridges_and_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~floor_scrubbers_and_buffers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~focus_alert_systems',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~food_waste_and_garbagge_disposers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~fruit_processing_machines_juicers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~hair_salon_and_spa_appliances',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~ham_slicers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~heated_display_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~heating_buffets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~hotel_hair_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~hotel_mini_bars',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~ice_bins',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~ice_crushers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~ice_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~interactive_displays',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~ip_telephone_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~juice_dispenser_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~kettles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~knife_sharpeners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~knife_sterilizers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~label_printers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~laminators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~machinery_engines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~meat_display_cases',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~misc_office_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~misc_woodworking_machinery',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~miter_saws',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~money_counters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~multi_cutter_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~neutral_display_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~overhead_projectors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~packaging_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~pastry_sheeters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~pharmaceutical_refrigerators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~pos_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~preparation_table_cupboards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~professional_beverage_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~receipt_printers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~refrigerated_counters_without_compressor',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~refrigerated_display_cases',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~refrigerator_and_freezer_counters',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~rice_cookers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~sausage_filler_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~scale_ice_makers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~scullery_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~seafood_market_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~self_service_freezer_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~self_service_refrigerators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~shredders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~skewer_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~sous_vide_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~stainless_steel_rack_shelving',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~storage_cupboards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~vacuum_sealers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~voip_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~voip_adapters_gateways',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~warming_cupboards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~water_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~water_softeners',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_machinery_and_appliances~wind_turbines',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_medical_machinery',
+        children: [
+          {
+            value: 'goods~b2b_medical_machinery~autoclaves_sterilizers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~capnograph',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~cardiographers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~centrifuges',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~cryogenic_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~cryotherapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~defibrillators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~diathermy_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~electrotherapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~holter',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~hospital_beds',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~lymphedema_devices_and_air_chambers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~magnetotherapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~medical_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~mesotherapy_device',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~microscopes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~misc_medical_machines_and_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~misc_medical_measuring_devices_and_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~otoscopes_and_ophthalmoscopes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~ozone_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~patient_hoyer_lifts',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~pelmatographs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~phototherapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~physiotherapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~plaster_saws',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~transparency',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~ultrasound_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_medical_machinery~wheelchairs',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_rural_livestock_equipment',
+        children: [
+          {
+            value: 'goods~b2b_rural_livestock_equipment~animal_feed_mills',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~animal_feeders_and_water_dispensers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~animal_management_and_tagging',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~automatic_chicken_coop_doors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~beekeeping_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~bottling_products',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~cheese_making_and_processing',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~chicken_wire_mesh',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~composting',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~container_stands',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~demijohns',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~egg_incubators',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~electric_fencing_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~garden_hose_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~grape_and_olive_buckets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~grape_destemmers_and_crushers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~grape_presses',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~hygiene_and_grooming',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~irrigation_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~jerry_cans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~lawn_rollers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~livestock_bells',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~livestock_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~livestock_habitats',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~livestock_supplies_and_care',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~milk_management',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~milking_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~nesting_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~oil_floating_lids',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~oil_wine_taps',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~olive_harvesting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~olive_harvesting_bags',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~olive_harvesting_nets',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~plastic_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~plucking_machines',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~poultry_coops_and_cages',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~poultry_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~seeders_fertilizer_spreaders',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~sheep_shearing_machines_and_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~stainless_steel_containers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~storage_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~tarpaulins',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~tin_cans',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~veterinary_tools',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~wine_barrels',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~wine_beverage_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~winemaking_measuring_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_rural_livestock_equipment~wire_fencing',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~b2b_signage',
+        children: [
+          {
+            value: 'goods~b2b_signage~advertising_stands',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~chalk_boards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~conference_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~fire_safety_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~first_aid_emergency_and_exit_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~frames_and_notice_boards',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~house_signs_and_numbers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~information_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~mandatory_safety_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~menu_and_check_displayers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~parking_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~price_tags',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~product_display_stands',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~prohibition_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~publication_displays',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~road_and_traffic_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~road_signage',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~rope_barriers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~shop_window_and_wall_stickers',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~tabletop_signage',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~warning_signs',
+            children: [],
+          },
+          {
+            value: 'goods~b2b_signage~wc_signs',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~baby_equipment_baby_toys_and_baby_necessities',
+        children: [
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_activity_toys',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_and_kids_feeding_sets',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_and_toddler_cups',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_and_toddler_plates_and_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_bath_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_bath_toys',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_bibs',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_bottles_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_car_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_car_seats',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_carrier_slings',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_changing_pads',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_electric_nail_files',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_gift_sets',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_highchairs',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_playmats_and_gyms',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_proofing_products',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_push_walkers',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_rattles',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_sippy_cups',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_sleep_cloths',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_sleeping_bags',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_spoons_and_kids_cutlery',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_thermos',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_walkers',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~baby_weaning_products',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~booster_chair_and_seat_for_table',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~bottle_teats',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~breast_pump_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~burp_cloths_and_swaddle_wraps',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~crib_bumpers',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~diaper_bags',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~diaper_bins_and_refills',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~hanging_baby_toys',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~kids_tricycles',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~miscellaneous_baby_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~nursing_and_pregnancy_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~pacifiers',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~pacifiers_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~port_bebe',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~pushchairs_and_strollers',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~rocking_toys',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~stroller_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~stroller_covers_and_mattresses',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~stroller_footmuffs',
+            children: [],
+          },
+          {
+            value: 'goods~baby_equipment_baby_toys_and_baby_necessities~teethers_and_teething_relief',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~bedding_general_category',
+        children: [
+          {
+            value: 'goods~bedding_general_category~aprons',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_and_children_s_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_bathrobes_and_hooded_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_bedding_sets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_blankets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_duvet_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_mattress_protectors_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_mosquito_nets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_pillowcases',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_quilts',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~baby_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~bath_mats',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~bath_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~bathrobes',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~beach_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~bed_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~blankets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~bridal_bedding',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~cot_bed_duvets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~coverlets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~curtains',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~duvet_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~elastic_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~fabrics',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_bathrobes',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_bathroom_mats',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_bedspreads_and_runners',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_blankets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_curtains',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_duvet_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_pillowcases',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_quilts',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~hotel_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kid_s_beach_poncho',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_bathrobes',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_beach_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_blankets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_curtains',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_duvet_covers',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_duvets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_pillowcases',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_quilts',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kids_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~kitchen_towels',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~mattress_covers_and_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~oven_gloves_mitts_and_pot_holders',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~pillowcases',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~quilts',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~restaurant_linens',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~shower_curtains',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~tablecloths',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_general_category~throws_and_couch_blankets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~bedding_rugs',
+        children: [
+          {
+            value: 'goods~bedding_rugs~bedroom_rug_sets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_rugs~carpets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_rugs~church_carpets',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_rugs~kids_rugs',
+            children: [],
+          },
+          {
+            value: 'goods~bedding_rugs~living_room_rugs',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~electrical_cables_sockets_and_accessories',
+        children: [
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~30_pin_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~3_5mm_jack_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~alarm_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~antenna_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~audio_and_video_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~audio_video_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~automatic_circuit_breaker',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~cable_channels',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~car_audio_stereo_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~dimmer_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~displayport_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~dvi_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~earthing_materials',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electric_car_charging_station_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electric_car_charging_station_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electrical_conduits',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electrical_panel_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electrical_panel_push_buttons_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electrical_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~electrical_wall_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~extension_cords',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~fabric_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~firewire_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~fuse_box',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~fuse_links',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~hard_drive_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~hdmi_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~heat_shrink_tubing',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~insulation_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~intermediate_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~junction_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~kvm_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~led_controllers_and_dimmers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~led_strip_aluminum_profile',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~led_strip_connector_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~lightning_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~micro_usb_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~misc_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~multi_port_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~network_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~network_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~optical_cables_toslink',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~panel_indicator_lights',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~power_cords',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~power_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~rca_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~satellite_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~scart_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~schuko_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~serial_ps_2_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~socket_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~speaker_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~studio_and_musical_instruments_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~switch_frames',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~telephone_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~telephone_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~thunderbolt_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~time_lag_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~timer_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~tv_antenna_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~usb_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~usb_type_c_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~vga_cables',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~wall_push_button_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_cables_sockets_and_accessories~xlr_cables',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~electrical_electronic_test_instruments_and_devices',
+        children: [
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~anemometers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~autonomous_photovoltaic_systems',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~benchtop_multimeters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~blacklight',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~cable_testers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~capacitance_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~car_diagnostics_tools',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~cctv_testers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~clamp_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~decibel_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~digital_multimeters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~din_rail_power_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~electric_car_charging_stations',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~electric_panel_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~electric_sprinkler_valves',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~electrical_meter_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~electrical_power_transformers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~endoscope_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~gas_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~handheld_thermal_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~industrial_buttons',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~industrial_relays',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~industrial_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~industrial_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~infrared_and_laser_thermometers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~insulation_and_earth_testers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~inverters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~irrigation_monitoring_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~irrigation_nozzles',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~irrigation_programmers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~laboratory_power_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~laser_levels',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~led_power_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~metal_gold_detectors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~misc_industrial_building_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~optical_levels',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~oscilloscopes_and_frequency_generators',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~paint_thickness_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~panel_lightning_protection',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~ph_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~phase_relays',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~photometers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~photovoltaic_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~portable_moisture_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~radiation_meters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~roller_and_awning_mechanisms',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~solar_charge_controllers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~solar_panels',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~spare_parts_for_intercoms_and_video_doorbells',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~special_measuring_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~speed_controllers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~speedometers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~swimming_pool_water_maintenance',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~thermostats',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~time_delay_relays',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~timer_relays',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~voltage_converters',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~voltage_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~voltage_regulators',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~voltage_testers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~wall_wire_detectors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_electronic_test_instruments_and_devices~water_quality_meters',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~electrical_light_bulbs',
+        children: [
+          {
+            value: 'goods~electrical_light_bulbs~car_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~energy_saving_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~fluorescent_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~halogen_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~led_bulbs',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~led_strips',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~special_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_light_bulbs~vintage_light_bulbs',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~electrical_security_systems',
+        children: [
+          {
+            value: 'goods~electrical_security_systems~access_control_cards',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~access_controls',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~alarm_beacons',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~alarm_control_system',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~alarm_remote_controls',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~alarm_sirens',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~beam_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~bug_and_camera_detectors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~camera_surveillance_systems',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~car_fire_extinguishers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~cctv_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~day_night_photocells',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~door_and_window_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~door_wedge_alarms',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~fire_alarms',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~fire_extinguishers',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~fire_extinguishing_systems',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_door_control_panels',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_door_motor_set',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_door_motors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_door_photocell_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_door_remote_controls',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~garage_doors_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~glass_break_detectors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~misc_home_security_hardware',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~motion_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~safes',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~security_access_control_keypads',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~spy_and_headset_bugs',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~spy_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~surveillance_video_recorders',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~temperature_and_humidity_sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electrical_security_systems~water_leak_detectors',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~electronics_microelectronics',
+        children: [
+          {
+            value: 'goods~electronics_microelectronics~arduino',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~battery_holders',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~breadboards',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~cable_clips',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~cable_spiral_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~cable_ties',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~capacitors',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~connectors',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~converters',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~diodes',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~electrical_terminals',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~fuses',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~integrated_circuits_ic',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~leds',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronic_converter_modules',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronic_cooling_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronic_display_modules',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronic_enclosures',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronic_motor_drivers',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~microelectronics_boards',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~misc_cable_management_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~misc_electronics',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~on_off_switches',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~plugs',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~potentiometers',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~raspberry_pi_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~relays',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~resistors',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~sensors',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~transistors',
+            children: [],
+          },
+          {
+            value: 'goods~electronics_microelectronics~wire_connection_strips',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_bags_and_wallets',
+        children: [
+          {
+            value: 'goods~fashion_bags_and_wallets~backpacks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~beach_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~bum_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~kids_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~kids_wallets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~men_s_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~men_s_wallets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~sack_voyage',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~shopping_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~suitcases',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~women_s_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_bags_and_wallets~women_s_wallets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_clothing',
+        children: [
+          {
+            value: 'goods~fashion_clothing~baby_bodysuits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~bikini_bottoms',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~bikini_set',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~bikini_tops',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~bralettes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~bras',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~corsets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~dresses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~garters_and_garter_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~girls_dresses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_blouses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_jackets_and_cardigans',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_pants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_rainwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_socks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~hunting_vests',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_cardigans',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_clothing_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_coats_and_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_leggings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_nightwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_shorts_and_bermudas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_skirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_socks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_sweatshirts_and_hoodies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_swimwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_thermal_clothing',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_tights',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_tops',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_tracksuits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_trousers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~kids_underwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~leather_and_latex_outfit',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_and_nursing_bras',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_belly_bands_and_support_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_briefs',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_dresses_and_skirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_nightwear_and_pyjamas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_pants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_swimwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_tights',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~maternity_tops',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_blouses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_boxers_and_slips',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_coats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_fleece_jackets_and_cardigans',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_jeans_pants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_pyjamas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_suit_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_suits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_swimwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_trousers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~men_s_undershirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~military_blouses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~military_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~military_pants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~military_uniforms_and_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~one_piece_jumpsuits_and_shorts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~pareos',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~printed_blouses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~promotional_clothing',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_baby_dolls',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_bodystockings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_bodysuits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_corsets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_lingerie_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sexy_outfit',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~socks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~sports_bras',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~swimsuits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_beachwear',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_blazers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_blouses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_bodysuits',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_briefs',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_cardigans',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_coats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_furs',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_jeans_pants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_pantyhose',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_pyjamas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_shorts_bermudas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_skirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_t_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_trousers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing~women_s_underwear_sets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_clothing_accessories',
+        children: [
+          {
+            value: 'goods~fashion_clothing_accessories~beanies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~bow_ties',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~chains_and_cords_for_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~cufflinks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~eyeglass_cases',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~fishing_clothing_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~gloves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~hunting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~hunting_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~hunting_hats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~hunting_holsters',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~jockey',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~keychains_and_key_holders',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_beanies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_bow_ties',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_hair_bands',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_hair_clips',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_hair_ties_and_scrunchies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_hats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_headbands',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_scarves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_suspenders',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_ties',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~kids_umbrellas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~luggage_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~men_s_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~men_s_hats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~men_s_scarves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~military_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~military_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~military_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~military_hats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~military_recruits_packages',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~suspenders',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~tie_clips',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~ties',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~toiletry_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~travel_pillows_and_sleep_masks',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~umbrellas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~visual_care_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~women_s_belts',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~women_s_hats',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~women_s_shawls_and_stoles',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_clothing_accessories~women_s_wool_scarves',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_eyewear',
+        children: [
+          {
+            value: 'goods~fashion_eyewear~blue_light_blocking_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_eyewear~kids_sunglasses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_eyewear~prescription_eyeglass_frames',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_eyewear~reading_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_eyewear~sunglasses',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_footwear',
+        children: [
+          {
+            value: 'goods~fashion_footwear~heels',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~hunting_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_beach_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_espadrilles',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_flip_flops',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_loafers_and_moccasins',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_pumps_and_ballerinas',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_sandals',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~kids_wellies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_beach_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_casual_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_dress_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_espadrilles',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_flip_flops_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_moccasins',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_oxfords',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_sandals',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_slip_ons',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~men_s_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~military_combat_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~soft_sole_shoes_for_babies',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_ankle_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_ballerina_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_beach_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_boots',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_espadrilles',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_flat_sandals',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_flip_flops_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_moccasins',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_mules',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_oxfords',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_platforms',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_sandals',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_slip_ons',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_slippers',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_footwear~women_s_wellies',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_jewellery',
+        children: [
+          {
+            value: 'goods~fashion_jewellery~anklets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~bracelets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~chains',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~charms',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~crosses',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~earrings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~earrings_piercing',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~jewelry_set',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_bracelets',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_charms',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_earrings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_necklaces',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_pendants',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~kids_rings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~necklaces',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~pins',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~rings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~safety_pin_charms',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~single_stone_rings',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_jewellery~wedding_rings',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fashion_watches',
+        children: [
+          {
+            value: 'goods~fashion_watches~kids_smartwatches',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_watches~kids_watches',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_watches~men_s_watches',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_watches~watch_bands_and_straps',
+            children: [],
+          },
+          {
+            value: 'goods~fashion_watches~womens_watches',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg',
+        children: [
+          {
+            value: 'goods~fmcg~baby_creams_and_ready_meals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg~infant_milk',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg~snacks_for_babies_and_kids',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_alcoholic_beverages',
+        children: [
+          {
+            value: 'goods~fmcg_alcoholic_beverages~asian_spirits',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~beers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~bitters',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~champagnes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~cocktails',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~cognac_and_brandy',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~distillates',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~drink_wine_compositions',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~gin',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~liqueurs_and_aperitifs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~ouzo',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~rum',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~tequila',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~tsipouro_tsikoudia',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~vodka',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~whisky',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_alcoholic_beverages~wines',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_cleaning_supplies',
+        children: [
+          {
+            value: 'goods~fmcg_cleaning_supplies~all_purpose_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~aromatherapy_diffuser',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~aromatic_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~bathroom_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~bubble_wrap',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~candles',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~dishwasher_detergents',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~dishwasher_maintenance',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~fabric_softeners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~gift_cards',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~home_fragrance',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~kitchen_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~kitchen_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~kitchen_paper',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~knitted_bags_materials',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~knitting_yarn',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~laundry_boosters',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~laundry_detergents',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~napkins',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~office_cleaning_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~packaging_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~packaging_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~packaging_films',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~packaging_materials',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~papers_and_air_fryer_liners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~sewing_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~shoe_care_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~straws',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~stretch_film',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~tealights',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~tissues',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~toilet_paper',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~trash_bags',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~washing_and_ironing_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~washing_up_liquids',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~water_filter_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cleaning_supplies~wedding_favors_materials',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_cosmetics',
+        children: [
+          {
+            value: 'goods~fmcg_cosmetics~bath_salts',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~beard_and_moustache_grooming_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~beard_brushes_and_combs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~blushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~body_masks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~body_moisturisers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~body_scrubs_and_exfoliators',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~bronzers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~care_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~cellulite_and_slimming_firmers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~concealers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~contouring',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~essential_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eye_liners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eye_pencils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eye_shadows',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eyebrow_makeup',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eyebrow_tweezers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~eyelash_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~face_masks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~face_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~face_powder',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~face_scrubs_and_exfoliators',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~false_eyelashes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~foot_care_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~fragrance_set',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_ampoules',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_brushes_and_combs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_care_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_clips',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_colour_additives_and_fillers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_colour_developers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_dye',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_dyeing_and_bleaching_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_foams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_gel',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_headbands',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_lightening_and_bleaching_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_lotion',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_masks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_mist',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_pins',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_protection_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_removal_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_removal_creams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_removal_wax',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_scrunchies',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_serums',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_silk_treaments',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_spray',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_styling_creams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_styling_powders',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hair_waxes_clays_and_pomades',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~hand_creams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~highlighters',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~kids_fragrances',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~kids_hair_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~lip_care',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~lip_gloss',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~lip_liners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~lipsticks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~make_up_brushes_and_sponges',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~make_up_foundation',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~makeup_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~makeup_finishers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~makeup_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~makeup_palettes_and_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~mascaras',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~men_s_fragrances',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~nail_clippers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~nail_files',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~nail_polish',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~nail_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~nail_strengthening_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~plant_care_oils',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~primers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~scrunchies',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~self_tanners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~serum',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~shaving_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~skin_care_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~sponges_and_body_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~stretch_marks_treatments',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~teeth_whiteners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_cosmetics~women_s_fragrances',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_food_and_beverages',
+        children: [
+          {
+            value: 'goods~fmcg_food_and_beverages~baked_goods',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~beverages',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~biscuits',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~bottled_water',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~butter_and_margarine',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cake_sweet_bread_and_croissant',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~candy_lollipops_and_chewing_gum',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cereal_bars',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cheese',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~chocolate',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cocktail_ingredients',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~coconut_oil',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~coffee',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~coffee_and_beverage_capsules',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cold_cuts',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~confectionery_aromas_and_flavors',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~confectionery_mixes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~confectionery_toppings',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~cream_and_whipped_cream',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~dairy_products_and_plant_based_milks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~desserts',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~dips_and_spreads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~dressings_and_sauces',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~dried_fruits_and_nuts',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~edible_cake_decorations',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~eggs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~flour',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fondant_icings',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~food_colours',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fresh_fish_and_seafood',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fresh_herbs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fresh_meat_and_poultry',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fresh_milk',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fresh_pasta',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_fish_and_seafood',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_fruits_and_vegetables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_meat_and_poultry',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_pastries',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_pizza_pies_and_doughs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~frozen_ready_meals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~fruits',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~herbs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~honey',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~ice_cream_and_frozen_desserts',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~jams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~juices',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~legumes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~oats_and_cereals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~olive_oil',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~olives',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~pantry_staples',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~pasta',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~potato_chips',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~puffed_snacks_and_popcorn',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~ready_made_salads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~ready_meals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~refrigerated_fresh_dough',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~refrigerated_juices',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~rice',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~salt',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~salty_snacks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~seed_oil',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~shelf_stable_foods',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~smoked_and_salted',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~soft_drinks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~spices_and_seasonings',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~spoon_sweets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~spreads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~stocks',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~sugar_and_substitutes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~tea',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~traditional_sweets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~vegetables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~vinegar',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~wedding_christening_sugared_almonds',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_food_and_beverages~yogurts_and_plant_based_desserts',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_household_chemicals',
+        children: [
+          {
+            value: 'goods~fmcg_household_chemicals~air_conditioner_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~fireplace_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~insect_and_pest_repellent_sprays',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~pool_chemicals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~pool_chlorine',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~pool_cleaning_tools_and_chemicals',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~pressure_washer_cleaners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~rodent_killers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~smoke_machine_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_household_chemicals~special_cleaners',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~fmcg_personal_hygiene_consumables',
+        children: [
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~after_sun_care',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~aftershave',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~baby_and_child_care_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~baby_and_kids_creams_and_ointments',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~baby_healing_creams',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~baby_shampoos_and_shower_gels',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~baby_wipes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~body_wipes_and_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~breastfeeding_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~bubble_bath',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~children_s_and_baby_manual_toothbrushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~children_s_and_baby_toothpastes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~children_s_electric_toothbrushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~children_s_hot_water_bottles_and_ice_packs',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~children_s_mouthwashes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~cold_sore_products',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~cotton_buds',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~dental_floss',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~denture_care',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~deodorants',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~electric_toothbrush_replacement_heads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~electric_toothbrushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~eye_moisturisers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~face_moisturisers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~facial_cleansers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~facial_toners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~hair_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~hair_sunscreens',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~hand_sanitizers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~incontinence_diapers',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~incontinence_pads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~incontinence_undepads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~interdental_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~kids_shampoos_and_shower_gels',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~kids_sunscreens',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~lice_treatment',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~liquid_soaps',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~manual_toothbrushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~mouthwashes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~oral_care_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~razors',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~sanitary_pads',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~shampoos',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~shaving_foams_and_gels',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~soap_bars',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~spare_parts_for_children_s_electric_toothbrushes',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~sunscreen_sets',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~sunscreens',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~tampons',
+            children: [],
+          },
+          {
+            value: 'goods~fmcg_personal_hygiene_consumables~toothpastes',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_baby_room',
+        children: [
+          {
+            value: 'goods~furniture_baby_room~baby_baths',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~baby_bouncers_and_swing_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~baby_cots_and_playpens',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~baby_cradles',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~baby_cribs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~baby_dressers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~kids_step_stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~moses_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~nursery_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~potties',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_baby_room~toddler_toilet_seats',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_furniture',
+        children: [
+          {
+            value: 'goods~furniture_furniture~armchairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~bedroom_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~beds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~camping_air_mattresses',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~chest_of_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~classroom_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~commercial_butchers_blocks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~commercial_kitchen_food_carts',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~commercial_sinks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~commercial_use_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~commercial_waste_bins',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~console_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~couches',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~desks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dexion_shelving_parts',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dexions',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dining_and_kitchen_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dining_room_and_kitchen_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dining_room_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~dry_erase_boards',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~fish_tank_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~garden_and_outdoor_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~garden_and_pool_deckchairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~garden_and_veranda_swings',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~garden_sheds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~hair_salon_and_spa_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~hair_salon_sinks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~hallway_furniture_and_storage',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~hi_fi_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_bedroom_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_beds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_bookcases_cabinets_and_shelves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_chest_of_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_desks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kids_wardrobes',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~kitchen_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~living_room_display_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~living_room_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~living_room_tv_units',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~makeup_dressing_table',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~massage_tables_and_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~medical_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~medical_examination_beds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~misc_business_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~misc_hair_salon_and_spa_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~office_reception',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~outdoor_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~outdoor_sofas_and_benches',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~outdoor_storage_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~protective_separators_dividers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~recliners',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~retail_organization',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~sideboards_and_buffets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~student_furniture_sets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~studio_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~visitor_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture~wardrobes',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_furniture_and_sanitary_accessories',
+        children: [
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~air_conditioner_support_brackets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bath_shower_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bathroom_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bathroom_curtain_rings',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bathroom_grab_bars',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bed_frames_and_slats',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bed_headboards',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~bidet_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~blinds_and_shutters',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~built_in_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~chair_frames_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~chimney_cleaning_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~curtain_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~curtain_pelmets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~curtain_poles',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~curtain_tiebacks_and_holdbacks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~curtain_tracks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~door_flush_handles',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~door_handles',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_air_shutters',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_grates',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_screens',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_tool_sets_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~fireplace_vents',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~flush_button',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~flush_plates',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~flushometer_valves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~furniture_handles',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~furniture_hardware',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~furniture_legs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~furniture_surfaces',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~hinges',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~kids_bed_accessories_and_canopies',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~kids_bedroom_blinds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~kitchen_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~kitchen_sink_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~kitchen_surfaces',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~lamp_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~lighting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~outdoor_furniture_covers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~roller_blinds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~rollers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~sauna_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~shelf_brackets_and_supports',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~shower_columns',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~shower_curtain_rods',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~sink_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~toilet_flappers_and_flush_valves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~toilet_seats',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~toilet_tank_float_balls',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_furniture_and_sanitary_accessories~window_handles',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_lighting',
+        children: [
+          {
+            value: 'goods~furniture_lighting~ceiling_and_wall_spots',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~ceiling_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~ceiling_spots',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~chandeliers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~commercial_bell_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~commercial_linear_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~decorative_table_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~emergency_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~floor_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~fluorescent_ceiling_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~garland_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~grow_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~kids_ceiling_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~kids_wall_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~lamp_shades',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~led_flood_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~led_light_fixtures',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~led_panels',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~led_pool_spotlights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~lighting_battens',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~mount_ceiling_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~office_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~outdoor_ceiling_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~outdoor_floor_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~solar_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~table_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~under_cabinet_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~vanity_mirror_lights',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~wall_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_lighting~wall_mounted_outdoor_lighting',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_mattresses_and_pillows',
+        children: [
+          {
+            value: 'goods~furniture_mattresses_and_pillows~baby_and_kids_mattresses',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~baby_and_kids_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~bed_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~hotel_mattress_toppers_and_pads',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~hotel_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~mattress_toppers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_mattresses_and_pillows~mattresses',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~furniture_small_furniture',
+        children: [
+          {
+            value: 'goods~furniture_small_furniture~bathroom_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bathroom_column_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bathroom_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bathroom_shelves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bean_bag_chairs_and_poofs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bedside_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bicycle_parking_bars',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~bookcases_and_shelves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~car_ramps',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~car_support_stands',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~coffee_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~combination_ladders',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~deckchairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~decorative_trunks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~firewood_racks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~floor_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~food_racks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~freestanding_coat_racks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~garden_and_terrace_parasols',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~garden_and_terrace_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~garment_racks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~gazebos_pop_up_tents_and_awnings',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~guest_and_folding_beds',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hair_salon_and_spa_stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hair_salon_maintenance_carts',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hammocks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hand_dryers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hand_sanitizer_stands',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~hotel_luggage_racks',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~kids_bedside_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~kids_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~kids_shelves',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~kids_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~ladders',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~multipurpose_ladder',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~music_stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~office_and_desk_stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~office_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~office_storage_drawers_and_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~outdoor_shelving_units',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~outdoor_stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~outdoor_storage_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~painting_easels',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~radiator_covers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~room_dividers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~shoe_organizers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~small_storage_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~step_ladders',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~stools',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~telescopic_ladders',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~tv_stands',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~vehicle_engine_stands',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~wine_racks_and_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~work_stool',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~work_tables',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~workshop_creepers',
+            children: [],
+          },
+          {
+            value: 'goods~furniture_small_furniture~workshop_tire_stands',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~hobby_lightweight_equipment_and_accessories',
+        children: [
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~airbrushings',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~airsoft_bbs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~backgammon_and_chess',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~badges',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_mats',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_rackets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_shades_and_tents',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_sunbeds',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_umbrella_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_umbrella_sand_anchors_and_bases',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~beach_umbrellas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~billiards_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~bows',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~bows_for_classic_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_cooking_utensils',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_cookwear',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_furniture',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_lights_and_lanterns',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_mosquitos_nests',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_showers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_sleeping_mats',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~camping_tents',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~capos',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~cartridge_stoves',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~chemical_toilet_liquids',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~craft_tools',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~dartboards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~diamond_painting_tools_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~disco_balls',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~drumheads',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~drumsticks',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~football_tables_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~gambling_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~horns',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~ice_packs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~inflatable_boats',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~insulated_bottle_cases',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~kids_life_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~kids_puzzles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~kids_swim_rings',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~kids_swim_trainers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~knitting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~knives_and_multi_purpose_tools',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~magic_kits_and_juggling_sets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~metronomes_and_tuners',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~microfiber_towels',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~misc_music_instruments_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~misc_percussion_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~misc_string_instruments_accesories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~misc_survival_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~misc_wind_instruments_accesories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~movies',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~multitool_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~music_instruments_amplifier_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~music_instruments_stands',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~music_stands',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~musical_instrument_cases',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~party_fireworks',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pickguards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~picks',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pickups',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~picnic_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~playing_cards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~poker_chips',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pool_covers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pool_cues',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pool_rafts_and_inflatable_ride_ons',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~portable_espresso_machines',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~portable_fridges',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~portable_toilets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~practice_pads',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~protein_shakers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~pumps_for_inflatables',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~puzzles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~ropes',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~sewing_machines_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~sewing_sets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~sewing_tools',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~sleeping_bag_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~sleeping_bags',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~spare_parts_for_thermos_and_portable_fridges',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~stand_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~static_models',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~string_instrument_saddles_and_nuts',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~string_instruments_straps',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~string_instruments_tuning_pegs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~strings',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~survival_axes',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~survival_food',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~survival_kit',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~swim_belts',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~swimming_armbands',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~swimming_boards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~swimming_pool_noodles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~tarot_cards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~telescope_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~tent_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~thermos_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~violin_bridges',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_lightweight_equipment_and_accessories~worry_beads',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~hobby_musical_instruments',
+        children: [
+          {
+            value: 'goods~hobby_musical_instruments~accordions',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~acoustic_basses',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~acoustic_guitars',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~baglamas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~banjo',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~baritones_and_euphoniums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bass_drum_pedals',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bass_drums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bells',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bendir',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~blocks',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bongos',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~bouzoukia',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cabasa',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cajon',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~castanets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cava',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cellos',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~children_s_percussion',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~clarinets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~classical_guitars',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~clubs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~congas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cymbals',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~cymbals_sets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~djembe',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~double_basses',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~doumbeks_and_darbukas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~drum_machines',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~drums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~drums_set',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~electric_basses',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~electric_guitars',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~electronic_drum_parts',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~electronic_drums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~ethnic_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~fagotto',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~floor_toms',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~flutes',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~gongs',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~handpans_ethnic',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~harmonicas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~harps',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~kalimba',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~kanun',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~kazoo',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~keyboards',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~lap_steel_guitars',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~lutes',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~lyres',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~mandolins',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~maracas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~marimba',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~meditation_bowl',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~meditation_cymbals',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~melodicas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~metallophones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~misc_musical_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~monochords_for_music_therapy',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~mouth_harps',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~music_chimes',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~music_sharpeners',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~musical_horn',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~musical_shakers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~musical_spoons',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~musical_triangles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~musical_whistles',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~new',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~oboe',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~ocarinas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~orchestra_bells',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~orchestra_drums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~otamatone',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~oud',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~parade_percussion',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~percussion_effects',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~pianos',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~rain_columns',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~recorders',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~resonator_guitars',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~santouri',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~saxophones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~saz',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~scooters',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~snare_drums',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~steel_tongue_ethnic',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~synthesizer_modules',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~synthesizers',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~tambourine',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~tambourines',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~timbales',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~toms',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~trombones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~trumpets',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~tzouras',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~ukulele',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~violas',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~violins',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~waterphones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~xylophones',
+            children: [],
+          },
+          {
+            value: 'goods~hobby_musical_instruments~zournas',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~home_improvement_central_heating_and_plumbing_machinery',
+        children: [
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~bioethanol_fireplaces',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~boiler_burners',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~boilers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~circulator_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~cultivators',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~electric_fireplaces',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~electric_water_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~expansion_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~fan_coil_units',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~firepits',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~forced_circulation_water_heating_systems',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~heat_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~hot_water_storage_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~instant_water_heaters_and_instant_heater_taps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~pool_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~pool_water_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~solar_collectors',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~solar_water_heater_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~solar_water_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~storage_heaters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~submersible_water_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~surface_water_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_central_heating_and_plumbing_machinery~transfer_pumps',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~home_improvement_construction_for_heating_and_ventilation',
+        children: [
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~ash_filters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~chimney_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~cylinder_euro_profile_cylinder_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~defender_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~door_bars',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~door_closers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~door_handles_and_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~door_keys',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~door_knobs',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~electrical_cypriot_and_electromagnetic_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~electronic_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~fireplace_heat_exchangers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~fireplace_mantels',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~frames_and_shutters',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~furniture_cabinet_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~glass_door_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~greenhouses',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~home_alarm_systems',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~lock_bases_and_components',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~lock_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~locks_and_knobs',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~locks_for_reinforced_door',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~locks_for_sliding_aluminum_doors',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~pool_engine_rooms',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~pool_equipment_and_parts',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~pool_showers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~radiators',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~recessed_locks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~roofs',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~rosettes_door_knobs',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~sliding_door_mechanisms',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~swimming_pool_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~vent_louvers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_construction_for_heating_and_ventilation~ventilators',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~home_improvement_sanitary_ware_products',
+        children: [
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~bathroom_sinks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~bathroom_vanity_units',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~bathtubs_and_hydrotherapy_tubs',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~bidet_toilet',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~kitchen_sinks',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~saunas',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~shower_stalls_and_partitions',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~showers',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~tiles',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~toilet_flushes',
+            children: [],
+          },
+          {
+            value: 'goods~home_improvement_sanitary_ware_products~toilets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~household_general_category',
+        children: [
+          {
+            value: 'goods~household_general_category~adhesive_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~animal_repellents',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~animal_traps',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~ashtrays',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~bathroom_accessory_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~bathroom_boxes_and_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~bathroom_trash_cans_and_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~bathtub_mats',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~book_lights',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~bugg_zappers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~cleaning_buckets_and_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~cleaning_cloths',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~clothes_drying_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~clothes_hangers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~clothespins',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~clothing_storage',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~dispenser',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~door_curtains',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~door_draft_stoppers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~door_stoppers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~drinking_flasks',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~dusting_products',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~dustpans',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~fabric_wardrobes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~flash_lights',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~furniture_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~grill_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~handheld_showerheads',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~hooks',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~household_cleaning_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~household_sprayers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~ironing_board_covers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~ironing_boards',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~kids_floor_puzzles',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~kids_room_decor_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~kitchen_and_bathroom_faucet_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~kitchen_sponges',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~knitting_needles',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~laundry_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~lint_rollers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~mailboxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~memorial_ornaments',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~misc_cleaning_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~misc_ecclesiastical_items',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~misc_gardening_products',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~misc_household_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~moisture_absorbers',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~money_hiders',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~mop_buckets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~mosquito_nets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~nursery_storage_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~oven_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~padlocks',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~play_tents_and_tunnels',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~rubber_bands',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~shopping_trolleys',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~shower_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~showerheads',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~splash_filter_faucet',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~storage_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~storage_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~toothbrush_and_toothpaste_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~toy_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~washing_line_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~waste_bins',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~window_cleaner',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~wiping_and_mopping_products',
+            children: [],
+          },
+          {
+            value: 'goods~household_general_category~work_and_site_lights',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~household_home_decor',
+        children: [
+          {
+            value: 'goods~household_home_decor~3d_wall_panels',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~bathroom_hooks_and_hangers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~candle_holders',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~combination_key_holders',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_artificial_flowers_and_plants',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_figures',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_magnets',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_miniatures',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_platters',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~decorative_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~door_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~doormats',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~floor_decor',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~flowers_and_bouquets',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~jewellery_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~key_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_and_baby_growth_charts',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_posters',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_room_dividers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_table_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_throw_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wall_art',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wall_clocks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wall_decor',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wall_hangers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wall_stickers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kids_wallpapers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~kitchen_mats',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~lanterns',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~magazine_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~money_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~new_year_s_lucky_charms',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~nursery_decor',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~nursery_night_lights',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~office_decor_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~paintings',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~photo_albums',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~picture_frames',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~picture_frames_for_kids',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~posters',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~saint_icons',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~sweet_jars',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~tabletop_clocks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~tabletop_decor',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~throw_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~umbrella_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~vases',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~vigil_oil_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wall_clocks',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wall_decor',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wall_hangers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wall_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wall_stickers_and_murals',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~wallpapers',
+            children: [],
+          },
+          {
+            value: 'goods~household_home_decor~watch_winders_and_cases',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~household_kitchen_tools_and_utensils',
+        children: [
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~bakeware_tins_and_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~baking_pans',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~baking_tools_and_utensils',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~barbecue_tool_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~bbq_smoking_chips',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~beverage_dispensers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~bottles',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~bread_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cabinet_dish_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cake_rings_cookie_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cake_stands',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~can_openers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~capsule_coffee_stands',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~charcoal_grills',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~chopping_boards',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~coaster',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~coffee_pots',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~confectionery_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cookie_jars',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cooking_utensil_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cookware_lids',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cookware_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~corkscrews_and_openers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cups',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~cutlery_set',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~decanters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~decorative_ice_cubes',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~dessert_tower_stands_and_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~dinnerware_set',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~dish_racks_and_drainers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~drawer_cutlery_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~drinking_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~dutch_ovens',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~flatware_and_utensil_storage',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~fondue_pots_and_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~food_covers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~food_jars_and_containers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~food_thermometers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~forks',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~fridge_organisers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~fruit_bowls_and_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~glasses',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~graters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~grill_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~grill_cleaning_and_maintenance',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~grill_lighting_and_smoking_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~grill_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~heat_resistant_cookware',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~ice_cream_scoops',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~ice_cube_molds_and_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~icing_tools_and_spatulas',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~jugs',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~juicers_and_squeezers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_cutting_and_slicing_tools',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_organization_shelves_and_racks',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_shears_and_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_sink_organizers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_spatulas',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_timers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_tongs_and_tweezers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~kitchen_torches',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~knives',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~lunch_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~manual_filter_coffee_makers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~measuring_cups_and_spoons',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~milk_jugs_and_sugar_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~mincers_and_mashers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~misc_cooking_utensils',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~misc_kitchen_stands_and_cases',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~mugs',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~non_stick_baking_surfaces',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~nutcrackers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~oil_and_vinegar_dispenser_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~oil_and_water_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pans',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~paper_towel_and_napkin_holders',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pasta_and_pastry_machines',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pastry_and_basting_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pastry_bags',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pastry_tools',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~peelers_pit_removers_slicers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pizza_dough_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~placemats',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pots',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pots_and_pans_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~pressure_cookers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~rolling_pins_and_pastry_boards',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~rotisserie_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~salad_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~salt_pepper_mill_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~salt_pepper_sets',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~serveware_and_dinnerware_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~serving_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~serving_plates_and_bowls',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~serving_platters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~serving_trays',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~spice_jars',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~spits',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~spoons',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~stovetop_espresso_pots',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~strainers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~tea_filters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~teapots',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~trays_carafes_wedding_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~whisks_and_beaters',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~wine_savers',
+            children: [],
+          },
+          {
+            value: 'goods~household_kitchen_tools_and_utensils~wine_stoppers_and_pourers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~household_outdoor_decoration',
+        children: [
+          {
+            value: 'goods~household_outdoor_decoration~agro_textiles',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~artificial_foliage',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~bamboo_fencing',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~fabrics_for_awnings_and_umbrellas',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~fences',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~fountains_and_lakes',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~garden_chair_cushions',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~garden_decorations',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~hose_hangers',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~mesh_and_shade_fabrics',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~plant_pots',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~plant_stakes',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~plant_stands',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~plant_supports_and_ties',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~planters_and_pots',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~plants',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~pot_plates',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~railings_safety_net',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~seeds_and_bulbs',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~trellises_and_pergolas',
+            children: [],
+          },
+          {
+            value: 'goods~household_outdoor_decoration~watering_cans',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements',
+        children: [
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~amino_acids',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~anti_snoring_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~baby_diapers',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~bandages',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~beeswax_ointments_and_st_john_s_wort_oils',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~blood_glucose_test_strips',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~burns_scars_and_healing_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~collagen',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~condoms',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~constipation_relief_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~contact_lens_solutions',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~contact_lenses',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~cotton',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~cough_and_sore_throat_remedies',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~creams_and_eyelid_cleansers',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~creatines',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~diagnostic_tests',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~ear_cleaning',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~earplugs',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~electrolytes_and_isotonics',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~enzymes',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~exam_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~eye_drops',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~eye_patches',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~fat_burners',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~fatty_acids',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~first_aid_anticeptics',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~first_aid_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~flower_essences',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~flower_waters',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~foot_pads',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~hemp_products_cbd',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~herbal_supplements',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~hot_water_bottles_and_ice_packs',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~insect_and_pest_repellents',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~intimate_care_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~lens_cleaning_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~medical_gauze',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~menstrual_cups',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~minerals',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~muscle_bone_and_joints_remedies',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~nasal_decongestants',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~nasal_strips',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~nausea_relief_products',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~ointments_for_cold',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~pharmaceutical_and_cosmetic_raw_materials',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~pill_organizers',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~plasters',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~probiotics',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~products_for_hemorrhoids',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~products_for_skin_conditions',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~products_for_smoking_cessation',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~protection_masks_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~protective_masks',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~protein_bars',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~proteins',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~special_food_supplements',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~suction_cups',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~urine_collectors',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_consumer_health_consumables_and_supplements~vitamins',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~medical_pharmaceutical_household_accessories',
+        children: [
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~accessories_for_oxygen_therapy_devices',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~air_mattresses_and_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~anatomic_insoles',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~ankle_braces',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~back_braces',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~bathroom_and_toileting_aids',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~blood_pressure_monitor_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~breast_prostheses',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~calf_supports',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~canes_and_crutches',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~car_first_aid_kits',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~cpap_and_bipap_sleep_masks_for_apnea',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~daily_living_aids',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~elbow_braces',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~first_aid_kits_and_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~hospital_bed_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~knee_braces',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~medical_compression_socks',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~neck_supports',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~orthopedic_mattresses',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~orthopedic_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~pressure_ulcers_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~pressure_ulcers_relief_cushions',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~splints',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~thermometers',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~thigh_supports',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~tracheostomy_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~walkers_and_rollators',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~wheelchair_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~medical_pharmaceutical_household_accessories~wrist_braces',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~pets_equipment_and_accessories',
+        children: [
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_air_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_circulation_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_decorations',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_filter_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_filters',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_fish',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_plant_fertilizers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_soils_substrates',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_technical_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_temperature_controllers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_water_parameter_testers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquarium_water_treatments',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~aquariums',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~automatic_fish_feeders',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~bandanas_for_dogs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~birds_cages',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~birds_cages_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~birds_feeding_and_watering',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~birds_hygiene_and_cleaning',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~birds_nests_for_cages',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~boots_and_paw_protectors_for_dogs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_beds',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_brushes_and_combs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_carriers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_collars',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_harnesses',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_id_tags',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_litter',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_shampoos_and_cosmetics',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_toilet_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_toilets',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~cat_toys',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~clothing_accessories_for_dogs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_and_cat_feeders_and_waterers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_beds',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_brushes_and_combs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_car_travel_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_carrying_bags',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_cleaning_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_coats',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_collars',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_cosmetics',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_dental_care',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_diapers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_excrement_removal',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_grooming_clippers_and_blades',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_harnesses',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_houses',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_id_tags',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_leashes_and_leads',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_life_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_muzzles',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_nail_clippers',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_shampoos_and_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_toys',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_training_aids_and_repellents',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_training_and_shock_collars',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_transport_cages',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dog_wire_crates',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~dresses_for_dogs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~fencing_and_dog_gates',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~full_body_clothing_for_dogs',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~live_aquarium_plants',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~misc_aquarium_equipment_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~reptiles_terrariums',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~reptiles_terrariums_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_cages',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_cages_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_cages_bedding_and_substrate',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_feeding_and_watering',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_grooming',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~rodents_toys',
+            children: [],
+          },
+          {
+            value: 'goods~pets_equipment_and_accessories~scratching_posts_and_cat_trees',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~pets_pet_food',
+        children: [
+          {
+            value: 'goods~pets_pet_food~birds_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~birds_health_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~cat_nutrition_supplements',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~cat_treats_and_snacks',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~chew_bones',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~dog_supplements_and_vitamins',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~dog_treats',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~dry_cat_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~dry_dog_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~fish_foods',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~reptiles_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~rodents_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~wet_cat_food',
+            children: [],
+          },
+          {
+            value: 'goods~pets_pet_food~wet_dog_food',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~seasonal_and_events_personalised_cards',
+        children: [
+          {
+            value: 'goods~seasonal_and_events_personalised_cards~baptism_invitations',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_personalised_cards~business_cards',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_personalised_cards~wedding_invitations',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~seasonal_and_events_wedding_baptism_accessories',
+        children: [
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~adult_carnival_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~adults_christmas_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~adults_traditional_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~advent_calendars',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~balloons',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_cloth_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_clothes_for_boys',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_clothes_for_girls',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_decorations',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_guest_books',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~baptism_sets',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~birthday_candles',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~carnival_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~carnival_makeup',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~carnival_masks',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~carnival_wigs',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~children_s_carnival_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_candles',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_charms',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_favors',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_oilcloths',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_shoes_for_boys',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christening_shoes_for_girls',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_boat',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_candles_and_candlesticks',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_clothing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_decorative_figurines',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_decorative_pillows',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_decorative_socks',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_decorative_stars',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_decorative_trees',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_figures',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_garlands',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_lights',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_nutcrackers',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_santas',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_snow_globes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_spotlights',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_stickers',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_tableware_ornaments',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_tree_ornaments',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_tree_stands_and_skirts',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_trees',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_tube_lights',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~christmas_wreaths',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~easter_candles',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~easter_decorations_and_ornaments',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~experience_gifts',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~fans',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~flags',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~helium_bottles_for_balloons',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~invitations',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~kids_christmas_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~kids_traditional_costumes',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~kites',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~mangers',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~misc_party_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_decorations',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_gifts',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_hats',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_napkins',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_tablecovers',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_tableware',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~party_utensils',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~pinatas',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~serpentine_streamers_and_confettis',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~traditional_costume_shoes_and_boots',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~traditional_costumes_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~wedding_crown_cases',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~wedding_crowns',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~wedding_decorations_and_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~wedding_favors',
+            children: [],
+          },
+          {
+            value: 'goods~seasonal_and_events_wedding_baptism_accessories~wedding_wish_books',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_accessories_and_spare_parts',
+        children: [
+          {
+            value: 'goods~sports_accessories_and_spare_parts~aerial_yoga_hammocks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~artificial_baits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~ball_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~basketball_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_air_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_bells_and_horns',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_brake_pads',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_cases_and_holders',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_cassettes_and_sprockets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_chains',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_covers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_cranks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_derailleurs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_disc_brake_rotors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_fork_cups',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_forks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_gear_levers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_handlebar_grips',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_handlebar_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_handlebar_stems',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_handlebar_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_handlebars',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_hubs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_lights',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_locks_and_alarms',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_mudguards_and_fenders',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_pedals',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_rims',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_saddles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_seatposts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_tools_and_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_training_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_tyre_inner_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_wheel_locks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bicycle_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_brake_calipers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_disc_brakes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_kickstands',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_levers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_suspension',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_tyres',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~bike_wire_rope',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~boxing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~carabiners_and_quickdraws',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~climbing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~climbing_rope_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~climbing_straps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~compasses',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~diving_and_spearfishing_buoys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~diving_knives',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~diving_safety_lights',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~diving_suits_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~dry_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~dumbbell_handles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~dumbbells_and_barbells_collars',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~electric_scooter_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~exercise_machine_attachment_grips',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~exercise_machine_attachments',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fiber_optic_gun_sights',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fish_traps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_filament',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_gears',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_hooks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_landing_nets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_lines',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_rod_holders',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~fishing_tools',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_choke_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_cleaning_and_maintenance_products',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_magazines',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_slings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_springs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gun_stock_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~gym_mats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~hydration_packs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~kids_bicycle_seats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~magnesia_cases',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~misc_bicycle_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~misc_bicycle_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~misc_fishing_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~misc_gun_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~misc_speargun_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~ping_pong_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~roller_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~roller_protective_gear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~running_belts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~shooting_and_archery_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~shooting_and_archery_targets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~shooting_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~skateboard_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~skateboard_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~ski_and_snowboard_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~ski_and_snowboard_protective_gear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_heads',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_reels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_rubber_bands',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_shafts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_trident_heads',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~speargun_wishbones',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~spearguns',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~sports_prizes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~sports_whistles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~swimming_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~tennis_racket_grips',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~tennis_racket_strings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~tennis_vibration_dampeners',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~trampoline_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~various_sports_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~water_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~weightlifting_wrist_straps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_accessories_and_spare_parts~yoga_mat_bags_and_straps',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_and_professional_fashion_bags',
+        children: [
+          {
+            value: 'goods~sports_and_professional_fashion_bags~bicycle_bags_and_baskets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~fishing_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~fishing_rod_cases_and_tubes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~food_delivery_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~insulated_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~laptop_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~medical_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~military_backpacks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~mountaineering_backpacks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~ping_pong_cases_and_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~riding_backpacks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~ski_and_snowboard_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~sports_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tennis_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_bags_and_belts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_bin_organisers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_box_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_cases',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_chests',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_compartment_organisers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_bags~tool_storage_boxes',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_and_professional_fashion_clothing_accessories',
+        children: [
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~accessories_for_diving_masks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~bicycle_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~boxing_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~boxing_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~chef_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~climbing_harnesses',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~climbing_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~clothing_badges_and_patches',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~crampons_and_anti_slips',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~cycling_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~diver_s_fishing_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~diving_belts_and_vests',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~diving_equipment_cases',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~diving_masks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~flippers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~goalkeeper_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~groin_and_chest_guards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~gym_towels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~kart_racing_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~kids_bike_scooter_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~kids_swimming_bathrobes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~martial_arts_belts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~martial_arts_chest_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~martial_arts_hand_wraps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~martial_arts_leg_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~martila_arts_hand_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~misc_diving_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~mma_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~motorcycle_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~mountaineering_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~replacement_fin_blades_and_foot_pockets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~riding_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~riding_goggles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~riding_headwear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_earmuffs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_kneepads',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_masks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~safety_masks_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~security_forces_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~security_forces_body_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~security_forces_equipment_cases',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~shoelaces',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~skateboard_protective_gear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~ski_and_snowboard_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~ski_and_snowboard_goggles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~ski_and_snowboard_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~snorkels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~soccer_shin_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~sports_fashion_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~sports_gloves',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~sports_necklaces',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~swimming_bathrobes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~swimming_caps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~swimming_goggles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~swimming_nose_clips',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~swimming_towels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~taekwondo_chest_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~taekwondo_headgear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~volleyball_knee_pads',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~water_sports_life_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~welding_helmets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_accessories~work_helmets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_and_professional_fashion_clothing_and_footwear',
+        children: [
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~basketball_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~beach_poncho',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~belts_and_straps',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~boxing_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~boxing_shorts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~catering_aprons',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~chef_hats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~chef_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~chef_pants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~climbing_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~clogs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_jerseys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_pants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_pants_and_bermudas',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_socks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~cycling_windbreaker_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~dance_clothing',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~dance_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~football_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~hiking_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kart_racing_suits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kids_dancewear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kids_hiking_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kids_sneakers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kids_soccer_cleats_and_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~kids_sports_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~martial_arts_leggings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~martial_arts_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~martial_arts_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~martial_arts_uniforms',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~men_s_shorts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~men_s_sweatpants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~men_s_sweatshirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~mens_sports_leggings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~misc_cycling_clothing',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~misc_sportswear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~mma_shorts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~motorcycle_rain_suits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~mountaineering_trousers_and_pants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~racing_swimsuits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~riding_boots',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~riding_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~riding_jerseys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~riding_pants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~riding_suits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~safety_coveralls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~safety_vests',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~safety_wellies',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sailing_clothes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sauna_suits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~scrubs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~security_forces_jackets_and_overcoats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~security_forces_shirts_and_sweatshirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~security_forces_trousers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~ski_and_snowboard_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~ski_and_snowboard_pants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~ski_and_snowboard_socks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sneakers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sport_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sports_fan_jerseys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sports_socks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~sun_protection_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~tactical_vests',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~taekwondo_doboks',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~tennis_clothes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~tennis_shoes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~thermals_and_base_layers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~water_sports_clothing',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~waterproof_workwear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~wetsuits',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~women_s_leggings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~women_s_sweatpants',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~women_s_sweatshirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_aprons',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_beanies_and_hats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_coveralls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_footwear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_shirts_and_t_shirts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_and_professional_fashion_clothing_and_footwear~work_trousers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_heavy_equipment',
+        children: [
+          {
+            value: 'goods~sports_heavy_equipment~basketball_hoops',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~breathing_regulators_and_diving_instruments',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~canoe_and_kayak',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~cross_trainers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~diving_jackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~diving_watches',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~electric_scooters',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~exercise_and_fitness_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~exercise_bikes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~ice_axes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~inflatable_sea_toys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~ping_pong_tables',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~punching_bags',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~rowing_machines',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~ski_and_snowboard_bindings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~ski_bindings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~ski_boots',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~skis',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~snowboard_boots',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~snowboards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~sup_boards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~trampolines',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~treadmills',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~underwater_seascooters',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~weight_stands',
+            children: [],
+          },
+          {
+            value: 'goods~sports_heavy_equipment~workout_benches',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~sports_lightweight_equipment',
+        children: [
+          {
+            value: 'goods~sports_lightweight_equipment~abs_training_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~balance_trainers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~baseball',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~basket_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~binoculars',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~binoculars_and_scopes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~canoe_and_kayak_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~climbing_descenders_and_anchorage',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~climbing_protective_gear',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~climbing_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~complete_skateboards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~crossfit_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~crossfit_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~dumbbell_set',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~dumbbells',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~exercise_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~exercise_mats',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~fishing_reels',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~fishing_rods',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~foam_rollers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~football_goals',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~golf',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~hand_grips_and_trainers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~handball',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~horse_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~ice_skates',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~jump_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~kettlebell',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~life_jackets_and_buoys',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~martial_arts_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~martial_arts_targets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~martial_arts_weapons',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~misc_fitness_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~mountaineering_gaiters',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~muscle_stimulators',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~padel_rackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~pedometers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~pilates_rings',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~ping_pong_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~ping_pong_rackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~plyometric_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~protective_mouth_guards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~pull_up_bars',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~resistance_bands',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rhythmic_gymnastics_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rhythmic_gymnastics_clubs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rhythmic_gymnastics_hoops',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rhythmic_gymnastics_ribbons',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rhythmic_gymnastics_ropes',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rider_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~rollers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~skateboards',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~ski_poles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~soccer_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~soccer_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~soccer_nets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~squash_and_badminton',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~steppers',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~stopwatches',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~strength_training_bars',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~strength_training_plates',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~sup_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~surf_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~swimming_hand_paddles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~tennis_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~tennis_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~tennis_nets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~tennis_rackets',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~track_and_field',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~training_bibs',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~training_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~trekking_poles',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~volleyball_balls',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~volleyball_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~water_ski_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~weight_lifting_belts',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~windsurf_and_kitesurf_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~sports_lightweight_equipment~yoga_pilates_accessories',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~stationery_books',
+        children: [
+          {
+            value: 'goods~stationery_books~art_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~biographies_and_memoirs',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~business_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~classical_literature_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~colouring_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~comics',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~diaries',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~dictionaries',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~educational_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~essays',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~fairy_tales',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~greek_fiction_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~history_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~hobbies_and_leisure_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~kid_and_teen_literature',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~kids_activity_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~kids_comics_and_graphic_novels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~kids_general_knowledge_and_trivia_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~kids_theater_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~language_and_philology_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~magazines',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~manga',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~non_greek_fiction_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~parenting_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~philosophy_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~poetry_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~political_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~pregnancy_and_childbirth_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~psychology_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~religion_and_metaphysics_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~scientific_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~self_improvement_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~sheet_music',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_books~teaching_aid_books',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~stationery_consumables',
+        children: [
+          {
+            value: 'goods~stationery_consumables~accounting_forms',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~acrylic_colours',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~arc_ring_binders',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~art_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~beads_and_sequins',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~binder_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~book_cover_protection',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~bookbinding',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~bookmarks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~canvases',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~cash_register_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~chalk_paint',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~chalks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~clipboards_and_form_holders',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~coloured_pencils',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~colouring_sets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~correction_products',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~craft_adhesives',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~craft_felts_and_corks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~crayons',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~decorative_adhesive_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~decorative_craft_paper',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~decoupage',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~diy_craft_materials',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~diy_crafting_surfaces',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~drafting_bags',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~drawing_markers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~drawing_pads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~drawing_papers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~duct_tape',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~erasers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~file_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~file_folders',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~finger_paints',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~gift_wrapping',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~gifts_for_special_occasions',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~glitter',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~greeting_cards',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~ink_stamps_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~jewelry_making_materials',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~kids_stationery_sets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~label_maker_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~laces',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~laminating_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~liquid_glass',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~magnets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~mailing_envelopes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~markers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~materials_for_candles',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~mechanical_pencil_lead_refills',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~mechanical_pencils',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~memo_pads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~misc_craft_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~misc_painting_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~mockups',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~model_making_paints',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~modeling_tools_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~modelling_clay',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~natural_tracing_paper',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~notebook_labels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~notebooks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~office_paper_clamps_and_binder_clips',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~oil_colours',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~oil_pastels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~paper_and_card_stocks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~paper_clips',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~pencil_sharpeners',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~pencils',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~pens',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~phone_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~pins',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~plasticine',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~pom_poms_and_feathers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~printing_paper',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~rapidograph_pens',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~replacement_and_pen_inks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~ribbons',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~school_notebooks',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~scrapbooking_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~self_adhesive_a4_labels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~self_adhesive_label_rolls',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~sketch_pads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~small_adhesive_labels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~special_craft_paints',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~staples',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~stencils',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~tempera_colour_paints',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~threads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~watercolour_pads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~watercolours',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_consumables~wooden_craft_decoration',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~stationery_school_and_foreign_language_textbooks',
+        children: [
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~english_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~french_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~german_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~greek_language_learning_books_for_foreign_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~italian_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~language_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~russian_learning_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~school_books',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_and_foreign_language_textbooks~spanish_learning_books',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~stationery_school_supplies',
+        children: [
+          {
+            value: 'goods~stationery_school_supplies~kids_food_containers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_supplies~kids_lunch_bags',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_supplies~kids_water_bottles',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_supplies~pencil_cases',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_school_supplies~school_bags',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~stationery_stationery_and_office_supplies',
+        children: [
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~board_erasers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~calculators',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~craft_punches',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~desk_legs',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~desk_pads',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~desk_sets',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~desk_supplies_organizers_and_pencil_holders',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~desktop_drawers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~drawing_and_sketching_boards',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~easels',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~filing_trays',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~fountain_pens',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~geometric_tools',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~globes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~id_and_passport_covers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~ink_stamps',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~knife_paper_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~magazine_file_organisers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~magnifying_lenses',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~marking_compasses',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~molds',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~notice_boards',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~office_chair_mats',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~office_cutting_machines',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~office_waste_bins',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~paint_palettes',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~paper_punches',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~pen_cases_and_pouches',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~pen_set',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~portable_cases_cd_and_dvd_blu_ray',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~portable_label_makers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~scissors',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~staplers',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~studio_design_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~stationery_stationery_and_office_supplies~table_floor_cd_cases',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_audio_photo_video_devices_and_amplifiers',
+        children: [
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~active_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~audio_mixers_and_consoles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~audio_signal_processors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~blu_ray',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~boat_sound_systems',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~car_audio_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~car_audio_subwoofer',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~car_audio_systems',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~car_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~commercial_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~commercial_cd_mp3_and_radio_players',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~commercial_sound_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~conference_systems',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~dac',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~di_boxes',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~dj_controller',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~equalizer',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~headphone_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~hi_fi_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~hi_fi_cd_players',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~hi_fi_components',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~home_cinema_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~home_cinema_set',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~installation_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~karaoke_machines_and_microphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~lighting_controllers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~megaphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~microphone_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~microphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~midi_pc_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~misc_keyboards_and_synths_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~moving_lights',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~mp3_and_mp4_players',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~pa_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~passive_hi_fi_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~pedals',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~portable_bluetooth_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~portable_dvd_players',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~portable_tvs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~radio_cd_players',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~radios',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~recording_devices',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~smoke_machines',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~sound_systems',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~soundbar',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~studio_monitor_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~subwoofers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~turntables',
+            children: [],
+          },
+          {
+            value: 'goods~technology_audio_photo_video_devices_and_amplifiers~voice_recorders',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_chargers_and_batteries',
+        children: [
+          {
+            value: 'goods~technology_chargers_and_batteries~action_camera_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~action_cameras_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~alkaline_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~batteries_for_drones_and_rc_vehicles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~battery_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~boat_battery_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~camcorder_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~camcorder_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~camera_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~camera_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~car_and_boat_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~cell_phone_car_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~charges_and_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~hearing_aid_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~jump_starters_and_battery_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~laptop_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~laptop_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~lead_acid_battery_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~lithium_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~misc_batteries_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~mobile_phone_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~mobile_phone_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~motorcycle_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~motorcycle_phone_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~photovoltaic_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~power_banks',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~power_stations',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~rechargeable_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~smart_bulbs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~solar_battery_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~tablet_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~watch_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~wearables_chargers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_chargers_and_batteries~zinc_batteries',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_console_and_pc_games',
+        children: [
+          {
+            value: 'goods~technology_console_and_pc_games~character_figures',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~nintendo_3ds_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~nintendo_ds_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~nintendo_switch_2_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~nintendo_switch_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~pc_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~ps3_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~ps4_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~ps5_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~ps_vita_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~psp_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~used_video_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~wii_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~wii_u_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~xbox_360_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~xbox_one_games',
+            children: [],
+          },
+          {
+            value: 'goods~technology_console_and_pc_games~xbox_series_x_games',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_consumables',
+        children: [
+          {
+            value: 'goods~technology_consumables~3d_printer_filament',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~3d_printer_resin',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~dvd_cd_blu_ray_media',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~film',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~jewel_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~original_inkjet_printer_ink_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~original_printer_drum_kits',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~photo_papers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~plotter_paper_rolls',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~printer_maintenance_and_cleaning_kits',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~ribbon_ink_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_consumables~thermal_paste',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_mobiles_and_tablets',
+        children: [
+          {
+            value: 'goods~technology_mobiles_and_tablets~mobile_phones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_mobiles_and_tablets~tablets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_non_tech_accessories',
+        children: [
+          {
+            value: 'goods~technology_non_tech_accessories~action_cameras_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~action_cameras_support_bases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~action_cameras_support_straps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_console_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_expansion_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_extender',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_power_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_recording_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_remote_controls',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~audio_switchers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~camcorder_cases_and_bags',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~camera_bags_and_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~caps_knobs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~cell_phone_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~cell_phone_tripods',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~computer_and_peripheral_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~console_controller_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~console_lights',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~credit_card_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~dj_bags_and_suitcases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~dj_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~dummy_surveillance_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~faders',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~flight_case_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~flight_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~fm_antennas',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~ipod_and_mp3_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~keyboard_and_console_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~laptop_skins',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~microphone_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~mobile_camera_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~mobile_phone_cases_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~mobile_phone_d_cor',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~mobile_screen_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~mouse_pads',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~pa_speaker_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~patch_bays',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~pop_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~power_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~projector_bags',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~projector_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~speaker_bags_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~speaker_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~speaker_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~speaker_shock_absorbers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~speaker_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tablet_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tablet_screen_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tablet_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~telescopes',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tripod_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tv_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~tv_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~universal_mobile_phone_cases_and_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~waterproof_camera_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~wearable_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~wearable_screen_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~wearable_straps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_non_tech_accessories~wireless_systems_and_accessories',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_pc_build',
+        children: [
+          {
+            value: 'goods~technology_pc_build~aio_cpu_liquid_cooling',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~barebones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~case_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~case_fans',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~case_panels',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~computer_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~controllers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~cpu_cooling_fans',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~cpu_processors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~external_hard_drives',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~file_servers_nas',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~game_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~graphics_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~hard_disk_docking_station',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~hdd_hard_drives',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~memory_ram',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~misc_cooling_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~motherboards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~network_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~optical_drives',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~pcmcia_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~power_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~scanners',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~server_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~sound_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~ssd_hard_drives',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pc_build~universal_power_adapters',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_pcs_and_gaming_consoles',
+        children: [
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~action_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~all_in_one_computers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~consoles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~desktop_computers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~laptops',
+            children: [],
+          },
+          {
+            value: 'goods~technology_pcs_and_gaming_consoles~mini_computers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_peripherals_and_computer_accessories',
+        children: [
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~access_points',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~accessories_for_3d_printers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~accessories_for_rack_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~action_cameras_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~action_cameras_filters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~action_cameras_tripods',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~adapters_and_console_converters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~audio_treatment_material',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~baby_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bicycle_computers_and_gps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bluetooth_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bluetooth_car_kit',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bluetooth_earbuds_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bluetooth_handsfree',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~bluetooth_receivers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~boat_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~camcorder_filters_lenses',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~camera_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~camera_lenses_for_drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~car_air_purifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~car_fans',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~car_fm_transmitters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~card_readers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~cb_and_two_way_radios',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~chargers_for_drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~cnc_machines',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~computer_monitor_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~computer_speakers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_accessory_kits',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_and_controller_grips',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_and_controller_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_cables',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_cooling_systems',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_power_and_charging',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_remotes',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_screen_protectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~console_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~corded_phones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~cordless_phones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~cup_warmers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~cure_machine',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~digital_photo_frames',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~digitizers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~drone_bags_and_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~drone_cables',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~drone_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~drones_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~dsl_modems_routers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~filament_dryer_box',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~fishing_boats',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~fishing_devices',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~flash_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~flight_simulators',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~fpv_goggles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~game_cases_and_storage_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gamepads',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gaming_chairs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gaming_headsets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gaming_keyboards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gaming_mice',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gimbals_action_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gps_devices',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gps_plotters_and_depth_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~gps_trackers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~handheld_blowers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~handheld_gps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~handsfree_earphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~hard_drive_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~hard_drive_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~headphone_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~headphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~home_intercom',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~hunting_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~in_ear_headphones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~indoor_thermometers_and_hygrometers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~interactive_gaming_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~joysticks',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~keyboards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~kvm_and_data_switch',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~laptop_docking_stations',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~laptop_stands',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~laser_engravers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~led_signs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~lens_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~lens_filters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~lens_filters_for_drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~lnb',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~memory_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mice',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mini_air_conditioners_and_fans',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_drones_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_gadgets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_laptop_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_mp3_players_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_peripheral_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_tv_and_video_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~misc_wi_fi',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mobile_phone_gimbals',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mobile_signal_amplifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mouse_bungee',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~mpeg_4_digital_receivers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~multimedia_headsets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~music_cds',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~other_camcorder_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~patch_panels',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~photo_box',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~photography_backdrops',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~photography_reflectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~poe_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~power_strips_and_wall_plug_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~powerline_connection_plc',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~presenters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~printers_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~projection_screens',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~projector_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~projector_lamps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~protectors_for_drones_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~rack_cabinets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~remote_controls_for_drones_and_rc_vehicles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~ring_lights',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~satellite_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~satellite_decoders',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~satellite_dishes',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~scratch_timecode_records',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~screen_protection_action_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~selfie_sticks',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~selfie_sticks_and_grips_action_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~set_of_accessories_for_drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~signal_level_meters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~smart_glasses',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~smart_hubs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~smart_tv_stick',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~softbox',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~steering_wheel_peripherals',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~steering_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~streaming_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~studio_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~stylus_pens',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~surveillance_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~switches',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~tablet_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~take_off_landing_gear_for_drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~telephone_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_electric_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_setup_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_slipmats',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_stands_and_mounts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~turntable_tonearms',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~tv_and_video_cards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~tv_antennas',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~tv_box',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~tv_remote_controls',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~two_way_radio_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~ups',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~ups_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~ups_batteries',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~usb_hub',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~usb_network_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~usb_sticks',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~video_and_photography_lighting',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~video_game_storage',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~vinyl_and_turntable_maintenance_products',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~vinyl_record_clamps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~vinyl_records',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~vinyl_storage_and_transport',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~vr_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~weather_stations',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~web_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~wi_fi_antennas',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~wi_fi_extenders',
+            children: [],
+          },
+          {
+            value: 'goods~technology_peripherals_and_computer_accessories~writing_tablets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_refurbished',
+        children: [
+          {
+            value: 'goods~technology_refurbished~compatible_and_refurbished_inkjet_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~compatible_and_refurbished_printer_toner_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~refurbished_smartwatches',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~refurbished_used_desktop_pcs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~refurbished_used_laptops',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~refurbished_used_mobile_phones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~used_refurbished_computer_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_refurbished~used_refurbished_tablets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_rest_technology_devices',
+        children: [
+          {
+            value: 'goods~technology_rest_technology_devices~3d_printers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~analog_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~camcorders',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~camera_lenses',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~compact_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~drones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~dslr_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~ebook_readers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~mirrorless_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~plotters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~print_server',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~printers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~projectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~public_displays',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~servers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~tvs',
+            children: [],
+          },
+          {
+            value: 'goods~technology_rest_technology_devices~virtual_reality_headsets',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_software',
+        children: [
+          {
+            value: 'goods~technology_software~antivirus_and_security',
+            children: [],
+          },
+          {
+            value: 'goods~technology_software~audio_editing_software',
+            children: [],
+          },
+          {
+            value: 'goods~technology_software~crm_and_erp_software',
+            children: [],
+          },
+          {
+            value: 'goods~technology_software~design_and_image_software',
+            children: [],
+          },
+          {
+            value: 'goods~technology_software~office_software',
+            children: [],
+          },
+          {
+            value: 'goods~technology_software~operating_systems',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_spare_parts',
+        children: [
+          {
+            value: 'goods~technology_spare_parts~accessories_for_mobile_phone_cases',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~bluetooth_tracker_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~bluetooth_trackers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~car_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~card_cases_for_phones',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~cnc_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~drone_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~drones_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~electronic_components_and_printer_chips',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~finger_sleeves',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~headphone_spare_parts_and_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~heating_units_and_fuser_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_cover_panels',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_fans',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_flex_cables',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_hinges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_keyboards',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_lcd_inverters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_monitors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~laptop_power_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~magsafe_rings',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~misc_mobile_phone_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~misc_network_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_gaming_triggers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_adhesives',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_camera_lens',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_charging_connectors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_coolers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_ear_speaker_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_middle_frame_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_antennas',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_cables',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_cameras',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_covers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_keys',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_replacement_screens',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_sim_sd_trays',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_skins',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_speaker_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~mobile_phone_touch_panels',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~paper_feed_mechanisms',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~phone_camera_lenses',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~phone_screen_magnifiers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~printer_motors_and_mechanical_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~printing_and_imaging_units',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~qi_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~rc_servos',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~rc_vehicle_body_kits',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~rc_vehicle_engines_and_motors',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~rc_vehicles_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~selfie_controllers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~selfie_flash',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~sim_tools',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~smartphone_camera_grips',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~speaker_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~stylus_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~tablet_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~turntable_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~turntable_needles',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~various_laptop_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~technology_spare_parts~wearables_accessories',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~technology_wearables',
+        children: [
+          {
+            value: 'goods~technology_wearables~activity_trackers',
+            children: [],
+          },
+          {
+            value: 'goods~technology_wearables~heart_rate_straps',
+            children: [],
+          },
+          {
+            value: 'goods~technology_wearables~smart_rings',
+            children: [],
+          },
+          {
+            value: 'goods~technology_wearables~smartwatches',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tobacco_products_devices_accessories_and_consumables',
+        children: [
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigar_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigar_humidifiers',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigarette_cases',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigarette_pack_holders',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigarette_papers',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~cigarette_rolling_machines',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~disposables_e_cigarettes',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~e_cigarette_kits',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~e_cigarette_mods',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~filter_tips',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~grinders',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~heated_tobacco_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~heated_tobacco_devices',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~hookah_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~hookahs',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~lighters',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~lighters_cases_and_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~misc_tobacco_and_hookah_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~nicotine_pouches',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~tobacco_pipe_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~tobacco_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_devices_accessories_and_consumables~tobacco_pouches',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tobacco_products_electronic_cigarette_consumables',
+        children: [
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~d_i_y_e_cigarette_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_base_and_nicotine_liquids',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_coils',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_flavour_concentrates',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_cigarette_vape_tanks',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_electronic_cigarette_consumables~e_liquids',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tobacco_products_tobacco',
+        children: [
+          {
+            value: 'goods~tobacco_products_tobacco~cigars',
+            children: [],
+          },
+          {
+            value: 'goods~tobacco_products_tobacco~heated_tobacco_devices_kit',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tools_accessories_and_spare_parts',
+        children: [
+          {
+            value: 'goods~tools_accessories_and_spare_parts~accessories_for_measuring_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~adapters_for_sockets_and_bits',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~air_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~air_pressure_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~air_tools_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~automatic_irrigation_systems',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~bit_shanks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~bit_sockets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~brush_cutter_blades',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~brush_cutter_straps',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~brush_cutter_trimmer_lines',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~brush_cutters_misc_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~chainsaw_blades',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~chainsaw_chain_oils',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~chainsaw_chains',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~chainsaw_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~chainsaw_spark_plugs',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~cultivator_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~cutting_discs',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~drill_chucks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~drills',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~faucet_mount_water_filters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~flashlight_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~fuel_cans',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~garden_carts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~garden_hose_nozzles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~garden_hose_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~garden_tool_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~grinding_discs',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~hole_saws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~hydrometers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~jig_saw_blades',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~misc_irrigation_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~misc_tool_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~mixing_paddles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~point_chisels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~polishing_discs_and_pads',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~power_tool_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~power_tool_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~power_tool_stands',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_gauges_and_gas_regulators',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_adapters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_filters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_foam_nozzles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_guns_and_dirt_blasters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_hose_reels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_miscellaneous_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_nozzles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_occlusion_and_suction_kit',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_sandblasting_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~pressure_washer_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~ratchet_extensions',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~refrigerator_water_filter_cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~reverse_osmosis_water_filters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~sandblasting_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~screwdriver_bits',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~shower_water_filters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~spare_blades',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~sprayer_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~staples_and_brad_nails',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~strings_trimmer_heads',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~tire_pressure_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~water_filter_misc',
+            children: [],
+          },
+          {
+            value: 'goods~tools_accessories_and_spare_parts~water_pump_parts',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tools_building_materials_and_consumables',
+        children: [
+          {
+            value: 'goods~tools_building_materials_and_consumables~bituminous_membranes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~construction_and_heavy_duty_glues',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~decking_railings',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~dowel_tools_and_dowels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~drill_wire_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~drip_irrigation_fittings',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~fertilizers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~fire_accelerants',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~floor_drains',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~garden_fencing_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~garden_flooring_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~garden_pergolas_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~greases_and_lubricants',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~grinding_stones',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~hose_clamps',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~hot_glue_sticks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~insulating_and_sealing_materials',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~interior_and_exterior_house_paints',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~lawns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~machine_tool_oils',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~manifold_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~metal_wood_paints',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~misc_cistern_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~misc_floor_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~misc_pipe_connections',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~misc_plumbing_items',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~mortar_improvers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~multitool_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~nails',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~outdoor_faucets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~paint_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~paint_brushes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~paint_rollers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~paper_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pesticides',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pipe_elbow_fittings',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pipe_insulations',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pipe_niple_fittings',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pipe_tee',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pipe_thread_sealants',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~plasterboards',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~plastic_floors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~polycarbonate_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~polyurethane_foams',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pool_filters_and_filtration_systems',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pool_liners',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~potting_soils_and_stones',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~pressure_pipe_regulators',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~primers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~putty_fillers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~rivets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~roller_blinds_spare_parts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~sand_papers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~screw_anchors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~screws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~sewer_drains',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~silicone_sealants',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~solder_wires',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~soldering_paste_and_flux',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~soldering_supplies',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~special_paint_and_additives',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~spiral_hoses',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~spray_paints',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~structural_adhesives',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~tap_washer_valves',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~technical_sprays',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~tile_spacers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~tool_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~varnishes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~washers_and_nuts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~water_and_heating_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~water_repellents',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~water_switch_and_valves',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~welding_consumables',
+            children: [],
+          },
+          {
+            value: 'goods~tools_building_materials_and_consumables~wheels',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tools_power_and_hand_tools',
+        children: [
+          {
+            value: 'goods~tools_power_and_hand_tools~air_tool_kits',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~allen_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~aluminium_spirit_levels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~analog_multimeters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~angle_rulers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~axes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~battery_testers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~blow_torches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~blowers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~bypass_loppers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~car_hand_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~car_tyre_repair_products',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~car_wheel_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~chalk_liner_sets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~chisels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~clamps',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~cleaning_and_garden_care_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~crimping_pliers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~drain_augers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~electrician_fish_tapes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~extendable_pruning_saws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~flaring_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~folding_rulers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~french_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~fruit_harvesting_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~garden_rakes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~german_polygon_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~german_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~glass_cutter',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~glue_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~grafting_knife',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~grafting_scissors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hammers_and_sledgehammers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_cultivators',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_drills',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_files',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_garden_tool_sets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_staple_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hand_taps_and_threaders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~handsaws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hedge_clippers_and_shears',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~hoes_and_pickaxes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~laser_distance_meters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~levels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~measuring_wheels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~micrometers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~misc_hand_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~misc_plumber_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~misc_tool_keys',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~mobile_phone_repair_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~oil_filter_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pc_digital_testers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pipe_press_fitting_tool',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pipe_wrenches_and_plumbing_pliers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pitchforks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~plant_ties',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~planters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pliers_and_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~plumb_bobs',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~poles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~polygon_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pruners',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~pruning_saws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~puller_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~punch_pliers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~putty_knives',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~ratchet_and_socket_sets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~ratchets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~riveters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~screwdrivers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~shovels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~sickles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~silicone_hand_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~sliding_t_bar_handles',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~sockets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~spark_plug_tool',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~spatulas_and_trowels',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~tape_measures',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~thickness_gauges',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~tile_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~tire_export_levers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~toolboxes_with_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~torque_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~torx_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~tube_benders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~vehicle_inspection_mirrors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~vises',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~welding_magnets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~welding_pipe_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~wire_strippers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_and_hand_tools~work_suction_cups',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tools_power_tools_and_machinery',
+        children: [
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_compressor_heads',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_compressors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_drills',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_grinders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_impact_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_ratchet_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_sanders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_screwdrivers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~air_spray_paint_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~angle_grinders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~automotive_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~battery_powered_tool_sets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~biscuit_joiners_and_planers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~branch_shredders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~brush_cutters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~car_jacks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~chainsaw_sharpeners',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~chainsaws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~chipping_hammers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~circular_saws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~colour_mixers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~concrete_mixers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~diamond_core_drills',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~distillers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~drills',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~earth_augers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~electric_multi_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~electric_paint_spray_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~electric_staple_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~garage_and_workshop_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~garage_and_workshop_presses',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~garden_multi_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~generators',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~grease_guns_and_oil_dispensers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~hacksaws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~handheld_buffers_and_polishers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~heat_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~hedge_trimmer',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~impact_wrenches',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~lawn_mowers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~leaf_blowers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~lifting_and_pulling_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~log_splitters',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~metal_processing_machinery',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~misc_air_tool_pistols',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~misc_air_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~misc_power_and_hand_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~misc_power_tools',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~nibblers_and_shears',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~oil_drain_collectors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~olive_harvester_feed_gears',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~olive_harvester_rods',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~olive_harvester_systems',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~olive_vibrators',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~pipe_threading_machines',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~power_disc_sanders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~power_drill_drivers_and_screwdrivers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~pressure_washers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~push_sweepers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~reciprocating_saws',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~robotic_lawn_mowers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~rotary_hammers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~sanders',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~snow_blowers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~soldering_irons',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~sprayers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~staple_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~vehicle_lifts',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~water_pressure_pumps',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~welding_machines',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~workshop_jacks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_power_tools_and_machinery~workshop_parts_washers',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~tools_technical_machinery_materials_and_tools',
+        children: [
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~air_guns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~air_pistols',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~bricks',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~built_in_barbeque',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~cartridges',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~concrete',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~doors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~foams_sheets',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~laminate_flooring',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~misc_thermal_insulation',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~parquet_floors',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~plaster_fillers',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~sewer_pipes',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~shotguns',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~split_system_air_conditioners',
+            children: [],
+          },
+          {
+            value: 'goods~tools_technical_machinery_materials_and_tools~wall_cladding_stones',
+            children: [],
+          },
+        ],
+      },
+      {
+        value: 'goods~toys_general_category',
+        children: [
+          {
+            value: 'goods~toys_general_category~action_figures',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~arts_and_crafts_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~baby_dolls',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~balance_bikes',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~beach_and_pool_balls',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~beach_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~billiard_tables',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~board_games',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~board_games_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~brain_teasers_and_logic_puzzles',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~building_blocks',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~collectible_figures',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~construction_and_building_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~dollhouses',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~dolls',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~easter_candles_with_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~educational_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~fidget_and_antistress_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~football_tables',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~frisbee',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~funko',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~hoppers',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~inflatable_bouncers',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~interactive_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_airplanes_and_helicopters',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_basketball_hoops_nets_and_sets',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_basketballs',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_beach_rackets_and_balls',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_blackboards_and_easels',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_playhouses',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_ride_on_cars',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_ride_on_motorbikes',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_ride_on_tractors',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_scooter_accessories',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_scooters',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_swings',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~kids_video_games',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~makeup_and_beauty_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~miniature_novelty_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~music_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~nerf',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~playground_toys_and_equipment',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~playmobil',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~plush_and_soft_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~pool_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~pretend_play_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~puppet_theaters',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~rc_vehicles',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~role_playing_games_and_miniature_wargames',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~speed_cubes',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~sports_toys',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~swimming_pools',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~toy_cars_and_race_tracks',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~toy_guns',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~toy_trains_and_train_sets',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~trading_card_games',
+            children: [],
+          },
+          {
+            value: 'goods~toys_general_category~trading_card_games_accessories',
+            children: [],
+          },
+        ],
+      },
+    ],
+  },
+]
 
 describe('prop', () => {
   let div: PickerView
   let form: HTMLFormElement
 
-  customElements.define('picker-view', PickerView)
-
   beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
     div = document.createElement('picker-view') as PickerView
     div.setAttribute('name', 'foo')
@@ -20,6 +17357,20 @@ describe('prop', () => {
 
     expect(data.get('foo')).toBe('')
   })
+})
+
+describe('prop', () => {
+  let div: PickerView
+  let form: HTMLFormElement
+
+  beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+    form = document.createElement('form')
+    div = document.createElement('picker-view') as PickerView
+    div.setAttribute('name', 'foo')
+    form.appendChild(div)
+    document.body.appendChild(form)
+  })
 
   test('[selection]', () => {
     div.setAttribute('selection', 'bar')
@@ -28,6 +17379,20 @@ describe('prop', () => {
 
     expect(data.get('foo')).toBe('bar')
   })
+})
+
+describe('prop', () => {
+  let div: PickerView
+  let form: HTMLFormElement
+
+  beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+    form = document.createElement('form')
+    div = document.createElement('picker-view') as PickerView
+    div.setAttribute('name', 'foo')
+    form.appendChild(div)
+    document.body.appendChild(form)
+  })
 
   test('[selection]', () => {
     div.selection = 'bar'
@@ -35,5 +17400,159 @@ describe('prop', () => {
     const data = new FormData(form) //{foo:"bar"}
 
     expect(data.get('foo')).toBe('bar')
+  })
+})
+
+describe('prop', () => {
+  let div: PickerView
+  let form: HTMLFormElement
+
+  beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+    form = document.createElement('form')
+    div = document.createElement('picker-view') as PickerView
+    div.setAttribute('name', 'foo')
+    form.appendChild(div)
+    document.body.appendChild(form)
+  })
+
+  test('[picker-style="radio-group"]', () => {
+    div.setAttribute('picker-style', 'radio-group')
+    div.selection = 'Tyrannosaurus'
+
+    div.innerHTML = `<optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>`
+
+    const data = new FormData(form) //{foo:"bar"}
+
+    expect(data.get('foo')).toBe('Tyrannosaurus')
+  })
+})
+
+describe('prop', () => {
+  let div: PickerView
+  let form: HTMLFormElement
+
+  beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+    form = document.createElement('form')
+    div = document.createElement('picker-view') as PickerView
+    div.setAttribute('name', 'foo')
+    form.appendChild(div)
+    document.body.appendChild(form)
+  })
+
+  test('[picker-style="radio-group"]', async () => {
+    div.setAttribute('picker-style', 'radio-group')
+    div.selection = 'Tyrannosaurus'
+
+    const og = Object.assign(document.createElement('optgroup'), {
+      label: 'Theropods',
+      slot: 'list',
+      innerHTML: '<option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option>',
+    })
+    og.label = 'Theropods'
+    og.slot = 'list'
+
+    div.appendChild(og)
+
+    await new Promise<void>((r) => queueMicrotask(r))
+
+    expect(div.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" disabled="">
+          <h-stack distribution="fill">
+      <!--🔥PART🔥-->
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="Theropods"><span>Theropods</span></label-view>
+        <!--🔥PART🔥-->
+      </v-stack>
+    </h-stack><!--🔥PART🔥-->
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Tyrannosaurus">
+          <h-stack distribution="fill">
+      <!--🔥PART🔥-->
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="Tyrannosaurus"><span>Tyrannosaurus</span></label-view>
+        <!--🔥PART🔥-->
+      </v-stack>
+    </h-stack><!--🔥PART🔥-->
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Velociraptor">
+          <h-stack distribution="fill">
+      <!--🔥PART🔥-->
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="Velociraptor"><span>Velociraptor</span></label-view>
+        <!--🔥PART🔥-->
+      </v-stack>
+    </h-stack><!--🔥PART🔥-->
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Deinonychus">
+          <h-stack distribution="fill">
+      <!--🔥PART🔥-->
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="Deinonychus"><span>Deinonychus</span></label-view>
+        <!--🔥PART🔥-->
+      </v-stack>
+    </h-stack><!--🔥PART🔥-->
+        </h-stack>
+      </label>`)
+  })
+})
+
+describe('prop', async () => {
+  let div: PickerView
+  let ns: HTMLElement
+
+  await Snapshot.mock()
+
+  beforeEach(() => {
+    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+
+    ns = document.body.appendChild(Object.assign(document.createElement('navigation-stack'), { innerHTML: '<scroll-view><v-stack><form is="form-view"></form></v-stack></scroll-view>' }))
+
+    div = document.createElement('picker-view') as PickerView
+    div.setAttribute('name', 'foo')
+  })
+
+  test('[picker-style="sheet"]', async () => {
+    div.setAttribute('picker-style', 'sheet')
+    div.setAttribute('prompt', 'here')
+    div.setAttribute('dictionary', JSON.stringify(dict))
+
+    document.querySelector('[is=form-view]')?.appendChild(div)
+
+    await new Promise<void>((r) => queueMicrotask(r))
+
+    ns.querySelector<HTMLElement>('picker-view label-view')?.click()
+
+    await new Promise<void>((r) => setTimeout(r, 550))
+
+    const dialog = div.closest('scroll-view')?.nextElementSibling
+
+    expect(dialog?.outerHTML)
+      .toBe(`<dialog is="sheet-view" open=""><scroll-view class=""><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">
+        <h-stack distribution="leading" template="auto spacer">
+          <label-view data-role="check" style="visibility: hidden;">
+            <image-view slot="icon" system-name="check"><i style="line-height: 1" class="ph ph-check"></i></image-view>
+          </label-view>
+          <h-stack distribution="fill">
+      <!--🔥PART🔥-->
+      <v-stack spacing="3" alignment="fill">
+        <label-view title="goods"><span>goods</span></label-view>
+        <!--🔥PART🔥-->
+      </v-stack>
+    </h-stack><!--🔥PART🔥-->
+        </h-stack>
+      </button></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading" class=""><button type="button" tabindex="0" help="Back"><label-view system-image="x"><image-view slot="icon" system-name="x"><i style="line-height: 1" class="ph ph-x"></i></image-view></label-view></button></tool-bar-item></tool-bar></dialog>`)
   })
 })

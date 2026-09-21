@@ -513,6 +513,14 @@
           <v-stack readable="40">
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view header="Theme">
+                <labeled-content label="Icon & widget style" labeled-content-style="horizontal">
+                  <picker-view selection="Default" picker-style="palette" foreground="primary">
+                    <option slot="list" value="Default"></option>
+                    <option slot="list" value="Dark"></option>
+                    <option slot="list" value="Clear"></option>
+                    <option slot="list" value="Tinted"></option>
+                  </picker-view>
+                </labeled-content>
                 <labeled-content label="Folder color" labeled-content-style="horizontal">
                   <menu-view class="custom-picker-menu" tabindex="0" foreground="primary">
                     <h-stack spacing="5" distribution="fill" template="auto spacer" slot="label" data-selection="Automatic">
@@ -609,9 +617,15 @@
                     <input class="w-full m-0" type="range" value="100" step="10" list="Key_repeat_rate" />
                     <datalist id="Key_repeat_rate">
                       <option value="0"></option>
-                      <option value="25"></option>
+                      <option value="10"></option>
+                      <option value="20"></option>
+                      <option value="30"></option>
+                      <option value="40"></option>
                       <option value="50"></option>
-                      <option value="75"></option>
+                      <option value="70"></option>
+                      <option value="70"></option>
+                      <option value="80"></option>
+                      <option value="90"></option>
                       <option value="100"></option>
                     </datalist>
                     <div class="flex justify-between w-full text-sm">
@@ -622,12 +636,13 @@
                   </v-stack>
                   <v-stack spacing="5" alignment="fill">
                     <label-view title="Delay until repeat"></label-view>
-                    <input class="w-full m-0" type="range" value="80" step="10" list="Key_repeat_rate" />
+                    <input class="w-full m-0" type="range" value="80" step="20" list="Key_repeat_rate" />
                     <datalist id="Key_repeat_rate">
                       <option value="0"></option>
-                      <option value="25"></option>
-                      <option value="50"></option>
-                      <option value="75"></option>
+                      <option value="20"></option>
+                      <option value="40"></option>
+                      <option value="60"></option>
+                      <option value="80"></option>
                       <option value="100"></option>
                     </datalist>
                     <div class="flex justify-between w-full text-sm">
@@ -637,7 +652,7 @@
                   </v-stack>
                 </h-stack>
               </section-view>
-              <section-view>
+              <section-view class="pointer-coarse:hidden">
                 <labeled-content label="Press fn key to" labeled-content-style="horizontal">
                   <picker-view selection="Do Nothing" picker-style="menu" foreground="primary">
                     <option slot="list" value="Change Input Source"></option>
@@ -656,12 +671,24 @@
                   </button>
                 </h-stack>
               </section-view>
+              <section-view class="pointer-fine:hidden">
+                <labeled-content label="Press fn key to" labeled-content-style="horizontal">
+                  <picker-view selection="Do Nothing" picker-style="menu" foreground="primary">
+                    <option slot="list" value="Change Input Source"></option>
+                    <option slot="list" value="Show Emoji & Symbols"></option>
+                    <option slot="list" value="Start Dictation (Press fn Twice)"></option>
+                    <option slot="list" value="Do Nothing"></option>
+                  </picker-view>
+                </labeled-content>
+                <toggle-view>
+                  <label-view slot="label" title="Keyboard navigation"></label-view>
+                  <label-view slot="label" title="Use keyboard navigation to move focus between controls."></label-view>
+                </toggle-view>
+                <button tabindex="0" list-item-tint="blue" data-nav-destination="Advanced Mouse Panel">
+                  <label-view title="Keyboard Shortcuts…"></label-view>
+                </button>
+              </section-view>
             </list-view>
-            <h-stack distribution="trailing" padding>
-              <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Keyboard Panel">
-                <label-view title="Advanced…" font="body"></label-view>
-              </button>
-            </h-stack>
           </v-stack>
         </scroll-view>
         <tool-bar>
@@ -680,12 +707,18 @@
             <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
               <section-view>
                 <labeled-content label="Tracking speed" labeled-content-style="horizontal">
-                  <input class="inline-[200px] m-0" type="range" value="75" list="Tracking_speed" />
+                  <input class="inline-[200px] m-0" type="range" value="70" step="10" list="Tracking_speed" />
                   <datalist id="Tracking_speed">
                     <option value="0"></option>
-                    <option value="25"></option>
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
                     <option value="50"></option>
-                    <option value="75"></option>
+                    <option value="70"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
                     <option value="100"></option>
                   </datalist>
                   <div class="flex justify-between inline-[200px] text-sm">
@@ -704,12 +737,18 @@
                   </picker-view>
                 </labeled-content>
                 <labeled-content label="Double-Click speed" labeled-content-style="horizontal">
-                  <input class="inline-[200px] m-0" type="range" value="75" list="Double_click_speed" />
+                  <input class="inline-[200px] m-0" type="range" value="70" step="10" list="Double_click_speed" />
                   <datalist id="Double_click_speed">
                     <option value="0"></option>
-                    <option value="25"></option>
+                    <option value="10"></option>
+                    <option value="20"></option>
+                    <option value="30"></option>
+                    <option value="40"></option>
                     <option value="50"></option>
-                    <option value="75"></option>
+                    <option value="70"></option>
+                    <option value="70"></option>
+                    <option value="80"></option>
+                    <option value="90"></option>
                     <option value="100"></option>
                   </datalist>
                   <div class="flex justify-between inline-[200px] text-sm">
@@ -718,12 +757,13 @@
                   </div>
                 </labeled-content>
                 <labeled-content label="Scrolling speed" labeled-content-style="horizontal">
-                  <input class="inline-[200px] m-0" type="range" value="50" list="Scrolling_speed" />
+                  <input class="inline-[200px] m-0" type="range" value="60" step="20" list="Scrolling_speed" />
                   <datalist id="Scrolling_speed">
                     <option value="0"></option>
-                    <option value="25"></option>
-                    <option value="50"></option>
-                    <option value="75"></option>
+                    <option value="20"></option>
+                    <option value="40"></option>
+                    <option value="60"></option>
+                    <option value="80"></option>
                     <option value="100"></option>
                   </datalist>
                   <div class="flex justify-between inline-[200px] text-sm">
@@ -732,8 +772,13 @@
                   </div>
                 </labeled-content>
               </section-view>
+              <section-view class="pointer-fine:hidden">
+                <button tabindex="0" list-item-tint="blue" data-nav-destination="Advanced Mouse Panel">
+                  <label-view title="Advanced…"></label-view>
+                </button>
+              </section-view>
             </list-view>
-            <h-stack distribution="trailing" padding>
+            <h-stack class="pointer-coarse:hidden" distribution="trailing" padding>
               <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Mouse Panel">
                 <label-view title="Advanced…" font="body"></label-view>
               </button>

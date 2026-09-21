@@ -244,6 +244,13 @@
 
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
 
+    --segented-picker-track-bg: red;
+    --segented-picker-track-border-radius: var(--pill-border-radius);
+    --segented-picker-track-block-size: 3rem;
+    --segented-picker-track-padding-inline: 0.1rem;
+    --segented-picker-track-padding-block: 0.1rem;
+    --segented-picker-button-min-inline-size: 3rem;
+
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;
     // }

@@ -1292,7 +1292,7 @@
               "readonly": true,
               "description": "",
               "type": {
-                "text": "\"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\" | \"radio-group\""
+                "text": "\"automatic\" | \"menu\" | \"inline\" | \"navigation-link\" | \"sheet\" | \"radio-group\" | \"palette\" | \"segmented\""
               }
             },
             {

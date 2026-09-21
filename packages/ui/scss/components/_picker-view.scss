@@ -480,7 +480,7 @@ $picker-inform-elses: (
 
         &:has(input[type='radio']:not(:disabled)) {
           :where(&) {
-            cursor: pointer; 
+            cursor: pointer;
           }
         }
 

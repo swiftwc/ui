@@ -17462,50 +17462,50 @@ describe('prop', () => {
     await new Promise<void>((r) => queueMicrotask(r))
 
     expect(div.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="00000000-0000-0000-0000-000000000000" disabled="">
-        <h-stack distribution="fill">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" disabled="">
+          <h-stack distribution="fill">
       <!--🔥PART🔥-->
       <v-stack spacing="3" alignment="fill">
         <label-view title="Theropods"><span>Theropods</span></label-view>
         <!--🔥PART🔥-->
       </v-stack>
     </h-stack><!--🔥PART🔥-->
-      </h-stack>
-    </label><label tabindex="0">
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Tyrannosaurus">
-        <h-stack distribution="fill">
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Tyrannosaurus">
+          <h-stack distribution="fill">
       <!--🔥PART🔥-->
       <v-stack spacing="3" alignment="fill">
         <label-view title="Tyrannosaurus"><span>Tyrannosaurus</span></label-view>
         <!--🔥PART🔥-->
       </v-stack>
     </h-stack><!--🔥PART🔥-->
-      </h-stack>
-    </label><label tabindex="0">
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Velociraptor">
-        <h-stack distribution="fill">
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Velociraptor">
+          <h-stack distribution="fill">
       <!--🔥PART🔥-->
       <v-stack spacing="3" alignment="fill">
         <label-view title="Velociraptor"><span>Velociraptor</span></label-view>
         <!--🔥PART🔥-->
       </v-stack>
     </h-stack><!--🔥PART🔥-->
-      </h-stack>
-    </label><label tabindex="0">
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Deinonychus">
-        <h-stack distribution="fill">
+        </h-stack>
+      </label><label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="00000000-0000-0000-0000-000000000000" value="Deinonychus">
+          <h-stack distribution="fill">
       <!--🔥PART🔥-->
       <v-stack spacing="3" alignment="fill">
         <label-view title="Deinonychus"><span>Deinonychus</span></label-view>
         <!--🔥PART🔥-->
       </v-stack>
     </h-stack><!--🔥PART🔥-->
-      </h-stack>
-    </label>`)
+        </h-stack>
+      </label>`)
   })
 })
 

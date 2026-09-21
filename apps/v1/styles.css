@@ -129,6 +129,12 @@
     --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
     --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
+    --segented-picker-track-bg: red;
+    --segented-picker-track-border-radius: var(--pill-border-radius);
+    --segented-picker-track-block-size: 3rem;
+    --segented-picker-track-padding-inline: 0.1rem;
+    --segented-picker-track-padding-block: 0.1rem;
+    --segented-picker-button-min-inline-size: 3rem;
     --label-footnote-font-size: 1rem;
     --label-footnote-line-height: 1.1875;
     --label-footnote-font-weight: 400;
@@ -5271,6 +5277,15 @@
     text-align: var(--picker--inputstack-text-align, );
     gap: var(--picker--inputstack-gap, );
     flex-flow: var(--picker--inputstack-flex-flow, );
+    grid-auto-flow: var(--picker--inputstack-grid-auto-flow, );
+    background: var(--picker--inputstack-background, );
+    border-radius: var(--picker--inputstack-border-radius, );
+    position: var(--picker--inputstack-position, );
+    min-inline-size: var(--picker--inputstack-min-inline-size, );
+    block-size: var(--picker--inputstack-block-size, );
+    padding-inline: var(--picker--inputstack-padding-inline, );
+    padding-block: var(--picker--inputstack-padding-block, );
+    overflow: var(--picker--inputstack-overflow, );
   }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
@@ -5292,21 +5307,30 @@
   }
   @supports (x: if(else:red)) {
     :where(picker-view) {
+      --picker--inputstack-grid-auto-flow: if(style(--picker-style: segmented): column; );
+      --picker--inputstack-gap: if(style(--picker-style: segmented): 1rem; style(--picker-style: palette): 1rem; style(--picker-style: radio-group): 1rem; );
       --picker--inputstack-display: if(style(--picker-style: palette): flex; );
       --picker--inputstack-flex-flow: if(style(--picker-style: palette): row wrap; );
-      --picker--inputstack-gap: if(style(--picker-style: palette): 1rem; style(--picker-style: radio-group): 1rem; );
     }
     :where(form picker-view) {
-      --picker--labelstack-display: if(style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
-      --picker--inputstack-text-align: if(style(--picker-style: palette): start; style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
-      --picker--host-row-gap: if(style(--picker-style: palette): var(--labeled-content-row-gap); style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
-      --picker--host-column-gap: if(style(--picker-style: palette): var(--labeled-content-column-gap); style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
-      --picker--host-padding-inline: if(style(--picker-style: palette): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
-      --picker--host-padding-block: if(style(--picker-style: palette): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: radio-group): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: menu): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: navigation-link): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: sheet): var(--itempadbstart, ) var(--itempadbend, ); );
-      --picker--host-border-radius: if(style(--picker-style: palette): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: radio-group): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: menu): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: navigation-link): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: sheet): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); );
-      --picker--host-background: if(style(--picker-style: palette): var(--itemface, ); style(--picker-style: radio-group): var(--itemface, ); style(--picker-style: menu): var(--itemface, ); style(--picker-style: navigation-link): var(--itemface, ); style(--picker-style: sheet): var(--itemface, ); );
-      --picker--host-color: if(style(--picker-style: palette): var(--itemtext, ); style(--picker-style: radio-group): var(--itemtext, ); style(--picker-style: menu): var(--itemtext, ); style(--picker-style: navigation-link): var(--itemtext, ); style(--picker-style: sheet): var(--itemtext, ); );
-      --picker--host-border: if(style(--picker-style: palette): var(--itemborder, ); style(--picker-style: radio-group): var(--itemborder, ); style(--picker-style: menu): var(--itemborder, ); style(--picker-style: navigation-link): var(--itemborder, ); style(--picker-style: sheet): var(--itemborder, ); );
+      --picker--labelstack-display: if(style(--picker-style: segmented): grid; style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
+      --picker--inputstack-text-align: if(style(--picker-style: segmented): start; style(--picker-style: palette): start; style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
+      --picker--inputstack-background: if(style(--picker-style: segmented): var(--segented-picker-track-bg); );
+      --picker--inputstack-border-radius: if(style(--picker-style: segmented): var(--segented-picker-track-border-radius); );
+      --picker--inputstack-position: if(style(--picker-style: segmented): relative; );
+      --picker--inputstack-min-inline-size: if(style(--picker-style: segmented): calc(var(--segented-picker-button-min-inline-size) + 1rem); );
+      --picker--inputstack-block-size: if(style(--picker-style: segmented): var(--segented-picker-track-block-size); );
+      --picker--inputstack-padding-inline: if(style(--picker-style: segmented): var(--segented-picker-track-padding-inline); );
+      --picker--inputstack-padding-block: if(style(--picker-style: segmented): var(--segented-picker-track-padding-block); );
+      --picker--inputstack-overflow: if(style(--picker-style: segmented): auto clip; );
+      --picker--host-row-gap: if(style(--picker-style: segmented): var(--labeled-content-row-gap); style(--picker-style: palette): var(--labeled-content-row-gap); style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
+      --picker--host-column-gap: if(style(--picker-style: segmented): var(--labeled-content-column-gap); style(--picker-style: palette): var(--labeled-content-column-gap); style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
+      --picker--host-padding-inline: if(style(--picker-style: segmented): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: palette): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
+      --picker--host-padding-block: if(style(--picker-style: segmented): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: palette): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: radio-group): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: menu): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: navigation-link): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: sheet): var(--itempadbstart, ) var(--itempadbend, ); );
+      --picker--host-border-radius: if(style(--picker-style: segmented): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: palette): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: radio-group): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: menu): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: navigation-link): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: sheet): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); );
+      --picker--host-background: if(style(--picker-style: segmented): var(--itemface, ); style(--picker-style: palette): var(--itemface, ); style(--picker-style: radio-group): var(--itemface, ); style(--picker-style: menu): var(--itemface, ); style(--picker-style: navigation-link): var(--itemface, ); style(--picker-style: sheet): var(--itemface, ); );
+      --picker--host-color: if(style(--picker-style: segmented): var(--itemtext, ); style(--picker-style: palette): var(--itemtext, ); style(--picker-style: radio-group): var(--itemtext, ); style(--picker-style: menu): var(--itemtext, ); style(--picker-style: navigation-link): var(--itemtext, ); style(--picker-style: sheet): var(--itemtext, ); );
+      --picker--host-border: if(style(--picker-style: segmented): var(--itemborder, ); style(--picker-style: palette): var(--itemborder, ); style(--picker-style: radio-group): var(--itemborder, ); style(--picker-style: menu): var(--itemborder, ); style(--picker-style: navigation-link): var(--itemborder, ); style(--picker-style: sheet): var(--itemborder, ); );
     }
   }
   @supports not (x: if(else:red)) {
@@ -5322,6 +5346,12 @@
       :where(picker-view:not([picker-style])) {
         --picker--inputstack-display: flex;
         --picker--inputstack-flex-flow: row wrap;
+        --picker--inputstack-gap: 1rem;
+      }
+    }
+    @container style(--picker-style: segmented) {
+      :where(picker-view:not([picker-style])) {
+        --picker--inputstack-grid-auto-flow: column;
         --picker--inputstack-gap: 1rem;
       }
     }
@@ -5385,6 +5415,28 @@
       :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: start;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
+      }
+    }
+    @container style(--picker-style: segmented) {
+      :where(form picker-view:not([picker-style])) {
+        --picker--labelstack-display: grid;
+        --picker--inputstack-text-align: start;
+        --picker--inputstack-background: var(--segented-picker-track-bg);
+        --picker--inputstack-border-radius: var(--segented-picker-track-border-radius);
+        --picker--inputstack-position: relative;
+        --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem);
+        --picker--inputstack-block-size: var(--segented-picker-track-block-size);
+        --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline);
+        --picker--inputstack-padding-block: var(--segented-picker-track-padding-block);
+        --picker--inputstack-overflow: auto clip;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
         --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -5474,6 +5526,31 @@
       --picker--host-color: var(--itemtext, );
       --picker--host-border: var(--itemborder, );
     }
+    :where(picker-view[picker-style=segmented]) {
+      --picker-style: segmented;
+      --picker--inputstack-grid-auto-flow: column;
+      --picker--inputstack-gap: 1rem;
+    }
+    :where(form picker-view[picker-style=segmented]) {
+      --picker--labelstack-display: grid;
+      --picker--inputstack-text-align: start;
+      --picker--inputstack-background: var(--segented-picker-track-bg);
+      --picker--inputstack-border-radius: var(--segented-picker-track-border-radius);
+      --picker--inputstack-position: relative;
+      --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem);
+      --picker--inputstack-block-size: var(--segented-picker-track-block-size);
+      --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline);
+      --picker--inputstack-padding-block: var(--segented-picker-track-padding-block);
+      --picker--inputstack-overflow: auto clip;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
+    }
   }
   :where(picker-view[horizontal-radio-group-layout]) {
     --picker--inputstack-display: flex;
@@ -5488,8 +5565,41 @@
   @container style(--picker-style: palette) {
     :where(picker-view > label:not([slot])) {
       --label-font: callout;
-      cursor: pointer;
       color: var(--secondary);
+    }
+    :where(picker-view > label:not([slot]):has(input[type=radio]:not(:disabled))) {
+      cursor: pointer;
+    }
+    :where(picker-view > label:not([slot]):has(input[type=radio]:checked)) {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    :where(picker-view > label:not([slot]) input[type=radio]) {
+      appearance: none;
+      margin: 0;
+      inline-size: 2rem;
+      block-size: 2rem;
+      border-radius: 0.4rem;
+      pointer-events: none;
+      transition: outline 100ms ease-out;
+    }
+    :where(picker-view > label:not([slot]) input[type=radio]):checked {
+      outline: var(--accentColor) solid 0.3rem;
+      outline-offset: 0.1rem;
+    }
+  }
+  @container style(--picker-style: segmented) {
+    :where(picker-view > label:not([slot])) {
+      --label-font: callout;
+      color: var(--secondary);
+      min-inline-size: var(--segented-picker-button-min-inline-size);
+      background-color: blue;
+      border-radius: inherit;
+      inline-size: fit-content;
+      block-size: calc(var(--segented-picker-track-block-size) - var(--segented-picker-track-padding-block) * 2);
+    }
+    :where(picker-view > label:not([slot]):has(input[type=radio]:not(:disabled))) {
+      cursor: pointer;
     }
     :where(picker-view > label:not([slot]):has(input[type=radio]:checked)) {
       color: var(--primary);

@@ -12,7 +12,7 @@ import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
-const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'segmented', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
 export type { DictEntry, Dictionary } from '../internal/class/dict-entry'
@@ -396,6 +396,7 @@ export class PickerView extends FormAssociatedBase {
 
         break
       }
+      case 'segmented':
       case 'palette':
       case 'radio-group': {
         // capture
@@ -560,6 +561,7 @@ export class PickerView extends FormAssociatedBase {
           )
 
           break
+        case 'segmented':
         case 'palette':
         case 'radio-group':
           PickerView.#templates.set(
@@ -914,6 +916,7 @@ export class PickerView extends FormAssociatedBase {
     if (!(target instanceof HTMLElement)) return
 
     switch (this.pickerStyle) {
+      case 'segmented':
       case 'palette':
       case 'radio-group':
         const radio = target.closest<HTMLInputElement>('input[type="radio"]')
@@ -984,6 +987,10 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'segmented':
+        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node, tag }), mount)
+
+        return mount.firstElementChild as HTMLLabelElement //btn
       case 'palette':
         render(PickerView.#morphPaletteBtn({ name: this.#guuid, node, tag }), mount)
 
@@ -1010,42 +1017,74 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  static #morphRadioGroupGroup({ name, node }: { name: string | null; node: DictEntry }) {
-    return html`<label>
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" disabled />
-        ${PickerView.#morphITSLabel(node)}
-      </h-stack>
-    </label>`
+  static #morphRadioGroupBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
+    if ('string' === typeof tag)
+      return html`<label tabindex="0">
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" value="${tag}" />
+          ${PickerView.#morphITSLabel(node)}
+        </h-stack>
+      </label>`
+    else
+      return html`<label>
+        <h-stack distribution="fill" template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" disabled />
+          ${PickerView.#morphITSLabel(node)}
+        </h-stack>
+      </label>`
   }
 
-  static #morphRadioGroupBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag: string }) {
-    return html`<label tabindex="0">
-      <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" value="${tag}" />
-        ${PickerView.#morphITSLabel(node)}
-      </h-stack>
-    </label>`
+  static #morphPaletteBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
+    if ('string' === typeof tag) {
+      const style = node.src ? `background-image: url('${node.src}')` : null
+
+      return html`<label tabindex="0">
+        <v-stack template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" value="${tag}" style="${style}" />
+          ${PickerView.#morphITSLabel(node)}
+        </v-stack>
+      </label>`
+    } else
+      return html`<label>
+        <v-stack template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" disabled />
+          ${PickerView.#morphITSLabel(node)}
+        </v-stack>
+      </label>`
   }
 
-  static #morphPaletteGroup({ name, node }: { name: string | null; node: DictEntry }) {
-    return html`<label>
-      <v-stack template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" disabled />
-        ${PickerView.#morphITSLabel(node)}
-      </v-stack>
-    </label>`
-  }
+  static #morphSegmentedBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
+    const cssUrl = (src: unknown): string | null => {
+      if ('string' !== typeof src) return null
 
-  static #morphPaletteBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag: string }) {
-    const style = node.src ? `background-image: url('${node.src}')` : null
+      try {
+        const { protocol, href } = new URL(src, location.href)
 
-    return html`<label tabindex="0">
-      <v-stack template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" value="${tag}" style="${style}" />
-        ${PickerView.#morphITSLabel(node)}
-      </v-stack>
-    </label>`
+        if (protocol !== 'https:' && protocol !== 'http:' && protocol !== 'blob:') return null
+
+        // URL.href already percent-encodes " < > ` space and \ in path/query.
+        // Encode the remaining chars that matter inside url('...')
+        return href.replace(/['()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)
+      } catch {
+        return null
+      }
+    }
+    if ('string' === typeof tag) {
+      const style = node.src ? `background-image: url('${cssUrl(node.src)}')` : null
+
+      return html`<label tabindex="0">
+        <v-stack template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" value="${tag}" style="${style}" />
+          ${PickerView.#morphITSLabel(node)}
+        </v-stack>
+      </label>`
+    } else
+      return html`<label>
+        <v-stack template="auto spacer" spacing="5">
+          <input type="radio" name="${name}" disabled />
+          ${PickerView.#morphITSLabel(node)}
+        </v-stack>
+      </label>`
   }
 
   static #morphITSLabel({ title, subtitle, systemImage }: DictEntry) {
@@ -1064,12 +1103,16 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'segmented':
+        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node }), mount)
+
+        return mount.firstElementChild as HTMLLabelElement
       case 'palette':
-        render(PickerView.#morphPaletteGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphPaletteBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       case 'radio-group':
-        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       default:
@@ -1095,12 +1138,16 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'segmented':
+        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node }), mount)
+
+        return mount.firstElementChild as HTMLElement
       case 'palette':
-        render(PickerView.#morphPaletteGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphPaletteBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLElement
       case 'radio-group':
-        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLElement
 
@@ -1124,7 +1171,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectButtons(nodes: Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
 
-    const flatten = ['radio-group', 'palette'].includes(this.pickerStyle)
+    const flatten = ['radio-group', 'palette', 'segmented'].includes(this.pickerStyle)
 
     for (const node of nodes) {
       if (DictEntry.isLeaf(node)) {

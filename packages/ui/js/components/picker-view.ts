@@ -11,7 +11,7 @@ import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
-const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
 export type DictEntry = {
@@ -19,6 +19,7 @@ export type DictEntry = {
   title?: string
   subtitle?: string // TODO
   systemImage?: string
+  src?: string
   children: DictEntry[]
 }
 
@@ -597,6 +598,7 @@ export class PickerView extends FormAssociatedBase {
 
         break
       }
+      case 'palette':
       case 'radio-group': {
         // capture
         // const stack = this.querySelector<HTMLElement>(':scope>v-stack:not([slot])') ?? this.appendChild<HTMLElement>($(html`<v-stack></v-stack>`, '>1'))
@@ -769,6 +771,7 @@ export class PickerView extends FormAssociatedBase {
           )
 
           break
+        case 'palette':
         case 'radio-group':
           PickerView.#templates.set(
             this.pickerStyle,
@@ -1122,6 +1125,7 @@ export class PickerView extends FormAssociatedBase {
     if (!(target instanceof HTMLElement)) return
 
     switch (this.pickerStyle) {
+      case 'palette':
       case 'radio-group':
         const radio = target.closest<HTMLInputElement>('input[type="radio"]')
         if (!radio) return
@@ -1198,6 +1202,10 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'palette':
+        render(PickerView.#morphPaletteBtn({ name: this.#guuid, title, subtitle, icon, tag }), mount)
+
+        return mount.firstElementChild as HTMLLabelElement //btn
       case 'radio-group':
         render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, title, subtitle, icon, tag }), mount)
 
@@ -1223,18 +1231,36 @@ export class PickerView extends FormAssociatedBase {
   static #morphRadioGroupGroup({ name, title, subtitle, icon }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null }) {
     return html`<label>
       <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" style="min-inline-size: 20px; margin: 0" disabled />
+        <input type="radio" name="${name}" disabled />
         ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </h-stack>
     </label>`
   }
 
   static #morphRadioGroupBtn({ name, title, subtitle, icon, tag }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null; tag: string }) {
-    return html`<label>
+    return html`<label tabindex="0">
       <h-stack distribution="fill" template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" value="${tag}" style="min-inline-size: 20px; margin: 0" />
+        <input type="radio" name="${name}" value="${tag}" />
         ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </h-stack>
+    </label>`
+  }
+
+  static #morphPaletteGroup({ name, title, subtitle, icon }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null }) {
+    return html`<label>
+      <v-stack template="auto spacer" spacing="5">
+        <input type="radio" name="${name}" disabled />
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+      </v-stack>
+    </label>`
+  }
+
+  static #morphPaletteBtn({ name, title, subtitle, icon, tag }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null; tag: string }) {
+    return html`<label tabindex="0">
+      <v-stack template="auto spacer" spacing="5">
+        <input type="radio" name="${name}" value="${tag}" style="background-image: url('/red.avif')" />
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
+      </v-stack>
     </label>`
   }
 
@@ -1258,14 +1284,12 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'palette':
+        render(PickerView.#morphPaletteGroup({ name: this.#guuid, title, subtitle, icon }), mount)
+
+        return mount.firstElementChild as HTMLLabelElement
       case 'radio-group':
-        render(
-          PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }),
-          // this.hasAttribute('horizontal-radio-group-layout')
-          //   ? html`<h-flex-stack style="flex-wrap: wrap">${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</h-flex-stack>`
-          //   : html`<v-stack>${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</v-stack>`,
-          mount
-        )
+        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       default:
@@ -1295,14 +1319,12 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
+      case 'palette':
+        render(PickerView.#morphPaletteGroup({ name: this.#guuid, title, subtitle, icon }), mount)
+
+        return mount.firstElementChild as HTMLElement
       case 'radio-group':
-        render(
-          PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }),
-          // this.hasAttribute('horizontal-radio-group-layout')
-          //   ? html`<h-flex-stack style="flex-wrap: wrap">${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</h-flex-stack>`
-          //   : html`<v-stack>${PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon })}</v-stack>`,
-          mount
-        )
+        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLElement
 
@@ -1326,19 +1348,21 @@ export class PickerView extends FormAssociatedBase {
   #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
 
-    const flatten = 'radio-group' === this.pickerStyle
+    const flatten = ['radio-group', 'palette'].includes(this.pickerStyle)
 
     for (const node of nodes)
       if (node instanceof Element)
         switch (node.tagName) {
           case 'DATALIST': {
+            const group = this.#wrapDatalistTag(node as HTMLDataListElement)
+
             if (flatten) {
-              this.#reflectButtons([...node.children] as Element[], container)
+              container.appendChild(group) // header label, sibling-level
+
+              this.#reflectButtons([...node.children] as Element[], container) // flat recurse
 
               break
             }
-
-            const group = this.#wrapDatalistTag(node as HTMLDataListElement)
 
             this.#reflectButtons([...node.children] as Element[], group)
 
@@ -1347,13 +1371,15 @@ export class PickerView extends FormAssociatedBase {
             break
           }
           case 'OPTGROUP': {
+            const group = this.#wrapOptgroupTag(node as HTMLOptGroupElement)
+
             if (flatten) {
+              container.appendChild(group)
+
               this.#reflectButtons([...node.children] as Element[], container)
 
               break
             }
-
-            const group = this.#wrapOptgroupTag(node as HTMLOptGroupElement)
 
             this.#reflectButtons([...node.children] as Element[], group)
 
@@ -1364,14 +1390,18 @@ export class PickerView extends FormAssociatedBase {
           case 'OPTION':
           default: {
             container.appendChild(this.#wrapOptionTag(node as HTMLOptionElement))
-
             break
           }
         }
       else {
         if (node.children.length)
-          if (flatten) this.#reflectButtons(node.children, container)
-          else if (allLeaves(node)) {
+          if (flatten) {
+            const group = this.#wrapOptgroupTag(node) // radio-group branch inside doesn't care about allLeaves
+
+            container.appendChild(group)
+
+            this.#reflectButtons(node.children, container)
+          } else if (allLeaves(node)) {
             const group = this.#wrapOptgroupTag(node)
 
             this.#reflectButtons(node.children, group)
@@ -1515,13 +1545,19 @@ export class PickerView extends FormAssociatedBase {
       case 'sheet':
       case 'navigation-link': {
         trigger = this.querySelector<LabelView>(':scope>label-view:not([slot])') ?? undefined
+
+        break
       }
       case 'menu': {
         trigger = this.querySelector<LabelView>(':scope>menu-view:not([slot])>label-view[slot=label]') ?? undefined
+
+        break
       }
       case 'inline':
       default: {
         //udnefined
+
+        break
       }
     }
 

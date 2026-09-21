@@ -7,6 +7,8 @@
     :where(&) {
       container: labeled-content / inline-size;
 
+      --labeled-content--labelstack-place-items: start;
+
       &::part(labeled-content-container) {
         grid-template-columns: subgrid;
 
@@ -16,7 +18,7 @@
       &::part(labeled-content-stack) {
         display: flex;
 
-        flex-flow: var(--labeled-content--value-stack-flex-flow, row wrap);
+        flex-flow: var(--labeled-content--valuestack-flex-flow, row wrap);
         // flex-wrap: wrap;
 
         justify-content: space-between;
@@ -29,32 +31,34 @@
         --label-truncation-mode: tail;
 
         --label-line-limit: 1;
+
+        place-items: var(--labeled-content--labelstack-place-items, center);
       }
 
       &::part(labeled-content-value-stack) {
         color: var(--secondary);
 
-        justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
+        justify-items: var(--labeled-content--valuestack-justify-items, flex-end);
 
         word-break: break-word;
       }
 
       @media (pointer: fine) {
-        --labeled-content--value-stack-flex-flow: column;
+        --labeled-content--valuestack-flex-flow: column;
 
-        --labeled-content--value-stack-justify-items: flex-start;
+        --labeled-content--valuestack-justify-items: flex-start;
       }
 
       &[labeled-content-style='vertical'] {
-        --labeled-content--value-stack-flex-flow: column;
+        --labeled-content--valuestack-flex-flow: column;
 
-        --labeled-content--value-stack-justify-items: flex-start;
+        --labeled-content--valuestack-justify-items: flex-start;
       }
 
       &[labeled-content-style='horizontal'] {
-        --labeled-content--value-stack-flex-flow: row wrap;
+        --labeled-content--valuestack-flex-flow: row wrap;
 
-        --labeled-content--value-stack-justify-items: flex-end;
+        --labeled-content--valuestack-justify-items: flex-end;
       }
     }
 

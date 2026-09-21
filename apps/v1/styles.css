@@ -3647,6 +3647,7 @@
 @layer sw.sw-components {
   :where(labeled-content) {
     container: labeled-content/inline-size;
+    --labeled-content--labelstack-place-items: start;
   }
   :where(labeled-content)::part(labeled-content-container) {
     grid-template-columns: subgrid;
@@ -3654,7 +3655,7 @@
   }
   :where(labeled-content)::part(labeled-content-stack) {
     display: flex;
-    flex-flow: var(--labeled-content--value-stack-flex-flow, row wrap);
+    flex-flow: var(--labeled-content--valuestack-flex-flow, row wrap);
     justify-content: space-between;
     row-gap: var(--labeled-content-row-gap);
     column-gap: var(--labeled-content-column-gap);
@@ -3662,25 +3663,26 @@
   :where(labeled-content)::part(labeled-content-label-stack) {
     --label-truncation-mode: tail;
     --label-line-limit: 1;
+    place-items: var(--labeled-content--labelstack-place-items, center);
   }
   :where(labeled-content)::part(labeled-content-value-stack) {
     color: var(--secondary);
-    justify-items: var(--labeled-content--value-stack-justify-items, flex-end);
+    justify-items: var(--labeled-content--valuestack-justify-items, flex-end);
     word-break: break-word;
   }
   @media (pointer: fine) {
     :where(labeled-content) {
-      --labeled-content--value-stack-flex-flow: column;
-      --labeled-content--value-stack-justify-items: flex-start;
+      --labeled-content--valuestack-flex-flow: column;
+      --labeled-content--valuestack-justify-items: flex-start;
     }
   }
   :where(labeled-content)[labeled-content-style=vertical] {
-    --labeled-content--value-stack-flex-flow: column;
-    --labeled-content--value-stack-justify-items: flex-start;
+    --labeled-content--valuestack-flex-flow: column;
+    --labeled-content--valuestack-justify-items: flex-start;
   }
   :where(labeled-content)[labeled-content-style=horizontal] {
-    --labeled-content--value-stack-flex-flow: row wrap;
-    --labeled-content--value-stack-justify-items: flex-end;
+    --labeled-content--valuestack-flex-flow: row wrap;
+    --labeled-content--valuestack-justify-items: flex-end;
   }
   :where(labeled-content > :nth-child(n+2 of [slot=label]),
   labeled-content > [slot=header],
@@ -5251,12 +5253,12 @@
   :where(picker-view) {
     grid-template-columns: minmax(0, 1fr);
     grid-template-rows: minmax(0, 1fr);
-    padding-inline: var(--picker--host-grid-padding-inline, );
-    padding-block: var(--picker--host-grid-padding-block, );
-    background: var(--picker--host-grid-background, );
-    border-radius: var(--picker--host-grid-border-radius, );
-    border: var(--picker--host-grid-border, );
-    color: var(--picker--host-grid-color, );
+    padding-inline: var(--picker--host-padding-inline, );
+    padding-block: var(--picker--host-padding-block, );
+    background: var(--picker--host-background, );
+    border-radius: var(--picker--host-border-radius, );
+    border: var(--picker--host-border, );
+    color: var(--picker--host-color, );
   }
   :where(picker-view)::part(picker-stack) {
     grid-template-columns: var(--picker--host-grid-template-columns, );
@@ -5289,131 +5291,223 @@
     }
   }
   @supports (x: if(else:red)) {
+    :where(picker-view) {
+      --picker--inputstack-display: if(style(--picker-style: palette): flex; );
+      --picker--inputstack-flex-flow: if(style(--picker-style: palette): row wrap; );
+      --picker--inputstack-gap: if(style(--picker-style: palette): 1rem; style(--picker-style: radio-group): 1rem; );
+    }
     :where(form picker-view) {
-      --picker--labelstack-display: if(style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
-      --picker--inputstack-text-align: if(style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
-      --picker--inputstack-gap: if(style(--picker-style: radio-group): 1rem; );
-      --picker--host-row-gap: if(style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
-      --picker--host-column-gap: if(style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
-      --picker--host-grid-padding-inline: if(style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
-      --picker--host-grid-padding-block: if(style(--picker-style: radio-group): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: menu): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: navigation-link): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: sheet): var(--itempadbstart, ) var(--itempadbend, ); );
-      --picker--host-grid-border-radius: if(style(--picker-style: radio-group): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: menu): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: navigation-link): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: sheet): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); );
-      --picker--host-grid-background: if(style(--picker-style: radio-group): var(--itemface, ); style(--picker-style: menu): var(--itemface, ); style(--picker-style: navigation-link): var(--itemface, ); style(--picker-style: sheet): var(--itemface, ); );
-      --picker--host-grid-color: if(style(--picker-style: radio-group): var(--itemtext, ); style(--picker-style: menu): var(--itemtext, ); style(--picker-style: navigation-link): var(--itemtext, ); style(--picker-style: sheet): var(--itemtext, ); );
-      --picker--host-grid-border: if(style(--picker-style: radio-group): var(--itemborder, ); style(--picker-style: menu): var(--itemborder, ); style(--picker-style: navigation-link): var(--itemborder, ); style(--picker-style: sheet): var(--itemborder, ); );
+      --picker--labelstack-display: if(style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
+      --picker--inputstack-text-align: if(style(--picker-style: palette): start; style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
+      --picker--host-row-gap: if(style(--picker-style: palette): var(--labeled-content-row-gap); style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
+      --picker--host-column-gap: if(style(--picker-style: palette): var(--labeled-content-column-gap); style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
+      --picker--host-padding-inline: if(style(--picker-style: palette): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
+      --picker--host-padding-block: if(style(--picker-style: palette): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: radio-group): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: menu): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: navigation-link): var(--itempadbstart, ) var(--itempadbend, ); style(--picker-style: sheet): var(--itempadbstart, ) var(--itempadbend, ); );
+      --picker--host-border-radius: if(style(--picker-style: palette): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: radio-group): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: menu): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: navigation-link): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); style(--picker-style: sheet): var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, ); );
+      --picker--host-background: if(style(--picker-style: palette): var(--itemface, ); style(--picker-style: radio-group): var(--itemface, ); style(--picker-style: menu): var(--itemface, ); style(--picker-style: navigation-link): var(--itemface, ); style(--picker-style: sheet): var(--itemface, ); );
+      --picker--host-color: if(style(--picker-style: palette): var(--itemtext, ); style(--picker-style: radio-group): var(--itemtext, ); style(--picker-style: menu): var(--itemtext, ); style(--picker-style: navigation-link): var(--itemtext, ); style(--picker-style: sheet): var(--itemtext, ); );
+      --picker--host-border: if(style(--picker-style: palette): var(--itemborder, ); style(--picker-style: radio-group): var(--itemborder, ); style(--picker-style: menu): var(--itemborder, ); style(--picker-style: navigation-link): var(--itemborder, ); style(--picker-style: sheet): var(--itemborder, ); );
     }
   }
   @supports not (x: if(else:red)) {
-    @container style(--picker-style: menu) {
+    @container style(--picker-style: menu) {}
+    @container style(--picker-style: navigation-link) {}
+    @container style(--picker-style: sheet) {}
+    @container style(--picker-style: radio-group) {
       :where(picker-view:not([picker-style])) {
+        --picker--inputstack-gap: 1rem;
+      }
+    }
+    @container style(--picker-style: palette) {
+      :where(picker-view:not([picker-style])) {
+        --picker--inputstack-display: flex;
+        --picker--inputstack-flex-flow: row wrap;
+        --picker--inputstack-gap: 1rem;
+      }
+    }
+    @container style(--picker-style: menu) {
+      :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: start;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
-        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--host-grid-background: var(--itemface, );
-        --picker--host-grid-color: var(--itemtext, );
-        --picker--host-grid-border: var(--itemborder, );
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
       }
     }
     @container style(--picker-style: navigation-link) {
-      :where(picker-view:not([picker-style])) {
+      :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: end;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
-        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--host-grid-background: var(--itemface, );
-        --picker--host-grid-color: var(--itemtext, );
-        --picker--host-grid-border: var(--itemborder, );
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
       }
     }
     @container style(--picker-style: sheet) {
-      :where(picker-view:not([picker-style])) {
+      :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: end;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
-        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--host-grid-background: var(--itemface, );
-        --picker--host-grid-color: var(--itemtext, );
-        --picker--host-grid-border: var(--itemborder, );
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
       }
     }
     @container style(--picker-style: radio-group) {
-      :where(picker-view:not([picker-style])) {
+      :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: start;
-        --picker--inputstack-gap: 1rem;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
-        --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-        --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-        --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-        --picker--host-grid-background: var(--itemface, );
-        --picker--host-grid-color: var(--itemtext, );
-        --picker--host-grid-border: var(--itemborder, );
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
       }
+    }
+    @container style(--picker-style: palette) {
+      :where(form picker-view:not([picker-style])) {
+        --picker--labelstack-display: grid;
+        --picker--inputstack-text-align: start;
+        --picker--host-row-gap: var(--labeled-content-row-gap);
+        --picker--host-column-gap: var(--labeled-content-column-gap);
+        --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+        --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+        --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+        --picker--host-background: var(--itemface, );
+        --picker--host-color: var(--itemtext, );
+        --picker--host-border: var(--itemborder, );
+      }
+    }
+    :where(picker-view[picker-style=menu]) {
+      --picker-style: menu;
     }
     :where(form picker-view[picker-style=menu]) {
       --picker--labelstack-display: grid;
       --picker--inputstack-text-align: start;
       --picker--host-row-gap: var(--labeled-content-row-gap);
       --picker--host-column-gap: var(--labeled-content-column-gap);
-      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--host-grid-background: var(--itemface, );
-      --picker--host-grid-color: var(--itemtext, );
-      --picker--host-grid-border: var(--itemborder, );
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
+    }
+    :where(picker-view[picker-style=navigation-link]) {
+      --picker-style: navigation-link;
     }
     :where(form picker-view[picker-style=navigation-link]) {
       --picker--labelstack-display: grid;
       --picker--inputstack-text-align: end;
       --picker--host-row-gap: var(--labeled-content-row-gap);
       --picker--host-column-gap: var(--labeled-content-column-gap);
-      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--host-grid-background: var(--itemface, );
-      --picker--host-grid-color: var(--itemtext, );
-      --picker--host-grid-border: var(--itemborder, );
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
+    }
+    :where(picker-view[picker-style=sheet]) {
+      --picker-style: sheet;
     }
     :where(form picker-view[picker-style=sheet]) {
       --picker--labelstack-display: grid;
       --picker--inputstack-text-align: end;
       --picker--host-row-gap: var(--labeled-content-row-gap);
       --picker--host-column-gap: var(--labeled-content-column-gap);
-      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--host-grid-background: var(--itemface, );
-      --picker--host-grid-color: var(--itemtext, );
-      --picker--host-grid-border: var(--itemborder, );
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
+    }
+    :where(picker-view[picker-style=radio-group]) {
+      --picker-style: radio-group;
+      --picker--inputstack-gap: 1rem;
     }
     :where(form picker-view[picker-style=radio-group]) {
       --picker--labelstack-display: grid;
       --picker--inputstack-text-align: start;
-      --picker--inputstack-gap: 1rem;
       --picker--host-row-gap: var(--labeled-content-row-gap);
       --picker--host-column-gap: var(--labeled-content-column-gap);
-      --picker--host-grid-padding-inline: var(--itempadistart, ) var(--itempadiend, );
-      --picker--host-grid-padding-block: var(--itempadbstart, ) var(--itempadbend, );
-      --picker--host-grid-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
-      --picker--host-grid-background: var(--itemface, );
-      --picker--host-grid-color: var(--itemtext, );
-      --picker--host-grid-border: var(--itemborder, );
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
+    }
+    :where(picker-view[picker-style=palette]) {
+      --picker-style: palette;
+      --picker--inputstack-display: flex;
+      --picker--inputstack-flex-flow: row wrap;
+      --picker--inputstack-gap: 1rem;
+    }
+    :where(form picker-view[picker-style=palette]) {
+      --picker--labelstack-display: grid;
+      --picker--inputstack-text-align: start;
+      --picker--host-row-gap: var(--labeled-content-row-gap);
+      --picker--host-column-gap: var(--labeled-content-column-gap);
+      --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
+      --picker--host-padding-block: var(--itempadbstart, ) var(--itempadbend, );
+      --picker--host-border-radius: var(--itemradiustl, ) var(--itemradiustr, ) var(--itemradiusbr, ) var(--itemradiusbl, );
+      --picker--host-background: var(--itemface, );
+      --picker--host-color: var(--itemtext, );
+      --picker--host-border: var(--itemborder, );
     }
   }
   :where(picker-view[horizontal-radio-group-layout]) {
     --picker--inputstack-display: flex;
     --picker--inputstack-flex-flow: row wrap;
+  }
+  @container style(--picker-style: radio-group) {
+    picker-view > label:not([slot]) input[type=radio] {
+      min-inline-size: 20px;
+      margin: 0;
+    }
+  }
+  @container style(--picker-style: palette) {
+    :where(picker-view > label:not([slot])) {
+      --label-font: callout;
+      cursor: pointer;
+      color: var(--secondary);
+    }
+    :where(picker-view > label:not([slot]):has(input[type=radio]:checked)) {
+      color: var(--primary);
+      font-weight: 600;
+    }
+    :where(picker-view > label:not([slot]) input[type=radio]) {
+      appearance: none;
+      margin: 0;
+      inline-size: 2rem;
+      block-size: 2rem;
+      border-radius: 0.4rem;
+      pointer-events: none;
+      transition: outline 100ms ease-out;
+    }
+    :where(picker-view > label:not([slot]) input[type=radio]):checked {
+      outline: var(--accentColor) solid 0.3rem;
+      outline-offset: 0.1rem;
+    }
   }
 }
 @layer sw.sw-final {

@@ -123,7 +123,7 @@ export const startViewTransition = async (target: HTMLElement, type: TransitionT
 
       debug(`⚡️ view-dialog-transition-start (${type})`)
 
-      await Promise.allSettled(modalViews?.[0].getAnimations().map(({ finished }) => finished))
+      await Promise.allSettled((modalViews?.[0].getAnimations?.() ?? []).map(({ finished }) => finished)) // vitest is missing some parts, more safe-guards
 
       debug(`⚡️ view-dialog-transition-end (${type})`)
     } else {

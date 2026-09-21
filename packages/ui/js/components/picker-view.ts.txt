@@ -1,7 +1,6 @@
 import type { PickerSearchableDetail, PickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { DictEntry, Dictionary } from '../internal/class/dict-entry'
 import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
@@ -15,7 +14,16 @@ import type { MenuView } from './menu-view'
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
-export type { DictEntry, Dictionary } from '../internal/class/dict-entry'
+export type DictEntry = {
+  value: string
+  title?: string
+  subtitle?: string // TODO
+  systemImage?: string
+  src?: string
+  children: DictEntry[]
+}
+
+export type Dictionary = DictEntry[]
 
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
   debug(`PickerView: update`)
@@ -84,6 +92,97 @@ const reflectSpawnedPage = (current?: HTMLElement, source?: HTMLElement) => {
   } else oldSearch?.remove()
 }
 
+const extractTag = (node: HTMLOptionElement | DictEntry): string => {
+    debug(`PickerView: extractTag`)
+
+    return node instanceof HTMLOptionElement ? (((node.getAttribute('value') ?? node.textContent?.trim()) || node.getAttribute('label')) ?? '') : (node.value ?? '')
+  },
+  extractLabel = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+    debug(`PickerView: extractLabelFromGroup`)
+
+    if (node instanceof Element)
+      if (node instanceof HTMLOptionElement) return (node.getAttribute('label') ?? node.getAttribute('value') ?? node.textContent?.trim()) || null
+      else return node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label')
+    else return node.title ?? node.value ?? null
+
+    // return node instanceof Element ? node.getAttribute('DATALIST' === node.tagName ? 'data-label' : 'label') : (node.title ?? node.value ?? null)
+  },
+  extractIcon = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+    debug(`PickerView: extractIcon`)
+
+    // return node instanceof Element ? node.getAttribute('data-system-image') : (node.systemImage ?? null)
+
+    if (node instanceof Element) return node.getAttribute('data-system-image')
+    else return node.systemImage ?? null
+  },
+  extractSubtitle = (node: HTMLOptionElement | HTMLOptGroupElement | HTMLDataListElement | DictEntry): string | null => {
+    debug(`PickerView: extractSubtitle`)
+
+    if (node instanceof Element) return node.getAttribute('data-subtitle')
+    else return node.subtitle ?? null
+  }
+
+const allLeaves = (node: DictEntry) => node.children.every((c) => 0 === c.children.length)
+
+const parseDictionary = (value: string | null): Dictionary => {
+  let dictionary: Dictionary = []
+
+  try {
+    dictionary = JSON.parse(value ?? '[]') as Dictionary
+  } catch {
+    console.error('invalid-dictionary')
+  }
+
+  return dictionary
+}
+
+const indexGroups = (nodes: Element[] | Dictionary, parentPath = ''): Map<string, Element | DictEntry> => {
+  const map = new Map<string, Element | DictEntry>()
+
+  nodes.forEach((node, i) => {
+    const id = parentPath ? `${parentPath}.${i}` : `${i}`
+
+    map.set(id, node) // no DOM write — works identically for Element and DictEntry
+
+    const children = node instanceof Element ? Array.from(node.children) : node.children
+    for (const [cid, cnode] of indexGroups(children, id)) map.set(cid, cnode)
+  })
+
+  return map
+}
+
+const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+
+const flattenDictionary = (tree: Dictionary): { labels: Record<string, string | undefined>; icons: Record<string, string | undefined> } => {
+  const out1: Record<string, string | undefined> = {},
+    out2: Record<string, string | undefined> = {},
+    stack: DictEntry[][] = [tree],
+    idx: number[] = [0]
+
+  while (stack.length) {
+    const frame = stack[stack.length - 1],
+      i = idx[idx.length - 1]
+
+    if (i >= frame.length) {
+      stack.pop()
+      idx.pop()
+      continue
+    }
+
+    idx[idx.length - 1]++
+    const { value, title, systemImage, children } = frame[i]
+    out1[value] = title
+    out2[value] = systemImage
+
+    if (children.length) {
+      stack.push(children)
+      idx.push(0)
+    }
+  }
+
+  return { labels: out1, icons: out2 }
+}
+
 /**
  * @summary A control that selects one value from a set of options.
  *
@@ -136,7 +235,7 @@ export class PickerView extends FormAssociatedBase {
 
   #spawn?: HTMLElement
 
-  #makeGroupClickHandler(el: DictEntry, groupId: string) {
+  #makeGroupClickHandler(el: Element | DictEntry, groupId: string) {
     return async (evt: Event) => {
       evt.stopImmediatePropagation()
       evt.preventDefault()
@@ -144,7 +243,7 @@ export class PickerView extends FormAssociatedBase {
       const { target } = evt
       if (!(target instanceof HTMLElement)) return
 
-      const newPage = this.#spawnPage(el.children, 'content-view', groupId, this.hasAttribute('searchable'), el.title)
+      const newPage = this.#spawnPage(el instanceof Element ? Array.from(el.children) : el.children, 'content-view', groupId, this.hasAttribute('searchable'), extractLabel(el as HTMLDataListElement))
       if (!newPage) return
 
       newPage.dataset.groupId = groupId // <-- tag the spawned page
@@ -159,7 +258,7 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #spawnPage = (entries: Dictionary, tag: 'content-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
+  #spawnPage = (elements: Element[] | DictEntry[], tag: 'content-view' | 'sheet-view', parentGroupId?: string, searchable: boolean = false, title?: string | null) => {
     debug(`${PickerView.name} #spawnPage`)
 
     const body =
@@ -267,31 +366,88 @@ export class PickerView extends FormAssociatedBase {
       })
     })
 
-    for (const [i, el] of entries.entries()) {
-      if (DictEntry.isLeaf(el)) {
-        const btn = this.#wrapOptionTag(el)
-        btn.addEventListener('click', this.#handlePageBtnClick)
-        list?.appendChild(btn)
-      } else if (DictEntry.isGroup(el)) {
-        const group = this.#wrapOptgroupTag(el)
-        this.#reflectButtons(el.children, group)
-        for (const btn of group.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
-        list?.appendChild(group)
-      } else {
-        const btn = PickerView.#wrapOptionSpawnTag(el)
-        const groupId = parentGroupId ? `${parentGroupId}.${i}` : `${i}`
-        btn.dataset.groupId = groupId
-        btn.addEventListener('click', this.#makeGroupClickHandler(el, groupId))
-        list?.appendChild(btn)
+    for (const [i, el] of elements.entries()) {
+      if (el instanceof Element)
+        switch (el.tagName) {
+          case 'OPTGROUP': {
+            const group = this.#wrapOptgroupTag(el as HTMLOptGroupElement)
+
+            this.#reflectButtons([...el.children] as Element[], group)
+
+            for (const btn of group.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
+
+            list?.appendChild(group)
+
+            break
+          }
+          case 'OPTION': {
+            const btn = this.#wrapOptionTag(el as HTMLOptionElement)
+
+            btn.addEventListener('click', this.#handlePageBtnClick)
+
+            list?.appendChild(btn)
+
+            break
+          }
+          default: {
+            const btn = PickerView.#wrapOptionSpawnTag(el as HTMLDataListElement)
+
+            const groupId = parentGroupId ? `${parentGroupId}.${i}` : `${i}`
+            // const btn = $<HTMLButtonElement>(
+            //     `<button type="button" tabindex="0" navigation-link><h-stack distribution="leading" template="auto spacer"><label-view data-role="check" style="visibility: hidden"><image-view slot="icon" system-name="check"></image-view></label-view><label-view><span></span></label-view></h-stack></button>`,
+            //     '>1'
+            //   ),
+            //   label = btn.querySelector<LabelView>(':scope>h-stack>label-view:nth-child(2)')
+            // const node = el as HTMLElement
+            // if (label && node.dataset.label) renderLabelTitle(label, node.dataset.label) //label?.setAttribute('title', el.dataset.label)
+
+            btn.dataset.groupId = groupId
+
+            btn.addEventListener('click', this.#makeGroupClickHandler(el, groupId))
+
+            list?.appendChild(btn)
+
+            break
+          }
+        }
+      else {
+        if (el.children.length)
+          if (allLeaves(el)) {
+            const group = this.#wrapOptgroupTag(el)
+
+            this.#reflectButtons(el.children, group)
+
+            for (const btn of group.querySelectorAll(':scope>button')) btn.addEventListener('click', this.#handlePageBtnClick)
+
+            list?.appendChild(group)
+          } else {
+            const btn = PickerView.#wrapOptionSpawnTag(el)
+
+            const groupId = parentGroupId ? `${parentGroupId}.${i}` : `${i}`
+
+            btn.dataset.groupId = groupId
+
+            btn.addEventListener('click', this.#makeGroupClickHandler(el, groupId))
+
+            list?.appendChild(btn)
+          }
+        else {
+          const btn = this.#wrapOptionTag(el)
+
+          btn.addEventListener('click', this.#handlePageBtnClick)
+
+          list?.appendChild(btn)
+        }
       }
     }
+
     return body
   }
 
-  #resyncSpawnedPages = (fresh: Dictionary) => {
+  #resyncSpawnedPages = (freshRoot: Element[] | Dictionary) => {
     if (!this.#spawn) return
 
-    const groupMap = Dictionary.index(fresh)
+    const groupMap = indexGroups(freshRoot)
 
     for (const el of this.#spawn.querySelectorAll<HTMLElement>('content-view')) {
       const depth = ancestors('content-view,[is=sheet-view]', el).indexOf(this.#spawn)
@@ -305,8 +461,8 @@ export class PickerView extends FormAssociatedBase {
         continue
       }
 
-      const children = source.children
-      const title = source.title ?? null
+      const children = source instanceof Element ? Array.from(source.children) : source.children
+      const title = source instanceof Element ? extractLabel(source as HTMLDataListElement) : (source.title ?? null)
 
       const newPage = this.#spawnPage(children, 'content-view', groupId, this.hasAttribute('searchable'), title)
       newPage.dataset.groupId = groupId
@@ -315,16 +471,62 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #renderButtons(source: Dictionary): void {
+  #renderButtons(input: { mode: 'dictionary'; source: Dictionary } | { mode: 'list'; source: Element[] }): void {
     debug(`${PickerView.name} #renderButtons`)
 
-    const { labels, icons } = Dictionary.flatten(source)
+    switch (input.mode) {
+      case 'dictionary': {
+        const { labels, icons } = flattenDictionary(input.source)
 
-    this.#lastRenderedLabelMap = labels
+        this.#lastRenderedLabelMap = labels
 
-    this.#lastRenderedIconMap = icons
+        this.#lastRenderedIconMap = icons
 
-    this.#lastIndexedRoot = source
+        // const collectLeafValues = (node: DictEntry): string[] => (node.children.length ? node.children.flatMap(collectLeafValues) : [node.value])
+        // collectGroups = (nodes: DictEntry[]): string[][] => {
+        //   const groups: string[][] = []
+        //   const walk = (list: DictEntry[]) => {
+        //     for (const node of list) {
+        //       if (!node.children.length) continue
+        //       if (!allLeaves(node)) groups.push(collectLeafValues(node))
+        //       walk(node.children)
+        //     }
+        //   }
+        //   walk(nodes)
+        //   return groups
+        // }
+        this.#lastIndexedRoot = input.source //this.#lastRenderedGroupMap = collectGroups(dictionary)
+
+        break
+      }
+
+      case 'list': {
+        this.#lastRenderedLabelMap = {}
+        this.#lastRenderedIconMap = {}
+
+        for (const el of input.source)
+          if (el.matches('option')) {
+            const k = extractTag(el as HTMLOptionElement)
+            this.#lastRenderedLabelMap[k] = (el as HTMLOptionElement).getAttribute('label') ?? undefined
+            this.#lastRenderedIconMap[k] = extractIcon(el as HTMLOptionElement) ?? undefined
+          } else
+            for (const opt of el.querySelectorAll<HTMLOptionElement>('option')) {
+              const k = extractTag(opt)
+
+              this.#lastRenderedLabelMap[k] = opt.getAttribute('label') ?? undefined
+              this.#lastRenderedIconMap[k] = extractIcon(opt) ?? undefined
+            }
+
+        this.#lastIndexedRoot = input.source
+        // this.#lastRenderedGroupMap = assigned.flatMap<string[]>((el) =>
+        //   [...(el.matches('datalist') ? [el as HTMLDataListElement] : []), ...el.querySelectorAll<HTMLDataListElement>('datalist')].map((dl) =>
+        //     Array.from(dl.options).map((opt) => extractTagFromOption(opt))
+        //   )
+        // )
+
+        break
+      }
+    }
 
     switch (this.pickerStyle) {
       case 'sheet':
@@ -352,10 +554,10 @@ export class PickerView extends FormAssociatedBase {
         // rerender level 0
         reflectSpawnedPage(
           this.#spawn,
-          this.#spawnPage(source, 'DIALOG' === this.#spawn.tagName ? 'sheet-view' : 'content-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label'))
+          this.#spawnPage(input.source, 'DIALOG' === this.#spawn.tagName ? 'sheet-view' : 'content-view', undefined, this.hasAttribute('searchable'), this.getAttribute('label'))
         )
 
-        this.#resyncSpawnedPages(source)
+        this.#resyncSpawnedPages(input.source)
         // // FIXME:
         // for (const el of this.#spawn.querySelectorAll<HTMLElement>('content-view')) {
         //   const depth = $.ancestors('content-view,[is=sheet-view]', el).indexOf(this.#spawn)
@@ -392,7 +594,7 @@ export class PickerView extends FormAssociatedBase {
 
         if (this.hasAttribute('help')) currentValueLabel?.setAttribute('help', this.getAttribute('help') ?? '')
 
-        this.#reflectButtons(source, menu)
+        this.#reflectButtons(input.source, menu)
 
         break
       }
@@ -408,7 +610,7 @@ export class PickerView extends FormAssociatedBase {
         for (const el of this.querySelectorAll(':scope>:not([slot])')) el.remove()
 
         // add buttons
-        this.#reflectButtons(source, this)
+        this.#reflectButtons(input.source, this)
 
         break
       }
@@ -444,7 +646,16 @@ export class PickerView extends FormAssociatedBase {
           section.insertAdjacentElement('beforeend', hStack)
         }
 
-        this.#reflectButtons(source.filter(DictEntry.isLeaf), section)
+        if ('dictionary' === input.mode)
+          this.#reflectButtons(
+            input.source.filter((el) => 0 === el.children.length),
+            section
+          )
+        else
+          this.#reflectButtons(
+            input.source.filter((el) => el.matches('option')),
+            section
+          )
 
         break
       }
@@ -504,7 +715,7 @@ export class PickerView extends FormAssociatedBase {
   #lastRenderedLabelMap: Record<string, string | undefined> = {}
   #lastRenderedIconMap: Record<string, string | undefined> = {}
 
-  #lastIndexedRoot: Dictionary = []
+  #lastIndexedRoot: Element[] | Dictionary = []
 
   get #currentValueLabel() {
     return (
@@ -772,10 +983,10 @@ export class PickerView extends FormAssociatedBase {
     return (pickerStyles as readonly string[]).includes(this.getAttribute(attr) ?? '') ? (this.getAttribute(attr) as (typeof pickerStyles)[number]) : 'automatic'
   }
 
-  #resolveSource(): Dictionary {
-    if (this.hasAttribute('dictionary')) return Dictionary.parse(this.getAttribute('dictionary'))
+  #resolveSource(): { mode: 'dictionary'; source: Dictionary } | { mode: 'list'; source: Element[] } {
+    if (this.hasAttribute('dictionary')) return { mode: 'dictionary', source: parseDictionary(this.getAttribute('dictionary')) }
 
-    return Dictionary.fromElements(this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [])
+    return { mode: 'list', source: this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [] }
   }
 
   #render() {
@@ -836,7 +1047,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#spawn?.remove?.()
 
-    const source = this.#resolveSource()
+    const { source } = this.#resolveSource()
 
     const level0 = this.#spawnPage(
       source, // this.hasAttribute('dictionary') ? parseDictionary(this.getAttribute('dictionary')) : (this.#slots?.get('list')?.assignedElements() ?? []),
@@ -957,8 +1168,12 @@ export class PickerView extends FormAssociatedBase {
     this.#renderSlotted([])
   }
 
-  static #wrapOptionSpawnTag(node: DictEntry) {
+  static #wrapOptionSpawnTag(node: HTMLDataListElement | DictEntry) {
     debug(`${PickerView.name} #wrapOptionSpawnTag`)
+
+    const title = extractLabel(node as HTMLDataListElement),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node as HTMLDataListElement)
 
     const mount = document.createElement('div')
     render(
@@ -967,7 +1182,7 @@ export class PickerView extends FormAssociatedBase {
           <label-view data-role="check" style="visibility: hidden">
             <image-view slot="icon" system-name="check"></image-view>
           </label-view>
-          ${PickerView.#morphITSLabel(node)}
+          ${PickerView.#morphITSLabel({ title, subtitle, icon })}
         </h-stack>
       </button>`,
       mount
@@ -976,20 +1191,23 @@ export class PickerView extends FormAssociatedBase {
     return mount.firstElementChild as HTMLButtonElement //btn
   }
 
-  #wrapOptionTag(node: DictEntry) {
+  #wrapOptionTag(node: HTMLOptionElement | DictEntry) {
     debug(`${PickerView.name} #wrapOptionTag`)
 
-    const tag = node.value
+    const tag = extractTag(node),
+      title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
 
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
       case 'palette':
-        render(PickerView.#morphPaletteBtn({ name: this.#guuid, node, tag }), mount)
+        render(PickerView.#morphPaletteBtn({ name: this.#guuid, title, subtitle, icon, tag }), mount)
 
         return mount.firstElementChild as HTMLLabelElement //btn
       case 'radio-group':
-        render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, node, tag }), mount)
+        render(PickerView.#morphRadioGroupBtn({ name: this.#guuid, title, subtitle, icon, tag }), mount)
 
         return mount.firstElementChild as HTMLLabelElement //btn
 
@@ -1000,7 +1218,7 @@ export class PickerView extends FormAssociatedBase {
               <label-view data-role="check">
                 <image-view slot="icon" system-name="check"></image-view>
               </label-view>
-              ${PickerView.#morphITSLabel(node)}
+              ${PickerView.#morphITSLabel({ title, subtitle, icon })}
             </h-stack>
           </button>`,
           mount
@@ -1010,47 +1228,45 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  static #morphRadioGroupGroup({ name, node }: { name: string | null; node: DictEntry }) {
+  static #morphRadioGroupGroup({ name, title, subtitle, icon }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null }) {
     return html`<label>
       <h-stack distribution="fill" template="auto spacer" spacing="5">
         <input type="radio" name="${name}" disabled />
-        ${PickerView.#morphITSLabel(node)}
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </h-stack>
     </label>`
   }
 
-  static #morphRadioGroupBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag: string }) {
+  static #morphRadioGroupBtn({ name, title, subtitle, icon, tag }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null; tag: string }) {
     return html`<label tabindex="0">
       <h-stack distribution="fill" template="auto spacer" spacing="5">
         <input type="radio" name="${name}" value="${tag}" />
-        ${PickerView.#morphITSLabel(node)}
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </h-stack>
     </label>`
   }
 
-  static #morphPaletteGroup({ name, node }: { name: string | null; node: DictEntry }) {
+  static #morphPaletteGroup({ name, title, subtitle, icon }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null }) {
     return html`<label>
       <v-stack template="auto spacer" spacing="5">
         <input type="radio" name="${name}" disabled />
-        ${PickerView.#morphITSLabel(node)}
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </v-stack>
     </label>`
   }
 
-  static #morphPaletteBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag: string }) {
-    const style = node.src ? `background-image: url('${node.src}')` : null
-
+  static #morphPaletteBtn({ name, title, subtitle, icon, tag }: { name: string | null; title: string | null; subtitle: string | null; icon: string | null; tag: string }) {
     return html`<label tabindex="0">
       <v-stack template="auto spacer" spacing="5">
-        <input type="radio" name="${name}" value="${tag}" style="${style}" />
-        ${PickerView.#morphITSLabel(node)}
+        <input type="radio" name="${name}" value="${tag}" style="background-image: url('/red.avif')" />
+        ${PickerView.#morphITSLabel({ title, subtitle, icon })}
       </v-stack>
     </label>`
   }
 
-  static #morphITSLabel({ title, subtitle, systemImage }: DictEntry) {
-    return html`<h-stack distribution="fill" template="${systemImage ? 'auto spacer' : null}">
-      ${systemImage ? html`<label-view system-image="${systemImage}"></label-view>` : null}
+  static #morphITSLabel({ title, subtitle, icon }: { title: string | null; subtitle: string | null; icon: string | null }) {
+    return html`<h-stack distribution="fill" template="${icon ? 'auto spacer' : null}">
+      ${icon ? html`<label-view system-image="${icon}"></label-view>` : null}
       <v-stack spacing="3" alignment="fill">
         <label-view title="${title}"></label-view>
         ${subtitle ? html`<label-view foreground="secondary" font="callout" title="${subtitle}"></label-view>` : null}
@@ -1058,18 +1274,22 @@ export class PickerView extends FormAssociatedBase {
     </h-stack>`
   }
 
-  #wrapOptgroupTag(node: DictEntry) {
+  #wrapOptgroupTag(node: HTMLOptGroupElement | DictEntry) {
     debug(`${PickerView.name} #wrapOptgroupTag`)
+
+    const title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
 
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
       case 'palette':
-        render(PickerView.#morphPaletteGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphPaletteGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       case 'radio-group':
-        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       default:
@@ -1080,7 +1300,7 @@ export class PickerView extends FormAssociatedBase {
                 <label-view data-role="check" style="visibility: hidden">
                   <image-view slot="icon" system-name="check"></image-view>
                 </label-view>
-                ${PickerView.#morphITSLabel(node)}
+                ${PickerView.#morphITSLabel({ title, subtitle, icon })}
               </h-stack>
             </summary>
           </details>`,
@@ -1091,16 +1311,20 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #wrapDatalistTag(node: DictEntry) {
+  #wrapDatalistTag(node: HTMLDataListElement | DictEntry) {
+    const title = extractLabel(node),
+      subtitle = extractSubtitle(node),
+      icon = extractIcon(node)
+
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
       case 'palette':
-        render(PickerView.#morphPaletteGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphPaletteGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLElement
       case 'radio-group':
-        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, node }), mount)
+        render(PickerView.#morphRadioGroupGroup({ name: this.#guuid, title, subtitle, icon }), mount)
 
         return mount.firstElementChild as HTMLElement
 
@@ -1111,7 +1335,7 @@ export class PickerView extends FormAssociatedBase {
               <label-view data-role="check" style="visibility: hidden">
                 <image-view slot="icon" system-name="check"></image-view>
               </label-view>
-              ${PickerView.#morphITSLabel(node)}
+              ${PickerView.#morphITSLabel({ title, subtitle, icon })}
             </h-stack>
           </menu-view>`,
           mount
@@ -1121,28 +1345,77 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  #reflectButtons(nodes: Dictionary, container: Element): void {
+  #reflectButtons(nodes: Element[] | Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
 
     const flatten = ['radio-group', 'palette'].includes(this.pickerStyle)
 
-    for (const node of nodes) {
-      if (DictEntry.isLeaf(node)) {
-        container.appendChild(this.#wrapOptionTag(node))
-        continue
+    for (const node of nodes)
+      if (node instanceof Element)
+        switch (node.tagName) {
+          case 'DATALIST': {
+            const group = this.#wrapDatalistTag(node as HTMLDataListElement)
+
+            if (flatten) {
+              container.appendChild(group) // header label, sibling-level
+
+              this.#reflectButtons([...node.children] as Element[], container) // flat recurse
+
+              break
+            }
+
+            this.#reflectButtons([...node.children] as Element[], group)
+
+            container.appendChild(group)
+
+            break
+          }
+          case 'OPTGROUP': {
+            const group = this.#wrapOptgroupTag(node as HTMLOptGroupElement)
+
+            if (flatten) {
+              container.appendChild(group)
+
+              this.#reflectButtons([...node.children] as Element[], container)
+
+              break
+            }
+
+            this.#reflectButtons([...node.children] as Element[], group)
+
+            container.appendChild(group)
+
+            break
+          }
+          case 'OPTION':
+          default: {
+            container.appendChild(this.#wrapOptionTag(node as HTMLOptionElement))
+            break
+          }
+        }
+      else {
+        if (node.children.length)
+          if (flatten) {
+            const group = this.#wrapOptgroupTag(node) // radio-group branch inside doesn't care about allLeaves
+
+            container.appendChild(group)
+
+            this.#reflectButtons(node.children, container)
+          } else if (allLeaves(node)) {
+            const group = this.#wrapOptgroupTag(node)
+
+            this.#reflectButtons(node.children, group)
+
+            container.appendChild(group)
+          } else {
+            const group = this.#wrapDatalistTag(node)
+
+            this.#reflectButtons(node.children, group)
+
+            container.appendChild(group)
+          }
+        else container.appendChild(this.#wrapOptionTag(node))
       }
-
-      if (flatten) {
-        container.appendChild(this.#wrapOptgroupTag(node)) // header row, same markup as the datalist one in these styles
-        this.#reflectButtons(node.children, container)
-        continue
-      }
-
-      const group = DictEntry.isGroup(node) ? this.#wrapOptgroupTag(node) : this.#wrapDatalistTag(node)
-
-      this.#reflectButtons(node.children, group)
-      container.appendChild(group)
-    }
   }
 
   // #reflectPlaceholder(value: string | null) {
@@ -1168,9 +1441,10 @@ export class PickerView extends FormAssociatedBase {
     self.requestAnimationFrame(() => {
       this.ariaCurrent = this.#selection
 
-      const groupMap = Dictionary.index(this.#lastIndexedRoot)
+      const groupMap = indexGroups(this.#lastIndexedRoot)
 
-      const groupContainsSelection = (e: DictEntry) => DictEntry.leafValues(e).includes(this.#selection)
+      const groupContainsSelection = (source: Element | DictEntry): boolean =>
+        source instanceof Element ? [...source.querySelectorAll<HTMLOptionElement>('option')].some((opt) => extractTag(opt) === this.#selection) : collectLeafValues(source).includes(this.#selection)
 
       const syncButtons = (root: Element | HTMLElement) => {
         // 1. plain value buttons

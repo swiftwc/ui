@@ -4,6 +4,12 @@ export type DictEntry = {
   subtitle?: string
   systemImage?: string
   src?: string
+  /**
+   * 'group'   → inline disclosure (<optgroup>)
+   * 'submenu' → nested menu / pushed page (<datalist>)
+   * unset     → inferred: group if it only contains leaves, submenu otherwise
+   */
+  kind?: 'group' | 'submenu'
   children: DictEntry[]
 }
 
@@ -20,7 +26,14 @@ export const DictEntry = {
   },
 
   fromPlain(n: DictEntryInput): DictEntry {
-    return { ...n, value: n.value ?? '', children: (n.children ?? []).map(DictEntry.fromPlain) }
+    const value = n.value ?? ''
+
+    return {
+      ...n,
+      value,
+      title: n.title ?? (value || undefined),
+      children: (n.children ?? []).map(DictEntry.fromPlain),
+    }
   },
 
   fromElement(el: Element): DictEntry {
@@ -29,10 +42,11 @@ export const DictEntry = {
         raw = attr(el, 'value') ?? el.textContent?.trim()
 
       return {
-        value: raw || label || '', // was extractTag
-        title: label ?? attr(el, 'value') ?? (el.textContent?.trim() || undefined), // was extractLabel
+        value: raw || label || '',
+        title: (label ?? attr(el, 'value') ?? el.textContent?.trim()) || undefined,
         subtitle: attr(el, 'data-subtitle'),
         systemImage: attr(el, 'data-system-image'),
+        src: attr(el, 'data-src'),
         children: [],
       }
     }
@@ -42,13 +56,21 @@ export const DictEntry = {
       title: attr(el, 'DATALIST' === el.tagName ? 'data-label' : 'label'),
       subtitle: attr(el, 'data-subtitle'),
       systemImage: attr(el, 'data-system-image'),
+      src: attr(el, 'data-src'),
+      kind: 'OPTGROUP' === el.tagName ? 'group' : 'submenu',
       children: Array.from(el.children, DictEntry.fromElement),
     }
   },
 
-  isLeaf: (n: DictEntry) => 0 === n.children.length,
-  hasOnlyLeaves: (n: DictEntry) => n.children.every(DictEntry.isLeaf), // was allLeaves
-  leafValues: (n: DictEntry): string[] => (n.children.length ? n.children.flatMap(DictEntry.leafValues) : [n.value]), // was collectLeafValues
+  /** A selectable option. An empty <optgroup>/<datalist> has a kind, so it is NOT a leaf */
+  isLeaf: (n: DictEntry) => !n.kind && 0 === n.children.length,
+
+  hasOnlyLeaves: (n: DictEntry): boolean => n.children.every(DictEntry.isLeaf),
+
+  /** Only meaningful for non-leaves. Explicit kind wins, else infer from children */
+  isGroup: (n: DictEntry): boolean => (n.kind ? 'group' === n.kind : DictEntry.hasOnlyLeaves(n)),
+
+  leafValues: (n: DictEntry): string[] => (n.children.length ? n.children.flatMap(DictEntry.leafValues) : DictEntry.isLeaf(n) ? [n.value] : []),
 }
 
 export const Dictionary = {
@@ -74,17 +96,20 @@ export const Dictionary = {
     return map
   },
 
+  /** Leaves only. Groups from elements have value '' and would clobber the label of `<option value="">` */
   flatten(tree: Dictionary) {
     const labels: Record<string, string | undefined> = {},
       icons: Record<string, string | undefined> = {}
+
     const walk = (list: Dictionary) => {
-      for (const { value, title, systemImage, children } of list) {
-        labels[value] = title
-        icons[value] = systemImage
-        walk(children)
-      }
+      for (const n of list)
+        if (DictEntry.isLeaf(n)) {
+          labels[n.value] = n.title
+          icons[n.value] = n.systemImage
+        } else walk(n.children)
     }
     walk(tree)
+
     return { labels, icons }
   },
 }

@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/ui",
-  "version": "1.0.0-canary.3",
+  "version": "1.0.0-canary.4",
   "description": "Elegant SwiftUI-inspired web components for standalone web apps and web extensions.",
   "publishConfig": {
     "access": "public"

@@ -4,8 +4,8 @@
   "type": "module",
   "scripts": {
     "start": "vite",
-    "format:check": "prettier . --check",
-    "format:write": "prettier . --write"
+    "lint": "prettier . --check",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "vite": "^8.1.0"

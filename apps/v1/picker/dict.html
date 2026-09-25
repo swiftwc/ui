@@ -17400,9 +17400,9 @@
         },
       ]
 
-      document.querySelector('picker-view').setAttribute('dictionary', JSON.stringify(dict))
+      document.querySelector('form picker-view').setAttribute('dictionary', JSON.stringify(dict))
 
-      document.querySelector('picker-view:nth-child(3)').setAttribute('dictionary', JSON.stringify(dict2))
+      document.querySelector('form picker-view:nth-child(3)').setAttribute('dictionary', JSON.stringify(dict2))
     </script>
   </head>
   <body>
@@ -17411,7 +17411,6 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <p>form w/ sectioned Textfields+Pickers</p>
           <form is="form-view">
             <picker-view prompt="here" picker-style="sheet"></picker-view>
 
@@ -17460,28 +17459,28 @@
             <picker-view prompt="here" picker-style="sheet"></picker-view>
           </form>
         </v-stack>
-        <label-view slot="top-bar-principal"><span>ghjh000</span></label-view>
-        <label-view slot="bottom-bar-principal"><span>ghj000</span></label-view>
+        <label-view slot="top-bar-principal"><span>top-bar-principal</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>bottom-bar-principal</span></label-view>
       </scroll-view>
       <tool-bar>
         <tool-bar-item slot="top-bar-leading">
           <button type="button">
-            <label-view><span>leading</span></label-view>
+            <label-view><span>top-bar-leading</span></label-view>
           </button>
         </tool-bar-item>
         <tool-bar-item slot="top-bar-trailing">
           <button type="button">
-            <label-view><span>trailing</span></label-view>
+            <label-view><span>top-bar-trailing</span></label-view>
           </button>
         </tool-bar-item>
         <tool-bar-item slot="bottom-bar-leading">
           <button type="button">
-            <label-view><span>leading</span></label-view>
+            <label-view><span>bottom-bar-leading</span></label-view>
           </button>
         </tool-bar-item>
         <tool-bar-item slot="bottom-bar-trailing">
           <button type="button">
-            <label-view><span>trailing</span></label-view>
+            <label-view><span>bottom-bar-trailing</span></label-view>
           </button>
         </tool-bar-item>
       </tool-bar>

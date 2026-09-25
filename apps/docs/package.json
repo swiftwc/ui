@@ -7,8 +7,8 @@
     "build": "vitepress build",
     "preview": "vitepress preview",
     "start": "vitepress dev",
-    "format:check": "prettier . --check",
-    "format:write": "prettier . --write"
+    "lint": "prettier . --check",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@mdit/plugin-abbr": "^0.23.2",

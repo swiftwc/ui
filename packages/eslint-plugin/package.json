@@ -30,14 +30,14 @@
     "./emberjs/en": "./generated/emberjs/en.js"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit",
+    "lint:types": "tsc --noEmit",
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts",
     "build:ts": "tsc",
     "build:ts:watch": "npm run prebuild && tsc --watch",
     "prepublishOnly": "npm run build",
-    "format:check": "prettier . --check",
-    "format:write": "prettier . --write"
+    "lint": "prettier . --check",
+    "format": "prettier . --write"
   },
   "devDependencies": {
     "@typescript-eslint/utils": "^8.59.2"

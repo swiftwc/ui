@@ -8,7 +8,7 @@ BUMP="${2:-prerelease}"
 git checkout canary
 git pull
 
-npm run typecheck -w "$PKG"
+npm run lint:types -w "$PKG"
 
 npm version "$BUMP" --no-git-tag-version --preid=canary -w "$PKG"
 

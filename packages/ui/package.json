@@ -59,8 +59,6 @@
     "swiftwc": "./generated/index.js"
   },
   "scripts": {
-    "typecheck": "tsc --noEmit && sass --no-source-map scss/index.scss > /dev/null",
-    "typecheck:scripts": "tsc -p tsconfig.scripts.json --noEmit",
     "prebuild": "rm -rf generated",
     "build": "npm run build:ts && npm run build:scss && npm run debug:off",
     "build:ts": "tsc",
@@ -79,9 +77,11 @@
     "codegen:barrelize:morphdom": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/morphdom --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:decorators": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/decorators --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
-    "verify": "npm run codegen && npm run typecheck && npm run format:write && vitest run --dom",
-    "format:check": "prettier . --check",
-    "format:write": "prettier . --write",
+    "verify": "npm run codegen && npm run lint:types && npm run format && vitest run --dom",
+    "lint": "prettier . --check",
+    "lint:types": "tsc --noEmit && sass --no-source-map scss/index.scss > /dev/null",
+    "lint:types:scripts": "tsc -p tsconfig.scripts.json --noEmit",
+    "format": "prettier . --write",
     "test": "vitest --dom",
     "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },

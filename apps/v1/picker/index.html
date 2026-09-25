@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="UTF-8" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <title>list</title>
+    <script type="module">
+      import '/main.mts'
+    </script>
+  </head>
+  <body>
+    <v-keyboard></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <p>bare Pickers</p>
+          <picker-view name="foo" selection="Tyrannosaurus" picker-style="menu">
+            <optgroup label="Theropods" slot="list">
+              <option>Tyrannosaurus</option>
+              <option>Velociraptor</option>
+              <option>Deinonychus</option>
+            </optgroup>
+          </picker-view>
+          <picker-view name="fooo" selection="Tyrannosaurus" picker-style="radio-group">
+            <optgroup label="Theropods" slot="list">
+              <option>Tyrannosaurus</option>
+              <option>Velociraptor</option>
+              <option>Deinonychus</option>
+            </optgroup>
+          </picker-view>
+          <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="palette">
+            <optgroup label="Theropods" slot="list">
+              <option data-src="/red.avif">Tyrannosaurus</option>
+              <option>Velociraptor</option>
+              <option>Deinonychus</option>
+            </optgroup>
+          </picker-view>
+          <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="segmented">
+            <optgroup label="Theropods" slot="list">
+              <option>Tyrannosaurus</option>
+              <option>Velociraptor</option>
+              <option>Deinonychus</option>
+            </optgroup>
+          </picker-view>
+          <p>form > v-stack > Pickers</p>
+          <form>
+            <v-stack>
+              <picker-view name="foo" selection="Tyrannosaurus" picker-style="menu">
+                <optgroup label="Theropods" slot="list">
+                  <option>Tyrannosaurus</option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+              </picker-view>
+              <picker-view name="fooo" selection="Tyrannosaurus" picker-style="radio-group">
+                <optgroup label="Theropods" slot="list">
+                  <option>Tyrannosaurus</option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+              </picker-view>
+              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="palette">
+                <optgroup label="Theropods" slot="list">
+                  <option data-src="/red.avif">Tyrannosaurus</option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+              </picker-view>
+              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="segmented">
+                <optgroup label="Theropods" slot="list">
+                  <option>Tyrannosaurus</option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+              </picker-view>
+            </v-stack>
+          </form>
+
+          <p>form-view > Pickers</p>
+          <form is="form-view">
+            <picker-view prompt="here" picker-style="sheet"></picker-view>
+
+            <picker-view searchable prompt="here" picker-style="sheet">
+              <datalist data-system-image="dots-three" data-label="gfgfgfg" data-subtitle="wswswswswsws" slot="list">
+                <optgroup label="Theropods" data-subtitle="qertyuuuuuu">
+                  <option value="Tyrannosaurus23" data-subtitle="Tyrannosaurus23456"></option>
+                  <option data-subtitle="Tyrannosaurus23456">Velociraptor</option>
+                  <option data-subtitle="Tyrannosaurus23456">Deinonychus</option>
+                </optgroup>
+                <optgroup label="Sauropods">
+                  <option>Diplodocus</option>
+                  <option>Saltasaurus</option>
+                  <option>Apatosaurus</option>
+                </optgroup>
+                <datalist data-label="gfgfgfg">
+                  <optgroup label="Theropods34">
+                    <option value="Tyrannosaurus45"></option>
+                    <option>Velociraptor</option>
+                    <option>Deinonychus</option>
+                  </optgroup>
+                  <optgroup label="Sauropods34">
+                    <option>Diplodocus</option>
+                    <option>Saltasaurus</option>
+                    <option>Apatosaurus</option>
+                  </optgroup>
+                </datalist>
+              </datalist>
+              <optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>
+              <optgroup label="Sauropods" slot="list">
+                <option>Diplodocus</option>
+                <option>Saltasaurus</option>
+                <option>Apatosaurus</option>
+              </optgroup>
+              <option slot="list" value="0" label="0%" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="10" label="Minimum Tip" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="20" label="Standard" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="30" label="Generous" data-subtitle="Tyrannosaurus23456"></option>
+              <option slot="list" value="50" label="Very Generous"></option>
+            </picker-view>
+
+            <picker-view prompt="here" picker-style="sheet"></picker-view>
+          </form>
+        </v-stack>
+        <label-view slot="top-bar-principal"><span>top-bar-principal</span></label-view>
+        <label-view slot="bottom-bar-principal"><span>bottom-bar-principal</span></label-view>
+      </scroll-view>
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button type="button">
+            <label-view><span>top-bar-leading</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="top-bar-trailing">
+          <button type="button">
+            <label-view><span>top-bar-trailing</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-leading">
+          <button type="button">
+            <label-view><span>bottom-bar-leading</span></label-view>
+          </button>
+        </tool-bar-item>
+        <tool-bar-item slot="bottom-bar-trailing">
+          <button type="button">
+            <label-view><span>bottom-bar-trailing</span></label-view>
+          </button>
+        </tool-bar-item>
+      </tool-bar>
+    </navigation-stack>
+  </body>
+</html>

@@ -20,7 +20,7 @@ const output = (command: string, args: string[]) =>
 run("git", ["checkout", "canary"]);
 run("git", ["pull"]);
 
-run("npm", ["run", "typecheck", "-w", pkg]);
+run("npm", ["run", "lint:types", "-w", pkg]);
 
 run("npm", [
   "version",

@@ -12,7 +12,7 @@ import { html, render } from '../tpl'
 import type { LabelView } from './label-view'
 import type { MenuView } from './menu-view'
 
-const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'segmented', 'automatic'] as const
+const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
 export type { DictEntry, Dictionary } from '../internal/class/dict-entry'
@@ -396,7 +396,7 @@ export class PickerView extends FormAssociatedBase {
 
         break
       }
-      case 'segmented':
+      case 'tabs':
       case 'palette':
       case 'radio-group': {
         // capture
@@ -561,7 +561,7 @@ export class PickerView extends FormAssociatedBase {
           )
 
           break
-        case 'segmented':
+        case 'tabs':
         case 'palette':
         case 'radio-group':
           PickerView.#templates.set(
@@ -808,8 +808,12 @@ export class PickerView extends FormAssociatedBase {
 
     // #renderSlotted should run automatically now by slotchange initial event
 
-    // switch (this.pickerStyle) {
-    // }
+    switch (this.pickerStyle) {
+      case 'tabs':
+        this.setAttribute('js-init-tabs', '')
+
+        break
+    }
   }
 
   #sendValueToForm = (dispatchEvent: boolean = true) => {
@@ -916,7 +920,7 @@ export class PickerView extends FormAssociatedBase {
     if (!(target instanceof HTMLElement)) return
 
     switch (this.pickerStyle) {
-      case 'segmented':
+      case 'tabs':
       case 'palette':
       case 'radio-group':
         const radio = target.closest<HTMLInputElement>('input[type="radio"]')
@@ -987,8 +991,8 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
-      case 'segmented':
-        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node, tag }), mount)
+      case 'tabs':
+        render(PickerView.#morphTabsBtn({ name: this.#guuid, node, tag }), mount)
 
         return mount.firstElementChild as HTMLLabelElement //btn
       case 'palette':
@@ -1036,7 +1040,7 @@ export class PickerView extends FormAssociatedBase {
 
   static #morphPaletteBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
     if ('string' === typeof tag) {
-      const style = node.src ? `background-image: url('${node.src}')` : null
+      const style = node.src ? `background-image: url('${this.#cssUrl(node.src)}')` : null
 
       return html`<label tabindex="0">
         <v-stack template="auto spacer" spacing="5">
@@ -1053,37 +1057,32 @@ export class PickerView extends FormAssociatedBase {
       </label>`
   }
 
-  static #morphSegmentedBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
-    const cssUrl = (src: unknown): string | null => {
-      if ('string' !== typeof src) return null
+  static #cssUrl = (src: unknown): string | null => {
+    if ('string' !== typeof src) return null
 
-      try {
-        const { protocol, href } = new URL(src, location.href)
+    try {
+      const { protocol, href } = new URL(src, location.href)
 
-        if (protocol !== 'https:' && protocol !== 'http:' && protocol !== 'blob:') return null
+      if (protocol !== 'https:' && protocol !== 'http:' && protocol !== 'blob:') return null
 
-        // URL.href already percent-encodes " < > ` space and \ in path/query.
-        // Encode the remaining chars that matter inside url('...')
-        return href.replace(/['()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)
-      } catch {
-        return null
-      }
+      // URL.href already percent-encodes " < > ` space and \ in path/query.
+      // Encode the remaining chars that matter inside url('...')
+      return href.replace(/['()]/g, (c) => `%${c.charCodeAt(0).toString(16).toUpperCase()}`)
+    } catch {
+      return null
     }
-    if ('string' === typeof tag) {
-      const style = node.src ? `background-image: url('${cssUrl(node.src)}')` : null
+  }
 
+  static #morphTabsBtn({ name, node, tag }: { name: string | null; node: DictEntry; tag?: string }) {
+    if ('string' === typeof tag) {
       return html`<label tabindex="0">
-        <v-stack template="auto spacer" spacing="5">
-          <input type="radio" name="${name}" value="${tag}" style="${style}" />
-          ${PickerView.#morphITSLabel(node)}
-        </v-stack>
+        <input type="radio" name="${name}" value="${tag}" />
+        ${PickerView.#morphITSLabel(node)}
       </label>`
     } else
       return html`<label>
-        <v-stack template="auto spacer" spacing="5">
-          <input type="radio" name="${name}" disabled />
-          ${PickerView.#morphITSLabel(node)}
-        </v-stack>
+        <input type="radio" name="${name}" disabled />
+        ${PickerView.#morphITSLabel(node)}
       </label>`
   }
 
@@ -1103,8 +1102,8 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
-      case 'segmented':
-        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node }), mount)
+      case 'tabs':
+        render(PickerView.#morphTabsBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLLabelElement
       case 'palette':
@@ -1138,8 +1137,8 @@ export class PickerView extends FormAssociatedBase {
     const mount = document.createElement('div')
 
     switch (this.pickerStyle) {
-      case 'segmented':
-        render(PickerView.#morphSegmentedBtn({ name: this.#guuid, node }), mount)
+      case 'tabs':
+        render(PickerView.#morphTabsBtn({ name: this.#guuid, node }), mount)
 
         return mount.firstElementChild as HTMLElement
       case 'palette':
@@ -1171,7 +1170,7 @@ export class PickerView extends FormAssociatedBase {
   #reflectButtons(nodes: Dictionary, container: Element): void {
     debug(`${PickerView.name} #reflectButtons`)
 
-    const flatten = ['radio-group', 'palette', 'segmented'].includes(this.pickerStyle)
+    const flatten = ['radio-group', 'palette', 'tabs'].includes(this.pickerStyle)
 
     for (const node of nodes) {
       if (DictEntry.isLeaf(node)) {
@@ -1217,35 +1216,48 @@ export class PickerView extends FormAssociatedBase {
 
       const groupMap = Dictionary.index(this.#lastIndexedRoot)
 
-      const groupContainsSelection = (e: DictEntry) => DictEntry.leafValues(e).includes(this.#selection)
+      const groupContainsSelection = (e: DictEntry) => DictEntry.leafValues(e).includes(this.#selection),
+        syncButtons = (root: Element | HTMLElement) => {
+          // 1. plain value buttons
+          for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
+            // $.prop('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden', el.querySelector<HTMLElement>('label-view[data-role="check"]'))
+            el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
 
-      const syncButtons = (root: Element | HTMLElement) => {
-        // 1. plain value buttons
-        for (const el of root.querySelectorAll<HTMLButtonElement>('button[value]:not([slot])'))
-          // $.prop('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden', el.querySelector<HTMLElement>('label-view[data-role="check"]'))
-          el.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', el.getAttribute('value') === this.#selection ? 'visible' : 'hidden')
+          // 2. details/optgroups
+          for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
+            const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
 
-        // 2. details/optgroups
-        for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
-          const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+            details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+          }
 
-          details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+          // 3. nav-link buttons — resolved by groupId, same map used for resync
+          for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
+            const source = btn.dataset.groupId ? groupMap.get(btn.dataset.groupId) : undefined
+            const hasSelectedDescendant = source ? groupContainsSelection(source) : false
+
+            btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
+          }
+
+          // 4. radio inputs
+          for (const el of root.querySelectorAll<HTMLInputElement>('input[type=radio][value]')) {
+            el.checked = el.getAttribute('value') === this.#selection
+
+            switch (this.pickerStyle) {
+              case 'tabs':
+                const label = el.closest('label')
+                if (!label) break
+
+                setTimeout(() => (label.ariaSelected = `${label.matches(':has(input[type=radio]:checked)')}`), 100)
+
+                break
+            }
+          }
         }
-
-        // 3. nav-link buttons — resolved by groupId, same map used for resync
-        for (const btn of root.querySelectorAll<HTMLButtonElement>('button[navigation-link]:not([value])')) {
-          const source = btn.dataset.groupId ? groupMap.get(btn.dataset.groupId) : undefined
-          const hasSelectedDescendant = source ? groupContainsSelection(source) : false
-
-          btn.querySelector<HTMLElement>('label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
-        }
-
-        // 4. radio inputs
-        for (const el of root.querySelectorAll<HTMLInputElement>('input[type=radio][value]')) el.checked = el.getAttribute('value') === this.#selection
-      }
 
       syncButtons(this)
       if (this.#spawn) syncButtons(this.#spawn)
+
+      setTimeout(() => this.removeAttribute('js-init-tabs'), 200)
     })
   }
 

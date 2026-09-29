@@ -20,6 +20,7 @@
 
     <navigation-stack>
       <scroll-view>
+        <!-- <v-stack placement="leading fill"> -->
         <v-stack>
           <p>bare Pickers</p>
           <picker-view name="foo" selection="Tyrannosaurus" picker-style="menu">
@@ -43,7 +44,7 @@
               <option>Deinonychus</option>
             </optgroup>
           </picker-view>
-          <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="segmented">
+          <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs">
             <optgroup label="Theropods" slot="list">
               <option>Tyrannosaurus</option>
               <option>Velociraptor</option>
@@ -74,7 +75,7 @@
                   <option>Deinonychus</option>
                 </optgroup>
               </picker-view>
-              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="segmented">
+              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs">
                 <optgroup label="Theropods" slot="list">
                   <option>Tyrannosaurus</option>
                   <option>Velociraptor</option>

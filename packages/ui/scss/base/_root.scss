@@ -244,12 +244,18 @@
 
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
 
-    --segented-picker-track-bg: red;
-    --segented-picker-track-border-radius: var(--pill-border-radius);
-    --segented-picker-track-block-size: 3rem;
-    --segented-picker-track-padding-inline: 0.1rem;
-    --segented-picker-track-padding-block: 0.1rem;
-    --segented-picker-button-min-inline-size: 3rem;
+    --tabs-picker-track-gap: 0rem;
+    --palette-picker-track-gap: 1rem;
+    --radio-group-picker-track-gap: 1rem;
+
+    --tabs-picker-track-border-radius: var(--pill-border-radius);
+    --tabs-picker-track-block-size: 3rem;
+    --tabs-picker-track-padding-inline: 0.1rem;
+    --tabs-picker-track-padding-block: 0.1rem;
+    --tabs-picker-segment-min-inline-size: 3rem;
+    --tabs-picker-segment-max-inline-size: min(20rem, 100svw);
+    --tabs-picker-segment-padding-inline: 1rem;
+    --tabs-picker-segment-padding-block: 0.5rem;
 
     // @media (prefers-color-scheme: dark) {
     //   @include dark-theme;

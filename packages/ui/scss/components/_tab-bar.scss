@@ -1,27 +1,27 @@
 @use '../vars';
 @use '../mixins';
 
-@mixin make-pseudo-tracking-thumb($anchor-name) {
-  :where(&)::after {
-    content: '';
-    display: block;
-    position: absolute;
-    background-color: rgba(0, 0, 0, 0.4);
-    pointer-events: none;
-    touch-action: none;
+// @mixin make-pseudo-tracking-thumb($anchor-name) {
+//   :where(&)::after {
+//     content: '';
+//     display: block;
+//     position: absolute;
+//     background-color: rgba(0, 0, 0, 0.4);
+//     pointer-events: none;
+//     touch-action: none;
 
-    position-anchor: #{$anchor-name};
-    // position-area: center;
-    inset: anchor(#{$anchor-name} top) auto auto anchor(#{$anchor-name} left);
+//     position-anchor: #{$anchor-name};
+//     // position-area: center;
+//     inset: anchor(#{$anchor-name} top) auto auto anchor(#{$anchor-name} left);
 
-    inline-size: anchor-size();
-    block-size: anchor-size();
+//     inline-size: anchor-size();
+//     block-size: anchor-size();
 
-    border-radius: var(--pill-border-radius);
+//     border-radius: var(--pill-border-radius);
 
-    z-index: -1;
-  }
-}
+//     z-index: -1;
+//   }
+// }
 
 @mixin make-floating-tabbar {
   background: light-dark(
@@ -166,7 +166,9 @@
     }
 
     > [is='form-view'] {
-      @include make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+      :where(&) {
+        @include mixins.make-pseudo-tracking-thumb(--tab-view-tabbar-selection); // NOTE: before is already taken!
+      }
 
       :where(&) {
         @include mixins.contain-overscroll;
@@ -240,7 +242,9 @@
   // ANCHOR
 
   tab-view > [is='sidebar-view'] > scroll-view {
-    @include make-pseudo-tracking-thumb(--tab-view-sidebar-selection); // NOTE: before is already taken!
+    :where(&) {
+      @include mixins.make-pseudo-tracking-thumb(--tab-view-sidebar-selection); // NOTE: before is already taken!
+    }
 
     :where(&)::after {
       background-color: white;

@@ -5,17 +5,31 @@
 @use '../mixins';
 
 $picker-ifs: (
-  segmented: (
+  tabs: (
     --picker--inputstack-grid-auto-flow: column,
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--tabs-picker-track-gap),
+    --picker--inputstack-justify-content: start,
+    // copied from tabbar -> @mixin make-floating-tabbar
+    --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark)),
+    --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter),
+    --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow),
+    //
+    --picker--inputstack-border-radius: var(--tabs-picker-track-border-radius),
+    --picker--inputstack-position: relative,
+    --picker--inputstack-min-inline-size: calc(var(--tabs-picker-segment-min-inline-size) + 1rem),
+    --picker--inputstack-block-size: var(--tabs-picker-track-block-size),
+    --picker--inputstack-padding-inline: var(--tabs-picker-track-padding-inline),
+    --picker--inputstack-padding-block: var(--tabs-picker-track-padding-block),
+    --picker--inputstack-overflow: auto clip,
   ),
   palette: (
     --picker--inputstack-display: flex,
     --picker--inputstack-flex-flow: row wrap,
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--palette-picker-track-gap),
+    --picker--inputstack-justify-content: start,
   ),
   radio-group: (
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--radio-group-picker-track-gap),
   ),
   menu: (),
   navigation-link: (),
@@ -24,17 +38,9 @@ $picker-ifs: (
 $picker-elses: ();
 
 $picker-inform-ifs: (
-  segmented: (
+  tabs: (
     --picker--labelstack-display: grid,
     --picker--inputstack-text-align: start,
-    --picker--inputstack-background: var(--segented-picker-track-bg),
-    --picker--inputstack-border-radius: var(--segented-picker-track-border-radius),
-    --picker--inputstack-position: relative,
-    --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem),
-    --picker--inputstack-block-size: var(--segented-picker-track-block-size),
-    --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline),
-    --picker--inputstack-padding-block: var(--segented-picker-track-padding-block),
-    --picker--inputstack-overflow: auto clip,
     // copy from labeled-content
     --picker--host-row-gap: var(--labeled-content-row-gap),
     --picker--host-column-gap: var(--labeled-content-column-gap),
@@ -232,6 +238,7 @@ $picker-inform-elses: (
         display: var(--picker--inputstack-display, grid);
 
         text-align: var(--picker--inputstack-text-align,);
+        justify-content: var(--picker--inputstack-justify-content,);
 
         gap: var(--picker--inputstack-gap,);
 
@@ -247,6 +254,9 @@ $picker-inform-elses: (
         padding-inline: var(--picker--inputstack-padding-inline,); //0.1rem;
         padding-block: var(--picker--inputstack-padding-block,); //0.1rem;
         overflow: var(--picker--inputstack-overflow,); //auto clip;
+
+        backdrop-filter: var(--picker--inputstack-backdrop-filter,);
+        box-shadow: var(--picker--inputstack-box-shadow,);
 
         // flex-shrink: var(--picker--inputstack-flex-shrink,); //none;
 
@@ -399,6 +409,28 @@ $picker-inform-elses: (
       }
     }
 
+    :where(&[js-init-tabs]) {
+      // transition: all var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+      --tabbar-after-tabreveal-duration: 0s;
+    }
+
+    @container style(--picker-style: tabs) {
+      :where(&)::part(picker-input-stack) {
+        // outline: green solid 4px;
+
+        @include mixins.make-pseudo-tracking-thumb(--anchor-id);
+
+        &::after {
+          @media (prefers-reduced-motion: no-preference) {
+            transition:
+              block-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+              inline-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+              inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+          }
+        }
+      }
+    }
+
     > label:not([slot]) {
       @container style(--picker-style: radio-group) {
         input[type='radio'] {
@@ -464,18 +496,37 @@ $picker-inform-elses: (
         // }
       }
 
-      @container style(--picker-style: segmented) {
+      @container style(--picker-style: tabs) {
         :where(&) {
+          --label-line-limit: 1;
+          --label-truncation-mode: tail;
+
           --label-font: callout;
 
           color: var(--secondary);
 
-          min-inline-size: var(--segented-picker-button-min-inline-size);
-          background-color: blue;
-          border-radius: inherit;
+          place-content: center;
+
+          padding-inline: var(--tabs-picker-segment-padding-inline,);
+
+          padding-block: var(--tabs-picker-segment-padding-block,);
+
+          min-inline-size: var(--tabs-picker-segment-min-inline-size);
+
+          max-inline-size: var(--tabs-picker-segment-max-inline-size);
+
+          border-radius: var(--tabs-picker-track-border-radius);
 
           inline-size: fit-content;
-          block-size: calc(var(--segented-picker-track-block-size) - calc(var(--segented-picker-track-padding-block) * 2));
+
+          block-size: calc(var(--tabs-picker-track-block-size) - calc(var(--tabs-picker-track-padding-block) * 2));
+        }
+
+        // &:has(input:checked) {
+        &[aria-selected='true'] {
+          :where(&) {
+            anchor-name: --anchor-id;
+          }
         }
 
         &:has(input[type='radio']:not(:disabled)) {
@@ -495,21 +546,14 @@ $picker-inform-elses: (
         input[type='radio'] {
           :where(&) {
             appearance: none;
+
             margin: 0;
 
-            inline-size: 2rem;
-            block-size: 2rem;
-            border-radius: 0.4rem;
+            visibility: collapse;
+
+            position: absolute;
 
             pointer-events: none;
-
-            transition: outline 100ms ease-out;
-
-            &:checked {
-              outline: var(--accentColor) solid 0.3rem;
-
-              outline-offset: 0.1rem;
-            }
           }
         }
 

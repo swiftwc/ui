@@ -1,6 +1,10 @@
 <!doctype html>
 <html lang="en" dir="ltr">
   <head>
+    <!-- Order matters MUST come first -->
+    <style>
+      @layer base, sw, components, utilities, theme;
+    </style>
     <meta charset="UTF-8" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
@@ -102,8 +106,8 @@
             <${tag} class="outline-yellow-500 outline-4 w-100 h-50 *:border-dashed *:border-2 *:border-blue-500" ${Object.entries(attrs)
               .map(([k, v]) => `${k}="${String(v)}"`)
               .join(' ')}>
-              <label-view font="title2" class="outline-offset-2    relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
-              <label-view font="callout" foreground="secondary" class="outline-offset-2    relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
+              <label-view font="title2" class="outline-offset-2 relative ${c1} ${c1?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c1?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>Rachael Chiseck</span></label-view>
+              <label-view font="callout" foreground="secondary" class="outline-offset-2 relative ${c2} ${c2?.includes('w-') ? `before:content-[''] before:absolute before:top-[-2px] before:left-0 before:right-0 before:h-[2px] before:bg-blue-500 after:content-[''] after:absolute after:bottom-[-2px] after:left-0 after:right-0 after:h-[2px] after:bg-blue-500` : ''} ${c2?.includes('h-') ? `before:content-[''] before:absolute before:left-[-2px] before:top-0 before:bottom-0 before:w-[2px] before:bg-blue-500 after:content-[''] after:absolute after:right-[-2px] after:top-0 after:bottom-0 after:w-[2px] after:bg-blue-500` : ''}"><span>CEO</span></label-view>
             </${tag}>
           </details>`
           )
@@ -124,7 +128,31 @@
             </h-stack>
           </details>
           <details class="rounded-xl p-3 bg-neutral-100" open>
-            <summary class="p-4">spacing</summary>
+            <summary class="p-4">
+              spacing
+              <label class="inline-block inline-[200px]">
+                <input class="inline-full m-0" type="range" value="-10" step="10" list="Key_repeat_rate" />
+                <datalist id="Key_repeat_rate">
+                  <option value="-10"></option>
+                  <option value="0"></option>
+                  <option value="10"></option>
+                  <option value="20"></option>
+                  <option value="30"></option>
+                  <option value="40"></option>
+                  <option value="50"></option>
+                  <option value="60"></option>
+                  <option value="70"></option>
+                  <option value="80"></option>
+                  <option value="90"></option>
+                  <option value="100"></option>
+                </datalist>
+                <div class="flex justify-between inline-full text-sm">
+                  <label-view font="caption2" title="Off"></label-view>
+                  <label-view class="me-auto ms-1" font="caption2" title="0"></label-view>
+                  <label-view font="caption2" title="100"></label-view>
+                </div>
+              </label>
+            </summary>
             <h-stack>
               <v-stack id="spacing-v-stack"></v-stack>
               <v-stack id="spacing-h-stack"></v-stack>

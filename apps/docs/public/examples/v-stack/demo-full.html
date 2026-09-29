@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en" dir="ltr">
+  <head>
+    <!-- Order matters MUST come first -->
+    <style>
+      @layer base, sw, components, utilities, theme;
+    </style>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <script src="https://unpkg.com/@phosphor-icons/web"></script>
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@canary/client"></script>
+    <script type="module">
+      document.addEventListener('input', (evt) => {
+        const attr = 'spacing',
+          value = evt.target.value ?? ''
+
+        if (value.startsWith('-')) {
+          document.querySelector('#demo').removeAttribute(attr)
+
+          document.querySelector(`#${attr}`).textContent = ``
+
+          return
+        }
+
+        document.querySelector('#demo').setAttribute(attr, value)
+
+        document.querySelector(`#${attr}`).textContent = ` ${attr}="${value}"`
+      })
+
+      document.addEventListener('selection', (evt) => {
+        const attr = evt.target.closest('labeled-content').getAttribute('label').toLowerCase(),
+          value = evt.detail.selection ?? ''
+
+        if ('Off' === value) {
+          document.querySelector('#demo').removeAttribute(attr)
+
+          document.querySelector(`#${attr}`).textContent = ``
+
+          return
+        }
+
+        document.querySelector('#demo').setAttribute(attr, value)
+
+        document.querySelector(`#${attr}`).textContent = ` ${attr}="${value}"`
+      })
+    </script>
+  </head>
+  <body>
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack placement="leading fill">
+          <list-view>
+            <labeled-content label="Spacing" labeled-content-style="horizontal">
+              <input class="inline-[200px] m-0" type="range" value="-10" step="10" min="-10" max="50" list="Spacing" />
+              <datalist id="Spacing">
+                <option>-10</option>
+                <option>0</option>
+                <option>10</option>
+                <option>20</option>
+                <option>30</option>
+                <option>40</option>
+                <option>50</option>
+              </datalist>
+              <div class="flex justify-between inline-[200px] text-sm">
+                <label-view font="caption2" title="Slow"></label-view>
+                <label-view font="caption2" title="Fast"></label-view>
+              </div>
+            </labeled-content>
+            <labeled-content label="Distribution" labeled-content-style="horizontal">
+              <picker-view selection="Off" picker-style="menu" foreground="primary">
+                <option slot="list">Off</option>
+                <option slot="list">leading</option>
+                <option slot="list">trailing</option>
+                <option slot="list">fill</option>
+              </picker-view>
+            </labeled-content>
+            <labeled-content label="Alignment" labeled-content-style="horizontal">
+              <picker-view selection="Off" picker-style="menu" foreground="primary">
+                <option slot="list">Off</option>
+                <option slot="list">leading</option>
+                <option slot="list">trailing</option>
+                <option slot="list">fill</option>
+              </picker-view>
+            </labeled-content>
+          </list-view>
+          <label-view font="title2" title="Example:" class="mt-8 text-center" padding></label-view>
+          <v-stack id="demo" class="outline-offset-4 outline-yellow-500 outline-10 inline-100 max-inline-[80vw] aspect-video justify-self-center relative">
+            <span class="absolute inset-[-16px_auto_auto_-4px] text-xs text-white"
+              >&lt;v-stack<span id="spacing"></span><span id="distribution"></span><span id="alignment"></span>&gt;</span
+            >
+            <label-view font="title3" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed">
+              <span>Alice</span>
+            </label-view>
+            <label-view font="caption2" foreground="secondary" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed">
+              <span>CEO</span>
+            </label-view>
+          </v-stack>
+        </v-stack>
+      </scroll-view>
+    </navigation-stack>
+  </body>
+</html>

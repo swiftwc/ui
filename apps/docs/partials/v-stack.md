@@ -1,26 +1,22 @@
 ## Overview
 
-A view that arranges its subviews in a vertical line.
+...
 
-## Default styling reference
+::::: info &nbsp;
 
-**Here's a complete list of the default colors and their values for reference:**
+{% demo v-stack/demo-full h-130 %}
 
-```css{2}
-@layer components {
-  :where(v-stack) {
-    grid-template-columns: minmax(0, 1fr);
+:::: details View code {.mt-0! .rounded-t-none!}
 
-    place-items: safe center;
-    place-content: safe center;
+::: code-group
 
-    gap: 1rem;
-  }
-}
+```html [HTML]
+<labeled-content label="Age" value="6" format="unit::unit=year&unitDisplay=long"></labeled-content>
 ```
 
-## Topics
+<<< @/public/examples/v-stack/demo-full.html#html{18}
 
-### Building layouts with stack views
+:::
 
-Check out the documentation for the [full list of markdown extensions](https://vitepress.dev/guide/markdown).
+::::
+:::::

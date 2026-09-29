@@ -3,6 +3,7 @@
   "name": "@swiftwc/docs",
   "type": "module",
   "scripts": {
+    "codegen": "npm run codegen:barrelize",
     "codegen:barrelize": "node scripts/make-barrels.mts && prettier ./web-components --write",
     "build": "vitepress build",
     "preview": "vitepress preview",

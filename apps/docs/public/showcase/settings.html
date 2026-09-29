@@ -17,7 +17,7 @@
     <link rel="manifest" href="/showcase/settings.webmanifest" />
     <title>settings</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@dev/css" />
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
     <template>
       <content-view>
         <scroll-view navigation-inline-title="Energy" data-nav-path="Energy">
@@ -745,7 +745,7 @@
     </template>
     <script type="module">
       import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/showcase/main.mjs'
-      import { startViewTransition, NavigationPath } from 'https://unpkg.com/@swiftwc/ui@dev/client'
+      import { startViewTransition, NavigationPath } from 'https://unpkg.com/@swiftwc/ui@canary/client'
 
       document.addEventListener('click', async (evt) => {
         const menu = evt.target.closest('.custom-picker-menu')

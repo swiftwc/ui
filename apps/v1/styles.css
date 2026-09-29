@@ -136,7 +136,7 @@
     --tabs-picker-track-block-size: 3rem;
     --tabs-picker-track-padding-inline: 0.1rem;
     --tabs-picker-track-padding-block: 0.1rem;
-    --tabs-picker-segment-min-inline-size: 3rem;
+    --tabs-picker-segment-min-inline-size: 2rem;
     --tabs-picker-segment-max-inline-size: min(20rem, 100svw);
     --tabs-picker-segment-padding-inline: 1rem;
     --tabs-picker-segment-padding-block: 0.5rem;
@@ -5281,6 +5281,7 @@
     display: var(--picker--inputstack-display, grid);
     text-align: var(--picker--inputstack-text-align, );
     justify-content: var(--picker--inputstack-justify-content, );
+    justify-self: var(--picker--inputstack-justify-self, );
     gap: var(--picker--inputstack-gap, );
     flex-flow: var(--picker--inputstack-flex-flow, );
     grid-auto-flow: var(--picker--inputstack-grid-auto-flow, );
@@ -5317,7 +5318,7 @@
     :where(picker-view) {
       --picker--inputstack-grid-auto-flow: if(style(--picker-style: tabs): column; );
       --picker--inputstack-gap: if(style(--picker-style: tabs): var(--tabs-picker-track-gap); style(--picker-style: palette): var(--palette-picker-track-gap); style(--picker-style: radio-group): var(--radio-group-picker-track-gap); );
-      --picker--inputstack-justify-content: if(style(--picker-style: tabs): start; style(--picker-style: palette): start; );
+      --picker--inputstack-justify-self: if(style(--picker-style: tabs): center; );
       --picker--inputstack-background: if(style(--picker-style: tabs): light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark)); );
       --picker--inputstack-backdrop-filter: if(style(--picker-style: tabs): var(--liquid-glass-backdrop-filter); );
       --picker--inputstack-box-shadow: if(style(--picker-style: tabs): var(--liquid-glass-box-shadow); );
@@ -5330,6 +5331,7 @@
       --picker--inputstack-overflow: if(style(--picker-style: tabs): auto clip; );
       --picker--inputstack-display: if(style(--picker-style: palette): flex; );
       --picker--inputstack-flex-flow: if(style(--picker-style: palette): row wrap; );
+      --picker--inputstack-justify-content: if(style(--picker-style: palette): start; );
     }
     :where(form picker-view) {
       --picker--labelstack-display: if(style(--picker-style: tabs): grid; style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
@@ -5365,7 +5367,7 @@
       :where(picker-view:not([picker-style])) {
         --picker--inputstack-grid-auto-flow: column;
         --picker--inputstack-gap: var(--tabs-picker-track-gap);
-        --picker--inputstack-justify-content: start;
+        --picker--inputstack-justify-self: center;
         --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
         --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter);
         --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow);
@@ -5546,7 +5548,7 @@
       --picker-style: tabs;
       --picker--inputstack-grid-auto-flow: column;
       --picker--inputstack-gap: var(--tabs-picker-track-gap);
-      --picker--inputstack-justify-content: start;
+      --picker--inputstack-justify-self: center;
       --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
       --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter);
       --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow);
@@ -5640,8 +5642,8 @@
       place-content: center;
       padding-inline: var(--tabs-picker-segment-padding-inline, );
       padding-block: var(--tabs-picker-segment-padding-block, );
-      min-inline-size: var(--tabs-picker-segment-min-inline-size);
-      max-inline-size: var(--tabs-picker-segment-max-inline-size);
+      min-inline-size: var(--tabs-picker-segment-min-inline-size, );
+      max-inline-size: var(--tabs-picker-segment-max-inline-size, );
       border-radius: var(--tabs-picker-track-border-radius);
       inline-size: fit-content;
       block-size: calc(var(--tabs-picker-track-block-size) - var(--tabs-picker-track-padding-block) * 2);

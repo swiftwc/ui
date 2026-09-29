@@ -43,7 +43,7 @@ declare global {
 
 ## Overview
 
-You can assemble labeled content with by providing an `value` attribute and a `label` attribute.
+You can assemble labeled content with by providing a `value` attribute and a `label` attribute.
 
 ::::: info &nbsp;
 

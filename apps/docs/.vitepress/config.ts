@@ -76,6 +76,7 @@ if (!editorSetupItem)
   //
 ;(installationItem.items ??= []).push(
   { text: 'for Vite', link: '/installation/frameworks/vite' },
+  { text: 'for Angular', link: '/installation/frameworks/angular' },
   { text: 'for EmberJS', link: '/installation/frameworks/emberjs' }
   // { text: "Manual", link: "/installation/frameworks/manual" },
 )

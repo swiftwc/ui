@@ -36,7 +36,7 @@ class PickerView extends HTMLElement<PickerViewSignature> {
 
   selection: string
   readonly template: DocumentFragment
-  readonly pickerStyle: 'automatic' | 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'radio-group'
+  readonly pickerStyle: 'automatic' | 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'radio-group' | 'palette' | 'tabs'
   readonly name: string // Form participation property
 
   setValidity(): void

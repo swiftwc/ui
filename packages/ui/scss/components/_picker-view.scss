@@ -8,7 +8,7 @@ $picker-ifs: (
   tabs: (
     --picker--inputstack-grid-auto-flow: column,
     --picker--inputstack-gap: var(--tabs-picker-track-gap),
-    --picker--inputstack-justify-content: start,
+    --picker--inputstack-justify-self: center,
     // copied from tabbar -> @mixin make-floating-tabbar
     --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark)),
     --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter),
@@ -239,6 +239,7 @@ $picker-inform-elses: (
 
         text-align: var(--picker--inputstack-text-align,);
         justify-content: var(--picker--inputstack-justify-content,);
+        justify-self: var(--picker--inputstack-justify-self,);
 
         gap: var(--picker--inputstack-gap,);
 
@@ -511,9 +512,9 @@ $picker-inform-elses: (
 
           padding-block: var(--tabs-picker-segment-padding-block,);
 
-          min-inline-size: var(--tabs-picker-segment-min-inline-size);
+          min-inline-size: var(--tabs-picker-segment-min-inline-size,);
 
-          max-inline-size: var(--tabs-picker-segment-max-inline-size);
+          max-inline-size: var(--tabs-picker-segment-max-inline-size,);
 
           border-radius: var(--tabs-picker-track-border-radius);
 

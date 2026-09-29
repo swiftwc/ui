@@ -6,7 +6,7 @@ import { Snapshot } from '../snapshot'
 /**
  * @summary A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.
  *
- * @example <button is="glass-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button> — Creating a glass button
+ * @example <button is="glass-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button> — Use the `is` attribute to style a `button` as a glass button
  *
  * @slot overlay
  *

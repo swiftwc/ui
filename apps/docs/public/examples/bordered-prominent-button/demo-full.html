@@ -2,18 +2,11 @@
 <html lang="en" dir="ltr">
   <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
     <script src="https://unpkg.com/@phosphor-icons/web"></script>
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
-    <meta name="viewport" content="viewport-fit=cover, width=device-width, initial-scale=1.0, minimum-scale=1.0, maximum-scale=1.0, user-scalable=no" />
-    <meta name="mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-capable" content="yes" />
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.webmanifest" />
-    <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
-    <title>hello-world</title>
-    <script type="module" src="/main.mts"></script>
+    <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
+    <script type="module" src="https://unpkg.com/@swiftwc/ui@canary/client"></script>
     <script type="module">
       import { alert } from 'https://unpkg.com/@swiftwc/ui@canary/client'
 
@@ -34,8 +27,8 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <button is="borderless-button" type="button">
-            <label-view title="Hello world" system-image="hand-waving"></label-view>
+          <button is="bordered-prominent-button" type="button">
+            <label-view title="Tap here" system-image="hand-tap"></label-view>
           </button>
         </v-stack>
       </scroll-view>

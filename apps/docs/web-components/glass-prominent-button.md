@@ -27,11 +27,36 @@ declare global {
 
 <!-- #endregion pre -->
 
+## Overview
+
+You create a button by providing an action and a label.
+
+::::: info &nbsp;
+
+{% demo glass-prominent-button/demo-full h-60 %}
+
+:::: details View code {open .mt-0! .rounded-t-none!}
+
+::: code-group
+
+```html [HTML]
+<button is="glass-prominent-button" type="button">
+  <label-view title="Tap here" system-image="hand-tap"></label-view>
+</button>
+```
+
+<<< @/public/examples/glass-prominent-button/demo-full.html#html{30-32}
+
+:::
+
+::::
+:::::
+
 <!-- #region post -->
 
 ## Topics
 
-**Creating a prominent glass button:**
+**Use the `is` attribute to style a `button` as a prominent glass button:**
 
 ```html
 <button is="glass-prominent-button">

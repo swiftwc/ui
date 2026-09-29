@@ -5,7 +5,7 @@ import {
   NavigationPath,
   queryInsertPosition,
   startViewTransition,
-} from 'https://unpkg.com/@swiftwc/ui@dev/client'
+} from 'https://unpkg.com/@swiftwc/ui@canary/client'
 
 document.addEventListener('commit', async (evt) => {
   console.log('commit!!!', evt.detail, evt.target)

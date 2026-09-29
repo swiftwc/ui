@@ -31,7 +31,7 @@ declare global {
 
 ## Topics
 
-**Example:**
+**Use the `is` attribute to convert a `details` element into a disclosure group:**
 
 ```html
 <details is="disclosure-group">

@@ -79,7 +79,7 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 npm start
 ```
 
-## Start using SwiftWC web components in your project
+## Start using SwiftWC
 
 ::: code-group
 

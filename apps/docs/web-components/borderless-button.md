@@ -41,7 +41,7 @@ You create a button by providing an action and a label.
 
 ```html [HTML]
 <button is="borderless-button" type="button">
-  <label-view title="Hello world!" system-image="hand-waving"></label-view>
+  <label-view title="Tap here" system-image="hand-tap"></label-view>
 </button>
 ```
 
@@ -56,7 +56,7 @@ You create a button by providing an action and a label.
 
 ## Topics
 
-**Use the `is` attribute to style a `button` as a `borderless-button`:**
+**Use the `is` attribute to style a `button` as a borderless button:**
 
 ```html
 <button is="borderless-button">

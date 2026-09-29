@@ -124,7 +124,7 @@ import '@swiftwc/ui/client'
 npm start
 ```
 
-## Start using SwiftWC web components in your project
+## Start using SwiftWC
 
 ::: code-group
 

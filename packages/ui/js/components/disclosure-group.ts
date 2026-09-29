@@ -7,7 +7,7 @@ const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>
 /**
  * @summary A view that shows or hides another view when the user opens or closes it.
  *
- * @example <details is="disclosure-group"><summary><label-view title="Items"></label-view></summary><label-view title="Item 1"></label-view><label-view title="Item 2"></label-view><details is="disclosure-group"><summary><label-view title="Sub-items"></label-view></summary><label-view title="Sub-item 1"></label-view></details></details>
+ * @example <details is="disclosure-group"><summary><label-view title="Items"></label-view></summary><label-view title="Item 1"></label-view><label-view title="Item 2"></label-view><details is="disclosure-group"><summary><label-view title="Sub-items"></label-view></summary><label-view title="Sub-item 1"></label-view></details></details> — Use the `is` attribute to convert a `details` element into a disclosure group
  *
  * @fires is-expanded
  * @fires is-collapsed

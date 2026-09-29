@@ -129,7 +129,9 @@
     --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
     --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
-    --segented-picker-track-bg: red;
+    --segented-picker-track-gap: 0rem;
+    --palette-picker-track-gap: 1rem;
+    --radio-group-picker-track-gap: 1rem;
     --segented-picker-track-border-radius: var(--pill-border-radius);
     --segented-picker-track-block-size: 3rem;
     --segented-picker-track-padding-inline: 0.1rem;
@@ -5275,6 +5277,7 @@
   :where(picker-view)::part(picker-input-stack) {
     display: var(--picker--inputstack-display, grid);
     text-align: var(--picker--inputstack-text-align, );
+    justify-content: var(--picker--inputstack-justify-content, );
     gap: var(--picker--inputstack-gap, );
     flex-flow: var(--picker--inputstack-flex-flow, );
     grid-auto-flow: var(--picker--inputstack-grid-auto-flow, );
@@ -5286,6 +5289,8 @@
     padding-inline: var(--picker--inputstack-padding-inline, );
     padding-block: var(--picker--inputstack-padding-block, );
     overflow: var(--picker--inputstack-overflow, );
+    backdrop-filter: var(--picker--inputstack-backdrop-filter, );
+    box-shadow: var(--picker--inputstack-box-shadow, );
   }
   :where(picker-view)::part(picker-label-stack) {
     display: var(--picker--labelstack-display, none);
@@ -5308,14 +5313,11 @@
   @supports (x: if(else:red)) {
     :where(picker-view) {
       --picker--inputstack-grid-auto-flow: if(style(--picker-style: segmented): column; );
-      --picker--inputstack-gap: if(style(--picker-style: segmented): 1rem; style(--picker-style: palette): 1rem; style(--picker-style: radio-group): 1rem; );
-      --picker--inputstack-display: if(style(--picker-style: palette): flex; );
-      --picker--inputstack-flex-flow: if(style(--picker-style: palette): row wrap; );
-    }
-    :where(form picker-view) {
-      --picker--labelstack-display: if(style(--picker-style: segmented): grid; style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
-      --picker--inputstack-text-align: if(style(--picker-style: segmented): start; style(--picker-style: palette): start; style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
-      --picker--inputstack-background: if(style(--picker-style: segmented): var(--segented-picker-track-bg); );
+      --picker--inputstack-gap: if(style(--picker-style: segmented): var(--segmented-picker-track-gap); style(--picker-style: palette): var(--palette-picker-track-gap); style(--picker-style: radio-group): var(--radio-group-picker-track-gap); );
+      --picker--inputstack-justify-content: if(style(--picker-style: segmented): start; style(--picker-style: palette): start; );
+      --picker--inputstack-background: if(style(--picker-style: segmented): light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark)); );
+      --picker--inputstack-backdrop-filter: if(style(--picker-style: segmented): var(--liquid-glass-backdrop-filter); );
+      --picker--inputstack-box-shadow: if(style(--picker-style: segmented): var(--liquid-glass-box-shadow); );
       --picker--inputstack-border-radius: if(style(--picker-style: segmented): var(--segented-picker-track-border-radius); );
       --picker--inputstack-position: if(style(--picker-style: segmented): relative; );
       --picker--inputstack-min-inline-size: if(style(--picker-style: segmented): calc(var(--segented-picker-button-min-inline-size) + 1rem); );
@@ -5323,6 +5325,12 @@
       --picker--inputstack-padding-inline: if(style(--picker-style: segmented): var(--segented-picker-track-padding-inline); );
       --picker--inputstack-padding-block: if(style(--picker-style: segmented): var(--segented-picker-track-padding-block); );
       --picker--inputstack-overflow: if(style(--picker-style: segmented): auto clip; );
+      --picker--inputstack-display: if(style(--picker-style: palette): flex; );
+      --picker--inputstack-flex-flow: if(style(--picker-style: palette): row wrap; );
+    }
+    :where(form picker-view) {
+      --picker--labelstack-display: if(style(--picker-style: segmented): grid; style(--picker-style: palette): grid; style(--picker-style: radio-group): grid; style(--picker-style: menu): grid; style(--picker-style: navigation-link): grid; style(--picker-style: sheet): grid; else: none ;);
+      --picker--inputstack-text-align: if(style(--picker-style: segmented): start; style(--picker-style: palette): start; style(--picker-style: radio-group): start; style(--picker-style: menu): start; style(--picker-style: navigation-link): end; style(--picker-style: sheet): end; );
       --picker--host-row-gap: if(style(--picker-style: segmented): var(--labeled-content-row-gap); style(--picker-style: palette): var(--labeled-content-row-gap); style(--picker-style: radio-group): var(--labeled-content-row-gap); style(--picker-style: menu): var(--labeled-content-row-gap); style(--picker-style: navigation-link): var(--labeled-content-row-gap); style(--picker-style: sheet): var(--labeled-content-row-gap); );
       --picker--host-column-gap: if(style(--picker-style: segmented): var(--labeled-content-column-gap); style(--picker-style: palette): var(--labeled-content-column-gap); style(--picker-style: radio-group): var(--labeled-content-column-gap); style(--picker-style: menu): var(--labeled-content-column-gap); style(--picker-style: navigation-link): var(--labeled-content-column-gap); style(--picker-style: sheet): var(--labeled-content-column-gap); );
       --picker--host-padding-inline: if(style(--picker-style: segmented): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: palette): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: radio-group): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: menu): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: navigation-link): var(--itempadistart, ) var(--itempadiend, ); style(--picker-style: sheet): var(--itempadistart, ) var(--itempadiend, ); );
@@ -5339,20 +5347,32 @@
     @container style(--picker-style: sheet) {}
     @container style(--picker-style: radio-group) {
       :where(picker-view:not([picker-style])) {
-        --picker--inputstack-gap: 1rem;
+        --picker--inputstack-gap: var(--radio-group-picker-track-gap);
       }
     }
     @container style(--picker-style: palette) {
       :where(picker-view:not([picker-style])) {
         --picker--inputstack-display: flex;
         --picker--inputstack-flex-flow: row wrap;
-        --picker--inputstack-gap: 1rem;
+        --picker--inputstack-gap: var(--palette-picker-track-gap);
+        --picker--inputstack-justify-content: start;
       }
     }
     @container style(--picker-style: segmented) {
       :where(picker-view:not([picker-style])) {
         --picker--inputstack-grid-auto-flow: column;
-        --picker--inputstack-gap: 1rem;
+        --picker--inputstack-gap: var(--segmented-picker-track-gap);
+        --picker--inputstack-justify-content: start;
+        --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
+        --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter);
+        --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow);
+        --picker--inputstack-border-radius: var(--segented-picker-track-border-radius);
+        --picker--inputstack-position: relative;
+        --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem);
+        --picker--inputstack-block-size: var(--segented-picker-track-block-size);
+        --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline);
+        --picker--inputstack-padding-block: var(--segented-picker-track-padding-block);
+        --picker--inputstack-overflow: auto clip;
       }
     }
     @container style(--picker-style: menu) {
@@ -5429,14 +5449,6 @@
       :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
         --picker--inputstack-text-align: start;
-        --picker--inputstack-background: var(--segented-picker-track-bg);
-        --picker--inputstack-border-radius: var(--segented-picker-track-border-radius);
-        --picker--inputstack-position: relative;
-        --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem);
-        --picker--inputstack-block-size: var(--segented-picker-track-block-size);
-        --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline);
-        --picker--inputstack-padding-block: var(--segented-picker-track-padding-block);
-        --picker--inputstack-overflow: auto clip;
         --picker--host-row-gap: var(--labeled-content-row-gap);
         --picker--host-column-gap: var(--labeled-content-column-gap);
         --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -5494,7 +5506,7 @@
     }
     :where(picker-view[picker-style=radio-group]) {
       --picker-style: radio-group;
-      --picker--inputstack-gap: 1rem;
+      --picker--inputstack-gap: var(--radio-group-picker-track-gap);
     }
     :where(form picker-view[picker-style=radio-group]) {
       --picker--labelstack-display: grid;
@@ -5512,7 +5524,8 @@
       --picker-style: palette;
       --picker--inputstack-display: flex;
       --picker--inputstack-flex-flow: row wrap;
-      --picker--inputstack-gap: 1rem;
+      --picker--inputstack-gap: var(--palette-picker-track-gap);
+      --picker--inputstack-justify-content: start;
     }
     :where(form picker-view[picker-style=palette]) {
       --picker--labelstack-display: grid;
@@ -5529,12 +5542,11 @@
     :where(picker-view[picker-style=segmented]) {
       --picker-style: segmented;
       --picker--inputstack-grid-auto-flow: column;
-      --picker--inputstack-gap: 1rem;
-    }
-    :where(form picker-view[picker-style=segmented]) {
-      --picker--labelstack-display: grid;
-      --picker--inputstack-text-align: start;
-      --picker--inputstack-background: var(--segented-picker-track-bg);
+      --picker--inputstack-gap: var(--segmented-picker-track-gap);
+      --picker--inputstack-justify-content: start;
+      --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark));
+      --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter);
+      --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow);
       --picker--inputstack-border-radius: var(--segented-picker-track-border-radius);
       --picker--inputstack-position: relative;
       --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem);
@@ -5542,6 +5554,10 @@
       --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline);
       --picker--inputstack-padding-block: var(--segented-picker-track-padding-block);
       --picker--inputstack-overflow: auto clip;
+    }
+    :where(form picker-view[picker-style=segmented]) {
+      --picker--labelstack-display: grid;
+      --picker--inputstack-text-align: start;
       --picker--host-row-gap: var(--labeled-content-row-gap);
       --picker--host-column-gap: var(--labeled-content-column-gap);
       --picker--host-padding-inline: var(--itempadistart, ) var(--itempadiend, );
@@ -5555,6 +5571,31 @@
   :where(picker-view[horizontal-radio-group-layout]) {
     --picker--inputstack-display: flex;
     --picker--inputstack-flex-flow: row wrap;
+  }
+  @container style(--picker-style: segmented) {
+    :where(picker-view)::part(picker-input-stack)::after {
+      content: "";
+      display: block;
+      position: absolute;
+      background-color: rgba(0, 0, 0, 0.4);
+      pointer-events: none;
+      touch-action: none;
+      position-anchor: --anchor-id;
+      inset: anchor(--anchor-id top) auto auto anchor(--anchor-id left);
+      inline-size: anchor-size();
+      block-size: anchor-size();
+      border-radius: var(--pill-border-radius);
+      z-index: -1;
+    }
+    :where(picker-view)::part(picker-input-stack)::after {
+      background-color: white;
+      box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+    }
+    @media (prefers-reduced-motion: no-preference) {
+      :where(picker-view)::part(picker-input-stack)::after {
+        transition: block-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete, inline-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete, inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+      }
+    }
   }
   @container style(--picker-style: radio-group) {
     picker-view > label:not([slot]) input[type=radio] {
@@ -5589,12 +5630,14 @@
     }
   }
   @container style(--picker-style: segmented) {
+    :where(picker-view > label:not([slot]):has(input:checked)) {
+      anchor-name: --anchor-id;
+    }
     :where(picker-view > label:not([slot])) {
       --label-font: callout;
       color: var(--secondary);
       min-inline-size: var(--segented-picker-button-min-inline-size);
-      background-color: blue;
-      border-radius: inherit;
+      border-radius: var(--segented-picker-track-border-radius);
       inline-size: fit-content;
       block-size: calc(var(--segented-picker-track-block-size) - var(--segented-picker-track-padding-block) * 2);
     }

@@ -244,7 +244,10 @@
 
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
 
-    --segented-picker-track-bg: red;
+    --segented-picker-track-gap: 0rem;
+    --palette-picker-track-gap: 1rem;
+    --radio-group-picker-track-gap: 1rem;
+
     --segented-picker-track-border-radius: var(--pill-border-radius);
     --segented-picker-track-block-size: 3rem;
     --segented-picker-track-padding-inline: 0.1rem;

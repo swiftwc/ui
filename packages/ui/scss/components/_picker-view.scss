@@ -7,15 +7,29 @@
 $picker-ifs: (
   segmented: (
     --picker--inputstack-grid-auto-flow: column,
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--segmented-picker-track-gap),
+    --picker--inputstack-justify-content: start,
+    // copied from tabbar -> @mixin make-floating-tabbar
+    --picker--inputstack-background: light-dark(var(--liquid-glass-bg), var(--liquid-glass-bg-dark)),
+    --picker--inputstack-backdrop-filter: var(--liquid-glass-backdrop-filter),
+    --picker--inputstack-box-shadow: var(--liquid-glass-box-shadow),
+    //
+    --picker--inputstack-border-radius: var(--segented-picker-track-border-radius),
+    --picker--inputstack-position: relative,
+    --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem),
+    --picker--inputstack-block-size: var(--segented-picker-track-block-size),
+    --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline),
+    --picker--inputstack-padding-block: var(--segented-picker-track-padding-block),
+    --picker--inputstack-overflow: auto clip,
   ),
   palette: (
     --picker--inputstack-display: flex,
     --picker--inputstack-flex-flow: row wrap,
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--palette-picker-track-gap),
+    --picker--inputstack-justify-content: start,
   ),
   radio-group: (
-    --picker--inputstack-gap: 1rem,
+    --picker--inputstack-gap: var(--radio-group-picker-track-gap),
   ),
   menu: (),
   navigation-link: (),
@@ -27,14 +41,6 @@ $picker-inform-ifs: (
   segmented: (
     --picker--labelstack-display: grid,
     --picker--inputstack-text-align: start,
-    --picker--inputstack-background: var(--segented-picker-track-bg),
-    --picker--inputstack-border-radius: var(--segented-picker-track-border-radius),
-    --picker--inputstack-position: relative,
-    --picker--inputstack-min-inline-size: calc(var(--segented-picker-button-min-inline-size) + 1rem),
-    --picker--inputstack-block-size: var(--segented-picker-track-block-size),
-    --picker--inputstack-padding-inline: var(--segented-picker-track-padding-inline),
-    --picker--inputstack-padding-block: var(--segented-picker-track-padding-block),
-    --picker--inputstack-overflow: auto clip,
     // copy from labeled-content
     --picker--host-row-gap: var(--labeled-content-row-gap),
     --picker--host-column-gap: var(--labeled-content-column-gap),
@@ -232,6 +238,7 @@ $picker-inform-elses: (
         display: var(--picker--inputstack-display, grid);
 
         text-align: var(--picker--inputstack-text-align,);
+        justify-content: var(--picker--inputstack-justify-content,);
 
         gap: var(--picker--inputstack-gap,);
 
@@ -247,6 +254,9 @@ $picker-inform-elses: (
         padding-inline: var(--picker--inputstack-padding-inline,); //0.1rem;
         padding-block: var(--picker--inputstack-padding-block,); //0.1rem;
         overflow: var(--picker--inputstack-overflow,); //auto clip;
+
+        backdrop-filter: var(--picker--inputstack-backdrop-filter,);
+        box-shadow: var(--picker--inputstack-box-shadow,);
 
         // flex-shrink: var(--picker--inputstack-flex-shrink,); //none;
 
@@ -399,6 +409,31 @@ $picker-inform-elses: (
       }
     }
 
+    // :where(&)::part(picker-input-stack)::after {
+    //   transition: all var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+    //   transition-delay: 700ms;
+    // }
+
+    @container style(--picker-style: segmented) {
+      :where(&)::part(picker-input-stack) {
+        // outline: green solid 4px;
+
+        @include mixins.make-pseudo-tracking-thumb(--anchor-id);
+
+        &::after {
+          background-color: white;
+          box-shadow: 0 0 5px 5px rgba(0, 0, 0, 0.1);
+
+          @media (prefers-reduced-motion: no-preference) {
+            transition:
+              block-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+              inline-size var(--tabbar-after-tabreveal-duration) ease-out allow-discrete,
+              inset var(--tabbar-after-tabreveal-duration) ease-out allow-discrete;
+          }
+        }
+      }
+    }
+
     > label:not([slot]) {
       @container style(--picker-style: radio-group) {
         input[type='radio'] {
@@ -465,14 +500,21 @@ $picker-inform-elses: (
       }
 
       @container style(--picker-style: segmented) {
+        // &:has(input:checked) {
+        // &[aria-selected='true'] {
+        &:has(input:checked) {
+          :where(&) {
+            anchor-name: --anchor-id;
+          }
+        }
         :where(&) {
           --label-font: callout;
 
           color: var(--secondary);
 
           min-inline-size: var(--segented-picker-button-min-inline-size);
-          background-color: blue;
-          border-radius: inherit;
+          // background-color: blue;
+          border-radius: var(--segented-picker-track-border-radius);
 
           inline-size: fit-content;
           block-size: calc(var(--segented-picker-track-block-size) - calc(var(--segented-picker-track-padding-block) * 2));

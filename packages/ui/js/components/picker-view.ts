@@ -529,7 +529,7 @@ export class PickerView extends FormAssociatedBase {
           PickerView.#templates.set(
             this.pickerStyle,
             $(html`
-              <label part="root picker-stack">
+              <div part="root picker-stack">
                 <div part="root picker-label-stack">
                   <slot name="label"></slot>
                 </div>
@@ -538,7 +538,7 @@ export class PickerView extends FormAssociatedBase {
                 </div>
                 <slot name="list" hidden></slot>
                 <slot name="validity-options" hidden></slot>
-              </label>
+              </div>
             `)
           )
 
@@ -547,7 +547,7 @@ export class PickerView extends FormAssociatedBase {
           PickerView.#templates.set(
             this.pickerStyle,
             $(html`
-              <label part="root picker-stack">
+              <div part="root picker-stack">
                 <div part="root picker-label-stack">
                   <slot name="label"></slot>
                 </div>
@@ -556,7 +556,7 @@ export class PickerView extends FormAssociatedBase {
                 </div>
                 <slot name="list" hidden></slot>
                 <slot name="validity-options" hidden></slot>
-              </label>
+              </div>
             `)
           )
 
@@ -567,7 +567,7 @@ export class PickerView extends FormAssociatedBase {
           PickerView.#templates.set(
             this.pickerStyle,
             $(html`
-              <label part="root picker-stack">
+              <div part="root picker-stack">
                 <div part="root picker-label-stack">
                   <slot name="label"></slot>
                 </div>
@@ -576,7 +576,7 @@ export class PickerView extends FormAssociatedBase {
                 </div>
                 <slot name="list" hidden></slot>
                 <slot name="validity-options" hidden></slot>
-              </label>
+              </div>
             `)
           )
 
@@ -832,7 +832,7 @@ export class PickerView extends FormAssociatedBase {
   }
 
   #handleTriggerClick = async ({ type, target }: Event) => {
-    debug(`${PickerView.name} ⚡️ ${type}`)
+    debug(`${PickerView.name} ⚡️ trigger.${type}`)
 
     if (!(target instanceof HTMLElement)) return
 

@@ -4,6 +4,28 @@
 @use '../vars';
 @use '../functions';
 
+@mixin make-pseudo-tracking-thumb($anchor-name) {
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    background-color: rgba(0, 0, 0, 0.4);
+    pointer-events: none;
+    touch-action: none;
+
+    position-anchor: #{$anchor-name};
+    // position-area: center;
+    inset: anchor(#{$anchor-name} top) auto auto anchor(#{$anchor-name} left);
+
+    inline-size: anchor-size();
+    block-size: anchor-size();
+
+    border-radius: var(--pill-border-radius);
+
+    z-index: -1;
+  }
+}
+
 @mixin span-all {
   grid-column: 1 / -1; // span all columns
   grid-row: 1 / -1; // span all rows

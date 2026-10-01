@@ -52,7 +52,7 @@ You create a toggle by providing an `is-on` attribute and a `label` attribute.
 
 ::::: info &nbsp;
 
-{% demo toggle-view/demo-full h-30 %}
+{% example toggle-view/demo-full h-30 %}
 
 :::: details View code {open .mt-0! .rounded-t-none!}
 

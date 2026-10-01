@@ -34,19 +34,21 @@ declare global {
 
 <!-- #endregion pre -->
 
-## Overview
-
-...
+## Try It
 
 ::::: tabs key:v-stack
 
-== VStack
+== Demo
 
-{% demo v-stack/demo-full h-130 %}
+{% demo v-stack/index.html h-130 %}
 
-== Test overflow
+== Test fixed block size
 
-{% demo v-stack/demo-full h-130 %}
+{% demo v-stack/index.html?case=h h-130 %}
+
+== Test fixed inline size
+
+{% demo v-stack/index.html?case=w h-130 %}
 
 :::::
 

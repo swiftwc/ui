@@ -87,12 +87,49 @@ if (!editorSetupItem)
   { text: 'for EmberJS', link: '/installation/editor-setup/emberjs' }
 )
 
+const links: Record<string, string> = {
+  Font: '/installation/editor-setup/html-data.json',
+  FrameInlineLength: '/installation/editor-setup/html-data.json',
+  Tint: '/installation/editor-setup/html-data.json',
+  Template: '/installation/editor-setup/html-data.json',
+  Spacing: '/installation/editor-setup/html-data.json',
+  inlineSet: '/installation/editor-setup/html-data.json',
+  blockSet: '/installation/editor-setup/html-data.json',
+  blockPlacementSet: '/installation/editor-setup/html-data.json',
+  inlinePlacementSet: '/installation/editor-setup/html-data.json',
+  Foreground: '/installation/editor-setup/html-data.json',
+  BackgroundStyle: '/installation/editor-setup/html-data.json',
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
     plugins: [groupIconVitePlugin()],
   },
   markdown: {
+    codeTransformers: [
+      {
+        name: 'link-urls',
+        span(node) {
+          const child = node.children[0]
+          if (node.children.length !== 1 || child.type !== 'text') return
+          const href = links[child.value.trim()]
+          if (!href) return
+
+          const [, lead, word, trail] = child.value.match(/^(\s*)(.*?)(\s*)$/s)!
+          node.children = [
+            ...(lead ? [{ type: 'text' as const, value: lead }] : []),
+            {
+              type: 'element' as const,
+              tagName: 'a',
+              properties: { href },
+              children: [{ type: 'text' as const, value: word }],
+            },
+            ...(trail ? [{ type: 'text' as const, value: trail }] : []),
+          ]
+        },
+      },
+    ],
     config: (md) => {
       md.use(align)
       md.use(icon)
@@ -114,9 +151,14 @@ export default defineConfig({
             setup: (id: string) => `<iframe width="560" height="315" src="https://www.youtube.com/embed/${id}" frameborder="0" allowfullscreen></iframe>`,
           },
           {
-            name: 'demo',
+            name: 'example',
             setup: (id: string, className: string) =>
               `<iframe src="/examples/${id.split(' ').shift()}.html" frameborder="0" loading="lazy" class="rounded-t-xl w-full ${id.split(' ').pop()} mt-2"></iframe>`,
+          },
+          {
+            name: 'demo',
+            setup: (id: string, className: string) =>
+              `<iframe src="/demos/${id.split(' ').shift()}" frameborder="0" loading="lazy" class="rounded-t-xl w-full ${id.split(' ').pop()} mt-2"></iframe>`,
           },
           {
             name: 'icon',

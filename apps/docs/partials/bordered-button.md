@@ -4,7 +4,7 @@ You create a button by providing an action and a label.
 
 ::::: info &nbsp;
 
-{% demo bordrered-button/demo-full h-60 %}
+{% example bordrered-button/demo-full h-60 %}
 
 :::: details View code {open .mt-0! .rounded-t-none!}
 

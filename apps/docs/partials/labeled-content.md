@@ -4,7 +4,7 @@ You can assemble labeled content with by providing a `value` attribute and a `la
 
 ::::: info &nbsp;
 
-{% demo labeled-content/demo-full h-30 %}
+{% example labeled-content/demo-full h-30 %}
 
 :::: details View code {open .mt-0! .rounded-t-none!}
 

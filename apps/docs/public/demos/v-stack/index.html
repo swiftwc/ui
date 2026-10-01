@@ -12,43 +12,7 @@
     <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
     <script type="module" src="https://unpkg.com/@swiftwc/ui@canary/client"></script>
-    <script type="module">
-      document.addEventListener('input', (evt) => {
-        const attr = 'spacing',
-          value = evt.target.value ?? ''
-
-        if (value.startsWith('-')) {
-          document.querySelector('#demo').removeAttribute(attr)
-
-          document.querySelector(`#${attr}`).textContent = ``
-
-          return
-        }
-
-        document.querySelector('#demo').setAttribute(attr, value)
-
-        document.querySelector(`#${attr}`).textContent = ` ${attr}="${value}"`
-      })
-
-      document.addEventListener('selection', (evt) => {
-        const attr =
-            evt.target.closest('labeled-content').getAttribute('label')?.toLowerCase() ??
-            evt.target.closest('labeled-content').querySelector(':scope>label-view').getAttribute('title')?.toLowerCase(),
-          value = evt.detail.selection ?? ''
-
-        if (value.includes('Off')) {
-          document.querySelector('#demo').removeAttribute(attr)
-
-          document.querySelector(`#${attr}`).textContent = ``
-
-          return
-        }
-
-        document.querySelector('#demo').setAttribute(attr, value)
-
-        document.querySelector(`#${attr}`).textContent = ` ${attr}="${value}"`
-      })
-    </script>
+    <script type="module" src="main.mjs"></script>
   </head>
   <body>
     <v-keyboard system-font="Inter"></v-keyboard>
@@ -81,25 +45,30 @@
               </label-view>
               <picker-view selection="Off" picker-style="menu" foreground="primary">
                 <option slot="list">Off</option>
-                <option slot="list">leading</option>
-                <option slot="list">center</option>
-                <option slot="list">trailing</option>
-                <option slot="list">fill</option>
+                <option slot="list" label="Leading">leading</option>
+                <option slot="list" label="Center">center</option>
+                <option slot="list" label="Trailing">trailing</option>
+                <option slot="list" label="Fill">fill</option>
+                <option slot="list" label="Space between">space-between</option>
               </picker-view>
             </labeled-content>
-            <labeled-content label="Alignment" labeled-content-style="horizontal">
+            <labeled-content labeled-content-style="horizontal">
+              <label-view slot="label" title="Alignment"></label-view>
+              <label-view slot="label">
+                <span>The default value is &quot;<span class="font-mono">safe center</span>&quot;</span>
+              </label-view>
               <picker-view selection="Off" picker-style="menu" foreground="primary">
                 <option slot="list">Off</option>
-                <option slot="list">leading</option>
-                <option slot="list">center</option>
-                <option slot="list">trailing</option>
-                <option slot="list">fill</option>
+                <option slot="list" label="Leading">leading</option>
+                <option slot="list" label="Center">center</option>
+                <option slot="list" label="Trailing">trailing</option>
+                <option slot="list" label="Fill">fill</option>
               </picker-view>
             </labeled-content>
           </list-view>
-          <label-view font="title2" title="Example:" class="my-4 text-center" padding></label-view>
-          <v-stack id="demo" class="outline-yellow-500 outline-4 inline-100 block-50 max-inline-[80vw] justify-self-center relative">
-            <span class="absolute inset-[-18px_auto_auto_-5px] text-[10px] font-mono text-[#767676] truncate mix-blend-plus-darker"
+          <label-view font="headline" title="Example:" class="my-3 text-center" padding></label-view>
+          <v-stack id="demo" class="outline-yellow-500 outline-4 inline-90 block-40 max-inline-[80vw] justify-self-center relative">
+            <span class="absolute inset-[-18px_auto_auto_-4px] text-[10px] font-mono text-[#767676] truncate mix-blend-plus-darker"
               >&lt;v-stack<span id="spacing"></span><span id="distribution"></span><span id="alignment"></span>&gt;</span
             >
             <span class="absolute inset-[-5px_auto_auto_-14px] text-[10px] font-mono text-[#767676] truncate mix-blend-plus-darker">↓</span>

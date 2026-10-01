@@ -2,21 +2,14 @@
 
 ...
 
-::::: info &nbsp;
+::::: tabs key:v-stack
+
+== VStack
 
 {% demo v-stack/demo-full h-130 %}
 
-:::: details View code {.mt-0! .rounded-t-none!}
+== Test overflow
 
-::: code-group
+{% demo v-stack/demo-full h-130 %}
 
-```html [HTML]
-<labeled-content label="Age" value="6" format="unit::unit=year&unitDisplay=long"></labeled-content>
-```
-
-<<< @/public/examples/v-stack/demo-full.html#html{18}
-
-:::
-
-::::
 :::::

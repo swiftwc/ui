@@ -31,10 +31,12 @@
       })
 
       document.addEventListener('selection', (evt) => {
-        const attr = evt.target.closest('labeled-content').getAttribute('label').toLowerCase(),
+        const attr =
+            evt.target.closest('labeled-content').getAttribute('label')?.toLowerCase() ??
+            evt.target.closest('labeled-content').querySelector(':scope>label-view').getAttribute('title')?.toLowerCase(),
           value = evt.detail.selection ?? ''
 
-        if ('Off' === value) {
+        if (value.includes('Off')) {
           document.querySelector('#demo').removeAttribute(attr)
 
           document.querySelector(`#${attr}`).textContent = ``
@@ -66,15 +68,21 @@
                 <option>40</option>
                 <option>50</option>
               </datalist>
-              <div class="flex justify-between inline-[200px] text-sm">
-                <label-view font="caption2" title="Slow"></label-view>
-                <label-view font="caption2" title="Fast"></label-view>
+              <div class="flex justify-between inline-[200px]">
+                <label-view font="caption2" title="Off"></label-view>
+                <label-view class="me-auto ms-[20px]" font="caption2" title="0"></label-view>
+                <label-view font="caption2" title="50"></label-view>
               </div>
             </labeled-content>
-            <labeled-content label="Distribution" labeled-content-style="horizontal">
+            <labeled-content labeled-content-style="horizontal">
+              <label-view slot="label" title="Distribution"></label-view>
+              <label-view slot="label">
+                <span>The default value is &quot;<span class="font-mono">safe center</span>&quot;</span>
+              </label-view>
               <picker-view selection="Off" picker-style="menu" foreground="primary">
                 <option slot="list">Off</option>
                 <option slot="list">leading</option>
+                <option slot="list">center</option>
                 <option slot="list">trailing</option>
                 <option slot="list">fill</option>
               </picker-view>
@@ -83,20 +91,22 @@
               <picker-view selection="Off" picker-style="menu" foreground="primary">
                 <option slot="list">Off</option>
                 <option slot="list">leading</option>
+                <option slot="list">center</option>
                 <option slot="list">trailing</option>
                 <option slot="list">fill</option>
               </picker-view>
             </labeled-content>
           </list-view>
-          <label-view font="title2" title="Example:" class="mt-8 text-center" padding></label-view>
-          <v-stack id="demo" class="outline-offset-4 outline-yellow-500 outline-10 inline-100 max-inline-[80vw] aspect-video justify-self-center relative">
-            <span class="absolute inset-[-16px_auto_auto_-4px] text-xs text-white"
+          <label-view font="title2" title="Example:" class="my-4 text-center" padding></label-view>
+          <v-stack id="demo" class="outline-yellow-500 outline-4 inline-100 block-50 max-inline-[80vw] justify-self-center relative">
+            <span class="absolute inset-[-18px_auto_auto_-5px] text-[10px] font-mono text-[#767676] truncate mix-blend-plus-darker"
               >&lt;v-stack<span id="spacing"></span><span id="distribution"></span><span id="alignment"></span>&gt;</span
             >
-            <label-view font="title3" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed">
-              <span>Alice</span>
+            <span class="absolute inset-[-5px_auto_auto_-14px] text-[10px] font-mono text-[#767676] truncate mix-blend-plus-darker">↓</span>
+            <label-view font="title3" class="border-dashed border-2 border-blue-500 p-1 z-1 mix-blend-plus-darker relative">
+              <span>Rachael Chiseck</span>
             </label-view>
-            <label-view font="caption2" foreground="secondary" class="outline-offset-2 outline-blue-500 outline-2 outline-dashed">
+            <label-view font="caption2" foreground="secondary" class="border-dashed border-2 border-blue-500 z-1 p-1 mix-blend-plus-darker relative">
               <span>CEO</span>
             </label-view>
           </v-stack>

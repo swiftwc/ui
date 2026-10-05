@@ -131,7 +131,7 @@
     --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
     --tabs-picker-track-gap: 0rem;
     --palette-picker-track-gap: 1rem;
-    --radio-group-picker-track-gap: 1rem;
+    --radio-group-picker-track-gap: 0.2rem;
     --tabs-picker-track-border-radius: var(--pill-border-radius);
     --tabs-picker-track-block-size: 3rem;
     --tabs-picker-track-padding-inline: 0.1rem;
@@ -5626,11 +5626,12 @@
       block-size: 2rem;
       border-radius: 0.4rem;
       pointer-events: none;
+      background-size: cover;
       transition: outline 100ms ease-out;
     }
     :where(picker-view > label:not([slot]) input[type=radio]):checked {
       outline: var(--accentColor) solid 0.3rem;
-      outline-offset: 0.1rem;
+      outline-offset: 0.15rem;
     }
   }
   @container style(--picker-style: tabs) {

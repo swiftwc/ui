@@ -473,12 +473,14 @@ $picker-inform-elses: (
 
             pointer-events: none;
 
+            background-size: cover;
+
             transition: outline 100ms ease-out;
 
             &:checked {
               outline: var(--accentColor) solid 0.3rem;
 
-              outline-offset: 0.1rem;
+              outline-offset: 0.15rem;
             }
           }
         }

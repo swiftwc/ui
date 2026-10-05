@@ -14,11 +14,11 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/manifest.webmanifest" />
+    <link rel="manifest" href="../manifest.webmanifest" />
     <title>settings</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
-    <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
+    <link rel="stylesheet" href="../styles.css" />
+    <link rel="stylesheet" href="../dev.css" media="(prefers-contrast:more)" />
     <template>
       <content-view>
         <scroll-view navigation-inline-title="Energy" data-nav-path="Energy">
@@ -515,10 +515,10 @@
               <section-view header="Theme">
                 <labeled-content label="Icon & widget style" labeled-content-style="horizontal">
                   <picker-view selection="Default" picker-style="palette" foreground="primary">
-                    <option slot="list" value="Default"></option>
-                    <option slot="list" value="Dark"></option>
-                    <option slot="list" value="Clear"></option>
-                    <option slot="list" value="Tinted"></option>
+                    <option slot="list" value="Default" data-src="assets/Default.png"></option>
+                    <option slot="list" value="Dark" data-src="assets/Dark.png"></option>
+                    <option slot="list" value="Clear" data-src="assets/Clear.png"></option>
+                    <option slot="list" value="Tinted" data-src="assets/Tinted.png"></option>
                   </picker-view>
                 </labeled-content>
                 <labeled-content label="Folder color" labeled-content-style="horizontal">
@@ -665,11 +665,11 @@
                   <label-view slot="label" title="Keyboard navigation"></label-view>
                   <label-view slot="label" title="Use keyboard navigation to move focus between controls."></label-view>
                 </toggle-view>
-                <h-stack distribution="trailing">
+                <!-- <h-stack distribution="trailing">
                   <button is="bordered-button" type="button" control-size="small" data-nav-destination="Advanced Keyboard Panel">
                     <label-view title="Keyboard Shortcuts…" font="body"></label-view>
                   </button>
-                </h-stack>
+                </h-stack> -->
               </section-view>
               <section-view class="pointer-fine:hidden">
                 <labeled-content label="Press fn key to" labeled-content-style="horizontal">
@@ -818,6 +818,106 @@
         </tool-bar>
       </dialog>
     </template>
+    <template>
+      <content-view>
+        <scroll-view navigation-inline-title="Sound" data-nav-path="Sound">
+          <v-stack readable="40">
+            <list-view class="[--list-row-gap:1rem]" list-style="inset-grouped" navigation-link-indicator-visibility="hidden">
+              <section-view>
+                <h-stack distribution="fill">
+                  <v-stack spacing="5" alignment="fill">
+                    <label-view title="Key repeat rate"></label-view>
+                    <input class="w-full m-0" type="range" value="100" step="10" list="Key_repeat_rate" />
+                    <datalist id="Key_repeat_rate">
+                      <option value="0"></option>
+                      <option value="10"></option>
+                      <option value="20"></option>
+                      <option value="30"></option>
+                      <option value="40"></option>
+                      <option value="50"></option>
+                      <option value="60"></option>
+                      <option value="70"></option>
+                      <option value="80"></option>
+                      <option value="90"></option>
+                      <option value="100"></option>
+                    </datalist>
+                    <div class="flex justify-between w-full text-sm">
+                      <label-view font="caption2" title="Off"></label-view>
+                      <label-view class="me-auto ms-1" font="caption2" title="Slow"></label-view>
+                      <label-view font="caption2" title="Fast"></label-view>
+                    </div>
+                  </v-stack>
+                  <v-stack spacing="5" alignment="fill">
+                    <label-view title="Delay until repeat"></label-view>
+                    <input class="w-full m-0" type="range" value="80" step="20" list="Key_repeat_rate" />
+                    <datalist id="Key_repeat_rate">
+                      <option value="0"></option>
+                      <option value="20"></option>
+                      <option value="40"></option>
+                      <option value="60"></option>
+                      <option value="80"></option>
+                      <option value="100"></option>
+                    </datalist>
+                    <div class="flex justify-between w-full text-sm">
+                      <label-view font="caption2" title="Long"></label-view>
+                      <label-view font="caption2" title="Short"></label-view>
+                    </div>
+                  </v-stack>
+                </h-stack>
+              </section-view>
+              <section-view> .. </section-view>
+            </list-view>
+            <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs" slot="header-principal">
+              <optgroup label="Theropods" slot="list">
+                <option>Tyrannosaurus</option>
+                <option>Velociraptor</option>
+                <option>Deinonychus</option>
+              </optgroup>
+            </picker-view>
+            <table-view table-style="inset">
+              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs" slot="header-principal">
+                <optgroup label="Theropods" slot="list">
+                  <option>Tyrannosaurus</option>
+                  <option>Velociraptor</option>
+                  <option>Deinonychus</option>
+                </optgroup>
+              </picker-view>
+              <label-view title="22" foreground="secondary" slot="footer-leading"></label-view>
+              <h-stack slot="footer-trailing"><button tabindex="0">&lt;</button> <button tabindex="0">&gt;</button></h-stack>
+              <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
+                <label-view title="Name"></label-view>
+              </button>
+              <button is="table-column" type="button" tabindex="0" slot="column">
+                <label-view title="Type"></label-view>
+              </button>
+              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice1">
+                <label-view><span>Juan</span></label-view>
+                <label-view><span>Chavez</span></label-view>
+              </button>
+              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
+                <label-view><span>Mei</span></label-view>
+                <label-view><span>Chen</span></label-view>
+              </button>
+              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
+                <label-view><span>Tom</span></label-view>
+                <label-view><span>Clark</span></label-view>
+              </button>
+              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
+                <label-view><span>Gita</span></label-view>
+                <label-view><span>Kumar</span></label-view>
+              </button>
+            </table-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button class="back" type="button" tabindex="0">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </content-view>
+    </template>
     <template id="content_unavailable">
       <content-unavailable padding search="foo"></content-unavailable>
     </template>
@@ -854,6 +954,11 @@
           </button>
         </section-view>
         <section-view>
+          <button navigation-link tabindex="0" type="button" data-nav-destination="Sound">
+            <label-view system-image="speaker-high" title="Sound"></label-view>
+          </button>
+        </section-view>
+        <section-view>
           <button navigation-link tabindex="0" type="button" data-nav-destination="Keyboard">
             <label-view system-image="keyboard" title="Keyboard"></label-view>
           </button>
@@ -863,44 +968,7 @@
         </section-view>
       </list-view>
     </template>
-    <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.mts'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
-
-      document.addEventListener('click', async (evt) => {
-        const menu = evt.target.closest('.custom-picker-menu')
-        if (menu) {
-          const slotted = menu.querySelector(':scope>[slot=label]')
-          if (!slotted) return
-
-          const btn = evt.target.closest('button[value]')
-          if (!btn) return
-
-          const clone = btn.querySelector('[data-role="check"]').nextElementSibling.cloneNode(true)
-          clone.slot = 'label'
-          clone.dataset.selection = btn.value
-
-          slotted.replaceWith(clone)
-
-          for (const el of menu.querySelectorAll(':scope>button[value]:not([slot])'))
-            el.querySelector('[data-role="check"]')?.classList.toggle('invisible', el.value !== btn.value)
-        }
-      })
-
-      const vs = document.getElementById('sidebar_stack')
-
-      document.querySelector('#sidebar_stack ~ [is=search-view]').addEventListener('input', ({ target }) => {
-        if (!(target instanceof HTMLInputElement)) return
-
-        if (!vs) return
-
-        vs.replaceChildren(map.get(0 < target.value.length ? 'content_unavailable' : 'sidebar_list'))
-      })
-
-      const map = new Map([...document.querySelectorAll('template[id]')].map((tpl) => [tpl.id, document.importNode(tpl.content, true).firstElementChild]))
-
-      vs?.replaceChildren(map.get('sidebar_list'))
-    </script>
+    <script type="module" src="app.mts"></script>
   </head>
   <body>
     <!-- This component is required -->

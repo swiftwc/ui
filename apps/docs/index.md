@@ -21,19 +21,19 @@ hero:
 #   link: https://github.com/swiftwc/ui
 
 features:
-  - title: TabView <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
+  - title: TabView <span class="mx-2 rounded-full bg-[#3b83f6] px-2 py-[0.2rem] align-bottom text-[0.8rem] text-white font-semibold">Component</span>
     icon:
       src: /assets/tab_view_role_essence.png
       width: '100%'
     details: Create tabbed screens
     link: /web-components/tab-view
-  - title: NavigationSplitView <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
+  - title: NavigationSplitView <span class="mx-2 rounded-full bg-[#3b83f6] px-2 py-[0.2rem] align-bottom text-[0.8rem] text-white font-semibold">Component</span>
     icon:
       src: /assets/navigation_split_view_role_essence.png
       width: '100%'
     details: Create multi-column navigation
     link: /web-components/navigation-split-view
-  - title: NavigationStack <span style="background:#3b83f6;padding:0.2rem 0.5rem;border-radius:30px;color:white;font-size:0.8rem;vertical-align:bottom;margin-inline:0.5rem;">Component</span>
+  - title: NavigationStack <span class="mx-2 rounded-full bg-[#3b83f6] px-2 py-[0.2rem] align-bottom text-[0.8rem] text-white font-semibold">Component</span>
     icon:
       src: /assets/navigation_stack_role_essence.png
       width: '100%'

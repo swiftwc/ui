@@ -13,8 +13,6 @@ jobs:
       id-token: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -29,6 +27,5 @@ jobs:
 
       - name: Publish to npm (canary)
         env:
-          GH_TOKEN: ${{ github.token }}
           NPM_CONFIG_PROVENANCE: 'true'
-        run: npx changeset publish --tag canary --no-git-tag
+        run: npx changeset publish --no-git-tag

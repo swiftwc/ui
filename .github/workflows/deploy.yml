@@ -1,5 +1,3 @@
-# .github/workflows/docs.yml
-
 name: Docs
 
 env:

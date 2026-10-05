@@ -1,22 +1,18 @@
-name: Release
+name: Publish Canary
 
 on:
-  workflow_dispatch:
-    inputs:
-      package:
-        description: 'Workspace name to publish (e.g. @swiftwc/ui) — leave blank for normal push-diff behavior'
-        required: false
+  push:
+    branches: [canary]
+  workflow_dispatch: {}
 
 jobs:
   release:
     runs-on: ubuntu-latest
     permissions:
-      contents: write
+      contents: read
       id-token: write
     steps:
       - uses: actions/checkout@v4
-        with:
-          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
@@ -29,68 +25,7 @@ jobs:
       - name: Install deps
         run: npm ci
 
-      - name: Determine packages to publish
-        id: changed
-        run: |
-          if [ -n "${{ github.event.inputs.package }}" ]; then
-            PKG="${{ github.event.inputs.package }}"
-            FILES=$(grep -rl "\"name\": *\"$PKG\"" --include=package.json . --exclude-dir=node_modules | sed 's|^\./||' | head -n1)
-          else
-            FILES=$(git diff --name-only "${{ github.event.before }}" "${{ github.sha }}" -- '**/package.json')
-          fi
-          echo "$FILES"
-          echo "files<<EOF" >> "$GITHUB_OUTPUT"
-          echo "$FILES" >> "$GITHUB_OUTPUT"
-          echo "EOF" >> "$GITHUB_OUTPUT"
-
-      - name: Publish + tag each changed package
+      - name: Publish to npm @canary
         env:
-          GH_TOKEN: ${{ github.token }}
-        run: |
-          while IFS= read -r FILE; do
-            [ -z "$FILE" ] && continue
-
-            IS_PRIVATE=$(node -p "require('./$FILE').private === true")
-            if [ "$IS_PRIVATE" = "true" ]; then
-              echo "Skipping $FILE (private package)"
-              continue
-            fi
-
-            NAME=$(node -p "require('./$FILE').name")
-            VERSION=$(node -p "require('./$FILE').version || ''")
-
-            if [ -z "$VERSION" ]; then
-              echo "Skipping $NAME (no version field)"
-              continue
-            fi
-
-            if npm view "${NAME}@${VERSION}" version >/dev/null 2>&1; then
-              echo "$NAME@$VERSION already published, skipping"
-              continue
-            fi
-
-            if [[ "$VERSION" == *-canary.* ]]; then
-              DIST_TAG="canary"
-            elif [[ "$VERSION" == *-beta.* ]]; then
-              DIST_TAG="beta"
-            else
-              DIST_TAG="latest"
-            fi
-
-            echo "Publishing $NAME@$VERSION as dist-tag $DIST_TAG"
-            npm publish -w "$NAME" --tag "$DIST_TAG" --access public --provenance
-
-            if [ "$DIST_TAG" != "canary" ]; then
-              TAG="${NAME}@${VERSION}"
-              git tag -a "$TAG" -m "$TAG"
-              git push origin "$TAG"
-
-              PRERELEASE_FLAG=""
-              [ "$DIST_TAG" = "beta" ] && PRERELEASE_FLAG="--prerelease"
-
-              gh release create "$TAG" \
-                --title "$TAG" \
-                --generate-notes \
-                $PRERELEASE_FLAG
-            fi
-          done <<< "${{ steps.changed.outputs.files }}"
+          NPM_CONFIG_PROVENANCE: 'true'
+        run: npx changeset publish --no-git-tag

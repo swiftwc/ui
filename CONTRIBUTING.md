@@ -78,8 +78,8 @@ npm install -w @swiftwc/ui
 1. To run the `v1` website:
 
 ```bash
-npm run start -w @swiftwc/v1
-npm run start:scss -w @swiftwc/v1
+npm run start -w v1
+npm run start:scss -w v1
 ```
 
 2. To run the `ui` package:

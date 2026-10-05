@@ -1,6 +1,9 @@
 :root {
   --vp-c-brand-1: #3b83f6;
   /* --vp-c-brand-2: #747bff; */
+
+  --vp-home-hero-image-background-image: linear-gradient(135deg, #006dcc 50%, #1f9ce2 50%);
+  --vp-home-hero-image-filter: blur(80px) opacity(0.7);
 }
 
 [id^='no-anchor'] .header-anchor {

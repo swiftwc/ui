@@ -867,44 +867,28 @@
               </section-view>
               <section-view> .. </section-view>
             </list-view>
-            <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs" slot="header-principal">
-              <optgroup label="Theropods" slot="list">
-                <option>Tyrannosaurus</option>
-                <option>Velociraptor</option>
-                <option>Deinonychus</option>
-              </optgroup>
-            </picker-view>
-            <table-view table-style="inset">
-              <picker-view label="foooo" name="foooo" selection="Tyrannosaurus" picker-style="tabs" slot="header-principal">
-                <optgroup label="Theropods" slot="list">
-                  <option>Tyrannosaurus</option>
-                  <option>Velociraptor</option>
-                  <option>Deinonychus</option>
-                </optgroup>
+            <table-view table-style="inset" preferred-compact-template="*">
+              <picker-view label="foooo" name="foooo" selection="Output" picker-style="tabs" slot="header-principal">
+                <option slot="list">Output</option>
+                <option slot="list">Input</option>
               </picker-view>
-              <label-view title="22" foreground="secondary" slot="footer-leading"></label-view>
-              <h-stack slot="footer-trailing"><button tabindex="0">&lt;</button> <button tabindex="0">&gt;</button></h-stack>
-              <button is="table-column" type="button" tabindex="0" slot="column" aria-sort="ascending">
-                <label-view title="Name"></label-view>
+              <label-view title="Name" slot="column"></label-view>
+              <label-view title="Type" slot="column"></label-view>
+              <button is="table-row" type="button" tabindex="0">
+                <label-view title="Monitor 1"></label-view>
+                <label-view title="HDMI"></label-view>
               </button>
-              <button is="table-column" type="button" tabindex="0" slot="column">
-                <label-view title="Type"></label-view>
+              <button is="table-row" type="button" tabindex="0">
+                <label-view title="Monitor 2"></label-view>
+                <label-view title="HDMI"></label-view>
               </button>
-              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice1">
-                <label-view><span>Juan</span></label-view>
-                <label-view><span>Chavez</span></label-view>
+              <button is="table-row" type="button" tabindex="0">
+                <label-view title="Speakers"></label-view>
+                <label-view title="Built-in"></label-view>
               </button>
-              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
-                <label-view><span>Mei</span></label-view>
-                <label-view><span>Chen</span></label-view>
-              </button>
-              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
-                <label-view><span>Tom</span></label-view>
-                <label-view><span>Clark</span></label-view>
-              </button>
-              <button is="table-row" navigation-link type="button" tabindex="0" data-nav-destination="invoice2">
-                <label-view><span>Gita</span></label-view>
-                <label-view><span>Kumar</span></label-view>
+              <button is="table-row" type="button" tabindex="0">
+                <label-view title="Living Room"></label-view>
+                <label-view title="AirPlay"></label-view>
               </button>
             </table-view>
           </v-stack>

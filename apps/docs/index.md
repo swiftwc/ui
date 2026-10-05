@@ -6,6 +6,13 @@ hero:
   name: 'Web Components'
   text: 'inspired by SwiftUI'
   tagline: A set of ready-to-use web components for building standalone web apps and web extensions.<br>Open Source. Open Code.
+  image:
+    light:
+      src: /assets/logo-light.svg
+      alt: SwiftWC
+    dark:
+      src: /assets/logo-dark.svg
+      alt: SwiftWC
   actions:
     - theme: brand
       text: Get Started

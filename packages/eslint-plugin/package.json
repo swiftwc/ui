@@ -1,6 +1,6 @@
 {
   "name": "@swiftwc/eslint-plugin",
-  "version": "1.1.6",
+  "version": "1.1.7-canary.0",
   "description": "Rules enforcing best practices while using SwiftWC.",
   "keywords": [
     "eslint",
@@ -22,7 +22,7 @@
   },
   "type": "module",
   "peerDependencies": {
-    "@swiftwc/ui": "*",
+    "@swiftwc/ui": "1.0.1-canary.0",
     "eslint": ">=10.0.0"
   },
   "exports": {

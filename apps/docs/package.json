@@ -20,7 +20,7 @@
     "@mdit/plugin-embed": "^1.0.1",
     "@mdit/plugin-icon": "^0.24.2",
     "@mdit/plugin-layout": "^0.2.2",
-    "@swiftwc/ui": "*",
+    "@swiftwc/ui": "1.0.1-canary.0",
     "@types/doctrine": "^0.0.9",
     "vitepress": "^2.0.0-alpha.18",
     "vitepress-plugin-group-icons": "^1.7.5",

@@ -1,12 +1,10 @@
 import type { RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint';
-export type TagNode = {
-    name: string;
+export type BaseNode = {
     type: string;
-    parent?: TagNode;
 };
-export declare const DIRECT_PARENT_RULES: Record<string, string[]>;
-export declare function validate(tag: string, getParentTag: (node: TagNode) => TagNode | undefined, allowedParents: string[], context: RuleContext<string, readonly unknown[]>, node: TagNode): void;
-export declare const swiftwc: {
+export declare function getAllowedParents(tag: string): string[] | undefined;
+export declare function validate<N extends BaseNode>(tag: string, getParentTag: (node: N) => string | undefined, allowedParents: string[], context: RuleContext<string, readonly unknown[]>, node: N): void;
+export declare function createPlugin(create: (context: Readonly<RuleContext<string, readonly unknown[]>>) => RuleListener): {
     meta: {
         name: any;
         version: any;
@@ -26,7 +24,7 @@ export declare const swiftwc: {
                     disallowedTag: string;
                 };
             };
-            create(context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener;
+            create: (context: Readonly<RuleContext<string, readonly unknown[]>>) => RuleListener;
         };
     };
 };

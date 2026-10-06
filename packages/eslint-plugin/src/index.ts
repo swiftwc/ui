@@ -1,13 +1,10 @@
+import type { TSESTree } from '@typescript-eslint/utils'
 import type { Linter, RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint'
 import { readFileSync } from 'fs'
 
-export type TagNode = {
-  name: string
-  type: string
-  parent?: TagNode
-}
+export type BaseNode = { type: string }
 
-export const DIRECT_PARENT_RULES: Record<string, string[]> = {
+const DIRECT_PARENT_RULES: Record<string, string[]> = {
   'v-keyboard': ['template', 'body'],
 
   'scroll-view': ['template', 'content-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],
@@ -23,32 +20,22 @@ export const DIRECT_PARENT_RULES: Record<string, string[]> = {
   'content-view': ['template', 'dialog', 'content-view', 'navigation-stack', 'navigation-split-view'],
 }
 
-export function validate(
+export function getAllowedParents(tag: string): string[] | undefined {
+  return Object.hasOwn(DIRECT_PARENT_RULES, tag) ? DIRECT_PARENT_RULES[tag] : undefined
+}
+
+export function validate<N extends BaseNode>(
   tag: string,
-  getParentTag: (node: TagNode) => TagNode | undefined,
+  getParentTag: (node: N) => string | undefined,
   allowedParents: string[],
   context: RuleContext<string, readonly unknown[]>,
-  node: TagNode
+  node: N
 ) {
-  const parentTag = getParentTag(node)
-
-  if (parentTag?.type === node.type && allowedParents.includes(parentTag.name)) return
-
-  // let parentTag = getParentTag(node),
-  //   isValid = false
-  // while (parentTag) {
-  //   if (parentTag.type === node.type && allowedParents.includes(parentTag.name)) {
-  //     isValid = true
-  //     break
-  //   }
-  //   parentTag = getParentTag(parentTag)
-  // }
-
-  // if (isValid) return
+  const parent = getParentTag(node)
+  if (parent && allowedParents.includes(parent)) return
 
   context.report({
-    // @ts-expect-error
-    node,
+    node: node as unknown as TSESTree.Node,
     messageId: 'disallowedTag',
     data: {
       tag,
@@ -59,108 +46,26 @@ export function validate(
 
 const { name, version } = JSON.parse(readFileSync(new URL('../package.json', import.meta.url), 'utf8'))
 
-export const swiftwc = {
-  meta: {
-    name,
-    version,
-    namespace: 'swiftwc',
-  },
-  configs: {},
-  rules: {
-    'allowed-tags': {
-      meta: {
-        type: 'problem',
-        docs: {
-          description: 'Restrict allowed HTML tags',
-          url: `https://github.com/swiftwc/ui`,
+export function createPlugin(create: (context: Readonly<RuleContext<string, readonly unknown[]>>) => RuleListener) {
+  const plugin = {
+    meta: { name, version, namespace: 'swiftwc' },
+    configs: {},
+    rules: {
+      'allowed-tags': {
+        meta: {
+          type: 'problem',
+          docs: { description: 'Restrict allowed HTML tags', url: 'https://github.com/swiftwc/ui' },
+          schema: [],
+          messages: { disallowedTag: 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}' },
         },
-        // languages: ['html/html'],
-        schema: [],
-        // schema: [
-        //   {
-        //     type: 'object',
-        //     properties: {
-        //       allowed: {
-        //         type: 'array',
-        //         items: { type: 'string' },
-        //       },
-        //     },
-        //     additionalProperties: false,
-        //   },
-        // ],
-        messages: {
-          disallowedTag: 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}',
-        },
-      },
-
-      // create(context) {
-      //   const options = context.options?.[0] || {},
-      //     allowed = new Set(options.allowed || [...DEFAULT_ALLOWED])
-
-      //   return {
-      //     Tag(node) {
-      //       const tag = node.name
-      //       if (!allowed.has(tag)) {
-      //         context.report({
-      //           node,
-      //           messageId: 'disallowedTag',
-      //           data: {
-      //             tag,
-      //             allowed: [...allowed].join(', '),
-      //           },
-      //         })
-      //       }
-      //     },
-      //   }
-      // },
-
-      create(context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener {
-        return {
-          Tag(node: TagNode) {
-            const tag = node.name
-
-            const allowedParents = DIRECT_PARENT_RULES[tag]
-            if (!allowedParents) return // 👈 ignore unknown tags completely
-
-            validate(tag, (item) => item.parent, allowedParents, context, node)
-
-            // let parent = node.parent
-            // let valid = false
-
-            // while (parent) {
-            //   if (parent.type === 'Tag' && allowedParents.includes(parent.name)) {
-            //     valid = true
-            //     break
-            //   }
-            //   parent = parent.parent
-            // }
-
-            // if (!valid) {
-            //   context.report({
-            //     node,
-            //     messageId: 'disallowedTag',
-            //     data: {
-            //       tag,
-            //       allowed: allowedParents.join(', '),
-            //     },
-            //   })
-            // }
-          },
-        }
+        create,
       },
     },
-  },
-} satisfies Linter.Plugin
+  } satisfies Linter.Plugin
 
-Object.assign(swiftwc.configs, {
-  recommended: [
-    {
-      plugins: {
-        swiftwc,
-      },
-      rules: {
-        'swiftwc/allowed-tags': 'error', //['error', { allowed: ['div', 'span', 'my-button', 'my-card'] }],
-      },
-    },
-  ],
-})
+  Object.assign(plugin.configs, {
+    recommended: [{ plugins: { swiftwc: plugin }, rules: { 'swiftwc/allowed-tags': 'error' } }],
+  })
+
+  return plugin
+}

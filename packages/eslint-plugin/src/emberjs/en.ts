@@ -1,24 +1,24 @@
-import type { RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint'
-import { DIRECT_PARENT_RULES, swiftwc, validate, type TagNode } from '../index.js'
+import { createPlugin, getAllowedParents, validate } from '../index.js'
 
-swiftwc.rules['allowed-tags'].meta.docs.description = 'Restrict allowed HTML tags'
+type GlimmerNode = { type: string; tag?: string; parent?: GlimmerNode }
 
-swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}'
-
-swiftwc.rules['allowed-tags'].create = (context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener => {
-  return {
-    // '*': (node) => {
-    // if('GlimmerElementNode' !== node.type) return
-    GlimmerElementNode(node: TagNode) {
-      // @ts-expect-error
-      const tag = node.tag
-
-      const allowedParents = DIRECT_PARENT_RULES[tag]
-      if (!allowedParents) return // 👈 ignore unknown tags completely
-
-      validate(tag, (item) => item.parent, allowedParents, context, node)
-    },
+/** Nearest real element ancestor; skips {{#let}}/{{#if}}/{{#each}} blocks, mustaches, text. */
+/** This still accepts content-view, div and scroll-view, and rejects Foo, :header, @arg, this.foo and foo.bar. */
+function getParentName(n: GlimmerNode): string | undefined {
+  for (let p = n.parent; p; p = p.parent) {
+    if (p.type === 'GlimmerElementNode' && /^[a-z][\w-]*$/.test(p.tag!)) return p.tag
+    if (p.type === 'GlimmerTemplate') return 'template'
   }
+  return undefined
 }
 
-export default swiftwc
+export default createPlugin((context) => ({
+  // '*': (node) => {
+  // if('GlimmerElementNode' !== node.type) return
+  GlimmerElementNode(node: GlimmerNode) {
+    const allowedParents = getAllowedParents(node.tag!)
+    if (!allowedParents) return
+
+    validate(node.tag!, getParentName, allowedParents, context, node)
+  },
+}))

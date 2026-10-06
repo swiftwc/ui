@@ -1,21 +1,14 @@
-import type { RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint'
-import { DIRECT_PARENT_RULES, swiftwc, validate, type TagNode } from '../index.js'
+import { createPlugin, getAllowedParents, validate } from '../index.js'
 
-swiftwc.rules['allowed-tags'].meta.docs.description = 'Restrict allowed HTML tags'
+type HtmlNode = { type: 'Tag'; name: string; parent?: { type: string; name?: string } }
 
-swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}'
+const getParentName = (n: HtmlNode) => (n.parent?.type === 'Tag' ? n.parent.name : undefined)
 
-swiftwc.rules['allowed-tags'].create = (context: Readonly<RuleContext<string, readonly unknown[]>>): RuleListener => {
-  return {
-    Tag(node: TagNode) {
-      const tag = node.name
+export default createPlugin((context) => ({
+  Tag(node: HtmlNode) {
+    const allowedParents = getAllowedParents(node.name)
+    if (!allowedParents) return
 
-      const allowedParents = DIRECT_PARENT_RULES[tag]
-      if (!allowedParents) return // 👈 ignore unknown tags completely
-
-      validate(tag, (item) => item.parent, allowedParents, context, node)
-    },
-  }
-}
-
-export default swiftwc
+    validate(node.name, getParentName, allowedParents, context, node)
+  },
+}))

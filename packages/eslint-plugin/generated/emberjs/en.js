@@ -1,18 +1,22 @@
-import { DIRECT_PARENT_RULES, swiftwc, validate } from '../index.js';
-swiftwc.rules['allowed-tags'].meta.docs.description = 'Restrict allowed HTML tags';
-swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}';
-swiftwc.rules['allowed-tags'].create = (context) => {
-    return {
-        // '*': (node) => {
-        // if('GlimmerElementNode' !== node.type) return
-        GlimmerElementNode(node) {
-            // @ts-expect-error
-            const tag = node.tag;
-            const allowedParents = DIRECT_PARENT_RULES[tag];
-            if (!allowedParents)
-                return; // 👈 ignore unknown tags completely
-            validate(tag, (item) => item.parent, allowedParents, context, node);
-        },
-    };
-};
-export default swiftwc;
+import { createPlugin, getAllowedParents, validate } from '../index.js';
+/** Nearest real element ancestor; skips {{#let}}/{{#if}}/{{#each}} blocks, mustaches, text. */
+/** This still accepts content-view, div and scroll-view, and rejects Foo, :header, @arg, this.foo and foo.bar. */
+function getParentName(n) {
+    for (let p = n.parent; p; p = p.parent) {
+        if (p.type === 'GlimmerElementNode' && /^[a-z][\w-]*$/.test(p.tag))
+            return p.tag;
+        if (p.type === 'GlimmerTemplate')
+            return 'template';
+    }
+    return undefined;
+}
+export default createPlugin((context) => ({
+    // '*': (node) => {
+    // if('GlimmerElementNode' !== node.type) return
+    GlimmerElementNode(node) {
+        const allowedParents = getAllowedParents(node.tag);
+        if (!allowedParents)
+            return;
+        validate(node.tag, getParentName, allowedParents, context, node);
+    },
+}));

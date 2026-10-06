@@ -1,15 +1,10 @@
-import { DIRECT_PARENT_RULES, swiftwc, validate } from '../index.js';
-swiftwc.rules['allowed-tags'].meta.docs.description = 'Restrict allowed HTML tags';
-swiftwc.rules['allowed-tags'].meta.messages.disallowedTag = 'Tag <{{tag}}> is only allowed inside any of: {{allowed}}';
-swiftwc.rules['allowed-tags'].create = (context) => {
-    return {
-        Tag(node) {
-            const tag = node.name;
-            const allowedParents = DIRECT_PARENT_RULES[tag];
-            if (!allowedParents)
-                return; // 👈 ignore unknown tags completely
-            validate(tag, (item) => item.parent, allowedParents, context, node);
-        },
-    };
-};
-export default swiftwc;
+import { createPlugin, getAllowedParents, validate } from '../index.js';
+const getParentName = (n) => (n.parent?.type === 'Tag' ? n.parent.name : undefined);
+export default createPlugin((context) => ({
+    Tag(node) {
+        const allowedParents = getAllowedParents(node.name);
+        if (!allowedParents)
+            return;
+        validate(node.name, getParentName, allowedParents, context, node);
+    },
+}));

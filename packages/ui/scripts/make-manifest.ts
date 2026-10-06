@@ -613,7 +613,8 @@ for (const sourceFile of project.getSourceFiles()) {
           text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
         },
       })
-      ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
+      // ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
+      htmlDataTagDescMap.getOrInsertComputed('props', () => []).push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
     }
 
     for (const m of [...methods, ...arrowMethods]) {
@@ -655,7 +656,8 @@ for (const sourceFile of project.getSourceFiles()) {
           },
         },
       })
-      ;(htmlDataTagDescMap.get('fns') ?? htmlDataTagDescMap.set('fns', []).get('fns'))?.push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
+      // ;(htmlDataTagDescMap.get('fns') ?? htmlDataTagDescMap.set('fns', []).get('fns'))?.push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
+      htmlDataTagDescMap.getOrInsertComputed('fns', () => []).push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
     }
 
     const leading = cls
@@ -691,10 +693,10 @@ for (const sourceFile of project.getSourceFiles()) {
           case 'example': {
             const { title: a, description: b } = extractTag(tag.description ?? '')
 
-            ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(
-              `**${b ?? 'Example'}:**`,
-              `\`\`\`html\n${await prettier.format(a ?? '', { parser: 'html', htmlWhitespaceSensitivity: 'ignore' })}\n\`\`\``
-            )
+            // ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(
+            htmlDataTagDescMap
+              .getOrInsertComputed('examples', () => [])
+              .push(`**${b ?? 'Example'}:**`, `\`\`\`html\n${await prettier.format(a ?? '', { parser: 'html', htmlWhitespaceSensitivity: 'ignore' })}\n\`\`\``)
 
             continue
           }
@@ -711,7 +713,8 @@ for (const sourceFile of project.getSourceFiles()) {
             })
 
             if (a) {
-              ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
+              htmlDataTagDescMap.getOrInsertComputed('events', () => []).push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
+              // ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
             }
 
             continue
@@ -725,21 +728,25 @@ for (const sourceFile of project.getSourceFiles()) {
             })
 
             const slotName = a || 'default'
-            ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
+
+            htmlDataTagDescMap.getOrInsertComputed('slots', () => []).push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
+            // ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
           case 'cssprop': {
             const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
-            if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
+            if (a) htmlDataTagDescMap.getOrInsertComputed('cssprops', () => []).push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
+            // if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
           case 'csspart': {
             const { title: a, description: b } = extractTag(tag.description ?? '')
 
-            if (a) (htmlDataTagDescMap.get('parts') ?? htmlDataTagDescMap.set('parts', []).get('parts'))?.push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
+            if (a) htmlDataTagDescMap.getOrInsertComputed('parts', () => []).push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
+            // if (a) (htmlDataTagDescMap.get('parts') ?? htmlDataTagDescMap.set('parts', []).get('parts'))?.push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -766,13 +773,13 @@ for (const sourceFile of project.getSourceFiles()) {
               const types: string | string[] = ['boolean'].includes(c) ? 'boolean' : c.split('|').map((item) => item.trim().replace(/['"`]/g, ''))
               if (c.startsWith('@')) {
                 attr.valueSet = c.slice(1)
-                ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
+                htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
+                // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
               } else if (types) {
                 attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
-                ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(
-                  `    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`
-                )
+                // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(
+                htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`)
               }
               ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
@@ -838,7 +845,8 @@ for (const sourceFile of project.getSourceFiles()) {
           }
         }
 
-        ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
+        // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
+        htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
         ;(htmlDataTag.attributes ??= []).push(attr)
         //
         ;(module.declarations[0].attributes ??= []).push({ name: attr.name })

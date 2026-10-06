@@ -38,7 +38,12 @@ for (const [k, Ctor] of Object.entries(Components)) {
 debug(polyfills)
 
 if (0 < polyfills.size) {
-  const polyfillTagNamesCache = new Set([...polyfills.values()].map((v) => String(v.polyfillExtends ?? '').toUpperCase()).filter(Boolean)) // ['TAG-NAME1', 'TAG-NAME2', ...]
+  const polyfillTagNamesCache = new Set(
+    polyfills
+      .values()
+      .map((v) => String(v.polyfillExtends ?? '').toUpperCase())
+      .filter(Boolean)
+  ) // ['TAG-NAME1', 'TAG-NAME2', ...]
 
   const handlers = new WeakMap<HTMLElement, MutationObserver>()
 
@@ -248,7 +253,7 @@ export const alert = (
     off?.()
     dialog?.close()
     // dialog?.remove()
-    reason === undefined ? resolve(undefined) : reject(reason instanceof Error ? reason : new DOMException('Alert dismissed', 'AbortError'))
+    reason === undefined ? resolve(undefined) : reject(Error.isError(reason) ? reason : new DOMException('Alert dismissed', 'AbortError'))
   }
 
   if (options?.signal)

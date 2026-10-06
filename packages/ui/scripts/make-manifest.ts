@@ -340,39 +340,43 @@ const htmlData: VsHtmlDataV1 = {
     {
       name: 'Font',
       values:
-        Array.from(maps.get('$label-fonts-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `The font used ${(() => {
-            switch (item[0]) {
-              case 'extra-large-title2':
-                return 'second level extra large titles'
-              case 'extra-large-title':
-                return 'extra large titles'
-              case 'large-title':
-                return 'large titles'
-              case 'title':
-                return 'first level hierarchical headings'
-              case 'title2':
-                return 'second level hierarchical headings'
-              case 'title3':
-                return 'third level hierarchical headings'
-              case 'headline':
-                return 'headings'
-              case 'subheadline':
-                return 'subheadings'
-              case 'body':
-                return 'body text'
-              case 'callout':
-                return 'for callouts'
-              case 'caption':
-                return 'for standard captions'
-              case 'footnote':
-                return 'in footnotes'
-              default:
-                return `the ${item[0]} size`
-            }
-          })()}`,
-        })) ?? [],
+        maps
+          .get('$label-fonts-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `The font used ${(() => {
+              switch (item[0]) {
+                case 'extra-large-title2':
+                  return 'second level extra large titles'
+                case 'extra-large-title':
+                  return 'extra large titles'
+                case 'large-title':
+                  return 'large titles'
+                case 'title':
+                  return 'first level hierarchical headings'
+                case 'title2':
+                  return 'second level hierarchical headings'
+                case 'title3':
+                  return 'third level hierarchical headings'
+                case 'headline':
+                  return 'headings'
+                case 'subheadline':
+                  return 'subheadings'
+                case 'body':
+                  return 'body text'
+                case 'callout':
+                  return 'for callouts'
+                case 'caption':
+                  return 'for standard captions'
+                case 'footnote':
+                  return 'in footnotes'
+                default:
+                  return `the ${item[0]} size`
+              }
+            })()}`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'Spacing',
@@ -388,63 +392,88 @@ const htmlData: VsHtmlDataV1 = {
     },
     {
       name: 'Foreground',
-      values: Array.from(tokens.get('$foreground-tokens')?.entries() ?? []).map((item) => ({
-        name: item[0],
-        description: `Applies the system ${0 <= item[0].indexOf('.') ? `${item[0].split('.').pop()} ` : ''}${item[0].split('.').shift()} color (\`${item[1]}\`)`,
-      })),
+      values:
+        tokens
+          .get('$foreground-tokens')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `Applies the system ${0 <= item[0].indexOf('.') ? `${item[0].split('.').pop()} ` : ''}${item[0].split('.').shift()} color (\`${item[1]}\`)`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'inlineSet',
       values:
-        Array.from(maps.get('$inline-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `Applies \`${item[1].join(' ')}\` rules`,
-        })) ?? [],
+        maps
+          .get('$inline-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `Applies \`${item[1].join(' ')}\` rules`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'blockSet',
       values:
-        Array.from(maps.get('$block-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `Applies \`${item[1].join(' ')}\` rules`,
-        })) ?? [],
+        maps
+          .get('$block-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `Applies \`${item[1].join(' ')}\` rules`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'inlinePlacementSet',
       values:
-        Array.from(maps.get('$inline-placement-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `Applies \`${item[1].join(' ')}\` rules`,
-        })) ?? [],
+        maps
+          .get('$inline-placement-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `Applies \`${item[1].join(' ')}\` rules`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'blockPlacementSet',
       values:
-        Array.from(maps.get('$block-placement-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `Applies \`${item[1].join(' ')}\` rules`,
-        })) ?? [],
+        maps
+          .get('$block-placement-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `Applies \`${item[1].join(' ')}\` rules`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'ControlSize',
       values:
-        Array.from(maps.get('$button-sizes-map')?.entries() ?? [])?.map((item) => ({
-          name: item[0],
-          description: `A control version that is ${(() => {
-            switch (item[0]) {
-              case 'mini':
-                return 'minimally sized'
-              case 'small':
-                return 'proportionally smaller size for space-constrained views'
-              case 'large':
-                return 'prominently sized'
-              case 'extra-large':
-                return 'substantially sized. The largest control size'
-              default:
-                return `the ${item[0]} size`
-            }
-          })()}`,
-        })) ?? [],
+        maps
+          .get('$button-sizes-map')
+          ?.entries()
+          .map((item) => ({
+            name: item[0],
+            description: `A control version that is ${(() => {
+              switch (item[0]) {
+                case 'mini':
+                  return 'minimally sized'
+                case 'small':
+                  return 'proportionally smaller size for space-constrained views'
+                case 'large':
+                  return 'prominently sized'
+                case 'extra-large':
+                  return 'substantially sized. The largest control size'
+                default:
+                  return `the ${item[0]} size`
+              }
+            })()}`,
+          }))
+          .toArray() ?? [],
     },
     {
       name: 'Template',
@@ -592,8 +621,13 @@ for (const sourceFile of project.getSourceFiles()) {
       const readonly = !setters.has(m.getName())
       const leading = m
         .getLeadingCommentRanges()
+        .values()
         .map((c) => c.getText().trim())
-        .at(0)
+        .next().value
+      // m
+      //   .getLeadingCommentRanges()
+      //   .map((c) => c.getText().trim())
+      //   .at(0)
 
       const propTypeText = m?.getType().getText(m, TypeFormatFlags.NoTruncation)
 
@@ -627,8 +661,9 @@ for (const sourceFile of project.getSourceFiles()) {
 
       const leading = m
         .getLeadingCommentRanges()
+        .values()
         .map((c) => c.getText().trim())
-        .at(0)
+        .next().value
 
       const callable = TSMNode.isPropertyDeclaration(m)
         ? (m.getInitializer() as ArrowFunction | FunctionExpression) // arrow/fn expr
@@ -662,8 +697,9 @@ for (const sourceFile of project.getSourceFiles()) {
 
     const leading = cls
       .getLeadingCommentRanges()
+      .values()
       .map((c) => c.getText().trim())
-      ?.at(0)
+      .next().value
 
     if (leading) {
       const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
@@ -819,8 +855,9 @@ for (const sourceFile of project.getSourceFiles()) {
 
         const leading = prop
           .getLeadingCommentRanges()
+          .values()
           .map((c) => c.getText().trim())
-          ?.at(0)
+          .next().value
 
         let d = '',
           t = 'string'
@@ -894,54 +931,55 @@ for (const sourceFile of project.getSourceFiles()) {
     if (cls.getBaseClass()?.getName()?.startsWith('FormAssociated')) htmlDataTagDescMap.set('static', [`  static formAssociated = true;`])
 
     const order = [
-      'interface1',
-      'attrs',
-      'slots',
-      'cssprops',
-      'parts',
-      'interface2',
-      'class1',
-      'static',
-      'props',
-      'fns',
-      'class2',
-      'events',
-      'decl1',
-      'htmltagnames',
-      'htmlbtns',
-      'htmldlgs',
-      'htmldets',
-      'htmlforms',
-      'htmlevs',
-      'decl2',
-    ]
+        'interface1',
+        'attrs',
+        'slots',
+        'cssprops',
+        'parts',
+        'interface2',
+        'class1',
+        'static',
+        'props',
+        'fns',
+        'class2',
+        'events',
+        'decl1',
+        'htmltagnames',
+        'htmlbtns',
+        'htmldlgs',
+        'htmldets',
+        'htmlforms',
+        'htmlevs',
+        'decl2',
+      ],
+      allowed = new Set([
+        'slots',
+        'interface1',
+        'interface2',
+        'static',
+        'events',
+        'htmltagnames',
+        'class1',
+        'class2',
+        'props',
+        'fns',
+        'attrs',
+        'cssprops',
+        'parts',
+        'decl1',
+        'decl2',
+        'htmlbtns',
+        'htmldlgs',
+        'htmldets',
+        'htmlforms',
+        // 'htmlevs',
+      ])
 
     htmlDataTag.description = `${htmlDataTagDescMap.get('desc')?.join('\n')}\n\n\`\`\`ts\n${await prettier.format(
-      [...htmlDataTagDescMap.entries()]
-        .filter((item) => {
-          return [
-            'slots',
-            'interface1',
-            'interface2',
-            'static',
-            'events',
-            'htmltagnames',
-            'class1',
-            'class2',
-            'props',
-            'fns',
-            'attrs',
-            'cssprops',
-            'parts',
-            'decl1',
-            'decl2',
-            'htmlbtns',
-            'htmldlgs',
-            'htmldets',
-            'htmlforms',
-            // 'htmlevs',
-          ].includes(item[0])
-        })
+      htmlDataTagDescMap
+        .entries()
+        .filter(([k]) => allowed.has(k))
+        .toArray()
         .sort(([a], [b]) => order.indexOf(a) - order.indexOf(b))
         .map(([, values]) => values.join('\n'))
         .join('\n\n'),

@@ -60,11 +60,13 @@ export class NavigationPath {
   }
 
   #queryToolBarConfig() {
-    this.#toolBarConfig = [
-      ...(this.#component?.querySelectorAll<NavigationToolbarConfiguration>(
-        `:scope>tool-bar>tool-bar-item,:scope>tool-bar>tool-bar-item-group,:scope>[is=sidebar-view]>tool-bar>tool-bar-item,:scope>[is=sidebar-view]>tool-bar>tool-bar-item-group`
-      ) ?? []),
-    ]
+    this.#toolBarConfig =
+      this.#component
+        ?.querySelectorAll<NavigationToolbarConfiguration>(
+          `:scope>tool-bar>tool-bar-item,:scope>tool-bar>tool-bar-item-group,:scope>[is=sidebar-view]>tool-bar>tool-bar-item,:scope>[is=sidebar-view]>tool-bar>tool-bar-item-group`
+        )
+        .values()
+        .toArray() ?? []
   }
 
   #querySlot() {

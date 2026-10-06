@@ -387,7 +387,8 @@ export class TextField extends FormAssociatedBase {
     switch (this.keyboardType) {
       case 'decimal-pad': // allow only ^+- and then only one instance of ., finally remove all non digit rest appearances
         let seenDot = false
-        return [...`${str.trim()}`].reduce((acc, ch, i) => {
+        // return [...`${str.trim()}`].reduce((acc, ch, i) => {
+        return Iterator.from(str.trim()).reduce((acc, ch, i) => {
           // +- signs are allowed
           if (this.negativeNumbersAllowed)
             if (!seenSign && (ch === '+' || ch === '-')) {
@@ -403,7 +404,8 @@ export class TextField extends FormAssociatedBase {
         }, '')
 
       case 'number-pad': // allow only ^+- finally remove all non digit rest appearances
-        return [...`${str.trim()}`].reduce((acc, ch, i) => {
+        // return [...`${str.trim()}`].reduce((acc, ch, i) => {
+        return Iterator.from(str.trim()).reduce((acc, ch, i) => {
           // +- signs are allowed
           if (this.negativeNumbersAllowed)
             if (!seenSign && (ch === '+' || ch === '-')) {

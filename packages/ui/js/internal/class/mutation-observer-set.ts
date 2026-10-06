@@ -36,7 +36,8 @@ export class MutationObserverSet {
 
     const sourceSet = new Set(source)
 
-    for (const el of [...this.#observers.keys()]) if (!sourceSet.has(el)) this.unobserve(el)
+    // for (const el of [...this.#observers.keys()]) if (!sourceSet.has(el)) this.unobserve(el)
+    for (const el of this.#observers.keys().filter((el) => !sourceSet.has(el))) this.unobserve(el)
 
     for (const el of source) this.observe(el, attributeFilter)
   }

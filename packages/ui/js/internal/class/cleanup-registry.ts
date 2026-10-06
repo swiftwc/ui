@@ -4,15 +4,20 @@ export class CleanupRegistry {
   static #DEFAULT = Symbol('__default__')
 
   static register(target: Element, heldValue: () => void, unregisterToken: string | symbol = this.#DEFAULT) {
-    let tokens = this.#cleanups.get(target)
+    this.#cleanups
+      .getOrInsertComputed(target, () => new Map())
+      .getOrInsertComputed(unregisterToken, () => new Set())
+      .add(heldValue)
 
-    if (!tokens) this.#cleanups.set(target, (tokens = new Map()))
+    // let tokens = this.#cleanups.get(target)
 
-    let fns = tokens.get(unregisterToken)
+    // if (!tokens) this.#cleanups.set(target, (tokens = new Map()))
 
-    if (!fns) tokens.set(unregisterToken, (fns = new Set()))
+    // let fns = tokens.get(unregisterToken)
 
-    fns.add(heldValue)
+    // if (!fns) tokens.set(unregisterToken, (fns = new Set()))
+
+    // fns.add(heldValue)
   }
 
   static unregister(target: Element, token?: string | symbol) {

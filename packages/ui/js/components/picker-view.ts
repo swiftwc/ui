@@ -43,7 +43,12 @@ const reflectSpawnedPage = (current?: HTMLElement, source?: HTMLElement) => {
     newBackBtn = newToolbar?.at(0)?.querySelector('button')
 
   // pre replace list (always exists)
-  const oldOpenedDetails = [...(oldList?.querySelectorAll('list-view details[open]>summary') ?? [])].map((item) => item.textContent.trim())
+  const oldOpenedDetails =
+    oldList
+      ?.querySelectorAll('list-view details[open]>summary')
+      .values()
+      .map((item) => item.textContent.trim())
+      .toArray() ?? []
 
   // replace list (always exists)
   if (oldList && newList) oldList.replaceWith(newList)
@@ -522,65 +527,181 @@ export class PickerView extends FormAssociatedBase {
   }
 
   get template(): DocumentFragment {
-    if (!PickerView.#templates.has(this.pickerStyle))
+    // if (!PickerView.#templates.has(this.pickerStyle))
+    //   switch (this.pickerStyle) {
+    //     case 'sheet':
+    //     case 'navigation-link':
+    //       PickerView.#templates.set(
+    //         this.pickerStyle,
+    //         $(html`
+    //           <div part="root picker-stack">
+    //             <div part="root picker-label-stack">
+    //               <slot name="label"></slot>
+    //             </div>
+    //             <div part="root picker-input-stack">
+    //               <slot></slot>
+    //             </div>
+    //             <slot name="list" hidden></slot>
+    //             <slot name="validity-options" hidden></slot>
+    //           </div>
+    //         `)
+    //       )
+
+    //       break
+    //     case 'menu':
+    //       PickerView.#templates.set(
+    //         this.pickerStyle,
+    //         $(html`
+    //           <div part="root picker-stack">
+    //             <div part="root picker-label-stack">
+    //               <slot name="label"></slot>
+    //             </div>
+    //             <div part="root picker-input-stack">
+    //               <slot></slot>
+    //             </div>
+    //             <slot name="list" hidden></slot>
+    //             <slot name="validity-options" hidden></slot>
+    //           </div>
+    //         `)
+    //       )
+
+    //       break
+    //     case 'tabs':
+    //     case 'palette':
+    //     case 'radio-group':
+    //       PickerView.#templates.set(
+    //         this.pickerStyle,
+    //         $(html`
+    //           <div part="root picker-stack">
+    //             <div part="root picker-label-stack">
+    //               <slot name="label"></slot>
+    //             </div>
+    //             <div part="root picker-input-stack">
+    //               <slot></slot>
+    //             </div>
+    //             <slot name="list" hidden></slot>
+    //             <slot name="validity-options" hidden></slot>
+    //           </div>
+    //         `)
+    //       )
+
+    //       break
+    //     //   break
+    //     // case 'compact':
+    //     //   PickerView.#templates.set(
+    //     //     style,
+    //     //     Object.assign(document.createElement('template'), {
+    //     //       innerHTML: String.raw`
+    //     //     <label part="compact-picker">
+    //     //       <input type="text" part="compact-input">
+    //     //     </label>
+    //     //   `,
+    //     //     })
+    //     //   )
+
+    //     //   break
+    //     // case 'fancy':
+    //     //   PickerView.#templates.set(
+    //     //     style,
+    //     //     Object.assign(document.createElement('template'), {
+    //     //       innerHTML: String.raw`
+    //     //     <div part="fancy-picker">
+    //     //       <span>Fancy Picker</span>
+    //     //       <input type="text" part="fancy-input">
+    //     //     </div>
+    //     //   `,
+    //     //     })
+    //     //   )
+
+    //     //   case 'gg':
+    //     //     PickerView.#templates.set(
+    //     //       style,
+    //     //       Object.assign(document.createElement('template'), {
+    //     //         innerHTML: String.raw`
+    //     // <label part="root text-field-stack">
+    //     // <div part="root text-field-label-stack">
+    //     //   <slot name="label"></slot>
+    //     // </div>
+    //     // <div part="root text-field-input-stack">
+    //     //   <input type="text" part="root input text-field-form-input" list="tickmarks">
+    //     //   <datalist id="tickmarks">
+    //     //     <option value="0" label="0%"></option>
+    //     //   </datalist>
+    //     // </div>
+    //     // <slot name="list" hidden></slot>
+    //     // </label>`,
+    //     //       })
+    //     //     )
+
+    //     //     break
+    //     case 'inline':
+    //     default:
+    //       PickerView.#templates.set(
+    //         this.pickerStyle,
+    //         $(
+    //           html` <label part="root picker-stack">
+    //             <div part="root picker-label-stack">
+    //               <slot name="label"></slot>
+    //             </div>
+    //             <div part="root picker-input-stack">
+    //               <slot></slot>
+    //             </div>
+    //             <slot name="list" hidden></slot>
+    //             <slot name="validity-options" hidden></slot>
+    //           </label>`
+    //         )
+    //       )
+    //       break
+    //   }
+    // return PickerView.#templates.get(this.pickerStyle)!
+
+    return PickerView.#templates.getOrInsertComputed(this.pickerStyle, () => {
       switch (this.pickerStyle) {
         case 'sheet':
         case 'navigation-link':
-          PickerView.#templates.set(
-            this.pickerStyle,
-            $(html`
-              <div part="root picker-stack">
-                <div part="root picker-label-stack">
-                  <slot name="label"></slot>
-                </div>
-                <div part="root picker-input-stack">
-                  <slot></slot>
-                </div>
-                <slot name="list" hidden></slot>
-                <slot name="validity-options" hidden></slot>
+          return $(html`
+            <div part="root picker-stack">
+              <div part="root picker-label-stack">
+                <slot name="label"></slot>
               </div>
-            `)
-          )
+              <div part="root picker-input-stack">
+                <slot></slot>
+              </div>
+              <slot name="list" hidden></slot>
+              <slot name="validity-options" hidden></slot>
+            </div>
+          `)
 
-          break
         case 'menu':
-          PickerView.#templates.set(
-            this.pickerStyle,
-            $(html`
-              <div part="root picker-stack">
-                <div part="root picker-label-stack">
-                  <slot name="label"></slot>
-                </div>
-                <div part="root picker-input-stack">
-                  <slot></slot>
-                </div>
-                <slot name="list" hidden></slot>
-                <slot name="validity-options" hidden></slot>
+          return $(html`
+            <div part="root picker-stack">
+              <div part="root picker-label-stack">
+                <slot name="label"></slot>
               </div>
-            `)
-          )
+              <div part="root picker-input-stack">
+                <slot></slot>
+              </div>
+              <slot name="list" hidden></slot>
+              <slot name="validity-options" hidden></slot>
+            </div>
+          `)
 
-          break
         case 'tabs':
         case 'palette':
         case 'radio-group':
-          PickerView.#templates.set(
-            this.pickerStyle,
-            $(html`
-              <div part="root picker-stack">
-                <div part="root picker-label-stack">
-                  <slot name="label"></slot>
-                </div>
-                <div part="root picker-input-stack">
-                  <slot></slot>
-                </div>
-                <slot name="list" hidden></slot>
-                <slot name="validity-options" hidden></slot>
+          return $(html`
+            <div part="root picker-stack">
+              <div part="root picker-label-stack">
+                <slot name="label"></slot>
               </div>
-            `)
-          )
+              <div part="root picker-input-stack">
+                <slot></slot>
+              </div>
+              <slot name="list" hidden></slot>
+              <slot name="validity-options" hidden></slot>
+            </div>
+          `)
 
-          break
         //   break
         // case 'compact':
         //   PickerView.#templates.set(
@@ -631,26 +752,20 @@ export class PickerView extends FormAssociatedBase {
         //     break
         case 'inline':
         default:
-          PickerView.#templates.set(
-            this.pickerStyle,
-            $(
-              html` <label part="root picker-stack">
-                <div part="root picker-label-stack">
-                  <slot name="label"></slot>
-                </div>
-                <div part="root picker-input-stack">
-                  <slot></slot>
-                </div>
-                <slot name="list" hidden></slot>
-                <slot name="validity-options" hidden></slot>
-              </label>`
-            )
+          return $(
+            html` <label part="root picker-stack">
+              <div part="root picker-label-stack">
+                <slot name="label"></slot>
+              </div>
+              <div part="root picker-input-stack">
+                <slot></slot>
+              </div>
+              <slot name="list" hidden></slot>
+              <slot name="validity-options" hidden></slot>
+            </label>`
           )
-
-          break
       }
-
-    return PickerView.#templates.get(this.pickerStyle)!
+    })
   }
 
   constructor() {
@@ -1225,7 +1340,10 @@ export class PickerView extends FormAssociatedBase {
 
           // 2. details/optgroups
           for (const details of root.querySelectorAll<HTMLElement>('details[is="disclosure-group"]')) {
-            const hasSelectedDescendant = [...details.querySelectorAll<HTMLButtonElement>('button[value]')].some((btn) => btn.getAttribute('value') === this.#selection)
+            const hasSelectedDescendant = details
+              .querySelectorAll<HTMLButtonElement>('button[value]')
+              .values()
+              .some((btn) => btn.getAttribute('value') === this.#selection)
 
             details.querySelector<HTMLElement>(':scope>summary label-view[data-role="check"]')?.style.setProperty('visibility', hasSelectedDescendant ? 'visible' : 'hidden')
           }

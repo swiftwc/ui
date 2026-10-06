@@ -45,24 +45,42 @@ export class MutationObserverSingleton {
   //   this.#trackedElements.add(el)
   // }
   public async syncObservations(set: Set<Element>, nodes: Element[], renderCallback: () => void, attributeFilter?: string[]) {
-    for (const el of set)
-      if (!nodes.includes(el)) {
-        this.unobserve(el)
-        set.delete(el)
-      }
+    const next = new Set(nodes)
 
-    for (const el of nodes) {
-      if (!set.has(el))
-        this.observe(el, renderCallback, {
-          attributes: true,
-          characterData: true,
-          subtree: true,
-          childList: true,
-          ...(attributeFilter && { attributeFilter }),
-        })
+    for (const el of set.difference(next)) {
+      this.unobserve(el)
+      set.delete(el)
+    }
+
+    for (const el of next.difference(set)) {
+      this.observe(el, renderCallback, {
+        attributes: true,
+        characterData: true,
+        subtree: true,
+        childList: true,
+        ...(attributeFilter && { attributeFilter }),
+      })
 
       set.add(el)
     }
+    // for (const el of set)
+    //   if (!nodes.includes(el)) {
+    //     this.unobserve(el)
+    //     set.delete(el)
+    //   }
+
+    // for (const el of nodes) {
+    //   if (!set.has(el))
+    //     this.observe(el, renderCallback, {
+    //       attributes: true,
+    //       characterData: true,
+    //       subtree: true,
+    //       childList: true,
+    //       ...(attributeFilter && { attributeFilter }),
+    //     })
+
+    //   set.add(el)
+    // }
   }
 
   public async clearObservationsSet(set: Set<Element>) {

@@ -176,17 +176,19 @@ export class I18n {
   static t<K extends keyof EnTranslations>(key: K): EnTranslations[K] {
     this.#ensureReady()
 
-    if (!this.#strings.has(this.#lang)) {
-      const factory = this.#factories.get(this.#lang) ?? en
-      this.#strings.set(this.#lang, factory())
-    }
+    const current = this.#strings.getOrInsertComputed(this.#lang, () => (this.#factories.get(this.#lang) ?? en)())
+    // if (!this.#strings.has(this.#lang)) {
+    //   const factory = this.#factories.get(this.#lang) ?? en
+    //   this.#strings.set(this.#lang, factory())
+    // }
 
-    const current = this.#strings.get(this.#lang)!
+    // const current = this.#strings.get(this.#lang)!
 
     if (key in current) return current[key]
 
-    // Key missing from current language — fall back to en
-    if (!this.#strings.has('en')) this.#strings.set('en', en())
-    return this.#strings.get('en')![key]
+    // // Key missing from current language — fall back to en
+    // if (!this.#strings.has('en')) this.#strings.set('en', en())
+    // return this.#strings.get('en')![key]
+    return this.#strings.getOrInsertComputed('en', () => en())[key]
   }
 }

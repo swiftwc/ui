@@ -63,19 +63,22 @@ export class DisclosureGroup extends DetailsBase {
 
     if (newValue !== details.dataset.state) details.dataset.state = newValue
 
-    if (!toggleTimers.has(details)) toggleTimers.set(details, timeout()) //if (!toggleTimeouts.has(details)) toggleTimeouts.set(details, null)
+    // if (!toggleTimers.has(details)) toggleTimers.set(details, timeout()) //if (!toggleTimeouts.has(details)) toggleTimeouts.set(details, null)
 
     // Cancel previous timeout for this instance
     //if (toggleTimeouts.has(details) && toggleTimeouts.get(details)) self.clearTimeout(toggleTimeouts.get(details))
 
     // Schedule a new hook
-    toggleTimers.get(details)!.next(
-      () => {
-        details.dataset.state = details.open ? 'open' : 'closed'
+    // toggleTimers.get(details)!.next(
+    toggleTimers
+      .getOrInsertComputed(details, () => timeout())
+      .next(
+        () => {
+          details.dataset.state = details.open ? 'open' : 'closed'
 
-        details?.dispatchEvent(new CustomEvent(`is-${details.open ? 'expanded' : 'collapsed'}`, { bubbles: true, composed: true }))
-      },
-      cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
-    )
+          details?.dispatchEvent(new CustomEvent(`is-${details.open ? 'expanded' : 'collapsed'}`, { bubbles: true, composed: true }))
+        },
+        cssTime(`${details.computedStyleMap().get('--disclosure-group-animation-duration')}`)
+      )
   }
 }

@@ -15,7 +15,7 @@
     "@eslint/js": "^10.0.1",
     "@html-eslint/eslint-plugin": "^0.60.0",
     "@html-eslint/parser": "^0.60.0",
-    "@swiftwc/eslint-plugin": "1.1.7-canary.0",
+    "@swiftwc/eslint-plugin": "1.1.7-canary.1",
     "eslint": "^10.3.0",
     "prettier-plugin-organize-attributes": "^1.0.0",
     "typescript-eslint": "^8.59.2",

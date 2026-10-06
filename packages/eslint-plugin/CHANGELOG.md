@@ -1,5 +1,11 @@
 # @swiftwc/eslint-plugin
 
+## 1.1.7-canary.1
+
+### Patch Changes
+
+- ed31ef2: - Renamed `TagNode` to `BaseNode` for clarity.
+
 ## 1.1.7-canary.0
 
 ### Patch Changes

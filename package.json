@@ -11,6 +11,6 @@
     "@changesets/cli": "^3.0.3",
     "barrelsby": "^2.8.1",
     "prettier": "^3.8.1",
-    "typescript": "^5.9.3"
+    "typescript": "^6.0.3"
   }
 }

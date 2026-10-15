@@ -268,10 +268,11 @@ $label-line-ifs: (
           style(--label-style: icon-only): none ; style(--label-style: title-only): inline-block ; style(--label-style: title-and-icon): inline-block ;
             else: if(style(--label--has-title: yes): inline-block ; else: none;) ;
         );
-        // --label--titlestack-display: if(
-        //   style(--label-style: icon-only): none ; style(--label-style: title-only): -webkit-box ; style(--label-style: title-and-icon): -webkit-box ;
-        //     else: if(style(--label--has-title: yes): -webkit-box ; else: none;) ;
-        // );
+        // copy from above, wins if supported!
+        --label--titlestack-display: if(
+          style(--label-style: icon-only): none ; style(--label-style: title-only): -webkit-box ; style(--label-style: title-and-icon): -webkit-box ;
+            else: if(style(--label--has-title: yes): -webkit-box ; else: none;) ;
+        );
       }
     }
 

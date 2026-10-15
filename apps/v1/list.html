@@ -52,7 +52,8 @@
             <label-view title="Bar"></label-view>
           </labeled-content>
           <labeled-content format="currency::currency=USD" label="Foo EUR" value="5.7"></labeled-content>
-          <labeled-content labeled-content-style="vertical" value="Bar" label="Foo"></labeled-content>
+          <labeled-content labeled-content-style="horizontal" value="Horizontal" label="Foo"></labeled-content>
+          <labeled-content labeled-content-style="vertical" value="Vertical" label="Foo"></labeled-content>
           <labeled-content>
             <label-view slot="label" system-image="smiley" title="Foo"></label-view>
             <label-view title="Bar"></label-view>
@@ -822,7 +823,7 @@
     <v-keyboard></v-keyboard>
 
     <navigation-stack>
-      <scroll-view style="background-color: white;">
+      <scroll-view style="background-color: white">
         <h-stack template="repeat(4,spacer)" placement="fill leading">
           <v-stack placement="leading fill">
             <script>

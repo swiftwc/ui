@@ -63,10 +63,11 @@ $label-truncation-ifs: (
 $label-line-ifs: (
   1: (
     --label--host-white-space: nowrap,
+    --label--titlestack-shown: inline-block,
   ),
   2: (
     --label--host-white-space: normal,
-    --label--titlestack-display: -webkit-box,
+    --label--titlestack-shown: -webkit-box,
     --label--box-orient: vertical,
     --label--line-clamp: 2,
   ),
@@ -82,7 +83,7 @@ $label-line-ifs: (
     --label--host-justify-items: normal;
 
     --label--iconstack-display: grid;
-    --label--titlestack-display: inline-block;
+    --label--titlestack-display: var(--label--titlestack-shown, inline-block);
   } @else if $label-style == h-icon-only {
     --label-style: icon-only;
 
@@ -96,7 +97,7 @@ $label-line-ifs: (
     --label--host-align-items: center;
     --label--host-justify-items: normal;
 
-    --label--titlestack-display: inline-block;
+    --label--titlestack-display: var(--label--titlestack-shown, inline-block);
   } @else if $label-style == v-title-and-icon {
     --label-style: title-and-icon;
 
@@ -106,7 +107,7 @@ $label-line-ifs: (
     --label--host-justify-items: center;
 
     --label--iconstack-display: grid;
-    --label--titlestack-display: inline-block;
+    --label--titlestack-display: var(--label--titlestack-shown, inline-block);
   } @else if $label-style == v-icon-only {
     --label-style: icon-only;
 
@@ -120,7 +121,7 @@ $label-line-ifs: (
     --label--host-align-items: normal;
     --label--host-justify-items: center;
 
-    --label--titlestack-display: inline-block;
+    --label--titlestack-display: var(--label--titlestack-shown, inline-block);
   }
 }
 
@@ -196,6 +197,9 @@ $label-line-ifs: (
         line-clamp: var(--label--line-clamp,);
         -webkit-line-clamp: var(--label--line-clamp,);
 
+        // text-align: var(--label--titlestack-text-align,);
+        // -webkit-box-pack: var(--label--titlestack-text-align,);
+
         // text-decoration: underline;
 
         font-size: var(--label--titlestack-font-size,);
@@ -265,14 +269,18 @@ $label-line-ifs: (
         );
 
         --label--titlestack-display: if(
-          style(--label-style: icon-only): none ; style(--label-style: title-only): inline-block ; style(--label-style: title-and-icon): inline-block ;
-            else: if(style(--label--has-title: yes): inline-block ; else: none;) ;
+          style(--label-style: icon-only): none ; style(--label-style: title-only): var(--label--titlestack-shown, inline-block) ;
+            style(--label-style: title-and-icon): var(--label--titlestack-shown, inline-block) ; else: if(style(--label--has-title: yes): var(--label--titlestack-shown, inline-block) ; else: none ;) ;
         );
-        // copy from above, wins if supported!
-        --label--titlestack-display: if(
-          style(--label-style: icon-only): none ; style(--label-style: title-only): -webkit-box ; style(--label-style: title-and-icon): -webkit-box ;
-            else: if(style(--label--has-title: yes): -webkit-box ; else: none;) ;
-        );
+        // --label--titlestack-display: if(
+        //   style(--label-style: icon-only): none ; style(--label-style: title-only): inline-block ; style(--label-style: title-and-icon): inline-block ;
+        //     else: if(style(--label--has-title: yes): inline-block ; else: none;) ;
+        // );
+        // // copy from above, wins if supported!
+        // --label--titlestack-display: if(
+        //   style(--label-style: icon-only): none ; style(--label-style: title-only): -webkit-box ; style(--label-style: title-and-icon): -webkit-box ;
+        //     else: if(style(--label--has-title: yes): -webkit-box ; else: none;) ;
+        // );
       }
     }
 

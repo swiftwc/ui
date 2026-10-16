@@ -504,7 +504,7 @@ export class PickerView extends FormAssociatedBase {
 
     this.#reflectSelectionOnCurrentValueLabel()
 
-    this.#sendValueToForm()
+    this.#sendValueToForm(false)
   }
 
   #lastRenderedLabelMap: Record<string, string | undefined> = {}

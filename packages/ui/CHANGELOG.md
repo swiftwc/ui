@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.3
+
+### Patch Changes
+
+- b36074b: fix(picker-view): update #sendValueToForm call to prevent unintended form value submission
+
 ## 1.0.1-canary.2
 
 ### Patch Changes

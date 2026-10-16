@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.2
+
+### Patch Changes
+
+- 1fe3d1f: refactor(ui): enhance label-view SCSS to improve titlestack display logic and maintain layout consistency
+
 ## 1.0.1-canary.1
 
 ### Patch Changes

@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
+import { TabBar } from './tab-bar'
 import { TabView } from './tab-view'
 
 beforeEach(() => document.body.replaceChildren())
@@ -20,6 +21,7 @@ describe('prop', () => {
       document.querySelector('#more')?.appendChild(Object.assign(document.createElement('navigation-stack'), { id, innerHTML: '<scroll-view></scroll-view>', hidden: i }))
 
     const tb = document.createElement('dialog', { is: 'tab-bar' })
+    TabBar.polyfillConnectedCallback(tb as TabBar)
 
     el.appendChild(tb)
 

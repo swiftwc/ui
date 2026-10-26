@@ -5,11 +5,12 @@ import { BorderlessButton } from './borderless-button'
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
+  let el: HTMLButtonElement
 
   beforeEach(() => {
     el = document.createElement('button', { is: 'borderless-button' })
     document.body.appendChild(el)
+    BorderlessButton.polyfillConnectedCallback(el as BorderlessButton)
   })
   afterEach(() => el.remove())
 
@@ -18,7 +19,6 @@ describe('prop', () => {
   })
 
   test('[role]', async () => {
-    BorderlessButton.polyfillConnectedCallback(el as BorderlessButton)
     el.setAttribute('role', 'cancel')
     BorderlessButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
     await new Promise<void>((r) => queueMicrotask(r))

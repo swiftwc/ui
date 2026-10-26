@@ -63,6 +63,7 @@ export class I18n {
     return this.#tag
   }
   static set tag(val) {
+    this.#readyCalled = true
     this.#observer?.disconnect()
     this.#observer = undefined
     this.#tag = val
@@ -74,6 +75,7 @@ export class I18n {
     return this.#options
   }
   static set options(val) {
+    this.#readyCalled = true
     this.#options = val
     this.#getOwnConfig()
   }

@@ -5,11 +5,12 @@ import { GlassButton } from './glass-button'
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
+  let el: HTMLButtonElement
 
   beforeEach(() => {
     el = document.createElement('button', { is: 'glass-button' })
     document.body.appendChild(el)
+    GlassButton.polyfillConnectedCallback(el as GlassButton)
   })
   afterEach(() => el.remove())
 
@@ -18,7 +19,6 @@ describe('prop', () => {
   })
 
   test('[role]', async () => {
-    GlassButton.polyfillConnectedCallback(el as GlassButton)
     el.setAttribute('role', 'cancel')
     GlassButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
     await new Promise<void>((r) => queueMicrotask(r))

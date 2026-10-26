@@ -5,11 +5,12 @@ import { BorderedProminentButton } from './bordered-prominent-button'
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
+  let el: HTMLButtonElement
 
   beforeEach(() => {
     el = document.createElement('button', { is: 'bordered-prominent-button' })
     document.body.appendChild(el)
+    BorderedProminentButton.polyfillConnectedCallback(el as BorderedProminentButton)
   })
   afterEach(() => el.remove())
 
@@ -18,7 +19,6 @@ describe('prop', () => {
   })
 
   test('[role]', async () => {
-    BorderedProminentButton.polyfillConnectedCallback(el as BorderedProminentButton)
     el.setAttribute('role', 'cancel')
     BorderedProminentButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
     await new Promise<void>((r) => queueMicrotask(r))

@@ -4,13 +4,14 @@ import { TabItem } from './tab-item'
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
+  let el: HTMLButtonElement
 
   customElements.define('tab-item', TabItem, { extends: TabItem.polyfillExtends })
 
   beforeEach(() => {
-    el = document.createElement('tab-item')
+    el = document.createElement('button', { is: 'tab-item' })
     document.body.appendChild(el)
+    TabItem.polyfillConnectedCallback(el as TabItem)
   })
   afterEach(() => el.remove())
 

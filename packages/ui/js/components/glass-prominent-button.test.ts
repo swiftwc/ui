@@ -5,11 +5,12 @@ import { GlassProminentButton } from './glass-prominent-button'
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
+  let el: HTMLButtonElement
 
   beforeEach(() => {
     el = document.createElement('button', { is: 'glass-prominent-button' })
     document.body.appendChild(el)
+    GlassProminentButton.polyfillConnectedCallback(el as GlassProminentButton)
   })
   afterEach(() => el.remove())
 
@@ -18,7 +19,6 @@ describe('prop', () => {
   })
 
   test('[role]', async () => {
-    GlassProminentButton.polyfillConnectedCallback(el as GlassProminentButton)
     el.setAttribute('role', 'cancel')
     GlassProminentButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
     await new Promise<void>((r) => queueMicrotask(r))

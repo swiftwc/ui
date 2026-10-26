@@ -11,6 +11,8 @@ import { debug } from '../internal/utils'
  * @attr {@inlineSet} distribution — The main-axis alignment
  * @attr {@inlinePlacementSet} placement — The main-axis alignment
  *
+ * @slot — The default slot
+ *
  */
 export class HStack extends HTMLElement {
   constructor() {

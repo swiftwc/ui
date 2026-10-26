@@ -8,6 +8,8 @@ import { TabView } from './tab-view'
 
 /**
  * @summary A control that switches the tab view to this tab.
+ *
+ * @slot — The default slot
  */
 export class TabItem extends ButtonBase {
   constructor() {

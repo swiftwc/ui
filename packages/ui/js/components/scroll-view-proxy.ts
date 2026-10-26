@@ -2,6 +2,8 @@ import { debug } from '../internal/utils'
 
 /**
  * @summary A wrapper for {hv}-stacks
+ *
+ * @slot — The default slot
  */
 export class ScrollViewProxy extends HTMLElement {
   constructor() {

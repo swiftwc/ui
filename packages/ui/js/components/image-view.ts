@@ -5,6 +5,9 @@ import { html } from '../tpl'
 /**
  * @summary A view that displays an image.
  *
+ *
+ * @slot — The default slot
+ *
  */
 export class ImageView extends HTMLElement {
   static get observedAttributes() {

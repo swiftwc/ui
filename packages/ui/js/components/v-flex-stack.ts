@@ -5,6 +5,8 @@ import { debug } from '../internal/utils'
  *
  * @attr {@Template} template — The main-axis grid template
  *
+ * @slot — The default slot
+ *
  */
 export class VFlexStack extends HTMLElement {
   constructor() {

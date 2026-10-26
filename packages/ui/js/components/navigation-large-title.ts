@@ -84,6 +84,7 @@ function isIntersectingWithContainer(el: HTMLElement, container: HTMLElement, ro
  * @attr {boolean} padding
  * @attr {boolean} navigation-bar-auto-hide
  *
+ * @slot — The default slot
  */
 export class NavigationLargeTitle extends HTMLElement {
   #styleObserver?: CSSStyleObserver

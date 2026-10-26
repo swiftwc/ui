@@ -3,6 +3,8 @@ import { debug } from '../internal/utils'
 
 /**
  * @summary A container view that shows a main screen and lets the user open other screens on top of it.
+ *
+ * @slot — The default slot
  */
 export class NavigationStack extends NavigationView {
   constructor() {

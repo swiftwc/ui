@@ -14,6 +14,8 @@ export type TabBarPlacement = (typeof TAB_BAR_PLACEMENTS)[number]
 /**
  * @summary A container view that switches between screens using tabs.
  *
+ * @slot — The default slot
+ *
  * @cssprop --adaptable-tab-bar-placement
  *
  * @fires tabshow — A Tab is shown

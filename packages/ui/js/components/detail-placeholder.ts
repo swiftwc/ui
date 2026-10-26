@@ -1,5 +1,9 @@
 import { debug } from '../internal/utils'
 
+/**
+ *
+ * @slot — The default slot
+ */
 export class DetailPlaceholder extends HTMLElement {
   constructor() {
     super()

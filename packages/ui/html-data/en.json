@@ -139,7 +139,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/content-view"
         }
       ],
-      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface ContentViewSignature {}\n\nclass ContentView extends HTMLElement<ContentViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-view': ContentView // <content-view></content-view>\n  }\n}\n\n```\n"
+      "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.\n---\n\n```ts\ninterface ContentViewSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass ContentView extends HTMLElement<ContentViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'content-view': ContentView // <content-view></content-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "date-picker",
@@ -198,11 +198,17 @@
           "name": "maximum"
         }
       ],
-      "description": "A control that selects an absolute date.\n---\n\n```ts\ninterface DatePickerSignature {\n  Attributes: {\n    'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element\n    required?: boolean\n    prompt?: string\n    label?: string\n    name?: string\n    selection?: string\n    disabled?: boolean\n    minimum?: string\n    maximum?: string\n  }\n}\n\nclass DatePicker extends HTMLElement<DatePickerSignature> {\n  static formAssociated = true\n\n  readonly template: DocumentFragment\n  readonly datePickerStyle: 'graphical' | 'field' | 'automatic'\n  readonly name: string // Form participation property\n  readonly value: { year: string; month: string; day: string }\n  readonly valueAsDate: Date | null // Returns the value as a Date object.\n  readonly minimum: { year: string; month: string; day: string } | null\n  readonly maximum: { year: string; month: string; day: string } | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'date-picker': DatePicker // <date-picker></date-picker>\n  }\n}\n\n```\n"
+      "description": "A control that selects an absolute date.\n---\n\n```ts\ninterface DatePickerSignature {\n  Attributes: {\n    'date-picker-style'?: 'graphical' | 'field' | 'automatic' // The style of this element\n    required?: boolean\n    prompt?: string\n    label?: string\n    name?: string\n    selection?: string\n    disabled?: boolean\n    minimum?: string\n    maximum?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass DatePicker extends HTMLElement<DatePickerSignature> {\n  static formAssociated = true\n\n  readonly template: DocumentFragment\n  readonly datePickerStyle: 'graphical' | 'field' | 'automatic'\n  readonly name: string // Form participation property\n  readonly value: { year: string; month: string; day: string }\n  readonly valueAsDate: Date | null // Returns the value as a Date object.\n  readonly minimum: { year: string; month: string; day: string } | null\n  readonly maximum: { year: string; month: string; day: string } | null\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'date-picker': DatePicker // <date-picker></date-picker>\n  }\n}\n\n```\n"
     },
     {
       "name": "detail-placeholder",
-      "description": "undefined\n\n```ts\ninterface DetailPlaceholderSignature {}\n\nclass DetailPlaceholder extends HTMLElement<DetailPlaceholderSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'detail-placeholder': DetailPlaceholder // <detail-placeholder></detail-placeholder>\n  }\n}\n\n```\n"
+      "references": [
+        {
+          "name": "Documentation",
+          "url": "https://swiftwc.github.io/ui/web-components/detail-placeholder"
+        }
+      ],
+      "description": "undefined\n\n```ts\ninterface DetailPlaceholderSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass DetailPlaceholder extends HTMLElement<DetailPlaceholderSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'detail-placeholder': DetailPlaceholder // <detail-placeholder></detail-placeholder>\n  }\n}\n\n```\n"
     },
     {
       "name": "disclosure-group",
@@ -218,7 +224,7 @@
           "description": "Value Type: boolean\nDescription: The status of this element"
         }
       ],
-      "description": "A view that shows or hides another view when the user opens or closes it.\n---\n\n```ts\ninterface DisclosureGroupSignature {\n  Attributes: {\n    open?: boolean // The status of this element\n  }\n}\n\nclass DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'is-expanded': CustomEvent\n  'is-collapsed': CustomEvent\n}\n\ndeclare global {\n  interface HTMLDetailsElement {\n    is: 'disclosure-group' // <details is=\"disclosure-group\"></details>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to convert a `details` element into a disclosure group:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```\n"
+      "description": "A view that shows or hides another view when the user opens or closes it.\n---\n\n```ts\ninterface DisclosureGroupSignature {\n  Attributes: {\n    open?: boolean // The status of this element\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  'is-expanded': CustomEvent\n  'is-collapsed': CustomEvent\n}\n\ndeclare global {\n  interface HTMLDetailsElement {\n    is: 'disclosure-group' // <details is=\"disclosure-group\"></details>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to convert a `details` element into a disclosure group:**\n```html\n<details is=\"disclosure-group\">\n  <summary><label-view title=\"Items\"></label-view></summary>\n  <label-view title=\"Item 1\"></label-view>\n  <label-view title=\"Item 2\"></label-view>\n  <details is=\"disclosure-group\">\n    <summary><label-view title=\"Sub-items\"></label-view></summary>\n    <label-view title=\"Sub-item 1\"></label-view>\n  </details>\n</details>\n\n```\n"
     },
     {
       "name": "fine-tooltip",
@@ -249,7 +255,7 @@
           ]
         }
       ],
-      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\ndeclare global {\n  interface HTMLFormElement {\n    is: 'form-view' // <form is=\"form-view\"></form>\n  }\n}\n\n```\n"
+      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\ndeclare global {\n  interface HTMLFormElement {\n    is: 'form-view' // <form is=\"form-view\"></form>\n  }\n}\n\n```\n"
     },
     {
       "name": "glass-button",
@@ -324,7 +330,7 @@
           "valueSet": "Spacing"
         }
       ],
-      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HFlexStackSignature {\n  Attributes: {\n    spacing?: Spacing // The gap between the primary axis\n  }\n}\n\nclass HFlexStack extends HTMLElement<HFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-flex-stack': HFlexStack // <h-flex-stack></h-flex-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HFlexStackSignature {\n  Attributes: {\n    spacing?: Spacing // The gap between the primary axis\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass HFlexStack extends HTMLElement<HFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-flex-stack': HFlexStack // <h-flex-stack></h-flex-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "h-stack",
@@ -361,7 +367,7 @@
           "valueSet": "inlinePlacementSet"
         }
       ],
-      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: blockSet // The cross-axis alignment\n    distribution?: inlineSet // The main-axis alignment\n    placement?: inlinePlacementSet // The main-axis alignment\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack // <h-stack></h-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: blockSet // The cross-axis alignment\n    distribution?: inlineSet // The main-axis alignment\n    placement?: inlinePlacementSet // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack // <h-stack></h-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "image-view",
@@ -379,7 +385,7 @@
           "name": "system-weight"
         }
       ],
-      "description": "A view that displays an image.\n---\n\n```ts\ninterface ImageViewSignature {\n  Attributes: {\n    'system-name'?: string\n    'system-weight'?: string\n  }\n}\n\nclass ImageView extends HTMLElement<ImageViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'image-view': ImageView // <image-view></image-view>\n  }\n}\n\n```\n"
+      "description": "A view that displays an image.\n---\n\n```ts\ninterface ImageViewSignature {\n  Attributes: {\n    'system-name'?: string\n    'system-weight'?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass ImageView extends HTMLElement<ImageViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'image-view': ImageView // <image-view></image-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "label-view",
@@ -479,7 +485,7 @@
           ]
         }
       ],
-      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n    'preferred-root-disclosure-style'?: 'sidebar'\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
+      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n    'preferred-root-disclosure-style'?: 'sidebar'\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "menu-view",
@@ -520,7 +526,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Attributes: {\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>\n  }\n}\n\n```\n"
+      "description": "undefined\n\n```ts\ninterface NavigationLargeTitleSignature {\n  Attributes: {\n    padding?: boolean\n    'navigation-bar-auto-hide'?: boolean\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-large-title': NavigationLargeTitle // <navigation-large-title></navigation-large-title>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-split-view",
@@ -530,7 +536,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-split-view"
         }
       ],
-      "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.\n---\n\n```ts\ninterface NavigationSplitViewSignature {}\n\nclass NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-split-view': NavigationSplitView // <navigation-split-view></navigation-split-view>\n  }\n}\n\n```\n"
+      "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.\n---\n\n```ts\ninterface NavigationSplitViewSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-split-view': NavigationSplitView // <navigation-split-view></navigation-split-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-stack",
@@ -540,7 +546,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/navigation-stack"
         }
       ],
-      "description": "A container view that shows a main screen and lets the user open other screens on top of it.\n---\n\n```ts\ninterface NavigationStackSignature {}\n\nclass NavigationStack extends HTMLElement<NavigationStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-stack': NavigationStack // <navigation-stack></navigation-stack>\n  }\n}\n\n```\n"
+      "description": "A container view that shows a main screen and lets the user open other screens on top of it.\n---\n\n```ts\ninterface NavigationStackSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass NavigationStack extends HTMLElement<NavigationStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'navigation-stack': NavigationStack // <navigation-stack></navigation-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "navigation-title",
@@ -696,7 +702,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/scroll-view-proxy"
         }
       ],
-      "description": "A wrapper for {hv}-stacks\n---\n\n```ts\ninterface ScrollViewProxySignature {}\n\nclass ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view-proxy': ScrollViewProxy // <scroll-view-proxy></scroll-view-proxy>\n  }\n}\n\n```\n"
+      "description": "A wrapper for {hv}-stacks\n---\n\n```ts\ninterface ScrollViewProxySignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'scroll-view-proxy': ScrollViewProxy // <scroll-view-proxy></scroll-view-proxy>\n  }\n}\n\n```\n"
     },
     {
       "name": "scroll-view",
@@ -756,7 +762,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/sheet-view"
         }
       ],
-      "description": "A dialog that slides up over the current screen.\n---\n\n```ts\ninterface SheetViewSignature {}\n\nclass SheetView extends HTMLDialogElement<SheetViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sheet-view' // <dialog is=\"sheet-view\"></dialog>\n  }\n}\n\n```\n"
+      "description": "A dialog that slides up over the current screen.\n---\n\n```ts\ninterface SheetViewSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass SheetView extends HTMLDialogElement<SheetViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sheet-view' // <dialog is=\"sheet-view\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "sidebar-toggle",
@@ -766,7 +772,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/sidebar-toggle"
         }
       ],
-      "description": "A control that shows or hides the sidebar view.\n---\n\n```ts\ninterface SidebarToggleSignature {}\n\nclass SidebarToggle extends HTMLElement<SidebarToggleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sidebar-toggle': SidebarToggle // <sidebar-toggle></sidebar-toggle>\n  }\n}\n\n```\n"
+      "description": "A control that shows or hides the sidebar view.\n---\n\n```ts\ninterface SidebarToggleSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass SidebarToggle extends HTMLElement<SidebarToggleSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'sidebar-toggle': SidebarToggle // <sidebar-toggle></sidebar-toggle>\n  }\n}\n\n```\n"
     },
     {
       "name": "sidebar-view",
@@ -776,7 +782,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/sidebar-view"
         }
       ],
-      "description": "A container view that arranges navigation destinations in a single column.\n---\n\n```ts\ninterface SidebarViewSignature {}\n\nclass SidebarView extends HTMLDialogElement<SidebarViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sidebar-view' // <dialog is=\"sidebar-view\"></dialog>\n  }\n}\n\n```\n"
+      "description": "A container view that arranges navigation destinations in a single column.\n---\n\n```ts\ninterface SidebarViewSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass SidebarView extends HTMLDialogElement<SidebarViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'sidebar-view' // <dialog is=\"sidebar-view\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "sticky-container",
@@ -790,7 +796,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-bar"
         }
       ],
-      "description": "A container view that groups tab-items together along the top or bottom of the screen.\n---\n\n```ts\ninterface TabBarSignature {}\n\nclass TabBar extends HTMLDialogElement<TabBarSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'tab-bar' // <dialog is=\"tab-bar\"></dialog>\n  }\n}\n\n```\n"
+      "description": "A container view that groups tab-items together along the top or bottom of the screen.\n---\n\n```ts\ninterface TabBarSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass TabBar extends HTMLDialogElement<TabBarSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'tab-bar' // <dialog is=\"tab-bar\"></dialog>\n  }\n}\n\n```\n"
     },
     {
       "name": "tab-item",
@@ -800,7 +806,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-item"
         }
       ],
-      "description": "A control that switches the tab view to this tab.\n---\n\n```ts\ninterface TabItemSignature {}\n\nclass TabItem extends HTMLButtonElement<TabItemSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'tab-item' // <button is=\"tab-item\"></button>\n  }\n}\n\n```\n"
+      "description": "A control that switches the tab view to this tab.\n---\n\n```ts\ninterface TabItemSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass TabItem extends HTMLButtonElement<TabItemSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'tab-item' // <button is=\"tab-item\"></button>\n  }\n}\n\n```\n"
     },
     {
       "name": "tab-view",
@@ -810,7 +816,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tab-view"
         }
       ],
-      "description": "A container view that switches between screens using tabs.\n---\n\n```ts\ninterface TabViewSignature {\n  CSSProperties: {\n    '--adaptable-tab-bar-placement'?: string\n  }\n}\n\nclass TabView extends HTMLElement<TabViewSignature> {\n  readonly tabBarPlacement:\n    | 'bottom-bar'\n    | 'ornament'\n    | 'sidebar'\n    | 'top-bar'\n    | undefined\n  readonly moreTab: NavigationStack | null\n  selectedTab: (NavigationSplitView | NavigationStack)[]\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  tabshow: CustomEvent // A Tab is shown\n  tabhide: CustomEvent // A Tab is hidden\n  'tab-view:toggle': CustomEvent\n  'tab-view:adaptable-tab-bar-placement-change': CustomEvent\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tab-view': TabView // <tab-view></tab-view>\n  }\n}\n\n```\n"
+      "description": "A container view that switches between screens using tabs.\n---\n\n```ts\ninterface TabViewSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n\n  CSSProperties: {\n    '--adaptable-tab-bar-placement'?: string\n  }\n}\n\nclass TabView extends HTMLElement<TabViewSignature> {\n  readonly tabBarPlacement:\n    | 'bottom-bar'\n    | 'ornament'\n    | 'sidebar'\n    | 'top-bar'\n    | undefined\n  readonly moreTab: NavigationStack | null\n  selectedTab: (NavigationSplitView | NavigationStack)[]\n}\n\ninterface GlobalEventMap<\n  Targets = HTMLElementEventMap | DocumentEventMap | WindowEventMap,\n> {\n  tabshow: CustomEvent // A Tab is shown\n  tabhide: CustomEvent // A Tab is hidden\n  'tab-view:toggle': CustomEvent\n  'tab-view:adaptable-tab-bar-placement-change': CustomEvent\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tab-view': TabView // <tab-view></tab-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "table-view",
@@ -965,7 +971,7 @@
           "url": "https://swiftwc.github.io/ui/web-components/tool-bar-item-group"
         }
       ],
-      "description": "A container view that groups items together in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemGroupSignature {}\n\nclass ToolBarItemGroup extends HTMLElement<ToolBarItemGroupSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item-group': ToolBarItemGroup // <tool-bar-item-group></tool-bar-item-group>\n  }\n}\n\n```\n"
+      "description": "A container view that groups items together in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemGroupSignature {\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass ToolBarItemGroup extends HTMLElement<ToolBarItemGroupSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item-group': ToolBarItemGroup // <tool-bar-item-group></tool-bar-item-group>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar-item",
@@ -986,7 +992,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A view placed in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemSignature {\n  Attributes: {\n    slot?: string\n    'data-previous-slot'?: string\n    'title-key'?: string\n  }\n}\n\nclass ToolBarItem extends HTMLElement<ToolBarItemSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item': ToolBarItem // <tool-bar-item></tool-bar-item>\n  }\n}\n\n```\n"
+      "description": "A view placed in the toolbar or navigation bar.\n---\n\n```ts\ninterface ToolBarItemSignature {\n  Attributes: {\n    slot?: string\n    'data-previous-slot'?: string\n    'title-key'?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass ToolBarItem extends HTMLElement<ToolBarItemSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'tool-bar-item': ToolBarItem // <tool-bar-item></tool-bar-item>\n  }\n}\n\n```\n"
     },
     {
       "name": "tool-bar",
@@ -1017,7 +1023,7 @@
           "valueSet": "Template"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VFlexStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n  }\n}\n\nclass VFlexStack extends HTMLElement<VFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-flex-stack': VFlexStack // <v-flex-stack></v-flex-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VFlexStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass VFlexStack extends HTMLElement<VFlexStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-flex-stack': VFlexStack // <v-flex-stack></v-flex-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-keyboard",
@@ -1104,7 +1110,7 @@
           "valueSet": "blockPlacementSet"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
     }
   ],
   "globalAttributes": [

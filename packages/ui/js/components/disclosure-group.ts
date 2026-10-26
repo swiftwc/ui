@@ -9,6 +9,8 @@ const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>
  *
  * @example <details is="disclosure-group"><summary><label-view title="Items"></label-view></summary><label-view title="Item 1"></label-view><label-view title="Item 2"></label-view><details is="disclosure-group"><summary><label-view title="Sub-items"></label-view></summary><label-view title="Sub-item 1"></label-view></details></details> — Use the `is` attribute to convert a `details` element into a disclosure group
  *
+ * @slot — The default slot
+ *
  * @fires is-expanded
  * @fires is-collapsed
  */

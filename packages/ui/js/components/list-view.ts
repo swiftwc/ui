@@ -7,6 +7,8 @@ import { debug, listActive, onoff } from '../internal/utils'
  * @attr {hidden} navigation-link-indicator-visibility — Hides accessories like right-arrow-chevron on NavigationLink buttons inside
  * @attr {sidebar} preferred-root-disclosure-style
  *
+ * @slot — The default slot
+ *
  * @cssprop {length} --list-row-gap — The gap between rows
  * @cssprop {length} --list--media-inner-padding-inline-start — The inline paddint start for each row
  */

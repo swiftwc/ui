@@ -5,6 +5,8 @@ import { debug } from '../internal/utils'
  *
  * @attr {@Spacing} spacing — The gap between the primary axis
  *
+ * @slot — The default slot
+ *
  */
 export class HFlexStack extends HTMLElement {
   constructor() {

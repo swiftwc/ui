@@ -4,6 +4,8 @@ import { debug } from '../internal/utils'
 
 /**
  * @summary A container view that groups items together in the toolbar or navigation bar.
+ *
+ * @slot — The default slot
  */
 @adaptiveSlot()
 export class ToolBarItemGroup extends HTMLElement {

@@ -6,6 +6,8 @@ const observers = new ResizeObserverSingleton()
 
 /**
  * @summary A control that shows or hides the sidebar view.
+ *
+ * @slot — The default slot
  */
 export class SidebarToggle extends HTMLElement {
   constructor() {

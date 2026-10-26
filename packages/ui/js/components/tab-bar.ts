@@ -4,6 +4,8 @@ import { DialogBase } from '../namespace-browser/base'
 
 /**
  * @summary A container view that groups tab-items together along the top or bottom of the screen.
+ *
+ * @slot — The default slot
  */
 export class TabBar extends DialogBase {
   constructor() {

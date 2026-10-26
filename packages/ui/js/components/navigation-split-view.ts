@@ -3,6 +3,8 @@ import { debug } from '../internal/utils'
 
 /**
  * @summary A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
+ *
+ * @slot — The default slot
  */
 export class NavigationSplitView extends NavigationView {
   constructor() {

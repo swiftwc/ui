@@ -4,6 +4,8 @@ import { DialogBase } from '../namespace-browser/base'
 
 /**
  * @summary A dialog that slides up over the current screen.
+ *
+ * @slot — The default slot
  */
 export class SheetView extends DialogBase {
   constructor() {

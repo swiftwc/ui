@@ -304,7 +304,13 @@
           "description": "A container view that wraps a scroll view, marking it as a screen your app can navigate to.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -422,6 +428,12 @@
               }
             }
           ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ],
           "attributes": [
             {
               "name": "date-picker-style"
@@ -482,7 +494,13 @@
           "description": "",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -515,6 +533,12 @@
           "superclass": {
             "name": "HTMLDetailsElement"
           },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ],
           "events": [
             {
               "name": "is-expanded",
@@ -610,6 +634,12 @@
           "superclass": {
             "name": "HTMLFormElement"
           },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ],
           "attributes": [
             {
               "name": "navigation-link-indicator-visibility"
@@ -773,6 +803,12 @@
             {
               "name": "spacing"
             }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
           ]
         }
       ],
@@ -822,6 +858,12 @@
             {
               "name": "placement"
             }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
           ]
         }
       ],
@@ -855,6 +897,12 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ],
           "attributes": [
             {
               "name": "system-name"
@@ -1029,6 +1077,12 @@
             {
               "name": "preferred-root-disclosure-style"
             }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
           ]
         }
       ],
@@ -1121,6 +1175,12 @@
             {
               "name": "navigation-bar-auto-hide"
             }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
           ]
         }
       ],
@@ -1153,7 +1213,13 @@
           "description": "A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1185,7 +1251,13 @@
           "description": "A container view that shows a main screen and lets the user open other screens on top of it.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1542,7 +1614,13 @@
           "description": "A wrapper for {hv}-stacks",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1731,7 +1809,13 @@
           "description": "A dialog that slides up over the current screen.",
           "superclass": {
             "name": "HTMLDialogElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1763,7 +1847,13 @@
           "description": "A control that shows or hides the sidebar view.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1795,7 +1885,13 @@
           "description": "A container view that arranges navigation destinations in a single column.",
           "superclass": {
             "name": "HTMLDialogElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1859,7 +1955,13 @@
           "description": "A container view that groups tab-items together along the top or bottom of the screen.",
           "superclass": {
             "name": "HTMLDialogElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1891,7 +1993,13 @@
           "description": "A control that switches the tab view to this tab.",
           "superclass": {
             "name": "HTMLButtonElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -1951,6 +2059,12 @@
               "type": {
                 "text": "(NavigationSplitView | NavigationStack)[]"
               }
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
             }
           ],
           "events": [
@@ -2401,7 +2515,13 @@
           "description": "A container view that groups items together in the toolbar or navigation bar.",
           "superclass": {
             "name": "HTMLElement"
-          }
+          },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ]
         }
       ],
       "exports": [
@@ -2434,6 +2554,12 @@
           "superclass": {
             "name": "HTMLElement"
           },
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
+          ],
           "attributes": [
             {
               "name": "slot"
@@ -2587,6 +2713,12 @@
             {
               "name": "template"
             }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
+            }
           ]
         }
       ],
@@ -2678,6 +2810,12 @@
             },
             {
               "name": "placement"
+            }
+          ],
+          "slots": [
+            {
+              "name": "",
+              "description": "The default slot"
             }
           ]
         }

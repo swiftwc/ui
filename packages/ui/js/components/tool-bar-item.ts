@@ -5,6 +5,8 @@ import { Snapshot } from '../snapshot'
 
 /**
  * @summary A view placed in the toolbar or navigation bar.
+ *
+ * @slot — The default slot
  */
 @adaptiveSlot((el) => !el.closest('tool-bar-item-group'))
 export class ToolBarItem extends HTMLElement {

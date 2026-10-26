@@ -2,6 +2,8 @@ import { debug } from '../internal/utils'
 
 /**
  * @summary A container view that wraps a scroll view, marking it as a screen your app can navigate to.
+ *
+ * @slot — The default slot
  */
 export class ContentView extends HTMLElement {
   constructor() {

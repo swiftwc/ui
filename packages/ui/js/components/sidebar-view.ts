@@ -4,6 +4,8 @@ import { DialogBase } from '../namespace-browser/base'
 
 /**
  * @summary A container view that arranges navigation destinations in a single column.
+ *
+ * @slot — The default slot
  */
 export class SidebarView extends DialogBase {
   constructor() {

@@ -14,6 +14,8 @@ import { debug } from '../internal/utils'
  * @attr {@blockSet} distribution — The main-axis alignment
  * @attr {@blockPlacementSet} placement — The main-axis alignment
  *
+ * @slot — The default slot
+ *
  */
 export class VStack extends HTMLElement {
   constructor() {

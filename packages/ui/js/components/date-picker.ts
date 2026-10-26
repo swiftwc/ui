@@ -15,6 +15,8 @@ type DateInput = HTMLInputElement & { name: DateParts }
 
 /**
  * @summary A control that selects an absolute date.
+ *
+ * @slot — The default slot
  */
 export class DatePicker extends FormAssociatedBase {
   static get observedAttributes() {

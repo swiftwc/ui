@@ -1,11 +1,13 @@
 import { beforeEach, describe, expect, it } from 'vitest'
 import { default as prop } from './prop'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: HTMLDivElement
+  let el: HTMLDivElement
 
   beforeEach(() => {
-    div = document.createElement('div')
+    el = document.createElement('div')
   })
 
   const p = '--prop',
@@ -22,12 +24,12 @@ describe('prop', () => {
     ['unset (undefined)', [`${p}: ${v};`, , , null]],
   ])) {
     it(desc, () => {
-      if (pre) div.setAttribute('style', pre)
+      if (pre) el.setAttribute('style', pre)
 
       // @ts-expect-error
-      prop(p, what!, div, imp)
+      prop(p, what!, el, imp)
 
-      expect(div.getAttribute('style')).toBe(toBe)
+      expect(el.getAttribute('style')).toBe(toBe)
     })
   }
 })

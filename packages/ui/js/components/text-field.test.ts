@@ -1,21 +1,23 @@
-import { beforeEach, describe, expect, test } from 'vitest'
-import { TextField } from './text-field'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import '../client'
+import type { TextField } from './text-field'
 
-describe('prop', () => {
-  let div: TextField
+beforeEach(() => document.body.replaceChildren())
 
-  customElements.define('text-field', TextField)
+describe('<text-field/>', () => {
+  let el: TextField
 
   beforeEach(() => {
-    div = document.createElement('text-field')
-    document.body.appendChild(div)
+    el = document.createElement('text-field')
+    document.body.appendChild(el)
   })
+  afterEach(() => el.remove())
 
   test('[value]', () => {
-    expect(div.value).toBe('')
+    expect(el.value).toBe('')
   })
 
   test('[valueAsNumber]', () => {
-    expect(div.valueAsNumber).toBe('')
+    expect(el.valueAsNumber).toBe('')
   })
 })

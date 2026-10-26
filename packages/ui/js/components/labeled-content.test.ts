@@ -1,36 +1,39 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { LabeledContent } from './labeled-content'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: HTMLElement
+  let el: LabeledContent
 
   customElements.define('labeled-content', LabeledContent)
 
   beforeEach(() => {
-    div = document.createElement('labeled-content')
-    document.body.appendChild(div)
+    el = document.createElement('labeled-content')
+    document.body.appendChild(el)
   })
+  afterEach(() => el.remove())
 
   test('[value]', () => {
-    div.setAttribute('value', 'Foo')
-    expect(div.innerHTML).toBe(`<label-view><span>Foo</span></label-view>`)
+    el.setAttribute('value', 'Foo')
+    expect(el.innerHTML).toBe(`<label-view><span>Foo</span></label-view>`)
   })
 
   test('[value] w/ dirty', () => {
-    div.innerHTML = `<div>\nBar</div><div slot="icon">Baz</div>\n<whatever-name></whatever-name>\n<whatever-name slot="icon"></whatever-name>`
-    div.setAttribute('value', 'Foo')
-    expect(div.innerHTML).toBe(`<div>\nBar</div><div slot="icon">Baz</div>\n<whatever-name></whatever-name>\n<whatever-name slot="icon"></whatever-name><label-view><span>Foo</span></label-view>`)
+    el.innerHTML = `<div>\nBar</div><div slot="icon">Baz</div>\n<whatever-name></whatever-name>\n<whatever-name slot="icon"></whatever-name>`
+    el.setAttribute('value', 'Foo')
+    expect(el.innerHTML).toBe(`<div>\nBar</div><div slot="icon">Baz</div>\n<whatever-name></whatever-name>\n<whatever-name slot="icon"></whatever-name><label-view><span>Foo</span></label-view>`)
   })
 
   test('[label]', () => {
-    div.setAttribute('label', 'Bar')
-    expect(div.innerHTML).toBe(`<label-view slot="label"><span>Bar</span></label-view>`)
+    el.setAttribute('label', 'Bar')
+    expect(el.innerHTML).toBe(`<label-view slot="label"><span>Bar</span></label-view>`)
   })
 
   test('[value][label]', () => {
-    div.setAttribute('value', 'Foo')
-    div.setAttribute('label', 'Bar')
-    expect(div.innerHTML).toBe(`<label-view><span>Foo</span></label-view><label-view slot="label"><span>Bar</span></label-view>`)
+    el.setAttribute('value', 'Foo')
+    el.setAttribute('label', 'Bar')
+    expect(el.innerHTML).toBe(`<label-view><span>Foo</span></label-view><label-view slot="label"><span>Bar</span></label-view>`)
   })
 
   for (const [i, [a, b, c]] of [
@@ -56,8 +59,8 @@ describe('prop', () => {
     ['byte-count:en-US:unitDisplay=narrow', '1073741824', '1GB'],
   ].entries())
     test(`[format=${a}][value][label]`, () => {
-      div.setAttribute('format', a)
-      div.setAttribute('value', b)
-      expect(div.innerHTML).toBe(`<label-view><span>${c}</span></label-view>`)
+      el.setAttribute('format', a)
+      el.setAttribute('value', b)
+      expect(el.innerHTML).toBe(`<label-view><span>${c}</span></label-view>`)
     })
 })

@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
 import frame from './frame'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('frame', () => {
   beforeEach(() => {
     let id = 0

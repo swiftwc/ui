@@ -1,24 +1,27 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
 import { BorderedButton } from './bordered-button'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: HTMLElement
+  let el: HTMLElement
 
   beforeEach(() => {
-    div = document.createElement('button', { is: 'bordered-button' })
-    document.body.appendChild(div)
+    el = document.createElement('button', { is: 'bordered-button' })
+    document.body.appendChild(el)
   })
+  afterEach(() => el.remove())
 
   test('[tabIndex]', () => {
-    expect(div.tabIndex).toBe(0)
+    expect(el.tabIndex).toBe(0)
   })
 
   test('[role]', async () => {
-    BorderedButton.polyfillConnectedCallback(div as BorderedButton)
-    div.setAttribute('role', 'cancel')
-    BorderedButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: div, oldValue: null }])
+    BorderedButton.polyfillConnectedCallback(el as BorderedButton)
+    el.setAttribute('role', 'cancel')
+    BorderedButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
     await new Promise<void>((r) => queueMicrotask(r))
-    expect(div.outerHTML).toBe('<button is="bordered-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
+    expect(el.outerHTML).toBe('<button is="bordered-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
   })
 })

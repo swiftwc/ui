@@ -1,4 +1,4 @@
-import { beforeEach, describe, expect, test, vi } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { Snapshot } from '../client'
 import { PickerView } from './picker-view'
 
@@ -17339,18 +17339,21 @@ const dict = [
   },
 ]
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: PickerView
+  let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
+  afterEach(() => el.remove())
 
   test('[selection]', () => {
     const data = new FormData(form) //{foo:""}
@@ -17360,20 +17363,21 @@ describe('prop', () => {
 })
 
 describe('prop', () => {
-  let div: PickerView
+  let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
+  afterEach(() => el.remove())
 
   test('[selection]', () => {
-    div.setAttribute('selection', 'bar')
+    el.setAttribute('selection', 'bar')
 
     const data = new FormData(form) //{foo:"bar"}
 
@@ -17382,20 +17386,21 @@ describe('prop', () => {
 })
 
 describe('prop', () => {
-  let div: PickerView
+  let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
+  afterEach(() => el.remove())
 
   test('[selection]', () => {
-    div.selection = 'bar'
+    el.selection = 'bar'
 
     const data = new FormData(form) //{foo:"bar"}
 
@@ -17404,23 +17409,23 @@ describe('prop', () => {
 })
 
 describe('prop', () => {
-  let div: PickerView
+  let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
 
   test('[picker-style="radio-group"]', () => {
-    div.setAttribute('picker-style', 'radio-group')
-    div.selection = 'Tyrannosaurus'
+    el.setAttribute('picker-style', 'radio-group')
+    el.selection = 'Tyrannosaurus'
 
-    div.innerHTML = `<optgroup label="Theropods" slot="list">
+    el.innerHTML = `<optgroup label="Theropods" slot="list">
                 <option>Tyrannosaurus</option>
                 <option>Velociraptor</option>
                 <option>Deinonychus</option>
@@ -17433,21 +17438,22 @@ describe('prop', () => {
 })
 
 describe('prop', () => {
-  let div: PickerView
+  let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
     form = document.createElement('form')
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
+  afterEach(() => el.remove())
 
   test('[picker-style="radio-group"]', async () => {
-    div.setAttribute('picker-style', 'radio-group')
-    div.selection = 'Tyrannosaurus'
+    el.setAttribute('picker-style', 'radio-group')
+    el.selection = 'Tyrannosaurus'
 
     const og = Object.assign(document.createElement('optgroup'), {
       label: 'Theropods',
@@ -17457,11 +17463,11 @@ describe('prop', () => {
     og.label = 'Theropods'
     og.slot = 'list'
 
-    div.appendChild(og)
+    el.appendChild(og)
 
     await new Promise<void>((r) => queueMicrotask(r))
 
-    expect(div.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
+    expect(el.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
         <h-stack distribution="fill" template="auto spacer" spacing="5">
           <input type="radio" name="00000000-0000-0000-0000-000000000000" disabled="">
           <h-stack distribution="fill">
@@ -17510,7 +17516,7 @@ describe('prop', () => {
 })
 
 describe('prop', async () => {
-  let div: PickerView
+  let el: PickerView
   let ns: HTMLElement
 
   await Snapshot.mock()
@@ -17520,16 +17526,17 @@ describe('prop', async () => {
 
     ns = document.body.appendChild(Object.assign(document.createElement('navigation-stack'), { innerHTML: '<scroll-view><v-stack><form is="form-view"></form></v-stack></scroll-view>' }))
 
-    div = document.createElement('picker-view') as PickerView
-    div.setAttribute('name', 'foo')
+    el = document.createElement('picker-view') as PickerView
+    el.setAttribute('name', 'foo')
   })
+  afterEach(() => el.remove())
 
   test('[picker-style="sheet"]', async () => {
-    div.setAttribute('picker-style', 'sheet')
-    div.setAttribute('prompt', 'here')
-    div.setAttribute('dictionary', JSON.stringify(dict))
+    el.setAttribute('picker-style', 'sheet')
+    el.setAttribute('prompt', 'here')
+    el.setAttribute('dictionary', JSON.stringify(dict))
 
-    document.querySelector('[is=form-view]')?.appendChild(div)
+    document.querySelector('[is=form-view]')?.appendChild(el)
 
     await new Promise<void>((r) => queueMicrotask(r))
 
@@ -17537,7 +17544,7 @@ describe('prop', async () => {
 
     await new Promise<void>((r) => setTimeout(r, 550))
 
-    const dialog = div.closest('scroll-view')?.nextElementSibling
+    const dialog = el.closest('scroll-view')?.nextElementSibling
 
     expect(dialog?.outerHTML)
       .toBe(`<dialog is="sheet-view" open=""><scroll-view class=""><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">

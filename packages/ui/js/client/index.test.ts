@@ -1,4 +1,6 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+/// <reference types="vite/client" />
+
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { ScrollView } from '../components'
 import { $ } from '../internal/utils'
 import { html } from '../tpl'
@@ -15,6 +17,7 @@ describe('prop', () => {
     div = document.createElement('div')
     document.body.appendChild(div)
   })
+  afterEach(() => div.remove())
 
   test('queryBodyAll', () => {
     const el = div.appendChild(
@@ -264,5 +267,24 @@ describe('prop', () => {
       b1 = el.querySelector<ScrollView>('#b1')!
 
     expect(new NavigationPath(b1)?.component?.id).toBe('b1')
+  })
+})
+
+const modules = import.meta.glob(['../components/**/*.ts', '!../components/**/*.test.ts', '!../components/**/*.d.ts'], { eager: true })
+
+const classes = Object.entries(modules).flatMap(([file, mod]) =>
+  Object.values(mod as object)
+    .filter((v): v is CustomElementConstructor => typeof v === 'function' && v.prototype instanceof HTMLElement)
+    .map((ctor) => [file, ctor.name, ctor] as const)
+)
+
+describe('customElements', () => {
+  test('found element classes', () => expect(classes.length).toBeGreaterThan(0))
+
+  test.each(classes)('%s › %s is registered', (_file, _name, ctor) => {
+    const tag = customElements.getName(ctor)
+    expect(tag, `${ctor.name} is not registered`).not.toBeNull()
+    expect(customElements.get(tag!)).toBe(ctor)
+    expect(document.createElement(tag!)).toBeInstanceOf(ctor)
   })
 })

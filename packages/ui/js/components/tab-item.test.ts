@@ -1,21 +1,24 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { TabItem } from './tab-item'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: HTMLElement
+  let el: HTMLElement
 
   customElements.define('tab-item', TabItem, { extends: TabItem.polyfillExtends })
 
   beforeEach(() => {
-    div = document.createElement('tab-item')
-    document.body.appendChild(div)
+    el = document.createElement('tab-item')
+    document.body.appendChild(el)
   })
+  afterEach(() => el.remove())
 
   test('[tabIndex]', () => {
-    expect(div.tabIndex).toBe(0)
+    expect(el.tabIndex).toBe(0)
   })
 
   test('[ariaSelected]', () => {
-    expect(div.ariaSelected).toBe('false')
+    expect(el.ariaSelected).toBe('false')
   })
 })

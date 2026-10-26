@@ -1,22 +1,25 @@
-import { beforeEach, describe, expect, test } from 'vitest'
+import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { ToggleView } from './toggle-view'
 
+beforeEach(() => document.body.replaceChildren())
+
 describe('prop', () => {
-  let div: ToggleView
+  let el: ToggleView
   let form: HTMLFormElement
 
   customElements.define('toggle-view', ToggleView)
 
   beforeEach(() => {
     form = document.createElement('form')
-    div = document.createElement('toggle-view') as ToggleView
-    div.setAttribute('name', 'foo')
-    form.appendChild(div)
+    el = document.createElement('toggle-view') as ToggleView
+    el.setAttribute('name', 'foo')
+    form.appendChild(el)
     document.body.appendChild(form)
   })
+  afterEach(() => el.remove())
 
   test('[value]', () => {
-    div.setAttribute('value', 'bar')
+    el.setAttribute('value', 'bar')
 
     const data = new FormData(form) //{}
 
@@ -24,8 +27,8 @@ describe('prop', () => {
   })
 
   test('[value]', () => {
-    div.setAttribute('is-on', '')
-    div.setAttribute('value', 'bar')
+    el.setAttribute('is-on', '')
+    el.setAttribute('value', 'bar')
 
     const data = new FormData(form) //{foo:"bar"}
 
@@ -33,7 +36,7 @@ describe('prop', () => {
   })
 
   test('[value]', () => {
-    div.setAttribute('is-on', '')
+    el.setAttribute('is-on', '')
 
     const data = new FormData(form) //{foo:"on"}
 
@@ -49,11 +52,11 @@ describe('prop', () => {
     form.appendChild(div2)
     form.appendChild(div3)
 
-    div.setAttribute('value', 'foo')
+    el.setAttribute('value', 'foo')
     div2.setAttribute('value', 'bar')
     div3.setAttribute('value', 'baz')
 
-    div.setAttribute('is-on', '')
+    el.setAttribute('is-on', '')
     div2.setAttribute('is-on', '')
     div3.setAttribute('is-on', '')
 

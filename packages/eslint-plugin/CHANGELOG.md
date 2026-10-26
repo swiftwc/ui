@@ -1,5 +1,12 @@
 # @swiftwc/eslint-plugin
 
+## 1.1.7-canary.5
+
+### Patch Changes
+
+- Updated dependencies [73f16bc]
+  - @swiftwc/ui@1.0.1-canary.4
+
 ## 1.1.7-canary.4
 
 ### Patch Changes

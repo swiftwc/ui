@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.4
+
+### Patch Changes
+
+- 73f16bc: chore(ui): update component documentation to include default slot descriptions and remove unused files
+
 ## 1.0.1-canary.3
 
 ### Patch Changes

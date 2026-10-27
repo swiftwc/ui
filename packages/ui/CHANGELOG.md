@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.5
+
+### Patch Changes
+
+- 945b0db: bump canary version
+
 ## 1.0.1-canary.4
 
 ### Patch Changes

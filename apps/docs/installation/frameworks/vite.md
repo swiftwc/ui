@@ -29,7 +29,7 @@ cd my-project
 
 ## 2. Install SwiftWC
 
-**Install SwiftWC and it's dependencies:**
+**Install SwiftWC and it’s dependencies:**
 
 :::::tabs key:channel
 

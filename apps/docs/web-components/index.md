@@ -1,3 +1,7 @@
+---
+outline: false
+---
+
 <!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
 <!--@include: ../partials/index.md-->

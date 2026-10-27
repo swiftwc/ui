@@ -1,7 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug, listActive, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
@@ -27,10 +27,8 @@ export class TableView extends HTMLElement {
 
   #compactToolbarItem?: Element
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<div part="root table-container">
         <div part="root table-header-stack">
           <div part="root table-header-leading-stack">
@@ -59,26 +57,13 @@ export class TableView extends HTMLElement {
           </div>
         </div>
       </div>`
-    ))
+    )
   }
 
-  // #shadowRoot
-  // #slots: Map<string, HTMLSlotElement> = new Map()
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  // @slots() readonly #slots: SlotLookup = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   constructor() {
     super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TableView).template, true))
-
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(this, () => {
-    //   this.#slots = new Map()
-    // })
 
     this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="column"]`)?.addEventListener('slotchange', this.#handleColumnSlotchange)
   }
@@ -92,6 +77,7 @@ export class TableView extends HTMLElement {
 
     this.#observers.unobserveAll()
 
+    this.#compactToolbarItem?.remove()
     this.#compactToolbarItem = undefined
   }
 

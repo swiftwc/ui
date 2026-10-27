@@ -1,7 +1,7 @@
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
-import { shadowRoot } from '../internal/decorators'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -51,10 +51,8 @@ export class LabeledContent extends HTMLElement {
     ]
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(html`
+  @template() static get template() {
+    return $(html`
       <div part="root labeled-content-container">
         <slot name="header"></slot>
         <div part="root labeled-content-stack">
@@ -67,19 +65,10 @@ export class LabeledContent extends HTMLElement {
         </div>
         <slot name="footer"></slot>
       </div>
-    `))
+    `)
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabeledContent).template, true))
-  }
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${LabeledContent.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

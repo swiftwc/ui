@@ -2,7 +2,7 @@ import { lifecycleObserver } from '../buses'
 import type { BeforetabswapEvent, PageShowHideDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug, frame, onoff, slowHideShow } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -31,10 +31,8 @@ export class ScrollView extends HTMLElement {
     ]
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<slot></slot>
         <div part="root scroll-view-navbar">
           <div part="root scroll-view-navbar-stack">
@@ -46,14 +44,10 @@ export class ScrollView extends HTMLElement {
             <slot name="bottom-bar-principal"></slot>
           </div>
         </div>`
-    ))
+    )
   }
 
-  // #shadowRoot
-  // #slots: Map<string, HTMLSlotElement> = new Map()
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  // @slots() readonly #slots: SlotLookup = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   #isMidScroll?: boolean
 
@@ -61,19 +55,6 @@ export class ScrollView extends HTMLElement {
   // #stopRecordingScrollTop?: boolean = false
 
   #beforeTabSwapLastScrolltop?: number
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template, true))
-
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(this, () => {
-    //   this.#slots = new Map()
-    // })
-  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${ScrollView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

@@ -3,7 +3,7 @@ import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { internals, shadowRoot } from '../internal/decorators'
+import { internals, shadowRoot, templateBy } from '../internal/decorators'
 import { $, clamp, debug, kebabCase, onoff, set } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -44,9 +44,7 @@ export class DatePicker extends FormAssociatedBase {
     ]
   }
 
-  static #templates: Map<string, DocumentFragment> = new Map()
-
-  // #lastRenderedStyle?: DatePickerStyle //string | null
+  #lastRenderedStyle?: DatePickerStyle //string | null
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
     debug(`${DatePicker.name} ⚡️ mutation`)
@@ -54,52 +52,39 @@ export class DatePicker extends FormAssociatedBase {
     this.setValidity(this.validity, this.validationMessage)
   }
 
-  // #shadowRoot
   @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   @internals() readonly #internals: ElementInternals = undefined!
 
-  // @slots() readonly #slots: SlotLookup = undefined!
-
   #customValidity: string = ''
 
-  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
-  // #validitiesSlot?: HTMLSlotElement
 
   #inputs: DateInput[] = []
 
-  // get #internals(): ElementInternals {
-  //   return getInternals(this)
-  // }
-
+  @templateBy((el: DatePicker) => el.datePickerStyle)
   get template(): DocumentFragment {
-    return DatePicker.#templates.getOrInsertComputed(this.datePickerStyle, () => {
-      switch (this.datePickerStyle) {
-        default:
-          return $(
-            html`<label part="root date-picker-stack">
-              <div part="root date-picker-label-stack">
-                <slot name="label"></slot>
-              </div>
-              <div part="root date-picker-input-stack">
-                <input type="text" name="month" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input" />
-                <span part="root date-picker-separator"></span>
-                <input type="text" name="day" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input" />
-                <span part="root date-picker-separator"></span>
-                <input type="text" name="year" inputmode="numeric" pattern="d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input" />
-              </div>
-              <slot name="validity-options" hidden></slot>
-            </label>`
-          )
-      }
-    })
+    // return DatePicker.#templates.getOrInsertComputed(this.datePickerStyle, () => {
+    switch (this.datePickerStyle) {
+      default:
+        return $(
+          html`<label part="root date-picker-stack">
+            <div part="root date-picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root date-picker-input-stack">
+              <input type="text" name="month" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input" />
+              <span part="root date-picker-separator"></span>
+              <input type="text" name="day" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input" />
+              <span part="root date-picker-separator"></span>
+              <input type="text" name="year" inputmode="numeric" pattern="d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input" />
+            </div>
+            <slot name="validity-options" hidden></slot>
+          </label>`
+        )
+    }
+    // })
   }
-
-  // constructor() {
-  //   super()
-  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -144,6 +129,8 @@ export class DatePicker extends FormAssociatedBase {
   override disconnectedCallback() {
     super.disconnectedCallback()
 
+    this.#lastRenderedStyle = undefined
+
     this.#validityObservers.unobserveAll()
   }
 
@@ -181,21 +168,11 @@ export class DatePicker extends FormAssociatedBase {
   #render() {
     debug(`${DatePicker.name} ⚡️ #render (${this.datePickerStyle})`)
 
-    // if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
-    // this.#lastRenderedStyle = this.datePickerStyle
+    if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
+    this.#lastRenderedStyle = this.datePickerStyle
 
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
-
-    // CleanupRegistry.unregister(this, 'slots')
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(
-    //   this,
-    //   () => {
-    //     this.#slots = new Map()
-    //   },
-    //   'slots'
-    // )
 
     CleanupRegistry.unregister(this, 'validities')
     CleanupRegistry.register(

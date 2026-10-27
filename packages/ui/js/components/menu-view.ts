@@ -1,8 +1,8 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
-import { shadowRoot } from '../internal/decorators'
 
 /**
  * @summary A control that opens a menu of actions.
@@ -15,10 +15,8 @@ export class MenuView extends HTMLElement {
     return ['open', 'closing', 'label']
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<button type="button" part="root button menu-summary">
           <slot name="label"></slot>
         </button>
@@ -29,21 +27,12 @@ export class MenuView extends HTMLElement {
             </div>
           </form>
         </dialog>`
-    ))
+    )
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   #dialog?: HTMLDialogElement
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template, true))
-  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${MenuView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

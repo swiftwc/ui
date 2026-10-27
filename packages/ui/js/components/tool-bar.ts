@@ -1,5 +1,5 @@
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { html } from '../tpl'
 
@@ -20,11 +20,9 @@ const observers = new ResizeObserverSingleton()
  * @slot bottom-bar-trailing — Places the item in the trailing edge of the bottom bar
  */
 export class ToolBar extends HTMLElement {
-  static #template: DocumentFragment
-
-  static get template() {
+  @template() static get template() {
     // <!--exportparts="toolbar-leading-stack,toolbar-principal-stack,toolbar-trailing-stack"-->
-    return (this.#template ??= $(
+    return $(
       html`<div part="root top-bar">
           <div part="root toolbar-leading-stack">
             <slot name="cancellation-action"></slot>
@@ -51,22 +49,13 @@ export class ToolBar extends HTMLElement {
             <slot name="bottom-bar-trailing"></slot>
           </div>
         </div>`
-    ))
+    )
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   get #scrollView() {
     return this.parentElement?.querySelector<HTMLElement>(':scope>scroll-view') ?? undefined //this.previousElementSibling ?? undefined
-  }
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template, true))
   }
 
   connectedCallback() {

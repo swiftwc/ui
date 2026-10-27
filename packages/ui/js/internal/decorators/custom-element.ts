@@ -1,18 +1,18 @@
-const roots = new WeakMap<HTMLElement, ShadowRoot>()
+// const roots = new WeakMap<HTMLElement, ShadowRoot>()
 
-export function shadowRoot(mode: ShadowRootMode = 'closed') {
-  return function <T extends HTMLElement>(_value: undefined, context: ClassFieldDecoratorContext<T, ShadowRoot>) {
-    if (context.static) throw new TypeError(`@shadowRoot cannot decorate static field "${String(context.name)}"`)
+// export function shadowRoot(mode: ShadowRootMode = 'closed') {
+//   return function <T extends HTMLElement>(_value: undefined, context: ClassFieldDecoratorContext<T, ShadowRoot>) {
+//     if (context.static) throw new TypeError(`@shadowRoot cannot decorate static field "${String(context.name)}"`)
 
-    return function (this: T): ShadowRoot {
-      const root = this.attachShadow({ mode })
+//     return function (this: T): ShadowRoot {
+//       const root = this.attachShadow({ mode })
 
-      roots.set(this, root)
+//       // roots.set(this, root)
 
-      return root
-    }
-  }
-}
+//       return root
+//     }
+//   }
+// }
 
 // export interface SlotLookup {
 //   get(name: string): HTMLSlotElement | undefined

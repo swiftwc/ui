@@ -5,7 +5,7 @@ import { DictEntry, Dictionary } from '../internal/class/dict-entry'
 import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
-import { internals, shadowRoot } from '../internal/decorators'
+import { internals, shadowRoot, templateBy } from '../internal/decorators'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, ancestors, debug, kebabCase, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
@@ -135,8 +135,6 @@ export class PickerView extends FormAssociatedBase {
       'required',
     ]
   }
-
-  static #templates: Map<string, DocumentFragment> = new Map()
 
   #guuid = self.crypto.randomUUID()
 
@@ -482,14 +480,10 @@ export class PickerView extends FormAssociatedBase {
 
   #lastRenderedStyle?: PickerStyle //string | null
 
-  // #shadowRoot
   @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   @internals() readonly #internals: ElementInternals = undefined!
 
-  // @slots() readonly #slots: SlotLookup = undefined!
-
-  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
   #observers = new MutationObserverSet(this.#renderSlotted)
 
@@ -528,122 +522,119 @@ export class PickerView extends FormAssociatedBase {
     return (this.getAttribute('current-value-icon') ?? '') || this.#lastRenderedIconMap[this.#selection]
   }
 
-  // get #internals(): ElementInternals {
-  //   return getInternals(this)
-  // }
-
+  @templateBy((el: PickerView) => el.pickerStyle)
   get template(): DocumentFragment {
-    return PickerView.#templates.getOrInsertComputed(this.pickerStyle, () => {
-      switch (this.pickerStyle) {
-        case 'sheet':
-        case 'navigation-link':
-          return $(html`
-            <div part="root picker-stack">
-              <div part="root picker-label-stack">
-                <slot name="label"></slot>
-              </div>
-              <div part="root picker-input-stack">
-                <slot></slot>
-              </div>
-              <slot name="list" hidden></slot>
-              <slot name="validity-options" hidden></slot>
+    // return PickerView.#templates.getOrInsertComputed(this.pickerStyle, () => {
+    switch (this.pickerStyle) {
+      case 'sheet':
+      case 'navigation-link':
+        return $(html`
+          <div part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
             </div>
-          `)
-
-        case 'menu':
-          return $(html`
-            <div part="root picker-stack">
-              <div part="root picker-label-stack">
-                <slot name="label"></slot>
-              </div>
-              <div part="root picker-input-stack">
-                <slot></slot>
-              </div>
-              <slot name="list" hidden></slot>
-              <slot name="validity-options" hidden></slot>
+            <div part="root picker-input-stack">
+              <slot></slot>
             </div>
-          `)
+            <slot name="list" hidden></slot>
+            <slot name="validity-options" hidden></slot>
+          </div>
+        `)
 
-        case 'tabs':
-        case 'palette':
-        case 'radio-group':
-          return $(html`
-            <div part="root picker-stack">
-              <div part="root picker-label-stack">
-                <slot name="label"></slot>
-              </div>
-              <div part="root picker-input-stack">
-                <slot></slot>
-              </div>
-              <slot name="list" hidden></slot>
-              <slot name="validity-options" hidden></slot>
+      case 'menu':
+        return $(html`
+          <div part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
             </div>
-          `)
+            <div part="root picker-input-stack">
+              <slot></slot>
+            </div>
+            <slot name="list" hidden></slot>
+            <slot name="validity-options" hidden></slot>
+          </div>
+        `)
 
-        //   break
-        // case 'compact':
-        //   PickerView.#templates.set(
-        //     style,
-        //     Object.assign(document.createElement('template'), {
-        //       innerHTML: String.raw`
-        //     <label part="compact-picker">
-        //       <input type="text" part="compact-input">
-        //     </label>
-        //   `,
-        //     })
-        //   )
+      case 'tabs':
+      case 'palette':
+      case 'radio-group':
+        return $(html`
+          <div part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root picker-input-stack">
+              <slot></slot>
+            </div>
+            <slot name="list" hidden></slot>
+            <slot name="validity-options" hidden></slot>
+          </div>
+        `)
 
-        //   break
-        // case 'fancy':
-        //   PickerView.#templates.set(
-        //     style,
-        //     Object.assign(document.createElement('template'), {
-        //       innerHTML: String.raw`
-        //     <div part="fancy-picker">
-        //       <span>Fancy Picker</span>
-        //       <input type="text" part="fancy-input">
-        //     </div>
-        //   `,
-        //     })
-        //   )
+      //   break
+      // case 'compact':
+      //   PickerView.#templates.set(
+      //     style,
+      //     Object.assign(document.createElement('template'), {
+      //       innerHTML: String.raw`
+      //     <label part="compact-picker">
+      //       <input type="text" part="compact-input">
+      //     </label>
+      //   `,
+      //     })
+      //   )
 
-        //   case 'gg':
-        //     PickerView.#templates.set(
-        //       style,
-        //       Object.assign(document.createElement('template'), {
-        //         innerHTML: String.raw`
-        // <label part="root text-field-stack">
-        // <div part="root text-field-label-stack">
-        //   <slot name="label"></slot>
-        // </div>
-        // <div part="root text-field-input-stack">
-        //   <input type="text" part="root input text-field-form-input" list="tickmarks">
-        //   <datalist id="tickmarks">
-        //     <option value="0" label="0%"></option>
-        //   </datalist>
-        // </div>
-        // <slot name="list" hidden></slot>
-        // </label>`,
-        //       })
-        //     )
+      //   break
+      // case 'fancy':
+      //   PickerView.#templates.set(
+      //     style,
+      //     Object.assign(document.createElement('template'), {
+      //       innerHTML: String.raw`
+      //     <div part="fancy-picker">
+      //       <span>Fancy Picker</span>
+      //       <input type="text" part="fancy-input">
+      //     </div>
+      //   `,
+      //     })
+      //   )
 
-        //     break
-        case 'inline':
-        default:
-          return $(
-            html` <label part="root picker-stack">
-              <div part="root picker-label-stack">
-                <slot name="label"></slot>
-              </div>
-              <div part="root picker-input-stack">
-                <slot></slot>
-              </div>
-              <slot name="list" hidden></slot>
-              <slot name="validity-options" hidden></slot>
-            </label>`
-          )
-      }
-    })
+      //   case 'gg':
+      //     PickerView.#templates.set(
+      //       style,
+      //       Object.assign(document.createElement('template'), {
+      //         innerHTML: String.raw`
+      // <label part="root text-field-stack">
+      // <div part="root text-field-label-stack">
+      //   <slot name="label"></slot>
+      // </div>
+      // <div part="root text-field-input-stack">
+      //   <input type="text" part="root input text-field-form-input" list="tickmarks">
+      //   <datalist id="tickmarks">
+      //     <option value="0" label="0%"></option>
+      //   </datalist>
+      // </div>
+      // <slot name="list" hidden></slot>
+      // </label>`,
+      //       })
+      //     )
+
+      //     break
+      case 'inline':
+      default:
+        return $(
+          html` <label part="root picker-stack">
+            <div part="root picker-label-stack">
+              <slot name="label"></slot>
+            </div>
+            <div part="root picker-input-stack">
+              <slot></slot>
+            </div>
+            <slot name="list" hidden></slot>
+            <slot name="validity-options" hidden></slot>
+          </label>`
+        )
+    }
+    // })
   }
 
   // constructor() {
@@ -782,16 +773,6 @@ export class PickerView extends FormAssociatedBase {
 
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
-
-    // CleanupRegistry.unregister(this, 'slots')
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(
-    //   this,
-    //   () => {
-    //     this.#slots = new Map()
-    //   },
-    //   'slots'
-    // )
 
     CleanupRegistry.unregister(this, 'validities')
     CleanupRegistry.register(

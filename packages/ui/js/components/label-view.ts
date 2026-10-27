@@ -1,4 +1,4 @@
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -34,13 +34,11 @@ export class LabelView extends HTMLElement {
     ]
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(html`
+  @template() static get template() {
+    return $(html`
       <slot name="icon"></slot>
       <slot></slot>
-    `))
+    `)
     //     String.raw`
     // <div part="root label-image-stack">
     //   <slot name="image"></slot>
@@ -50,18 +48,9 @@ export class LabelView extends HTMLElement {
     // </div>`
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   // #reflectScheduled = false
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template, true))
-  }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${LabelView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

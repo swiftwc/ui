@@ -3,7 +3,7 @@ import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { internals, shadowRoot } from '../internal/decorators'
+import { internals, shadowRoot, template } from '../internal/decorators'
 import { $, compareBigDecimals, debug, kebabCase, onoff, set } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -50,10 +50,8 @@ export class TextField extends FormAssociatedBase {
     ]
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<label part="root text-field-stack">
         <div part="root text-field-label-stack">
           <slot name="label"></slot>
@@ -63,7 +61,7 @@ export class TextField extends FormAssociatedBase {
         </div>
         <slot name="validity-options" hidden></slot>
       </label>`
-    ))
+    )
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
@@ -72,72 +70,20 @@ export class TextField extends FormAssociatedBase {
     this.setValidity(this.validity, this.validationMessage)
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   @internals() readonly #internals: ElementInternals = undefined!
 
-  // @slots() readonly #slots: SlotLookup = undefined!
-  // #internals: ElementInternals
-
   #customValidity: string = ''
 
-  // #validitiesSlot?: HTMLSlotElement
-  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
 
   #input?: HTMLInputElement
 
-  // get #internals(): ElementInternals {
-  //   return getInternals(this)
-  // }
-
   constructor() {
     super()
 
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TextField).template, true))
-
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(this, () => {
-    //   this.#slots = new Map()
-    // })
-
-    CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(
-      this,
-      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
-      'validities'
-    )
-
     this.#input = this.#shadowRoot.querySelector('input') ?? undefined
-
-    CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        [
-          { types: 'blur', listener: this.#handleInputBlur },
-          { types: 'input', listener: this.#handleInputInput },
-          { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
-          { types: 'paste', listener: this.#handleInputPaste as EventListener },
-        ],
-        this.#input
-      ).on()
-    )
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        'localechange',
-        () => {
-          this.text = this.text
-        },
-        I18n.on
-      ).on()
-    )
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -270,6 +216,39 @@ export class TextField extends FormAssociatedBase {
 
   override connectedCallback() {
     super.connectedCallback()
+
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(
+      this,
+      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
+      'validities'
+    )
+
+    CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'blur', listener: this.#handleInputBlur },
+          { types: 'input', listener: this.#handleInputInput },
+          { types: 'beforeinput', listener: this.#handleInputBeforeinput as EventListener },
+          { types: 'paste', listener: this.#handleInputPaste as EventListener },
+        ],
+        this.#input
+      ).on()
+    )
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'localechange',
+        () => {
+          this.text = this.text
+        },
+        I18n.on
+      ).on()
+    )
 
     // finally
     if (!this.hasAttribute('text')) return

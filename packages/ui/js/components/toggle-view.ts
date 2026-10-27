@@ -2,7 +2,7 @@ import type { ToggleChangeDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { internals, shadowRoot } from '../internal/decorators'
+import { internals, shadowRoot, template } from '../internal/decorators'
 import { $, debug, kebabCase, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -42,10 +42,8 @@ export class ToggleView extends FormAssociatedBase {
     ]
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<label part="root toggle-stack">
         <div part="root toggle-label-stack">
           <slot name="label"></slot>
@@ -55,7 +53,7 @@ export class ToggleView extends FormAssociatedBase {
         </div>
         <slot name="validity-options" hidden></slot>
       </label>`
-    ))
+    )
   }
 
   #renderValidityMsgs = (entries: MutationRecord[]) => {
@@ -64,16 +62,12 @@ export class ToggleView extends FormAssociatedBase {
     this.setValidity(this.validity, this.validationMessage)
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   @internals() readonly #internals: ElementInternals = undefined!
 
-  // @slots() readonly #slots: SlotLookup = undefined!
-
   #customValidity: string = ''
 
-  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
 
   #track?: HTMLElement
@@ -106,59 +100,10 @@ export class ToggleView extends FormAssociatedBase {
     return '0ms' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')
   }
 
-  // get #internals(): ElementInternals {
-  //   return getInternals(this)
-  // }
-
   constructor() {
     super()
 
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToggleView).template, true))
-
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(this, () => {
-    //   this.#slots = new Map()
-    // })
-
-    CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(
-      this,
-      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
-      'validities'
-    )
-
     this.#track = this.#shadowRoot.querySelector('[part*=toggle-track]') ?? undefined
-
-    CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        [
-          { types: 'keydown', listener: this.#handleTrackKeydown as EventListener },
-          { types: 'click', listener: this.#handleTrackClick as EventListener },
-          { types: 'pointerdown', listener: this.#handleTrackPointerdown as EventListener },
-          { types: 'pointerup', listener: this.#handleTrackPointerup as EventListener },
-          { types: 'pointercancel', listener: this.#handleTrackPointercancel as EventListener },
-          { types: 'pointermove', listener: this.#handleTrackPointermove as EventListener },
-          { types: 'lostpointercapture', listener: this.#handleTrackPointercancel as EventListener },
-        ],
-        this.#track
-      ).on()
-    )
-
-    CleanupRegistry.register(
-      this,
-      onoff(
-        [
-          { types: 'blur', listener: this.#handleWindowBlur },
-          { types: 'focus', listener: this.#handleWindowFocus },
-        ],
-        self
-      ).on()
-    )
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -212,6 +157,42 @@ export class ToggleView extends FormAssociatedBase {
     if (this.hasAttribute('is-on')) this.isOn = this.hasAttribute('is-on')
 
     this.#sendValueToForm(false)
+
+    CleanupRegistry.unregister(this, 'validities')
+    CleanupRegistry.register(
+      this,
+      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
+      'validities'
+    )
+
+    CleanupRegistry.register(this, onoff([{ types: 'focusin', listener: this.#handleFocusin }], this).on())
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'keydown', listener: this.#handleTrackKeydown as EventListener },
+          { types: 'click', listener: this.#handleTrackClick as EventListener },
+          { types: 'pointerdown', listener: this.#handleTrackPointerdown as EventListener },
+          { types: 'pointerup', listener: this.#handleTrackPointerup as EventListener },
+          { types: 'pointercancel', listener: this.#handleTrackPointercancel as EventListener },
+          { types: 'pointermove', listener: this.#handleTrackPointermove as EventListener },
+          { types: 'lostpointercapture', listener: this.#handleTrackPointercancel as EventListener },
+        ],
+        this.#track
+      ).on()
+    )
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        [
+          { types: 'blur', listener: this.#handleWindowBlur },
+          { types: 'focus', listener: this.#handleWindowFocus },
+        ],
+        self
+      ).on()
+    )
 
     if (this.#track) this.#resizeObserver.observe(this.#track)
 

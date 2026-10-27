@@ -1,4 +1,4 @@
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -15,10 +15,8 @@ export class SectionView extends HTMLElement {
     return ['header', 'footer']
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<div part="root section-main-stack">
           <slot></slot>
         </div>
@@ -28,20 +26,11 @@ export class SectionView extends HTMLElement {
         <div part="root section-footer-stack">
           <slot name="footer"></slot>
         </div>`
-    ))
+    )
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }
 
-  // #shadowRoot
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template, true))
-  }
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${SectionView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

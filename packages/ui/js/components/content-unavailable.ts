@@ -1,6 +1,6 @@
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, template } from '../internal/decorators'
 import { $, debug, onoff } from '../internal/utils'
 import { html } from '../tpl'
 
@@ -25,10 +25,8 @@ export class ContentUnavailable extends HTMLElement {
     return ['search']
   }
 
-  static #template: DocumentFragment
-
-  static get template() {
-    return (this.#template ??= $(
+  @template() static get template() {
+    return $(
       html`<div part="root content-unavailable-title-stack">
           <slot></slot>
         </div>
@@ -38,26 +36,10 @@ export class ContentUnavailable extends HTMLElement {
         <div part="root content-unavailable-actions-stack">
           <slot name="actions"></slot>
         </div>`
-    ))
+    )
   }
 
-  // #shadowRoot
-  // #slots
-  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  constructor() {
-    super()
-
-    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-
-    this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ContentUnavailable).template, true))
-
-    // this.#slots = {
-    //   '': this.#shadowRoot.querySelector('slot:not([name])') ?? undefined,
-    //   description: this.#shadowRoot.querySelector('slot[name="description"]') ?? undefined,
-    //   actions: this.#shadowRoot.querySelector('slot[name="actions"]') ?? undefined,
-    // } as const
-  }
+  @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${ContentUnavailable.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -92,6 +74,19 @@ export class ContentUnavailable extends HTMLElement {
 
   connectedCallback() {
     debug(`${ContentUnavailable.name} ⚡️ connect`)
+
+    if (this.hasAttribute('search'))
+      CleanupRegistry.register(
+        this,
+        onoff(
+          'localechange',
+          () => {
+            this.#renderSearch(this.getAttribute('search'))
+          },
+          I18n.on
+        ).on(),
+        'i18n'
+      )
   }
 
   #renderSearch = (search: string | null) => {

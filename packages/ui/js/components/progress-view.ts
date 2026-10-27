@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { shadowRoot } from '../internal/decorators'
+import { shadowRoot, templateBy } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
@@ -21,58 +21,48 @@ export class ProgressView extends HTMLElement {
     return ['label', 'current-value-label', 'value']
   }
 
-  static #templates: Map<string, DocumentFragment> = new Map()
-
   #cssStyleObserver?: CSSStyleObserver
 
   #progressViewStyle?: ProgressViewStyle
 
   #lastRenderedStyle?: ProgressViewStyle
 
-  // #shadowRoot
-  // #slots: Map<string, HTMLSlotElement> = new Map()
   @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
-
-  // @slots() readonly #slots: SlotLookup = undefined!
 
   get progressViewStyle() {
     return this.#progressViewStyle ?? 'circular'
   }
 
+  @templateBy((el: ProgressView) => el.progressViewStyle)
   get #template(): DocumentFragment {
-    return ProgressView.#templates.getOrInsertComputed(this.progressViewStyle, () => {
-      switch (this.progressViewStyle) {
-        case 'linear':
-          return $(html`
-            <slot></slot>
-            <div part="root progress-control progress-line-control"></div>
-            <slot name="current-value"></slot>
-          `)
+    // return ProgressView.#templates.getOrInsertComputed(this.progressViewStyle, () => {
+    switch (this.progressViewStyle) {
+      case 'linear':
+        return $(html`
+          <slot></slot>
+          <div part="root progress-control progress-line-control"></div>
+          <slot name="current-value"></slot>
+        `)
 
-        case 'circular':
-        default:
-          return $(html`
-            <div part="root progress-control progress-circular-control">
-              <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
-              <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
-            </div>
-            <slot></slot>
-            <slot name="current-value"></slot>
-          `)
-      }
-    })
+      case 'circular':
+      default:
+        return $(html`
+          <div part="root progress-control progress-circular-control">
+            <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
+            <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
+          </div>
+          <slot></slot>
+          <slot name="current-value"></slot>
+        `)
+    }
+    // })
   }
-
-  // constructor() {
-  //   super()
-  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -98,7 +88,10 @@ export class ProgressView extends HTMLElement {
     debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
+
     this.#lastRenderedStyle = undefined
+
+    this.#cssStyleObserver?.disconnect()
   }
 
   connectedCallback() {
@@ -136,16 +129,6 @@ export class ProgressView extends HTMLElement {
     this.#lastRenderedStyle = this.#progressViewStyle
 
     this.#shadowRoot.replaceChildren(document.importNode(this.#template, true)) // clear shadow DOM
-
-    // CleanupRegistry.unregister(this, 'slots')
-    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
-    // CleanupRegistry.register(
-    //   this,
-    //   () => {
-    //     this.#slots = new Map()
-    //   },
-    //   'slots'
-    // )
 
     switch (
       this.#progressViewStyle

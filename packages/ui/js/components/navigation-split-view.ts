@@ -23,7 +23,7 @@ export class NavigationSplitView extends NavigationView {
     super.disconnectedCallback()
   }
 
-  override  connectedCallback() {
+  override connectedCallback() {
     debug(`${NavigationSplitView.name} ⚡️ connect`)
 
     super.connectedCallback()

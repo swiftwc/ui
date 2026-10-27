@@ -11,19 +11,19 @@ export class NavigationSplitView extends NavigationView {
     super()
   }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${NavigationSplitView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     debug(`${NavigationSplitView.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
-  connectedCallback() {
+  override  connectedCallback() {
     debug(`${NavigationSplitView.name} ⚡️ connect`)
 
     super.connectedCallback()

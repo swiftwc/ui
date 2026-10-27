@@ -253,13 +253,13 @@ export class TextField extends FormAssociatedBase {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback()
 
     this.#validityObservers.unobserveAll()
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback()
 
     // finally

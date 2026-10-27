@@ -16,13 +16,13 @@ export class TabItem extends ButtonBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(btn: HTMLButtonElement) {
+  static override polyfillDisconnectedCallback(btn: HTMLButtonElement) {
     debug(`${TabItem.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(btn)
   }
 
-  static polyfillConnectedCallback(btn: TabItem) {
+  static override polyfillConnectedCallback(btn: TabItem) {
     debug(`${TabItem.name} ⚡️ connect`)
 
     Object.assign(btn, {

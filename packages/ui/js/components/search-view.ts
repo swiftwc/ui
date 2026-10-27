@@ -7,13 +7,13 @@ export class SearchView extends InputBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: InputBase) {
+  static override polyfillDisconnectedCallback(el: InputBase) {
     debug(`${SearchView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: InputBase) {
+  static override polyfillConnectedCallback(el: InputBase) {
     debug(`${SearchView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
@@ -31,7 +31,7 @@ export class SearchView extends InputBase {
     el.type = 'search'
   }
 
-  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static override polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     debug(`${SearchView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLInputElement

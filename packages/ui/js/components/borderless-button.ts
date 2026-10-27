@@ -27,13 +27,13 @@ export class BorderlessButton extends ButtonBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: BorderlessButton) {
+  static override polyfillDisconnectedCallback(el: BorderlessButton) {
     debug(`${BorderlessButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: BorderlessButton) {
+  static override polyfillConnectedCallback(el: BorderlessButton) {
     debug(`${BorderlessButton.name} ⚡️ connect`)
 
     el.tabIndex = 0
@@ -41,7 +41,7 @@ export class BorderlessButton extends ButtonBase {
     CleanupRegistry.register(el, onoff('click', BorderlessButton.#handleClick, el).on())
   }
 
-  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static override polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     debug(`${BorderlessButton.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     const node = target instanceof HTMLButtonElement

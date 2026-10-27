@@ -12,13 +12,13 @@ export class SidebarView extends DialogBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: HTMLDialogElement) {
+  static override polyfillDisconnectedCallback(el: HTMLDialogElement) {
     el.removeEventListener('click', SidebarView.#handleClick)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: HTMLDialogElement) {
+  static override polyfillConnectedCallback(el: HTMLDialogElement) {
     CleanupRegistry.register(el, onoff('click', SidebarView.#handleClick, el).on())
 
     CleanupRegistry.register(

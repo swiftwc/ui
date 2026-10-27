@@ -1,4 +1,4 @@
-import { readFileSync } from 'fs';
+import { readFileSync } from 'node:fs';
 const DIRECT_PARENT_RULES = {
     'v-keyboard': ['template', 'body'],
     'scroll-view': ['template', 'content-view', 'dialog', 'navigation-stack', 'navigation-split-view', 'detail-placeholder'],

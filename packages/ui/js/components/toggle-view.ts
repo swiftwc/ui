@@ -188,7 +188,7 @@ export class ToggleView extends FormAssociatedBase {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback()
 
     if (this.#track) this.#resizeObserver.unobserve(this.#track)
@@ -196,7 +196,7 @@ export class ToggleView extends FormAssociatedBase {
     this.#validityObservers.unobserveAll()
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback()
 
     if (this.hasAttribute('is-on')) this.isOn = this.hasAttribute('is-on')

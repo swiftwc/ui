@@ -12,7 +12,7 @@ export class AlertDialog extends DialogBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: AlertDialog) {
+  static override polyfillDisconnectedCallback(el: AlertDialog) {
     debug(`${AlertDialog.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
@@ -26,7 +26,7 @@ export class AlertDialog extends DialogBase {
     )
   }
 
-  static polyfillConnectedCallback(el: AlertDialog) {
+  static override polyfillConnectedCallback(el: AlertDialog) {
     debug(`${AlertDialog.name} ⚡️ connect`)
 
     CleanupRegistry.register(
@@ -72,7 +72,7 @@ export class AlertDialog extends DialogBase {
     el.showModal()
   }
 
-  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static override polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     debug(`${AlertDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     switch (attributeName) {

@@ -11,7 +11,7 @@ export class NavigationStack extends NavigationView {
     super()
   }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${NavigationStack.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 
     super.attributeChangedCallback(name, oldValue, newValue)
@@ -22,13 +22,13 @@ export class NavigationStack extends NavigationView {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     debug(`${NavigationStack.name} ⚡️ disconnect`)
 
     super.disconnectedCallback()
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     debug(`${NavigationStack.name} ⚡️ connect`)
 
     super.connectedCallback()

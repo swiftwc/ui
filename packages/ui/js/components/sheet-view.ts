@@ -12,13 +12,13 @@ export class SheetView extends DialogBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: SheetView) {
+  static override polyfillDisconnectedCallback(el: SheetView) {
     debug(`${SheetView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: SheetView) {
+  static override polyfillConnectedCallback(el: SheetView) {
     debug(`${SheetView.name} ⚡️ connect`)
 
     CleanupRegistry.register(
@@ -35,7 +35,7 @@ export class SheetView extends DialogBase {
     el.autofocus = true
   }
 
-  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static override polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     debug(`${SheetView.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
   }
 

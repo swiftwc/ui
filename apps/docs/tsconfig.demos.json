@@ -1,12 +1,8 @@
 {
+  "extends": "../../../.config/tsconfig.web.json",
   "compilerOptions": {
-    "target": "ES2022",
-    "module": "ESNext",
-    "moduleResolution": "bundler",
     "rootDir": "src/demos",
     "outDir": "public/demos",
-    "strict": true,
-    "skipLibCheck": true,
     "rewriteRelativeImportExtensions": true
   },
   "include": ["src/demos/**/*.mts"]

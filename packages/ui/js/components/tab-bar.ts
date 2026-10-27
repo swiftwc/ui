@@ -12,7 +12,7 @@ export class TabBar extends DialogBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: HTMLDialogElement) {
+  static override polyfillDisconnectedCallback(el: HTMLDialogElement) {
     debug(`${TabBar.name} ⚡️ disconnect`)
 
     el.removeEventListener('click', TabBar.#handleClick)
@@ -20,7 +20,7 @@ export class TabBar extends DialogBase {
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: HTMLDialogElement) {
+  static override polyfillConnectedCallback(el: HTMLDialogElement) {
     debug(`${TabBar.name} ⚡️ connect`)
 
     el.autofocus = true

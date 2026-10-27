@@ -7,13 +7,13 @@ export class PlainButton extends ButtonBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: PlainButton) {
+  static override polyfillDisconnectedCallback(el: PlainButton) {
     debug(`${PlainButton.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: PlainButton) {
+  static override polyfillConnectedCallback(el: PlainButton) {
     debug(`${PlainButton.name} ⚡️ connect`)
 
     el.tabIndex = 0

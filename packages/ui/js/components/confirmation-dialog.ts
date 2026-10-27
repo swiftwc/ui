@@ -16,7 +16,7 @@ export class ConfirmationDialog extends DialogBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: ConfirmationDialog) {
+  static override polyfillDisconnectedCallback(el: ConfirmationDialog) {
     debug(`${ConfirmationDialog.name} ⚡️ disconnect`)
 
     const positionAnchor = el.style.getPropertyValue('position-anchor')
@@ -35,7 +35,7 @@ export class ConfirmationDialog extends DialogBase {
     )
   }
 
-  static polyfillConnectedCallback(el: ConfirmationDialog) {
+  static override polyfillConnectedCallback(el: ConfirmationDialog) {
     debug(`${ConfirmationDialog.name} ⚡️ connect`)
 
     CleanupRegistry.register(
@@ -82,7 +82,7 @@ export class ConfirmationDialog extends DialogBase {
     el.showModal()
   }
 
-  static polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
+  static override polyfillAttributeChangedCallback([{ attributeName, target, oldValue }]: Pick<MutationRecord, 'attributeName' | 'oldValue' | 'target'>[]) {
     debug(`${ConfirmationDialog.name} ⚡️ attr-change [${attributeName}] ("${oldValue}" → "${(target as HTMLElement).getAttribute(attributeName ?? '')}")`)
 
     // const newValue = (target as HTMLElement).getAttribute(attributeName ?? '')

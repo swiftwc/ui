@@ -1,6 +1,6 @@
 import type { TSESTree } from '@typescript-eslint/utils'
 import type { Linter, RuleContext, RuleListener } from '@typescript-eslint/utils/ts-eslint'
-import { readFileSync } from 'fs'
+import { readFileSync } from 'node:fs'
 
 export type BaseNode = { type: string }
 

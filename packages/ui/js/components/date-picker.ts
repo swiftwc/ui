@@ -161,13 +161,13 @@ export class DatePicker extends FormAssociatedBase {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     super.disconnectedCallback()
 
     this.#validityObservers.unobserveAll()
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     super.connectedCallback()
 
     CleanupRegistry.register(this, onoff('click', this.#handleClick, this).on())

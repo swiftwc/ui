@@ -846,7 +846,7 @@ export class PickerView extends FormAssociatedBase {
     }
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     debug(`${PickerView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
@@ -855,7 +855,7 @@ export class PickerView extends FormAssociatedBase {
     this.#observers.unobserveAll()
   }
 
-  connectedCallback() {
+  override connectedCallback() {
     debug(`${PickerView.name} ⚡️ connect`)
 
     CleanupRegistry.register(

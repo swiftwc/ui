@@ -6,7 +6,7 @@ export class ScreenView extends DialogBase {
     super()
   }
 
-  disconnectedCallback() {
+  override disconnectedCallback() {
     debug(`${ScreenView.name} ⚡️ disconnect`)
   }
 }

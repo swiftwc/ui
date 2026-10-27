@@ -29,19 +29,19 @@ export class DisclosureGroup extends DetailsBase {
     super()
   }
 
-  attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
+  override attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${DisclosureGroup.name} ⚡️ attr-change [${name}]`)
 
     // if (CSS.supports('interpolate-size', 'allow-keywords')) return
   }
 
-  static polyfillDisconnectedCallback(el: DisclosureGroup) {
+  static override polyfillDisconnectedCallback(el: DisclosureGroup) {
     debug(`${DisclosureGroup.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: DisclosureGroup) {
+  static override polyfillConnectedCallback(el: DisclosureGroup) {
     debug(`${DisclosureGroup.name} ⚡️ connect`)
 
     const newValue = el.open ? 'open' : 'closed'

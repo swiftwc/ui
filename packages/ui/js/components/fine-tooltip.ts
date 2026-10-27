@@ -128,7 +128,7 @@ export class FineTooltip extends HTMLElement {
     this.toggleAttribute('open', 'open' === evt.newState)
   }
 
-  hidePopover(): void {
+  override hidePopover(): void {
     if (this.hasAttribute('closing')) return
 
     this.setAttribute('closing', '')

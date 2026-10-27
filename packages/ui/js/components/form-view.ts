@@ -14,7 +14,7 @@ export class FormView extends FormBase {
     super()
   }
 
-  static polyfillDisconnectedCallback(el: HTMLFormElement) {
+  static override polyfillDisconnectedCallback(el: HTMLFormElement) {
     debug(`${FormView.name} ⚡️ disconnect`)
 
     // finally
@@ -22,7 +22,7 @@ export class FormView extends FormBase {
     CleanupRegistry.unregister(el)
   }
 
-  static polyfillConnectedCallback(el: HTMLFormElement) {
+  static override polyfillConnectedCallback(el: HTMLFormElement) {
     debug(`${FormView.name} ⚡️ connect`)
 
     if (el.closest('[is=sidebar-view],[is=tab-bar]')) {

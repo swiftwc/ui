@@ -1,7 +1,8 @@
 import type { ToggleChangeDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
+import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
+import { internals, shadowRoot } from '../internal/decorators'
 import { $, debug, kebabCase, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -63,11 +64,16 @@ export class ToggleView extends FormAssociatedBase {
     this.setValidity(this.validity, this.validationMessage)
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+
+  @internals() readonly #internals: ElementInternals = undefined!
+
+  // @slots() readonly #slots: SlotLookup = undefined!
 
   #customValidity: string = ''
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
 
   #track?: HTMLElement
@@ -100,24 +106,28 @@ export class ToggleView extends FormAssociatedBase {
     return '0ms' === this.#track?.style.getPropertyValue('--toggle--dot-transition-duration')
   }
 
-  get #internals(): ElementInternals {
-    return getInternals(this)
-  }
+  // get #internals(): ElementInternals {
+  //   return getInternals(this)
+  // }
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToggleView).template, true))
 
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(this, () => {
-      this.#slots = new Map()
-    })
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(this, () => {
+    //   this.#slots = new Map()
+    // })
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(
+      this,
+      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
+      'validities'
+    )
 
     this.#track = this.#shadowRoot.querySelector('[part*=toggle-track]') ?? undefined
 
@@ -445,7 +455,7 @@ export class ToggleView extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`)?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const { label, value } = el as HTMLOptionElement

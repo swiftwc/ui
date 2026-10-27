@@ -1,6 +1,7 @@
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
+import { shadowRoot } from '../internal/decorators'
 
 // curency:el-GR-u-cu-eur-cf-account
 interface ParsedFormat {
@@ -69,12 +70,13 @@ export class LabeledContent extends HTMLElement {
     `))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabeledContent).template, true))
   }

@@ -2,6 +2,7 @@ import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { $, debug, onoff, touchGlass } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
+import { shadowRoot } from '../internal/decorators'
 
 /**
  * @summary A control that opens a menu of actions.
@@ -31,14 +32,15 @@ export class MenuView extends HTMLElement {
     ))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   #dialog?: HTMLDialogElement
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof MenuView).template, true))
   }

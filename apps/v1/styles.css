@@ -3141,7 +3141,7 @@
       --label--overflow: if(style(--label-truncation-mode: tail): hidden; );
       --label--text-overflow: if(style(--label-truncation-mode: tail): ellipsis; );
       --label--host-white-space: if(style(--label-line-limit: 1): nowrap; style(--label-line-limit: 2): normal; );
-      --label--titlestack-display: if(style(--label-line-limit: 2): -webkit-box; );
+      --label--titlestack-shown: if(style(--label-line-limit: 1): inline-block; style(--label-line-limit: 2): -webkit-box; );
       --label--box-orient: if(style(--label-line-limit: 2): vertical; );
       --label--line-clamp: if(style(--label-line-limit: 2): 2; );
       --label--host-align-items: if(style(--label-flow: vertical): normal ; else: center ;);
@@ -3160,8 +3160,8 @@
         style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
       );
       --label--titlestack-display: if(
-        style(--label-style: icon-only): none ; style(--label-style: title-only): inline-block ; style(--label-style: title-and-icon): inline-block ;
-          else: if(style(--label--has-title: yes): inline-block ; else: none;) ;
+        style(--label-style: icon-only): none ; style(--label-style: title-only): var(--label--titlestack-shown, inline-block) ;
+          style(--label-style: title-and-icon): var(--label--titlestack-shown, inline-block) ; else: if(style(--label--has-title: yes): var(--label--titlestack-shown, inline-block) ; else: none ;) ;
       );
     }
   }
@@ -3179,7 +3179,7 @@
         --label-style: title-only;
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container style(--label-style: title-and-icon) {
@@ -3190,7 +3190,7 @@
         --label--host-align-items: center;
         --label--host-justify-items: normal;
         --label--iconstack-display: grid;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     :where(label-view[label-style=icon-only]) {
@@ -3203,7 +3203,7 @@
       --label-style: title-only;
       --label--host-align-items: center;
       --label--host-justify-items: normal;
-      --label--titlestack-display: inline-block;
+      --label--titlestack-display: var(--label--titlestack-shown, inline-block);
     }
     :where(label-view[label-style=title-and-icon]) {
       --label-style: title-and-icon;
@@ -3212,7 +3212,7 @@
       --label--host-align-items: center;
       --label--host-justify-items: normal;
       --label--iconstack-display: grid;
-      --label--titlestack-display: inline-block;
+      --label--titlestack-display: var(--label--titlestack-shown, inline-block);
     }
     @container not style(--label-style) {
       :where(label-view:not([label-style]):has(> [slot=icon]):has(> :not([slot]))) {
@@ -3222,7 +3222,7 @@
         --label--host-align-items: center;
         --label--host-justify-items: normal;
         --label--iconstack-display: grid;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
       :where(label-view:not([label-style]):has(> [slot=icon]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
@@ -3234,7 +3234,7 @@
         --label-style: title-only;
         --label--host-align-items: center;
         --label--host-justify-items: normal;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container style(--label-style: icon-only) and style(--label-flow: vertical) {
@@ -3250,7 +3250,7 @@
         --label-style: title-only;
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container style(--label-style: title-and-icon) and style(--label-flow: vertical) {
@@ -3261,7 +3261,7 @@
         --label--host-align-items: normal;
         --label--host-justify-items: center;
         --label--iconstack-display: grid;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container style(--label-flow: vertical) {
@@ -3275,7 +3275,7 @@
         --label-style: title-only;
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
       :where(label-view[label-style=title-and-icon]) {
         --label-style: title-and-icon;
@@ -3284,7 +3284,7 @@
         --label--host-align-items: normal;
         --label--host-justify-items: center;
         --label--iconstack-display: grid;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container (not style(--label-style)) and style(--label-flow: vertical) {
@@ -3295,7 +3295,7 @@
         --label--host-align-items: normal;
         --label--host-justify-items: center;
         --label--iconstack-display: grid;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
       :where(label-view:not([label-style]):has(> [slot=icon]):not(:has(> :not([slot])))) {
         --label-style: icon-only;
@@ -3307,23 +3307,25 @@
         --label-style: title-only;
         --label--host-align-items: normal;
         --label--host-justify-items: center;
-        --label--titlestack-display: inline-block;
+        --label--titlestack-display: var(--label--titlestack-shown, inline-block);
       }
     }
     @container style(--label-line-limit: 1) {
       :where(label-view) {
         --label--host-white-space: nowrap;
+        --label--titlestack-shown: inline-block;
       }
     }
     @container not style(--label-line-limit: 1) {
       :where(label-view[line-limit="1"]) {
         --label--host-white-space: nowrap;
+        --label--titlestack-shown: inline-block;
       }
     }
     @container style(--label-line-limit: 2) {
       :where(label-view) {
         --label--host-white-space: normal;
-        --label--titlestack-display: -webkit-box;
+        --label--titlestack-shown: -webkit-box;
         --label--box-orient: vertical;
         --label--line-clamp: 2;
       }
@@ -3331,7 +3333,7 @@
     @container not style(--label-line-limit: 2) {
       :where(label-view[line-limit="2"]) {
         --label--host-white-space: normal;
-        --label--titlestack-display: -webkit-box;
+        --label--titlestack-shown: -webkit-box;
         --label--box-orient: vertical;
         --label--line-clamp: 2;
       }
@@ -3556,8 +3558,12 @@
     container: text-view/inline-size;
     --text-view--p-margin-block-start: 1rem;
   }
-  text-view[prose] p {
+  text-view[prose] p,
+  text-view[prose] hr {
     margin-block-start: var(--text-view--p-margin-block-start);
+  }
+  text-view[prose] hr {
+    opacity: 10%;
   }
   :where(text-view[prose] h1) {
     font-size: clamp(1rem, var(--text-view--h1-font-size) + 0.5rem, 3rem);

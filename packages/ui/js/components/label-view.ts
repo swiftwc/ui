@@ -1,3 +1,4 @@
+import { shadowRoot } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -49,14 +50,15 @@ export class LabelView extends HTMLElement {
     // </div>`
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   // #reflectScheduled = false
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof LabelView).template, true))
   }

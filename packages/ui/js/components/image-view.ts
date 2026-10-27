@@ -1,3 +1,4 @@
+import { shadowRoot } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -20,12 +21,13 @@ export class ImageView extends HTMLElement {
     return (this.#template ??= $(html`<slot></slot>`))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ImageView).template, true))
   }

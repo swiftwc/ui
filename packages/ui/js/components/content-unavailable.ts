@@ -1,5 +1,6 @@
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
+import { shadowRoot } from '../internal/decorators'
 import { $, debug, onoff } from '../internal/utils'
 import { html } from '../tpl'
 
@@ -40,22 +41,22 @@ export class ContentUnavailable extends HTMLElement {
     ))
   }
 
-  #shadowRoot
-
-  #slots
+  // #shadowRoot
+  // #slots
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ContentUnavailable).template, true))
 
-    this.#slots = {
-      '': this.#shadowRoot.querySelector('slot:not([name])') ?? undefined,
-      description: this.#shadowRoot.querySelector('slot[name="description"]') ?? undefined,
-      actions: this.#shadowRoot.querySelector('slot[name="actions"]') ?? undefined,
-    } as const
+    // this.#slots = {
+    //   '': this.#shadowRoot.querySelector('slot:not([name])') ?? undefined,
+    //   description: this.#shadowRoot.querySelector('slot[name="description"]') ?? undefined,
+    //   actions: this.#shadowRoot.querySelector('slot[name="actions"]') ?? undefined,
+    // } as const
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {

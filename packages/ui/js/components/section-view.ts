@@ -1,3 +1,4 @@
+import { shadowRoot } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -31,12 +32,13 @@ export class SectionView extends HTMLElement {
     // <div class="sticky-sentinel" style="grid-area:sentinel;inline-size:100%;block-size:0.1px;pointer-events:none;"></div>
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof SectionView).template, true))
   }

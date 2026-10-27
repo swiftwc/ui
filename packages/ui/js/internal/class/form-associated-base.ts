@@ -1,17 +1,13 @@
 import { debug } from '../../internal/utils'
+import { internals } from '../decorators'
 import { CleanupRegistry } from './cleanup-registry'
 
-const internals = new WeakMap<FormAssociatedBase, ElementInternals>()
-
-// const trackedElements = new WeakMap<FormAssociatedBase, Set<Element>>()
-
-// const observers = new MutationObserverSingleton()
-
-export function getInternals(instance: FormAssociatedBase): ElementInternals {
-  const i = internals.get(instance)
-  if (!i) throw new Error('Not a FormAssociatedBase instance')
-  return i
-}
+// const internals = new WeakMap<FormAssociatedBase, ElementInternals>()
+// export function getInternals(instance: FormAssociatedBase): ElementInternals {
+//   const i = internals.get(instance)
+//   if (!i) throw new Error('Not a FormAssociatedBase instance')
+//   return i
+// }
 
 // export function makeSlotchangeHandler(t: FormAssociatedBase) {
 //   const handleSlotchange = ({ type, target: slot }: Event) => {
@@ -41,13 +37,12 @@ export abstract class FormAssociatedBase extends HTMLElement {
     return true
   }
 
-  constructor() {
-    super()
-
-    internals.set(this, this.attachInternals()) //internals.set(this, this.attachInternals?.())
-
-    // trackedElements.set(this, new Set<Element>())
-  }
+  @internals() readonly #internals: ElementInternals = undefined!
+  // constructor() {
+  //   super()
+  //   internals.set(this, this.attachInternals()) //internals.set(this, this.attachInternals?.())
+  //   // trackedElements.set(this, new Set<Element>())
+  // }
 
   disconnectedCallback() {
     debug(`${FormAssociatedBase.name} ⚡️ disconnect`)
@@ -65,24 +60,24 @@ export abstract class FormAssociatedBase extends HTMLElement {
     return this.localName
   }
   get form() {
-    return getInternals(this).form
+    return this.#internals.form
   }
 
   get validity() {
-    return getInternals(this).validity
+    return this.#internals.validity
   }
   get validationMessage() {
-    return getInternals(this).validationMessage
+    return this.#internals.validationMessage
   }
   get willValidate() {
-    return getInternals(this).willValidate
+    return this.#internals.willValidate
   }
 
   checkValidity = () => {
-    return getInternals(this).checkValidity()
+    return this.#internals.checkValidity()
   }
   reportValidity = () => {
-    return getInternals(this).reportValidity()
+    return this.#internals.reportValidity()
   }
 
   shake = async (times = 3, distance = 8, duration = 400) => {

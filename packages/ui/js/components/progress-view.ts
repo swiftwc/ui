@@ -1,5 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
+import { shadowRoot } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
@@ -28,9 +29,11 @@ export class ProgressView extends HTMLElement {
 
   #lastRenderedStyle?: ProgressViewStyle
 
-  #shadowRoot
+  // #shadowRoot
+  // #slots: Map<string, HTMLSlotElement> = new Map()
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // @slots() readonly #slots: SlotLookup = undefined!
 
   get progressViewStyle() {
     return this.#progressViewStyle ?? 'circular'
@@ -66,11 +69,10 @@ export class ProgressView extends HTMLElement {
     })
   }
 
-  constructor() {
-    super()
-
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  }
+  // constructor() {
+  //   super()
+  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${ProgressView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -96,6 +98,7 @@ export class ProgressView extends HTMLElement {
     debug(`${ProgressView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
+    this.#lastRenderedStyle = undefined
   }
 
   connectedCallback() {
@@ -134,15 +137,15 @@ export class ProgressView extends HTMLElement {
 
     this.#shadowRoot.replaceChildren(document.importNode(this.#template, true)) // clear shadow DOM
 
-    CleanupRegistry.unregister(this, 'slots')
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(
-      this,
-      () => {
-        this.#slots = new Map()
-      },
-      'slots'
-    )
+    // CleanupRegistry.unregister(this, 'slots')
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(
+    //   this,
+    //   () => {
+    //     this.#slots = new Map()
+    //   },
+    //   'slots'
+    // )
 
     switch (
       this.#progressViewStyle

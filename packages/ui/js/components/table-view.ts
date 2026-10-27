@@ -1,6 +1,7 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { CSSStyleObserver } from '../internal/class/css-style-observer'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
+import { shadowRoot } from '../internal/decorators'
 import { $, debug, listActive, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { Snapshot } from '../snapshot'
@@ -61,23 +62,25 @@ export class TableView extends HTMLElement {
     ))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  // #slots: Map<string, HTMLSlotElement> = new Map()
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // @slots() readonly #slots: SlotLookup = undefined!
 
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof TableView).template, true))
 
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(this, () => {
-      this.#slots = new Map()
-    })
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(this, () => {
+    //   this.#slots = new Map()
+    // })
 
-    this.#slots?.get('column')?.addEventListener('slotchange', this.#handleColumnSlotchange)
+    this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="column"]`)?.addEventListener('slotchange', this.#handleColumnSlotchange)
   }
 
   disconnectedCallback() {
@@ -132,7 +135,7 @@ export class TableView extends HTMLElement {
 
     this.#compactToolbarItem.innerHTML = `<label-view slot="label" system-image="dots-three"></label-view>`
 
-    for (const node of this.#slots?.get('column')?.assignedElements({ flatten: true }) ?? []) {
+    for (const node of this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="column"]`)?.assignedElements({ flatten: true }) ?? []) {
       if (!node.matches('[is=table-column]')) continue
 
       const btn = $(
@@ -175,8 +178,8 @@ export class TableView extends HTMLElement {
         if (!this.#compactToolbarItem) break
 
         if (
-          !this.#slots
-            ?.get('column')
+          !this.#shadowRoot
+            .querySelector<HTMLSlotElement>(`slot[name="column"]`)
             ?.assignedElements()
             .filter((el) => el.matches(':is(button[is=table-column])')).length
         )

@@ -1,4 +1,5 @@
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { shadowRoot } from '../internal/decorators'
 import { $, debug } from '../internal/utils'
 import { html } from '../tpl'
 
@@ -53,7 +54,8 @@ export class ToolBar extends HTMLElement {
     ))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
   get #scrollView() {
     return this.parentElement?.querySelector<HTMLElement>(':scope>scroll-view') ?? undefined //this.previousElementSibling ?? undefined
@@ -62,7 +64,7 @@ export class ToolBar extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ToolBar).template, true))
   }

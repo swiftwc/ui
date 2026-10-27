@@ -2,9 +2,10 @@ import type { PickerSearchableDetail, PickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { DictEntry, Dictionary } from '../internal/class/dict-entry'
-import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
+import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
 import { NavigationPath } from '../internal/class/navigation-path'
+import { internals, shadowRoot } from '../internal/decorators'
 import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
 import { $, ancestors, debug, kebabCase, onoff } from '../internal/utils'
 import { queryMorph } from '../morphdom'
@@ -481,9 +482,14 @@ export class PickerView extends FormAssociatedBase {
 
   #lastRenderedStyle?: PickerStyle //string | null
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  @internals() readonly #internals: ElementInternals = undefined!
+
+  // @slots() readonly #slots: SlotLookup = undefined!
+
+  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
   #observers = new MutationObserverSet(this.#renderSlotted)
 
@@ -522,9 +528,9 @@ export class PickerView extends FormAssociatedBase {
     return (this.getAttribute('current-value-icon') ?? '') || this.#lastRenderedIconMap[this.#selection]
   }
 
-  get #internals(): ElementInternals {
-    return getInternals(this)
-  }
+  // get #internals(): ElementInternals {
+  //   return getInternals(this)
+  // }
 
   get template(): DocumentFragment {
     return PickerView.#templates.getOrInsertComputed(this.pickerStyle, () => {
@@ -640,11 +646,10 @@ export class PickerView extends FormAssociatedBase {
     })
   }
 
-  constructor() {
-    super()
-
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  }
+  // constructor() {
+  //   super()
+  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -722,7 +727,7 @@ export class PickerView extends FormAssociatedBase {
     debug(`${PickerView.name} ⚡️ disconnect`)
 
     CleanupRegistry.unregister(this)
-
+    this.#lastRenderedStyle = undefined
     this.#validityObservers.unobserveAll()
     this.#observers.unobserveAll()
   }
@@ -745,7 +750,8 @@ export class PickerView extends FormAssociatedBase {
 
     CleanupRegistry.register(this, onoff('input', this.#handleInput, this).on())
 
-    if (!this.hasAttribute('picker-style')) this.#render() // skip if already rendered by attr-change during upgrade!
+    // if (!this.hasAttribute('picker-style')) this.#render() // skip if already rendered by attr-change during upgrade!
+    this.#render() // unconditional; guard skips it on first connect, because attr-change already rendered
 
     // finally
     if (!this.hasAttribute('selection')) return
@@ -764,7 +770,7 @@ export class PickerView extends FormAssociatedBase {
   #resolveSource(): Dictionary {
     if (this.hasAttribute('dictionary')) return Dictionary.parse(this.getAttribute('dictionary'))
 
-    return Dictionary.fromElements(this.#slots?.get('list')?.assignedElements({ flatten: true }) ?? [])
+    return Dictionary.fromElements(this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="list"]`)?.assignedElements({ flatten: true }) ?? [])
   }
 
   #render() {
@@ -777,21 +783,25 @@ export class PickerView extends FormAssociatedBase {
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
-    CleanupRegistry.unregister(this, 'slots')
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(
-      this,
-      () => {
-        this.#slots = new Map()
-      },
-      'slots'
-    )
+    // CleanupRegistry.unregister(this, 'slots')
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(
+    //   this,
+    //   () => {
+    //     this.#slots = new Map()
+    //   },
+    //   'slots'
+    // )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(
+      this,
+      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
+      'validities'
+    )
 
     CleanupRegistry.unregister(this, 'datalist') //off1()
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleListSlotchange, this.#slots?.get('list')).on(), 'datalist')
+    CleanupRegistry.register(this, onoff('slotchange', this.#handleListSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="list"]`) ?? undefined).on(), 'datalist')
 
     // #renderSlotted should run automatically now by slotchange initial event
 
@@ -1354,7 +1364,7 @@ export class PickerView extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`)?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const { label, value } = el as HTMLOptionElement

@@ -1,8 +1,9 @@
 import type { DatePickerSelectionDetail } from '../events'
 import { I18n } from '../i18n'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase, getInternals } from '../internal/class/form-associated-base'
+import { FormAssociatedBase } from '../internal/class/form-associated-base'
 import { MutationObserverSet } from '../internal/class/mutation-observer-set'
+import { internals, shadowRoot } from '../internal/decorators'
 import { $, clamp, debug, kebabCase, onoff, set } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -53,19 +54,24 @@ export class DatePicker extends FormAssociatedBase {
     this.setValidity(this.validity, this.validationMessage)
   }
 
-  #shadowRoot
+  // #shadowRoot
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
+
+  @internals() readonly #internals: ElementInternals = undefined!
+
+  // @slots() readonly #slots: SlotLookup = undefined!
 
   #customValidity: string = ''
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // #slots: Map<string, HTMLSlotElement> = new Map()
   #validityObservers = new MutationObserverSet(this.#renderValidityMsgs)
   // #validitiesSlot?: HTMLSlotElement
 
   #inputs: DateInput[] = []
 
-  get #internals(): ElementInternals {
-    return getInternals(this)
-  }
+  // get #internals(): ElementInternals {
+  //   return getInternals(this)
+  // }
 
   get template(): DocumentFragment {
     return DatePicker.#templates.getOrInsertComputed(this.datePickerStyle, () => {
@@ -90,11 +96,10 @@ export class DatePicker extends FormAssociatedBase {
     })
   }
 
-  constructor() {
-    super()
-
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  }
+  // constructor() {
+  //   super()
+  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${DatePicker.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
@@ -182,18 +187,22 @@ export class DatePicker extends FormAssociatedBase {
     // clear shadow DOM
     this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
 
-    CleanupRegistry.unregister(this, 'slots')
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(
-      this,
-      () => {
-        this.#slots = new Map()
-      },
-      'slots'
-    )
+    // CleanupRegistry.unregister(this, 'slots')
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(
+    //   this,
+    //   () => {
+    //     this.#slots = new Map()
+    //   },
+    //   'slots'
+    // )
 
     CleanupRegistry.unregister(this, 'validities')
-    CleanupRegistry.register(this, onoff('slotchange', this.#handleValiditiesSlotchange, this.#slots?.get('validity-options')).on(), 'validities')
+    CleanupRegistry.register(
+      this,
+      onoff('slotchange', this.#handleValiditiesSlotchange, this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`) ?? undefined).on(),
+      'validities'
+    )
 
     switch (this.datePickerStyle) {
       default:
@@ -543,7 +552,7 @@ export class DatePicker extends FormAssociatedBase {
       const key = k as keyof ValidityStateFlags // ✅ type-safe cast
       if (true !== flags[key]) continue
 
-      for (const el of this.#slots?.get('validity-options')?.assignedElements({ flatten: true }) ?? []) {
+      for (const el of this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="validity-options"]`)?.assignedElements({ flatten: true }) ?? []) {
         if (!el.matches('option')) continue
 
         const { label, value } = el as HTMLOptionElement

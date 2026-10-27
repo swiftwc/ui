@@ -2,6 +2,7 @@ import { lifecycleObserver } from '../buses'
 import type { BeforetabswapEvent, PageShowHideDetail } from '../events'
 import { CleanupRegistry } from '../internal/class/cleanup-registry'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
+import { shadowRoot } from '../internal/decorators'
 import { $, debug, frame, onoff, slowHideShow } from '../internal/utils'
 import { queryMorph } from '../morphdom'
 import { html } from '../tpl'
@@ -48,9 +49,11 @@ export class ScrollView extends HTMLElement {
     ))
   }
 
-  #shadowRoot
+  // #shadowRoot
+  // #slots: Map<string, HTMLSlotElement> = new Map()
+  @shadowRoot() readonly #shadowRoot: ShadowRoot = undefined!
 
-  #slots?: Map<string, HTMLSlotElement> = new Map()
+  // @slots() readonly #slots: SlotLookup = undefined!
 
   #isMidScroll?: boolean
 
@@ -62,14 +65,14 @@ export class ScrollView extends HTMLElement {
   constructor() {
     super()
 
-    this.#shadowRoot = this.attachShadow({ mode: 'closed' })
+    // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
 
     this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ScrollView).template, true))
 
-    for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots?.set(slot.name, slot)
-    CleanupRegistry.register(this, () => {
-      this.#slots = new Map()
-    })
+    // for (const slot of this.#shadowRoot.querySelectorAll<HTMLSlotElement>('slot')) this.#slots.set(slot.name, slot)
+    // CleanupRegistry.register(this, () => {
+    //   this.#slots = new Map()
+    // })
   }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
@@ -162,7 +165,7 @@ export class ScrollView extends HTMLElement {
 
     if (!this.#isMidScroll) return
 
-    const title = this.#slots?.get('top-bar-principal')?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
+    const title = this.#shadowRoot.querySelector<HTMLSlotElement>(`slot[name="top-bar-principal"]`)?.assignedElements({ flatten: true })?.at(0) as HTMLElement | undefined
 
     slowHideShow('largeinline' === `${comp}` ? 'show' : 'hide', title)
   }

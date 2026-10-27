@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.6
+
+### Patch Changes
+
+- 1e7d0a8: added ddecorators
+
 ## 1.0.1-canary.5
 
 ### Patch Changes

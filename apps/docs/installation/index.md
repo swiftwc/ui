@@ -51,7 +51,7 @@ If you are building an always online app, the easiest way to add SwiftWC is by u
     <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@0.0.0-dev.8/generated/css/index.css" />
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@latest/generated/css/index.css" />
     <!-- [!code focus] -->
     <!-- [!code ++] -->
     <script type="module" src="https://cdn.jsdelivr.net/npm/@swiftwc/ui@latest/generated/client/index.js"></script>
@@ -121,6 +121,24 @@ If you are building an always online app, the easiest way to add SwiftWC is by u
     <!-- [!code focus] -->
     <!-- [!code ++] -->
     <script type="module" src="https://unpkg.com/@swiftwc/ui@canary/client"></script>
+  </head>
+</html>
+```
+
+```html [jsDelivr]
+<!doctype html>
+<html>
+  <head>
+    <!-- [!code focus] -->
+    <script src="https://cdn.jsdelivr.net/npm/@phosphor-icons/web"></script>
+    <!-- [!code focus] -->
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@swiftwc/ui@canary/generated/css/index.css" />
+    <!-- [!code focus] -->
+    <!-- [!code ++] -->
+    <script type="module" src="https://cdn.jsdelivr.net/npm/@swiftwc/ui@canary/generated/client/index.js"></script>
   </head>
 </html>
 ```

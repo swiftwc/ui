@@ -37,41 +37,6 @@ export class ProgressView extends HTMLElement {
   }
 
   get #template(): DocumentFragment {
-    // if (!ProgressView.#templates.has(this.progressViewStyle))
-    //   switch (this.progressViewStyle) {
-    //     case 'linear':
-    //       ProgressView.#templates.set(
-    //         this.progressViewStyle,
-    //         $(html`
-    //           <slot></slot>
-    //           <div part="root progress-control progress-line-control"></div>
-    //           <slot name="current-value"></slot>
-    //         `)
-    //       )
-    //       break
-    //     case 'circular':
-    //     default:
-    //       ProgressView.#templates.set(
-    //         this.progressViewStyle,
-    //         $(html`
-    //           <div part="root progress-control progress-circular-control">
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-1"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-2"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-3"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-4"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-5"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-6"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-7"></div>
-    //             <div part="root progress-control progress-circular-blade progress-circular-blade-8"></div>
-    //           </div>
-    //           <slot></slot>
-    //           <slot name="current-value"></slot>
-    //         `)
-    //       )
-    //       break
-    //   }
-    // return ProgressView.#templates.get(this.progressViewStyle)!
-
     return ProgressView.#templates.getOrInsertComputed(this.progressViewStyle, () => {
       switch (this.progressViewStyle) {
         case 'linear':

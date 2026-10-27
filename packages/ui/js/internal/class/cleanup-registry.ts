@@ -8,16 +8,6 @@ export class CleanupRegistry {
       .getOrInsertComputed(target, () => new Map())
       .getOrInsertComputed(unregisterToken, () => new Set())
       .add(heldValue)
-
-    // let tokens = this.#cleanups.get(target)
-
-    // if (!tokens) this.#cleanups.set(target, (tokens = new Map()))
-
-    // let fns = tokens.get(unregisterToken)
-
-    // if (!fns) tokens.set(unregisterToken, (fns = new Set()))
-
-    // fns.add(heldValue)
   }
 
   static unregister(target: Element, token?: string | symbol) {

@@ -7,17 +7,10 @@ import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, Pro
 import gonzales from 'gonzales-pe'
 // @ts-expect-error no types available
 import type { Node } from 'gonzales-pe'
+import { kebabCase } from '../js/internal/utils/index.js'
 
-const kebabCase = (str: string) =>
-    str
-      // Replace uppercase letters with - + lowercase
-      .replace(/([A-Z])/g, '-$1')
-      // Replace spaces and underscores with -
-      .replace(/[\s_]+/g, '-')
-      // Convert to lowercase
-      .toLowerCase()
-      // Remove leading/trailing dashes
-      .replace(/^-+|-+$/g, ''),
+const range = (n: number, fmt = (i: number) => String(i)) => Array.from({ length: n }, (_, i) => fmt(i)),
+  leadingComment = (node: { getLeadingCommentRanges(): { getText(): string }[] }) => node.getLeadingCommentRanges().at(0)?.getText().trim(),
   extractTag = (str: string) => {
     let depth = 0,
       start = -1,
@@ -294,6 +287,7 @@ interface VsHtmlDataTag {
   references?: VsHtmlReferenceAttr[]
 }
 
+//#region htmlData
 // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.schema.json
 const htmlData: VsHtmlDataV1 = {
   version: 1.1,
@@ -343,10 +337,10 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$label-fonts-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
+          .map(([name]) => ({
+            name,
             description: `The font used ${(() => {
-              switch (item[0]) {
+              switch (name) {
                 case 'extra-large-title2':
                   return 'second level extra large titles'
                 case 'extra-large-title':
@@ -372,7 +366,7 @@ const htmlData: VsHtmlDataV1 = {
                 case 'footnote':
                   return 'in footnotes'
                 default:
-                  return `the ${item[0]} size`
+                  return `the ${name} size`
               }
             })()}`,
           }))
@@ -385,9 +379,9 @@ const htmlData: VsHtmlDataV1 = {
     {
       name: 'Tint',
       values:
-        names.get('$tint-names')?.map((item) => ({
-          name: item,
-          description: tintDescriptions.has(item) ? tintDescriptions.get(item) : `System \`${item}\` color`,
+        names.get('$tint-names')?.map((name) => ({
+          name,
+          description: tintDescriptions.has(name) ? tintDescriptions.get(name) : `System \`${name}\` color`,
         })) ?? [],
     },
     {
@@ -396,9 +390,9 @@ const htmlData: VsHtmlDataV1 = {
         tokens
           .get('$foreground-tokens')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
-            description: `Applies the system ${0 <= item[0].indexOf('.') ? `${item[0].split('.').pop()} ` : ''}${item[0].split('.').shift()} color (\`${item[1]}\`)`,
+          .map(([name, description]) => ({
+            name,
+            description: `Applies the system ${0 <= name.indexOf('.') ? `${name.split('.').pop()} ` : ''}${name.split('.').shift()} color (\`${description}\`)`,
           }))
           .toArray() ?? [],
     },
@@ -408,9 +402,9 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$inline-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
-            description: `Applies \`${item[1].join(' ')}\` rules`,
+          .map(([name, description]) => ({
+            name,
+            description: `Applies \`${description.join(' ')}\` rules`,
           }))
           .toArray() ?? [],
     },
@@ -420,9 +414,9 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$block-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
-            description: `Applies \`${item[1].join(' ')}\` rules`,
+          .map(([name, description]) => ({
+            name,
+            description: `Applies \`${description.join(' ')}\` rules`,
           }))
           .toArray() ?? [],
     },
@@ -432,9 +426,9 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$inline-placement-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
-            description: `Applies \`${item[1].join(' ')}\` rules`,
+          .map(([name, description]) => ({
+            name,
+            description: `Applies \`${description.join(' ')}\` rules`,
           }))
           .toArray() ?? [],
     },
@@ -444,9 +438,9 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$block-placement-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
-            description: `Applies \`${item[1].join(' ')}\` rules`,
+          .map(([name, description]) => ({
+            name,
+            description: `Applies \`${description.join(' ')}\` rules`,
           }))
           .toArray() ?? [],
     },
@@ -456,10 +450,10 @@ const htmlData: VsHtmlDataV1 = {
         maps
           .get('$button-sizes-map')
           ?.entries()
-          .map((item) => ({
-            name: item[0],
+          .map(([name]) => ({
+            name,
             description: `A control version that is ${(() => {
-              switch (item[0]) {
+              switch (name) {
                 case 'mini':
                   return 'minimally sized'
                 case 'small':
@@ -469,7 +463,7 @@ const htmlData: VsHtmlDataV1 = {
                 case 'extra-large':
                   return 'substantially sized. The largest control size'
                 default:
-                  return `the ${item[0]} size`
+                  return `the ${name} size`
               }
             })()}`,
           }))
@@ -485,11 +479,7 @@ const htmlData: VsHtmlDataV1 = {
     },
     {
       name: 'FrameInlineLength',
-      values: [
-        { name: 'infinity', description: '100%' },
-        ...Array.from({ length: 101 }, (_, i) => ({ name: String(i), description: `${i}rem` })),
-        ...Array.from({ length: 101 }, (_, i) => ({ name: `${String(i)}cqi`, description: `${i}cqi` })),
-      ],
+      values: [{ name: 'infinity', description: '100%' }, ...range(101).map((n) => ({ name: n, description: `${n}rem` })), ...range(101, (i) => `${i}cqi`).map((n) => ({ name: n, description: n }))],
     },
     {
       name: 'BackgroundStyle',
@@ -503,7 +493,9 @@ const htmlData: VsHtmlDataV1 = {
     },
   ],
 }
+//#endregion
 
+//#region cssData
 const cssData = {
   version: 1.1,
   properties: [
@@ -521,7 +513,9 @@ const cssData = {
     },
   ],
 }
+//#endregion
 
+//#region customElements
 const customElements: CustomElementDataV2 = {
   schemaVersion: '2.1.0',
   readme: 'README.md',
@@ -617,17 +611,12 @@ for (const sourceFile of project.getSourceFiles()) {
       name: is,
     }
 
+    const [decl] = module.declarations,
+      lifecycle = new Set(['attributeChangedCallback', 'connectedCallback', 'disconnectedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback', 'formStateRestoreCallback'])
+
     for (const m of getters) {
       const readonly = !setters.has(m.getName())
-      const leading = m
-        .getLeadingCommentRanges()
-        .values()
-        .map((c) => c.getText().trim())
-        .next().value
-      // m
-      //   .getLeadingCommentRanges()
-      //   .map((c) => c.getText().trim())
-      //   .at(0)
+      const leading = leadingComment(m)
 
       const propTypeText = m?.getType().getText(m, TypeFormatFlags.NoTruncation)
 
@@ -638,7 +627,7 @@ for (const sourceFile of project.getSourceFiles()) {
 
         d = description
       }
-      ;(module.declarations[0].members ??= []).push({
+      ;(decl.members ??= []).push({
         kind: 'field',
         name: m.getName(),
         readonly,
@@ -647,23 +636,14 @@ for (const sourceFile of project.getSourceFiles()) {
           text: propTypeText, //`${types.map((item) => item).join(' | ')}`,
         },
       })
-      // ;(htmlDataTagDescMap.get('props') ?? htmlDataTagDescMap.set('props', []).get('props'))?.push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
+
       htmlDataTagDescMap.getOrInsertComputed('props', () => []).push(`  ${!readonly ? '' : `readonly `}${formatProp(m.getName())}: ${propTypeText}${d ? ` // ${d}` : ''}`)
     }
 
     for (const m of [...methods, ...arrowMethods]) {
-      if (
-        ['attributeChangedCallback', 'disconnectedCallback', 'connectedCallback', 'formAssociatedCallback', 'formDisabledCallback', 'formResetCallback', 'formStateRestoreCallback'].includes(
-          m.getName()
-        )
-      )
-        continue
+      if (lifecycle.has(m.getName())) continue
 
-      const leading = m
-        .getLeadingCommentRanges()
-        .values()
-        .map((c) => c.getText().trim())
-        .next().value
+      const leading = leadingComment(m)
 
       const callable = TSMNode.isPropertyDeclaration(m)
         ? (m.getInitializer() as ArrowFunction | FunctionExpression) // arrow/fn expr
@@ -681,7 +661,7 @@ for (const sourceFile of project.getSourceFiles()) {
         d = description
       }
 
-      ;(module.declarations[0].members ??= []).push({
+      ;(decl.members ??= []).push({
         kind: 'method',
         name: m.getName(),
         description: d,
@@ -691,15 +671,11 @@ for (const sourceFile of project.getSourceFiles()) {
           },
         },
       })
-      // ;(htmlDataTagDescMap.get('fns') ?? htmlDataTagDescMap.set('fns', []).get('fns'))?.push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
+
       htmlDataTagDescMap.getOrInsertComputed('fns', () => []).push(`  ${formatProp(m.getName())}(): ${returnTypeText}${d ? ` // ${d}` : ''}`)
     }
 
-    const leading = cls
-      .getLeadingCommentRanges()
-      .values()
-      .map((c) => c.getText().trim())
-      .next().value
+    const leading = leadingComment(cls)
 
     if (leading) {
       const { description, tags } = doctrine.parse(leading, { unwrap: true, recoverable: true })
@@ -712,16 +688,16 @@ for (const sourceFile of project.getSourceFiles()) {
           url: `https://swiftwc.github.io/ui/web-components/${is}`,
         },
       ]
-      // module.declarations[0].description = description
+      // decl.description = description
 
       for (const tag of tags ?? []) {
         switch (tag.title) {
           case 'summary':
-            module.declarations[0].description = tag.description ?? ''
+            decl.description = tag.description ?? ''
 
             if (tag.description) htmlDataTagDescMap.set('desc', [tag.description]) //htmlDataTag.description = tag.description ?? undefined
 
-            module.declarations[0].description = tag.description ?? ''
+            decl.description = tag.description ?? ''
 
             // TODO: override name with @element!
             continue
@@ -729,7 +705,6 @@ for (const sourceFile of project.getSourceFiles()) {
           case 'example': {
             const { title: a, description: b } = extractTag(tag.description ?? '')
 
-            // ;(htmlDataTagDescMap.get('examples') ?? htmlDataTagDescMap.set('examples', []).get('examples'))?.push(
             htmlDataTagDescMap
               .getOrInsertComputed('examples', () => [])
               .push(`**${b ?? 'Example'}:**`, `\`\`\`html\n${await prettier.format(a ?? '', { parser: 'html', htmlWhitespaceSensitivity: 'ignore' })}\n\`\`\``)
@@ -740,7 +715,7 @@ for (const sourceFile of project.getSourceFiles()) {
           case 'fires': {
             const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
-            ;(module.declarations[0].events ??= []).push({
+            ;(decl.events ??= []).push({
               name: a ?? '',
               description: b,
               type: {
@@ -748,17 +723,14 @@ for (const sourceFile of project.getSourceFiles()) {
               },
             })
 
-            if (a) {
-              htmlDataTagDescMap.getOrInsertComputed('events', () => []).push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
-              // ;(htmlDataTagDescMap.get('events') ?? htmlDataTagDescMap.set('events', []).get('events'))?.push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
-            }
+            if (a) htmlDataTagDescMap.getOrInsertComputed('events', () => []).push(`    ${formatProp(a)}: CustomEvent${c ? `<${c}>` : ``}${b ? ` // ${b}` : ''}`)
 
             continue
           }
           case 'slot': {
             const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
-            ;(module.declarations[0].slots ??= []).push({
+            ;(decl.slots ??= []).push({
               name: a ?? '',
               description: b ?? undefined,
             })
@@ -766,7 +738,6 @@ for (const sourceFile of project.getSourceFiles()) {
             const slotName = a || 'default'
 
             htmlDataTagDescMap.getOrInsertComputed('slots', () => []).push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
-            // ;(htmlDataTagDescMap.get('slots') ?? htmlDataTagDescMap.set('slots', []).get('slots'))?.push(`    ${formatProp(slotName)}: ${c ?? 'HTMLElement[]'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -774,7 +745,6 @@ for (const sourceFile of project.getSourceFiles()) {
             const { title: a, description: b, type: c } = extractTag(tag.description ?? '')
 
             if (a) htmlDataTagDescMap.getOrInsertComputed('cssprops', () => []).push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
-            // if (a) (htmlDataTagDescMap.get('cssprops') ?? htmlDataTagDescMap.set('cssprops', []).get('cssprops'))?.push(`    ${formatProp(a)}?: ${c ?? 'string'}${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -782,7 +752,6 @@ for (const sourceFile of project.getSourceFiles()) {
             const { title: a, description: b } = extractTag(tag.description ?? '')
 
             if (a) htmlDataTagDescMap.getOrInsertComputed('parts', () => []).push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
-            // if (a) (htmlDataTagDescMap.get('parts') ?? htmlDataTagDescMap.set('parts', []).get('parts'))?.push(`    ${formatProp(a)}: never${b ? ` // ${b}` : ''}`)
 
             continue
           }
@@ -800,7 +769,7 @@ for (const sourceFile of project.getSourceFiles()) {
 
             if (c) {
               const lastIndex = a.slice(a.lastIndexOf('}') + 1)
-              ;(module.declarations[0].attributes ??= []).push({
+              ;(decl.attributes ??= []).push({
                 name: lastIndex.trim(),
               })
 
@@ -810,16 +779,15 @@ for (const sourceFile of project.getSourceFiles()) {
               if (c.startsWith('@')) {
                 attr.valueSet = c.slice(1)
                 htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
-                // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
               } else if (types) {
                 attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
                 attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
-                // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(
+
                 htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`)
               }
               ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
-              ;(module.declarations[0].attributes ??= []).push({
+              ;(decl.attributes ??= []).push({
                 name: a.trim(),
               })
 
@@ -853,11 +821,7 @@ for (const sourceFile of project.getSourceFiles()) {
           }
         }
 
-        const leading = prop
-          .getLeadingCommentRanges()
-          .values()
-          .map((c) => c.getText().trim())
-          .next().value
+        const leading = leadingComment(prop)
 
         let d = '',
           t = 'string'
@@ -882,11 +846,10 @@ for (const sourceFile of project.getSourceFiles()) {
           }
         }
 
-        // ;(htmlDataTagDescMap.get('attrs') ?? htmlDataTagDescMap.set('attrs', []).get('attrs'))?.push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
         htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)
         ;(htmlDataTag.attributes ??= []).push(attr)
         //
-        ;(module.declarations[0].attributes ??= []).push({ name: attr.name })
+        ;(decl.attributes ??= []).push({ name: attr.name })
       }
     }
 
@@ -990,9 +953,12 @@ for (const sourceFile of project.getSourceFiles()) {
     customElements.modules.push(module)
   }
 }
+//#endregion
 
+//#region writeFileSync
 writeFileSync(resolve(import.meta.dirname, '../html-data/en.json'), JSON.stringify(htmlData, null, 2))
 
 writeFileSync(resolve(import.meta.dirname, '../css-data/en.json'), JSON.stringify(cssData, null, 2))
 
 writeFileSync(resolve(import.meta.dirname, '../custom-elements/en.json'), JSON.stringify(customElements, null, 2))
+//#endregion

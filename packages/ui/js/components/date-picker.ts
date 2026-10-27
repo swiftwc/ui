@@ -68,31 +68,6 @@ export class DatePicker extends FormAssociatedBase {
   }
 
   get template(): DocumentFragment {
-    // if (!DatePicker.#templates.has(this.datePickerStyle))
-    //   switch (this.datePickerStyle) {
-    //     default:
-    //       DatePicker.#templates.set(
-    //         this.datePickerStyle,
-    //         $(
-    //           html`<label part="root date-picker-stack">
-    //             <div part="root date-picker-label-stack">
-    //               <slot name="label"></slot>
-    //             </div>
-    //             <div part="root date-picker-input-stack">
-    //               <input type="text" name="month" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="12" part="root input date-picker-form-input" />
-    //               <span part="root date-picker-separator"></span>
-    //               <input type="text" name="day" inputmode="numeric" pattern="d*" minlength="1" maxlength="2" min="1" max="31" part="root input date-picker-form-input" />
-    //               <span part="root date-picker-separator"></span>
-    //               <input type="text" name="year" inputmode="numeric" pattern="d*" minlength="4" maxlength="4" min="0" max="9999" part="root input date-picker-form-input" />
-    //             </div>
-    //             <slot name="validity-options" hidden></slot>
-    //           </label>`
-    //         )
-    //       )
-    //       break
-    //   }
-    // return DatePicker.#templates.get(this.datePickerStyle)!
-
     return DatePicker.#templates.getOrInsertComputed(this.datePickerStyle, () => {
       switch (this.datePickerStyle) {
         default:

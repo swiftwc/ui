@@ -114,6 +114,7 @@ bun add --exact @swiftwc/ui@canary --dev
 ::: code-group
 
 ```css [app.css]
+/* [!code ++] */
 @import '@swiftwc/ui/css';
 ```
 
@@ -126,10 +127,13 @@ bun add --exact @swiftwc/ui@canary --dev
 ::: code-group
 
 ```scss [app.scss]
+// [!code ++]
 @use '@swiftwc/ui/scss/vars' with (
-  $components-layer: web-components
-);
+  // [!code ++]
+  $components-layer: web-components // [!code ++]
+); // [!code ++]
 
+// [!code ++]
 @forward '@swiftwc/ui/scss';
 ```
 
@@ -148,6 +152,7 @@ bun add --exact @swiftwc/ui@canary --dev
 ::: code-group
 
 ```ts [app.ts]
+// [!code ++]
 import '@swiftwc/ui/client'
 ```
 
@@ -158,6 +163,7 @@ import '@swiftwc/ui/client'
 ::: code-group
 
 ```js [app.js]
+// [!code ++]
 import '@swiftwc/ui/client'
 ```
 

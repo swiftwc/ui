@@ -51,6 +51,7 @@ bun add --exact @swiftwc/ui@latest --dev
 ::: code-group
 
 ```css [app.css]
+/* [!code ++] */
 @import '@swiftwc/ui/css';
 ```
 
@@ -63,11 +64,13 @@ bun add --exact @swiftwc/ui@latest --dev
 ::: code-group
 
 ```scss [app.scss]
+// [!code ++]
 @use '@swiftwc/ui/scss/vars' with (
+  // [!code ++]
   $components-layer: web-components
-);
+); // [!code ++]
 
-@forward '@swiftwc/ui/scss';
+@forward '@swiftwc/ui/scss'; // [!code ++]
 ```
 
 :::
@@ -101,6 +104,7 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 ::: code-group
 
 ```ts [app.ts]
+// [!code ++]
 import '@swiftwc/ui/client'
 ```
 
@@ -111,6 +115,7 @@ import '@swiftwc/ui/client'
 ::: code-group
 
 ```js [app.js]
+// [!code ++]
 import '@swiftwc/ui/client'
 ```
 

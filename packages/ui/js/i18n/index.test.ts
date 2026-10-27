@@ -8,7 +8,7 @@ const fresh = async () => {
 
 let I18n: Awaited<ReturnType<typeof fresh>>
 const key = Object.keys(en())[0] as keyof ReturnType<typeof en>
-const tick = () => new Promise(r => setTimeout(r))
+const tick = () => new Promise((r) => setTimeout(r))
 
 beforeEach(async () => {
   document.documentElement.lang = 'en'
@@ -63,7 +63,7 @@ describe('I18n events', () => {
   test('localechange fires on html[lang] change', async () => {
     I18n.setOwnConfig()
     const { promise, resolve } = Promise.withResolvers<CustomEvent>()
-    I18n.on.addEventListener('localechange', e => resolve(e as CustomEvent), { once: true })
+    I18n.on.addEventListener('localechange', (e) => resolve(e as CustomEvent), { once: true })
 
     document.documentElement.lang = 'el'
 

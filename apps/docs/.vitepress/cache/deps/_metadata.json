@@ -2,8 +2,14 @@
   "hash": "06b02dae",
   "configHash": "3542bbfc",
   "lockfileHash": "07cd3d38",
-  "browserHash": "f541a59e",
+  "browserHash": "0cf6499c",
   "optimized": {
+    "vitepress-plugin-tabs/client": {
+      "src": "../../../../../node_modules/vitepress-plugin-tabs/dist/client/browser/index.js",
+      "file": "vitepress-plugin-tabs_client.js",
+      "fileHash": "5804e2e2",
+      "needsInterop": false
+    },
     "vitepress > @vue/devtools-api": {
       "src": "../../../../../node_modules/@vue/devtools-api/dist/index.js",
       "file": "vitepress_n_@vue_devtools-api.js",

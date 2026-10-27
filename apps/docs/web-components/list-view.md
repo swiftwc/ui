@@ -11,6 +11,10 @@ interface ListViewSignature {
     'preferred-root-disclosure-style'?: 'sidebar'
   }
 
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+
   CSSProperties: {
     '--list-row-gap'?: length // The gap between rows
     '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row

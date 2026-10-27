@@ -1,8 +1,9 @@
 {
   "extends": "../../.config/tsconfig.web.json",
   "compilerOptions": {
+    "declaration": true,
     "outDir": "generated",
-    "rootDir": "js",
+    "rootDir": "js"
   },
   "include": ["js"],
   "exclude": ["**/*.test.ts"]

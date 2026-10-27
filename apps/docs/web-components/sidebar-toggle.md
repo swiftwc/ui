@@ -5,7 +5,11 @@
 ###### A control that shows or hides the sidebar view.
 
 ```ts
-interface SidebarToggleSignature {}
+interface SidebarToggleSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class SidebarToggle extends HTMLElement<SidebarToggleSignature> {}
 

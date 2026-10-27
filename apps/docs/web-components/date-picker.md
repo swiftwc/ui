@@ -17,6 +17,10 @@ interface DatePickerSignature {
     minimum?: string
     maximum?: string
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class DatePicker extends HTMLElement<DatePickerSignature> {

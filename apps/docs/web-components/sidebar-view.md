@@ -5,7 +5,11 @@
 ###### A container view that arranges navigation destinations in a single column.
 
 ```ts
-interface SidebarViewSignature {}
+interface SidebarViewSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class SidebarView extends HTMLDialogElement<SidebarViewSignature> {}
 

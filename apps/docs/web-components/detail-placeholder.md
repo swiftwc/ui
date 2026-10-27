@@ -5,7 +5,11 @@
 ######
 
 ```ts
-interface DetailPlaceholderSignature {}
+interface DetailPlaceholderSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class DetailPlaceholder extends HTMLElement<DetailPlaceholderSignature> {}
 

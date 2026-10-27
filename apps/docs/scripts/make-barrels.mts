@@ -65,7 +65,11 @@ ${topicsMd}
 // create barrel file from all the files
 await writeFile(
   resolve(import.meta.dirname, `../web-components/index.md`),
-  `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
+  `---
+outline: false
+---
+
+<!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
 <!--@include: ../partials/index.md-->
 

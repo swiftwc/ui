@@ -10,6 +10,10 @@ interface NavigationLargeTitleSignature {
     padding?: boolean
     'navigation-bar-auto-hide'?: boolean
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class NavigationLargeTitle extends HTMLElement<NavigationLargeTitleSignature> {}

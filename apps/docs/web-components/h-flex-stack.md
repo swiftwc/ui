@@ -9,6 +9,10 @@ interface HFlexStackSignature {
   Attributes: {
     spacing?: Spacing // The gap between the primary axis
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class HFlexStack extends HTMLElement<HFlexStackSignature> {}

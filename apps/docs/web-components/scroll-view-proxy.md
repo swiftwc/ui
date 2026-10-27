@@ -5,7 +5,11 @@
 ###### A wrapper for {hv}-stacks.
 
 ```ts
-interface ScrollViewProxySignature {}
+interface ScrollViewProxySignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class ScrollViewProxy extends HTMLElement<ScrollViewProxySignature> {}
 

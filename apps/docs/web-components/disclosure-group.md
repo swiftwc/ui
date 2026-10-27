@@ -9,6 +9,10 @@ interface DisclosureGroupSignature {
   Attributes: {
     open?: boolean // The status of this element
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class DisclosureGroup extends HTMLDetailsElement<DisclosureGroupSignature> {}

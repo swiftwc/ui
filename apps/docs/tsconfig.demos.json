@@ -1,5 +1,5 @@
 {
-  "extends": "../../../.config/tsconfig.web.json",
+  "extends": "../../.config/tsconfig.web.json",
   "compilerOptions": {
     "rootDir": "src/demos",
     "outDir": "public/demos",

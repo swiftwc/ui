@@ -5,7 +5,11 @@
 ###### A container view with two or three side-by-side screens, where what the user chooses in the left screen changes what appears in the next screen.
 
 ```ts
-interface NavigationSplitViewSignature {}
+interface NavigationSplitViewSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class NavigationSplitView extends HTMLElement<NavigationSplitViewSignature> {}
 

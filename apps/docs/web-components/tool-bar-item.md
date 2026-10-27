@@ -11,6 +11,10 @@ interface ToolBarItemSignature {
     'data-previous-slot'?: string
     'title-key'?: string
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class ToolBarItem extends HTMLElement<ToolBarItemSignature> {}

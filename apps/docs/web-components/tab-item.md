@@ -5,7 +5,11 @@
 ###### A control that switches the tab view to this tab.
 
 ```ts
-interface TabItemSignature {}
+interface TabItemSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class TabItem extends HTMLButtonElement<TabItemSignature> {}
 

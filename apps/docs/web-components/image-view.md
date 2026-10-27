@@ -10,6 +10,10 @@ interface ImageViewSignature {
     'system-name'?: string
     'system-weight'?: string
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class ImageView extends HTMLElement<ImageViewSignature> {}

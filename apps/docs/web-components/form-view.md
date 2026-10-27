@@ -9,6 +9,10 @@ interface FormViewSignature {
   Attributes: {
     'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class FormView extends HTMLFormElement<FormViewSignature> {}

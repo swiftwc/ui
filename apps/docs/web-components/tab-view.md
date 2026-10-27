@@ -6,6 +6,10 @@
 
 ```ts
 interface TabViewSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+
   CSSProperties: {
     '--adaptable-tab-bar-placement'?: string
   }

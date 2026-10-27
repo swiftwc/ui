@@ -9,6 +9,10 @@ interface VFlexStackSignature {
   Attributes: {
     template?: Template // The main-axis grid template
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class VFlexStack extends HTMLElement<VFlexStackSignature> {}

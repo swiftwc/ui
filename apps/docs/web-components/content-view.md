@@ -5,7 +5,11 @@
 ###### A container view that wraps a scroll view, marking it as a screen your app can navigate to.
 
 ```ts
-interface ContentViewSignature {}
+interface ContentViewSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class ContentView extends HTMLElement<ContentViewSignature> {}
 

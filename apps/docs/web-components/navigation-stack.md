@@ -5,7 +5,11 @@
 ###### A container view that shows a main screen and lets the user open other screens on top of it.
 
 ```ts
-interface NavigationStackSignature {}
+interface NavigationStackSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class NavigationStack extends HTMLElement<NavigationStackSignature> {}
 

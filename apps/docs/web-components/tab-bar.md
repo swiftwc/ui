@@ -5,7 +5,11 @@
 ###### A container view that groups tab-items together along the top or bottom of the screen.
 
 ```ts
-interface TabBarSignature {}
+interface TabBarSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class TabBar extends HTMLDialogElement<TabBarSignature> {}
 

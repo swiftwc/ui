@@ -5,7 +5,11 @@
 ###### A container view that groups items together in the toolbar or navigation bar.
 
 ```ts
-interface ToolBarItemGroupSignature {}
+interface ToolBarItemGroupSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class ToolBarItemGroup extends HTMLElement<ToolBarItemGroupSignature> {}
 

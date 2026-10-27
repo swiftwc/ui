@@ -5,7 +5,11 @@
 ###### A dialog that slides up over the current screen.
 
 ```ts
-interface SheetViewSignature {}
+interface SheetViewSignature {
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
+}
 
 class SheetView extends HTMLDialogElement<SheetViewSignature> {}
 

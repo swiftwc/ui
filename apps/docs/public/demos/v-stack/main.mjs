@@ -65,4 +65,3 @@ switch (url.searchParams.get('case')) {
       )
     break
 }
-export {}

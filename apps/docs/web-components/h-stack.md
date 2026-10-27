@@ -13,6 +13,10 @@ interface HStackSignature {
     distribution?: inlineSet // The main-axis alignment
     placement?: inlinePlacementSet // The main-axis alignment
   }
+
+  Slots: {
+    default: HTMLElement[] // The default slot
+  }
 }
 
 class HStack extends HTMLElement<HStackSignature> {}
@@ -32,15 +36,15 @@ declare global {
 
 == Demo
 
-{% demo h-stack/index.html h-130 %}
+{% demo h-stack/index.html h-150 %}
 
 == Test fixed inline size
 
-{% demo h-stack/index.html?case=w h-130 %}
+{% demo h-stack/index.html?case=w h-150 %}
 
 == Test fixed block size
 
-{% demo h-stack/index.html?case=h h-130 %}
+{% demo h-stack/index.html?case=h h-150 %}
 
 :::::
 

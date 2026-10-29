@@ -91,7 +91,6 @@
     "@rolldown/plugin-babel": "^0.2.4",
     "doctrine": "^3.0.0",
     "element-internals-polyfill": "^3.0.2",
-    "gonzales-pe": "^4.3.0",
     "happy-dom": "^20.7.0",
     "sass": "^1.98.0",
     "ts-morph": "^28.0.0",

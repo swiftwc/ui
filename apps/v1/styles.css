@@ -8441,161 +8441,161 @@
 @layer sw.sw-utils {
   h-stack[distribution=leading],
   v-flex-stack[distribution=leading] {
-    justify-items: start  ;
-    justify-content: start  ;
+    justify-items: start;
+    justify-content: start;
   }
   h-stack[distribution="leading fill"],
   v-flex-stack[distribution="leading fill"] {
-    justify-items: start  ;
-    justify-content: stretch  ;
+    justify-items: start;
+    justify-content: stretch;
   }
   h-stack[distribution=center],
   v-flex-stack[distribution=center] {
-    justify-items: center  ;
-    justify-content: center  ;
+    justify-items: center;
+    justify-content: center;
   }
   h-stack[distribution=trailing],
   v-flex-stack[distribution=trailing] {
-    justify-items: end  ;
-    justify-content: end  ;
+    justify-items: end;
+    justify-content: end;
   }
   h-stack[distribution=fill],
   v-flex-stack[distribution=fill] {
-    justify-items: stretch  ;
-    justify-content: stretch  ;
+    justify-items: stretch;
+    justify-content: stretch;
   }
   h-stack[distribution=space-between],
   v-flex-stack[distribution=space-between] {
-    justify-content: space-between  ;
+    justify-content: space-between;
   }
   h-stack[alignment=leading],
   v-flex-stack[alignment=leading] {
-    align-items: start  ;
-    align-content: start  ;
+    align-items: start;
+    align-content: start;
   }
   h-stack[alignment="leading fill"],
   v-flex-stack[alignment="leading fill"] {
-    align-items: start  ;
-    align-content: stretch  ;
+    align-items: start;
+    align-content: stretch;
   }
   h-stack[alignment=center],
   v-flex-stack[alignment=center] {
-    align-items: center  ;
-    align-content: center  ;
+    align-items: center;
+    align-content: center;
   }
   h-stack[alignment=trailing],
   v-flex-stack[alignment=trailing] {
-    align-items: end  ;
-    align-content: end  ;
+    align-items: end;
+    align-content: end;
   }
   h-stack[alignment=fill],
   v-flex-stack[alignment=fill] {
-    align-items: stretch  ;
-    align-content: stretch  ;
+    align-items: stretch;
+    align-content: stretch;
   }
   h-stack[alignment=space-between],
   v-flex-stack[alignment=space-between] {
-    align-content: space-between  ;
+    align-content: space-between;
   }
   h-stack[placement=fill],
   v-flex-stack[placement=fill] {
-    place-items: stretch  ;
-    place-content: stretch  ;
+    place-items: stretch;
+    place-content: stretch;
   }
   h-stack[placement="leading fill"],
   v-flex-stack[placement="leading fill"] {
-    place-items: stretch start  ;
-    place-content: stretch start  ;
+    place-items: stretch start;
+    place-content: stretch start;
   }
   h-stack[placement="fill leading"],
   v-flex-stack[placement="fill leading"] {
-    place-items: start stretch  ;
-    place-content: start stretch  ;
+    place-items: start stretch;
+    place-content: start stretch;
   }
   h-stack[placement="fill space-between"],
   v-flex-stack[placement="fill space-between"] {
-    align-content: space-between  ;
-    justify-items: stretch  ;
-    justify-content: stretch  ;
+    align-content: space-between;
+    justify-items: stretch;
+    justify-content: stretch;
   }
   :where(v-stack[distribution=leading],
   h-flex-stack[distribution=leading]) {
-    align-items: start  ;
-    align-content: start  ;
+    align-items: start;
+    align-content: start;
   }
   :where(v-stack[distribution="leading fill"],
   h-flex-stack[distribution="leading fill"]) {
-    align-items: start  ;
-    align-content: stretch  ;
+    align-items: start;
+    align-content: stretch;
   }
   :where(v-stack[distribution=center],
   h-flex-stack[distribution=center]) {
-    align-items: center  ;
-    align-content: center  ;
+    align-items: center;
+    align-content: center;
   }
   :where(v-stack[distribution=trailing],
   h-flex-stack[distribution=trailing]) {
-    align-items: end  ;
-    align-content: end  ;
+    align-items: end;
+    align-content: end;
   }
   :where(v-stack[distribution=fill],
   h-flex-stack[distribution=fill]) {
-    align-items: stretch  ;
-    align-content: stretch  ;
+    align-items: stretch;
+    align-content: stretch;
   }
   :where(v-stack[distribution=space-between],
   h-flex-stack[distribution=space-between]) {
-    align-content: space-between  ;
+    align-content: space-between;
   }
   :where(v-stack[alignment=leading],
   h-flex-stack[alignment=leading]) {
-    justify-items: start  ;
-    justify-content: start  ;
+    justify-items: start;
+    justify-content: start;
   }
   :where(v-stack[alignment="leading fill"],
   h-flex-stack[alignment="leading fill"]) {
-    justify-items: start  ;
-    justify-content: stretch  ;
+    justify-items: start;
+    justify-content: stretch;
   }
   :where(v-stack[alignment=center],
   h-flex-stack[alignment=center]) {
-    justify-items: center  ;
-    justify-content: center  ;
+    justify-items: center;
+    justify-content: center;
   }
   :where(v-stack[alignment=trailing],
   h-flex-stack[alignment=trailing]) {
-    justify-items: end  ;
-    justify-content: end  ;
+    justify-items: end;
+    justify-content: end;
   }
   :where(v-stack[alignment=fill],
   h-flex-stack[alignment=fill]) {
-    justify-items: stretch  ;
-    justify-content: stretch  ;
+    justify-items: stretch;
+    justify-content: stretch;
   }
   :where(v-stack[alignment=space-between],
   h-flex-stack[alignment=space-between]) {
-    justify-content: space-between  ;
+    justify-content: space-between;
   }
   :where(v-stack[placement=fill],
   h-flex-stack[placement=fill]) {
-    place-items: stretch  ;
-    place-content: stretch  ;
+    place-items: stretch;
+    place-content: stretch;
   }
   :where(v-stack[placement="leading fill"],
   h-flex-stack[placement="leading fill"]) {
-    place-items: start stretch  ;
-    place-content: start stretch  ;
+    place-items: start stretch;
+    place-content: start stretch;
   }
   :where(v-stack[placement="fill leading"],
   h-flex-stack[placement="fill leading"]) {
-    place-items: stretch start  ;
-    place-content: stretch start  ;
+    place-items: stretch start;
+    place-content: stretch start;
   }
   :where(v-stack[placement="space-between fill"],
   h-flex-stack[placement="space-between fill"]) {
-    align-content: space-between  ;
-    justify-items: stretch  ;
-    justify-content: stretch  ;
+    align-content: space-between;
+    justify-items: stretch;
+    justify-content: stretch;
   }
   :where(v-stack[spacing="0"],
   h-stack[spacing="0"],
@@ -8945,8 +8945,8 @@
 }
 @layer sw.sw-components {
   :where(v-stack[readable]) {
-    place-items: start stretch  ;
-    place-content: start stretch  ;
+    place-items: start stretch;
+    place-content: start stretch;
   }
 }
 @layer sw.sw-utils {

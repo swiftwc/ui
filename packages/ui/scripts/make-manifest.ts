@@ -1,12 +1,9 @@
 import doctrine from 'doctrine'
-import { readFileSync, writeFileSync } from 'node:fs'
+import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import * as prettier from 'prettier'
+import * as sass from 'sass'
 import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, PropertyDeclaration, SyntaxKind, Node as TSMNode, TypeFormatFlags } from 'ts-morph'
-// @ts-expect-error no types available
-import gonzales from 'gonzales-pe'
-// @ts-expect-error no types available
-import type { Node } from 'gonzales-pe'
 import { kebabCase } from '../js/internal/utils/index.js'
 
 const range = (n: number, fmt = (i: number) => String(i)) => Array.from({ length: n }, (_, i) => fmt(i)),
@@ -74,142 +71,47 @@ const range = (n: number, fmt = (i: number) => String(i)) => Array.from({ length
     // return { types: [], description: undefined }
   }
 
-const ast = gonzales.parse(readFileSync(resolve(import.meta.dirname, '../scss/_maps.scss'), 'utf-8'), { syntax: 'scss' })
+const scssDir = resolve(import.meta.dirname, '../scss'),
+  emitted = new Map<string, unknown>()
 
-const listVals = new Map<string, string[]>()
+// Sass Value -> plain JS
+const toJs = (v: sass.Value): unknown => {
+    if (v instanceof sass.SassMap) {
+      return Object.fromEntries([...v.contents].map(([k, val]) => [String(toJs(k)), toJs(val)]))
+    }
+    if (v instanceof sass.SassString) return v.text
+    if (v instanceof sass.SassNumber) return v.value
+    if (v === sass.sassNull) return null
+    if (v === sass.sassTrue) return true
+    if (v === sass.sassFalse) return false
+    if (v instanceof sass.SassColor) return v.toString() // named color literals
+    if (v instanceof sass.SassList) return v.asList.toArray().map(toJs)
+    return v.toString() // anything else: never recurse
+  },
+  describe = (decls: Record<string, unknown>) => Object.entries(decls).map(([prop, val]) => `${prop}: ${[val].flat().join(' ')};`)
 
-ast.traverseByType('declaration', function (node: Node) {
-  const property = node.first('property')
+sass.compileString(
+  `
+@use 'sass:meta';
+@use 'maps';
 
-  if (!property?.toString().endsWith('-list-vals')) return
-
-  const value = node.first('value')
-
-  // console.dir(value?.toJson(), { depth: 50 })
-
-  const outer = value?.content.find((child: Node) => child.type === 'parentheses')
-
-  const entries = outer?.content.filter((child: Node) => child.type === 'parentheses').map((child: Node) => child.toString().trim())
-
-  listVals.set(
-    property?.toString(),
-    entries.map((item: string) => item.replace(/^\(|\)$/g, ''))
-  )
-})
-// console.debug(listVals)
-
-const maps = new Map<string, Map<string, string[]>>()
-
-ast.traverseByType('declaration', (node: Node) => {
-  const name = node.first('property')?.toString()
-
-  if (!name?.endsWith('-map')) return
-
-  const outer = node.first('value')?.first('parentheses')
-
-  if (!outer) return
-
-  const map = new Map<string, string[]>()
-
-  for (let i = 0; i < outer.content.length; i++) {
-    const keyNode = outer.content[i] as Node
-
-    if (!['ident', 'string'].includes(keyNode.type)) continue
-
-    const colon = outer.content[i + 1] as Node
-    const value = outer.content[i + 3] as Node
-
-    if (colon?.type !== 'operator' || colon.toString() !== ':') continue
-    if (value?.type !== 'parentheses') continue
-
-    const key = keyNode.toString().replace(/^['"]|['"]$/g, '')
-
-    const rules = value.content
-      .filter((child: Node) => child.type === 'parentheses')
-      .map((child: Node) => {
-        const [property, ...rest] = child
-          .toString()
-          .replace(/^\(|\)$/g, '')
-          .trim()
-          .split(/\s+/)
-
-        const val = rest.join(' ').replace(/^\(|\)$/g, '')
-
-        return `${property}: ${val};`
-      })
-
-    map.set(key, rules)
-
-    i += 3
+@each $name, $value in meta.module-variables('maps') {
+  $_: emit('#{$name}', $value);
+}
+`,
+  {
+    loadPaths: [scssDir],
+    functions: {
+      'emit($name, $value)': (args) => {
+        emitted.set((args[0] as sass.SassString).text, toJs(args[1]))
+        return sass.sassNull
+      },
+    },
   }
-
-  maps.set(name, map)
-})
-// console.debug(maps)
-// process.exit(1)
-
-const names = new Map<string, string[]>()
-
-ast.traverseByType('declaration', function (node: Node) {
-  const property = node.first('property')
-
-  if (!property?.toString().endsWith('-names')) return
-
-  const value = node.first('value')
-
-  const entries = value?.content.filter((child: Node) => child.type === 'ident').map((child: Node) => child.toString().trim())
-
-  names.set(property?.toString(), entries ?? [])
-})
-// console.debug(names)
+)
+// console.debug(emitted)
 
 const tintDescriptions = new Map([['gray', 'Like secondary, like disabled']])
-
-const tokens = new Map<string, Map<string, string>>()
-
-ast.traverseByType('declaration', (node: Node) => {
-  const name = node.first('property')?.toString()
-
-  if (!name?.endsWith('-tokens')) return
-
-  const outer = node.first('value')?.first('parentheses')
-
-  if (!outer) return
-
-  const map = new Map<string, string>()
-
-  for (let i = 0; i < outer.content.length; i++) {
-    const keyNode = outer.content[i] as Node
-
-    if (!['ident', 'string'].includes(keyNode.type)) continue
-
-    const colon = outer.content[i + 1] as Node
-
-    if (colon?.type !== 'operator' || colon.toString() !== ':') continue
-
-    const key = keyNode.toString().replace(/^['"]|['"]$/g, '')
-
-    let j = i + 2
-    let value = ''
-
-    while (outer.content[j] && outer.content[j].type !== 's' && !(outer.content[j].type === 'operator' && outer.content[j].toString() === ',')) {
-      value += outer.content[j].toString()
-      j++
-    }
-
-    map.set(key, value.trim())
-
-    i = j
-  }
-
-  tokens.set(name, map)
-})
-// console.debug(tokens)
-
-// ast.traverseByType('variable', function (node: Node, index: number, parent: Node) {
-// if (node?.toString() !== '$stack-templates-list-vals') return
-// console.log(4444, node)
-// })
 
 const project = new Project({
   tsConfigFilePath: resolve(import.meta.dirname, '../tsconfig.json'),
@@ -289,210 +191,167 @@ interface VsHtmlDataTag {
 
 //#region htmlData
 // https://github.com/microsoft/vscode-html-languageservice/blob/main/docs/customData.schema.json
-const htmlData: VsHtmlDataV1 = {
-  version: 1.1,
-  tags: [],
-  globalAttributes: [
-    {
-      name: 'tint',
-      description: 'Sets accent color',
-      valueSet: 'Tint',
-      // values: [
-      //   { name: 'infinity', description: '100%' },
-      //   { name: '0', description: '0rem' },
-      //   { name: '1', description: '1rem' },
-      //   { name: '2', description: '2rem' },
-      // ],
-    },
-    {
-      name: 'list-item-tint',
-      description: 'Sets accent color on list items',
-      valueSet: 'Tint',
-    },
-    {
-      name: 'foreground',
-      description: 'Sets foreground color',
-      valueSet: 'Foreground',
-    },
-    {
-      name: 'frame:width',
-      description: 'Sets inline-size',
-      valueSet: 'FrameInlineLength',
-    },
-    {
-      name: 'frame:max-width',
-      description: 'Sets max-inline-size',
-      valueSet: 'FrameInlineLength',
-    },
-    {
-      name: 'background-style',
-      description: 'Overrides the context-aware styles for background colors',
-      valueSet: 'BackgroundStyle',
-    },
-  ],
-  valueSets: [
-    {
-      name: 'Font',
-      values:
-        maps
-          .get('$label-fonts-map')
-          ?.entries()
-          .map(([name]) => ({
-            name,
-            description: `The font used ${(() => {
-              switch (name) {
-                case 'extra-large-title2':
-                  return 'second level extra large titles'
-                case 'extra-large-title':
-                  return 'extra large titles'
-                case 'large-title':
-                  return 'large titles'
-                case 'title':
-                  return 'first level hierarchical headings'
-                case 'title2':
-                  return 'second level hierarchical headings'
-                case 'title3':
-                  return 'third level hierarchical headings'
-                case 'headline':
-                  return 'headings'
-                case 'subheadline':
-                  return 'subheadings'
-                case 'body':
-                  return 'body text'
-                case 'callout':
-                  return 'for callouts'
-                case 'caption':
-                  return 'for standard captions'
-                case 'footnote':
-                  return 'in footnotes'
-                default:
-                  return `the ${name} size`
-              }
-            })()}`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'Spacing',
-      values: Array.from({ length: 51 }, (_, i) => ({ name: String(i), description: `${i / 10}rem` })),
-    },
-    {
-      name: 'Tint',
-      values:
-        names.get('$tint-names')?.map((name) => ({
+const names = (key: string) => {
+    const v = emitted.get(key)
+    if (v === undefined) throw new Error(`_maps.scss has no variable $${key}`)
+    return asList(v)
+  },
+  asList = (v: unknown) => [v].flat() as string[],
+  camel = (s: string) => s.replace(/-(\w)/g, (_, c) => c.toUpperCase()),
+  declMaps = ['inline-map', 'block-map', 'inline-placement-map', 'block-placement-map'],
+  declValueSets = declMaps.map((key) => ({
+    name: camel(key.replace(/-map$/, '')) + 'Set',
+    values: Object.entries(emitted.get(key) as Record<string, Record<string, unknown>>).map(([name, decls]) => ({
+      name,
+      description: `Applies \`${describe(decls).join(' ')}\` rules`,
+    })),
+  })),
+  nameValueSets = [...emitted.keys()]
+    .filter((k) => k.endsWith('-names') && k !== 'tint-names') // tint has custom descriptions
+    .map((k) => ({
+      name: camel(k.replace(/-names$/, '')), // 'picker-styles-names' -> 'pickerStyles'
+      values: names(k).map((name) => ({ name })),
+    })),
+  htmlData: VsHtmlDataV1 = {
+    version: 1.1,
+    tags: [],
+    globalAttributes: [
+      {
+        name: 'tint',
+        description: 'Sets accent color',
+        valueSet: 'Tint',
+        // values: [
+        //   { name: 'infinity', description: '100%' },
+        //   { name: '0', description: '0rem' },
+        //   { name: '1', description: '1rem' },
+        //   { name: '2', description: '2rem' },
+        // ],
+      },
+      {
+        name: 'list-item-tint',
+        description: 'Sets accent color on list items',
+        valueSet: 'Tint',
+      },
+      {
+        name: 'foreground',
+        description: 'Sets foreground color',
+        valueSet: 'Foreground',
+      },
+      {
+        name: 'frame:width',
+        description: 'Sets inline-size',
+        valueSet: 'FrameInlineLength',
+      },
+      {
+        name: 'frame:max-width',
+        description: 'Sets max-inline-size',
+        valueSet: 'FrameInlineLength',
+      },
+      {
+        name: 'background-style',
+        description: 'Overrides the context-aware styles for background colors',
+        valueSet: 'BackgroundStyle',
+      },
+    ],
+    valueSets: [
+      {
+        name: 'Font',
+        values: Object.keys(emitted.get('label-fonts-map') as Record<string, unknown>).map((name) => ({
           name,
-          description: tintDescriptions.has(name) ? tintDescriptions.get(name) : `System \`${name}\` color`,
-        })) ?? [],
-    },
-    {
-      name: 'Foreground',
-      values:
-        tokens
-          .get('$foreground-tokens')
-          ?.entries()
-          .map(([name, description]) => ({
-            name,
-            description: `Applies the system ${0 <= name.indexOf('.') ? `${name.split('.').pop()} ` : ''}${name.split('.').shift()} color (\`${description}\`)`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'inlineSet',
-      values:
-        maps
-          .get('$inline-map')
-          ?.entries()
-          .map(([name, description]) => ({
-            name,
-            description: `Applies \`${description.join(' ')}\` rules`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'blockSet',
-      values:
-        maps
-          .get('$block-map')
-          ?.entries()
-          .map(([name, description]) => ({
-            name,
-            description: `Applies \`${description.join(' ')}\` rules`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'inlinePlacementSet',
-      values:
-        maps
-          .get('$inline-placement-map')
-          ?.entries()
-          .map(([name, description]) => ({
-            name,
-            description: `Applies \`${description.join(' ')}\` rules`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'blockPlacementSet',
-      values:
-        maps
-          .get('$block-placement-map')
-          ?.entries()
-          .map(([name, description]) => ({
-            name,
-            description: `Applies \`${description.join(' ')}\` rules`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'ControlSize',
-      values:
-        maps
-          .get('$button-sizes-map')
-          ?.entries()
-          .map(([name]) => ({
-            name,
-            description: `A control version that is ${(() => {
-              switch (name) {
-                case 'mini':
-                  return 'minimally sized'
-                case 'small':
-                  return 'proportionally smaller size for space-constrained views'
-                case 'large':
-                  return 'prominently sized'
-                case 'extra-large':
-                  return 'substantially sized. The largest control size'
-                default:
-                  return `the ${name} size`
-              }
-            })()}`,
-          }))
-          .toArray() ?? [],
-    },
-    {
-      name: 'Template',
-      values:
-        listVals.get('$stack-templates-list-vals')?.map((item) => ({
-          name: item.replace('minmax(0, 1fr)', 'spacer').replace(/repeat\(([^)]*)\)/g, (_, inner) => `repeat(${inner.replace(/\s+/g, '')})`),
-          description: `Applies a \`${item}\` grid-template to the main-axis`,
-        })) ?? [],
-    },
-    {
-      name: 'FrameInlineLength',
-      values: [{ name: 'infinity', description: '100%' }, ...range(101).map((n) => ({ name: n, description: `${n}rem` })), ...range(101, (i) => `${i}cqi`).map((n) => ({ name: n, description: n }))],
-    },
-    {
-      name: 'BackgroundStyle',
-      values: [
-        {
-          name: 'initial',
-          description:
-            'Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view',
-        },
-      ],
-    },
-  ],
-}
+          description: `The font used ${(() => {
+            switch (name) {
+              case 'extra-large-title2':
+                return 'second level extra large titles'
+              case 'extra-large-title':
+                return 'extra large titles'
+              case 'large-title':
+                return 'large titles'
+              case 'title':
+                return 'first level hierarchical headings'
+              case 'title2':
+                return 'second level hierarchical headings'
+              case 'title3':
+                return 'third level hierarchical headings'
+              case 'headline':
+                return 'headings'
+              case 'subheadline':
+                return 'subheadings'
+              case 'body':
+                return 'body text'
+              case 'callout':
+                return 'for callouts'
+              case 'caption':
+                return 'for standard captions'
+              case 'footnote':
+                return 'in footnotes'
+              default:
+                return `the ${name} size`
+            }
+          })()}`,
+        })),
+      },
+      {
+        name: 'Spacing',
+        values: Array.from({ length: 51 }, (_, i) => ({ name: String(i), description: `${i / 10}rem` })),
+      },
+      {
+        name: 'Tint',
+        values: names('tint-names').map((name) => ({ name, description: tintDescriptions.has(name) ? tintDescriptions.get(name) : `System \`${name}\` color` })),
+      },
+      {
+        name: 'Foreground',
+        values: Object.entries(emitted.get('foreground-tokens') as Record<string, string>).map(([name, description]) => ({
+          name,
+          description: `Applies the system ${0 <= name.indexOf('.') ? `${name.split('.').pop()} ` : ''}${name.split('.').shift()} color (\`${description}\`)`,
+        })),
+      },
+      ...declValueSets,
+      ...nameValueSets,
+      {
+        name: 'ControlSize',
+        values: Object.entries(emitted.get('button-sizes-map') as Record<string, Record<string, unknown>>).map(([name, decls]) => ({
+          name,
+          description: `A control version that is ${(() => {
+            switch (name) {
+              case 'mini':
+                return 'minimally sized'
+              case 'small':
+                return 'proportionally smaller size for space-constrained views'
+              case 'large':
+                return 'prominently sized'
+              case 'extra-large':
+                return 'substantially sized. The largest control size'
+              default:
+                return `the ${name} size`
+            }
+          })()}`,
+        })),
+      },
+      {
+        name: 'Template',
+        values: (emitted.get('stack-templates-list-vals') as unknown[])
+          .map((t) => asList(t).join(' '))
+          .map((item) => ({
+            name: item.replace('minmax(0, 1fr)', 'spacer').replace(/repeat\(([^)]*)\)/g, (_, inner) => `repeat(${inner.replace(/\s+/g, '')})`),
+            description: `Applies a \`${item}\` grid-template to the main-axis`,
+          })),
+      },
+      {
+        name: 'FrameInlineLength',
+        values: [{ name: 'infinity', description: '100%' }, ...range(101).map((n) => ({ name: n, description: `${n}rem` })), ...range(101, (i) => `${i}cqi`).map((n) => ({ name: n, description: n }))],
+      },
+      {
+        name: 'BackgroundStyle',
+        values: [
+          {
+            name: 'initial',
+            description:
+              'Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view',
+          },
+        ],
+      },
+    ],
+  }
 //#endregion
 
 //#region cssData

@@ -1663,6 +1663,79 @@
       ]
     },
     {
+      "name": "pickerStyles",
+      "values": [
+        {
+          "name": "menu"
+        },
+        {
+          "name": "navigation-link"
+        },
+        {
+          "name": "sheet"
+        },
+        {
+          "name": "radio-group"
+        },
+        {
+          "name": "palette"
+        },
+        {
+          "name": "tabs"
+        }
+      ]
+    },
+    {
+      "name": "labelStyles",
+      "values": [
+        {
+          "name": "icon-only"
+        },
+        {
+          "name": "title-only"
+        },
+        {
+          "name": "title-and-icon"
+        }
+      ]
+    },
+    {
+      "name": "listStyles",
+      "values": [
+        {
+          "name": "inset"
+        },
+        {
+          "name": "inset-grouped"
+        },
+        {
+          "name": "sidebar"
+        }
+      ]
+    },
+    {
+      "name": "formStyles",
+      "values": [
+        {
+          "name": "inset"
+        },
+        {
+          "name": "inset-grouped"
+        },
+        {
+          "name": "sidebar"
+        }
+      ]
+    },
+    {
+      "name": "tableStyles",
+      "values": [
+        {
+          "name": "inset"
+        }
+      ]
+    },
+    {
       "name": "ControlSize",
       "values": [
         {

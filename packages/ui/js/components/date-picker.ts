@@ -171,8 +171,7 @@ export class DatePicker extends FormAssociatedBase {
     if (this.#lastRenderedStyle === this.datePickerStyle) return // skip if already applied
     this.#lastRenderedStyle = this.datePickerStyle
 
-    // clear shadow DOM
-    this.#shadowRoot.replaceChildren(document.importNode(this.template, true))
+    this.#shadowRoot.replaceChildren(document.importNode(this.template, true)) // clear shadow DOM
 
     CleanupRegistry.unregister(this, 'validities')
     CleanupRegistry.register(

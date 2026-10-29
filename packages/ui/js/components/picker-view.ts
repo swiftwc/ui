@@ -637,11 +637,6 @@ export class PickerView extends FormAssociatedBase {
     // })
   }
 
-  // constructor() {
-  //   super()
-  //   this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  // }
-
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${PickerView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)
 

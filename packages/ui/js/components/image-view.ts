@@ -20,14 +20,7 @@ export class ImageView extends HTMLElement {
     return $(html`<slot></slot>`)
   }
 
-  // #shadowRoot
   @shadowRoot({ template: true }) readonly #shadowRoot: ShadowRoot = undefined!
-
-  // constructor() {
-  //   super()
-  //   // this.#shadowRoot = this.attachShadow({ mode: 'closed' })
-  //   this.#shadowRoot.appendChild(document.importNode((this.constructor as typeof ImageView).template, true))
-  // }
 
   attributeChangedCallback(name: string, oldValue: string | null, newValue: string | null) {
     debug(`${ImageView.name} ⚡️ attr-change [${name}] ("${oldValue}" → "${newValue}")`)

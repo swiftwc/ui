@@ -1,5 +1,11 @@
 # @swiftwc/ui
 
+## 1.0.1-canary.7
+
+### Patch Changes
+
+- 284d427: refactor(components): improve observer handling and streamline component lifecycle methods
+
 ## 1.0.1-canary.6
 
 ### Patch Changes

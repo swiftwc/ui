@@ -86,6 +86,9 @@ export class TableView extends HTMLElement {
 
     CleanupRegistry.register(this, onoff(listActive(this), this).on())
 
+    this.#observers.syncObservations(this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name="column"]')?.assignedElements() ?? [])
+    this.#renderColumns([])
+
     this.#styleObserver = new CSSStyleObserver({
       properties: ['--adaptable-table-style-index'],
     })
@@ -101,9 +104,7 @@ export class TableView extends HTMLElement {
 
     if (!(slot instanceof HTMLSlotElement)) return
 
-    const assigned = slot.assignedElements()
-
-    this.#observers.syncObservations(assigned)
+    this.#observers.syncObservations(slot.assignedElements())
 
     // if (0 < assigned.length)
     this.#renderColumns([])

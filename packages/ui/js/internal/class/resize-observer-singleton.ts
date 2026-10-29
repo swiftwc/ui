@@ -6,21 +6,25 @@ export class ResizeObserverSingleton {
   public readonly observer: Promise<ResizeObserver>
 
   constructor() {
-    this.observer = Snapshot.waitReady.then(() => {
-      return new ResizeObserver((entries) => {
-        for (const entry of entries) this.#observers.get(entry.target)?.(entry)
-      })
+    this.observer = Snapshot.waitReady.then(
+      () =>
+        new ResizeObserver((entries) => {
+          for (const entry of entries) this.#observers.get(entry.target)?.(entry)
+        })
+    )
+  }
+
+  public observe(target: Element, callback: (entry: ResizeObserverEntry) => void) {
+    this.#observers.set(target, callback)
+    
+    void this.observer.then((o) => {
+      if (this.#observers.get(target) === callback) o.observe(target) // skip if already unobserved/replaced
     })
   }
 
-  public async observe(target: Element, callback: (entry: ResizeObserverEntry) => void) {
-    this.#observers.set(target, callback)
-    ;(await this.observer).observe(target)
-  }
-
-  public async unobserve(target: Element) {
-    ;(await this.observer).unobserve(target)
-
+  public unobserve(target: Element) {
     this.#observers.delete(target)
+
+    void this.observer.then((o) => o.unobserve(target))
   }
 }

@@ -194,6 +194,9 @@ export class ToggleView extends FormAssociatedBase {
       ).on()
     )
 
+    const slot = this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name="validity-options"]')
+    this.#validityObservers.syncObservations(slot?.assignedElements() ?? [], ['value', 'label'])
+
     if (this.#track) this.#resizeObserver.observe(this.#track)
 
     CleanupRegistry.register(
@@ -230,9 +233,7 @@ export class ToggleView extends FormAssociatedBase {
 
     if (!(slot instanceof HTMLSlotElement)) return
 
-    const assigned = slot.assignedElements()
-
-    this.#validityObservers.syncObservations(assigned, ['value', 'label'])
+    this.#validityObservers.syncObservations(slot.assignedElements(), ['value', 'label'])
 
     this.#renderValidityMsgs([])
   }

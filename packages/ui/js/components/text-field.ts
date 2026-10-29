@@ -250,6 +250,8 @@ export class TextField extends FormAssociatedBase {
       ).on()
     )
 
+    this.#validityObservers.syncObservations(this.#shadowRoot.querySelector<HTMLSlotElement>('slot[name="validity-options"]')?.assignedElements() ?? [], ['value', 'label'])
+
     // finally
     if (!this.hasAttribute('text')) return
 
@@ -287,9 +289,7 @@ export class TextField extends FormAssociatedBase {
 
     if (!(slot instanceof HTMLSlotElement)) return
 
-    const assigned = slot.assignedElements()
-
-    this.#validityObservers.syncObservations(assigned, ['value', 'label'])
+    this.#validityObservers.syncObservations(slot.assignedElements(), ['value', 'label'])
 
     // if (0 < assigned.length)
     this.#renderValidityMsgs([])

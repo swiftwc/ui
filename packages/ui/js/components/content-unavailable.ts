@@ -70,23 +70,28 @@ export class ContentUnavailable extends HTMLElement {
 
   disconnectedCallback() {
     debug(`${ContentUnavailable.name} ⚡️ disconnect`)
+
+    CleanupRegistry.unregister(this)
   }
 
   connectedCallback() {
     debug(`${ContentUnavailable.name} ⚡️ connect`)
 
-    if (this.hasAttribute('search'))
-      CleanupRegistry.register(
-        this,
-        onoff(
-          'localechange',
-          () => {
-            this.#renderSearch(this.getAttribute('search'))
-          },
-          I18n.on
-        ).on(),
-        'i18n'
-      )
+    if (!this.hasAttribute('search')) return
+
+    CleanupRegistry.unregister(this, 'i18n')
+
+    CleanupRegistry.register(
+      this,
+      onoff(
+        'localechange',
+        () => {
+          this.#renderSearch(this.getAttribute('search'))
+        },
+        I18n.on
+      ).on(),
+      'i18n'
+    )
   }
 
   #renderSearch = (search: string | null) => {

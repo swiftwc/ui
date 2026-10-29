@@ -61,17 +61,20 @@ export class ToolBar extends HTMLElement {
   connectedCallback() {
     debug(`${ToolBar.name} ⚡️ connect`)
 
-    // NOTE: wait for config
-    // Snapshot.waitReady.then(() => {
-    for (const el of this.#shadowRoot.querySelectorAll(`[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]`)) observers.observe(el, this.#measureStacks.bind(this))
-    // })
+    for (const el of this.#stacks) observers.observe(el, this.#onResize)
   }
 
   disconnectedCallback() {
     debug(`${ToolBar.name} ⚡️ disconnect`)
 
-    observers.unobserve(this)
+    for (const el of this.#stacks) observers.unobserve(el)
   }
+
+  get #stacks() {
+    return this.#shadowRoot.querySelectorAll('[part*="toolbar-leading-stack"],[part*="toolbar-trailing-stack"]')
+  }
+
+  readonly #onResize = (entry: ResizeObserverEntry) => this.#measureStacks(entry)
 
   #measureStacks(entry: ResizeObserverEntry) {
     debug(`${ToolBar.name} ⚡️ measure`)

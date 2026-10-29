@@ -7,7 +7,7 @@
   "commit": false,
   "snapshot": {
     "useCalculatedVersion": true,
-    "prereleaseTemplate": "{tag}-{datetime}"
+    "prereleaseTemplate": "{tag}.{datetime}"
   },
   "ignore": ["v1"],
   "fixed": [],

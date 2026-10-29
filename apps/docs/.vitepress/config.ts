@@ -4,10 +4,11 @@ import { dl } from '@mdit/plugin-dl'
 import { embed } from '@mdit/plugin-embed'
 import { icon } from '@mdit/plugin-icon'
 import { layout } from '@mdit/plugin-layout'
-import data from '@swiftwc/ui/customElements/en' with { type: 'json' }
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
+import data from '../../../packages/ui/custom-elements/en.json' with { type: 'json' }
+import pkg from '../../../packages/ui/package.json' with { type: 'json' }
 
 interface SidebarItem {
   text: string
@@ -105,6 +106,10 @@ const links: Record<string, string> = {
 export default defineConfig({
   vite: {
     plugins: [groupIconVitePlugin()],
+    define: { __SWIFTWC_VERSION__: JSON.stringify(pkg.version) },
+  },
+  transformPageData(pageData) {
+    pageData.frontmatter.version = pkg.version
   },
   markdown: {
     codeTransformers: [
@@ -224,7 +229,7 @@ export default defineConfig({
       { text: 'Home', link: '/' },
       { text: 'Docs', link: '/installation/' },
       {
-        text: 'v1.0-alpha.1',
+        text: `v${pkg.version}`,
         items: [
           { text: 'What’s New', link: '/changelog' },
           // { text: "Sponsor Open Source", link: "https://github.com/sponsors/swiftwc" },

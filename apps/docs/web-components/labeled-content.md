@@ -57,7 +57,7 @@ You can assemble labeled content with by providing a `value` attribute and a `la
 <labeled-content label="Age" value="6" format="unit::unit=year&unitDisplay=long"></labeled-content>
 ```
 
-<<< @/public/examples/labeled-content/demo-full.html#html{18}
+<<< @/public/examples/labeled-content/demo-full.html{18}
 
 :::
 

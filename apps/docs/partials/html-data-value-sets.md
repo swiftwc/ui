@@ -10,16 +10,16 @@
 
 ```ts
 enum Font {
-  'footnote', // The font used in footnotes
-  'caption2', // The font used the caption2 size
-  'caption', // The font used for standard captions
-  'callout', // The font used for callouts
-  'body', // The font used body text
-  'subheadline', // The font used subheadings
-  'headline', // The font used headings
-  'title3', // The font used third level hierarchical headings
-  'title2', // The font used second level hierarchical headings
-  'title', // The font used first level hierarchical headings
+  footnote, // The font used in footnotes
+  caption2, // The font used the caption2 size
+  caption, // The font used for standard captions
+  callout, // The font used for callouts
+  body, // The font used body text
+  subheadline, // The font used subheadings
+  headline, // The font used headings
+  title3, // The font used third level hierarchical headings
+  title2, // The font used second level hierarchical headings
+  title, // The font used first level hierarchical headings
   'large-title', // The font used large titles
   'extra-large-title', // The font used extra large titles
   'extra-large-title2', // The font used second level extra large titles
@@ -126,12 +126,12 @@ enum Spacing {
 
 ```ts
 enum Tint {
-  'gray', // Like secondary, like disabled
-  'blue', // System `blue` color
-  'red', // System `red` color
-  'green', // System `green` color
-  'orange', // System `orange` color
-  'purple', // System `purple` color
+  gray, // Like secondary, like disabled
+  blue, // System `blue` color
+  red, // System `red` color
+  green, // System `green` color
+  orange, // System `orange` color
+  purple, // System `purple` color
 }
 
 ```
@@ -158,15 +158,15 @@ enum Tint {
 
 ```ts
 enum Foreground {
-  'black', // Applies the system black color (`--black`)
-  'white', // Applies the system white color (`--white`)
-  'primary', // Applies the system primary color (`--primary`)
-  'secondary', // Applies the system secondary color (`--secondary`)
-  'blue', // Applies the system blue color (`--blue`)
-  'red', // Applies the system red color (`--red`)
-  'green', // Applies the system green color (`--green`)
-  'orange', // Applies the system orange color (`--orange`)
-  'purple', // Applies the system purple color (`--purple`)
+  black, // Applies the system black color (`--black`)
+  white, // Applies the system white color (`--white`)
+  primary, // Applies the system primary color (`--primary`)
+  secondary, // Applies the system secondary color (`--secondary`)
+  blue, // Applies the system blue color (`--blue`)
+  red, // Applies the system red color (`--red`)
+  green, // Applies the system green color (`--green`)
+  orange, // Applies the system orange color (`--orange`)
+  purple, // Applies the system purple color (`--purple`)
   'blue.secondary', // Applies the system secondary blue color (`--blue2`)
   'red.secondary', // Applies the system secondary red color (`--red2`)
   'green.secondary', // Applies the system secondary green color (`--green2`)
@@ -213,11 +213,11 @@ enum Foreground {
 
 ```ts
 enum inlineSet {
-  'leading', // Applies `justify-items: start; justify-content: start;` rules
+  leading, // Applies `justify-items: start; justify-content: start;` rules
   'leading fill', // Applies `justify-items: start; justify-content: stretch;` rules
-  'center', // Applies `justify-items: center; justify-content: center;` rules
-  'trailing', // Applies `justify-items: end; justify-content: end;` rules
-  'fill', // Applies `justify-items: stretch; justify-content: stretch;` rules
+  center, // Applies `justify-items: center; justify-content: center;` rules
+  trailing, // Applies `justify-items: end; justify-content: end;` rules
+  fill, // Applies `justify-items: stretch; justify-content: stretch;` rules
   'space-between', // Applies `justify-content: space-between;` rules
 }
 
@@ -245,11 +245,11 @@ enum inlineSet {
 
 ```ts
 enum blockSet {
-  'leading', // Applies `align-items: start; align-content: start;` rules
+  leading, // Applies `align-items: start; align-content: start;` rules
   'leading fill', // Applies `align-items: start; align-content: stretch;` rules
-  'center', // Applies `align-items: center; align-content: center;` rules
-  'trailing', // Applies `align-items: end; align-content: end;` rules
-  'fill', // Applies `align-items: stretch; align-content: stretch;` rules
+  center, // Applies `align-items: center; align-content: center;` rules
+  trailing, // Applies `align-items: end; align-content: end;` rules
+  fill, // Applies `align-items: stretch; align-content: stretch;` rules
   'space-between', // Applies `align-content: space-between;` rules
 }
 
@@ -277,7 +277,7 @@ enum blockSet {
 
 ```ts
 enum inlinePlacementSet {
-  'fill', // Applies `place-items: stretch; place-content: stretch;` rules
+  fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: stretch start; place-content: stretch start;` rules
   'fill leading', // Applies `place-items: start stretch; place-content: start stretch;` rules
   'fill space-between', // Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules
@@ -307,7 +307,7 @@ enum inlinePlacementSet {
 
 ```ts
 enum blockPlacementSet {
-  'fill', // Applies `place-items: stretch; place-content: stretch;` rules
+  fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: start stretch; place-content: start stretch;` rules
   'fill leading', // Applies `place-items: stretch start; place-content: stretch start;` rules
   'space-between fill', // Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules
@@ -336,11 +336,13 @@ enum blockPlacementSet {
 
 
 ```ts
-enum ControlSize {
-  'mini', // A control version that is minimally sized
-  'regular', // A control version that is the regular size
-  'small', // A control version that is proportionally smaller size for space-constrained views
-  'large', // A control version that is prominently sized
+enum pickerStyles {
+  menu, //
+  'navigation-link', //
+  sheet, //
+  'radio-group', //
+  palette, //
+  tabs, //
 }
 
 ```
@@ -366,8 +368,152 @@ enum ControlSize {
 
 
 ```ts
+enum labelStyles {
+  'icon-only', //
+  'title-only', //
+  'title-and-icon', //
+}
+
+```
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
+
+</div>
+
+<label for="show-more9" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+
+<label for="show-more9" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+
+</div>
+
+
+
+
+<div class="relative group">
+<input type="checkbox" id="show-more10" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
+
+
+
+```ts
+enum listStyles {
+  inset, //
+  'inset-grouped', //
+  sidebar, //
+}
+
+```
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
+
+</div>
+
+<label for="show-more10" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+
+<label for="show-more10" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+
+</div>
+
+
+
+
+<div class="relative group">
+<input type="checkbox" id="show-more11" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
+
+
+
+```ts
+enum formStyles {
+  inset, //
+  'inset-grouped', //
+  sidebar, //
+}
+
+```
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
+
+</div>
+
+<label for="show-more11" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+
+<label for="show-more11" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+
+</div>
+
+
+
+
+<div class="relative group">
+<input type="checkbox" id="show-more12" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
+
+
+
+```ts
+enum tableStyles {
+  inset, //
+}
+
+```
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
+
+</div>
+
+<label for="show-more12" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+
+<label for="show-more12" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+
+</div>
+
+
+
+
+<div class="relative group">
+<input type="checkbox" id="show-more13" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
+
+
+
+```ts
+enum ControlSize {
+  mini, // A control version that is minimally sized
+  regular, // A control version that is the regular size
+  small, // A control version that is proportionally smaller size for space-constrained views
+  large, // A control version that is prominently sized
+}
+
+```
+
+<div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
+
+</div>
+
+<label for="show-more13" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+
+<label for="show-more13" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+
+</div>
+
+
+
+
+<div class="relative group">
+<input type="checkbox" id="show-more14" class="peer hidden">
+
+<div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
+
+
+
+```ts
 enum Template {
-  'spacer', // Applies a `minmax(0, 1fr)` grid-template to the main-axis
+  spacer, // Applies a `minmax(0, 1fr)` grid-template to the main-axis
   'repeat(1,spacer)', // Applies a `repeat(1, minmax(0, 1fr))` grid-template to the main-axis
   'repeat(2,spacer)', // Applies a `repeat(2, minmax(0, 1fr))` grid-template to the main-axis
   'repeat(3,spacer)', // Applies a `repeat(3, minmax(0, 1fr))` grid-template to the main-axis
@@ -423,9 +569,9 @@ enum Template {
 
 </div>
 
-<label for="show-more9" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+<label for="show-more14" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
 
-<label for="show-more9" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+<label for="show-more14" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
 
@@ -433,7 +579,7 @@ enum Template {
 
 
 <div class="relative group">
-<input type="checkbox" id="show-more10" class="peer hidden">
+<input type="checkbox" id="show-more15" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
@@ -441,7 +587,7 @@ enum Template {
 
 ```ts
 enum FrameInlineLength {
-  'infinity', // 100%
+  infinity, // 100%
   '0', // 0rem
   '1', // 1rem
   '2', // 2rem
@@ -652,9 +798,9 @@ enum FrameInlineLength {
 
 </div>
 
-<label for="show-more10" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+<label for="show-more15" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
 
-<label for="show-more10" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+<label for="show-more15" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
 
@@ -662,7 +808,7 @@ enum FrameInlineLength {
 
 
 <div class="relative group">
-<input type="checkbox" id="show-more11" class="peer hidden">
+<input type="checkbox" id="show-more16" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
@@ -670,7 +816,7 @@ enum FrameInlineLength {
 
 ```ts
 enum BackgroundStyle {
-  'initial', // Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view
+  initial, // Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view
 }
 
 ```
@@ -679,9 +825,9 @@ enum BackgroundStyle {
 
 </div>
 
-<label for="show-more11" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
+<label for="show-more16" class="group-has-checked:hidden absolute -bottom-4 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show more</label>
 
-<label for="show-more11" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
+<label for="show-more16" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
 

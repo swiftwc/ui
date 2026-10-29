@@ -16,7 +16,7 @@ You create a button by providing an action and a label.
 </button>
 ```
 
-<<< @/public/examples/bordered-prominent-button/demo-full.html#html{30-32}
+<<< @/public/examples/bordered-prominent-button/demo-full.html{30-32}
 
 :::
 

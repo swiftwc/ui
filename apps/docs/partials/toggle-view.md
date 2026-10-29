@@ -17,7 +17,7 @@ You create a toggle by providing an `is-on` attribute and a `label` attribute.
 </toggle-view>
 ```
 
-<<< @/public/examples/toggle-view/demo-full.html#html{17-20}
+<<< @/public/examples/toggle-view/demo-full.html{17-20}
 
 :::
 

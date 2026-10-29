@@ -348,7 +348,7 @@
               "kind": "field",
               "name": "template",
               "readonly": true,
-              "description": "// get #internals(): ElementInternals {",
+              "description": "",
               "type": {
                 "text": "DocumentFragment"
               }
@@ -1353,7 +1353,7 @@
               "kind": "field",
               "name": "template",
               "readonly": true,
-              "description": "// get #internals(): ElementInternals {",
+              "description": "",
               "type": {
                 "text": "DocumentFragment"
               }
@@ -1525,7 +1525,7 @@
               "kind": "field",
               "name": "progressViewStyle",
               "readonly": true,
-              "description": "// @slots() readonly #slots: SlotLookup = undefined!",
+              "description": "",
               "type": {
                 "text": "\"circular\" | \"linear\""
               }

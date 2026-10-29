@@ -16,7 +16,7 @@ export class ResizeObserverSingleton {
 
   public observe(target: Element, callback: (entry: ResizeObserverEntry) => void) {
     this.#observers.set(target, callback)
-    
+
     void this.observer.then((o) => {
       if (this.#observers.get(target) === callback) o.observe(target) // skip if already unobserved/replaced
     })

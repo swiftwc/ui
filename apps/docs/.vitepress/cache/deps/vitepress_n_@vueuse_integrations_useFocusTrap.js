@@ -1,8 +1,8 @@
-import { U as computed, Yn as shallowRef, er as toValue, gn as watch } from "./vue.runtime.esm-bundler-o-oWBqB7.js";
+import { U as computed, Yn as shallowRef, er as toValue, gn as watch } from "./vue.runtime.esm-bundler-B9tbcV8F.js";
 import { notNullish, toArray, tryOnScopeDispose, unrefElement } from "./vitepress_n_@vueuse_core.js";
-//#region ../../node_modules/tabbable/dist/index.esm.js
+// ../../node_modules/tabbable/dist/index.esm.js
 /*!
-* tabbable 6.5.0
+* tabbable 6.5.1
 * @license MIT, https://github.com/focus-trap/tabbable/blob/master/LICENSE
 */
 var candidateSelectors = [
@@ -23,10 +23,9 @@ var candidateSelector = /* #__PURE__ */ candidateSelectors.join(",");
 var NoElement = typeof Element === "undefined";
 var matches = NoElement ? function() {} : Element.prototype.matches || Element.prototype.msMatchesSelector || Element.prototype.webkitMatchesSelector;
 var getRootNode = !NoElement && Element.prototype.getRootNode ? function(element) {
-	var _element$getRootNode;
-	return element === null || element === void 0 ? void 0 : (_element$getRootNode = element.getRootNode) === null || _element$getRootNode === void 0 ? void 0 : _element$getRootNode.call(element);
+	return element == null || element.getRootNode == null ? void 0 : element.getRootNode();
 } : function(element) {
-	return element === null || element === void 0 ? void 0 : element.ownerDocument;
+	return element == null ? void 0 : element.ownerDocument;
 };
 /**
 * Determines if a node is inert or in an inert ancestor.
@@ -37,9 +36,8 @@ var getRootNode = !NoElement && Element.prototype.getRootNode ? function(element
 *  False if `node` is falsy.
 */
 var _isInert = function isInert(node, lookUp) {
-	var _node$getAttribute;
 	if (lookUp === void 0) lookUp = true;
-	var inertAtt = node === null || node === void 0 ? void 0 : (_node$getAttribute = node.getAttribute) === null || _node$getAttribute === void 0 ? void 0 : _node$getAttribute.call(node, "inert");
+	var inertAtt = node == null || node.getAttribute == null ? void 0 : node.getAttribute("inert");
 	return inertAtt === "" || inertAtt === "true" || lookUp && node && (typeof node.closest === "function" ? node.closest("[inert]") : _isInert(node.parentNode));
 };
 /**
@@ -48,9 +46,9 @@ var _isInert = function isInert(node, lookUp) {
 * @returns True if it's content-editable; false if it's not or `node` is falsy.
 */
 var isContentEditable = function isContentEditable(node) {
-	var _node$getAttribute2;
-	var attValue = node === null || node === void 0 ? void 0 : (_node$getAttribute2 = node.getAttribute) === null || _node$getAttribute2 === void 0 ? void 0 : _node$getAttribute2.call(node, "contenteditable");
-	return attValue === "" || attValue === "true";
+	var _node$getAttribute;
+	var attValue = node == null || node.getAttribute == null || (_node$getAttribute = node.getAttribute("contenteditable")) == null ? void 0 : _node$getAttribute.toLowerCase();
+	return attValue === "" || attValue === "true" || attValue === "plaintext-only";
 };
 /**
 * @param {Element} el container to check in
@@ -203,16 +201,16 @@ var isNonTabbableRadio = function isNonTabbableRadio(node) {
 var isNodeAttached = function isNodeAttached(node) {
 	var _nodeRoot;
 	var nodeRoot = node && getRootNode(node);
-	var nodeRootHost = (_nodeRoot = nodeRoot) === null || _nodeRoot === void 0 ? void 0 : _nodeRoot.host;
+	var nodeRootHost = (_nodeRoot = nodeRoot) == null ? void 0 : _nodeRoot.host;
 	var attached = false;
 	if (nodeRoot && nodeRoot !== node) {
-		var _nodeRootHost, _nodeRootHost$ownerDo, _node$ownerDocument;
-		attached = !!((_nodeRootHost = nodeRootHost) !== null && _nodeRootHost !== void 0 && (_nodeRootHost$ownerDo = _nodeRootHost.ownerDocument) !== null && _nodeRootHost$ownerDo !== void 0 && _nodeRootHost$ownerDo.contains(nodeRootHost) || node !== null && node !== void 0 && (_node$ownerDocument = node.ownerDocument) !== null && _node$ownerDocument !== void 0 && _node$ownerDocument.contains(node));
+		var _nodeRootHost, _node$ownerDocument;
+		attached = !!((_nodeRootHost = nodeRootHost) != null && (_nodeRootHost = _nodeRootHost.ownerDocument) != null && _nodeRootHost.contains(nodeRootHost) || node != null && (_node$ownerDocument = node.ownerDocument) != null && _node$ownerDocument.contains(node));
 		while (!attached && nodeRootHost) {
-			var _nodeRoot2, _nodeRootHost2, _nodeRootHost2$ownerD;
+			var _nodeRoot2, _nodeRootHost2;
 			nodeRoot = getRootNode(nodeRootHost);
-			nodeRootHost = (_nodeRoot2 = nodeRoot) === null || _nodeRoot2 === void 0 ? void 0 : _nodeRoot2.host;
-			attached = !!((_nodeRootHost2 = nodeRootHost) !== null && _nodeRootHost2 !== void 0 && (_nodeRootHost2$ownerD = _nodeRootHost2.ownerDocument) !== null && _nodeRootHost2$ownerD !== void 0 && _nodeRootHost2$ownerD.contains(nodeRootHost));
+			nodeRootHost = (_nodeRoot2 = nodeRoot) == null ? void 0 : _nodeRoot2.host;
+			attached = !!((_nodeRootHost2 = nodeRootHost) != null && (_nodeRootHost2 = _nodeRootHost2.ownerDocument) != null && _nodeRootHost2.contains(nodeRootHost));
 		}
 	}
 	return attached;
@@ -345,10 +343,9 @@ var isFocusable = function isFocusable(node, options) {
 	if (matches.call(node, focusableCandidateSelector) === false) return false;
 	return isNodeMatchingSelectorFocusable(options, node);
 };
-//#endregion
-//#region ../../node_modules/focus-trap/dist/focus-trap.esm.js
+// ../../node_modules/focus-trap/dist/focus-trap.esm.js
 /*!
-* focus-trap 8.2.2
+* focus-trap 8.2.4
 * @license MIT, https://github.com/focus-trap/focus-trap/blob/master/LICENSE
 */
 function _arrayLikeToArray(r, a) {
@@ -626,7 +623,7 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 			try {
 				node = doc.querySelector(optionValue);
 			} catch (err) {
-				throw new Error("`".concat(optionName, "` appears to be an invalid selector; error=\"").concat(err.message, "\""));
+				throw new Error("`".concat(optionName, "` appears to be an invalid selector; error=\"").concat(err.message, "\""), { cause: err });
 			}
 			if (!node) {
 				if (!hasFallback) throw new Error("`".concat(optionName, "` as selector refers to no known node"));
@@ -723,7 +720,10 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 	};
 	var _tryFocus = function tryFocus(node) {
 		if (node === false) return;
-		if (node === _getActiveElement(document)) return;
+		if (node === _getActiveElement(doc)) {
+			state.mostRecentlyFocusedNode = node;
+			return;
+		}
 		if (!node || !node.focus) {
 			_tryFocus(getInitialFocusNode());
 			return;
@@ -755,14 +755,17 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 		if (state.tabbableGroups.length > 0) {
 			var containerIndex = findContainerIndex(target, event);
 			var containerGroup = containerIndex >= 0 ? state.containerGroups[containerIndex] : void 0;
-			if (containerIndex < 0) if (isBackward) destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode;
-			else destinationNode = state.tabbableGroups[0].firstTabbableNode;
-			else if (isBackward) {
+			if (containerIndex < 0) {
+				if (isBackward) destinationNode = state.tabbableGroups[state.tabbableGroups.length - 1].lastTabbableNode;
+				else destinationNode = state.tabbableGroups[0].firstTabbableNode;
+			} else if (isBackward) {
 				var startOfGroupIndex = state.tabbableGroups.findIndex(function(_ref4) {
 					var firstTabbableNode = _ref4.firstTabbableNode;
 					return target === firstTabbableNode;
 				});
-				if (startOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target, false))) startOfGroupIndex = containerIndex;
+				if (startOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target, false))) startOfGroupIndex = Math.max(0, state.tabbableGroups.findIndex(function(group) {
+					return state.containerGroups.indexOf(group) >= containerIndex;
+				}));
 				if (startOfGroupIndex >= 0) {
 					var destinationGroupIndex = startOfGroupIndex === 0 ? state.tabbableGroups.length - 1 : startOfGroupIndex - 1;
 					var destinationGroup = state.tabbableGroups[destinationGroupIndex];
@@ -773,7 +776,12 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 					var lastTabbableNode = _ref5.lastTabbableNode;
 					return target === lastTabbableNode;
 				});
-				if (lastOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target))) lastOfGroupIndex = containerIndex;
+				if (lastOfGroupIndex < 0 && (containerGroup.container === target || isFocusable(target, config.tabbableOptions) && !isTabbable(target, config.tabbableOptions) && !containerGroup.nextTabbableNode(target))) {
+					var nextGroupIndex = state.tabbableGroups.findIndex(function(group) {
+						return state.containerGroups.indexOf(group) > containerIndex;
+					});
+					lastOfGroupIndex = nextGroupIndex > 0 ? nextGroupIndex - 1 : state.tabbableGroups.length - 1;
+				}
 				if (lastOfGroupIndex >= 0) {
 					var _destinationGroupIndex = lastOfGroupIndex === state.tabbableGroups.length - 1 ? 0 : lastOfGroupIndex + 1;
 					var _destinationGroup = state.tabbableGroups[_destinationGroupIndex];
@@ -1158,8 +1166,7 @@ var createFocusTrap = function createFocusTrap(elements, userOptions) {
 	trap.updateContainerElements(elements);
 	return trap;
 };
-//#endregion
-//#region ../../node_modules/@vueuse/integrations/dist/useFocusTrap.js
+// ../../node_modules/@vueuse/integrations/dist/useFocusTrap.js
 /**
 * Reactive focus-trap
 *
@@ -1184,12 +1191,14 @@ function useFocusTrap(target, options = {}) {
 			isPaused.value = false;
 		}
 	};
-	watch(computed(() => {
-		return toArray(toValue(target)).map((el) => {
+	const targets = computed(() => {
+		const _targets = toValue(target);
+		return toArray(_targets).map((el) => {
 			const _el = toValue(el);
 			return typeof _el === "string" ? _el : unrefElement(_el);
 		}).filter(notNullish);
-	}), (els) => {
+	});
+	watch(targets, (els) => {
 		if (!els.length) return;
 		if (!trap) {
 			trap = createFocusTrap(els, {
@@ -1220,5 +1229,4 @@ function useFocusTrap(target, options = {}) {
 		unpause
 	};
 }
-//#endregion
 export { useFocusTrap };

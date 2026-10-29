@@ -21,13 +21,13 @@
       :where(&) {
         --disclosure--marker-display: if(style(--disclosure-style: marker-trailing): ; style(--disclosure-style: marker-leading): ; else: none;);
 
-        --disclosure--summary-grid-auto-flow: if(style(--disclosure-style: marker-trailing): column ; style(--disclosure-style: marker-leading): column ;);
+        --disclosure--summary-grid-auto-flow: if(style(--disclosure-style: marker-trailing): column; style(--disclosure-style: marker-leading): column;);
 
-        --disclosure--summary-gap: if(style(--disclosure-style: marker-trailing): 0.1rem ; style(--disclosure-style: marker-leading): 0.1rem ;);
+        --disclosure--summary-gap: if(style(--disclosure-style: marker-trailing): 0.1rem; style(--disclosure-style: marker-leading): 0.1rem;);
 
-        --disclosure--summary-grid-template-columns: if(style(--disclosure-style: marker-trailing): minmax(0, 1fr) auto ; style(--disclosure-style: marker-leading): auto minmax(0, 1fr) ;);
+        --disclosure--summary-grid-template-columns: if(style(--disclosure-style: marker-trailing): minmax(0, 1fr) auto; style(--disclosure-style: marker-leading): auto minmax(0, 1fr););
 
-        --disclosure--marker-order: if(style(--disclosure-style: marker-leading): -1 ;);
+        --disclosure--marker-order: if(style(--disclosure-style: marker-leading): -1;);
       }
     }
 

@@ -51,16 +51,20 @@ export class NavigationTitle extends HTMLElement {
           <v-stack alignment="fill">
             ${systemImage ? html`<image-view system-name="${systemImage}" system-weight="${systemImageWeight}" foreground="blue"></image-view>` : null}
             <v-stack spacing="0" alignment="fill">
-              ${title
-                ? html`<label-view line-limit="1" truncation-mode="tail" font="headline">
-                    <span>${title}</span>
-                  </label-view>`
-                : null}
-              ${subtitle
-                ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout">
-                    <span>${subtitle}</span>
-                  </label-view>`
-                : null}
+              ${
+                title
+                  ? html`<label-view line-limit="1" truncation-mode="tail" font="headline">
+                      <span>${title}</span>
+                    </label-view>`
+                  : null
+              }
+              ${
+                subtitle
+                  ? html`<label-view line-limit="1" truncation-mode="tail" foreground="secondary" font="callout">
+                      <span>${subtitle}</span>
+                    </label-view>`
+                  : null
+              }
             </v-stack>
           </v-stack>
         </navigation-large-title>

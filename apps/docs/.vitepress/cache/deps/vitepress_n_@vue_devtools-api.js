@@ -1,4 +1,4 @@
-//#region ../../node_modules/@vue/devtools-shared/dist/index.js
+// ../../node_modules/@vue/devtools-shared/dist/index.js
 var __create$1 = Object.create;
 var __defProp$1 = Object.defineProperty;
 var __getOwnPropDesc$1 = Object.getOwnPropertyDescriptor;
@@ -189,8 +189,7 @@ function isUrlString(str) {
 * @description A really fast deep clone alternative
 */
 var deepClone = (0, import_rfdc.default)({ circles: true });
-//#endregion
-//#region ../../node_modules/perfect-debounce/dist/index.mjs
+// ../../node_modules/perfect-debounce/dist/index.mjs
 var DEBOUNCE_DEFAULTS = { trailing: true };
 /**
 Debounce functions
@@ -276,8 +275,7 @@ function debounce(fn, wait = 25, options = {}) {
 async function _applyPromised(fn, _this, args) {
 	return await fn.apply(_this, args);
 }
-//#endregion
-//#region ../../node_modules/hookable/dist/index.mjs
+// ../../node_modules/hookable/dist/index.mjs
 function flatHooks(configHooks, hooks = {}, parentName) {
 	for (const key in configHooks) {
 		const subHook = configHooks[key];
@@ -432,8 +430,7 @@ var Hookable = class {
 function createHooks() {
 	return new Hookable();
 }
-//#endregion
-//#region ../../node_modules/birpc/dist/index.mjs
+// ../../node_modules/birpc/dist/index.mjs
 var { clearTimeout: clearTimeout$1, setTimeout: setTimeout$1 } = globalThis;
 Math.random.bind(Math);
 var __commonJSMin = (cb, mod) => () => (mod || cb((mod = { exports: {} }).exports, mod), mod.exports);
@@ -3804,5 +3801,4 @@ target.__VUE_DEVTOOLS_KIT_RPC_SERVER__ ??= null;
 target.__VUE_DEVTOOLS_KIT_VITE_RPC_CLIENT__ ??= null;
 target.__VUE_DEVTOOLS_KIT_VITE_RPC_SERVER__ ??= null;
 target.__VUE_DEVTOOLS_KIT_BROADCAST_RPC_SERVER__ ??= null;
-//#endregion
 export { addCustomCommand, addCustomTab, onDevToolsClientConnected, onDevToolsConnected, removeCustomCommand, setupDevToolsPlugin, setupDevToolsPlugin as setupDevtoolsPlugin };

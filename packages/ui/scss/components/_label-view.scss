@@ -249,28 +249,28 @@ $label-line-ifs: (
         // --label--line-clamp: if(style(--label-line-limit: 2): 2 ;);
 
         // ANCHOR: label-flow
-        --label--host-align-items: if(style(--label-flow: vertical): normal ; else: center ;);
-        --label--host-justify-items: if(style(--label-flow: vertical): center ; else: normal ;);
+        --label--host-align-items: if(style(--label-flow: vertical): normal; else: center;);
+        --label--host-justify-items: if(style(--label-flow: vertical): center; else: normal;);
 
         // ANCHOR: label-style
         --label--host-grid-template-columns: if(
-          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
-            style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ;
-            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr) ; else: auto minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
+          style(--label-style: icon-only): minmax(0, 1fr); style(--label-style: title-only): minmax(0, 1fr);
+            style(--label-style: title-and-icon): if(style(--label-flow: vertical): minmax(0, 1fr); else: auto minmax(0, 1fr););
+            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): minmax(0, 1fr); else: auto minmax(0, 1fr);); else: minmax(0, 1fr););
         );
         --label--host-grid-template-rows: if(
-          style(--label-style: icon-only): minmax(0, 1fr) ; style(--label-style: title-only): minmax(0, 1fr) ;
-            style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ;
-            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr) ; else: minmax(0, 1fr) ;) ; else: minmax(0, 1fr) ;) ;
+          style(--label-style: icon-only): minmax(0, 1fr); style(--label-style: title-only): minmax(0, 1fr);
+            style(--label-style: title-and-icon): if(style(--label-flow: vertical): auto minmax(0, 1fr); else: minmax(0, 1fr););
+            else: if(style(--label--has-icon: yes) and style(--label--has-title: yes): if(style(--label-flow: vertical): auto minmax(0, 1fr); else: minmax(0, 1fr);); else: minmax(0, 1fr););
         );
 
         --label--iconstack-display: if(
-          style(--label-style: icon-only): grid ; style(--label-style: title-only): none ; style(--label-style: title-and-icon): grid ; else: if(style(--label--has-icon: yes): grid ; else: none;) ;
+          style(--label-style: icon-only): grid; style(--label-style: title-only): none; style(--label-style: title-and-icon): grid; else: if(style(--label--has-icon: yes): grid; else: none;);
         );
 
         --label--titlestack-display: if(
-          style(--label-style: icon-only): none ; style(--label-style: title-only): var(--label--titlestack-shown, inline-block) ;
-            style(--label-style: title-and-icon): var(--label--titlestack-shown, inline-block) ; else: if(style(--label--has-title: yes): var(--label--titlestack-shown, inline-block) ; else: none ;) ;
+          style(--label-style: icon-only): none; style(--label-style: title-only): var(--label--titlestack-shown, inline-block);
+            style(--label-style: title-and-icon): var(--label--titlestack-shown, inline-block); else: if(style(--label--has-title: yes): var(--label--titlestack-shown, inline-block); else: none;);
         );
         // --label--titlestack-display: if(
         //   style(--label-style: icon-only): none ; style(--label-style: title-only): inline-block ; style(--label-style: title-and-icon): inline-block ;

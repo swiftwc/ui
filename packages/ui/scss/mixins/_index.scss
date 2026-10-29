@@ -384,9 +384,7 @@
         $all-props: map.merge(
           $all-props,
           (
-            $prop: (
-                ($variant $val),
-              ),
+            $prop: (($variant $val)),
           )
         );
       }

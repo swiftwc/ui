@@ -77,9 +77,7 @@ $inline-map: (
     (justify-items (stretch)),
     (justify-content (stretch)),
   ),
-  space-between: (
-    (justify-content (space-between)),
-  ),
+  space-between: ((justify-content (space-between))),
 );
 
 $block-map: (
@@ -103,9 +101,7 @@ $block-map: (
     (align-items (stretch)),
     (align-content (stretch)),
   ),
-  space-between: (
-    (align-content (space-between)),
-  ),
+  space-between: ((align-content (space-between))),
 );
 
 $inline-placement-map: (

@@ -1,4 +1,4 @@
-//#region ../../node_modules/mark.js/src/lib/domiterator.js
+// ../../node_modules/mark.js/src/lib/domiterator.js
 /**
 * A NodeIterator with iframes support and a method to check if an element is
 * matching a specified selector
@@ -182,9 +182,10 @@ var DOMIterator = class DOMIterator {
 	*/
 	onIframeReady(ifr, successFn, errorFn) {
 		try {
-			if (ifr.contentWindow.document.readyState === "complete") if (this.isIframeBlank(ifr)) this.observeIframeLoad(ifr, successFn, errorFn);
-			else this.getIframeContents(ifr, successFn, errorFn);
-			else this.observeIframeLoad(ifr, successFn, errorFn);
+			if (ifr.contentWindow.document.readyState === "complete") {
+				if (this.isIframeBlank(ifr)) this.observeIframeLoad(ifr, successFn, errorFn);
+				else this.getIframeContents(ifr, successFn, errorFn);
+			} else this.observeIframeLoad(ifr, successFn, errorFn);
 		} catch (e) {
 			errorFn();
 		}
@@ -287,9 +288,11 @@ var DOMIterator = class DOMIterator {
 	* @access protected
 	*/
 	compareNodeIframe(node, prevNode, ifr) {
-		if (node.compareDocumentPosition(ifr) & Node.DOCUMENT_POSITION_PRECEDING) if (prevNode !== null) {
-			if (prevNode.compareDocumentPosition(ifr) & Node.DOCUMENT_POSITION_FOLLOWING) return true;
-		} else return true;
+		if (node.compareDocumentPosition(ifr) & Node.DOCUMENT_POSITION_PRECEDING) {
+			if (prevNode !== null) {
+				if (prevNode.compareDocumentPosition(ifr) & Node.DOCUMENT_POSITION_FOLLOWING) return true;
+			} else return true;
+		}
 		return false;
 	}
 	/**
@@ -442,8 +445,7 @@ var DOMIterator = class DOMIterator {
 		});
 	}
 };
-//#endregion
-//#region ../../node_modules/mark.js/src/lib/mark.js
+// ../../node_modules/mark.js/src/lib/mark.js
 /**
 * Marks search terms in DOM elements
 * @example
@@ -1463,8 +1465,7 @@ var Mark$1 = class {
 		}, this.opt.done);
 	}
 };
-//#endregion
-//#region ../../node_modules/mark.js/src/vanilla.js
+// ../../node_modules/mark.js/src/vanilla.js
 function Mark(ctx) {
 	const instance = new Mark$1(ctx);
 	this.mark = (sv, opt) => {
@@ -1485,5 +1486,4 @@ function Mark(ctx) {
 	};
 	return this;
 }
-//#endregion
 export { Mark as default };

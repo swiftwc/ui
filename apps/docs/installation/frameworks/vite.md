@@ -35,7 +35,7 @@ cd my-project
 
 == latest
 
-::::tabs key:script
+::::tabs key:script variant:code
 
 === If you are using TypeScript
 
@@ -69,7 +69,7 @@ bun add --exact @swiftwc/ui@latest --dev
 
 == canary
 
-::::tabs key:script
+::::tabs key:script variant:code
 
 === If you are using TypeScript
 
@@ -145,7 +145,7 @@ bun add --exact @swiftwc/ui@canary --dev
 
 **Add an import to your JavaScript file that imports SwiftWC client module:**
 
-::::tabs key:script
+::::tabs key:script variant:code
 
 == If you are using TypeScript
 
@@ -179,7 +179,7 @@ npm run dev
 
 ## 6. Start using SwiftWC
 
-:::::tabs key:script
+:::::tabs key:script variant:code
 
 === If you are using TypeScript
 

@@ -97,7 +97,7 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 
 **Add an import to your JavaScript file that imports SwiftWC client module:**
 
-::::tabs key:script
+::::tabs key:script variant:code
 
 == If you are using TypeScript
 

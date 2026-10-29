@@ -5,27 +5,46 @@ on:
     branches: [canary]
   workflow_dispatch: {}
 
+permissions:
+  contents: read
+  id-token: write
+
+concurrency:
+  group: canary
+  cancel-in-progress: false
+
 jobs:
   release:
     runs-on: ubuntu-latest
-    permissions:
-      contents: read
-      id-token: write
     steps:
       - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
       - uses: actions/setup-node@v4
         with:
           node-version: 24
           registry-url: https://registry.npmjs.org
 
-      - name: Ensure npm supports trusted publishing
-        run: npm install -g npm@latest
+      - run: npm install -g npm@latest
+      - run: npm ci
 
-      - name: Install deps
-        run: npm ci
+      - name: Check for changesets
+        id: changesets
+        run: |
+          shopt -s nullglob
+          present=false
+          for file in .changeset/*.md; do
+            [ "$(basename "$file")" != "README.md" ] && present=true && break
+          done
+          echo "present=$present" >> "$GITHUB_OUTPUT"
+
+      - name: Version snapshot
+        if: steps.changesets.outputs.present == 'true'
+        run: npx changeset version --snapshot canary
 
       - name: Publish to npm @canary
+        if: steps.changesets.outputs.present == 'true'
+        run: npx changeset publish --no-git-tag --tag canary
         env:
           NPM_CONFIG_PROVENANCE: 'true'
-        run: npx changeset publish --no-git-tag

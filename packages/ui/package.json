@@ -68,7 +68,7 @@
     "prepublishOnly": "npm run build",
     "codegen": "npm run codegen:manifest && npm run codegen:barrelize",
     "codegen:manifest": "tsx scripts/make-manifest.ts && prettier ./html-data/en.json && prettier ./css-data/en.json --write",
-    "codegen:barrelize": "npm run codegen:barrelize:components && npm run codegen:barrelize:events && npm run codegen:barrelize:buses && npm run codegen:barrelize:i18n && npm run codegen:barrelize:tpl && npm run codegen:barrelize:morphdom && npm run codegen:barrelize:decorators && npm run codegen:barrelize:utils",
+    "codegen:barrelize": "npm run codegen:barrelize:components && npm run codegen:barrelize:events && npm run codegen:barrelize:buses && npm run codegen:barrelize:i18n && npm run codegen:barrelize:tpl && npm run codegen:barrelize:morphdom && npm run codegen:barrelize:decorators && npm run codegen:barrelize:utils && npm run codegen:barrelize:scss",
     "codegen:barrelize:components": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --directory ./js/components --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:events": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --directory ./js/events --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:buses": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/buses --exclude \".\\.test\\.ts\"",
@@ -77,25 +77,26 @@
     "codegen:barrelize:morphdom": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/morphdom --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:decorators": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/decorators --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
-    "verify": "npm run codegen && npm run lint:types && npm run format && vitest run --dom",
+    "codegen:barrelize:scss": "node scripts/make-barrels.mts ./scss/utils ./scss/transitions ./scss/placeholders ./scss/mixins ./scss/final ./scss/base --partial && prettier ./scss/ --write",
+    "verify": "npm run codegen && npm run lint:types && npm run format && vitest run",
     "lint": "prettier . --check",
     "lint:types": "tsc --noEmit && sass --no-source-map scss/index.scss > /dev/null",
     "lint:types:scripts": "tsc -p tsconfig.scripts.json --noEmit",
     "format": "prettier . --write",
-    "test": "vitest --dom",
+    "test": "vitest",
     "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
   },
   "devDependencies": {
     "@babel/core": "^8.0.9",
     "@babel/plugin-proposal-decorators": "^8.0.2",
     "@rolldown/plugin-babel": "^0.2.4",
+    "@vitest/browser-playwright": "^4.1.12",
     "doctrine": "^3.0.0",
-    "element-internals-polyfill": "^3.0.2",
-    "happy-dom": "^20.7.0",
+    "playwright": "^1.64.1",
     "sass": "^1.98.0",
     "ts-morph": "^28.0.0",
     "tsx": "^4.21.0",
-    "vitest": "^4.0.18"
+    "vitest": "^4.1.12"
   },
   "customElements": "custom-elements/en.json"
 }

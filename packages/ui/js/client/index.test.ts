@@ -9,13 +9,9 @@ import { NavigationPath } from './index'
 describe('prop', () => {
   let div: HTMLElement
 
-  // customElements.define('navigation-stack', NavigationStack)
-  // customElements.define('scroll-stack', ScrollView)
-  // customElements.define('content-view', BodyView)
-
   beforeEach(() => {
-    div = document.createElement('div')
-    document.body.appendChild(div)
+    document.body.insertAdjacentHTML('beforeend', '<div></div>')
+    div = document.body.lastElementChild as HTMLElement
   })
   afterEach(() => div.remove())
 
@@ -272,19 +268,28 @@ describe('prop', () => {
 
 const modules = import.meta.glob(['../components/**/*.ts', '!../components/**/*.test.ts', '!../components/**/*.d.ts'], { eager: true })
 
-const classes = Object.entries(modules).flatMap(([file, mod]) =>
-  Object.values(mod as object)
-    .filter((v): v is CustomElementConstructor => typeof v === 'function' && v.prototype instanceof HTMLElement)
-    .map((ctor) => [file, ctor.name, ctor] as const)
-)
+const classes = [
+  ...new Map(
+    Object.values(modules).flatMap((mod) =>
+      Object.values(mod as object)
+        .filter((v): v is CustomElementConstructor => typeof v === 'function' && v.prototype instanceof HTMLElement)
+        .map((ctor) => [ctor, ctor] as const)
+    )
+  ).keys(),
+]
+const cases = classes.map((ctor) => ({ name: ctor.name, ctor }))
 
 describe('customElements', () => {
   test('found element classes', () => expect(classes.length).toBeGreaterThan(0))
 
-  test.each(classes)('%s › %s is registered', (_file, _name, ctor) => {
+  test.for(cases)('$name is registered', ({ ctor }) => {
     const tag = customElements.getName(ctor)
     expect(tag, `${ctor.name} is not registered`).not.toBeNull()
     expect(customElements.get(tag!)).toBe(ctor)
-    expect(document.createElement(tag!)).toBeInstanceOf(ctor)
+
+    const base = (ctor as { polyfillExtends?: string }).polyfillExtends
+    const el = base ? document.createElement(base, { is: tag! }) : document.createElement(tag!)
+
+    expect(el).toBeInstanceOf(ctor)
   })
 })

@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
-import { BorderedProminentButton } from './bordered-prominent-button'
 
 beforeEach(() => document.body.replaceChildren())
 
@@ -8,9 +7,8 @@ describe('prop', () => {
   let el: HTMLButtonElement
 
   beforeEach(() => {
-    el = document.createElement('button', { is: 'bordered-prominent-button' })
-    document.body.appendChild(el)
-    BorderedProminentButton.polyfillConnectedCallback(el as BorderedProminentButton)
+    document.body.insertAdjacentHTML('beforeend', '<button is="bordered-prominent-button"></button>')
+    el = document.body.lastElementChild as HTMLButtonElement
   })
   afterEach(() => el.remove())
 
@@ -20,8 +18,7 @@ describe('prop', () => {
 
   test('[role]', async () => {
     el.setAttribute('role', 'cancel')
-    BorderedProminentButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
-    await new Promise<void>((r) => queueMicrotask(r))
-    expect(el.outerHTML).toBe('<button is="bordered-prominent-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
+
+    await expect.poll(() => el.outerHTML).toBe('<button is="bordered-prominent-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
   })
 })

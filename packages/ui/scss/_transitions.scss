@@ -1,32 +1,35 @@
-@forward 'transitions/index';
+// !! AUTO GENERATED DON’T TOUCH !!
 
-@forward 'transitions/fwd';
+@forward './transitions/alert-dialog';
 
-@forward 'transitions/bwd';
+@forward './transitions/bwd';
 
-@forward 'transitions/fwd.navbar';
+@forward './transitions/bwd.navbar';
 
-@forward 'transitions/bwd.navbar';
+@forward './transitions/confirmation-dialog';
 
-@forward 'transitions/sheet-view';
+@forward './transitions/disclosure-group';
 
-@forward 'transitions/fine-tooltip';
+@forward './transitions/fine-tooltip';
 
-@forward 'transitions/menu-view';
+@forward './transitions/fwd';
 
-@forward 'transitions/progress-view';
+@forward './transitions/fwd.navbar';
 
-@forward 'transitions/glass-button';
+@forward './transitions/glass-button';
 
-@forward 'transitions/glass-prominent-button';
+@forward './transitions/glass-prominent-button';
 
-@forward 'transitions/confirmation-dialog';
-@forward 'transitions/alert-dialog';
+@forward './transitions/index';
 
-@forward 'transitions/navigation-split-view';
+@forward './transitions/menu-view';
 
-@forward 'transitions/disclosure-group';
+@forward './transitions/navigation-split-view';
 
-@forward 'transitions/sidebar-view';
+@forward './transitions/progress-view';
 
-@forward 'transitions/tab-bar';
+@forward './transitions/sheet-view';
+
+@forward './transitions/sidebar-view';
+
+@forward './transitions/tab-bar';

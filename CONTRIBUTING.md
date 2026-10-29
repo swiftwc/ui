@@ -156,6 +156,8 @@ If you have a request for a new component, please open a discussion on GitHub. W
 Tests are written using [Vitest](https://vitest.dev). You can run all the tests from the root of the repository.
 
 ```bash
+npx playwright install chromium
+
 npm run test -w @swiftwc/ui
 ```
 

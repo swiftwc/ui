@@ -19,9 +19,9 @@ describe('prop', () => {
     ['enforce unimportant', [`${p}: ${v} !important;`, v, , `${p}: ${v};`]],
     ['enforce important', [`${p}: ${v};`, v, 'important', `${p}: ${v} !important;`]],
     // ['enforce ImPoRtAnT', [`${p}: ${v};`, v, 'ImPoRtAnT', `${p}: ${v} !important;`]],
-    ['unset (null)', [`${p}: ${v};`, null, , null]],
-    ['unset ("")', [`${p}: ${v};`, '', , null]],
-    ['unset (undefined)', [`${p}: ${v};`, , , null]],
+    ['unset (null)', [`${p}: ${v};`, null, , '']],
+    ['unset ("")', [`${p}: ${v};`, '', , '']],
+    ['unset (undefined)', [`${p}: ${v};`, , , '']],
   ])) {
     it(desc, () => {
       if (pre) el.setAttribute('style', pre)

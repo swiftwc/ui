@@ -1,6 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
+import { userEvent } from 'vitest/browser'
+import '../client'
 import { Snapshot } from '../client'
-import { PickerView } from './picker-view'
+import type { PickerView } from './picker-view'
 
 const dict = [
   {
@@ -17347,11 +17349,10 @@ describe('prop', () => {
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-    form = document.createElement('form')
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+
+    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as PickerView
   })
   afterEach(() => el.remove())
 
@@ -17368,11 +17369,10 @@ describe('prop', () => {
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-    form = document.createElement('form')
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+
+    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as PickerView
   })
   afterEach(() => el.remove())
 
@@ -17391,11 +17391,10 @@ describe('prop', () => {
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-    form = document.createElement('form')
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+
+    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as PickerView
   })
   afterEach(() => el.remove())
 
@@ -17414,11 +17413,10 @@ describe('prop', () => {
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-    form = document.createElement('form')
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+
+    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as PickerView
   })
 
   test('[picker-style="radio-group"]', () => {
@@ -17443,11 +17441,10 @@ describe('prop', () => {
 
   beforeEach(() => {
     vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-    form = document.createElement('form')
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+
+    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as PickerView
   })
   afterEach(() => el.remove())
 
@@ -17465,9 +17462,9 @@ describe('prop', () => {
 
     el.appendChild(og)
 
-    await new Promise<void>((r) => queueMicrotask(r))
+    // await new Promise<void>((r) => queueMicrotask(r))
 
-    expect(el.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
+    await expect.poll(() => el.innerHTML).toBe(`<optgroup label="Theropods" slot="list"><option>Tyrannosaurus</option><option>Velociraptor</option><option>Deinonychus</option></optgroup><label>
         <h-stack distribution="fill" template="auto spacer" spacing="5">
           <input type="radio" name="00000000-0000-0000-0000-000000000000" disabled="">
           <h-stack distribution="fill">
@@ -17538,18 +17535,18 @@ describe('prop', async () => {
 
     document.querySelector('[is=form-view]')?.appendChild(el)
 
-    await new Promise<void>((r) => queueMicrotask(r))
+    // await new Promise<void>((r) => queueMicrotask(r))
 
-    ns.querySelector<HTMLElement>('picker-view label-view')?.click()
+    await userEvent.click(ns.querySelector<HTMLElement>('picker-view label-view')!) //ns.querySelector<HTMLElement>('picker-view label-view')?.click()
 
-    await new Promise<void>((r) => setTimeout(r, 550))
+    // await new Promise<void>((r) => setTimeout(r, 550))
 
     const dialog = el.closest('scroll-view')?.nextElementSibling
 
-    expect(dialog?.outerHTML)
-      .toBe(`<dialog is="sheet-view" open=""><scroll-view class=""><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">
+    await expect.poll(() => dialog?.outerHTML)
+      .toBe(`<dialog is="sheet-view" autofocus="" open=""><scroll-view style="--navbar-padding-inline-start: 52px; --navbar-padding-inline-end: 52px; --toolbar-padding-inline-start: 52px; --toolbar-padding-inline-end: 52px;"><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">
         <h-stack distribution="leading" template="auto spacer">
-          <label-view data-role="check" style="visibility: hidden;">
+          <label-view data-role="check" style="visibility: hidden">
             <image-view slot="icon" system-name="check"><i style="line-height: 1" class="ph ph-check"></i></image-view>
           </label-view>
           <h-stack distribution="fill">
@@ -17560,6 +17557,6 @@ describe('prop', async () => {
       </v-stack>
     </h-stack><!--🔥PART🔥-->
         </h-stack>
-      </button></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading" class=""><button type="button" tabindex="0" help="Back"><label-view system-image="x"><image-view slot="icon" system-name="x"><i style="line-height: 1" class="ph ph-x"></i></image-view></label-view></button></tool-bar-item></tool-bar></dialog>`)
+      </button></list-view></v-stack></scroll-view><tool-bar><tool-bar-item slot="top-bar-leading"><button type="button" tabindex="0" help="Back"><label-view system-image="x"><image-view slot="icon" system-name="x"><i style="line-height: 1" class="ph ph-x"></i></image-view></label-view></button></tool-bar-item></tool-bar></dialog>`)
   })
 })

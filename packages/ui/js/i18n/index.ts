@@ -24,8 +24,8 @@ export class I18n {
 
   /** Registry: language code → factory. Pre-seeded with 'en'. */
   static #factories = new Map<string, () => EnTranslations>([
-    ['en', en],
-    ['el', el],
+    ['en', () => en()],
+    ['el', () => el()],
   ])
   /** Cache: language code → resolved translation object. */
   static #strings = new Map<string, EnTranslations>()

@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
-import { GlassProminentButton } from './glass-prominent-button'
 
 beforeEach(() => document.body.replaceChildren())
 
@@ -8,9 +7,8 @@ describe('prop', () => {
   let el: HTMLButtonElement
 
   beforeEach(() => {
-    el = document.createElement('button', { is: 'glass-prominent-button' })
-    document.body.appendChild(el)
-    GlassProminentButton.polyfillConnectedCallback(el as GlassProminentButton)
+    document.body.insertAdjacentHTML('beforeend', '<button is="glass-prominent-button"></button>')
+    el = document.body.lastElementChild as HTMLButtonElement
   })
   afterEach(() => el.remove())
 
@@ -20,8 +18,7 @@ describe('prop', () => {
 
   test('[role]', async () => {
     el.setAttribute('role', 'cancel')
-    GlassProminentButton.polyfillAttributeChangedCallback([{ attributeName: 'role', target: el, oldValue: null }])
-    await new Promise<void>((r) => queueMicrotask(r))
-    expect(el.outerHTML).toBe('<button is="glass-prominent-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
+
+    await expect.poll(() => el.outerHTML).toBe('<button is="glass-prominent-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
   })
 })

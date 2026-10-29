@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { LabeledContent } from './labeled-content'
+import '../client'
+import type { LabeledContent } from './labeled-content'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
   let el: LabeledContent
 
-  customElements.define('labeled-content', LabeledContent)
-
   beforeEach(() => {
-    el = document.createElement('labeled-content')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<labeled-content></labeled-content>')
+    el = document.body.lastElementChild as LabeledContent
   })
   afterEach(() => el.remove())
 

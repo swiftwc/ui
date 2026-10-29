@@ -25,3 +25,6 @@ npm-debug.log*
 .trash
 
 tsconfig.tsbuildinfo
+
+**/__screenshots__/
+.vitest-attachments/

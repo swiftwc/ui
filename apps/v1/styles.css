@@ -1,443 +1,107 @@
-@property --root-font-size {
-  syntax: "<number>";
-  inherits: false;
-  initial-value: 16;
-}
 @layer sw.sw-components {
-  :root {
-    color-scheme: light dark;
-    --safe-area-inset-top: env(safe-area-inset-top);
-    --safe-area-inset-right: env(safe-area-inset-right);
-    --safe-area-inset-bottom: env(safe-area-inset-bottom);
-    --safe-area-inset-left: env(safe-area-inset-left);
-    --tool-bar-block-size: 4rem;
-    --top-layer-polyfill-z-index: 999999;
-    --iphone-tabbar-max-inline-size: 90svw;
-    --iphone-tabbar-block-size: var(--tool-bar-block-size);
-    --iphone-tabbar-border-radius: 9999px;
-    --iphone-tabbar-inline-padding-start: 3px;
-    --iphone-tabbar-inline-padding-end: 3px;
-    --iphone-tabbar-block-padding-start: 3px;
-    --iphone-tabbar-block-padding-end: 3px;
-    --ipad-tabbar-max-inline-size: 60svw;
-    --ipad-tabbar-block-size: 3rem;
-    --ipad-tabbar-border-radius: 9999px;
-    --ipad-tabbar-inline-padding-start: 5px;
-    --ipad-tabbar-inline-padding-end: 5px;
-    --ipad-tabbar-block-padding-start: 5px;
-    --ipad-tabbar-block-padding-end: 5px;
-    --tabbar-after-tabreveal-duration: 250ms;
-    --sidebar-inline-size: 20rem;
-    --sidebar-border-radius: 1rem;
-    --sidebar-block-spacing: 1rem;
-    --sidebar-inline-spacing: 1rem;
-    --liquid-glass-bg-lch: 1 0 0;
-    --liquid-glass-bg-alpha: 74.9%;
-    --liquid-glass-bg-lch-dark: 0.3171 0 0;
-    --liquid-glass-bg-alpha-dark: 50.2%;
+  :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
+    place-items: center;
+    place-content: center;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--btnborder,);
+    background: var(--btnface,);
+    color: var(--btntext,);
+    padding-inline: var(--btnpadistart,) var(--btnpadiend,);
+    padding-block: var(--btnpadbstart,) var(--btnpadbend,);
+    border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
   }
-  @media (prefers-reduced-transparency: reduce) {
-    :root {
-      --liquid-glass-bg-alpha: 99%;
-      --liquid-glass-bg-alpha-dark: 99%;
-    }
-  }
-  :root {
-    --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
-    --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
-    --clear-glass-bg: var(--liquid-glass-bg);
-    --clear-glass-bg-dark: var(--liquid-glass-bg-dark);
-    --clear-glass-focus-bg: var(--clear-glass-bg);
-    --clear-glass-focus-bg-dark: var(--clear-glass-bg-dark);
-    --clear-glass-active-bg: var(--clear-glass-bg);
-    --clear-glass-active-bg-dark: var(--clear-glass-bg-dark);
-    --control-clear-glass-bg: var(--liquid-glass-bg);
-    --control-clear-glass-bg-dark: var(--liquid-glass-bg-dark);
-    --control-clear-glass-focus-bg: var(--control-clear-glass-bg);
-    --control-clear-glass-focus-bg-dark: var(--control-clear-glass-bg-dark);
-    --control-clear-glass-active-bg: var(--control-clear-glass-bg);
-    --control-clear-glass-active-bg-dark: var(--control-clear-glass-bg-dark);
-    --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
-    --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
-    --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
-    --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
-    --liquid-glass-box-shadow:
-      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626), inset -3px -3px 10px -3px light-dark(#ddd, #262626),
-      inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26), inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
-    --control-clear-glass-box-shadow: var(--liquid-glass-box-shadow);
-    --navigation-bar-block-size: var(--tool-bar-block-size);
-    --nav-split-view-sidebar-inline-size: 20rem;
-    --nav-split-view-content-inline-size: 25rem;
-    --tintcontrast: white;
-    --view-transition-leading-x: -50%;
-    --view-transition-principal-x: 0%;
-    --view-transition-trailing-x: 100%;
-    --view-transition-toolbar-cell-onscreen-scale: 1;
-    --view-transition-toolbar-cell-offscreen-scale: 0;
-    --view-transition-dialog-onscreen-y: 0lvh;
-    --view-transition-dialog-onscreen-backdrop-bg: oklch(0 0 0 / 25%);
-    --view-transition-dialog-offscreen-y: 100lvh;
-    --view-transition-duration: 500ms;
-    --sidebar-transition-duration: 250ms;
-    --pill-border-radius: 99999px;
-    --clear: transparent;
-    --toolbar-col-gap: 0.5rem;
-    --toolbar-cell-bg: var(--control-clear-glass-bg);
-    --toolbar-cell-bg-dark: var(--control-clear-glass-bg-dark);
-    --toolbar-cell-inline-padding-start: 0.25rem;
-    --toolbar-cell-inline-padding-end: 0.25rem;
-    --toolbar-cell-block-padding-start: 0.25rem;
-    --toolbar-cell-block-padding-end: 0.25rem;
-    --toolbar-cell-border-radius: var(--pill-border-radius);
-    --toolbar-cell-min-size: 2.96rem;
-    --toolbar-cell-focus-bg: var(--control-clear-glass-focus-bg);
-    --toolbar-cell-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
-    --toolbar-cell-active-bg: var(--control-clear-glass-active-bg);
-    --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark);
-    --toolbar-cell-box-shadow: var(--control-clear-glass-box-shadow);
-    --menu-bg: var(--control-clear-glass-bg);
-    --menu-bg-dark: var(--control-clear-glass-bg-dark);
-    --menu-max-inline-size: 20rem;
-    --menu-max-block-size: 60vh;
-    --menu-spacing: 1rem;
-    --menu-host-offscreen-transform: scale(0);
-    --menu-host-offscreen-filter: blur(10px);
-    --menu-popover-box-shadow: var(--control-clear-glass-box-shadow);
-    --menu-padding: 0.5rem;
-    --menu-item-padding-inline-start: 1rem;
-    --menu-item-padding-inline-end: 1rem;
-    --menu-item-padding-block-start: 0.5rem;
-    --menu-item-padding-block-end: 0.5rem;
-    --menu-item-border-radius: 1.2rem;
-    --touchglass-transition-duration: 300ms;
-    --disclosure-group-animation-duration: 300ms;
-    --disclosure-group-animation-easing: ease-out;
-    --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
-    --labeled-content-column-gap: 1rem;
-    --labeled-content-row-gap: 0.5rem;
-    --toggle-inline-size: 3.4rem;
-    --toggle-block-size: 1.5rem;
-    --toggle-border-radius: var(--pill-border-radius);
-    --toggle-track-off-bg: var(--gray2);
-    --toggle-track-off-bg-dark: var(--gray2);
-    --toggle-track-on-bg: var(--green);
-    --toggle-track-on-bg-dark: var(--green);
-    --toggle-dot-bg: var(--control-clear-glass-bg);
-    --toggle-dot-bg-dark: var(--control-clear-glass-bg-dark);
-    --toggle-dot-focus-bg: var(--control-clear-glass-focus-bg);
-    --toggle-dot-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
-    --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
-    --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
-    --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
-    --tabs-picker-track-gap: 0rem;
-    --palette-picker-track-gap: 1rem;
-    --radio-group-picker-track-gap: 0.2rem;
-    --tabs-picker-track-border-radius: var(--pill-border-radius);
-    --tabs-picker-track-block-size: 3rem;
-    --tabs-picker-track-padding-inline: 0.1rem;
-    --tabs-picker-track-padding-block: 0.1rem;
-    --tabs-picker-segment-min-inline-size: 2rem;
-    --tabs-picker-segment-max-inline-size: min(20rem, 100svw);
-    --tabs-picker-segment-padding-inline: 1rem;
-    --tabs-picker-segment-padding-block: 0.5rem;
-    --label-footnote-font-size: 1rem;
-    --label-footnote-line-height: 1.1875;
-    --label-footnote-font-weight: 400;
-    --label-caption2-font-size: 0.75rem;
-    --label-caption2-line-height: 1.4166666667;
-    --label-caption2-font-weight: 400;
-    --label-caption-font-size: 0.8125rem;
-    --label-caption-line-height: 1.5384615385;
-    --label-caption-font-weight: 400;
-    --label-callout-font-size: 0.875rem;
-    --label-callout-line-height: 1.3571428571;
-    --label-callout-font-weight: 400;
-    --label-body-font-size: 1rem;
-    --label-body-line-height: 1.5;
-    --label-body-font-weight: 400;
-    --label-subheadline-font-size: 1.125rem;
-    --label-subheadline-line-height: 1.5;
-    --label-subheadline-font-weight: 400;
-    --label-headline-font-size: 1.25rem;
-    --label-headline-line-height: 1.4;
-    --label-headline-font-weight: 500;
-    --label-title3-font-size: 1.5rem;
-    --label-title3-line-height: 1.3333333333;
-    --label-title3-font-weight: 600;
-    --label-title2-font-size: 1.875rem;
-    --label-title2-line-height: 1.2;
-    --label-title2-font-weight: 600;
-    --label-title-font-size: 2.25rem;
-    --label-title-line-height: 1.1111111111;
-    --label-title-font-weight: 600;
-    --label-large-title-font-size: 3rem;
-    --label-large-title-line-height: 1;
-    --label-large-title-font-weight: 700;
-    --label-extra-large-title-font-size: 3.75rem;
-    --label-extra-large-title-line-height: 1;
-    --label-extra-large-title-font-weight: 700;
-    --label-extra-large-title2-font-size: 4.5rem;
-    --label-extra-large-title2-line-height: 1;
-    --label-extra-large-title2-font-weight: 700;
-    --insetlist-item-border-radius: 2rem;
-    --insetform-item-border-radius: 2rem;
-    --list-row-gap: 3rem;
-    --form-gap: 1rem;
-    --form-extra-gap: 3rem;
-    --list-item-padding-inline-start: 2rem;
-    --list-item-padding-inline-end: 2rem;
-    --list-item-padding-block-start: 1rem;
-    --list-item-padding-block-start: 1rem;
-    --list-item-background-color: var(--background);
-    --list-item-color: var(--primary);
-    --list-highlighteditem-background-color: var(--accentColor3);
-    --list-highlighteditem-color: ;
-    --insetlist-item-background-color: var(--background);
-    --insetlist-item-color: var(--primary);
-    --insetlist-highlighteditem-background-color: var(--accentColor3);
-    --insetlist-highlighteditem-color: ;
-    --insetgroupedlist-item-background-color: var(--secondaryGroupedBackground);
-    --insetgroupedlist-item-color: var(--primary);
-    --insetgroupedlist-highlighteditem-background-color: var(--accentColor3);
-    --insetgroupedlist-highlighteditem-color: ;
-    --sidebarlist-item-background-color: transparent;
-    --sidebarlist-item-color: var(--primary);
-    --sidebarlist-highlighteditem-background-color: var(--accentColor);
-    --sidebarlist-highlighteditem-color: var(--tintcontrast);
-    --list-openitem-background-color: var(--accentColor5);
-    --list-openitem-color: var(--primary);
-    --list-opensummary-background-color: var(--accentColor4);
-    --list-opensummary-color: var(--primary);
-    --insetgroupedlist-openitem-background-color: var(--accentColor5);
-    --insetgroupedlist-openitem-color: var(--primary);
-    --insetgroupedlist-opensummary-background-color: var(--accentColor4);
-    --insetgroupedlist-opensummary-color: var(--primary);
-    --insetlist-openitem-background-color: var(--accentColor5);
-    --insetlist-openitem-color: var(--primary);
-    --insetlist-opensummary-background-color: var(--accentColor4);
-    --insetlist-opensummary-color: var(--primary);
-    --sidebarlist-openitem-background-color: transparent;
-    --sidebarlist-openitem-color: var(--primary);
-    --sidebarlist-opensummary-background-color: transparent;
-    --sidebarlist-opensummary-color: var(--primary);
-    --insetgroupedlist-background-color: var(--groupedBackground);
-    --insetlist-padding-inline: 1rem;
-    --insetlist-padding-block: 0rem;
-    --insetgroupedlist-padding-inline: 1rem;
-    --insetgroupedlist-padding-block: 1rem;
-    --sidebarlist-padding-inline: 1rem;
-    --sidebarlist-padding-block: 1rem;
-    --form-item-padding-inline-start: 2rem;
-    --form-item-padding-inline-end: 2rem;
-    --form-item-padding-block-start: 1rem;
-    --form-item-padding-block-start: 1rem;
-    --form-item-background-color: var(--background);
-    --form-item-color: var(--primary);
-    --form-highlighteditem-background-color: var(--accentColor3);
-    --form-highlighteditem-color: ;
-    --insetform-item-background-color: var(--background);
-    --insetform-item-color: var(--primary);
-    --insetform-highlighteditem-background-color: var(--accentColor3);
-    --insetform-highlighteditem-color: ;
-    --insetgroupedform-item-background-color: var(--secondaryGroupedBackground);
-    --insetgroupedform-item-color: var(--primary);
-    --insetgroupedform-highlighteditem-background-color: var(--accentColor3);
-    --insetgroupedform-highlighteditem-color: ;
-    --sidebarform-item-background-color: transparent;
-    --sidebarform-item-color: var(--primary);
-    --sidebarform-highlighteditem-background-color: var(--accentColor);
-    --sidebarform-highlighteditem-color: var(--tintcontrast);
-    --form-openitem-background-color: var(--accentColor5);
-    --form-openitem-color: var(--primary);
-    --form-opensummary-background-color: var(--accentColor4);
-    --form-opensummary-color: var(--primary);
-    --insetgroupedform-openitem-background-color: var(--accentColor5);
-    --insetgroupedform-openitem-color: var(--primary);
-    --insetgroupedform-opensummary-background-color: var(--accentColor4);
-    --insetgroupedform-opensummary-color: var(--primary);
-    --insetform-openitem-background-color: var(--accentColor5);
-    --insetform-openitem-color: var(--primary);
-    --insetform-opensummary-background-color: var(--accentColor4);
-    --insetform-opensummary-color: var(--primary);
-    --sidebarform-openitem-background-color: transparent;
-    --sidebarform-openitem-color: var(--primary);
-    --sidebarform-opensummary-background-color: transparent;
-    --sidebarform-opensummary-color: var(--primary);
-    --insetgroupedform-background-color: var(--groupedBackground);
-    --insetform-padding-inline: 1rem;
-    --insetform-padding-block: 0rem;
-    --insetgroupedform-padding-inline: 1rem;
-    --insetgroupedform-padding-block: 1rem;
-    --sidebarform-padding-inline: 1rem;
-    --sidebarform-padding-block: 1rem;
-    --table-row-gap: 0.5rem;
-    --table-col-gap: 1rem;
-    --table-accessory-gap: 0.2rem;
-    --table-accessory-size: 1.2rem;
-    --mini-btn-padding: 0.2rem;
-    --mini-btn-padding: 0.2rem;
-    --mini-btn-border-radius: 1rem;
-    --mini-btn-border-radius: 1rem;
-    --regular-btn-padding: 0.6rem;
-    --regular-btn-padding: 0.6rem;
-    --regular-btn-border-radius: 1.2rem;
-    --regular-btn-border-radius: 1.2rem;
-    --small-btn-padding: 0.4rem;
-    --small-btn-padding: 0.4rem;
-    --small-btn-border-radius: 1rem;
-    --small-btn-border-radius: 1rem;
-    --large-btn-padding: 1.2rem;
-    --large-btn-padding: 1.2rem;
-    --large-btn-border-radius: 2.4rem;
-    --large-btn-border-radius: 2.4rem;
-  }
-  @media (pointer: fine) {
-    :root {
-      --mini-btn-padding: 0.2rem;
-      --mini-btn-padding: 0.2rem;
-      --mini-btn-border-radius: 0.4rem;
-      --mini-btn-border-radius: 0.4rem;
-      --regular-btn-padding: 0.6rem;
-      --regular-btn-padding: 0.6rem;
-      --regular-btn-border-radius: 0.8rem;
-      --regular-btn-border-radius: 0.8rem;
-      --small-btn-padding: 0.4rem;
-      --small-btn-padding: 0.4rem;
-      --small-btn-border-radius: 0.6rem;
-      --small-btn-border-radius: 0.6rem;
-      --large-btn-padding: 1.2rem;
-      --large-btn-padding: 1.2rem;
-      --large-btn-border-radius: 1.4rem;
-      --large-btn-border-radius: 1.4rem;
-      --insetlist-item-border-radius: 1rem;
-      --insetform-item-border-radius: 1rem;
-      --list-item-padding-inline-start: 1rem;
-      --list-item-padding-inline-end: 1rem;
-      --form-item-padding-inline-start: 1rem;
-      --form-item-padding-inline-end: 1rem;
-      --toggle-inline-size: 3.4rem;
-      --toggle-block-size: 1.3rem;
-      --control-clear-glass-bg: var(--white);
-      --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
-      --control-clear-glass-focus-bg: var(--gray5);
-      --control-clear-glass-focus-bg-dark: oklch(0.3578 0.008 75.3);
-      --control-clear-glass-active-bg: var(--gray3);
-      --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32);
-      --control-clear-glass-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
-    }
-  }
-  html:has(color-scheme[dark]) {
-    color-scheme: dark only;
-  }
-  html:has(color-scheme[light]) {
-    color-scheme: light only;
-  }
-}
-@layer sw {
-  @layer sw-base, sw-components, sw-nav-components, sw-list-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
-}
-@layer sw.sw-base {
-  :root {
-    interpolate-size: allow-keywords;
-    touch-action: manipulation;
-  }
-  *,
-  *::before,
-  *::after,
-  *::part(root) {
-    box-sizing: border-box;
-  }
-  *,
-  *::part(root) {
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-  }
-  *,
-  *::part(root) {
-    -webkit-touch-callout: none;
-  }
-  *:not(input, textarea),
-  *::part(root) {
-    -webkit-user-select: none;
-    user-select: none;
-  }
-  button,
-  select {
-    text-transform: none;
-  }
-  .ph,
-  .ph::before {
-    display: grid;
-  }
-  button,
-  *::part(button),
-  input,
-  *::part(input),
-  optgroup,
-  *::part(optgroup),
-  select,
-  *::part(select),
-  textarea *::part(textarea) {
-    font-family: inherit;
-    font-feature-settings: inherit;
-    font-variation-settings: inherit;
-    font-size: 100%;
-    font-weight: inherit;
-    line-height: inherit;
-    letter-spacing: inherit;
-  }
-  [role=button],
-  button,
-  *::part(button) {
-    text-align: unset;
-    touch-action: manipulation;
-  }
-  [role=button],
-  summary,
-  button,
-  *::part(button) {
-    cursor: pointer;
-  }
-  input,
-  *::part(input) {
-    min-inline-size: 25px;
-  }
-  body {
-    display: grid;
-    grid-template-rows: 1fr;
-    grid-template-columns: minmax(0px, 1fr);
+  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
     position: absolute;
     inset: 0;
-    margin: 0;
-    padding: 0;
-    background-color: var(--canvas);
-    color: var(--canvastext);
-    touch-action: none !important;
+    visibility: collapse;
   }
-  html {
-    transition: font-size 1ms step-start;
+  :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
+    visibility: visible;
+  }
+  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
+    position: relative;
+    visibility: visible;
+  }
+  :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      transition: opacity ease-out 200ms;
+    }
+  }
+  @starting-style {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      opacity: 0;
+    }
+  }
+  :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
+    --btnradiustl: var(--mini-btn-border-radius);
+    --btnradiustr: var(--mini-btn-border-radius);
+    --btnradiusbl: var(--mini-btn-border-radius);
+    --btnradiusbr: var(--mini-btn-border-radius);
+  }
+  :where([control-size=regular][is=glass-prominent-button], [control-size=regular][is=glass-button], [control-size=regular][is=bordered-prominent-button], [control-size=regular][is=bordered-button], [control-size=regular][is=borderless-button], [control-size=regular][is=plain-button]) {
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
+  }
+  :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
+    --btnradiustl: var(--small-btn-border-radius);
+    --btnradiustr: var(--small-btn-border-radius);
+    --btnradiusbl: var(--small-btn-border-radius);
+    --btnradiusbr: var(--small-btn-border-radius);
+  }
+  :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
+    --btnradiustl: var(--large-btn-border-radius);
+    --btnradiustr: var(--large-btn-border-radius);
+    --btnradiusbl: var(--large-btn-border-radius);
+    --btnradiusbr: var(--large-btn-border-radius);
+  }
+  [control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button] {
+    --label-font: callout;
+  }
+  [control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button] {
+    --label-font: caption;
+  }
+}
+@layer sw.sw-colors {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
+  }
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
+    --btnface: var(--btnhighlightface,);
+    --btntext: var(--btnhighlighttext,);
   }
   @media (pointer: fine) {
-    html {
-      font-size: 14px;
+    :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):hover {
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
     }
   }
-  html {
-    font-family: var(--host--font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
-    font-feature-settings: var(--host--font-feature-settings, normal);
-    font-variation-settings: var(--host--font-variation-settings, normal);
+}
+@layer sw.sw-actions {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
+    --btnface: var(--btnactiveface,);
+    --btntext: var(--btnactivetext,);
   }
-  :where(html:has(body > v-keyboard[system-font=Inter])) {
-    --host--font-family: Inter, sans-serif;
-    --host--font-feature-settings: 'liga' 1, 'calt' 1;
-  }
-  @supports (font-variation-settings: normal) {
-    :where(html:has(body > v-keyboard[system-font=Inter])) {
-      --host--font-family: InterVariable, sans-serif;
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
+      transition: background-color 100ms ease-out allow-discrete, opacity 100ms ease-out allow-discrete, color 100ms ease-out allow-discrete;
+      will-change: background-color, opacity, color;
     }
-  }
-  html::before {
-    content: "delete-button-icon=trash&confirm-button-icon=check&close-button-icon=x&cancel-button-icon=x&ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
-    display: none;
+    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button])::active {
+      transition-duration: 25ms;
+    }
   }
 }
 @layer sw.sw-list-components {
@@ -955,112 +619,6 @@
   }
 }
 @layer sw.sw-components {
-  :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
-    place-items: center;
-    place-content: center;
-    position: relative;
-    appearance: none;
-    -webkit-appearance: none;
-    border: var(--btnborder,);
-    background: var(--btnface,);
-    color: var(--btntext,);
-    padding-inline: var(--btnpadistart,) var(--btnpadiend,);
-    padding-block: var(--btnpadbstart,) var(--btnpadbend,);
-    border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
-    --btnradiustl: var(--regular-btn-border-radius);
-    --btnradiustr: var(--regular-btn-border-radius);
-    --btnradiusbl: var(--regular-btn-border-radius);
-    --btnradiusbr: var(--regular-btn-border-radius);
-  }
-  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
-    position: absolute;
-    inset: 0;
-    visibility: collapse;
-  }
-  :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
-    visibility: visible;
-  }
-  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
-    position: relative;
-    visibility: visible;
-  }
-  :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-      transition: opacity ease-out 200ms;
-    }
-  }
-  @starting-style {
-    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-      opacity: 0;
-    }
-  }
-  :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
-    --btnradiustl: var(--mini-btn-border-radius);
-    --btnradiustr: var(--mini-btn-border-radius);
-    --btnradiusbl: var(--mini-btn-border-radius);
-    --btnradiusbr: var(--mini-btn-border-radius);
-  }
-  :where([control-size=regular][is=glass-prominent-button], [control-size=regular][is=glass-button], [control-size=regular][is=bordered-prominent-button], [control-size=regular][is=bordered-button], [control-size=regular][is=borderless-button], [control-size=regular][is=plain-button]) {
-    --btnradiustl: var(--regular-btn-border-radius);
-    --btnradiustr: var(--regular-btn-border-radius);
-    --btnradiusbl: var(--regular-btn-border-radius);
-    --btnradiusbr: var(--regular-btn-border-radius);
-  }
-  :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
-    --btnradiustl: var(--small-btn-border-radius);
-    --btnradiustr: var(--small-btn-border-radius);
-    --btnradiusbl: var(--small-btn-border-radius);
-    --btnradiusbr: var(--small-btn-border-radius);
-  }
-  :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
-    --btnradiustl: var(--large-btn-border-radius);
-    --btnradiustr: var(--large-btn-border-radius);
-    --btnradiusbl: var(--large-btn-border-radius);
-    --btnradiusbr: var(--large-btn-border-radius);
-  }
-  [control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button] {
-    --label-font: callout;
-  }
-  [control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button] {
-    --label-font: caption;
-  }
-}
-@layer sw.sw-colors {
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
-    outline: none;
-  }
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
-    --btnface: var(--btnhighlightface,);
-    --btntext: var(--btnhighlighttext,);
-  }
-  @media (pointer: fine) {
-    :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):hover {
-      --btnface: var(--btnhighlightface,);
-      --btntext: var(--btnhighlighttext,);
-    }
-  }
-}
-@layer sw.sw-actions {
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
-    --btnface: var(--btnactiveface,);
-    --btntext: var(--btnactivetext,);
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
-      transition: background-color 100ms ease-out allow-discrete, opacity 100ms ease-out allow-discrete, color 100ms ease-out allow-discrete;
-      will-change: background-color, opacity, color;
-    }
-    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button])::active {
-      transition-duration: 25ms;
-    }
-  }
-}
-@layer sw.sw-components {
   :where(content-view,
   navigation-stack,
   navigation-split-view,
@@ -1114,6 +672,448 @@
     --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
     --toolbar-cell-filter: blur(10px);
     --toolbar-cell-opacity: 0;
+  }
+}
+@layer sw {
+  @layer sw-base, sw-components, sw-nav-components, sw-list-components, sw-tab-components, sw-utils, sw-colors, sw-actions, sw-transitions, sw-final;
+}
+@layer sw.sw-base {
+  :root {
+    interpolate-size: allow-keywords;
+    touch-action: manipulation;
+  }
+  *,
+  *::before,
+  *::after,
+  *::part(root) {
+    box-sizing: border-box;
+  }
+  *,
+  *::part(root) {
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+  }
+  *,
+  *::part(root) {
+    -webkit-touch-callout: none;
+  }
+  *:not(input, textarea),
+  *::part(root) {
+    -webkit-user-select: none;
+    user-select: none;
+  }
+  button,
+  select {
+    text-transform: none;
+  }
+  .ph,
+  .ph::before {
+    display: grid;
+  }
+  button,
+  *::part(button),
+  input,
+  *::part(input),
+  optgroup,
+  *::part(optgroup),
+  select,
+  *::part(select),
+  textarea *::part(textarea) {
+    font-family: inherit;
+    font-feature-settings: inherit;
+    font-variation-settings: inherit;
+    font-size: 100%;
+    font-weight: inherit;
+    line-height: inherit;
+    letter-spacing: inherit;
+  }
+  [role=button],
+  button,
+  *::part(button) {
+    text-align: unset;
+    touch-action: manipulation;
+  }
+  [role=button],
+  summary,
+  button,
+  *::part(button) {
+    cursor: pointer;
+  }
+  input,
+  *::part(input) {
+    min-inline-size: 25px;
+  }
+  body {
+    display: grid;
+    grid-template-rows: 1fr;
+    grid-template-columns: minmax(0px, 1fr);
+    position: absolute;
+    inset: 0;
+    margin: 0;
+    padding: 0;
+    background-color: var(--canvas);
+    color: var(--canvastext);
+    touch-action: none !important;
+  }
+  html {
+    transition: font-size 1ms step-start;
+  }
+  @media (pointer: fine) {
+    html {
+      font-size: 14px;
+    }
+  }
+  html {
+    font-family: var(--host--font-family, ui-sans-serif, system-ui, sans-serif, "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji");
+    font-feature-settings: var(--host--font-feature-settings, normal);
+    font-variation-settings: var(--host--font-variation-settings, normal);
+  }
+  :where(html:has(body > v-keyboard[system-font=Inter])) {
+    --host--font-family: Inter, sans-serif;
+    --host--font-feature-settings: 'liga' 1, 'calt' 1;
+  }
+  @supports (font-variation-settings: normal) {
+    :where(html:has(body > v-keyboard[system-font=Inter])) {
+      --host--font-family: InterVariable, sans-serif;
+    }
+  }
+  html::before {
+    content: "delete-button-icon=trash&confirm-button-icon=check&close-button-icon=x&cancel-button-icon=x&ipad-sheet-view-height=27.75rem&ipad-sheet-view-inline-size=37rem&vt-fwd-class-name=fwd";
+    display: none;
+  }
+}
+@property --root-font-size {
+  syntax: "<number>";
+  inherits: false;
+  initial-value: 16;
+}
+@layer sw.sw-components {
+  :root {
+    color-scheme: light dark;
+    --safe-area-inset-top: env(safe-area-inset-top);
+    --safe-area-inset-right: env(safe-area-inset-right);
+    --safe-area-inset-bottom: env(safe-area-inset-bottom);
+    --safe-area-inset-left: env(safe-area-inset-left);
+    --tool-bar-block-size: 4rem;
+    --top-layer-polyfill-z-index: 999999;
+    --iphone-tabbar-max-inline-size: 90svw;
+    --iphone-tabbar-block-size: var(--tool-bar-block-size);
+    --iphone-tabbar-border-radius: 9999px;
+    --iphone-tabbar-inline-padding-start: 3px;
+    --iphone-tabbar-inline-padding-end: 3px;
+    --iphone-tabbar-block-padding-start: 3px;
+    --iphone-tabbar-block-padding-end: 3px;
+    --ipad-tabbar-max-inline-size: 60svw;
+    --ipad-tabbar-block-size: 3rem;
+    --ipad-tabbar-border-radius: 9999px;
+    --ipad-tabbar-inline-padding-start: 5px;
+    --ipad-tabbar-inline-padding-end: 5px;
+    --ipad-tabbar-block-padding-start: 5px;
+    --ipad-tabbar-block-padding-end: 5px;
+    --tabbar-after-tabreveal-duration: 250ms;
+    --sidebar-inline-size: 20rem;
+    --sidebar-border-radius: 1rem;
+    --sidebar-block-spacing: 1rem;
+    --sidebar-inline-spacing: 1rem;
+    --liquid-glass-bg-lch: 1 0 0;
+    --liquid-glass-bg-alpha: 74.9%;
+    --liquid-glass-bg-lch-dark: 0.3171 0 0;
+    --liquid-glass-bg-alpha-dark: 50.2%;
+  }
+  @media (prefers-reduced-transparency: reduce) {
+    :root {
+      --liquid-glass-bg-alpha: 99%;
+      --liquid-glass-bg-alpha-dark: 99%;
+    }
+  }
+  :root {
+    --liquid-glass-bg: oklch(var(--liquid-glass-bg-lch) / var(--liquid-glass-bg-alpha));
+    --liquid-glass-bg-dark: oklch(var(--liquid-glass-bg-lch-dark) / var(--liquid-glass-bg-alpha-dark));
+    --clear-glass-bg: var(--liquid-glass-bg);
+    --clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --clear-glass-focus-bg: var(--clear-glass-bg);
+    --clear-glass-focus-bg-dark: var(--clear-glass-bg-dark);
+    --clear-glass-active-bg: var(--clear-glass-bg);
+    --clear-glass-active-bg-dark: var(--clear-glass-bg-dark);
+    --control-clear-glass-bg: var(--liquid-glass-bg);
+    --control-clear-glass-bg-dark: var(--liquid-glass-bg-dark);
+    --control-clear-glass-focus-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-focus-bg-dark: var(--control-clear-glass-bg-dark);
+    --control-clear-glass-active-bg: var(--control-clear-glass-bg);
+    --control-clear-glass-active-bg-dark: var(--control-clear-glass-bg-dark);
+    --liquid-glass-backdrop-filter: saturate(180%) blur(16px);
+    --liquid-glass-bs-bevel-highlight: inset -1px -1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-soft-bevel-blur: inset 1px 1px 0 -0.5px light-dark(#fff, #fff6);
+    --liquid-glass-bs-outer: 0 0 25px 0 light-dark(#0003, #00000026);
+    --liquid-glass-box-shadow:
+      var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), inset 3px 3px 10px -3px light-dark(#ddd, #262626), inset -3px -3px 10px -3px light-dark(#ddd, #262626),
+      inset 0 0 5px 1px light-dark(#fff, #141414), inset 0 0 0 0.5px light-dark(#00000040, #ffffff26), inset 0 0 24px 0 light-dark(#0000001a, #ffffff0d), var(--liquid-glass-bs-outer);
+    --control-clear-glass-box-shadow: var(--liquid-glass-box-shadow);
+    --navigation-bar-block-size: var(--tool-bar-block-size);
+    --nav-split-view-sidebar-inline-size: 20rem;
+    --nav-split-view-content-inline-size: 25rem;
+    --tintcontrast: white;
+    --view-transition-leading-x: -50%;
+    --view-transition-principal-x: 0%;
+    --view-transition-trailing-x: 100%;
+    --view-transition-toolbar-cell-onscreen-scale: 1;
+    --view-transition-toolbar-cell-offscreen-scale: 0;
+    --view-transition-dialog-onscreen-y: 0lvh;
+    --view-transition-dialog-onscreen-backdrop-bg: oklch(0 0 0 / 25%);
+    --view-transition-dialog-offscreen-y: 100lvh;
+    --view-transition-duration: 500ms;
+    --sidebar-transition-duration: 250ms;
+    --pill-border-radius: 99999px;
+    --clear: transparent;
+    --toolbar-col-gap: 0.5rem;
+    --toolbar-cell-bg: var(--control-clear-glass-bg);
+    --toolbar-cell-bg-dark: var(--control-clear-glass-bg-dark);
+    --toolbar-cell-inline-padding-start: 0.25rem;
+    --toolbar-cell-inline-padding-end: 0.25rem;
+    --toolbar-cell-block-padding-start: 0.25rem;
+    --toolbar-cell-block-padding-end: 0.25rem;
+    --toolbar-cell-border-radius: var(--pill-border-radius);
+    --toolbar-cell-min-size: 2.96rem;
+    --toolbar-cell-focus-bg: var(--control-clear-glass-focus-bg);
+    --toolbar-cell-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
+    --toolbar-cell-active-bg: var(--control-clear-glass-active-bg);
+    --toolbar-cell-active-bg-dark: var(--control-clear-glass-active-bg-dark);
+    --toolbar-cell-box-shadow: var(--control-clear-glass-box-shadow);
+    --menu-bg: var(--control-clear-glass-bg);
+    --menu-bg-dark: var(--control-clear-glass-bg-dark);
+    --menu-max-inline-size: 20rem;
+    --menu-max-block-size: 60vh;
+    --menu-spacing: 1rem;
+    --menu-host-offscreen-transform: scale(0);
+    --menu-host-offscreen-filter: blur(10px);
+    --menu-popover-box-shadow: var(--control-clear-glass-box-shadow);
+    --menu-padding: 0.5rem;
+    --menu-item-padding-inline-start: 1rem;
+    --menu-item-padding-inline-end: 1rem;
+    --menu-item-padding-block-start: 0.5rem;
+    --menu-item-padding-block-end: 0.5rem;
+    --menu-item-border-radius: 1.2rem;
+    --touchglass-transition-duration: 300ms;
+    --disclosure-group-animation-duration: 300ms;
+    --disclosure-group-animation-easing: ease-out;
+    --screen-box-shadow: 2px 0 6px oklch(0 0 0 / 48%), 6px 0 16px oklch(0 0 0 / 67%);
+    --labeled-content-column-gap: 1rem;
+    --labeled-content-row-gap: 0.5rem;
+    --toggle-inline-size: 3.4rem;
+    --toggle-block-size: 1.5rem;
+    --toggle-border-radius: var(--pill-border-radius);
+    --toggle-track-off-bg: var(--gray2);
+    --toggle-track-off-bg-dark: var(--gray2);
+    --toggle-track-on-bg: var(--green);
+    --toggle-track-on-bg-dark: var(--green);
+    --toggle-dot-bg: var(--control-clear-glass-bg);
+    --toggle-dot-bg-dark: var(--control-clear-glass-bg-dark);
+    --toggle-dot-focus-bg: var(--control-clear-glass-focus-bg);
+    --toggle-dot-focus-bg-dark: var(--control-clear-glass-focus-bg-dark);
+    --toggle-dot-active-bg: var(--control-clear-glass-active-bg);
+    --toggle-dot-active-bg-dark: var(--control-clear-glass-active-bg-dark);
+    --toggle-dot-box-shadow: var(--control-clear-glass-box-shadow);
+    --tabs-picker-track-gap: 0rem;
+    --palette-picker-track-gap: 1rem;
+    --radio-group-picker-track-gap: 0.2rem;
+    --tabs-picker-track-border-radius: var(--pill-border-radius);
+    --tabs-picker-track-block-size: 3rem;
+    --tabs-picker-track-padding-inline: 0.1rem;
+    --tabs-picker-track-padding-block: 0.1rem;
+    --tabs-picker-segment-min-inline-size: 2rem;
+    --tabs-picker-segment-max-inline-size: min(20rem, 100svw);
+    --tabs-picker-segment-padding-inline: 1rem;
+    --tabs-picker-segment-padding-block: 0.5rem;
+    --label-footnote-font-size: 1rem;
+    --label-footnote-line-height: 1.1875;
+    --label-footnote-font-weight: 400;
+    --label-caption2-font-size: 0.75rem;
+    --label-caption2-line-height: 1.4166666667;
+    --label-caption2-font-weight: 400;
+    --label-caption-font-size: 0.8125rem;
+    --label-caption-line-height: 1.5384615385;
+    --label-caption-font-weight: 400;
+    --label-callout-font-size: 0.875rem;
+    --label-callout-line-height: 1.3571428571;
+    --label-callout-font-weight: 400;
+    --label-body-font-size: 1rem;
+    --label-body-line-height: 1.5;
+    --label-body-font-weight: 400;
+    --label-subheadline-font-size: 1.125rem;
+    --label-subheadline-line-height: 1.5;
+    --label-subheadline-font-weight: 400;
+    --label-headline-font-size: 1.25rem;
+    --label-headline-line-height: 1.4;
+    --label-headline-font-weight: 500;
+    --label-title3-font-size: 1.5rem;
+    --label-title3-line-height: 1.3333333333;
+    --label-title3-font-weight: 600;
+    --label-title2-font-size: 1.875rem;
+    --label-title2-line-height: 1.2;
+    --label-title2-font-weight: 600;
+    --label-title-font-size: 2.25rem;
+    --label-title-line-height: 1.1111111111;
+    --label-title-font-weight: 600;
+    --label-large-title-font-size: 3rem;
+    --label-large-title-line-height: 1;
+    --label-large-title-font-weight: 700;
+    --label-extra-large-title-font-size: 3.75rem;
+    --label-extra-large-title-line-height: 1;
+    --label-extra-large-title-font-weight: 700;
+    --label-extra-large-title2-font-size: 4.5rem;
+    --label-extra-large-title2-line-height: 1;
+    --label-extra-large-title2-font-weight: 700;
+    --insetlist-item-border-radius: 2rem;
+    --insetform-item-border-radius: 2rem;
+    --list-row-gap: 3rem;
+    --form-gap: 1rem;
+    --form-extra-gap: 3rem;
+    --list-item-padding-inline-start: 2rem;
+    --list-item-padding-inline-end: 2rem;
+    --list-item-padding-block-start: 1rem;
+    --list-item-padding-block-start: 1rem;
+    --list-item-background-color: var(--background);
+    --list-item-color: var(--primary);
+    --list-highlighteditem-background-color: var(--accentColor3);
+    --list-highlighteditem-color: ;
+    --insetlist-item-background-color: var(--background);
+    --insetlist-item-color: var(--primary);
+    --insetlist-highlighteditem-background-color: var(--accentColor3);
+    --insetlist-highlighteditem-color: ;
+    --insetgroupedlist-item-background-color: var(--secondaryGroupedBackground);
+    --insetgroupedlist-item-color: var(--primary);
+    --insetgroupedlist-highlighteditem-background-color: var(--accentColor3);
+    --insetgroupedlist-highlighteditem-color: ;
+    --sidebarlist-item-background-color: transparent;
+    --sidebarlist-item-color: var(--primary);
+    --sidebarlist-highlighteditem-background-color: var(--accentColor);
+    --sidebarlist-highlighteditem-color: var(--tintcontrast);
+    --list-openitem-background-color: var(--accentColor5);
+    --list-openitem-color: var(--primary);
+    --list-opensummary-background-color: var(--accentColor4);
+    --list-opensummary-color: var(--primary);
+    --insetgroupedlist-openitem-background-color: var(--accentColor5);
+    --insetgroupedlist-openitem-color: var(--primary);
+    --insetgroupedlist-opensummary-background-color: var(--accentColor4);
+    --insetgroupedlist-opensummary-color: var(--primary);
+    --insetlist-openitem-background-color: var(--accentColor5);
+    --insetlist-openitem-color: var(--primary);
+    --insetlist-opensummary-background-color: var(--accentColor4);
+    --insetlist-opensummary-color: var(--primary);
+    --sidebarlist-openitem-background-color: transparent;
+    --sidebarlist-openitem-color: var(--primary);
+    --sidebarlist-opensummary-background-color: transparent;
+    --sidebarlist-opensummary-color: var(--primary);
+    --insetgroupedlist-background-color: var(--groupedBackground);
+    --insetlist-padding-inline: 1rem;
+    --insetlist-padding-block: 0rem;
+    --insetgroupedlist-padding-inline: 1rem;
+    --insetgroupedlist-padding-block: 1rem;
+    --sidebarlist-padding-inline: 1rem;
+    --sidebarlist-padding-block: 1rem;
+    --form-item-padding-inline-start: 2rem;
+    --form-item-padding-inline-end: 2rem;
+    --form-item-padding-block-start: 1rem;
+    --form-item-padding-block-start: 1rem;
+    --form-item-background-color: var(--background);
+    --form-item-color: var(--primary);
+    --form-highlighteditem-background-color: var(--accentColor3);
+    --form-highlighteditem-color: ;
+    --insetform-item-background-color: var(--background);
+    --insetform-item-color: var(--primary);
+    --insetform-highlighteditem-background-color: var(--accentColor3);
+    --insetform-highlighteditem-color: ;
+    --insetgroupedform-item-background-color: var(--secondaryGroupedBackground);
+    --insetgroupedform-item-color: var(--primary);
+    --insetgroupedform-highlighteditem-background-color: var(--accentColor3);
+    --insetgroupedform-highlighteditem-color: ;
+    --sidebarform-item-background-color: transparent;
+    --sidebarform-item-color: var(--primary);
+    --sidebarform-highlighteditem-background-color: var(--accentColor);
+    --sidebarform-highlighteditem-color: var(--tintcontrast);
+    --form-openitem-background-color: var(--accentColor5);
+    --form-openitem-color: var(--primary);
+    --form-opensummary-background-color: var(--accentColor4);
+    --form-opensummary-color: var(--primary);
+    --insetgroupedform-openitem-background-color: var(--accentColor5);
+    --insetgroupedform-openitem-color: var(--primary);
+    --insetgroupedform-opensummary-background-color: var(--accentColor4);
+    --insetgroupedform-opensummary-color: var(--primary);
+    --insetform-openitem-background-color: var(--accentColor5);
+    --insetform-openitem-color: var(--primary);
+    --insetform-opensummary-background-color: var(--accentColor4);
+    --insetform-opensummary-color: var(--primary);
+    --sidebarform-openitem-background-color: transparent;
+    --sidebarform-openitem-color: var(--primary);
+    --sidebarform-opensummary-background-color: transparent;
+    --sidebarform-opensummary-color: var(--primary);
+    --insetgroupedform-background-color: var(--groupedBackground);
+    --insetform-padding-inline: 1rem;
+    --insetform-padding-block: 0rem;
+    --insetgroupedform-padding-inline: 1rem;
+    --insetgroupedform-padding-block: 1rem;
+    --sidebarform-padding-inline: 1rem;
+    --sidebarform-padding-block: 1rem;
+    --table-row-gap: 0.5rem;
+    --table-col-gap: 1rem;
+    --table-accessory-gap: 0.2rem;
+    --table-accessory-size: 1.2rem;
+    --mini-btn-padding: 0.2rem;
+    --mini-btn-padding: 0.2rem;
+    --mini-btn-border-radius: 1rem;
+    --mini-btn-border-radius: 1rem;
+    --regular-btn-padding: 0.6rem;
+    --regular-btn-padding: 0.6rem;
+    --regular-btn-border-radius: 1.2rem;
+    --regular-btn-border-radius: 1.2rem;
+    --small-btn-padding: 0.4rem;
+    --small-btn-padding: 0.4rem;
+    --small-btn-border-radius: 1rem;
+    --small-btn-border-radius: 1rem;
+    --large-btn-padding: 1.2rem;
+    --large-btn-padding: 1.2rem;
+    --large-btn-border-radius: 2.4rem;
+    --large-btn-border-radius: 2.4rem;
+  }
+  @media (pointer: fine) {
+    :root {
+      --mini-btn-padding: 0.2rem;
+      --mini-btn-padding: 0.2rem;
+      --mini-btn-border-radius: 0.4rem;
+      --mini-btn-border-radius: 0.4rem;
+      --regular-btn-padding: 0.6rem;
+      --regular-btn-padding: 0.6rem;
+      --regular-btn-border-radius: 0.8rem;
+      --regular-btn-border-radius: 0.8rem;
+      --small-btn-padding: 0.4rem;
+      --small-btn-padding: 0.4rem;
+      --small-btn-border-radius: 0.6rem;
+      --small-btn-border-radius: 0.6rem;
+      --large-btn-padding: 1.2rem;
+      --large-btn-padding: 1.2rem;
+      --large-btn-border-radius: 1.4rem;
+      --large-btn-border-radius: 1.4rem;
+      --insetlist-item-border-radius: 1rem;
+      --insetform-item-border-radius: 1rem;
+      --list-item-padding-inline-start: 1rem;
+      --list-item-padding-inline-end: 1rem;
+      --form-item-padding-inline-start: 1rem;
+      --form-item-padding-inline-end: 1rem;
+      --toggle-inline-size: 3.4rem;
+      --toggle-block-size: 1.3rem;
+      --control-clear-glass-bg: var(--white);
+      --control-clear-glass-bg-dark: oklch(0.2871 0.0029 17.33);
+      --control-clear-glass-focus-bg: var(--gray5);
+      --control-clear-glass-focus-bg-dark: oklch(0.3578 0.008 75.3);
+      --control-clear-glass-active-bg: var(--gray3);
+      --control-clear-glass-active-bg-dark: oklch(0.3995 0.0077 75.32);
+      --control-clear-glass-box-shadow: var(--liquid-glass-bs-bevel-highlight), var(--liquid-glass-bs-soft-bevel-blur), var(--liquid-glass-bs-outer);
+    }
+  }
+  html:has(color-scheme[dark]) {
+    color-scheme: dark only;
+  }
+  html:has(color-scheme[light]) {
+    color-scheme: light only;
   }
 }
 @layer sw.sw-components {
@@ -6373,158 +6373,47 @@
   }
 }
 @layer sw.sw-utils {
-  :where([background-style=initial]) {
-    --background: initial;
-    --secondaryBackground: initial;
-    --tertiaryBackground: initial;
-    --face: var(--background);
+  :where(list-view[background=system-background],
+  [is=form-view][background=system-background]) {
+    --list--host-background-color: var(--background);
   }
-  :where([foreground=black]) {
-    color: var(--black);
+  :where(list-view[list-row-background=system-tertiary-grouped-background],
+  [is=form-view][list-row-background=system-tertiary-grouped-background]) {
+    --list--item-background-color: var(--tertiaryGroupedBackground);
   }
-  :where([foreground=white]) {
-    color: var(--white);
+  :where(list-view[list-row-background=system-quaternary-grouped-background],
+  [is=form-view][list-row-background=system-quaternary-grouped-background]) {
+    --list--item-background-color: var(--quaternaryGroupedBackground);
   }
-  :where([foreground=primary]) {
-    color: var(--primary);
+  :where([is=sheet-view] list-view[background=system-background],
+  [is=sheet-view] [is=form-view][background=system-background],
+  [is=full-screen] list-view[background=system-background],
+  [is=full-screen] [is=form-view][background=system-background],
+  [is=confirmation-dialog] list-view[background=system-background],
+  [is=confirmation-dialog] [is=form-view][background=system-background],
+  [is=alert-dialog] list-view[background=system-background],
+  [is=alert-dialog] [is=form-view][background=system-background]) {
+    --list--host-background-color: var(--secondaryBackground);
   }
-  :where([foreground=secondary]) {
-    color: var(--secondary);
+  :where([is=sheet-view] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=sheet-view] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=full-screen] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=full-screen] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=confirmation-dialog] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=confirmation-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background],
+  [is=alert-dialog] list-view[list-row-background=system-tertiary-grouped-background],
+  [is=alert-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background]) {
+    --list--item-background-color: var(--quaternaryGroupedBackground);
   }
-  :where([foreground=blue]) {
-    color: var(--blue);
-  }
-  :where([foreground=red]) {
-    color: var(--red);
-  }
-  :where([foreground=green]) {
-    color: var(--green);
-  }
-  :where([foreground=orange]) {
-    color: var(--orange);
-  }
-  :where([foreground=purple]) {
-    color: var(--purple);
-  }
-  :where([foreground="blue.secondary"]) {
-    color: var(--blue2);
-  }
-  :where([foreground="red.secondary"]) {
-    color: var(--red2);
-  }
-  :where([foreground="green.secondary"]) {
-    color: var(--green2);
-  }
-  :where([foreground="orange.secondary"]) {
-    color: var(--orange2);
-  }
-  :where([foreground="purple.secondary"]) {
-    color: var(--purple2);
-  }
-  :where([foreground="blue.tertiary"]) {
-    color: var(--blue3);
-  }
-  :where([foreground="red.tertiary"]) {
-    color: var(--red3);
-  }
-  :where([foreground="green.tertiary"]) {
-    color: var(--green3);
-  }
-  :where([foreground="orange.tertiary"]) {
-    color: var(--orange3);
-  }
-  :where([foreground="purple.tertiary"]) {
-    color: var(--purple3);
-  }
-  :where([foreground="blue.quaternary"]) {
-    color: var(--blue4);
-  }
-  :where([foreground="red.quaternary"]) {
-    color: var(--red4);
-  }
-  :where([foreground="green.quaternary"]) {
-    color: var(--green4);
-  }
-  :where([foreground="orange.quaternary"]) {
-    color: var(--orange4);
-  }
-  :where([foreground="purple.quaternary"]) {
-    color: var(--purple4);
-  }
-  :where([foreground="blue.quinary"]) {
-    color: var(--blue5);
-  }
-  :where([foreground="red.quinary"]) {
-    color: var(--red5);
-  }
-  :where([foreground="green.quinary"]) {
-    color: var(--green5);
-  }
-  :where([foreground="orange.quinary"]) {
-    color: var(--orange5);
-  }
-  :where([foreground="purple.quinary"]) {
-    color: var(--purple5);
-  }
-  :where([tint=gray],
-  [list-item-tint=gray]) {
-    --accentColorEffective: var(--gray);
-    --accentColorEffective4: var(--gray4);
-    --accentColor: var(--gray);
-    --accentColor2: var(--gray2);
-    --accentColor3: var(--gray3);
-    --accentColor4: var(--gray4);
-    --accentColor5: var(--gray5);
-  }
-  :where([tint=blue],
-  [list-item-tint=blue]) {
-    --accentColorEffective: var(--blue);
-    --accentColorEffective4: var(--blue4);
-    --accentColor: var(--blue);
-    --accentColor2: var(--blue2);
-    --accentColor3: var(--blue3);
-    --accentColor4: var(--blue4);
-    --accentColor5: var(--blue5);
-  }
-  :where([tint=red],
-  [list-item-tint=red]) {
-    --accentColorEffective: var(--red);
-    --accentColorEffective4: var(--red4);
-    --accentColor: var(--red);
-    --accentColor2: var(--red2);
-    --accentColor3: var(--red3);
-    --accentColor4: var(--red4);
-    --accentColor5: var(--red5);
-  }
-  :where([tint=green],
-  [list-item-tint=green]) {
-    --accentColorEffective: var(--green);
-    --accentColorEffective4: var(--green4);
-    --accentColor: var(--green);
-    --accentColor2: var(--green2);
-    --accentColor3: var(--green3);
-    --accentColor4: var(--green4);
-    --accentColor5: var(--green5);
-  }
-  :where([tint=orange],
-  [list-item-tint=orange]) {
-    --accentColorEffective: var(--orange);
-    --accentColorEffective4: var(--orange4);
-    --accentColor: var(--orange);
-    --accentColor2: var(--orange2);
-    --accentColor3: var(--orange3);
-    --accentColor4: var(--orange4);
-    --accentColor5: var(--orange5);
-  }
-  :where([tint=purple],
-  [list-item-tint=purple]) {
-    --accentColorEffective: var(--purple);
-    --accentColorEffective4: var(--purple4);
-    --accentColor: var(--purple);
-    --accentColor2: var(--purple2);
-    --accentColor3: var(--purple3);
-    --accentColor4: var(--purple4);
-    --accentColor5: var(--purple5);
+  :where([is=sheet-view] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=sheet-view] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=full-screen] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=full-screen] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=confirmation-dialog] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=confirmation-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background],
+  [is=alert-dialog] list-view[list-row-background=system-quaternary-grouped-background],
+  [is=alert-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background]) {
+    --list--item-background-color: var(--quaintaryGroupedBackground);
   }
 }
 @layer sw.sw-utils {
@@ -8439,514 +8328,158 @@
   }
 }
 @layer sw.sw-utils {
-  h-stack[distribution=leading],
-  v-flex-stack[distribution=leading] {
-    justify-items: start;
-    justify-content: start;
-  }
-  h-stack[distribution="leading fill"],
-  v-flex-stack[distribution="leading fill"] {
-    justify-items: start;
-    justify-content: stretch;
-  }
-  h-stack[distribution=center],
-  v-flex-stack[distribution=center] {
-    justify-items: center;
-    justify-content: center;
-  }
-  h-stack[distribution=trailing],
-  v-flex-stack[distribution=trailing] {
-    justify-items: end;
-    justify-content: end;
-  }
-  h-stack[distribution=fill],
-  v-flex-stack[distribution=fill] {
-    justify-items: stretch;
-    justify-content: stretch;
-  }
-  h-stack[distribution=space-between],
-  v-flex-stack[distribution=space-between] {
-    justify-content: space-between;
-  }
-  h-stack[alignment=leading],
-  v-flex-stack[alignment=leading] {
-    align-items: start;
-    align-content: start;
-  }
-  h-stack[alignment="leading fill"],
-  v-flex-stack[alignment="leading fill"] {
-    align-items: start;
-    align-content: stretch;
-  }
-  h-stack[alignment=center],
-  v-flex-stack[alignment=center] {
-    align-items: center;
-    align-content: center;
-  }
-  h-stack[alignment=trailing],
-  v-flex-stack[alignment=trailing] {
-    align-items: end;
-    align-content: end;
-  }
-  h-stack[alignment=fill],
-  v-flex-stack[alignment=fill] {
-    align-items: stretch;
-    align-content: stretch;
-  }
-  h-stack[alignment=space-between],
-  v-flex-stack[alignment=space-between] {
-    align-content: space-between;
-  }
-  h-stack[placement=fill],
-  v-flex-stack[placement=fill] {
-    place-items: stretch;
-    place-content: stretch;
-  }
-  h-stack[placement="leading fill"],
-  v-flex-stack[placement="leading fill"] {
-    place-items: stretch start;
-    place-content: stretch start;
-  }
-  h-stack[placement="fill leading"],
-  v-flex-stack[placement="fill leading"] {
-    place-items: start stretch;
-    place-content: start stretch;
-  }
-  h-stack[placement="fill space-between"],
-  v-flex-stack[placement="fill space-between"] {
-    align-content: space-between;
-    justify-items: stretch;
-    justify-content: stretch;
-  }
-  :where(v-stack[distribution=leading],
-  h-flex-stack[distribution=leading]) {
-    align-items: start;
-    align-content: start;
-  }
-  :where(v-stack[distribution="leading fill"],
-  h-flex-stack[distribution="leading fill"]) {
-    align-items: start;
-    align-content: stretch;
-  }
-  :where(v-stack[distribution=center],
-  h-flex-stack[distribution=center]) {
-    align-items: center;
-    align-content: center;
-  }
-  :where(v-stack[distribution=trailing],
-  h-flex-stack[distribution=trailing]) {
-    align-items: end;
-    align-content: end;
-  }
-  :where(v-stack[distribution=fill],
-  h-flex-stack[distribution=fill]) {
-    align-items: stretch;
-    align-content: stretch;
-  }
-  :where(v-stack[distribution=space-between],
-  h-flex-stack[distribution=space-between]) {
-    align-content: space-between;
-  }
-  :where(v-stack[alignment=leading],
-  h-flex-stack[alignment=leading]) {
-    justify-items: start;
-    justify-content: start;
-  }
-  :where(v-stack[alignment="leading fill"],
-  h-flex-stack[alignment="leading fill"]) {
-    justify-items: start;
-    justify-content: stretch;
-  }
-  :where(v-stack[alignment=center],
-  h-flex-stack[alignment=center]) {
-    justify-items: center;
-    justify-content: center;
-  }
-  :where(v-stack[alignment=trailing],
-  h-flex-stack[alignment=trailing]) {
-    justify-items: end;
-    justify-content: end;
-  }
-  :where(v-stack[alignment=fill],
-  h-flex-stack[alignment=fill]) {
-    justify-items: stretch;
-    justify-content: stretch;
-  }
-  :where(v-stack[alignment=space-between],
-  h-flex-stack[alignment=space-between]) {
-    justify-content: space-between;
-  }
-  :where(v-stack[placement=fill],
-  h-flex-stack[placement=fill]) {
-    place-items: stretch;
-    place-content: stretch;
-  }
-  :where(v-stack[placement="leading fill"],
-  h-flex-stack[placement="leading fill"]) {
-    place-items: start stretch;
-    place-content: start stretch;
-  }
-  :where(v-stack[placement="fill leading"],
-  h-flex-stack[placement="fill leading"]) {
-    place-items: stretch start;
-    place-content: stretch start;
-  }
-  :where(v-stack[placement="space-between fill"],
-  h-flex-stack[placement="space-between fill"]) {
-    align-content: space-between;
-    justify-items: stretch;
-    justify-content: stretch;
-  }
-  :where(v-stack[spacing="0"],
-  h-stack[spacing="0"],
-  h-flex-stack[spacing="0"],
-  v-flex-stack[spacing="0"]) {
-    gap: 0rem;
-  }
-  :where(v-stack[spacing="1"],
-  h-stack[spacing="1"],
-  h-flex-stack[spacing="1"],
-  v-flex-stack[spacing="1"]) {
-    gap: 0.1rem;
-  }
-  :where(v-stack[spacing="2"],
-  h-stack[spacing="2"],
-  h-flex-stack[spacing="2"],
-  v-flex-stack[spacing="2"]) {
-    gap: 0.2rem;
-  }
-  :where(v-stack[spacing="3"],
-  h-stack[spacing="3"],
-  h-flex-stack[spacing="3"],
-  v-flex-stack[spacing="3"]) {
-    gap: 0.3rem;
-  }
-  :where(v-stack[spacing="4"],
-  h-stack[spacing="4"],
-  h-flex-stack[spacing="4"],
-  v-flex-stack[spacing="4"]) {
-    gap: 0.4rem;
-  }
-  :where(v-stack[spacing="5"],
-  h-stack[spacing="5"],
-  h-flex-stack[spacing="5"],
-  v-flex-stack[spacing="5"]) {
-    gap: 0.5rem;
-  }
-  :where(v-stack[spacing="6"],
-  h-stack[spacing="6"],
-  h-flex-stack[spacing="6"],
-  v-flex-stack[spacing="6"]) {
-    gap: 0.6rem;
-  }
-  :where(v-stack[spacing="7"],
-  h-stack[spacing="7"],
-  h-flex-stack[spacing="7"],
-  v-flex-stack[spacing="7"]) {
-    gap: 0.7rem;
-  }
-  :where(v-stack[spacing="8"],
-  h-stack[spacing="8"],
-  h-flex-stack[spacing="8"],
-  v-flex-stack[spacing="8"]) {
-    gap: 0.8rem;
-  }
-  :where(v-stack[spacing="9"],
-  h-stack[spacing="9"],
-  h-flex-stack[spacing="9"],
-  v-flex-stack[spacing="9"]) {
-    gap: 0.9rem;
-  }
-  :where(v-stack[spacing="10"],
-  h-stack[spacing="10"],
-  h-flex-stack[spacing="10"],
-  v-flex-stack[spacing="10"]) {
-    gap: 1rem;
-  }
-  :where(v-stack[spacing="11"],
-  h-stack[spacing="11"],
-  h-flex-stack[spacing="11"],
-  v-flex-stack[spacing="11"]) {
-    gap: 1.1rem;
-  }
-  :where(v-stack[spacing="12"],
-  h-stack[spacing="12"],
-  h-flex-stack[spacing="12"],
-  v-flex-stack[spacing="12"]) {
-    gap: 1.2rem;
-  }
-  :where(v-stack[spacing="13"],
-  h-stack[spacing="13"],
-  h-flex-stack[spacing="13"],
-  v-flex-stack[spacing="13"]) {
-    gap: 1.3rem;
-  }
-  :where(v-stack[spacing="14"],
-  h-stack[spacing="14"],
-  h-flex-stack[spacing="14"],
-  v-flex-stack[spacing="14"]) {
-    gap: 1.4rem;
-  }
-  :where(v-stack[spacing="15"],
-  h-stack[spacing="15"],
-  h-flex-stack[spacing="15"],
-  v-flex-stack[spacing="15"]) {
-    gap: 1.5rem;
-  }
-  :where(v-stack[spacing="16"],
-  h-stack[spacing="16"],
-  h-flex-stack[spacing="16"],
-  v-flex-stack[spacing="16"]) {
-    gap: 1.6rem;
-  }
-  :where(v-stack[spacing="17"],
-  h-stack[spacing="17"],
-  h-flex-stack[spacing="17"],
-  v-flex-stack[spacing="17"]) {
-    gap: 1.7rem;
-  }
-  :where(v-stack[spacing="18"],
-  h-stack[spacing="18"],
-  h-flex-stack[spacing="18"],
-  v-flex-stack[spacing="18"]) {
-    gap: 1.8rem;
-  }
-  :where(v-stack[spacing="19"],
-  h-stack[spacing="19"],
-  h-flex-stack[spacing="19"],
-  v-flex-stack[spacing="19"]) {
-    gap: 1.9rem;
-  }
-  :where(v-stack[spacing="20"],
-  h-stack[spacing="20"],
-  h-flex-stack[spacing="20"],
-  v-flex-stack[spacing="20"]) {
-    gap: 2rem;
-  }
-  :where(v-stack[spacing="21"],
-  h-stack[spacing="21"],
-  h-flex-stack[spacing="21"],
-  v-flex-stack[spacing="21"]) {
-    gap: 2.1rem;
-  }
-  :where(v-stack[spacing="22"],
-  h-stack[spacing="22"],
-  h-flex-stack[spacing="22"],
-  v-flex-stack[spacing="22"]) {
-    gap: 2.2rem;
-  }
-  :where(v-stack[spacing="23"],
-  h-stack[spacing="23"],
-  h-flex-stack[spacing="23"],
-  v-flex-stack[spacing="23"]) {
-    gap: 2.3rem;
-  }
-  :where(v-stack[spacing="24"],
-  h-stack[spacing="24"],
-  h-flex-stack[spacing="24"],
-  v-flex-stack[spacing="24"]) {
-    gap: 2.4rem;
-  }
-  :where(v-stack[spacing="25"],
-  h-stack[spacing="25"],
-  h-flex-stack[spacing="25"],
-  v-flex-stack[spacing="25"]) {
-    gap: 2.5rem;
-  }
-  :where(v-stack[spacing="26"],
-  h-stack[spacing="26"],
-  h-flex-stack[spacing="26"],
-  v-flex-stack[spacing="26"]) {
-    gap: 2.6rem;
-  }
-  :where(v-stack[spacing="27"],
-  h-stack[spacing="27"],
-  h-flex-stack[spacing="27"],
-  v-flex-stack[spacing="27"]) {
-    gap: 2.7rem;
-  }
-  :where(v-stack[spacing="28"],
-  h-stack[spacing="28"],
-  h-flex-stack[spacing="28"],
-  v-flex-stack[spacing="28"]) {
-    gap: 2.8rem;
-  }
-  :where(v-stack[spacing="29"],
-  h-stack[spacing="29"],
-  h-flex-stack[spacing="29"],
-  v-flex-stack[spacing="29"]) {
-    gap: 2.9rem;
-  }
-  :where(v-stack[spacing="30"],
-  h-stack[spacing="30"],
-  h-flex-stack[spacing="30"],
-  v-flex-stack[spacing="30"]) {
-    gap: 3rem;
-  }
-  :where(v-stack[spacing="31"],
-  h-stack[spacing="31"],
-  h-flex-stack[spacing="31"],
-  v-flex-stack[spacing="31"]) {
-    gap: 3.1rem;
-  }
-  :where(v-stack[spacing="32"],
-  h-stack[spacing="32"],
-  h-flex-stack[spacing="32"],
-  v-flex-stack[spacing="32"]) {
-    gap: 3.2rem;
-  }
-  :where(v-stack[spacing="33"],
-  h-stack[spacing="33"],
-  h-flex-stack[spacing="33"],
-  v-flex-stack[spacing="33"]) {
-    gap: 3.3rem;
-  }
-  :where(v-stack[spacing="34"],
-  h-stack[spacing="34"],
-  h-flex-stack[spacing="34"],
-  v-flex-stack[spacing="34"]) {
-    gap: 3.4rem;
-  }
-  :where(v-stack[spacing="35"],
-  h-stack[spacing="35"],
-  h-flex-stack[spacing="35"],
-  v-flex-stack[spacing="35"]) {
-    gap: 3.5rem;
-  }
-  :where(v-stack[spacing="36"],
-  h-stack[spacing="36"],
-  h-flex-stack[spacing="36"],
-  v-flex-stack[spacing="36"]) {
-    gap: 3.6rem;
-  }
-  :where(v-stack[spacing="37"],
-  h-stack[spacing="37"],
-  h-flex-stack[spacing="37"],
-  v-flex-stack[spacing="37"]) {
-    gap: 3.7rem;
-  }
-  :where(v-stack[spacing="38"],
-  h-stack[spacing="38"],
-  h-flex-stack[spacing="38"],
-  v-flex-stack[spacing="38"]) {
-    gap: 3.8rem;
-  }
-  :where(v-stack[spacing="39"],
-  h-stack[spacing="39"],
-  h-flex-stack[spacing="39"],
-  v-flex-stack[spacing="39"]) {
-    gap: 3.9rem;
-  }
-  :where(v-stack[spacing="40"],
-  h-stack[spacing="40"],
-  h-flex-stack[spacing="40"],
-  v-flex-stack[spacing="40"]) {
-    gap: 4rem;
-  }
-  :where(v-stack[spacing="41"],
-  h-stack[spacing="41"],
-  h-flex-stack[spacing="41"],
-  v-flex-stack[spacing="41"]) {
-    gap: 4.1rem;
-  }
-  :where(v-stack[spacing="42"],
-  h-stack[spacing="42"],
-  h-flex-stack[spacing="42"],
-  v-flex-stack[spacing="42"]) {
-    gap: 4.2rem;
-  }
-  :where(v-stack[spacing="43"],
-  h-stack[spacing="43"],
-  h-flex-stack[spacing="43"],
-  v-flex-stack[spacing="43"]) {
-    gap: 4.3rem;
-  }
-  :where(v-stack[spacing="44"],
-  h-stack[spacing="44"],
-  h-flex-stack[spacing="44"],
-  v-flex-stack[spacing="44"]) {
-    gap: 4.4rem;
-  }
-  :where(v-stack[spacing="45"],
-  h-stack[spacing="45"],
-  h-flex-stack[spacing="45"],
-  v-flex-stack[spacing="45"]) {
-    gap: 4.5rem;
-  }
-  :where(v-stack[spacing="46"],
-  h-stack[spacing="46"],
-  h-flex-stack[spacing="46"],
-  v-flex-stack[spacing="46"]) {
-    gap: 4.6rem;
-  }
-  :where(v-stack[spacing="47"],
-  h-stack[spacing="47"],
-  h-flex-stack[spacing="47"],
-  v-flex-stack[spacing="47"]) {
-    gap: 4.7rem;
-  }
-  :where(v-stack[spacing="48"],
-  h-stack[spacing="48"],
-  h-flex-stack[spacing="48"],
-  v-flex-stack[spacing="48"]) {
-    gap: 4.8rem;
-  }
-  :where(v-stack[spacing="49"],
-  h-stack[spacing="49"],
-  h-flex-stack[spacing="49"],
-  v-flex-stack[spacing="49"]) {
-    gap: 4.9rem;
-  }
-  :where(v-stack[spacing="50"],
-  h-stack[spacing="50"],
-  h-flex-stack[spacing="50"],
-  v-flex-stack[spacing="50"]) {
-    gap: 5rem;
-  }
-  :where(v-stack[padding],
-  h-stack[padding],
-  h-flex-stack[padding],
-  v-flex-stack[padding]) {
-    padding-inline: 1rem;
-  }
-  :where(scroll-view > v-stack[padding],
-  scroll-view > h-stack[padding],
-  scroll-view > h-flex-stack[padding],
-  scroll-view > v-flex-stack[padding]) {
-    padding-block-end: 1rem;
-  }
-  :where(v-stack > [padding]:not(v-stack, sticky-container,
-  h-stack,
-  h-flex-stack,
-  v-flex-stack), v-stack > [is=disclosure-group] > summary[padding],
-  h-stack > [padding]:not(v-stack, sticky-container,
-  h-stack,
-  h-flex-stack,
-  v-flex-stack),
-  h-stack > [is=disclosure-group] > summary[padding],
-  h-flex-stack > [padding]:not(v-stack, sticky-container,
-  h-stack,
-  h-flex-stack,
-  v-flex-stack),
-  h-flex-stack > [is=disclosure-group] > summary[padding],
-  v-flex-stack > [padding]:not(v-stack, sticky-container,
-  h-stack,
-  h-flex-stack,
-  v-flex-stack),
-  v-flex-stack > [is=disclosure-group] > summary[padding]) {
-    margin-inline: 1rem;
-  }
-  :where(v-stack > sticky-container,
-  h-stack > sticky-container,
-  h-flex-stack > sticky-container,
-  v-flex-stack > sticky-container) {
-    padding-inline: 1rem;
-  }
-}
-@layer sw.sw-components {
-  :where(v-stack[readable]) {
-    place-items: start stretch;
-    place-content: start stretch;
+  :where([background-style=initial]) {
+    --background: initial;
+    --secondaryBackground: initial;
+    --tertiaryBackground: initial;
+    --face: var(--background);
+  }
+  :where([foreground=black]) {
+    color: var(--black);
+  }
+  :where([foreground=white]) {
+    color: var(--white);
+  }
+  :where([foreground=primary]) {
+    color: var(--primary);
+  }
+  :where([foreground=secondary]) {
+    color: var(--secondary);
+  }
+  :where([foreground=blue]) {
+    color: var(--blue);
+  }
+  :where([foreground=red]) {
+    color: var(--red);
+  }
+  :where([foreground=green]) {
+    color: var(--green);
+  }
+  :where([foreground=orange]) {
+    color: var(--orange);
+  }
+  :where([foreground=purple]) {
+    color: var(--purple);
+  }
+  :where([foreground="blue.secondary"]) {
+    color: var(--blue2);
+  }
+  :where([foreground="red.secondary"]) {
+    color: var(--red2);
+  }
+  :where([foreground="green.secondary"]) {
+    color: var(--green2);
+  }
+  :where([foreground="orange.secondary"]) {
+    color: var(--orange2);
+  }
+  :where([foreground="purple.secondary"]) {
+    color: var(--purple2);
+  }
+  :where([foreground="blue.tertiary"]) {
+    color: var(--blue3);
+  }
+  :where([foreground="red.tertiary"]) {
+    color: var(--red3);
+  }
+  :where([foreground="green.tertiary"]) {
+    color: var(--green3);
+  }
+  :where([foreground="orange.tertiary"]) {
+    color: var(--orange3);
+  }
+  :where([foreground="purple.tertiary"]) {
+    color: var(--purple3);
+  }
+  :where([foreground="blue.quaternary"]) {
+    color: var(--blue4);
+  }
+  :where([foreground="red.quaternary"]) {
+    color: var(--red4);
+  }
+  :where([foreground="green.quaternary"]) {
+    color: var(--green4);
+  }
+  :where([foreground="orange.quaternary"]) {
+    color: var(--orange4);
+  }
+  :where([foreground="purple.quaternary"]) {
+    color: var(--purple4);
+  }
+  :where([foreground="blue.quinary"]) {
+    color: var(--blue5);
+  }
+  :where([foreground="red.quinary"]) {
+    color: var(--red5);
+  }
+  :where([foreground="green.quinary"]) {
+    color: var(--green5);
+  }
+  :where([foreground="orange.quinary"]) {
+    color: var(--orange5);
+  }
+  :where([foreground="purple.quinary"]) {
+    color: var(--purple5);
+  }
+  :where([tint=gray],
+  [list-item-tint=gray]) {
+    --accentColorEffective: var(--gray);
+    --accentColorEffective4: var(--gray4);
+    --accentColor: var(--gray);
+    --accentColor2: var(--gray2);
+    --accentColor3: var(--gray3);
+    --accentColor4: var(--gray4);
+    --accentColor5: var(--gray5);
+  }
+  :where([tint=blue],
+  [list-item-tint=blue]) {
+    --accentColorEffective: var(--blue);
+    --accentColorEffective4: var(--blue4);
+    --accentColor: var(--blue);
+    --accentColor2: var(--blue2);
+    --accentColor3: var(--blue3);
+    --accentColor4: var(--blue4);
+    --accentColor5: var(--blue5);
+  }
+  :where([tint=red],
+  [list-item-tint=red]) {
+    --accentColorEffective: var(--red);
+    --accentColorEffective4: var(--red4);
+    --accentColor: var(--red);
+    --accentColor2: var(--red2);
+    --accentColor3: var(--red3);
+    --accentColor4: var(--red4);
+    --accentColor5: var(--red5);
+  }
+  :where([tint=green],
+  [list-item-tint=green]) {
+    --accentColorEffective: var(--green);
+    --accentColorEffective4: var(--green4);
+    --accentColor: var(--green);
+    --accentColor2: var(--green2);
+    --accentColor3: var(--green3);
+    --accentColor4: var(--green4);
+    --accentColor5: var(--green5);
+  }
+  :where([tint=orange],
+  [list-item-tint=orange]) {
+    --accentColorEffective: var(--orange);
+    --accentColorEffective4: var(--orange4);
+    --accentColor: var(--orange);
+    --accentColor2: var(--orange2);
+    --accentColor3: var(--orange3);
+    --accentColor4: var(--orange4);
+    --accentColor5: var(--orange5);
+  }
+  :where([tint=purple],
+  [list-item-tint=purple]) {
+    --accentColorEffective: var(--purple);
+    --accentColorEffective4: var(--purple4);
+    --accentColor: var(--purple);
+    --accentColor2: var(--purple2);
+    --accentColor3: var(--purple3);
+    --accentColor4: var(--purple4);
+    --accentColor5: var(--purple5);
   }
 }
 @layer sw.sw-utils {
@@ -9564,47 +9097,657 @@
   }
 }
 @layer sw.sw-utils {
-  :where(list-view[background=system-background],
-  [is=form-view][background=system-background]) {
-    --list--host-background-color: var(--background);
+  h-stack[distribution=leading],
+  v-flex-stack[distribution=leading] {
+    justify-items: start;
+    justify-content: start;
   }
-  :where(list-view[list-row-background=system-tertiary-grouped-background],
-  [is=form-view][list-row-background=system-tertiary-grouped-background]) {
-    --list--item-background-color: var(--tertiaryGroupedBackground);
+  h-stack[distribution="leading fill"],
+  v-flex-stack[distribution="leading fill"] {
+    justify-items: start;
+    justify-content: stretch;
   }
-  :where(list-view[list-row-background=system-quaternary-grouped-background],
-  [is=form-view][list-row-background=system-quaternary-grouped-background]) {
-    --list--item-background-color: var(--quaternaryGroupedBackground);
+  h-stack[distribution=center],
+  v-flex-stack[distribution=center] {
+    justify-items: center;
+    justify-content: center;
   }
-  :where([is=sheet-view] list-view[background=system-background],
-  [is=sheet-view] [is=form-view][background=system-background],
-  [is=full-screen] list-view[background=system-background],
-  [is=full-screen] [is=form-view][background=system-background],
-  [is=confirmation-dialog] list-view[background=system-background],
-  [is=confirmation-dialog] [is=form-view][background=system-background],
-  [is=alert-dialog] list-view[background=system-background],
-  [is=alert-dialog] [is=form-view][background=system-background]) {
-    --list--host-background-color: var(--secondaryBackground);
+  h-stack[distribution=trailing],
+  v-flex-stack[distribution=trailing] {
+    justify-items: end;
+    justify-content: end;
   }
-  :where([is=sheet-view] list-view[list-row-background=system-tertiary-grouped-background],
-  [is=sheet-view] [is=form-view][list-row-background=system-tertiary-grouped-background],
-  [is=full-screen] list-view[list-row-background=system-tertiary-grouped-background],
-  [is=full-screen] [is=form-view][list-row-background=system-tertiary-grouped-background],
-  [is=confirmation-dialog] list-view[list-row-background=system-tertiary-grouped-background],
-  [is=confirmation-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background],
-  [is=alert-dialog] list-view[list-row-background=system-tertiary-grouped-background],
-  [is=alert-dialog] [is=form-view][list-row-background=system-tertiary-grouped-background]) {
-    --list--item-background-color: var(--quaternaryGroupedBackground);
+  h-stack[distribution=fill],
+  v-flex-stack[distribution=fill] {
+    justify-items: stretch;
+    justify-content: stretch;
   }
-  :where([is=sheet-view] list-view[list-row-background=system-quaternary-grouped-background],
-  [is=sheet-view] [is=form-view][list-row-background=system-quaternary-grouped-background],
-  [is=full-screen] list-view[list-row-background=system-quaternary-grouped-background],
-  [is=full-screen] [is=form-view][list-row-background=system-quaternary-grouped-background],
-  [is=confirmation-dialog] list-view[list-row-background=system-quaternary-grouped-background],
-  [is=confirmation-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background],
-  [is=alert-dialog] list-view[list-row-background=system-quaternary-grouped-background],
-  [is=alert-dialog] [is=form-view][list-row-background=system-quaternary-grouped-background]) {
-    --list--item-background-color: var(--quaintaryGroupedBackground);
+  h-stack[distribution=space-between],
+  v-flex-stack[distribution=space-between] {
+    justify-content: space-between;
+  }
+  h-stack[alignment=leading],
+  v-flex-stack[alignment=leading] {
+    align-items: start;
+    align-content: start;
+  }
+  h-stack[alignment="leading fill"],
+  v-flex-stack[alignment="leading fill"] {
+    align-items: start;
+    align-content: stretch;
+  }
+  h-stack[alignment=center],
+  v-flex-stack[alignment=center] {
+    align-items: center;
+    align-content: center;
+  }
+  h-stack[alignment=trailing],
+  v-flex-stack[alignment=trailing] {
+    align-items: end;
+    align-content: end;
+  }
+  h-stack[alignment=fill],
+  v-flex-stack[alignment=fill] {
+    align-items: stretch;
+    align-content: stretch;
+  }
+  h-stack[alignment=space-between],
+  v-flex-stack[alignment=space-between] {
+    align-content: space-between;
+  }
+  h-stack[placement=fill],
+  v-flex-stack[placement=fill] {
+    place-items: stretch;
+    place-content: stretch;
+  }
+  h-stack[placement="leading fill"],
+  v-flex-stack[placement="leading fill"] {
+    place-items: stretch start;
+    place-content: stretch start;
+  }
+  h-stack[placement="fill leading"],
+  v-flex-stack[placement="fill leading"] {
+    place-items: start stretch;
+    place-content: start stretch;
+  }
+  h-stack[placement="fill space-between"],
+  v-flex-stack[placement="fill space-between"] {
+    align-content: space-between;
+    justify-items: stretch;
+    justify-content: stretch;
+  }
+  :where(v-stack[distribution=leading],
+  h-flex-stack[distribution=leading]) {
+    align-items: start;
+    align-content: start;
+  }
+  :where(v-stack[distribution="leading fill"],
+  h-flex-stack[distribution="leading fill"]) {
+    align-items: start;
+    align-content: stretch;
+  }
+  :where(v-stack[distribution=center],
+  h-flex-stack[distribution=center]) {
+    align-items: center;
+    align-content: center;
+  }
+  :where(v-stack[distribution=trailing],
+  h-flex-stack[distribution=trailing]) {
+    align-items: end;
+    align-content: end;
+  }
+  :where(v-stack[distribution=fill],
+  h-flex-stack[distribution=fill]) {
+    align-items: stretch;
+    align-content: stretch;
+  }
+  :where(v-stack[distribution=space-between],
+  h-flex-stack[distribution=space-between]) {
+    align-content: space-between;
+  }
+  :where(v-stack[alignment=leading],
+  h-flex-stack[alignment=leading]) {
+    justify-items: start;
+    justify-content: start;
+  }
+  :where(v-stack[alignment="leading fill"],
+  h-flex-stack[alignment="leading fill"]) {
+    justify-items: start;
+    justify-content: stretch;
+  }
+  :where(v-stack[alignment=center],
+  h-flex-stack[alignment=center]) {
+    justify-items: center;
+    justify-content: center;
+  }
+  :where(v-stack[alignment=trailing],
+  h-flex-stack[alignment=trailing]) {
+    justify-items: end;
+    justify-content: end;
+  }
+  :where(v-stack[alignment=fill],
+  h-flex-stack[alignment=fill]) {
+    justify-items: stretch;
+    justify-content: stretch;
+  }
+  :where(v-stack[alignment=space-between],
+  h-flex-stack[alignment=space-between]) {
+    justify-content: space-between;
+  }
+  :where(v-stack[placement=fill],
+  h-flex-stack[placement=fill]) {
+    place-items: stretch;
+    place-content: stretch;
+  }
+  :where(v-stack[placement="leading fill"],
+  h-flex-stack[placement="leading fill"]) {
+    place-items: start stretch;
+    place-content: start stretch;
+  }
+  :where(v-stack[placement="fill leading"],
+  h-flex-stack[placement="fill leading"]) {
+    place-items: stretch start;
+    place-content: stretch start;
+  }
+  :where(v-stack[placement="space-between fill"],
+  h-flex-stack[placement="space-between fill"]) {
+    align-content: space-between;
+    justify-items: stretch;
+    justify-content: stretch;
+  }
+  :where(v-stack[spacing="0"],
+  h-stack[spacing="0"],
+  h-flex-stack[spacing="0"],
+  v-flex-stack[spacing="0"]) {
+    gap: 0rem;
+  }
+  :where(v-stack[spacing="1"],
+  h-stack[spacing="1"],
+  h-flex-stack[spacing="1"],
+  v-flex-stack[spacing="1"]) {
+    gap: 0.1rem;
+  }
+  :where(v-stack[spacing="2"],
+  h-stack[spacing="2"],
+  h-flex-stack[spacing="2"],
+  v-flex-stack[spacing="2"]) {
+    gap: 0.2rem;
+  }
+  :where(v-stack[spacing="3"],
+  h-stack[spacing="3"],
+  h-flex-stack[spacing="3"],
+  v-flex-stack[spacing="3"]) {
+    gap: 0.3rem;
+  }
+  :where(v-stack[spacing="4"],
+  h-stack[spacing="4"],
+  h-flex-stack[spacing="4"],
+  v-flex-stack[spacing="4"]) {
+    gap: 0.4rem;
+  }
+  :where(v-stack[spacing="5"],
+  h-stack[spacing="5"],
+  h-flex-stack[spacing="5"],
+  v-flex-stack[spacing="5"]) {
+    gap: 0.5rem;
+  }
+  :where(v-stack[spacing="6"],
+  h-stack[spacing="6"],
+  h-flex-stack[spacing="6"],
+  v-flex-stack[spacing="6"]) {
+    gap: 0.6rem;
+  }
+  :where(v-stack[spacing="7"],
+  h-stack[spacing="7"],
+  h-flex-stack[spacing="7"],
+  v-flex-stack[spacing="7"]) {
+    gap: 0.7rem;
+  }
+  :where(v-stack[spacing="8"],
+  h-stack[spacing="8"],
+  h-flex-stack[spacing="8"],
+  v-flex-stack[spacing="8"]) {
+    gap: 0.8rem;
+  }
+  :where(v-stack[spacing="9"],
+  h-stack[spacing="9"],
+  h-flex-stack[spacing="9"],
+  v-flex-stack[spacing="9"]) {
+    gap: 0.9rem;
+  }
+  :where(v-stack[spacing="10"],
+  h-stack[spacing="10"],
+  h-flex-stack[spacing="10"],
+  v-flex-stack[spacing="10"]) {
+    gap: 1rem;
+  }
+  :where(v-stack[spacing="11"],
+  h-stack[spacing="11"],
+  h-flex-stack[spacing="11"],
+  v-flex-stack[spacing="11"]) {
+    gap: 1.1rem;
+  }
+  :where(v-stack[spacing="12"],
+  h-stack[spacing="12"],
+  h-flex-stack[spacing="12"],
+  v-flex-stack[spacing="12"]) {
+    gap: 1.2rem;
+  }
+  :where(v-stack[spacing="13"],
+  h-stack[spacing="13"],
+  h-flex-stack[spacing="13"],
+  v-flex-stack[spacing="13"]) {
+    gap: 1.3rem;
+  }
+  :where(v-stack[spacing="14"],
+  h-stack[spacing="14"],
+  h-flex-stack[spacing="14"],
+  v-flex-stack[spacing="14"]) {
+    gap: 1.4rem;
+  }
+  :where(v-stack[spacing="15"],
+  h-stack[spacing="15"],
+  h-flex-stack[spacing="15"],
+  v-flex-stack[spacing="15"]) {
+    gap: 1.5rem;
+  }
+  :where(v-stack[spacing="16"],
+  h-stack[spacing="16"],
+  h-flex-stack[spacing="16"],
+  v-flex-stack[spacing="16"]) {
+    gap: 1.6rem;
+  }
+  :where(v-stack[spacing="17"],
+  h-stack[spacing="17"],
+  h-flex-stack[spacing="17"],
+  v-flex-stack[spacing="17"]) {
+    gap: 1.7rem;
+  }
+  :where(v-stack[spacing="18"],
+  h-stack[spacing="18"],
+  h-flex-stack[spacing="18"],
+  v-flex-stack[spacing="18"]) {
+    gap: 1.8rem;
+  }
+  :where(v-stack[spacing="19"],
+  h-stack[spacing="19"],
+  h-flex-stack[spacing="19"],
+  v-flex-stack[spacing="19"]) {
+    gap: 1.9rem;
+  }
+  :where(v-stack[spacing="20"],
+  h-stack[spacing="20"],
+  h-flex-stack[spacing="20"],
+  v-flex-stack[spacing="20"]) {
+    gap: 2rem;
+  }
+  :where(v-stack[spacing="21"],
+  h-stack[spacing="21"],
+  h-flex-stack[spacing="21"],
+  v-flex-stack[spacing="21"]) {
+    gap: 2.1rem;
+  }
+  :where(v-stack[spacing="22"],
+  h-stack[spacing="22"],
+  h-flex-stack[spacing="22"],
+  v-flex-stack[spacing="22"]) {
+    gap: 2.2rem;
+  }
+  :where(v-stack[spacing="23"],
+  h-stack[spacing="23"],
+  h-flex-stack[spacing="23"],
+  v-flex-stack[spacing="23"]) {
+    gap: 2.3rem;
+  }
+  :where(v-stack[spacing="24"],
+  h-stack[spacing="24"],
+  h-flex-stack[spacing="24"],
+  v-flex-stack[spacing="24"]) {
+    gap: 2.4rem;
+  }
+  :where(v-stack[spacing="25"],
+  h-stack[spacing="25"],
+  h-flex-stack[spacing="25"],
+  v-flex-stack[spacing="25"]) {
+    gap: 2.5rem;
+  }
+  :where(v-stack[spacing="26"],
+  h-stack[spacing="26"],
+  h-flex-stack[spacing="26"],
+  v-flex-stack[spacing="26"]) {
+    gap: 2.6rem;
+  }
+  :where(v-stack[spacing="27"],
+  h-stack[spacing="27"],
+  h-flex-stack[spacing="27"],
+  v-flex-stack[spacing="27"]) {
+    gap: 2.7rem;
+  }
+  :where(v-stack[spacing="28"],
+  h-stack[spacing="28"],
+  h-flex-stack[spacing="28"],
+  v-flex-stack[spacing="28"]) {
+    gap: 2.8rem;
+  }
+  :where(v-stack[spacing="29"],
+  h-stack[spacing="29"],
+  h-flex-stack[spacing="29"],
+  v-flex-stack[spacing="29"]) {
+    gap: 2.9rem;
+  }
+  :where(v-stack[spacing="30"],
+  h-stack[spacing="30"],
+  h-flex-stack[spacing="30"],
+  v-flex-stack[spacing="30"]) {
+    gap: 3rem;
+  }
+  :where(v-stack[spacing="31"],
+  h-stack[spacing="31"],
+  h-flex-stack[spacing="31"],
+  v-flex-stack[spacing="31"]) {
+    gap: 3.1rem;
+  }
+  :where(v-stack[spacing="32"],
+  h-stack[spacing="32"],
+  h-flex-stack[spacing="32"],
+  v-flex-stack[spacing="32"]) {
+    gap: 3.2rem;
+  }
+  :where(v-stack[spacing="33"],
+  h-stack[spacing="33"],
+  h-flex-stack[spacing="33"],
+  v-flex-stack[spacing="33"]) {
+    gap: 3.3rem;
+  }
+  :where(v-stack[spacing="34"],
+  h-stack[spacing="34"],
+  h-flex-stack[spacing="34"],
+  v-flex-stack[spacing="34"]) {
+    gap: 3.4rem;
+  }
+  :where(v-stack[spacing="35"],
+  h-stack[spacing="35"],
+  h-flex-stack[spacing="35"],
+  v-flex-stack[spacing="35"]) {
+    gap: 3.5rem;
+  }
+  :where(v-stack[spacing="36"],
+  h-stack[spacing="36"],
+  h-flex-stack[spacing="36"],
+  v-flex-stack[spacing="36"]) {
+    gap: 3.6rem;
+  }
+  :where(v-stack[spacing="37"],
+  h-stack[spacing="37"],
+  h-flex-stack[spacing="37"],
+  v-flex-stack[spacing="37"]) {
+    gap: 3.7rem;
+  }
+  :where(v-stack[spacing="38"],
+  h-stack[spacing="38"],
+  h-flex-stack[spacing="38"],
+  v-flex-stack[spacing="38"]) {
+    gap: 3.8rem;
+  }
+  :where(v-stack[spacing="39"],
+  h-stack[spacing="39"],
+  h-flex-stack[spacing="39"],
+  v-flex-stack[spacing="39"]) {
+    gap: 3.9rem;
+  }
+  :where(v-stack[spacing="40"],
+  h-stack[spacing="40"],
+  h-flex-stack[spacing="40"],
+  v-flex-stack[spacing="40"]) {
+    gap: 4rem;
+  }
+  :where(v-stack[spacing="41"],
+  h-stack[spacing="41"],
+  h-flex-stack[spacing="41"],
+  v-flex-stack[spacing="41"]) {
+    gap: 4.1rem;
+  }
+  :where(v-stack[spacing="42"],
+  h-stack[spacing="42"],
+  h-flex-stack[spacing="42"],
+  v-flex-stack[spacing="42"]) {
+    gap: 4.2rem;
+  }
+  :where(v-stack[spacing="43"],
+  h-stack[spacing="43"],
+  h-flex-stack[spacing="43"],
+  v-flex-stack[spacing="43"]) {
+    gap: 4.3rem;
+  }
+  :where(v-stack[spacing="44"],
+  h-stack[spacing="44"],
+  h-flex-stack[spacing="44"],
+  v-flex-stack[spacing="44"]) {
+    gap: 4.4rem;
+  }
+  :where(v-stack[spacing="45"],
+  h-stack[spacing="45"],
+  h-flex-stack[spacing="45"],
+  v-flex-stack[spacing="45"]) {
+    gap: 4.5rem;
+  }
+  :where(v-stack[spacing="46"],
+  h-stack[spacing="46"],
+  h-flex-stack[spacing="46"],
+  v-flex-stack[spacing="46"]) {
+    gap: 4.6rem;
+  }
+  :where(v-stack[spacing="47"],
+  h-stack[spacing="47"],
+  h-flex-stack[spacing="47"],
+  v-flex-stack[spacing="47"]) {
+    gap: 4.7rem;
+  }
+  :where(v-stack[spacing="48"],
+  h-stack[spacing="48"],
+  h-flex-stack[spacing="48"],
+  v-flex-stack[spacing="48"]) {
+    gap: 4.8rem;
+  }
+  :where(v-stack[spacing="49"],
+  h-stack[spacing="49"],
+  h-flex-stack[spacing="49"],
+  v-flex-stack[spacing="49"]) {
+    gap: 4.9rem;
+  }
+  :where(v-stack[spacing="50"],
+  h-stack[spacing="50"],
+  h-flex-stack[spacing="50"],
+  v-flex-stack[spacing="50"]) {
+    gap: 5rem;
+  }
+  :where(v-stack[padding],
+  h-stack[padding],
+  h-flex-stack[padding],
+  v-flex-stack[padding]) {
+    padding-inline: 1rem;
+  }
+  :where(scroll-view > v-stack[padding],
+  scroll-view > h-stack[padding],
+  scroll-view > h-flex-stack[padding],
+  scroll-view > v-flex-stack[padding]) {
+    padding-block-end: 1rem;
+  }
+  :where(v-stack > [padding]:not(v-stack, sticky-container,
+  h-stack,
+  h-flex-stack,
+  v-flex-stack), v-stack > [is=disclosure-group] > summary[padding],
+  h-stack > [padding]:not(v-stack, sticky-container,
+  h-stack,
+  h-flex-stack,
+  v-flex-stack),
+  h-stack > [is=disclosure-group] > summary[padding],
+  h-flex-stack > [padding]:not(v-stack, sticky-container,
+  h-stack,
+  h-flex-stack,
+  v-flex-stack),
+  h-flex-stack > [is=disclosure-group] > summary[padding],
+  v-flex-stack > [padding]:not(v-stack, sticky-container,
+  h-stack,
+  h-flex-stack,
+  v-flex-stack),
+  v-flex-stack > [is=disclosure-group] > summary[padding]) {
+    margin-inline: 1rem;
+  }
+  :where(v-stack > sticky-container,
+  h-stack > sticky-container,
+  h-flex-stack > sticky-container,
+  v-flex-stack > sticky-container) {
+    padding-inline: 1rem;
+  }
+}
+@layer sw.sw-components {
+  :where(v-stack[readable]) {
+    place-items: start stretch;
+    place-content: start stretch;
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=alert-dialog]) {
+      transition: display var(--touchglass-transition-duration) allow-discrete ease-out, overlay var(--touchglass-transition-duration) allow-discrete ease-out, transform var(--touchglass-transition-duration) allow-discrete ease-out, opacity var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform, overlay, display, opacity;
+    }
+  }
+}
+@layer sw.sw-transitions {
+  scroll-view.bwd {
+    --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+    --scroll-view-box-shadow: var(--screen-box-shadow);
+  }
+  scroll-view.bwdd ~ content-view,
+  scroll-view.bwdd ~ navigation-stack,
+  scroll-view.bwdd ~ navigation-split-view {
+    pointer-events: none;
+  }
+  scroll-view.bwdd {
+    --scroll-view-translate: translateX(var(--view-transition-principal-x));
+  }
+  scroll-view.bwdd.bwd {
+    --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+  }
+  navigation-split-view > content-view:has(~ .bwdd) {
+    pointer-events: none;
+  }
+}
+@layer sw.sw-transitions {
+  tool-bar-item.bwn,
+  tool-bar-item-group.bwn {
+    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
+  }
+  tool-bar-item.bwnn,
+  tool-bar-item-group.bwnn {
+    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+    --toolbar-cell-filter: none;
+    --toolbar-cell-opacity: 1;
+  }
+  tool-bar-item.bwnn.bwn,
+  tool-bar-item-group.bwnn.bwn {
+    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=confirmation-dialog]) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+    :where([is=confirmation-dialog] > *) {
+      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform;
+    }
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=disclosure-group])::details-content {
+      transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: block-size, content-visibility;
+    }
+    :where([is=disclosure-group] > summary)::after {
+      transition: transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+      will-change: transform;
+    }
+    @supports not (interpolate-size: allow-keywords) {
+      :where([is=disclosure-group]) {
+        transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
+        will-change: grid-template-rows;
+      }
+    }
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where(fine-tooltip) {
+      transition: opacity 150ms allow-discrete ease-out, transform 150ms allow-discrete ease-out;
+      transition-delay: 200ms;
+      will-change: opacity, transform;
+    }
+    :where(fine-tooltip[closing]) {
+      transition-duration: 100ms;
+      transition-delay: 0ms;
+    }
+  }
+}
+@layer sw.sw-transitions {
+  scroll-view.fwd {
+    pointer-events: none;
+  }
+  scroll-view.fwdd {
+    --scroll-view-translate: translateX(var(--view-transition-principal-x));
+    --scroll-view-box-shadow: var(--screen-box-shadow);
+  }
+  @starting-style {
+    scroll-view.fwdd {
+      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+    }
+  }
+  scroll-view.fwdd.fwd {
+    --scroll-view-translate: translateX(var(--view-transition-leading-x));
+  }
+}
+@layer sw.sw-transitions {
+  tool-bar-item.fwnn,
+  tool-bar-item-group.fwnn {
+    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
+    --toolbar-cell-filter: none;
+    --toolbar-cell-opacity: 1;
+  }
+  @starting-style {
+    tool-bar-item.fwnn,
+    tool-bar-item-group.fwnn {
+      --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+      --toolbar-cell-filter: blur(10px);
+      --toolbar-cell-opacity: 0;
+    }
+  }
+  tool-bar-item.fwnn.fwn,
+  tool-bar-item-group.fwnn.fwn {
+    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
+    --toolbar-cell-filter: blur(10px);
+    --toolbar-cell-opacity: 0;
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-button]) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button]) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
+    }
   }
 }
 @layer sw.sw-transitions {
@@ -9639,82 +9782,28 @@
   }
 }
 @layer sw.sw-transitions {
-  scroll-view.fwd {
-    pointer-events: none;
-  }
-  scroll-view.fwdd {
-    --scroll-view-translate: translateX(var(--view-transition-principal-x));
-    --scroll-view-box-shadow: var(--screen-box-shadow);
-  }
-  @starting-style {
-    scroll-view.fwdd {
-      --scroll-view-translate: translateX(var(--view-transition-trailing-x));
+  @media (prefers-reduced-motion: no-preference) {
+    :where(menu-view)::part(menu-summary) {
+      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out, filter var(--touchglass-transition-duration) allow-discrete ease-out;
+      will-change: transform;
+    }
+    :where(menu-view)::part(menu-dialog) {
+      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
     }
   }
-  scroll-view.fwdd.fwd {
-    --scroll-view-translate: translateX(var(--view-transition-leading-x));
-  }
 }
+@layer sw.sw-transitions {}
 @layer sw.sw-transitions {
-  scroll-view.bwd {
-    --scroll-view-translate: translateX(var(--view-transition-trailing-x));
-    --scroll-view-box-shadow: var(--screen-box-shadow);
-  }
-  scroll-view.bwdd ~ content-view,
-  scroll-view.bwdd ~ navigation-stack,
-  scroll-view.bwdd ~ navigation-split-view {
-    pointer-events: none;
-  }
-  scroll-view.bwdd {
-    --scroll-view-translate: translateX(var(--view-transition-principal-x));
-  }
-  scroll-view.bwdd.bwd {
-    --scroll-view-translate: translateX(var(--view-transition-trailing-x));
-  }
-  navigation-split-view > content-view:has(~ .bwdd) {
-    pointer-events: none;
-  }
-}
-@layer sw.sw-transitions {
-  tool-bar-item.fwnn,
-  tool-bar-item-group.fwnn {
-    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-    --toolbar-cell-filter: none;
-    --toolbar-cell-opacity: 1;
-  }
-  @starting-style {
-    tool-bar-item.fwnn,
-    tool-bar-item-group.fwnn {
-      --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-      --toolbar-cell-filter: blur(10px);
-      --toolbar-cell-opacity: 0;
+  @keyframes progressViewCircular {
+    0% {
+      opacity: 0.85;
     }
-  }
-  tool-bar-item.fwnn.fwn,
-  tool-bar-item-group.fwnn.fwn {
-    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    --toolbar-cell-filter: blur(10px);
-    --toolbar-cell-opacity: 0;
-  }
-}
-@layer sw.sw-transitions {
-  tool-bar-item.bwn,
-  tool-bar-item-group.bwn {
-    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    --toolbar-cell-filter: blur(10px);
-    --toolbar-cell-opacity: 0;
-  }
-  tool-bar-item.bwnn,
-  tool-bar-item-group.bwnn {
-    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-onscreen-scale));
-    --toolbar-cell-filter: none;
-    --toolbar-cell-opacity: 1;
-  }
-  tool-bar-item.bwnn.bwn,
-  tool-bar-item-group.bwnn.bwn {
-    --toolbar-cell-scale: scale(var(--view-transition-toolbar-cell-offscreen-scale));
-    --toolbar-cell-filter: blur(10px);
-    --toolbar-cell-opacity: 0;
+    50% {
+      opacity: 0.25;
+    }
+    100% {
+      opacity: 0.25;
+    }
   }
 }
 @layer sw.sw-transitions {
@@ -9740,95 +9829,6 @@
   @starting-style {
     [is=sheet-view][open] {
       --sheet-view-translate: translateY(var(--view-transition-dialog-offscreen-y));
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where(fine-tooltip) {
-      transition: opacity 150ms allow-discrete ease-out, transform 150ms allow-discrete ease-out;
-      transition-delay: 200ms;
-      will-change: opacity, transform;
-    }
-    :where(fine-tooltip[closing]) {
-      transition-duration: 100ms;
-      transition-delay: 0ms;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where(menu-view)::part(menu-summary) {
-      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out, filter var(--touchglass-transition-duration) allow-discrete ease-out;
-      will-change: transform;
-    }
-    :where(menu-view)::part(menu-dialog) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @keyframes progressViewCircular {
-    0% {
-      opacity: 0.85;
-    }
-    50% {
-      opacity: 0.25;
-    }
-    100% {
-      opacity: 0.25;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-button]) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-prominent-button]) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=confirmation-dialog]) {
-      transition: all var(--touchglass-transition-duration) allow-discrete ease-out;
-    }
-    :where([is=confirmation-dialog] > *) {
-      transition: transform var(--touchglass-transition-duration) allow-discrete ease-out;
-      will-change: transform;
-    }
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=alert-dialog]) {
-      transition: display var(--touchglass-transition-duration) allow-discrete ease-out, overlay var(--touchglass-transition-duration) allow-discrete ease-out, transform var(--touchglass-transition-duration) allow-discrete ease-out, opacity var(--touchglass-transition-duration) allow-discrete ease-out;
-      will-change: transform, overlay, display, opacity;
-    }
-  }
-}
-@layer sw.sw-transitions {}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=disclosure-group])::details-content {
-      transition: block-size var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing), content-visibility var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: block-size, content-visibility;
-    }
-    :where([is=disclosure-group] > summary)::after {
-      transition: transform var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-      will-change: transform;
-    }
-    @supports not (interpolate-size: allow-keywords) {
-      :where([is=disclosure-group]) {
-        transition: grid-template-rows var(--disclosure-group-animation-duration) allow-discrete var(--disclosure-group-animation-easing);
-        will-change: grid-template-rows;
-      }
     }
   }
 }

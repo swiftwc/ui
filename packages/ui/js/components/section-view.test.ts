@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { SectionView } from './section-view'
+import '../client'
+import type { SectionView } from './section-view'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
   let el: SectionView
 
-  customElements.define('section-view', SectionView)
-
   beforeEach(() => {
-    el = document.createElement('section-view')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<section-view></section-view>')
+    el = document.body.lastElementChild as SectionView
   })
   afterEach(() => el.remove())
 

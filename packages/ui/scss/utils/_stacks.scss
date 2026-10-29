@@ -3,6 +3,7 @@
 @use 'sass:list';
 @use '../vars';
 @use '../maps';
+@use '../functions';
 
 @layer #{vars.$framework-layer}.#{vars.$utils-layer} {
   // Vertical alignment becomes the common tweak
@@ -11,7 +12,7 @@
     // main axis (horizontal/inline)
     @each $k, $declarations in maps.$inline-map {
       &[distribution='#{$k}'] {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
@@ -20,7 +21,7 @@
     // cross axis (vertical/block)
     @each $k, $declarations in maps.$block-map {
       &[alignment='#{$k}'] {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
@@ -29,7 +30,7 @@
     // placement="fill leading" -> short cut for distribution="fill" alignment="leading"
     @each $k, $declarations in maps.$inline-placement-map {
       &[placement='#{$k}'] {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')};
         }
       }
@@ -42,7 +43,7 @@
     // block dir for items+content
     @each $k, $declarations in maps.$block-map {
       :where(&[distribution='#{$k}']) {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
@@ -51,7 +52,7 @@
     // inline dir for items+content
     @each $k, $declarations in maps.$inline-map {
       :where(&[alignment='#{$k}']) {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //#{list.nth($decl, 2)};
         }
       }
@@ -60,7 +61,7 @@
     // placement="leading fill" -> shortcut for distribution="leading" alignment="fill"
     @each $k, $declarations in maps.$block-placement-map {
       :where(&[placement='#{$k}']) {
-        @each $decl in $declarations {
+        @each $decl in functions.decls($declarations) {
           #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')};
         }
       }
@@ -106,7 +107,7 @@
   // readable 1/2
   v-stack {
     :where(&[readable]) {
-      @each $decl in map.get(maps.$block-placement-map, 'leading fill') {
+      @each $decl in functions.decls(map.get(maps.$block-placement-map, 'leading fill')) {
         #{list.nth($decl, 1)}: #{list.join(list.nth($decl, 2), ' ')}; //->[placement='leading fill']->[distribution='leading'][alignment='fill']
       }
     }

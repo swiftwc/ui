@@ -1,5 +1,6 @@
 @use 'sass:math';
 @use 'sass:string';
+@use 'sass:list';
 
 @function subtract-tiny($value) {
   @if math.unit($value) == 'px' {
@@ -28,4 +29,11 @@
   }
 
   @return $string;
+}
+
+@function decls($declarations) {
+  @if list.separator($declarations) == space {
+    @return list.append((), $declarations, comma);
+  }
+  @return $declarations;
 }

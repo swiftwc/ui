@@ -370,24 +370,38 @@
 @mixin write-ifs($comp, $all-variants, $elses: ()) {
   // Collect all properties across all variants
   $all-props: ();
+  // @each $variant, $props in $all-variants {
+  //   @each $prop, $val in $props {
+  //     $existing: map.get($all-props, $prop);
+  //     @if $existing {
+  //       $all-props: map.merge(
+  //         $all-props,
+  //         (
+  //           $prop: list.append($existing, ($variant $val), comma),
+  //         )
+  //       );
+  //     } @else {
+  //       $all-props: map.merge(
+  //         $all-props,
+  //         (
+  //           $prop: (($variant $val)),
+  //         )
+  //       );
+  //     }
+  //   }
+  // }
   @each $variant, $props in $all-variants {
     @each $prop, $val in $props {
       $existing: map.get($all-props, $prop);
-      @if $existing {
-        $all-props: map.merge(
-          $all-props,
-          (
-            $prop: list.append($existing, ($variant $val), comma),
-          )
-        );
-      } @else {
-        $all-props: map.merge(
-          $all-props,
-          (
-            $prop: (($variant $val)),
-          )
-        );
+      @if not $existing {
+        $existing: ();
       }
+      $all-props: map.merge(
+        $all-props,
+        (
+          $prop: list.append($existing, ($variant $val), comma),
+        )
+      );
     }
   }
 

@@ -5,7 +5,10 @@
   "format": "auto",
   "changelog": "@changesets/cli/changelog",
   "commit": false,
-  "snapshot": { "useCalculatedVersionForSnapshots": true },
+  "snapshot": {
+    "useCalculatedVersion": true,
+    "prereleaseTemplate": "{tag}-{datetime}-{commit}"
+  },
   "ignore": ["v1"],
   "fixed": [],
   "linked": [],

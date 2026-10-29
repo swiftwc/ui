@@ -6,7 +6,7 @@
     "build": "sass app.scss app.css --no-source-map --load-path=../../node_modules"
   },
   "devDependencies": {
-    "@swiftwc/ui": "1.0.1-canary.7",
+    "@swiftwc/ui": "*",
     "sass": "^1.97.2"
   }
 }

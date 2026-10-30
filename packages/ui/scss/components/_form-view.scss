@@ -133,7 +133,7 @@ $form-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([form-style])) {
-          @each $v in maps.$form-styles-names {
+          @each $v in maps.$form-styles-list {
             @container style(--form-style: #{$v}) {
               --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
 
@@ -141,7 +141,7 @@ $form-elses: (
             }
           }
         }
-        @each $v in maps.$form-styles-names {
+        @each $v in maps.$form-styles-list {
           :where(&[form-style='#{$v}']) {
             --form-style: #{$v}; // NOTE: used ONLY for tinted buttons
 

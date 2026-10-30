@@ -207,9 +207,9 @@ const names = (key: string) => {
     })),
   })),
   nameValueSets = [...emitted.keys()]
-    .filter((k) => k.endsWith('-names') && k !== 'tint-names') // tint has custom descriptions
+    .filter((k) => k.endsWith('-list') && k !== 'tint-list') // tint has custom descriptions
     .map((k) => ({
-      name: camel(k.replace(/-names$/, '')), // 'picker-styles-names' -> 'pickerStyles'
+      name: camel(k.replace(/-list$/, '')), // 'picker-styles-list' -> 'pickerStyles'
       values: names(k).map((name) => ({ name })),
     })),
   htmlData: VsHtmlDataV1 = {
@@ -296,7 +296,7 @@ const names = (key: string) => {
       },
       {
         name: 'Tint',
-        values: names('tint-names').map((name) => ({ name, description: tintDescriptions.has(name) ? tintDescriptions.get(name) : `System \`${name}\` color` })),
+        values: names('tint-list').map((name) => ({ name, description: tintDescriptions.has(name) ? tintDescriptions.get(name) : `System \`${name}\` color` })),
       },
       {
         name: 'Foreground',

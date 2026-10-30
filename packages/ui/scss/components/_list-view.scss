@@ -132,7 +132,7 @@ $list-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([list-style])) {
-          @each $v in maps.$list-styles-names {
+          @each $v in maps.$list-styles-list {
             @container style(--list-style: #{$v}) {
               --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
 
@@ -140,7 +140,7 @@ $list-elses: (
             }
           }
         }
-        @each $v in maps.$list-styles-names {
+        @each $v in maps.$list-styles-list {
           :where(&[list-style='#{$v}']) {
             --list-style: #{$v}; // NOTE: used ONLY for tinted buttons
 

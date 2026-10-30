@@ -1,9 +1,11 @@
-$picker-styles-names: menu, navigation-link, sheet, radio-group, palette, tabs;
-$label-styles-names: icon-only, title-only, title-and-icon;
-$list-styles-names: inset, inset-grouped, sidebar;
-$form-styles-names: inset, inset-grouped, sidebar;
-$table-styles-names: inset;
+$picker-styles-list: 'menu', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
+$label-styles-list: 'icon-only', 'title-only', 'title-and-icon';
+$list-styles-list: 'inset', 'inset-grouped', 'sidebar';
+$form-styles-list: 'inset', 'inset-grouped', 'sidebar';
+$table-styles-list: 'inset';
 // $labeled-content-styles: vertical, horizontal;
+
+$tint-list: 'gray', 'blue', 'red', 'green', 'orange', 'purple';
 
 $stack-templates-list-vals: (
   (minmax(0, 1fr)),
@@ -260,7 +262,6 @@ $button-sizes-map: (
   ),
 );
 
-$tint-names: 'gray', 'blue', 'red', 'green', 'orange', 'purple';
 
 $foreground-tokens: (
   'black': --black,

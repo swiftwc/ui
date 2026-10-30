@@ -57,9 +57,9 @@
     }
   }
 
-  @each $tint in maps.$tint-names {
-    [tint='#{"" + $tint}'],
-    [list-item-tint='#{"" + $tint}'] {
+  @each $tint in maps.$tint-list {
+    [tint='#{$tint}'],
+    [list-item-tint='#{$tint}'] {
       :where(&) {
         --accentColorEffective: var(--#{$tint});
         --accentColorEffective4: var(--#{$tint}4);

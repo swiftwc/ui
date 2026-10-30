@@ -208,13 +208,13 @@ $table-elses: (
       // SECTION: ifs polyfill
       @supports not (x: #{string.unquote('if(else:red)')}) {
         :where(&:not([table-style])) {
-          @each $v in maps.$table-styles-names {
+          @each $v in maps.$table-styles-list {
             @container style(--table-style: #{$v}) {
               @include mixins.write-props(map.get($table-ifs, $v));
             }
           }
         }
-        @each $v in maps.$table-styles-names {
+        @each $v in maps.$table-styles-list {
           :where(&[table-style='#{$v}']) {
             @include mixins.write-props(map.get($table-ifs, $v));
           }

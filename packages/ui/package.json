@@ -77,7 +77,7 @@
     "codegen:barrelize:morphdom": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/morphdom --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:decorators": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/decorators --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
-    "codegen:barrelize:scss": "node scripts/make-barrels.mts ./scss/utils ./scss/transitions ./scss/placeholders ./scss/mixins ./scss/final ./scss/base --partial && prettier ./scss/ --write",
+    "codegen:barrelize:scss": "node scripts/make-barrels.mts ./scss/utils ./scss/transitions ./scss/mixins ./scss/final ./scss/base --partial && prettier ./scss/ --write",
     "verify": "npm run codegen && npm run lint:types && npm run format && vitest run --config .config/vitest/vitest.config.ts",
     "lint": "prettier . --check",
     "lint:types": "tsc --noEmit && sass --no-source-map scss/index.scss > /dev/null",

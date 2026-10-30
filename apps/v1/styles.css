@@ -1,109 +1,3 @@
-@layer sw.sw-components {
-  :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
-    place-items: center;
-    place-content: center;
-    position: relative;
-    appearance: none;
-    -webkit-appearance: none;
-    border: var(--btnborder,);
-    background: var(--btnface,);
-    color: var(--btntext,);
-    padding-inline: var(--btnpadistart,) var(--btnpadiend,);
-    padding-block: var(--btnpadbstart,) var(--btnpadbend,);
-    border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
-    --btnradiustl: var(--regular-btn-border-radius);
-    --btnradiustr: var(--regular-btn-border-radius);
-    --btnradiusbl: var(--regular-btn-border-radius);
-    --btnradiusbr: var(--regular-btn-border-radius);
-  }
-  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
-    position: absolute;
-    inset: 0;
-    visibility: collapse;
-  }
-  :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
-    visibility: visible;
-  }
-  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
-    position: relative;
-    visibility: visible;
-  }
-  :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
-    opacity: 0;
-  }
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-      transition: opacity ease-out 200ms;
-    }
-  }
-  @starting-style {
-    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
-      opacity: 0;
-    }
-  }
-  :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
-    --btnradiustl: var(--mini-btn-border-radius);
-    --btnradiustr: var(--mini-btn-border-radius);
-    --btnradiusbl: var(--mini-btn-border-radius);
-    --btnradiusbr: var(--mini-btn-border-radius);
-  }
-  :where([control-size=regular][is=glass-prominent-button], [control-size=regular][is=glass-button], [control-size=regular][is=bordered-prominent-button], [control-size=regular][is=bordered-button], [control-size=regular][is=borderless-button], [control-size=regular][is=plain-button]) {
-    --btnradiustl: var(--regular-btn-border-radius);
-    --btnradiustr: var(--regular-btn-border-radius);
-    --btnradiusbl: var(--regular-btn-border-radius);
-    --btnradiusbr: var(--regular-btn-border-radius);
-  }
-  :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
-    --btnradiustl: var(--small-btn-border-radius);
-    --btnradiustr: var(--small-btn-border-radius);
-    --btnradiusbl: var(--small-btn-border-radius);
-    --btnradiusbr: var(--small-btn-border-radius);
-  }
-  :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
-    --btnradiustl: var(--large-btn-border-radius);
-    --btnradiustr: var(--large-btn-border-radius);
-    --btnradiusbl: var(--large-btn-border-radius);
-    --btnradiusbr: var(--large-btn-border-radius);
-  }
-  [control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button] {
-    --label-font: callout;
-  }
-  [control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button] {
-    --label-font: caption;
-  }
-}
-@layer sw.sw-colors {
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
-    outline: none;
-  }
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
-    --btnface: var(--btnhighlightface,);
-    --btntext: var(--btnhighlighttext,);
-  }
-  @media (pointer: fine) {
-    :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):hover {
-      --btnface: var(--btnhighlightface,);
-      --btntext: var(--btnhighlighttext,);
-    }
-  }
-}
-@layer sw.sw-actions {
-  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
-    --btnface: var(--btnactiveface,);
-    --btntext: var(--btnactivetext,);
-  }
-}
-@layer sw.sw-transitions {
-  @media (prefers-reduced-motion: no-preference) {
-    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
-      transition: background-color 100ms ease-out allow-discrete, opacity 100ms ease-out allow-discrete, color 100ms ease-out allow-discrete;
-      will-change: background-color, opacity, color;
-    }
-    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button])::active {
-      transition-duration: 25ms;
-    }
-  }
-}
 @layer sw.sw-list-components {
   :where(table-view:not(table-view table-view, list-view table-view, [is=form-view] table-view), [is=form-view]:not([is=form-view] [is=form-view], list-view [is=form-view], table-view [is=form-view], [is=tab-bar] > [is=form-view]), list-view:not(list-view list-view, [is=form-view] list-view, table-view list-view)) {
     background-color: var(--list--host-background-color, );
@@ -616,6 +510,112 @@
     --purple: var(--itemtext);
     --accentColor: var(--itemtext);
     --accentColorEffective: var(--itemtext);
+  }
+}
+@layer sw.sw-components {
+  :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
+    place-items: center;
+    place-content: center;
+    position: relative;
+    appearance: none;
+    -webkit-appearance: none;
+    border: var(--btnborder,);
+    background: var(--btnface,);
+    color: var(--btntext,);
+    padding-inline: var(--btnpadistart,) var(--btnpadiend,);
+    padding-block: var(--btnpadbstart,) var(--btnpadbend,);
+    border-radius: var(--btnradiustl,) var(--btnradiustr,) var(--btnradiusbr,) var(--btnradiusbl,);
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
+  }
+  :where([is=glass-prominent-button] > [slot], [is=glass-button] > [slot], [is=bordered-prominent-button] > [slot], [is=bordered-button] > [slot], [is=borderless-button] > [slot], [is=plain-button] > [slot]) {
+    position: absolute;
+    inset: 0;
+    visibility: collapse;
+  }
+  :where([is=glass-prominent-button] > [slot=overlay], [is=glass-button] > [slot=overlay], [is=bordered-prominent-button] > [slot=overlay], [is=bordered-button] > [slot=overlay], [is=borderless-button] > [slot=overlay], [is=plain-button] > [slot=overlay]) {
+    visibility: visible;
+  }
+  :where([is=glass-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=glass-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-prominent-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=bordered-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=borderless-button]:not(:has(> :not([slot]))) > [slot=placeholder], [is=plain-button]:not(:has(> :not([slot]))) > [slot=placeholder]) {
+    position: relative;
+    visibility: visible;
+  }
+  :where([is=glass-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=glass-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-prominent-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=bordered-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=borderless-button]:has(> [slot=overlay]) > *:not([slot=overlay]), [is=plain-button]:has(> [slot=overlay]) > *:not([slot=overlay])) {
+    opacity: 0;
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      transition: opacity ease-out 200ms;
+    }
+  }
+  @starting-style {
+    :where([is=glass-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=glass-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-prominent-button]:has(> [slot=overlay]) > [slot=overlay], [is=bordered-button]:has(> [slot=overlay]) > [slot=overlay], [is=borderless-button]:has(> [slot=overlay]) > [slot=overlay], [is=plain-button]:has(> [slot=overlay]) > [slot=overlay]) {
+      opacity: 0;
+    }
+  }
+  :where([control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button]) {
+    --btnradiustl: var(--mini-btn-border-radius);
+    --btnradiustr: var(--mini-btn-border-radius);
+    --btnradiusbl: var(--mini-btn-border-radius);
+    --btnradiusbr: var(--mini-btn-border-radius);
+  }
+  :where([control-size=regular][is=glass-prominent-button], [control-size=regular][is=glass-button], [control-size=regular][is=bordered-prominent-button], [control-size=regular][is=bordered-button], [control-size=regular][is=borderless-button], [control-size=regular][is=plain-button]) {
+    --btnradiustl: var(--regular-btn-border-radius);
+    --btnradiustr: var(--regular-btn-border-radius);
+    --btnradiusbl: var(--regular-btn-border-radius);
+    --btnradiusbr: var(--regular-btn-border-radius);
+  }
+  :where([control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button]) {
+    --btnradiustl: var(--small-btn-border-radius);
+    --btnradiustr: var(--small-btn-border-radius);
+    --btnradiusbl: var(--small-btn-border-radius);
+    --btnradiusbr: var(--small-btn-border-radius);
+  }
+  :where([control-size=large][is=glass-prominent-button], [control-size=large][is=glass-button], [control-size=large][is=bordered-prominent-button], [control-size=large][is=bordered-button], [control-size=large][is=borderless-button], [control-size=large][is=plain-button]) {
+    --btnradiustl: var(--large-btn-border-radius);
+    --btnradiustr: var(--large-btn-border-radius);
+    --btnradiusbl: var(--large-btn-border-radius);
+    --btnradiusbr: var(--large-btn-border-radius);
+  }
+  [control-size=small][is=glass-prominent-button], [control-size=small][is=glass-button], [control-size=small][is=bordered-prominent-button], [control-size=small][is=bordered-button], [control-size=small][is=borderless-button], [control-size=small][is=plain-button] {
+    --label-font: callout;
+  }
+  [control-size=mini][is=glass-prominent-button], [control-size=mini][is=glass-button], [control-size=mini][is=bordered-prominent-button], [control-size=mini][is=bordered-button], [control-size=mini][is=borderless-button], [control-size=mini][is=plain-button] {
+    --label-font: caption;
+  }
+}
+@layer sw.sw-colors {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
+    outline: none;
+  }
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):focus-visible {
+    --btnface: var(--btnhighlightface,);
+    --btntext: var(--btnhighlighttext,);
+  }
+  @media (pointer: fine) {
+    :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):hover {
+      --btnface: var(--btnhighlightface,);
+      --btntext: var(--btnhighlighttext,);
+    }
+  }
+}
+@layer sw.sw-actions {
+  :where([is=glass-prominent-button]:not(:disabled):not([readonly]), [is=glass-button]:not(:disabled):not([readonly]), [is=bordered-prominent-button]:not(:disabled):not([readonly]), [is=bordered-button]:not(:disabled):not([readonly]), [is=borderless-button]:not(:disabled):not([readonly]), [is=plain-button]:not(:disabled):not([readonly])):active {
+    --btnface: var(--btnactiveface,);
+    --btntext: var(--btnactivetext,);
+  }
+}
+@layer sw.sw-transitions {
+  @media (prefers-reduced-motion: no-preference) {
+    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]) {
+      transition: background-color 100ms ease-out allow-discrete, opacity 100ms ease-out allow-discrete, color 100ms ease-out allow-discrete;
+      will-change: background-color, opacity, color;
+    }
+    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button])::active {
+      transition-duration: 25ms;
+    }
   }
 }
 @layer sw.sw-components {

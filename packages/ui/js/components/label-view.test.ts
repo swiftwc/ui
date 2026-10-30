@@ -38,6 +38,8 @@ describe('prop', () => {
   test('[system-image] w/ dirty', () => {
     el.innerHTML = '<div>Bar</div><div slot="icon">Baz</div><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>'
     el.setAttribute('system-image', 'smiley')
-    expect(el.innerHTML).toBe('<div>Bar</div><image-view system-name="smiley" slot="icon">Baz<i style="line-height: 1" class="ph ph-smiley"></i></image-view><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>')
+    expect(el.innerHTML).toBe(
+      '<div>Bar</div><image-view system-name="smiley" slot="icon">Baz<i style="line-height: 1" class="ph ph-smiley"></i></image-view><whatever-name></whatever-name><whatever-name slot="icon"></whatever-name>'
+    )
   })
 })

@@ -286,13 +286,13 @@ $label-line-ifs: (
 
     @supports not (x: #{string.unquote('if(else:red)')}) {
       :where(&:not([label-style])) {
-        @each $v in maps.$label-styles-list {
+        @each $v in maps.$label-style-list {
           @container style(--label-style: #{$v}) {
             @include set-label-style(h-#{$v});
           }
         }
       }
-      @each $v in maps.$label-styles-list {
+      @each $v in maps.$label-style-list {
         :where(&[label-style='#{$v}']) {
           @include set-label-style(h-#{$v});
         }
@@ -312,14 +312,14 @@ $label-line-ifs: (
       }
       // AGAIN
       :where(&:not([label-style])) {
-        @each $v in maps.$label-styles-list {
+        @each $v in maps.$label-style-list {
           @container style(--label-style: #{$v}) and style(--label-flow: vertical) {
             @include set-label-style(v-#{$v});
           }
         }
       }
       @container style(--label-flow: vertical) {
-        @each $v in maps.$label-styles-list {
+        @each $v in maps.$label-style-list {
           :where(&[label-style='#{$v}']) {
             @include set-label-style(v-#{$v});
           }

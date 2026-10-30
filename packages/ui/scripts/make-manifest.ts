@@ -1,4 +1,5 @@
 import doctrine from 'doctrine'
+import { pascalCase } from 'es-toolkit'
 import { writeFileSync } from 'node:fs'
 import { resolve } from 'node:path'
 import * as prettier from 'prettier'
@@ -209,7 +210,7 @@ const names = (key: string) => {
   nameValueSets = [...emitted.keys()]
     .filter((k) => k.endsWith('-list') && k !== 'tint-list') // tint has custom descriptions
     .map((k) => ({
-      name: camel(k.replace(/-list$/, '')), // 'picker-styles-list' -> 'pickerStyles'
+      name: pascalCase(k.replace(/-list$/, '')), // 'picker-style-list' -> 'pickerStyles'
       values: names(k).map((name) => ({ name })),
     })),
   htmlData: VsHtmlDataV1 = {

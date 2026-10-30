@@ -359,20 +359,20 @@ $picker-inform-elses: (
     // SECTION: ifs polyfill
     @supports not (x: #{string.unquote('if(else:red)')}) {
       :where(&:not([picker-style])) {
-        @each $v in maps.$picker-styles-list {
+        @each $v in maps.$picker-style-list {
           @container style(--picker-style: #{$v}) {
             @include mixins.write-props(map.get($picker-ifs, $v)); //@include set-picker-style($v);
           }
         }
       }
       :where(form &:not([picker-style])) {
-        @each $v in maps.$picker-styles-list {
+        @each $v in maps.$picker-style-list {
           @container style(--picker-style: #{$v}) {
             @include mixins.write-props(map.get($picker-inform-ifs, $v)); //@include set-picker-style($v);
           }
         }
       }
-      @each $v in maps.$picker-styles-list {
+      @each $v in maps.$picker-style-list {
         :where(&[picker-style='#{$v}']) {
           --picker-style: #{$v};
 

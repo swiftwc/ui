@@ -1,8 +1,8 @@
-$picker-styles-list: 'menu', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
-$label-styles-list: 'icon-only', 'title-only', 'title-and-icon';
-$list-styles-list: 'inset', 'inset-grouped', 'sidebar';
-$form-styles-list: 'inset', 'inset-grouped', 'sidebar';
-$table-styles-list: 'inset';
+$picker-style-list: 'menu', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
+$label-style-list: 'icon-only', 'title-only', 'title-and-icon';
+$list-style-list: 'inset', 'inset-grouped', 'sidebar';
+$form-style-list: 'inset', 'inset-grouped', 'sidebar';
+$table-style-list: 'inset';
 // $labeled-content-styles: vertical, horizontal;
 
 $tint-list: 'gray', 'blue', 'red', 'green', 'orange', 'purple';
@@ -261,7 +261,6 @@ $button-sizes-map: (
     ),
   ),
 );
-
 
 $foreground-tokens: (
   'black': --black,

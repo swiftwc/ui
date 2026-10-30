@@ -691,10 +691,6 @@
       "description": "A view that shows how far along a task is.\n---\n\n```ts\ninterface ProgressViewSignature {\n  Attributes: {\n    label?: string\n    'current-value-label'?: string\n    value?: string\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n    'current-value': HTMLElement[]\n  }\n}\n\nclass ProgressView extends HTMLElement<ProgressViewSignature> {\n  readonly progressViewStyle: 'circular' | 'linear'\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'progress-view': ProgressView // <progress-view></progress-view>\n  }\n}\n\n```\n"
     },
     {
-      "name": "screen-view",
-      "description": "undefined\n\n```ts\ninterface ScreenViewSignature {}\n\nclass ScreenView extends HTMLDialogElement<ScreenViewSignature> {}\n\ndeclare global {\n  interface HTMLDialogElement {\n    is: 'screen-view' // <dialog is=\"screen-view\"></dialog>\n  }\n}\n\n```\n"
-    },
-    {
       "name": "scroll-view-proxy",
       "references": [
         {
@@ -1663,7 +1659,7 @@
       ]
     },
     {
-      "name": "pickerStyles",
+      "name": "PickerStyle",
       "values": [
         {
           "name": "menu"
@@ -1686,7 +1682,7 @@
       ]
     },
     {
-      "name": "labelStyles",
+      "name": "LabelStyle",
       "values": [
         {
           "name": "icon-only"
@@ -1700,7 +1696,7 @@
       ]
     },
     {
-      "name": "listStyles",
+      "name": "ListStyle",
       "values": [
         {
           "name": "inset"
@@ -1714,7 +1710,7 @@
       ]
     },
     {
-      "name": "formStyles",
+      "name": "FormStyle",
       "values": [
         {
           "name": "inset"
@@ -1728,7 +1724,7 @@
       ]
     },
     {
-      "name": "tableStyles",
+      "name": "TableStyle",
       "values": [
         {
           "name": "inset"

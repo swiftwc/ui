@@ -1572,38 +1572,6 @@
     },
     {
       "kind": "javascript-module",
-      "path": "./generated/components/screen-view.ts",
-      "declarations": [
-        {
-          "kind": "class",
-          "customElement": true,
-          "name": "ScreenView",
-          "tagName": "screen-view",
-          "description": "",
-          "superclass": {
-            "name": "HTMLDialogElement"
-          }
-        }
-      ],
-      "exports": [
-        {
-          "kind": "js",
-          "name": "ScreenView",
-          "declaration": {
-            "name": "ScreenView"
-          }
-        },
-        {
-          "kind": "custom-element-definition",
-          "name": "screen-view",
-          "declaration": {
-            "name": "ScreenView"
-          }
-        }
-      ]
-    },
-    {
-      "kind": "javascript-module",
       "path": "./generated/components/scroll-view-proxy.ts",
       "declarations": [
         {

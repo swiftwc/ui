@@ -10,7 +10,7 @@
   h-stack,
   v-flex-stack {
     // main axis (horizontal/inline)
-    @each $k, $declarations in maps.$inline-map {
+    @each $k, $declarations in maps.$inline-alignment-map {
       &[distribution='#{$k}'] {
         @include mixins.write-props($declarations);
         // @each $decl in $declarations {
@@ -20,7 +20,7 @@
     }
 
     // cross axis (vertical/block)
-    @each $k, $declarations in maps.$block-map {
+    @each $k, $declarations in maps.$block-alignment-map {
       &[alignment='#{$k}'] {
         @include mixins.write-props($declarations);
         // @each $decl in $declarations {
@@ -44,7 +44,7 @@
   v-stack,
   h-flex-stack {
     // block dir for items+content
-    @each $k, $declarations in maps.$block-map {
+    @each $k, $declarations in maps.$block-alignment-map {
       :where(&[distribution='#{$k}']) {
         @include mixins.write-props($declarations);
         // @each $decl in $declarations {
@@ -54,7 +54,7 @@
     }
 
     // inline dir for items+content
-    @each $k, $declarations in maps.$inline-map {
+    @each $k, $declarations in maps.$inline-alignment-map {
       :where(&[alignment='#{$k}']) {
         @include mixins.write-props($declarations);
         // @each $decl in $declarations {

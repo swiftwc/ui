@@ -1,4 +1,4 @@
-$picker-style-list: 'menu', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
+$picker-style-list: 'menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
 $label-style-list: 'icon-only', 'title-only', 'title-and-icon';
 $list-style-list: 'inset', 'inset-grouped', 'sidebar';
 $form-style-list: 'inset', 'inset-grouped', 'sidebar';
@@ -58,7 +58,7 @@ $stack-templates-list-vals: (
   (auto minmax(0, 1fr) auto auto)
 );
 
-$inline-map: (
+$inline-alignment-map: (
   leading: (
     justify-items: start,
     justify-content: start,
@@ -84,7 +84,7 @@ $inline-map: (
   ),
 );
 
-$block-map: (
+$block-alignment-map: (
   leading: (
     align-items: start,
     align-content: start,
@@ -219,7 +219,7 @@ $label-fonts-map: (
 );
 
 // button sizes
-$button-sizes-map: (
+$button-control-size-map: (
   mini: (
     default: (
       padding: 0.2rem,

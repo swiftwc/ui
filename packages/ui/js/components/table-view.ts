@@ -11,6 +11,7 @@ import type { LabelView } from './label-view'
 /**
  * @summary A container view that arranges data in rows and columns, optionally letting the user select one or more of them.
  *
+ * @attr {@TableStyle} table-style
  * @attr {title:trailing:subtitle|trailing:title:subtitle|title:subtitle:trailing|*} preferred-compact-template — Sets the template areas when the table is in compact mode
  *
  * @slot — The default slot

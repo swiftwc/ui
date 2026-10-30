@@ -212,7 +212,7 @@ enum Foreground {
 
 
 ```ts
-enum inlineSet {
+enum InlineAlignment {
   leading, // Applies `justify-items: start; justify-content: start;` rules
   'leading fill', // Applies `justify-items: start; justify-content: stretch;` rules
   center, // Applies `justify-items: center; justify-content: center;` rules
@@ -244,7 +244,7 @@ enum inlineSet {
 
 
 ```ts
-enum blockSet {
+enum BlockAlignment {
   leading, // Applies `align-items: start; align-content: start;` rules
   'leading fill', // Applies `align-items: start; align-content: stretch;` rules
   center, // Applies `align-items: center; align-content: center;` rules
@@ -276,7 +276,7 @@ enum blockSet {
 
 
 ```ts
-enum inlinePlacementSet {
+enum InlinePlacement {
   fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: stretch start; place-content: stretch start;` rules
   'fill leading', // Applies `place-items: start stretch; place-content: start stretch;` rules
@@ -306,7 +306,7 @@ enum inlinePlacementSet {
 
 
 ```ts
-enum blockPlacementSet {
+enum BlockPlacement {
   fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: start stretch; place-content: start stretch;` rules
   'fill leading', // Applies `place-items: stretch start; place-content: stretch start;` rules
@@ -336,13 +336,14 @@ enum blockPlacementSet {
 
 
 ```ts
-enum pickerStyles {
-  menu, //
-  'navigation-link', //
-  sheet, //
-  'radio-group', //
-  palette, //
-  tabs, //
+enum PickerStyle {
+  menu,
+  inline,
+  'navigation-link',
+  sheet,
+  'radio-group',
+  palette,
+  tabs,
 }
 
 ```
@@ -368,10 +369,10 @@ enum pickerStyles {
 
 
 ```ts
-enum labelStyles {
-  'icon-only', //
-  'title-only', //
-  'title-and-icon', //
+enum LabelStyle {
+  'icon-only',
+  'title-only',
+  'title-and-icon',
 }
 
 ```
@@ -397,10 +398,10 @@ enum labelStyles {
 
 
 ```ts
-enum listStyles {
-  inset, //
-  'inset-grouped', //
-  sidebar, //
+enum ListStyle {
+  inset,
+  'inset-grouped',
+  sidebar,
 }
 
 ```
@@ -426,10 +427,10 @@ enum listStyles {
 
 
 ```ts
-enum formStyles {
-  inset, //
-  'inset-grouped', //
-  sidebar, //
+enum FormStyle {
+  inset,
+  'inset-grouped',
+  sidebar,
 }
 
 ```
@@ -455,8 +456,8 @@ enum formStyles {
 
 
 ```ts
-enum tableStyles {
-  inset, //
+enum TableStyle {
+  inset,
 }
 
 ```

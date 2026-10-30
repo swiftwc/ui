@@ -8,6 +8,8 @@ import { Snapshot } from '../snapshot'
  *
  * @example <button is="bordered-button"><label-view system-image="hand-tap" title="Tap Me"></label-view></button> — Use the `is` attribute to style a `button` as a bordered button
  *
+ * @attr {@ControlSize} control-size — Sets the size for this control.
+ *
  * @slot overlay
  *
  */

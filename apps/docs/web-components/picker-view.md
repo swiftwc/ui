@@ -13,7 +13,7 @@ interface PickerViewSignature {
     'prompt-icon'?: string
     label?: string
     name?: string
-    'picker-style'?: 'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'
+    'picker-style'?: PickerStyle
     selection?: string
     searchable?: boolean
     'current-value-label'?: string

@@ -36,6 +36,22 @@ const range = (n: number, fmt = (i: number) => String(i)) => Array.from({ length
 
     return { title, description, type }
   },
+  applyType = (attr: VsHtmlDataAttr, raw: string, desc?: string) => {
+    const text = raw.trim().replace(/^\(|\)$/g, '') // doctrine wraps unions: ("a" | "b")
+
+    if (text.startsWith('@')) {
+      attr.valueSet = text.slice(1)
+      attr.description = `Value Type: ${attr.valueSet}${desc ? `\nDescription: ${desc}` : ''}`
+      return attr.valueSet
+    }
+
+    const parts = text.split('|').map((s) => s.trim().replace(/['"`]/g, ''))
+    if (parts.length > 1) attr.values = parts.map((name) => ({ name }))
+
+    attr.description = `Value Type: ${parts.length > 1 ? `“${parts.join('” | “')}”` : text}${desc ? `\nDescription: ${desc}` : ''}`
+
+    return parts.length > 1 ? `"${parts.join('" | "')}"` : text
+  },
   formatProp = (prop: string) => (/^[A-Za-z_$][\w$]*$/.test(prop) ? prop : `'${prop}'`),
   extractTypes = (tags: doctrine.Tag[]): { type: string; description?: string } => {
     const tag = tags?.find(({ title }) => title === 'type')
@@ -198,10 +214,9 @@ const names = (key: string) => {
     return asList(v)
   },
   asList = (v: unknown) => [v].flat() as string[],
-  camel = (s: string) => s.replace(/-(\w)/g, (_, c) => c.toUpperCase()),
-  declMaps = ['inline-map', 'block-map', 'inline-placement-map', 'block-placement-map'],
+  declMaps = ['inline-alignment-map', 'block-alignment-map', 'inline-placement-map', 'block-placement-map'],
   declValueSets = declMaps.map((key) => ({
-    name: camel(key.replace(/-map$/, '')) + 'Set',
+    name: pascalCase(key.replace(/-map$/, '')),
     values: Object.entries(emitted.get(key) as Record<string, Record<string, unknown>>).map(([name, decls]) => ({
       name,
       description: `Applies \`${describe(decls).join(' ')}\` rules`,
@@ -210,7 +225,7 @@ const names = (key: string) => {
   nameValueSets = [...emitted.keys()]
     .filter((k) => k.endsWith('-list') && k !== 'tint-list') // tint has custom descriptions
     .map((k) => ({
-      name: pascalCase(k.replace(/-list$/, '')), // 'picker-style-list' -> 'pickerStyles'
+      name: pascalCase(k.replace(/-list$/, '')), // 'picker-style-list' -> 'PickerStyle'
       values: names(k).map((name) => ({ name })),
     })),
   htmlData: VsHtmlDataV1 = {
@@ -310,7 +325,7 @@ const names = (key: string) => {
       ...nameValueSets,
       {
         name: 'ControlSize',
-        values: Object.entries(emitted.get('button-sizes-map') as Record<string, Record<string, unknown>>).map(([name, decls]) => ({
+        values: Object.entries(emitted.get('button-control-size-map') as Record<string, Record<string, unknown>>).map(([name, decls]) => ({
           name,
           description: `A control version that is ${(() => {
             switch (name) {
@@ -635,16 +650,18 @@ for (const sourceFile of project.getSourceFiles()) {
 
               attr.name = lastIndex.trim()
 
-              const types: string | string[] = ['boolean'].includes(c) ? 'boolean' : c.split('|').map((item) => item.trim().replace(/['"`]/g, ''))
-              if (c.startsWith('@')) {
-                attr.valueSet = c.slice(1)
-                htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
-              } else if (types) {
-                attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
-                attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
+              const t = applyType(attr, c, b)
+              htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${t}${b ? ` // ${b}` : ''}`)
+              // const types: string | string[] = ['boolean'].includes(c) ? 'boolean' : c.split('|').map((item) => item.trim().replace(/['"`]/g, ''))
+              // if (c.startsWith('@')) {
+              //   attr.valueSet = c.slice(1)
+              //   htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${c.slice(1)}${b ? ` // ${b}` : ''}`)
+              // } else if (types) {
+              //   attr.description = `Value Type: ${Array.isArray(types) ? `“${types.join('” | “')}”` : types}${attr.description ? `\n${attr.description}` : ''}`
+              //   attr.values ??= Array.isArray(types) ? types.map((item) => ({ name: item })) : undefined
 
-                htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`)
-              }
+              //   htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${Array.isArray(types) ? `"${types.join('" | "')}"` : types}${b ? ` // ${b}` : ''}`)
+              // }
               ;(htmlDataTag.attributes ??= []).push(attr)
             } else {
               ;(decl.attributes ??= []).push({
@@ -695,15 +712,16 @@ for (const sourceFile of project.getSourceFiles()) {
 
           const { type, description: desc } = extractTypes(tags)
 
-          if (0 < type.length) {
-            const match = type.match(/\(([^()]*\|[^()]*)\)/),
-              parts = match?.[1].split('|').map((s) => s.trim().replaceAll('"', '')) ?? []
+          if (0 < type.length) t = applyType(attr, type, [d, desc].filter(Boolean).join(' — '))
+          // if (0 < type.length) {
+          //   const match = type.match(/\(([^()]*\|[^()]*)\)/),
+          //     parts = match?.[1].split('|').map((s) => s.trim().replaceAll('"', '')) ?? []
 
-            attr.description = `Value Type: ${0 < parts.length ? `“${parts.join('” | “')}”` : type}${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
-            if (0 < parts.length) attr.values ??= parts.map((name) => ({ name })) //types.map((name) => ({ name }))
+          //   attr.description = `Value Type: ${0 < parts.length ? `“${parts.join('” | “')}”` : type}${desc ? ` ${desc}` : ''}${attr.description ? `\nDescription: ${attr.description}` : ''}`
+          //   if (0 < parts.length) attr.values ??= parts.map((name) => ({ name })) //types.map((name) => ({ name }))
 
-            t = 0 < parts.length ? `"${parts.join('" | "')}"` : type
-          }
+          //   t = 0 < parts.length ? `"${parts.join('" | "')}"` : type
+          // }
         }
 
         htmlDataTagDescMap.getOrInsertComputed('attrs', () => []).push(`    ${formatProp(attr.name)}?: ${t}${d ? ` // ${d}` : ''}`)

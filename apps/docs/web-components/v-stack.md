@@ -17,9 +17,9 @@ interface VStackSignature {
     distribution?: 'leading' | 'leading fill' | 'center' | 'trailing' | 'fill' | 'space-between' // The distribution of cols
     template?: Template // The main-axis grid template
     spacing?: Spacing // The gap between the primary axis
-    alignment?: inlineSet // The cross-axis alignment
-    distribution?: blockSet // The main-axis alignment
-    placement?: blockPlacementSet // The main-axis alignment
+    alignment?: InlineAlignment // The cross-axis alignment
+    distribution?: BlockAlignment // The main-axis alignment
+    placement?: BlockPlacement // The main-axis alignment
   }
 
   Slots: {

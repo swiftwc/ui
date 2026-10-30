@@ -8,6 +8,7 @@
 interface LabelViewSignature {
   Attributes: {
     font?: Font // Sets the default font for text in this view.
+    'label-style'?: LabelStyle
     'system-image'?: string
     title?: string
     'line-limit'?: string

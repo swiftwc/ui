@@ -5,6 +5,8 @@ import { FormBase } from '../namespace-browser/base'
 /**
  * @summary A container view that groups controls together for entering data, like a settings screen.
  *
+ * @attr {@FormStyle} form-style
+ *
  * @slot — The default slot
  *
  * @attr {hidden} navigation-link-indicator-visibility — Hides accessories like right-arrow-chevron on NavigationLink buttons inside.

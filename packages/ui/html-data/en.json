@@ -21,6 +21,11 @@
       ],
       "attributes": [
         {
+          "name": "control-size",
+          "description": "Value Type: ControlSize\nDescription: Sets the size for this control.",
+          "valueSet": "ControlSize"
+        },
+        {
           "name": "role",
           "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
           "values": [
@@ -36,7 +41,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-button' // <button is=\"bordered-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedButtonSignature {\n  Attributes: {\n    'control-size'?: ControlSize // Sets the size for this control.\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedButton extends HTMLButtonElement<BorderedButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-button' // <button is=\"bordered-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a bordered button:**\n```html\n<button is=\"bordered-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "bordered-prominent-button",
@@ -48,6 +53,11 @@
       ],
       "attributes": [
         {
+          "name": "control-size",
+          "description": "Value Type: ControlSize\nDescription: Sets the size for this control.",
+          "valueSet": "ControlSize"
+        },
+        {
           "name": "role",
           "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
           "values": [
@@ -63,7 +73,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedProminentButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedProminentButton extends HTMLButtonElement<BorderedProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-prominent-button' // <button is=\"bordered-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a bordered prominent button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a prominent border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface BorderedProminentButtonSignature {\n  Attributes: {\n    'control-size'?: ControlSize // Sets the size for this control.\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderedProminentButton extends HTMLButtonElement<BorderedProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'bordered-prominent-button' // <button is=\"bordered-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a bordered prominent button:**\n```html\n<button is=\"bordered-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "borderless-button",
@@ -75,6 +85,11 @@
       ],
       "attributes": [
         {
+          "name": "control-size",
+          "description": "Value Type: ControlSize\nDescription: Sets the size for this control.",
+          "valueSet": "ControlSize"
+        },
+        {
           "name": "role",
           "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
           "values": [
@@ -90,7 +105,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled without any borders.\n---\n\n```ts\ninterface BorderlessButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderlessButton extends HTMLButtonElement<BorderlessButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'borderless-button' // <button is=\"borderless-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a borderless button:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled without any borders.\n---\n\n```ts\ninterface BorderlessButtonSignature {\n  Attributes: {\n    'control-size'?: ControlSize // Sets the size for this control.\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass BorderlessButton extends HTMLButtonElement<BorderlessButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'borderless-button' // <button is=\"borderless-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a borderless button:**\n```html\n<button is=\"borderless-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "color-scheme",
@@ -246,16 +261,16 @@
       ],
       "attributes": [
         {
+          "name": "form-style",
+          "valueSet": "FormStyle",
+          "description": "Value Type: FormStyle"
+        },
+        {
           "name": "navigation-link-indicator-visibility",
-          "description": "Value Type: “hidden”\n\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside.",
-          "values": [
-            {
-              "name": "hidden"
-            }
-          ]
+          "description": "Value Type: hidden\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside."
         }
       ],
-      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\ndeclare global {\n  interface HTMLFormElement {\n    is: 'form-view' // <form is=\"form-view\"></form>\n  }\n}\n\n```\n"
+      "description": "A container view that groups controls together for entering data, like a settings screen.\n---\n\n```ts\ninterface FormViewSignature {\n  Attributes: {\n    'form-style'?: FormStyle\n    'navigation-link-indicator-visibility'?: hidden // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass FormView extends HTMLFormElement<FormViewSignature> {}\n\ndeclare global {\n  interface HTMLFormElement {\n    is: 'form-view' // <form is=\"form-view\"></form>\n  }\n}\n\n```\n"
     },
     {
       "name": "glass-button",
@@ -267,6 +282,11 @@
       ],
       "attributes": [
         {
+          "name": "control-size",
+          "description": "Value Type: ControlSize\nDescription: Sets the size for this control.",
+          "valueSet": "ControlSize"
+        },
+        {
           "name": "role",
           "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
           "values": [
@@ -282,7 +302,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassButton extends HTMLButtonElement<GlassButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-button' // <button is=\"glass-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassButtonSignature {\n  Attributes: {\n    'control-size'?: ControlSize // Sets the size for this control.\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassButton extends HTMLButtonElement<GlassButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-button' // <button is=\"glass-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a glass button:**\n```html\n<button is=\"glass-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "glass-prominent-button",
@@ -294,6 +314,11 @@
       ],
       "attributes": [
         {
+          "name": "control-size",
+          "description": "Value Type: ControlSize\nDescription: Sets the size for this control.",
+          "valueSet": "ControlSize"
+        },
+        {
           "name": "role",
           "description": "Value Type: “destructive” | “confirm”\nDescription: A value that describes the purpose of a button",
           "values": [
@@ -309,7 +334,7 @@
           "name": "title-key"
         }
       ],
-      "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassProminentButtonSignature {\n  Attributes: {\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-prominent-button' // <button is=\"glass-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
+      "description": "A control that starts an action. Styled with a prominent glass border, adapting to the button’s surroundings.\n---\n\n```ts\ninterface GlassProminentButtonSignature {\n  Attributes: {\n    'control-size'?: ControlSize // Sets the size for this control.\n    role?: 'destructive' | 'confirm' // A value that describes the purpose of a button\n    'title-key'?: string\n  }\n\n  Slots: {\n    overlay: HTMLElement[]\n  }\n}\n\nclass GlassProminentButton extends HTMLButtonElement<GlassProminentButtonSignature> {}\n\ndeclare global {\n  interface HTMLButtonElement {\n    is: 'glass-prominent-button' // <button is=\"glass-prominent-button\"></button>\n  }\n}\n\n```\n\n### **Examples:**\n**Use the `is` attribute to style a `button` as a prominent glass button:**\n```html\n<button is=\"glass-prominent-button\">\n  <label-view system-image=\"hand-tap\" title=\"Tap Me\"></label-view>\n</button>\n\n```\n"
     },
     {
       "name": "h-divider",
@@ -326,7 +351,7 @@
       "attributes": [
         {
           "name": "spacing",
-          "description": "\nDescription: The gap between the primary axis",
+          "description": "Value Type: Spacing\nDescription: The gap between the primary axis",
           "valueSet": "Spacing"
         }
       ],
@@ -343,31 +368,31 @@
       "attributes": [
         {
           "name": "template",
-          "description": "\nDescription: The main-axis grid template",
+          "description": "Value Type: Template\nDescription: The main-axis grid template",
           "valueSet": "Template"
         },
         {
           "name": "spacing",
-          "description": "\nDescription: The gap between the primary axis",
+          "description": "Value Type: Spacing\nDescription: The gap between the primary axis",
           "valueSet": "Spacing"
         },
         {
           "name": "alignment",
-          "description": "\nDescription: The cross-axis alignment",
-          "valueSet": "blockSet"
+          "description": "Value Type: BlockAlignment\nDescription: The cross-axis alignment",
+          "valueSet": "BlockAlignment"
         },
         {
           "name": "distribution",
-          "description": "\nDescription: The main-axis alignment",
-          "valueSet": "inlineSet"
+          "description": "Value Type: InlineAlignment\nDescription: The main-axis alignment",
+          "valueSet": "InlineAlignment"
         },
         {
           "name": "placement",
-          "description": "\nDescription: The main-axis alignment",
-          "valueSet": "inlinePlacementSet"
+          "description": "Value Type: InlinePlacement\nDescription: The main-axis alignment",
+          "valueSet": "InlinePlacement"
         }
       ],
-      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: blockSet // The cross-axis alignment\n    distribution?: inlineSet // The main-axis alignment\n    placement?: inlinePlacementSet // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack // <h-stack></h-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children side by side.\n---\n\n```ts\ninterface HStackSignature {\n  Attributes: {\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: BlockAlignment // The cross-axis alignment\n    distribution?: InlineAlignment // The main-axis alignment\n    placement?: InlinePlacement // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass HStack extends HTMLElement<HStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'h-stack': HStack // <h-stack></h-stack>\n  }\n}\n\n```\n"
     },
     {
       "name": "image-view",
@@ -398,8 +423,13 @@
       "attributes": [
         {
           "name": "font",
-          "description": "\nDescription: Sets the default font for text in this view.",
+          "description": "Value Type: Font\nDescription: Sets the default font for text in this view.",
           "valueSet": "Font"
+        },
+        {
+          "name": "label-style",
+          "valueSet": "LabelStyle",
+          "description": "Value Type: LabelStyle"
         },
         {
           "name": "system-image"
@@ -415,7 +445,7 @@
           "description": "Value Type: \"tail\""
         }
       ],
-      "description": "A view that labels items with an icon and a title.\n---\n\n```ts\ninterface LabelViewSignature {\n  Attributes: {\n    font?: Font // Sets the default font for text in this view.\n    'system-image'?: string\n    title?: string\n    'line-limit'?: string\n    'truncation-mode'?: 'tail'\n  }\n\n  Slots: {\n    default: HTMLElement[] // Any children without a `slot` attribute are placed in the title block.\n    icon: HTMLElement[] // Use the `slot=\"icon\"` attribute to place childen in the icon block.\n  }\n\n  CSSProperties: {\n    '--label-gap'?: length // The gap between the icon and the title.\n    '--label-image-size'?: number // The size of the icon.\n    '--label-padding-inline'?: length // The padding inline of the label.\n  }\n}\n\nclass LabelView extends HTMLElement<LabelViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'label-view': LabelView // <label-view></label-view>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```\n"
+      "description": "A view that labels items with an icon and a title.\n---\n\n```ts\ninterface LabelViewSignature {\n  Attributes: {\n    font?: Font // Sets the default font for text in this view.\n    'label-style'?: LabelStyle\n    'system-image'?: string\n    title?: string\n    'line-limit'?: string\n    'truncation-mode'?: 'tail'\n  }\n\n  Slots: {\n    default: HTMLElement[] // Any children without a `slot` attribute are placed in the title block.\n    icon: HTMLElement[] // Use the `slot=\"icon\"` attribute to place childen in the icon block.\n  }\n\n  CSSProperties: {\n    '--label-gap'?: length // The gap between the icon and the title.\n    '--label-image-size'?: number // The size of the icon.\n    '--label-padding-inline'?: length // The padding inline of the label.\n  }\n}\n\nclass LabelView extends HTMLElement<LabelViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'label-view': LabelView // <label-view></label-view>\n  }\n}\n\n```\n\n### **Examples:**\n**Creating a label using a `span` element:**\n```html\n<label-view><span>Hello world!</span></label-view>\n\n```\n**Creating a label using the `title` attribute:**\n```html\n<label-view title=\"Hello world!\"></label-view>\n\n```\n**Creating a label with an icon and a title using the `system-image` attribute:**\n```html\n<label-view system-image=\"hand-waving\"><span>Hello world!</span></label-view>\n\n```\n**Creating a label with an icon and a title using the `icon` slot:**\n```html\n<label-view>\n  <i slot=\"icon\" class=\"ph ph-duotone ph-hand-waving\"></i>\n  <span>Hello world!</span>\n</label-view>\n\n```\n"
     },
     {
       "name": "labeled-content",
@@ -467,25 +497,20 @@
       ],
       "attributes": [
         {
+          "name": "list-style",
+          "valueSet": "ListStyle",
+          "description": "Value Type: ListStyle"
+        },
+        {
           "name": "navigation-link-indicator-visibility",
-          "description": "Value Type: “hidden”\n\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside",
-          "values": [
-            {
-              "name": "hidden"
-            }
-          ]
+          "description": "Value Type: hidden\nDescription: Hides accessories like right-arrow-chevron on NavigationLink buttons inside"
         },
         {
           "name": "preferred-root-disclosure-style",
-          "description": "Value Type: “sidebar”",
-          "values": [
-            {
-              "name": "sidebar"
-            }
-          ]
+          "description": "Value Type: sidebar"
         }
       ],
-      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n    'preferred-root-disclosure-style'?: 'sidebar'\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
+      "description": "A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface ListViewSignature {\n  Attributes: {\n    'list-style'?: ListStyle\n    'navigation-link-indicator-visibility'?: hidden // Hides accessories like right-arrow-chevron on NavigationLink buttons inside\n    'preferred-root-disclosure-style'?: sidebar\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n\n  CSSProperties: {\n    '--list-row-gap'?: length // The gap between rows\n    '--list--media-inner-padding-inline-start'?: length // The inline paddint start for each row\n  }\n}\n\nclass ListView extends HTMLElement<ListViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'list-view': ListView // <list-view></list-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "menu-view",
@@ -587,7 +612,6 @@
       "attributes": [
         {
           "name": "label-value-placement",
-          "description": "Value Type: “vertical” | “horizontal” | “auto”",
           "values": [
             {
               "name": "vertical"
@@ -598,7 +622,8 @@
             {
               "name": "auto"
             }
-          ]
+          ],
+          "description": "Value Type: “vertical” | “horizontal” | “auto”"
         },
         {
           "name": "horizontal-radio-group-layout",
@@ -618,24 +643,8 @@
         },
         {
           "name": "picker-style",
-          "description": "Value Type: “menu” | “inline” | “navigation-link” | “sheet” | “automatic”",
-          "values": [
-            {
-              "name": "menu"
-            },
-            {
-              "name": "inline"
-            },
-            {
-              "name": "navigation-link"
-            },
-            {
-              "name": "sheet"
-            },
-            {
-              "name": "automatic"
-            }
-          ]
+          "description": "Value Type: PickerStyle",
+          "valueSet": "PickerStyle"
         },
         {
           "name": "selection"
@@ -663,7 +672,7 @@
           "description": "Value Type: boolean"
         }
       ],
-      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Attributes: {\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n    'horizontal-radio-group-layout'?: boolean\n    prompt?: string\n    'prompt-icon'?: string\n    label?: string\n    name?: string\n    'picker-style'?:\n      'menu' | 'inline' | 'navigation-link' | 'sheet' | 'automatic'\n    selection?: string\n    searchable?: boolean\n    'current-value-label'?: string\n    'current-value-icon'?: string\n    help?: string // Adds a help tooltip to the trigger of the picker, if style supports one\n    dictionary?: Array<DictEntry> // Renders all options using this array\n    required?: boolean\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n    | 'radio-group'\n    | 'palette'\n    | 'tabs'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView // <picker-view></picker-view>\n  }\n}\n\n```\n"
+      "description": "A control that selects one value from a set of options.\n---\n\n```ts\ninterface PickerViewSignature {\n  Attributes: {\n    'label-value-placement'?: 'vertical' | 'horizontal' | 'auto'\n    'horizontal-radio-group-layout'?: boolean\n    prompt?: string\n    'prompt-icon'?: string\n    label?: string\n    name?: string\n    'picker-style'?: PickerStyle\n    selection?: string\n    searchable?: boolean\n    'current-value-label'?: string\n    'current-value-icon'?: string\n    help?: string // Adds a help tooltip to the trigger of the picker, if style supports one\n    dictionary?: Array<DictEntry> // Renders all options using this array\n    required?: boolean\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n    label: HTMLElement[]\n    list: HTMLElement[]\n    'validity-options': HTMLOptionElement[]\n  }\n}\n\nclass PickerView extends HTMLElement<PickerViewSignature> {\n  static formAssociated = true\n\n  selection: string\n  readonly template: DocumentFragment\n  readonly pickerStyle:\n    | 'automatic'\n    | 'menu'\n    | 'inline'\n    | 'navigation-link'\n    | 'sheet'\n    | 'radio-group'\n    | 'palette'\n    | 'tabs'\n  readonly name: string // Form participation property\n\n  setValidity(): void\n  setCustomValidity(): void\n}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'picker-view': PickerView // <picker-view></picker-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "plain-button",
@@ -824,8 +833,13 @@
       ],
       "attributes": [
         {
+          "name": "table-style",
+          "valueSet": "TableStyle",
+          "description": "Value Type: TableStyle"
+        },
+        {
           "name": "preferred-compact-template",
-          "description": "Value Type: “title:trailing:subtitle” | “trailing:title:subtitle” | “title:subtitle:trailing” | “*”\n\nDescription: Sets the template areas when the table is in compact mode",
+          "description": "Value Type: “title:trailing:subtitle” | “trailing:title:subtitle” | “title:subtitle:trailing” | “*”\nDescription: Sets the template areas when the table is in compact mode",
           "values": [
             {
               "name": "title:trailing:subtitle"
@@ -842,7 +856,7 @@
           ]
         }
       ],
-      "description": "A container view that arranges data in rows and columns, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface TableViewSignature {\n  Attributes: {\n    'preferred-compact-template'?:\n      | 'title:trailing:subtitle'\n      | 'trailing:title:subtitle'\n      | 'title:subtitle:trailing'\n      | '*' // Sets the template areas when the table is in compact mode\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n    'header-leading': HTMLElement[]\n    'header-principal': HTMLElement[]\n    'header-trailing': HTMLElement[]\n    column: HTMLElement[]\n    'footer-leading': HTMLElement[]\n    'footer-principal': HTMLElement[]\n    'footer-trailing': HTMLElement[]\n  }\n}\n\nclass TableView extends HTMLElement<TableViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'table-view': TableView // <table-view></table-view>\n  }\n}\n\n```\n"
+      "description": "A container view that arranges data in rows and columns, optionally letting the user select one or more of them.\n---\n\n```ts\ninterface TableViewSignature {\n  Attributes: {\n    'table-style'?: TableStyle\n    'preferred-compact-template'?:\n      | 'title:trailing:subtitle'\n      | 'trailing:title:subtitle'\n      | 'title:subtitle:trailing'\n      | '*' // Sets the template areas when the table is in compact mode\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n    'header-leading': HTMLElement[]\n    'header-principal': HTMLElement[]\n    'header-trailing': HTMLElement[]\n    column: HTMLElement[]\n    'footer-leading': HTMLElement[]\n    'footer-principal': HTMLElement[]\n    'footer-trailing': HTMLElement[]\n  }\n}\n\nclass TableView extends HTMLElement<TableViewSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'table-view': TableView // <table-view></table-view>\n  }\n}\n\n```\n"
     },
     {
       "name": "text-field",
@@ -1015,7 +1029,7 @@
       "attributes": [
         {
           "name": "template",
-          "description": "\nDescription: The main-axis grid template",
+          "description": "Value Type: Template\nDescription: The main-axis grid template",
           "valueSet": "Template"
         }
       ],
@@ -1032,15 +1046,10 @@
       "attributes": [
         {
           "name": "system-font",
-          "description": "Value Type: “Inter”\n\nDescription: Prefers the \"Inter\" font family, if loaded.",
-          "values": [
-            {
-              "name": "Inter"
-            }
-          ]
+          "description": "Value Type: Inter\nDescription: Prefers the \"Inter\" font family, if loaded."
         }
       ],
-      "description": "Required component, used to handle the virtual keyboard on touch devices.\n---\n\n```ts\ninterface VKeyboardSignature {\n  Attributes: {\n    'system-font'?: 'Inter' // Prefers the \"Inter\" font family, if loaded.\n  }\n}\n\nclass VKeyboard extends HTMLElement<VKeyboardSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-keyboard': VKeyboard // <v-keyboard></v-keyboard>\n  }\n}\n\n```\n"
+      "description": "Required component, used to handle the virtual keyboard on touch devices.\n---\n\n```ts\ninterface VKeyboardSignature {\n  Attributes: {\n    'system-font'?: Inter // Prefers the \"Inter\" font family, if loaded.\n  }\n}\n\nclass VKeyboard extends HTMLElement<VKeyboardSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-keyboard': VKeyboard // <v-keyboard></v-keyboard>\n  }\n}\n\n```\n"
     },
     {
       "name": "v-stack",
@@ -1053,12 +1062,12 @@
       "attributes": [
         {
           "name": "readable",
-          "description": "\nDescription: Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`",
+          "description": "Value Type: FrameInlineLength\nDescription: Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`",
           "valueSet": "FrameInlineLength"
         },
         {
           "name": "distribution",
-          "description": "Value Type: “leading” | “leading fill” | “center” | “trailing” | “fill” | “space-between”\n\nDescription: The distribution of cols",
+          "description": "Value Type: “leading” | “leading fill” | “center” | “trailing” | “fill” | “space-between”\nDescription: The distribution of cols",
           "values": [
             {
               "name": "leading"
@@ -1082,31 +1091,31 @@
         },
         {
           "name": "template",
-          "description": "\nDescription: The main-axis grid template",
+          "description": "Value Type: Template\nDescription: The main-axis grid template",
           "valueSet": "Template"
         },
         {
           "name": "spacing",
-          "description": "\nDescription: The gap between the primary axis",
+          "description": "Value Type: Spacing\nDescription: The gap between the primary axis",
           "valueSet": "Spacing"
         },
         {
           "name": "alignment",
-          "description": "\nDescription: The cross-axis alignment",
-          "valueSet": "inlineSet"
+          "description": "Value Type: InlineAlignment\nDescription: The cross-axis alignment",
+          "valueSet": "InlineAlignment"
         },
         {
           "name": "distribution",
-          "description": "\nDescription: The main-axis alignment",
-          "valueSet": "blockSet"
+          "description": "Value Type: BlockAlignment\nDescription: The main-axis alignment",
+          "valueSet": "BlockAlignment"
         },
         {
           "name": "placement",
-          "description": "\nDescription: The main-axis alignment",
-          "valueSet": "blockPlacementSet"
+          "description": "Value Type: BlockPlacement\nDescription: The main-axis alignment",
+          "valueSet": "BlockPlacement"
         }
       ],
-      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: inlineSet // The cross-axis alignment\n    distribution?: blockSet // The main-axis alignment\n    placement?: blockPlacementSet // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
+      "description": "A view that arranges its children one on top of the other.\n---\n\n```ts\ninterface VStackSignature {\n  Attributes: {\n    readable?: FrameInlineLength // Shortcut for `placement=\"leading fill\" frame:alignment=\"center\" frame:width=\"infinity\" frame:max-width=\"{length}\"`\n    distribution?:\n      | 'leading'\n      | 'leading fill'\n      | 'center'\n      | 'trailing'\n      | 'fill'\n      | 'space-between' // The distribution of cols\n    template?: Template // The main-axis grid template\n    spacing?: Spacing // The gap between the primary axis\n    alignment?: InlineAlignment // The cross-axis alignment\n    distribution?: BlockAlignment // The main-axis alignment\n    placement?: BlockPlacement // The main-axis alignment\n  }\n\n  Slots: {\n    default: HTMLElement[] // The default slot\n  }\n}\n\nclass VStack extends HTMLElement<VStackSignature> {}\n\ndeclare global {\n  interface HTMLElementTagNameMap {\n    'v-stack': VStack // <v-stack></v-stack>\n  }\n}\n\n```\n"
     }
   ],
   "globalAttributes": [
@@ -1559,7 +1568,7 @@
       ]
     },
     {
-      "name": "inlineSet",
+      "name": "InlineAlignment",
       "values": [
         {
           "name": "leading",
@@ -1588,7 +1597,7 @@
       ]
     },
     {
-      "name": "blockSet",
+      "name": "BlockAlignment",
       "values": [
         {
           "name": "leading",
@@ -1617,7 +1626,7 @@
       ]
     },
     {
-      "name": "inlinePlacementSet",
+      "name": "InlinePlacement",
       "values": [
         {
           "name": "fill",
@@ -1638,7 +1647,7 @@
       ]
     },
     {
-      "name": "blockPlacementSet",
+      "name": "BlockPlacement",
       "values": [
         {
           "name": "fill",
@@ -1663,6 +1672,9 @@
       "values": [
         {
           "name": "menu"
+        },
+        {
+          "name": "inline"
         },
         {
           "name": "navigation-link"

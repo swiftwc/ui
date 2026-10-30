@@ -4,6 +4,7 @@ import { debug, listActive, onoff } from '../internal/utils'
 /**
  * @summary A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.
  *
+ * @attr {@ListStyle} list-style
  * @attr {hidden} navigation-link-indicator-visibility — Hides accessories like right-arrow-chevron on NavigationLink buttons inside
  * @attr {sidebar} preferred-root-disclosure-style
  *

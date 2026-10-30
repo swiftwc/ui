@@ -9,9 +9,9 @@ interface HStackSignature {
   Attributes: {
     template?: Template // The main-axis grid template
     spacing?: Spacing // The gap between the primary axis
-    alignment?: blockSet // The cross-axis alignment
-    distribution?: inlineSet // The main-axis alignment
-    placement?: inlinePlacementSet // The main-axis alignment
+    alignment?: BlockAlignment // The cross-axis alignment
+    distribution?: InlineAlignment // The main-axis alignment
+    placement?: InlinePlacement // The main-axis alignment
   }
 
   Slots: {

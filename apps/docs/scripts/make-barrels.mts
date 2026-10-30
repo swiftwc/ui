@@ -96,7 +96,7 @@ ${(
         `enum ${item.name} {
 ${item.values
   .map((item, index) => {
-    return `  '${item.name}\', // ${'description' in item ? item.description : ''}`
+    return `  '${item.name}\',${'description' in item ? ` // ${item.description}` : ''}`
   })
   .join(`\n`)}
 }`,

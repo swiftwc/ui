@@ -10,9 +10,9 @@ import { debug } from '../internal/utils'
  *
  * @attr {@Spacing} spacing — The gap between the primary axis
  *
- * @attr {@inlineSet} alignment — The cross-axis alignment
- * @attr {@blockSet} distribution — The main-axis alignment
- * @attr {@blockPlacementSet} placement — The main-axis alignment
+ * @attr {@InlineAlignment} alignment — The cross-axis alignment
+ * @attr {@BlockAlignment} distribution — The main-axis alignment
+ * @attr {@BlockPlacement} placement — The main-axis alignment
  *
  * @slot — The default slot
  *

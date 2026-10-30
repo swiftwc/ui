@@ -47,17 +47,20 @@
           "superclass": {
             "name": "HTMLButtonElement"
           },
-          "slots": [
-            {
-              "name": "overlay"
-            }
-          ],
           "attributes": [
+            {
+              "name": "control-size"
+            },
             {
               "name": "role"
             },
             {
               "name": "title-key"
+            }
+          ],
+          "slots": [
+            {
+              "name": "overlay"
             }
           ]
         }
@@ -92,17 +95,20 @@
           "superclass": {
             "name": "HTMLButtonElement"
           },
-          "slots": [
-            {
-              "name": "overlay"
-            }
-          ],
           "attributes": [
+            {
+              "name": "control-size"
+            },
             {
               "name": "role"
             },
             {
               "name": "title-key"
+            }
+          ],
+          "slots": [
+            {
+              "name": "overlay"
             }
           ]
         }
@@ -137,17 +143,20 @@
           "superclass": {
             "name": "HTMLButtonElement"
           },
-          "slots": [
-            {
-              "name": "overlay"
-            }
-          ],
           "attributes": [
+            {
+              "name": "control-size"
+            },
             {
               "name": "role"
             },
             {
               "name": "title-key"
+            }
+          ],
+          "slots": [
+            {
+              "name": "overlay"
             }
           ]
         }
@@ -634,15 +643,18 @@
           "superclass": {
             "name": "HTMLFormElement"
           },
+          "attributes": [
+            {
+              "name": "form-style"
+            },
+            {
+              "name": "navigation-link-indicator-visibility"
+            }
+          ],
           "slots": [
             {
               "name": "",
               "description": "The default slot"
-            }
-          ],
-          "attributes": [
-            {
-              "name": "navigation-link-indicator-visibility"
             }
           ]
         }
@@ -677,17 +689,20 @@
           "superclass": {
             "name": "HTMLButtonElement"
           },
-          "slots": [
-            {
-              "name": "overlay"
-            }
-          ],
           "attributes": [
+            {
+              "name": "control-size"
+            },
             {
               "name": "role"
             },
             {
               "name": "title-key"
+            }
+          ],
+          "slots": [
+            {
+              "name": "overlay"
             }
           ]
         }
@@ -722,17 +737,20 @@
           "superclass": {
             "name": "HTMLButtonElement"
           },
-          "slots": [
-            {
-              "name": "overlay"
-            }
-          ],
           "attributes": [
+            {
+              "name": "control-size"
+            },
             {
               "name": "role"
             },
             {
               "name": "title-key"
+            }
+          ],
+          "slots": [
+            {
+              "name": "overlay"
             }
           ]
         }
@@ -948,6 +966,9 @@
               "name": "font"
             },
             {
+              "name": "label-style"
+            },
+            {
               "name": "system-image"
             },
             {
@@ -1071,6 +1092,9 @@
             "name": "HTMLElement"
           },
           "attributes": [
+            {
+              "name": "list-style"
+            },
             {
               "name": "navigation-link-indicator-visibility"
             },
@@ -2096,6 +2120,9 @@
             "name": "HTMLElement"
           },
           "attributes": [
+            {
+              "name": "table-style"
+            },
             {
               "name": "preferred-compact-template"
             }

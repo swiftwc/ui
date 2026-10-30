@@ -7,7 +7,7 @@
 ```ts
 interface VKeyboardSignature {
   Attributes: {
-    'system-font'?: 'Inter' // Prefers the "Inter" font family, if loaded.
+    'system-font'?: Inter // Prefers the "Inter" font family, if loaded.
   }
 }
 

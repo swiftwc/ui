@@ -7,9 +7,9 @@ import { debug } from '../internal/utils'
  *
  * @attr {@Spacing} spacing — The gap between the primary axis
  *
- * @attr {@blockSet} alignment — The cross-axis alignment
- * @attr {@inlineSet} distribution — The main-axis alignment
- * @attr {@inlinePlacementSet} placement — The main-axis alignment
+ * @attr {@BlockAlignment} alignment — The cross-axis alignment
+ * @attr {@InlineAlignment} distribution — The main-axis alignment
+ * @attr {@InlinePlacement} placement — The main-axis alignment
  *
  * @slot — The default slot
  *

@@ -27,7 +27,7 @@
 
     @include mixins.takeover-button-slots;
 
-    @each $size, $media in maps.$button-sizes-map {
+    @each $size, $media in maps.$button-control-size-map {
       // @if (regular != $size) {
       &[control-size='#{$size}'] {
         :where(&) {

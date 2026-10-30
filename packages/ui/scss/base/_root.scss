@@ -355,7 +355,7 @@
     --table-accessory-size: 1.2rem;
 
     // button sizes 1/2
-    @each $size, $media in maps.$button-sizes-map {
+    @each $size, $media in maps.$button-control-size-map {
       $props: map.get($media, default);
       @if $props {
         @each $k, $v in $props {
@@ -373,7 +373,7 @@
     // fine
     @media (pointer: fine) {
       // button sizes 2/2
-      @each $size, $media in maps.$button-sizes-map {
+      @each $size, $media in maps.$button-control-size-map {
         $props: map.get($media, fine);
         @if $props {
           @each $k, $v in $props {

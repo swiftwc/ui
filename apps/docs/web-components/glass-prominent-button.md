@@ -7,6 +7,7 @@
 ```ts
 interface GlassProminentButtonSignature {
   Attributes: {
+    'control-size'?: ControlSize // Sets the size for this control.
     role?: 'destructive' | 'confirm' // A value that describes the purpose of a button
     'title-key'?: string
   }

@@ -14,7 +14,7 @@
       --btnpadbend: var(--regular-btn-padding);
     }
 
-    @each $size, $media in maps.$button-sizes-map {
+    @each $size, $media in maps.$button-control-size-map {
       :where(&[control-size='#{$size}']) {
         --btnpadistart: var(--#{$size}-btn-padding);
         --btnpadiend: var(--#{$size}-btn-padding);

@@ -5354,6 +5354,7 @@
   }
   @supports not (x: if(else:red)) {
     @container style(--picker-style: menu) {}
+    @container style(--picker-style: inline) {}
     @container style(--picker-style: navigation-link) {}
     @container style(--picker-style: sheet) {}
     @container style(--picker-style: radio-group) {
@@ -5400,6 +5401,7 @@
         --picker--host-border: var(--itemborder, );
       }
     }
+    @container style(--picker-style: inline) {}
     @container style(--picker-style: navigation-link) {
       :where(form picker-view:not([picker-style])) {
         --picker--labelstack-display: grid;
@@ -5484,6 +5486,9 @@
       --picker--host-background: var(--itemface, );
       --picker--host-color: var(--itemtext, );
       --picker--host-border: var(--itemborder, );
+    }
+    :where(picker-view[picker-style=inline]) {
+      --picker-style: inline;
     }
     :where(picker-view[picker-style=navigation-link]) {
       --picker-style: navigation-link;

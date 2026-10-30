@@ -110,7 +110,7 @@ export class PickerView extends FormAssociatedBase {
       'label',
       'name',
       /**
-       * @type {menu|inline|navigation-link|sheet|automatic}
+       * @type {@PickerStyle}
        */
       'picker-style',
       'selection',

@@ -93,12 +93,18 @@ const links: Record<string, string> = {
   Tint: '/installation/html-data.json',
   Template: '/installation/html-data.json',
   Spacing: '/installation/html-data.json',
-  inlineSet: '/installation/html-data.json',
-  blockSet: '/installation/html-data.json',
-  blockPlacementSet: '/installation/html-data.json',
-  inlinePlacementSet: '/installation/html-data.json',
+  InlineAlignment: '/installation/html-data.json',
+  BlockAlignment: '/installation/html-data.json',
+  BlockPlacement: '/installation/html-data.json',
+  InlinePlacement: '/installation/html-data.json',
   Foreground: '/installation/html-data.json',
   BackgroundStyle: '/installation/html-data.json',
+  ControlSize: '/installation/html-data.json',
+  PickerStyle: '/installation/html-data.json',
+  LabelStyle: '/installation/html-data.json',
+  ListStyle: '/installation/html-data.json',
+  FormStyle: '/installation/html-data.json',
+  TableStyle: '/installation/html-data.json',
 }
 
 // https://vitepress.dev/reference/site-config

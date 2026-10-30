@@ -7,7 +7,8 @@
 ```ts
 interface FormViewSignature {
   Attributes: {
-    'navigation-link-indicator-visibility'?: 'hidden' // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
+    'form-style'?: FormStyle
+    'navigation-link-indicator-visibility'?: hidden // Hides accessories like right-arrow-chevron on NavigationLink buttons inside.
   }
 
   Slots: {

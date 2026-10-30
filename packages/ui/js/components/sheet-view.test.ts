@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
-import { SheetView } from './sheet-view'
+import type { SheetView } from './sheet-view'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLDialogElement
+  let el: SheetView
 
   beforeEach(() => {
-    el = document.createElement('dialog', { is: 'sheet-view' })
-    document.body.appendChild(el)
-    SheetView.polyfillConnectedCallback(el as SheetView)
+    document.body.insertAdjacentHTML('beforeend', '<dialog is="sheet-view"></dialog>')
+    el = document.body.lastElementChild as SheetView
   })
   afterEach(() => el.remove())
 

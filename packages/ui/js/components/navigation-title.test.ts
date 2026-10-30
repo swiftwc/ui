@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { NavigationTitle } from './navigation-title'
+import '../client'
+import type { NavigationTitle } from './navigation-title'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
-
-  customElements.define('navigation-title', NavigationTitle)
+  let el: NavigationTitle
 
   beforeEach(() => {
-    el = document.createElement('navigation-title')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<navigation-title></navigation-title>')
+    el = document.body.lastElementChild as NavigationTitle
   })
   afterEach(() => el.remove())
 

@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { ScrollView } from './scroll-view'
+import '../client'
+import type { ScrollView } from './scroll-view'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
-
-  customElements.define('scroll-view', ScrollView)
+  let el: ScrollView
 
   beforeEach(() => {
-    el = document.createElement('scroll-view')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<scroll-view></scroll-view>')
+    el = document.body.lastElementChild as ScrollView
   })
   afterEach(() => el.remove())
 

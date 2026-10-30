@@ -8,8 +8,8 @@ describe('<text-field/>', () => {
   let el: TextField
 
   beforeEach(() => {
-    el = document.createElement('text-field')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<text-field></text-field>')
+    el = document.body.lastElementChild as TextField
   })
   afterEach(() => el.remove())
 

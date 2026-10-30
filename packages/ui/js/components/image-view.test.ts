@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { ImageView } from './image-view'
+import '../client'
+import type { ImageView } from './image-view'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLElement
-
-  customElements.define('image-view', ImageView)
+  let el: ImageView
 
   beforeEach(() => {
-    el = document.createElement('image-view')
-    document.body.appendChild(el)
+    document.body.insertAdjacentHTML('beforeend', '<image-view></image-view>')
+    el = document.body.lastElementChild as ImageView
   })
   afterEach(() => el.remove())
 

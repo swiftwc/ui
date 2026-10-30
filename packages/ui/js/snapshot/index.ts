@@ -27,21 +27,21 @@ export class Snapshot {
     return this.#config
   }
 
-  static async mock() {
-    this.#config = {
-      'delete-button-icon': 'trash',
-      'confirm-button-icon': 'check',
-      'close-button-icon': 'x',
-      'cancel-button-icon': 'x',
-      'ipad-sheet-view-height': '27.75rem',
-      'ipad-sheet-view-inline-size': '37rem',
-      'vt-fwd-class-name': 'fwd',
-    }
+  // static async mock() {
+  //   this.#config = {
+  //     'delete-button-icon': 'trash',
+  //     'confirm-button-icon': 'check',
+  //     'close-button-icon': 'x',
+  //     'cancel-button-icon': 'x',
+  //     'ipad-sheet-view-height': '27.75rem',
+  //     'ipad-sheet-view-inline-size': '37rem',
+  //     'vt-fwd-class-name': 'fwd',
+  //   }
 
-    this.#postSet()
+  //   this.#postSet()
 
-    debug(this.#config)
-  }
+  //   debug(this.#config)
+  // }
 
   static async setOwnConfig() {
     if (!this.#readyCalled) this.#readyCalled = true

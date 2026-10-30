@@ -19,6 +19,6 @@ describe('prop', () => {
   test('[role]', async () => {
     el.setAttribute('role', 'cancel')
 
-    await expect.poll(() => el.outerHTML).toBe('<button is="bordered-button" tabindex="0" role="cancel"><label-view slot="placeholder"><span>Cancel</span></label-view></button>')
+    await expect.poll(() => el.outerHTML).toBe('<button is="bordered-button" tabindex="0" role="cancel"><label-view slot="placeholder"><image-view slot="icon" system-name="x"><i style="line-height: 1" class="ph ph-x"></i></image-view><span>Cancel</span></label-view></button>')
   })
 })

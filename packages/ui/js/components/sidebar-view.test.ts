@@ -1,16 +1,15 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import '../client'
-import { SidebarView } from './sidebar-view'
+import type { SidebarView } from './sidebar-view'
 
 beforeEach(() => document.body.replaceChildren())
 
 describe('prop', () => {
-  let el: HTMLDialogElement
+  let el: SidebarView
 
   beforeEach(() => {
-    el = document.createElement('dialog', { is: 'sidebar-view' })
-    document.body.appendChild(el)
-    SidebarView.polyfillConnectedCallback(el as SidebarView)
+    document.body.insertAdjacentHTML('beforeend', '<dialog is="sidebar-view"></dialog>')
+    el = document.body.lastElementChild as SidebarView
   })
   afterEach(() => el.remove())
 

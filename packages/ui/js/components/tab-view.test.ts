@@ -1,4 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
+import { page } from 'vitest/browser'
 import '../client'
 import type { TabView } from './tab-view'
 
@@ -13,28 +14,39 @@ describe('prop', () => {
   })
   afterEach(() => el.remove())
 
-  test('moreTab', async () => {
-    for (const [i, id] of ['home', 'search', 'more'].entries())
-      el.insertAdjacentElement('beforeend', Object.assign(document.createElement('navigation-stack'), { id, innerHTML: '<scroll-view></scroll-view>', hidden: i }))
+  test('.moreTab', async () => {
+    for (const [i, id] of ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred'].entries())
+      el.insertAdjacentHTML('beforeend', `<navigation-stack id="${id}"${i ? ' hidden' : ''}><scroll-view></scroll-view></navigation-stack>`)
 
-    for (const [i, id] of ['a', 'b', 'c'].entries())
-      document.querySelector('#more')?.insertAdjacentElement('beforeend', Object.assign(document.createElement('navigation-stack'), { id, innerHTML: '<scroll-view></scroll-view>', hidden: i }))
+    for (const [i, id] of ['plugh', 'xyzzy', 'thud'].entries())
+      document.querySelector('#fred')?.insertAdjacentHTML('beforeend', `<navigation-stack id="${id}"${i ? ' hidden' : ''}><scroll-view></scroll-view></navigation-stack>`)
 
     el.insertAdjacentHTML('beforeend', '<dialog is="tab-bar"></dialog>')
-    const tb = el.firstElementChild as HTMLDialogElement
+    const tb = el.lastElementChild as HTMLDialogElement
 
-    for (const value of ['home', 'search', 'a', 'b', 'c'])
-      tb.insertAdjacentElement('beforeend', Object.assign(document.createElement('button', { is: 'tab-item' }), { value, innerHTML: `<label-view title="${value}"></label-view>` }))
+    for (const value of ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred'])
+      tb.insertAdjacentHTML('beforeend', `<button is="tab-item" value="${value}"><label-view title="${value}"></label-view></button>`)
 
-    // await new Promise<void>((r) => queueMicrotask(r))
+    await expect.poll(() => el.moreTab?.id).toBe('fred')
+  })
 
-    // document.querySelector<HTMLButtonElement>('#a > scroll-view')?.style.setProperty('--face', 'red')
-    // const btn = document.querySelector<HTMLButtonElement>('[value="a"]')
-    // TabItem.polyfillConnectedCallback(btn as TabItem)
-    // document.querySelector<HTMLButtonElement>('[value="a"]')?.click()
+  test('(--face)', async () => {
+    for (const [i, id] of ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred'].entries())
+      el.insertAdjacentHTML('beforeend', `<navigation-stack id="${id}"${i ? ' hidden' : ''}><scroll-view></scroll-view></navigation-stack>`)
 
-    // await new Promise<void>((r) => queueMicrotask(r))
+    for (const [i, id] of ['plugh', 'xyzzy', 'thud'].entries())
+      document.querySelector('#fred')?.insertAdjacentHTML('beforeend', `<navigation-stack id="${id}"${i ? ' hidden' : ''}><scroll-view></scroll-view></navigation-stack>`)
 
-    await expect.poll(() => el.moreTab?.id).toBe('more')
+    el.insertAdjacentHTML('beforeend', '<dialog is="tab-bar"></dialog>')
+    const tb = el.lastElementChild as HTMLDialogElement
+
+    for (const value of ['foo', 'bar', 'baz', 'qux', 'quux', 'corge', 'grault', 'garply', 'waldo', 'fred'])
+      tb.insertAdjacentHTML('beforeend', `<button is="tab-item" value="${value}"><label-view title="${value}"></label-view></button>`)
+
+    document.querySelector<HTMLElement>('#baz > scroll-view')?.style.setProperty('--face', 'red')
+
+    await page.getByRole('button', { name: 'baz' }).click({ force: true }) // await userEvent.click(document.querySelector<HTMLElement>('[value="baz"]')!)
+
+    await expect.poll(() => getComputedStyle(document.body).getPropertyValue('--face')).toBe('oklch(1 0 0)')
   })
 })

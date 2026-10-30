@@ -146,7 +146,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
     if (!trigger) return
     if (['PICKER-VIEW'].includes(trigger.tagName)) return
 
-    if (relatedTarget instanceof HTMLElement && trigger.contains(relatedTarget)) return
+    if (relatedTarget instanceof Element && trigger.contains(relatedTarget)) return
 
     const newAnchorName = `--help-${self.crypto.randomUUID()}`
 
@@ -156,7 +156,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
 
     tooltip.style.setProperty('position-anchor', newAnchorName)
 
-    document.body.appendChild(tooltip)
+    document.body.insertAdjacentElement('beforeend', tooltip)
 
     // setInterval(() => {
     //   trigger.setAttribute('help', trigger.getAttribute('help') + 'h')

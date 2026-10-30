@@ -1,5 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { ToggleView } from './toggle-view'
+import '../client'
+import type { ToggleView } from './toggle-view'
 
 beforeEach(() => document.body.replaceChildren())
 
@@ -7,14 +8,10 @@ describe('prop', () => {
   let el: ToggleView
   let form: HTMLFormElement
 
-  customElements.define('toggle-view', ToggleView)
-
   beforeEach(() => {
-    form = document.createElement('form')
-    el = document.createElement('toggle-view') as ToggleView
-    el.setAttribute('name', 'foo')
-    form.appendChild(el)
-    document.body.appendChild(form)
+    document.body.insertAdjacentHTML('beforeend', '<form><toggle-view name="foo"></toggle-view></form>')
+    form = document.body.lastElementChild as HTMLFormElement
+    el = form.firstElementChild as ToggleView
   })
   afterEach(() => el.remove())
 
@@ -26,7 +23,7 @@ describe('prop', () => {
     expect(data.has('foo')).toBe(false)
   })
 
-  test('[value]', () => {
+  test('[is-on][value]', () => {
     el.setAttribute('is-on', '')
     el.setAttribute('value', 'bar')
 
@@ -35,7 +32,7 @@ describe('prop', () => {
     expect(data.get('foo')).toBe('bar')
   })
 
-  test('[value]', () => {
+  test('[is-on][value]', () => {
     el.setAttribute('is-on', '')
 
     const data = new FormData(form) //{foo:"on"}
@@ -43,22 +40,16 @@ describe('prop', () => {
     expect(data.get('foo')).toBe('on')
   })
 
-  test('[value]', () => {
-    let div2 = document.createElement('toggle-view') as ToggleView,
-      div3 = document.createElement('toggle-view') as ToggleView
-    div2.setAttribute('name', 'foo')
-    div3.setAttribute('name', 'foo')
+  test('[value] multiple', () => {
+    form.insertAdjacentHTML('beforeend', '<toggle-view name="foo"></toggle-view>')
+    const el2 = form.lastElementChild as ToggleView
 
-    form.appendChild(div2)
-    form.appendChild(div3)
+    form.insertAdjacentHTML('beforeend', '<toggle-view name="foo"></toggle-view>')
+    const el3 = form.lastElementChild as ToggleView
 
-    el.setAttribute('value', 'foo')
-    div2.setAttribute('value', 'bar')
-    div3.setAttribute('value', 'baz')
+    for (const [k, v] of Object.entries({ foo: el, bar: el2, baz: el3 })) v.setAttribute('value', k)
 
-    el.setAttribute('is-on', '')
-    div2.setAttribute('is-on', '')
-    div3.setAttribute('is-on', '')
+    for (const div of [el, el2, el3]) div.setAttribute('is-on', '')
 
     const data = new FormData(form) //{foo:"foo"}
 

@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { userEvent } from 'vitest/browser'
+import { page, userEvent } from 'vitest/browser'
 import '../client'
 import { Snapshot } from '../client'
 import type { PickerView } from './picker-view'
@@ -17343,15 +17343,27 @@ const dict = [
 
 beforeEach(() => document.body.replaceChildren())
 
+beforeEach(() => {
+  vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
+  vi.spyOn(console, 'debug').mockImplementation(() => {})
+})
+
+afterEach(() => {
+  vi.restoreAllMocks()
+})
+
 describe('prop', () => {
+  let ns: HTMLElement
   let el: PickerView
   let form: HTMLFormElement
 
   beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
-    form = document.body.lastElementChild as HTMLFormElement
+    document.body.insertAdjacentHTML(
+      'beforeend',
+      '<navigation-stack><scroll-view><v-stack><form is="form-view"><picker-view name="foo"></picker-view></form></v-stack></scroll-view></navigation-stack>'
+    )
+    ns = document.body.lastElementChild as HTMLElement
+    form = ns.querySelector('form') as HTMLFormElement
     el = form.firstElementChild as PickerView
   })
   afterEach(() => el.remove())
@@ -17361,20 +17373,6 @@ describe('prop', () => {
 
     expect(data.get('foo')).toBe('')
   })
-})
-
-describe('prop', () => {
-  let el: PickerView
-  let form: HTMLFormElement
-
-  beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
-    form = document.body.lastElementChild as HTMLFormElement
-    el = form.firstElementChild as PickerView
-  })
-  afterEach(() => el.remove())
 
   test('[selection]', () => {
     el.setAttribute('selection', 'bar')
@@ -17383,20 +17381,6 @@ describe('prop', () => {
 
     expect(data.get('foo')).toBe('bar')
   })
-})
-
-describe('prop', () => {
-  let el: PickerView
-  let form: HTMLFormElement
-
-  beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
-    form = document.body.lastElementChild as HTMLFormElement
-    el = form.firstElementChild as PickerView
-  })
-  afterEach(() => el.remove())
 
   test('[selection]', () => {
     el.selection = 'bar'
@@ -17404,19 +17388,6 @@ describe('prop', () => {
     const data = new FormData(form) //{foo:"bar"}
 
     expect(data.get('foo')).toBe('bar')
-  })
-})
-
-describe('prop', () => {
-  let el: PickerView
-  let form: HTMLFormElement
-
-  beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
-    form = document.body.lastElementChild as HTMLFormElement
-    el = form.firstElementChild as PickerView
   })
 
   test('[picker-style="radio-group"]', () => {
@@ -17433,20 +17404,6 @@ describe('prop', () => {
 
     expect(data.get('foo')).toBe('Tyrannosaurus')
   })
-})
-
-describe('prop', () => {
-  let el: PickerView
-  let form: HTMLFormElement
-
-  beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    document.body.insertAdjacentHTML('beforeend', '<form><picker-view name="foo"></picker-view></form>')
-    form = document.body.lastElementChild as HTMLFormElement
-    el = form.firstElementChild as PickerView
-  })
-  afterEach(() => el.remove())
 
   test('[picker-style="radio-group"]', async () => {
     el.setAttribute('picker-style', 'radio-group')
@@ -17510,41 +17467,26 @@ describe('prop', () => {
         </h-stack>
       </label>`)
   })
-})
-
-describe('prop', async () => {
-  let el: PickerView
-  let ns: HTMLElement
-
-  await Snapshot.mock()
-
-  beforeEach(() => {
-    vi.spyOn(crypto, 'randomUUID').mockReturnValue('00000000-0000-0000-0000-000000000000')
-
-    ns = document.body.appendChild(Object.assign(document.createElement('navigation-stack'), { innerHTML: '<scroll-view><v-stack><form is="form-view"></form></v-stack></scroll-view>' }))
-
-    el = document.createElement('picker-view') as PickerView
-    el.setAttribute('name', 'foo')
-  })
-  afterEach(() => el.remove())
 
   test('[picker-style="sheet"]', async () => {
+    await Snapshot.waitReady //Snapshot.mock()
+
     el.setAttribute('picker-style', 'sheet')
     el.setAttribute('prompt', 'here')
     el.setAttribute('dictionary', JSON.stringify(dict))
 
-    document.querySelector('[is=form-view]')?.appendChild(el)
+    await userEvent.click(el.querySelector<HTMLElement>('label-view')!)
 
-    // await new Promise<void>((r) => queueMicrotask(r))
+    const dialog = await vi.waitFor(() => {
+      const d = el.closest('scroll-view')?.nextElementSibling
+      if (!(d instanceof HTMLDialogElement)) throw 'no dialog yet'
+      return d
+    })
 
-    await userEvent.click(ns.querySelector<HTMLElement>('picker-view label-view')!) //ns.querySelector<HTMLElement>('picker-view label-view')?.click()
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('open') // await expect.poll(() => dialog.open).toBe(true)
 
-    // await new Promise<void>((r) => setTimeout(r, 550))
-
-    const dialog = el.closest('scroll-view')?.nextElementSibling
-
-    await expect.poll(() => dialog?.outerHTML)
-      .toBe(`<dialog is="sheet-view" autofocus="" open=""><scroll-view style="--navbar-padding-inline-start: 52px; --navbar-padding-inline-end: 52px; --toolbar-padding-inline-start: 52px; --toolbar-padding-inline-end: 52px;"><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">
+    await expect.poll(() => dialog.outerHTML)
+      .toBe(`<dialog is="sheet-view" autofocus="" open=""><scroll-view style="--navbar-padding-inline-start: 41px; --navbar-padding-inline-end: 0px; --toolbar-padding-inline-start: 0px; --toolbar-padding-inline-end: 0px;"><v-stack placement="leading fill"><list-view preferred-expanded-style="inset"><button type="button" tabindex="0" navigation-link="" data-group-id="0">
         <h-stack distribution="leading" template="auto spacer">
           <label-view data-role="check" style="visibility: hidden">
             <image-view slot="icon" system-name="check"><i style="line-height: 1" class="ph ph-check"></i></image-view>

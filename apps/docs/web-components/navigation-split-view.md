@@ -104,10 +104,4 @@ Check out the documentation for the [full list of markdown extensions](https://v
 
 <!-- #region post -->
 
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
 <!-- #endregion post -->

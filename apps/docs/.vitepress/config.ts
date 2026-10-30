@@ -45,6 +45,7 @@ const defaultSidebar: SidebarGroup[] = [
       { text: 'Installation', link: '/installation/', items: [] },
       { text: 'Editor Setup', link: '/installation/editor-setup' },
       { text: 'App HTML Layout', link: '/installation/app-layout' },
+      { text: 'html-data.json', link: '/installation/html-data.json' },
       // { text: "Dark Mode", link: "/installation/dark-mode" },
       // { text: "JavaScript", link: "/installation/javascript" },
       // {
@@ -72,9 +73,8 @@ const getStartedGroup2 = installationsSidebar2.find((g) => g.text === 'Get Start
 if (!getStartedGroup2) throw new Error("Sidebar: 'Get Started' group not found")
 
 const editorSetupItem = getStartedGroup2.items.find((i) => i.text === 'Editor Setup')
-if (!editorSetupItem)
-  throw new Error("Sidebar: 'Editor Setup' item not found in 'Get Started'")
-  //
+if (!editorSetupItem) throw new Error("Sidebar: 'Editor Setup' item not found in 'Get Started'")
+//
 ;(installationItem.items ??= []).push(
   { text: 'for Vite', link: '/installation/frameworks/vite' },
   { text: 'for Angular', link: '/installation/frameworks/angular' },
@@ -83,23 +83,22 @@ if (!editorSetupItem)
 )
 //
 ;(editorSetupItem.items ??= []).push(
-  { text: 'html-data.json', link: '/installation/editor-setup/html-data.json' },
   { text: 'for Typescript', link: '/installation/editor-setup/manual' },
   { text: 'for EmberJS', link: '/installation/editor-setup/emberjs' }
 )
 
 const links: Record<string, string> = {
-  Font: '/installation/editor-setup/html-data.json',
-  FrameInlineLength: '/installation/editor-setup/html-data.json',
-  Tint: '/installation/editor-setup/html-data.json',
-  Template: '/installation/editor-setup/html-data.json',
-  Spacing: '/installation/editor-setup/html-data.json',
-  inlineSet: '/installation/editor-setup/html-data.json',
-  blockSet: '/installation/editor-setup/html-data.json',
-  blockPlacementSet: '/installation/editor-setup/html-data.json',
-  inlinePlacementSet: '/installation/editor-setup/html-data.json',
-  Foreground: '/installation/editor-setup/html-data.json',
-  BackgroundStyle: '/installation/editor-setup/html-data.json',
+  Font: '/installation/html-data.json',
+  FrameInlineLength: '/installation/html-data.json',
+  Tint: '/installation/html-data.json',
+  Template: '/installation/html-data.json',
+  Spacing: '/installation/html-data.json',
+  inlineSet: '/installation/html-data.json',
+  blockSet: '/installation/html-data.json',
+  blockPlacementSet: '/installation/html-data.json',
+  inlinePlacementSet: '/installation/html-data.json',
+  Foreground: '/installation/html-data.json',
+  BackgroundStyle: '/installation/html-data.json',
 }
 
 // https://vitepress.dev/reference/site-config
@@ -118,8 +117,8 @@ export default defineConfig({
         span(node) {
           const child = node.children[0]
           if (node.children.length !== 1 || child.type !== 'text') return
+          if (!Object.hasOwn(links, child.value.trim())) return
           const href = links[child.value.trim()]
-          if (!href) return
 
           const [, lead, word, trail] = child.value.match(/^(\s*)(.*?)(\s*)$/s)!
           node.children = [

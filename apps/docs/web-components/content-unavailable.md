@@ -72,10 +72,4 @@ declare global {
 </content-unavailable>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
 <!-- #endregion post -->

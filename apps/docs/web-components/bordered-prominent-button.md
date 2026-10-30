@@ -64,10 +64,4 @@ You create a button by providing an action and a label.
 </button>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLButtonElement`
-
 <!-- #endregion post -->

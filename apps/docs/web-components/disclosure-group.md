@@ -49,10 +49,4 @@ declare global {
 </details>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLDetailsElement`
-
 <!-- #endregion post -->

@@ -88,10 +88,4 @@ One of the most familiar UI patterns is pairing an icon with a label.
 </label-view>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
 <!-- #endregion post -->

@@ -51,16 +51,13 @@ ${declaration}
 ${reflections}
 ${topicsMd}
 
-## Relationships
-
-### Conforms To
-
-\`${dec.superclass.name}\`
-
 <!-- #endregion post -->`
     )
   }
 }
+// ## Relationships
+// ### Conforms To
+// \`${dec.superclass.name}\`
 
 // create barrel file from all the files
 await writeFile(
@@ -99,7 +96,7 @@ ${(
         `enum ${item.name} {
 ${item.values
   .map((item, index) => {
-    return `  '${item.name}\', // ${item?.description ?? ''}`
+    return `  '${item.name}\', // ${'description' in item ? item.description : ''}`
   })
   .join(`\n`)}
 }`,

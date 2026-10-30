@@ -82,10 +82,4 @@ You create a toggle by providing an `is-on` attribute and a `label` attribute.
 <toggle-view label="Custom Label"></toggle-view>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
 <!-- #endregion post -->

@@ -28,10 +28,4 @@ declare global {
 
 <!-- #region post -->
 
-## Relationships
-
-### Conforms To
-
-`HTMLFormElement`
-
 <!-- #endregion post -->

@@ -20,10 +20,4 @@ declare global {
 
 <!-- #region post -->
 
-## Relationships
-
-### Conforms To
-
-`HTMLButtonElement`
-
 <!-- #endregion post -->

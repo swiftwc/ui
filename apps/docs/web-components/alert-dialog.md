@@ -26,10 +26,4 @@ declare global {
 
 <!-- #region post -->
 
-## Relationships
-
-### Conforms To
-
-`HTMLDialogElement`
-
 <!-- #endregion post -->

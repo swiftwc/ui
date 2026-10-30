@@ -89,10 +89,4 @@ You can assemble labeled content with by providing a `value` attribute and a `la
 </labeled-content>
 ```
 
-## Relationships
-
-### Conforms To
-
-`HTMLElement`
-
 <!-- #endregion post -->

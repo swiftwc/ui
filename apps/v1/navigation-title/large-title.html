@@ -12,7 +12,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>navigation-title</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="%VITE_STYLES_URL%" />
     <link rel="stylesheet" href="/dev.css" media="(prefers-contrast:more)" />
   </head>
   <body>
@@ -38,6 +38,6 @@
       </scroll-view>
     </navigation-stack>
 
-    <script type="module" src="/main.mts"></script>
+    <script type="module" src="%VITE_SCRIPT_URL%"></script>
   </body>
 </html>

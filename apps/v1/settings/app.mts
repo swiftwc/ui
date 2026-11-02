@@ -1,5 +1,8 @@
-import '../../../packages/ui/js/client'
-import '../main.mts'
+import 'virtual:@swiftwc/ui/client'
+import 'virtual:app-script'
+
+//import '../main.mts'
+// import '../../../packages/ui/js/client'
 
 // import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '../main.mts'
 //   import { startViewTransition, NavigationPath } from '../../../packages/ui/js/client'

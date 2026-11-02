@@ -1,0 +1,9 @@
+{
+  "extends": "../../.config/tsconfig.web.json",
+  "compilerOptions": {
+    "noEmit": true,
+    "experimentalDecorators": false
+  },
+  "include": ["**/*.ts", "**/*.mts", "vite-env.d.ts"],
+  "exclude": ["node_modules", "cdn", "public"]
+}

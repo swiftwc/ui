@@ -1,4 +1,6 @@
-import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from '../../packages/ui/js/client'
+import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from 'virtual:@swiftwc/ui/client'
+
+// import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from '../../packages/ui/js/client'
 
 document.addEventListener('commit', async (evt) => {
   console.log('commit!!!', evt.detail, evt.target)
@@ -677,7 +679,7 @@ document.body.addEventListener('click', async (evt) => {
 
 if ('serviceWorker' in navigator) {
   navigator.serviceWorker
-    .register('/sw.js')
+    .register('/sw.ts')
     .then(() => console.debug('⚡️ registered'))
     .catch(console.error)
 }

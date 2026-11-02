@@ -15,7 +15,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>welcome</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="%VITE_STYLES_URL%" />
 
     <template>
       <content-view>
@@ -355,8 +355,8 @@
       </content-view>
     </template>
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards } from '%VITE_SCRIPT_URL%'
+      import { startViewTransition, NavigationPath } from '../%VITE_CLIENT_URL%'
 
       import lottie from 'https://cdn.jsdelivr.net/npm/lottie-web@5/+esm'
       import { defineElement } from 'https://cdn.jsdelivr.net/npm/@lordicon/element@1/+esm'

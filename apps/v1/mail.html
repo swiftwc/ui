@@ -12,10 +12,10 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>mail</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="%VITE_STYLES_URL%" />
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards } from '/main.mts'
-      import { startViewTransition, NavigationPath } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards } from '%VITE_SCRIPT_URL%'
+      import { startViewTransition, NavigationPath } from '%VITE_CLIENT_URL%'
 
       // lifecycleObserver.addEventListener('pageshow', navHandler)
       // lifecycleObserver.addEventListener('pagehide', navHandler)

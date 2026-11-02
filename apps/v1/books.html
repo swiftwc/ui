@@ -15,7 +15,7 @@
     <link rel="manifest" href="/manifest.webmanifest" />
     <title>books</title>
     <meta name="theme-color" content="black" />
-    <link rel="stylesheet" href="/styles.css" />
+    <link rel="stylesheet" href="%VITE_STYLES_URL%" />
     <!-- <script>
       document.addEventListener('DOMContentLoaded', () => {
         console.log(111)
@@ -566,8 +566,8 @@
       </content-view>
     </template>
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/main.mts'
-      import { startViewTransition, NavigationPath, confirmationDialog, lifecycleObserver } from '../../packages/ui/js/client'
+      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '%VITE_SCRIPT_URL%'
+      import { startViewTransition, NavigationPath, confirmationDialog, lifecycleObserver } from '%VITE_CLIENT_URL%'
       // import { CSSStyleObserver } from '../../packages/ui/js/internal/class/css-style-observer'
 
       // lifecycleObserver.addEventListener('pageshow', (evt) => {

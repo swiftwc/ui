@@ -14,7 +14,7 @@
     <meta name="mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-capable" content="yes" />
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent" />
-    <link rel="manifest" href="/showcase/settings.webmanifest" />
+    <link rel="manifest" href="settings.webmanifest" />
     <title>settings</title>
     <meta name="theme-color" content="black" />
     <link rel="stylesheet" href="https://unpkg.com/@swiftwc/ui@canary/css" />
@@ -743,9 +743,12 @@
         </section-view>
       </list-view>
     </template>
+    <script type="importmap">
+      { "imports": { "@swiftwc/ui/client": "https://unpkg.com/@swiftwc/ui@canary/client" } }
+    </script>
     <script type="module">
-      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from '/showcase/main.mjs'
-      import { startViewTransition, NavigationPath } from 'https://unpkg.com/@swiftwc/ui@canary/client'
+      import { modifyDOMforwards, modifyDOMbackwards, queryTemplate } from './main.mjs'
+      import { startViewTransition, NavigationPath } from '@swiftwc/ui/client'
 
       document.addEventListener('click', async (evt) => {
         const menu = evt.target.closest('.custom-picker-menu')

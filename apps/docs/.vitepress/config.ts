@@ -4,6 +4,10 @@ import { dl } from '@mdit/plugin-dl'
 import { embed } from '@mdit/plugin-embed'
 import { icon } from '@mdit/plugin-icon'
 import { layout } from '@mdit/plugin-layout'
+import { existsSync, readFileSync, statSync } from 'node:fs'
+import { extname, join } from 'node:path'
+import { fileURLToPath } from 'node:url'
+import type { Plugin } from 'vite'
 import { defineConfig } from 'vitepress'
 import { groupIconMdPlugin, groupIconVitePlugin } from 'vitepress-plugin-group-icons'
 import { tabsMarkdownPlugin } from 'vitepress-plugin-tabs'
@@ -107,10 +111,49 @@ const links: Record<string, string> = {
   TableStyle: '/installation/html-data.json',
 }
 
+// Dev only: point the CDN URLs in public/ files at the local package build (packages/ui/generated).
+// public/ files bypass Vite's transforms, so resolve.alias can't reach them — rewrite them as they're served.
+const localSwiftwcPlugin = (): Plugin => {
+  const pkgDir = fileURLToPath(new URL('../../../packages/ui/', import.meta.url))
+  const targets: Record<string, string> = {
+    client: 'generated/client/index.js',
+    components: 'generated/components/index.js',
+    events: 'generated/events/index.js',
+    css: 'generated/css/index.css',
+  }
+  const cdnUrl = /https:\/\/unpkg\.com\/@swiftwc\/ui(?:@[\w.-]+)?\/(client|components|events|css)\b/g
+  const types: Record<string, string> = { '.html': 'text/html', '.mjs': 'text/javascript', '.js': 'text/javascript' }
+
+  return {
+    name: 'local-swiftwc',
+    apply: 'serve',
+    configureServer(server) {
+      const publicDir = server.config.publicDir
+      server.middlewares.use((req, res, next) => {
+        const pathname = decodeURIComponent((req.url ?? '/').split('?')[0])
+        const base = join(publicDir, pathname)
+        if (!base.startsWith(publicDir)) return next()
+        // Folder URLs need a trailing slash, or relative paths inside index.html resolve from the parent folder
+        if (!pathname.endsWith('/') && existsSync(join(base, 'index.html'))) {
+          res.writeHead(301, { Location: `${pathname}/${req.url!.slice(pathname.length)}` })
+          return res.end()
+        }
+        const file = [base, join(base, 'index.html'), `${base}.html`].find((f) => existsSync(f) && statSync(f).isFile())
+        if (!file || !types[extname(file)]) return next()
+
+        const source = readFileSync(file, 'utf8')
+        if (!source.includes('unpkg.com/@swiftwc/ui')) return next()
+        res.setHeader('Content-Type', types[extname(file)])
+        res.end(source.replace(cdnUrl, (_, subpath: string) => `/@fs${join(pkgDir, targets[subpath])}`))
+      })
+    },
+  }
+}
+
 // https://vitepress.dev/reference/site-config
 export default defineConfig({
   vite: {
-    plugins: [groupIconVitePlugin()],
+    plugins: [groupIconVitePlugin(), localSwiftwcPlugin()],
     define: { __SWIFTWC_VERSION__: JSON.stringify(pkg.version) },
   },
   transformPageData(pageData) {

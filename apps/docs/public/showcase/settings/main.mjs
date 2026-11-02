@@ -1,4 +1,4 @@
-import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition, } from 'https://unpkg.com/@swiftwc/ui@canary/client';
+import { alert, confirmationDialog, lifecycleObserver, NavigationPath, queryInsertPosition, startViewTransition } from '@swiftwc/ui/client';
 document.addEventListener('commit', async (evt) => {
     console.log('commit!!!', evt.detail, evt.target);
     // alert(event.detail)
@@ -598,7 +598,7 @@ document.body.addEventListener('click', async (evt) => {
 // })
 if ('serviceWorker' in navigator) {
     navigator.serviceWorker
-        .register('/sw.js')
+        .register('sw.mjs')
         .then(() => console.debug('⚡️ registered'))
         .catch(console.error);
 }

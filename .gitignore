@@ -5,6 +5,7 @@ node_modules
 
 # misc
 .DS_Store
+.eslintcache
 *.pem
 
 # debug
@@ -26,5 +27,8 @@ npm-debug.log*
 
 tsconfig.tsbuildinfo
 
-**/__screenshots__/
-.vitest-attachments/
+# vitest browser mode writes these only on test failure.
+__screenshots__
+.vitest-attachments
+
+CONTEXT.md

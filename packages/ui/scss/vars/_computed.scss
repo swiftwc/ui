@@ -1,0 +1,17 @@
+@use 'sass:math';
+@use '../functions';
+@use 'all' as *;
+
+$ipad-portrait-bp-max: #{functions.subtract-tiny($ipad-portrait-bp)};
+$ipad-portrait-bp-min: $ipad-portrait-bp;
+$ipad-landscape-bp-max: #{functions.subtract-tiny($ipad-landscape-bp)};
+$ipad-landscape-bp-min: $ipad-landscape-bp;
+
+$ipad-sheet-view-height: math.div($ipad-sheet-view-inline-size, $ipad-sheet-view-aspect-ratio); //4/3
+
+$nav-split-view-2col-bp-max: #{functions.subtract-tiny($nav-split-view-2col-bp)};
+$nav-split-view-2col-bp-min: $nav-split-view-2col-bp;
+$nav-split-view-3col-bp-max: #{functions.subtract-tiny($nav-split-view-3col-bp)};
+$nav-split-view-3col-bp-min: $nav-split-view-3col-bp;
+
+@debug $ipad-portrait-bp-max;

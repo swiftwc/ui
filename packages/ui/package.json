@@ -77,14 +77,12 @@
     "codegen:barrelize:morphdom": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/morphdom --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:decorators": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/decorators --exclude \".\\.test\\.ts\"",
     "codegen:barrelize:utils": "barrelsby --noHeader --delete --singleQuotes --noSemicolon --exportDefault --directory ./js/internal/utils --exclude \".\\.test\\.ts\"",
-    "codegen:barrelize:scss": "node scripts/make-barrels.mts ./scss/utils ./scss/transitions ./scss/mixins ./scss/final ./scss/base --partial && prettier ./scss/ --write",
     "verify": "npm run codegen && npm run lint:types && npm run format && vitest run --config .config/vitest/vitest.config.ts",
     "lint": "prettier . --check",
     "lint:types": "tsc --noEmit && sass --no-source-map scss/index.scss > /dev/null",
     "lint:types:scripts": "tsc -p tsconfig.scripts.json --noEmit",
     "format": "prettier . --write",
-    "test": "vitest --config .config/vitest/vitest.config.ts",
-    "version:pkg": "npm version $npm_config_bump --no-git-tag-version --preid=dev"
+    "test": "vitest --config .config/vitest/vitest.config.ts"
   },
   "devDependencies": {
     "@babel/core": "^8.0.9",
@@ -94,7 +92,9 @@
     "doctrine": "^3.0.0",
     "es-toolkit": "^1.53.0",
     "playwright": "^1.64.1",
+    "postcss": "^8.5.32",
     "sass": "^1.98.0",
+    "sass-true": "^10.1.0",
     "ts-morph": "^28.0.0",
     "tsx": "^4.21.0",
     "vitest": "^4.1.12"

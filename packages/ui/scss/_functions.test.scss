@@ -1,0 +1,37 @@
+@use 'pkg:sass-true' as *;
+@use 'functions';
+
+@include describe('str-replace') {
+  @include it('replaces every occurrence') {
+    @include assert-equal(functions.str-replace('minmax(0,1fr) 1fr minmax(0,1fr)', 'minmax(0,1fr)', 'spacer'), 'spacer 1fr spacer');
+  }
+  @include it('removes matches when no replacement is given') {
+    @include assert-equal(functions.str-replace('a-b-c', '-'), 'abc');
+  }
+  @include it('returns the string unchanged when nothing matches') {
+    @include assert-equal(functions.str-replace('1fr auto', 'minmax(0,1fr)', 'spacer'), '1fr auto');
+  }
+}
+
+@include describe('subtract-tiny') {
+  @include it('subtracts 0.01px from px values') {
+    @include assert-equal(functions.subtract-tiny(768px), 767.99px);
+  }
+  @include it('subtracts 0.0001rem from rem values') {
+    @include assert-equal(functions.subtract-tiny(48rem), 47.9999rem);
+  }
+}
+
+@include describe('map-to-query') {
+  @include it('joins a map into a query string') {
+    @include assert-equal(
+      functions.map-to-query(
+        (
+          a: 1,
+          b: 2,
+        )
+      ),
+      'b=2&a=1'
+    );
+  }
+}

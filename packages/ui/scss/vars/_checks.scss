@@ -1,0 +1,9 @@
+@use 'all' as *;
+
+@if ($ipad-portrait-bp < $ipad-sheet-view-inline-size) {
+  @warn "$ipad-sheet-view-inline-size should not be larger than $ipad-portrait-bp! Breaks centering";
+}
+
+@if ($nav-split-view-3col-bp < $nav-split-view-2col-bp) {
+  @warn "$nav-split-view-2col-bp should not be larger than $nav-split-view-3col-bp!";
+}

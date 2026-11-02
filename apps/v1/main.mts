@@ -595,8 +595,8 @@ document.body.addEventListener('click', async (evt) => {
                         
                         <p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><p>...</p><input type="text" /><p>...</p><p>...</p><p>...</p>
                       </v-stack>
-                      <label-view slot="top-bar-principal"><span>ghjh${controller.querySelectorAll('scroll-view').length}</span></label-view>
-                      <label-view slot="bottom-bar-principal"><span>ghjh${controller.querySelectorAll('scroll-view').length}</span></label-view>
+                      <label-view slot="top-bar-principal"><span>principal${controller.querySelectorAll('scroll-view').length}</span></label-view>
+                      <label-view slot="bottom-bar-principal"><span>principal${controller.querySelectorAll('scroll-view').length}</span></label-view>
                     </scroll-view>
                     <tool-bar>
                       <tool-bar-item tint="red" slot="top-bar-leading"><button type="button" tabindex="0"><label-view><image-view slot="icon" system-name="smiley"></image-view></label-view></button></tool-bar-item>

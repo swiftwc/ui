@@ -1,0 +1,5 @@
+@forward 'all';
+
+@forward 'computed';
+
+@use 'checks'; // warnings only, nothing to forward

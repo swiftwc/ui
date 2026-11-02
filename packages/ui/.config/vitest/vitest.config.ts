@@ -39,12 +39,27 @@ export default defineConfig({
   test: {
     // environment: 'happy-dom',
     setupFiles: [resolve(import.meta.dirname, 'vitest.setup.ts')],
-    include: ['**/*.test.ts'],
-    browser: {
-      enabled: true,
-      provider: playwright(),
-      headless: true,
-      instances: [{ browser: 'chromium' }],
-    },
+    projects: [
+      {
+        extends: true,
+        test: {
+          name: 'browser',
+          include: ['js/**/*.test.ts'],
+          browser: {
+            enabled: true,
+            provider: playwright(),
+            headless: true,
+            instances: [{ browser: 'chromium' }],
+          },
+        },
+      },
+      {
+        test: {
+          name: 'scss',
+          include: ['scss/**/*.test.ts'],
+          environment: 'node',
+        },
+      },
+    ],
   },
 })

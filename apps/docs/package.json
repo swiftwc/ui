@@ -3,10 +3,10 @@
   "name": "@swiftwc/docs",
   "type": "module",
   "scripts": {
-    "codegen": "npm run codegen:barrelize && npm run codegen:demos",
+    "codegen": "npm run codegen:barrelize && npm run codegen:src",
     "codegen:barrelize": "node scripts/make-barrels.mts && prettier ./web-components --write",
-    "codegen:demos": "node -e \"for(const f of fs.globSync('public/demos/**/*.mjs'))fs.rmSync(f)\" && tsc -p tsconfig.demos.json && prettier ./public/demos --write",
-    "codegen:demos:watch": "tsc -p tsconfig.demos.json --watch",
+    "codegen:src": "node -e \"for(const f of fs.globSync('src/public/**/*.mts'))fs.rmSync(f.slice(4).replace(/\\.mts$/,'.mjs'),{force:true})\" && tsc -p src && prettier ./public/demos ./public/showcase --write",
+    "codegen:src:watch": "tsc -p src --watch",
     "build": "vitepress build",
     "preview": "vitepress preview",
     "start": "vitepress dev",

@@ -1,0 +1,10 @@
+{
+  "extends": "../../../.config/tsconfig.web.json",
+  "compilerOptions": {
+    "rootDir": ".",
+    "outDir": "..",
+    "rewriteRelativeImportExtensions": true
+  },
+  "include": ["public/**/*.mts"],
+  "exclude": []
+}

@@ -3,9 +3,17 @@ import { debug, frame, onoff, prop, sleep } from '../internal/utils'
 import { Snapshot } from '../snapshot'
 import { type ScrollView } from './scroll-view'
 
+const NO_KEYBOARD_INPUT_TYPES = new Set(['button', 'checkbox', 'color', 'date', 'datetime-local', 'file', 'hidden', 'image', 'month', 'radio', 'range', 'reset', 'submit', 'time', 'week'])
+
+const getDeepActiveElement = (root: Document | ShadowRoot = document): Element | null => {
+  const el = root.activeElement
+
+  return el?.shadowRoot?.activeElement ? getDeepActiveElement(el.shadowRoot) : el
+}
+
 /**
- * BUG: Safari on IOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
- * So we live with a pescy body-scrollbar that shows up on resize on desktops.
+ * BUG: Safari on iOS reports inaccurate innerHeight (which is what we really want) on orientationchange.
+ * So we live with a pesky body-scrollbar that shows up on resize on desktops.
  *
  * @summary Required component, used to handle the virtual keyboard on touch devices.
  *
@@ -16,12 +24,14 @@ export class VKeyboard extends HTMLElement {
    * Change like this:
    * document.querySelector('v-keyboard').shouldKeyboardBeOpen = () => document.activeElement.tagName === 'INPUT'
    */
-  #shouldKeyboardBeOpenCallback = () => {
-    return 'INPUT' === document.activeElement?.tagName && 'text' === document.activeElement?.getAttribute('type')
-  }
+  #shouldKeyboardBeOpenCallback: () => boolean = () => {
+    const el = getDeepActiveElement()
 
-  constructor() {
-    super()
+    if (!(el instanceof HTMLElement) || 'none' === el.inputMode) return false
+    if (el instanceof HTMLInputElement) return !el.readOnly && !NO_KEYBOARD_INPUT_TYPES.has(el.type)
+    if (el instanceof HTMLTextAreaElement) return !el.readOnly
+
+    return el.isContentEditable
   }
 
   disconnectedCallback() {
@@ -50,21 +60,25 @@ export class VKeyboard extends HTMLElement {
 
     this.#handleVisualViewportResize()
 
-    //
-
     CleanupRegistry.register(this, onoff('focusin', this.#handleBodyFocusin, document.body).on())
 
-    Snapshot.waitReady.then(() => {
-      document.documentElement.style.setProperty('--root-font-size', parseFloat(self.getComputedStyle(document.documentElement).fontSize).toFixed(5))
+    void Snapshot.waitReady.then(() => {
+      if (!this.isConnected) return // Element may have been removed while waiting; registering now would leak the listener past `unregister`.
+
+      this.#syncRootFontSize()
 
       CleanupRegistry.register(this, onoff('transitionrun', this.#handleDocumentTransitionrun as EventListener, document.documentElement).on())
     })
   }
 
+  #syncRootFontSize() {
+    prop('--root-font-size', parseFloat(self.getComputedStyle(document.documentElement).fontSize).toFixed(5), document.documentElement)
+  }
+
   #handleDocumentTransitionrun = (evt: TransitionEvent) => {
     if (evt.target !== document.documentElement || 'font-size' !== evt.propertyName) return
 
-    document.documentElement.style.setProperty('--root-font-size', parseFloat(self.getComputedStyle(document.documentElement).fontSize).toFixed(5))
+    this.#syncRootFontSize()
   }
 
   #handleWindowScroll = () => {
@@ -75,11 +89,13 @@ export class VKeyboard extends HTMLElement {
     const dvh = self.visualViewport?.height ?? 0,
       fullLvh = this.offsetHeight
 
-    const diff = Math.abs(self.outerHeight - (this.#shouldKeyboardBeOpenCallback() ? dvh : fullLvh))
+    const diff = Math.abs(self.outerHeight - (this.#shouldKeyboardBeOpenCallback() ? dvh : fullLvh)),
+      isOpen = 30 < diff,
+      height = `${isOpen ? dvh : fullLvh}px`
 
-    prop('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`, document.documentElement) //document.documentElement.style.setProperty('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
-    prop('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
-    prop('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
+    prop('--100lvh', height, document.documentElement) //document.documentElement.style.setProperty('--100lvh', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    prop('--keyboard-inset-top', height, document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-top', 30 < diff ? `${dvh}px` : `${fullLvh}px`)
+    prop('--keyboard-inset-height', isOpen ? `${diff}px` : '0px', document.documentElement) //document.documentElement.style.setProperty('--keyboard-inset-height', 30 < diff ? `${diff}px` : `0px`)
 
     self.scrollTo(0, 0)
   }
@@ -103,11 +119,11 @@ export class VKeyboard extends HTMLElement {
   }
 
   #ifKeyboardScrollIntoActiveElement = () => {
-    if (!this.#shouldKeyboardBeOpenCallback() || !document.activeElement) return
+    const el = document.activeElement
 
-    const parent = document.activeElement?.closest<ScrollView>('scroll-view')
+    if (!el || !this.#shouldKeyboardBeOpenCallback()) return
 
-    parent?.centerScrollToElement?.(document.activeElement)
+    el.closest<ScrollView>('scroll-view')?.centerScrollToElement?.(el)
   }
 
   set shouldKeyboardBeOpen(fn: () => boolean) {

@@ -30,14 +30,18 @@
     "./emberjs/en": "./generated/emberjs/en.js"
   },
   "scripts": {
-    "lint:types": "tsc --noEmit",
-    "prebuild": "rm -rf generated",
-    "build": "npm run build:ts",
+    "build": "npm run clean && npm run build:ts",
     "build:ts": "tsc",
-    "build:ts:watch": "npm run prebuild && tsc --watch",
+    "build:ts:watch": "tsc --watch",
     "prepublishOnly": "npm run build",
-    "lint": "prettier . --check",
-    "format": "prettier . --write"
+    "clean": "rm -rf generated",
+    "lint": "npm run lint:types && npm run lint:js && npm run lint:format",
+    "lint:fix": "npm run lint:js:fix && npm run format",
+    "lint:types": "tsc --noEmit",
+    "lint:js": "eslint . --cache",
+    "lint:js:fix": "eslint . --cache --fix",
+    "lint:format": "prettier . --cache --check",
+    "format": "prettier . --cache --write"
   },
   "devDependencies": {
     "@typescript-eslint/utils": "^8.59.2"

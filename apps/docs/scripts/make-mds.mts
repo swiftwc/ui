@@ -80,7 +80,7 @@ ${(await Promise.all(data.modules.map((item, index) => `#### [${item.declaration
 
 // create barrel file from all the files
 await writeFile(
-  resolve(import.meta.dirname, `../partials/html-data-value-sets.md`),
+  resolve(import.meta.dirname, `../generated/html-data-value-sets.md`),
   `<!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
 ${(

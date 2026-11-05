@@ -1,12 +1,9 @@
 <!-- !! AUTO GENERATED DON’T TOUCH !! -->
 
-
 <div class="relative group">
 <input type="checkbox" id="show-more0" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum Font {
@@ -24,7 +21,6 @@ enum Font {
   'extra-large-title', // The font used extra large titles
   'extra-large-title2', // The font used second level extra large titles
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -37,15 +33,10 @@ enum Font {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more1" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum Spacing {
@@ -101,7 +92,6 @@ enum Spacing {
   '49', // 4.9rem
   '50', // 5rem
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -114,15 +104,10 @@ enum Spacing {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more2" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum Tint {
@@ -133,7 +118,6 @@ enum Tint {
   orange, // System `orange` color
   purple, // System `purple` color
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -146,15 +130,10 @@ enum Tint {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more3" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum Foreground {
@@ -188,7 +167,6 @@ enum Foreground {
   'orange.quinary', // Applies the system quinary orange color (`--orange5`)
   'purple.quinary', // Applies the system quinary purple color (`--purple5`)
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -201,26 +179,20 @@ enum Foreground {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more4" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
-
-
 ```ts
 enum InlineAlignment {
   leading, // Applies `justify-items: start; justify-content: start;` rules
-  'leading fill', // Applies `justify-items: start; justify-content: stretch;` rules
+  'leading-fill', // Applies `justify-items: start; justify-content: stretch;` rules
   center, // Applies `justify-items: center; justify-content: center;` rules
   trailing, // Applies `justify-items: end; justify-content: end;` rules
   fill, // Applies `justify-items: stretch; justify-content: stretch;` rules
   'space-between', // Applies `justify-content: space-between;` rules
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -233,26 +205,20 @@ enum InlineAlignment {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more5" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
-
-
 ```ts
 enum BlockAlignment {
   leading, // Applies `align-items: start; align-content: start;` rules
-  'leading fill', // Applies `align-items: start; align-content: stretch;` rules
+  'leading-fill', // Applies `align-items: start; align-content: stretch;` rules
   center, // Applies `align-items: center; align-content: center;` rules
   trailing, // Applies `align-items: end; align-content: end;` rules
   fill, // Applies `align-items: stretch; align-content: stretch;` rules
   'space-between', // Applies `align-content: space-between;` rules
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -265,24 +231,18 @@ enum BlockAlignment {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more6" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum InlinePlacement {
   fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: stretch start; place-content: stretch start;` rules
   'fill leading', // Applies `place-items: start stretch; place-content: start stretch;` rules
-  'fill space-between', // Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules
+  'fill space-between', // Applies `place-content: space-between stretch; justify-items: stretch;` rules
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -295,24 +255,18 @@ enum InlinePlacement {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more7" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum BlockPlacement {
   fill, // Applies `place-items: stretch; place-content: stretch;` rules
   'leading fill', // Applies `place-items: start stretch; place-content: start stretch;` rules
   'fill leading', // Applies `place-items: stretch start; place-content: stretch start;` rules
-  'space-between fill', // Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules
+  'space-between fill', // Applies `place-content: space-between stretch; justify-items: stretch;` rules
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -325,15 +279,10 @@ enum BlockPlacement {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more8" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum PickerStyle {
@@ -345,7 +294,6 @@ enum PickerStyle {
   palette,
   tabs,
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -358,15 +306,10 @@ enum PickerStyle {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more9" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum LabelStyle {
@@ -374,7 +317,6 @@ enum LabelStyle {
   'title-only',
   'title-and-icon',
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -387,15 +329,10 @@ enum LabelStyle {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more10" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum ListStyle {
@@ -403,7 +340,6 @@ enum ListStyle {
   'inset-grouped',
   sidebar,
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -416,15 +352,10 @@ enum ListStyle {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more11" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum FormStyle {
@@ -432,7 +363,6 @@ enum FormStyle {
   'inset-grouped',
   sidebar,
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -445,21 +375,15 @@ enum FormStyle {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more12" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
-
-
 ```ts
 enum TableStyle {
   inset,
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -472,15 +396,10 @@ enum TableStyle {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more13" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum ControlSize {
@@ -489,7 +408,6 @@ enum ControlSize {
   small, // A control version that is proportionally smaller size for space-constrained views
   large, // A control version that is prominently sized
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -502,15 +420,10 @@ enum ControlSize {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more14" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum Template {
@@ -563,7 +476,6 @@ enum Template {
   'repeat(2,auto) spacer repeat(2,auto)', // Applies a `repeat(2, auto) minmax(0, 1fr) repeat(2, auto)` grid-template to the main-axis
   'auto spacer auto auto', // Applies a `auto minmax(0, 1fr) auto auto` grid-template to the main-axis
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -576,15 +488,10 @@ enum Template {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more15" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
-
-
 
 ```ts
 enum FrameInlineLength {
@@ -792,7 +699,6 @@ enum FrameInlineLength {
   '99cqi', // 99cqi
   '100cqi', // 100cqi
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -805,21 +711,15 @@ enum FrameInlineLength {
 
 </div>
 
-
-
-
 <div class="relative group">
 <input type="checkbox" id="show-more16" class="peer hidden">
 
 <div class="relative max-h-40 overflow-hidden peer-checked:max-h-none">
 
-
-
 ```ts
 enum BackgroundStyle {
   initial, // Reverts any background styles applied to this element, usually by context-aware rules like for example the inset-grouped-list styling applied to all descendants of current view
 }
-
 ```
 
 <div class="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-white to-transparent group-has-checked:hidden"></div>
@@ -831,6 +731,3 @@ enum BackgroundStyle {
 <label for="show-more16" class="hidden group-has-checked:block absolute -bottom-0 left-1/2 -translate-x-1/2 cursor-pointer rounded-full border border-gray-300 bg-white px-4 py-1 text-sm font-medium text-gray-700 shadow-sm select-none z-1">Show less</label>
 
 </div>
-
-
-

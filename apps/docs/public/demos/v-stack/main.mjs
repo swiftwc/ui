@@ -34,3 +34,4 @@ switch (url.searchParams.get('case')) {
             ?.classList.add(`h-50`, `before:content-['']`, `before:absolute`, `before:left-[-2px]`, `before:top-0`, `before:bottom-0`, `before:w-[2px]`, `before:bg-blue-500`, `after:content-['']`, `after:absolute`, `after:right-[-2px]`, `after:top-0`, `after:bottom-0`, `after:w-[2px]`, `after:bg-blue-500`);
         break;
 }
+export {};

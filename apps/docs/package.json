@@ -6,10 +6,10 @@
     "build": "vitepress build",
     "preview": "vitepress preview",
     "start": "vitepress dev",
-    "codegen": "npm run barrelize && npm run codegen:src",
+    "codegen": "npm run codegen:pages && npm run codegen:src",
     "codegen:src": "node -e \"for(const f of fs.globSync('src/public/**/*.mts'))fs.rmSync(f.slice(4).replace(/\\.mts$/,'.mjs'),{force:true})\" && tsc -p src && prettier ./public/demos ./public/showcase --write",
     "codegen:src:watch": "true",
-    "barrelize": "node scripts/make-barrels.mts && prettier ./web-components --write",
+    "codegen:pages": "node scripts/make-mds.mts && prettier ./web-components ./generated --write",
     "lint": "npm run lint:format",
     "lint:format": "prettier . --cache --check",
     "format": "prettier . --cache --write"

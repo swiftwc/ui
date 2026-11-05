@@ -6,7 +6,7 @@ The html-data.json file holds global configurations for the SwiftWC library.
 
 ## Value Sets
 
-<!--@include: ../partials/html-data-value-sets.md-->
+<!--@include: ../generated/html-data-value-sets.md-->
 
 ## See also
 

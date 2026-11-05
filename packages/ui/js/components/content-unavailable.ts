@@ -1,8 +1,8 @@
-import { I18n } from '../i18n'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug, onoff } from '../internal/utils'
-import { html } from '../tpl'
+import { I18n } from '../i18n/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug, onoff } from '../internal/utils/index.ts'
+import { html } from '../tpl/index.ts'
 
 /**
  * @summary A message with a title and extra information that you show when part of your app can’t be used.

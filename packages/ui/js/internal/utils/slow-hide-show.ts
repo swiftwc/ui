@@ -1,4 +1,4 @@
-import frame from './frame'
+import frame from './frame.ts'
 
 export default function (to: 'show' | 'hide', el?: HTMLElement) {
   const transcleanup = ({ propertyName }: TransitionEvent) => {

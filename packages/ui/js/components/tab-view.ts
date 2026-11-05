@@ -1,11 +1,11 @@
-import type { PagerevealEvent, TabBeforeDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail, TabViewDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { NavigationPath } from '../internal/class/navigation-path'
-import { cssTime, debounce, debug, frame, onoff, siblings, timeout } from '../internal/utils'
-import { Snapshot } from '../snapshot'
-import { type NavigationSplitView } from './navigation-split-view'
-import { type NavigationStack } from './navigation-stack'
+import type { PagerevealEvent, TabBeforeDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail, TabViewDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { CSSStyleObserver } from '../internal/class/css-style-observer.ts'
+import { NavigationPath } from '../internal/class/navigation-path.ts'
+import { cssTime, debounce, debug, frame, onoff, siblings, timeout } from '../internal/utils/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
+import { type NavigationSplitView } from './navigation-split-view.ts'
+import { type NavigationStack } from './navigation-stack.ts'
 
 const TAB_BAR_PLACEMENTS = ['bottom-bar', 'ornament', 'sidebar', 'top-bar'] as const
 

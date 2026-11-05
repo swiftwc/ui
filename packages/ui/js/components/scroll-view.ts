@@ -1,12 +1,12 @@
-import { lifecycleObserver } from '../buses'
-import type { BeforetabswapEvent, PageShowHideDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug, frame, onoff, slowHideShow } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html } from '../tpl'
-import { type TabView } from './tab-view'
+import { lifecycleObserver } from '../buses/index.ts'
+import type { BeforetabswapEvent, PageShowHideDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton.ts'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug, frame, onoff, slowHideShow } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html } from '../tpl/index.ts'
+import { type TabView } from './tab-view.ts'
 
 const observers = new ResizeObserverSingleton()
 

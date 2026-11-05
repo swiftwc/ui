@@ -1,4 +1,4 @@
-import { Snapshot } from '../../snapshot'
+import { Snapshot } from '../../snapshot/index.ts'
 
 export class MutationObserverSet {
   #observers = new Map<Element, MutationObserver>()

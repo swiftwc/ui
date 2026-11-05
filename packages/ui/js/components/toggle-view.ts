@@ -1,11 +1,11 @@
-import type { ToggleChangeDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { FormAssociatedBase } from '../internal/class/form-associated-base'
-import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { internals, shadowRoot, template } from '../internal/decorators'
-import { $, debug, kebabCase, onoff, touchGlass } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html } from '../tpl'
+import type { ToggleChangeDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { FormAssociatedBase } from '../internal/class/form-associated-base.ts'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set.ts'
+import { internals, shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug, kebabCase, onoff, touchGlass } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html } from '../tpl/index.ts'
 
 const toggleStyles = ['switch', 'button'] as const
 

@@ -1,7 +1,7 @@
-import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug } from '../internal/utils'
-import { html } from '../tpl'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton.ts'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug } from '../internal/utils/index.ts'
+import { html } from '../tpl/index.ts'
 
 const observers = new ResizeObserverSingleton()
 

@@ -1,8 +1,8 @@
-import { alertDialog } from '../buses'
-import type { AlertReturnDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff, touchGlass } from '../internal/utils'
-import { DialogBase } from '../namespace-browser/base'
+import { alertDialog } from '../buses/index.ts'
+import type { AlertReturnDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { DialogBase } from '../namespace-browser/base.ts'
 
 /**
  * @summary A dialog that shows a message. Use it from the client module like `void alert('Save failed.')`.

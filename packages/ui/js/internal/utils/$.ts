@@ -1,5 +1,5 @@
-import { renderToString } from '../../morphdom'
-import { type TemplateResult } from '../../tpl'
+import { renderToString } from '../../morphdom/index.ts'
+import { type TemplateResult } from '../../tpl/index.ts'
 
 const DEFAULT = '>1' as const
 

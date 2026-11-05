@@ -5,7 +5,7 @@ import { resolve } from 'node:path'
 import * as prettier from 'prettier'
 import * as sass from 'sass'
 import { ArrayLiteralExpression, ArrowFunction, FunctionExpression, Project, PropertyDeclaration, SyntaxKind, Node as TSMNode, TypeFormatFlags } from 'ts-morph'
-import { kebabCase } from '../js/internal/utils/index.js'
+import kebabCase from '../js/internal/utils/kebab-case.ts'
 
 const range = (n: number, fmt = (i: number) => String(i)) => Array.from({ length: n }, (_, i) => fmt(i)),
   leadingComment = (node: { getLeadingCommentRanges(): { getText(): string }[] }) => node.getLeadingCommentRanges().at(0)?.getText().trim(),

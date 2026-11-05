@@ -1,4 +1,4 @@
-import { Snapshot } from '../../snapshot'
+import { Snapshot } from '../../snapshot/index.ts'
 
 export class ResizeObserverSingleton {
   #observers = new WeakMap<Element, (entry: ResizeObserverEntry) => void>()

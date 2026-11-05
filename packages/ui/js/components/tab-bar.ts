@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff, touchGlass } from '../internal/utils'
-import { DialogBase } from '../namespace-browser/base'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { DialogBase } from '../namespace-browser/base.ts'
 
 /**
  * @summary A container view that groups tab-items together along the top or bottom of the screen.

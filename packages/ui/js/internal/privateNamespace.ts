@@ -1,8 +1,8 @@
-import type * as Components from '../components'
-import type { PageRevealSwapDetail } from '../events'
-import { NavigationPath } from '../internal/class/navigation-path'
-import { debug } from '../internal/utils'
-import { Snapshot } from '../snapshot'
+import type * as Components from '../components/index.ts'
+import type { PageRevealSwapDetail } from '../events/index.ts'
+import { NavigationPath } from '../internal/class/navigation-path.ts'
+import { debug } from '../internal/utils/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
 
 type TransitionType = 'forwards' | 'backwards' | 'reload'
 

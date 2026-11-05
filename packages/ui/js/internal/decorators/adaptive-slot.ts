@@ -1,6 +1,6 @@
-import { Snapshot } from '../../snapshot'
-import { CleanupRegistry } from '../class/cleanup-registry'
-import { debug, onoff } from '../utils'
+import { Snapshot } from '../../snapshot/index.ts'
+import { CleanupRegistry } from '../class/cleanup-registry.ts'
+import { debug, onoff } from '../utils/index.ts'
 
 export default function (filter?: (el: HTMLElement) => boolean) {
   const handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, { type, matches }) => {

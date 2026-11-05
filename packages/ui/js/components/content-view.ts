@@ -1,4 +1,4 @@
-import { debug } from '../internal/utils'
+import { debug } from '../internal/utils/index.ts'
 
 /**
  * @summary A container view that wraps a scroll view, marking it as a screen your app can navigate to.

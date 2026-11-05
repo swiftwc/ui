@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { cssTime, debug, onoff, timeout } from '../internal/utils'
-import { DetailsBase } from '../namespace-browser/base'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { cssTime, debug, onoff, timeout } from '../internal/utils/index.ts'
+import { DetailsBase } from '../namespace-browser/base.ts'
 
 const toggleTimers = new WeakMap<HTMLDetailsElement, ReturnType<typeof timeout>>()
 

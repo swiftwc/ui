@@ -1,5 +1,5 @@
-import { NavigationView } from '../internal/class/navigation-view'
-import { debug } from '../internal/utils'
+import { NavigationView } from '../internal/class/navigation-view.ts'
+import { debug } from '../internal/utils/index.ts'
 
 /**
  * @summary A container view that shows a main screen and lets the user open other screens on top of it.

@@ -1,5 +1,5 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff } from '../internal/utils/index.ts'
 
 export class StickyContainer extends HTMLElement {
   constructor() {

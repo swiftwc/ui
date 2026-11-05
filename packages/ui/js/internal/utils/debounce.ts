@@ -1,4 +1,4 @@
-import timeout from './timeout'
+import timeout from './timeout.ts'
 
 export default function <F extends (...args: any[]) => any>(fn: F, delay = 300, immediate = false): (...args: Parameters<F>) => void {
   const { next, pending } = timeout()

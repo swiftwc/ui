@@ -1,4 +1,4 @@
-import { debug } from '../internal/utils'
+import { debug } from '../internal/utils/index.ts'
 
 export class HDivider extends HTMLElement {
   constructor() {

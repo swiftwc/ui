@@ -1,5 +1,5 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, listActive, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, listActive, onoff } from '../internal/utils/index.ts'
 
 /**
  * @summary A container view that arranges rows of data in a single column, optionally letting the user select one or more of them.

@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { adaptiveSlot } from '../internal/decorators'
-import { debug } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { adaptiveSlot } from '../internal/decorators/index.ts'
+import { debug } from '../internal/utils/index.ts'
 
 /**
  * @summary A container view that groups items together in the toolbar or navigation bar.

@@ -1,7 +1,7 @@
-import { lifecycleObserver } from '../../buses'
-import type { TabBeforeDetail, TabDetail } from '../../events'
-import { CleanupRegistry } from '../../internal/class/cleanup-registry'
-import { debug, frame, onoff } from '../utils'
+import { lifecycleObserver } from '../../buses/index.ts'
+import type { TabBeforeDetail, TabDetail } from '../../events/index.ts'
+import { CleanupRegistry } from '../../internal/class/cleanup-registry.ts'
+import { debug, frame, onoff } from '../utils/index.ts'
 
 export class NavigationView extends HTMLElement {
   static get observedAttributes() {

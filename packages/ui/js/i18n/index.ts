@@ -1,4 +1,4 @@
-import { el, en } from './locales'
+import { el, en } from './locales/index.ts'
 
 type LocaleInput = Intl.UnicodeBCP47LocaleIdentifier | Intl.Locale
 

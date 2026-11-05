@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton'
-import { debounce, debug, onoff } from '../internal/utils'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton.ts'
+import { debounce, debug, onoff } from '../internal/utils/index.ts'
 
 const observers = new ResizeObserverSingleton()
 

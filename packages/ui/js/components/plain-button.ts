@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff } from '../internal/utils'
-import { ButtonBase } from '../namespace-browser/base'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff } from '../internal/utils/index.ts'
+import { ButtonBase } from '../namespace-browser/base.ts'
 
 export class PlainButton extends ButtonBase {
   constructor() {

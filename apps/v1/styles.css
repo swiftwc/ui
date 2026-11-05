@@ -8449,8 +8449,8 @@
     justify-items: start;
     justify-content: start;
   }
-  h-stack[distribution="leading fill"],
-  v-flex-stack[distribution="leading fill"] {
+  h-stack[distribution=leading-fill],
+  v-flex-stack[distribution=leading-fill] {
     justify-items: start;
     justify-content: stretch;
   }
@@ -8478,8 +8478,8 @@
     align-items: start;
     align-content: start;
   }
-  h-stack[alignment="leading fill"],
-  v-flex-stack[alignment="leading fill"] {
+  h-stack[alignment=leading-fill],
+  v-flex-stack[alignment=leading-fill] {
     align-items: start;
     align-content: stretch;
   }
@@ -8519,17 +8519,16 @@
   }
   h-stack[placement="fill space-between"],
   v-flex-stack[placement="fill space-between"] {
-    align-content: space-between;
+    place-content: space-between stretch;
     justify-items: stretch;
-    justify-content: stretch;
   }
   :where(v-stack[distribution=leading],
   h-flex-stack[distribution=leading]) {
     align-items: start;
     align-content: start;
   }
-  :where(v-stack[distribution="leading fill"],
-  h-flex-stack[distribution="leading fill"]) {
+  :where(v-stack[distribution=leading-fill],
+  h-flex-stack[distribution=leading-fill]) {
     align-items: start;
     align-content: stretch;
   }
@@ -8557,8 +8556,8 @@
     justify-items: start;
     justify-content: start;
   }
-  :where(v-stack[alignment="leading fill"],
-  h-flex-stack[alignment="leading fill"]) {
+  :where(v-stack[alignment=leading-fill],
+  h-flex-stack[alignment=leading-fill]) {
     justify-items: start;
     justify-content: stretch;
   }
@@ -8598,9 +8597,8 @@
   }
   :where(v-stack[placement="space-between fill"],
   h-flex-stack[placement="space-between fill"]) {
-    align-content: space-between;
+    place-content: space-between stretch;
     justify-items: stretch;
-    justify-content: stretch;
   }
   :where(v-stack[spacing="0"],
   h-stack[spacing="0"],

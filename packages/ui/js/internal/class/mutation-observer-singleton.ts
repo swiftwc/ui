@@ -1,4 +1,4 @@
-import { Snapshot } from '../../snapshot'
+import { Snapshot } from '../../snapshot/index.ts'
 
 export class MutationObserverSingleton {
   #observers = new WeakMap<Node, (entry: MutationRecord) => void>()

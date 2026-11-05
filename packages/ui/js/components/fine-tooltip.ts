@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { $, debug, onoff } from '../internal/utils'
-import { html } from '../tpl'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { $, debug, onoff } from '../internal/utils/index.ts'
+import { html } from '../tpl/index.ts'
 
 /**
  * @summary A tooltip that shows an unobtrusive helpful message on pointer:fine screens. Use it by adding a `help` attribute to any element.

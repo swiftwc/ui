@@ -3,5 +3,5 @@
   "compilerOptions": {
     "noEmit": true
   },
-  "include": [".", "js/internal/utils"]
+  "include": [".", "js/internal/utils/kebab-case.ts"]
 }

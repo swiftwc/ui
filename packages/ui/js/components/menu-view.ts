@@ -1,8 +1,8 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug, onoff, touchGlass } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html } from '../tpl'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html } from '../tpl/index.ts'
 
 /**
  * @summary A control that opens a menu of actions.

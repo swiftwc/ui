@@ -1,7 +1,7 @@
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html } from '../tpl'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html } from '../tpl/index.ts'
 
 /**
  * @summary A view that labels items with an icon and a title.

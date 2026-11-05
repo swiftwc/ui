@@ -1,8 +1,8 @@
-import { microtaskOnConnected } from '../internal/decorators'
-import { debug } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html } from '../tpl'
-import type { ScrollView } from './scroll-view'
+import { microtaskOnConnected } from '../internal/decorators/index.ts'
+import { debug } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html } from '../tpl/index.ts'
+import type { ScrollView } from './scroll-view.ts'
 
 /**
  * @summary A container view.

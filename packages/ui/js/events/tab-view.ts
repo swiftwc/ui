@@ -1,5 +1,5 @@
-import { type NavigationSplitView, type NavigationStack } from '../components'
-import { type TabBarPlacement } from '../components/tab-view'
+import { type NavigationSplitView, type NavigationStack } from '../components/index.ts'
+import { type TabBarPlacement } from '../components/tab-view.ts'
 
 export type TabBeforeDetail = {
   tag: string

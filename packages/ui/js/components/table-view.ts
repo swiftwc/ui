@@ -1,12 +1,12 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { shadowRoot, template } from '../internal/decorators'
-import { $, debug, listActive, onoff } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { Snapshot } from '../snapshot'
-import { html } from '../tpl'
-import type { LabelView } from './label-view'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { CSSStyleObserver } from '../internal/class/css-style-observer.ts'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set.ts'
+import { shadowRoot, template } from '../internal/decorators/index.ts'
+import { $, debug, listActive, onoff } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
+import { html } from '../tpl/index.ts'
+import type { LabelView } from './label-view.ts'
 
 /**
  * @summary A container view that arranges data in rows and columns, optionally letting the user select one or more of them.

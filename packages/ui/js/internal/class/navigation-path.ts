@@ -1,5 +1,5 @@
-import type * as Components from '../../components'
-import { type NavigationHost, type NavigationPage, type NavigationToolbarConfiguration } from '../privateNamespace'
+import type * as Components from '../../components/index.ts'
+import { type NavigationHost, type NavigationPage, type NavigationToolbarConfiguration } from '../privateNamespace.ts'
 
 /**
  * Gets current host (closest)

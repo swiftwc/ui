@@ -1,4 +1,4 @@
-import { isTemplateResult, type TemplateResult } from '../tpl'
+import { isTemplateResult, type TemplateResult } from '../tpl/index.ts'
 
 // morph.ts and queryMorph.ts only need something with `.toString()` that
 // yields a safe, escaped HTML string — this is that, built on top of the

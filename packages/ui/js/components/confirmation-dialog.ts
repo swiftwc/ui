@@ -1,8 +1,8 @@
-import { confirmationDialog } from '../buses'
-import { type ConfirmationReturnDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, isInside, onoff, touchGlass } from '../internal/utils'
-import { DialogBase } from '../namespace-browser/base'
+import { confirmationDialog } from '../buses/index.ts'
+import { type ConfirmationReturnDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, isInside, onoff, touchGlass } from '../internal/utils/index.ts'
+import { DialogBase } from '../namespace-browser/base.ts'
 
 /**
  * @summary A dialog that asks the user to confirm an action. Use it from the client module like `await confirmationDialog(trigger, 'Permanently erase the items in the Trash?')`.

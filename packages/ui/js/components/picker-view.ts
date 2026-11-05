@@ -1,22 +1,22 @@
-import type { PickerSearchableDetail, PickerSelectionDetail } from '../events'
-import { I18n } from '../i18n'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { DictEntry, Dictionary } from '../internal/class/dict-entry'
-import { FormAssociatedBase } from '../internal/class/form-associated-base'
-import { MutationObserverSet } from '../internal/class/mutation-observer-set'
-import { NavigationPath } from '../internal/class/navigation-path'
-import { internals, shadowRoot, templateBy } from '../internal/decorators'
-import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace'
-import { $, ancestors, debug, kebabCase, onoff } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { html, render } from '../tpl'
-import type { LabelView } from './label-view'
-import type { MenuView } from './menu-view'
+import type { PickerSearchableDetail, PickerSelectionDetail } from '../events/index.ts'
+import { I18n } from '../i18n/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { DictEntry, Dictionary } from '../internal/class/dict-entry.ts'
+import { FormAssociatedBase } from '../internal/class/form-associated-base.ts'
+import { MutationObserverSet } from '../internal/class/mutation-observer-set.ts'
+import { NavigationPath } from '../internal/class/navigation-path.ts'
+import { internals, shadowRoot, templateBy } from '../internal/decorators/index.ts'
+import { queryInsertPosition, startViewTransition } from '../internal/privateNamespace.ts'
+import { $, ancestors, debug, kebabCase, onoff } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { html, render } from '../tpl/index.ts'
+import type { LabelView } from './label-view.ts'
+import type { MenuView } from './menu-view.ts'
 
 const pickerStyles = ['menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs', 'automatic'] as const
 export type PickerStyle = (typeof pickerStyles)[number]
 
-export type { DictEntry, Dictionary } from '../internal/class/dict-entry'
+export type { DictEntry, Dictionary } from '../internal/class/dict-entry.ts'
 
 const update = (path: NavigationPath, node: Element, overwrite = true) => {
   debug(`PickerView: update`)

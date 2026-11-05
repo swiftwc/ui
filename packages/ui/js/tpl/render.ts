@@ -1,4 +1,4 @@
-import type { TemplateResult } from './html'
+import type { TemplateResult } from './html.ts'
 
 // --- Part types -------------------------------------------------------
 

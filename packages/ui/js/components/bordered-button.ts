@@ -1,7 +1,7 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, ensurePlaceholder, onoff } from '../internal/utils'
-import { ButtonBase } from '../namespace-browser/base'
-import { Snapshot } from '../snapshot'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, ensurePlaceholder, onoff } from '../internal/utils/index.ts'
+import { ButtonBase } from '../namespace-browser/base.ts'
+import { Snapshot } from '../snapshot/index.ts'
 
 /**
  * @summary A control that starts an action. Styled with a standard border, adapting to the button’s surroundings.

@@ -1,10 +1,10 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { shadowRoot, templateBy } from '../internal/decorators'
-import { $, debug } from '../internal/utils'
-import { queryMorph } from '../morphdom'
-import { Snapshot } from '../snapshot'
-import { html } from '../tpl'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { CSSStyleObserver } from '../internal/class/css-style-observer.ts'
+import { shadowRoot, templateBy } from '../internal/decorators/index.ts'
+import { $, debug } from '../internal/utils/index.ts'
+import { queryMorph } from '../morphdom/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
+import { html } from '../tpl/index.ts'
 
 const progressViewStyles = ['circular', 'linear'] as const
 

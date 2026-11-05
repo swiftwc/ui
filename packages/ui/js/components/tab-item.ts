@@ -1,10 +1,10 @@
-import type { TabDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail } from '../events'
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff } from '../internal/utils'
-import { ButtonBase } from '../namespace-browser/base'
-import { type NavigationSplitView } from './navigation-split-view'
-import { type NavigationStack } from './navigation-stack'
-import { TabView } from './tab-view'
+import type { TabDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail } from '../events/index.ts'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff } from '../internal/utils/index.ts'
+import { ButtonBase } from '../namespace-browser/base.ts'
+import { type NavigationSplitView } from './navigation-split-view.ts'
+import { type NavigationStack } from './navigation-stack.ts'
+import { TabView } from './tab-view.ts'
 
 /**
  * @summary A control that switches the tab view to this tab.

@@ -1,6 +1,6 @@
-import morphdom from '../internal/vendor/morphdom'
-import type { TemplateResult } from '../tpl'
-import renderToString from './render-to-string'
+import morphdom from '../internal/vendor/morphdom.ts'
+import type { TemplateResult } from '../tpl/index.ts'
+import renderToString from './render-to-string.ts'
 
 export default function (markup: TemplateResult, fromEl?: Element, options?: { cb: () => void }): void {
   if (!fromEl) return

@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, listActive, onoff } from '../internal/utils'
-import { FormBase } from '../namespace-browser/base'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, listActive, onoff } from '../internal/utils/index.ts'
+import { FormBase } from '../namespace-browser/base.ts'
 
 /**
  * @summary A container view that groups controls together for entering data, like a settings screen.

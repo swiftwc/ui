@@ -1,8 +1,8 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { CSSStyleObserver } from '../internal/class/css-style-observer'
-import { add, debug, frame, onoff, slowHideShow, timeout } from '../internal/utils'
-import { Snapshot } from '../snapshot'
-import { type ScrollView } from './scroll-view'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { CSSStyleObserver } from '../internal/class/css-style-observer.ts'
+import { add, debug, frame, onoff, slowHideShow, timeout } from '../internal/utils/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
+import { type ScrollView } from './scroll-view.ts'
 
 const observing = new WeakSet()
 

@@ -1,4 +1,4 @@
-import { type ScrollView } from '../components'
+import { type ScrollView } from '../components/index.ts'
 
 export type PageShowHideDetail = {
   page: ScrollView

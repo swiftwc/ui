@@ -1,7 +1,7 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { adaptiveSlot } from '../internal/decorators'
-import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils'
-import { Snapshot } from '../snapshot'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { adaptiveSlot } from '../internal/decorators/index.ts'
+import { debug, ensurePlaceholder, onoff, touchGlass } from '../internal/utils/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
 
 /**
  * @summary A view placed in the toolbar or navigation bar.

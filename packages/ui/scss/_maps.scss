@@ -1,3 +1,5 @@
+@use 'sass:map';
+
 $picker-style-list: 'menu', 'inline', 'navigation-link', 'sheet', 'radio-group', 'palette', 'tabs';
 $label-style-list: 'icon-only', 'title-only', 'title-and-icon';
 $list-style-list: 'inset', 'inset-grouped', 'sidebar';
@@ -58,12 +60,14 @@ $stack-templates-list-vals: (
   (auto minmax(0, 1fr) auto auto)
 );
 
+// SECTION
+
 $inline-alignment-map: (
   leading: (
     justify-items: start,
     justify-content: start,
   ),
-  'leading fill': (
+  'leading-fill': (
     justify-items: start,
     justify-content: stretch,
   ),
@@ -89,7 +93,7 @@ $block-alignment-map: (
     align-items: start,
     align-content: start,
   ),
-  'leading fill': (
+  'leading-fill': (
     align-items: start,
     align-content: stretch,
   ),
@@ -110,45 +114,51 @@ $block-alignment-map: (
   ),
 );
 
-$inline-placement-map: (
-  'fill': (
-    place-items: stretch,
-    place-content: stretch,
-  ),
-  'leading fill': (
-    place-items: stretch start,
-    place-content: stretch start,
-  ),
-  'fill leading': (
-    place-items: start stretch,
-    place-content: start stretch,
-  ),
-  'fill space-between': (
-    align-content: space-between,
-    justify-items: stretch,
-    justify-content: stretch,
-  ),
-);
+// SECTION
 
-$block-placement-map: (
-  'fill': (
-    place-items: stretch,
-    place-content: stretch,
-  ),
-  'leading fill': (
-    place-items: start stretch,
-    place-content: start stretch,
-  ),
-  'fill leading': (
-    place-items: stretch start,
-    place-content: stretch start,
-  ),
-  'space-between fill': (
-    align-content: space-between,
-    justify-items: stretch,
-    justify-content: stretch,
-  ),
-);
+// placement="<distribution> <alignment>" is just both attributes in one go.
+// So instead of writing each combo by hand, we merge the two maps above, then
+// let -shorten swap matching longhands for place-items / place-content.
+
+// align-items + justify-items       -> place-items   (same for -content)
+// "stretch stretch" is written as just "stretch"
+@function -shorten($decls) {
+  $out: ();
+  @each $short, $align, $justify in (place-items, align-items, justify-items), (place-content, align-content, justify-content) {
+    $a: map.get($decls, $align);
+    $j: map.get($decls, $justify);
+    @if $a and $j {
+      $out: map.set($out, $short, $a);
+      @if $a != $j {
+        $out: map.set($out, $short, $a $j);
+      }
+      $decls: map.remove($decls, $align, $justify);
+    }
+  }
+  @return map.merge($out, $decls); // whatever couldn't be shortened stays as is
+}
+
+// $pairs: (distribution alignment) combos we offer. ('fill' + 'fill' is named just 'fill')
+@function -placements($distribution-map, $alignment-map, $pairs) {
+  $result: ();
+  @each $d, $a in $pairs {
+    $name: '#{$d} #{$a}';
+    @if $d == fill and $a == fill {
+      $name: 'fill';
+    }
+    $decls: map.merge(map.get($distribution-map, $d), map.get($alignment-map, $a));
+    $result: map.set($result, $name, -shorten($decls));
+  }
+  @return $result;
+}
+
+// h-stack / v-flex-stack: distribution = inline axis, alignment = block axis
+$inline-placement-map: -placements($inline-alignment-map, $block-alignment-map, ((fill fill), (leading fill), (fill leading), (fill space-between)));
+
+// v-stack / h-flex-stack: distribution = block axis, alignment = inline axis
+$block-placement-map: -placements($block-alignment-map, $inline-alignment-map, ((fill fill), (leading fill), (fill leading), (space-between fill)));
+
+// SECTION
 
 $label-fonts-map: (
   footnote: (

@@ -1,6 +1,6 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, onoff, touchGlass } from '../internal/utils'
-import { InputBase } from '../namespace-browser/base'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { InputBase } from '../namespace-browser/base.ts'
 
 export class SearchView extends InputBase {
   constructor() {

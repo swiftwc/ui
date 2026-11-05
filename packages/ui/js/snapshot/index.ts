@@ -1,4 +1,4 @@
-import { debug, onoff } from '../internal/utils'
+import { debug, onoff } from '../internal/utils/index.ts'
 
 export class Snapshot {
   static #readyCalled = false

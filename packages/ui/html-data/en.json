@@ -1575,7 +1575,7 @@
           "description": "Applies `justify-items: start; justify-content: start;` rules"
         },
         {
-          "name": "leading fill",
+          "name": "leading-fill",
           "description": "Applies `justify-items: start; justify-content: stretch;` rules"
         },
         {
@@ -1604,7 +1604,7 @@
           "description": "Applies `align-items: start; align-content: start;` rules"
         },
         {
-          "name": "leading fill",
+          "name": "leading-fill",
           "description": "Applies `align-items: start; align-content: stretch;` rules"
         },
         {
@@ -1642,7 +1642,7 @@
         },
         {
           "name": "fill space-between",
-          "description": "Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules"
+          "description": "Applies `place-content: space-between stretch; justify-items: stretch;` rules"
         }
       ]
     },
@@ -1663,7 +1663,7 @@
         },
         {
           "name": "space-between fill",
-          "description": "Applies `align-content: space-between; justify-items: stretch; justify-content: stretch;` rules"
+          "description": "Applies `place-content: space-between stretch; justify-items: stretch;` rules"
         }
       ]
     },

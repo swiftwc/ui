@@ -1,6 +1,6 @@
-import { debug } from '../../internal/utils'
-import { internals } from '../decorators'
-import { CleanupRegistry } from './cleanup-registry'
+import { debug } from '../../internal/utils/index.ts'
+import { internals } from '../decorators/index.ts'
+import { CleanupRegistry } from './cleanup-registry.ts'
 
 // const internals = new WeakMap<FormAssociatedBase, ElementInternals>()
 // export function getInternals(instance: FormAssociatedBase): ElementInternals {

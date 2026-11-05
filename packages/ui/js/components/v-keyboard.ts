@@ -1,7 +1,7 @@
-import { CleanupRegistry } from '../internal/class/cleanup-registry'
-import { debug, frame, onoff, prop, sleep } from '../internal/utils'
-import { Snapshot } from '../snapshot'
-import { type ScrollView } from './scroll-view'
+import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
+import { debug, frame, onoff, prop, sleep } from '../internal/utils/index.ts'
+import { Snapshot } from '../snapshot/index.ts'
+import { type ScrollView } from './scroll-view.ts'
 
 const NO_KEYBOARD_INPUT_TYPES = new Set(['button', 'checkbox', 'color', 'date', 'datetime-local', 'file', 'hidden', 'image', 'month', 'radio', 'range', 'reset', 'submit', 'time', 'week'])
 

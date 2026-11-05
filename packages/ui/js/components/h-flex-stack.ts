@@ -1,4 +1,4 @@
-import { debug } from '../internal/utils'
+import { debug } from '../internal/utils/index.ts'
 
 /**
  * @summary A view that arranges its children side by side.

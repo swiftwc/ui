@@ -110,7 +110,7 @@
         will-change: background-color, opacity, color;
       }
 
-      :where(&)::active {
+      :where(&):active {
         transition-duration: 25ms;
       }
     }

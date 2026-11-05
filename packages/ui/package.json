@@ -69,7 +69,7 @@
     "prepublishOnly": "npm run build",
     "clean": "rm -rf generated",
     "codegen": "npm run codegen:manifest && npm run barrelize",
-    "codegen:manifest": "tsx scripts/make-manifest.ts && prettier --write ./custom-elements/en.json ./html-data/en.json ./css-data/en.json",
+    "codegen:manifest": "node scripts/make-manifest.mts && prettier --write ./custom-elements/en.json ./html-data/en.json ./css-data/en.json",
     "barrelize": "npm run barrelize:components && npm run barrelize:events && npm run barrelize:buses && npm run barrelize:i18n && npm run barrelize:tpl && npm run barrelize:morphdom && npm run barrelize:decorators && npm run barrelize:utils",
     "barrelize:components": "node scripts/barrelize.mts js/components",
     "barrelize:events": "node scripts/barrelize.mts js/events",
@@ -105,7 +105,6 @@
     "sass": "^1.98.0",
     "sass-true": "^10.1.0",
     "ts-morph": "^28.0.0",
-    "tsx": "^4.21.0",
     "vitest": "^4.1.12"
   },
   "customElements": "custom-elements/en.json"

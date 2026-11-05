@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { NavigationTitle } from './navigation-title'
+import '../client/index.ts'
+import type { NavigationTitle } from './navigation-title.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

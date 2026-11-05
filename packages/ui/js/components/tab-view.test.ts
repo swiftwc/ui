@@ -1,7 +1,7 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { page } from 'vitest/browser'
-import '../client'
-import type { TabView } from './tab-view'
+import '../client/index.ts'
+import type { TabView } from './tab-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

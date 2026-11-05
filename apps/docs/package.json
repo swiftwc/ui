@@ -3,8 +3,8 @@
   "name": "@swiftwc/docs",
   "type": "module",
   "scripts": {
-    "codegen": "npm run codegen:barrelize && npm run codegen:src",
-    "codegen:barrelize": "node scripts/make-barrels.mts && prettier ./web-components --write",
+    "codegen": "npm run barrelize && npm run codegen:src",
+    "barrelize": "node scripts/make-barrels.mts && prettier ./web-components --write",
     "codegen:src": "node -e \"for(const f of fs.globSync('src/public/**/*.mts'))fs.rmSync(f.slice(4).replace(/\\.mts$/,'.mjs'),{force:true})\" && tsc -p src && prettier ./public/demos ./public/showcase --write",
     "codegen:src:watch": "tsc -p src --watch",
     "build": "vitepress build",

@@ -1,6 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import { GlassButton } from './glass-button'
+import '../client/index.ts'
 
 beforeEach(() => document.body.replaceChildren())
 
@@ -10,7 +9,6 @@ describe('prop', () => {
   beforeEach(() => {
     document.body.insertAdjacentHTML('beforeend', '<button is="glass-button"></button>')
     el = document.body.lastElementChild as HTMLButtonElement
-    GlassButton.polyfillConnectedCallback(el as GlassButton)
   })
   afterEach(() => el.remove())
 

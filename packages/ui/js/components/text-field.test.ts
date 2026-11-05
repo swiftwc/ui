@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { TextField } from './text-field'
+import '../client/index.ts'
+import type { TextField } from './text-field.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

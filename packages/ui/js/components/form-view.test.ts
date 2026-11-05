@@ -1,6 +1,6 @@
 import { beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { FormView } from './form-view'
+import '../client/index.ts'
+import type { FormView } from './form-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

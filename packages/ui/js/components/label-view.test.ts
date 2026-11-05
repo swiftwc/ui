@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { LabelView } from './label-view'
+import '../client/index.ts'
+import type { LabelView } from './label-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

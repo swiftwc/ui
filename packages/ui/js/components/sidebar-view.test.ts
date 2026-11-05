@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { SidebarView } from './sidebar-view'
+import '../client/index.ts'
+import type { SidebarView } from './sidebar-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

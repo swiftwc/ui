@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, test, vi } from 'vitest'
-import { CleanupRegistry } from './cleanup-registry'
+import { CleanupRegistry } from './cleanup-registry.ts'
 
 describe('CleanupRegistry', () => {
   let a: HTMLElement

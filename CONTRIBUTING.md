@@ -115,7 +115,7 @@ When adding or modifying components, please ensure that:
 
 1. You make the changes for every style.
 2. You update the documentation.
-3. You run `npm run codegen:barrelize -w @swiftwc/ui` to update the registry.
+3. You run `npm run barrelize -w @swiftwc/ui` to update the registry.
 
 ## Commit Convention
 

@@ -1,9 +1,9 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
-import { en } from './locales'
+import { en } from './locales/index.ts'
 
 const fresh = async () => {
   vi.resetModules()
-  return (await import('./index')).I18n
+  return (await import('./index.ts')).I18n
 }
 
 let I18n: Awaited<ReturnType<typeof fresh>>

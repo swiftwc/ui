@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { TabItem } from './tab-item'
+import '../client/index.ts'
+import type { TabItem } from './tab-item.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

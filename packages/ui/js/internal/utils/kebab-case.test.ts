@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { default as kebabCase } from './kebab-case'
+import { default as kebabCase } from './kebab-case.ts'
 
 describe('kebabCase', () => {
   it('Hello World', () => {

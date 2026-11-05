@@ -1,8 +1,8 @@
 import { afterEach, beforeEach, describe, expect, test, vi } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
-import '../client'
-import { Snapshot } from '../client'
-import type { PickerView } from './picker-view'
+import { Snapshot } from '../client/index.ts'
+import type { PickerView } from './picker-view.ts'
+// import '../client/index.ts'
 
 const dict = [
   {

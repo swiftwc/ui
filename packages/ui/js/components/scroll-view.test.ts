@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { ScrollView } from './scroll-view'
+import '../client/index.ts'
+import type { ScrollView } from './scroll-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

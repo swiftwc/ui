@@ -2,11 +2,11 @@
 
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
 import { page, userEvent } from 'vitest/browser'
-import { Snapshot } from '../client'
-import { ScrollView } from '../components'
-import { $ } from '../internal/utils'
-import { html } from '../tpl'
-import { NavigationPath, alert } from './index'
+import { Snapshot } from '../client/index.ts'
+import { ScrollView } from '../components/index.ts'
+import { $ } from '../internal/utils/index.ts'
+import { html } from '../tpl/index.ts'
+import { NavigationPath, alert } from './index.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

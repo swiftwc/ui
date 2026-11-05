@@ -1,5 +1,5 @@
 import { beforeEach, describe, expect, it } from 'vitest'
-import { default as prop } from './prop'
+import { default as prop } from './prop.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

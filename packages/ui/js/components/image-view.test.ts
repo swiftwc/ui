@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { ImageView } from './image-view'
+import '../client/index.ts'
+import type { ImageView } from './image-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

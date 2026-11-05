@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { LabeledContent } from './labeled-content'
+import '../client/index.ts'
+import type { LabeledContent } from './labeled-content.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

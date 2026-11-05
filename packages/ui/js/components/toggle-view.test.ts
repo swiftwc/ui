@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { ToggleView } from './toggle-view'
+import '../client/index.ts'
+import type { ToggleView } from './toggle-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

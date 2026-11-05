@@ -1,5 +1,5 @@
 import { describe, expect, it } from 'vitest'
-import { default as compareBigDecimals } from './compare-big-decimals'
+import { default as compareBigDecimals } from './compare-big-decimals.ts'
 
 describe('compareBigDecimals', () => {
   const isInRange = (value: string, min: string, max: string): boolean => compareBigDecimals(value, min) >= 0 && compareBigDecimals(value, max) <= 0

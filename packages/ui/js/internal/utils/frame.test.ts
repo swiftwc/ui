@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, it, vi } from 'vitest'
-import frame from './frame'
+import frame from './frame.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

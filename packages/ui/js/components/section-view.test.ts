@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { SectionView } from './section-view'
+import '../client/index.ts'
+import type { SectionView } from './section-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

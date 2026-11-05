@@ -1,6 +1,6 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import '../client'
-import type { SheetView } from './sheet-view'
+import '../client/index.ts'
+import type { SheetView } from './sheet-view.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

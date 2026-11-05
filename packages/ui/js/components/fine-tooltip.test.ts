@@ -1,5 +1,5 @@
 import { afterEach, beforeEach, describe, expect, test } from 'vitest'
-import { Snapshot } from '../client'
+import { Snapshot } from '../client/index.ts'
 
 beforeEach(() => document.body.replaceChildren())
 

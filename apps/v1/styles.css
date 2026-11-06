@@ -1055,7 +1055,7 @@
       transition: background-color 100ms ease-out allow-discrete, opacity 100ms ease-out allow-discrete, color 100ms ease-out allow-discrete;
       will-change: background-color, opacity, color;
     }
-    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button])::active {
+    :where([is=glass-prominent-button], [is=glass-button], [is=bordered-prominent-button], [is=bordered-button], [is=borderless-button], [is=plain-button]):active {
       transition-duration: 25ms;
     }
   }
@@ -3641,8 +3641,10 @@
     --toggle--dot-inset-inline-start: calc(100% - var(--toggle--dot-size));
     --toggle--dot-inset-inline-end: 0;
   }
-  :where(toggle-view[aria-checked=true])::window-inactive {
-    --toggle--track-bg: var(--toggle--track-off-bg);
+  @supports selector(:window-inactive) {
+    :where(toggle-view[aria-checked=true]):window-inactive {
+      --toggle--track-bg: var(--toggle--track-off-bg);
+    }
   }
   :where(toggle-view[aria-checked=true][js-window-inactive]) {
     --toggle--track-bg: var(--toggle--track-off-bg);

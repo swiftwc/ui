@@ -85,6 +85,7 @@ export default defineConfig([
     </template>
     <script type="module" src="/src/main.ts"></script>
   </head>
+
   <body>
     <v-keyboard system-font="Inter"></v-keyboard>
 

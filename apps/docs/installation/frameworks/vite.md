@@ -16,13 +16,13 @@ How to install dependencies and structure your Vite app.
 ::: code-group
 
 ```bash [npm]
-npm create vite@latest my-project
-cd my-project
+npm create vite@latest vite-app
+cd vite-app
 ```
 
 ```bash [bun]
 bun add --exact @swiftwc/ui@latest --dev
-cd my-project
+cd vite-app
 ```
 
 :::
@@ -42,7 +42,7 @@ cd my-project
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@latest @phosphor-icons/web inter-ui typescript
+npm i -D @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter typescript
 ```
 
 ```bash [bun]
@@ -56,7 +56,7 @@ bun add --exact @swiftwc/ui@latest --dev
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@latest @phosphor-icons/web inter-ui
+npm i -D @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter
 ```
 
 ```bash [bun]
@@ -76,7 +76,7 @@ bun add --exact @swiftwc/ui@latest --dev
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@canary @phosphor-icons/web inter-ui typescript
+npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter typescript
 ```
 
 ```bash [bun]
@@ -90,7 +90,7 @@ bun add --exact @swiftwc/ui@canary --dev
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@canary @phosphor-icons/web inter-ui
+npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter
 ```
 
 ```bash [bun]

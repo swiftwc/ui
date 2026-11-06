@@ -1,0 +1,7 @@
+// @import "tailwindcss";
+
+@use '@swiftwc/ui/scss/vars/index' with ($components-layer: web-components);
+
+@forward '@swiftwc/ui/scss';
+
+@layer base, sw, components, utilities, theme;

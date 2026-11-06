@@ -1,4 +1,4 @@
-import "./style.css"
+import "./style.scss"
 import { startViewTransition } from "@swiftwc/ui/client"
 import "@phosphor-icons/web/bold"
 import "@phosphor-icons/web/duotone"

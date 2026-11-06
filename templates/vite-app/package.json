@@ -7,14 +7,16 @@
     "dev": "vite",
     "build": "tsc && vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "format": "prettier --write ."
   },
   "devDependencies": {
     "@eslint/js": "^10.0.1",
     "@html-eslint/eslint-plugin": "^0.67.0",
-    "@swiftwc/eslint-plugin": "canary",
+    "@swiftwc/eslint-plugin": "latest",
     "eslint": "^10.14.0",
     "globals": "^17.14.0",
+    "prettier": "^3.9.10",
+    "prettier-plugin-tailwindcss": "^0.8.1",
     "typescript": "~6.0",
     "typescript-eslint": "^8.72.1",
     "vite": "^8.3.6"
@@ -22,7 +24,7 @@
   "dependencies": {
     "@fontsource/inter": "^5.3.0",
     "@phosphor-icons/web": "^2.1.2",
-    "@swiftwc/ui": "canary",
+    "@swiftwc/ui": "latest",
     "@tailwindcss/vite": "^4.3.4",
     "tailwindcss": "^4.3.4"
   }

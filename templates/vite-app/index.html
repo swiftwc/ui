@@ -1,42 +1,42 @@
 <!doctype html>
 <html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>vite-app</title>
+    <template id="detail-view">
+      <content-view>
+        <scroll-view>
+          <v-stack>
+            <label-view><span class="text-red-500">Hello</span></label-view>
+          </v-stack>
+        </scroll-view>
+        <tool-bar>
+          <tool-bar-item slot="top-bar-leading">
+            <button type="button" tabindex="0">
+              <label-view system-image="caret-left"></label-view>
+            </button>
+          </tool-bar-item>
+        </tool-bar>
+      </content-view>
+    </template>
+    <script type="module" src="/src/main.ts"></script>
+  </head>
+  <body>
+    <v-keyboard system-font="Inter"></v-keyboard>
 
-<head>
-  <meta charset="UTF-8">
-  <link rel="icon" type="image/svg+xml" href="/favicon.svg">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>vite-app</title>
-  <template id="detail-view">
-    <content-view>
+    <navigation-stack>
       <scroll-view>
         <v-stack>
-          <label-view><span class="text-red-500">Hello</span></label-view>
+          <button is="borderless-button" type="button">
+            <label-view
+              title="Hello world"
+              system-image="hand-waving"
+            ></label-view>
+          </button>
         </v-stack>
       </scroll-view>
-      <tool-bar>
-        <tool-bar-item slot="top-bar-leading">
-          <button type="button" tabindex="0">
-            <label-view system-image="caret-left"></label-view>
-          </button>
-        </tool-bar-item>
-      </tool-bar>
-    </content-view>
-  </template>
-  <script type="module" src="/src/main.ts"></script>
-</head>
-
-<body>
-  <v-keyboard system-font="Inter"></v-keyboard>
-
-  <navigation-stack>
-    <scroll-view>
-      <v-stack>
-        <button is="borderless-button" type="button">
-          <label-view title="Hello world" system-image="hand-waving"></label-view>
-        </button>
-      </v-stack>
-    </scroll-view>
-  </navigation-stack>
-</body>
-
+    </navigation-stack>
+  </body>
 </html>

@@ -5,7 +5,8 @@
     "packages/*"
   ],
   "scripts": {
-    "release": "changeset version"
+    "release": "changeset version",
+    "codegen:templates": "node scripts/make-templates.mts"
   },
   "devDependencies": {
     "@changesets/cli": "^3.0.3",

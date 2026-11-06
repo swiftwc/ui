@@ -130,7 +130,7 @@
       --host--font-feature-settings: 'liga' 1, 'calt' 1;
 
       @supports (font-variation-settings: normal) {
-        --host--font-family: InterVariable, sans-serif;
+        --host--font-family: 'Inter Variable', InterVariable, Inter, sans-serif;
       }
     }
   }

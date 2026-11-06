@@ -1,6 +1,6 @@
 import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
 import { shadowRoot, template } from '../internal/decorators/index.ts'
-import { $, debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { $, debug, matchMedia, onoff, touchGlass } from '../internal/utils/index.ts'
 import { queryMorph } from '../morphdom/index.ts'
 import { html } from '../tpl/index.ts'
 
@@ -146,7 +146,7 @@ export class MenuView extends HTMLElement {
     if (target.matches('dialog')) return this.toggleAttribute('open', false) // click outside
 
     target.scrollIntoView({
-      behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
+      behavior: matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
       block: 'nearest',
       inline: 'nearest',
     })

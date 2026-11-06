@@ -1,4 +1,4 @@
-import { debug, onoff } from '../internal/utils/index.ts'
+import { debug, matchMedia, onoff } from '../internal/utils/index.ts'
 
 export class Snapshot {
   static #readyCalled = false
@@ -70,7 +70,7 @@ export class Snapshot {
 
     this.#listeners = new Set()
 
-    const mediaQueryList = self.matchMedia(`(pointer: fine) and (min-width: ${this.#config!['ipad-sheet-view-inline-size']}) and (min-height: ${this.#config!['ipad-sheet-view-height']})`)
+    const mediaQueryList = matchMedia(`(pointer: fine) and (min-width: ${this.#config!['ipad-sheet-view-inline-size']}) and (min-height: ${this.#config!['ipad-sheet-view-height']})`)
 
     this.#breakpoints = new Map([['fine_dialog_sheet', mediaQueryList.matches]])
 

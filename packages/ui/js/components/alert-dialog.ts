@@ -1,7 +1,7 @@
 import { alertDialog } from '../buses/index.ts'
 import type { AlertReturnDetail } from '../events/index.ts'
 import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
-import { debug, onoff, touchGlass } from '../internal/utils/index.ts'
+import { debug, matchMedia, onoff, touchGlass } from '../internal/utils/index.ts'
 import { DialogBase } from '../namespace-browser/base.ts'
 
 /**
@@ -96,7 +96,7 @@ export class AlertDialog extends DialogBase {
     if (!button) return
 
     button.scrollIntoView({
-      behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
+      behavior: matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
       block: 'nearest',
       inline: 'nearest',
     })

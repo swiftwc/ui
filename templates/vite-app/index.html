@@ -10,12 +10,11 @@
         <scroll-view>
           <v-stack>
             <label-view data-greeting system-image="hand-waving"></label-view>
-            <label-view title="Everything here is plain HTML."></label-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0">
+            <button type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -31,12 +30,11 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <label-view
-            title="Hello, world"
-            system-image="hand-waving"
-          ></label-view>
           <button is="borderless-button" type="button">
-            <label-view title="Say hello"></label-view>
+            <label-view
+              title="Say hello"
+              system-image="hand-waving"
+            ></label-view>
           </button>
         </v-stack>
       </scroll-view>

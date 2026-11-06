@@ -26,16 +26,12 @@ cd about-me
 
 ::: code-group
 
-```bash [angular CLI]
-ng add @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter
-```
-
 ```bash [npm]
 npm i @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter
 ```
 
 ```bash [bun]
-bun add --exact @swiftwc/ui@latest --dev
+bun add --exact @swiftwc/ui@latest
 ```
 
 :::
@@ -50,7 +46,7 @@ bun add --exact @swiftwc/ui@latest --dev
 
 ::: code-group
 
-```css [app.css]
+```css [src/styles.css]
 /* [!code ++] */
 @import '@swiftwc/ui/css';
 ```
@@ -85,7 +81,7 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 
 **Your styles file should look like this:**
 
-```ts [app.css]
+```ts [src/styles.css]
 /* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
 @import 'tailwindcss';
 
@@ -97,31 +93,14 @@ To properly install SwiftWC, add a `@layer` rule at the begining of your stylesh
 
 **Add an import to your JavaScript file that imports SwiftWC client module:**
 
-::::tabs key:script variant:code
-
-== If you are using TypeScript
-
 ::: code-group
 
-```ts [app.ts]
+```ts [src/main.ts]
 // [!code ++]
 import '@swiftwc/ui/client'
 ```
 
 :::
-
-== If you are using JavaScript
-
-::: code-group
-
-```js [app.js]
-// [!code ++]
-import '@swiftwc/ui/client'
-```
-
-:::
-
-::::
 
 ## 5. Start your build process
 

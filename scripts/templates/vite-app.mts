@@ -128,6 +128,7 @@ import "@phosphor-icons/web/fill"
 import "@phosphor-icons/web/light"
 import "@phosphor-icons/web/regular"
 import "@phosphor-icons/web/thin"
+import "@fontsource-variable/inter"
 
 const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "Γειά σου", "こんにちは"]
 let next = 0

@@ -3,7 +3,7 @@ import type { BeforetabswapEvent, PageShowHideDetail } from '../events/index.ts'
 import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
 import { ResizeObserverSingleton } from '../internal/class/resize-observer-singleton.ts'
 import { shadowRoot, template } from '../internal/decorators/index.ts'
-import { $, debug, frame, onoff, slowHideShow } from '../internal/utils/index.ts'
+import { $, debug, frame, matchMedia, onoff, slowHideShow } from '../internal/utils/index.ts'
 import { queryMorph } from '../morphdom/index.ts'
 import { html } from '../tpl/index.ts'
 import { type TabView } from './tab-view.ts'
@@ -251,7 +251,7 @@ export class ScrollView extends HTMLElement {
 
     this.scrollTo({
       top,
-      behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant', // optional: smooth scroll
+      behavior: matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant', // optional: smooth scroll
     })
   }
 

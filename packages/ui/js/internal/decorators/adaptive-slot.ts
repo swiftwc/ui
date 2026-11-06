@@ -1,6 +1,6 @@
 import { Snapshot } from '../../snapshot/index.ts'
 import { CleanupRegistry } from '../class/cleanup-registry.ts'
-import { debug, onoff } from '../utils/index.ts'
+import { debug, matchMedia, onoff } from '../utils/index.ts'
 
 export default function (filter?: (el: HTMLElement) => boolean) {
   const handleMediaChange: (el: HTMLElement, evt: MediaQueryListEvent) => void = (el, { type, matches }) => {
@@ -34,7 +34,7 @@ export default function (filter?: (el: HTMLElement) => boolean) {
 
       if (filter && !filter(this)) return
       if (!this.closest('[is=sheet-view]')) return
-      if (!self.matchMedia('(pointer: fine)').matches) return
+      if (!matchMedia('(pointer: fine)').matches) return
 
       const handler1 = handleMediaChange.bind(null, this)
 

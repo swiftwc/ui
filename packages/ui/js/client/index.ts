@@ -5,7 +5,7 @@ import { I18n } from '../i18n/index.ts'
 import { NavigationPath } from '../internal/class/navigation-path.ts'
 import devFlags from '../internal/dev-flags.ts'
 import { type NavigationHost, queryInsertPosition, startViewTransition } from '../internal/privateNamespace.ts'
-import { $, debug, kebabCase, onoff } from '../internal/utils/index.ts'
+import { $, debug, kebabCase, matchMedia, onoff } from '../internal/utils/index.ts'
 import { type WebComponentCtor } from '../namespace-browser/index.ts'
 import { Snapshot } from '../snapshot/index.ts'
 import { html, render } from '../tpl/index.ts'
@@ -194,7 +194,7 @@ const handleHelp = ({ target, relatedTarget }: PointerEvent) => {
     tooltip.hidePopover() // tooltip.remove?.()
   }
 
-const mediaQueryList = self.matchMedia(`(pointer: fine)`)
+const mediaQueryList = matchMedia(`(pointer: fine)`)
 
 mediaQueryList.addEventListener('change', ({ matches }) => {
   for (const [k, v] of [

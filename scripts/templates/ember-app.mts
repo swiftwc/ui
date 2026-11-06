@@ -6,15 +6,15 @@ const keep: string[] = [
 ]
 
 // Scaffold. `{name}` is replaced by the template name. Runs inside an empty temp dir.
-const scaffold = 'npx ember-cli new ember-app --typescript --no-welcome'
+const scaffold = 'npx ember-cli new ember-app --typescript --no-welcome --skip-git --skip-npm'
 
 // Installs (inside the template).
 const install = [
-    'ember install @swiftwc/ui@canary',
+    'npm i @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter --no-package-lock --ignore-scripts',
 ]
 
 // Paths to delete (relative to the template).
-const deletes:string[] = [];
+const deletes:string[] = ['package-lock.json', '.git'];
 
 // Files to write (relative path -> content).
 const files: Record<string, string> = {
@@ -28,46 +28,113 @@ export default class Router extends EmberRouter {
 
 Router.map(function () {
   this.route('about')
-});
-`,
-    'templates/application.gts': `import { pageTitle } from 'ember-page-title';
-
-<template>
-  {{pageTitle "EmberApp"}}
- 
- <v-keyboard></v-keyboard>
-
-  {{outlet}}
-</template>`,
-
-    'templates/index.gts': `import { pageTitle } from 'ember-page-title';
+});`,
+    'app/templates/application.gts': `import { pageTitle } from 'ember-page-title';
+import Component from '@glimmer/component';
 import { startViewTransition } from '@swiftwc/ui/client';
 import { type Registry as Services, service } from '@ember/service';
-import Component from '@glimmer/component'
+import { on } from '@ember/modifier';
+import { scheduleOnce } from '@ember/runloop';
 
 interface S {
-  Args: Record<string, never>
+  Args: Record<string, never>;
 }
 
 export default class extends Component<S> {
   @service declare router: Services['router'];
 
-    handleClick = async (event) => {
+  handleClick = async (event: Event) => {
     await startViewTransition(event.target, 'forwards', async () => {
-        this.router.transitionTo('about');
-    });
-    }
+      await this.router.transitionTo('about');
 
-<template>
-  <navigation-stack>
-    <scroll-view>
-      <v-stack>
-        <button is="borderless-button" type="button" {{on "click" this.handleClick}}>About</button>
-      </v-stack>
-    </scroll-view>
-    {{outlet}}
-  </navigation-stack>
-</template>
+      const { promise, resolve } = Promise.withResolvers<void>();
+
+      // eslint-disable-next-line
+      scheduleOnce('afterRender', resolve);
+
+      await promise;
+    });
+  };
+
+  <template>
+    {{pageTitle "EmberApp"}}
+
+    <v-keyboard system-font="Inter"></v-keyboard>
+
+    <navigation-stack>
+      <scroll-view>
+        <v-stack>
+          <button
+            is="borderless-button"
+            type="button"
+            {{on "click" this.handleClick}}
+          >About</button>
+        </v-stack>
+      </scroll-view>
+
+      {{outlet}}
+    </navigation-stack>
+  </template>
+}`,
+
+    'app/templates/about.gts': `import { pageTitle } from 'ember-page-title';
+import { startViewTransition } from '@swiftwc/ui/client';
+import { type Registry as Services, service } from '@ember/service';
+import { on } from '@ember/modifier';
+import Component from '@glimmer/component';
+
+const greetings = [
+  'Hello',
+  'Hola',
+  'Bonjour',
+  'Ciao',
+  'Γειά σου',
+  'こんにちは',
+];
+let next = 0;
+
+interface S {
+  Args: Record<string, never>;
+}
+
+export default class extends Component<S> {
+  @service declare router: Services['router'];
+
+  greeting = greetings[next++ % greetings.length];
+
+  handleClick = async (event: Event) => {
+    await startViewTransition(event.target, 'backwards', async () => {
+      await this.router.transitionTo('/');
+    });
+  };
+
+  <template>
+    {{pageTitle "About"}}
+
+    <content-view>
+      <scroll-view>
+        <v-stack>
+          <label-view
+            title={{this.greeting}}
+            system-image="hand-waving"
+          ></label-view>
+        </v-stack>
+      </scroll-view>
+      {{outlet}}
+      <tool-bar>
+        <tool-bar-item slot="top-bar-leading">
+          <button
+            type="button"
+            tabindex="0"
+            help="Back"
+            {{on "click" this.handleClick}}
+          >
+            <label-view system-image="caret-left"></label-view>
+          </button>
+        </tool-bar-item>
+      </tool-bar>
+    </content-view>
+  </template>
 }`,
 }
 
@@ -83,7 +150,18 @@ const build = 'npm run build'
 // Replacements, applied only after a successful build.
 //    file (relative to the template) -> [[search, replacement], ...]; search is a string (all) or RegExp.
 const replacements: Record<string, [string | RegExp, string][]> = {
-    // 'index.html': [['<title>vite-app</title>', '<title>My App</title>']],
+    'app/app.ts': [
+        [/^/, `import '@swiftwc/ui/css';
+import '@fontsource-variable/inter';
+import '@swiftwc/ui/client';
+import '@phosphor-icons/web/bold';
+import '@phosphor-icons/web/duotone';
+import '@phosphor-icons/web/fill';
+import '@phosphor-icons/web/light';
+import '@phosphor-icons/web/regular';
+import '@phosphor-icons/web/thin';
+`],
+    ],
 }
 
 // Final package.json edit, applied last.

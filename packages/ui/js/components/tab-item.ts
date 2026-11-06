@@ -1,6 +1,6 @@
 import type { TabDetail, TabViewAdaptableTabBarPlacementChangeEvent, TabViewAdaptableTabBarPlacementDetail } from '../events/index.ts'
 import { CleanupRegistry } from '../internal/class/cleanup-registry.ts'
-import { debug, onoff } from '../internal/utils/index.ts'
+import { debug, matchMedia, onoff } from '../internal/utils/index.ts'
 import { ButtonBase } from '../namespace-browser/base.ts'
 import { type NavigationSplitView } from './navigation-split-view.ts'
 import { type NavigationStack } from './navigation-stack.ts'
@@ -82,7 +82,7 @@ export class TabItem extends ButtonBase {
       if (btn.ariaSelected !== 'true' || !btn.isConnected) return
 
       btn.scrollIntoView({
-        behavior: self.matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
+        behavior: matchMedia('(prefers-reduced-motion: no-preference)').matches ? 'smooth' : 'instant',
         block: 'nearest',
         inline: 'nearest',
       })

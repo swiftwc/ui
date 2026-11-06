@@ -2,10 +2,44 @@
 <html>
   <head>
     <meta charset="UTF-8" />
+    <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/app.scss" rel="stylesheet" />
-    <script type="module" src="/app.ts"></script>
+    <title>vite-app</title>
+    <!-- [!code ++] -->
+    <template id="detail-view">
+      <!-- [!code ++] -->
+      <content-view>
+        <!-- [!code ++] -->
+        <scroll-view>
+          <!-- [!code ++] -->
+          <v-stack>
+            <!-- [!code ++] -->
+            <label-view data-greeting system-image="hand-waving"></label-view>
+            <!-- [!code ++] -->
+          </v-stack>
+          <!-- [!code ++] -->
+        </scroll-view>
+        <!-- [!code ++] -->
+        <tool-bar>
+          <!-- [!code ++] -->
+          <tool-bar-item slot="top-bar-leading">
+            <!-- [!code ++] -->
+            <button type="button" tabindex="0" help="Back">
+              <!-- [!code ++] -->
+              <label-view system-image="caret-left"></label-view>
+              <!-- [!code ++] -->
+            </button>
+            <!-- [!code ++] -->
+          </tool-bar-item>
+          <!-- [!code ++] -->
+        </tool-bar>
+        <!-- [!code ++] -->
+      </content-view>
+      <!-- [!code ++] -->
+    </template>
+    <script type="module" src="/src/main.ts"></script>
   </head>
+
   <body>
     <!-- [!code ++] -->
     <v-keyboard system-font="Inter"></v-keyboard>
@@ -19,7 +53,7 @@
           <!-- [!code ++] -->
           <button is="borderless-button" type="button">
             <!-- [!code ++] -->
-            <label-view title="Hello world" system-image="hand-waving"></label-view>
+            <label-view title="Say hello" system-image="hand-waving"></label-view>
             <!-- [!code ++] -->
           </button>
           <!-- [!code ++] -->

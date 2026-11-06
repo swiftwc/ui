@@ -21,7 +21,7 @@ cd vite-app
 ```
 
 ```bash [bun]
-bun add --exact @swiftwc/ui@latest --dev
+bun create vite vite-app
 cd vite-app
 ```
 
@@ -113,7 +113,7 @@ bun add --exact @swiftwc/ui@canary --dev
 
 ::: code-group
 
-```css [app.css]
+```css [src/style.css]
 /* [!code ++] */
 @import '@swiftwc/ui/css';
 ```
@@ -126,7 +126,7 @@ bun add --exact @swiftwc/ui@canary --dev
 
 ::: code-group
 
-```scss [app.scss]
+```scss [src/style.scss]
 // [!code ++]
 @use '@swiftwc/ui/scss/vars' with (
   // [!code ++]
@@ -151,7 +151,7 @@ bun add --exact @swiftwc/ui@canary --dev
 
 ::: code-group
 
-```ts [app.ts]
+```ts [src/main.ts]
 // [!code ++]
 import '@swiftwc/ui/client'
 ```
@@ -162,7 +162,7 @@ import '@swiftwc/ui/client'
 
 ::: code-group
 
-```js [app.js]
+```js [src/main.js]
 // [!code ++]
 import '@swiftwc/ui/client'
 ```
@@ -179,6 +179,8 @@ npm run dev
 
 ## 6. Start using SwiftWC
 
+<div class="[&_[role=tablist]]:hidden">
+
 :::::tabs key:script variant:code
 
 === If you are using TypeScript
@@ -191,21 +193,9 @@ npm run dev
 
 <<< @/snippets/installation/vite/tscss/index.html
 
-<<< @/snippets/installation/vite/app.css
+<<< @/snippets/installation/vite/style.css
 
-<<< @/snippets/installation/vite/app.ts
-
-```json [tsconfig.json]
-{
-  "compilerOptions": {
-    "types": ["vite/client"]
-  }
-}
-```
-
-```ts [types/phosphor-icons.d.ts]
-declare module '@phosphor-icons/web/*'
-```
+<<< @/snippets/installation/vite/main.ts
 
 :::
 
@@ -215,21 +205,9 @@ declare module '@phosphor-icons/web/*'
 
 <<< @/snippets/installation/vite/tsscss/index.html
 
-<<< @/snippets/installation/vite/app.scss
+<<< @/snippets/installation/vite/style.scss
 
-<<< @/snippets/installation/vite/app.ts
-
-```json [tsconfig.json]
-{
-  "compilerOptions": {
-    "types": ["vite/client"]
-  }
-}
-```
-
-```ts [types/phosphor-icons.d.ts]
-declare module '@phosphor-icons/web/*'
-```
+<<< @/snippets/installation/vite/main.ts
 
 :::
 
@@ -245,9 +223,9 @@ declare module '@phosphor-icons/web/*'
 
 <<< @/snippets/installation/vite/jscss/index.html
 
-<<< @/snippets/installation/vite/app.css
+<<< @/snippets/installation/vite/style.css
 
-<<< @/snippets/installation/vite/app.js
+<<< @/snippets/installation/vite/main.js
 
 :::
 
@@ -257,12 +235,24 @@ declare module '@phosphor-icons/web/*'
 
 <<< @/snippets/installation/vite/jsscss/index.html
 
-<<< @/snippets/installation/vite/app.scss
+<<< @/snippets/installation/vite/style.scss
 
-<<< @/snippets/installation/vite/app.js
+<<< @/snippets/installation/vite/main.js
 
 :::
 
 ::::
 
 :::::
+
+</div>
+
+## See also
+
+<dl class="ps-10">
+
+[Inspect template files](https://github.com/swiftwc/ui/tree/canary/templates/vite-app)
+
+<dd class="-mt-5">See the entire code for this template on GitHub</dd>
+
+</dl>

@@ -14,8 +14,8 @@ How to install dependencies and structure your Ember.js app.
 ## Create your project
 
 ```bash
-npx ember-cli new my-project --embroider --no-welcome
-cd my-project
+npx ember-cli new ember-app --no-welcome
+cd ember-app
 ```
 
 ## Install SwiftWC
@@ -46,7 +46,7 @@ bun add --exact @swiftwc/ui@latest --dev
 import Application from '@ember/application';
 import Resolver from 'ember-resolver';
 import loadInitializers from 'ember-load-initializers';
-import config from 'my-project/config/environment';
+import config from 'ember-app/config/environment';
 import '@swiftwc/ui/styles.css'; // [!code ++]
 import '@swiftwc/ui/client'; // [!code ++]
 export default class App extends Application {
@@ -97,7 +97,7 @@ import { pageTitle } from 'ember-page-title';
 
 ```ts [app/router.ts]
 import EmberRouter from '@embroider/router'
-import config from 'my-project/config/environment'
+import config from 'ember-app/config/environment'
 
 export default class Router extends EmberRouter {
   location = config.locationType
@@ -111,7 +111,7 @@ Router.map(function () {
 
 ```gts{2,5-7} [index.gts]
 import { pageTitle } from 'ember-page-title';
-import { startViewTransition } '@swiftwc/ui/client';
+import { startViewTransition } from '@swiftwc/ui/client';
 
 const handleClick = async (event) => {
   await startViewTransition(event.target, 'forwards', async () => {

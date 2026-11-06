@@ -15,7 +15,7 @@ const install = [
 ]
 
 // Paths to delete (relative to the template).
-const deletes = ['src/counter.ts', 'src/assets', 'public/icons.svg']
+const deletes:string[] = ['src/counter.ts', 'src/assets', 'public/icons.svg']
 
 // Files to write (relative path -> content).
 const files: Record<string, string> = {
@@ -71,12 +71,12 @@ export default defineConfig([
       <content-view>
         <scroll-view>
           <v-stack>
-            <label-view><span class="text-red-500">Hello</span></label-view>
+            <label-view data-greeting system-image="hand-waving"></label-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
-            <button type="button" tabindex="0">
+            <button type="button" tabindex="0" help="Back">
               <label-view system-image="caret-left"></label-view>
             </button>
           </tool-bar-item>
@@ -93,10 +93,7 @@ export default defineConfig([
       <scroll-view>
         <v-stack>
           <button is="borderless-button" type="button">
-            <label-view
-              title="Hello world"
-              system-image="hand-waving"
-            ></label-view>
+            <label-view title="Say hello" system-image="hand-waving"></label-view>
           </button>
         </v-stack>
       </scroll-view>
@@ -132,24 +129,28 @@ import "@phosphor-icons/web/light"
 import "@phosphor-icons/web/regular"
 import "@phosphor-icons/web/thin"
 
+const greetings = ["Hello", "Hola", "Bonjour", "Ciao", "Γειά σου", "こんにちは"]
+let next = 0
+
 const detailView = document.querySelector<HTMLTemplateElement>("#detail-view")!
 
 document.addEventListener("click", async ({ target }: Event) => {
   if (!(target instanceof HTMLElement)) return
 
   if (target.closest("tool-bar-item")) {
-    await startViewTransition(target as HTMLElement, "backwards", async () => {
-      document.querySelector<HTMLDivElement>("content-view")?.remove()
+    await startViewTransition(target, "backwards", async () => {
+      document.querySelector("content-view")?.remove()
     })
   } else if (target.closest("button")) {
-    await startViewTransition(target as HTMLElement, "forwards", async () => {
-      document
-        .querySelector("navigation-stack")
-        ?.append(detailView.content.cloneNode(true))
+    await startViewTransition(target, "forwards", async () => {
+      const view = detailView.content.cloneNode(true) as DocumentFragment
+      view
+        .querySelector("[data-greeting]")
+        ?.setAttribute("title", greetings[next++ % greetings.length])
+      document.querySelector("navigation-stack")?.append(view)
     })
   }
-})
-`,
+})`,
 }
 
 // Scripts registered in package.json, then run with `npm run` (not npx).

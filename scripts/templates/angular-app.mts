@@ -18,6 +18,20 @@ const deletes:string[] = ['package-lock.json', '.git'];
 
 // Files to write (relative path -> content).
 const files: Record<string, string> = {
+  'src/styles.css': `/* You can add global styles to this file, and also import other style files */
+
+@layer base, sw, components, utilities, theme;
+
+@import 'tailwindcss';
+@import '@fontsource-variable/inter';
+@import '@phosphor-icons/web/bold';
+@import '@phosphor-icons/web/duotone';
+@import '@phosphor-icons/web/fill';
+@import '@phosphor-icons/web/light';
+@import '@phosphor-icons/web/regular';
+@import '@phosphor-icons/web/thin';
+@import '@swiftwc/ui/css';`,
+
   'src/app/app.routes.ts': `import { Routes } from '@angular/router'
 import { AboutComponent } from './about.component'
 
@@ -108,7 +122,11 @@ export class AboutComponent {
 const scripts: Record<string, string> = {
   
 }
-const lintAndFormat:string[] = []
+// Runs before the build, so the budget bump is in place when `ng build` checks it
+// (replacements only apply after a successful build, which the 1MB budget would block).
+const lintAndFormat:string[] = [
+    `node -e "const fs=require('fs');fs.writeFileSync('angular.json',fs.readFileSync('angular.json','utf8').replace('\\"maximumError\\": \\"1MB\\"','\\"maximumError\\": \\"4MB\\"'))"`,
+]
 
 // Build check. If this fails, the template is left as-is and no replacements are applied.
 const build = 'npm run build'
@@ -118,17 +136,6 @@ const build = 'npm run build'
 const replacements: Record<string, [string | RegExp, string][]> = {
     'src/main.ts': [
         [/^/, `import '@swiftwc/ui/client';
-`],
-    ],
-    'src/styles.css': [
-        [/^/, `@import '@swiftwc/ui/css';
-@import '@fontsource-variable/inter';
-@import '@phosphor-icons/web/bold';
-@import '@phosphor-icons/web/duotone';
-@import '@phosphor-icons/web/fill';
-@import '@phosphor-icons/web/light';
-@import '@phosphor-icons/web/regular';
-@import '@phosphor-icons/web/thin';
 `],
     ],
 }

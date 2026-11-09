@@ -37,15 +37,19 @@ export default defineConfig({
   ],
 });
 `,
-  'types/global.d.ts': `declare module '@swiftwc/ui/css' {}
-declare module '@phosphor-icons/web/*' {}
-declare module '*.css' {}
-declare module '*.scss' {}
+  'types/global.d.ts': `declare module '@phosphor-icons/web/*' {}
 `,
   'app/styles/app.css': `/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
 @layer base, sw, components, utilities, theme;
 
 @import "tailwindcss";
+@import "@fontsource-variable/inter";
+@import "@phosphor-icons/web/bold";
+@import "@phosphor-icons/web/duotone";
+@import "@phosphor-icons/web/fill";
+@import "@phosphor-icons/web/light";
+@import "@phosphor-icons/web/regular";
+@import "@phosphor-icons/web/thin";
 @import "@swiftwc/ui/css";
 `,
   '.stylelintrc.mjs': `export default {
@@ -212,15 +216,7 @@ const build = 'npm run build'
 //    file (relative to the template) -> [[search, replacement], ...]; search is a string (all) or RegExp.
 const replacements: Record<string, [string | RegExp, string][]> = {
     'app/app.ts': [
-        [/^/, `import '@swiftwc/ui/css';
-import '@fontsource-variable/inter';
-import '@swiftwc/ui/client';
-import '@phosphor-icons/web/bold';
-import '@phosphor-icons/web/duotone';
-import '@phosphor-icons/web/fill';
-import '@phosphor-icons/web/light';
-import '@phosphor-icons/web/regular';
-import '@phosphor-icons/web/thin';
+        [/^/, `import '@swiftwc/ui/client';
 `],
     ],
     'index.html': [

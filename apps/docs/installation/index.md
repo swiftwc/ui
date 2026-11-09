@@ -11,7 +11,7 @@ Instructions on how to add the SwiftWC Web Components to your app.
 > [!IMPORTANT] BEFORE YOU START 👇🏻
 > **SwiftWC** is primarily intended for building _standalone web apps_ and _web extensions_. It is NOT meant (and not tested) for websites.
 
-## Quick Start
+## Quick start
 
 If you are building an always online app, the easiest way to add SwiftWC is by using a CDN.
 

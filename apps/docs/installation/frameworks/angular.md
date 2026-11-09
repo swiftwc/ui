@@ -7,7 +7,7 @@ next:
   link: '/installation/editor-setup'
 ---
 
-# Install SwiftWC in an Angular project
+# Install SwiftWC with Angular
 
 How to install dependencies and structure your Angular app.
 
@@ -71,13 +71,7 @@ bun add --exact @swiftwc/ui@canary
 
 ::: code-group
 
-```scss [app.scss]
-// [!code ++]
-@use '@swiftwc/ui/scss/vars' with (
-  // [!code ++]
-  $components-layer: web-components
-); // [!code ++]
-
+```scss [src/styles.scss]
 @forward '@swiftwc/ui/scss'; // [!code ++]
 ```
 
@@ -87,13 +81,49 @@ bun add --exact @swiftwc/ui@canary
 
 <!--@include: ../../parts/prioritize-css-layers.md-->
 
-```ts [src/styles.css]
-/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
-@import 'tailwindcss';
+<div class="[&_[role=tablist]]:hidden">
 
+::::tabs key:stylesheet
+
+== If you are using CSS
+
+**Add a `@layer` rule at the beginning of your CSS file:**
+
+::: code-group
+
+```css [src/styles.css]
 // [!code ++]
 @layer base, sw, components, utilities, theme;
+
+@import 'tailwindcss';
+@import '@swiftwc/ui/css';
 ```
+
+:::
+
+== If you are using SCSS
+
+**Add a `style` tag at the beginning of your HTML file:**
+
+::: code-group
+
+```html [src/index.html]
+<head>
+  <!-- [!code ++] -->
+  <style>
+    /* [!code ++] */
+    @layer base, sw, components, utilities, theme;
+    /* [!code ++] */
+  </style>
+  <!-- 👇🏻 stylesheets go after -->
+</head>
+```
+
+:::
+
+::::
+
+</div>
 
 ## 4. Import the Client module
 
@@ -118,90 +148,53 @@ npm start
 
 ::: code-group
 
-```html{2,5-7} [src/app/app.html]
+```html [src/app/app.html]
+<!-- [!code ++] -->
 <v-keyboard system-font="Inter"></v-keyboard>
 
+<!-- [!code ++] -->
 <navigation-stack>
+  <!-- [!code ++] -->
   <scroll-view>
+    <!-- [!code ++] -->
     <v-stack>
+      <!-- [!code ++] -->
       <button is="borderless-button" type="button">
-        <label-view title="Hello world" system-image="hand-waving" (click)="handleClick($event)"></label-view>
+        <!-- [!code ++] -->
+        <label-view title="Say hello" system-image="hand-waving" (click)="handleClick($event)"></label-view>
+        <!-- [!code ++] -->
       </button>
+      <!-- [!code ++] -->
     </v-stack>
+    <!-- [!code ++] -->
   </scroll-view>
+
   <router-outlet />
+  <!-- [!code ++] -->
 </navigation-stack>
 ```
 
-```ts [src/app/app.routes.ts]
-import { Routes } from '@angular/router'
-import { AboutComponent } from './about.component'
-
-export const routes: Routes = [
-  {
-    path: 'about',
-    component: AboutComponent,
-  },
-]
-```
-
 ```ts [src/app/app.ts]
-import { CUSTOM_ELEMENTS_SCHEMA, Component, signal } from '@angular/core'
-import { RouterOutlet } from '@angular/router'
-import { startViewTransition } from '@swiftwc/ui/client'
-import { Router } from '@angular/router'
+import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core'
+// [!code ++]
+import { alert } from '@swiftwc/ui/client'
 
 @Component({
-  imports: [RouterOutlet],
   selector: 'body',
   styleUrl: './app.css',
   templateUrl: './app.html',
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
 export class App {
-  protected readonly title = signal('about-me')
-
-  constructor(private router: Router) {}
-
   async handleClick(event: Event) {
-    await startViewTransition(event.target as HTMLElement, 'forwards', async () => {
-      await this.router.navigate(['/about'])
-    })
-  }
-}
-```
+    if (!(event.target instanceof HTMLElement)) return
 
-```ts [src/app/about.component.ts]
-import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core'
-import { Router } from '@angular/router'
-import { startViewTransition } from '@swiftwc/ui/client'
+    if (!event.target.closest('button')) return
 
-@Component({
-  selector: 'content-view',
-  standalone: true,
-  schemas: [CUSTOM_ELEMENTS_SCHEMA],
-  template: `
-    <scroll-view>
-      <v-stack>
-        <button is="borderless-button" type="button">Back</button>
-      </v-stack>
-    </scroll-view>
-    <tool-bar>
-      <tool-bar-item slot="top-bar-leading">
-        <button type="button" tabindex="0" (click)="handleClick($event)">
-          <label-view system-image="caret-left"></label-view>
-        </button>
-      </tool-bar-item>
-    </tool-bar>
-  `,
-})
-export class AboutComponent {
-  constructor(private router: Router) {}
+    await self.customElements.whenDefined('borderless-button')
 
-  async handleClick(event: Event) {
-    await startViewTransition(event.target as HTMLElement, 'backwards', async () => {
-      await this.router.navigate(['/'])
-    })
+    // [!code ++]
+    void alert('hello', 'world')
   }
 }
 ```

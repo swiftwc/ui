@@ -1,12 +1,4 @@
-import '@swiftwc/ui/css';
-import '@fontsource-variable/inter';
 import '@swiftwc/ui/client';
-import '@phosphor-icons/web/bold';
-import '@phosphor-icons/web/duotone';
-import '@phosphor-icons/web/fill';
-import '@phosphor-icons/web/light';
-import '@phosphor-icons/web/regular';
-import '@phosphor-icons/web/thin';
 import '@warp-drive/ember/install';
 import Application from '@ember/application';
 import compatModules from '@embroider/virtual/compat-modules';

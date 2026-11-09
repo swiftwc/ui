@@ -90,7 +90,17 @@ bun add --exact @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inte
 
 <!--@include: ../../parts/prioritize-css-layers.md-->
 
-```ts [app.css]
+<div class="[&_[role=tablist]]:hidden">
+
+::::tabs key:stylesheet
+
+== If you are using CSS
+
+**Add a `@layer` rule at the beginning of your CSS file:**
+
+::: code-group
+
+```css [styles/app.css]
 /* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
 // [!code ++]
 @layer base, sw, components, utilities, theme;
@@ -98,6 +108,35 @@ bun add --exact @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inte
 @import 'tailwindcss';
 @import "@swiftwc/ui/css";
 ```
+
+:::
+
+== If you are using SCSS
+
+**Add a `style` tag at the beginning of your HTML file:**
+
+::: code-group
+
+```html [index.html]
+<head>
+  <!-- [!code ++] -->
+  <style>
+    /* [!code ++] */
+    @layer base, sw, components, utilities, theme;
+    /* [!code ++] */
+  </style>
+  <!-- 👇🏻 stylesheets go after -->
+  <link integrity="" rel="stylesheet" href="/@embroider/virtual/vendor.css" />
+  <link integrity="" rel="stylesheet" href="/app/styles/tailwind.css" />
+  <link integrity="" rel="stylesheet" href="/app/styles/app.scss" />
+</head>
+```
+
+:::
+
+::::
+
+</div>
 
 ## 4. Import the Client module
 

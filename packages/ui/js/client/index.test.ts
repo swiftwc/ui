@@ -6,7 +6,7 @@ import { Snapshot } from '../client/index.ts'
 import { ScrollView } from '../components/index.ts'
 import { $ } from '../internal/utils/index.ts'
 import { html } from '../tpl/index.ts'
-import { NavigationPath, alert } from './index.ts'
+import { NavigationPath, alert, confirmationDialog } from './index.ts'
 
 beforeEach(() => document.body.replaceChildren())
 
@@ -329,6 +329,33 @@ describe('prop', () => {
     await userEvent.click(document.querySelector<HTMLElement>('button[role="close"]')!)
 
     await expect.element(page.getByRole('dialog')).not.toBeInTheDocument() // await expect.poll(() => dialog?.isConnected).toBe(false) await expect.element(page.getByRole('dialog')).toBeUndefined()
+  })
+
+  test('confirmationDialog()', async () => {
+    await Snapshot.waitReady
+
+    document.body.insertAdjacentElement(
+      'beforeend',
+      $(
+        html`<navigation-stack
+          ><scroll-view><button type="button" id="trigger">Delete</button></scroll-view></navigation-stack
+        >`,
+        '>1'
+      )
+    )
+    el = document.body.lastElementChild as HTMLElement
+
+    const result = confirmationDialog(el.querySelector<HTMLElement>('#trigger')!, 'Erase?', 'Sure?', [{ role: 'cancel' }])
+
+    await expect.element(page.getByRole('dialog')).toHaveAttribute('open')
+
+    const dialog = document.querySelector('dialog[is="confirmation-dialog"]')!
+    expect(dialog.querySelector('label-view[font="headline"]')?.getAttribute('title')).toBe('Erase?')
+
+    await userEvent.click(document.querySelector<HTMLElement>('button[role="cancel"]')!)
+
+    await expect.element(page.getByRole('dialog')).not.toBeInTheDocument()
+    await expect(result).resolves.toBe('0')
   })
 })
 

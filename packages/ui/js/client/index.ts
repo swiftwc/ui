@@ -351,10 +351,10 @@ export const confirmationDialog = async (
       btn.appendChild(label)
     }
 
-    trigger.closest('content-view,dialog,navigation-stack,navigation-split-view')?.insertAdjacentElement('beforeend', btn)
+    dialog.insertAdjacentElement('beforeend', btn)
   }
 
-  trigger.closest('content-view,dialog')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
+  trigger.closest('content-view,dialog,navigation-stack,navigation-split-view')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()
 
   const { promise, resolve } = Promise.withResolvers<string>(),
     off = onoff(

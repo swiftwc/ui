@@ -1,5 +1,5 @@
+@layer base, sw, components, utilities, theme;
+
 @import "tailwindcss";
 
 @import "@swiftwc/ui/css";
-
-@layer base, sw, components, utilities, theme;

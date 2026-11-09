@@ -4,6 +4,7 @@ import { dl } from '@mdit/plugin-dl'
 import { embed } from '@mdit/plugin-embed'
 import { icon } from '@mdit/plugin-icon'
 import { layout } from '@mdit/plugin-layout'
+import { transformerTwoslash } from '@shikijs/vitepress-twoslash'
 import { existsSync, readFileSync, statSync } from 'node:fs'
 import { extname, join } from 'node:path'
 import { fileURLToPath } from 'node:url'
@@ -161,6 +162,7 @@ export default defineConfig({
   },
   markdown: {
     codeTransformers: [
+      transformerTwoslash(),
       {
         name: 'link-urls',
         span(node) {

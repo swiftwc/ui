@@ -110,14 +110,13 @@ export default defineConfig({
 })
 `,
 
-    'src/env.d.ts': `declare module "@phosphor-icons/web/*"
-`,
+    'src/env.d.ts': `declare module "@phosphor-icons/web/*"`,
 
-    'src/style.css': `@import "tailwindcss";
+    'src/style.css': `@layer base, sw, components, utilities, theme;
+
+@import "tailwindcss";
 
 @import "@swiftwc/ui/css";
-
-@layer base, sw, components, utilities, theme;
 `,
 
     'src/main.ts': `import "./style.css"

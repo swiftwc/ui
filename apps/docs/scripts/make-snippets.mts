@@ -1,50 +1,59 @@
-import { mkdir, readFile, writeFile } from 'node:fs/promises'
+import { template } from 'es-toolkit/compat'
+import { readFileSync, writeFileSync } from 'node:fs'
 import { stripTypeScriptTypes } from 'node:module'
-import { dirname, resolve } from 'node:path'
+import { resolve } from 'node:path'
 
-const here = (path: string) => resolve(import.meta.dirname, path)
+// Tagged template that just returns the string (the `html` tag name enables editor highlighting/formatting)
+const html = (strings: TemplateStringsArray, ...values: unknown[]) => String.raw({ raw: strings }, ...values)
 
-const template = here('../../../templates/vite-app')
-const out = here('../snippets/installation/vite')
+// SECTION
+const viteIndex = html`<!doctype html>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="/src/style.<%= style %>" rel="stylesheet" />
+      <script type="module" src="/src/main.<%= script %>"></script>
+    </head>
+    <body>
+      <!-- [!code ++] -->
+      <v-keyboard system-font="Inter"></v-keyboard>
 
-type Replacement = readonly [from: string, to: string]
+      <!-- [!code ++] -->
+      <navigation-stack>
+        <!-- [!code ++] -->
+        <scroll-view>
+          <!-- [!code ++] -->
+          <v-stack>
+            <!-- [!code ++] -->
+            <button is="borderless-button" type="button" tabindex="0">
+              <!-- [!code ++] -->
+              <label-view title="Say hello" system-image="hand-waving"></label-view>
+              <!-- [!code ++] -->
+            </button>
+            <!-- [!code ++] -->
+          </v-stack>
+          <!-- [!code ++] -->
+        </scroll-view>
+        <!-- [!code ++] -->
+      </navigation-stack>
+    </body>
+  </html>`
 
-const apply = (code: string, replacements: readonly Replacement[]) =>
-  replacements.reduce((acc, [from, to]) => {
-    if (!acc.includes(from)) throw new Error(`not found: ${from}`)
-    return acc.replace(from, to)
-  }, code)
+// index.html -> {foo,bar,baz...}/index.html
+for (const [dir, script, style] of [
+  ['jscss', 'js', 'css'],
+  ['jsscss', 'js', 'scss'],
+  ['tscss', 'ts', 'css'],
+  ['tsscss', 'ts', 'scss'],
+])
+  writeFileSync(resolve(import.meta.dirname, `../snippets/installation/vite/${dir}/index.html`), template(viteIndex)({ script, style }))
 
-const write = async (path: string, content: string) => {
-  await mkdir(dirname(path), { recursive: true })
-  await writeFile(path, content)
-  console.log('wrote', path.slice(out.length + 1))
-}
+// .ts -> .js
+for (const path of ['../snippets/installation/vite/main.ts', '../snippets/installation/emberjs/app.ts']) {
+  const file = resolve(import.meta.dirname, path)
 
-// one entry per snippet variant
-const variants = [
-  { dir: 'tscss', ts: true, style: 'css' },
-  { dir: 'tsscss', ts: true, style: 'scss' },
-  { dir: 'jscss', ts: false, style: 'css' },
-  { dir: 'jsscss', ts: false, style: 'scss' },
-] as const
+  // const { name } = parse(file)
 
-const mainTs = await readFile(`${template}/src/main.ts`, 'utf8')
-const indexHtml = await readFile(`${template}/index.html`, 'utf8')
-
-for (const { dir, ts, style } of variants) {
-  const ext = ts ? 'ts' : 'js'
-
-  // main.ts: swap the stylesheet import (template ships `import "./style.css"`)
-  const mainReplacements: Replacement[] = []
-  if (style === 'scss') mainReplacements.push(['import "./style.css"', 'import "./style.scss"'])
-  const main = apply(mainTs, mainReplacements)
-
-  // index.html: point the entry script at the right file
-  const htmlReplacements: Replacement[] = []
-  if (!ts) htmlReplacements.push(['<script type="module" src="/src/main.ts">', '<script type="module" src="/src/main.js">'])
-  const html = apply(indexHtml, htmlReplacements)
-
-  await write(`${out}/${dir}/main.${ext}`, ts ? main : stripTypeScriptTypes(main, { mode: 'strip' }))
-  await write(`${out}/${dir}/index.html`, html)
+  writeFileSync(`${file.replace('.ts', '.js')}`, stripTypeScriptTypes(readFileSync(file, 'utf8'), { mode: 'strip' }))
 }

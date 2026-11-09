@@ -1,4 +1,5 @@
 import '@swiftwc/ui/css';
+import '@fontsource-variable/inter';
 import '@swiftwc/ui/client';
 import '@phosphor-icons/web/bold';
 import '@phosphor-icons/web/duotone';

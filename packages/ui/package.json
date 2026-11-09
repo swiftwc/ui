@@ -49,7 +49,10 @@
       "types": "./generated/events/index.d.ts",
       "default": "./generated/events/index.js"
     },
-    "./css": "./generated/css/index.css",
+    "./css": {
+      "types": "./generated/css/index.d.ts",
+      "default": "./generated/css/index.css"
+    },
     "./scss": "./scss/index.scss",
     "./scss/*": "./scss/*.scss",
     "./customElements/en": "./custom-elements/en.json",
@@ -60,12 +63,13 @@
     "swiftwc": "./generated/index.js"
   },
   "scripts": {
-    "build": "npm run clean && npm run build:ts && npm run build:scss",
+    "build": "npm run clean && npm run build:ts && npm run build:scss && npm run build:css-types",
     "postbuild": "node -e \"const fs=require('node:fs');const f='./generated/internal/dev-flags.js';const s=fs.readFileSync(f,'utf8');fs.writeFileSync(f,s.replace(/DEBUG:\\s*(true|false)/, 'DEBUG: false'))\"",
     "build:ts": "tsc",
     "build:ts:watch": "tsc --watch",
     "build:scss": "sass --style=expanded --no-source-map scss/index.scss generated/css/index.css",
     "build:scss:watch": "true",
+    "build:css-types": "node scripts/make-css-types.mts",
     "prepublishOnly": "npm run build",
     "clean": "rm -rf generated",
     "codegen": "npm run codegen:manifest && npm run barrelize",

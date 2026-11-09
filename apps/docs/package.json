@@ -6,25 +6,35 @@
     "build": "vitepress build",
     "preview": "vitepress preview",
     "start": "vitepress dev",
-    "codegen": "npm run codegen:pages && npm run codegen:src",
+    "codegen": "npm run codegen:pages && npm run codegen:src && npm run codegen:snippets",
     "codegen:src": "node -e \"for(const f of fs.globSync('src/public/**/*.mts'))fs.rmSync(f.slice(4).replace(/\\.mts$/,'.mjs'),{force:true})\" && tsc -p src && prettier ./public/demos ./public/showcase --write",
     "codegen:src:watch": "true",
     "codegen:pages": "node scripts/make-mds.mts && prettier ./web-components ./generated --write",
+    "codegen:snippets": "node scripts/make-snippets.mts && prettier ./snippets --write",
     "lint": "npm run lint:format",
     "lint:format": "prettier . --cache --check",
     "format": "prettier . --cache --write"
   },
   "devDependencies": {
-    "@mdit/plugin-abbr": "^0.23.2",
-    "@mdit/plugin-align": "^0.24.2",
-    "@mdit/plugin-dl": "^0.23.2",
-    "@mdit/plugin-embed": "^1.0.1",
-    "@mdit/plugin-icon": "^0.24.2",
-    "@mdit/plugin-layout": "^0.2.2",
+    "@mdit/plugin-abbr": "^1.1.4",
+    "@mdit/plugin-align": "^1.1.4",
+    "@mdit/plugin-dl": "^1.1.4",
+    "@mdit/plugin-embed": "^1.1.4",
+    "@mdit/plugin-icon": "^1.1.4",
+    "@mdit/plugin-layout": "^2.0.0",
+    "@shikijs/vitepress-twoslash": "^4.6.0",
     "@swiftwc/ui": "*",
     "@types/doctrine": "^0.0.9",
-    "vitepress": "^2.0.0-alpha.18",
-    "vitepress-plugin-group-icons": "^1.7.5",
-    "vitepress-plugin-tabs": "^0.9.0"
+    "vitepress": "^2.0.0-alpha.21",
+    "vitepress-plugin-group-icons": "^1.8.1",
+    "vitepress-plugin-tabs": "^0.9.1"
+  },
+  "overrides": {
+    "@mdit/plugin-align": {
+      "markdown-it": "$markdown-it"
+    },
+    "@mdit/plugin-dl": {
+      "markdown-it": "$markdown-it"
+    }
   }
 }

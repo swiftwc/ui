@@ -11,7 +11,7 @@ const scaffold = 'npm create -y vite@latest {name} -- --template vanilla-ts --no
 // Installs (inside the template).
 const install = [
     'npm i -D typescript@~6.0 typescript-eslint prettier prettier-plugin-tailwindcss globals eslint @html-eslint/eslint-plugin @eslint/js @swiftwc/eslint-plugin@canary --no-package-lock --ignore-scripts',
-    'npm i tailwindcss @tailwindcss/vite @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter --no-package-lock --ignore-scripts',
+    'npm i tailwindcss @tailwindcss/vite @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inter --no-package-lock --ignore-scripts',
 ]
 
 // Paths to delete (relative to the template).
@@ -71,13 +71,13 @@ export default defineConfig([
       <content-view>
         <scroll-view>
           <v-stack>
-            <label-view data-greeting system-image="hand-waving"></label-view>
+            <label-view data-greeting font="title"></label-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
             <button type="button" tabindex="0" help="Back">
-              <label-view system-image="caret-left"></label-view>
+              <label-view system-image="caret-left" class="font-semibold"></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -92,7 +92,7 @@ export default defineConfig([
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <button is="borderless-button" type="button">
+          <button is="borderless-button" type="button" tabindex="0">
             <label-view title="Say hello" system-image="hand-waving"></label-view>
           </button>
         </v-stack>
@@ -110,7 +110,9 @@ export default defineConfig({
 })
 `,
 
-    'src/env.d.ts': `declare module "@phosphor-icons/web/*"`,
+    'src/env.d.ts': `declare module "@phosphor-icons/web/*"
+
+declare module "@fontsource-variable/*"`,
 
     'src/style.css': `@layer base, sw, components, utilities, theme;
 

@@ -11,14 +11,14 @@ next:
 
 How to install dependencies and structure your Angular app.
 
-## Create your project
+## 1. Create your project
 
 ```bash
 npx ng new about-me
 cd about-me
 ```
 
-## Install SwiftWC
+## 2. Install SwiftWC
 
 :::tabs key:channel
 
@@ -27,11 +27,23 @@ cd about-me
 ::: code-group
 
 ```bash [npm]
-npm i @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter
+npm i @swiftwc/ui@latest @phosphor-icons/web @fontsource-variable/inter
 ```
 
 ```bash [bun]
 bun add --exact @swiftwc/ui@latest
+```
+
+== canary
+
+::: code-group
+
+```bash [npm]
+npm i @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inter
+```
+
+```bash [bun]
+bun add --exact @swiftwc/ui@canary
 ```
 
 :::
@@ -73,13 +85,7 @@ bun add --exact @swiftwc/ui@latest
 
 ::::
 
-### Prioritize CSS layers
-
-Add all sw-\* layers after other base rules. For example, [Tailwind CSS](https://tailwindcss.com/docs/adding-custom-styles#using-custom-css) applies global margin, padding, and border resets accross the page using a `base` `@layer`.
-
-To properly install SwiftWC, add a `@layer` rule at the begining of your stylesheet and move all other base layers at the begining, then follow with all the SwiftWC layers, and finally add any other layers you need, for example Tailwind requires 3 more layers.
-
-**Your styles file should look like this:**
+<!--@include: ../../parts/prioritize-css-layers.md-->
 
 ```ts [src/styles.css]
 /* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
@@ -108,7 +114,7 @@ import '@swiftwc/ui/client'
 npm start
 ```
 
-## Start using SwiftWC
+## 6. Start using SwiftWC
 
 ::: code-group
 

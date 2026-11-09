@@ -9,13 +9,16 @@
       <content-view>
         <scroll-view>
           <v-stack>
-            <label-view data-greeting system-image="hand-waving"></label-view>
+            <label-view data-greeting font="title"></label-view>
           </v-stack>
         </scroll-view>
         <tool-bar>
           <tool-bar-item slot="top-bar-leading">
             <button type="button" tabindex="0" help="Back">
-              <label-view system-image="caret-left"></label-view>
+              <label-view
+                system-image="caret-left"
+                class="font-semibold"
+              ></label-view>
             </button>
           </tool-bar-item>
         </tool-bar>
@@ -30,7 +33,7 @@
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <button is="borderless-button" type="button">
+          <button is="borderless-button" type="button" tabindex="0">
             <label-view
               title="Say hello"
               system-image="hand-waving"

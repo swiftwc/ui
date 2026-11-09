@@ -10,7 +10,8 @@ const scaffold = 'npx ember-cli new ember-app --typescript --no-welcome --skip-g
 
 // Installs (inside the template).
 const install = [
-    'npm i @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter --no-package-lock --ignore-scripts',
+    'npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inter --no-package-lock --ignore-scripts',
+    'npm i -D tailwindcss @tailwindcss/vite --no-package-lock --ignore-scripts',
 ]
 
 // Paths to delete (relative to the template).
@@ -18,6 +19,58 @@ const deletes:string[] = ['package-lock.json', '.git'];
 
 // Files to write (relative path -> content).
 const files: Record<string, string> = {
+  'vite.config.mjs': `import { defineConfig } from 'vite';
+import { extensions, classicEmberSupport, ember } from '@embroider/vite';
+import { babel } from '@rollup/plugin-babel';
+import tailwindcss from '@tailwindcss/vite';
+
+export default defineConfig({
+  plugins: [
+    tailwindcss(),
+    classicEmberSupport(),
+    ember(),
+    // extra plugins here
+    babel({
+      babelHelpers: 'runtime',
+      extensions,
+    }),
+  ],
+});
+`,
+  'types/global.d.ts': `declare module '@swiftwc/ui/css' {}
+declare module '@phosphor-icons/web/*' {}
+declare module '*.css' {}
+declare module '*.scss' {}
+`,
+  'app/styles/app.css': `/* Ember supports plain CSS out of the box. More info: https://cli.emberjs.com/release/advanced-use/stylesheets/ */
+@layer base, sw, components, utilities, theme;
+
+@import "tailwindcss";
+@import "@swiftwc/ui/css";
+`,
+  '.stylelintrc.mjs': `export default {
+  extends: ['stylelint-config-standard'],
+  rules: {
+    'import-notation': 'string',
+    'at-rule-no-unknown': [
+      true,
+      {
+        ignoreAtRules: [
+          'theme',
+          'source',
+          'utility',
+          'variant',
+          'custom-variant',
+          'plugin',
+          'config',
+          'apply',
+        ],
+      },
+    ],
+  },
+};
+
+`,
   'app/router.ts': `import EmberRouter from '@embroider/router';
 import config from 'ember-app/config/environment';
 
@@ -43,8 +96,10 @@ interface S {
 export default class extends Component<S> {
   @service declare router: Services['router'];
 
-  handleClick = async (event: Event) => {
-    await startViewTransition(event.target, 'forwards', async () => {
+  handleClick = async ({target}: Event) => {
+    if (!(target instanceof HTMLElement)) return;
+
+    await startViewTransition(target, 'forwards', async () => {
       await this.router.transitionTo('about');
 
       const { promise, resolve } = Promise.withResolvers<void>();
@@ -67,8 +122,11 @@ export default class extends Component<S> {
           <button
             is="borderless-button"
             type="button"
+             tabindex="0"
             {{on "click" this.handleClick}}
-          >About</button>
+          >
+          <label-view title="Say hello" system-image="hand-waving"></label-view>  
+          </button>
         </v-stack>
       </scroll-view>
 
@@ -102,8 +160,10 @@ export default class extends Component<S> {
 
   greeting = greetings[next++ % greetings.length];
 
-  handleClick = async (event: Event) => {
-    await startViewTransition(event.target, 'backwards', async () => {
+  handleClick = async ({target}: Event) => {
+    if (!(target instanceof HTMLElement)) return;
+
+    await startViewTransition(target, 'backwards', async () => {
       await this.router.transitionTo('/');
     });
   };
@@ -116,7 +176,8 @@ export default class extends Component<S> {
         <v-stack>
           <label-view
             title={{this.greeting}}
-            system-image="hand-waving"
+            font="title"
+            class="font-semibold"
           ></label-view>
         </v-stack>
       </scroll-view>
@@ -161,6 +222,9 @@ import '@phosphor-icons/web/light';
 import '@phosphor-icons/web/regular';
 import '@phosphor-icons/web/thin';
 `],
+    ],
+    'index.html': [
+        [`/@embroider/virtual/app.css`, `/app/styles/app.css`],
     ],
 }
 

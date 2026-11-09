@@ -2,6 +2,9 @@ import { CUSTOM_ELEMENTS_SCHEMA, Component } from '@angular/core'
 import { Router } from '@angular/router'
 import { startViewTransition } from '@swiftwc/ui/client'
 
+const greetings = ['Hello', 'Hola', 'Bonjour', 'Ciao', 'Γειά σου', 'こんにちは']
+let next = 0
+
 @Component({
   selector: 'content-view',
   standalone: true,
@@ -9,12 +12,12 @@ import { startViewTransition } from '@swiftwc/ui/client'
   template: `
     <scroll-view>
       <v-stack>
-        <button is="borderless-button" type="button">Back</button>
+        <label-view [attr.title]="greeting" font="title" class="font-semibold"></label-view>
       </v-stack>
     </scroll-view>
     <tool-bar>
       <tool-bar-item slot="top-bar-leading">
-        <button type="button" tabindex="0" (click)="handleClick($event)">
+        <button type="button" tabindex="0" help="Back" (click)="handleClick($event)">
           <label-view system-image="caret-left"></label-view>
         </button>
       </tool-bar-item>
@@ -22,6 +25,8 @@ import { startViewTransition } from '@swiftwc/ui/client'
   `,
 })
 export class AboutComponent {
+  greeting = greetings[next++ % greetings.length]
+
   constructor(private router: Router) {}
 
   async handleClick(event: Event) {

@@ -12,8 +12,10 @@ interface S {
 export default class extends Component<S> {
   @service declare router: Services['router'];
 
-  handleClick = async (event: Event) => {
-    await startViewTransition(event.target, 'forwards', async () => {
+  handleClick = async ({ target }: Event) => {
+    if (!(target instanceof HTMLElement)) return;
+
+    await startViewTransition(target, 'forwards', async () => {
       await this.router.transitionTo('about');
 
       const { promise, resolve } = Promise.withResolvers<void>();
@@ -28,7 +30,7 @@ export default class extends Component<S> {
   <template>
     {{pageTitle "EmberApp"}}
 
-    <v-keyboard></v-keyboard>
+    <v-keyboard system-font="Inter"></v-keyboard>
 
     <navigation-stack>
       <scroll-view>
@@ -36,8 +38,14 @@ export default class extends Component<S> {
           <button
             is="borderless-button"
             type="button"
+            tabindex="0"
             {{on "click" this.handleClick}}
-          >About</button>
+          >
+            <label-view
+              title="Say hello"
+              system-image="hand-waving"
+            ></label-view>
+          </button>
         </v-stack>
       </scroll-view>
 

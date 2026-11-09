@@ -1,32 +1,32 @@
 <!doctype html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <link href="/app.scss" rel="stylesheet" />
-    <script type="module" src="/app.js"></script>
-  </head>
-  <body>
-    <!-- [!code ++] -->
-    <v-keyboard system-font="Inter"></v-keyboard>
+  <html lang="en">
+    <head>
+      <meta charset="UTF-8" />
+      <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+      <link href="/src/style.scss" rel="stylesheet" />
+      <script type="module" src="/src/main.js"></script>
+    </head>
+    <body>
+      <!-- [!code ++] -->
+      <v-keyboard system-font="Inter"></v-keyboard>
 
-    <!-- [!code ++] -->
-    <navigation-stack>
       <!-- [!code ++] -->
-      <scroll-view>
+      <navigation-stack>
         <!-- [!code ++] -->
-        <v-stack>
+        <scroll-view>
           <!-- [!code ++] -->
-          <button is="borderless-button" type="button">
+          <v-stack>
             <!-- [!code ++] -->
-            <label-view title="Hello world" system-image="hand-waving"></label-view>
+            <button is="borderless-button" type="button" tabindex="0">
+              <!-- [!code ++] -->
+              <label-view title="Say hello" system-image="hand-waving"></label-view>
+              <!-- [!code ++] -->
+            </button>
             <!-- [!code ++] -->
-          </button>
+          </v-stack>
           <!-- [!code ++] -->
-        </v-stack>
+        </scroll-view>
         <!-- [!code ++] -->
-      </scroll-view>
-      <!-- [!code ++] -->
-    </navigation-stack>
-  </body>
-</html>
+      </navigation-stack>
+    </body>
+  </html>

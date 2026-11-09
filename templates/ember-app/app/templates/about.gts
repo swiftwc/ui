@@ -23,8 +23,10 @@ export default class extends Component<S> {
 
   greeting = greetings[next++ % greetings.length];
 
-  handleClick = async (event: Event) => {
-    await startViewTransition(event.target, 'backwards', async () => {
+  handleClick = async ({ target }: Event) => {
+    if (!(target instanceof HTMLElement)) return;
+
+    await startViewTransition(target, 'backwards', async () => {
       await this.router.transitionTo('/');
     });
   };
@@ -37,7 +39,8 @@ export default class extends Component<S> {
         <v-stack>
           <label-view
             title={{this.greeting}}
-            system-image="hand-waving"
+            font="title"
+            class="font-semibold"
           ></label-view>
         </v-stack>
       </scroll-view>

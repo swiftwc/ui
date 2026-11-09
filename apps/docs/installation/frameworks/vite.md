@@ -31,18 +31,14 @@ cd vite-app
 
 **Install SwiftWC and it’s dependencies:**
 
-:::::tabs key:channel
+::::tabs key:channel
 
 == latest
 
-::::tabs key:script variant:code
-
-=== If you are using TypeScript
-
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter typescript
+npm i -D @swiftwc/ui@latest @phosphor-icons/web @fontsource-variable/inter
 ```
 
 ```bash [bun]
@@ -50,47 +46,13 @@ bun add --exact @swiftwc/ui@latest --dev
 ```
 
 :::
-
-=== If you are using JavaScript
-
-::: code-group
-
-```bash [npm]
-npm i -D @swiftwc/ui@latest @phosphor-icons/web @fontsource/inter
-```
-
-```bash [bun]
-bun add --exact @swiftwc/ui@latest --dev
-```
-
-:::
-
-::::
 
 == canary
 
-::::tabs key:script variant:code
-
-=== If you are using TypeScript
-
 ::: code-group
 
 ```bash [npm]
-npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter typescript
-```
-
-```bash [bun]
-bun add --exact @swiftwc/ui@canary --dev
-```
-
-:::
-
-=== If you are using JavaScript
-
-::: code-group
-
-```bash [npm]
-npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter
+npm i -D @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inter
 ```
 
 ```bash [bun]
@@ -100,8 +62,6 @@ bun add --exact @swiftwc/ui@canary --dev
 :::
 
 ::::
-
-:::::
 
 ## 3. Import the stylesheet
 
@@ -128,18 +88,61 @@ bun add --exact @swiftwc/ui@canary --dev
 
 ```scss [src/style.scss]
 // [!code ++]
-@use '@swiftwc/ui/scss/vars' with (
-  // [!code ++]
-  $components-layer: web-components // [!code ++]
-); // [!code ++]
-
-// [!code ++]
 @forward '@swiftwc/ui/scss';
 ```
 
 :::
 
 ::::
+
+<!--@include: ../../parts/prioritize-css-layers.md-->
+
+<div class="[&_[role=tablist]]:hidden">
+
+::::tabs key:stylesheet
+
+== If you are using CSS
+
+**Add a `@layer` rule at the beginning of your CSS file:**
+
+::: code-group
+
+```css [src/style.css]
+/* [!code ++] */
+@layer base, sw, components, utilities, theme;
+
+@import 'tailwindcss';
+
+@import '@swiftwc/ui/css';
+```
+
+:::
+
+== If you are using SCSS
+
+**Add a `style` tag at the beginning of your HTML file:**
+
+::: code-group
+
+```html [index.html]
+<head>
+  <!-- [!code ++] -->
+  <style>
+    /* [!code ++] */
+    @layer base, sw, components, utilities, theme;
+    /* [!code ++] */
+  </style>
+  <!-- 👇🏻 stylesheets go after -->
+  <link href="/src/tailwind.css" rel="stylesheet" />
+  <link href="/src/style.scss" rel="stylesheet" />
+</head>
+```
+
+:::
+
+::::
+
+</div>
 
 ## 4. Import the Client module
 
@@ -193,8 +196,6 @@ npm run dev
 
 <<< @/snippets/installation/vite/tscss/index.html
 
-<<< @/snippets/installation/vite/style.css
-
 <<< @/snippets/installation/vite/main.ts
 
 :::
@@ -204,8 +205,6 @@ npm run dev
 ::: code-group
 
 <<< @/snippets/installation/vite/tsscss/index.html
-
-<<< @/snippets/installation/vite/style.scss
 
 <<< @/snippets/installation/vite/main.ts
 
@@ -223,8 +222,6 @@ npm run dev
 
 <<< @/snippets/installation/vite/jscss/index.html
 
-<<< @/snippets/installation/vite/style.css
-
 <<< @/snippets/installation/vite/main.js
 
 :::
@@ -234,8 +231,6 @@ npm run dev
 ::: code-group
 
 <<< @/snippets/installation/vite/jsscss/index.html
-
-<<< @/snippets/installation/vite/style.scss
 
 <<< @/snippets/installation/vite/main.js
 

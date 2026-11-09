@@ -10,7 +10,7 @@ const scaffold = 'npx ng new angular-app --style=tailwind --ssr=false --ai-confi
 
 // Installs (inside the template).
 const install = [
-    'npm i @swiftwc/ui@canary @phosphor-icons/web @fontsource/inter --no-package-lock --ignore-scripts',
+    'npm i @swiftwc/ui@canary @phosphor-icons/web @fontsource-variable/inter --no-package-lock --ignore-scripts',
 ]
 
 // Paths to delete (relative to the template).
@@ -79,7 +79,7 @@ let next = 0
   template: \`
     <scroll-view>
       <v-stack>
-        <label-view [attr.title]="greeting" system-image="hand-waving"></label-view>
+        <label-view [attr.title]="greeting" font="title" class="font-semibold"></label-view>
       </v-stack>
     </scroll-view>
     <tool-bar>

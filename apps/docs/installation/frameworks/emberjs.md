@@ -189,8 +189,6 @@ interface S {
 const handleClick = async (evt: Event) => {
   if (!(evt.target instanceof HTMLElement)) return;
 
-  if (!evt.target.closest('button')) return;
-
   await self.customElements.whenDefined('borderless-button');
 
   // [!code ++]
@@ -211,9 +209,9 @@ const handleClick = async (evt: Event) => {
         <!-- [!code ++] -->
         <v-stack>
           <!-- [!code ++] -->
-          <button is="borderless-button" type="button" tabindex="0">
+          <button is="borderless-button" type="button" {{on "click" handleClick}}>
             <!-- [!code ++] -->
-            <label-view title="Say hello" system-image="hand-waving" {{on "click" handleClick}}></label-view>
+            <label-view title="Say hello" system-image="hand-waving"></label-view>
             <!-- [!code ++] -->
           </button>
           <!-- [!code ++] -->
@@ -262,9 +260,9 @@ const handleClick = async (evt) => {
         <!-- [!code ++] -->
         <v-stack>
           <!-- [!code ++] -->
-          <button is="borderless-button" type="button" tabindex="0">
+          <button is="borderless-button" type="button" {{on "click" handleClick}}>
             <!-- [!code ++] -->
-            <label-view title="Say hello" system-image="hand-waving" {{on "click" handleClick}}></label-view>
+            <label-view title="Say hello" system-image="hand-waving"></label-view>
             <!-- [!code ++] -->
           </button>
           <!-- [!code ++] -->

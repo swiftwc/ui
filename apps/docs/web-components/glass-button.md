@@ -34,7 +34,7 @@ You create a button by providing an action and a label.
 
 ::::: info &nbsp;
 
-{% example glass-button/demo-full.html h-60 %}
+{% example glass-button/demo-full h-60 %}
 
 :::: details View code {open .mt-0! .rounded-t-none!}
 
@@ -46,7 +46,7 @@ You create a button by providing an action and a label.
 </button>
 ```
 
-<<< @/public/examples/glass-button/demo-full.html{30-32}
+<<< @/public/examples/glass-button/demo-full.html{29-31 html:line-numbers}
 
 :::
 

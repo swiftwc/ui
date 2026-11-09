@@ -351,7 +351,7 @@ export const confirmationDialog = async (
       btn.appendChild(label)
     }
 
-    dialog.insertAdjacentElement('beforeend', btn)
+    trigger.closest('content-view,dialog,navigation-stack,navigation-split-view')?.insertAdjacentElement('beforeend', btn)
   }
 
   trigger.closest('content-view,dialog')?.insertAdjacentElement('beforeend', dialog) // dialog.showModal()

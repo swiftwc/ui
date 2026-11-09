@@ -47,8 +47,8 @@ export const routes: Routes = [
 <navigation-stack>
   <scroll-view>
     <v-stack>
-      <button is="borderless-button" type="button">
-        <label-view title="Hello world" system-image="hand-waving" (click)="handleClick($event)"></label-view>
+      <button is="borderless-button" type="button" (click)="handleClick($event)">
+        <label-view title="Hello world" system-image="hand-waving"></label-view>
       </button>
     </v-stack>
   </scroll-view>

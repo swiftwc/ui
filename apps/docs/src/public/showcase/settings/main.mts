@@ -50,6 +50,7 @@ document.body.addEventListener('submit', async (evt) => {
 
   const navDest = evt.submitter?.closest('button[data-nav-destination]')
   if (navDest) {
+    // @ts-expect-error
     const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
     const path = new NavigationPath(evt.submitter ?? undefined)?.hydrate()
@@ -134,7 +135,7 @@ document.body.addEventListener('click', async (evt) => {
     const path = new NavigationPath(evt.target)?.hydrate()
 
     const parent = [...path.parents()].at(0)?.hydrate()
-
+    // @ts-expect-error
     if (navDest && parent?.body) parent.component.inert = true
 
     await startViewTransition(evt.target, 'backwards', async () => {
@@ -143,6 +144,7 @@ document.body.addEventListener('click', async (evt) => {
 
     if (navDest && parent?.body) {
       await startViewTransition(parent.body, 'forwards', async () => {
+        // @ts-expect-error
         modifyDOMforwards(undefined, parent, queryTemplate(navDest.dataset.navDestination))
       })
 
@@ -151,6 +153,7 @@ document.body.addEventListener('click', async (evt) => {
       if (parent.component) parent.component.inert = false
     }
   } else if (navDest) {
+    // @ts-expect-error
     const template = queryTemplate(navDest.dataset.navDestination) //?? document.getElementById(navDest.getAttribute('navigation-destination'))
 
     const path = new NavigationPath(evt.target)?.hydrate()
@@ -211,9 +214,11 @@ document.body.addEventListener('click', async (evt) => {
     if (evt.target.closest('.make-list')) {
       const btn = evt.target.closest('.make-list')
       for (const el of btn?.closest('v-stack')?.querySelectorAll('list-view') ?? [])
+        // @ts-expect-error
         if (btn?.getAttribute('list')) el.setAttribute('list-style', btn.getAttribute('list'))
         else el.removeAttribute('list-style')
       for (const el of btn?.closest('v-stack')?.querySelectorAll('[is=form-view]') ?? [])
+        // @ts-expect-error
         if (btn?.getAttribute('list')) el.setAttribute('form-style', btn.getAttribute('list'))
         else el.removeAttribute('form-style')
     }
@@ -292,7 +297,7 @@ if ('serviceWorker' in navigator) {
     .then(() => console.debug('⚡️ registered'))
     .catch(console.error)
 }
-
+// @ts-expect-error
 let deferredPrompt = null
 
 window.addEventListener('beforeinstallprompt', (evt) => {
@@ -305,12 +310,15 @@ window.addEventListener('beforeinstallprompt', (evt) => {
   // Show your custom install UI
   const btn = document.querySelector('#installBtn')
   if (!btn) return
-
+  // @ts-expect-error
   btn.style.display = 'block'
 
   btn.addEventListener('click', async () => {
+    // @ts-expect-error
     btn.style.display = 'none'
+    // @ts-expect-error
     deferredPrompt?.prompt() // Show native prompt
+    // @ts-expect-error
     const choice = await deferredPrompt?.userChoice
     console.log('User choice:', choice?.outcome)
     deferredPrompt = null
@@ -338,6 +346,7 @@ function buildTemplateIndex() {
 
 buildTemplateIndex()
 
+// @ts-expect-error
 export function queryTemplate(navPath) {
   if (!navPath) return document.getElementById('')
 
@@ -348,6 +357,7 @@ export function queryTemplate(navPath) {
   // )
 }
 
+// @ts-expect-error
 export function modifyDOMbackwards(host) {
   const child = [...host.children()].at(0) // const host2 = queryHost(queryBody(host))
 
@@ -362,11 +372,13 @@ export function modifyDOMbackwards(host) {
 
 const scratchTpl = document.createElement('template')
 
+// @ts-expect-error
 export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
   if (!(path instanceof NavigationPath)) throw new Error('invalid view')
 
   if (trigger?.hasAttribute('data-tag')) {
     const tag = document.querySelector(`#${trigger.dataset.tag}`)
+    // @ts-expect-error
     if (tag) tag.hidden = false
     return
   }
@@ -380,6 +392,7 @@ export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
   let node
 
   if (htmlorTpl instanceof HTMLTemplateElement) {
+    // @ts-expect-error
     node = htmlorTpl.content.cloneNode(true).firstElementChild
   } else {
     scratchTpl.innerHTML = htmlorTpl // reused element, still parses the string once
@@ -395,6 +408,7 @@ export function modifyDOMforwards(trigger, path, htmlorTpl, overwrite = true) {
   // }
 }
 
+// @ts-expect-error
 export const navHandler = async (evt) => {
   console.debug(`⚡️ ${evt?.type}`)
 
@@ -405,10 +419,12 @@ export const navHandler = async (evt) => {
         ?.split(' ')
         .map((item) => Boolean(document.querySelector(`[data-nav-path="${CSS.escape(item)}"]`)))
         .some(Boolean)}`
+    // @ts-expect-error
     else el.ariaSelected = `${Boolean(document.querySelector(`[data-nav-path="${CSS.escape(el.dataset.navDestination ?? '')}"]`))}`
   }
 
   for (const el of document.querySelectorAll('button[data-tag]'))
+    // @ts-expect-error
     el.ariaSelected = `${Boolean(document.querySelector(`[id="${CSS.escape(el.dataset.tag ?? '')}"]:not([hidden])`))}`
 }
 

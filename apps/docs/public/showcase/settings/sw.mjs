@@ -1,7 +1,7 @@
 self.addEventListener('install', (event) => {
-    console.debug('⚡️ installed');
-});
+  console.debug('⚡️ installed')
+})
 self.addEventListener('fetch', (event) => {
-    console.debug('⚡️ installed');
-});
-export {};
+  console.debug('⚡️ installed')
+})
+export {}

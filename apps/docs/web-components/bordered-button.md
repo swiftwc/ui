@@ -46,7 +46,7 @@ You create a button by providing an action and a label.
 </button>
 ```
 
-<<< @/public/examples/bordrered-button/demo-full.html{30-32}
+<<< @/public/examples/bordrered-button/demo-full.html{29-31 html:line-numbers}
 
 :::
 

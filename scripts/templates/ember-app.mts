@@ -126,7 +126,6 @@ export default class extends Component<S> {
           <button
             is="borderless-button"
             type="button"
-             tabindex="0"
             {{on "click" this.handleClick}}
           >
           <label-view title="Say hello" system-image="hand-waving"></label-view>  

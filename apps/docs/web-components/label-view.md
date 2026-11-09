@@ -52,7 +52,7 @@ One of the most familiar UI patterns is pairing an icon with a label.
 <label-view><span>Hello world!</span></label-view>
 ```
 
-<<< @/public/examples/label-view/demo-full.html{17}
+<<< @/public/examples/label-view/demo-full.html{17 html:line-numbers}
 
 :::
 ::::

@@ -92,7 +92,7 @@ export default defineConfig([
     <navigation-stack>
       <scroll-view>
         <v-stack>
-          <button is="borderless-button" type="button" tabindex="0">
+          <button is="borderless-button" type="button">
             <label-view title="Say hello" system-image="hand-waving"></label-view>
           </button>
         </v-stack>

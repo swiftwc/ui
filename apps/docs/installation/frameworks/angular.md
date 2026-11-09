@@ -159,9 +159,9 @@ npm start
     <!-- [!code ++] -->
     <v-stack>
       <!-- [!code ++] -->
-      <button is="borderless-button" type="button">
+      <button is="borderless-button" type="button" (click)="handleClick($event)">
         <!-- [!code ++] -->
-        <label-view title="Say hello" system-image="hand-waving" (click)="handleClick($event)"></label-view>
+        <label-view title="Say hello" system-image="hand-waving"></label-view>
         <!-- [!code ++] -->
       </button>
       <!-- [!code ++] -->
@@ -189,8 +189,6 @@ export class App {
   async handleClick(event: Event) {
     if (!(event.target instanceof HTMLElement)) return
 
-    if (!event.target.closest('button')) return
-
     await self.customElements.whenDefined('borderless-button')
 
     // [!code ++]
@@ -200,3 +198,13 @@ export class App {
 ```
 
 :::
+
+## See also
+
+<dl class="ps-10">
+
+[Inspect template files](https://github.com/swiftwc/ui/tree/canary/templates/angular-app)
+
+<dd class="-mt-5">See the entire code for this template on GitHub</dd>
+
+</dl>

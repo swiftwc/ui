@@ -161,14 +161,14 @@ const members = [
     orgLink: '/installation/frameworks/vite',
   },
   {
-    avatar: '/assets/ember.svg',
-    org: 'Ember.js',
-    orgLink: '/installation/frameworks/emberjs',
-  },
-  {
     avatar: '/assets/angular.svg',
     org: 'Angular',
     orgLink: '/installation/frameworks/angular',
+  },
+  {
+    avatar: '/assets/ember.svg',
+    org: 'Ember.js',
+    orgLink: '/installation/frameworks/emberjs',
   },
   // {
   //   avatar: '/assets/manual.svg',

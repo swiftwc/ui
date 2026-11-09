@@ -112,7 +112,6 @@ bun add --exact @swiftwc/ui@canary --dev
 @layer base, sw, components, utilities, theme;
 
 @import 'tailwindcss';
-
 @import '@swiftwc/ui/css';
 ```
 
